@@ -12,8 +12,13 @@ describe('feedbackFormId', () => {
 		expect(feedbackFormId('zh-Hant')).toBe('yXZg66')
 	})
 
-	it('gives every app language its own form', () => {
-		const ids = SUPPORTED_LANGS.map(feedbackFormId)
-		expect(new Set(ids).size).toBe(SUPPORTED_LANGS.length)
+	it('opens the English master for a language with no translated form yet', () => {
+		expect(feedbackFormId('nl')).toBe('Ek6M8B')
+		expect(feedbackFormId('he')).toBe('Ek6M8B')
+	})
+
+	it('never shares a translated form between two languages', () => {
+		const translated = SUPPORTED_LANGS.map(feedbackFormId).filter(id => id !== 'Ek6M8B')
+		expect(new Set(translated).size).toBe(translated.length)
 	})
 })

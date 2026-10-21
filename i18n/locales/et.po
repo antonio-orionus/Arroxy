@@ -1,0 +1,5066 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"Language: et\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "Teave"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "GPLv3 · by Antonio Orionus"
+msgstr "GPLv3 · autor Antonio Orionus"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "Teave Arroxy kohta"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "Kiire ja mugav allalaadija YouTube’i ja 2000+ muu saidi jaoks."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "Kuva kolmandate osapoolte teatised"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "Veebisait"
+
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Luba"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube pakub mõnda vana videot tehisintellektiga loodud suurustes. „Jäta vahele“ säilitab originaalvood; skaleeritud voo saate ikkagi käsitsi valida."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "Tehisintellektiga skaleeritud voogud"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "Jäta vahele"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "Tagasiside"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Kas Arroxy meeldib? Kuulaksin hea meelega teie arvamust! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "Logid"
+
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Salvesta diagnostikafail"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Paneb teie logid ja rakenduse andmed ühte faili kausta Allalaadimised, mis on valmis GitHubi probleemiaruandele lisamiseks. Teie kasutajakausta nimi eemaldatakse; videolingid ja pealkirjad jäävad alles."
+
+msgctxt "app.styleHint"
+msgid "New: choose Aurora or Minimal here"
+msgstr "Uus: valige siin Aurora või Minimaalne"
+
+msgctxt "app.theme"
+msgid "Theme"
+msgstr "Kujundus"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "Suumi sisse"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "Suumi välja"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "Tagasi"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "Loobu"
+
+msgctxt "common.close"
+msgid "Close"
+msgstr "Sulge"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "Jätka"
+
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "Sule"
+
+msgctxt "common.loading"
+msgid "Loading"
+msgstr "Laadimine"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "Proovi uuesti"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "Alusta otsast"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy jääb tööle ja lõpetab aktiivsed allalaadimised. Seda saab hiljem muuta täpsemates sätetes."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "Peida salve"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "Kas peita Arroxy sulgemisel süsteemisalve?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "Välju"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "Ära enam küsi"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "Tühista allalaadimised ja välju"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "Peatage, et hiljem jätkata, või tühistage, et edenemine kaotada."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "Jätka allalaadimist"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "{{count}} allalaadimine pooleli"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "{{count}} allalaadimist pooleli"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "Peata allalaadimised ja välju"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "Renderdusprotsess jooksis kokku ({{reason}}). Uuesti proovimiseks laadige uuesti."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxys tekkis probleem"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "Välju"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "Laadi uuesti"
+
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "Kopeeritud!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "Kopeeri aadress"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy on tasuta ja avatud lähtekoodiga, ilma reklaamide ja tasulise versioonita. Annetused on vabatahtlikud ega anna mõju arenduskavale."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "Anneta"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Toeta Arroxyt"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "{{coin}} annetusaadressi QR-kood"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Toeta Arroxyt"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Krüptomaksed on tagasipööramatud. Saatke ainult kuvatud võrgus ja kontrollige kogu aadressi."
+
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Sellel videol pole subtiitreid keeltes: {{languages}}."
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "See video on vanusepiiranguga ja seda ei saa ilma sisselogitud kontota alla laadida."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Käivitus robotitõrje. Tõenäoliselt on teie kasutatav IP märgistatud (andmekeskuse vahemik või hõivatud VPN-i väljund). Vahetage IP-aadressi või valige teine VPN-i lõpp-punkt ja proovige uuesti. Kui tõrge kordub, võib tegu olla saidipoolse ajutise muudatusega – Arroxy uuendab käivitamisel oma allalaadimismootorit, seega jõuab parandus automaatselt kohale, kui see ilmub."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Server katkestas allalaadimise korduvalt poole pealt ja Arroxy loobus pärast korduskatseid. Seda juhtub tavaliselt suurimate videovormingutega (4K HDR / suure bitikiirusega VP9). Proovige uuesti, vahetage võrku/VPN-i või valige väiksema eraldusvõimega vorming."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
+msgstr "See video on DRM-kaitsega. Arroxy ei saa DRM-i eemaldada, seega faili alla laadida ei saa."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "See video pole teie piirkonnas saadaval."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "Teie IP-aadress paistab olevat blokeeritud. Proovige hiljem uuesti või kasutage VPN-i."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video needs a signed-in account."
+msgstr "See video nõuab sisselogitud kontot."
+
+msgctxt "errors.ytdlp.missingDependency"
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "Arroxy ei leidnud FFmpegi ega FFprobe’i. Käivitage seadistus uuesti või määrake FFmpegi asukoht ning proovige allalaadimist uuesti."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "Võrgutõrge. Kontrollige ühendust ja proovige uuesti."
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "Sellel videol pole subtiitreid soovitud keeltes."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "Kettaruumi pole piisavalt. Vabastage ruumi ja proovige uuesti."
+
+msgctxt "errors.ytdlp.outputNotWritable"
+msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
+msgstr "Arroxy ei saa allalaadimiskausta kirjutada. See võib olla kirjutuskaitstud, lukustatud draivil või blokeeritud süsteemi privaatsussätete poolt. Valige teine kaust või lubage juurdepääs ning proovige uuesti."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
+msgstr "Saidi vastust ei õnnestunud töödelda. Sait võib olla videote esitamise viisi muutnud. Arroxy uuendab käivitamisel oma allalaadimismootorit – proovige mõne minuti pärast uuesti, kui parandus on ilmunud."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "Allalaadimine lõppes, kuid järeltöötlus (ühendamine / muksimine / teisendamine) ebaõnnestus. Sageli on see ajutine ffmpegi probleem – proovige uuesti ja kui see kordub, katsetage teist vormingute kombinatsiooni."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "The site is rate-limiting requests from this connection."
+msgstr "Sait piirab selle ühenduse päringute arvu."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "See video pole saadaval – see võib olla privaatne, kustutatud või piirkonnapõhiselt lukustatud."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "Allalaadimine ebaõnnestus. Vaadake allpool toorväljundit."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
+msgstr "Arroxy ei toeta seda URL-i. Proovige linki mõnelt teiselt saidilt."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "Kontrollige ühendust ja proovige uuesti."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "See leht ei laadinud"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "Ava sätted"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "Kontrollige sätetes puhverserverit ja proovige uuesti."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Avasta ei saa teie puhverserveri kaudu ühendust"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "Proovi uuesti"
+
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr "Paremklõpsake lehel mis tahes video-, esitusloendi- või kanalilinki, et see oma aktiivse profiiliga alla laadida, valida teine profiil või avada samm-sammuline voog."
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr "Allalaadimiseks paremklõpsake linki"
+
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Kopeeri link"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Laadi alla profiiliga"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "Uus"
+
+msgctxt "explore.notice.body"
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Leidke video YouTube’ist või mõnelt muult saidilt ja laadige see siit alla – linke pole vaja kopeerida. Logige siin saiti sisse, et alla laadida videoid, mis nõuavad kontot."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "Jätka"
+
+msgctxt "explore.notice.riskBody"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Sellised saidid nagu YouTube võivad Arroxy-sugusete allalaadimistööriistadega kasutatud kontosid märgistada ja vahel ka blokeerida. Kasutage kontot, mille kaotamine ei kahjusta, mitte põhikontot."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "Logige sisse teisese kontoga"
+
+msgctxt "explore.notice.title"
+msgid "Browse the web right inside Arroxy"
+msgstr "Sirvige veebi otse Arroxys"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "Allalaadimised kasutavad teie brauseri küpsiseid, mitte Avasta sisselogimist."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "Allalaadimised kasutavad teie küpsisefaili, mitte Avasta sisselogimist."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "Mitte praegu"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "Küpsised on välja lülitatud, seega allalaadimised ei kasuta Avasta sisselogimist."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Kasuta Avasta sisselogimist"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Sirvige Arroxys YouTube’i või mis tahes muud saiti ja logige sisse videote jaoks, mis nõuavad kontot."
+
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "Vabasta mälu eemal olles"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "Pärast 5 minutit teisel vahekaardil suletakse YouTube’i avaleht või otsinguleht. Tagasi tulles laaditakse see uuesti, mis võtab paar sekundit."
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Otsingumootor"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Kus otsitakse aadressiribale sisestatud teksti. Lingid avatakse sisestatud kujul."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Kuva vahekaart Avasta"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "Väljalülitamisel lõpetavad allalaadimised ka Avasta sisselogimise kasutamise."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Logi Avastast välja"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "Logi välja"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "See kustutab Avastas kõik teie sisselogimised ja sirvimisandmed kõigil saitidel. Kontot nõudvad allalaadimised ebaõnnestuvad, kuni logite uuesti sisse."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Kas logida Avastast välja?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Kustutab Avastas kõik teie sisselogimised ja sirvimisandmed kõigil saitidel."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Avasta"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Avasta"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "YouTube võib sisselogitud kontode puhul reklaamiblokeerijatele vastu töötada."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "Reklaamiblokeerija"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "Reklaamiblokeerija: väljas – klõpsake sisselülitamiseks"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "Reklaamiblokeerija: sees – klõpsake väljalülitamiseks"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "Reklaamiblokeerija: käivitub – klõpsake väljalülitamiseks"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "Reklaamiblokeerija: pole saadaval, selle filtriloendeid ei õnnestunud alla laadida – klõpsake väljalülitamiseks"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "Aadress"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Otsige {{engine}} või avage mis tahes sait (Vimeo, Instagram…)"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Avasta brauseri juhtelemendid"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "Tagasi"
+
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "Kompaktne paigutus"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "Laadi alla · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "Edasi"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "Kuva täielik paigutus"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "Allalaadimiseks avage video, esitusloend või kanal"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "YouTube’i avaleht"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "Interaktiivne allalaadimine: valige vorming, subtiitrid ja muu…"
+
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Avasta ei saa seda aadressi avada."
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "Laadi uuesti"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "See otsing on liiga pikk."
+
+msgctxt "explore.toolbar.zoom.hint"
+msgid "Page zoom: {{percent}}%"
+msgstr "Lehe suum: {{percent}}%"
+
+msgctxt "explore.toolbar.zoom.in"
+msgid "Zoom in"
+msgstr "Suumi sisse"
+
+msgctxt "explore.toolbar.zoom.label"
+msgid "Page zoom"
+msgstr "Lehe suum"
+
+msgctxt "explore.toolbar.zoom.out"
+msgid "Zoom out"
+msgstr "Suumi välja"
+
+msgctxt "explore.toolbar.zoom.percent"
+msgid "Zoom percent"
+msgstr "Suumi protsent"
+
+msgctxt "explore.toolbar.zoom.reset"
+msgid "Reset zoom to 100%"
+msgstr "Lähtesta suum 100%-le"
+
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
+msgstr "Valige, kuidas allalaaditud faile nimetatakse. Sisestamiseks klõpsake sümbolit. Allalaadimiste kaustadesse sortimiseks kasutage märki /."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "Sisestage failinime mall."
+
+msgctxt "filenameTemplate.error.empty-segment"
+msgid "Remove the extra / — every folder needs a name."
+msgstr "Eemaldage üleliigne / – igal kaustal peab olema nimi."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: \\ : * ? \" < > |"
+msgstr "Eemaldage märgid, mis pole failinimedes lubatud: \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.invalid-segment"
+msgid "That folder name isn't allowed. Avoid . and .. and reserved names like CON."
+msgstr "See kaustanimi pole lubatud. Vältige märke . ja .. ning reserveeritud nimesid, nagu CON."
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} to the filename so each download gets its own name."
+msgstr "Lisage failinimele {title} või {id}, et iga allalaadimine saaks oma nime."
+
+msgctxt "filenameTemplate.error.resolution-in-dir"
+msgid "{resolution} can't name a folder — the quality isn't known until the download starts."
+msgstr "{resolution} ei sobi kausta nimeks – kvaliteet selgub alles allalaadimise algul."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "Sobitamata { või } – ümbritsege sümbolid, nagu {title}."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "Mall on liiga pikk."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "Tundmatu sümbol {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "Ilma {id}-ta ei saa Arroxy tuvastada juba allalaaditud esitusloendi üksusi ega luua .m3u esitusloendeid."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "Failinime mall"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
+msgstr "Pole saadaval, sest teie failinime mall kas ei sisalda {id}-d või sorteerib allalaadimised kaustadesse."
+
+msgctxt "filenameTemplate.previewPlaylist"
+msgid "In a playlist"
+msgstr "Esitusloendis"
+
+msgctxt "filenameTemplate.previewSingle"
+msgid "Single video"
+msgstr "Üksik video"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "Globaalse malli pärimiseks jätke tühjaks."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "Failinime mall"
+
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "Automaatne"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "Automaatne (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "Failitüübi määravad valitud voogud."
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "Mahutab mis tahes koodeki. Mõned telerid ja telefonid ei saa seda avada."
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 in an MP4 won't play video in QuickTime."
+msgstr "Esitatav peaaegu kõikjal. MP4 sees olevat VP9 ei esitata QuickTime’is videona."
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "Avatud vorming brauseritele. Mahutab ainult VP9 või AV1 koos Opusega."
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4CaveatAv1"
+msgid "AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere."
+msgstr "MP4 sees olev AV1 vajab QuickTime’is esitamiseks uuemat Maci. H.264 töötab kõikjal."
+
+msgctxt "fileType.mp4CaveatVp9"
+msgid "VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere."
+msgstr "MP4 sees olevat VP9 ei esitata QuickTime’is videona. H.264 töötab kõikjal."
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "Profiil"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "WebM pole Nutiteleri puhul saadaval: see ei mahuta H.264."
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "WebM ei mahuta koodekit {{codec}}. Valige MKV või MP4."
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "Heli"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "Ainult heli · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "hdrPreference.auto"
+msgid "Auto"
+msgstr "Automaatne"
+
+msgctxt "hdrPreference.description"
+msgid "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens."
+msgstr "Automaatne valib HDR-i, kui see ekraan suudab seda kuvada, muidu SDR-i. HDR näeb tavaekraanidel luitunud välja."
+
+msgctxt "hdrPreference.hdr"
+msgid "HDR"
+msgstr "HDR"
+
+msgctxt "hdrPreference.label"
+msgid "HDR video"
+msgstr "HDR-video"
+
+msgctxt "hdrPreference.sdr"
+msgid "SDR"
+msgstr "SDR"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "Keel"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Avastas sisse logitud – proovin 1 linki uuesti"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Avastas sisse logitud – proovin {{count}} linki uuesti"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Avastast väljalogimine ebaõnnestus. Proovige uuesti."
+
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "See kaust on teie süsteemi jaoks liiga sügaval. Allalaadimine võib endiselt ebaõnnestuda – valige lühem kaust."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Selle video nimesse ei mahu kõik teie malli osad, seega kasutati vaikenime."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Kaustavalija avamine ebaõnnestus."
+
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Juba järjekorras – koopiat ei lisatud"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy alles käivitub – proovige hetke pärast uuesti"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Lõpetage Arroxys küpsiste seadistamine ja proovige uuesti"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "Lõikelaual pole linki – kopeerige kõigepealt mõni"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "Kopeeritud mitu linki – kasutage Arroxys valikut Hulgi-URL-id"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "See link vajab teie valikut – vaadake Arroxys jaotist Allalaadimised"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "Allalaadimine lisati lõikelaualt järjekorda"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "Linki ei õnnestunud lisada – proovige Arroxys uuesti"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Seda kausta ei saa selle esitusloendi jaoks kasutada."
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "{{count}} video on juba järjekorras – vahele jäetud"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} videot on juba järjekorras – vahele jäetud"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "Lisatud: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "Juba järjekorras"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ video – valige, mitu"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ videot – valige, mitu"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "Üksuse {{title}} ettevalmistamine ebaõnnestus"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "Linki ei õnnestunud lisada – proovige uuesti"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "{{count}} video selles loendis – valimiseks vaadake üle"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} videot selles loendis – valimiseks vaadake üle"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "{{count}}+ video selles loendis – valimiseks vaadake üle"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ videot selles loendis – valimiseks vaadake üle"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "Kuva"
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Teie sätteid ei õnnestunud salvestada."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Seda ei õnnestunud avada."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Seadistus ei lõppenud. Mõned allalaadimised võivad ebaõnnestuda, kuni see lõpeb."
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Heli (parim)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Heli ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "Algne parim heli, ilma ümberkodeerimiseta"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "Teisenda M4A-ks (AAC)"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "Teisenda MP3-ks"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Teisenda Opuseks"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "H.264 üle 1080p pole YouTube’is saadaval – piiratakse automaatselt 1080p-ga"
+
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "Salvesta kui"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "Otse salvestuskausta"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "Keeled"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "Jätkamiseks valige vähemalt üks keel."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "Iga video kohta salvestatakse ainult subtiitrifailid – videot ega heli ei laadita alla."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "Allikas"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "Kuni 1080p"
+
+msgctxt "playlistPresets.tier.144"
+msgid "Up to 144p"
+msgstr "Kuni 144p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "Kuni 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "Kuni 4K"
+
+msgctxt "playlistPresets.tier.240"
+msgid "Up to 240p"
+msgstr "Kuni 240p"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "Kuni 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "Kuni 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "Kuni 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "Parim kvaliteet"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "Piiratud 1080p-ga, üksuse kohta langeb vajadusel madalamale"
+
+msgctxt "playlistPresets.tierDesc.144"
+msgid "Smallest possible files"
+msgstr "Võimalikult väikesed failid"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "Piiratud 2K-ga, üksuse kohta langeb vajadusel madalamale"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "Piiratud 2160p-ga, üksuse kohta langeb vajadusel madalamale"
+
+msgctxt "playlistPresets.tierDesc.240"
+msgid "Very small files, low quality"
+msgstr "Väga väikesed failid, madal kvaliteet"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Small files for tight bandwidth"
+msgstr "Väikesed failid piiratud ribalaiuse jaoks"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Väike ribalaius"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "Väiksemad failid, lai ühilduvus"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "Parim saadaolev video + heli iga üksuse kohta"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Heli"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "Subtiitrid"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "Parim algne"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "Smart TV H.264 MP4"
+msgstr "Nutiteleri H.264 MP4"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "Parim saadaolev konteiner ja koodekid iga üksuse kohta"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "Eelista võimaluse korral MP4 sees H.264 videot + AAC heli"
+
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Kaasfail"
+
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Kirjeldus"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Meedia"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Puudub"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Subtiitrid"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Pisipilt"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Artefakt"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "{{count}} allalaadimine vajab teie tähelepanu"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} allalaadimist vajab teie tähelepanu"
+
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Eemaldab iga allalaadimise loendist mõni sekund pärast selle lõppu. Failid jäävad teie kausta."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Tühjenda valmis automaatselt"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "Tühista kõik aktiivsed ja ootel allalaadimised"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "Kõik videod"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Selles esitusloendis on rohkem kui {{count}} video. Laadige alla kõik, esimesed {{count}} või valige ülevaatuses."
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "Selles esitusloendis on rohkem kui {{count}} videot. Laadige alla kõik, esimesed {{count}} või valige ülevaatuses."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "Esimesed {{count}}"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "Vaata üle"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "See link on {{count}} video loend. Vaadake see üle, et valida, mida alla laadida."
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "See link on {{count}} video loend. Vaadake see üle, et valida, mida alla laadida."
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "Tühjenda lõpetatud allalaadimised"
+
+msgctxt "queue.empty"
+msgid "Queued downloads will appear here"
+msgstr "Järjekorda pandud allalaadimised ilmuvad siia"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Kõik"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Järjekorra olekufiltrid"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Kõik üksused"
+
+msgctxt "queue.header"
+msgid "Downloads"
+msgstr "Allalaadimised"
+
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Heli pole eemaldatud"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Heli pole eemaldatud · mõned subtiitrid ebaõnnestusid"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "Tühista"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "Allalaadimine ebaõnnestus"
+
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Ava sihtkaust"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "Peata"
+
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Ainult ootel"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "Käivita kohe – jäta järjekord vahele"
+
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Piiratud: {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Piiratud: {{height}}p · mõned subtiitrid ebaõnnestusid"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "Eemalda"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "Jätka"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Proovi uuesti"
+
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "proovin automaatselt uuesti (katse {{attempt}})"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Määra asukoht"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Asukoha määramiseks valige ootel üksused."
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "Tühistatud"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "Valmis"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "Tõrge"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "Tagasi hoitud"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "Vajab teie valikut"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "Peatatud"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "Ootab"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Üksikasjade toomine"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "Allalaadimine"
+
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Subtiitreid pole keeltes: {{languages}}"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "Peata kõik aktiivsed allalaadimised ja takista uute algust"
+
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "Järjekord on peatatud – ootel üksused ei käivitu, kuni selle jätkate"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "Jätka peatatud allalaadimisi ja lase järjekorral edasi minna"
+
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "Jätka järjekorda"
+
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Valitud üksused"
+
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} valitud · {{total}} kokku"
+
+msgctxt "queue.tabLabel"
+msgid "Downloads"
+msgstr "Allalaadimised"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Lisatud"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Artefaktid"
+
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "Veerg „{{column}}“ asetati maha."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "Veeru „{{column}}“ teisaldamine tühistati."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "Veerg „{{column}}“ on veeru „{{target}}“ kohal."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "Veerg „{{column}}“ võeti kätte."
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Veerud"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Lõpetatud"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Vorming"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Peida artefaktid: {{title}}"
+
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "teisaldatav veerg"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Veeru teisaldamiseks vajutage tühikut või sisestusklahvi, liigutage seda nooleklahvidega ning vajutage mahapanekuks uuesti tühikut või sisestusklahvi. Tühistamiseks vajutage paoklahvi."
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Sihtkaust"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Edenemine"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Lähtesta veerud"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Muuda veeru {{column}} suurust"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Kuva artefaktid: {{title}}"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "Suurus"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "Sordi: {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Olek"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Pealkiri"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Allalaadimised asuvad nüüd vahekaardil Allalaadimised – avage see igal ajal edenemise jälgimiseks."
+
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "Jätka"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "Kasutate värsket uuendust. Siin on peamised uuendused."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "Täielikud väljalaskemärkmed ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Mis on Arroxy versioonis {{version}} uut"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "Loobu"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "Vali käivitusfail"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Installi Homebrew’ga"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "Installi WinGet’iga"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "Ava sõltuvuse kaust"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "Lähtesta vaikeväärtusele"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Try again"
+msgstr "Proovi uuesti"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "Kuva seadistuslogi"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Proovige uuesti. Kui see kordub, valige allpool töötav koopia."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "Tööriist ei tööta korralikult"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Lubage Arroxy oma viirusetõrjes või SmartScreenis ja proovige uuesti."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "Teie viirusetõrje blokeeris tööriista"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "Kontrollige oma internetiühendust ja proovige uuesti."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Arroxy vajaliku allalaadimine ebaõnnestus"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Proovige uuesti, et see värskelt alla laadida."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "Allalaadimine jõudis kohale kahjustatuna"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Proovige uuesti, et see värskelt alla laadida."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "Allalaadimine ei vastanud oma kontrollsummale"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "Valige allpool mõlemad või lähtestage need vaikeväärtustele."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg ja FFprobe tuleb määrata koos"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "Proovige uuesti. Kui see kordub, valige allpool usaldusväärne koopia."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "Teie süsteem ei luba Arroxyl tööriista käivitada"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Proovige uuesti. Kui see kordub, valige allpool töötav koopia."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "Tööriist puudub või ei käivitu"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "Sageli on põhjuseks esmakäivituse turvaskannimine. Proovige uuesti."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "Tööriist vastas liiga kaua"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "Proovige uuesti või avage üksikasjade nägemiseks seadistuslogi."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "Seadistamisel läks midagi valesti"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "Allalaadimismootor"
+
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "Meediatööriistad"
+
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Installimine Homebrew’ga… See võib võtta paar minutit."
+
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "Installimine WinGet’iga… See võib võtta paar minutit."
+
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Suunake Arroxy juba olemasolevatele koopiatele või installige need muul viisil."
+
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "Võite yt-dlp ja ffmpegi installida ka oma paketihalduriga ning seejärel klõpsata nuppu Proovi uuesti."
+
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "Seadista käsitsi"
+
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "Proovige uuesti või suunake Arroxy allpool juba olemasolevatele tööriistadele."
+
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "Seadistamine peatus"
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "Seadistamine vajab teie abi"
+
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "Kuidas see profiil valib"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "AAC-heli"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "sobib MP4-pleieritele"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "AAC-heli"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "töötab kõikjal"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1, siis VP9, siis H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "teravaim antud suuruse juures"
+
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, siis VP9, siis AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "selle profiili koodek"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, siis H.264, siis AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "selle profiili koodek"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "Kõrgeim kaadrisagedus"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "sujuvam liikumine"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "H.264-video"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "töötab igas seadmes"
+
+msgctxt "selectionOrder.rank.hdrFirst.label"
+msgid "HDR before SDR"
+msgstr "HDR enne SDR-i"
+
+msgctxt "selectionOrder.rank.hdrFirst.reason"
+msgid "richer colour on HDR screens"
+msgstr "rikkalikumad värvid HDR-ekraanidel"
+
+msgctxt "selectionOrder.rank.hdrFirst.reasonScreen"
+msgid "this screen shows HDR"
+msgstr "see ekraan kuvab HDR-i"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.label"
+msgid "SDR before HDR"
+msgstr "SDR enne HDR-i"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
+msgid "looks right on any screen"
+msgstr "näeb õige välja igal ekraanil"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reasonScreen"
+msgid "this screen isn't HDR"
+msgstr "see ekraan pole HDR"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "MP4-voogud"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "valmis MP4-failiks"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "Stereoheli"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "see profiil"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "sätetest"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "Ruumiheli, kui seda pakutakse"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "Opus-heli"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "sobib WebM-i"
+
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Originaalvood, mitte tehisintellektiga skaleeritud"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "skaleeritud koopia on kõrgem, kuid ei lisa tegelikku detaili"
+
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "Otseallalaadimised enne voogedastatud koopiaid"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "sama pilt, kiiremini alla laaditud"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "Kuni {{tier}}p"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "teie piirang"
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "Kõrgeim eraldusvõime"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "piirangut pole määratud"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Vood, mida sait ei märgi halvemaks"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "jätab vahele kahjustatud, vesimärgiga ja varukoopiad"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "Suurem fail"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "rohkem detaili samade sätete juures"
+
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "Suurendatud bitikiirusega vood esimesena"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "rohkem detaili samal eraldusvõimel"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "failitüüp tuleb voogudest"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr "salvestatakse kui .{{ext}}"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "parim pilt"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "töötab igas seadmes"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "Miks see?"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "Miks profiil selle valis"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "Kopeeritud!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "Kopeeri link"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 2000+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — tasuta avatud lähtekoodiga videoallalaadija Windowsile, macOS-ile ja Linuxile. Töötab YouTube’i, Vimeo, Twitchi ja 2000+ saidiga.\n"
+"4K · HDR · MP3 · Shorts · Subtiitrid · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy on tasuta ja avatud lähtekoodiga. Jagamine aitab seda rohkematel inimestel avastada."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "Jaga"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Jaga Arroxyt"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Jaga Arroxyt"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Jaga Arroxyt"
+
+msgctxt "splash.cancel"
+msgid "Having trouble? Set it up manually"
+msgstr "Probleeme? Seadistage käsitsi"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "Tere tulemast tagasi!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} / {{total}}"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "umbes {{count}} min jäänud"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "umbes {{count}} min jäänud"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "alla minuti jäänud"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "Hoiab allalaadimised töökorras, kui saidid muutuvad."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "See juhtub ainult üks kord. Arroxy hoiab need tööriistad alles ja uuendab neid ise."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "See juhtub ainult üks kord. Arroxy hoiab need tulevaste uuenduste jaoks alles."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "Kontrollimine, kas kõik töötab"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "Ühendamine…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "Allalaadimismootori ja meediatööriistade allalaadimine"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "Allalaadimismootori allalaadimine"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "Meediatööriistade allalaadimine"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "Meediatööriistade lahtipakkimine"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "Allalaadimismootori uuendamine"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "Esmakordne seadistus"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "Meediatööriistade uuendamine"
+
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
+msgstr "Selle versiooni esimene kontroll – see on aeglane. Tavaliselt umbes minut."
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "{{binary}} kontrollimine…"
+
+msgctxt "splash.warmup"
+msgid "Preparing downloads…"
+msgstr "Allalaadimiste ettevalmistamine…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "Seadistamine ebaõnnestus. Üksikasjade nägemiseks avage seadistuslogi."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Video salvestati heliga – heli eemaldamine ebaõnnestus"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Video salvestati heliga – heli eemaldamine ebaõnnestus ja mõnda subtiitrit ei õnnestunud alla laadida"
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "Allalaadimine tühistati"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "Allalaadimine lõppes"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "Video teisendamine…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "Kettaruumi pole piisavalt – vaja {{required}}, saadaval vaid {{free}}"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "Binaarfaili {{name}} allalaadimine…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "Video ja heli allalaadimine…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "Metaandmete manustamine…"
+
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Avastast välja logitud – logige uuesti sisse"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "Heli teisendamine…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "SponsorBlockiga ühendumine…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "Subtiitrite toomine…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "Heli ja video ühendamine…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "YouTube’i tunnuse loomine…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "Failide teisaldamine…"
+
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Subtiitreid pole keeltes: {{languages}}"
+
+msgctxt "status.outputNotWritable"
+msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
+msgstr "Kausta {{dir}} ei saa salvestada – Arroxyl pole sinna kirjutamise luba"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "Binaarfailide ettevalmistamine…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "Salvestatud kvaliteediga {{height}}p – YouTube varjas selle allalaadimise jaoks kõrgemad kvaliteedid. Abi võib olla hilisemast katsest või teisest võrgust."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "Salvestatud kvaliteediga {{height}}p – YouTube varjas selle allalaadimise jaoks kõrgemad kvaliteedid ja mõnda subtiitrit ei õnnestunud alla laadida. Abi võib olla hilisemast katsest või teisest võrgust."
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "Tunnuse uuesti loomine…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock pole saadaval, proovin uuesti ({{attempt}}/{{total}})…"
+
+msgctxt "status.retryingTransfer"
+msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
+msgstr "Ühendus soikus, proovin uuesti ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "Sisselogimine teie Avasta kontoga…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "Ootan {{seconds}} s, et vältida kiiruspiiranguid…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting the download engine…"
+msgstr "Allalaadimismootori käivitamine…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Sellel videol pole subtiitreid keeltes: {{languages}}. Video salvestati ilma nendeta."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Sellel videol pole subtiitreid keeltes: {{languages}}. Ülejäänud keeled salvestati."
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "Video salvestati – mõnda subtiitrit ei õnnestunud alla laadida"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "Allalaadimise käivitamine ebaõnnestus tundmatul põhjusel"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "Alla laaditud lihtsustatud ekstraktoriga – usaldusväärsemaks allalaadimiseks seadistage cookies.txt"
+
+msgctxt "status.ytdlpExitCode"
+msgid "The download engine exited with code {{code}}"
+msgstr "Allalaadimismootor lõpetas koodiga {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "Download engine error: {{error}}"
+msgstr "Allalaadimismootori tõrge: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "Tume režiim"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "Hele režiim"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "Süsteemi vaikesäte"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "Sulge"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "Maksimeeri"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "Minimeeri"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "Taasta"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Laadi alla lõikelaualt"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Ava Arroxy"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Välju Arroxyst"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "Allalaadimisel: 1 · {{percent}}%"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "Allalaadimisel: {{count}} · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "Jõudeolek"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "Käsk kopeeriti lõikelauale"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "Kopeeri käsk lõikelauale"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "Sule uuenduse riba"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "Laadi alla ↗"
+
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "Laadi alla DMG ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "Allalaadimine…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "Installi ja taaskäivita"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "Uuendamine ebaõnnestus"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} on saadaval – teil on {{currentVersion}}."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} on saadaval – uuendage Homebrew’ga."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} on saadaval – laadige alla uus DMG."
+
+msgctxt "update.message.macosDirectHomebrew"
+msgid "Arroxy {{version}} is available — download the DMG or switch to Homebrew."
+msgstr "Arroxy {{version}} on saadaval – laadige alla DMG või minge üle Homebrew’le."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} on saadaval – laadige alla uus järk."
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "Proovi uuesti"
+
+msgctxt "update.runAndRestart"
+msgid "Run & Restart"
+msgstr "Käivita ja taaskäivita"
+
+msgctxt "update.upgrading"
+msgid "Upgrading…"
+msgstr "Uuendamine…"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} peatükk"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} peatükki"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "Laadimine…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Automaatne"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Millist koodekit eelistada sama kõrgusega voogude seas. Automaatne jätab yt-dlp enda järjekorra, mis eelistab väikseimat, AV1; H.264 töötab vanemates teleritest ja telefonides."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 esimesena"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Videokoodek"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "Nutiteler võtab alati H.264."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 esimesena"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "Valmis"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "Kleepige video-, esitusloendi-, kanali-, otsingu- või heli-URL-id. Arroxy puhastab dubleerivad enne järjekorda lisamist."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "Partii eelvaate nägemiseks kleepige üks või mitu URL-i."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "Eiratud"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "Jätkamiseks lisage vähemalt üks toetatud URL."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "Duplikaat"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "URL-ide loend"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "Hulgi-URL-id"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ Järjekorda"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "Lisab järjekorda – algab, kui aktiivne allalaadimine lõpeb"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "Ainult heli"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{count}} / {{total}} video"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} / {{total}} videost"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{count}} / {{total}} lugu"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} / {{total}} loost"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{count}} / {{total}} URL"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} / {{total}} URL-ist"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "Heli"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "Partii"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "Üksused"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Esitusloend"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "Eelseadistus"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "Salvesta kausta"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "Suurus"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "Subtiitrid"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "Teie fail salvestatakse kausta"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "See salvestatakse allolevasse sihtkohta"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Need salvestatakse allolevatesse sihtkohtadesse ({{count}})"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Aktiivne on ainult subtiitrite eelseadistus, kuid ühtegi subtiitrikeelt pole valitud – midagi ei laadita alla."
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} üksus"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} üksust"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Selle partii profiilid"
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "Lae alla! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "Jätab järjekorra vahele – algab kohe ja töötab koos teiste aktiivsete allalaadimistega"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "Valmis allalaadimiseks!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "Teadmata"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "Subtiitrite manustamine muudeti eraldi failiks – helifailid ei toeta manustatud subtiitrivoogusid."
+
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "Video sisse manustatud subtiitrid vajavad MKV-faili, seega salvestatakse see allalaadimine failina .mkv."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "Pisipildi manustamine jäeti vahele – väljundkonteiner ei toeta seda."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "Kohandatud…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "Töölaud"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "Dokumendid"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "Allalaadimised"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "Salvesta kausta"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "Kodu"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "Muusika"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "Pildid"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "Kausta nimes on kehtetuid märke"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "nt lo-fi rip’id"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "Salvesta alamkausta"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "Filmid"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "Heli"
+
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr "Heli keel"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr "{{count}} keel"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "{{count}} keelt"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "Ainult heli"
+
+msgctxt "wizard.formats.bitrateValue"
+msgid "Bitrate {{bitrate}}"
+msgstr "Bitikiirus {{bitrate}}"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Küpsised on seadistatud, kuid välja lülitatud. Täieliku loendi saamiseks lülitage need sisse ja proovige uuesti või vahetage võrku ja proovige uuesti."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "Isegi küpsistega piiras YouTube seda päringut. Proovige hiljem uuesti või vahetage võrku."
+
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube piiras seda päringut. Proovige hiljem uuesti või vahetage võrku."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "Vormingute loend võib olla puudulik. Seadistage küpsised täpsemates sätetes või vahetage võrku ja proovige uuesti."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Luba küpsised ja proovi uuesti"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "Päring oli piiratud"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "Proovi uuesti"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "Bitikiirus"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "Allikas, mis on juba {{target}}, säilitab oma voo ja bitikiiruse: see kopeeritakse, mitte ei kodeerita ümber."
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbit/s, ilma ümberkodeerimiseta"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, ilma ümberkodeerimiseta"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbit/s, nagu allikal: voog on juba {{target}}, seega kopeeritakse see, mitte ei kodeerita ümber"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "Nagu allikal: voog on juba {{target}}, seega kopeeritakse see, mitte ei kodeerita ümber"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "Teisenda"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kbit/s"
+
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
+msgstr "Allikas on {{kbps}} kbit/s"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (pakkimata)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "Brauser"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Avasta sisselogimine"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "Fail"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Küpsiste allikas"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "yt-dlp dokumentatsioon (probleem #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 ja uuemad krüptivad küpsiseid viisil, mida teised rakendused Windowsis lugeda ei saa. Proovige üht allolevat lahendust."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "Eksportige küpsised Chrome’ist brauserilaiendiga, seejärel lülitage see rakendus režiimi Fail ja valige eksporditud fail."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "Ekspordi cookies.txt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox ei kasuta App-Bound Encryptionit. Avage küpsiste sätted ja valige brauserite loendist Firefox."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Lülitu Firefoxile"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Lisage Chrome’i käivitusstaldusele --disable-features=LockProfileCookieDatabase. Hoiatus: see muudab varem krüptitud küpsised kehtetuks, mistõttu logitakse teid kõigilt saitidelt välja ja peate uuesti sisse logima."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "Käivita Chrome keelatud App-Bound Encryptioniga"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Windowsi krüptimine blokeeris Chrome’i küpsised"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Küpsised loetakse otse brauserist. Kui brauser töötab, võib selle küpsiseandmebaas olla lukus (Chromiumi-perekond). Brauser peab olema ka YouTube’i sisse logitud. Proovige brauser sulgeda, lülituda teisele brauserile, lülituda režiimi Fail või küpsised välja lülitada."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Teie küpsisefail võib olla tühi, aegunud või vales vormingus (Arroxy vajab Netscape’i cookies.txt-faili). Proovige küpsised uuesti eksportida, valida teine fail, lülituda režiimi Brauser või küpsised välja lülitada."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Logige Avastas sisse ja Arroxy proovib uuesti."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Logi Avastas sisse"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "See video võib vajada YouTube’i kontot"
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy proovis seda juba Avasta kaudu sisse logituna, seega ei aita uuesti sisselogimine. Saidil võib olla probleeme või see konto ei saa seda avada. Proovige hiljem uuesti."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "Sait keeldus sellest isegi teie Avasta sisselogimisega"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "Olete Avastas sisse logitud, kuid allalaadimised ei kasuta praegu seda sisselogimist."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "Kasuta minu Avasta sisselogimist ja proovi uuesti"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "See video võib vajada YouTube’i kontot"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "Kui see video vajab kontot, kasutab Arroxy automaatselt teie Avasta sisselogimist. Video võib olla kättesaamatu ka muul põhjusel."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Avastas sisse logitud"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "Kui see video vajab YouTube’i kontot, logige Avastas sisse ja proovige uuesti. Arroxy kasutab seda sisselogimist ainult siis, kui allalaadimine seda vajab."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Logi sisse Avastas"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "See video võib vajada YouTube’i kontot"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "See link võib vajada kontot saidil {{host}}"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "Logige Avastas saiti {{host}} sisse ja proovige uuesti."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "Logige Avastas saiti {{host}} sisse ja proovige uuesti. Arroxy kasutab seda sisselogimist ainult siis, kui allalaadimine seda vajab."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Põhjuseks võivad olla küpsised"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "Arroxy ei pääsenud sellele videole ilma autentimiseta ligi. Seadistage täpsemates sätetes küpsised – suunake need brauserile, kuhu olete juba sisse logitud, või importige fail cookies.txt."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "See sait nõuab sisselogimist"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Ava küpsiste sätted"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "Kasuta hoopis küpsisefaili või brauserit…"
+
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr "Vaigistab valjud kohad ja tõstab vaiksed, kõlarite ja lärmakate ruumide jaoks."
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr "Tasanda valjuvus (DRC)"
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr "Tasandatud valjuvus"
+
+msgctxt "wizard.formats.fit.mp4Unavailable"
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "Teie profiil on Nutiteler (H.264). See video ei paku H.264, seega valiti lähim voog."
+
+msgctxt "wizard.formats.fit.noVideo"
+msgid "This link has no video, so audio is selected."
+msgstr "Sellel lingil pole videot, seega valiti heli."
+
+msgctxt "wizard.formats.fit.subtitlesMissing"
+msgid "Your profile asks for subtitles in {{languages}}. This video doesn't have them."
+msgstr "Teie profiil küsib subtiitreid keeltes {{languages}}. Sellel videol neid pole."
+
+msgctxt "wizard.formats.fit.tierAbove"
+msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
+msgstr "Teie profiil küsib {{wanted}}p. Sellel videol pole nii väikest, seega valiti {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierBelow"
+msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
+msgstr "Teie profiil küsib {{wanted}}p. See video ulatub ainult kuni {{picked}}p-ni, seega valiti {{picked}}p."
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "Teie profiil küsib WebM-i. Selle video valitud voogude hulgas on {{codec}}, mida WebM ei mahuta, seega on failitüüp Automaatne."
+
+msgctxt "wizard.formats.footer.addToQueue"
+msgid "Add to queue without starting"
+msgstr "Lisa järjekorda ilma alustamata"
+
+msgctxt "wizard.formats.footer.download"
+msgid "Download"
+msgstr "Laadi alla"
+
+msgctxt "wizard.formats.footer.moreActions"
+msgid "More download options"
+msgstr "Veel allalaadimisvalikuid"
+
+msgctxt "wizard.formats.footer.subtitlesRequired"
+msgid "Choose at least one subtitle language."
+msgstr "Valige vähemalt üks subtiitrikeel."
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "Jäta nagu on"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "Sisseehitatud heli"
+
+msgctxt "wizard.formats.kind.audio"
+msgid "Audio only"
+msgstr "Ainult heli"
+
+msgctxt "wizard.formats.kind.label"
+msgid "What to download"
+msgstr "Mida alla laadida"
+
+msgctxt "wizard.formats.kind.subtitles"
+msgid "Subtitles only"
+msgstr "Ainult subtiitrid"
+
+msgctxt "wizard.formats.kind.video"
+msgid "Video + audio"
+msgstr "Video + heli"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Video, ilma helita"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "Vormingute laadimine"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "Oodake, kuni päring lõpeb – esitusloendid ja otsingud võivad võtta aega."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "Tehisintellektiga dubleeritud"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "Tehisintellektiga skaleeritud"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Helikirjeldus"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Kahjustatud"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Suurendatud bitikiirus"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Ruumiheli"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "Vesimärgiga"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "Heli puudub"
+
+msgctxt "wizard.formats.profile.calloutBody"
+msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
+msgstr "Teie aktiivne profiil valib vood teie eest ette. Vahetage profiile menüüst või kasutage pliiatsit, et ühte kohandada, lahkumata sellest allalaadimisest."
+
+msgctxt "wizard.formats.profile.calloutTitle"
+msgid "Formats start from your profile"
+msgstr "Vormingud lähtuvad teie profiilist"
+
+msgctxt "wizard.formats.profile.closestTag"
+msgid "Closest to profile"
+msgstr "Profiilile lähim"
+
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr "Muuda profiili {{name}}"
+
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "Säilita minu muudatused"
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr "Ainult selle allalaadimise jaoks. Teie vaikeprofiil jääb samaks."
+
+msgctxt "wizard.formats.profile.preselected"
+msgid "Pre-selected from"
+msgstr "Eelvalitud profiilist"
+
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Lähtesta kõik"
+
+msgctxt "wizard.formats.profile.switchBody"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Muutsite selle allalaadimise jaoks: {{areas}}. Profiil „{{profile}}“ valib video ja heli igal juhul. Kas säilitada teised muudatused või lähtestada kõik profiilile?"
+
+msgctxt "wizard.formats.profile.switchTitle"
+msgid "Switch profile?"
+msgstr "Kas vahetada profiili?"
+
+msgctxt "wizard.formats.profile.tag"
+msgid "Profile"
+msgstr "Profiil"
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Muutsite selle allalaadimise jaoks: {{areas}}. Uuendatud profiil valib video ja heli igal juhul. Kas säilitada teised muudatused või lähtestada kõik profiilile?"
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
+msgstr "Kas kasutada uuendatud profiili?"
+
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "Kõrge kvaliteet"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "Madal kvaliteet"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "Keskmine kvaliteet"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} piirab selle ühenduse päringuid"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "Vormingute loend võib olla puudulik."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} lükkas selle päringu praegu tagasi."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Proovi uuesti"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} võib seda piirangut hoida kuni tund aega."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Proovi kohe"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "Ooteaeg on möödas, seega võite uuesti proovida."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy ootab kuni {{time}}, enne kui {{site}} käest uuesti küsib, et piirang saaks lõppeda."
+
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "Tundmatu eraldusvõime"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "Salvestatakse kui"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "WebM ei mahuta koodekit {{codec}}, seega naasis failitüüp väärtusele Automaatne."
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "Suurus teadmata"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "Jätka kinnitamiseni"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "Kasutab kõigi ülejäänud sammude jaoks teie salvestatud eelistusi. Sätte muutmiseks jätkake hoopis samm-sammult – teie valik salvestatakse järgmiseks korraks."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "Otsin teile parimaid vorminguid…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "Kokku"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "heliga"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "Kas soovite ainult videot, millel klõpsasite, või valida esitusloendist? Järgmisena valite konkreetsed videod või vahemiku."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Vali esitusloendist"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "Esitusloendi päringu piir: {{count}} üksust"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
+msgstr "Laadib esitusloendi kuni teie esitusloendi päringu piirini, enne kui valija kuvatakse."
+
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "Laadige alla ainult see video või pange kogu esitusloend järjekorda oma aktiivse kiirallalaadimise profiiliga."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Maksimaalne kirjete arv, mida Arroxy skannib enne esitusloendi, kanali või otsingutulemuse järjekorda lisamist."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "Lisab järjekorda iga laaditud esitusloendi üksuse aktiivse kiirallalaadimise profiiliga. Kui skannimine jõuab teie piirini, küsib Arroxy enne järjekorda lisamist."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "Lisab järjekorda ühe allalaadimise ja eirab sellele URL-ile lisatud esitusloendit."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "Laadi see video alla"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "Laadi kogu esitusloend alla"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Loads only this video. The playlist attached to this URL is ignored."
+msgstr "Laadib ainult selle video. Sellele URL-ile lisatud esitusloendit eiratakse."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "Ainult see"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "Sellel lingil on esitusloend"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "Peatükimärgid, mida saab navigeerida igas kaasaegses pleieris."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "Manusta peatükid"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "Pealkiri, esitaja, kirjeldus ja üleslaadimiskuupäev kirjutatakse faili."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "Manusta metaandmed"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "Kaanepilt faili sees. WebM-video pakitakse ümber MKV-ks; jäetakse vahele, kui subtiitrid on manustatud."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "Manusta pisipilt"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "Salvestab video kirjelduse tekstifailina .description allalaadimise kõrvale."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "Salvesta kirjeldus"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "Salvestab videote kõrvale .m3u esitusloendi, et need avanevad teie meediapleieris õiges järjekorras."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr "Loo .m3u esitusloendi fail"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "Salvestab pisipildi .jpg pildifailina allalaadimise kõrvale."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "Salvesta pisipilt"
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr "Lülituge video kaardil valikule Osa, et valida algus ja lõpp või peatükk ning laadida alla ainult see lõik."
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
+msgstr "Laadige alla ainult osa videost"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Peatükid"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "Peatükk {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Osa laaditakse alla ffmpegi kaudu, seega ei kehti sellele teie allalaadimisühenduste ja tempo sätted."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Parandage kõigepealt osa algus ja lõpp."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Lõpp"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "Video lõpeb ajal {{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Sisestage lõpp kujul h:mm:ss, m:ss või sekunditena."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Sisestage algus kujul h:mm:ss, m:ss või sekunditena."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "Algus peab olema enne lõppu."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Väljas: iga lõige satub lähimale võtmekaadrile, mis võib sisestatud ajast erineda mõne sekundi võrra."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Täpne lõige (kodeerib ümber, aeglasem)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} / {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Osa"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Osa videost"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Algus"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "kogu video"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Osa {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Kui suur osa videost"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss või sekundid"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Osa, hinnanguliselt"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "See video ei teata oma pikkust, seega saab selle alla laadida ainult tervikuna."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Subtiitrid hõlmavad alati kogu videot."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Teie link algab ajal {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Kasuta algusena"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Kogu video"
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
+msgstr "Kogu lugu"
+
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "Jätkamiseks taastage need."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Kõik üksused eemaldati"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "Juba alla laaditud"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "Hulgi-URL-id"
+
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Ootamine pole vajalik – nüüd järjekorda pandud failid saavad oma tegelikud nimed allalaadimisel."
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "Videote üksikasjade toomine… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "Üksikasjad pole saadaval"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "Üksikasjade toomine"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "Ootab"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "otse"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Esitusloendi üksused"
+
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "Allalaaditavad videod"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} video"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} videot"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} lugu"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} lugu"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} URL"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL-i"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Esitusloendi toomine…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "Videote toomine…"
+
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Piiratud esimese {{count}} üksusega"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "Leitud {{count}} leht"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "Leitud {{count}} lehte"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Videote kogumine"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Kanali lehtede skannimine"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Määra profiilid üksustele"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Jätab vahele Kvaliteedi, SponsorBlocki, Väljundi ja Salvestamise – määrake hoopis iga üksuse jaoks allalaadimisprofiil"
+
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "Esitusloend"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "{{count}} neist on esitusloend, mitte video – allalaadimiseks kleepige selle link eraldi."
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} neist on esitusloendid, mitte videod – allalaadimiseks kleepige nende lingid ükshaaval."
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "Jätkamiseks valige vähemalt üks video"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "Kuvatakse esimesed {{count}} üksust. Rohkema nägemiseks suurendage laadimispiiri."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "Esitusloendi skannimine on piiratud"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "Skannimine on piiratud"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "Rakenda vahemik"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "Alates"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "Kuni"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} eemaldatud"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} eemaldatud"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "Eemalda {{count}} loendist"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "Eemalda {{count}} loendist"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Taasta"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "Vali kõik"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "{{count}} valitud"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "{{count}} valitud"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "Tühista valik"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Esitusloendi järjekord"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Üleslaadimiskuupäevade toomine…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Sordi"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Vanimad enne"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Uusimad enne"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "Rakenda sünkroonimine"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "Muuda kausta…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "{{n}} neist videotest on juba kaustas {{dir}}. Kas sünkroonida, et laadida alla ainult uued?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "Juba kaustas"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "Kaustast {{dir}} ei leitud ühtegi selle esitusloendi videot."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "Kaustast {{dir}} ei leitud ühtegi selle allika videot."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "Midagi pole veel alla laaditud"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "Kausta kontrollimine…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "Video pisipilt"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "Valige partii kvaliteet"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} üksus"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} üksust"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "Iga video lahendab valitud astme eraldi – erinevatest videotest koosnevad esitusloendid töötavad üllatusteta."
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "Määra {{count}} videole"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Määra {{count}} videole"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Määra profiil"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "Kestus"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "Profiil"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "Muuda profiili {{name}}"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "Ükski üksus ei vasta sellele filtrile"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "Profiilifiltrid"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "Määrake allalaadimisprofiilid"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "Valige selle video profiil."
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Valige nende {{count}} video profiil."
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "{{selected}} / {{total}} valitud"
+
+msgctxt "wizard.profileEditor.action.changeGlobalShort"
+msgid "Change global"
+msgstr "Muuda globaalset"
+
+msgctxt "wizard.profileEditor.action.chooseFolder"
+msgid "Choose destination folder"
+msgstr "Vali sihtkaust"
+
+msgctxt "wizard.profileEditor.action.chooseIcon"
+msgid "Choose profile icon"
+msgstr "Vali profiili ikoon"
+
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "Eemalda {{code}}"
+
+msgctxt "wizard.profileEditor.action.reset"
+msgid "Reset profile"
+msgstr "Lähtesta profiil"
+
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "See profiil kasutab juba sisseehitatud sätteid"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Taasta profiili sisseehitatud sätted"
+
+msgctxt "wizard.profileEditor.action.save"
+msgid "Save profile"
+msgstr "Salvesta profiil"
+
+msgctxt "wizard.profileEditor.action.setOverride"
+msgid "Set profile override"
+msgstr "Määra profiili alistus"
+
+msgctxt "wizard.profileEditor.action.setOverrideShort"
+msgid "Set override"
+msgstr "Määra alistus"
+
+msgctxt "wizard.profileEditor.action.useGlobalDefault"
+msgid "Use global default"
+msgstr "Kasuta globaalset vaikeväärtust"
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
+msgstr "Kasuta keelekoodi „{{code}}“"
+
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "Täpsemalt"
+
+msgctxt "wizard.profileEditor.appSetting"
+msgid "Use app setting ({{value}})"
+msgstr "Kasuta rakenduse sätet ({{value}})"
+
+msgctxt "wizard.profileEditor.audioFormat.best"
+msgid "Best"
+msgstr "Parim"
+
+msgctxt "wizard.profileEditor.audioFormat.wav"
+msgid "WAV"
+msgstr "WAV"
+
+msgctxt "wizard.profileEditor.audioQuality.128"
+msgid "Up to 128K"
+msgstr "Kuni 128K"
+
+msgctxt "wizard.profileEditor.audioQuality.192"
+msgid "Up to 192K"
+msgstr "Kuni 192K"
+
+msgctxt "wizard.profileEditor.audioQuality.320"
+msgid "Up to 320K"
+msgstr "Kuni 320K"
+
+msgctxt "wizard.profileEditor.audioQuality.best"
+msgid "Best quality"
+msgstr "Parim kvaliteet"
+
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "Vaikimisi allalaadimiskaust"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "Vaikimisi allalaadimiskaust / {{subfolder}}"
+
+msgctxt "wizard.profileEditor.destination.global"
+msgid "Global destination"
+msgstr "Globaalne sihtkoht"
+
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "Aktiivne"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "Päritud"
+
+msgctxt "wizard.profileEditor.destination.override"
+msgid "Profile override"
+msgstr "Profiili alistus"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "Vali kaust"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "Alistust pole määratud"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "Alistust pole määratud. See profiil kasutab ülal olevat globaalset sihtkohta."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "Alistab globaalse"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "See profiil salvestab oma juurkausta, enne kui alamkaust lisatakse."
+
+msgctxt "wizard.profileEditor.destination.resolved"
+msgid "Resolved destination"
+msgstr "Lahendatud sihtkoht"
+
+msgctxt "wizard.profileEditor.dialogDescription"
+msgid "One reusable setup for Quick Download, Bulk URLs, and playlists."
+msgstr "Üks taaskasutatav seadistus kiirallalaadimisele, hulgi-URL-idele ja esitusloenditele."
+
+msgctxt "wizard.profileEditor.dialogTitle"
+msgid "Download Profile"
+msgstr "Allalaadimisprofiil"
+
+msgctxt "wizard.profileEditor.error.changeGlobalDestination"
+msgid "Could not change global destination."
+msgstr "Globaalset sihtkohta ei õnnestunud muuta."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "Kaustavalijat ei õnnestunud avada. Sisestage tee käsitsi."
+
+msgctxt "wizard.profileEditor.error.reset"
+msgid "Could not reset profile settings."
+msgstr "Profiili sätteid ei õnnestunud lähtestada."
+
+msgctxt "wizard.profileEditor.error.save"
+msgid "Could not save profile settings."
+msgstr "Profiili sätteid ei õnnestunud salvestada."
+
+msgctxt "wizard.profileEditor.field.delivery"
+msgid "Delivery"
+msgstr "Edastus"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "Failitüüp"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "Optimeeri selleks"
+
+msgctxt "wizard.profileEditor.field.icon"
+msgid "Profile icon"
+msgstr "Profiili ikoon"
+
+msgctxt "wizard.profileEditor.field.languages"
+msgid "Languages"
+msgstr "Keeled"
+
+msgctxt "wizard.profileEditor.field.name"
+msgid "Profile name"
+msgstr "Profiili nimi"
+
+msgctxt "wizard.profileEditor.field.nameAndIcon"
+msgid "Profile name and icon"
+msgstr "Profiili nimi ja ikoon"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "Algne heli"
+
+msgctxt "wizard.profileEditor.field.overridePath"
+msgid "Profile override path"
+msgstr "Profiili alistuse tee"
+
+msgctxt "wizard.profileEditor.field.quality"
+msgid "Quality"
+msgstr "Kvaliteet"
+
+msgctxt "wizard.profileEditor.field.resolution"
+msgid "Resolution"
+msgstr "Eraldusvõime"
+
+msgctxt "wizard.profileEditor.field.source"
+msgid "Source"
+msgstr "Allikas"
+
+msgctxt "wizard.profileEditor.field.subfolderName"
+msgid "Subfolder name"
+msgstr "Alamkausta nimi"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloads"
+msgid "Subtitle downloads"
+msgstr "Subtiitrite allalaadimised"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr "Profiilid küsivad keelekoode; saadavus selgitatakse välja iga URL-i puhul."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "Teravaim antud suuruse juures. Vanemad telerid, QuickTime ja mõned redaktorid ei saa seda esitada."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "Parim pilt"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "Töötab teleritel, telefonides, WhatsAppis, QuickTime’is ja videoredaktorites. YouTube pakub H.264 ainult kuni 1080p-ni."
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "Nutiteler"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
+
+msgctxt "wizard.profileEditor.icon.archive"
+msgid "Archive"
+msgstr "Arhiiv"
+
+msgctxt "wizard.profileEditor.icon.audio"
+msgid "Audio"
+msgstr "Heli"
+
+msgctxt "wizard.profileEditor.icon.captions"
+msgid "Captions"
+msgstr "Pealdised"
+
+msgctxt "wizard.profileEditor.icon.classes"
+msgid "Classes"
+msgstr "Tunnid"
+
+msgctxt "wizard.profileEditor.icon.clip"
+msgid "Clip"
+msgstr "Klipp"
+
+msgctxt "wizard.profileEditor.icon.controls"
+msgid "Controls"
+msgstr "Juhtnupud"
+
+msgctxt "wizard.profileEditor.icon.download"
+msgid "Download"
+msgstr "Allalaadimine"
+
+msgctxt "wizard.profileEditor.icon.music"
+msgid "Music"
+msgstr "Muusika"
+
+msgctxt "wizard.profileEditor.icon.podcast"
+msgid "Podcast"
+msgstr "Taskuhääling"
+
+msgctxt "wizard.profileEditor.icon.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
+msgid "Music or podcasts"
+msgstr "Muusika või taskuhäälingud"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
+msgid "Audio only"
+msgstr "Ainult heli"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
+msgid "Caption files only"
+msgstr "Ainult subtiitrifailid"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
+msgid "Subtitles only"
+msgstr "Ainult subtiitrid"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
+msgid "Normal video files"
+msgstr "Tavalised videofailid"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
+msgid "Video + audio"
+msgstr "Video + heli"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
+msgid "Silent video only"
+msgstr "Ainult hääletu video"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
+msgid "Video, no audio"
+msgstr "Video, ilma helita"
+
+msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
+msgid "Auto-captions will be saved as SRT instead of ASS."
+msgstr "Automaatsed subtiitrid salvestatakse ASS-i asemel SRT-na."
+
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
+msgstr "Sobivaid keeli pole"
+
+msgctxt "wizard.profileEditor.note.noSubtitles"
+msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
+msgstr "Selle profiili jaoks ei küsita subtiitrifaile ega manustatud subtiitrivoogusid."
+
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr "Otsige keele nime või koodi järgi"
+
+msgctxt "wizard.profileEditor.note.skippedForOutputType"
+msgid "Skipped for this output type."
+msgstr "Selle väljundi tüübi puhul vahele jäetud."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr "Valige vähemalt üks keel."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
+msgstr "Valige vähemalt üks keel või lülitage subtiitrite allalaadimine välja."
+
+msgctxt "wizard.profileEditor.note.subtitlesOnly"
+msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."
+msgstr "See profiil lisab järjekorda ainult subtiitrifailid. Video, heli, SponsorBlock ja meediateisendus jäetakse vahele."
+
+msgctxt "wizard.profileEditor.panel.advanced.description"
+msgid "Profiles inherit the global destination unless you set a profile override."
+msgstr "Profiilid pärivad globaalse sihtkoha, kui te profiili alistust ei määra."
+
+msgctxt "wizard.profileEditor.panel.advanced.title"
+msgid "Advanced options"
+msgstr "Täpsemad valikud"
+
+msgctxt "wizard.profileEditor.panel.downloadType.description"
+msgid "Choose the primary way you want to download."
+msgstr "Valige peamine allalaadimisviis."
+
+msgctxt "wizard.profileEditor.panel.downloadType.title"
+msgid "Download type"
+msgstr "Allalaadimise tüüp"
+
+msgctxt "wizard.profileEditor.panel.identity.description"
+msgid "Name and icon shown in Quick Download, Bulk URLs, and profile lists."
+msgstr "Nimi ja ikoon, mida kuvatakse kiirallalaadimises, hulgi-URL-ides ja profiililoendites."
+
+msgctxt "wizard.profileEditor.panel.identity.title"
+msgid "Profile identity"
+msgstr "Profiili identiteet"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr "{{count}} lubatud"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "{{count}} lubatud"
+
+msgctxt "wizard.profileEditor.panel.output.title"
+msgid "Output options"
+msgstr "Väljundi valikud"
+
+msgctxt "wizard.profileEditor.panel.sponsorBlock.title"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.profileEditor.placeholder.folder"
+msgid "Choose a folder for this profile"
+msgstr "Valige selle profiili kaust"
+
+msgctxt "wizard.profileEditor.skipped"
+msgid "Skipped"
+msgstr "Vahele jäetud"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Märgib sponsorilõigud peatükkidena (mittepurustav)."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "SponsorBlocki pole – video esitatakse üleslaaditud kujul."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Lõikab sponsorilõigud FFmpegi abil videost välja."
+
+msgctxt "wizard.profileEditor.subtitleFormat.ass"
+msgid "ASS"
+msgstr "ASS"
+
+msgctxt "wizard.profileEditor.subtitleFormat.srt"
+msgid "SRT"
+msgstr "SRT"
+
+msgctxt "wizard.profileEditor.subtitleFormat.vtt"
+msgid "VTT"
+msgstr "VTT"
+
+msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
+msgid "Auto-generated only"
+msgstr "Ainult automaatselt loodud"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualAndAuto"
+msgid "Manual and auto"
+msgstr "Käsitsi ja automaatsed"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
+msgid "Manual first, then auto"
+msgstr "Esmalt käsitsi, siis automaatsed"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
+msgid "Manual only"
+msgstr "Ainult käsitsi"
+
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "{{label}} – abi"
+
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "Tühista ettevalmistus"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "Praegune link"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy loeb linki ja rakendab profiili {{profileName}}."
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "{{count}} ebaõnnestus"
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "{{count}} ebaõnnestus"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "Üksikasjade toomine"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "Järjekorda lisamine"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "Kiirallalaadimise ettevalmistamine"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "Hoidke see avatuna, kuni Arroxy järjekorda ette valmistab."
+
+msgctxt "wizard.review.areas.extras"
+msgid "extras"
+msgstr "lisad"
+
+msgctxt "wizard.review.areas.fileName"
+msgid "file name"
+msgstr "failinimi"
+
+msgctxt "wizard.review.areas.format"
+msgid "format"
+msgstr "vorming"
+
+msgctxt "wizard.review.areas.saveTo"
+msgid "folder"
+msgstr "kaust"
+
+msgctxt "wizard.review.areas.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.areas.subtitles"
+msgid "subtitles"
+msgstr "subtiitrid"
+
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Subtiitrid, SponsorBlock, lisad nagu pisipilt, kaust ja failinimi olid varem eraldi sammud. Muutmiseks klõpsake real."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Kõik muud sätted on nüüd siin lehel"
+
+msgctxt "wizard.review.changed"
+msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
+msgstr "Muudetud profiilist {{profile}}: {{areas}}. Kehtib ainult sellele allalaadimisele."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "Muudetud profiilist {{profile}}:"
+
+msgctxt "wizard.review.changeFormat"
+msgid "Change format"
+msgstr "Muuda vormingut"
+
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "Sümbolid: {title}, {id}, {uploader}, {date}, {resolution}. Laiend lisatakse automaatselt."
+
+msgctxt "wizard.review.nextTime.action"
+msgid "Save as profile"
+msgstr "Salvesta profiilina"
+
+msgctxt "wizard.review.nextTime.defaultName"
+msgid "{{profile}} (edited)"
+msgstr "{{profile}} (muudetud)"
+
+msgctxt "wizard.review.nextTime.title"
+msgid "This download used edited settings. Use them next time?"
+msgstr "See allalaadimine kasutas muudetud sätteid. Kas kasutada neid järgmisel korral?"
+
+msgctxt "wizard.review.reset"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "Võta muudatused tagasi, tagasi profiilile „{{profile}}“"
+
+msgctxt "wizard.review.rows.extras"
+msgid "Extras"
+msgstr "Lisad"
+
+msgctxt "wizard.review.rows.fileName"
+msgid "File name"
+msgstr "Failinimi"
+
+msgctxt "wizard.review.rows.saveTo"
+msgid "Save to"
+msgstr "Salvesta kausta"
+
+msgctxt "wizard.review.rows.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.rows.subtitles"
+msgid "Subtitles"
+msgstr "Subtiitrid"
+
+msgctxt "wizard.review.rowsHeading"
+msgid "Everything else"
+msgstr "Kõik muu"
+
+msgctxt "wizard.review.save.action"
+msgid "Save profile"
+msgstr "Salvesta profiil"
+
+msgctxt "wizard.review.save.description"
+msgid "Keeps these settings as a profile you can pick next time. Your Quick Download profile stays the same."
+msgstr "Säilitab need sätted profiilina, mille saate järgmisel korral valida. Teie kiirallalaadimise profiil jääb samaks."
+
+msgctxt "wizard.review.save.failed"
+msgid "Couldn't save the profile."
+msgstr "Profiili ei õnnestunud salvestada."
+
+msgctxt "wizard.review.save.nameLabel"
+msgid "Profile name"
+msgstr "Profiili nimi"
+
+msgctxt "wizard.review.save.saved"
+msgid "Saved as profile “{{name}}”"
+msgstr "Salvestatud profiilina „{{name}}“"
+
+msgctxt "wizard.review.save.title"
+msgid "Save as profile"
+msgstr "Salvesta profiilina"
+
+msgctxt "wizard.review.saveAsProfile"
+msgid "Save as a new profile"
+msgstr "Salvesta uue profiilina"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Uuenda profiili"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "See on sisseehitatud profiil. Selle algsed sätted saab taastada vahekaardil Profiilid."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "Edaspidi kasutab iga selle profiiliga allalaadimine uusi sätteid."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Vorming"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "Kas uuendada profiili „{{profile}}“?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "Profiil „{{name}}“ uuendati"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "Uuenda profiili „{{profile}}“ nende muudatustega"
+
+msgctxt "wizard.review.value.extrasNone"
+msgid "None"
+msgstr "Puuduvad"
+
+msgctxt "wizard.review.value.sponsorBlockOff"
+msgid "Off"
+msgstr "Väljas"
+
+msgctxt "wizard.review.value.subtitlesOff"
+msgid "Off"
+msgstr "Väljas"
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "Täitematerjal"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "Sissejuhatus"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "Teemaväline muusika"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "Lõpuosa"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "Eelvaade"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "Enesereklaam"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "Sponsor"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "Kategooriad"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "Märgi peatükkidena"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "Väljas"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "Eemalda lõigud"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "Sponsorite filtreerimine"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Märgib sponsorilõigud peatükkidena (mittepurustav)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "SponsorBlocki pole – video esitatakse üleslaaditud kujul."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Lõikab sponsorilõigud FFmpegi abil videost välja."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "Kinnita"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "Salvesta"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "Vorming"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "Väljund"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Esitusloend"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "Videod"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "Kvaliteet"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "Profiilid"
+
+msgctxt "wizard.steps.review"
+msgid "Review"
+msgstr "Ülevaade"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "Subtiitrid"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "Automaatsed subtiitrid salvestatakse ASS-i asemel SRT-na – YouTube’i videote puhul puhastatakse need kordustest, mida meie ASS-teisendaja veel järgi teha ei oska."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "Tühjenda kõik"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "Manustamisrežiim salvestab väljundi failina .mkv, et subtiitrivood manustuksid usaldusväärselt."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "Vorming"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "Sellel videol pole subtiitreid"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "Ükski keel ei vasta"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "Subtiitreid pole valitud"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "Eemalda {{name}}"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "Manusta videosse"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "Salvesta kui"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "Video kõrvale"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "alamkaust subtitles/"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "Otsi keeli…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "Automaatselt loodud"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "Käsitsi"
+
+msgctxt "wizard.tabsNavAria"
+msgid "Download profile navigation"
+msgstr "Allalaadimisprofiili navigeerimine"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "Täpsemalt"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send daily heartbeat"
+msgstr "Saada igapäevane elumärk"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
+msgstr "Telemeetriat pole. Kord päevas saadab anonüümne elumärk rakenduse versiooni, installikanali, OS-i, keele, riigi ja ligikaudu selle, kui ammu Arroxy installiti, et saaksime lugeda aktiivseid ja uusi kasutajaid. Ei mingeid ID-sid, URL-e, videopealkirju ega failinimesid."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Eemaldab allalaadimise loendist Allalaadimised mõni sekund pärast selle lõppu. Failid jäävad teie kausta; ebaõnnestunud ja tühistatud allalaadimised jäävad loendisse."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Eemalda lõpetatud allalaadimised"
+
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Proovib pärast võrgu- või serverikatkestust automaatselt uuesti, oodates iga katse vahel kauem. Saidi poolt blokeeritud allalaadimisi ei proovita automaatselt uuesti."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Proovi ebaõnnestunud allalaadimisi uuesti"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "korda"
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "Hulgi-URL-id"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Add and queue multiple URLs."
+msgstr "Lisa ja pane järjekorda mitu URL-i."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "Tühjenda URL"
+
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Link lisati lõikelaualt"
+
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Kopeeritud mitu linki – nende lisamiseks kasutage Hulgi-URL-e"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "Loobu"
+
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "Asendati kopeeritud lingiga"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "Jälgi lõikelauda"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "Täidab URL-välja automaatselt, kui kopeerite videolingi."
+
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "Võta tagasi"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "Peida sulgemisel salve"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "Jätkab allalaadimisi taustal pärast akna sulgemist."
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Mitu järjekorra üksust laaditakse korraga alla. Rohkem korraga lõpetab pika järjekorra kiiremini, kuid suurendab võimalust, et sait teid piirab."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Allalaadimisi korraga"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "allalaadimist"
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
+msgstr "Sellised saidid nagu YouTube võivad märgistada ja vahel ka blokeerida kontosid, mille küpsiseid kasutavad allalaadimistööriistad, nagu Arroxy. Kasutage võimaluse korral ühekordset kontot."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "Loeb küpsised otse brauserist. Chromiumi-perekonna brauserite puhul peab brauser olema suletud."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "Brauser"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "Valige brauser…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "Vali…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "Tühjenda"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "Küpsiste kasutamiseks valige brauser"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "Küpsiste kasutamiseks valige fail"
+
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "Kasutab teie Avasta sisselogimist ainult siis, kui allalaadimine seda vajab."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Vahekaart Avasta on väljas, seega allalaadimised ei kasuta teie Avasta sisselogimist. Lülitage see sisse allpool jaotises Avasta."
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "Hangi cookies.txt LOCALLY (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "Küpsisefail"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "Kuidas küpsiseid eksportida?"
+
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Ava Avasta"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "Faili pole valitud"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "Soovitatav"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "Risk: cookies.txt sisaldab kõiki selle brauseri sisselogitud seansse – hoidke see privaatsena."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "Brauser"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Avasta sisselogimine"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "Fail"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Küpsiste allikas"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "Väljas"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "Aitab vanusepiiranguga, ainult liikmetele mõeldud ja konto privaatsete videote puhul."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Kiirendab suuri allalaadimisi, tuues korraga mitu video osa. Suuremad väärtused suurendavad võimalust, et sait teid piirab."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "Allalaadimisühendused"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "ühendust"
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "Ainult heli"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "Subtiitrid"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "2000+ saiti"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "Muusika esitusloendid"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "Videod"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "Video esitusloendid"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Mida Arroxy suudab alla laadida"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "Kanalid"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "Muusika"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "Esitusloendid"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Taskuhäälingud"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "Videod"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr "Samm-sammuline viisard. Valige vorming, kvaliteet ja muu."
+
+msgctxt "wizard.url.heading"
+msgid "Download from URL"
+msgstr "Laadi alla URL-ilt"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Muuda otseteed"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Selle otsetee on võtnud mõni teine rakendus – valige teine."
+
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "Või vajutage"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "Kopeerige videolink kus tahes, vajutage seda otseteed ja Arroxy paneb selle teie aktiivse profiiliga järjekorda – akent vahetama ei pea."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "Muutke või lülitage välja jaotises Sätted."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Vajutage klahve…"
+
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "Lähtesta vaikeväärtusele"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Laadige alla iga kopeeritud link mis tahes rakendusest, Arroxyt avamata."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Globaalne kiirklahv"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Testi"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Luba globaalne kiirklahv"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Vajutage otseteed, kui lõikelaual on videolink."
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "Interaktiivne allalaadimine"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "Aktiivsed allalaadimised säilitavad oma praeguse piirangu. Muudatuste rakendamiseks peatage ja jätkake."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "Kohandatud…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "nt 750K või 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "Piirab meediafailide allalaadimise ribalaiust. Allolev päringute tempo on tavaliselt tugevam piiramisviis."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "Kasutage arvu, millele järgneb K või M (nt 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "Allalaadimiskiiruse piirang"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "Väljas"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "Allalaadimine taustal… Oskan mitut asja korraga 😎"
+
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "Kiire paneb laaditud üksused järjekorda profiiliga {{profileName}}. Interaktiivne laseb üksusi enne uurida või valida."
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "Kleepige link ja las Arroxy selle alla laeb ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "See link osutab ühele videole kollektsioonis. Arroxy küsib enne päringut, millist soovite."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} loeb seda linki ja rakendab profiili {{profileName}}."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "Järjekord tegeleb selle allalaadimisega. Kuni see töötab, võite kleepida järgmise lingi."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "Kiire alustab ühe allalaadimise profiiliga {{profileName}}. Ühekordsete muudatuste jaoks kasutage Interaktiivset."
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "Ühilduv stereo"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "Stereo või ruumiheli, kui profiil valib algse heli. Profiil võib selle alistada."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "Algse heli eelistus"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "Eelista ruumiheli / Dolbyt"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Lisab iga allalaadimise ajal väikesed ooteajad, et Arroxy ei koormaks saiti liiga agressiivselt. Väärtused on sekundites."
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "Paus enne meedia algust: maks"
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "Paus enne meedia algust: min"
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "Ooteaeg metaandmete kontrollide vahel"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "Ooteaeg enne subtiitrifaile"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "Õrn allalaadimine"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Kui ettevaatlik peaks Arroxy olema?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "Tasakaalustatud"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "Ettevaatlik"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "Kohandatud"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "Väljas"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Ooteajad: {{requests}} kontrollide vahel, {{downloads}} enne meedia algust, {{subtitles}} enne subtiitrifaile."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Need ooteajad toimuvad iga allalaadimise sees. Mitu allalaadimist korraga töötab, määratakse eraldi valikus Allalaadimisi korraga."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "Vaikimisi. Lisab lühikesed pausid päringute vahele ja enne meedia algust."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "Lisab pikemad pausid suurte esitusloendite või sageli piirangutesse jooksvate võrkude jaoks."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "Kohandage täpsemad allalaadimiskohased juhtelemendid ise."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Kasutab ainult väikesi põhipause, mida Arroxy meedia ja subtiitrite jaoks hoiab."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "sek"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "Praegune piirang: {{count}} üksust"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "Kohandatud…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "Loobu"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "Kasutage täisarvu vahemikus {{min}} kuni {{max}}."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "Salvesta piirang"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "Esitusloendi skannimise kohandatud piirang"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "Kohandatud: {{count}} üksust"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Maksimaalne kirjete arv, mille Arroxy laadib esitusloendi, kanali või otsingutulemuse avamisel."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "Kasutage täisarvu vahemikus 1 kuni 5000"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "Skannitavaid esitusloendi üksusi"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} üksust"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Arroxy küsib valija koostamisel ainult nii palju esitusloendi, kanali või otsingu kirjeid."
+
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "Kasuta rakenduse piirangut: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "Rakenda"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "Seda esitusloendi ulatust ei õnnestunud rakendada: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "Rakenda ja laadi uuesti"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "Loobu"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "Muuda"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy loads for this playlist."
+msgstr "Valige, mida Arroxy selle esitusloendi jaoks laadib."
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "Esitusloendi ulatus"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "Selles ulatuses pole ühtegi videot"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "Esimesed"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "Kasutage üksuste täisnumbreid vahemikus 1 kuni {{max}}, kusjuures algus ei tohi olla lõpust suurem."
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "Laaditavad üksused"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "Esitusloendi ulatus"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "Vahemik"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "Uuesti laadimine..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "Lähtesta"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first items: {{count}}"
+msgstr "Laadi esimesed üksused: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first items: {{count}}"
+msgstr "Laadi esimesed üksused: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "Laadi üksused {{from}}-{{to}}"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "kuni"
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Aktiivne profiil"
+
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Sisseehitatud"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Kohandatud"
+
+msgctxt "wizard.url.profile.badgeDisabled"
+msgid "Hidden"
+msgstr "Peidetud"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Muudetud"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Muuda globaalset sihtkohta"
+
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Kasutab globaalset sihtkohta"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Kasutab globaalset sihtkohta + profiili alamkausta"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Kasutab profiili alistust"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Kasutab profiili alistust + profiili alamkausta"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Sihtkoht"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Muuda"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Muuda aktiivset profiili"
+
+msgctxt "wizard.url.profile.enableHint"
+msgid "Hidden profiles stay here but disappear from every profile picker."
+msgstr "Peidetud profiilid jäävad siia, kuid kaovad kõigist profiilivalijatest."
+
+msgctxt "wizard.url.profile.enableToggleAria"
+msgid "Show profile in pickers: {{profileName}}"
+msgstr "Kuva profiil valijates: {{profileName}}"
+
+msgctxt "wizard.url.profile.lastEnabledHint"
+msgid "Keep at least one profile available."
+msgstr "Jätke vähemalt üks profiil saadavale."
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Halda profiile"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Muutke kiirallalaadimise, hulgi-URL-ide ja esitusloendite aktiivset profiili."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Vaheta profiili"
+
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "teisaldatav profiil"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "Teisaldamine tühistati. {{profileName}} jääb positsioonile {{position}} / {{count}}."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "{{profileName}} asetati positsioonile {{position}} / {{count}}."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "Teisalda {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Profiili teisaldamiseks vajutage tühikut või sisestusklahvi, liigutage seda nooleklahvidega ning vajutage mahapanekuks uuesti tühikut või sisestusklahvi. Tühistamiseks vajutage paoklahvi."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "{{profileName}} on positsiooni {{position}} / {{count}} kohal."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "{{profileName}} võeti kätte. See on positsioonil {{position}} / {{count}}."
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Uus profiil"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Looge, valige, muutke või eemaldage taaskasutatavaid allalaadimisseadistusi."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Allalaadimisprofiilid"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Eemalda"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "Lohistage profiil teisaldamiseks. Kõik profiilivalijad järgivad seda järjekorda."
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Lähtesta"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "AAC-heli"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "parim heli"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "parim video"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "heli puudub"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "ainult subtiitrid"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "WAV-heli"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Vaheta allalaadimisprofiili: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Vaheta allalaadimisprofiili"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "Tühjenda"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "Suunab liikluse läbi puhverserveri – kasulik piirkonnapõhiselt piiratud sisu jaoks."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "Puhverserveri URL"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "Ühtegi neist URL-idest ei õnnestunud ette valmistada"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick Download"
+msgstr "Kiirallalaadimine"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Will download using: {{profileName}}"
+msgstr "Laaditakse alla profiiliga: {{profileName}}"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "Seda ei õnnestunud lisada: {{error}}"
+
+#. Plural form "one" for et: used for counts like 1.
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "Järjekorda pandi, mis õnnestus. {{count}} URL-i ettevalmistamine ebaõnnestus."
+
+#. Plural form "other" for et: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Järjekorda pandi, mis õnnestus. {{count}} URL-i ettevalmistamine ebaõnnestus."
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "Järjekorra üksust ei õnnestunud ette valmistada"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "Ettevalmistamine"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "Päring ebaõnnestus"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "Lisatud järjekorda"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "Alustamiseks kleepige video, esitusloendi, kanali või otsingu URL."
+
+msgctxt "wizard.url.settings.behaviorDescription"
+msgid "Global behavior that affects profile-driven downloads too."
+msgstr "Globaalne käitumine, mis mõjutab ka profiilipõhiseid allalaadimisi."
+
+msgctxt "wizard.url.settings.behaviorHeading"
+msgid "Download behavior"
+msgstr "Allalaadimise käitumine"
+
+msgctxt "wizard.url.settings.inputHeading"
+msgid "Input"
+msgstr "Sisend"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Klaaspaneelid liikuva taeva kohal. Vajab graafikakiirendust."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Ühtlased, vaiksed pinnad. Töötab kergelt igas arvutis."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Minimaalne"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Mõlemad stiilid on olemas heleda ja tumedana."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Stiil"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Kuidas Arroxy välja näeb. Heleda ja tumeda vahel lülitate jaluses."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Välimus"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} vajab graafikakiirendust, mis pole praegu saadaval, seega kuvab Arroxy stiili {{fallback}}."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Profiilid"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Sätted"

@@ -4,8 +4,9 @@ import type {SupportedLang} from '@shared/types.js'
 // hidden fields; Ek6M8B is the English master the others are translated from.
 // Tally has no built-in language for am, km, my, om, sw and ur, so those forms
 // show Tally's own messages (validation, thank-you page) in English, and ps
-// borrows Persian for them so the form reads right to left.
-const FEEDBACK_FORM_IDS = {
+// borrows Persian for them so the form reads right to left. A language with no
+// translated form yet opens the English master.
+const FEEDBACK_FORM_IDS: Readonly<Partial<Record<SupportedLang, string>> & {en: string}> = {
 	en: 'Ek6M8B',
 	am: 'WJ9QAR',
 	ar: 'X5l9De',
@@ -37,8 +38,8 @@ const FEEDBACK_FORM_IDS = {
 	vi: 'LD1Vbz',
 	zh: 'J1KG6z',
 	'zh-Hant': 'yXZg66'
-} as const satisfies Record<SupportedLang, string>
+}
 
 export function feedbackFormId(language: SupportedLang): string {
-	return FEEDBACK_FORM_IDS[language]
+	return FEEDBACK_FORM_IDS[language] ?? FEEDBACK_FORM_IDS.en
 }

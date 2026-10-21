@@ -1,0 +1,5066 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"Language: eu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "Honi buruz"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "GPLv3 · by Antonio Orionus"
+msgstr "GPLv3 · Antonio Orionus-ek egina"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "Arroxy-ri buruz"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "YouTube eta beste 2000+ gunetarako deskargatzaile azkar eta atsegina."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "Ikusi hirugarrenen oharrak"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "Webgunea"
+
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Baimendu"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTubek bideo zahar batzuk adimen artifizialaz sortutako tamainetan eskaintzen ditu. «Saltatu» aukerak jatorrizko korronteak mantentzen ditu; hala ere, handitutako bat eskuz aukera dezakezu."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "AA bidez handitutako korronteak"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "Saltatu"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "Iritzia"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Arroxy gustatzen zaizu? Zure iritzia entzutea maite nuke! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "Erregistroak"
+
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Gorde diagnostiko-fitxategia"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Zure erregistroak eta aplikazioaren xehetasunak fitxategi bakar batean jartzen ditu Deskargak karpetan, GitHub-eko arazo-txosten bati erantsi ahal izateko. Zure erabiltzaile-karpetaren izena kentzen da; bideoen estekak eta izenburuak mantendu egiten dira."
+
+msgctxt "app.styleHint"
+msgid "New: choose Aurora or Minimal here"
+msgstr "Berria: aukeratu Aurora edo Minimal hemen"
+
+msgctxt "app.theme"
+msgid "Theme"
+msgstr "Gaia"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "Handitu"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "Txikitu"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "Atzera"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "Utzi"
+
+msgctxt "common.close"
+msgid "Close"
+msgstr "Itxi"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "Jarraitu"
+
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "Baztertu"
+
+msgctxt "common.loading"
+msgid "Loading"
+msgstr "Kargatzen"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "Saiatu berriro"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "Hasi berriro"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy martxan jarraitzen du eta aktibo dauden deskargak amaitzen ditu. Aldaketa hau geroago egin dezakezu Ezarpen aurreratuetan."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "Ezkutatu erretiluan"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "Arroxy sistema-erretiluan ezkutatu nahi duzu itxi egitean?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "Irten"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "Ez galdetu berriro"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "Utzi deskargak eta irten"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "Eten geroago berrekiteko, edo utzi aurrerapena baztertzeko."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "Jarraitu deskargatzen"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "{{count}} deskarga abian"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "{{count}} deskarga abian"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "Eten deskargak eta irten"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "Errendatze-prozesuak huts egin du ({{reason}}). Birkargatu berriro saiatzeko."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "Arroxy-k arazo bat izan du"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "Irten"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "Birkargatu"
+
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "Kopiatu da!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "Kopiatu helbidea"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy doakoa eta kode irekikoa da, iragarkirik eta ordainpeko mailarik gabe. Dohaintzak aukerakoak dira eta ez dute ibilbide-orrian eragin handiagorik ematen."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "Lagundu"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Lagundu Arroxy"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "Dohaintza-helbidearen QR kodea ({{coin}})"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Lagundu Arroxy"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Kriptografiazko ordainketak ezin dira atzera egin. Bidali erakusten den sarean bakarrik, eta konparatu helbide osoa."
+
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Bideo honek ez du azpititulurik hizkuntza hauetan: {{languages}}."
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "Bideo honek adin-murrizketa du eta ezin da deskargatu saioa hasita duen konturik gabe."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Bot-babesa aktibatu da. Ziurrenik erabiltzen ari zaren IPa markatuta dago (datu-zentro baten barrutia edo VPN irteera pilatua). Aldatu IPa edo aukeratu beste VPN amaiera-puntu bat eta saiatu berriro. Hala ere huts egiten badu, gunean aldi baterako aldaketa bat izan daiteke — Arroxy-k abioan eguneratzen du deskarga-motorra, beraz konponbidea automatikoki iritsiko da kaleratzen denean."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Zerbitzariak deskarga erdian eten du behin eta berriz, eta Arroxy-k berriro saiatu ondoren amore eman du. Normalean bideo-formaturik handienetan gertatzen da (4K HDR / bit-tasa altuko VP9). Saiatu berriro, aldatu sarea/VPNa edo aukeratu bereizmen txikiagoko formatu bat."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
+msgstr "Bideo hau DRM bidez babestuta dago. Arroxy-k ezin du DRMa kendu, beraz fitxategia ezin da deskargatu."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "Bideo hau ez dago eskuragarri zure eskualdean."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "Badirudi zure IP helbidea blokeatuta dagoela. Saiatu berriro geroago edo erabili VPN bat."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video needs a signed-in account."
+msgstr "Bideo honek saioa hasita duen konturen bat behar du."
+
+msgctxt "errors.ytdlp.missingDependency"
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "Arroxy-k ezin izan du FFmpeg edo FFprobe aurkitu. Exekutatu konfigurazioa berriro edo ezarri FFmpeg kokalekua, eta saiatu deskarga berriro."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "Sare-errorea. Egiaztatu konexioa eta saiatu berriro."
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "Bideo honek ez du azpititulurik eskatutako hizkuntzetan."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "Ez dago diskoan leku nahikorik. Libratu lekua eta saiatu berriro."
+
+msgctxt "errors.ytdlp.outputNotWritable"
+msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
+msgstr "Arroxy-k ezin du deskargen karpetan idatzi. Baliteke irakurtzeko soilik izatea, blokeatutako unitate batean egotea edo sistemaren pribatutasun-ezarpenek blokeatuta egotea. Aukeratu beste karpeta bat edo baimendu sarbidea, eta saiatu berriro."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
+msgstr "Ezin izan da gunearen erantzuna aztertu. Baliteke gunea bideoak zerbitzatzeko modua aldatu izana. Arroxy-k abioan eguneratzen du deskarga-motorra — saiatu berriro minutu batzuk barru, konponbidea kaleratu ondoren."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "Deskarga amaitu da, baina postprozesuak (batzea / muxing-a / bihurketa) huts egin du. Askotan ffmpeg-eko aldi bateko arazo bat izaten da — saiatu berriro, eta jarraitzen badu, probatu formatu-konbinazio ezberdin bat."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "The site is rate-limiting requests from this connection."
+msgstr "Gunea konexio honen eskaerak mugatzen ari da."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "Bideo hau ez dago eskuragarri — baliteke pribatua izatea, ezabatua izatea edo eskualdez blokeatuta egotea."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "Deskargak huts egin du. Ikusi beheko irteera gordina."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
+msgstr "Arroxy-k ez du URL hau onartzen. Probatu beste gune bateko esteka bat."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "Egiaztatu konexioa eta saiatu berriro."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "Orri honek ez du kargatu"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "Ireki ezarpenak"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "Egiaztatu proxya Ezarpenetan eta saiatu berriro."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Esploratu fitxak ezin du zure proxyaren bidez konektatu"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "Saiatu berriro"
+
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr "Egin klik eskuineko botoiarekin orriko edozein bideo-, erreprodukzio-zerrenda- edo kanal-estekan, aktibo duzun profilarekin deskargatzeko, beste profil bat aukeratzeko edo urratsez urratseko fluxua irekitzeko."
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr "Egin klik eskuineko botoiarekin esteka batean deskargatzeko"
+
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Kopiatu esteka"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Deskargatu honekin"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "Berria"
+
+msgctxt "explore.notice.body"
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Bilatu bideo bat YouTube-n edo beste edozein gunetan eta deskargatu hemendik — estekak kopiatu beharrik gabe. Hasi saioa gune batean hemen, kontu bat behar duten bideoak deskargatzeko."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "Jarraitu"
+
+msgctxt "explore.notice.riskBody"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "YouTube bezalako guneek Arroxy bezalako deskarga-tresnekin erabilitako kontuak markatu — eta batzuetan kanporatu — ditzakete. Erabili galtzeko prest zauden kontu bat, ez zure kontu nagusia."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "Hasi saioa bigarren mailako kontu batekin"
+
+msgctxt "explore.notice.title"
+msgid "Browse the web right inside Arroxy"
+msgstr "Arakatu weba Arroxy-ren barruan bertan"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "Deskargek zure nabigatzailearen cookie-ak erabiltzen dituzte, ez Esploratu fitxako saioa."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "Deskargek zure cookie-fitxategia erabiltzen dute, ez Esploratu fitxako saioa."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "Ez orain"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "Cookie-ak desaktibatuta daude, beraz deskargek ez dute Esploratu fitxako saioa erabiltzen."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Erabili Esploratu fitxako saioa"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Arakatu YouTube edo beste edozein gune Arroxy-ren barruan, eta hasi saioa kontu bat behar duten bideoetarako."
+
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "Libratu memoria kanpoan zaudenean"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "Beste fitxa batean 5 minutu eman ondoren, YouTube-ren hasiera- edo bilaketa-orria ixten du. Itzultzean birkargatu egiten da, eta segundo batzuk behar ditu."
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Bilatzailea"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Helbide-barran idatzitako testua non bilatzen den. Estekak idatzi bezala irekitzen dira."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Erakutsi Esploratu fitxa"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "Desaktibatuz gero, deskargek ere uzten diote Esploratu fitxako saioa erabiltzeari."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Amaitu Esploratu fitxako saioa"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "Amaitu saioa"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "Honek Esploratu fitxako saioak eta nabigatze-datuak garbitzen ditu, gune guztietan. Kontu bat behar duten deskargek huts egingo dute berriro saioa hasi arte."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Esploratu fitxako saioa amaitu nahi duzu?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Esploratu fitxako saioak eta nabigatze-datuak garbitzen ditu, gune guztietan."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Esploratu"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Esploratu"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "YouTube-k iragarki-blokeatzaileei trabak jar diezazkieke saioa hasita duten kontuetan."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "Iragarki-blokeatzailea"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "Iragarki-blokeatzailea: desaktibatuta — egin klik aktibatzeko"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "Iragarki-blokeatzailea: aktibatuta — egin klik desaktibatzeko"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "Iragarki-blokeatzailea: abiarazten — egin klik desaktibatzeko"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "Iragarki-blokeatzailea: ez dago erabilgarri, bere iragazki-zerrendak ezin izan dira deskargatu — egin klik desaktibatzeko"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "Helbidea"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Bilatu hemen: {{engine}}, edo ireki edozein gune (Vimeo, Instagram…)"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Esploratu fitxako nabigatzaile-kontrolak"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "Atzera"
+
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "Diseinu trinkoa"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "Deskargatu · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "Aurrera"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "Erakutsi diseinu osoa"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "Ireki bideo, erreprodukzio-zerrenda edo kanal bat deskargatzeko"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "YouTube hasiera"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "Deskarga interaktiboa: aukeratu formatua, azpitituluak eta gehiago…"
+
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Esploratu fitxak ezin du helbide hori ireki."
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "Birkargatu"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "Bilaketa hori luzeegia da."
+
+msgctxt "explore.toolbar.zoom.hint"
+msgid "Page zoom: {{percent}}%"
+msgstr "Orriaren zooma: {{percent}}%"
+
+msgctxt "explore.toolbar.zoom.in"
+msgid "Zoom in"
+msgstr "Handitu"
+
+msgctxt "explore.toolbar.zoom.label"
+msgid "Page zoom"
+msgstr "Orriaren zooma"
+
+msgctxt "explore.toolbar.zoom.out"
+msgid "Zoom out"
+msgstr "Txikitu"
+
+msgctxt "explore.toolbar.zoom.percent"
+msgid "Zoom percent"
+msgstr "Zoom-ehunekoa"
+
+msgctxt "explore.toolbar.zoom.reset"
+msgid "Reset zoom to 100%"
+msgstr "Berrezarri zooma %100ean"
+
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
+msgstr "Aukeratu deskargatutako fitxategiek izena nola izango duten. Egin klik token batean txertatzeko. Erabili / deskargak karpetetan sailkatzeko."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "Idatzi fitxategi-izenaren txantiloi bat."
+
+msgctxt "filenameTemplate.error.empty-segment"
+msgid "Remove the extra / — every folder needs a name."
+msgstr "Kendu soberako / hori — karpeta guztiek izena behar dute."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: \\ : * ? \" < > |"
+msgstr "Kendu fitxategi-izenetan onartzen ez diren karaktereak: \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.invalid-segment"
+msgid "That folder name isn't allowed. Avoid . and .. and reserved names like CON."
+msgstr "Karpeta-izen hori ez da onartzen. Saihestu . eta .. eta CON bezalako izen erreserbatuak."
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} to the filename so each download gets its own name."
+msgstr "Gehitu {title} edo {id} fitxategi-izenari, deskarga bakoitzak bere izena izan dezan."
+
+msgctxt "filenameTemplate.error.resolution-in-dir"
+msgid "{resolution} can't name a folder — the quality isn't known until the download starts."
+msgstr "{resolution} ezin da karpeta baten izena izan — kalitatea ez da ezagutzen deskarga hasi arte."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "{ edo } parekaturik gabe — inguratu tokenak horrela: {title}."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "Txantiloia luzeegia da."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "Token ezezaguna: {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "{id} gabe, Arroxy-k ezin ditu detektatu jada deskargatutako erreprodukzio-zerrendako elementuak ezta .m3u zerrendak sortu ere."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "Fitxategi-izenaren txantiloia"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
+msgstr "Ez dago erabilgarri, zure fitxategi-izenaren txantiloiak ez duelako {id} barne hartzen edo deskargak karpetetan sailkatzen dituelako."
+
+msgctxt "filenameTemplate.previewPlaylist"
+msgid "In a playlist"
+msgstr "Erreprodukzio-zerrenda batean"
+
+msgctxt "filenameTemplate.previewSingle"
+msgid "Single video"
+msgstr "Bideo bakarra"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "Utzi hutsik txantiloi orokorra heredatzeko."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "Fitxategi-izenaren txantiloia"
+
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "Automatikoa"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "Automatikoa (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "Aukeratutako korronteek zehazten dute fitxategi-mota."
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "Edozein kodek onartzen du. Telebista eta telefono batzuek ezin dute ireki."
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 in an MP4 won't play video in QuickTime."
+msgstr "Ia nonahi erreproduzitzen da. MP4 bateko VP9 ez da bideo gisa erreproduzitzen QuickTime-n."
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "Nabigatzaileentzako formatu irekia. VP9 edo AV1 bakarrik onartzen du, Opus audioarekin."
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4CaveatAv1"
+msgid "AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere."
+msgstr "MP4 bateko AV1 erreproduzitzeko Mac berri bat behar da QuickTime-n. H.264 nonahi erreproduzitzen da."
+
+msgctxt "fileType.mp4CaveatVp9"
+msgid "VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere."
+msgstr "MP4 bateko VP9 ez da bideo gisa erreproduzitzen QuickTime-n. H.264 nonahi erreproduzitzen da."
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "Profila"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "WebM ez da eskaintzen Smart TV profilarekin: ezin du H.264 onartu."
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "WebM-k ezin du hau onartu: {{codec}}. Aukeratu MKV edo MP4."
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "Audioa"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "Audioa soilik · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "hdrPreference.auto"
+msgid "Auto"
+msgstr "Automatikoa"
+
+msgctxt "hdrPreference.description"
+msgid "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens."
+msgstr "Automatikoak HDR aukeratzen du pantaila honek erakutsi ahal badu, bestela SDR. HDR itzali samarra ikusten da ohiko pantailetan."
+
+msgctxt "hdrPreference.hdr"
+msgid "HDR"
+msgstr "HDR"
+
+msgctxt "hdrPreference.label"
+msgid "HDR video"
+msgstr "HDR bideoa"
+
+msgctxt "hdrPreference.sdr"
+msgid "SDR"
+msgstr "SDR"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "Hizkuntza"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Esploratu fitxan saioa hasi da — esteka 1 berriro saiatzen"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Esploratu fitxan saioa hasi da — {{count}} esteka berriro saiatzen"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Ezin izan da Esploratu fitxako saioa amaitu. Saiatu berriro."
+
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Karpeta hau sakonegia da zure sistemarentzat. Baliteke deskargak hala ere huts egitea — aukeratu karpeta laburragoa."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Bideo honen izenak ez ditu zure txantiloiaren zati guztiak hartzen, beraz izen lehenetsia erabili da."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Ezin izan da karpeta-hautatzailea ireki."
+
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Jada ilaran dago — ez da kopiarik gehitu"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy oraindik abiarazten ari da — saiatu berriro une batean"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Amaitu Arroxy-n cookie-en konfigurazioa eta saiatu berriro"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "Ez dago estekarik arbelean — kopiatu bat lehenik"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "Esteka anitz kopiatu dira — erabili Arroxy-ko URL masiboak"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "Esteka horrek zure aukera behar du — ikusi Deskargak Arroxy-n"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "Deskarga ilaran jarri da arbeletik"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "Ezin izan da esteka hori gehitu — saiatu berriro Arroxy-n"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Karpeta hori ezin da erreprodukzio-zerrenda honetarako erabili."
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "{{count}} bideo jada ilaran dago — saltatu da"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} bideo jada ilaran daude — saltatu dira"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "Gehitu da: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "Jada ilaran dago"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ bideo — aukeratu zenbat"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ bideo — aukeratu zenbat"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "Ezin izan da prestatu: {{title}}"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "Ezin izan da esteka hori gehitu — saiatu berriro"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "{{count}} bideo zerrenda honetan — berrikusi aukeratzeko"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} bideo zerrenda honetan — berrikusi aukeratzeko"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "{{count}}+ bideo zerrenda honetan — berrikusi aukeratzeko"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ bideo zerrenda honetan — berrikusi aukeratzeko"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "Ikusi"
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Ezin izan dira zure ezarpenak gorde."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Ezin izan da hori ireki."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Konfigurazioa ez da amaitu. Baliteke deskarga batzuek huts egitea amaitu arte."
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Audioa (onena)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Audioa ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "Jatorrizko audio onena, birkodetu gabe"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "Bihurtu M4A (AAC) formatura"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "Bihurtu MP3 formatura"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Bihurtu Opus formatura"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "H.264 formatuan 1080p gainetik ez dago eskuragarri YouTube-n — automatikoki 1080pra mugatu da"
+
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "Gorde honela"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "Zuzenean gordetzeko karpetan"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "Hizkuntzak"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "Aukeratu gutxienez hizkuntza bat jarraitzeko."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "Bideo bakoitzeko azpititulu-fitxategiak bakarrik gordetzen dira — ez da bideorik edo audiorik deskargatzen."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "Iturria"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "1080p arte"
+
+msgctxt "playlistPresets.tier.144"
+msgid "Up to 144p"
+msgstr "144p arte"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "1440p arte"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "4K arte"
+
+msgctxt "playlistPresets.tier.240"
+msgid "Up to 240p"
+msgstr "240p arte"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "360p arte"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "480p arte"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "720p arte"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "Kalitate onena"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "1080pra mugatua, elementu bakoitzean txikiagora jaisten da behar bada"
+
+msgctxt "playlistPresets.tierDesc.144"
+msgid "Smallest possible files"
+msgstr "Ahalik eta fitxategi txikienak"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "2Kra mugatua, elementu bakoitzean txikiagora jaisten da behar bada"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "2160pra mugatua, elementu bakoitzean txikiagora jaisten da behar bada"
+
+msgctxt "playlistPresets.tierDesc.240"
+msgid "Very small files, low quality"
+msgstr "Fitxategi oso txikiak, kalitate baxua"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Small files for tight bandwidth"
+msgstr "Fitxategi txikiak banda-zabalera mugatuarentzat"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Banda-zabalera baxua"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "Fitxategi txikiagoak, bateragarritasun zabala"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "Elementu bakoitzeko bideo + audio kalitate handiena"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Audioa"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "Azpitituluak"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Bideoa"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "Jatorrizko onena"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "Smart TV H.264 MP4"
+msgstr "H.264 MP4 (Smart TV)"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "Elementu bakoitzeko edukiontzi eta kodek onenak"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "Lehenetsi H.264 bideoa + AAC audioa MP4n, ahal denean"
+
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Osagarria"
+
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Deskribapena"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Multimedia"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Falta da"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Azpititulua"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Miniatura"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Artefaktua"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "Zure arreta behar duen deskarga bat"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "Zure arreta behar duten deskargak: {{count}}"
+
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Kendu deskarga bakoitza zerrendatik amaitu eta segundo batzuetara. Fitxategiak zure karpetan geratzen dira."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Garbitu amaituak automatikoki"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "Utzi deskarga aktibo eta zain guztiak"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "Bideo guztiak"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "{{count}} bideo baino gehiago erreprodukzio-zerrenda honetan. Deskargatu guztiak, lehenengo {{count}}, edo aukeratu berrikuspen batean."
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "{{count}} bideo baino gehiago erreprodukzio-zerrenda honetan. Deskargatu guztiak, lehenengo {{count}}, edo aukeratu berrikuspen batean."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "Lehenengo {{count}}"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "Berrikusi"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "Esteka hau {{count}} bideoko zerrenda bat da. Berrikusi zer deskargatu aukeratzeko."
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Esteka hau {{count}} bideoko zerrenda bat da. Berrikusi zer deskargatu aukeratzeko."
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "Garbitu amaitutako deskargak"
+
+msgctxt "queue.empty"
+msgid "Queued downloads will appear here"
+msgstr "Ilaran jarritako deskargak hemen agertuko dira"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Guztiak"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Ilararen egoera-iragazkiak"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Elementu guztiak"
+
+msgctxt "queue.header"
+msgid "Downloads"
+msgstr "Deskargak"
+
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Soinua ez da kendu"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Soinua ez da kendu · azpititulu batzuek huts egin dute"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "Utzi"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "Deskargak huts egin du"
+
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Ireki helburuko karpeta"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "Eten"
+
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Zain daudenak soilik"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "Hasi orain — saltatu ilara"
+
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Mugatua: {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Mugatua: {{height}}p · azpititulu batzuek huts egin dute"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "Kendu"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "Berrekin"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Saiatu berriro"
+
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "automatikoki berriro saiatzen ({{attempt}}. saiakera)"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Ezarri kokalekua"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Hautatu zain dauden elementuak kokalekua ezartzeko."
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "Utzita"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "Eginda"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "Errorea"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "Atxikita"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "Zure aukera behar du"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "Etenda"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "Zain"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Xehetasunak eskuratzen"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "Deskargatzen"
+
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Azpititulurik ez hizkuntza hauetan: {{languages}}"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "Eten deskarga aktibo guztiak eta eragotzi berriak hastea"
+
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "Ilara etenda dago — zain dauden elementuak ez dira hasiko berrekin arte"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "Berrekin etendako deskargak eta utzi ilarari jarraitzen"
+
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "Berrekin ilara"
+
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Hautatutako elementuak"
+
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "{{selected}} hautatuta · {{total}} guztira"
+
+msgctxt "queue.tabLabel"
+msgid "Downloads"
+msgstr "Deskargak"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Gehituta"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Artefaktuak"
+
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "Zutabea jaregin da: {{column}}."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "Zutabea mugitzea bertan behera utzi da: {{column}}."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "Zutabea: {{column}}, honen gainean: {{target}}."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "Zutabea hartu da: {{column}}."
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Zutabeak"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Amaituta"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Formatua"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Ezkutatu artefaktuak: {{title}}"
+
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "zutabe mugigarria"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Zutabe bat mugitzeko, sakatu Zuriunea edo Sartu, mugitu geziekin, eta sakatu Zuriunea edo Sartu jaregiteko. Sakatu Ihes bertan behera uzteko."
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Helburua"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Aurrerapena"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Berrezarri zutabeak"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Aldatu zutabearen tamaina: {{column}}"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Erakutsi artefaktuak: {{title}}"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "Tamaina"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "Ordenatu honen arabera: {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Egoera"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Izenburua"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Deskargak Deskargak fitxan daude orain — ireki edonoiz aurrerapena jarraitzeko."
+
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "Jarraitu"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "Eguneratze berri bat exekutatzen ari zara. Hona hemen nabarmenenak."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "Bertsio-ohar osoak ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Arroxy-ren berrikuntzak: {{version}}"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "Utzi"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "Aukeratu exekutagarria"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Instalatu Homebrew-rekin"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "Instalatu WinGet-ekin"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "Ireki mendekotasunaren karpeta"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "Berrezarri lehenetsia"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Try again"
+msgstr "Saiatu berriro"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "Ikusi konfigurazio-erregistroa"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Saiatu berriro. Jarraitzen badu, aukeratu beheko funtzionatzen duen kopia bat."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "Tresna bat ez dabil behar bezala"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Baimendu Arroxy zure antibirusean edo SmartScreen-en, eta saiatu berriro."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "Zure antibirusak tresna bat blokeatu du"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "Egiaztatu zure Interneteko konexioa eta saiatu berriro."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Ezin izan da Arroxy-k behar duena deskargatu"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Saiatu berriro berriz deskargatzeko."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "Deskarga bat hondatuta iritsi da"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Saiatu berriro berriz deskargatzeko."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "Deskarga bat ez dator bat bere egiaztatze-batuketarekin"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "Aukeratu biak behean, edo berrezarri lehenetsira."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg eta FFprobe batera ezarri behar dira"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "Saiatu berriro. Jarraitzen badu, aukeratu behean fidagarri jotzen duzun kopia bat."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "Zure sistemak ez dio Arroxy-ri tresna bat exekutatzen uzten"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Saiatu berriro. Jarraitzen badu, aukeratu behean funtzionatzen duen kopia bat."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "Tresna bat falta da edo ez da abiatzen"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "Maiz, lehen exekuzioko segurtasun-azterketa bat izaten da. Saiatu berriro."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "Tresna bat luzaroan ez da erantzun"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "Saiatu berriro, edo ireki konfigurazio-erregistroa xehetasunetarako."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "Zerbait oker joan da konfigurazioan"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "Deskarga-motorra"
+
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "Multimedia-tresnak"
+
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Homebrew-rekin instalatzen… Minutu batzuk behar ditzake."
+
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "WinGet-ekin instalatzen… Minutu batzuk behar ditzake."
+
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Zuzendu Arroxy dagoeneko dituzun kopietara, edo instalatu beste modu batean."
+
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "yt-dlp eta ffmpeg zure pakete-kudeatzailearekin ere instala ditzakezu, eta gero egin klik «Saiatu berriro» aukeran."
+
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "Konfiguratu eskuz"
+
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "Saiatu berriro, edo zuzendu Arroxy behean dagoeneko dituzun tresnetara."
+
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "Konfigurazioa gelditu da"
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "Konfigurazioak zure laguntza behar du"
+
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "Profil honek nola aukeratzen duen"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "AAC audioa"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "MP4 erreproduzitzaileetara egokitzen da"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "AAC audioa"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "nonahi erreproduzitzen da"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1, gero VP9, gero H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "zorrotzena tamaina jakin batean"
+
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, gero VP9, gero AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "profil honen kodeka"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, gero H.264, gero AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "profil honen kodeka"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "Fotograma-tasa handiena"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "mugimendu leunagoa"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "H.264 bideoa"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "gailu guztietan erreproduzitzen da"
+
+msgctxt "selectionOrder.rank.hdrFirst.label"
+msgid "HDR before SDR"
+msgstr "HDR SDR baino lehen"
+
+msgctxt "selectionOrder.rank.hdrFirst.reason"
+msgid "richer colour on HDR screens"
+msgstr "kolore aberatsagoak HDR pantailetan"
+
+msgctxt "selectionOrder.rank.hdrFirst.reasonScreen"
+msgid "this screen shows HDR"
+msgstr "pantaila honek HDR erakusten du"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.label"
+msgid "SDR before HDR"
+msgstr "SDR HDR baino lehen"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
+msgid "looks right on any screen"
+msgstr "ondo ikusten da edozein pantailatan"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reasonScreen"
+msgid "this screen isn't HDR"
+msgstr "pantaila hau ez da HDR"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "MP4 korronteak"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "MP4 fitxategi baterako prest"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "Estereo audioa"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "profil hau"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "Ezarpenetatik"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "Inguruko audioa, eskaintzen denean"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "Opus audioa"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "WebM formatuari egokitzen zaio"
+
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Jatorrizko korronteak, ez AA bidez handitutakoak"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "handitutako kopia altuagoa da, baina ez du benetako xehetasun gehiagorik ematen"
+
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "Deskarga zuzenak, streaming bidezko kopien aurretik"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "irudi bera, azkarrago deskargatua"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "{{tier}}p arte"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "zure muga"
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "Bereizmen handiena"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "mugarik ezarri gabe"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Gunea behera markatzen ez dituen korronteak"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "kopia hondatuak, ur-marka dutenak eta ordezkoak saihesten ditu"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "Fitxategi handiagoa"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "xehetasun gehiago ezarpen berberekin"
+
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "Bit-tasa hobetuko korronteak lehenik"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "xehetasun gehiago bereizmen berean"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "fitxategi-mota korronteetatik"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr ".{{ext}} gisa gordetzen da"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "irudi onena"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "edozein gailutan erreproduzitzen da"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "Zergatik hau?"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "Zergatik aukeratu duen hau profilak"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "Kopiatu da!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "Kopiatu esteka"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 2000+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy — Windows, macOS eta Linux-erako bideo-deskargatzaile librea eta kode irekikoa. YouTube, Vimeo, Twitch eta 2000+ guneekin funtzionatzen du.\n"
+"4K · HDR · MP3 · Shorts · Azpitituluak · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy doakoa eta kode irekikoa da. Partekatzeak jende gehiagok ezagutzen laguntzen du."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "Partekatu"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Partekatu Arroxy"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Partekatu Arroxy"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Partekatu Arroxy"
+
+msgctxt "splash.cancel"
+msgid "Having trouble? Set it up manually"
+msgstr "Arazoak dituzu? Konfiguratu eskuz"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "Kaixo, ongi etorri berriro!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} / {{total}}"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "gutxi gorabehera min {{count}} falta dira"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "gutxi gorabehera {{count}} min falta dira"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "minutu bat baino gutxiago falta da"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "Deskargek funtzionatzen jarraitzen dute guneak aldatzen direnean."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "Hau behin bakarrik gertatzen da. Arroxy-k tresna hauek gordetzen ditu eta berak eguneratzen ditu."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "Hau behin bakarrik gertatzen da. Arroxy-k gordetzen ditu etorkizuneko eguneratzeetarako."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "Dena ondo dabilela egiaztatzen"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "Konektatzen…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "Deskarga-motorra eta multimedia-tresnak deskargatzen"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "Deskarga-motorra deskargatzen"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "Multimedia-tresnak deskargatzen"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "Multimedia-tresnak deskonprimatzen"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "Deskarga-motorra eguneratzen"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "Lehen aldiko konfigurazioa"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "Multimedia-tresnak eguneratzen"
+
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
+msgstr "Bertsio honen lehen egiaztapena — hau mantsoa da. Normalean minutu bat inguru."
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "Egiaztatzen: {{binary}}…"
+
+msgctxt "splash.warmup"
+msgid "Preparing downloads…"
+msgstr "Deskargak prestatzen…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "Konfigurazioak huts egin du. Ireki konfigurazio-erregistroa xehetasunetarako."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Bideoa soinuarekin gorde da — audioa ezin izan da kendu"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Bideoa soinuarekin gorde da — audioa ezin izan da kendu, eta azpititulu batzuk ezin izan dira deskargatu"
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "Deskarga utzi da"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "Deskarga amaitu da"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "Bideoa bihurtzen…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "Ez dago diskoan leku nahikorik — {{required}} behar dira, {{free}} baino ez daude erabilgarri"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "Bitarra deskargatzen: {{name}}…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "Bideoa eta audioa deskargatzen…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "Metadatuak txertatzen…"
+
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Esploratu fitxako saioa amaitu da — hasi saioa berriro"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "Audioa bihurtzen…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "SponsorBlock-ekin kontaktatzen…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "Azpitituluak eskuratzen…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "Audioa eta bideoa batzen…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "YouTube tokena sortzen…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "Fitxategiak mugitzen…"
+
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Azpititulurik ez hizkuntza hauetan: {{languages}}"
+
+msgctxt "status.outputNotWritable"
+msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
+msgstr "Ezin da gorde hemen: {{dir}} — Arroxy-k ez du hor idazteko baimenik"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "Bitarrak prestatzen…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "{{height}}p kalitatean gorde da — YouTube-k kalitate handiagoak ukatu ditu deskarga honetarako. Geroago edo beste sare batetik berriro saiatzeak lagun dezake."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "{{height}}p kalitatean gorde da — YouTube-k kalitate handiagoak ukatu ditu deskarga honetarako, eta azpititulu batzuk ezin izan dira deskargatu. Geroago edo beste sare batetik berriro saiatzeak lagun dezake."
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "Tokena berriro sortzen…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock ez dago erabilgarri, berriro saiatzen ({{attempt}}/{{total}})…"
+
+msgctxt "status.retryingTransfer"
+msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
+msgstr "Konexioa gelditu da, berriro saiatzen ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "Zure Esploratu fitxako kontuarekin saioa hasten…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "Itxaroten: {{seconds}} s, abiadura-mugak saihesteko…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting the download engine…"
+msgstr "Deskarga-motorra abiarazten…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Bideo honek ez du azpititulurik hizkuntza hauetan: {{languages}}. Bideoa azpititulu gabe gorde da."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Bideo honek ez du azpititulurik hizkuntza hauetan: {{languages}}. Gainerako hizkuntzak gorde dira."
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "Bideoa gorde da — azpititulu batzuk ezin izan dira deskargatu"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "Deskargaren abiaraztean errore ezezaguna"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "Erauzle malguarekin deskargatu da — konfiguratu cookies.txt bat deskarga fidagarriagoetarako"
+
+msgctxt "status.ytdlpExitCode"
+msgid "The download engine exited with code {{code}}"
+msgstr "Deskarga-motorra irten da. Kodea: {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "Download engine error: {{error}}"
+msgstr "Deskarga-motorraren errorea: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "Modu iluna"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "Modu argia"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "Sistemaren lehenetsia"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "Itxi"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "Maximizatu"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "Minimizatu"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "Leheneratu"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Deskargatu arbeletik"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Ireki Arroxy"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Irten Arroxy-tik"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "1 deskargatzen · {{percent}}%"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "{{count}} deskargatzen · {{percent}}%"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "Inaktibo"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "Komandoa arbelean kopiatu da"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "Kopiatu komandoa arbelean"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "Baztertu eguneratze-bannerra"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "Deskargatu ↗"
+
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "Deskargatu DMG ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "Deskargatzen…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "Instalatu eta berrabiarazi"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "Eguneratzeak huts egin du"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Arroxy {{version}} erabilgarri dago — zuk {{currentVersion}} duzu."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Arroxy {{version}} erabilgarri dago — eguneratu Homebrew-rekin."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Arroxy {{version}} erabilgarri dago — deskargatu DMG berria."
+
+msgctxt "update.message.macosDirectHomebrew"
+msgid "Arroxy {{version}} is available — download the DMG or switch to Homebrew."
+msgstr "Arroxy {{version}} erabilgarri dago — deskargatu DMG-a edo aldatu Homebrew-ra."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Arroxy {{version}} erabilgarri dago — deskargatu bertsio berria."
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "Saiatu berriro"
+
+msgctxt "update.runAndRestart"
+msgid "Run & Restart"
+msgstr "Exekutatu eta berrabiarazi"
+
+msgctxt "update.upgrading"
+msgid "Upgrading…"
+msgstr "Eguneratzen…"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} kapitulu"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} kapitulu"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "Kargatzen…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Automatikoa"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Zein kodek hartu lehenik altuera bereko korronteen artean. «Automatikoa» aukerak yt-dlp-ren ordena propioari eusten dio, AV1 lehenesten duena, txikiena; H.264 telebista eta telefono zaharretan erreproduzitzen da."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "H.264 lehenik"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Bideo-kodeka"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "Smart TV profilak beti H.264 hartzen du."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "VP9 lehenik"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "Prest"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "Itsatsi bideo-, erreprodukzio-zerrenda-, kanal-, bilaketa- edo audio-URLak. Arroxy-k bikoizketak garbituko ditu ilaran jarri aurretik."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "Itsatsi URL bat edo gehiago multzoaren aurrebista ikusteko."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "Ezikusi"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "Gehitu onartutako URL bat gutxienez jarraitzeko."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "Bikoiztua"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "URL zerrenda"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "URL masiboak"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ Ilara"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "Ilarara gehitzen du — aktibo dagoen deskarga amaitzen denean hasten da"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "Audioa soilik"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{count}} / {{total}} bideo"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} / {{total}} bideo"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{count}} / {{total}} pista"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} / {{total}} pista"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{count}} / {{total}} URL"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} / {{total}} URL"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "Audioa"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "Multzoa"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "Elementuak"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Erreprodukzio-zerrenda"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "Aurrezarpena"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "Gorde hemen"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "Tamaina"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "Azpitituluak"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "Bideoa"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "Zure fitxategia hemen gordeko da"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "Beheko helburuan gordeko da"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Beheko {{count}} helburuetan gordeko dira"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "«Azpitituluak soilik» aurrezarpena aktibo dago baina ez da azpititulu-hizkuntzarik hautatu — ez da ezer deskargatuko."
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} elementu"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} elementu"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Multzo honetako profilak"
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "Deskargatu! ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "Ilara saltatzen du — orain hasten da, aktibo dauden beste deskargekin batera"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "Deskargatzeko prest!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "Ezezaguna"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "Azpitituluen txertatzea alboko fitxategi bihurtu da — audio-pistek ez dute txertatutako azpititulu-korronterik onartzen."
+
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "Bideoaren barruko azpitituluek MKV fitxategi bat behar dute, beraz deskarga hau .mkv gisa gordetzen da."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "Miniaturaren txertatzea saltatu da — irteerako edukiontziak ez du onartzen."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "Pertsonalizatua…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "Mahaigaina"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "Dokumentuak"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "Deskargak"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "Gorde hemen"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "Hasiera"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "Musika"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "Irudiak"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "Karpeta-izenak baliogabeko karaktereak ditu"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "adib. lo-fi rip-ak"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "Gorde azpikarpeta baten barruan"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "Filmak"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "Audioa"
+
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr "Audio-hizkuntza"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr "{{count}} hizkuntza"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "{{count}} hizkuntza"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "Audioa soilik"
+
+msgctxt "wizard.formats.bitrateValue"
+msgid "Bitrate {{bitrate}}"
+msgstr "Bit-tasa: {{bitrate}}"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Cookie-ak konfiguratuta daude baina desaktibatuta. Aktibatu eta saiatu berriro zerrenda osoa lortzeko, edo aldatu sarea eta saiatu berriro."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "Cookie-ekin ere, YouTube-k azterketa hau mugatu du. Saiatu berriro geroago edo aldatu sarea."
+
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube-k eskaera hau mugatu du. Saiatu berriro geroago edo aldatu sarea."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "Baliteke formatu-zerrenda osatu gabe egotea. Konfiguratu cookie-ak ezarpen aurreratuetan, edo aldatu sarea eta saiatu berriro."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Aktibatu cookie-ak eta saiatu berriro"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "Azterketa mugatu da"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "Saiatu berriro"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "Bit-tasa"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "Jada {{target}} den iturri batek bere korrontea eta bit-tasa mantentzen ditu: kopiatu egiten da, ez birkodetu."
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kbps, birkodetu gabe"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, birkodetu gabe"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kbps, iturriak dituen bezala: korrontea jada {{target}} da, beraz kopiatu egiten da, ez birkodetu"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "Iturriak dituen bezala: korrontea jada {{target}} da, beraz kopiatu egiten da, ez birkodetu"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "Bihurtu"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kbps"
+
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
+msgstr "Iturria {{kbps}} kbps da"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (konprimitu gabe)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "Nabigatzailea"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Esploratu fitxako saioa"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "Fitxategia"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Cookie-en iturria"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "yt-dlp dokumentazioa (#10927 issue-a)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 eta berriagoek cookie-ak Windows-en beste aplikazioek irakur ezin dezaketen moduan zifratzen dituzte. Probatu beheko soluzioetako bat."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "Esportatu Chrome-ko cookie-ak nabigatzaile-luzapen batekin, gero aldatu aplikazio hau Fitxategia modura eta aukeratu esportatutako fitxategia."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "Esportatu cookies.txt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox-ek ez du App-Bound Encryption erabiltzen. Ireki cookie-en ezarpenak eta aukeratu Firefox nabigatzaile-zerrendan."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Aldatu Firefox-era"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Gehitu --disable-features=LockProfileCookieDatabase Chrome-ren abiarazteko lasterbidean. Kontuz: honek aurrez zifratutako cookie-ak baliogabetzen ditu, beraz gune guztietako saioa amaituko da eta berriro hasi beharko duzu."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "Abiarazi Chrome App-Bound Encryption desgaituta"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Windows-en zifratzeak Chrome-ko cookie-ak blokeatu ditu"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Cookie-ak zuzenean nabigatzailetik irakurtzen dira. Nabigatzailea martxan badago, baliteke bere cookie-datu-basea blokeatuta egotea (Chromium familia). Gainera, nabigatzailean YouTube-n saioa hasita egon behar da. Saiatu nabigatzailea ixten, beste nabigatzaile bat erabiltzen, Fitxategia modura aldatzen edo cookie-ak desaktibatzen."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Baliteke zure cookie-fitxategia hutsik, iraungita edo formatu okerrean egotea (Arroxy-k Netscape cookies.txt fitxategi bat behar du). Saiatu cookie-ak berriro esportatzen, beste fitxategi bat aukeratzen, Nabigatzailea modura aldatzen edo cookie-ak desaktibatzen."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Hasi saioa Esploratu fitxan eta Arroxy-k berriro saiatuko da."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Hasi saioa Esploratu fitxan"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "Baliteke bideo honek YouTube kontu bat behar izatea"
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy-k jada saiatu da Esploratu fitxako saioarekin, beraz berriro saioa hasteak ez du ezer lagunduko. Baliteke gunean arazoren bat egotea, edo kontu honek ezin izatea ireki. Saiatu berriro geroago."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "Gunea uko egin dio Esploratu fitxako saioarekin ere"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "Esploratu fitxan saioa hasita duzu, baina deskargek ez dute saio hori erabiltzen une honetan."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "Erabili Esploratu fitxako saioa eta saiatu berriro"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "Baliteke bideo honek YouTube kontu bat behar izatea"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "Bideo honek konturen bat behar badu, Arroxy-k automatikoki erabiltzen du Esploratu fitxako saioa. Baliteke beste arrazoi batengatik ez egotea eskuragarri."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Esploratu fitxan saioa hasita"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "Bideo honek YouTube kontu bat behar badu, hasi saioa Esploratu fitxan eta saiatu berriro. Arroxy-k saio hori deskarga batek behar duenean bakarrik erabiltzen du."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Hasi saioa Esploratu fitxan"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "Baliteke bideo honek YouTube kontu bat behar izatea"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "Baliteke esteka honek kontu bat behar izatea hemen: {{host}}"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "Hasi saioa Esploratu fitxan hemen: {{host}}, eta saiatu berriro."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "Hasi saioa Esploratu fitxan hemen: {{host}}, eta saiatu berriro. Arroxy-k saio hori deskarga batek behar duenean bakarrik erabiltzen du."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Cookie-ak izan daitezke arrazoia"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "Arroxy-k ezin izan du bideo hau atzitu autentifikaziorik gabe. Konfiguratu cookie-ak ezarpen aurreratuetan — zuzendu saioa hasita duzun nabigatzaile batera, edo inportatu cookies.txt fitxategi bat."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "Gune honek saioa hastea eskatzen du"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Ireki cookie-en ezarpenak"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "Erabili cookie-fitxategi bat edo nabigatzaile bat…"
+
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr "Zati ozenak baxuago eta isilak ozenago, bozgorailuentzat eta giro zaratatsuentzat."
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr "Berdindu bolumena (DRC)"
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr "Bolumen berdina"
+
+msgctxt "wizard.formats.fit.mp4Unavailable"
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "Zure profila Smart TV (H.264) da. Bideo honek ez du H.264 eskaintzen, beraz hurbilen dagoen korrontea hautatu da."
+
+msgctxt "wizard.formats.fit.noVideo"
+msgid "This link has no video, so audio is selected."
+msgstr "Esteka honek ez du bideorik, beraz audioa hautatu da."
+
+msgctxt "wizard.formats.fit.subtitlesMissing"
+msgid "Your profile asks for subtitles in {{languages}}. This video doesn't have them."
+msgstr "Zure profilak azpitituluak eskatzen ditu hizkuntza hauetan: {{languages}}. Bideo honek ez ditu."
+
+msgctxt "wizard.formats.fit.tierAbove"
+msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
+msgstr "Zure profilak {{wanted}}p eskatzen du. Bideo honek ez du hain txikirik, beraz {{picked}}p hautatu da."
+
+msgctxt "wizard.formats.fit.tierBelow"
+msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
+msgstr "Zure profilak {{wanted}}p eskatzen du. Bideo honek {{picked}}p arte baino ez du, beraz {{picked}}p hautatu da."
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "Zure profilak WebM eskatzen du. Bideo honen hautatutako korronteen artean {{codec}} dago, eta WebM-k ezin du onartu; beraz fitxategi-mota Automatikoa da."
+
+msgctxt "wizard.formats.footer.addToQueue"
+msgid "Add to queue without starting"
+msgstr "Gehitu ilarara hasi gabe"
+
+msgctxt "wizard.formats.footer.download"
+msgid "Download"
+msgstr "Deskargatu"
+
+msgctxt "wizard.formats.footer.moreActions"
+msgid "More download options"
+msgstr "Deskarga-aukera gehiago"
+
+msgctxt "wizard.formats.footer.subtitlesRequired"
+msgid "Choose at least one subtitle language."
+msgstr "Aukeratu gutxienez azpititulu-hizkuntza bat."
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "Utzi dagoen bezala"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "Barneko audioa"
+
+msgctxt "wizard.formats.kind.audio"
+msgid "Audio only"
+msgstr "Audioa soilik"
+
+msgctxt "wizard.formats.kind.label"
+msgid "What to download"
+msgstr "Zer deskargatu"
+
+msgctxt "wizard.formats.kind.subtitles"
+msgid "Subtitles only"
+msgstr "Azpitituluak soilik"
+
+msgctxt "wizard.formats.kind.video"
+msgid "Video + audio"
+msgstr "Bideoa + audioa"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Bideoa, audiorik gabe"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "Formatuak kargatzen"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "Itxaron azterketa amaitu arte — erreprodukzio-zerrendek eta bilaketek denbora har dezakete."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "AA bidez bikoiztua"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "AA bidez handitua"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Audio-deskribapena"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Hondatua"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Bit-tasa hobetua"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Audio espaziala"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "Ur-markarekin"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "Audiorik gabe"
+
+msgctxt "wizard.formats.profile.calloutBody"
+msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
+msgstr "Zure profil aktiboak korronteak aldez aurretik hautatzen ditu zuretzat. Aldatu profilak menutik, edo erabili arkatza bat doitzeko deskarga hau utzi gabe."
+
+msgctxt "wizard.formats.profile.calloutTitle"
+msgid "Formats start from your profile"
+msgstr "Formatuak zure profiletik abiatzen dira"
+
+msgctxt "wizard.formats.profile.closestTag"
+msgid "Closest to profile"
+msgstr "Profilera hurbilena"
+
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr "Editatu: {{name}}"
+
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "Mantendu nire aldaketak"
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr "Deskarga honetarako soilik. Zure profil lehenetsia ez da aldatzen."
+
+msgctxt "wizard.formats.profile.preselected"
+msgid "Pre-selected from"
+msgstr "Aldez aurretik hautatua hemendik:"
+
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Berrezarri guztia"
+
+msgctxt "wizard.formats.profile.switchBody"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Deskarga honetarako hau aldatu duzu: {{areas}}. «{{profile}}» profilak bideoa eta audioa aukeratzen ditu edonola. Zure gainerako aldaketak mantendu nahi dituzu, edo dena profilera berrezarri?"
+
+msgctxt "wizard.formats.profile.switchTitle"
+msgid "Switch profile?"
+msgstr "Profila aldatu nahi duzu?"
+
+msgctxt "wizard.formats.profile.tag"
+msgid "Profile"
+msgstr "Profila"
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Deskarga honetarako hau aldatu duzu: {{areas}}. Eguneratutako profilak bideoa eta audioa aukeratzen ditu edonola. Zure gainerako aldaketak mantendu nahi dituzu, edo dena profilera berrezarri?"
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
+msgstr "Eguneratutako profila erabili nahi duzu?"
+
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "Kalitate altua"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "Kalitate baxua"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "Kalitate ertaina"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "Konexio honen eskaerak mugatzen ari dira ({{site}})"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "Baliteke formatu-zerrenda osatu gabe egotea."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "Eskaera hau atzera bota dute oraingoz ({{site}})."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Saiatu berriro"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "Muga honek ordubete arte iraun dezake ({{site}})."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Saiatu orain"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "Itxaronaldia amaitu da, beraz berriro saia zaitezke."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy-k {{time}} arte itxarongo du berriro eskatu aurretik ({{site}}), muga gaindi dadin."
+
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "Bereizmen ezezaguna"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "Gordetzen da honela"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "WebM-k ezin du {{codec}} onartu, beraz fitxategi-mota Automatikora itzuli da."
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "Tamaina ezezaguna"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "Saltatu berrespenera"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "Gordetako lehentasunak erabiltzen ditu gainerako urrats guztietan. Ezarpen bat aldatzeko, jarraitu urratsez urrats — zure aukera hurrengo aldirako gordeko da."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "Zuretzako formaturik onenak bilatzen…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "Guztira"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "Bideoa"
+
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "audioarekin"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "Klik egin duzun bideoa bakarrik nahi duzu, ala erreprodukzio-zerrendatik aukeratu? Hurrengo urratsean bideo zehatzak edo tarte bat aukeratuko dituzu."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Aukeratu erreprodukzio-zerrendatik"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "Erreprodukzio-zerrendaren azterketa-muga: {{count}} elementu"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
+msgstr "Erreprodukzio-zerrenda kargatzen du, zure azterketa-mugara arte, hautatzailea erakutsi aurretik."
+
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "Deskargatu bideo hau bakarrik, edo jarri ilaran erreprodukzio-zerrenda osoa zure Deskarga bizkorreko profil aktiboarekin."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Arroxy-k erreprodukzio-zerrenda, kanal edo bilaketa-emaitza bat ilaran jarri aurretik aztertzen duen gehieneko sarrera kopurua."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "Kargatutako erreprodukzio-zerrendako elementu guztiak ilaran jartzen ditu Deskarga bizkorreko profil aktiboarekin. Azterketak zure muga jotzen badu, Arroxy-k galdetuko du ilaran jarri aurretik."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "Deskarga bat jartzen du ilaran eta URL honi lotutako erreprodukzio-zerrenda alde batera uzten du."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "Deskargatu bideo hau"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "Deskargatu erreprodukzio-zerrenda osoa"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Loads only this video. The playlist attached to this URL is ignored."
+msgstr "Bideo hau bakarrik kargatzen du. URL honi lotutako erreprodukzio-zerrenda alde batera uzten da."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "Hau bakarrik"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "Esteka honek erreprodukzio-zerrenda bat du"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "Edozein erreproduzitzaile modernotan nabigatu daitezkeen kapitulu-markak."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "Txertatu kapituluak"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "Izenburua, artista, deskribapena eta igotze-data fitxategian idazten dira."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "Txertatu metadatuak"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "Azala fitxategiaren barruan. WebM bideoa MKV formatura remuxatuko da; azpitituluak txertatzen direnean saltatu egiten da."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "Txertatu miniatura"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "Bideoaren deskribapena .description testu-fitxategi gisa gordetzen du deskargaren ondoan."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "Gorde deskribapena"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "Gorde .m3u erreprodukzio-zerrenda bat bideoen ondoan, zure multimedia-erreproduzitzailean ordenan ireki daitezen."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr "Sortu .m3u erreprodukzio-zerrenda fitxategia"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "Miniatura .jpg irudi-fitxategi gisa gordetzen du deskargaren ondoan."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "Gorde miniatura"
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr "Aldatu Zatia aukerara bideo-txartelean, hasiera eta amaiera edo kapitulu bat aukeratzeko eta tarte hori bakarrik deskargatzeko."
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
+msgstr "Deskargatu bideoaren zati bat soilik"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Kapituluak"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "{{number}}. kapitulua"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Zati bat ffmpeg bidez deskargatzen da, beraz zure deskarga-konexioen eta erritmo-ezarpenak ez dira aplikatzen."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Zuzendu lehenik zatiaren hasiera eta amaiera."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Amaiera"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "Bideoa hemen amaitzen da: {{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Idatzi amaiera h:mm:ss, m:ss edo segundo gisa."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Idatzi hasiera h:mm:ss, m:ss edo segundo gisa."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "Hasierak amaieraren aurretik egon behar du."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Desaktibatuta: ebaki bakoitza hurbilen dagoen gako-fotogramara doa, eta idatzitako denbora baino segundo batzuetara egon daiteke."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Ebaki zehatza (birkodetzen du, mantsoagoa)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} / {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Zatia"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Bideoaren zatia"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Hasiera"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "bideo osoa"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Zatia {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Bideoaren zenbat"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss edo segundoak"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Zatia, kalkulatua"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Bideo honek ez du bere luzera jakinarazten, beraz osorik soilik deskarga daiteke."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Azpitituluek beti bideo osoa hartzen dute."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Zure esteka hemen hasten da: {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Erabili hasiera gisa"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Bideo osoa"
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
+msgstr "Pista osoa"
+
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "Leheneratu itzazu jarraitzeko."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Elementu guztiak kendu dira"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "Jada deskargatuta"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "URL masiboak"
+
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Ez da itxaron beharrik — orain ilaran jarritako fitxategiek benetako izenak izango dituzte deskargatzean."
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "Bideoen xehetasunak eskuratzen… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "Xehetasunak ez daude erabilgarri"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "Xehetasunak eskuratzen"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "Zain"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "zuzenean"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Erreprodukzio-zerrendako elementuak"
+
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "Deskargatzeko bideoak"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} bideo"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} bideo"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} pista"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} pista"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} URL"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Erreprodukzio-zerrenda eskuratzen…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "Bideoak eskuratzen…"
+
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Lehenengo {{count}} elementuetara mugatua"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "{{count}} orri aurkitu da"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "{{count}} orri aurkitu dira"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Bideoak biltzen"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Kanaleko orriak arakatzen"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Esleitu profilak elementuko"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Kalitatea, SponsorBlock, Irteera eta Gorde urratsak saltatzen ditu — esleitu deskarga-profil bat elementu bakoitzari"
+
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "Erreprodukzio-zerrenda"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "Hauetako {{count}} erreprodukzio-zerrenda bat da, ez bideo bat — itsatsi bere esteka bakarrik deskargatzeko."
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "Hauetako {{count}} erreprodukzio-zerrendak dira, ez bideoak — itsatsi haien estekak banan-banan deskargatzeko."
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "Hautatu bideo bat gutxienez jarraitzeko"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "Lehenengo {{count}} elementuak erakusten dira. Handitu kargatze-muga gehiago ikusteko."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "Erreprodukzio-zerrendaren azterketa mugatuta dago"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "Azterketa mugatuta dago"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "Aplikatu tartea"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "Hemendik"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "Hona"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "{{count}} kendu da"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "{{count}} kendu dira"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "Kendu {{count}} zerrendatik"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "Kendu {{count}} zerrendatik"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Leheneratu"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "Hautatu guztiak"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "{{count}} hautatuta"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "{{count}} hautatuta"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "Ez hautatu ezer"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Erreprodukzio-zerrendaren ordena"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Igotze-datak eskuratzen…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Ordenatu"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Zaharrenak lehenik"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Berrienak lehenik"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "Aplikatu sinkronizazioa"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "Aldatu karpeta…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "Bideo hauetatik {{n}} jada hemen daude: {{dir}}. Sinkronizatu berriak soilik deskargatzeko?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "Jada karpetan"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "Erreprodukzio-zerrenda honetako bideorik ez da aurkitu hemen: {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "Iturri honetako bideorik ez da aurkitu hemen: {{dir}}."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "Oraindik ez da ezer deskargatu"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "Karpeta egiaztatzen…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "Bideoaren miniatura"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "Aukeratu multzoaren kalitatea"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} elementu"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} elementu"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "Bideo bakoitzak aukeratutako maila bere aldetik ebazten du — erreprodukzio-zerrenda heterogeneoek ere sorpresarik gabe funtzionatzen dute."
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "Esleitu {{count}} bideori"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Esleitu {{count}} bideori"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Esleitu profila"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "Iraupena"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "Profila"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "Editatu: {{name}}"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "Ez dago iragazki honekin bat datorren elementurik"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "Profil-iragazkiak"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "Esleitu deskarga-profilak"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "Aukeratu bideo honen profila."
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Aukeratu {{count}} bideo hauen profila."
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "{{selected}} / {{total}} hautatuta"
+
+msgctxt "wizard.profileEditor.action.changeGlobalShort"
+msgid "Change global"
+msgstr "Aldatu orokorra"
+
+msgctxt "wizard.profileEditor.action.chooseFolder"
+msgid "Choose destination folder"
+msgstr "Aukeratu helburuko karpeta"
+
+msgctxt "wizard.profileEditor.action.chooseIcon"
+msgid "Choose profile icon"
+msgstr "Aukeratu profilaren ikonoa"
+
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "Kendu {{code}}"
+
+msgctxt "wizard.profileEditor.action.reset"
+msgid "Reset profile"
+msgstr "Berrezarri profila"
+
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Profil honek jada integratutako ezarpenak erabiltzen ditu"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Leheneratu integratutako profil-ezarpenak"
+
+msgctxt "wizard.profileEditor.action.save"
+msgid "Save profile"
+msgstr "Gorde profila"
+
+msgctxt "wizard.profileEditor.action.setOverride"
+msgid "Set profile override"
+msgstr "Ezarri profilaren gainidazketa"
+
+msgctxt "wizard.profileEditor.action.setOverrideShort"
+msgid "Set override"
+msgstr "Ezarri gainidazketa"
+
+msgctxt "wizard.profileEditor.action.useGlobalDefault"
+msgid "Use global default"
+msgstr "Erabili lehenetsi orokorra"
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
+msgstr "Erabili hizkuntza-kodea: «{{code}}»"
+
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "Aurreratua"
+
+msgctxt "wizard.profileEditor.appSetting"
+msgid "Use app setting ({{value}})"
+msgstr "Erabili aplikazioaren ezarpena ({{value}})"
+
+msgctxt "wizard.profileEditor.audioFormat.best"
+msgid "Best"
+msgstr "Onena"
+
+msgctxt "wizard.profileEditor.audioFormat.wav"
+msgid "WAV"
+msgstr "WAV"
+
+msgctxt "wizard.profileEditor.audioQuality.128"
+msgid "Up to 128K"
+msgstr "128K arte"
+
+msgctxt "wizard.profileEditor.audioQuality.192"
+msgid "Up to 192K"
+msgstr "192K arte"
+
+msgctxt "wizard.profileEditor.audioQuality.320"
+msgid "Up to 320K"
+msgstr "320K arte"
+
+msgctxt "wizard.profileEditor.audioQuality.best"
+msgid "Best quality"
+msgstr "Kalitate onena"
+
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "Deskargen karpeta lehenetsia"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "Deskargen karpeta lehenetsia / {{subfolder}}"
+
+msgctxt "wizard.profileEditor.destination.global"
+msgid "Global destination"
+msgstr "Helburu orokorra"
+
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "Aktiboa"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "Heredatua"
+
+msgctxt "wizard.profileEditor.destination.override"
+msgid "Profile override"
+msgstr "Profilaren gainidazketa"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "Aukeratu karpeta"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "Gainidazketarik ez dago ezarrita"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "Gainidazketarik ez dago ezarrita. Profil honek goiko helburu orokorra erabiltzen du."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "Orokorra gainidazten du"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "Profil honek bere erroan gordetzen du, azpikarpeta gehitu aurretik."
+
+msgctxt "wizard.profileEditor.destination.resolved"
+msgid "Resolved destination"
+msgstr "Ebatzitako helburua"
+
+msgctxt "wizard.profileEditor.dialogDescription"
+msgid "One reusable setup for Quick Download, Bulk URLs, and playlists."
+msgstr "Konfigurazio berrerabilgarri bat Deskarga bizkorrerako, URL masiboetarako eta erreprodukzio-zerrendetarako."
+
+msgctxt "wizard.profileEditor.dialogTitle"
+msgid "Download Profile"
+msgstr "Deskarga-profila"
+
+msgctxt "wizard.profileEditor.error.changeGlobalDestination"
+msgid "Could not change global destination."
+msgstr "Ezin izan da helburu orokorra aldatu."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "Ezin izan da karpeta-hautatzailea ireki. Idatzi bide-izena eskuz."
+
+msgctxt "wizard.profileEditor.error.reset"
+msgid "Could not reset profile settings."
+msgstr "Ezin izan dira profilaren ezarpenak berrezarri."
+
+msgctxt "wizard.profileEditor.error.save"
+msgid "Could not save profile settings."
+msgstr "Ezin izan dira profilaren ezarpenak gorde."
+
+msgctxt "wizard.profileEditor.field.delivery"
+msgid "Delivery"
+msgstr "Entrega"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "Fitxategi-mota"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "Optimizatu honetarako"
+
+msgctxt "wizard.profileEditor.field.icon"
+msgid "Profile icon"
+msgstr "Profilaren ikonoa"
+
+msgctxt "wizard.profileEditor.field.languages"
+msgid "Languages"
+msgstr "Hizkuntzak"
+
+msgctxt "wizard.profileEditor.field.name"
+msgid "Profile name"
+msgstr "Profilaren izena"
+
+msgctxt "wizard.profileEditor.field.nameAndIcon"
+msgid "Profile name and icon"
+msgstr "Profilaren izena eta ikonoa"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "Jatorrizko audioa"
+
+msgctxt "wizard.profileEditor.field.overridePath"
+msgid "Profile override path"
+msgstr "Profilaren gainidazketaren bide-izena"
+
+msgctxt "wizard.profileEditor.field.quality"
+msgid "Quality"
+msgstr "Kalitatea"
+
+msgctxt "wizard.profileEditor.field.resolution"
+msgid "Resolution"
+msgstr "Bereizmena"
+
+msgctxt "wizard.profileEditor.field.source"
+msgid "Source"
+msgstr "Iturria"
+
+msgctxt "wizard.profileEditor.field.subfolderName"
+msgid "Subfolder name"
+msgstr "Azpikarpetaren izena"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloads"
+msgid "Subtitle downloads"
+msgstr "Azpititulu-deskargak"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr "Profilek hizkuntza-kodeak eskatzen dituzte; erabilgarritasuna URL bakoitzerako ebazten da."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "Zorrotzena tamaina jakin batean. Telebista zaharrek, QuickTime-k eta editore batzuek ezin dute erreproduzitu."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "Irudi onena"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "Telebistetan, telefonoetan, WhatsApp-en, QuickTime-n eta bideo-editoreetan erreproduzitzen da. YouTube-k H.264 1080p-ra arte bakarrik eskaintzen du."
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "Smart TV"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
+
+msgctxt "wizard.profileEditor.icon.archive"
+msgid "Archive"
+msgstr "Artxiboa"
+
+msgctxt "wizard.profileEditor.icon.audio"
+msgid "Audio"
+msgstr "Audioa"
+
+msgctxt "wizard.profileEditor.icon.captions"
+msgid "Captions"
+msgstr "Azpitituluak"
+
+msgctxt "wizard.profileEditor.icon.classes"
+msgid "Classes"
+msgstr "Klaseak"
+
+msgctxt "wizard.profileEditor.icon.clip"
+msgid "Clip"
+msgstr "Klipa"
+
+msgctxt "wizard.profileEditor.icon.controls"
+msgid "Controls"
+msgstr "Kontrolak"
+
+msgctxt "wizard.profileEditor.icon.download"
+msgid "Download"
+msgstr "Deskarga"
+
+msgctxt "wizard.profileEditor.icon.music"
+msgid "Music"
+msgstr "Musika"
+
+msgctxt "wizard.profileEditor.icon.podcast"
+msgid "Podcast"
+msgstr "Podcasta"
+
+msgctxt "wizard.profileEditor.icon.video"
+msgid "Video"
+msgstr "Bideoa"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
+msgid "Music or podcasts"
+msgstr "Musika edo podcastak"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
+msgid "Audio only"
+msgstr "Audioa soilik"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
+msgid "Caption files only"
+msgstr "Azpititulu-fitxategiak soilik"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
+msgid "Subtitles only"
+msgstr "Azpitituluak soilik"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
+msgid "Normal video files"
+msgstr "Bideo-fitxategi arruntak"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
+msgid "Video + audio"
+msgstr "Bideoa + audioa"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
+msgid "Silent video only"
+msgstr "Bideo mutua soilik"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
+msgid "Video, no audio"
+msgstr "Bideoa, audiorik gabe"
+
+msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
+msgid "Auto-captions will be saved as SRT instead of ASS."
+msgstr "Azpititulu automatikoak SRT gisa gordeko dira ASS ordez."
+
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
+msgstr "Ez dago bat datorren hizkuntzarik"
+
+msgctxt "wizard.profileEditor.note.noSubtitles"
+msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
+msgstr "Profil honetarako ez da azpititulu-fitxategirik edo txertatutako azpititulu-pistarik eskatuko."
+
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr "Bilatu hizkuntzaren izenaren edo kodearen arabera"
+
+msgctxt "wizard.profileEditor.note.skippedForOutputType"
+msgid "Skipped for this output type."
+msgstr "Irteera-mota honetarako saltatu da."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr "Aukeratu gutxienez hizkuntza bat."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
+msgstr "Aukeratu gutxienez hizkuntza bat, edo desaktibatu azpititulu-deskargak."
+
+msgctxt "wizard.profileEditor.note.subtitlesOnly"
+msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."
+msgstr "Profil honek azpititulu-fitxategiak soilik jartzen ditu ilaran. Bideoa, audioa, SponsorBlock eta multimedia-bihurketa saltatzen dira."
+
+msgctxt "wizard.profileEditor.panel.advanced.description"
+msgid "Profiles inherit the global destination unless you set a profile override."
+msgstr "Profilek helburu orokorra heredatzen dute, profilaren gainidazketa bat ezartzen ez baduzu."
+
+msgctxt "wizard.profileEditor.panel.advanced.title"
+msgid "Advanced options"
+msgstr "Aukera aurreratuak"
+
+msgctxt "wizard.profileEditor.panel.downloadType.description"
+msgid "Choose the primary way you want to download."
+msgstr "Aukeratu deskargatzeko modu nagusia."
+
+msgctxt "wizard.profileEditor.panel.downloadType.title"
+msgid "Download type"
+msgstr "Deskarga-mota"
+
+msgctxt "wizard.profileEditor.panel.identity.description"
+msgid "Name and icon shown in Quick Download, Bulk URLs, and profile lists."
+msgstr "Deskarga bizkorrean, URL masiboetan eta profil-zerrendetan erakusten den izena eta ikonoa."
+
+msgctxt "wizard.profileEditor.panel.identity.title"
+msgid "Profile identity"
+msgstr "Profilaren identitatea"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr "{{count}} gaituta"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "{{count}} gaituta"
+
+msgctxt "wizard.profileEditor.panel.output.title"
+msgid "Output options"
+msgstr "Irteera-aukerak"
+
+msgctxt "wizard.profileEditor.panel.sponsorBlock.title"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.profileEditor.placeholder.folder"
+msgid "Choose a folder for this profile"
+msgstr "Aukeratu profil honen karpeta"
+
+msgctxt "wizard.profileEditor.skipped"
+msgid "Skipped"
+msgstr "Saltatuta"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Babesle-zatiak kapitulu gisa markatzen ditu (suntsitzailea ez dena)."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "SponsorBlock gabe — bideoa igo zen bezala erreproduzitzen da."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Babesle-zatiak bideotik moztu egiten ditu FFmpeg erabiliz."
+
+msgctxt "wizard.profileEditor.subtitleFormat.ass"
+msgid "ASS"
+msgstr "ASS"
+
+msgctxt "wizard.profileEditor.subtitleFormat.srt"
+msgid "SRT"
+msgstr "SRT"
+
+msgctxt "wizard.profileEditor.subtitleFormat.vtt"
+msgid "VTT"
+msgstr "VTT"
+
+msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
+msgid "Auto-generated only"
+msgstr "Automatikoak soilik"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualAndAuto"
+msgid "Manual and auto"
+msgstr "Eskuzkoak eta automatikoak"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
+msgid "Manual first, then auto"
+msgstr "Eskuzkoak lehenik, gero automatikoak"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
+msgid "Manual only"
+msgstr "Eskuzkoak soilik"
+
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "Laguntza: {{label}}"
+
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "Utzi prestaketa"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "Uneko esteka"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy esteka irakurtzen ari da eta profil hau aplikatzen: {{profileName}}."
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "{{count}} huts egin du"
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "{{count}} huts egin dute"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "Xehetasunak eskuratzen"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "Ilarara gehitzen"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "Deskarga bizkorra prestatzen"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "Mantendu hau irekita Arroxy ilara prestatzen ari den bitartean."
+
+msgctxt "wizard.review.areas.extras"
+msgid "extras"
+msgstr "gehigarriak"
+
+msgctxt "wizard.review.areas.fileName"
+msgid "file name"
+msgstr "fitxategi-izena"
+
+msgctxt "wizard.review.areas.format"
+msgid "format"
+msgstr "formatua"
+
+msgctxt "wizard.review.areas.saveTo"
+msgid "folder"
+msgstr "karpeta"
+
+msgctxt "wizard.review.areas.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.areas.subtitles"
+msgid "subtitles"
+msgstr "azpitituluak"
+
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Azpitituluak, SponsorBlock, miniatura bezalako gehigarriak, karpeta eta fitxategi-izena urrats bereiziak ziren lehen. Egin klik lerro batean aldatzeko."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Gainerako ezarpen guztiak orri honetan daude orain"
+
+msgctxt "wizard.review.changed"
+msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
+msgstr "Profiletik aldatuta ({{profile}}): {{areas}}. Deskarga honi soilik aplikatzen zaio."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "Profiletik aldatuta ({{profile}}):"
+
+msgctxt "wizard.review.changeFormat"
+msgid "Change format"
+msgstr "Aldatu formatua"
+
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "Tokenak: {title}, {id}, {uploader}, {date}, {resolution}. Luzapena automatikoki gehitzen da."
+
+msgctxt "wizard.review.nextTime.action"
+msgid "Save as profile"
+msgstr "Gorde profil gisa"
+
+msgctxt "wizard.review.nextTime.defaultName"
+msgid "{{profile}} (edited)"
+msgstr "{{profile}} (editatua)"
+
+msgctxt "wizard.review.nextTime.title"
+msgid "This download used edited settings. Use them next time?"
+msgstr "Deskarga honek editatutako ezarpenak erabili ditu. Hurrengoan ere erabili nahi dituzu?"
+
+msgctxt "wizard.review.reset"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "Desegin aldaketak, itzuli hona: «{{profile}}»"
+
+msgctxt "wizard.review.rows.extras"
+msgid "Extras"
+msgstr "Gehigarriak"
+
+msgctxt "wizard.review.rows.fileName"
+msgid "File name"
+msgstr "Fitxategi-izena"
+
+msgctxt "wizard.review.rows.saveTo"
+msgid "Save to"
+msgstr "Gorde hemen"
+
+msgctxt "wizard.review.rows.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.rows.subtitles"
+msgid "Subtitles"
+msgstr "Azpitituluak"
+
+msgctxt "wizard.review.rowsHeading"
+msgid "Everything else"
+msgstr "Gainerako guztia"
+
+msgctxt "wizard.review.save.action"
+msgid "Save profile"
+msgstr "Gorde profila"
+
+msgctxt "wizard.review.save.description"
+msgid "Keeps these settings as a profile you can pick next time. Your Quick Download profile stays the same."
+msgstr "Ezarpen hauek profil gisa gordetzen ditu, hurrengoan aukeratu ahal izateko. Zure Deskarga bizkorreko profila ez da aldatzen."
+
+msgctxt "wizard.review.save.failed"
+msgid "Couldn't save the profile."
+msgstr "Ezin izan da profila gorde."
+
+msgctxt "wizard.review.save.nameLabel"
+msgid "Profile name"
+msgstr "Profilaren izena"
+
+msgctxt "wizard.review.save.saved"
+msgid "Saved as profile “{{name}}”"
+msgstr "Profil gisa gorde da: «{{name}}»"
+
+msgctxt "wizard.review.save.title"
+msgid "Save as profile"
+msgstr "Gorde profil gisa"
+
+msgctxt "wizard.review.saveAsProfile"
+msgid "Save as a new profile"
+msgstr "Gorde profil berri gisa"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Eguneratu profila"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "Hau integratutako profil bat da. Bere jatorrizko ezarpenak leheneratu ditzakezu Profilak fitxan."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "Hemendik aurrera, profil hau duen deskarga orok ezarpen berriak erabiliko ditu."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Formatua"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "Eguneratu «{{profile}}»?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "Profila eguneratu da: «{{name}}»"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "Eguneratu «{{profile}}» aldaketa hauekin"
+
+msgctxt "wizard.review.value.extrasNone"
+msgid "None"
+msgstr "Batere ez"
+
+msgctxt "wizard.review.value.sponsorBlockOff"
+msgid "Off"
+msgstr "Desaktibatuta"
+
+msgctxt "wizard.review.value.subtitlesOff"
+msgid "Off"
+msgstr "Desaktibatuta"
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "Betegarria"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "Sarrera"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "Musika gaiaz kanpo"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "Amaiera"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "Aurrebista"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "Autopromozioa"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "Babeslea"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "Kategoriak"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "Markatu kapitulu gisa"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "Desaktibatuta"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "Kendu zatiak"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "Babesleen iragazkia"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Babesle-zatiak kapitulu gisa markatzen ditu (suntsitzailea ez dena)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "SponsorBlock gabe — bideoa igo zen bezala erreproduzitzen da."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Babesle-zatiak bideotik moztu egiten ditu FFmpeg erabiliz."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "Berretsi"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "Gorde"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "Formatua"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "Irteera"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Zerrenda"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "Bideoak"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "Kalitatea"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "Profilak"
+
+msgctxt "wizard.steps.review"
+msgid "Review"
+msgstr "Berrikusi"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "Azpitituluak"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URLa"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "Azpititulu automatikoak SRT gisa gordeko dira ASS ordez — YouTube bideoetan errepikapen-bikoizketa kentzen zaie (rolling-cue), gure ASS bihurgailuak oraindik erreplikatu ezin duena."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "Garbitu guztiak"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "Txertatze moduak irteera .mkv gisa gordetzen du, azpititulu-pistak fidagarritasunez txertatzeko."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "Formatua"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "Ez dago azpititulurik erabilgarri bideo honetarako"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "Ez dago bat datorren hizkuntzarik"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "Ez da azpititulurik hautatu"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "Kendu {{name}}"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "Txertatu bideoan"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "Gorde honela"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "Bideoaren ondoan"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "azpikarpeta: subtitles/"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "Bilatu hizkuntzak…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "Automatikoki sortuak"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "Eskuzkoak"
+
+msgctxt "wizard.tabsNavAria"
+msgid "Download profile navigation"
+msgstr "Deskarga-profilen nabigazioa"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "Aurreratua"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send daily heartbeat"
+msgstr "Bidali eguneroko seinalea"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
+msgstr "Telemetriarik ez. Egunean behin, seinale anonimo batek aplikazioaren bertsioa, instalazio-kanala, sistema eragilea, hizkuntza, herrialdea eta Arroxy gutxi gorabehera noiz instalatu zen bidaltzen ditu, erabiltzaile aktiboak eta berriak zenbatu ahal izateko. Ez da IDrik, URLrik, bideo-izenbururik edo fitxategi-izenik bidaltzen."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Deskarga bat Deskargak zerrendatik kentzen du amaitu eta segundo batzuetara. Fitxategiak zure karpetan geratzen dira; huts egindako eta utzitako deskargak zerrendan geratzen dira."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Kendu amaitutako deskargak"
+
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Automatikoki saiatzen da berriro sareko edo zerbitzariko hutsegite baten ondoren, saiakera bakoitzaren artean gero eta gehiago itxaroten. Gunearen blokeatutako deskargak ez dira inoiz automatikoki berriro saiatzen."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Saiatu berriro huts egindako deskargak"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "aldiz"
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "URL masiboak"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Add and queue multiple URLs."
+msgstr "Gehitu eta jarri ilaran hainbat URL."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "Garbitu URLa"
+
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Esteka arbeletik gehitu da"
+
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Esteka anitz kopiatu dira — erabili URL masiboak gehitzeko"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "Utzi"
+
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "Kopiatutako estekarekin ordeztu da"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "Zaindu arbela"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "Bete URL eremua automatikoki bideo-esteka bat kopiatzen duzunean."
+
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "Desegin"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "Ezkutatu erretiluan ixtean"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "Jarraitu deskargatzen atzeko planoan leihoa itxi ondoren."
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Ilarako zenbat elementu deskargatzen diren aldi berean. Aldi berean gehiago izateak ilara luze bat lehenago amaitzen du, baina gune batek mugatzeko aukera handitzen du."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Aldi berako deskargak"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "deskarga"
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
+msgstr "YouTube bezalako guneek Arroxy bezalako deskarga-tresnek cookie-ak erabiltzen dituzten kontuak markatu — eta batzuetan kanporatu — ditzakete. Ahal bada, erabili behin-behineko kontu bat."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "Cookie-ak zuzenean nabigatzailetik irakurtzen ditu. Chromium familiako nabigatzaileetan, nabigatzailea itxita egon behar da."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "Nabigatzailea"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "Aukeratu nabigatzaile bat…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "Aukeratu…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "Garbitu"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "Aukeratu nabigatzaile bat cookie-ak erabiltzeko"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "Aukeratu fitxategi bat cookie-ak erabiltzeko"
+
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "Esploratu fitxako saioa deskarga batek behar duenean bakarrik erabiltzen du."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Esploratu fitxa desaktibatuta dago, beraz deskargek ez dute Esploratu fitxako saioa erabiltzen. Aktibatu behean, Esploratu atalean."
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "Get cookies.txt LOCALLY (Chromerako)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "Cookie-fitxategia"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "Nola esportatu cookie-ak?"
+
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Ireki Esploratu"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "Ez da fitxategirik hautatu"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "Gomendatua"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "Arriskua: cookies.txt batek nabigatzaile horretako saio hasi guztiak dauzka — mantendu pribatu."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "Nabigatzailea"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Esploratu fitxako saioa"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "Fitxategia"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Cookie-en iturria"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "Desaktibatuta"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "Lagungarria adin-murrizketa duten, bazkideentzako eta kontu pribatuko bideoetarako."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Deskarga handiak bizkortzen ditu bideo baten hainbat zati aldi berean eskuratuz. Balio altuagoek gune batek mugatzeko aukera handitzen dute."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "Deskarga-konexioak"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "konexio"
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "Audioa soilik"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "Azpitituluak"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "2000+ gune"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "Musika-zerrendak"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "Bideoak"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "Bideo-zerrendak"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Arroxy-k deskarga dezakeena"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "Kanalak"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "Musika"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "Erreprodukzio-zerrendak"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Podcastak"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "Bideoak"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr "Urratsez urratseko morroia. Aukeratu formatua, kalitatea eta gehiago."
+
+msgctxt "wizard.url.heading"
+msgid "Download from URL"
+msgstr "Deskargatu URL batetik"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Aldatu lasterbidea"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Lasterbide hau beste aplikazio batek hartuta dauka — aukeratu beste bat."
+
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "Edo sakatu"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "Kopiatu bideo-esteka bat edonon, sakatu lasterbide hau eta Arroxy-k zure profil aktiboarekin jarriko du ilaran — leihoz aldatu beharrik gabe."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "Aldatu edo desaktibatu Ezarpenetan."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Sakatu teklak…"
+
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "Berrezarri lehenetsia"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Deskargatu kopiatzen duzun edozein esteka, edozein aplikaziotatik, Arroxy ireki gabe."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Tekla-lasterbide globala"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Probatu"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Gaitu tekla-lasterbide globala"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Sakatu lasterbidea bideo-esteka bat arbelean duzula."
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "Deskarga interaktiboa"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "Deskarga aktiboek uneko muga mantentzen dute. Eten + Berrekin aldaketak aplikatzeko."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "Pertsonalizatua…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "adib. 750K edo 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "Mugatu multimedia-deskargen banda-zabalera. Beheko eskaeren erritmoa izan ohi da abiadura-muga eraginkorrena."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "Erabili zenbaki bat, ondoren K edo M (adib. 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "Deskarga-abiaduraren muga"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "Desaktibatuta"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "Atzeko planoan deskargatzen… zeregin asko batera egin ditzaket 😎"
+
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "Deskarga bizkorrak kargatutako elementuak ilaran jartzen ditu profil honekin: {{profileName}}. Interaktiboak elementuak aurretik aztertzen edo hautatzen uzten dizu."
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "Jaregin esteka bat eta utzi Arroxy-ri deskargatzen ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Esteka honek bilduma bateko bideo bat adierazten du. Arroxy-k galdetuko du zein nahi duzun aztertu aurretik."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} esteka hau irakurtzen ari da eta profil hau aplikatzen: {{profileName}}."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "Ilara deskarga hau kudeatzen ari da. Beste esteka bat itsats dezakezu lanean ari den bitartean."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "Deskarga bizkorrak deskarga bat hasten du profil honekin: {{profileName}}. Erabili Interaktiboa behin-behineko aldaketetarako."
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "Estereo bateragarria"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "Estereoa edo inguruko audioa, profil batek jatorrizko audioa aukeratzen duenean. Profil batek gainidatzi dezake."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "Jatorrizko audioaren lehentasuna"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "Lehenetsi inguruko audioa / Dolby"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Gehitu itxaronaldi txikiak deskarga bakoitzean, Arroxy-k gunea gehiegi ez estutzeko. Balioak segundotan daude."
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "Eten multimedia hasi aurretik: gehienez"
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "Eten multimedia hasi aurretik: gutxienez"
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "Itxaron metadatu-egiaztapenen artean"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "Itxaron azpititulu-fitxategien aurretik"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "Deskarga leunak"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Zenbateko kontuz ibili behar du Arroxy-k?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "Orekatua"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "Zuhurra"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "Pertsonalizatua"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "Desaktibatuta"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Itxaronaldiak: {{requests}} egiaztapenen artean, {{downloads}} multimedia hasi aurretik, {{subtitles}} azpititulu-fitxategien aurretik."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Itxaronaldi hauek deskarga bakoitzaren barruan gertatzen dira. Aldi berean zenbat deskarga exekutatzen diren bereizita ezartzen da, Aldi berako deskargak atalean."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "Lehenetsia. Eten labur batzuk gehitzen ditu eskaeren artean eta multimedia hasi aurretik."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "Eten luzeagoak gehitzen ditu erreprodukzio-zerrenda handietarako edo maiz mugetara iristen diren sareetarako."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "Doitu zuk zeuk deskarga bakoitzeko kontrol aurreratuak."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Arroxy-k multimedia eta azpitituluetarako gordetzen dituen oinarrizko eten txikiak soilik erabiltzen ditu."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "s"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "Uneko muga: {{count}} elementu"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "Pertsonalizatua…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "Utzi"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "Erabili {{min}} eta {{max}} arteko zenbaki osoa."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "Gorde muga"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "Erreprodukzio-zerrendaren azterketa-muga pertsonalizatua"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "Pertsonalizatua: {{count}} elementu"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Arroxy-k erreprodukzio-zerrenda, kanal edo bilaketa-emaitza bat irekitzean kargatzen duen gehieneko sarrera kopurua."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "Erabili 1 eta 5000 arteko zenbaki osoa"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "Aztertzeko erreprodukzio-zerrendako elementuak"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} elementu"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Arroxy-k erreprodukzio-zerrenda, kanal edo bilaketa-sarrera kopuru hau bakarrik eskatzen du hautatzailea eraikitzean."
+
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "Erabili aplikazioaren muga: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "Aplikatu"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "Ezin izan da erreprodukzio-zerrendaren irismen hori aplikatu: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "Aplikatu eta birkargatu"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "Utzi"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "Aldatu"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy loads for this playlist."
+msgstr "Aukeratu Arroxy-k erreprodukzio-zerrenda honetatik zer kargatzen duen."
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "Erreprodukzio-zerrendaren irismena"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "Ez dago bideorik irismen horretan"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "Lehenengoak"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "Erabili 1 eta {{max}} arteko elementu-zenbaki osoak, hasiera amaiera baino handiagoa izan gabe."
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "Kargatzeko elementuak"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "Erreprodukzio-zerrendaren irismena"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "Tartea"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "Birkargatzen..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "Berrezarri"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first items: {{count}}"
+msgstr "Kargatu lehenengo elementuak: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first items: {{count}}"
+msgstr "Kargatu lehenengo elementuak: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "Kargatu elementuak: {{from}}-{{to}}"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "arte"
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Profil aktiboa"
+
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Integratua"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Pertsonalizatua"
+
+msgctxt "wizard.url.profile.badgeDisabled"
+msgid "Hidden"
+msgstr "Ezkutua"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Aldatua"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Aldatu helburu orokorra"
+
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Helburu orokorra erabiltzen"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Helburu orokorra + profilaren azpikarpeta erabiltzen"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Profilaren gainidazketa erabiltzen"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Profilaren gainidazketa + profilaren azpikarpeta erabiltzen"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Helburua"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Editatu"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Editatu profil aktiboa"
+
+msgctxt "wizard.url.profile.enableHint"
+msgid "Hidden profiles stay here but disappear from every profile picker."
+msgstr "Ezkutuko profilak hemen geratzen dira baina profil-hautatzaile guztietatik desagertzen dira."
+
+msgctxt "wizard.url.profile.enableToggleAria"
+msgid "Show profile in pickers: {{profileName}}"
+msgstr "Erakutsi profila hautatzaileetan: {{profileName}}"
+
+msgctxt "wizard.url.profile.lastEnabledHint"
+msgid "Keep at least one profile available."
+msgstr "Mantendu gutxienez profil bat erabilgarri."
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Kudeatu profilak"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Aldatu Deskarga bizkorreko, URL masiboetako eta erreprodukzio-zerrendetako profil aktiboa."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Aldatu profila"
+
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "profil mugigarria"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "Mugimendua bertan behera utzi da. {{profileName}} bere posizioan geratzen da: {{position}} / {{count}}."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "Jaregin da: {{profileName}}. Posizioa: {{position}} / {{count}}."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "Mugitu: {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Profil bat mugitzeko, sakatu Zuriunea edo Sartu, mugitu geziekin, eta sakatu Zuriunea edo Sartu jaregiteko. Sakatu Ihes bertan behera uzteko."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "Gainean: {{profileName}}, posizioa: {{position}} / {{count}}."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "Hartu da: {{profileName}}. Posizioa: {{position}} / {{count}}."
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Profil berria"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Sortu, hautatu, editatu edo kendu berrerabil daitezkeen deskarga-konfigurazioak."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Deskarga-profilak"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Kendu"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "Arrastatu profil bat mugitzeko. Profil-hautatzaile guztiek ordena hau jarraitzen dute."
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Berrezarri"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "AAC audioa"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "audio onena"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "bideo onena"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "audiorik gabe"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "azpitituluak soilik"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "WAV audioa"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Aldatu deskarga-profila: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Aldatu deskarga-profila"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "Garbitu"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "Bideratu trafikoa proxy baten bidez — geoblokeatutako edukirako erabilgarria."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "Proxy URLa"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "URL horietako bat ere ezin izan da prestatu"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick Download"
+msgstr "Deskarga bizkorra"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Will download using: {{profileName}}"
+msgstr "Honekin deskargatuko da: {{profileName}}"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "Ezin izan da hau gehitu: {{error}}"
+
+#. Plural form "one" for eu: used for counts like 1.
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "Funtzionatu duena ilaran jarri da. {{count}} URL ezin izan da prestatu."
+
+#. Plural form "other" for eu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Funtzionatu duena ilaran jarri da. {{count}} URL ezin izan dira prestatu."
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "Ilarako elementua ezin izan da prestatu"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "Prestatzen"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "Azterketak huts egin du"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "Ilarara gehitu da"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "Itsatsi bideo-, erreprodukzio-zerrenda-, kanal- edo bilaketa-URL bat hasteko."
+
+msgctxt "wizard.url.settings.behaviorDescription"
+msgid "Global behavior that affects profile-driven downloads too."
+msgstr "Profiletan oinarritutako deskargei ere eragiten dien portaera orokorra."
+
+msgctxt "wizard.url.settings.behaviorHeading"
+msgid "Download behavior"
+msgstr "Deskargen portaera"
+
+msgctxt "wizard.url.settings.inputHeading"
+msgid "Input"
+msgstr "Sarrera"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Beirazko panelak zeru higikor baten gainean. Grafiko-azelerazioa behar du."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Gainazal solido eta lasaiak. Arin dabil edozein ordenagailutan."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Minimal"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Bi estiloak modu argian eta ilunean daude."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Estiloa"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Arroxy-k nolako itxura duen. Aldatu modu argi eta ilunaren artean oinean."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Itxura"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "Hautatutako estiloak ({{style}}) grafiko-azelerazioa behar du, eta ez dago erabilgarri orain, beraz Arroxy-k hau erakusten du: {{fallback}}."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Profilak"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Ezarpenak"

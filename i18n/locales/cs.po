@@ -1,0 +1,5386 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Arroxy\n"
+"Report-Msgid-Bugs-To: https://github.com/antonio-orionus/Arroxy/issues\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "about.button"
+msgid "About"
+msgstr "O aplikaci"
+
+msgctxt "about.githubLink"
+msgid "GitHub"
+msgstr "GitHub"
+
+msgctxt "about.licenseLine"
+msgid "GPLv3 · by Antonio Orionus"
+msgstr "GPLv3 · od Antonia Orionuse"
+
+msgctxt "about.openTitle"
+msgid "About Arroxy"
+msgstr "O aplikaci Arroxy"
+
+msgctxt "about.tagline"
+msgid "Fast, friendly downloader for YouTube and 2000+ other sites."
+msgstr "Rychlý a přátelský nástroj ke stahování z YouTube a více než 2000 dalších webů."
+
+msgctxt "about.thirdPartyNotices"
+msgid "View third-party notices"
+msgstr "Zobrazit upozornění ke komponentám třetích stran"
+
+msgctxt "about.websiteLink"
+msgid "Website"
+msgstr "Web"
+
+msgctxt "aiUpscaled.allow"
+msgid "Allow"
+msgstr "Povolit"
+
+msgctxt "aiUpscaled.description"
+msgid "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand."
+msgstr "YouTube nabízí některá stará videa ve velikostech vytvořených pomocí AI. Možnost Přeskočit ponechá původní streamy; ručně můžete stále vybrat i AI zvětšený stream."
+
+msgctxt "aiUpscaled.label"
+msgid "AI-upscaled streams"
+msgstr "Streamy zvětšené pomocí AI"
+
+msgctxt "aiUpscaled.skip"
+msgid "Skip"
+msgstr "Přeskočit"
+
+msgctxt "app.feedback"
+msgid "Feedback"
+msgstr "Zpětná vazba"
+
+msgctxt "app.feedbackNudge"
+msgid "Enjoying Arroxy? I'd love to hear from you! 💬"
+msgstr "Líbí se vám Arroxy? Budu rád za vaši zpětnou vazbu! 💬"
+
+msgctxt "app.logs"
+msgid "Logs"
+msgstr "Protokoly"
+
+msgctxt "app.saveDiagnostics"
+msgid "Save diagnostics file"
+msgstr "Uložit diagnostický soubor"
+
+msgctxt "app.saveDiagnosticsDescription"
+msgid "Puts your logs and app details into one file in Downloads, ready to attach to a GitHub issue. Your user folder name is removed; video links and titles stay."
+msgstr "Uloží protokoly a údaje o aplikaci do jednoho souboru ve složce Stažené soubory, který můžete připojit k hlášení na GitHubu. Název vaší uživatelské složky se odstraní; odkazy na videa a názvy zůstanou."
+
+msgctxt "app.styleHint"
+msgid "New: choose Aurora or Minimal here"
+msgstr "Novinka: zde vyberte Aurora nebo Minimal"
+
+msgctxt "app.theme"
+msgid "Theme"
+msgstr "Motiv"
+
+msgctxt "app.zoomIn"
+msgid "Zoom in"
+msgstr "Přiblížit"
+
+msgctxt "app.zoomOut"
+msgid "Zoom out"
+msgstr "Oddálit"
+
+msgctxt "common.back"
+msgid "Back"
+msgstr "Zpět"
+
+msgctxt "common.cancel"
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgctxt "common.close"
+msgid "Close"
+msgstr "Zavřít"
+
+msgctxt "common.continue"
+msgid "Continue"
+msgstr "Pokračovat"
+
+msgctxt "common.dismiss"
+msgid "Dismiss"
+msgstr "Zavřít"
+
+msgctxt "common.loading"
+msgid "Loading"
+msgstr "Načítání"
+
+msgctxt "common.retry"
+msgid "Retry"
+msgstr "Zkusit znovu"
+
+msgctxt "common.startOver"
+msgid "Start over"
+msgstr "Začít znovu"
+
+msgctxt "dialogs.closeToTray.detail"
+msgid "Arroxy keeps running and finishes active downloads. Change this later in Advanced settings."
+msgstr "Arroxy zůstane spuštěné a dokončí probíhající stahování. Můžete to později změnit v pokročilém nastavení."
+
+msgctxt "dialogs.closeToTray.hide"
+msgid "Hide to tray"
+msgstr "Skrýt do lišty"
+
+msgctxt "dialogs.closeToTray.message"
+msgid "Hide Arroxy to the system tray when closing?"
+msgstr "Skrýt Arroxy při zavření do systémové lišty?"
+
+msgctxt "dialogs.closeToTray.quit"
+msgid "Quit"
+msgstr "Ukončit"
+
+msgctxt "dialogs.closeToTray.remember"
+msgid "Don't ask again"
+msgstr "Už se neptat"
+
+msgctxt "dialogs.quitWithActiveDownloads.confirm"
+msgid "Cancel Downloads & Quit"
+msgstr "Zrušit stahování a ukončit"
+
+msgctxt "dialogs.quitWithActiveDownloads.detail"
+msgid "Pause to resume later, or cancel to discard progress."
+msgstr "Pozastavte stahování a pokračujte později, nebo je zrušte a zahoďte průběh."
+
+msgctxt "dialogs.quitWithActiveDownloads.keep"
+msgid "Keep Downloading"
+msgstr "Pokračovat ve stahování"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "dialogs.quitWithActiveDownloads.message_few"
+msgid "{{count}} downloads in progress"
+msgstr "Probíhají {{count}} stahování"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "dialogs.quitWithActiveDownloads.message_many"
+msgid "{{count}} downloads in progress"
+msgstr "Probíhá {{count}} stahování"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "dialogs.quitWithActiveDownloads.message_one"
+msgid "{{count}} download in progress"
+msgstr "Probíhá {{count}} stahování"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "dialogs.quitWithActiveDownloads.message_other"
+msgid "{{count}} downloads in progress"
+msgstr "Probíhá {{count}} stahování"
+
+msgctxt "dialogs.quitWithActiveDownloads.pause"
+msgid "Pause Downloads & Quit"
+msgstr "Pozastavit stahování a ukončit"
+
+msgctxt "dialogs.rendererCrashed.detail"
+msgid "The renderer process crashed ({{reason}}). Reload to try again."
+msgstr "Proces vykreslování selhal ({{reason}}). Zkuste to znovu opětovným načtením."
+
+msgctxt "dialogs.rendererCrashed.message"
+msgid "Arroxy encountered a problem"
+msgstr "V aplikaci Arroxy došlo k potížím"
+
+msgctxt "dialogs.rendererCrashed.quit"
+msgid "Quit"
+msgstr "Ukončit"
+
+msgctxt "dialogs.rendererCrashed.reload"
+msgid "Reload"
+msgstr "Načíst znovu"
+
+msgctxt "donate.copied"
+msgid "Copied!"
+msgstr "Zkopírováno!"
+
+msgctxt "donate.copyAddress"
+msgid "Copy address"
+msgstr "Kopírovat adresu"
+
+msgctxt "donate.description"
+msgid "Arroxy is free and open-source, with no ads or paid tier. Donations are optional and buy no influence over the roadmap."
+msgstr "Arroxy je zdarma a s otevřeným zdrojovým kódem, bez reklam a placené verze. Dary jsou dobrovolné a nezískáte jimi žádný vliv na plán vývoje."
+
+msgctxt "donate.footerLabel"
+msgid "Donate"
+msgstr "Přispět"
+
+msgctxt "donate.footerTooltip"
+msgid "Support Arroxy"
+msgstr "Podpořit Arroxy"
+
+msgctxt "donate.qrAlt"
+msgid "{{coin}} donation address QR code"
+msgstr "QR kód adresy pro dar v {{coin}}"
+
+msgctxt "donate.title"
+msgid "Support Arroxy"
+msgstr "Podpořit Arroxy"
+
+msgctxt "donate.warning"
+msgid "Crypto payments are irreversible. Send only on the network shown, and compare the whole address."
+msgstr "Platby v kryptoměnách jsou nevratné. Posílejte jen v zobrazené síti a zkontrolujte celou adresu."
+
+msgctxt "errors.noSubtitlesIn"
+msgid "This video has no subtitles in {{languages}}."
+msgstr "Toto video nemá titulky v jazycích: {{languages}}."
+
+msgctxt "errors.ytdlp.ageRestricted"
+msgid "This video is age-restricted and cannot be downloaded without a signed-in account."
+msgstr "Toto video je omezeno věkem a nelze jej stáhnout bez přihlášeného účtu."
+
+msgctxt "errors.ytdlp.botBlock"
+msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Zasáhla ochrana proti robotům. Vaše IP adresa je pravděpodobně označena (rozsah datacentra nebo vytížený výstup VPN). Změňte IP adresu nebo zvolte jiný koncový bod VPN a zkuste to znovu. Pokud to stále selhává, může jít o dočasnou změnu na straně webu – Arroxy při spuštění aktualizuje stahovací modul, takže oprava dorazí automaticky, jakmile bude vydána."
+
+msgctxt "errors.ytdlp.chunkTransferFailure"
+msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
+msgstr "Server opakovaně přerušoval stahování uprostřed přenosu a Arroxy se po několika pokusech vzdalo. Obvykle se to týká největších formátů videa (4K HDR / VP9 s vysokým datovým tokem). Zkuste to znovu, změňte síť či VPN, nebo vyberte formát s nižším rozlišením."
+
+msgctxt "errors.ytdlp.drmProtected"
+msgid "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded."
+msgstr "Toto video je chráněno DRM. Arroxy DRM odstranit neumí, proto soubor nelze stáhnout."
+
+msgctxt "errors.ytdlp.geoBlocked"
+msgid "This video is not available in your region."
+msgstr "Toto video není ve vaší oblasti dostupné."
+
+msgctxt "errors.ytdlp.ipBlock"
+msgid "Your IP address appears to be blocked. Try again later or use a VPN."
+msgstr "Vaše IP adresa je zřejmě zablokována. Zkuste to později nebo použijte VPN."
+
+msgctxt "errors.ytdlp.loginRequired"
+msgid "This video needs a signed-in account."
+msgstr "Toto video vyžaduje přihlášený účet."
+
+msgctxt "errors.ytdlp.missingDependency"
+msgid "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download."
+msgstr "Arroxy nenašlo FFmpeg ani FFprobe. Spusťte nastavení znovu nebo zadejte umístění FFmpeg a poté stahování zopakujte."
+
+msgctxt "errors.ytdlp.network"
+msgid "Network error. Check your connection and retry."
+msgstr "Chyba sítě. Zkontrolujte připojení a zkuste to znovu."
+
+msgctxt "errors.ytdlp.noSubtitles"
+msgid "This video has no subtitles in the requested languages."
+msgstr "Toto video nemá titulky v požadovaných jazycích."
+
+msgctxt "errors.ytdlp.outOfDiskSpace"
+msgid "Not enough disk space. Free up space and retry."
+msgstr "Nedostatek místa na disku. Uvolněte místo a zkuste to znovu."
+
+msgctxt "errors.ytdlp.outputNotWritable"
+msgid "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry."
+msgstr "Arroxy nemůže zapisovat do složky pro stahování. Může být jen pro čtení, na uzamčeném disku nebo blokovaná nastavením soukromí systému. Zvolte jinou složku nebo povolte přístup a zkuste to znovu."
+
+msgctxt "errors.ytdlp.parse"
+msgid "Couldn't parse the response from the site. The site may have changed how it serves videos. Arroxy updates its download engine on launch — retry in a few minutes once the fix ships."
+msgstr "Odpověď webu se nepodařilo zpracovat. Web možná změnil způsob poskytování videí. Arroxy při spuštění aktualizuje stahovací modul – zkuste to znovu za několik minut, až bude oprava vydána."
+
+msgctxt "errors.ytdlp.postprocessFailure"
+msgid "The download finished, but post-processing (merge / mux / convert) failed. Often this is a transient ffmpeg issue — retry, and if it persists try a different format combination."
+msgstr "Stahování skončilo, ale následné zpracování (sloučení / mux / převod) selhalo. Často jde o přechodný problém s ffmpeg – zkuste to znovu a pokud potíže přetrvávají, vyzkoušejte jinou kombinaci formátů."
+
+msgctxt "errors.ytdlp.rateLimit"
+msgid "The site is rate-limiting requests from this connection."
+msgstr "Web omezuje počet požadavků z tohoto připojení."
+
+msgctxt "errors.ytdlp.unavailable"
+msgid "This video is unavailable — it may be private, deleted, or region-locked."
+msgstr "Toto video je nedostupné – může být soukromé, smazané nebo omezené na určitou oblast."
+
+msgctxt "errors.ytdlp.unknown"
+msgid "Download failed. See the raw output below."
+msgstr "Stahování se nezdařilo. Podívejte se na nezpracovaný výstup níže."
+
+msgctxt "errors.ytdlp.unsupportedUrl"
+msgid "Arroxy doesn't support this URL. Try a link from a different site."
+msgstr "Arroxy tuto adresu URL nepodporuje. Zkuste odkaz z jiného webu."
+
+msgctxt "explore.error.loadBody"
+msgid "Check your connection, then try again."
+msgstr "Zkontrolujte připojení a zkuste to znovu."
+
+msgctxt "explore.error.loadTitle"
+msgid "This page didn't load"
+msgstr "Tato stránka se nenačetla"
+
+msgctxt "explore.error.openSettings"
+msgid "Open Settings"
+msgstr "Otevřít nastavení"
+
+msgctxt "explore.error.proxyBody"
+msgid "Check the proxy in Settings, then try again."
+msgstr "Zkontrolujte proxy server v nastavení a zkuste to znovu."
+
+msgctxt "explore.error.proxyTitle"
+msgid "Explore can't connect through your proxy"
+msgstr "Procházení se nemůže připojit přes váš proxy server"
+
+msgctxt "explore.error.retry"
+msgid "Retry"
+msgstr "Zkusit znovu"
+
+msgctxt "explore.linkCallout.body"
+msgid "Right-click any video, playlist or channel link on the page to download it with your active profile, pick another profile, or open the step-by-step flow."
+msgstr "Klikněte pravým tlačítkem na libovolný odkaz na video, playlist nebo kanál na stránce. Můžete jej stáhnout s aktivním profilem, vybrat jiný profil nebo otevřít postup krok za krokem."
+
+msgctxt "explore.linkCallout.title"
+msgid "Right-click a link to download it"
+msgstr "Odkaz stáhnete pravým tlačítkem"
+
+msgctxt "explore.linkMenu.copyLink"
+msgid "Copy link"
+msgstr "Kopírovat odkaz"
+
+msgctxt "explore.linkMenu.downloadWith"
+msgid "Download with"
+msgstr "Stáhnout s profilem"
+
+msgctxt "explore.newBadge"
+msgid "New"
+msgstr "Nové"
+
+msgctxt "explore.notice.body"
+msgid "Find a video on YouTube or any other site and download it from here — no copying links. Sign in to a site here to download videos that need an account."
+msgstr "Najděte video na YouTube nebo jiném webu a stáhněte je přímo odsud – bez kopírování odkazů. Přihlaste se zde k webu, abyste mohli stahovat videa, která vyžadují účet."
+
+msgctxt "explore.notice.continue"
+msgid "Continue"
+msgstr "Pokračovat"
+
+msgctxt "explore.notice.riskBody"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts used with download tools like Arroxy. Use an account you can afford to lose, not your main one."
+msgstr "Weby jako YouTube mohou účty používané s nástroji ke stahování, jako je Arroxy, označit – a někdy i zablokovat. Použijte účet, o který se nebojíte přijít, ne ten hlavní."
+
+msgctxt "explore.notice.riskTitle"
+msgid "Sign in with a secondary account"
+msgstr "Přihlaste se vedlejším účtem"
+
+msgctxt "explore.notice.title"
+msgid "Browse the web right inside Arroxy"
+msgstr "Procházejte web přímo v Arroxy"
+
+msgctxt "explore.nudge.browser"
+msgid "Downloads use your browser's cookies, not your Explore sign-in."
+msgstr "Stahování používá cookies z vašeho prohlížeče, ne přihlášení v Procházení."
+
+msgctxt "explore.nudge.file"
+msgid "Downloads use your cookies file, not your Explore sign-in."
+msgstr "Stahování používá váš soubor cookies, ne přihlášení v Procházení."
+
+msgctxt "explore.nudge.notNow"
+msgid "Not now"
+msgstr "Teď ne"
+
+msgctxt "explore.nudge.off"
+msgid "Cookies are off, so downloads don't use your Explore sign-in."
+msgstr "Cookies jsou vypnuté, takže stahování nepoužívá přihlášení v Procházení."
+
+msgctxt "explore.nudge.useExplore"
+msgid "Use Explore sign-in"
+msgstr "Použít přihlášení v Procházení"
+
+msgctxt "explore.settings.description"
+msgid "Browse YouTube or any other site inside Arroxy, and sign in for videos that need an account."
+msgstr "Procházejte YouTube nebo jakýkoli jiný web přímo v Arroxy a přihlaste se pro videa, která vyžadují účet."
+
+msgctxt "explore.settings.idleUnload"
+msgid "Free memory while away"
+msgstr "Uvolnit paměť při nečinnosti"
+
+msgctxt "explore.settings.idleUnloadDescription"
+msgid "After 5 minutes on another tab, closes the YouTube home or search page. Coming back reloads it, which takes a few seconds."
+msgstr "Po 5 minutách na jiné kartě zavře domovskou stránku YouTube nebo stránku s výsledky hledání. Po návratu se znovu načte, což trvá několik sekund."
+
+msgctxt "explore.settings.searchEngine"
+msgid "Search engine"
+msgstr "Vyhledávač"
+
+msgctxt "explore.settings.searchEngineDescription"
+msgid "Where text typed in the address bar is searched. Links open as typed."
+msgstr "Kde se hledá text zadaný do adresního řádku. Odkazy se otevřou tak, jak jsou zadány."
+
+msgctxt "explore.settings.showTab"
+msgid "Show the Explore tab"
+msgstr "Zobrazit kartu Procházení"
+
+msgctxt "explore.settings.showTabDescription"
+msgid "Turning it off also stops downloads from using your Explore sign-in."
+msgstr "Po vypnutí stahování přestane používat také vaše přihlášení v Procházení."
+
+msgctxt "explore.settings.signOut"
+msgid "Sign out of Explore"
+msgstr "Odhlásit se z Procházení"
+
+msgctxt "explore.settings.signOutConfirm"
+msgid "Sign out"
+msgstr "Odhlásit se"
+
+msgctxt "explore.settings.signOutConfirmBody"
+msgid "This clears your sign-ins and browsing data in Explore, on every site. Downloads that need an account will fail until you sign in again."
+msgstr "Tím se v Procházení smažou vaše přihlášení a data prohlížení na všech webech. Stahování, které vyžaduje účet, bude selhávat, dokud se znovu nepřihlásíte."
+
+msgctxt "explore.settings.signOutConfirmTitle"
+msgid "Sign out of Explore?"
+msgstr "Odhlásit se z Procházení?"
+
+msgctxt "explore.settings.signOutDescription"
+msgid "Clears your sign-ins and browsing data in Explore, on every site."
+msgstr "Smaže vaše přihlášení a data prohlížení v Procházení na všech webech."
+
+msgctxt "explore.settings.title"
+msgid "Explore"
+msgstr "Procházení"
+
+msgctxt "explore.tabLabel"
+msgid "Explore"
+msgstr "Procházení"
+
+msgctxt "explore.toolbar.adBlock.accountNote"
+msgid "YouTube may push back on ad blockers for signed-in accounts."
+msgstr "YouTube může u přihlášených účtů blokovače reklam omezovat."
+
+msgctxt "explore.toolbar.adBlock.aria"
+msgid "Ad blocker"
+msgstr "Blokování reklam"
+
+msgctxt "explore.toolbar.adBlock.off"
+msgid "Ad blocker: off — click to turn on"
+msgstr "Blokování reklam: vypnuto – kliknutím zapnete"
+
+msgctxt "explore.toolbar.adBlock.on"
+msgid "Ad blocker: on — click to turn off"
+msgstr "Blokování reklam: zapnuto – kliknutím vypnete"
+
+msgctxt "explore.toolbar.adBlock.starting"
+msgid "Ad blocker: starting — click to turn off"
+msgstr "Blokování reklam: spouští se – kliknutím vypnete"
+
+msgctxt "explore.toolbar.adBlock.unavailable"
+msgid "Ad blocker: unavailable, its filter lists couldn't be downloaded — click to turn off"
+msgstr "Blokování reklam: nedostupné, nepodařilo se stáhnout jeho seznamy filtrů – kliknutím vypnete"
+
+msgctxt "explore.toolbar.addressAria"
+msgid "Address"
+msgstr "Adresa"
+
+msgctxt "explore.toolbar.addressPlaceholder"
+msgid "Search {{engine}} or open any site (Vimeo, Instagram…)"
+msgstr "Hledejte v {{engine}} nebo otevřete libovolný web (Vimeo, Instagram…)"
+
+msgctxt "explore.toolbar.aria"
+msgid "Explore browser controls"
+msgstr "Ovládací prvky Procházení"
+
+msgctxt "explore.toolbar.back"
+msgid "Back"
+msgstr "Zpět"
+
+msgctxt "explore.toolbar.compactLayout"
+msgid "Compact layout"
+msgstr "Kompaktní rozložení"
+
+msgctxt "explore.toolbar.downloadWithProfile"
+msgid "Download · {{profileName}}"
+msgstr "Stáhnout · {{profileName}}"
+
+msgctxt "explore.toolbar.forward"
+msgid "Forward"
+msgstr "Vpřed"
+
+msgctxt "explore.toolbar.fullLayout"
+msgid "Show full layout"
+msgstr "Zobrazit úplné rozložení"
+
+msgctxt "explore.toolbar.grabUnavailable"
+msgid "Open a video, playlist, or channel to download it"
+msgstr "Otevřete video, playlist nebo kanál, který chcete stáhnout"
+
+msgctxt "explore.toolbar.home"
+msgid "YouTube home"
+msgstr "Domovská stránka YouTube"
+
+msgctxt "explore.toolbar.interactiveHint"
+msgid "Interactive Download: choose format, subtitles and more…"
+msgstr "Interaktivní stahování: výběr formátu, titulků a další…"
+
+msgctxt "explore.toolbar.refusedHint"
+msgid "Explore can't open that address."
+msgstr "Procházení tuto adresu nemůže otevřít."
+
+msgctxt "explore.toolbar.reload"
+msgid "Reload"
+msgstr "Načíst znovu"
+
+msgctxt "explore.toolbar.searchTooLong"
+msgid "That search is too long."
+msgstr "Hledaný výraz je příliš dlouhý."
+
+msgctxt "explore.toolbar.zoom.hint"
+msgid "Page zoom: {{percent}}%"
+msgstr "Přiblížení stránky: {{percent}} %"
+
+msgctxt "explore.toolbar.zoom.in"
+msgid "Zoom in"
+msgstr "Přiblížit"
+
+msgctxt "explore.toolbar.zoom.label"
+msgid "Page zoom"
+msgstr "Přiblížení stránky"
+
+msgctxt "explore.toolbar.zoom.out"
+msgid "Zoom out"
+msgstr "Oddálit"
+
+msgctxt "explore.toolbar.zoom.percent"
+msgid "Zoom percent"
+msgstr "Procento přiblížení"
+
+msgctxt "explore.toolbar.zoom.reset"
+msgid "Reset zoom to 100%"
+msgstr "Obnovit přiblížení na 100 %"
+
+msgctxt "filenameTemplate.description"
+msgid "Choose how downloaded files are named. Click a token to insert it. Use / to sort downloads into folders."
+msgstr "Zvolte, jak se budou stažené soubory jmenovat. Kliknutím na token jej vložíte. Pomocí / můžete stahování třídit do složek."
+
+msgctxt "filenameTemplate.error.empty"
+msgid "Enter a filename template."
+msgstr "Zadejte šablonu názvu souboru."
+
+msgctxt "filenameTemplate.error.empty-segment"
+msgid "Remove the extra / — every folder needs a name."
+msgstr "Odstraňte nadbytečné / – každá složka musí mít název."
+
+msgctxt "filenameTemplate.error.forbidden-char"
+msgid "Remove characters that aren't allowed in filenames: \\ : * ? \" < > |"
+msgstr "Odstraňte znaky, které nejsou v názvech souborů povoleny: \\ : * ? \" < > |"
+
+msgctxt "filenameTemplate.error.invalid-segment"
+msgid "That folder name isn't allowed. Avoid . and .. and reserved names like CON."
+msgstr "Tento název složky není povolen. Vyhněte se . a .. a vyhrazeným názvům, například CON."
+
+msgctxt "filenameTemplate.error.no-unique-token"
+msgid "Add {title} or {id} to the filename so each download gets its own name."
+msgstr "Přidejte do názvu souboru {title} nebo {id}, aby každé stahování dostalo vlastní název."
+
+msgctxt "filenameTemplate.error.resolution-in-dir"
+msgid "{resolution} can't name a folder — the quality isn't known until the download starts."
+msgstr "{resolution} nelze použít jako název složky – kvalita není známa, dokud stahování nezačne."
+
+msgctxt "filenameTemplate.error.stray-brace"
+msgid "Unmatched { or } — wrap tokens like {title}."
+msgstr "Nespárované { nebo } – tokeny jako {title} uzavřete do složených závorek."
+
+msgctxt "filenameTemplate.error.too-long"
+msgid "Template is too long."
+msgstr "Šablona je příliš dlouhá."
+
+msgctxt "filenameTemplate.error.unknown-token"
+msgid "Unknown token {{token}}."
+msgstr "Neznámý token {{token}}."
+
+msgctxt "filenameTemplate.idWarning"
+msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
+msgstr "Bez {id} Arroxy nepozná již stažené položky playlistu a nemůže vytvářet playlisty .m3u."
+
+msgctxt "filenameTemplate.label"
+msgid "Filename template"
+msgstr "Šablona názvu souboru"
+
+msgctxt "filenameTemplate.m3uDisabled"
+msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
+msgstr "Nedostupné, protože vaše šablona názvu souboru neobsahuje {id} nebo třídí stahování do složek."
+
+msgctxt "filenameTemplate.previewPlaylist"
+msgid "In a playlist"
+msgstr "V playlistu"
+
+msgctxt "filenameTemplate.previewSingle"
+msgid "Single video"
+msgstr "Jedno video"
+
+msgctxt "filenameTemplate.profileOverrideDescription"
+msgid "Leave empty to inherit the global template."
+msgstr "Ponechte prázdné, aby se použila globální šablona."
+
+msgctxt "filenameTemplate.profileOverrideLabel"
+msgid "Filename template"
+msgstr "Šablona názvu souboru"
+
+msgctxt "fileType.auto"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "fileType.autoValue"
+msgid "Auto (.{{ext}})"
+msgstr "Auto (.{{ext}})"
+
+msgctxt "fileType.description.auto"
+msgid "The picked streams decide the file type."
+msgstr "Typ souboru určují vybrané streamy."
+
+msgctxt "fileType.description.mkv"
+msgid "Holds any codec. Some TVs and phones can't open it."
+msgstr "Pojme jakýkoli kodek. Některé televize a telefony jej neotevřou."
+
+msgctxt "fileType.description.mp4"
+msgid "Plays almost everywhere. VP9 in an MP4 won't play video in QuickTime."
+msgstr "Přehraje se téměř všude. VP9 v MP4 se v QuickTime nepřehraje jako video."
+
+msgctxt "fileType.description.webm"
+msgid "Open format for browsers. Holds only VP9 or AV1 with Opus."
+msgstr "Otevřený formát pro prohlížeče. Pojme jen VP9 nebo AV1 s Opus."
+
+msgctxt "fileType.mkv"
+msgid "MKV"
+msgstr "MKV"
+
+msgctxt "fileType.mp4"
+msgid "MP4"
+msgstr "MP4"
+
+msgctxt "fileType.mp4CaveatAv1"
+msgid "AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere."
+msgstr "AV1 v MP4 vyžaduje pro přehrání v QuickTime novější Mac. H.264 se přehraje všude."
+
+msgctxt "fileType.mp4CaveatVp9"
+msgid "VP9 in an MP4 won't play video in QuickTime. H.264 plays everywhere."
+msgstr "VP9 v MP4 se v QuickTime nepřehraje jako video. H.264 se přehraje všude."
+
+msgctxt "fileType.profileMark"
+msgid "Profile"
+msgstr "Profil"
+
+msgctxt "fileType.smartTvNoWebm"
+msgid "WebM isn't offered with Smart TV: it can't hold H.264."
+msgstr "WebM se u profilu Smart TV nenabízí: nemůže obsahovat H.264."
+
+msgctxt "fileType.webm"
+msgid "WebM"
+msgstr "WebM"
+
+msgctxt "fileType.webmBlocked"
+msgid "WebM can't hold {{codec}}. Choose MKV or MP4."
+msgstr "WebM nemůže obsahovat {{codec}}. Zvolte MKV nebo MP4."
+
+msgctxt "formatLabel.audioFallback"
+msgid "Audio"
+msgstr "Zvuk"
+
+msgctxt "formatLabel.audioOnlyDot"
+msgid "Audio only · {{audio}}"
+msgstr "Pouze zvuk · {{audio}}"
+
+msgctxt "formatLabel.videoDot"
+msgid "{{resolution}} · {{audio}}"
+msgstr "{{resolution}} · {{audio}}"
+
+msgctxt "hdrPreference.auto"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "hdrPreference.description"
+msgid "Auto picks HDR when this screen can show it, otherwise SDR. HDR looks washed out on regular screens."
+msgstr "Auto zvolí HDR, pokud ho tato obrazovka umí zobrazit, jinak SDR. Na běžných obrazovkách vypadá HDR vyprané."
+
+msgctxt "hdrPreference.hdr"
+msgid "HDR"
+msgstr "HDR"
+
+msgctxt "hdrPreference.label"
+msgid "HDR video"
+msgstr "Video HDR"
+
+msgctxt "hdrPreference.sdr"
+msgid "SDR"
+msgstr "SDR"
+
+msgctxt "language.label"
+msgid "Language"
+msgstr "Jazyk"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "notifications.exploreSignInRetrying_few"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Přihlášeno přes Procházení – opakuji {{count}} odkazy"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.exploreSignInRetrying_many"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Přihlášeno přes Procházení – opakuji {{count}} odkazu"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "notifications.exploreSignInRetrying_one"
+msgid "Signed in with Explore — retrying 1 link"
+msgstr "Přihlášeno přes Procházení – opakuji 1 odkaz"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.exploreSignInRetrying_other"
+msgid "Signed in with Explore — retrying {{count}} links"
+msgstr "Přihlášeno přes Procházení – opakuji {{count}} odkazů"
+
+msgctxt "notifications.exploreSignOutFailed"
+msgid "Could not sign out of Explore. Try again."
+msgstr "Odhlášení z Procházení se nezdařilo. Zkuste to znovu."
+
+msgctxt "notifications.filenameFolderTooDeep"
+msgid "This folder is too deep for your system. The download may still fail — pick a shorter folder."
+msgstr "Tato složka je pro váš systém příliš hluboko. Stahování může stále selhat – vyberte kratší cestu."
+
+msgctxt "notifications.filenameTemplateCannotFit"
+msgid "This video's name can't fit every part of your template, so the default name was used."
+msgstr "Název tohoto videa se nevejde do všech částí vaší šablony, proto byl použit výchozí název."
+
+msgctxt "notifications.folderSelectFailed"
+msgid "Could not open the folder picker."
+msgstr "Nepodařilo se otevřít výběr složky."
+
+msgctxt "notifications.hotkey.alreadyQueued"
+msgid "Already in the queue — no copy added"
+msgstr "Už je ve frontě – kopie nebyla přidána"
+
+msgctxt "notifications.hotkey.busy"
+msgid "Arroxy is still starting — try again in a moment"
+msgstr "Arroxy se stále spouští – zkuste to za chvíli"
+
+msgctxt "notifications.hotkey.cookiesSetup"
+msgid "Finish setting up cookies in Arroxy, then try again"
+msgstr "Dokončete v Arroxy nastavení cookies a zkuste to znovu"
+
+msgctxt "notifications.hotkey.invalidClipboard"
+msgid "No link on your clipboard — copy one first"
+msgstr "Ve schránce není žádný odkaz – nejprve nějaký zkopírujte"
+
+msgctxt "notifications.hotkey.multipleUrls"
+msgid "Multiple links copied — use Bulk URLs in Arroxy"
+msgstr "Zkopírováno více odkazů – použijte v Arroxy Hromadné URL"
+
+msgctxt "notifications.hotkey.needsReview"
+msgid "That link needs your choice — see Downloads in Arroxy"
+msgstr "Tento odkaz vyžaduje vaše rozhodnutí – podívejte se do Stahování v Arroxy"
+
+msgctxt "notifications.hotkey.queued"
+msgid "Download queued from clipboard"
+msgstr "Stahování ze schránky přidáno do fronty"
+
+msgctxt "notifications.hotkey.submissionFailed"
+msgid "Could not add that link — try again in Arroxy"
+msgstr "Odkaz se nepodařilo přidat – zkuste to znovu v Arroxy"
+
+msgctxt "notifications.playlistFolderRejected"
+msgid "That folder can't be used for this playlist."
+msgstr "Tuto složku nelze pro tento playlist použít."
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "notifications.queue.skippedAlreadyQueued_few"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} videa už jsou ve frontě – přeskočena"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.queue.skippedAlreadyQueued_many"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} videa už je ve frontě – přeskočeno"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "notifications.queue.skippedAlreadyQueued_one"
+msgid "{{count}} video is already in the queue — skipped"
+msgstr "{{count}} video už je ve frontě – přeskočeno"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.queue.skippedAlreadyQueued_other"
+msgid "{{count}} videos are already in the queue — skipped"
+msgstr "{{count}} videí už je ve frontě – přeskočeno"
+
+msgctxt "notifications.quickDownload.added"
+msgid "Added: {{title}}"
+msgstr "Přidáno: {{title}}"
+
+msgctxt "notifications.quickDownload.alreadyQueued"
+msgid "Already in the queue"
+msgstr "Už je ve frontě"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "notifications.quickDownload.chooseHowMany_few"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ videa – vyberte, kolik jich stáhnout"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.chooseHowMany_many"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ videa – vyberte, kolik jich stáhnout"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "notifications.quickDownload.chooseHowMany_one"
+msgid "{{count}}+ video — choose how many"
+msgstr "{{count}}+ video – vyberte, kolik jich stáhnout"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.chooseHowMany_other"
+msgid "{{count}}+ videos — choose how many"
+msgstr "{{count}}+ videí – vyberte, kolik jich stáhnout"
+
+msgctxt "notifications.quickDownload.failed"
+msgid "Couldn't prepare {{title}}"
+msgstr "Nepodařilo se připravit {{title}}"
+
+msgctxt "notifications.quickDownload.notAdded"
+msgid "Couldn't add that link — try again"
+msgstr "Odkaz se nepodařilo přidat – zkuste to znovu"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "notifications.quickDownload.review_few"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} videa v tomto seznamu – vyberte je v přehledu"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.review_many"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} videa v tomto seznamu – vyberte je v přehledu"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "notifications.quickDownload.review_one"
+msgid "{{count}} video in this list — review to pick"
+msgstr "{{count}} video v tomto seznamu – vyberte je v přehledu"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.review_other"
+msgid "{{count}} videos in this list — review to pick"
+msgstr "{{count}} videí v tomto seznamu – vyberte je v přehledu"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "notifications.quickDownload.reviewCapped_few"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ videa v tomto seznamu – vyberte je v přehledu"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.reviewCapped_many"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ videa v tomto seznamu – vyberte je v přehledu"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "notifications.quickDownload.reviewCapped_one"
+msgid "{{count}}+ video in this list — review to pick"
+msgstr "{{count}}+ video v tomto seznamu – vyberte je v přehledu"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.reviewCapped_other"
+msgid "{{count}}+ videos in this list — review to pick"
+msgstr "{{count}}+ videí v tomto seznamu – vyberte je v přehledu"
+
+msgctxt "notifications.quickDownload.view"
+msgid "View"
+msgstr "Zobrazit"
+
+msgctxt "notifications.settingsSaveFailed"
+msgid "Could not save your settings."
+msgstr "Nastavení se nepodařilo uložit."
+
+msgctxt "notifications.shellActionFailed"
+msgid "Could not open that."
+msgstr "Toto se nepodařilo otevřít."
+
+msgctxt "notifications.warmupFailed"
+msgid "Setup did not finish. Some downloads may fail until it does."
+msgstr "Příprava nebyla dokončena. Dokud se tak nestane, mohou některá stahování selhávat."
+
+msgctxt "playlistPresets.audioFormat.best"
+msgid "Audio (best)"
+msgstr "Zvuk (nejlepší)"
+
+msgctxt "playlistPresets.audioFormat.m4a"
+msgid "M4A"
+msgstr "M4A"
+
+msgctxt "playlistPresets.audioFormat.mp3"
+msgid "MP3"
+msgstr "MP3"
+
+msgctxt "playlistPresets.audioFormat.opus"
+msgid "Opus"
+msgstr "Opus"
+
+msgctxt "playlistPresets.audioFormatBitrate"
+msgid "Audio ({{format}} {{kbps}}K)"
+msgstr "Zvuk ({{format}} {{kbps}}K)"
+
+msgctxt "playlistPresets.audioFormatDesc.best"
+msgid "Native best audio, no re-encode"
+msgstr "Nejlepší původní zvuk bez překódování"
+
+msgctxt "playlistPresets.audioFormatDesc.m4a"
+msgid "Convert to M4A (AAC)"
+msgstr "Převést do M4A (AAC)"
+
+msgctxt "playlistPresets.audioFormatDesc.mp3"
+msgid "Convert to MP3"
+msgstr "Převést do MP3"
+
+msgctxt "playlistPresets.audioFormatDesc.opus"
+msgid "Convert to Opus"
+msgstr "Převést do Opus"
+
+msgctxt "playlistPresets.mp4Cap"
+msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
+msgstr "H.264 nad 1080p není na YouTube dostupný – automaticky omezeno na 1080p"
+
+msgctxt "playlistPresets.subtitles.deliveryHeading"
+msgid "Save as"
+msgstr "Uložit jako"
+
+msgctxt "playlistPresets.subtitles.deliveryLoose"
+msgid "Directly in the save folder"
+msgstr "Přímo do složky pro uložení"
+
+msgctxt "playlistPresets.subtitles.languages"
+msgid "Languages"
+msgstr "Jazyky"
+
+msgctxt "playlistPresets.subtitles.languagesRequired"
+msgid "Choose at least one language to continue."
+msgstr "Chcete-li pokračovat, vyberte alespoň jeden jazyk."
+
+msgctxt "playlistPresets.subtitles.note"
+msgid "Only subtitle files are saved for each video — no video or audio is downloaded."
+msgstr "U každého videa se uloží jen soubory titulků – nestahuje se žádné video ani zvuk."
+
+msgctxt "playlistPresets.subtitles.source"
+msgid "Source"
+msgstr "Zdroj"
+
+msgctxt "playlistPresets.tier.1080"
+msgid "Up to 1080p"
+msgstr "Až 1080p"
+
+msgctxt "playlistPresets.tier.144"
+msgid "Up to 144p"
+msgstr "Až 144p"
+
+msgctxt "playlistPresets.tier.1440"
+msgid "Up to 1440p"
+msgstr "Až 1440p"
+
+msgctxt "playlistPresets.tier.2160"
+msgid "Up to 4K"
+msgstr "Až 4K"
+
+msgctxt "playlistPresets.tier.240"
+msgid "Up to 240p"
+msgstr "Až 240p"
+
+msgctxt "playlistPresets.tier.360"
+msgid "Up to 360p"
+msgstr "Až 360p"
+
+msgctxt "playlistPresets.tier.480"
+msgid "Up to 480p"
+msgstr "Až 480p"
+
+msgctxt "playlistPresets.tier.720"
+msgid "Up to 720p"
+msgstr "Až 720p"
+
+msgctxt "playlistPresets.tier.best"
+msgid "Best quality"
+msgstr "Nejlepší kvalita"
+
+msgctxt "playlistPresets.tierDesc.1080"
+msgid "Capped at 1080p, falls back to lower per item"
+msgstr "Omezeno na 1080p, u každé položky se případně sníží"
+
+msgctxt "playlistPresets.tierDesc.144"
+msgid "Smallest possible files"
+msgstr "Nejmenší možné soubory"
+
+msgctxt "playlistPresets.tierDesc.1440"
+msgid "Capped at 2K, falls back to lower per item"
+msgstr "Omezeno na 2K, u každé položky se případně sníží"
+
+msgctxt "playlistPresets.tierDesc.2160"
+msgid "Capped at 2160p, falls back to lower per item"
+msgstr "Omezeno na 2160p, u každé položky se případně sníží"
+
+msgctxt "playlistPresets.tierDesc.240"
+msgid "Very small files, low quality"
+msgstr "Velmi malé soubory, nízká kvalita"
+
+msgctxt "playlistPresets.tierDesc.360"
+msgid "Small files for tight bandwidth"
+msgstr "Malé soubory pro pomalé připojení"
+
+msgctxt "playlistPresets.tierDesc.480"
+msgid "Low bandwidth"
+msgstr "Nízká spotřeba dat"
+
+msgctxt "playlistPresets.tierDesc.720"
+msgid "Smaller files, broad compatibility"
+msgstr "Menší soubory, široká kompatibilita"
+
+msgctxt "playlistPresets.tierDesc.best"
+msgid "Highest available video + audio per item"
+msgstr "Nejvyšší dostupné video + zvuk u každé položky"
+
+msgctxt "playlistPresets.type.audio"
+msgid "Audio"
+msgstr "Zvuk"
+
+msgctxt "playlistPresets.type.subtitles"
+msgid "Subtitles"
+msgstr "Titulky"
+
+msgctxt "playlistPresets.type.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "playlistPresets.videoFormat.best"
+msgid "Best native"
+msgstr "Nejlepší původní"
+
+msgctxt "playlistPresets.videoFormat.mp4"
+msgid "Smart TV H.264 MP4"
+msgstr "MP4 H.264 pro Smart TV"
+
+msgctxt "playlistPresets.videoFormatDesc.best"
+msgid "Best available container and codecs per item"
+msgstr "Nejlepší dostupný kontejner a kodeky u každé položky"
+
+msgctxt "playlistPresets.videoFormatDesc.mp4"
+msgid "Prefer H.264 video + AAC audio in MP4 when possible"
+msgstr "Pokud je to možné, preferovat video H.264 + zvuk AAC v MP4"
+
+msgctxt "queue.artifact.companion"
+msgid "Companion"
+msgstr "Doprovodný"
+
+msgctxt "queue.artifact.description"
+msgid "Description"
+msgstr "Popis"
+
+msgctxt "queue.artifact.media"
+msgid "Media"
+msgstr "Média"
+
+msgctxt "queue.artifact.missing"
+msgid "Missing"
+msgstr "Chybí"
+
+msgctxt "queue.artifact.subtitle"
+msgid "Subtitle"
+msgstr "Titulky"
+
+msgctxt "queue.artifact.thumbnail"
+msgid "Thumbnail"
+msgstr "Miniatura"
+
+msgctxt "queue.artifact.unknown"
+msgid "Artifact"
+msgstr "Soubor"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "queue.attentionBadge_few"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} stahování vyžadují vaši pozornost"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "queue.attentionBadge_many"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} stahování vyžaduje vaši pozornost"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "queue.attentionBadge_one"
+msgid "{{count}} download needs your attention"
+msgstr "{{count}} stahování vyžaduje vaši pozornost"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "queue.attentionBadge_other"
+msgid "{{count}} downloads need your attention"
+msgstr "{{count}} stahování vyžaduje vaši pozornost"
+
+msgctxt "queue.autoRemoveCompleted.hint"
+msgid "Remove each download from the list a few seconds after it finishes. Files stay in your folder."
+msgstr "Odebere každé stahování ze seznamu několik sekund po dokončení. Soubory zůstanou ve vaší složce."
+
+msgctxt "queue.autoRemoveCompleted.label"
+msgid "Auto-clear done"
+msgstr "Automaticky vymazat hotové"
+
+msgctxt "queue.cancelAllTitle"
+msgid "Cancel all active and pending downloads"
+msgstr "Zrušit všechna aktivní a čekající stahování"
+
+msgctxt "queue.choice.all"
+msgid "All videos"
+msgstr "Všechna videa"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "queue.choice.cappedBody_few"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "V tomto playlistu je více než {{count}} videa. Stáhněte všechna, prvních {{count}} nebo vyberte v přehledu."
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "queue.choice.cappedBody_many"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "V tomto playlistu je více než {{count}} videa. Stáhněte všechna, prvních {{count}} nebo vyberte v přehledu."
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "queue.choice.cappedBody_one"
+msgid "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "V tomto playlistu je více než {{count}} video. Stáhněte všechna, první {{count}} nebo vyberte v přehledu."
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "queue.choice.cappedBody_other"
+msgid "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review."
+msgstr "V tomto playlistu je více než {{count}} videí. Stáhněte všechna, prvních {{count}} nebo vyberte v přehledu."
+
+msgctxt "queue.choice.first"
+msgid "First {{count}}"
+msgstr "Prvních {{count}}"
+
+msgctxt "queue.choice.review"
+msgid "Review"
+msgstr "Přehled"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "queue.choice.reviewBody_few"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Tento odkaz je seznam {{count}} videí. Otevřete přehled a vyberte, co stáhnout."
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "queue.choice.reviewBody_many"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Tento odkaz je seznam {{count}} videa. Otevřete přehled a vyberte, co stáhnout."
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "queue.choice.reviewBody_one"
+msgid "This link is a list of {{count}} video. Review it to pick what to download."
+msgstr "Tento odkaz je seznam {{count}} videa. Otevřete přehled a vyberte, co stáhnout."
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "queue.choice.reviewBody_other"
+msgid "This link is a list of {{count}} videos. Review it to pick what to download."
+msgstr "Tento odkaz je seznam {{count}} videí. Otevřete přehled a vyberte, co stáhnout."
+
+msgctxt "queue.clearTitle"
+msgid "Clear completed downloads"
+msgstr "Vymazat dokončená stahování"
+
+msgctxt "queue.empty"
+msgid "Queued downloads will appear here"
+msgstr "Zde se zobrazí stahování ve frontě"
+
+msgctxt "queue.filterAll"
+msgid "All"
+msgstr "Vše"
+
+msgctxt "queue.filtersLabel"
+msgid "Queue status filters"
+msgstr "Filtry stavu fronty"
+
+msgctxt "queue.globalActionsLabel"
+msgid "All items"
+msgstr "Všechny položky"
+
+msgctxt "queue.header"
+msgid "Downloads"
+msgstr "Stahování"
+
+msgctxt "queue.item.audioKept"
+msgid "Sound not removed"
+msgstr "Zvuk nebyl odstraněn"
+
+msgctxt "queue.item.audioKeptSubtitlesFailed"
+msgid "Sound not removed · some subtitles failed"
+msgstr "Zvuk nebyl odstraněn · některé titulky se nezdařily"
+
+msgctxt "queue.item.cancel"
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgctxt "queue.item.defaultError"
+msgid "Download failed"
+msgstr "Stahování se nezdařilo"
+
+msgctxt "queue.item.openDestinationFolder"
+msgid "Open destination folder"
+msgstr "Otevřít cílovou složku"
+
+msgctxt "queue.item.pause"
+msgid "Pause"
+msgstr "Pozastavit"
+
+msgctxt "queue.item.pendingOnly"
+msgid "Pending only"
+msgstr "Pouze čekající"
+
+msgctxt "queue.item.pullNow"
+msgid "Pull now — skip the queue"
+msgstr "Spustit hned – přeskočit frontu"
+
+msgctxt "queue.item.qualityLimited"
+msgid "Limited to {{height}}p"
+msgstr "Omezeno na {{height}}p"
+
+msgctxt "queue.item.qualityLimitedSubtitlesFailed"
+msgid "Limited to {{height}}p · some subtitles failed"
+msgstr "Omezeno na {{height}}p · některé titulky se nezdařily"
+
+msgctxt "queue.item.remove"
+msgid "Remove"
+msgstr "Odebrat"
+
+msgctxt "queue.item.resume"
+msgid "Resume"
+msgstr "Pokračovat"
+
+msgctxt "queue.item.retry"
+msgid "Retry"
+msgstr "Zkusit znovu"
+
+msgctxt "queue.item.retryingSoon"
+msgid "retrying automatically (attempt {{attempt}})"
+msgstr "automatické opakování (pokus {{attempt}})"
+
+msgctxt "queue.item.setLocation"
+msgid "Set location"
+msgstr "Nastavit umístění"
+
+msgctxt "queue.item.setLocationHint"
+msgid "Select pending items to set location."
+msgstr "Chcete-li nastavit umístění, vyberte čekající položky."
+
+msgctxt "queue.item.statusCancelled"
+msgid "Cancelled"
+msgstr "Zrušeno"
+
+msgctxt "queue.item.statusDone"
+msgid "Done"
+msgstr "Hotovo"
+
+msgctxt "queue.item.statusError"
+msgid "Error"
+msgstr "Chyba"
+
+msgctxt "queue.item.statusHeld"
+msgid "Held"
+msgstr "Zadrženo"
+
+msgctxt "queue.item.statusNeedsChoice"
+msgid "Needs your choice"
+msgstr "Vyžaduje rozhodnutí"
+
+msgctxt "queue.item.statusPaused"
+msgid "Paused"
+msgstr "Pozastaveno"
+
+msgctxt "queue.item.statusPending"
+msgid "Waiting"
+msgstr "Čeká"
+
+msgctxt "queue.item.statusProbing"
+msgid "Fetching details"
+msgstr "Načítání podrobností"
+
+msgctxt "queue.item.statusRunning"
+msgid "Downloading"
+msgstr "Stahování"
+
+msgctxt "queue.item.subtitleLanguagesMissing"
+msgid "No subtitles in {{languages}}"
+msgstr "Žádné titulky v jazycích: {{languages}}"
+
+msgctxt "queue.pauseAllTitle"
+msgid "Pause every active download and stop new ones from starting"
+msgstr "Pozastavit každé aktivní stahování a zabránit spuštění nových"
+
+msgctxt "queue.pausedBanner"
+msgid "The queue is paused — waiting items won't start until you resume it"
+msgstr "Fronta je pozastavena – čekající položky se nespustí, dokud ji neobnovíte"
+
+msgctxt "queue.resumeAllTitle"
+msgid "Resume paused downloads and let the queue keep going"
+msgstr "Obnovit pozastavená stahování a nechat frontu pokračovat"
+
+msgctxt "queue.resumeQueueAction"
+msgid "Resume queue"
+msgstr "Obnovit frontu"
+
+msgctxt "queue.selectedActionsLabel"
+msgid "Selected items"
+msgstr "Vybrané položky"
+
+msgctxt "queue.selectionSummary"
+msgid "{{selected}} selected · {{total}} total"
+msgstr "Vybráno: {{selected}} · celkem: {{total}}"
+
+msgctxt "queue.tabLabel"
+msgid "Downloads"
+msgstr "Stahování"
+
+msgctxt "queue.table.added"
+msgid "Added"
+msgstr "Přidáno"
+
+msgctxt "queue.table.artifacts"
+msgid "Artifacts"
+msgstr "Soubory"
+
+msgctxt "queue.table.columnDropped"
+msgid "Dropped the {{column}} column."
+msgstr "Sloupec {{column}} byl upuštěn."
+
+msgctxt "queue.table.columnMoveCancelled"
+msgid "Moving the {{column}} column was cancelled."
+msgstr "Přesun sloupce {{column}} byl zrušen."
+
+msgctxt "queue.table.columnMovedOver"
+msgid "The {{column}} column is over {{target}}."
+msgstr "Sloupec {{column}} je nad sloupcem {{target}}."
+
+msgctxt "queue.table.columnPickedUp"
+msgid "Picked up the {{column}} column."
+msgstr "Sloupec {{column}} byl uchopen."
+
+msgctxt "queue.table.columns"
+msgid "Columns"
+msgstr "Sloupce"
+
+msgctxt "queue.table.finished"
+msgid "Finished"
+msgstr "Dokončeno"
+
+msgctxt "queue.table.format"
+msgid "Format"
+msgstr "Formát"
+
+msgctxt "queue.table.hideArtifactsFor"
+msgid "Hide artifacts for {{title}}"
+msgstr "Skrýt soubory u položky {{title}}"
+
+msgctxt "queue.table.movableColumn"
+msgid "movable column"
+msgstr "přesouvatelný sloupec"
+
+msgctxt "queue.table.moveColumnInstructions"
+msgid "To move a column, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Chcete-li sloupec přesunout, stiskněte mezerník nebo Enter, přesuňte jej šipkami a dalším stisknutím mezerníku nebo Enteru jej upusťte. Zrušíte to klávesou Esc."
+
+msgctxt "queue.table.notAvailable"
+msgid "—"
+msgstr "—"
+
+msgctxt "queue.table.outputTarget"
+msgid "Output target"
+msgstr "Cíl uložení"
+
+msgctxt "queue.table.progress"
+msgid "Progress"
+msgstr "Průběh"
+
+msgctxt "queue.table.resetColumns"
+msgid "Reset columns"
+msgstr "Obnovit sloupce"
+
+msgctxt "queue.table.resizeColumn"
+msgid "Resize {{column}} column"
+msgstr "Změnit velikost sloupce {{column}}"
+
+msgctxt "queue.table.showArtifactsFor"
+msgid "Show artifacts for {{title}}"
+msgstr "Zobrazit soubory u položky {{title}}"
+
+msgctxt "queue.table.size"
+msgid "Size"
+msgstr "Velikost"
+
+msgctxt "queue.table.sortBy"
+msgid "Sort by {{label}}"
+msgstr "Seřadit podle: {{label}}"
+
+msgctxt "queue.table.status"
+msgid "Status"
+msgstr "Stav"
+
+msgctxt "queue.table.title"
+msgid "Title"
+msgstr "Název"
+
+msgctxt "queue.tabTip"
+msgid "Downloads live in the Downloads tab now — open it anytime to track progress."
+msgstr "Stahování se teď nachází na kartě Stahování – otevřete ji kdykoli a sledujte průběh."
+
+msgctxt "releaseNotes.continue"
+msgid "Continue"
+msgstr "Pokračovat"
+
+msgctxt "releaseNotes.description"
+msgid "You're running a fresh update. Here are the highlights."
+msgstr "Používáte čerstvě aktualizovanou verzi. Zde jsou hlavní novinky."
+
+msgctxt "releaseNotes.fullNotes"
+msgid "Full release notes ↗"
+msgstr "Úplné poznámky k vydání ↗"
+
+msgctxt "releaseNotes.title"
+msgid "What's new in Arroxy {{version}}"
+msgstr "Co je nového v Arroxy {{version}}"
+
+msgctxt "repair.actions.cancel"
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgctxt "repair.actions.chooseExecutable"
+msgid "Choose executable"
+msgstr "Vybrat spustitelný soubor"
+
+msgctxt "repair.actions.installWithHomebrew"
+msgid "Install with Homebrew"
+msgstr "Nainstalovat přes Homebrew"
+
+msgctxt "repair.actions.installWithWinget"
+msgid "Install with WinGet"
+msgstr "Nainstalovat přes WinGet"
+
+msgctxt "repair.actions.openDependencyFolder"
+msgid "Open dependency folder"
+msgstr "Otevřít složku závislostí"
+
+msgctxt "repair.actions.resetToDefault"
+msgid "Reset to default"
+msgstr "Obnovit výchozí"
+
+msgctxt "repair.actions.retrySetup"
+msgid "Try again"
+msgstr "Zkusit znovu"
+
+msgctxt "repair.actions.viewSetupLog"
+msgid "View setup log"
+msgstr "Zobrazit protokol nastavení"
+
+msgctxt "repair.causes.badExitCode.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Zkuste to znovu. Pokud to stále selhává, vyberte níže funkční kopii."
+
+msgctxt "repair.causes.badExitCode.title"
+msgid "A tool isn't working right"
+msgstr "Některý nástroj nefunguje správně"
+
+msgctxt "repair.causes.blockedOrQuarantined.body"
+msgid "Allow Arroxy in your antivirus or SmartScreen, then try again."
+msgstr "Povolte Arroxy v antivirovém programu nebo ve filtru SmartScreen a zkuste to znovu."
+
+msgctxt "repair.causes.blockedOrQuarantined.title"
+msgid "Your antivirus blocked a tool"
+msgstr "Antivirový program zablokoval nástroj"
+
+msgctxt "repair.causes.downloadFailed.body"
+msgid "Check your internet connection, then try again."
+msgstr "Zkontrolujte připojení k internetu a zkuste to znovu."
+
+msgctxt "repair.causes.downloadFailed.title"
+msgid "Couldn't download what Arroxy needs"
+msgstr "Nepodařilo se stáhnout, co Arroxy potřebuje"
+
+msgctxt "repair.causes.extractFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Zkuste to znovu a stáhněte jej načisto."
+
+msgctxt "repair.causes.extractFailed.title"
+msgid "A download arrived damaged"
+msgstr "Stažený soubor dorazil poškozený"
+
+msgctxt "repair.causes.hashFailed.body"
+msgid "Try again to download it fresh."
+msgstr "Zkuste to znovu a stáhněte jej načisto."
+
+msgctxt "repair.causes.hashFailed.title"
+msgid "A download didn't match its checksum"
+msgstr "Stažený soubor neodpovídá kontrolnímu součtu"
+
+msgctxt "repair.causes.pairIncomplete.body"
+msgid "Choose both below, or reset them to default."
+msgstr "Vyberte níže oba, nebo je obnovte na výchozí."
+
+msgctxt "repair.causes.pairIncomplete.title"
+msgid "FFmpeg and FFprobe have to be set together"
+msgstr "FFmpeg a FFprobe je nutné nastavit společně"
+
+msgctxt "repair.causes.permissionDenied.body"
+msgid "Try again. If it keeps failing, choose a copy you trust below."
+msgstr "Zkuste to znovu. Pokud to stále selhává, vyberte níže kopii, které důvěřujete."
+
+msgctxt "repair.causes.permissionDenied.title"
+msgid "Your system won't let Arroxy run a tool"
+msgstr "Systém nedovoluje Arroxy spustit nástroj"
+
+msgctxt "repair.causes.spawnFailed.body"
+msgid "Try again. If it keeps failing, choose a working copy below."
+msgstr "Zkuste to znovu. Pokud to stále selhává, vyberte níže funkční kopii."
+
+msgctxt "repair.causes.spawnFailed.title"
+msgid "A tool is missing or won't start"
+msgstr "Nástroj chybí nebo se nespustí"
+
+msgctxt "repair.causes.timeout.body"
+msgid "This is often a security scan on first run. Try again."
+msgstr "Při prvním spuštění to často způsobuje kontrola zabezpečení. Zkuste to znovu."
+
+msgctxt "repair.causes.timeout.title"
+msgid "A tool took too long to respond"
+msgstr "Nástroj odpovídal příliš dlouho"
+
+msgctxt "repair.causes.unknown.body"
+msgid "Try again, or open the setup log for details."
+msgstr "Zkuste to znovu nebo si pro podrobnosti otevřete protokol nastavení."
+
+msgctxt "repair.causes.unknown.title"
+msgid "Something went wrong during setup"
+msgstr "Při nastavení se něco pokazilo"
+
+msgctxt "repair.deps.ffmpeg"
+msgid "FFmpeg"
+msgstr "FFmpeg"
+
+msgctxt "repair.deps.ffprobe"
+msgid "FFprobe"
+msgstr "FFprobe"
+
+msgctxt "repair.deps.ytDlp"
+msgid "yt-dlp"
+msgstr "yt-dlp"
+
+msgctxt "repair.groups.engine"
+msgid "Download engine"
+msgstr "Stahovací modul"
+
+msgctxt "repair.groups.media"
+msgid "Media tools"
+msgstr "Mediální nástroje"
+
+msgctxt "repair.installing.homebrew"
+msgid "Installing with Homebrew… This can take a few minutes."
+msgstr "Instalace přes Homebrew… Může to trvat několik minut."
+
+msgctxt "repair.installing.winget"
+msgid "Installing with WinGet… This can take a few minutes."
+msgstr "Instalace přes WinGet… Může to trvat několik minut."
+
+msgctxt "repair.manual.intro"
+msgid "Point Arroxy at copies you already have, or install them another way."
+msgstr "Ukažte Arroxy kopie, které už máte, nebo je nainstalujte jiným způsobem."
+
+msgctxt "repair.manual.linuxHint"
+msgid "You can also install yt-dlp and ffmpeg with your package manager, then click Try again."
+msgstr "yt-dlp a ffmpeg můžete také nainstalovat pomocí správce balíčků a poté kliknout na Zkusit znovu."
+
+msgctxt "repair.manual.toggle"
+msgid "Set it up manually"
+msgstr "Nastavit ručně"
+
+msgctxt "repair.stopped.body"
+msgid "Try again, or point Arroxy at tools you already have below."
+msgstr "Zkuste to znovu nebo ukažte Arroxy níže nástroje, které už máte."
+
+msgctxt "repair.stopped.title"
+msgid "Setup stopped"
+msgstr "Nastavení se zastavilo"
+
+msgctxt "repair.title"
+msgid "Setup needs your help"
+msgstr "Nastavení potřebuje vaši pomoc"
+
+msgctxt "selectionOrder.editorTitle"
+msgid "How this profile picks"
+msgstr "Jak tento profil vybírá"
+
+msgctxt "selectionOrder.rank.aacFileType.label"
+msgid "AAC audio"
+msgstr "Zvuk AAC"
+
+msgctxt "selectionOrder.rank.aacFileType.reason"
+msgid "fits MP4 players"
+msgstr "vyhovuje přehrávačům MP4"
+
+msgctxt "selectionOrder.rank.aacSmartTv.label"
+msgid "AAC audio"
+msgstr "Zvuk AAC"
+
+msgctxt "selectionOrder.rank.aacSmartTv.reason"
+msgid "plays everywhere"
+msgstr "přehraje se všude"
+
+msgctxt "selectionOrder.rank.codec.label"
+msgid "AV1, then VP9, then H.264"
+msgstr "AV1, pak VP9, pak H.264"
+
+msgctxt "selectionOrder.rank.codec.reason"
+msgid "sharpest at a given size"
+msgstr "nejostřejší při dané velikosti"
+
+msgctxt "selectionOrder.rank.codecH264First.label"
+msgid "H.264, then VP9, then AV1"
+msgstr "H.264, pak VP9, pak AV1"
+
+msgctxt "selectionOrder.rank.codecH264First.reason"
+msgid "this profile's codec"
+msgstr "kodek tohoto profilu"
+
+msgctxt "selectionOrder.rank.codecVp9First.label"
+msgid "VP9, then H.264, then AV1"
+msgstr "VP9, pak H.264, pak AV1"
+
+msgctxt "selectionOrder.rank.codecVp9First.reason"
+msgid "this profile's codec"
+msgstr "kodek tohoto profilu"
+
+msgctxt "selectionOrder.rank.fps.label"
+msgid "Highest frame rate"
+msgstr "Nejvyšší snímková frekvence"
+
+msgctxt "selectionOrder.rank.fps.reason"
+msgid "smoother motion"
+msgstr "plynulejší pohyb"
+
+msgctxt "selectionOrder.rank.h264.label"
+msgid "H.264 video"
+msgstr "Video H.264"
+
+msgctxt "selectionOrder.rank.h264.reason"
+msgid "plays on every device"
+msgstr "přehraje se na každém zařízení"
+
+msgctxt "selectionOrder.rank.hdrFirst.label"
+msgid "HDR before SDR"
+msgstr "HDR před SDR"
+
+msgctxt "selectionOrder.rank.hdrFirst.reason"
+msgid "richer colour on HDR screens"
+msgstr "sytější barvy na obrazovkách HDR"
+
+msgctxt "selectionOrder.rank.hdrFirst.reasonScreen"
+msgid "this screen shows HDR"
+msgstr "tato obrazovka zobrazuje HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.label"
+msgid "SDR before HDR"
+msgstr "SDR před HDR"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reason"
+msgid "looks right on any screen"
+msgstr "vypadá správně na jakékoli obrazovce"
+
+msgctxt "selectionOrder.rank.hdrSdrFirst.reasonScreen"
+msgid "this screen isn't HDR"
+msgstr "tato obrazovka není HDR"
+
+msgctxt "selectionOrder.rank.mp4Streams.label"
+msgid "MP4 streams"
+msgstr "Streamy MP4"
+
+msgctxt "selectionOrder.rank.mp4Streams.reason"
+msgid "ready for an MP4 file"
+msgstr "připraveno pro soubor MP4"
+
+msgctxt "selectionOrder.rank.nativeCompatible.label"
+msgid "Stereo audio"
+msgstr "Stereofonní zvuk"
+
+msgctxt "selectionOrder.rank.nativeSource.profile"
+msgid "this profile"
+msgstr "tento profil"
+
+msgctxt "selectionOrder.rank.nativeSource.settings"
+msgid "from Settings"
+msgstr "z nastavení"
+
+msgctxt "selectionOrder.rank.nativeSurround.label"
+msgid "Surround audio when offered"
+msgstr "Prostorový zvuk, pokud je nabízen"
+
+msgctxt "selectionOrder.rank.opus.label"
+msgid "Opus audio"
+msgstr "Zvuk Opus"
+
+msgctxt "selectionOrder.rank.opus.reason"
+msgid "fits WebM"
+msgstr "vyhovuje WebM"
+
+msgctxt "selectionOrder.rank.original.label"
+msgid "Original streams, not AI-upscaled ones"
+msgstr "Původní streamy, ne zvětšené pomocí AI"
+
+msgctxt "selectionOrder.rank.original.reason"
+msgid "an upscaled copy is taller but adds no real detail"
+msgstr "zvětšená kopie je vyšší, ale nepřidává žádný skutečný detail"
+
+msgctxt "selectionOrder.rank.protocol.label"
+msgid "Direct downloads before streamed copies"
+msgstr "Přímá stahování před streamovanými kopiemi"
+
+msgctxt "selectionOrder.rank.protocol.reason"
+msgid "the same picture, downloaded faster"
+msgstr "stejný obraz, stažený rychleji"
+
+msgctxt "selectionOrder.rank.resolution.label"
+msgid "Up to {{tier}}p"
+msgstr "Až {{tier}}p"
+
+msgctxt "selectionOrder.rank.resolution.reason"
+msgid "your limit"
+msgstr "váš limit"
+
+msgctxt "selectionOrder.rank.resolutionBest.label"
+msgid "Highest resolution"
+msgstr "Nejvyšší rozlišení"
+
+msgctxt "selectionOrder.rank.resolutionBest.reason"
+msgid "no limit set"
+msgstr "bez nastaveného limitu"
+
+msgctxt "selectionOrder.rank.sitePreference.label"
+msgid "Streams the site does not mark down"
+msgstr "Streamy, které web neoznačil jako horší"
+
+msgctxt "selectionOrder.rank.sitePreference.reason"
+msgid "skips damaged, watermarked and fallback copies"
+msgstr "přeskočí poškozené kopie, kopie s vodoznakem a záložní kopie"
+
+msgctxt "selectionOrder.rank.size.label"
+msgid "Larger file"
+msgstr "Větší soubor"
+
+msgctxt "selectionOrder.rank.size.reason"
+msgid "more detail at the same settings"
+msgstr "více detailů při stejném nastavení"
+
+msgctxt "selectionOrder.rank.source.label"
+msgid "Enhanced-bitrate streams first"
+msgstr "Nejprve streamy s vylepšeným datovým tokem"
+
+msgctxt "selectionOrder.rank.source.reason"
+msgid "more detail at the same resolution"
+msgstr "více detailů při stejném rozlišení"
+
+msgctxt "selectionOrder.summary.fileType.auto"
+msgid "file type from the streams"
+msgstr "typ souboru podle streamů"
+
+msgctxt "selectionOrder.summary.fileType.explicit"
+msgid "saves as .{{ext}}"
+msgstr "uloží se jako .{{ext}}"
+
+msgctxt "selectionOrder.summary.goal.bestPicture"
+msgid "best picture"
+msgstr "nejlepší obraz"
+
+msgctxt "selectionOrder.summary.goal.smartTv"
+msgid "plays on any device"
+msgstr "přehraje se na jakémkoli zařízení"
+
+msgctxt "selectionOrder.whyLabel"
+msgid "Why this one?"
+msgstr "Proč tento?"
+
+msgctxt "selectionOrder.whyTitle"
+msgid "Why the profile picked this"
+msgstr "Proč profil vybral tento"
+
+msgctxt "share.copied"
+msgid "Copied!"
+msgstr "Zkopírováno!"
+
+msgctxt "share.copyLink"
+msgid "Copy link"
+msgstr "Kopírovat odkaz"
+
+msgctxt "share.defaultMessage"
+msgid ""
+"Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works with YouTube, Vimeo, Twitch, and 2000+ sites.\n"
+"4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock"
+msgstr ""
+"Arroxy – bezplatný stahovač videí s otevřeným zdrojovým kódem pro Windows, macOS a Linux. Funguje s YouTube, Vimeo, Twitch a více než 2000 weby.\n"
+"4K · HDR · MP3 · Shorts · Titulky · SponsorBlock"
+
+msgctxt "share.description"
+msgid "Arroxy is free and open-source. Sharing helps more people discover it."
+msgstr "Arroxy je zdarma a s otevřeným zdrojovým kódem. Díky sdílení ho objeví více lidí."
+
+msgctxt "share.footerLabel"
+msgid "Share"
+msgstr "Sdílet"
+
+msgctxt "share.footerTooltip"
+msgid "Share Arroxy"
+msgstr "Sdílet Arroxy"
+
+msgctxt "share.shareAction"
+msgid "Share Arroxy"
+msgstr "Sdílet Arroxy"
+
+msgctxt "share.title"
+msgid "Share Arroxy"
+msgstr "Sdílet Arroxy"
+
+msgctxt "splash.cancel"
+msgid "Having trouble? Set it up manually"
+msgstr "Potíže? Nastavte to ručně"
+
+msgctxt "splash.greeting"
+msgid "Hey, welcome back!"
+msgstr "Ahoj, vítejte zpět!"
+
+msgctxt "splash.setup.bytes"
+msgid "{{done}} of {{total}}"
+msgstr "{{done}} z {{total}}"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "splash.setup.left.minutes_few"
+msgid "about {{count}} min left"
+msgstr "zbývají asi {{count}} min"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "splash.setup.left.minutes_many"
+msgid "about {{count}} min left"
+msgstr "zbývá asi {{count}} min"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "splash.setup.left.minutes_one"
+msgid "about {{count}} min left"
+msgstr "zbývá asi {{count}} min"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "splash.setup.left.minutes_other"
+msgid "about {{count}} min left"
+msgstr "zbývá asi {{count}} min"
+
+msgctxt "splash.setup.left.underMinute"
+msgid "less than a minute left"
+msgstr "zbývá méně než minuta"
+
+msgctxt "splash.setup.note.engine"
+msgid "Keeps downloads working when sites change."
+msgstr "Zajišťuje, aby stahování fungovalo i po změnách na webech."
+
+msgctxt "splash.setup.note.firstRun"
+msgid "This happens once. Arroxy keeps these tools and updates them itself."
+msgstr "Stane se to jen jednou. Arroxy tyto nástroje uchová a samo je aktualizuje."
+
+msgctxt "splash.setup.note.media"
+msgid "This happens once. Arroxy keeps them for future updates."
+msgstr "Stane se to jen jednou. Arroxy je uchová pro budoucí aktualizace."
+
+msgctxt "splash.setup.stage.checking"
+msgid "Checking everything works"
+msgstr "Kontrola, zda vše funguje"
+
+msgctxt "splash.setup.stage.connecting"
+msgid "Connecting…"
+msgstr "Připojování…"
+
+msgctxt "splash.setup.stage.downloadingBoth"
+msgid "Downloading the download engine and media tools"
+msgstr "Stahování stahovacího modulu a mediálních nástrojů"
+
+msgctxt "splash.setup.stage.downloadingEngine"
+msgid "Downloading the download engine"
+msgstr "Stahování stahovacího modulu"
+
+msgctxt "splash.setup.stage.downloadingMedia"
+msgid "Downloading the media tools"
+msgstr "Stahování mediálních nástrojů"
+
+msgctxt "splash.setup.stage.unpacking"
+msgid "Unpacking the media tools"
+msgstr "Rozbalování mediálních nástrojů"
+
+msgctxt "splash.setup.title.engine"
+msgid "Updating the download engine"
+msgstr "Aktualizace stahovacího modulu"
+
+msgctxt "splash.setup.title.firstRun"
+msgid "First-time setup"
+msgstr "První nastavení"
+
+msgctxt "splash.setup.title.media"
+msgid "Updating the media tools"
+msgstr "Aktualizace mediálních nástrojů"
+
+msgctxt "splash.verifyFirstCheck"
+msgid "First check of this version — this one is slow. Usually about a minute."
+msgstr "První kontrola této verze – ta trvá déle. Obvykle asi minutu."
+
+msgctxt "splash.verifying"
+msgid "Checking {{binary}}…"
+msgstr "Kontrola: {{binary}}…"
+
+msgctxt "splash.warmup"
+msgid "Preparing downloads…"
+msgstr "Příprava stahování…"
+
+msgctxt "splash.warmupFailedNoDiag"
+msgid "Setup failed. Open the setup log for details."
+msgstr "Nastavení se nezdařilo. Podrobnosti najdete v protokolu nastavení."
+
+msgctxt "status.audioKept"
+msgid "Video saved with its sound — the audio could not be removed"
+msgstr "Video uloženo se zvukem – zvuk se nepodařilo odstranit"
+
+msgctxt "status.audioKeptSubtitlesFailed"
+msgid "Video saved with its sound — the audio could not be removed, and some subtitles could not be downloaded"
+msgstr "Video uloženo se zvukem – zvuk se nepodařilo odstranit a některé titulky se nepodařilo stáhnout"
+
+msgctxt "status.cancelled"
+msgid "Download cancelled"
+msgstr "Stahování zrušeno"
+
+msgctxt "status.complete"
+msgid "Download complete"
+msgstr "Stahování dokončeno"
+
+msgctxt "status.convertingVideo"
+msgid "Converting video…"
+msgstr "Převod videa…"
+
+msgctxt "status.diskSpaceInsufficient"
+msgid "Not enough disk space — need {{required}}, only {{free}} available"
+msgstr "Nedostatek místa na disku – potřeba {{required}}, k dispozici jen {{free}}"
+
+msgctxt "status.downloadingBinary"
+msgid "Downloading {{name}} binary…"
+msgstr "Stahování binárního souboru {{name}}…"
+
+msgctxt "status.downloadingMedia"
+msgid "Downloading video & audio…"
+msgstr "Stahování videa a zvuku…"
+
+msgctxt "status.embeddingMetadata"
+msgid "Embedding metadata…"
+msgstr "Vkládání metadat…"
+
+msgctxt "status.exploreSignedOut"
+msgid "Signed out of Explore — sign in again"
+msgstr "Odhlášeno z Procházení – přihlaste se znovu"
+
+msgctxt "status.extractingAudio"
+msgid "Converting audio…"
+msgstr "Převod zvuku…"
+
+msgctxt "status.fetchingSponsorBlock"
+msgid "Contacting SponsorBlock…"
+msgstr "Připojování k SponsorBlock…"
+
+msgctxt "status.fetchingSubtitles"
+msgid "Fetching subtitles…"
+msgstr "Načítání titulků…"
+
+msgctxt "status.mergingFormats"
+msgid "Merging audio and video…"
+msgstr "Slučování zvuku a videa…"
+
+msgctxt "status.mintingToken"
+msgid "Minting YouTube token…"
+msgstr "Vytváření tokenu YouTube…"
+
+msgctxt "status.movingFiles"
+msgid "Moving files…"
+msgstr "Přesouvání souborů…"
+
+msgctxt "status.noSubtitles"
+msgid "No subtitles in {{languages}}"
+msgstr "Žádné titulky v jazycích: {{languages}}"
+
+msgctxt "status.outputNotWritable"
+msgid "Can't save to {{dir}} — Arroxy isn't allowed to write there"
+msgstr "Nelze uložit do {{dir}} – Arroxy tam nemá povolen zápis"
+
+msgctxt "status.preparingBinaries"
+msgid "Preparing binaries…"
+msgstr "Příprava binárních souborů…"
+
+msgctxt "status.qualityLimited"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
+msgstr "Uloženo v {{height}}p – YouTube pro toto stahování zadržel vyšší kvality. Může pomoci zkusit to později nebo z jiné sítě."
+
+msgctxt "status.qualityLimitedSubtitlesFailed"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
+msgstr "Uloženo v {{height}}p – YouTube pro toto stahování zadržel vyšší kvality a některé titulky se nepodařilo stáhnout. Může pomoci zkusit to později nebo z jiné sítě."
+
+msgctxt "status.remintingToken"
+msgid "Re-minting token…"
+msgstr "Opětovné vytváření tokenu…"
+
+msgctxt "status.retryingSponsorBlock"
+msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
+msgstr "SponsorBlock není dostupný, opakuji ({{attempt}}/{{total}})…"
+
+msgctxt "status.retryingTransfer"
+msgid "Connection stalled, retrying ({{attempt}}/{{total}})…"
+msgstr "Připojení se zaseklo, opakuji ({{attempt}}/{{total}})…"
+
+msgctxt "status.signingInWithExplore"
+msgid "Signing in with your Explore account…"
+msgstr "Přihlašování pomocí účtu z Procházení…"
+
+msgctxt "status.sleepingBetweenRequests"
+msgid "Waiting {{seconds}}s to avoid rate limits…"
+msgstr "Čekání {{seconds}} s kvůli omezení počtu požadavků…"
+
+msgctxt "status.startingYtdlp"
+msgid "Starting the download engine…"
+msgstr "Spouštění stahovacího modulu…"
+
+msgctxt "status.subtitleLanguagesMissing"
+msgid "This video has no subtitles in {{languages}}. The video was saved without them."
+msgstr "Toto video nemá titulky v jazycích: {{languages}}. Video bylo uloženo bez nich."
+
+msgctxt "status.subtitleLanguagesMissingOthersSaved"
+msgid "This video has no subtitles in {{languages}}. The other languages were saved."
+msgstr "Toto video nemá titulky v jazycích: {{languages}}. Ostatní jazyky byly uloženy."
+
+msgctxt "status.subtitlesFailed"
+msgid "Video saved — some subtitles could not be downloaded"
+msgstr "Video uloženo – některé titulky se nepodařilo stáhnout"
+
+msgctxt "status.unknownStartupFailure"
+msgid "Unknown download startup failure"
+msgstr "Neznámá chyba při spuštění stahování"
+
+msgctxt "status.usedExtractorFallback"
+msgid "Downloaded with relaxed extractor — set up a cookies.txt for more reliable downloads"
+msgstr "Staženo pomocí zjednodušeného extraktoru – pro spolehlivější stahování nastavte soubor cookies.txt"
+
+msgctxt "status.ytdlpExitCode"
+msgid "The download engine exited with code {{code}}"
+msgstr "Stahovací modul skončil s kódem {{code}}"
+
+msgctxt "status.ytdlpProcessError"
+msgid "Download engine error: {{error}}"
+msgstr "Chyba stahovacího modulu: {{error}}"
+
+msgctxt "theme.dark"
+msgid "Dark mode"
+msgstr "Tmavý režim"
+
+msgctxt "theme.light"
+msgid "Light mode"
+msgstr "Světlý režim"
+
+msgctxt "theme.system"
+msgid "System default"
+msgstr "Výchozí systémový"
+
+msgctxt "titleBar.close"
+msgid "Close"
+msgstr "Zavřít"
+
+msgctxt "titleBar.maximize"
+msgid "Maximize"
+msgstr "Maximalizovat"
+
+msgctxt "titleBar.minimize"
+msgid "Minimize"
+msgstr "Minimalizovat"
+
+msgctxt "titleBar.restore"
+msgid "Restore"
+msgstr "Obnovit"
+
+msgctxt "tray.menu.downloadFromClipboard"
+msgid "Download from clipboard"
+msgstr "Stáhnout ze schránky"
+
+msgctxt "tray.menu.open"
+msgid "Open Arroxy"
+msgstr "Otevřít Arroxy"
+
+msgctxt "tray.menu.quit"
+msgid "Quit Arroxy"
+msgstr "Ukončit Arroxy"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "tray.menu.statusActive_few"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "Stahování: {{count}} · {{percent}} %"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "tray.menu.statusActive_many"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "Stahování: {{count}} · {{percent}} %"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "tray.menu.statusActive_one"
+msgid "1 downloading · {{percent}}%"
+msgstr "Stahování: 1 · {{percent}} %"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "tray.menu.statusActive_other"
+msgid "{{count}} downloading · {{percent}}%"
+msgstr "Stahování: {{count}} · {{percent}} %"
+
+msgctxt "tray.menu.statusIdle"
+msgid "Idle"
+msgstr "Nečinné"
+
+msgctxt "tray.tooltip"
+msgid "Arroxy"
+msgstr "Arroxy"
+
+msgctxt "update.copied"
+msgid "Copied command to clipboard"
+msgstr "Příkaz zkopírován do schránky"
+
+msgctxt "update.copy"
+msgid "Copy command to clipboard"
+msgstr "Kopírovat příkaz do schránky"
+
+msgctxt "update.dismiss"
+msgid "Dismiss update banner"
+msgstr "Zavřít oznámení o aktualizaci"
+
+msgctxt "update.download"
+msgid "Download ↗"
+msgstr "Stáhnout ↗"
+
+msgctxt "update.downloadDmg"
+msgid "Download DMG ↗"
+msgstr "Stáhnout DMG ↗"
+
+msgctxt "update.downloading"
+msgid "Downloading…"
+msgstr "Stahování…"
+
+msgctxt "update.install"
+msgid "Install & Restart"
+msgstr "Nainstalovat a restartovat"
+
+msgctxt "update.installFailed"
+msgid "Update failed"
+msgstr "Aktualizace se nezdařila"
+
+msgctxt "update.message.generic"
+msgid "Arroxy {{version}} is available — you have {{currentVersion}}."
+msgstr "Je dostupné Arroxy {{version}} – máte verzi {{currentVersion}}."
+
+msgctxt "update.message.homebrew"
+msgid "Arroxy {{version}} is available — update with Homebrew."
+msgstr "Je dostupné Arroxy {{version}} – aktualizujte přes Homebrew."
+
+msgctxt "update.message.macosDirect"
+msgid "Arroxy {{version}} is available — download the new DMG."
+msgstr "Je dostupné Arroxy {{version}} – stáhněte nový DMG."
+
+msgctxt "update.message.macosDirectHomebrew"
+msgid "Arroxy {{version}} is available — download the DMG or switch to Homebrew."
+msgstr "Je dostupné Arroxy {{version}} – stáhněte DMG nebo přejděte na Homebrew."
+
+msgctxt "update.message.portable"
+msgid "Arroxy {{version}} is available — download the new build."
+msgstr "Je dostupné Arroxy {{version}} – stáhněte novou sestavu."
+
+msgctxt "update.retry"
+msgid "Retry"
+msgstr "Zkusit znovu"
+
+msgctxt "update.runAndRestart"
+msgid "Run & Restart"
+msgstr "Spustit a restartovat"
+
+msgctxt "update.upgrading"
+msgid "Upgrading…"
+msgstr "Aktualizace…"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "videoCard.chapters_few"
+msgid "{{count}} chapters"
+msgstr "{{count}} kapitoly"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "videoCard.chapters_many"
+msgid "{{count}} chapters"
+msgstr "{{count}} kapitoly"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "videoCard.chapters_one"
+msgid "{{count}} chapter"
+msgstr "{{count}} kapitola"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "videoCard.chapters_other"
+msgid "{{count}} chapters"
+msgstr "{{count}} kapitol"
+
+msgctxt "videoCard.titlePlaceholder"
+msgid "Loading…"
+msgstr "Načítání…"
+
+msgctxt "videoCodec.auto"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "videoCodec.description"
+msgid "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones."
+msgstr "Který kodek vzít jako první mezi streamy stejné výšky. Auto ponechá vlastní pořadí yt-dlp, které upřednostňuje AV1, nejmenší; H.264 se přehraje na starších televizích a telefonech."
+
+msgctxt "videoCodec.h264"
+msgid "H.264 first"
+msgstr "Nejdřív H.264"
+
+msgctxt "videoCodec.label"
+msgid "Video codec"
+msgstr "Videokodek"
+
+msgctxt "videoCodec.smartTv"
+msgid "Smart TV always takes H.264."
+msgstr "Smart TV vždy bere H.264."
+
+msgctxt "videoCodec.vp9"
+msgid "VP9 first"
+msgstr "Nejdřív VP9"
+
+msgctxt "wizard.bulk.acceptedCount"
+msgid "Ready"
+msgstr "Připraveno"
+
+msgctxt "wizard.bulk.description"
+msgid "Paste video, playlist, channel, search, or audio URLs. Arroxy will clean duplicates before queueing."
+msgstr "Vložte adresy URL videí, playlistů, kanálů, vyhledávání nebo zvuku. Arroxy před zařazením do fronty odstraní duplicity."
+
+msgctxt "wizard.bulk.emptyPreview"
+msgid "Paste one or more URLs to preview the batch."
+msgstr "Vložte jednu nebo více adres URL a zobrazí se náhled dávky."
+
+msgctxt "wizard.bulk.ignoredCount"
+msgid "Ignored"
+msgstr "Ignorováno"
+
+msgctxt "wizard.bulk.needsAtLeastOne"
+msgid "Add at least one supported URL to continue."
+msgstr "Chcete-li pokračovat, přidejte alespoň jednu podporovanou adresu URL."
+
+msgctxt "wizard.bulk.reject.duplicate"
+msgid "Duplicate"
+msgstr "Duplicita"
+
+msgctxt "wizard.bulk.textareaLabel"
+msgid "URL list"
+msgstr "Seznam adres URL"
+
+msgctxt "wizard.bulk.textareaPlaceholder"
+msgid ""
+"https://example.com/video-1\n"
+"https://example.com/video-2\n"
+"https://example.com/video-3"
+msgstr ""
+"https://video.example/one\n"
+"https://video.example/two\n"
+"https://video.example/three"
+
+msgctxt "wizard.bulk.title"
+msgid "Bulk URLs"
+msgstr "Hromadné URL"
+
+msgctxt "wizard.confirm.addToQueue"
+msgid "+ Queue"
+msgstr "+ Fronta"
+
+msgctxt "wizard.confirm.addToQueueTooltip"
+msgid "Adds to the queue — starts when the active download finishes"
+msgstr "Přidá do fronty – spustí se, jakmile skončí aktivní stahování"
+
+msgctxt "wizard.confirm.audioOnly"
+msgid "Audio only"
+msgstr "Pouze zvuk"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.confirm.itemsValue_few"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} z {{total}} videí"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.confirm.itemsValue_many"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} z {{total}} videí"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.confirm.itemsValue_one"
+msgid "{{count}} of {{total}} video"
+msgstr "{{count}} z {{total}} videí"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.confirm.itemsValue_other"
+msgid "{{count}} of {{total}} videos"
+msgstr "{{count}} z {{total}} videí"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.confirm.itemsValueAudio_few"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} z {{total}} skladeb"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.confirm.itemsValueAudio_many"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} z {{total}} skladeb"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.confirm.itemsValueAudio_one"
+msgid "{{count}} of {{total}} track"
+msgstr "{{count}} z {{total}} skladeb"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.confirm.itemsValueAudio_other"
+msgid "{{count}} of {{total}} tracks"
+msgstr "{{count}} z {{total}} skladeb"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.confirm.itemsValueBulk_few"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} z {{total}} adres URL"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.confirm.itemsValueBulk_many"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} z {{total}} adres URL"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.confirm.itemsValueBulk_one"
+msgid "{{count}} of {{total}} URL"
+msgstr "{{count}} z {{total}} adres URL"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.confirm.itemsValueBulk_other"
+msgid "{{count}} of {{total}} URLs"
+msgstr "{{count}} z {{total}} adres URL"
+
+msgctxt "wizard.confirm.labelAudio"
+msgid "Audio"
+msgstr "Zvuk"
+
+msgctxt "wizard.confirm.labelBulk"
+msgid "Batch"
+msgstr "Dávka"
+
+msgctxt "wizard.confirm.labelItems"
+msgid "Items"
+msgstr "Položky"
+
+msgctxt "wizard.confirm.labelPlaylist"
+msgid "Playlist"
+msgstr "Playlist"
+
+msgctxt "wizard.confirm.labelPreset"
+msgid "Preset"
+msgstr "Předvolba"
+
+msgctxt "wizard.confirm.labelSaveTo"
+msgid "Save to"
+msgstr "Uložit do"
+
+msgctxt "wizard.confirm.labelSize"
+msgid "Size"
+msgstr "Velikost"
+
+msgctxt "wizard.confirm.labelSubtitles"
+msgid "Subtitles"
+msgstr "Titulky"
+
+msgctxt "wizard.confirm.labelVideo"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.confirm.landIn"
+msgid "Your file will land in"
+msgstr "Váš soubor skončí v"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.confirm.landInMultiProfile_few"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Skončí ve {{count}} cílech uvedených níže"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.confirm.landInMultiProfile_many"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Skončí ve {{count}} cílech uvedených níže"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.confirm.landInMultiProfile_one"
+msgid "It'll land in the destination below"
+msgstr "Skončí v cíli uvedeném níže"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.confirm.landInMultiProfile_other"
+msgid "They'll land in the {{count}} destinations below"
+msgstr "Skončí v {{count}} cílech uvedených níže"
+
+msgctxt "wizard.confirm.nothingToDownload"
+msgid "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded."
+msgstr "Je aktivní předvolba pouze titulků, ale není vybrán žádný jazyk titulků – nic se nestáhne."
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.confirm.profileBreakdownCount_few"
+msgid "{{count}} items"
+msgstr "{{count}} položky"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.confirm.profileBreakdownCount_many"
+msgid "{{count}} items"
+msgstr "{{count}} položky"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.confirm.profileBreakdownCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} položka"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.confirm.profileBreakdownCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} položek"
+
+msgctxt "wizard.confirm.profileBreakdownHeading"
+msgid "Profiles in this batch"
+msgstr "Profily v této dávce"
+
+msgctxt "wizard.confirm.pullIt"
+msgid "Pull it! ↓"
+msgstr "Stáhnout hned ↓"
+
+msgctxt "wizard.confirm.pullItTooltip"
+msgid "Skips the queue — starts now, runs alongside other active downloads"
+msgstr "Přeskočí frontu – spustí se hned a poběží vedle ostatních aktivních stahování"
+
+msgctxt "wizard.confirm.readyHeadline"
+msgid "Ready to pull it in!"
+msgstr "Připraveno ke stažení!"
+
+msgctxt "wizard.confirm.sizeUnknown"
+msgid "Unknown"
+msgstr "Neznámá"
+
+msgctxt "wizard.confirm.subtitleEmbedAudioOnly"
+msgid "Subtitle embed changed to sidecar — audio tracks do not support embedded subtitle streams."
+msgstr "Vložení titulků bylo změněno na samostatný soubor – zvukové stopy nepodporují vložené streamy titulků."
+
+msgctxt "wizard.confirm.subtitleEmbedForcesMkv"
+msgid "Subtitles inside the video need an MKV file, so this download saves as .mkv."
+msgstr "Titulky uvnitř videa vyžadují soubor MKV, proto se toto stahování uloží jako .mkv."
+
+msgctxt "wizard.confirm.subtitlesNone"
+msgid "—"
+msgstr "—"
+
+msgctxt "wizard.confirm.thumbnailEmbedNotSupported"
+msgid "Thumbnail embed skipped — output container does not support it."
+msgstr "Vložení miniatury bylo přeskočeno – výstupní kontejner jej nepodporuje."
+
+msgctxt "wizard.folder.custom"
+msgid "Custom…"
+msgstr "Vlastní…"
+
+msgctxt "wizard.folder.desktop"
+msgid "Desktop"
+msgstr "Plocha"
+
+msgctxt "wizard.folder.documents"
+msgid "Documents"
+msgstr "Dokumenty"
+
+msgctxt "wizard.folder.downloads"
+msgid "Downloads"
+msgstr "Stažené soubory"
+
+msgctxt "wizard.folder.heading"
+msgid "Save to"
+msgstr "Uložit do"
+
+msgctxt "wizard.folder.home"
+msgid "Home"
+msgstr "Domů"
+
+msgctxt "wizard.folder.music"
+msgid "Music"
+msgstr "Hudba"
+
+msgctxt "wizard.folder.pictures"
+msgid "Pictures"
+msgstr "Obrázky"
+
+msgctxt "wizard.folder.subfolder.invalid"
+msgid "Folder name has invalid characters"
+msgstr "Název složky obsahuje neplatné znaky"
+
+msgctxt "wizard.folder.subfolder.placeholder"
+msgid "e.g. lo-fi rips"
+msgstr "např. lo-fi nahrávky"
+
+msgctxt "wizard.folder.subfolder.toggle"
+msgid "Save inside subfolder"
+msgstr "Uložit do podsložky"
+
+msgctxt "wizard.folder.videos"
+msgid "Movies"
+msgstr "Filmy"
+
+msgctxt "wizard.formats.audio"
+msgid "Audio"
+msgstr "Zvuk"
+
+msgctxt "wizard.formats.audioLanguage"
+msgid "Audio language"
+msgstr "Jazyk zvuku"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.formats.audioLanguageCount_few"
+msgid "{{count}} languages"
+msgstr "{{count}} jazyky"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.formats.audioLanguageCount_many"
+msgid "{{count}} languages"
+msgstr "{{count}} jazyka"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.formats.audioLanguageCount_one"
+msgid "{{count}} language"
+msgstr "{{count}} jazyk"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.formats.audioLanguageCount_other"
+msgid "{{count}} languages"
+msgstr "{{count}} jazyků"
+
+msgctxt "wizard.formats.audioOnly"
+msgid "Audio only"
+msgstr "Pouze zvuk"
+
+msgctxt "wizard.formats.bitrateValue"
+msgid "Bitrate {{bitrate}}"
+msgstr "Datový tok {{bitrate}}"
+
+msgctxt "wizard.formats.botWall.bodyDisabled"
+msgid "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry."
+msgstr "Cookies jsou nastaveny, ale vypnuty. Zapněte je a zkuste to znovu, abyste získali úplný seznam, nebo změňte síť a zkuste to znovu."
+
+msgctxt "wizard.formats.botWall.bodyEnabled"
+msgid "Even with cookies, YouTube limited this probe. Try again later or switch network."
+msgstr "YouTube omezil toto zjišťování i při použití cookies. Zkuste to později nebo změňte síť."
+
+msgctxt "wizard.formats.botWall.bodyExplore"
+msgid "YouTube limited this request. Try again later or switch network."
+msgstr "YouTube tento požadavek omezil. Zkuste to později nebo změňte síť."
+
+msgctxt "wizard.formats.botWall.bodyUnconfigured"
+msgid "The format list may be incomplete. Set up cookies in advanced settings, or change network and retry."
+msgstr "Seznam formátů může být neúplný. Nastavte cookies v pokročilém nastavení, nebo změňte síť a zkuste to znovu."
+
+msgctxt "wizard.formats.botWall.enableRetryCta"
+msgid "Enable cookies and retry"
+msgstr "Zapnout cookies a zkusit znovu"
+
+msgctxt "wizard.formats.botWall.heading"
+msgid "Probe was limited"
+msgstr "Zjišťování bylo omezeno"
+
+msgctxt "wizard.formats.botWall.retryCta"
+msgid "Retry"
+msgstr "Zkusit znovu"
+
+msgctxt "wizard.formats.convert.bitrate"
+msgid "Bitrate"
+msgstr "Datový tok"
+
+msgctxt "wizard.formats.convert.bitrateCopyHint"
+msgid "A source that is already {{target}} keeps its own stream and bitrate: it is copied, not re-encoded."
+msgstr "Zdroj, který už je {{target}}, si ponechá vlastní stream a datový tok: kopíruje se, nepřekóduje."
+
+msgctxt "wizard.formats.convert.copyLabel"
+msgid "{{target}} {{bitrate}} kbps, no re-encode"
+msgstr "{{target}} {{bitrate}} kb/s, bez překódování"
+
+msgctxt "wizard.formats.convert.copyLabelNoBitrate"
+msgid "{{target}}, no re-encode"
+msgstr "{{target}}, bez překódování"
+
+msgctxt "wizard.formats.convert.copyNote"
+msgid "{{kbps}} kbps, as the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "{{kbps}} kb/s, tak jak je ve zdroji: stream už je {{target}}, proto se kopíruje, nepřekóduje"
+
+msgctxt "wizard.formats.convert.copyNoteNoBitrate"
+msgid "As the source has it: the stream is already {{target}}, so it is copied, not re-encoded"
+msgstr "Tak jak je ve zdroji: stream už je {{target}}, proto se kopíruje, nepřekóduje"
+
+msgctxt "wizard.formats.convert.label"
+msgid "Convert"
+msgstr "Převést"
+
+msgctxt "wizard.formats.convert.lossyLabel"
+msgid "{{target}} {{bitrate}} kbps"
+msgstr "{{target}} {{bitrate}} kb/s"
+
+msgctxt "wizard.formats.convert.sourceKbps"
+msgid "Source is {{kbps}} kbps"
+msgstr "Zdroj má {{kbps}} kb/s"
+
+msgctxt "wizard.formats.convert.wavLabel"
+msgid "WAV (uncompressed)"
+msgstr "WAV (nekomprimovaný)"
+
+msgctxt "wizard.formats.cookiesError.currentModeBrowser"
+msgid "Browser"
+msgstr "Prohlížeč"
+
+msgctxt "wizard.formats.cookiesError.currentModeExplore"
+msgid "Explore sign-in"
+msgstr "Přihlášení v Procházení"
+
+msgctxt "wizard.formats.cookiesError.currentModeFile"
+msgid "File"
+msgstr "Soubor"
+
+msgctxt "wizard.formats.cookiesError.currentModeLabel"
+msgid "Cookies source"
+msgstr "Zdroj cookies"
+
+msgctxt "wizard.formats.cookiesError.dpapi.docsLinkLabel"
+msgid "yt-dlp docs (issue #10927)"
+msgstr "Dokumentace yt-dlp (issue #10927)"
+
+msgctxt "wizard.formats.cookiesError.dpapi.explanation"
+msgid "Chrome 127 and newer encrypts cookies in a way other apps can't read on Windows. Try one of the workarounds below."
+msgstr "Chrome 127 a novější šifruje cookies způsobem, který ve Windows nemohou jiné aplikace přečíst. Vyzkoušejte jedno z řešení níže."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileBody"
+msgid "Export cookies from Chrome with a browser extension, then switch this app to File mode and pick the exported file."
+msgstr "Exportujte cookies z Chromu pomocí rozšíření prohlížeče, poté přepněte tuto aplikaci do režimu Soubor a vyberte exportovaný soubor."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFileLabel"
+msgid "Export cookies.txt"
+msgstr "Exportovat cookies.txt"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxBody"
+msgid "Firefox doesn't use App-Bound Encryption. Open cookies settings and pick Firefox from the browser list."
+msgstr "Firefox App-Bound Encryption nepoužívá. Otevřete nastavení cookies a v seznamu prohlížečů vyberte Firefox."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixFirefoxLabel"
+msgid "Switch to Firefox"
+msgstr "Přepnout na Firefox"
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeBody"
+msgid "Add --disable-features=LockProfileCookieDatabase to Chrome's launch shortcut. Warning: this invalidates previously encrypted cookies, so you'll be signed out of every site and need to log in again."
+msgstr "Přidejte --disable-features=LockProfileCookieDatabase do spouštěcí zkratky Chromu. Upozornění: tím se zneplatní dříve zašifrované cookies, takže budete odhlášeni ze všech webů a budete se muset znovu přihlásit."
+
+msgctxt "wizard.formats.cookiesError.dpapi.fixUnsafeLabel"
+msgid "Launch Chrome with App-Bound Encryption disabled"
+msgstr "Spustit Chrome s vypnutým App-Bound Encryption"
+
+msgctxt "wizard.formats.cookiesError.dpapi.heading"
+msgid "Chrome cookies blocked by Windows encryption"
+msgstr "Cookies Chromu blokuje šifrování Windows"
+
+msgctxt "wizard.formats.cookiesError.explanationBrowser"
+msgid "Cookies are read directly from the browser. If the browser is currently running, its cookie database may be locked (Chromium-family). The browser must also be signed in to YouTube. Try closing the browser, switching to a different browser, switching to File mode, or turning cookies off."
+msgstr "Cookies se čtou přímo z prohlížeče. Pokud prohlížeč právě běží, může být jeho databáze cookies uzamčena (rodina Chromium). Prohlížeč musí být také přihlášen k YouTube. Zkuste prohlížeč zavřít, přepnout na jiný prohlížeč, přepnout do režimu Soubor nebo cookies vypnout."
+
+msgctxt "wizard.formats.cookiesError.explanationFile"
+msgid "Your cookies file might be empty, expired, or in the wrong format (Arroxy needs a Netscape cookies.txt file). Try re-exporting cookies, picking a different file, switching to Browser mode, or turning cookies off."
+msgstr "Váš soubor cookies může být prázdný, s prošlou platností nebo ve špatném formátu (Arroxy potřebuje soubor cookies.txt ve formátu Netscape). Zkuste cookies znovu exportovat, vybrat jiný soubor, přepnout do režimu Prohlížeč nebo cookies vypnout."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.body"
+msgid "Sign in with Explore and Arroxy will retry it."
+msgstr "Přihlaste se v Procházení a Arroxy to zkusí znovu."
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.cta"
+msgid "Sign in with Explore"
+msgstr "Přihlásit se v Procházení"
+
+msgctxt "wizard.formats.cookiesError.exploreOffer.heading"
+msgid "This video may need a YouTube account"
+msgstr "Toto video může vyžadovat účet YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.body"
+msgid "Arroxy already tried it signed in through Explore, so signing in again won't help. The site may be having trouble, or this account can't open it. Try again later."
+msgstr "Arroxy to už zkusilo s přihlášením přes Procházení, takže další přihlášení nepomůže. Web může mít potíže, nebo tento účet video otevřít nemůže. Zkuste to později."
+
+msgctxt "wizard.formats.cookiesError.exploreRefused.heading"
+msgid "The site refused this even with your Explore sign-in"
+msgstr "Web to odmítl i s vaším přihlášením v Procházení"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.body"
+msgid "You're signed in to Explore, but downloads aren't using that sign-in right now."
+msgstr "Jste přihlášeni v Procházení, ale stahování toto přihlášení momentálně nepoužívá."
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.cta"
+msgid "Use my Explore sign-in and retry"
+msgstr "Použít přihlášení v Procházení a zkusit znovu"
+
+msgctxt "wizard.formats.cookiesError.exploreReuse.heading"
+msgid "This video may need a YouTube account"
+msgstr "Toto video může vyžadovat účet YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.body"
+msgid "If this video needs an account, Arroxy uses your Explore sign-in automatically. It may be unavailable for another reason."
+msgstr "Pokud toto video vyžaduje účet, Arroxy automaticky použije vaše přihlášení v Procházení. Může být nedostupné z jiného důvodu."
+
+msgctxt "wizard.formats.cookiesError.exploreSignedIn.heading"
+msgid "Signed in to Explore"
+msgstr "Přihlášeno v Procházení"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.body"
+msgid "If this video needs a YouTube account, sign in in Explore and retry. Arroxy uses that sign-in only when a download needs it."
+msgstr "Pokud toto video vyžaduje účet YouTube, přihlaste se v Procházení a zkuste to znovu. Arroxy toto přihlášení použije, jen když ho stahování potřebuje."
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.cta"
+msgid "Sign in in Explore"
+msgstr "Přihlásit se v Procházení"
+
+msgctxt "wizard.formats.cookiesError.exploreSignIn.heading"
+msgid "This video may need a YouTube account"
+msgstr "Toto video může vyžadovat účet YouTube"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.heading"
+msgid "This link may need an account on {{host}}"
+msgstr "Tento odkaz může vyžadovat účet na {{host}}"
+
+msgctxt "wizard.formats.cookiesError.exploreSite.offerBody"
+msgid "Sign in to {{host}} with Explore, then try again."
+msgstr "Přihlaste se k {{host}} v Procházení a zkuste to znovu."
+
+msgctxt "wizard.formats.cookiesError.exploreSite.signInBody"
+msgid "Sign in to {{host}} in Explore, then try again. Arroxy uses that sign-in only when a download needs it."
+msgstr "Přihlaste se k {{host}} v Procházení a zkuste to znovu. Arroxy toto přihlášení použije, jen když ho stahování potřebuje."
+
+msgctxt "wizard.formats.cookiesError.heading"
+msgid "Cookies might be the cause"
+msgstr "Příčinou mohou být cookies"
+
+msgctxt "wizard.formats.cookiesError.needsCookies.body"
+msgid "Arroxy couldn't access this video without authentication. Configure cookies in advanced settings — point them at a browser you're already signed in to, or import a cookies.txt file."
+msgstr "Arroxy se k tomuto videu bez ověření nedostalo. Nastavte cookies v pokročilém nastavení – nasměrujte je na prohlížeč, ve kterém už jste přihlášeni, nebo importujte soubor cookies.txt."
+
+msgctxt "wizard.formats.cookiesError.needsCookies.heading"
+msgid "This site requires sign-in"
+msgstr "Tento web vyžaduje přihlášení"
+
+msgctxt "wizard.formats.cookiesError.openSettingsCta"
+msgid "Open cookies settings"
+msgstr "Otevřít nastavení cookies"
+
+msgctxt "wizard.formats.cookiesError.otherCookiesCta"
+msgid "Use a cookies file or browser instead…"
+msgstr "Raději použít soubor cookies nebo prohlížeč…"
+
+msgctxt "wizard.formats.drc.description"
+msgid "Quieter loud parts and louder quiet ones, for speakers and noisy rooms."
+msgstr "Zeslabí hlasité části a zesílí tiché, vhodné pro reproduktory a hlučné místnosti."
+
+msgctxt "wizard.formats.drc.label"
+msgid "Even out loudness (DRC)"
+msgstr "Vyrovnat hlasitost (DRC)"
+
+msgctxt "wizard.formats.drc.tag"
+msgid "Even loudness"
+msgstr "Vyrovnaná hlasitost"
+
+msgctxt "wizard.formats.fit.mp4Unavailable"
+msgid "Your profile is Smart TV (H.264). This video doesn't offer H.264, so the closest stream is selected."
+msgstr "Váš profil je Smart TV (H.264). Toto video H.264 nenabízí, proto je vybrán nejbližší stream."
+
+msgctxt "wizard.formats.fit.noVideo"
+msgid "This link has no video, so audio is selected."
+msgstr "Tento odkaz neobsahuje video, proto je vybrán zvuk."
+
+msgctxt "wizard.formats.fit.subtitlesMissing"
+msgid "Your profile asks for subtitles in {{languages}}. This video doesn't have them."
+msgstr "Váš profil požaduje titulky v jazycích: {{languages}}. Toto video je nemá."
+
+msgctxt "wizard.formats.fit.tierAbove"
+msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
+msgstr "Váš profil požaduje {{wanted}}p. Toto video nemá nic tak malého, proto je vybráno {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierBelow"
+msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
+msgstr "Váš profil požaduje {{wanted}}p. Toto video sahá nejvýše do {{picked}}p, proto je vybráno {{picked}}p."
+
+msgctxt "wizard.formats.fit.webmUnavailable"
+msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
+msgstr "Váš profil požaduje WebM. Vybrané streamy tohoto videa zahrnují {{codec}}, který WebM pojmout nemůže, proto je typ souboru Auto."
+
+msgctxt "wizard.formats.footer.addToQueue"
+msgid "Add to queue without starting"
+msgstr "Přidat do fronty bez spuštění"
+
+msgctxt "wizard.formats.footer.download"
+msgid "Download"
+msgstr "Stáhnout"
+
+msgctxt "wizard.formats.footer.moreActions"
+msgid "More download options"
+msgstr "Další možnosti stahování"
+
+msgctxt "wizard.formats.footer.subtitlesRequired"
+msgid "Choose at least one subtitle language."
+msgstr "Vyberte alespoň jeden jazyk titulků."
+
+msgctxt "wizard.formats.keepAudio"
+msgid "Keep as-is"
+msgstr "Ponechat beze změny"
+
+msgctxt "wizard.formats.keepAudioMeta"
+msgid "Built-in audio"
+msgstr "Vestavěný zvuk"
+
+msgctxt "wizard.formats.kind.audio"
+msgid "Audio only"
+msgstr "Pouze zvuk"
+
+msgctxt "wizard.formats.kind.label"
+msgid "What to download"
+msgstr "Co stáhnout"
+
+msgctxt "wizard.formats.kind.subtitles"
+msgid "Subtitles only"
+msgstr "Pouze titulky"
+
+msgctxt "wizard.formats.kind.video"
+msgid "Video + audio"
+msgstr "Video + zvuk"
+
+msgctxt "wizard.formats.kind.videoOnly"
+msgid "Video, no audio"
+msgstr "Video bez zvuku"
+
+msgctxt "wizard.formats.loadingAria"
+msgid "Loading formats"
+msgstr "Načítání formátů"
+
+msgctxt "wizard.formats.loadingHint"
+msgid "Please wait until probing finishes — playlists and searches can take a while."
+msgstr "Počkejte, až zjišťování skončí – playlisty a vyhledávání mohou chvíli trvat."
+
+msgctxt "wizard.formats.marker.aiDubbed"
+msgid "AI dubbed"
+msgstr "Nadabováno pomocí AI"
+
+msgctxt "wizard.formats.marker.aiUpscaled"
+msgid "AI upscaled"
+msgstr "Zvětšeno pomocí AI"
+
+msgctxt "wizard.formats.marker.audioDescription"
+msgid "Audio description"
+msgstr "Zvukový popis"
+
+msgctxt "wizard.formats.marker.damaged"
+msgid "Damaged"
+msgstr "Poškozeno"
+
+msgctxt "wizard.formats.marker.enhancedBitrate"
+msgid "Enhanced bitrate"
+msgstr "Vylepšený datový tok"
+
+msgctxt "wizard.formats.marker.spatialAudio"
+msgid "Spatial audio"
+msgstr "Prostorový zvuk"
+
+msgctxt "wizard.formats.marker.vr"
+msgid "360° / VR"
+msgstr "360° / VR"
+
+msgctxt "wizard.formats.marker.watermarked"
+msgid "Watermarked"
+msgstr "S vodoznakem"
+
+msgctxt "wizard.formats.noAudio"
+msgid "No audio"
+msgstr "Bez zvuku"
+
+msgctxt "wizard.formats.profile.calloutBody"
+msgid "Your active profile pre-selects the streams for you. Switch profiles from the menu, or use the pencil to tune one without leaving this download."
+msgstr "Streamy předvybere váš aktivní profil. Profily přepnete v nabídce, nebo pomocí tužky jeden upravte, aniž byste toto stahování opustili."
+
+msgctxt "wizard.formats.profile.calloutTitle"
+msgid "Formats start from your profile"
+msgstr "Formáty vycházejí z vašeho profilu"
+
+msgctxt "wizard.formats.profile.closestTag"
+msgid "Closest to profile"
+msgstr "Nejblíže profilu"
+
+msgctxt "wizard.formats.profile.edit"
+msgid "Edit {{name}}"
+msgstr "Upravit {{name}}"
+
+msgctxt "wizard.formats.profile.keepEdits"
+msgid "Keep my changes"
+msgstr "Ponechat moje změny"
+
+msgctxt "wizard.formats.profile.menuDescription"
+msgid "For this download only. Your default profile stays as it is."
+msgstr "Jen pro toto stahování. Váš výchozí profil zůstane beze změny."
+
+msgctxt "wizard.formats.profile.preselected"
+msgid "Pre-selected from"
+msgstr "Předvybráno z profilu"
+
+msgctxt "wizard.formats.profile.resetAll"
+msgid "Reset all"
+msgstr "Obnovit vše"
+
+msgctxt "wizard.formats.profile.switchBody"
+msgid "You changed {{areas}} for this download. “{{profile}}” picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Pro toto stahování jste změnili: {{areas}}. Profil „{{profile}}“ vybere video a zvuk tak či tak. Ponechat ostatní změny, nebo vše obnovit podle profilu?"
+
+msgctxt "wizard.formats.profile.switchTitle"
+msgid "Switch profile?"
+msgstr "Přepnout profil?"
+
+msgctxt "wizard.formats.profile.tag"
+msgid "Profile"
+msgstr "Profil"
+
+msgctxt "wizard.formats.profile.updatedBody"
+msgid "You changed {{areas}} for this download. The updated profile picks the video and audio either way. Keep your other changes, or reset everything to the profile?"
+msgstr "Pro toto stahování jste změnili: {{areas}}. Aktualizovaný profil vybere video a zvuk tak či tak. Ponechat ostatní změny, nebo vše obnovit podle profilu?"
+
+msgctxt "wizard.formats.profile.updatedTitle"
+msgid "Use the updated profile?"
+msgstr "Použít aktualizovaný profil?"
+
+msgctxt "wizard.formats.quality.high"
+msgid "High quality"
+msgstr "Vysoká kvalita"
+
+msgctxt "wizard.formats.quality.low"
+msgid "Low quality"
+msgstr "Nízká kvalita"
+
+msgctxt "wizard.formats.quality.medium"
+msgid "Medium quality"
+msgstr "Střední kvalita"
+
+msgctxt "wizard.formats.rateLimit.heading"
+msgid "{{site}} is rate-limiting this connection"
+msgstr "{{site}} omezuje toto připojení"
+
+msgctxt "wizard.formats.rateLimit.leadDegraded"
+msgid "The format list may be incomplete."
+msgstr "Seznam formátů může být neúplný."
+
+msgctxt "wizard.formats.rateLimit.leadFailed"
+msgid "{{site}} turned this request away for now."
+msgstr "{{site}} tento požadavek zatím odmítl."
+
+msgctxt "wizard.formats.rateLimit.retryCta"
+msgid "Retry"
+msgstr "Zkusit znovu"
+
+msgctxt "wizard.formats.rateLimit.sessionNote"
+msgid "{{site}} can keep this limit for up to an hour."
+msgstr "{{site}} může toto omezení udržet až hodinu."
+
+msgctxt "wizard.formats.rateLimit.tryNowCta"
+msgid "Try now"
+msgstr "Zkusit hned"
+
+msgctxt "wizard.formats.rateLimit.waitOver"
+msgid "The wait is over, so you can try again."
+msgstr "Čekání skončilo, můžete to zkusit znovu."
+
+msgctxt "wizard.formats.rateLimit.waitUntil"
+msgid "Arroxy waits until {{time}} before asking {{site}} again, so the limit can clear."
+msgstr "Arroxy počká do {{time}}, než se znovu zeptá webu {{site}}, aby se omezení mohlo uvolnit."
+
+msgctxt "wizard.formats.resolutionUnknown"
+msgid "Unknown resolution"
+msgstr "Neznámé rozlišení"
+
+msgctxt "wizard.formats.savesAs.label"
+msgid "Saves as"
+msgstr "Uloží se jako"
+
+msgctxt "wizard.formats.savesAs.reset"
+msgid "WebM can't hold {{codec}}, so the file type went back to Auto."
+msgstr "WebM nemůže obsahovat {{codec}}, proto se typ souboru vrátil na Auto."
+
+msgctxt "wizard.formats.sizeUnknown"
+msgid "Size unknown"
+msgstr "Neznámá velikost"
+
+msgctxt "wizard.formats.skipToConfirm"
+msgid "Skip to confirm"
+msgstr "Přeskočit k potvrzení"
+
+msgctxt "wizard.formats.skipToConfirmTooltip"
+msgid "Uses your saved preferences for all remaining steps. To change a setting, continue step by step instead — your choice will be saved for next time."
+msgstr "Pro všechny zbývající kroky použije vaše uložené předvolby. Chcete-li nastavení změnit, pokračujte raději krok za krokem – vaše volba se uloží pro příště."
+
+msgctxt "wizard.formats.sniffing"
+msgid "Sniffing out the best formats for you…"
+msgstr "Hledám pro vás nejlepší formáty…"
+
+msgctxt "wizard.formats.total"
+msgid "Total"
+msgstr "Celkem"
+
+msgctxt "wizard.formats.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.formats.withAudio"
+msgid "with audio"
+msgstr "se zvukem"
+
+msgctxt "wizard.mixedPrompt.body"
+msgid "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next."
+msgstr "Chcete jen video, na které jste klikli, nebo vybrat z playlistu? V dalším kroku zvolíte konkrétní videa nebo rozsah."
+
+msgctxt "wizard.mixedPrompt.pickFromPlaylist"
+msgid "Pick from playlist"
+msgstr "Vybrat z playlistu"
+
+msgctxt "wizard.mixedPrompt.playlistLimit"
+msgid "Playlist probe limit: {{count}} items"
+msgstr "Limit zjišťování playlistu: {{count}} položek"
+
+msgctxt "wizard.mixedPrompt.playlistTooltip"
+msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
+msgstr "Před zobrazením výběru načte playlist až do limitu zjišťování playlistu."
+
+msgctxt "wizard.mixedPrompt.quickBody"
+msgid "Download only this video, or queue the whole playlist with your active Quick Download profile."
+msgstr "Stáhněte jen toto video, nebo zařaďte do fronty celý playlist s aktivním profilem Rychlého stahování."
+
+msgctxt "wizard.mixedPrompt.quickLimitDescription"
+msgid "Maximum entries Arroxy scans before queueing a playlist, channel, or search result."
+msgstr "Maximální počet položek, které Arroxy projde před zařazením playlistu, kanálu nebo výsledků hledání do fronty."
+
+msgctxt "wizard.mixedPrompt.quickPlaylistTooltip"
+msgid "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing."
+msgstr "Zařadí do fronty každou načtenou položku playlistu s aktivním profilem Rychlého stahování. Pokud kontrola dosáhne vašeho limitu, Arroxy se před zařazením do fronty zeptá."
+
+msgctxt "wizard.mixedPrompt.quickSingleTooltip"
+msgid "Queues one download and ignores the playlist attached to this URL."
+msgstr "Zařadí do fronty jedno stahování a ignoruje playlist připojený k této adrese URL."
+
+msgctxt "wizard.mixedPrompt.quickSingleVideo"
+msgid "Download this video"
+msgstr "Stáhnout toto video"
+
+msgctxt "wizard.mixedPrompt.quickWholePlaylist"
+msgid "Download whole playlist"
+msgstr "Stáhnout celý playlist"
+
+msgctxt "wizard.mixedPrompt.singleTooltip"
+msgid "Loads only this video. The playlist attached to this URL is ignored."
+msgstr "Načte jen toto video. Playlist připojený k této adrese URL se ignoruje."
+
+msgctxt "wizard.mixedPrompt.singleVideo"
+msgid "Just this one"
+msgstr "Jen toto"
+
+msgctxt "wizard.mixedPrompt.title"
+msgid "This link has a playlist"
+msgstr "Tento odkaz obsahuje playlist"
+
+msgctxt "wizard.output.embedChapters.description"
+msgid "Chapter markers navigable in any modern player."
+msgstr "Značky kapitol, v nichž lze procházet v jakémkoli moderním přehrávači."
+
+msgctxt "wizard.output.embedChapters.label"
+msgid "Embed chapters"
+msgstr "Vložit kapitoly"
+
+msgctxt "wizard.output.embedMetadata.description"
+msgid "Title, artist, description, and upload date written into the file."
+msgstr "Název, interpret, popis a datum nahrání se zapíšou do souboru."
+
+msgctxt "wizard.output.embedMetadata.label"
+msgid "Embed metadata"
+msgstr "Vložit metadata"
+
+msgctxt "wizard.output.embedThumbnail.description"
+msgid "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded."
+msgstr "Obal uvnitř souboru. Video WebM se přebalí do MKV; přeskočí se, pokud se vkládají titulky."
+
+msgctxt "wizard.output.embedThumbnail.label"
+msgid "Embed thumbnail"
+msgstr "Vložit miniaturu"
+
+msgctxt "wizard.output.writeDescription.description"
+msgid "Saves the video description as a .description text file next to the download."
+msgstr "Uloží popis videa jako textový soubor .description vedle staženého souboru."
+
+msgctxt "wizard.output.writeDescription.label"
+msgid "Save description"
+msgstr "Uložit popis"
+
+msgctxt "wizard.output.writeM3u.description"
+msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
+msgstr "Uloží vedle videí playlist .m3u, aby se v přehrávači otevřela ve správném pořadí."
+
+msgctxt "wizard.output.writeM3u.label"
+msgid "Generate .m3u playlist file"
+msgstr "Vytvořit soubor playlistu .m3u"
+
+msgctxt "wizard.output.writeThumbnail.description"
+msgid "Saves the thumbnail as a .jpg image file next to the download."
+msgstr "Uloží miniaturu jako obrázek .jpg vedle staženého souboru."
+
+msgctxt "wizard.output.writeThumbnail.label"
+msgid "Save thumbnail"
+msgstr "Uložit miniaturu"
+
+msgctxt "wizard.part.calloutBody"
+msgid "Switch to Part on the video card to pick a start and end, or a chapter, and download only that stretch."
+msgstr "Přepněte na kartě videa na Část, vyberte začátek a konec nebo kapitolu a stáhněte jen tento úsek."
+
+msgctxt "wizard.part.calloutTitle"
+msgid "Download just part of a video"
+msgstr "Stáhněte jen část videa"
+
+msgctxt "wizard.part.chapters"
+msgid "Chapters"
+msgstr "Kapitoly"
+
+msgctxt "wizard.part.chapterUntitled"
+msgid "Chapter {{number}}"
+msgstr "Kapitola {{number}}"
+
+msgctxt "wizard.part.connectionsNote"
+msgid "A part downloads through ffmpeg, so your download connections and pacing settings don't apply to it."
+msgstr "Část se stahuje přes ffmpeg, proto se na ni nevztahuje nastavení počtu připojení a prodlev při stahování."
+
+msgctxt "wizard.part.downloadBlocked"
+msgid "Fix the start and end of the part first."
+msgstr "Nejprve opravte začátek a konec části."
+
+msgctxt "wizard.part.end"
+msgid "End"
+msgstr "Konec"
+
+msgctxt "wizard.part.error.endBeyondDuration"
+msgid "The video ends at {{duration}}."
+msgstr "Video končí v {{duration}}."
+
+msgctxt "wizard.part.error.endInvalid"
+msgid "Enter the end as h:mm:ss, m:ss or seconds."
+msgstr "Zadejte konec jako h:mm:ss, m:ss nebo sekundy."
+
+msgctxt "wizard.part.error.startInvalid"
+msgid "Enter the start as h:mm:ss, m:ss or seconds."
+msgstr "Zadejte začátek jako h:mm:ss, m:ss nebo sekundy."
+
+msgctxt "wizard.part.error.startNotBeforeEnd"
+msgid "The start must come before the end."
+msgstr "Začátek musí být před koncem."
+
+msgctxt "wizard.part.exactCut.hint"
+msgid "Off: each cut lands on the nearest keyframe, which can be a few seconds from the time you typed."
+msgstr "Vypnuto: každý střih se zarovná na nejbližší klíčový snímek, který může být o několik sekund vedle zadaného času."
+
+msgctxt "wizard.part.exactCut.label"
+msgid "Exact cut (re-encodes, slower)"
+msgstr "Přesný střih (překóduje, pomalejší)"
+
+msgctxt "wizard.part.length"
+msgid "{{length}} of {{duration}}"
+msgstr "{{length}} z {{duration}}"
+
+msgctxt "wizard.part.part"
+msgid "Part"
+msgstr "Část"
+
+msgctxt "wizard.part.rangeLabel"
+msgid "Part of the video"
+msgstr "Část videa"
+
+msgctxt "wizard.part.start"
+msgid "Start"
+msgstr "Začátek"
+
+msgctxt "wizard.part.subtitlesFullLength"
+msgid "whole video"
+msgstr "celé video"
+
+msgctxt "wizard.part.summary"
+msgid "Part {{start}}–{{end}}"
+msgstr "Část {{start}}–{{end}}"
+
+msgctxt "wizard.part.switchLabel"
+msgid "How much of the video"
+msgstr "Jak velká část videa"
+
+msgctxt "wizard.part.timeHint"
+msgid "h:mm:ss, m:ss or seconds"
+msgstr "h:mm:ss, m:ss nebo sekundy"
+
+msgctxt "wizard.part.totalEstimate"
+msgid "Part, estimated"
+msgstr "Část, odhad"
+
+msgctxt "wizard.part.unavailableDuration"
+msgid "This video doesn't report its length, so it can only be downloaded whole."
+msgstr "Toto video neuvádí svou délku, proto jej lze stáhnout jen celé."
+
+msgctxt "wizard.part.unavailableSubtitles"
+msgid "Subtitles always cover the whole video."
+msgstr "Titulky vždy pokrývají celé video."
+
+msgctxt "wizard.part.urlStart"
+msgid "Your link starts at {{time}}"
+msgstr "Váš odkaz začíná v {{time}}"
+
+msgctxt "wizard.part.useUrlStart"
+msgid "Use as start"
+msgstr "Použít jako začátek"
+
+msgctxt "wizard.part.whole"
+msgid "Whole video"
+msgstr "Celé video"
+
+msgctxt "wizard.part.wholeTrack"
+msgid "Whole track"
+msgstr "Celá skladba"
+
+msgctxt "wizard.playlist.allRemovedDescription"
+msgid "Restore them to continue."
+msgstr "Chcete-li pokračovat, obnovte je."
+
+msgctxt "wizard.playlist.allRemovedTitle"
+msgid "Every item was removed"
+msgstr "Všechny položky byly odebrány"
+
+msgctxt "wizard.playlist.alreadyDownloaded"
+msgid "Already downloaded"
+msgstr "Již staženo"
+
+msgctxt "wizard.playlist.bulkHeading"
+msgid "Bulk URLs"
+msgstr "Hromadné URL"
+
+msgctxt "wizard.playlist.bulkMetadataOptional"
+msgid "No need to wait — files queued now still get their real names when they download."
+msgstr "Nemusíte čekat – soubory zařazené do fronty teď dostanou své skutečné názvy při stahování."
+
+msgctxt "wizard.playlist.bulkMetadataResolving"
+msgid "Fetching video details… {{done}}/{{total}}"
+msgstr "Načítání podrobností o videích… {{done}}/{{total}}"
+
+msgctxt "wizard.playlist.bulkRowFailed"
+msgid "Details unavailable"
+msgstr "Podrobnosti nejsou dostupné"
+
+msgctxt "wizard.playlist.bulkRowResolving"
+msgid "Fetching details"
+msgstr "Načítání podrobností"
+
+msgctxt "wizard.playlist.bulkRowWaiting"
+msgid "Waiting"
+msgstr "Čeká"
+
+msgctxt "wizard.playlist.durationUnknown"
+msgid "live"
+msgstr "živě"
+
+msgctxt "wizard.playlist.heading"
+msgid "Playlist items"
+msgstr "Položky playlistu"
+
+msgctxt "wizard.playlist.headingGeneric"
+msgid "Videos to download"
+msgstr "Videa ke stažení"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.playlist.itemCount_few"
+msgid "{{count}} videos"
+msgstr "{{count}} videa"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.itemCount_many"
+msgid "{{count}} videos"
+msgstr "{{count}} videa"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.playlist.itemCount_one"
+msgid "{{count}} video"
+msgstr "{{count}} video"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.itemCount_other"
+msgid "{{count}} videos"
+msgstr "{{count}} videí"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.playlist.itemCountAudio_few"
+msgid "{{count}} tracks"
+msgstr "{{count}} skladby"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.itemCountAudio_many"
+msgid "{{count}} tracks"
+msgstr "{{count}} skladby"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.playlist.itemCountAudio_one"
+msgid "{{count}} track"
+msgstr "{{count}} skladba"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.itemCountAudio_other"
+msgid "{{count}} tracks"
+msgstr "{{count}} skladeb"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.playlist.itemCountBulk_few"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.itemCountBulk_many"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.playlist.itemCountBulk_one"
+msgid "{{count}} URL"
+msgstr "{{count}} URL"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.itemCountBulk_other"
+msgid "{{count}} URLs"
+msgstr "{{count}} URL"
+
+msgctxt "wizard.playlist.loadingItems"
+msgid "Fetching playlist…"
+msgstr "Načítání playlistu…"
+
+msgctxt "wizard.playlist.loadingItemsGeneric"
+msgid "Fetching videos…"
+msgstr "Načítání videí…"
+
+msgctxt "wizard.playlist.loadingLimitHint"
+msgid "Limited to first {{count}} items"
+msgstr "Omezeno na prvních {{count}} položek"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.playlist.loadingPagesFound_few"
+msgid "{{count}} pages found"
+msgstr "Nalezeny {{count}} stránky"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.loadingPagesFound_many"
+msgid "{{count}} pages found"
+msgstr "Nalezeno {{count}} stránky"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.playlist.loadingPagesFound_one"
+msgid "{{count}} page found"
+msgstr "Nalezena {{count}} stránka"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.loadingPagesFound_other"
+msgid "{{count}} pages found"
+msgstr "Nalezeno {{count}} stránek"
+
+msgctxt "wizard.playlist.loadingPhaseItems"
+msgid "Collecting videos"
+msgstr "Shromažďování videí"
+
+msgctxt "wizard.playlist.loadingPhasePages"
+msgid "Scanning channel pages"
+msgstr "Kontrola stránek kanálu"
+
+msgctxt "wizard.playlist.multiProfileEntry"
+msgid "Assign profiles per item"
+msgstr "Přiřadit profily jednotlivým položkám"
+
+msgctxt "wizard.playlist.multiProfileEntryTooltip"
+msgid "Skips Quality, SponsorBlock, Output, and Save — assign a download profile per item instead"
+msgstr "Přeskočí Kvalitu, SponsorBlock, Výstup a Uložení – místo toho přiřaďte profil stahování každé položce zvlášť"
+
+msgctxt "wizard.playlist.nestedPlaylistBadge"
+msgid "Playlist"
+msgstr "Playlist"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.playlist.nestedPlaylistHint_few"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} z nich jsou playlisty, ne videa – chcete-li je stáhnout, vkládejte jejich odkazy po jednom."
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.nestedPlaylistHint_many"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} z nich je playlistů, ne videí – chcete-li je stáhnout, vkládejte jejich odkazy po jednom."
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.playlist.nestedPlaylistHint_one"
+msgid "{{count}} of these is a playlist, not a video — paste its link on its own to download it."
+msgstr "{{count}} z nich je playlist, ne video – chcete-li jej stáhnout, vložte jeho odkaz samostatně."
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.nestedPlaylistHint_other"
+msgid "{{count}} of these are playlists, not videos — paste their links one at a time to download them."
+msgstr "{{count}} z nich je playlistů, ne videí – chcete-li je stáhnout, vkládejte jejich odkazy po jednom."
+
+msgctxt "wizard.playlist.noSelection"
+msgid "Select at least one video to continue"
+msgstr "Chcete-li pokračovat, vyberte alespoň jedno video"
+
+msgctxt "wizard.playlist.probeLimitAlertDesc"
+msgid "Showing first {{count}} items. Increase the load limit to see more."
+msgstr "Zobrazeno prvních {{count}} položek. Chcete-li vidět více, zvyšte limit načítání."
+
+msgctxt "wizard.playlist.probeLimitAlertTitle"
+msgid "Playlist scan is capped"
+msgstr "Načítání playlistu je omezeno"
+
+msgctxt "wizard.playlist.probeLimitAlertTitleGeneric"
+msgid "Scan is capped"
+msgstr "Načítání je omezeno"
+
+msgctxt "wizard.playlist.rangeApply"
+msgid "Apply range"
+msgstr "Použít rozsah"
+
+msgctxt "wizard.playlist.rangeFrom"
+msgid "From"
+msgstr "Od"
+
+msgctxt "wizard.playlist.rangeTo"
+msgid "To"
+msgstr "Do"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.playlist.removedCount_few"
+msgid "{{count}} removed"
+msgstr "Odebráno: {{count}}"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.removedCount_many"
+msgid "{{count}} removed"
+msgstr "Odebráno: {{count}}"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.playlist.removedCount_one"
+msgid "{{count}} removed"
+msgstr "Odebráno: {{count}}"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.removedCount_other"
+msgid "{{count}} removed"
+msgstr "Odebráno: {{count}}"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.playlist.removeFromListCount_few"
+msgid "Remove {{count}} from list"
+msgstr "Odebrat ze seznamu ({{count}})"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.removeFromListCount_many"
+msgid "Remove {{count}} from list"
+msgstr "Odebrat ze seznamu ({{count}})"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.playlist.removeFromListCount_one"
+msgid "Remove {{count}} from list"
+msgstr "Odebrat ze seznamu ({{count}})"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.removeFromListCount_other"
+msgid "Remove {{count}} from list"
+msgstr "Odebrat ze seznamu ({{count}})"
+
+msgctxt "wizard.playlist.restore"
+msgid "Restore"
+msgstr "Obnovit"
+
+msgctxt "wizard.playlist.selectAll"
+msgid "Select all"
+msgstr "Vybrat vše"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.playlist.selectedCount_few"
+msgid "{{count}} selected"
+msgstr "Vybráno: {{count}}"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.selectedCount_many"
+msgid "{{count}} selected"
+msgstr "Vybráno: {{count}}"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.playlist.selectedCount_one"
+msgid "{{count}} selected"
+msgstr "Vybráno: {{count}}"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.selectedCount_other"
+msgid "{{count}} selected"
+msgstr "Vybráno: {{count}}"
+
+msgctxt "wizard.playlist.selectNone"
+msgid "Select none"
+msgstr "Zrušit výběr"
+
+msgctxt "wizard.playlist.sortApi"
+msgid "Playlist order"
+msgstr "Pořadí v playlistu"
+
+msgctxt "wizard.playlist.sortFetchingDates"
+msgid "Fetching upload dates…"
+msgstr "Načítání dat nahrání…"
+
+msgctxt "wizard.playlist.sortLabel"
+msgid "Sort"
+msgstr "Řazení"
+
+msgctxt "wizard.playlist.sortUploadAsc"
+msgid "Oldest first"
+msgstr "Od nejstarších"
+
+msgctxt "wizard.playlist.sortUploadDesc"
+msgid "Newest first"
+msgstr "Od nejnovějších"
+
+msgctxt "wizard.playlist.syncApply"
+msgid "Apply sync"
+msgstr "Použít synchronizaci"
+
+msgctxt "wizard.playlist.syncChange"
+msgid "Change folder…"
+msgstr "Změnit složku…"
+
+msgctxt "wizard.playlist.syncFoundDesc"
+msgid "{{n}} of these videos are already in {{dir}}. Sync to download only the new ones?"
+msgstr "Videí z tohoto seznamu, která už jsou ve složce {{dir}}: {{n}}. Synchronizovat a stáhnout jen nová?"
+
+msgctxt "wizard.playlist.syncFoundTitle"
+msgid "Already in folder"
+msgstr "Již ve složce"
+
+msgctxt "wizard.playlist.syncNoneDesc"
+msgid "No videos from this playlist were found in {{dir}}."
+msgstr "Ve složce {{dir}} nebylo nalezeno žádné video z tohoto playlistu."
+
+msgctxt "wizard.playlist.syncNoneDescGeneric"
+msgid "No videos from this source were found in {{dir}}."
+msgstr "Ve složce {{dir}} nebylo nalezeno žádné video z tohoto zdroje."
+
+msgctxt "wizard.playlist.syncNoneTitle"
+msgid "Nothing downloaded yet"
+msgstr "Zatím nic nestaženo"
+
+msgctxt "wizard.playlist.syncScanning"
+msgid "Checking folder…"
+msgstr "Kontrola složky…"
+
+msgctxt "wizard.playlist.thumbnailAlt"
+msgid "Video thumbnail"
+msgstr "Miniatura videa"
+
+msgctxt "wizard.playlistPresets.heading"
+msgid "Pick quality for the batch"
+msgstr "Vyberte kvalitu pro dávku"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.playlistPresets.itemCount_few"
+msgid "{{count}} items"
+msgstr "{{count}} položky"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistPresets.itemCount_many"
+msgid "{{count}} items"
+msgstr "{{count}} položky"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.playlistPresets.itemCount_one"
+msgid "{{count}} item"
+msgstr "{{count}} položka"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlistPresets.itemCount_other"
+msgid "{{count}} items"
+msgstr "{{count}} položek"
+
+msgctxt "wizard.playlistPresets.subhead"
+msgid "Each video resolves the chosen tier independently — heterogeneous playlists work without surprises."
+msgstr "Každé video vyhodnotí zvolenou úroveň samostatně – i nesourodé playlisty tak fungují bez překvapení."
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.playlistProfiles.assignTrigger_few"
+msgid "Assign to {{count}} videos"
+msgstr "Přiřadit {{count}} videím"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistProfiles.assignTrigger_many"
+msgid "Assign to {{count}} videos"
+msgstr "Přiřadit {{count}} videím"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.playlistProfiles.assignTrigger_one"
+msgid "Assign to {{count}} video"
+msgstr "Přiřadit {{count}} videu"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlistProfiles.assignTrigger_other"
+msgid "Assign to {{count}} videos"
+msgstr "Přiřadit {{count}} videím"
+
+msgctxt "wizard.playlistProfiles.assignTriggerEmpty"
+msgid "Assign profile"
+msgstr "Přiřadit profil"
+
+msgctxt "wizard.playlistProfiles.columnDuration"
+msgid "Duration"
+msgstr "Délka"
+
+msgctxt "wizard.playlistProfiles.columnProfile"
+msgid "Profile"
+msgstr "Profil"
+
+msgctxt "wizard.playlistProfiles.editProfile"
+msgid "Edit {{name}}"
+msgstr "Upravit {{name}}"
+
+msgctxt "wizard.playlistProfiles.empty"
+msgid "No items match this filter"
+msgstr "Tomuto filtru neodpovídají žádné položky"
+
+msgctxt "wizard.playlistProfiles.filterChip"
+msgid "{{name}} · {{count}}"
+msgstr "{{name}} · {{count}}"
+
+msgctxt "wizard.playlistProfiles.filtersLabel"
+msgid "Profile filters"
+msgstr "Filtry profilů"
+
+msgctxt "wizard.playlistProfiles.heading"
+msgid "Assign download profiles"
+msgstr "Přiřazení profilů stahování"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.playlistProfiles.menuDescription_few"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Vyberte profil pro tato {{count}} videa."
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlistProfiles.menuDescription_many"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Vyberte profil pro těchto {{count}} videa."
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.playlistProfiles.menuDescription_one"
+msgid "Pick the profile for this video."
+msgstr "Vyberte profil pro toto video."
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlistProfiles.menuDescription_other"
+msgid "Pick the profile for these {{count}} videos."
+msgstr "Vyberte profil pro těchto {{count}} videí."
+
+msgctxt "wizard.playlistProfiles.selectedSummary"
+msgid "{{selected}} of {{total}} selected"
+msgstr "Vybráno {{selected}} z {{total}}"
+
+msgctxt "wizard.profileEditor.action.changeGlobalShort"
+msgid "Change global"
+msgstr "Změnit globální"
+
+msgctxt "wizard.profileEditor.action.chooseFolder"
+msgid "Choose destination folder"
+msgstr "Vybrat cílovou složku"
+
+msgctxt "wizard.profileEditor.action.chooseIcon"
+msgid "Choose profile icon"
+msgstr "Vybrat ikonu profilu"
+
+msgctxt "wizard.profileEditor.action.removeLanguage"
+msgid "Remove {{code}}"
+msgstr "Odebrat {{code}}"
+
+msgctxt "wizard.profileEditor.action.reset"
+msgid "Reset profile"
+msgstr "Obnovit profil"
+
+msgctxt "wizard.profileEditor.action.resetDisabledHint"
+msgid "This profile already uses built-in settings"
+msgstr "Tento profil už používá vestavěné nastavení"
+
+msgctxt "wizard.profileEditor.action.resetHint"
+msgid "Restore the built-in profile settings"
+msgstr "Obnoví vestavěné nastavení profilu"
+
+msgctxt "wizard.profileEditor.action.save"
+msgid "Save profile"
+msgstr "Uložit profil"
+
+msgctxt "wizard.profileEditor.action.setOverride"
+msgid "Set profile override"
+msgstr "Nastavit přepsání profilu"
+
+msgctxt "wizard.profileEditor.action.setOverrideShort"
+msgid "Set override"
+msgstr "Nastavit přepsání"
+
+msgctxt "wizard.profileEditor.action.useGlobalDefault"
+msgid "Use global default"
+msgstr "Použít globální výchozí"
+
+msgctxt "wizard.profileEditor.action.useLanguageCode"
+msgid "Use language code “{{code}}”"
+msgstr "Použít kód jazyka „{{code}}“"
+
+msgctxt "wizard.profileEditor.advanced"
+msgid "Advanced"
+msgstr "Upřesnit"
+
+msgctxt "wizard.profileEditor.appSetting"
+msgid "Use app setting ({{value}})"
+msgstr "Použít nastavení aplikace ({{value}})"
+
+msgctxt "wizard.profileEditor.audioFormat.best"
+msgid "Best"
+msgstr "Nejlepší"
+
+msgctxt "wizard.profileEditor.audioFormat.wav"
+msgid "WAV"
+msgstr "WAV"
+
+msgctxt "wizard.profileEditor.audioQuality.128"
+msgid "Up to 128K"
+msgstr "Až 128K"
+
+msgctxt "wizard.profileEditor.audioQuality.192"
+msgid "Up to 192K"
+msgstr "Až 192K"
+
+msgctxt "wizard.profileEditor.audioQuality.320"
+msgid "Up to 320K"
+msgstr "Až 320K"
+
+msgctxt "wizard.profileEditor.audioQuality.best"
+msgid "Best quality"
+msgstr "Nejlepší kvalita"
+
+msgctxt "wizard.profileEditor.destination.defaultFolder"
+msgid "Default downloads folder"
+msgstr "Výchozí složka stahování"
+
+msgctxt "wizard.profileEditor.destination.defaultFolderWithSubfolder"
+msgid "Default downloads folder / {{subfolder}}"
+msgstr "Výchozí složka stahování / {{subfolder}}"
+
+msgctxt "wizard.profileEditor.destination.global"
+msgid "Global destination"
+msgstr "Globální cíl"
+
+msgctxt "wizard.profileEditor.destination.globalActive"
+msgid "Active"
+msgstr "Aktivní"
+
+msgctxt "wizard.profileEditor.destination.globalInherited"
+msgid "Inherited"
+msgstr "Zděděný"
+
+msgctxt "wizard.profileEditor.destination.override"
+msgid "Profile override"
+msgstr "Přepsání profilu"
+
+msgctxt "wizard.profileEditor.destination.overrideChoosing"
+msgid "Choose folder"
+msgstr "Vyberte složku"
+
+msgctxt "wizard.profileEditor.destination.overrideNone"
+msgid "No override set"
+msgstr "Žádné přepsání"
+
+msgctxt "wizard.profileEditor.destination.overrideNoneNote"
+msgid "No override set. This profile uses the global destination above."
+msgstr "Není nastaveno žádné přepsání. Tento profil používá globální cíl uvedený výše."
+
+msgctxt "wizard.profileEditor.destination.overrideSet"
+msgid "Overrides global"
+msgstr "Přepisuje globální"
+
+msgctxt "wizard.profileEditor.destination.overrideSetNote"
+msgid "This profile saves to its own root before the subfolder is added."
+msgstr "Tento profil ukládá do vlastního kořene, ještě než se přidá podsložka."
+
+msgctxt "wizard.profileEditor.destination.resolved"
+msgid "Resolved destination"
+msgstr "Výsledný cíl"
+
+msgctxt "wizard.profileEditor.dialogDescription"
+msgid "One reusable setup for Quick Download, Bulk URLs, and playlists."
+msgstr "Jedno opakovaně použitelné nastavení pro Rychlé stahování, Hromadné URL a playlisty."
+
+msgctxt "wizard.profileEditor.dialogTitle"
+msgid "Download Profile"
+msgstr "Profil stahování"
+
+msgctxt "wizard.profileEditor.error.changeGlobalDestination"
+msgid "Could not change global destination."
+msgstr "Globální cíl se nepodařilo změnit."
+
+msgctxt "wizard.profileEditor.error.folderPicker"
+msgid "Could not open folder picker. Enter a path manually."
+msgstr "Nepodařilo se otevřít výběr složky. Zadejte cestu ručně."
+
+msgctxt "wizard.profileEditor.error.reset"
+msgid "Could not reset profile settings."
+msgstr "Nastavení profilu se nepodařilo obnovit."
+
+msgctxt "wizard.profileEditor.error.save"
+msgid "Could not save profile settings."
+msgstr "Nastavení profilu se nepodařilo uložit."
+
+msgctxt "wizard.profileEditor.field.delivery"
+msgid "Delivery"
+msgstr "Způsob uložení"
+
+msgctxt "wizard.profileEditor.field.fileType"
+msgid "File type"
+msgstr "Typ souboru"
+
+msgctxt "wizard.profileEditor.field.goal"
+msgid "Optimize for"
+msgstr "Optimalizovat pro"
+
+msgctxt "wizard.profileEditor.field.icon"
+msgid "Profile icon"
+msgstr "Ikona profilu"
+
+msgctxt "wizard.profileEditor.field.languages"
+msgid "Languages"
+msgstr "Jazyky"
+
+msgctxt "wizard.profileEditor.field.name"
+msgid "Profile name"
+msgstr "Název profilu"
+
+msgctxt "wizard.profileEditor.field.nameAndIcon"
+msgid "Profile name and icon"
+msgstr "Název a ikona profilu"
+
+msgctxt "wizard.profileEditor.field.nativeAudio"
+msgid "Native audio"
+msgstr "Původní zvuk"
+
+msgctxt "wizard.profileEditor.field.overridePath"
+msgid "Profile override path"
+msgstr "Cesta přepsání profilu"
+
+msgctxt "wizard.profileEditor.field.quality"
+msgid "Quality"
+msgstr "Kvalita"
+
+msgctxt "wizard.profileEditor.field.resolution"
+msgid "Resolution"
+msgstr "Rozlišení"
+
+msgctxt "wizard.profileEditor.field.source"
+msgid "Source"
+msgstr "Zdroj"
+
+msgctxt "wizard.profileEditor.field.subfolderName"
+msgid "Subfolder name"
+msgstr "Název podsložky"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloads"
+msgid "Subtitle downloads"
+msgstr "Stahování titulků"
+
+msgctxt "wizard.profileEditor.field.subtitleDownloadsDescription"
+msgid "Profiles request language codes; availability is resolved for each URL."
+msgstr "Profily požadují kódy jazyků; dostupnost se zjišťuje pro každou adresu URL zvlášť."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.description"
+msgid "Sharpest at a given size. Older TVs, QuickTime and some editors can't play it."
+msgstr "Nejostřejší při dané velikosti. Starší televize, QuickTime a některé editory jej nepřehrají."
+
+msgctxt "wizard.profileEditor.goal.bestPicture.name"
+msgid "Best picture"
+msgstr "Nejlepší obraz"
+
+msgctxt "wizard.profileEditor.goal.bestPicture.tag"
+msgid "AV1 · VP9"
+msgstr "AV1 · VP9"
+
+msgctxt "wizard.profileEditor.goal.smartTv.description"
+msgid "Plays on TVs, phones, WhatsApp, QuickTime and video editors. YouTube offers H.264 only up to 1080p."
+msgstr "Přehraje se na televizích, telefonech, ve WhatsApp, QuickTime a ve video editorech. YouTube nabízí H.264 jen do 1080p."
+
+msgctxt "wizard.profileEditor.goal.smartTv.name"
+msgid "Smart TV"
+msgstr "Smart TV"
+
+msgctxt "wizard.profileEditor.goal.smartTv.tag"
+msgid "MP4 · H.264"
+msgstr "MP4 · H.264"
+
+msgctxt "wizard.profileEditor.icon.archive"
+msgid "Archive"
+msgstr "Archiv"
+
+msgctxt "wizard.profileEditor.icon.audio"
+msgid "Audio"
+msgstr "Zvuk"
+
+msgctxt "wizard.profileEditor.icon.captions"
+msgid "Captions"
+msgstr "Titulky"
+
+msgctxt "wizard.profileEditor.icon.classes"
+msgid "Classes"
+msgstr "Kurzy"
+
+msgctxt "wizard.profileEditor.icon.clip"
+msgid "Clip"
+msgstr "Klip"
+
+msgctxt "wizard.profileEditor.icon.controls"
+msgid "Controls"
+msgstr "Ovládání"
+
+msgctxt "wizard.profileEditor.icon.download"
+msgid "Download"
+msgstr "Stahování"
+
+msgctxt "wizard.profileEditor.icon.music"
+msgid "Music"
+msgstr "Hudba"
+
+msgctxt "wizard.profileEditor.icon.podcast"
+msgid "Podcast"
+msgstr "Podcast"
+
+msgctxt "wizard.profileEditor.icon.video"
+msgid "Video"
+msgstr "Video"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.description"
+msgid "Music or podcasts"
+msgstr "Hudba nebo podcasty"
+
+msgctxt "wizard.profileEditor.mediaMode.audioOnly.label"
+msgid "Audio only"
+msgstr "Pouze zvuk"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.description"
+msgid "Caption files only"
+msgstr "Pouze soubory titulků"
+
+msgctxt "wizard.profileEditor.mediaMode.subtitlesOnly.label"
+msgid "Subtitles only"
+msgstr "Pouze titulky"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.description"
+msgid "Normal video files"
+msgstr "Běžné soubory videa"
+
+msgctxt "wizard.profileEditor.mediaMode.videoAudio.label"
+msgid "Video + audio"
+msgstr "Video + zvuk"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.description"
+msgid "Silent video only"
+msgstr "Pouze němé video"
+
+msgctxt "wizard.profileEditor.mediaMode.videoOnly.label"
+msgid "Video, no audio"
+msgstr "Video bez zvuku"
+
+msgctxt "wizard.profileEditor.note.autoCaptionsSrt"
+msgid "Auto-captions will be saved as SRT instead of ASS."
+msgstr "Automatické titulky se uloží jako SRT místo ASS."
+
+msgctxt "wizard.profileEditor.note.noLanguageMatches"
+msgid "No matching languages"
+msgstr "Žádné odpovídající jazyky"
+
+msgctxt "wizard.profileEditor.note.noSubtitles"
+msgid "No subtitle files or embedded subtitle tracks will be requested for this profile."
+msgstr "Pro tento profil se nebudou požadovat žádné soubory titulků ani vložené stopy titulků."
+
+msgctxt "wizard.profileEditor.note.searchLanguages"
+msgid "Search by language name or code"
+msgstr "Hledejte podle názvu nebo kódu jazyka"
+
+msgctxt "wizard.profileEditor.note.skippedForOutputType"
+msgid "Skipped for this output type."
+msgstr "Pro tento typ výstupu se přeskakuje."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequired"
+msgid "Choose at least one language."
+msgstr "Vyberte alespoň jeden jazyk."
+
+msgctxt "wizard.profileEditor.note.subtitleLanguagesRequiredOrOff"
+msgid "Choose at least one language, or turn subtitle downloads off."
+msgstr "Vyberte alespoň jeden jazyk, nebo stahování titulků vypněte."
+
+msgctxt "wizard.profileEditor.note.subtitlesOnly"
+msgid "This profile queues subtitle files only. Video, audio, SponsorBlock, and media conversion are skipped."
+msgstr "Tento profil zařazuje do fronty jen soubory titulků. Video, zvuk, SponsorBlock a převod médií se přeskakují."
+
+msgctxt "wizard.profileEditor.panel.advanced.description"
+msgid "Profiles inherit the global destination unless you set a profile override."
+msgstr "Profily dědí globální cíl, pokud nenastavíte přepsání profilu."
+
+msgctxt "wizard.profileEditor.panel.advanced.title"
+msgid "Advanced options"
+msgstr "Rozšířené možnosti"
+
+msgctxt "wizard.profileEditor.panel.downloadType.description"
+msgid "Choose the primary way you want to download."
+msgstr "Vyberte hlavní způsob stahování."
+
+msgctxt "wizard.profileEditor.panel.downloadType.title"
+msgid "Download type"
+msgstr "Typ stahování"
+
+msgctxt "wizard.profileEditor.panel.identity.description"
+msgid "Name and icon shown in Quick Download, Bulk URLs, and profile lists."
+msgstr "Název a ikona zobrazené v Rychlém stahování, Hromadných URL a seznamech profilů."
+
+msgctxt "wizard.profileEditor.panel.identity.title"
+msgid "Profile identity"
+msgstr "Identita profilu"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_few"
+msgid "{{count}} enabled"
+msgstr "Zapnuto: {{count}}"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_many"
+msgid "{{count}} enabled"
+msgstr "Zapnuto: {{count}}"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_one"
+msgid "{{count}} enabled"
+msgstr "Zapnuto: {{count}}"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.profileEditor.panel.output.enabledCount_other"
+msgid "{{count}} enabled"
+msgstr "Zapnuto: {{count}}"
+
+msgctxt "wizard.profileEditor.panel.output.title"
+msgid "Output options"
+msgstr "Možnosti výstupu"
+
+msgctxt "wizard.profileEditor.panel.sponsorBlock.title"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.profileEditor.placeholder.folder"
+msgid "Choose a folder for this profile"
+msgstr "Vyberte složku pro tento profil"
+
+msgctxt "wizard.profileEditor.skipped"
+msgid "Skipped"
+msgstr "Přeskočeno"
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Označí sponzorské segmenty jako kapitoly (nedestruktivně)."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Bez SponsorBlock – video se přehrává tak, jak bylo nahráno."
+
+msgctxt "wizard.profileEditor.sponsorBlockHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Vystřihne sponzorské segmenty z videa pomocí FFmpeg."
+
+msgctxt "wizard.profileEditor.subtitleFormat.ass"
+msgid "ASS"
+msgstr "ASS"
+
+msgctxt "wizard.profileEditor.subtitleFormat.srt"
+msgid "SRT"
+msgstr "SRT"
+
+msgctxt "wizard.profileEditor.subtitleFormat.vtt"
+msgid "VTT"
+msgstr "VTT"
+
+msgctxt "wizard.profileEditor.subtitleSource.autoOnly"
+msgid "Auto-generated only"
+msgstr "Pouze automaticky generované"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualAndAuto"
+msgid "Manual and auto"
+msgstr "Ruční i automatické"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualFirst"
+msgid "Manual first, then auto"
+msgstr "Nejdřív ruční, pak automatické"
+
+msgctxt "wizard.profileEditor.subtitleSource.manualOnly"
+msgid "Manual only"
+msgstr "Pouze ruční"
+
+msgctxt "wizard.profileSwitchRow.helpAria"
+msgid "{{label}} help"
+msgstr "Nápověda: {{label}}"
+
+msgctxt "wizard.quickProgress.cancel"
+msgid "Cancel preparation"
+msgstr "Zrušit přípravu"
+
+msgctxt "wizard.quickProgress.currentFallback"
+msgid "Current link"
+msgstr "Aktuální odkaz"
+
+msgctxt "wizard.quickProgress.description"
+msgid "Arroxy is reading the link and applying {{profileName}}."
+msgstr "Arroxy čte odkaz a používá profil {{profileName}}."
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.quickProgress.failedCount_few"
+msgid "{{count}} failed"
+msgstr "Nezdařilo se: {{count}}"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.quickProgress.failedCount_many"
+msgid "{{count}} failed"
+msgstr "Nezdařilo se: {{count}}"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.quickProgress.failedCount_one"
+msgid "{{count}} failed"
+msgstr "Nezdařilo se: {{count}}"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.quickProgress.failedCount_other"
+msgid "{{count}} failed"
+msgstr "Nezdařilo se: {{count}}"
+
+msgctxt "wizard.quickProgress.phase.probing"
+msgid "Fetching details"
+msgstr "Načítání podrobností"
+
+msgctxt "wizard.quickProgress.phase.queueing"
+msgid "Adding to queue"
+msgstr "Přidávání do fronty"
+
+msgctxt "wizard.quickProgress.title"
+msgid "Preparing Quick Download"
+msgstr "Příprava Rychlého stahování"
+
+msgctxt "wizard.quickProgress.waitHint"
+msgid "Keep this open while Arroxy prepares the queue."
+msgstr "Nechte toto okno otevřené, dokud Arroxy připravuje frontu."
+
+msgctxt "wizard.review.areas.extras"
+msgid "extras"
+msgstr "doplňky"
+
+msgctxt "wizard.review.areas.fileName"
+msgid "file name"
+msgstr "název souboru"
+
+msgctxt "wizard.review.areas.format"
+msgid "format"
+msgstr "formát"
+
+msgctxt "wizard.review.areas.saveTo"
+msgid "folder"
+msgstr "složka"
+
+msgctxt "wizard.review.areas.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.areas.subtitles"
+msgid "subtitles"
+msgstr "titulky"
+
+msgctxt "wizard.review.callout.body"
+msgid "Subtitles, SponsorBlock, extras like the thumbnail, folder and file name used to be separate steps. Click a row to change it."
+msgstr "Titulky, SponsorBlock, doplňky jako miniatura, složka a název souboru bývaly samostatné kroky. Změníte je kliknutím na řádek."
+
+msgctxt "wizard.review.callout.title"
+msgid "All the other settings are on this page now"
+msgstr "Všechna ostatní nastavení jsou teď na této stránce"
+
+msgctxt "wizard.review.changed"
+msgid "Changed from {{profile}}: {{areas}}. Applies to this download only."
+msgstr "Změněno oproti profilu {{profile}}: {{areas}}. Platí jen pro toto stahování."
+
+msgctxt "wizard.review.changedFrom"
+msgid "Changed from {{profile}}:"
+msgstr "Změněno oproti profilu {{profile}}:"
+
+msgctxt "wizard.review.changeFormat"
+msgid "Change format"
+msgstr "Změnit formát"
+
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "Tokeny: {title}, {id}, {uploader}, {date}, {resolution}. Příponu doplníme za vás."
+
+msgctxt "wizard.review.nextTime.action"
+msgid "Save as profile"
+msgstr "Uložit jako profil"
+
+msgctxt "wizard.review.nextTime.defaultName"
+msgid "{{profile}} (edited)"
+msgstr "{{profile}} (upraveno)"
+
+msgctxt "wizard.review.nextTime.title"
+msgid "This download used edited settings. Use them next time?"
+msgstr "Toto stahování použilo upravená nastavení. Použít je i příště?"
+
+msgctxt "wizard.review.reset"
+msgid "Undo changes, back to “{{profile}}”"
+msgstr "Vrátit změny zpět na „{{profile}}“"
+
+msgctxt "wizard.review.rows.extras"
+msgid "Extras"
+msgstr "Doplňky"
+
+msgctxt "wizard.review.rows.fileName"
+msgid "File name"
+msgstr "Název souboru"
+
+msgctxt "wizard.review.rows.saveTo"
+msgid "Save to"
+msgstr "Uložit do"
+
+msgctxt "wizard.review.rows.sponsorBlock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.review.rows.subtitles"
+msgid "Subtitles"
+msgstr "Titulky"
+
+msgctxt "wizard.review.rowsHeading"
+msgid "Everything else"
+msgstr "Vše ostatní"
+
+msgctxt "wizard.review.save.action"
+msgid "Save profile"
+msgstr "Uložit profil"
+
+msgctxt "wizard.review.save.description"
+msgid "Keeps these settings as a profile you can pick next time. Your Quick Download profile stays the same."
+msgstr "Uloží tato nastavení jako profil, který můžete příště vybrat. Váš profil Rychlého stahování zůstane stejný."
+
+msgctxt "wizard.review.save.failed"
+msgid "Couldn't save the profile."
+msgstr "Profil se nepodařilo uložit."
+
+msgctxt "wizard.review.save.nameLabel"
+msgid "Profile name"
+msgstr "Název profilu"
+
+msgctxt "wizard.review.save.saved"
+msgid "Saved as profile “{{name}}”"
+msgstr "Uloženo jako profil „{{name}}“"
+
+msgctxt "wizard.review.save.title"
+msgid "Save as profile"
+msgstr "Uložit jako profil"
+
+msgctxt "wizard.review.saveAsProfile"
+msgid "Save as a new profile"
+msgstr "Uložit jako nový profil"
+
+msgctxt "wizard.review.update.action"
+msgid "Update profile"
+msgstr "Aktualizovat profil"
+
+msgctxt "wizard.review.update.builtinNote"
+msgid "This is a built-in profile. You can restore its original settings in the Profiles tab."
+msgstr "Toto je vestavěný profil. Jeho původní nastavení můžete obnovit na kartě Profily."
+
+msgctxt "wizard.review.update.description"
+msgid "From now on, every download with this profile uses the new settings."
+msgstr "Od teď každé stahování s tímto profilem použije nové nastavení."
+
+msgctxt "wizard.review.update.rows.format"
+msgid "Format"
+msgstr "Formát"
+
+msgctxt "wizard.review.update.title"
+msgid "Update “{{profile}}”?"
+msgstr "Aktualizovat „{{profile}}“?"
+
+msgctxt "wizard.review.update.updated"
+msgid "Updated profile “{{name}}”"
+msgstr "Profil „{{name}}“ byl aktualizován"
+
+msgctxt "wizard.review.updateProfile"
+msgid "Update “{{profile}}” with these changes"
+msgstr "Aktualizovat „{{profile}}“ těmito změnami"
+
+msgctxt "wizard.review.value.extrasNone"
+msgid "None"
+msgstr "Žádné"
+
+msgctxt "wizard.review.value.sponsorBlockOff"
+msgid "Off"
+msgstr "Vypnuto"
+
+msgctxt "wizard.review.value.subtitlesOff"
+msgid "Off"
+msgstr "Vypnuto"
+
+msgctxt "wizard.sponsorblock.cat.filler"
+msgid "Filler"
+msgstr "Vata"
+
+msgctxt "wizard.sponsorblock.cat.intro"
+msgid "Intro"
+msgstr "Úvod"
+
+msgctxt "wizard.sponsorblock.cat.music_offtopic"
+msgid "Music off-topic"
+msgstr "Hudba mimo téma"
+
+msgctxt "wizard.sponsorblock.cat.outro"
+msgid "Outro"
+msgstr "Závěr"
+
+msgctxt "wizard.sponsorblock.cat.preview"
+msgid "Preview"
+msgstr "Upoutávka"
+
+msgctxt "wizard.sponsorblock.cat.selfpromo"
+msgid "Self-promo"
+msgstr "Vlastní propagace"
+
+msgctxt "wizard.sponsorblock.cat.sponsor"
+msgid "Sponsor"
+msgstr "Sponzor"
+
+msgctxt "wizard.sponsorblock.categoriesHeading"
+msgid "Categories"
+msgstr "Kategorie"
+
+msgctxt "wizard.sponsorblock.mode.mark"
+msgid "Mark as chapters"
+msgstr "Označit jako kapitoly"
+
+msgctxt "wizard.sponsorblock.mode.off"
+msgid "Off"
+msgstr "Vypnuto"
+
+msgctxt "wizard.sponsorblock.mode.remove"
+msgid "Remove segments"
+msgstr "Odstranit segmenty"
+
+msgctxt "wizard.sponsorblock.modeHeading"
+msgid "Sponsor filtering"
+msgstr "Filtrování sponzorů"
+
+msgctxt "wizard.sponsorblock.modeHint.mark"
+msgid "Marks sponsor segments as chapters (non-destructive)."
+msgstr "Označí sponzorské segmenty jako kapitoly (nedestruktivně)."
+
+msgctxt "wizard.sponsorblock.modeHint.off"
+msgid "No SponsorBlock — video plays as uploaded."
+msgstr "Bez SponsorBlock – video se přehrává tak, jak bylo nahráno."
+
+msgctxt "wizard.sponsorblock.modeHint.remove"
+msgid "Cuts sponsor segments from the video using FFmpeg."
+msgstr "Vystřihne sponzorské segmenty z videa pomocí FFmpeg."
+
+msgctxt "wizard.steps.confirm"
+msgid "Confirm"
+msgstr "Potvrzení"
+
+msgctxt "wizard.steps.folder"
+msgid "Save"
+msgstr "Uložení"
+
+msgctxt "wizard.steps.formats"
+msgid "Format"
+msgstr "Formát"
+
+msgctxt "wizard.steps.output"
+msgid "Output"
+msgstr "Výstup"
+
+msgctxt "wizard.steps.playlistItems"
+msgid "Playlist"
+msgstr "Playlist"
+
+msgctxt "wizard.steps.playlistItemsGeneric"
+msgid "Videos"
+msgstr "Videa"
+
+msgctxt "wizard.steps.playlistPresets"
+msgid "Quality"
+msgstr "Kvalita"
+
+msgctxt "wizard.steps.playlistProfiles"
+msgid "Profiles"
+msgstr "Profily"
+
+msgctxt "wizard.steps.review"
+msgid "Review"
+msgstr "Přehled"
+
+msgctxt "wizard.steps.sponsorblock"
+msgid "SponsorBlock"
+msgstr "SponsorBlock"
+
+msgctxt "wizard.steps.subtitles"
+msgid "Subtitles"
+msgstr "Titulky"
+
+msgctxt "wizard.steps.url"
+msgid "URL"
+msgstr "URL"
+
+msgctxt "wizard.subtitles.autoAssNote"
+msgid "Auto-captions will be saved as SRT instead of ASS — for YouTube videos they're cleaned of rolling-cue duplication, which our ASS converter can't replicate yet."
+msgstr "Automatické titulky se uloží jako SRT místo ASS – u videí z YouTube se v nich odstraní opakování z rolovacích titulků, což náš převodník ASS zatím nedokáže."
+
+msgctxt "wizard.subtitles.autoBadge"
+msgid "Auto"
+msgstr "Auto"
+
+msgctxt "wizard.subtitles.clearAll"
+msgid "Clear all"
+msgstr "Vymazat vše"
+
+msgctxt "wizard.subtitles.embedNote"
+msgid "Embed mode saves output as .mkv so subtitle tracks embed reliably."
+msgstr "Režim vložení ukládá výstup jako .mkv, aby se stopy titulků vložily spolehlivě."
+
+msgctxt "wizard.subtitles.format.heading"
+msgid "Format"
+msgstr "Formát"
+
+msgctxt "wizard.subtitles.noLanguages"
+msgid "No subtitles available for this video"
+msgstr "Pro toto video nejsou dostupné žádné titulky"
+
+msgctxt "wizard.subtitles.noMatches"
+msgid "No languages match"
+msgstr "Žádný jazyk neodpovídá"
+
+msgctxt "wizard.subtitles.noSelected"
+msgid "No subtitles selected"
+msgstr "Nejsou vybrány žádné titulky"
+
+msgctxt "wizard.subtitles.removeLanguage"
+msgid "Remove {{name}}"
+msgstr "Odebrat {{name}}"
+
+msgctxt "wizard.subtitles.saveMode.embed"
+msgid "Embed into video"
+msgstr "Vložit do videa"
+
+msgctxt "wizard.subtitles.saveMode.heading"
+msgid "Save as"
+msgstr "Uložit jako"
+
+msgctxt "wizard.subtitles.saveMode.sidecar"
+msgid "Next to video"
+msgstr "Vedle videa"
+
+msgctxt "wizard.subtitles.saveMode.subfolder"
+msgid "subtitles/ subfolder"
+msgstr "Podsložka subtitles/"
+
+msgctxt "wizard.subtitles.searchPlaceholder"
+msgid "Search languages…"
+msgstr "Hledat jazyky…"
+
+msgctxt "wizard.subtitles.sectionAuto"
+msgid "Auto-generated"
+msgstr "Automaticky generované"
+
+msgctxt "wizard.subtitles.sectionManual"
+msgid "Manual"
+msgstr "Ruční"
+
+msgctxt "wizard.tabsNavAria"
+msgid "Download profile navigation"
+msgstr "Navigace profilů stahování"
+
+msgctxt "wizard.url.advanced"
+msgid "Advanced"
+msgstr "Upřesnit"
+
+msgctxt "wizard.url.analytics.toggle"
+msgid "Send daily heartbeat"
+msgstr "Odesílat denní signál o aktivitě"
+
+msgctxt "wizard.url.analytics.toggleDescription"
+msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
+msgstr "Žádná telemetrie. Jednou denně se odešle anonymní signál s verzí aplikace, kanálem instalace, operačním systémem, jazykem, zemí a přibližnou dobou od instalace Arroxy, abychom mohli počítat aktivní a nové uživatele. Žádná ID, adresy URL, názvy videí ani názvy souborů."
+
+msgctxt "wizard.url.autoRemoveCompleted.description"
+msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
+msgstr "Několik sekund po dokončení odebere stahování ze seznamu Stahování. Soubory zůstanou ve vaší složce; neúspěšná a zrušená stahování zůstanou v seznamu."
+
+msgctxt "wizard.url.autoRemoveCompleted.label"
+msgid "Remove finished downloads"
+msgstr "Odebírat dokončená stahování"
+
+msgctxt "wizard.url.autoRetry.description"
+msgid "Automatically tries again after a network or server hiccup, waiting longer between each attempt. Downloads blocked by the site are never retried automatically."
+msgstr "Po výpadku sítě nebo serveru to automaticky zkusí znovu, s delší prodlevou mezi pokusy. Stahování zablokovaná webem se automaticky neopakují."
+
+msgctxt "wizard.url.autoRetry.label"
+msgid "Retry failed downloads"
+msgstr "Opakovat neúspěšná stahování"
+
+msgctxt "wizard.url.autoRetry.unit"
+msgid "times"
+msgstr "krát"
+
+msgctxt "wizard.url.bulkButton"
+msgid "Bulk URLs"
+msgstr "Hromadné URL"
+
+msgctxt "wizard.url.bulkTooltip"
+msgid "Add and queue multiple URLs."
+msgstr "Přidat a zařadit do fronty více adres URL."
+
+msgctxt "wizard.url.clearAria"
+msgid "Clear URL"
+msgstr "Vymazat URL"
+
+msgctxt "wizard.url.clipboard.autofilledLink"
+msgid "Link added from clipboard"
+msgstr "Odkaz přidán ze schránky"
+
+msgctxt "wizard.url.clipboard.bulkHint"
+msgid "Multiple links copied — use Bulk URLs to add them"
+msgstr "Zkopírováno více odkazů – přidejte je pomocí Hromadných URL"
+
+msgctxt "wizard.url.clipboard.dialog.cancelButton"
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgctxt "wizard.url.clipboard.replacedLink"
+msgid "Replaced with copied link"
+msgstr "Nahrazeno zkopírovaným odkazem"
+
+msgctxt "wizard.url.clipboard.toggle"
+msgid "Watch clipboard"
+msgstr "Sledovat schránku"
+
+msgctxt "wizard.url.clipboard.toggleDescription"
+msgid "Auto-fill the URL field when you copy a video link."
+msgstr "Po zkopírování odkazu na video automaticky vyplní pole URL."
+
+msgctxt "wizard.url.clipboard.undo"
+msgid "Undo"
+msgstr "Vrátit zpět"
+
+msgctxt "wizard.url.closeToTray.toggle"
+msgid "Hide to tray on close"
+msgstr "Při zavření skrýt do lišty"
+
+msgctxt "wizard.url.closeToTray.toggleDescription"
+msgid "Continue downloads in the background after closing the window."
+msgstr "Po zavření okna pokračovat ve stahování na pozadí."
+
+msgctxt "wizard.url.concurrentDownloads.description"
+msgid "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you."
+msgstr "Kolik položek z fronty se stahuje současně. Více najednou dokončí dlouhou frontu dříve, ale zvyšuje pravděpodobnost, že vás web omezí."
+
+msgctxt "wizard.url.concurrentDownloads.label"
+msgid "Downloads at once"
+msgstr "Současná stahování"
+
+msgctxt "wizard.url.concurrentDownloads.unit"
+msgid "downloads"
+msgstr "stahování"
+
+msgctxt "wizard.url.cookies.banWarning"
+msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
+msgstr "Weby jako YouTube mohou účty, jejichž cookies používají nástroje ke stahování jako Arroxy, označit – a někdy i zablokovat. Pokud možno použijte jednorázový účet."
+
+msgctxt "wizard.url.cookies.browserHelp"
+msgid "Reads cookies directly from the browser. The browser must be closed for Chromium-family browsers."
+msgstr "Čte cookies přímo z prohlížeče. U prohlížečů z rodiny Chromium musí být prohlížeč zavřený."
+
+msgctxt "wizard.url.cookies.browserLabel"
+msgid "Browser"
+msgstr "Prohlížeč"
+
+msgctxt "wizard.url.cookies.browserPlaceholder"
+msgid "Pick a browser…"
+msgstr "Vyberte prohlížeč…"
+
+msgctxt "wizard.url.cookies.choose"
+msgid "Choose…"
+msgstr "Vybrat…"
+
+msgctxt "wizard.url.cookies.clear"
+msgid "Clear"
+msgstr "Vymazat"
+
+msgctxt "wizard.url.cookies.enabledButNoBrowser"
+msgid "Pick a browser to use cookies"
+msgstr "Chcete-li použít cookies, vyberte prohlížeč"
+
+msgctxt "wizard.url.cookies.enabledButNoFile"
+msgid "Pick a file to use cookies"
+msgstr "Chcete-li použít cookies, vyberte soubor"
+
+msgctxt "wizard.url.cookies.exploreDescription"
+msgid "Uses your Explore sign-in only when a download needs it."
+msgstr "Použije vaše přihlášení v Procházení, jen když ho stahování potřebuje."
+
+msgctxt "wizard.url.cookies.exploreDisabled"
+msgid "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below."
+msgstr "Karta Procházení je vypnutá, takže stahování nepoužívá vaše přihlášení v Procházení. Zapněte ji níže v části Procházení."
+
+msgctxt "wizard.url.cookies.extensionChrome"
+msgid "Get cookies.txt LOCALLY (Chrome)"
+msgstr "Získat cookies.txt LOKÁLNĚ (Chrome)"
+
+msgctxt "wizard.url.cookies.extensionFirefox"
+msgid "cookies.txt (Firefox)"
+msgstr "cookies.txt (Firefox)"
+
+msgctxt "wizard.url.cookies.fileLabel"
+msgid "Cookies file"
+msgstr "Soubor cookies"
+
+msgctxt "wizard.url.cookies.helpLink"
+msgid "How do I export cookies?"
+msgstr "Jak exportovat cookies?"
+
+msgctxt "wizard.url.cookies.openExplore"
+msgid "Open Explore"
+msgstr "Otevřít Procházení"
+
+msgctxt "wizard.url.cookies.placeholder"
+msgid "No file selected"
+msgstr "Nebyl vybrán žádný soubor"
+
+msgctxt "wizard.url.cookies.recommended"
+msgid "Recommended"
+msgstr "Doporučeno"
+
+msgctxt "wizard.url.cookies.risk"
+msgid "Risk: a cookies.txt contains every logged-in session for that browser — keep it private."
+msgstr "Riziko: soubor cookies.txt obsahuje všechna přihlášená sezení daného prohlížeče – udržujte jej v soukromí."
+
+msgctxt "wizard.url.cookies.sourceBrowser"
+msgid "Browser"
+msgstr "Prohlížeč"
+
+msgctxt "wizard.url.cookies.sourceExplore"
+msgid "Explore sign-in"
+msgstr "Přihlášení v Procházení"
+
+msgctxt "wizard.url.cookies.sourceFile"
+msgid "File"
+msgstr "Soubor"
+
+msgctxt "wizard.url.cookies.sourceLabel"
+msgid "Cookies source"
+msgstr "Zdroj cookies"
+
+msgctxt "wizard.url.cookies.sourceOff"
+msgid "Off"
+msgstr "Vypnuto"
+
+msgctxt "wizard.url.cookies.toggleDescription"
+msgid "Helps with age-restricted, members-only, and account-private videos."
+msgstr "Pomáhá u videí s věkovým omezením, pouze pro členy a soukromých videí vázaných na účet."
+
+msgctxt "wizard.url.downloadConnections.description"
+msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
+msgstr "Zrychlí velká stahování tím, že stahuje několik částí videa najednou. Vyšší hodnoty zvyšují pravděpodobnost, že vás web omezí."
+
+msgctxt "wizard.url.downloadConnections.label"
+msgid "Download connections"
+msgstr "Připojení ke stahování"
+
+msgctxt "wizard.url.downloadConnections.unit"
+msgid "connections"
+msgstr "připojení"
+
+msgctxt "wizard.url.features.always.audioOnly"
+msgid "Audio only"
+msgstr "Pouze zvuk"
+
+msgctxt "wizard.url.features.always.subtitles"
+msgid "Subtitles"
+msgstr "Titulky"
+
+msgctxt "wizard.url.features.anySite.heading"
+msgid "2000+ sites"
+msgstr "Více než 2000 webů"
+
+msgctxt "wizard.url.features.anySite.musicPlaylist"
+msgid "Music playlists"
+msgstr "Hudební playlisty"
+
+msgctxt "wizard.url.features.anySite.video"
+msgid "Videos"
+msgstr "Videa"
+
+msgctxt "wizard.url.features.anySite.videoPlaylist"
+msgid "Video playlists"
+msgstr "Video playlisty"
+
+msgctxt "wizard.url.features.heading"
+msgid "What Arroxy can pull"
+msgstr "Co Arroxy dokáže stáhnout"
+
+msgctxt "wizard.url.features.youtube.channel"
+msgid "Channels"
+msgstr "Kanály"
+
+msgctxt "wizard.url.features.youtube.heading"
+msgid "YouTube"
+msgstr "YouTube"
+
+msgctxt "wizard.url.features.youtube.music"
+msgid "Music"
+msgstr "Hudba"
+
+msgctxt "wizard.url.features.youtube.playlist"
+msgid "Playlists"
+msgstr "Playlisty"
+
+msgctxt "wizard.url.features.youtube.podcast"
+msgid "Podcasts"
+msgstr "Podcasty"
+
+msgctxt "wizard.url.features.youtube.short"
+msgid "Shorts"
+msgstr "Shorts"
+
+msgctxt "wizard.url.features.youtube.video"
+msgid "Videos"
+msgstr "Videa"
+
+msgctxt "wizard.url.fetchFormatsTooltip"
+msgid "Step-by-step wizard. Choose format, quality, and more."
+msgstr "Průvodce krok za krokem. Vyberte formát, kvalitu a další."
+
+msgctxt "wizard.url.heading"
+msgid "Download from URL"
+msgstr "Stáhnout z URL"
+
+msgctxt "wizard.url.hotkey.changeShortcut"
+msgid "Change shortcut"
+msgstr "Změnit zkratku"
+
+msgctxt "wizard.url.hotkey.conflict"
+msgid "This shortcut is taken by another app — pick another one."
+msgstr "Tuto zkratku používá jiná aplikace – vyberte jinou."
+
+msgctxt "wizard.url.hotkey.hintLabel"
+msgid "Or press"
+msgstr "Nebo stiskněte"
+
+msgctxt "wizard.url.hotkey.hintTooltip"
+msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
+msgstr "Zkopírujte odkaz na video kdekoli, stiskněte tuto zkratku a Arroxy jej zařadí do fronty s vaším aktivním profilem – bez přepínání oken."
+
+msgctxt "wizard.url.hotkey.hintTooltipSettings"
+msgid "Change or turn it off in Settings."
+msgstr "Změníte nebo vypnete v Nastavení."
+
+msgctxt "wizard.url.hotkey.recording"
+msgid "Press keys…"
+msgstr "Stiskněte klávesy…"
+
+msgctxt "wizard.url.hotkey.reset"
+msgid "Reset to default"
+msgstr "Obnovit výchozí"
+
+msgctxt "wizard.url.hotkey.sectionDescription"
+msgid "Download whatever link you copy, from any app, without opening Arroxy."
+msgstr "Stáhněte jakýkoli zkopírovaný odkaz z libovolné aplikace, aniž byste otevřeli Arroxy."
+
+msgctxt "wizard.url.hotkey.sectionTitle"
+msgid "Global hotkey"
+msgstr "Globální klávesová zkratka"
+
+msgctxt "wizard.url.hotkey.test"
+msgid "Test"
+msgstr "Vyzkoušet"
+
+msgctxt "wizard.url.hotkey.toggle"
+msgid "Enable global hotkey"
+msgstr "Povolit globální klávesovou zkratku"
+
+msgctxt "wizard.url.hotkey.toggleDescription"
+msgid "Press the shortcut with a video link on your clipboard."
+msgstr "Stiskněte zkratku, když máte ve schránce odkaz na video."
+
+msgctxt "wizard.url.interactiveDownload"
+msgid "Interactive Download"
+msgstr "Interaktivní stahování"
+
+msgctxt "wizard.url.limitRate.activeWarning"
+msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
+msgstr "Aktivní stahování si ponechají dosavadní limit. Změny použijete přes Pozastavit + Pokračovat."
+
+msgctxt "wizard.url.limitRate.custom"
+msgid "Custom…"
+msgstr "Vlastní…"
+
+msgctxt "wizard.url.limitRate.customPlaceholder"
+msgid "e.g. 750K or 1.5M"
+msgstr "např. 750K nebo 1.5M"
+
+msgctxt "wizard.url.limitRate.description"
+msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
+msgstr "Omezí šířku pásma pro stahování médií. Silnější páku pro omezení rychlosti obvykle představují níže uvedené prodlevy mezi požadavky."
+
+msgctxt "wizard.url.limitRate.invalid"
+msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
+msgstr "Použijte číslo následované K nebo M (např. 500K, 1.5M)"
+
+msgctxt "wizard.url.limitRate.label"
+msgid "Download speed limit"
+msgstr "Limit rychlosti stahování"
+
+msgctxt "wizard.url.limitRate.off"
+msgid "Off"
+msgstr "Vypnuto"
+
+msgctxt "wizard.url.mascotBusy"
+msgid "Downloading in the background… I can multitask 😎"
+msgstr "Stahuji na pozadí… Umím dělat víc věcí najednou 😎"
+
+msgctxt "wizard.url.mascotCollection"
+msgid "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first."
+msgstr "Rychlé stahování zařadí načtené položky do fronty s profilem {{profileName}}. Interaktivní nabídne položky nejdřív prohlédnout nebo vybrat."
+
+msgctxt "wizard.url.mascotIdle"
+msgid "Drop a link and let Arroxy pull it ✨"
+msgstr "Vložte odkaz a nechte Arroxy, ať ho stáhne ✨"
+
+msgctxt "wizard.url.mascotMixed"
+msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
+msgstr "Tento odkaz ukazuje na jedno video uvnitř kolekce. Arroxy se před zjišťováním zeptá, které chcete."
+
+msgctxt "wizard.url.mascotPreparing"
+msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
+msgstr "{{quickDownload}} čte tento odkaz a používá profil {{profileName}}."
+
+msgctxt "wizard.url.mascotQueued"
+msgid "The queue is handling this download. You can paste another link while it works."
+msgstr "Toto stahování zpracovává fronta. Během práce můžete vložit další odkaz."
+
+msgctxt "wizard.url.mascotSingle"
+msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
+msgstr "Rychlé stahování spustí jedno stahování s profilem {{profileName}}. Pro jednorázové změny použijte Interaktivní."
+
+msgctxt "wizard.url.nativeAudioPreference.compatible"
+msgid "Compatible stereo"
+msgstr "Kompatibilní stereo"
+
+msgctxt "wizard.url.nativeAudioPreference.description"
+msgid "Stereo or surround when a profile picks native audio. A profile can override it."
+msgstr "Stereo, nebo prostorový zvuk, když profil vybere původní zvuk. Profil to může přepsat."
+
+msgctxt "wizard.url.nativeAudioPreference.label"
+msgid "Native audio preference"
+msgstr "Preference původního zvuku"
+
+msgctxt "wizard.url.nativeAudioPreference.surround"
+msgid "Prefer surround / Dolby"
+msgstr "Preferovat prostorový zvuk / Dolby"
+
+msgctxt "wizard.url.networkPacing.description"
+msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
+msgstr "Přidá krátké prodlevy během každého stahování, aby Arroxy web nezatěžovalo příliš agresivně. Hodnoty jsou v sekundách."
+
+msgctxt "wizard.url.networkPacing.fields.maxSleepInterval"
+msgid "Pause before media starts: max"
+msgstr "Pauza před začátkem médií: max"
+
+msgctxt "wizard.url.networkPacing.fields.sleepInterval"
+msgid "Pause before media starts: min"
+msgstr "Pauza před začátkem médií: min"
+
+msgctxt "wizard.url.networkPacing.fields.sleepRequests"
+msgid "Wait between metadata checks"
+msgstr "Čekání mezi kontrolami metadat"
+
+msgctxt "wizard.url.networkPacing.fields.sleepSubtitles"
+msgid "Wait before subtitle files"
+msgstr "Čekání před soubory titulků"
+
+msgctxt "wizard.url.networkPacing.heading"
+msgid "Gentle downloads"
+msgstr "Šetrné stahování"
+
+msgctxt "wizard.url.networkPacing.presetLabel"
+msgid "How cautious should Arroxy be?"
+msgstr "Jak opatrné má Arroxy být?"
+
+msgctxt "wizard.url.networkPacing.presets.balanced"
+msgid "Balanced"
+msgstr "Vyvážené"
+
+msgctxt "wizard.url.networkPacing.presets.careful"
+msgid "Careful"
+msgstr "Opatrné"
+
+msgctxt "wizard.url.networkPacing.presets.custom"
+msgid "Custom"
+msgstr "Vlastní"
+
+msgctxt "wizard.url.networkPacing.presets.off"
+msgid "Off"
+msgstr "Vypnuto"
+
+msgctxt "wizard.url.networkPacing.summary"
+msgid "Waits: {{requests}} between checks, {{downloads}} before media starts, {{subtitles}} before subtitle files."
+msgstr "Čekání: {{requests}} mezi kontrolami, {{downloads}} před začátkem médií, {{subtitles}} před soubory titulků."
+
+msgctxt "wizard.url.networkPacing.tooltip"
+msgid "These waits happen inside each download. How many downloads run at the same time is set separately, under Downloads at once."
+msgstr "Tyto prodlevy probíhají uvnitř každého stahování. Kolik stahování běží současně, se nastavuje zvlášť v části Současná stahování."
+
+msgctxt "wizard.url.networkPacing.tooltips.balanced"
+msgid "Default. Adds short pauses between requests and before media starts."
+msgstr "Výchozí. Přidá krátké pauzy mezi požadavky a před začátkem médií."
+
+msgctxt "wizard.url.networkPacing.tooltips.careful"
+msgid "Adds longer pauses for large playlists or networks that frequently hit limits."
+msgstr "Přidá delší pauzy pro velké playlisty nebo sítě, které často narážejí na omezení."
+
+msgctxt "wizard.url.networkPacing.tooltips.custom"
+msgid "Tune the advanced per-download controls yourself."
+msgstr "Pokročilé ovládání jednotlivých stahování si nastavíte sami."
+
+msgctxt "wizard.url.networkPacing.tooltips.off"
+msgid "Uses only the small baseline pauses Arroxy keeps for media and subtitles."
+msgstr "Použije jen malé základní pauzy, které Arroxy ponechává pro média a titulky."
+
+msgctxt "wizard.url.networkPacing.units.seconds"
+msgid "sec"
+msgstr "s"
+
+msgctxt "wizard.url.placeholder"
+msgid "https://..."
+msgstr "https://..."
+
+msgctxt "wizard.url.playlistProbeLimit.current"
+msgid "Current limit: {{count}} items"
+msgstr "Aktuální limit: {{count}} položek"
+
+msgctxt "wizard.url.playlistProbeLimit.custom"
+msgid "Custom…"
+msgstr "Vlastní…"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogCancel"
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogDescription"
+msgid "Use a whole number from {{min}} to {{max}}."
+msgstr "Použijte celé číslo od {{min}} do {{max}}."
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogSave"
+msgid "Save limit"
+msgstr "Uložit limit"
+
+msgctxt "wizard.url.playlistProbeLimit.customDialogTitle"
+msgid "Custom playlist scan limit"
+msgstr "Vlastní limit zjišťování playlistu"
+
+msgctxt "wizard.url.playlistProbeLimit.customValue"
+msgid "Custom: {{count}} items"
+msgstr "Vlastní: {{count}} položek"
+
+msgctxt "wizard.url.playlistProbeLimit.description"
+msgid "Maximum entries Arroxy loads when a playlist, channel, or search result is opened."
+msgstr "Maximální počet položek, které Arroxy načte při otevření playlistu, kanálu nebo výsledků hledání."
+
+msgctxt "wizard.url.playlistProbeLimit.invalid"
+msgid "Use a whole number from 1 to 5000"
+msgstr "Použijte celé číslo od 1 do 5000"
+
+msgctxt "wizard.url.playlistProbeLimit.label"
+msgid "Playlist items to scan"
+msgstr "Položky playlistu ke zjištění"
+
+msgctxt "wizard.url.playlistProbeLimit.option"
+msgid "{{count}} items"
+msgstr "{{count}} položek"
+
+msgctxt "wizard.url.playlistProbeLimit.tooltip"
+msgid "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+msgstr "Arroxy si při sestavování výběru vyžádá jen tolik položek playlistu, kanálu nebo výsledků hledání."
+
+msgctxt "wizard.url.playlistScope.appLimit"
+msgid "Use app limit: {{count}}"
+msgstr "Použít limit aplikace: {{count}}"
+
+msgctxt "wizard.url.playlistScope.apply"
+msgid "Apply"
+msgstr "Použít"
+
+msgctxt "wizard.url.playlistScope.applyError"
+msgid "Could not apply that playlist scope: {{message}}"
+msgstr "Tento rozsah playlistu se nepodařilo použít: {{message}}"
+
+msgctxt "wizard.url.playlistScope.applyReload"
+msgid "Apply and reload"
+msgstr "Použít a načíst znovu"
+
+msgctxt "wizard.url.playlistScope.cancel"
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgctxt "wizard.url.playlistScope.change"
+msgid "Change"
+msgstr "Změnit"
+
+msgctxt "wizard.url.playlistScope.dialogDescription"
+msgid "Choose what Arroxy loads for this playlist."
+msgstr "Vyberte, co Arroxy pro tento playlist načte."
+
+msgctxt "wizard.url.playlistScope.dialogTitle"
+msgid "Playlist scope"
+msgstr "Rozsah playlistu"
+
+msgctxt "wizard.url.playlistScope.emptyTitle"
+msgid "No videos in that scope"
+msgstr "V tomto rozsahu nejsou žádná videa"
+
+msgctxt "wizard.url.playlistScope.first"
+msgid "First"
+msgstr "Prvních"
+
+msgctxt "wizard.url.playlistScope.invalid"
+msgid "Use whole item numbers from 1 to {{max}}, with the start no higher than the end."
+msgstr "Použijte celá čísla položek od 1 do {{max}}, přičemž začátek nesmí být vyšší než konec."
+
+msgctxt "wizard.url.playlistScope.itemsLabel"
+msgid "Items to load"
+msgstr "Položky k načtení"
+
+msgctxt "wizard.url.playlistScope.label"
+msgid "Playlist scope"
+msgstr "Rozsah playlistu"
+
+msgctxt "wizard.url.playlistScope.range"
+msgid "Range"
+msgstr "Rozsah"
+
+msgctxt "wizard.url.playlistScope.reloading"
+msgid "Reloading..."
+msgstr "Načítání znovu..."
+
+msgctxt "wizard.url.playlistScope.reset"
+msgid "Reset"
+msgstr "Obnovit"
+
+msgctxt "wizard.url.playlistScope.summaryAppLimit"
+msgid "Load first items: {{count}}"
+msgstr "Načíst prvních položek: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryFirst"
+msgid "Load first items: {{count}}"
+msgstr "Načíst prvních položek: {{count}}"
+
+msgctxt "wizard.url.playlistScope.summaryRange"
+msgid "Load items {{from}}-{{to}}"
+msgstr "Načíst položky {{from}}-{{to}}"
+
+msgctxt "wizard.url.playlistScope.to"
+msgid "to"
+msgstr "do"
+
+msgctxt "wizard.url.profile.activeLabel"
+msgid "Active profile"
+msgstr "Aktivní profil"
+
+msgctxt "wizard.url.profile.badgeBuiltIn"
+msgid "Built-in"
+msgstr "Vestavěný"
+
+msgctxt "wizard.url.profile.badgeCustom"
+msgid "Custom"
+msgstr "Vlastní"
+
+msgctxt "wizard.url.profile.badgeDisabled"
+msgid "Hidden"
+msgstr "Skrytý"
+
+msgctxt "wizard.url.profile.badgeModified"
+msgid "Modified"
+msgstr "Upravený"
+
+msgctxt "wizard.url.profile.changeGlobalDestination"
+msgid "Change global destination"
+msgstr "Změnit globální cíl"
+
+msgctxt "wizard.url.profile.destinationDetail.global"
+msgid "Using global destination"
+msgstr "Používá globální cíl"
+
+msgctxt "wizard.url.profile.destinationDetail.globalSubfolder"
+msgid "Using global destination + profile subfolder"
+msgstr "Používá globální cíl + podsložku profilu"
+
+msgctxt "wizard.url.profile.destinationDetail.override"
+msgid "Using profile override"
+msgstr "Používá přepsání profilu"
+
+msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
+msgid "Using profile override + profile subfolder"
+msgstr "Používá přepsání profilu + podsložku profilu"
+
+msgctxt "wizard.url.profile.destinationFallback"
+msgid "Destination"
+msgstr "Cíl"
+
+msgctxt "wizard.url.profile.edit"
+msgid "Edit"
+msgstr "Upravit"
+
+msgctxt "wizard.url.profile.editActive"
+msgid "Edit active profile"
+msgstr "Upravit aktivní profil"
+
+msgctxt "wizard.url.profile.enableHint"
+msgid "Hidden profiles stay here but disappear from every profile picker."
+msgstr "Skryté profily zůstanou zde, ale zmizí ze všech výběrů profilů."
+
+msgctxt "wizard.url.profile.enableToggleAria"
+msgid "Show profile in pickers: {{profileName}}"
+msgstr "Zobrazit profil ve výběrech: {{profileName}}"
+
+msgctxt "wizard.url.profile.lastEnabledHint"
+msgid "Keep at least one profile available."
+msgstr "Ponechte dostupný alespoň jeden profil."
+
+msgctxt "wizard.url.profile.manageProfiles"
+msgid "Manage profiles"
+msgstr "Spravovat profily"
+
+msgctxt "wizard.url.profile.menuDescription"
+msgid "Change the active profile for Quick Download, Bulk URLs, and playlists."
+msgstr "Změní aktivní profil pro Rychlé stahování, Hromadné URL a playlisty."
+
+msgctxt "wizard.url.profile.menuTitle"
+msgid "Switch profile"
+msgstr "Přepnout profil"
+
+msgctxt "wizard.url.profile.movableProfile"
+msgid "movable profile"
+msgstr "přesouvatelný profil"
+
+msgctxt "wizard.url.profile.moveCancelled"
+msgid "Move cancelled. {{profileName}} stays in position {{position}} of {{count}}."
+msgstr "Přesun zrušen. Profil {{profileName}} zůstává na pozici {{position}} z {{count}}."
+
+msgctxt "wizard.url.profile.moveDropped"
+msgid "Dropped {{profileName}} in position {{position}} of {{count}}."
+msgstr "Profil {{profileName}} byl upuštěn na pozici {{position}} z {{count}}."
+
+msgctxt "wizard.url.profile.moveHandleAria"
+msgid "Move {{profileName}}"
+msgstr "Přesunout {{profileName}}"
+
+msgctxt "wizard.url.profile.moveInstructions"
+msgid "To move a profile, press Space or Enter, move it with the arrow keys, then press Space or Enter to drop it. Press Escape to cancel."
+msgstr "Chcete-li profil přesunout, stiskněte mezerník nebo Enter, přesuňte jej šipkami a dalším stisknutím mezerníku nebo Enteru jej upusťte. Zrušíte to klávesou Esc."
+
+msgctxt "wizard.url.profile.moveOver"
+msgid "{{profileName}} is over position {{position}} of {{count}}."
+msgstr "Profil {{profileName}} je nad pozicí {{position}} z {{count}}."
+
+msgctxt "wizard.url.profile.movePickedUp"
+msgid "Picked up {{profileName}}. It is in position {{position}} of {{count}}."
+msgstr "Profil {{profileName}} byl uchopen. Je na pozici {{position}} z {{count}}."
+
+msgctxt "wizard.url.profile.newProfile"
+msgid "New profile"
+msgstr "Nový profil"
+
+msgctxt "wizard.url.profile.panelDescription"
+msgid "Create, select, edit, or remove reusable download setups."
+msgstr "Vytvářejte, vybírejte, upravujte nebo odebírejte opakovaně použitelná nastavení stahování."
+
+msgctxt "wizard.url.profile.panelTitle"
+msgid "Download Profiles"
+msgstr "Profily stahování"
+
+msgctxt "wizard.url.profile.remove"
+msgid "Remove"
+msgstr "Odebrat"
+
+msgctxt "wizard.url.profile.reorderHint"
+msgid "Drag a profile to move it. Every profile picker follows this order."
+msgstr "Přetažením profil přesunete. Všechny výběry profilů se řídí tímto pořadím."
+
+msgctxt "wizard.url.profile.reset"
+msgid "Reset"
+msgstr "Obnovit"
+
+msgctxt "wizard.url.profile.summary.aacAudio"
+msgid "AAC audio"
+msgstr "zvuk AAC"
+
+msgctxt "wizard.url.profile.summary.bestAudio"
+msgid "best audio"
+msgstr "nejlepší zvuk"
+
+msgctxt "wizard.url.profile.summary.bestVideo"
+msgid "best video"
+msgstr "nejlepší video"
+
+msgctxt "wizard.url.profile.summary.noAudio"
+msgid "no audio"
+msgstr "bez zvuku"
+
+msgctxt "wizard.url.profile.summary.subtitlesOnly"
+msgid "subtitles only"
+msgstr "pouze titulky"
+
+msgctxt "wizard.url.profile.summary.wavAudio"
+msgid "WAV audio"
+msgstr "zvuk WAV"
+
+msgctxt "wizard.url.profile.switchAria"
+msgid "Switch download profile: {{profileName}}"
+msgstr "Přepnout profil stahování: {{profileName}}"
+
+msgctxt "wizard.url.profile.switchTitle"
+msgid "Switch download profile"
+msgstr "Přepnout profil stahování"
+
+msgctxt "wizard.url.proxy.clear"
+msgid "Clear"
+msgstr "Vymazat"
+
+msgctxt "wizard.url.proxy.description"
+msgid "Route traffic through a proxy — useful for geo-restricted content."
+msgstr "Směruje provoz přes proxy server – užitečné u obsahu omezeného podle oblasti."
+
+msgctxt "wizard.url.proxy.label"
+msgid "Proxy URL"
+msgstr "URL proxy serveru"
+
+msgctxt "wizard.url.proxy.placeholder"
+msgid "http://host:port"
+msgstr "http://host:port"
+
+msgctxt "wizard.url.quickBulkAllFailed"
+msgid "None of those URLs could be prepared"
+msgstr "Žádnou z těchto adres URL se nepodařilo připravit"
+
+msgctxt "wizard.url.quickDownload"
+msgid "Quick Download"
+msgstr "Rychlé stahování"
+
+msgctxt "wizard.url.quickDownloadTooltip"
+msgid "Will download using: {{profileName}}"
+msgstr "Stáhne se pomocí profilu: {{profileName}}"
+
+msgctxt "wizard.url.quickFailed"
+msgid "Couldn't add this one: {{error}}"
+msgstr "Tuto položku se nepodařilo přidat: {{error}}"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.url.quickPartialFailed_few"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Do fronty bylo zařazeno vše, co se povedlo. Nepodařilo se připravit URL: {{count}}."
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.url.quickPartialFailed_many"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Do fronty bylo zařazeno vše, co se povedlo. Nepodařilo se připravit URL: {{count}}."
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.url.quickPartialFailed_one"
+msgid "Queued what worked. {{count}} URL could not be prepared."
+msgstr "Do fronty bylo zařazeno vše, co se povedlo. Nepodařilo se připravit URL: {{count}}."
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.url.quickPartialFailed_other"
+msgid "Queued what worked. {{count}} URLs could not be prepared."
+msgstr "Do fronty bylo zařazeno vše, co se povedlo. Nepodařilo se připravit URL: {{count}}."
+
+msgctxt "wizard.url.quickPrepareFailed"
+msgid "Queue item could not be prepared"
+msgstr "Položku fronty se nepodařilo připravit"
+
+msgctxt "wizard.url.quickPreparing"
+msgid "Preparing"
+msgstr "Příprava"
+
+msgctxt "wizard.url.quickProbeFailed"
+msgid "Probe failed"
+msgstr "Zjišťování se nezdařilo"
+
+msgctxt "wizard.url.quickQueued"
+msgid "Added to queue"
+msgstr "Přidáno do fronty"
+
+msgctxt "wizard.url.quickSingleOnly"
+msgid "Paste a video, playlist, channel, or search URL to get started."
+msgstr "Chcete-li začít, vložte adresu URL videa, playlistu, kanálu nebo hledání."
+
+msgctxt "wizard.url.settings.behaviorDescription"
+msgid "Global behavior that affects profile-driven downloads too."
+msgstr "Globální chování, které ovlivňuje i stahování řízená profily."
+
+msgctxt "wizard.url.settings.behaviorHeading"
+msgid "Download behavior"
+msgstr "Chování stahování"
+
+msgctxt "wizard.url.settings.inputHeading"
+msgid "Input"
+msgstr "Vstup"
+
+msgctxt "wizard.url.style.aurora.description"
+msgid "Glass panels over a moving sky. Needs graphics acceleration."
+msgstr "Skleněné panely nad pohyblivou oblohou. Vyžaduje grafickou akceleraci."
+
+msgctxt "wizard.url.style.aurora.label"
+msgid "Aurora"
+msgstr "Aurora"
+
+msgctxt "wizard.url.style.minimal.description"
+msgid "Solid, quiet surfaces. Runs light on any computer."
+msgstr "Plné, klidné plochy. Na jakémkoli počítači běží svižně."
+
+msgctxt "wizard.url.style.minimal.label"
+msgid "Minimal"
+msgstr "Minimal"
+
+msgctxt "wizard.url.style.modeDescription"
+msgid "Both styles come in light and dark."
+msgstr "Oba styly existují ve světlé i tmavé variantě."
+
+msgctxt "wizard.url.style.modeLabel"
+msgid "Style"
+msgstr "Styl"
+
+msgctxt "wizard.url.style.panelDescription"
+msgid "How Arroxy looks. Switch between light and dark in the footer."
+msgstr "Jak Arroxy vypadá. Mezi světlým a tmavým režimem přepínáte v zápatí."
+
+msgctxt "wizard.url.style.panelTitle"
+msgid "Appearance"
+msgstr "Vzhled"
+
+msgctxt "wizard.url.style.unavailableNotice"
+msgid "{{style}} needs graphics acceleration, which isn't available right now, so Arroxy is showing {{fallback}}."
+msgstr "{{style}} vyžaduje grafickou akceleraci, která teď není dostupná, proto Arroxy zobrazuje {{fallback}}."
+
+msgctxt "wizard.url.tabs.profiles"
+msgid "Profiles"
+msgstr "Profily"
+
+msgctxt "wizard.url.tabs.settings"
+msgid "Settings"
+msgstr "Nastavení"
