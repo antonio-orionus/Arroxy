@@ -8,6 +8,7 @@ import type {ProbeProgressEvent, QuickDownloadProgressPhase} from '@shared/types
 import {cn} from '@renderer/lib/utils.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Button} from '../ui/button.js'
+import {Card} from '../ui/card.js'
 import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '../ui/dialog.js'
 import {Progress} from '../ui/progress.js'
 import {Spinner} from '../ui/spinner.js'
@@ -99,7 +100,7 @@ export function QuickDownloadProgressDialog(): ReactNode {
 				</DialogHeader>
 
 				<div className="grid min-w-0 gap-3" data-testid="quick-download-progress-body">
-					<div className="glow-tile min-w-0 max-w-full overflow-hidden rounded-xl border-transparent p-3" data-testid="quick-download-progress-current" aria-live="polite">
+					<Card variant="inset" size="sm" className="min-w-0 max-w-full gap-0 px-3" data-testid="quick-download-progress-current" aria-live="polite">
 						<div className="flex min-w-0 items-center gap-2">
 							<Link2 className="size-4 shrink-0 text-primary" aria-hidden />
 							<span className="min-w-0 flex-1 truncate text-sm font-medium text-foreground" data-testid="quick-download-progress-current-label">
@@ -124,7 +125,7 @@ export function QuickDownloadProgressDialog(): ReactNode {
 						)}
 						{readout.showProbeLimitHint ? <p className="mt-2 text-xs text-muted-foreground">{t('wizard.playlist.loadingLimitHint', {count: playlistLimit})}</p> : null}
 						{hasFailures ? <p className="mt-2 text-xs font-medium text-warning">{t('wizard.quickProgress.failedCount', {count: failed})}</p> : null}
-					</div>
+					</Card>
 					<p className={cn('text-xs leading-relaxed text-muted-foreground', hasFailures && 'text-warning')}>{t('wizard.quickProgress.waitHint')}</p>
 				</div>
 

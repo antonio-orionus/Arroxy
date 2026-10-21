@@ -49,6 +49,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'profiles-bulk',
 	'profiles-bulk-huge-input',
 	'profiles-playlist-cap',
+	'profiles-quick-progress',
 	'probe-audio-only',
 	'probe-audio-multilingual',
 	'probe-audio-surround',
@@ -238,6 +239,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'profiles-bulk', group: 'Profiles', title: 'Bulk URLs dialog', description: 'Bulk URLs dialog opened from the redesigned main screen.', kind: 'profile'},
 	{id: 'profiles-bulk-huge-input', group: 'Profiles', title: 'Bulk URLs huge input', description: 'Bulk URLs dialog seeded with a giant pasted log so textarea scrolling and dialog chrome stay visible.', kind: 'profile'},
 	{id: 'profiles-playlist-cap', group: 'Profiles', title: 'Playlist cap dialog', description: 'Quick Download playlist probe limit confirmation.', kind: 'profile'},
+	{id: 'profiles-quick-progress', group: 'Profiles', title: 'Quick Download progress', description: 'Preparing dialog while Quick Download reads the second of three links.', kind: 'profile'},
 	{id: 'probe-audio-only', group: 'Probe Results', title: 'Audio only source', description: 'isAudioOnlySource:true - wizard defaults to audio-only mode (Bandcamp/SoundCloud-like extractor).', kind: 'probe'},
 	{id: 'probe-audio-multilingual', group: 'Probe Results', title: 'Audio multilingual', description: 'YouTube-like audio list with multiple spoken-language tracks, quality badges, and DRC variants.', kind: 'probe'},
 	{id: 'probe-audio-surround', group: 'Probe Results', title: 'Audio surround', description: 'Audio list with high-quality 6ch Dolby tracks plus stereo fallbacks.', kind: 'probe'},
@@ -370,6 +372,8 @@ function profileScenarioPatch(scenario: BrowserMockScenario): Partial<AppState> 
 	if (scenario.id === 'profiles-home-clipboard-single') return {wizardStep: 'url', wizardUrl: PROFILE_SINGLE_URL}
 	if (scenario.id === 'profiles-home-clipboard-bulk') return {wizardStep: 'url', wizardUrl: PROFILE_BULK_URLS[0]}
 	if (scenario.id === 'profiles-split-menu') return {wizardStep: 'url', wizardUrl: PROFILE_SINGLE_URL}
+	if (scenario.id === 'profiles-quick-progress')
+		return {wizardStep: 'url', wizardUrl: '', quickDownloadStatus: 'preparing', quickDownloadProgressPhase: 'probing', quickDownloadProgressTotal: 3, quickDownloadProgressCompleted: 1, quickDownloadProgressFailed: 0, quickDownloadProgressCurrent: PROFILE_BULK_URLS[1], quickDownloadProgressTitle: 'Me at the zoo'}
 	if (scenario.id === 'profiles-playlist-cap') {
 		const playlist = playlistProbe(DEFAULT_PLAYLIST_PROBE_LIMIT, {webpageUrl: 'https://www.youtube.com/playlist?list=PLbrowsermock&items=100'})
 		if (playlist.kind !== 'playlist') return {wizardStep: 'url', wizardUrl: ''}

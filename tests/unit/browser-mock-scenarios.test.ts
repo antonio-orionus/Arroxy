@@ -292,6 +292,14 @@ describe('browser mock scenarios', () => {
 		expect(playlistCapPatch).toMatchObject({wizardStep: 'url', wizardMode: 'playlist', playlistTitle: 'Mock Browser Playlist', playlistLikelyCapped: true, quickPlaylistCapDialogOpen: true})
 		expect((playlistCapPatch as {playlistItems?: unknown[]}).playlistItems).toHaveLength(100)
 
+		vi.mocked(store.reset).mockClear()
+		vi.mocked(store.setState).mockClear()
+
+		await applyScenarioWorkbenchState({scenario: getScenario('profiles-quick-progress'), params: readUrlParams(new URL('http://localhost:5173/?scenario=profiles-quick-progress')), store})
+
+		expect(store.reset).toHaveBeenCalledOnce()
+		expect(vi.mocked(store.setState).mock.calls[0]?.[0]).toMatchObject({quickDownloadStatus: 'preparing', quickDownloadProgressPhase: 'probing', quickDownloadProgressTotal: 3, quickDownloadProgressCompleted: 1})
+
 		expect(getScenario('profiles-bulk-huge-input')).toMatchObject({title: 'Bulk URLs huge input', kind: 'profile'})
 	})
 

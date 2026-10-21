@@ -278,6 +278,9 @@ describe('App renderer', () => {
 		expect(progressDialog).toHaveClass('overflow-hidden')
 		expect(screen.getByTestId('quick-download-progress-body')).toHaveClass('min-w-0')
 		expect(screen.getByTestId('quick-download-progress-current')).toHaveClass('max-w-full', 'min-w-0', 'overflow-hidden')
+		// A dialog stays calm: the live status sits on an inset panel, not a lit glow tile.
+		expect(screen.getByTestId('quick-download-progress-current')).toHaveAttribute('data-variant', 'inset')
+		expect(screen.getByTestId('quick-download-progress-current')).not.toHaveClass('glow-tile')
 		expect(screen.getByTestId('quick-download-progress-current-label')).toHaveClass('flex-1', 'min-w-0', 'truncate')
 		expect(screen.getByTestId('quick-download-progress-count')).toHaveTextContent('0 / 2')
 
