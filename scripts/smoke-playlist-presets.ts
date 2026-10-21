@@ -76,10 +76,10 @@ function parseExtractorStrategy(value: string | undefined): ExtractorStrategy {
 	throw new Error(`Invalid --extractor-strategy '${value ?? ''}'. Expected auto, vanilla, or fallback.`)
 }
 
+// A path it returns is absolute, as the dry-runs start in each plan's cwd.
 function findBinary(name: 'yt-dlp' | 'node', override?: string): string {
 	if (override) {
 		if (!existsSync(override)) throw new Error(`${name} not found at ${override}`)
-		// Absolute, as the dry-runs start in each plan's cwd.
 		return resolve(override)
 	}
 
@@ -98,7 +98,7 @@ function findBinary(name: 'yt-dlp' | 'node', override?: string): string {
 	].filter((p): p is string => Boolean(p))
 
 	for (const c of candidates) {
-		if (existsSync(c)) return c
+		if (existsSync(c)) return resolve(c)
 	}
 	return exeName
 }
