@@ -35,6 +35,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 RUNNER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'download_runner.py')
 SEGMENTS = 12  # two-digit fragment indexes
 SEGMENT = b'\0' * 188  # one MPEG-TS packet's worth
+# A yt-dlp run takes seconds; one that stalls fails its case instead of the gate hanging.
+TIMEOUT_SECONDS = 120
 
 
 class LocalStreams(BaseHTTPRequestHandler):
@@ -60,7 +62,10 @@ class LocalStreams(BaseHTTPRequestHandler):
 def posix_filename(zipapp, case):
     argv = [sys.executable, zipapp, '--ignore-config', '--no-plugin-dirs', '--no-cache-dir',
             '--load-info-json', case['info_json'], '--print', 'filename', '--print', 'ext', *case['output_args']]
-    run = subprocess.run(argv, capture_output=True, text=True, encoding='utf-8', cwd=case['cwd'])
+    try:
+        run = subprocess.run(argv, capture_output=True, text=True, encoding='utf-8', cwd=case['cwd'], timeout=TIMEOUT_SECONDS)
+    except subprocess.TimeoutExpired:
+        return {'error': f'yt-dlp did not finish within {TIMEOUT_SECONDS} s'}
     lines = run.stdout.splitlines()
     if run.returncode != 0 or len(lines) != 2:
         return {'error': (run.stderr or run.stdout).strip()[-400:]}
@@ -100,7 +105,10 @@ def written_files(zipapp, download, port):
     argv = [sys.executable, RUNNER, zipapp, '--ignore-config', '--no-plugin-dirs', '--no-cache-dir', '--quiet', '--no-progress',
             '--fixup', 'never', '--ffmpeg-location', os.path.join(download['cwd'], 'no-ffmpeg'),
             '--load-info-json', served, '-f', download['format'], *download['output_args']]
-    run = subprocess.run(argv, capture_output=True, text=True, encoding='utf-8', cwd=download['cwd'])
+    try:
+        run = subprocess.run(argv, capture_output=True, text=True, encoding='utf-8', cwd=download['cwd'], timeout=TIMEOUT_SECONDS)
+    except subprocess.TimeoutExpired:
+        return {'error': f'yt-dlp did not finish within {TIMEOUT_SECONDS} s'}
     lines = run.stdout.splitlines()
     try:
         result = json.loads(lines[-1])
