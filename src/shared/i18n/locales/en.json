@@ -1109,8 +1109,8 @@
 		},
 		"playlistCap": {
 			"changeLimit": "Change load limit",
-			"descriptionWithTitle_one": "{{title}}: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again.",
-			"descriptionWithTitle_other": "{{title}}: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again.",
+			"descriptionWithTitle_one": "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again.",
+			"descriptionWithTitle_other": "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again.",
 			"description_one": "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again.",
 			"description_other": "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again.",
 			"queueLoaded": "Queue loaded items",

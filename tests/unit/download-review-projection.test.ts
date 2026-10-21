@@ -128,6 +128,14 @@ describe('subtitle language labels in a Russian UI', () => {
 	})
 })
 
+describe('extras in a Russian UI', () => {
+	it('join with the Russian list separators', () => {
+		const summary = buildSingleSettingsSummary(state({wizardEmbedChapters: true, wizardEmbedMetadata: true, wizardEmbedThumbnail: false, wizardWriteDescription: false, wizardWriteThumbnail: false}), {t, language: 'ru'})
+		expect(summary.extras).toBe(new Intl.ListFormat('ru', {type: 'conjunction'}).format([t('wizard.output.embedChapters.label'), t('wizard.output.embedMetadata.label')]))
+		expect(summary.extras).toContain(' и ')
+	})
+})
+
 describe('subtitles-only batch review', () => {
 	const SUBS: PlaylistSelection = {kind: 'subtitles', languages: ['en', 'pl'], source: 'manual-first', mode: 'sidecar', format: 'srt'}
 

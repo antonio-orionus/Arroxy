@@ -479,6 +479,17 @@ describe('Review — rows', () => {
 		}
 	})
 
+	it('lists the changed areas with the language\'s own separators', () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES[0]
+		singleState({wizardReviewRow: null, wizardProfile: profile})
+		useAppStore.setState({wizardProfileBaseline: wizardSnapshot(selectWizardReviewState(useAppStore.getState()))})
+		useAppStore.setState({wizardFilenameTemplate: '{uploader} - {title}', wizardWriteDescription: !useAppStore.getState().wizardWriteDescription})
+		render(<StepReview />)
+
+		expect(screen.getByTestId('review-changed-bar').textContent).toMatch(/\w and \w/)
+		expect(screen.getByTestId('review-changed-bar').textContent).not.toMatch(/\w, \w/)
+	})
+
 	it('marks only the rows this run changed from its profile', () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES[0]
 		singleState({wizardReviewRow: null, wizardProfile: profile})

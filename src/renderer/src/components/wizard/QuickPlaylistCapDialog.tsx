@@ -1,5 +1,5 @@
 import {type ReactNode} from 'react'
-import {useTranslation} from 'react-i18next'
+import {Trans, useTranslation} from 'react-i18next'
 import {AlertTriangle} from 'lucide-react'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {useAppStore} from '../../store/useAppStore.js'
@@ -33,7 +33,10 @@ export function QuickPlaylistCapDialog(): ReactNode {
 						<AlertTriangle className="text-warning" aria-hidden />
 						{t('wizard.playlistCap.title')}
 					</DialogTitle>
-					<DialogDescription>{playlistTitle ? t('wizard.playlistCap.descriptionWithTitle', {title: playlistTitle, count: itemCount, limit: playlistLimit}) : t('wizard.playlistCap.description', {count: itemCount, limit: playlistLimit})}</DialogDescription>
+					<DialogDescription>
+						{/* The title is the playlist's own text: an element, so the message's placeholders never reach into it. */}
+						{playlistTitle ? <Trans i18nKey="wizard.playlistCap.descriptionWithTitle" count={itemCount} values={{limit: playlistLimit}} components={{title: <span>{playlistTitle}</span>}} /> : t('wizard.playlistCap.description', {count: itemCount, limit: playlistLimit})}
+					</DialogDescription>
 				</DialogHeader>
 
 				<div className="rounded-lg border border-border bg-background/30 p-3">
