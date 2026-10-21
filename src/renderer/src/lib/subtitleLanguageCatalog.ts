@@ -12,6 +12,13 @@ const YOUTUBE_SUBTITLE_LANGUAGE_CODES: readonly string[] =
 // commonly mistaken for language codes.
 const SEARCH_ALIASES: Readonly<Record<string, readonly string[]>> = {iw: ['he'], uk: ['ua'], ja: ['jp'], ko: ['kr'], cs: ['cz'], da: ['dk'], el: ['gr'], 'zh-Hans': ['zh', 'cn'], 'zh-Hant': ['zh', 'tw'], fil: ['tl'], no: ['nb'], yi: ['ji']}
 
+// An app language as the code YouTube serves its subtitles under: its own when
+// the catalog lists it, else the catalog code it is an alias of (he → iw).
+export function subtitleCodeForLanguage(language: string): string {
+	if (YOUTUBE_SUBTITLE_LANGUAGE_CODES.includes(language)) return language
+	return Object.entries(SEARCH_ALIASES).find(([, aliases]) => aliases.includes(language))?.[0] ?? language
+}
+
 const LANGUAGE_CODE_SHAPE = /^[a-z]{2,3}(?:-[a-z0-9]{2,8})*$/i
 
 export interface SubtitleLanguageOption {

@@ -14,6 +14,7 @@ import {ProfileDownloadTypePanel, ProfileMediaPanels} from './ProfileMediaPanels
 import {ProfileSubtitlesPanel} from './ProfileSubtitlesPanel.js'
 import {ProfileAdvancedPanel} from './ProfileAdvancedPanel.js'
 import {useProfileDestinationControls} from './useProfileDestinationControls.js'
+import {subtitleCodeForLanguage} from '@renderer/lib/subtitleLanguageCatalog.js'
 
 interface ResetProfileAction {
 	enabled: boolean
@@ -111,7 +112,7 @@ export function DownloadProfileEditor({
 	resetProfile
 }: DownloadProfileEditorProps): ReactNode {
 	const {t, i18n} = useTranslation()
-	const [draft, setDraft] = useState(() => createDownloadProfileDraft(initialProfile, {fallbackName: t('wizard.profileEditor.defaultName'), subtitleLanguage: i18n.language}))
+	const [draft, setDraft] = useState(() => createDownloadProfileDraft(initialProfile, {fallbackName: t('wizard.profileEditor.defaultName'), subtitleLanguage: subtitleCodeForLanguage(i18n.language)}))
 	const [profileIconPickerOpen, setProfileIconPickerOpen] = useState(false)
 	const validation = validateDownloadProfileDraft(draft)
 	const {subfolderInvalid, filenameTemplateError, subtitleLanguagesMissing} = validation
