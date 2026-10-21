@@ -1350,6 +1350,7 @@
 			"changeFormat": "Cambiar formato",
 			"changed": "Cambios respecto a {{profile}}: {{areas}}. Solo se aplican a esta descarga.",
 			"changedFrom": "Cambios respecto a {{profile}}:",
+			"fileNameHint": "Variables: {title}, {id}, {uploader}, {date}, {resolution}. La extensión se añade automáticamente.",
 			"nextTime": {
 				"action": "Guardar como perfil",
 				"defaultName": "{{profile}} (editado)",

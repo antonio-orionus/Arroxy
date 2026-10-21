@@ -1288,6 +1288,7 @@
 			"changeFormat": "ប្តូរទម្រង់",
 			"changed": "បានផ្លាស់ប្តូរពី {{profile}}៖ {{areas}}។ អនុវត្តចំពោះការទាញយកនេះតែប៉ុណ្ណោះ។",
 			"changedFrom": "បានផ្លាស់ប្តូរពី {{profile}}៖",
+			"fileNameHint": "Token៖ {title}, {id}, {uploader}, {date}, {resolution}។ កន្ទុយឯកសារត្រូវបានបន្ថែមជូនអ្នក។",
 			"nextTime": {
 				"action": "រក្សាទុកជាប្រវត្តិរូប",
 				"defaultName": "{{profile}} (បានកែសម្រួល)",

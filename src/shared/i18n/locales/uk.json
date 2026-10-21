@@ -1381,6 +1381,7 @@
 			"changeFormat": "Змінити формат",
 			"changed": "Змінено порівняно з {{profile}}: {{areas}}. Стосується лише цього завантаження.",
 			"changedFrom": "Змінено порівняно з {{profile}}:",
+			"fileNameHint": "Шаблони: {title}, {id}, {uploader}, {date}, {resolution}. Розширення додається автоматично.",
 			"nextTime": {
 				"action": "Зберегти як профіль",
 				"defaultName": "{{profile}} (змінений)",

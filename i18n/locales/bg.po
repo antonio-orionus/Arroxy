@@ -3911,6 +3911,10 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Смяна на формата"
 
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "Маркери: {title}, {id}, {uploader}, {date}, {resolution}. Разширението се добавя автоматично."
+
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Запазване като профил"

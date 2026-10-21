@@ -3756,6 +3756,10 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "ប្តូរទម្រង់"
 
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "Token៖ {title}, {id}, {uploader}, {date}, {resolution}។ កន្ទុយឯកសារត្រូវបានបន្ថែមជូនអ្នក។"
+
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "រក្សាទុកជាប្រវត្តិរូប"

@@ -1381,6 +1381,7 @@
 			"changeFormat": "Keisti formatą",
 			"changed": "Pakeista, palyginti su „{{profile}}“: {{areas}}. Taikoma tik šiam atsisiuntimui.",
 			"changedFrom": "Pakeista, palyginti su „{{profile}}“:",
+			"fileNameHint": "Žymės: {title}, {id}, {uploader}, {date}, {resolution}. Plėtinys pridedamas automatiškai.",
 			"nextTime": {
 				"action": "Įrašyti kaip profilį",
 				"defaultName": "{{profile}} (redaguotas)",

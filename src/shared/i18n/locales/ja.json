@@ -1288,6 +1288,7 @@
 			"changeFormat": "形式を変更",
 			"changed": "{{profile}} からの変更: {{areas}}。このダウンロードにのみ適用されます。",
 			"changedFrom": "{{profile}} からの変更:",
+			"fileNameHint": "使えるトークン: {title}、{id}、{uploader}、{date}、{resolution}。拡張子は自動で付きます。",
 			"nextTime": {
 				"action": "プロフィールとして保存",
 				"defaultName": "{{profile}}（編集済み）",

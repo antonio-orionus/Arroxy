@@ -1350,6 +1350,7 @@
 			"changeFormat": "שינוי פורמט",
 			"changed": "שונה לעומת {{profile}}: {{areas}}. חל על הורדה זו בלבד.",
 			"changedFrom": "שונה לעומת {{profile}}:",
+			"fileNameHint": "אסימונים: {title}, {id}, {uploader}, {date}, {resolution}. הסיומת מתווספת עבורכם.",
 			"nextTime": {
 				"action": "שמירה כפרופיל",
 				"defaultName": "{{profile}} (נערך)",

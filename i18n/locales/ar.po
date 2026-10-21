@@ -4531,6 +4531,10 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "تغيير الصيغة"
 
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "الرموز: {title}، {id}، {uploader}، {date}، {resolution}. تتم إضافة الامتداد تلقائيًا."
+
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "حفظ كملف تعريف"

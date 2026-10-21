@@ -1319,6 +1319,7 @@
 			"changeFormat": "Muuda vormingut",
 			"changed": "Muudetud profiilist {{profile}}: {{areas}}. Kehtib ainult sellele allalaadimisele.",
 			"changedFrom": "Muudetud profiilist {{profile}}:",
+			"fileNameHint": "Sümbolid: {title}, {id}, {uploader}, {date}, {resolution}. Laiend lisatakse automaatselt.",
 			"nextTime": {
 				"action": "Salvesta profiilina",
 				"defaultName": "{{profile}} (muudetud)",

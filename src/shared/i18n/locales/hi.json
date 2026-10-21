@@ -1319,6 +1319,7 @@
 			"changeFormat": "फ़ॉर्मैट बदलें",
 			"changed": "{{profile}} से बदला गया: {{areas}}। यह केवल इसी डाउनलोड पर लागू होता है।",
 			"changedFrom": "{{profile}} से बदला गया:",
+			"fileNameHint": "टोकन: {title}, {id}, {uploader}, {date}, {resolution}। एक्सटेंशन अपने आप जुड़ जाता है।",
 			"nextTime": {
 				"action": "प्रोफ़ाइल के रूप में सहेजें",
 				"defaultName": "{{profile}} (संपादित)",

@@ -1288,6 +1288,7 @@
 			"changeFormat": "Đổi định dạng",
 			"changed": "Khác với {{profile}}: {{areas}}. Chỉ áp dụng cho lượt tải này.",
 			"changedFrom": "Khác với {{profile}}:",
+			"fileNameHint": "Mã thay thế: {title}, {id}, {uploader}, {date}, {resolution}. Phần mở rộng được thêm tự động.",
 			"nextTime": {
 				"action": "Lưu thành hồ sơ",
 				"defaultName": "{{profile}} (đã sửa)",

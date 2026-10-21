@@ -1288,6 +1288,7 @@
 			"changeFormat": "형식 변경",
 			"changed": "{{profile}}에서 변경됨: {{areas}}. 이 다운로드에만 적용됩니다.",
 			"changedFrom": "{{profile}}에서 변경됨:",
+			"fileNameHint": "사용 가능한 토큰: {title}, {id}, {uploader}, {date}, {resolution}. 확장자는 자동으로 붙습니다.",
 			"nextTime": {
 				"action": "프로필로 저장",
 				"defaultName": "{{profile}}(수정됨)",

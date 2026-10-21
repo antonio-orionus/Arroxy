@@ -1288,6 +1288,7 @@
 			"changeFormat": "變更格式",
 			"changed": "與 {{profile}} 相比有變更：{{areas}}。僅套用於這次下載。",
 			"changedFrom": "與 {{profile}} 相比的變更：",
+			"fileNameHint": "可用權杖：{title}、{id}、{uploader}、{date}、{resolution}。副檔名會自動加上。",
 			"nextTime": {
 				"action": "另存為設定檔",
 				"defaultName": "{{profile}}（已編輯）",

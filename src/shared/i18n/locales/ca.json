@@ -1350,6 +1350,7 @@
 			"changeFormat": "Canvia el format",
 			"changed": "Canviat respecte de {{profile}}: {{areas}}. S'aplica només a aquesta descàrrega.",
 			"changedFrom": "Canviat respecte de {{profile}}:",
+			"fileNameHint": "Variables: {title}, {id}, {uploader}, {date}, {resolution}. L'extensió s'afegeix automàticament.",
 			"nextTime": {
 				"action": "Desa com a perfil",
 				"defaultName": "{{profile}} (editat)",

@@ -1319,6 +1319,7 @@
 			"changeFormat": "Endre format",
 			"changed": "Endret fra {{profile}}: {{areas}}. Gjelder bare denne nedlastingen.",
 			"changedFrom": "Endret fra {{profile}}:",
+			"fileNameHint": "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. Filtypen legges til automatisk.",
 			"nextTime": {
 				"action": "Lagre som profil",
 				"defaultName": "{{profile}} (redigert)",

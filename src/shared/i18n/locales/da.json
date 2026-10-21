@@ -1319,6 +1319,7 @@
 			"changeFormat": "Skift format",
 			"changed": "Ændret fra {{profile}}: {{areas}}. Gælder kun for dette download.",
 			"changedFrom": "Ændret fra {{profile}}:",
+			"fileNameHint": "Mærker: {title}, {id}, {uploader}, {date}, {resolution}. Filtypenavnet tilføjes automatisk.",
 			"nextTime": {
 				"action": "Gem som profil",
 				"defaultName": "{{profile}} (redigeret)",

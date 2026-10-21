@@ -1319,6 +1319,7 @@
 			"changeFormat": "Ändra format",
 			"changed": "Ändrat från {{profile}}: {{areas}}. Gäller bara den här hämtningen.",
 			"changedFrom": "Ändrat från {{profile}}:",
+			"fileNameHint": "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. Filändelsen läggs till åt dig.",
 			"nextTime": {
 				"action": "Spara som profil",
 				"defaultName": "{{profile}} (redigerad)",

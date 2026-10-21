@@ -1319,6 +1319,7 @@
 			"changeFormat": "ফরম্যাট বদলান",
 			"changed": "{{profile}} থেকে পরিবর্তিত: {{areas}}। শুধু এই ডাউনলোডে প্রযোজ্য।",
 			"changedFrom": "{{profile}} থেকে পরিবর্তিত:",
+			"fileNameHint": "টোকেন: {title}, {id}, {uploader}, {date}, {resolution}। এক্সটেনশন আপনার জন্য যোগ হয়ে যাবে।",
 			"nextTime": {
 				"action": "প্রোফাইল হিসেবে সংরক্ষণ করুন",
 				"defaultName": "{{profile}} (সম্পাদিত)",

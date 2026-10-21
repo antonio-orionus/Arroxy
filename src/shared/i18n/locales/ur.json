@@ -1319,6 +1319,7 @@
 			"changeFormat": "فارمیٹ تبدیل کریں",
 			"changed": "{{profile}} سے تبدیل: {{areas}}۔ صرف اس ڈاؤن لوڈ پر لاگو ہوتا ہے۔",
 			"changedFrom": "{{profile}} سے تبدیل:",
+			"fileNameHint": "ٹوکنز: {title}، {id}، {uploader}، {date}، {resolution}۔ ایکسٹینشن خود بخود شامل ہو جاتی ہے۔",
 			"nextTime": {
 				"action": "پروفائل کے طور پر محفوظ کریں",
 				"defaultName": "{{profile}} (ترمیم شدہ)",

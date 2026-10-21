@@ -1319,6 +1319,7 @@
 			"changeFormat": "Badilisha umbizo",
 			"changed": "Imebadilishwa kutoka {{profile}}: {{areas}}. Inatumika kwa upakuaji huu tu.",
 			"changedFrom": "Imebadilishwa kutoka {{profile}}:",
+			"fileNameHint": "Tokeni: {title}, {id}, {uploader}, {date}, {resolution}. Kiendelezi huongezwa kiotomatiki.",
 			"nextTime": {
 				"action": "Hifadhi kama wasifu",
 				"defaultName": "{{profile}} (imehaririwa)",

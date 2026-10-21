@@ -1288,6 +1288,7 @@
 			"changeFormat": "เปลี่ยนรูปแบบ",
 			"changed": "เปลี่ยนจาก {{profile}}: {{areas}} ใช้กับการดาวน์โหลดนี้เท่านั้น",
 			"changedFrom": "เปลี่ยนจาก {{profile}}:",
+			"fileNameHint": "โทเค็นที่ใช้ได้: {title}, {id}, {uploader}, {date}, {resolution} ระบบจะเติมนามสกุลไฟล์ให้เอง",
 			"nextTime": {
 				"action": "บันทึกเป็นโปรไฟล์",
 				"defaultName": "{{profile}} (แก้ไขแล้ว)",

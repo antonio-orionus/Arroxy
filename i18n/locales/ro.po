@@ -4066,6 +4066,10 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Schimbă formatul"
 
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "Simboluri: {title}, {id}, {uploader}, {date}, {resolution}. Extensia se adaugă automat."
+
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Salvează ca profil"

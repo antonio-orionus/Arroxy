@@ -1319,6 +1319,7 @@
 			"changeFormat": "Biçimi değiştir",
 			"changed": "Değişenler ({{profile}} profiline göre): {{areas}}. Yalnızca bu indirme için geçerli.",
 			"changedFrom": "Değişenler ({{profile}} profiline göre):",
+			"fileNameHint": "Değişkenler: {title}, {id}, {uploader}, {date}, {resolution}. Uzantı otomatik eklenir.",
 			"nextTime": {
 				"action": "Profil olarak kaydet",
 				"defaultName": "{{profile}} (düzenlendi)",

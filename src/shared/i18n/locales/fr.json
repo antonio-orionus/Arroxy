@@ -1350,6 +1350,7 @@
 			"changeFormat": "Changer de format",
 			"changed": "Modifié par rapport à {{profile}} : {{areas}}. S’applique uniquement à ce téléchargement.",
 			"changedFrom": "Modifié par rapport à {{profile}} :",
+			"fileNameHint": "Variables : {title}, {id}, {uploader}, {date}, {resolution}. L’extension est ajoutée automatiquement.",
 			"nextTime": {
 				"action": "Enregistrer comme profil",
 				"defaultName": "{{profile}} (modifié)",

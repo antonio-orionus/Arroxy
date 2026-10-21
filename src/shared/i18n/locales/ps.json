@@ -1319,6 +1319,7 @@
 			"changeFormat": "بڼه بدله کړئ",
 			"changed": "له {{profile}} څخه بدل شو: {{areas}}. یوازې پر دې ښکته کولو پلي کیږي.",
 			"changedFrom": "له {{profile}} څخه بدل شو:",
+			"fileNameHint": "ټوکنونه: {title}، {id}، {uploader}، {date}، {resolution}. توسیعه ستاسو لپاره زیاتیږي.",
 			"nextTime": {
 				"action": "د پروفایل په توګه خوندي کړئ",
 				"defaultName": "{{profile}} (ایډیټ شوی)",

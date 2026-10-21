@@ -1319,6 +1319,7 @@
 			"changeFormat": "Αλλαγή μορφής",
 			"changed": "Αλλαγές σε σχέση με το {{profile}}: {{areas}}. Ισχύει μόνο για αυτή τη λήψη.",
 			"changedFrom": "Αλλαγές σε σχέση με το {{profile}}:",
+			"fileNameHint": "Μεταβλητές: {title}, {id}, {uploader}, {date}, {resolution}. Η επέκταση προστίθεται αυτόματα.",
 			"nextTime": {
 				"action": "Αποθήκευση ως προφίλ",
 				"defaultName": "{{profile}} (τροποποιημένο)",

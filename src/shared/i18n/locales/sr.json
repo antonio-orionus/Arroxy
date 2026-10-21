@@ -1350,6 +1350,7 @@
 			"changeFormat": "Промени формат",
 			"changed": "Измењено у односу на {{profile}}: {{areas}}. Важи само за ово преузимање.",
 			"changedFrom": "Измењено у односу на {{profile}}:",
+			"fileNameHint": "Ознаке: {title}, {id}, {uploader}, {date}, {resolution}. Екстензија се додаје аутоматски.",
 			"nextTime": {
 				"action": "Сачувај као профил",
 				"defaultName": "{{profile}} (измењено)",

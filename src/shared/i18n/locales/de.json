@@ -1319,6 +1319,7 @@
 			"changeFormat": "Format ändern",
 			"changed": "Geändert gegenüber {{profile}}: {{areas}}. Gilt nur für diesen Download.",
 			"changedFrom": "Geändert gegenüber {{profile}}:",
+			"fileNameHint": "Platzhalter: {title}, {id}, {uploader}, {date}, {resolution}. Die Dateiendung wird automatisch ergänzt.",
 			"nextTime": {
 				"action": "Als Profil speichern",
 				"defaultName": "{{profile}} (bearbeitet)",

@@ -3911,6 +3911,10 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "ফরম্যাট বদলান"
 
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "টোকেন: {title}, {id}, {uploader}, {date}, {resolution}। এক্সটেনশন আপনার জন্য যোগ হয়ে যাবে।"
+
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "প্রোফাইল হিসেবে সংরক্ষণ করুন"

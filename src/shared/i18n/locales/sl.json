@@ -1381,6 +1381,7 @@
 			"changeFormat": "Spremeni format",
 			"changed": "Spremenjeno glede na {{profile}}: {{areas}}. Velja samo za ta prenos.",
 			"changedFrom": "Spremenjeno glede na {{profile}}:",
+			"fileNameHint": "Žetoni: {title}, {id}, {uploader}, {date}, {resolution}. Pripona se doda samodejno.",
 			"nextTime": {
 				"action": "Shrani kot profil",
 				"defaultName": "{{profile}} (urejen)",

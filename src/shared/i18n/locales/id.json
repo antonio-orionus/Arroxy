@@ -1288,6 +1288,7 @@
 			"changeFormat": "Ubah format",
 			"changed": "Diubah dari {{profile}}: {{areas}}. Hanya berlaku untuk unduhan ini.",
 			"changedFrom": "Diubah dari {{profile}}:",
+			"fileNameHint": "Token: {title}, {id}, {uploader}, {date}, {resolution}. Ekstensi ditambahkan otomatis.",
 			"nextTime": {
 				"action": "Simpan sebagai profil",
 				"defaultName": "{{profile}} (diedit)",

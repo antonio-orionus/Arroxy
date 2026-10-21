@@ -1381,6 +1381,7 @@
 			"changeFormat": "Zmień format",
 			"changed": "Zmieniono względem {{profile}}: {{areas}}. Dotyczy tylko tego pobrania.",
 			"changedFrom": "Zmieniono względem {{profile}}:",
+			"fileNameHint": "Znaczniki: {title}, {id}, {uploader}, {date}, {resolution}. Rozszerzenie zostanie dodane automatycznie.",
 			"nextTime": {
 				"action": "Zapisz jako profil",
 				"defaultName": "{{profile}} (edytowany)",

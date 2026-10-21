@@ -3911,6 +3911,10 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Biçimi değiştir"
 
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "Değişkenler: {title}, {id}, {uploader}, {date}, {resolution}. Uzantı otomatik eklenir."
+
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Profil olarak kaydet"

@@ -4066,6 +4066,10 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Cambiar formato"
 
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "Variables: {title}, {id}, {uploader}, {date}, {resolution}. La extensión se añade automáticamente."
+
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Guardar como perfil"

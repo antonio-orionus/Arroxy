@@ -1288,6 +1288,7 @@
 			"changeFormat": "更改格式",
 			"changed": "与 {{profile}} 相比有更改：{{areas}}。仅应用于本次下载。",
 			"changedFrom": "与 {{profile}} 相比的更改：",
+			"fileNameHint": "可用标记：{title}、{id}、{uploader}、{date}、{resolution}。扩展名会自动添加。",
 			"nextTime": {
 				"action": "另存为配置",
 				"defaultName": "{{profile}}（已编辑）",

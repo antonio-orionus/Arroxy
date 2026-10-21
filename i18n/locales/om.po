@@ -3911,6 +3911,10 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Foormaatii jijjiiri"
 
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "Mallattoolee: {title}, {id}, {uploader}, {date}, {resolution}. Dheeraan ofumaan siif dabalama."
+
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Akka piroofaayiliitti olkaa'i"

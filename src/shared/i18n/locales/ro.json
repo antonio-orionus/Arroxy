@@ -1350,6 +1350,7 @@
 			"changeFormat": "Schimbă formatul",
 			"changed": "Modificat față de {{profile}}: {{areas}}. Se aplică doar acestei descărcări.",
 			"changedFrom": "Modificat față de {{profile}}:",
+			"fileNameHint": "Simboluri: {title}, {id}, {uploader}, {date}, {resolution}. Extensia se adaugă automat.",
 			"nextTime": {
 				"action": "Salvează ca profil",
 				"defaultName": "{{profile}} (editat)",

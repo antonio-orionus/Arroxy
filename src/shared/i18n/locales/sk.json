@@ -1381,6 +1381,7 @@
 			"changeFormat": "Zmeniť formát",
 			"changed": "Zmenené oproti profilu {{profile}}: {{areas}}. Platí iba pre toto sťahovanie.",
 			"changedFrom": "Zmenené oproti profilu {{profile}}:",
+			"fileNameHint": "Tokeny: {title}, {id}, {uploader}, {date}, {resolution}. Prípona sa pridá automaticky.",
 			"nextTime": {
 				"action": "Uložiť ako profil",
 				"defaultName": "{{profile}} (upravený)",

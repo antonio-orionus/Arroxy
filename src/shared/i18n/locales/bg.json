@@ -1319,6 +1319,7 @@
 			"changeFormat": "Смяна на формата",
 			"changed": "Променено спрямо {{profile}}: {{areas}}. Важи само за това изтегляне.",
 			"changedFrom": "Променено спрямо {{profile}}:",
+			"fileNameHint": "Маркери: {title}, {id}, {uploader}, {date}, {resolution}. Разширението се добавя автоматично.",
 			"nextTime": {
 				"action": "Запазване като профил",
 				"defaultName": "{{profile}} (редактиран)",

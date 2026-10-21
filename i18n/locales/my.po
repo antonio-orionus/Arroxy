@@ -3756,6 +3756,10 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "ဖော်မတ်ပြောင်းရန်"
 
+msgctxt "wizard.review.fileNameHint"
+msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
+msgstr "အသုံးပြုနိုင်သော တိုကင်များ: {title}, {id}, {uploader}, {date}, {resolution}။ ဖိုင်အမျိုးအစားအဆုံးသတ်ကို အလိုအလျောက် ထည့်ပေးသည်။"
+
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "ပရိုဖိုင်အဖြစ် သိမ်းရန်"

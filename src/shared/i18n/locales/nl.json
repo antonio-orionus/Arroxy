@@ -1319,6 +1319,7 @@
 			"changeFormat": "Formaat wijzigen",
 			"changed": "Gewijzigd ten opzichte van {{profile}}: {{areas}}. Geldt alleen voor deze download.",
 			"changedFrom": "Gewijzigd ten opzichte van {{profile}}:",
+			"fileNameHint": "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. De extensie wordt automatisch toegevoegd.",
 			"nextTime": {
 				"action": "Opslaan als profiel",
 				"defaultName": "{{profile}} (bewerkt)",

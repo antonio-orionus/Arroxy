@@ -1319,6 +1319,7 @@
 			"changeFormat": "Formatni o'zgartirish",
 			"changed": "{{profile}} dan o'zgartirilgan: {{areas}}. Faqat shu yuklab olish uchun amal qiladi.",
 			"changedFrom": "{{profile}} dan o'zgartirilgan:",
+			"fileNameHint": "Teglar: {title}, {id}, {uploader}, {date}, {resolution}. Kengaytma avtomatik qo'shiladi.",
 			"nextTime": {
 				"action": "Profil sifatida saqlash",
 				"defaultName": "{{profile}} (tahrirlangan)",

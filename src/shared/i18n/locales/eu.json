@@ -1319,6 +1319,7 @@
 			"changeFormat": "Aldatu formatua",
 			"changed": "Profiletik aldatuta ({{profile}}): {{areas}}. Deskarga honi soilik aplikatzen zaio.",
 			"changedFrom": "Profiletik aldatuta ({{profile}}):",
+			"fileNameHint": "Tokenak: {title}, {id}, {uploader}, {date}, {resolution}. Luzapena automatikoki gehitzen da.",
 			"nextTime": {
 				"action": "Gorde profil gisa",
 				"defaultName": "{{profile}} (editatua)",

@@ -1319,6 +1319,7 @@
 			"changeFormat": "تغییر قالب",
 			"changed": "تغییر نسبت به {{profile}}: {{areas}}. فقط برای این دانلود اعمال می‌شود.",
 			"changedFrom": "تغییر نسبت به {{profile}}:",
+			"fileNameHint": "نشانه‌ها: {title}، {id}، {uploader}، {date}، {resolution}. پسوند خودکار اضافه می‌شود.",
 			"nextTime": {
 				"action": "ذخیره به‌عنوان نمایه",
 				"defaultName": "{{profile}} (ویرایش‌شده)",

@@ -1319,6 +1319,7 @@
 			"changeFormat": "ቅርጸት ቀይር",
 			"changed": "ከ{{profile}} ተቀይሯል፦ {{areas}}። ለዚህ ማውረድ ብቻ ይሠራል።",
 			"changedFrom": "ከ{{profile}} ተቀይሯል፦",
+			"fileNameHint": "ምልክቶች፦ {title}፣ {id}፣ {uploader}፣ {date}፣ {resolution}። ቅጥያው በራስ-ሰር ይታከላል።",
 			"nextTime": {
 				"action": "እንደ መገለጫ አስቀምጥ",
 				"defaultName": "{{profile}} (የተስተካከለ)",

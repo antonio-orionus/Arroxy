@@ -1350,6 +1350,7 @@
 			"changeFormat": "Cambia formato",
 			"changed": "Modificato rispetto a {{profile}}: {{areas}}. Vale solo per questo download.",
 			"changedFrom": "Modificato rispetto a {{profile}}:",
+			"fileNameHint": "Segnaposto: {title}, {id}, {uploader}, {date}, {resolution}. L’estensione viene aggiunta automaticamente.",
 			"nextTime": {
 				"action": "Salva come profilo",
 				"defaultName": "{{profile}} (modificato)",

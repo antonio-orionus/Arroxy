@@ -1319,6 +1319,7 @@
 			"changeFormat": "Formátum módosítása",
 			"changed": "Módosítva a(z) {{profile}} profilhoz képest: {{areas}}. Csak erre a letöltésre vonatkozik.",
 			"changedFrom": "Módosítva a(z) {{profile}} profilhoz képest:",
+			"fileNameHint": "Tokenek: {title}, {id}, {uploader}, {date}, {resolution}. A kiterjesztést automatikusan hozzáadja.",
 			"nextTime": {
 				"action": "Mentés profilként",
 				"defaultName": "{{profile}} (szerkesztve)",
