@@ -79,7 +79,7 @@ function assemble(requested: string | undefined): void {
 		if (fresh.length > 0) writeFileSync(CHANGELOG, mergeIntoSection(current, version, fresh))
 	}
 	for (const file of files) rmSync(file)
-	console.log(`${existing === null ? 'Wrote' : 'Added to'} ## ${version} in ${CHANGELOG} from ${files.length} fragment(s) and deleted them. Read it over before committing release: ${version}.`)
+	console.log(`${existing === null ? `Wrote ## ${version} to` : `Added to ## ${version} in`} ${CHANGELOG} from ${files.length} fragment(s) and deleted them. Read it over before committing release: ${version}.`)
 }
 
 function gitRead(args: string[]): string {

@@ -137,7 +137,7 @@ describe('changelog CLI', () => {
 	it('assembles the package version from the fragments and deletes them', async () => {
 		const {root, cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': CHANGELOG, 'changelog.d/README.md': 'How to write one.\n', 'changelog.d/new-thing.fix.md': 'New fix.\n'})
 		expect(cli('verify-release', '1.2.3')).toMatchObject({status: 1, stderr: expect.stringMatching(/changelog:assemble/)})
-		expect(cli('assemble')).toMatchObject({status: 0})
+		expect(cli('assemble')).toMatchObject({status: 0, stdout: 'Wrote ## 1.2.3 to CHANGELOG.md from 1 fragment(s) and deleted them. Read it over before committing release: 1.2.3.\n'})
 		expect(await fs.readFile(path.join(root, 'CHANGELOG.md'), 'utf8')).toContain('---\n\n## 1.2.3\n\n## Fixes\n\n- New fix.\n\n## 1.2.2')
 		expect(await fs.readdir(path.join(root, 'changelog.d'))).toEqual(['README.md'])
 		expect(cli('check')).toMatchObject({status: 0})
