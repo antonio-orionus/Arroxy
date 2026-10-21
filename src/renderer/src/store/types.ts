@@ -37,6 +37,7 @@ import type {
 	QueueOutputTargetChangeResult,
 	QueueSelectionAction,
 	QueueSelectionCommandResult,
+	MediaTags,
 	QuickDownloadProgressPhase,
 	QuickDownloadStatus,
 	SubtitleFormat,
@@ -99,6 +100,7 @@ export interface ProbeOrchestratorSlice {
 	wizardVideoId: string
 	wizardUploader: string
 	wizardUploadDate: string
+	wizardMediaTags: MediaTags
 	wizardFormatsDegraded: {reasons: ProbeDegradationReason[]} | null
 	// yt-dlp's IE_NAME for the URL just probed (e.g. 'youtube', 'vimeo'). Used to
 	// gate YT-only UI (SponsorBlock step, ban warning) and threaded into PreparedJob

@@ -187,7 +187,7 @@ export const en = {
   feat_workflow_8:
     "**Speed and pacing controls** — cap download bandwidth, set how many parts of a video download at once, and add request delays with presets (*Off · Balanced · Careful · Custom*)",
   feat_workflow_9:
-    "**Filename templates** — name downloads your way with `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, and `{playlist_index}`, globally or per download profile",
+    "**Filename templates** — name downloads your way with `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}`, and `{playlist_index}`, globally or per download profile",
   feat_workflow_10:
     "**Downloads at once and automatic retry** — choose how many queued downloads run at the same time, and let Arroxy retry a download that hit a network or server problem, waiting longer before each attempt",
   feat_workflow_11:

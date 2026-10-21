@@ -30,7 +30,7 @@ Dacă Arroxy vă economisește timp, un ⭐ îi ajută pe alții să-l găseasc�
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Această traducere a fost realizată cu sprijinul IA. [README-ul în engleză](../../README.md) este sursa de referință. Ați găsit o greșeală? [Deschideți un PR](../../../../pulls).
 
@@ -142,7 +142,7 @@ Dacă Arroxy vă economisește timp, un ⭐ îi ajută pe alții să-l găseasc�
 - **50 limbi** — detectează automat limba sistemului, se poate schimba oricând
 - **Sincronizarea listelor de redare** — scanați din nou o listă de redare față de un folder local pentru a omite videoclipurile deja descărcate; generează un fișier de listă `.m3u` actualizat pe măsură ce fiecare videoclip se descarcă
 - **Controale de viteză și ritm** — limitați lățimea de bandă, stabiliți câte părți ale unui videoclip se descarcă simultan și adăugați întârzieri între cereri cu presetări (*Dezactivat · Echilibrat · Precaut · Personalizat*)
-- **Șabloane de nume de fișier** — denumiți descărcările cum doriți cu `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` și `{playlist_index}`, global sau pentru fiecare profil de descărcare
+- **Șabloane de nume de fișier** — denumiți descărcările cum doriți cu `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` și `{playlist_index}`, global sau pentru fiecare profil de descărcare
 - **Descărcări simultane și reîncercare automată** — alegeți câte descărcări din coadă rulează în același timp și lăsați Arroxy să reîncerce o descărcare care a întâmpinat o problemă de rețea sau de server, așteptând mai mult înainte de fiecare încercare
 - **Profiluri pe element în listele de redare** — atribuiți fiecărui videoclip dintr-o listă propriul profil de descărcare, în loc de o singură setare pentru întreaga listă, astfel încât într-o singură trecere să arhivați unele la calitate maximă și să le luați pe restul ca MP3
 - **Descărcarea rapidă lucrează în fundal** — linkul apare imediat în Descărcări și se pregătește acolo, o notă cu **Vizualizare** confirmă, iar câmpul URL se golește pentru următorul link. Porniți câte doriți cât timp cele anterioare se pregătesc

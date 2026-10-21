@@ -30,7 +30,7 @@ Jei Arroxy taupo jūsų laiką, ⭐ padės kitiems ją rasti.
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Šis vertimas parengtas padedant DI. [Angliškas README](../../README.md) yra pagrindinis šaltinis. Radote klaidą? [Atverkite PR](../../../../pulls).
 
@@ -142,7 +142,7 @@ Jei Arroxy taupo jūsų laiką, ⭐ padės kitiems ją rasti.
 - **50 kalbų** — automatiškai aptinka sistemos kalbą, galima bet kada perjungti
 - **Grojaraščio sinchronizavimas** — iš naujo nuskaitykite grojaraštį pagal vietinį aplanką, kad praleistumėte jau atsisiųstus vaizdo įrašus; sukuria `.m3u` grojaraščio failą, atnaujinamą atsisiunčiant kiekvieną vaizdo įrašą
 - **Greičio ir tempo valdymas** — apribokite atsisiuntimo pralaidumą, nustatykite, kiek vaizdo įrašo dalių atsisiunčiama vienu metu, ir pridėkite užklausų delsą su šablonais (*Išjungta · Subalansuota · Atsargi · Pasirinktinė*)
-- **Failų pavadinimų šablonai** — pavadinkite atsisiuntimus savo būdu naudodami `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` ir `{playlist_index}`, bendrai arba pagal atsisiuntimo profilį
+- **Failų pavadinimų šablonai** — pavadinkite atsisiuntimus savo būdu naudodami `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` ir `{playlist_index}`, bendrai arba pagal atsisiuntimo profilį
 - **Atsisiuntimai vienu metu ir automatinis kartojimas** — pasirinkite, kiek eilės atsisiuntimų vykdoma tuo pačiu metu, ir leiskite Arroxy kartoti atsisiuntimą, kuris susidūrė su tinklo ar serverio problema, prieš kiekvieną bandymą laukiant ilgiau
 - **Kiekvieno grojaraščio elemento profiliai** — priskirkite kiekvienam grojaraščio vaizdo įrašui savo atsisiuntimo profilį, užuot taikę vieną parametrą visam sąrašui, kad per vieną praėjimą kai kuriuos užarchyvuotumėte aukščiausia kokybe, o likusius atsisiųstumėte kaip MP3
 - **Greitasis atsisiuntimas veikia fone** — nuoroda iškart atsiranda sąraše „Atsisiuntimai“ ir ten ruošiama, pranešimas su **Rodyti** tai patvirtina, o URL laukas išvalomas kitai nuorodai. Pradėkite kiek norite, kol ankstesnės ruošiamos

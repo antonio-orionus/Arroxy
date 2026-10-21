@@ -189,7 +189,7 @@ export const bn = {
   feat_workflow_8:
     "**Speed ও pacing controls** — download bandwidth সীমিত করুন, একসাথে ভিডিওর কতগুলো অংশ download হবে তা সেট করুন, এবং presets (*Off · Balanced · Careful · Custom*) দিয়ে request delay যোগ করুন",
   feat_workflow_9:
-    "**ফাইলের নামের টেমপ্লেট** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` ও `{playlist_index}` দিয়ে ডাউনলোডের নাম নিজের মতো দিন, সব ক্ষেত্রে বা প্রতিটি ডাউনলোড প্রোফাইলের জন্য আলাদা",
+    "**ফাইলের নামের টেমপ্লেট** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` ও `{playlist_index}` দিয়ে ডাউনলোডের নাম নিজের মতো দিন, সব ক্ষেত্রে বা প্রতিটি ডাউনলোড প্রোফাইলের জন্য আলাদা",
   feat_workflow_10:
     "**একসাথে ডাউনলোড ও স্বয়ংক্রিয় পুনঃচেষ্টা** — একসাথে কতগুলো সারিবদ্ধ ডাউনলোড চলবে তা বেছে নিন, এবং নেটওয়ার্ক বা সার্ভার সমস্যায় পড়া ডাউনলোড Arroxy প্রতিটি চেষ্টার আগে আরও বেশি অপেক্ষা করে আবার চেষ্টা করুক",
   feat_workflow_11:

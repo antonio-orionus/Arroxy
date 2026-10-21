@@ -221,6 +221,17 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
         }
         if video.get('chapters'):
             info['chapters'] = video['chapters']
+        # What a music video carries on YouTube: a date, a category, and the
+        # track's credits. Kept to one entry so the others stay undated.
+        tags = video.get('mediaTags')
+        if tags:
+            info.update({
+                'upload_date': tags['uploadDate'],
+                'categories': tags['categories'],
+                'artist': tags['artist'],
+                'album': tags['album'],
+                'track': tags['track'],
+            })
         return info
 
 

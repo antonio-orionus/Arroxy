@@ -380,6 +380,18 @@ export interface QueueResumeContext {
 	failureKind: YtDlpErrorKind
 }
 
+/**
+ * What a video is filed under beyond who posted it, for the `{categories}`,
+ * `{artist}`, `{album}` and `{track}` filename tokens. Sparse: most sites set
+ * only a category, and only music sites set the rest. Blank values are left out.
+ */
+export interface MediaTags {
+	category?: string // first of yt-dlp's `categories`
+	artist?: string // `artist`, else yt-dlp's `artists` joined with ", "
+	album?: string
+	track?: string
+}
+
 export interface PlaylistEntry {
 	id: string
 	url: string
@@ -396,6 +408,7 @@ export interface PlaylistEntry {
 	// Sparse on flat playlist probes — an absent value collapses the folder.
 	uploader?: string // uploader → channel → creator → uploader_id, resolved at probe time
 	uploadDate?: string // raw yt-dlp upload_date (YYYYMMDD)
+	mediaTags?: MediaTags
 	timestamp?: number // epoch seconds from yt-dlp `timestamp`; too coarse-grained uploadDate cannot order same-day uploads
 	// This row is a channel/playlist/album, not a video. Set only on the rows
 	// mapPlaylistEntries keeps when a result holds nothing else (its all-nested
@@ -478,6 +491,7 @@ export interface VideoProbeResult extends ProbeCommon {
 	// See PlaylistEntry for why these exist and how absence is handled.
 	uploader?: string // uploader → channel → creator → uploader_id, resolved at probe time
 	uploadDate?: string // raw yt-dlp upload_date (YYYYMMDD)
+	mediaTags?: MediaTags
 	timestamp?: number // epoch seconds from yt-dlp `timestamp`
 }
 

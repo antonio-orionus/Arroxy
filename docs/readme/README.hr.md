@@ -30,7 +30,7 @@ Ako vam Arroxy štedi vrijeme, ⭐ pomaže drugima da ga pronađu.
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Ovaj je prijevod nastao uz pomoć umjetne inteligencije. [Englesko izdanje README-a](../../README.md) mjerodavan je izvor. Pronašli ste pogrešku? [Otvorite PR](../../../../pulls).
 
@@ -142,7 +142,7 @@ Ako vam Arroxy štedi vrijeme, ⭐ pomaže drugima da ga pronađu.
 - **50 jezika** — automatski prepoznaje jezik sustava, može se promijeniti u bilo kojem trenutku
 - **Sinkronizacija popisa za reprodukciju** — ponovno skenirajte popis za reprodukciju u odnosu na lokalnu mapu da preskočite već preuzete videozapise; generira `.m3u` datoteku popisa koja se ažurira kako se svaki videozapis preuzima
 - **Kontrole brzine i tempa** — ograničite propusnost preuzimanja, postavite koliko se dijelova videozapisa preuzima odjednom i dodajte odgode zahtjeva s predlošcima (*Isključeno · Uravnoteženo · Oprezno · Prilagođeno*)
-- **Predlošci naziva datoteka** — imenujte preuzimanja po svome pomoću `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` i `{playlist_index}`, globalno ili po profilu preuzimanja
+- **Predlošci naziva datoteka** — imenujte preuzimanja po svome pomoću `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` i `{playlist_index}`, globalno ili po profilu preuzimanja
 - **Istodobna preuzimanja i automatski ponovni pokušaj** — odaberite koliko preuzimanja iz reda radi istodobno i pustite da Arroxy ponovno pokuša preuzimanje koje je naišlo na mrežni ili poslužiteljski problem, čekajući dulje prije svakog pokušaja
 - **Profili po stavci popisa za reprodukciju** — dodijelite svakom videozapisu na popisu vlastiti profil preuzimanja umjesto jedne postavke za cijeli popis, pa jednim prolazom neke možete arhivirati u punoj kvaliteti, a ostale preuzeti kao MP3
 - **Brzo preuzimanje radi u pozadini** — poveznica se odmah pojavljuje u Preuzimanjima i tamo se priprema, bilješka s gumbom **Prikaži** to potvrđuje, a polje URL-a se prazni za sljedeću poveznicu. Pokrenite koliko god želite dok se prethodne pripremaju

@@ -38,7 +38,7 @@ export interface BulkStartProjection {
  * it. Rows expanded out of a collection URL arrive with real values, so they
  * skip hydration entirely instead of re-probing every entry one at a time.
  */
-export type BulkEntrySeed = Pick<PlaylistEntry, 'title' | 'thumbnail' | 'duration' | 'videoId' | 'uploader' | 'uploadDate' | 'timestamp' | 'isContainer' | 'titleIsPlaceholder' | 'auth'>
+export type BulkEntrySeed = Pick<PlaylistEntry, 'title' | 'thumbnail' | 'duration' | 'videoId' | 'uploader' | 'uploadDate' | 'mediaTags' | 'timestamp' | 'isContainer' | 'titleIsPlaceholder' | 'auth'>
 
 function restoreCommonWizardPrefs(settings: AppSettings | null): CommonPrefsPatch {
 	return {
@@ -140,6 +140,7 @@ export function projectVideoProbeResult(probe: Extract<ProbeResult, {kind: 'vide
 		wizardVideoId: probe.videoId ?? '',
 		wizardUploader: probe.uploader ?? '',
 		wizardUploadDate: probe.uploadDate ?? '',
+		wizardMediaTags: probe.mediaTags ?? {},
 		formatsLoading: false,
 		playlistProbeLoading: false,
 		playlistProbeProgress: null,
@@ -261,6 +262,7 @@ export function projectBulkStart(urls: readonly string[], state: AppState, seeds
 			...(seed?.duration === undefined ? {} : {duration: seed.duration}),
 			...(seed?.uploader === undefined ? {} : {uploader: seed.uploader}),
 			...(seed?.uploadDate === undefined ? {} : {uploadDate: seed.uploadDate}),
+			...(seed?.mediaTags === undefined ? {} : {mediaTags: seed.mediaTags}),
 			...(seed?.timestamp === undefined ? {} : {timestamp: seed.timestamp}),
 			...(seed?.isContainer === true ? {isContainer: true as const} : {}),
 			...(seed?.auth ? {auth: seed.auth} : {}),
@@ -287,6 +289,7 @@ export function projectBulkStart(urls: readonly string[], state: AppState, seeds
 			wizardVideoId: '',
 			wizardUploader: '',
 			wizardUploadDate: '',
+			wizardMediaTags: {},
 			wizardFormats: [],
 			wizardFormatSelection: EMPTY_FORMAT_SELECTION,
 			wizardFormatsDegraded: null,

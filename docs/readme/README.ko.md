@@ -30,7 +30,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 이 번역은 AI의 도움으로 작성되었습니다. [영문 README](../../README.md)가 기준 문서입니다. 오류를 발견했다면 [PR을 열어 주세요](../../../../pulls).
 
@@ -142,7 +142,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 - **50개 언어** — 시스템 언어를 자동 감지하며 언제든 변경 가능
 - **재생목록 동기화** — 재생목록을 로컬 폴더와 다시 비교해 이미 받은 동영상을 건너뛰고, 동영상이 내려받아질 때마다 갱신되는 `.m3u` 재생목록 파일을 생성
 - **속도 및 간격 제어** — 다운로드 대역폭과 동시에 받는 동영상 조각 수를 제한하고, 요청 지연을 프리셋(*끄기 · 균형 · 주의 · 사용자 지정*)으로 설정
-- **파일 이름 템플릿** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}`, `{playlist_index}`로 전역 또는 프로필별 이름 지정
+- **파일 이름 템플릿** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}`, `{playlist_index}`로 전역 또는 프로필별 이름 지정
 - **동시 다운로드 및 자동 재시도** — 동시에 실행할 대기열 작업 수를 정하고, 네트워크나 서버 문제를 만난 다운로드를 매번 더 오래 기다린 뒤 Arroxy가 다시 시도
 - **재생목록 항목별 프로필** — 목록 전체에 하나의 설정을 쓰는 대신 각 동영상에 개별 프로필을 지정하여, 한 번에 일부는 최고 화질로 보관하고 나머지는 MP3로 저장
 - **빠른 다운로드는 백그라운드에서 동작** — 링크가 곧바로 다운로드 탭에 나타나 거기서 준비되고, **보기**가 있는 알림이 확인해 주며, URL 입력란은 다음 링크를 위해 비워집니다. 앞선 항목이 준비되는 동안에도 원하는 만큼 시작할 수 있습니다

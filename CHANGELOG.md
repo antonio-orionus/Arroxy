@@ -14,6 +14,7 @@ Arroxy's website has a new address: **https://arroxy.com/**. The About, Share an
 
 ## Highlights
 
+- **More filename tokens.** Name files and folders after `{year}`, `{site}`, `{categories}`, `{artist}`, `{album}` and `{track}`, for example `{artist}/{album}/{track} [{id}]`.
 - **19 new languages.** Arroxy now speaks Basque, Bulgarian, Catalan, Croatian, Czech, Danish, Dutch, Estonian, Finnish, Galician, Hebrew, Hungarian, Latvian, Lithuanian, Norwegian, Romanian, Slovak, Slovenian and Swedish, and opens in them on first launch when your system uses them. The feedback form is translated into each of them too.
 
 ## Fixes

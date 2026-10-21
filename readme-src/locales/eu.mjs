@@ -187,7 +187,7 @@ export const eu = {
   feat_workflow_8:
     "**Abiadura- eta erritmo-kontrolak** — mugatu deskargaren banda-zabalera, ezarri bideo baten zenbat zati deskargatzen diren aldi berean, eta gehitu eskaeren atzerapenak aurrezarpenekin (*Desaktibatuta · Orekatua · Zuhurra · Pertsonalizatua*)",
   feat_workflow_9:
-    "**Fitxategi-izenen txantiloiak** — jarri izena deskargei zure erara `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` eta `{playlist_index}` erabiliz, globalki edo deskarga-profil bakoitzeko",
+    "**Fitxategi-izenen txantiloiak** — jarri izena deskargei zure erara `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` eta `{playlist_index}` erabiliz, globalki edo deskarga-profil bakoitzeko",
   feat_workflow_10:
     "**Aldi berako deskargak eta berriro saiatze automatikoa** — aukeratu ilarako zenbat deskarga exekutatzen diren aldi berean, eta utzi Arroxy-ri sareko edo zerbitzariko arazo bat izan duen deskarga bat berriro saiatzen, saiakera bakoitzaren aurretik gero eta gehiago itxaroten",
   feat_workflow_11:

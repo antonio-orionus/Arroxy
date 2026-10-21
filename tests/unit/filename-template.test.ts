@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {DEFAULT_FILENAME_TEMPLATE, compileFilenameTemplate, previewFilenameTemplate, renderTemplateDirs, templateHasDirs, templateDirsVaryPerEntry, templateHasId, templateOutputDir, validateFilenameTemplate, bindFilenameTemplate, type BindContext, type TemplateMetadata} from '@shared/filenameTemplate.js'
+import {DEFAULT_FILENAME_TEMPLATE, compileFilenameTemplate, previewFilenameTemplate, renderTemplateDirs, templateHasDirs, templateDirsVaryPerEntry, templateHasId, templateOutputDir, templateSite, validateFilenameTemplate, bindFilenameTemplate, type BindContext, type TemplateMetadata} from '@shared/filenameTemplate.js'
 import type {InFlightFiles} from '@shared/nameBudget.js'
 import {FILENAME_TEMPLATE_MAX, FILENAME_TOKENS} from '@shared/schemas.js'
 
@@ -37,7 +37,79 @@ const SINGLE_META: TemplateMetadata = {title: 'Big Buck Bunny', id: 'YE7VzlLtp-4
 
 describe('FILENAME_TOKENS', () => {
 	it('exposes the core typeable token surface — ext is implicit, never typed', () => {
-		expect([...FILENAME_TOKENS]).toEqual(['title', 'uploader', 'id', 'date', 'resolution', 'playlist_index', 'playlist_title', 'playlist_id'])
+		expect([...FILENAME_TOKENS]).toEqual(['title', 'uploader', 'id', 'date', 'year', 'resolution', 'site', 'categories', 'artist', 'album', 'track', 'playlist_index', 'playlist_title', 'playlist_id'])
+	})
+})
+
+describe('media tokens', () => {
+	const MUSIC_META: TemplateMetadata = {...SINGLE_META, site: 'youtube.com', category: 'Music', artist: 'Daft Punk', album: 'Discovery', track: 'One More Time'}
+
+	it('accepts the media tokens in a template', () => {
+		expect(validateFilenameTemplate('{site}/{year}/{categories}/{artist} - {album} - {track} [{id}]')).toEqual({ok: true})
+	})
+
+	it('names folders after the site, year, category, artist and album', () => {
+		expect(renderTemplateDirs('{site}/{year}/{categories}/{artist}/{album}/{title}', MUSIC_META)).toEqual(['youtube.com', '2026', 'Music', 'Daft Punk', 'Discovery'])
+	})
+
+	it('binds every media token as literal text', () => {
+		expect(bound('{artist} - {track} ({album}, {year}) [{categories}] {site} [{id}]', MUSIC_META)).toBe('Daft Punk - One More Time (Discovery, 2026) [Music] youtube.com [YE7VzlLtp-4]')
+	})
+
+	it('falls back to the uploader for {artist} outside music, as the compiled token does', () => {
+		expect(renderTemplateDirs('{artist}/{title}', SINGLE_META)).toEqual(['Blender Foundation'])
+		expect(compiled('{artist}{id}')).toContain('%(artist,uploader,channel,creator,uploader_id).60B')
+	})
+
+	it('collapses an album or track folder for a video that is not music', () => {
+		expect(renderTemplateDirs('{album}/{track}/{title}', SINGLE_META)).toEqual([])
+	})
+
+	it('leaves a missing value for yt-dlp to fill in at download time', () => {
+		// A flat playlist probe carries no category or music fields; yt-dlp can
+		// still resolve them for the video it actually downloads.
+		expect(bound('{categories} - {track} [{id}]', SINGLE_META)).toBe('{categories} - {track} [YE7VzlLtp-4]')
+	})
+
+	it('compiles each media token to the yt-dlp field it mirrors, with an empty default', () => {
+		const template = compiled('{year} {site} {categories} {album} {track} {id}')
+		expect(template).toContain('%(upload_date>%Y|)s')
+		expect(template).toContain('%(webpage_url_domain|)s')
+		expect(template).toContain('%(categories.0|).60B')
+		expect(template).toContain('%(album|).60B')
+		expect(template).toContain('%(track|).80B')
+	})
+
+	it('renders {year} empty when the upload date is missing or malformed', () => {
+		expect(renderTemplateDirs('{year}/{title}', {...SINGLE_META, uploadDate: undefined})).toEqual([])
+		expect(renderTemplateDirs('{year}/{title}', {...SINGLE_META, uploadDate: '2026'})).toEqual([])
+	})
+
+	it('treats a media token in a folder as varying per playlist entry', () => {
+		for (const token of ['year', 'site', 'categories', 'artist', 'album', 'track']) {
+			expect(templateDirsVaryPerEntry(`{${token}}/{title} [{id}]`)).toBe(true)
+		}
+	})
+
+	it('shows sample values for the media tokens in the preview', () => {
+		expect(previewFilenameTemplate('{site}/{year}/{categories}/{artist} - {album} - {track} [{id}]')).toBe('youtube.com/2026/Film & Animation/Blender Foundation - Open Movies - Big Buck Bunny [YE7VzlLtp-4].mp4')
+	})
+})
+
+describe('templateSite', () => {
+	it('names the site by its domain, without www, as yt-dlp does', () => {
+		expect(templateSite('https://www.youtube.com/watch?v=v1')).toBe('youtube.com')
+		expect(templateSite('https://vimeo.com/123')).toBe('vimeo.com')
+		expect(templateSite('https://music.youtube.com/watch?v=v1')).toBe('music.youtube.com')
+	})
+
+	it('leaves the port out, which no folder name can carry on Windows', () => {
+		expect(templateSite('http://127.0.0.1:8080/v.mp4')).toBe('127.0.0.1')
+	})
+
+	it('returns undefined for something that is not a URL', () => {
+		expect(templateSite('')).toBeUndefined()
+		expect(templateSite('not a url')).toBeUndefined()
 	})
 })
 

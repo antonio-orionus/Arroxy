@@ -187,7 +187,7 @@ export const ro = {
   feat_workflow_8:
     "**Controale de viteză și ritm** — limitați lățimea de bandă, stabiliți câte părți ale unui videoclip se descarcă simultan și adăugați întârzieri între cereri cu presetări (*Dezactivat · Echilibrat · Precaut · Personalizat*)",
   feat_workflow_9:
-    "**Șabloane de nume de fișier** — denumiți descărcările cum doriți cu `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` și `{playlist_index}`, global sau pentru fiecare profil de descărcare",
+    "**Șabloane de nume de fișier** — denumiți descărcările cum doriți cu `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` și `{playlist_index}`, global sau pentru fiecare profil de descărcare",
   feat_workflow_10:
     "**Descărcări simultane și reîncercare automată** — alegeți câte descărcări din coadă rulează în același timp și lăsați Arroxy să reîncerce o descărcare care a întâmpinat o problemă de rețea sau de server, așteptând mai mult înainte de fiecare încercare",
   feat_workflow_11:

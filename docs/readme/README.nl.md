@@ -30,7 +30,7 @@ Bespaart Arroxy je tijd? Met een ⭐ help je anderen het te vinden.
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Deze vertaling is tot stand gekomen met behulp van AI. De [Engelse README](../../README.md) is de leidende bron. Een fout gevonden? [Open een PR](../../../../pulls).
 
@@ -142,7 +142,7 @@ Bespaart Arroxy je tijd? Met een ⭐ help je anderen het te vinden.
 - **50 talen** — detecteert automatisch de systeemtaal, op elk moment te wisselen
 - **Synchronisatie van afspeellijsten** — scan een afspeellijst opnieuw ten opzichte van een lokale map om reeds gedownloade video’s over te slaan; genereert een `.m3u`-afspeellijstbestand dat wordt bijgewerkt terwijl elke video wordt gedownload
 - **Snelheids- en tempobesturing** — beperk de downloadbandbreedte, stel in hoeveel delen van een video tegelijk worden gedownload en voeg verzoekvertragingen toe met voorinstellingen (*Uit · Gebalanceerd · Voorzichtig · Aangepast*)
-- **Sjablonen voor bestandsnamen** — geef downloads een naam zoals jij wilt met `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` en `{playlist_index}`, algemeen of per downloadprofiel
+- **Sjablonen voor bestandsnamen** — geef downloads een naam zoals jij wilt met `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` en `{playlist_index}`, algemeen of per downloadprofiel
 - **Downloads tegelijk en automatisch opnieuw proberen** — kies hoeveel downloads uit de wachtrij tegelijk lopen en laat Arroxy een download opnieuw proberen die een netwerk- of serverprobleem had, met steeds langere wachttijd voor elke poging
 - **Profielen per afspeellijstitem** — wijs elke video in een afspeellijst een eigen downloadprofiel toe in plaats van één instelling voor de hele lijst, zodat je in één keer sommige in volle kwaliteit kunt archiveren en de rest als MP3 kunt binnenhalen
 - **Snel downloaden werkt op de achtergrond** — de link verschijnt meteen in Downloads en wordt daar voorbereid, een melding met **Bekijken** bevestigt dit en het URL-veld wordt leeggemaakt voor de volgende link. Start er zoveel als je wilt terwijl eerdere worden voorbereid

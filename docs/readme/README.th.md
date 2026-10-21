@@ -30,7 +30,7 @@
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 คำแปลนี้จัดทำโดยมี AI ช่วยเหลือ [README ภาษาอังกฤษ](../../README.md) คือแหล่งข้อมูลหลัก พบข้อผิดพลาดหรือไม่ [เปิด PR](../../../../pulls) ได้เลย
 
@@ -142,7 +142,7 @@
 - **50 ภาษา** — ตรวจหาภาษาระบบอัตโนมัติและเปลี่ยนได้ทุกเมื่อ
 - **ซิงก์เพลย์ลิสต์** — สแกนเพลย์ลิสต์เทียบกับโฟลเดอร์ในเครื่องอีกครั้งเพื่อข้ามวิดีโอที่ดาวน์โหลดแล้ว พร้อมสร้างไฟล์เพลย์ลิสต์ `.m3u` ที่อัปเดตเมื่อดาวน์โหลดแต่ละวิดีโอ
 - **ควบคุมความเร็วและจังหวะ** — จำกัดแบนด์วิดท์ กำหนดจำนวนส่วนของวิดีโอที่ดาวน์โหลดพร้อมกัน และหน่วงคำขอด้วยค่าล่วงหน้า (*ปิด · สมดุล · ระมัดระวัง · กำหนดเอง*)
-- **แม่แบบชื่อไฟล์** — ตั้งชื่อด้วย `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` และ `{playlist_index}` ได้ทั้งส่วนกลางหรือแยกตามโปรไฟล์
+- **แม่แบบชื่อไฟล์** — ตั้งชื่อด้วย `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` และ `{playlist_index}` ได้ทั้งส่วนกลางหรือแยกตามโปรไฟล์
 - **ดาวน์โหลดพร้อมกันและลองใหม่อัตโนมัติ** — เลือกจำนวนงานในคิวที่ทำพร้อมกัน และให้ Arroxy ลองงานที่พบปัญหาเครือข่ายหรือเซิร์ฟเวอร์ใหม่ โดยรอนานขึ้นในแต่ละครั้ง
 - **โปรไฟล์แยกสำหรับแต่ละรายการในเพลย์ลิสต์** — กำหนดโปรไฟล์ให้แต่ละวิดีโอแทนการใช้ค่าเดียวทั้งรายการ จึงเก็บบางรายการเต็มคุณภาพและดาวน์โหลดที่เหลือเป็น MP3 ได้ในรอบเดียว
 - **ดาวน์โหลดด่วนทำงานเบื้องหลัง** — ลิงก์จะแสดงในแท็บดาวน์โหลดทันทีและเตรียมข้อมูลที่นั่น มีการแจ้งเตือนพร้อมปุ่ม **ดู** ยืนยัน และช่อง URL จะถูกล้างเพื่อรอลิงก์ถัดไป เริ่มกี่ลิงก์ก็ได้ระหว่างที่ลิงก์ก่อนหน้ากำลังเตรียม

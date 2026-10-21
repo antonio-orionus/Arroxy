@@ -30,7 +30,7 @@
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Це переклад за допомогою ШІ. [README англійською](../../README.md) — основне джерело істини. Помітили помилку? [PR вітаються](../../../../pulls).
 
@@ -142,7 +142,7 @@
 - **50 мов** — автоматично визначає локаль системи, можна перемкнути будь-коли
 - **Синхронізація плейлиста** — повторно звіряє плейлист із локальною папкою, щоб пропускати вже завантажені відео; створює файл плейлиста `.m3u`, який оновлюється після кожного завантаженого відео
 - **Керування швидкістю та pacing** — обмежуйте download bandwidth, задавайте, скільки частин відео завантажується одночасно, і додавайте затримки між запитами з пресетами (*Вимк · Збалансовано · Обережно · Власний*)
-- **Шаблони імен файлів** — називайте завантаження на свій смак за допомогою `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` та `{playlist_index}`, глобально або для кожного профілю завантаження
+- **Шаблони імен файлів** — називайте завантаження на свій смак за допомогою `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` та `{playlist_index}`, глобально або для кожного профілю завантаження
 - **Завантажень одночасно та автоповтор** — обирайте, скільки завантажень із черги йде одночасно, і дозвольте Arroxy повторити завантаження після збою мережі або сервера, збільшуючи паузу перед кожною спробою
 - **Профілі для кожного відео плейлиста** — призначайте кожному відео в плейлисті власний профіль завантаження замість одного налаштування для всього списку, щоб за один прохід частину відео зберегти в повній якості, а решту — як MP3
 - **Quick Download працює у фоні** — посилання одразу з’являється в Завантаженнях і готується там, примітка з кнопкою **Переглянути** підтверджує це, а поле URL очищується для наступного посилання. Запускайте скільки завгодно, поки попередні готуються

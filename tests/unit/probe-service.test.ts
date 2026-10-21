@@ -558,6 +558,66 @@ describe('ProbeService — uploader and upload date for filename templates', () 
 		if (r.ok && r.data.kind === 'playlist') expect(r.data.entries[0]?.uploader).toBeUndefined()
 	})
 
+	it('carries the first category and the music fields on a video probe', async () => {
+		const json = JSON.stringify({
+			_type: 'video',
+			id: 'v1',
+			title: 'One More Time',
+			categories: ['Music', 'Entertainment'],
+			artist: 'Daft Punk',
+			album: 'Discovery',
+			track: 'One More Time',
+			extractor: 'youtube',
+			extractor_key: 'Youtube',
+			webpage_url: 'https://www.youtube.com/watch?v=v1',
+			formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]
+		})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
+
+		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v1')
+
+		expect(r.ok).toBe(true)
+		if (r.ok && r.data.kind === 'video') expect(r.data.mediaTags).toEqual({category: 'Music', artist: 'Daft Punk', album: 'Discovery', track: 'One More Time'})
+	})
+
+	it('joins a list of artists when the single artist field is absent, as yt-dlp does', async () => {
+		const json = JSON.stringify({_type: 'video', id: 'v1', title: 'Song', artists: ['Artist A', 'Artist B'], extractor: 'youtube', extractor_key: 'Youtube', webpage_url: 'https://www.youtube.com/watch?v=v1', formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
+
+		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v1')
+
+		expect(r.ok).toBe(true)
+		if (r.ok && r.data.kind === 'video') expect(r.data.mediaTags).toEqual({artist: 'Artist A, Artist B'})
+	})
+
+	it('ignores blank or malformed media fields instead of naming a folder after them', async () => {
+		const json = JSON.stringify({_type: 'video', id: 'v1', title: 'Clip', categories: ['  '], artist: 42, album: '', track: null, extractor: 'generic', extractor_key: 'Generic', webpage_url: 'https://example.com/v1', formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
+
+		const r = await makeProbeService().probe('https://example.com/v1')
+
+		expect(r.ok).toBe(true)
+		if (r.ok && r.data.kind === 'video') expect(r.data.mediaTags).toBeUndefined()
+	})
+
+	it('carries the media fields onto a playlist entry when the flat probe has them', async () => {
+		const json = JSON.stringify({
+			_type: 'playlist',
+			id: 'PL1',
+			title: 'Album',
+			extractor: 'youtube:tab',
+			extractor_key: 'YoutubeTab',
+			webpage_url: 'https://www.youtube.com/playlist?list=PL1',
+			entries: [{_type: 'url', id: 'e1', title: 'First', url: 'https://www.youtube.com/watch?v=e1', categories: ['Music'], artist: 'Daft Punk', album: 'Discovery', track: 'Aerodynamic'}]
+		})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
+
+		const r = await makeProbeService().probe('https://www.youtube.com/playlist?list=PL1')
+
+		expect(r.ok).toBe(true)
+		if (r.ok && r.data.kind === 'playlist') expect(r.data.entries[0]?.mediaTags).toEqual({category: 'Music', artist: 'Daft Punk', album: 'Discovery', track: 'Aerodynamic'})
+	})
+
 	it('carries timestamp on a video probe', async () => {
 		const json = JSON.stringify({_type: 'video', id: 'v1', title: 'Clip', timestamp: 1754000000, extractor: 'youtube', extractor_key: 'Youtube', webpage_url: 'https://www.youtube.com/watch?v=v1', formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)

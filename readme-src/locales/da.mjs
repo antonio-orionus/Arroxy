@@ -188,7 +188,7 @@ export const da = {
   feat_workflow_8:
     "**Kontrol af hastighed og tempo** — begræns downloadbåndbredden, angiv hvor mange dele af en video der downloades samtidig, og tilføj forsinkelser mellem anmodninger med forudindstillinger (*Fra · Afbalanceret · Forsigtig · Tilpasset*)",
   feat_workflow_9:
-    "**Skabeloner til filnavne** — navngiv downloads, som du vil, med `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` og `{playlist_index}`, globalt eller pr. downloadprofil",
+    "**Skabeloner til filnavne** — navngiv downloads, som du vil, med `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` og `{playlist_index}`, globalt eller pr. downloadprofil",
   feat_workflow_10:
     "**Downloads ad gangen og automatisk nyt forsøg** — vælg, hvor mange downloads i køen der kører samtidig, og lad Arroxy prøve igen med et download, der ramte et netværks- eller serverproblem, med længere ventetid før hvert forsøg",
   feat_workflow_11:

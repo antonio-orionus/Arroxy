@@ -192,7 +192,7 @@ export const hi = {
   feat_workflow_8:
     "**Speed और pacing controls** — download bandwidth cap करें, एक साथ वीडियो के कितने हिस्से download हों यह सेट करें, और presets (*Off · Balanced · Careful · Custom*) के साथ request delays जोड़ें",
   feat_workflow_9:
-    "**फ़ाइल नाम टेम्पलेट** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` और `{playlist_index}` से डाउनलोड के नाम अपने अनुसार रखें, वैश्विक रूप से या हर डाउनलोड प्रोफ़ाइल के लिए",
+    "**फ़ाइल नाम टेम्पलेट** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` और `{playlist_index}` से डाउनलोड के नाम अपने अनुसार रखें, वैश्विक रूप से या हर डाउनलोड प्रोफ़ाइल के लिए",
   feat_workflow_10:
     "**एक साथ डाउनलोड और स्वतः पुनःप्रयास** — चुनें कि कतार के कितने डाउनलोड एक साथ चलें, और नेटवर्क या सर्वर समस्या से प्रभावित डाउनलोड को Arroxy हर प्रयास से पहले ज़्यादा इंतज़ार करते हुए दोबारा आज़माए",
   feat_workflow_11:

@@ -30,7 +30,7 @@ Ja Arroxy ietaupa jūsu laiku, ⭐ palīdz citiem to atrast.
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Šis tulkojums tapis ar mākslīgā intelekta atbalstu. [Angļu valodas README](../../README.md) ir primārais avots. Atradāt kļūdu? [Atveriet PR](../../../../pulls).
 
@@ -142,7 +142,7 @@ Ja Arroxy ietaupa jūsu laiku, ⭐ palīdz citiem to atrast.
 - **Valodu skaits: 50** — automātiski nosaka sistēmas valodu, pārslēdzams jebkurā laikā
 - **Atskaņošanas saraksta sinhronizēšana** — atkārtoti pārbaudiet atskaņošanas sarakstu pret lokālu mapi, lai izlaistu jau lejupielādētos video; izveido `.m3u` atskaņošanas saraksta failu, kas tiek atjaunināts, katram video lejupielādējoties
 - **Ātruma un tempa vadība** — ierobežojiet lejupielādes joslas platumu, iestatiet, cik video daļu lejupielādējas vienlaikus, un pievienojiet pieprasījumu aizkaves ar sagatavēm (*Izslēgts · Līdzsvarots · Piesardzīgs · Pielāgots*)
-- **Failu nosaukumu veidnes** — nosauciet lejupielādes pēc savas izvēles ar `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` un `{playlist_index}`, globāli vai katram lejupielādes profilam
+- **Failu nosaukumu veidnes** — nosauciet lejupielādes pēc savas izvēles ar `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` un `{playlist_index}`, globāli vai katram lejupielādes profilam
 - **Vienlaicīgas lejupielādes un automātiska atkārtošana** — izvēlieties, cik rindā esošo lejupielāžu darbojas vienlaikus, un ļaujiet Arroxy atkārtot lejupielādi, kas saskārās ar tīkla vai servera problēmu, katru reizi gaidot ilgāk
 - **Atskaņošanas saraksta profili katram vienumam** — piešķiriet katram atskaņošanas saraksta video savu lejupielādes profilu, nevis vienu iestatījumu visam sarakstam, lai vienā piegājienā daļu arhivētu pilnā kvalitātē, bet pārējo paņemtu kā MP3
 - **Ātrā lejupielāde darbojas fonā** — saite uzreiz parādās sadaļā Lejupielādes un tiek sagatavota tur, paziņojums ar **Skatīt** to apstiprina, un URL lauks tiek notīrīts nākamajai saitei. Sāciet cik vēlaties, kamēr iepriekšējās tiek sagatavotas

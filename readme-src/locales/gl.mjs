@@ -187,7 +187,7 @@ export const gl = {
   feat_workflow_8:
     "**Controis de velocidade e ritmo** — limita a largura de banda das descargas, define cantas partes dun vídeo se descargan á vez e engade atrasos entre solicitudes con axustes predefinidos (*Desactivado · Equilibrado · Prudente · Personalizado*)",
   feat_workflow_9:
-    "**Modelos de nome de ficheiro** — pon nome ás descargas ao teu xeito con `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` e `{playlist_index}`, de forma global ou por perfil de descarga",
+    "**Modelos de nome de ficheiro** — pon nome ás descargas ao teu xeito con `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` e `{playlist_index}`, de forma global ou por perfil de descarga",
   feat_workflow_10:
     "**Descargas simultáneas e reintento automático** — escolle cantas descargas da cola se executan á vez e deixa que Arroxy reintente unha descarga que atopou un problema de rede ou servidor, agardando máis antes de cada intento",
   feat_workflow_11:

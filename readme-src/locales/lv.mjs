@@ -187,7 +187,7 @@ export const lv = {
   feat_workflow_8:
     "**Ātruma un tempa vadība** — ierobežojiet lejupielādes joslas platumu, iestatiet, cik video daļu lejupielādējas vienlaikus, un pievienojiet pieprasījumu aizkaves ar sagatavēm (*Izslēgts · Līdzsvarots · Piesardzīgs · Pielāgots*)",
   feat_workflow_9:
-    "**Failu nosaukumu veidnes** — nosauciet lejupielādes pēc savas izvēles ar `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` un `{playlist_index}`, globāli vai katram lejupielādes profilam",
+    "**Failu nosaukumu veidnes** — nosauciet lejupielādes pēc savas izvēles ar `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` un `{playlist_index}`, globāli vai katram lejupielādes profilam",
   feat_workflow_10:
     "**Vienlaicīgas lejupielādes un automātiska atkārtošana** — izvēlieties, cik rindā esošo lejupielāžu darbojas vienlaikus, un ļaujiet Arroxy atkārtot lejupielādi, kas saskārās ar tīkla vai servera problēmu, katru reizi gaidot ilgāk",
   feat_workflow_11:

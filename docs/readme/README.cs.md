@@ -30,7 +30,7 @@ Pokud vám Arroxy šetří čas, ⭐ pomůže ostatním ho najít.
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Tento překlad vznikl za pomoci AI. [Anglické README](../../README.md) je nadřazeným zdrojem. Našli jste chybu? [Otevřete PR](../../../../pulls).
 
@@ -142,7 +142,7 @@ Pokud vám Arroxy šetří čas, ⭐ pomůže ostatním ho najít.
 - **50 jazyků** — automaticky zjistí jazyk systému, kdykoli lze přepnout
 - **Synchronizace playlistů** — znovu projděte playlist a porovnejte ho s lokální složkou, abyste přeskočili již stažená videa; vytvoří soubor playlistu `.m3u`, který se aktualizuje po stažení každého videa
 - **Ovládání rychlosti a prodlev** — omezte šířku pásma, nastavte, kolik částí videa se stahuje najednou, a přidejte prodlevy mezi požadavky pomocí předvoleb (*Vypnuto · Vyvážené · Opatrné · Vlastní*)
-- **Šablony názvů souborů** — pojmenujte stahování po svém pomocí `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` a `{playlist_index}`, globálně nebo pro každý profil stahování
+- **Šablony názvů souborů** — pojmenujte stahování po svém pomocí `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` a `{playlist_index}`, globálně nebo pro každý profil stahování
 - **Současná stahování a automatické opakování** — zvolte, kolik stahování z fronty běží současně, a nechte Arroxy zopakovat stahování, které narazilo na problém se sítí nebo serverem, s delším čekáním před každým pokusem
 - **Profily playlistu pro jednotlivé položky** — přiřaďte každému videu v playlistu vlastní profil stahování místo jednoho nastavení pro celý seznam, takže jedním během některá videa archivujete v plné kvalitě a zbytek stáhnete jako MP3
 - **Rychlé stahování funguje na pozadí** — odkaz se hned objeví ve Stahování a připravuje se tam, poznámka s tlačítkem **Zobrazit** to potvrdí a pole URL se vyčistí pro další odkaz. Spusťte, kolik chcete, zatímco se předchozí připravují

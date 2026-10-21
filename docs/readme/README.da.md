@@ -30,7 +30,7 @@ Hvis Arroxy sparer dig tid, hjælper en ⭐ andre med at finde den.
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Denne oversættelse er lavet med hjælp fra AI. [Den engelske README](../../README.md) er den gældende kilde. Fundet en fejl? [Åbn en PR](../../../../pulls).
 
@@ -142,7 +142,7 @@ Hvis Arroxy sparer dig tid, hjælper en ⭐ andre med at finde den.
 - **50 sprog** — registrerer automatisk systemets sprog, kan skiftes når som helst
 - **Synkronisering af afspilningslister** — scan en afspilningsliste igen mod en lokal mappe for at springe allerede downloadede videoer over; opretter en `.m3u`-afspilningslistefil, der opdateres, efterhånden som hver video downloades
 - **Kontrol af hastighed og tempo** — begræns downloadbåndbredden, angiv hvor mange dele af en video der downloades samtidig, og tilføj forsinkelser mellem anmodninger med forudindstillinger (*Fra · Afbalanceret · Forsigtig · Tilpasset*)
-- **Skabeloner til filnavne** — navngiv downloads, som du vil, med `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` og `{playlist_index}`, globalt eller pr. downloadprofil
+- **Skabeloner til filnavne** — navngiv downloads, som du vil, med `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` og `{playlist_index}`, globalt eller pr. downloadprofil
 - **Downloads ad gangen og automatisk nyt forsøg** — vælg, hvor mange downloads i køen der kører samtidig, og lad Arroxy prøve igen med et download, der ramte et netværks- eller serverproblem, med længere ventetid før hvert forsøg
 - **Profiler pr. element i afspilningslister** — giv hver video i en afspilningsliste sin egen downloadprofil i stedet for én indstilling til hele listen, så du i én omgang kan arkivere nogle i fuld kvalitet og hente resten som MP3
 - **Hurtig download virker i baggrunden** — linket dukker straks op i Downloads og klargøres dér, en note med **Vis** bekræfter det, og URL-feltet ryddes til næste link. Start så mange, du vil, mens tidligere klargøres

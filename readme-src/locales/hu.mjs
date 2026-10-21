@@ -187,7 +187,7 @@ export const hu = {
   feat_workflow_8:
     "**Sebesség- és ütemezésvezérlők** — korlátozza a letöltési sávszélességet, állítsa be, hány részt tölt le egyszerre egy videóból, és adjon hozzá kéréskésleltetést előbeállításokkal (*Ki · Kiegyensúlyozott · Óvatos · Egyéni*)",
   feat_workflow_9:
-    "**Fájlnévsablonok** — nevezze el a letöltéseket saját ízlése szerint a `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` és `{playlist_index}` tokenekkel, globálisan vagy letöltési profilonként",
+    "**Fájlnévsablonok** — nevezze el a letöltéseket saját ízlése szerint a `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` és `{playlist_index}` tokenekkel, globálisan vagy letöltési profilonként",
   feat_workflow_10:
     "**Egyidejű letöltések és automatikus újrapróbálás** — válassza ki, hány sorba állított letöltés fusson egyszerre, és hagyja, hogy az Arroxy újrapróbálja a hálózati vagy kiszolgálói problémába ütköző letöltést, minden kísérlet előtt egyre hosszabb ideig várva",
   feat_workflow_11:

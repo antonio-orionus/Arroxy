@@ -30,7 +30,7 @@ Hvis Arroxy sparer deg tid, hjelper en ⭐ andre med å finne det.
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Denne oversettelsen er laget med støtte fra KI. [Den engelske README-filen](../../README.md) er den overordnede kilden. Fant du en feil? [Åpne en PR](../../../../pulls).
 
@@ -142,7 +142,7 @@ Hvis Arroxy sparer deg tid, hjelper en ⭐ andre med å finne det.
 - **50 språk** — oppdager systemspråket automatisk, kan byttes når som helst
 - **Spillelistesynkronisering** — skann en spilleliste på nytt mot en lokal mappe for å hoppe over videoer som allerede er lastet ned; lager en `.m3u`-spillelistefil som oppdateres etter hvert som hver video lastes ned
 - **Kontroller for hastighet og tempo** — begrens nedlastingsbåndbredden, angi hvor mange deler av en video som lastes ned samtidig, og legg til forsinkelser mellom forespørsler med forhåndsvalg (*Av · Balansert · Forsiktig · Egendefinert*)
-- **Filnavnmaler** — navngi nedlastinger på din måte med `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` og `{playlist_index}`, globalt eller per nedlastingsprofil
+- **Filnavnmaler** — navngi nedlastinger på din måte med `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` og `{playlist_index}`, globalt eller per nedlastingsprofil
 - **Samtidige nedlastinger og automatisk nytt forsøk** — velg hvor mange nedlastinger i køen som kjører samtidig, og la Arroxy prøve en nedlasting på nytt som støtte på et nettverks- eller serverproblem, med lengre ventetid før hvert forsøk
 - **Profiler per spillelisteelement** — gi hver video i en spilleliste sin egen nedlastingsprofil i stedet for én innstilling for hele listen, slik at du i én omgang kan arkivere noen i full kvalitet og hente resten som MP3
 - **Hurtignedlasting jobber i bakgrunnen** — lenken dukker opp i Nedlastinger med en gang og klargjøres der, et varsel med **Vis** bekrefter det, og nettadressefeltet tømmes for neste lenke. Start så mange du vil mens tidligere klargjøres

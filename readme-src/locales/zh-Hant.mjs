@@ -181,7 +181,7 @@ export const zhHant = {
   feat_workflow_8:
     "**速度和節奏控制** — 限制下載頻寬、設定同時取得影片的分段數量，並用預設新增請求延遲（*關閉 · 平衡 · 謹慎 · 自訂*）",
   feat_workflow_9:
-    "**檔名模板** — 使用 `{title}`、`{uploader}`、`{id}`、`{date}`、`{resolution}` 和 `{playlist_index}` 依你的方式命名下載檔案，可全域設定或按下載設定分別設定",
+    "**檔名模板** — 使用 `{title}`、`{uploader}`、`{id}`、`{date}`、`{year}`、`{resolution}`、`{site}`、`{categories}`、`{artist}`、`{album}`、`{track}` 和 `{playlist_index}` 依你的方式命名下載檔案，可全域設定或按下載設定分別設定",
   feat_workflow_10:
     "**同時下載數與自動重試** — 選擇佇列中同時進行的下載數量，讓遇到網路或伺服器問題的下載由 Arroxy 自動重試，每次嘗試前等待更久",
   feat_workflow_11:

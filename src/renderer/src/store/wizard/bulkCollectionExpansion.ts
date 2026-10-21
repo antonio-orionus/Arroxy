@@ -42,6 +42,7 @@ function seedFor(entry: PlaylistEntry): BulkEntrySeed {
 		videoId: entry.videoId,
 		uploader: entry.uploader,
 		uploadDate: entry.uploadDate,
+		mediaTags: entry.mediaTags,
 		timestamp: entry.timestamp,
 		...(entry.isContainer === true ? {isContainer: true as const} : {}),
 		...placeholderTitleFlag(entry.titleIsPlaceholder),

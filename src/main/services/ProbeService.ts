@@ -4,7 +4,7 @@ import log from 'electron-log/main.js'
 import {nowIso} from '@main/utils/clock.js'
 import {ok, fail, type Result} from '@shared/result.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
-import type {JobAuth, PlaylistEntry, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, ProbeInfoJsonRef, VideoChapter, VideoProbeResult} from '@shared/types.js'
+import type {JobAuth, MediaTags, PlaylistEntry, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, ProbeInfoJsonRef, VideoChapter, VideoProbeResult} from '@shared/types.js'
 import type {EscalationReason, ExploreSignInState} from '@shared/schemas.js'
 import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo, type YtDlpFormat} from 'yt-dlp-bridge/info'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
@@ -20,6 +20,7 @@ import type {ExploreSignInCheck} from './phases/types.js'
 import {mapFormats} from '@shared/ytdlp/formatMapping.js'
 import {formatSelectionSource} from '@shared/ytdlp/selectableFormat.js'
 import type {LookedUpSizes} from './formatSizeLookup.js'
+import {resolveMediaTags} from './probeMediaTags.js'
 import {sanitizeSubtitleMap} from '@shared/ytdlp/subtitleMap.js'
 import {buildMockProbeResult} from './probeMockResult.js'
 import type {ProbeInfoJsonCache} from './ProbeInfoJsonCache.js'
@@ -232,6 +233,7 @@ function mapPlaylistEntriesInner(entries: readonly InfoDict[], jobUrl: string, s
 			videoId: idStr.length > 0 ? idStr : null,
 			uploader: resolveUploader(v),
 			uploadDate: resolveUploadDate(v),
+			...mediaTagsField(v),
 			...(entryTimestamp !== undefined ? {timestamp: entryTimestamp} : {}),
 			...(isContainer ? {isContainer: true as const} : {}),
 			...placeholderTitleFlag(isPlaceholderTitle)
@@ -260,6 +262,12 @@ function resolveUploader(source: {uploader?: string; channel?: string; creator?:
 function resolveUploadDate(source: {upload_date?: string}): string | undefined {
 	// Anything not YYYYMMDD would render a nonsense folder name, so drop it.
 	return source.upload_date !== undefined && /^\d{8}$/.test(source.upload_date) ? source.upload_date : undefined
+}
+
+// Spread rather than set, so a result with no tags has no `mediaTags` key.
+function mediaTagsField(source: VideoInfo): {mediaTags?: MediaTags} {
+	const mediaTags = resolveMediaTags(source)
+	return mediaTags ? {mediaTags} : {}
 }
 
 function resolveTimestamp(source: {timestamp?: number}): number | undefined {
@@ -315,6 +323,7 @@ function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reaso
 		ageLimit: typeof info.age_limit === 'number' && info.age_limit > 0 ? info.age_limit : undefined,
 		uploader: resolveUploader(info),
 		uploadDate: resolveUploadDate(info),
+		...mediaTagsField(info),
 		timestamp: resolveTimestamp(info),
 		...(degraded ? {degraded} : {})
 	}

@@ -187,7 +187,7 @@ export const cs = {
   feat_workflow_8:
     "**Ovládání rychlosti a prodlev** — omezte šířku pásma, nastavte, kolik částí videa se stahuje najednou, a přidejte prodlevy mezi požadavky pomocí předvoleb (*Vypnuto · Vyvážené · Opatrné · Vlastní*)",
   feat_workflow_9:
-    "**Šablony názvů souborů** — pojmenujte stahování po svém pomocí `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` a `{playlist_index}`, globálně nebo pro každý profil stahování",
+    "**Šablony názvů souborů** — pojmenujte stahování po svém pomocí `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` a `{playlist_index}`, globálně nebo pro každý profil stahování",
   feat_workflow_10:
     "**Současná stahování a automatické opakování** — zvolte, kolik stahování z fronty běží současně, a nechte Arroxy zopakovat stahování, které narazilo na problém se sítí nebo serverem, s delším čekáním před každým pokusem",
   feat_workflow_11:

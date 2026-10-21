@@ -33,12 +33,13 @@ const VIDEO_PROBE = (overrides: Partial<Extract<ProbeResult, {kind: 'video'}>> =
 	hasDrm: false,
 	uploader: 'Some Uploader',
 	uploadDate: '20260803',
+	mediaTags: {category: 'Music'},
 	timestamp: 1754000000,
 	...overrides
 })
 
 describe('playlist hydration', () => {
-	it('probes placeholder rows and fills title, uploader, uploadDate, timestamp, clearing the flag', async () => {
+	it('probes placeholder rows and fills title, uploader, uploadDate, media tags, timestamp, clearing the flag', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE()))
 		window.appApi = api
@@ -61,6 +62,7 @@ describe('playlist hydration', () => {
 		expect(state.playlistItems[0]?.title).toBe('Real Part Title')
 		expect(state.playlistItems[0]?.uploader).toBe('Some Uploader')
 		expect(state.playlistItems[0]?.uploadDate).toBe('20260803')
+		expect(state.playlistItems[0]?.mediaTags).toEqual({category: 'Music'})
 		expect(state.playlistItems[0]?.timestamp).toBe(1754000000)
 		expect(state.playlistItems[0]?.titleIsPlaceholder).toBeUndefined()
 	})

@@ -187,7 +187,7 @@ export const sv = {
   feat_workflow_8:
     "**Kontroll av hastighet och tempo** — begränsa bandbredden, ange hur många delar av en video som hämtas samtidigt och lägg till fördröjningar mellan förfrågningar med förinställningar (*Av · Balanserad · Försiktig · Anpassad*)",
   feat_workflow_9:
-    "**Filnamnsmallar** — namnge hämtningar på ditt sätt med `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` och `{playlist_index}`, globalt eller per hämtningsprofil",
+    "**Filnamnsmallar** — namnge hämtningar på ditt sätt med `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` och `{playlist_index}`, globalt eller per hämtningsprofil",
   feat_workflow_10:
     "**Samtidiga hämtningar och automatiska nya försök** — välj hur många köade hämtningar som körs samtidigt, och låt Arroxy försöka igen med en hämtning som drabbats av ett nätverks- eller serverproblem, med längre väntetid före varje försök",
   feat_workflow_11:

@@ -30,7 +30,7 @@ Si Arroxy t'estalvia temps, una ⭐ ajuda que altres el trobin.
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Aquesta traducció s'ha fet amb ajuda de la IA. El [README en anglès](../../README.md) és la font principal. Has trobat un error? [Obre una PR](../../../../pulls).
 
@@ -142,7 +142,7 @@ Si Arroxy t'estalvia temps, una ⭐ ajuda que altres el trobin.
 - **50 idiomes** — detecta automàticament la configuració regional del sistema i es pot canviar en qualsevol moment
 - **Sincronització de llistes** — torna a examinar una llista de reproducció amb una carpeta local per ometre els vídeos ja baixats; genera un fitxer de llista `.m3u` que s'actualitza a mesura que es baixa cada vídeo
 - **Controls de velocitat i ritme** — limita l'ample de banda de descàrrega, defineix quantes parts d'un vídeo es baixen alhora i afegeix retards entre sol·licituds amb valors predefinits (*Desactivada · Equilibrada · Cautelosa · Personalitzada*)
-- **Plantilles de nom de fitxer** — posa nom a les descàrregues a la teva manera amb `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` i `{playlist_index}`, de manera global o per perfil de descàrrega
+- **Plantilles de nom de fitxer** — posa nom a les descàrregues a la teva manera amb `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` i `{playlist_index}`, de manera global o per perfil de descàrrega
 - **Descàrregues alhora i reintent automàtic** — tria quantes descàrregues de la cua s'executen al mateix temps i deixa que Arroxy torni a provar una descàrrega que ha topat amb un problema de xarxa o de servidor, esperant més abans de cada intent
 - **Perfils per element de la llista** — assigna a cada vídeo d'una llista de reproducció el seu propi perfil de descàrrega en lloc d'una sola configuració per a tota la llista, de manera que en una sola passada pots arxivar alguns a màxima qualitat i baixar la resta com a MP3
 - **La Descàrrega ràpida funciona en segon pla** — l'enllaç apareix de seguida a Descàrregues i s'hi prepara, una nota amb **Mostra** ho confirma i el camp d'URL es buida per al proper enllaç. Inicia'n tants com vulguis mentre els anteriors es preparen

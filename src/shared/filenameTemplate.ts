@@ -29,7 +29,11 @@ export const DEFAULT_FILENAME_TEMPLATE = '{title} [{id}]'
 //
 // `{uploader}` resolves through a fallback chain because `uploader` is absent
 // on several extractors Arroxy supports; the chain degrades to a real value
-// instead of printing "NA".
+// instead of printing "NA". `{artist}` reuses that chain after `artist`, so a
+// video that is not music still files under whoever posted it.
+//
+// `{categories}` is the first category only: YouTube sets exactly one, and a
+// joined list would make a poor folder name on the sites that set several.
 //
 // These mappings are only reached on the *unbound* path — a template that was
 // never run through bindFilenameTemplate, which in practice means main's
@@ -42,7 +46,13 @@ const TOKEN_FIELDS: Record<Exclude<FilenameToken, 'title'>, string> = {
 	uploader: '%(uploader,channel,creator,uploader_id).60B',
 	id: '%(id)s',
 	date: '%(upload_date>%Y-%m-%d|)s',
+	year: '%(upload_date>%Y|)s',
 	resolution: '%(height&{}p|)s',
+	site: '%(webpage_url_domain|)s',
+	categories: '%(categories.0|).60B',
+	artist: '%(artist,uploader,channel,creator,uploader_id).60B',
+	album: '%(album|).60B',
+	track: '%(track|).80B',
 	playlist_index: '%(playlist_index|)03d',
 	playlist_title: '%(playlist_title|).60B',
 	playlist_id: '%(playlist_id|)s'
@@ -69,6 +79,14 @@ export interface TemplateMetadata {
 	/** Raw yt-dlp `upload_date` (YYYYMMDD); formatted to YYYY-MM-DD on render. */
 	uploadDate?: string
 	resolution?: string
+	/** The page's domain without `www.`, as yt-dlp's `webpage_url_domain`. */
+	site?: string
+	/** First of yt-dlp's `categories`. */
+	category?: string
+	/** Set only by music sites; `{artist}` falls back to the uploader chain. */
+	artist?: string
+	album?: string
+	track?: string
 	playlistTitle?: string
 	playlistId?: string
 	playlistIndex?: number
@@ -77,7 +95,8 @@ export interface TemplateMetadata {
 // Values a single 1080p video download would produce, used to render the live
 // preview without spawning yt-dlp. The playlist fields are absent because the
 // sample is a single download — the same thing the compiled `|` defaults yield.
-const VIDEO_SAMPLE: TemplateMetadata = {title: 'Big Buck Bunny', uploader: 'Blender Foundation', id: 'YE7VzlLtp-4', uploadDate: '20260803', resolution: '1080p'}
+// The album and track are invented so the music tokens show a value too.
+const VIDEO_SAMPLE: TemplateMetadata = {title: 'Big Buck Bunny', uploader: 'Blender Foundation', id: 'YE7VzlLtp-4', uploadDate: '20260803', resolution: '1080p', site: 'youtube.com', category: 'Film & Animation', album: 'Open Movies', track: 'Big Buck Bunny'}
 const PLAYLIST_SAMPLE: TemplateMetadata = {...VIDEO_SAMPLE, playlistTitle: 'Nature Docs', playlistId: 'PL123', playlistIndex: 7}
 const SAMPLE_EXT = 'mp4'
 
@@ -251,6 +270,30 @@ function formatUploadDate(raw: string | undefined): string {
 	return `${raw.slice(0, 4)}-${raw.slice(4, 6)}-${raw.slice(6, 8)}`
 }
 
+function uploadYear(raw: string | undefined): string {
+	return raw && /^\d{8}$/.test(raw) ? raw.slice(0, 4) : ''
+}
+
+// A blank counts as absent, not as a winning value — `??` would stop at an
+// empty string and render an empty folder instead of falling through.
+function firstPresent(...values: (string | undefined)[]): string {
+	return values.find(value => value !== undefined && value.trim().length > 0)?.trim() ?? ''
+}
+
+/**
+ * The site a page belongs to, as `{site}` names it: yt-dlp's
+ * `webpage_url_domain`, which is the host without a leading `www.`. The port is
+ * dropped too, because no folder can carry `:` on Windows.
+ */
+export function templateSite(url: string): string | undefined {
+	try {
+		const host = new URL(url).hostname
+		return host.startsWith('www.') ? host.slice(4) : host || undefined
+	} catch {
+		return undefined
+	}
+}
+
 /**
  * Render one token the way yt-dlp would. Must stay in lockstep with
  * TOKEN_FIELDS: a token has to mean the same thing in a directory (rendered
@@ -261,15 +304,25 @@ function renderToken(token: FilenameToken, meta: TemplateMetadata): string {
 		case 'title':
 			return meta.title ?? ''
 		case 'uploader':
-			// A blank counts as absent, not as a winning value — `??` would stop at
-			// an empty string and render an empty folder instead of falling through.
-			return [meta.uploader, meta.channel, meta.uploaderId].find(value => value !== undefined && value.trim().length > 0)?.trim() ?? ''
+			return firstPresent(meta.uploader, meta.channel, meta.uploaderId)
 		case 'id':
 			return meta.id ?? ''
 		case 'date':
 			return formatUploadDate(meta.uploadDate)
+		case 'year':
+			return uploadYear(meta.uploadDate)
 		case 'resolution':
 			return meta.resolution ?? ''
+		case 'site':
+			return meta.site ?? ''
+		case 'categories':
+			return meta.category ?? ''
+		case 'artist':
+			return firstPresent(meta.artist, meta.uploader, meta.channel, meta.uploaderId)
+		case 'album':
+			return meta.album ?? ''
+		case 'track':
+			return meta.track ?? ''
 		case 'playlist_index':
 			return meta.playlistIndex === undefined ? '' : String(meta.playlistIndex).padStart(3, '0')
 		case 'playlist_title':
@@ -313,7 +366,7 @@ const ARROXY_OWNED_TOKENS: readonly FilenameToken[] = ['playlist_index', 'playli
 // TOKEN_FIELDS; `resolution` is exact, since `%(height&{}p|)s` renders at most
 // "4320p"; `id` is an allowance rather than a cap, because playlist dedupe
 // matches the full video id and truncating it would silently break that.
-const LATE_TOKEN_RESERVE: Record<FilenameToken, number> = {title: FALLBACK_TITLE_BYTES, uploader: 60, id: 24, date: 10, resolution: 6, playlist_index: 6, playlist_title: 60, playlist_id: 40}
+const LATE_TOKEN_RESERVE: Record<FilenameToken, number> = {title: FALLBACK_TITLE_BYTES, uploader: 60, id: 24, date: 10, year: 4, resolution: 6, site: 40, categories: 60, artist: 60, album: 60, track: 80, playlist_index: 6, playlist_title: 60, playlist_id: 40}
 
 // A bound value becomes literal template text, so anything that would change
 // the template's meaning has to go: separators would invent a folder, braces

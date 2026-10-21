@@ -1,7 +1,7 @@
 import {resolveFilenameTemplate, type ResolvedDownloadProfile} from '@shared/downloadProfiles.js'
-import {bindFilenameTemplate, DEFAULT_FILENAME_TEMPLATE, templateDirsVaryPerEntry, templateHasDirs, templateHasId, type TemplateMetadata} from '@shared/filenameTemplate.js'
+import {bindFilenameTemplate, DEFAULT_FILENAME_TEMPLATE, templateDirsVaryPerEntry, templateHasDirs, templateHasId, templateSite, type TemplateMetadata} from '@shared/filenameTemplate.js'
 import {requestedFormats, type InFlightFiles, type InFlightFormat} from '@shared/nameBudget.js'
-import type {DownloadProfile, PlaylistEntry, PlaylistSelection} from '@shared/types.js'
+import type {DownloadProfile, MediaTags, PlaylistEntry, PlaylistSelection, VideoProbeResult} from '@shared/types.js'
 import {notify} from '@renderer/lib/notify.js'
 import {hostPlatform} from '@renderer/lib/platform.js'
 import type {AppState} from '../types.js'
@@ -110,11 +110,20 @@ function omitBlank(value: string | null | undefined): string | undefined {
 	return trimmed.length > 0 ? trimmed : undefined
 }
 
-export type SingleTemplateState = Pick<AppState, 'wizardTitle' | 'wizardVideoId' | 'wizardUploader' | 'wizardUploadDate'>
+function mediaTagsMeta(tags: MediaTags | undefined): Pick<TemplateMetadata, 'category' | 'artist' | 'album' | 'track'> {
+	return {category: omitBlank(tags?.category), artist: omitBlank(tags?.artist), album: omitBlank(tags?.album), track: omitBlank(tags?.track)}
+}
+
+export type SingleTemplateState = Pick<AppState, 'wizardTitle' | 'wizardVideoId' | 'wizardUploader' | 'wizardUploadDate' | 'wizardWebpageUrl' | 'wizardMediaTags'>
 
 /** Metadata for the single-video wizard path. */
 export function singleTemplateMeta(state: SingleTemplateState): TemplateMetadata {
-	return {title: omitBlank(state.wizardTitle), id: omitBlank(state.wizardVideoId), uploader: omitBlank(state.wizardUploader), uploadDate: omitBlank(state.wizardUploadDate)}
+	return {title: omitBlank(state.wizardTitle), id: omitBlank(state.wizardVideoId), uploader: omitBlank(state.wizardUploader), uploadDate: omitBlank(state.wizardUploadDate), site: templateSite(state.wizardWebpageUrl), ...mediaTagsMeta(state.wizardMediaTags)}
+}
+
+/** Metadata for a video probe queued without the wizard (Quick Download). */
+export function videoProbeTemplateMeta(probe: Pick<VideoProbeResult, 'title' | 'videoId' | 'uploader' | 'uploadDate' | 'webpageUrl' | 'mediaTags'>): TemplateMetadata {
+	return {title: omitBlank(probe.title), id: omitBlank(probe.videoId), uploader: omitBlank(probe.uploader), uploadDate: omitBlank(probe.uploadDate), site: templateSite(probe.webpageUrl), ...mediaTagsMeta(probe.mediaTags)}
 }
 
 /**
@@ -133,5 +142,15 @@ export function singleTemplateMeta(state: SingleTemplateState): TemplateMetadata
  */
 export function playlistEntryTemplateMeta(entry: PlaylistEntry, playlistTitle: string, playlistId: string, playlistIndexOverride?: number): TemplateMetadata {
 	const title = entry.titleIsPlaceholder === true ? undefined : omitBlank(entry.title)
-	return {title, id: omitBlank(entry.videoId), uploader: omitBlank(entry.uploader), uploadDate: omitBlank(entry.uploadDate), playlistTitle: omitBlank(playlistTitle), playlistId: omitBlank(playlistId), playlistIndex: playlistIndexOverride ?? entry.playlistIndex}
+	return {
+		title,
+		id: omitBlank(entry.videoId),
+		uploader: omitBlank(entry.uploader),
+		uploadDate: omitBlank(entry.uploadDate),
+		site: templateSite(entry.url),
+		...mediaTagsMeta(entry.mediaTags),
+		playlistTitle: omitBlank(playlistTitle),
+		playlistId: omitBlank(playlistId),
+		playlistIndex: playlistIndexOverride ?? entry.playlistIndex
+	}
 }

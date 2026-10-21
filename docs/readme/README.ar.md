@@ -30,7 +30,7 @@
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 ---
 
@@ -140,7 +140,7 @@
 - **50 لغة** — يكتشف لغة النظام تلقائيًا ويمكن تبديلها في أي وقت
 - **مزامنة قوائم التشغيل** — يعيد فحص قائمة التشغيل مقابل مجلد محلي لتخطي الفيديوهات التي نُزّلت من قبل؛ وينشئ ملف قائمة تشغيل `.m3u` يتم تحديثه مع تنزيل كل فيديو
 - **تحكم في السرعة والإيقاع** — حدّد نطاق التنزيل، واضبط عدد أجزاء الفيديو التي تُنزَّل في وقت واحد، وأضف تأخيرات بين الطلبات باستخدام إعدادات جاهزة (*إيقاف · متوازن · حذر · مخصص*)
-- **قوالب أسماء الملفات** — سمِّ تنزيلاتك كما تريد باستخدام `{title}` و`{uploader}` و`{id}` و`{date}` و`{resolution}` و`{playlist_index}`، بشكل عام أو لكل ملف تعريف تنزيل
+- **قوالب أسماء الملفات** — سمِّ تنزيلاتك كما تريد باستخدام `{title}` و`{uploader}` و`{id}` و`{date}` و`{year}` و`{resolution}` و`{site}` و`{categories}` و`{artist}` و`{album}` و`{track}` و`{playlist_index}`، بشكل عام أو لكل ملف تعريف تنزيل
 - **التنزيلات في وقت واحد وإعادة المحاولة التلقائية** — اختر عدد التنزيلات التي تعمل في الوقت نفسه، ودع Arroxy يعيد محاولة تنزيل واجه عطلًا في الشبكة أو الخادم، مع انتظار أطول قبل كل محاولة
 - **ملفات تعريف لكل عنصر في قائمة التشغيل** — عيّن لكل فيديو في قائمة التشغيل ملف تعريف تنزيل خاص به بدلاً من إعداد واحد للقائمة بأكملها، بحيث يمكن لعملية واحدة أرشفة بعضها بجودة كاملة واستخراج الباقي بصيغة MP3
 - **يعمل Quick Download في الخلفية** — يظهر الرابط في التنزيلات فوراً ويُجهَّز هناك، وتؤكد ذلك ملاحظة فيها **عرض**، ويُفرَّغ حقل URL للرابط التالي. ابدأ ما تشاء بينما تُجهَّز الروابط السابقة

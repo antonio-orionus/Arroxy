@@ -187,7 +187,7 @@ export const fi = {
   feat_workflow_8:
     "**Nopeuden ja tahdistuksen hallinta** — rajoita latauksen kaistanleveyttä, aseta kuinka monta videon osaa ladataan kerralla ja lisää pyyntöviiveitä esiasetuksilla (*Pois · Tasapainoinen · Varovainen · Mukautettu*)",
   feat_workflow_9:
-    "**Tiedostonimen mallit** — nimeä lataukset haluamallasi tavalla tunnisteilla `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` ja `{playlist_index}`, yleisesti tai latausprofiilikohtaisesti",
+    "**Tiedostonimen mallit** — nimeä lataukset haluamallasi tavalla tunnisteilla `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` ja `{playlist_index}`, yleisesti tai latausprofiilikohtaisesti",
   feat_workflow_10:
     "**Lataukset kerralla ja automaattinen uudelleenyritys** — valitse, kuinka monta jonossa olevaa latausta ajetaan samanaikaisesti, ja anna Arroxyn yrittää uudelleen latausta, joka kohtasi verkko- tai palvelinongelman, odottaen pidempään ennen jokaista yritystä",
   feat_workflow_11:

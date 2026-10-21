@@ -191,7 +191,7 @@ export const vi = {
   feat_workflow_8:
     "**Điều khiển tốc độ và nhịp tải** — giới hạn băng thông tải xuống, đặt số phần của video được tải cùng lúc và thêm độ trễ giữa các yêu cầu với các thiết lập sẵn (*Tắt · Cân bằng · Thận trọng · Tùy chỉnh*)",
   feat_workflow_9:
-    "**Mẫu tên tệp** — đặt tên tệp tải về theo ý bạn với `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` và `{playlist_index}`, áp dụng chung hoặc theo từng hồ sơ tải xuống",
+    "**Mẫu tên tệp** — đặt tên tệp tải về theo ý bạn với `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` và `{playlist_index}`, áp dụng chung hoặc theo từng hồ sơ tải xuống",
   feat_workflow_10:
     "**Tải cùng lúc và tự động thử lại** — chọn bao nhiêu mục trong hàng đợi được tải cùng lúc, và để Arroxy thử lại một mục gặp sự cố mạng hoặc máy chủ, chờ lâu hơn trước mỗi lần thử",
   feat_workflow_11:

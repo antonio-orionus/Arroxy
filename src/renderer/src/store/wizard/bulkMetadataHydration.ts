@@ -118,6 +118,7 @@ export async function hydrateBulkMetadata(targets: readonly BulkMetadataTarget[]
 							videoId: probe.videoId ?? entry.videoId,
 							uploader: probe.uploader ?? entry.uploader,
 							uploadDate: probe.uploadDate ?? entry.uploadDate,
+							mediaTags: probe.mediaTags ?? entry.mediaTags,
 							timestamp: probe.timestamp ?? entry.timestamp,
 							...(probe.probeInfoJsonRef ? {probeInfoJsonRef: probe.probeInfoJsonRef} : {}),
 							...(probe.auth ? {auth: probe.auth} : {})

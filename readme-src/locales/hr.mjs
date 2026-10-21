@@ -187,7 +187,7 @@ export const hr = {
   feat_workflow_8:
     "**Kontrole brzine i tempa** — ograničite propusnost preuzimanja, postavite koliko se dijelova videozapisa preuzima odjednom i dodajte odgode zahtjeva s predlošcima (*Isključeno · Uravnoteženo · Oprezno · Prilagođeno*)",
   feat_workflow_9:
-    "**Predlošci naziva datoteka** — imenujte preuzimanja po svome pomoću `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` i `{playlist_index}`, globalno ili po profilu preuzimanja",
+    "**Predlošci naziva datoteka** — imenujte preuzimanja po svome pomoću `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` i `{playlist_index}`, globalno ili po profilu preuzimanja",
   feat_workflow_10:
     "**Istodobna preuzimanja i automatski ponovni pokušaj** — odaberite koliko preuzimanja iz reda radi istodobno i pustite da Arroxy ponovno pokuša preuzimanje koje je naišlo na mrežni ili poslužiteljski problem, čekajući dulje prije svakog pokušaja",
   feat_workflow_11:

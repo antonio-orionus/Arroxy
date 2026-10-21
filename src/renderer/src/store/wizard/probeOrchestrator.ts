@@ -268,6 +268,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		wizardVideoId: RESET_WIZARD_STATE.wizardVideoId,
 		wizardUploader: RESET_WIZARD_STATE.wizardUploader,
 		wizardUploadDate: RESET_WIZARD_STATE.wizardUploadDate,
+		wizardMediaTags: RESET_WIZARD_STATE.wizardMediaTags,
 		wizardFormatsDegraded: RESET_WIZARD_STATE.wizardFormatsDegraded,
 		wizardExtractor: RESET_WIZARD_STATE.wizardExtractor,
 		wizardExtractorKey: RESET_WIZARD_STATE.wizardExtractorKey,

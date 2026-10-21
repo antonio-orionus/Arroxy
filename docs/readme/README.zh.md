@@ -30,7 +30,7 @@
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 这是 AI 辅助翻译。[英文 README](../../README.md) 是真实来源。发现错误？欢迎 [提交 PR](../../../../pulls)。
 
@@ -142,7 +142,7 @@
 - **50 种语言** — 自动检测系统区域设置，可随时切换
 - **播放列表同步** — 将播放列表与本地文件夹重新比对，跳过已下载的视频；生成一个 `.m3u` 播放列表文件，并在每个视频下载后更新
 - **速度和节奏控制** — 限制下载带宽、设置同时获取视频的分片数量，并用预设添加请求延迟（*关闭 · 平衡 · 谨慎 · 自定义*）
-- **文件名模板** — 使用 `{title}`、`{uploader}`、`{id}`、`{date}`、`{resolution}` 和 `{playlist_index}` 按你的方式命名下载文件，可全局设置或按下载配置分别设置
+- **文件名模板** — 使用 `{title}`、`{uploader}`、`{id}`、`{date}`、`{year}`、`{resolution}`、`{site}`、`{categories}`、`{artist}`、`{album}`、`{track}` 和 `{playlist_index}` 按你的方式命名下载文件，可全局设置或按下载配置分别设置
 - **同时下载数与自动重试** — 选择队列中同时进行的下载数量，让遇到网络或服务器问题的下载由 Arroxy 自动重试，每次尝试前等待更久
 - **播放列表逐条配置** — 为播放列表中的每个视频分配各自的下载配置，而不是整份列表用同一套设置，一次即可将部分视频存为完整画质、其余转成 MP3
 - **Quick Download 在后台运行** — 链接会立即出现在“下载”中并在那里准备，带有 **查看** 的提示予以确认，URL 输入框随即清空，方便粘贴下一个链接。前面的还在准备时，可以继续开始任意多个

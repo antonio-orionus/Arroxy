@@ -224,7 +224,7 @@ const downloadProfileOutputSchema = z.discriminatedUnion('kind', [z.object({kind
 // Tokens a user may type in a filename template. The token -> yt-dlp field
 // mapping lives in filenameTemplate.ts; only the names are enumerated here.
 // `ext` is deliberately absent — the extension is always appended, never typed.
-export const filenameTokenSchema = z.enum(['title', 'uploader', 'id', 'date', 'resolution', 'playlist_index', 'playlist_title', 'playlist_id'])
+export const filenameTokenSchema = z.enum(['title', 'uploader', 'id', 'date', 'year', 'resolution', 'site', 'categories', 'artist', 'album', 'track', 'playlist_index', 'playlist_title', 'playlist_id'])
 export type FilenameToken = z.infer<typeof filenameTokenSchema>
 export const FILENAME_TOKENS = filenameTokenSchema.options
 // Templates are path expressions ({uploader}/{playlist_title}/{title}), so the

@@ -30,7 +30,7 @@
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 यह AI-सहायता प्राप्त अनुवाद है। [अंग्रेज़ी README](../../README.md) सत्य का स्रोत है। कोई गलती दिखी? [PR का स्वागत है](../../../../pulls)।
 
@@ -142,7 +142,7 @@
 - **50 भाषाएँ** - सिस्टम लोकेल का स्वतः पता लगाता है, किसी भी समय बदला जा सकता है
 - **प्लेलिस्ट सिंक** — पहले से डाउनलोड किए गए वीडियो छोड़ने के लिए प्लेलिस्ट को स्थानीय फ़ोल्डर के विरुद्ध फिर से स्कैन करता है; हर वीडियो डाउनलोड होते ही अपडेट होने वाली `.m3u` प्लेलिस्ट फ़ाइल बनाता है
 - **Speed और pacing controls** — download bandwidth cap करें, एक साथ वीडियो के कितने हिस्से download हों यह सेट करें, और presets (*Off · Balanced · Careful · Custom*) के साथ request delays जोड़ें
-- **फ़ाइल नाम टेम्पलेट** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` और `{playlist_index}` से डाउनलोड के नाम अपने अनुसार रखें, वैश्विक रूप से या हर डाउनलोड प्रोफ़ाइल के लिए
+- **फ़ाइल नाम टेम्पलेट** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` और `{playlist_index}` से डाउनलोड के नाम अपने अनुसार रखें, वैश्विक रूप से या हर डाउनलोड प्रोफ़ाइल के लिए
 - **एक साथ डाउनलोड और स्वतः पुनःप्रयास** — चुनें कि कतार के कितने डाउनलोड एक साथ चलें, और नेटवर्क या सर्वर समस्या से प्रभावित डाउनलोड को Arroxy हर प्रयास से पहले ज़्यादा इंतज़ार करते हुए दोबारा आज़माए
 - **प्लेलिस्ट के हर आइटम के लिए प्रोफ़ाइल** — पूरी सूची के लिए एक ही सेटिंग के बजाय, प्लेलिस्ट के हर वीडियो को उसकी अपनी डाउनलोड प्रोफ़ाइल दें, ताकि एक ही पास में कुछ को पूरी गुणवत्ता में सहेजा जाए और बाकी को MP3 के रूप में लिया जाए
 - **क्विक डाउनलोड बैकग्राउंड में चलता है** — लिंक तुरंत डाउनलोड टैब में दिखता है और वहीं तैयार होता है, **देखें** वाला नोट इसकी पुष्टि करता है, और अगले लिंक के लिए URL फ़ील्ड साफ़ हो जाता है। पिछले वाले तैयार हो रहे हों तब भी जितने चाहें शुरू करें

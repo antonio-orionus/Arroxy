@@ -189,7 +189,7 @@ export const lt = {
   feat_workflow_8:
     "**Greičio ir tempo valdymas** — apribokite atsisiuntimo pralaidumą, nustatykite, kiek vaizdo įrašo dalių atsisiunčiama vienu metu, ir pridėkite užklausų delsą su šablonais (*Išjungta · Subalansuota · Atsargi · Pasirinktinė*)",
   feat_workflow_9:
-    "**Failų pavadinimų šablonai** — pavadinkite atsisiuntimus savo būdu naudodami `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` ir `{playlist_index}`, bendrai arba pagal atsisiuntimo profilį",
+    "**Failų pavadinimų šablonai** — pavadinkite atsisiuntimus savo būdu naudodami `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` ir `{playlist_index}`, bendrai arba pagal atsisiuntimo profilį",
   feat_workflow_10:
     "**Atsisiuntimai vienu metu ir automatinis kartojimas** — pasirinkite, kiek eilės atsisiuntimų vykdoma tuo pačiu metu, ir leiskite Arroxy kartoti atsisiuntimą, kuris susidūrė su tinklo ar serverio problema, prieš kiekvieną bandymą laukiant ilgiau",
   feat_workflow_11:

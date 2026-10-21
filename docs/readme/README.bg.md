@@ -30,7 +30,7 @@
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Този превод е направен с помощта на ИИ. [Английският README](../../README.md) е основният източник. Намерихте грешка? [Отворете PR](../../../../pulls).
 
@@ -142,7 +142,7 @@
 - **50 езика** — автоматично разпознава езика на системата, сменя се по всяко време
 - **Синхронизиране на плейлист** — сканирайте плейлиста наново спрямо локална папка, за да пропуснете вече изтеглените видеа; създава файл с плейлист `.m3u`, който се обновява с изтеглянето на всяко видео
 - **Контроли на скоростта и темпото** — ограничете трафика за изтегляне, задайте колко части от видео се изтеглят едновременно и добавете забавяния на заявките с предварителни настройки (*Изключено · Балансирано · Предпазливо · Персонализирано*)
-- **Шаблони за име на файл** — именувайте изтеглянията по свой начин с `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` и `{playlist_index}`, глобално или за всеки профил за изтегляне
+- **Шаблони за име на файл** — именувайте изтеглянията по свой начин с `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` и `{playlist_index}`, глобално или за всеки профил за изтегляне
 - **Изтегляния наведнъж и автоматичен нов опит** — изберете колко изтегляния от опашката работят едновременно и оставете Arroxy да опита отново изтегляне, засегнато от мрежов или сървърен проблем, като изчаква по-дълго преди всеки опит
 - **Профили за всеки елемент от плейлист** — присвоете на всяко видео в плейлист собствен профил за изтегляне вместо една настройка за целия списък, така че с един проход да архивирате част от видеата в пълно качество, а останалите да вземете като MP3
 - **„Бързо изтегляне“ работи на заден план** — връзката се появява веднага в „Изтегляния“ и се подготвя там, бележка с **Преглед** го потвърждава, а полето за адрес се изчиства за следващата връзка. Започвайте колкото искате, докато предишните се подготвят

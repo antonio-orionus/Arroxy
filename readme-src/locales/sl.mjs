@@ -187,7 +187,7 @@ export const sl = {
   feat_workflow_8:
     "**Nadzor hitrosti in tempa** — omejite pasovno širino prenosa, nastavite, koliko delov videoposnetka se prenaša hkrati, in dodajte zakasnitve zahtev s prednastavitvami (*Izklopljeno · Uravnoteženo · Previdno · Po meri*)",
   feat_workflow_9:
-    "**Predloge imen datotek** — poimenujte prenose po svoje z `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` in `{playlist_index}`, splošno ali za posamezen profil prenosa",
+    "**Predloge imen datotek** — poimenujte prenose po svoje z `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` in `{playlist_index}`, splošno ali za posamezen profil prenosa",
   feat_workflow_10:
     "**Hkratni prenosi in samodejni ponovni poskus** — izberite, koliko prenosov v vrsti teče hkrati, in pustite, da Arroxy ponovi prenos, ki je naletel na težavo z omrežjem ali strežnikom, pri čemer pred vsakim poskusom čaka dlje",
   feat_workflow_11:

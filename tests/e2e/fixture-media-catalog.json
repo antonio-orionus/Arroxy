@@ -47,7 +47,8 @@
 				{"start_time": 6, "end_time": 8, "title": "Ending"}
 			]
 		},
-		{"id": "ARX00000017", "number": 17, "formatSet": "muxed", "title": "~$HOME pays 100%(id)s"}
+		{"id": "ARX00000017", "number": 17, "formatSet": "muxed", "title": "~$HOME pays 100%(id)s"},
+		{"id": "ARX00000018", "number": 18, "formatSet": "muxed", "mediaTags": {"uploadDate": "20010312", "categories": ["Music"], "artist": "Fixture Artist", "album": "Fixture Album", "track": "Fixture Track"}}
 	],
 	"formatSets": {
 		"muxed": [

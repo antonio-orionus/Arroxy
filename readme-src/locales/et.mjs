@@ -187,7 +187,7 @@ export const et = {
   feat_workflow_8:
     "**Kiiruse ja tempo juhtimine** — piirake allalaadimise ribalaiust, määrake, mitu video osa laaditakse korraga, ning lisage päringutele viiteid eelseadistustega (*Väljas · Tasakaalustatud · Ettevaatlik · Kohandatud*)",
   feat_workflow_9:
-    "**Failinime mallid** — nimetage allalaadimised oma viisil sümbolitega `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` ja `{playlist_index}`, globaalselt või allalaadimisprofiili kohta",
+    "**Failinime mallid** — nimetage allalaadimised oma viisil sümbolitega `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` ja `{playlist_index}`, globaalselt või allalaadimisprofiili kohta",
   feat_workflow_10:
     "**Allalaadimisi korraga ja automaatne uuesti proovimine** — valige, mitu järjekorras allalaadimist töötab samal ajal, ning laske Arroxyl proovida uuesti allalaadimist, mis sattus võrgu- või serveriprobleemi otsa, oodates enne iga katset kauem",
   feat_workflow_11:

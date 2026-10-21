@@ -4,7 +4,7 @@ import {expect, test} from '@playwright/test'
 import {BUILTIN_DOWNLOAD_PROFILES} from '../../src/shared/downloadProfiles.js'
 import type {AppSettings} from '../../src/shared/types.js'
 import {AWKWARD_TITLE_VIDEO_ID, FIXTURE_OVERLAP_PLAYLIST_TITLE, FIXTURE_OVERLAP_PLAYLIST_VIDEO_IDS, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_REPEATED_PLAYLIST_TITLE, FIXTURE_REPEATED_PLAYLIST_UNIQUE_VIDEO_IDS, FIXTURE_REPEATED_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
-import {EXPANDING_TITLE, EXPANDING_TITLE_VIDEO_ID} from './fixtureMediaCatalog.js'
+import {EXPANDING_TITLE, EXPANDING_TITLE_VIDEO_ID, MEDIA_TAGGED_VIDEO_ID} from './fixtureMediaCatalog.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 import {clickContinue, openQueueTab, preparePlaylistConfirm, prepareSingleReview, startBulkFromClipboard} from './fixtureWorkflow.js'
 
@@ -792,6 +792,32 @@ test('Electron filename template names a folder after the uploader for a single 
 			const uploaderDir = path.join(smallFileProfileDir(outputDir), 'Arroxy Fixtures')
 			const produced = files.mediaFiles('mp4', uploaderDir).map(file => path.basename(file))
 			expect(produced).toEqual(['Fixture Video 8.mp4'])
+		}
+	)
+})
+
+test('Electron files a music video by site, year, category and credits', async () => {
+	// Arroxy renders the folders from the probe, and binds the music fields into
+	// the name; only a real download proves both land where the template says.
+	test.setTimeout(140_000)
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-media-tokens-user-',
+			outputPrefix: 'arroxy-fixture-media-tokens-out-',
+			settings: settings => {
+				configureSmallFileQuickProfile(settings)
+				settings.common.filenameTemplate = '{site}/{year}/{categories}/{artist} - {album} - {track} [{id}]'
+			}
+		},
+		async ({page, outputDir, urls, queue, files}) => {
+			await page.locator('[data-testid="profiles-main-input"]').fill(urls.video(MEDIA_TAGGED_VIDEO_ID))
+			await page.locator('[data-testid="profiles-quick-download"]').click()
+			await queue.expectStatus('Fixture Video 18', 'done', 120_000)
+
+			const filedDir = path.join(smallFileProfileDir(outputDir), 'youtube.com', '2001', 'Music')
+			const produced = files.mediaFiles('mp4', filedDir).map(file => path.basename(file))
+			expect(produced).toEqual([`Fixture Artist - Fixture Album - Fixture Track [${MEDIA_TAGGED_VIDEO_ID}].mp4`])
 		}
 	)
 })

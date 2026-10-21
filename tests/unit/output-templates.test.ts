@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {bindFilenameTemplate, compileFilenameTemplate} from '@shared/filenameTemplate.js'
-import {bindJobFilenameTemplate, canMatchDownloadsById, canScanPlaylistFolder, canWriteM3u, playlistEntryTemplateMeta, singleTemplateMeta, templateOwnsDirs} from '@renderer/store/wizard/outputTemplates.js'
+import {bindJobFilenameTemplate, canMatchDownloadsById, canScanPlaylistFolder, canWriteM3u, playlistEntryTemplateMeta, singleTemplateMeta, templateOwnsDirs, videoProbeTemplateMeta} from '@renderer/store/wizard/outputTemplates.js'
 import type {PlaylistEntry} from '@shared/types.js'
 
 const ENTRY: PlaylistEntry = {id: '7::e1', url: 'https://example.com/e1', title: 'First', thumbnail: '', playlistIndex: 7, videoId: 'e1', uploader: 'Blender Foundation', uploadDate: '20260803'}
@@ -39,22 +39,39 @@ describe('canWriteM3u', () => {
 	})
 })
 
+const SINGLE_STATE = {wizardTitle: 'Clip', wizardVideoId: 'v1', wizardUploader: 'Blender Foundation', wizardUploadDate: '20260803', wizardWebpageUrl: 'https://www.youtube.com/watch?v=v1', wizardMediaTags: {}}
+
 describe('singleTemplateMeta', () => {
 	it('carries the fields a directory segment can be named after', () => {
-		const meta = singleTemplateMeta({wizardTitle: 'Clip', wizardVideoId: 'v1', wizardUploader: 'Blender Foundation', wizardUploadDate: '20260803'})
-		expect(meta).toEqual({title: 'Clip', id: 'v1', uploader: 'Blender Foundation', uploadDate: '20260803'})
+		const meta = singleTemplateMeta({...SINGLE_STATE, wizardMediaTags: {category: 'Music', artist: 'Daft Punk', album: 'Discovery', track: 'One More Time'}})
+		expect(meta).toEqual({title: 'Clip', id: 'v1', uploader: 'Blender Foundation', uploadDate: '20260803', site: 'youtube.com', category: 'Music', artist: 'Daft Punk', album: 'Discovery', track: 'One More Time'})
 	})
 
 	it('omits blanks so an absent uploader collapses its folder instead of emptying it', () => {
-		const meta = singleTemplateMeta({wizardTitle: 'Clip', wizardVideoId: '', wizardUploader: '', wizardUploadDate: ''})
+		const meta = singleTemplateMeta({...SINGLE_STATE, wizardVideoId: '', wizardUploader: '', wizardUploadDate: '', wizardWebpageUrl: '', wizardMediaTags: {album: ' '}})
 		expect(meta.uploader).toBeUndefined()
 		expect(meta.uploadDate).toBeUndefined()
+		expect(meta.site).toBeUndefined()
+		expect(meta.album).toBeUndefined()
+	})
+})
+
+describe('videoProbeTemplateMeta', () => {
+	it('reads the same fields from a video probe that the wizard keeps in state', () => {
+		const probe = {title: 'Clip', videoId: 'v1', uploader: 'Blender Foundation', uploadDate: '20260803', webpageUrl: 'https://vimeo.com/1', mediaTags: {category: 'Film'}}
+		expect(videoProbeTemplateMeta(probe)).toEqual({title: 'Clip', id: 'v1', uploader: 'Blender Foundation', uploadDate: '20260803', site: 'vimeo.com', category: 'Film'})
 	})
 })
 
 describe('playlistEntryTemplateMeta', () => {
 	it('combines per-entry fields with the playlist the entry came from', () => {
-		expect(playlistEntryTemplateMeta(ENTRY, 'Nature Docs', 'PL1')).toEqual({title: 'First', id: 'e1', uploader: 'Blender Foundation', uploadDate: '20260803', playlistTitle: 'Nature Docs', playlistId: 'PL1', playlistIndex: 7})
+		expect(playlistEntryTemplateMeta(ENTRY, 'Nature Docs', 'PL1')).toEqual({title: 'First', id: 'e1', uploader: 'Blender Foundation', uploadDate: '20260803', site: 'example.com', playlistTitle: 'Nature Docs', playlistId: 'PL1', playlistIndex: 7})
+	})
+
+	it('carries the media fields the flat probe found for the entry', () => {
+		const meta = playlistEntryTemplateMeta({...ENTRY, mediaTags: {category: 'Music', artist: 'Daft Punk'}}, 'Nature Docs', 'PL1')
+		expect(meta.category).toBe('Music')
+		expect(meta.artist).toBe('Daft Punk')
 	})
 
 	it('omits uploader when the flat probe did not supply one', () => {

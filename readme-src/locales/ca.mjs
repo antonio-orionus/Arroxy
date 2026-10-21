@@ -187,7 +187,7 @@ export const ca = {
   feat_workflow_8:
     "**Controls de velocitat i ritme** — limita l'ample de banda de descàrrega, defineix quantes parts d'un vídeo es baixen alhora i afegeix retards entre sol·licituds amb valors predefinits (*Desactivada · Equilibrada · Cautelosa · Personalitzada*)",
   feat_workflow_9:
-    "**Plantilles de nom de fitxer** — posa nom a les descàrregues a la teva manera amb `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` i `{playlist_index}`, de manera global o per perfil de descàrrega",
+    "**Plantilles de nom de fitxer** — posa nom a les descàrregues a la teva manera amb `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` i `{playlist_index}`, de manera global o per perfil de descàrrega",
   feat_workflow_10:
     "**Descàrregues alhora i reintent automàtic** — tria quantes descàrregues de la cua s'executen al mateix temps i deixa que Arroxy torni a provar una descàrrega que ha topat amb un problema de xarxa o de servidor, esperant més abans de cada intent",
   feat_workflow_11:

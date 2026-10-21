@@ -187,7 +187,7 @@ export const nl = {
   feat_workflow_8:
     "**Snelheids- en tempobesturing** — beperk de downloadbandbreedte, stel in hoeveel delen van een video tegelijk worden gedownload en voeg verzoekvertragingen toe met voorinstellingen (*Uit · Gebalanceerd · Voorzichtig · Aangepast*)",
   feat_workflow_9:
-    "**Sjablonen voor bestandsnamen** — geef downloads een naam zoals jij wilt met `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` en `{playlist_index}`, algemeen of per downloadprofiel",
+    "**Sjablonen voor bestandsnamen** — geef downloads een naam zoals jij wilt met `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` en `{playlist_index}`, algemeen of per downloadprofiel",
   feat_workflow_10:
     "**Downloads tegelijk en automatisch opnieuw proberen** — kies hoeveel downloads uit de wachtrij tegelijk lopen en laat Arroxy een download opnieuw proberen die een netwerk- of serverprobleem had, met steeds langere wachttijd voor elke poging",
   feat_workflow_11:

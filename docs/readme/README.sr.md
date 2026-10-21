@@ -30,7 +30,7 @@
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 ---
 
@@ -140,7 +140,7 @@
 - **50 језика** — аутоматски препознаје системски локалитет, могуће пребацивање у било ком тренутку
 - **Синхронизација плејлисте** — поново проверава плејлисту у односу на локални фолдер да би прескочио већ преузете видео снимке; прави `.m3u` фајл плејлисте који се ажурира после сваког преузетог видеа
 - **Контроле брзине и pacing-а** — ограничи download bandwidth, подеси колико делова видеа се преузима истовремено и додај кашњења између request-ова уз пресете (*Искључено · Уравнотежено · Опрезно · Прилагођено*)
-- **Шаблони назива датотека** — именујте преузимања како желите помоћу `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` и `{playlist_index}`, глобално или по профилу преузимања
+- **Шаблони назива датотека** — именујте преузимања како желите помоћу `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` и `{playlist_index}`, глобално или по профилу преузимања
 - **Истовремена преузимања и аутоматско понављање** — изабери колико преузимања из реда се одвија истовремено и пусти Arroxy да понови преузимање које је наишло на проблем са мрежом или сервером, чекајући дуже пре сваког покушаја
 - **Профили по ставци плејлисте** — доделите сваком видеу у плејлисти сопствени профил преузимања уместо једног подешавања за читаву листу, тако да један пролаз може да архивира неке у пуном квалитету, а остале преузме као MP3
 - **Quick Download ради у позадини** — линк се одмах појављује у Преузимањима и припрема се тамо, напомена са дугметом **Прикажи** то потврђује, а поље за URL се празни за следећи линк. Покрените колико год желите док се претходни припремају

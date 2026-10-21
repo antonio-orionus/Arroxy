@@ -30,7 +30,7 @@
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 این ترجمه با کمک هوش مصنوعی تهیه شده است. [README انگلیسی](../../README.md) منبع معتبر است. خطایی پیدا کردید؟ [یک PR باز کنید](../../../../pulls).
 
@@ -142,7 +142,7 @@
 - **50 زبان** — زبان سیستم را خودکار تشخیص می‌دهد و هر زمان قابل تغییر است
 - **همگام‌سازی فهرست پخش** — فهرست را دوباره با یک پوشهٔ محلی مقایسه می‌کند تا ویدیوهای دانلودشده رد شوند؛ فایل فهرست پخش `.m3u` می‌سازد که پس از هر دانلود به‌روز می‌شود
 - **کنترل سرعت و فاصلهٔ درخواست‌ها** — پهنای باند را محدود کنید، شمار بخش‌های هم‌زمان هر ویدیو را تعیین کنید و با حالت‌های *خاموش · متعادل · محتاط · سفارشی* بین درخواست‌ها تأخیر بگذارید
-- **الگوهای نام فایل** — با `{title}`، `{uploader}`، `{id}`، `{date}`، `{resolution}` و `{playlist_index}` نام دلخواه بسازید؛ سراسری یا برای هر نمایه
+- **الگوهای نام فایل** — با `{title}`، `{uploader}`، `{id}`، `{date}`، `{year}`، `{resolution}`، `{site}`، `{categories}`، `{artist}`، `{album}`، `{track}` و `{playlist_index}` نام دلخواه بسازید؛ سراسری یا برای هر نمایه
 - **دانلود هم‌زمان و تلاش خودکار دوباره** — شمار دانلودهای هم‌زمان را تعیین کنید و بگذارید Arroxy دانلودی را که با مشکل شبکه یا سرور روبه‌رو شده، با فاصلهٔ بیشتر در هر نوبت دوباره امتحان کند
 - **نمایهٔ جدا برای هر مورد فهرست پخش** — به‌جای یک تنظیم برای همه، به هر ویدیو نمایهٔ خودش را بدهید تا برخی با کیفیت کامل بایگانی شوند و بقیه به MP3 تبدیل شوند
 - **دانلود سریع در پس‌زمینه کار می‌کند** — پیوند بلافاصله در دانلودها ظاهر می‌شود و همان‌جا آماده می‌شود، یادداشتی با **نمایش** آن را تأیید می‌کند و کادر نشانی برای پیوند بعدی خالی می‌شود. هرقدر خواستید شروع کنید تا قبلی‌ها آماده شوند

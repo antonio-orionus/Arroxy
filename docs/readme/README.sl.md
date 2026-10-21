@@ -30,7 +30,7 @@ Prenesite videoposnetke, Shorts, glasbo, kanale, podkaste ali zvočne posnetke z
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-20._
+> _Last updated: 2026-10-21._
 
 > 🌐 Ta prevod je nastal s pomočjo umetne inteligence. [Angleški README](../../README.md) je nadrejeni vir. Ste našli napako? [Odprite PR](../../../../pulls).
 
@@ -142,7 +142,7 @@ Prenesite videoposnetke, Shorts, glasbo, kanale, podkaste ali zvočne posnetke z
 - **50 jezikov** — samodejno zazna sistemski jezik, preklop kadar koli
 - **Sinhronizacija seznamov predvajanja** — znova preglejte seznam predvajanja glede na lokalno mapo, da preskočite že prenesene videoposnetke; ustvari datoteko seznama predvajanja `.m3u`, ki se posodablja ob prenosu vsakega videoposnetka
 - **Nadzor hitrosti in tempa** — omejite pasovno širino prenosa, nastavite, koliko delov videoposnetka se prenaša hkrati, in dodajte zakasnitve zahtev s prednastavitvami (*Izklopljeno · Uravnoteženo · Previdno · Po meri*)
-- **Predloge imen datotek** — poimenujte prenose po svoje z `{title}`, `{uploader}`, `{id}`, `{date}`, `{resolution}` in `{playlist_index}`, splošno ali za posamezen profil prenosa
+- **Predloge imen datotek** — poimenujte prenose po svoje z `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` in `{playlist_index}`, splošno ali za posamezen profil prenosa
 - **Hkratni prenosi in samodejni ponovni poskus** — izberite, koliko prenosov v vrsti teče hkrati, in pustite, da Arroxy ponovi prenos, ki je naletel na težavo z omrežjem ali strežnikom, pri čemer pred vsakim poskusom čaka dlje
 - **Profili po elementih seznama predvajanja** — vsakemu videoposnetku na seznamu predvajanja dodelite lasten profil prenosa namesto ene nastavitve za cel seznam, tako da lahko v enem prehodu nekatere arhivirate v polni kakovosti, preostale pa prenesete kot MP3
 - **Hitri prenos deluje v ozadju** — povezava se takoj pokaže v Prenosih in se tam pripravi, obvestilo z gumbom **Pokaži** to potrdi, polje URL pa se izprazni za naslednjo povezavo. Začnite, kolikor jih želite, medtem ko se prejšnji pripravljajo
