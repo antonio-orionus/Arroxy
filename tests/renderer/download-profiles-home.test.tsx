@@ -20,6 +20,13 @@ vi.mock('@tanstack/react-virtual', () => ({
 	}
 }))
 
+// A mouse arriving on a hint's trigger: Base UI starts a delayed hint on the move.
+function hover(element: HTMLElement): void {
+	fireEvent.pointerEnter(element, {pointerType: 'mouse'})
+	fireEvent.mouseEnter(element)
+	fireEvent.mouseMove(element, {clientX: 5, clientY: 5})
+}
+
 describe('DownloadProfilesHome downloads tab', () => {
 	beforeEach(() => {
 		window.appApi = buildMockAppApi()
@@ -191,6 +198,30 @@ describe('DownloadProfilesHome profiles tab visibility', () => {
 		expect(name).toHaveAttribute('maxLength', '80')
 		fireEvent.change(name, {target: {value: ''}})
 		expect(name).toHaveAttribute('placeholder', 'Équilibré 720p')
+	})
+
+	it('shows each profile by name only, with what it does in a hint', async () => {
+		render(<DownloadProfilesHome />)
+		const card = screen.getByTestId('profiles-manage-card-mp4-720')
+		expect(card).not.toHaveTextContent('Up to 720p')
+
+		hover(screen.getByTestId('profiles-manage-card-mp4-720-picker'))
+		const hint = await screen.findByTestId('profile-summary-mp4-720', undefined, {timeout: 2000})
+		expect(hint).toHaveTextContent('Smart TV 720p')
+		expect(hint).toHaveTextContent('Up to 720p · Smart TV')
+		expect(hint).toHaveTextContent('Default downloads folder / Smart TV MP4 HD 720p')
+	})
+
+	it('shows profile menu rows by name only, with what each does in a hint', async () => {
+		window.history.replaceState(null, '', '#download')
+		render(<DownloadProfilesHome />)
+		fireEvent.click(screen.getByTestId('profiles-active-profile-trigger'))
+		const row = await screen.findByTestId('profiles-profile-option-audio-only')
+		expect(row).toHaveTextContent('Audio only')
+		expect(row).not.toHaveTextContent('Keep as-is')
+
+		hover(row)
+		expect(await screen.findByTestId('profile-summary-audio-only', undefined, {timeout: 2000})).toHaveTextContent('Keep as-is')
 	})
 
 	it('renders opt-in low-data built-ins muted with a Hidden badge', () => {

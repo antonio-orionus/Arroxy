@@ -18,6 +18,7 @@ import {Hint} from '../shared/Hint.js'
 import {FilenameTemplateErrorText} from '../shared/FilenameTemplateField.js'
 import {AREA_LABEL_KEYS} from '../../lib/changedAreaLabels.js'
 import {useProfileDisplayName} from '@renderer/lib/profileName.js'
+import {profileFormatLabel} from '@renderer/lib/profileSummary.js'
 import {formatList} from '@renderer/lib/subtitleLabel.js'
 
 function SaveAsProfileDialog({open, onOpenChange}: {open: boolean; onOpenChange: (open: boolean) => void}): ReactNode {
@@ -76,14 +77,17 @@ const DIFF_LABEL_KEYS = {format: 'wizard.review.update.rows.format', subtitles: 
 
 // Confirms an update with the profile's values before and after, area by area.
 function UpdateProfileDialog({open, onOpenChange}: {open: boolean; onOpenChange: (open: boolean) => void}): ReactNode {
-	const {t} = useTranslation()
+	const {t, i18n} = useTranslation()
 	const nameOf = useProfileDisplayName()
 	const state = useAppStore(useShallow(selectWizardReviewState))
 	const updateWizardProfile = useAppStore(s => s.updateWizardProfile)
 	const [saving, setSaving] = useState(false)
 	const before = state.wizardProfile
 	const after = updatedProfileDraft(state)
-	const rows = before && after ? profileDiffRows(before, after, {t: createTranslationPort(t), defaultOutputDir: state.settings?.common?.defaultOutputDir ?? '', globalFilenameTemplate: state.settings?.common?.filenameTemplate, commonPaths: state.commonPaths}) : []
+	const rows =
+		before && after
+			? profileDiffRows(before, after, {t: createTranslationPort(t), profileFormat: profile => profileFormatLabel(profile, t, i18n.language), defaultOutputDir: state.settings?.common?.defaultOutputDir ?? '', globalFilenameTemplate: state.settings?.common?.filenameTemplate, commonPaths: state.commonPaths})
+			: []
 	const name = before ? nameOf(before) : ''
 
 	async function update(): Promise<void> {

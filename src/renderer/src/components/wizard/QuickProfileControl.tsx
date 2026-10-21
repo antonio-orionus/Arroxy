@@ -12,7 +12,7 @@ import {Kbd, KbdGroup} from '../ui/kbd.js'
 import {Popover, PopoverTrigger} from '../ui/popover.js'
 import {Spinner} from '../ui/spinner.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
-import {buildDownloadProfileActionModel, quickProfileSummary, type DownloadProfileActionModel} from './downloadProfileActions.js'
+import {buildDownloadProfileActionModel, type DownloadProfileActionModel} from './downloadProfileActions.js'
 import {ProfilePickerMenu, type ProfilePickerTestIdPrefix} from './ProfilePicker.js'
 import {Hint} from '../shared/Hint.js'
 
@@ -181,7 +181,6 @@ function ProfileMenu({
 	const nameOf = useProfileDisplayName()
 	const [menuOpen, setMenuOpen] = useState(defaultOpen)
 	const {ActiveIcon} = model
-	const activeSummary = quickProfileSummary(activeProfile, t)
 	const destinationLabel = compact ? undefined : destination?.trim()
 	const destinationDetailText = destinationDetail?.trim()
 	const destinationDetailLabel = destinationDetailText === undefined || destinationDetailText.length === 0 ? t('wizard.url.profile.destinationFallback') : destinationDetailText
@@ -221,7 +220,6 @@ function ProfileMenu({
 									<span className="min-w-0 flex-1">
 										<span className="quick-profile-selector-kicker mb-1 block truncate text-label uppercase">{activeProfileLabel}</span>
 										<span className={cn('quick-profile-selector-title block truncate', compact ? 'text-title' : 'text-title md:text-headline')}>{nameOf(activeProfile)}</span>
-										<span className={cn('quick-profile-selector-meta mt-0.5 block truncate font-normal leading-snug', compact ? 'text-xs' : 'text-xs md:text-sm')}>{activeSummary}</span>
 									</span>
 									<span className={cn('quick-profile-chevron grid shrink-0 place-items-center rounded-full', compact ? 'size-9' : 'size-10')}>
 										<ChevronDown aria-hidden className="size-5 transition-transform duration-200 group-aria-expanded/button:rotate-180" />

@@ -988,19 +988,23 @@
 		"output": {
 			"embedChapters": {
 				"description": "Chapter markers navigable in any modern player.",
-				"label": "Embed chapters"
+				"label": "Embed chapters",
+				"short": "Chapters"
 			},
 			"embedMetadata": {
 				"description": "Title, artist, description, and upload date written into the file.",
-				"label": "Embed metadata"
+				"label": "Embed metadata",
+				"short": "Metadata"
 			},
 			"embedThumbnail": {
 				"description": "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded.",
-				"label": "Embed thumbnail"
+				"label": "Embed thumbnail",
+				"short": "Cover art"
 			},
 			"writeDescription": {
 				"description": "Saves the video description as a .description text file next to the download.",
-				"label": "Save description"
+				"label": "Save description",
+				"short": "Description file"
 			},
 			"writeM3u": {
 				"description": "Save an .m3u playlist alongside the videos so they open in order in your media player.",
@@ -1008,7 +1012,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Saves the thumbnail as a .jpg image file next to the download.",
-				"label": "Save thumbnail"
+				"label": "Save thumbnail",
+				"short": "Thumbnail file"
 			}
 		},
 		"part": {
@@ -1678,14 +1683,6 @@
 				"remove": "Remove",
 				"reorderHint": "Drag a profile to move it. Every profile picker follows this order.",
 				"reset": "Reset",
-				"summary": {
-					"aacAudio": "AAC audio",
-					"bestAudio": "best audio",
-					"bestVideo": "best video",
-					"noAudio": "no audio",
-					"subtitlesOnly": "subtitles only",
-					"wavAudio": "WAV audio"
-				},
 				"switchAria": "Switch download profile: {{profileName}}",
 				"switchTitle": "Switch download profile"
 			},

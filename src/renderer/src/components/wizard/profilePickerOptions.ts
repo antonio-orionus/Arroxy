@@ -2,7 +2,7 @@
 // profile that is in use but hidden still offered, first, so whatever a
 // download or a row already uses can always be seen and kept.
 
-import {allDownloadProfiles, downloadProfileLabel, downloadProfileRefFor} from '@shared/downloadProfiles.js'
+import {allDownloadProfiles, downloadProfileRefFor} from '@shared/downloadProfiles.js'
 import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
 import type {LucideIcon} from 'lucide-react'
 import {PROFILE_ICONS} from './downloadProfileVisuals.js'
@@ -11,7 +11,6 @@ export interface ProfilePickerOption {
 	profile: DownloadProfile
 	ref: DownloadProfileRef
 	Icon: LucideIcon
-	label: string
 	// The one profile the picker marks as chosen; none when the targets differ.
 	current: boolean
 	hidden: boolean
@@ -30,5 +29,5 @@ export function profilePickerOptions(prefs: DownloadProfilesPrefs | undefined, {
 	const unsaved = current && !saved.some(profile => profile.id === current.id) ? [current] : []
 	const hiddenInUse = saved.filter(profile => !profile.enabled && used.has(profile.id))
 	const ordered = [...unsaved, ...hiddenInUse, ...saved.filter(profile => profile.enabled)]
-	return ordered.map(profile => ({profile, ref: downloadProfileRefFor(profile, prefs), Icon: PROFILE_ICONS[profile.icon], label: downloadProfileLabel(profile), current: profile.id === current?.id, hidden: !profile.enabled || unsaved.includes(profile)}))
+	return ordered.map(profile => ({profile, ref: downloadProfileRefFor(profile, prefs), Icon: PROFILE_ICONS[profile.icon], current: profile.id === current?.id, hidden: !profile.enabled || unsaved.includes(profile)}))
 }

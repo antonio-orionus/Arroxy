@@ -25,6 +25,7 @@ import {sortPlaylistEntries} from './playlistSort.js'
 import {wizardVideoPart} from './videoPart.js'
 import {wizardPickedTracks} from './profileApplication.js'
 import {resolveAssignedProfile} from './playlistProfileAssignments.js'
+import {profileFormatLabel} from '@renderer/lib/profileSummary.js'
 
 function wizardSubtitlePlan(state: AppState): SubtitlePlan {
 	const maps = {subtitles: state.wizardSubtitles, automaticCaptions: state.wizardAutomaticCaptions}
@@ -268,6 +269,7 @@ export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueL
 			extractorKey: state.wizardExtractorKey,
 			resolved,
 			profile,
+			formatLabel: profileFormatLabel(profile, i18next.t, i18next.language),
 			filenameTemplate: bindJobFilenameTemplate(template, templateMeta, outputDir, profileInFlight(resolved, entry.probedFormats ?? [])),
 			nativeAudioPreference,
 			hdrPreference,
@@ -288,7 +290,7 @@ export function pinActiveDownloadProfile(state: AppState): PinnedDownloadProfile
 
 /** Rows get fresh ids, HDR follows this window's screen, names this machine's filesystem. */
 export function rendererPreparationEnv(): QueuePreparationEnv {
-	return {newId: generateId, displayShowsHdr: displayShowsHdr(), filenames: rendererFilenameBinding()}
+	return {newId: generateId, profileFormatLabel: profile => profileFormatLabel(profile, i18next.t, i18next.language), displayShowsHdr: displayShowsHdr(), filenames: rendererFilenameBinding()}
 }
 
 // Without a pinned profile, the active profile and the wizard's folder are used.

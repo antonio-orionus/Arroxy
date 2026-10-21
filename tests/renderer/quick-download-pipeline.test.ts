@@ -191,7 +191,7 @@ describe('a profile switch while a quick download prepares', () => {
 		activate('audio-only', '/music')
 		await useAppStore.getState().quickDownload({url, entry: 'url-tab'})
 		const id = queue()[0]?.id ?? ''
-		expect(row(id)).toMatchObject({formatLabel: 'Audio only · best', outputDir: '/music/Audio only'})
+		expect(row(id)).toMatchObject({formatLabel: 'Audio only · Keep as-is', outputDir: '/music/Audio only'})
 		activate('balanced', '/videos')
 		return id
 	}
@@ -202,7 +202,7 @@ describe('a profile switch while a quick download prepares', () => {
 		probe.resolve(ok(VIDEO))
 
 		await vi.waitFor(() => expect(row(id)?.status).toBe('pending'))
-		expect(row(id)).toMatchObject({formatLabel: 'Audio only · best', outputDir: '/music/Audio only'})
+		expect(row(id)).toMatchObject({formatLabel: 'Audio only · Keep as-is', outputDir: '/music/Audio only'})
 		expect(row(id)?.job).toMatchObject({intent: {kind: 'audio-only'}})
 	})
 
@@ -228,7 +228,7 @@ describe('a profile switch while a quick download prepares', () => {
 		probe.resolve(ok(VIDEO))
 
 		await vi.waitFor(() => expect(row(first.id)?.status).toBe('pending'))
-		expect(row(first.id)).toMatchObject({formatLabel: 'Audio only · best', outputDir: '/music/Audio only'})
+		expect(row(first.id)).toMatchObject({formatLabel: 'Audio only · Keep as-is', outputDir: '/music/Audio only'})
 	})
 
 	it('keeps them when the review queues the loaded videos', async () => {
@@ -242,7 +242,7 @@ describe('a profile switch while a quick download prepares', () => {
 		await useAppStore.getState().chooseQuickDownloadRow(id, 'review')
 		await useAppStore.getState().queueLoadedPlaylistWithActiveProfile()
 
-		expect(queue().map(item => item.formatLabel)).toEqual(['Audio only · best', 'Audio only · best'])
+		expect(queue().map(item => item.formatLabel)).toEqual(['Audio only · Keep as-is', 'Audio only · Keep as-is'])
 	})
 
 	it('keeps them through a needs-choice answer and a Retry', async () => {
@@ -255,8 +255,8 @@ describe('a profile switch while a quick download prepares', () => {
 		await vi.waitFor(() => expect(row(id)?.status).toBe('needs-choice'))
 		await useAppStore.getState().chooseQuickDownloadRow(id, 'first')
 		expect(queue().map(item => [item.formatLabel, item.outputDir])).toEqual([
-			['Audio only · best', '/music/Audio only'],
-			['Audio only · best', '/music/Audio only']
+			['Audio only · Keep as-is', '/music/Audio only'],
+			['Audio only · Keep as-is', '/music/Audio only']
 		])
 
 		useAppStore.setState({queue: []})
@@ -268,7 +268,7 @@ describe('a profile switch while a quick download prepares', () => {
 		probe.resolve(ok({...VIDEO, webpageUrl: OTHER_URL}))
 		await retrying
 		expect(row(retried)?.status).toBe('pending')
-		expect(row(retried)).toMatchObject({formatLabel: 'Audio only · best', outputDir: '/music/Audio only'})
+		expect(row(retried)).toMatchObject({formatLabel: 'Audio only · Keep as-is', outputDir: '/music/Audio only'})
 	})
 })
 

@@ -190,7 +190,7 @@ describe('App renderer', () => {
 		expect(screen.getByTestId('profiles-quick-preview')).toHaveAttribute('data-linked-control', 'quick-profile')
 		expect(screen.getByTestId('profiles-active-profile-card')).toHaveTextContent('Balanced 720p')
 		expect(screen.getByTestId('profiles-active-profile-card')).toHaveTextContent('Active profile')
-		expect(screen.getByTestId('profiles-active-profile-card')).toHaveTextContent('720p · best audio')
+		expect(screen.getByTestId('profiles-active-profile-card')).not.toHaveTextContent('best audio')
 		expect(screen.getByTestId('profiles-profile-destination')).toHaveTextContent('Using global destination + profile subfolder')
 		expect(screen.getByTestId('profiles-profile-destination')).toHaveTextContent('/tmp/Balanced 720p')
 		expect(screen.getByRole('button', {name: 'Edit active profile'})).toBeInTheDocument()
