@@ -6,7 +6,7 @@ import {downloadProfileOrigin} from '@shared/downloadProfiles.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import type {ChangedArea} from '../../store/wizard/profileApplication.js'
 import {profileDiffRows} from '../../store/wizard/profileDiff.js'
-import {updatedProfileDraft, wizardChangedAreas} from '../../store/wizard/wizardProfileState.js'
+import {updatedProfileDraft, wizardChangedAreas, wizardProfileSaveFailure} from '../../store/wizard/wizardProfileState.js'
 import {selectWizardReviewState} from '../../store/wizard/wizardReviewState.js'
 import {createTranslationPort} from '../../lib/translation.js'
 import {Button} from '../ui/button.js'
@@ -15,6 +15,7 @@ import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, Di
 import {Field, FieldLabel} from '../ui/field.js'
 import {Input} from '../ui/input.js'
 import {Hint} from '../shared/Hint.js'
+import {FilenameTemplateErrorText} from '../shared/FilenameTemplateField.js'
 import {AREA_LABEL_KEYS} from '../../lib/changedAreaLabels.js'
 
 function SaveAsProfileDialog({open, onOpenChange}: {open: boolean; onOpenChange: (open: boolean) => void}): ReactNode {
@@ -121,10 +122,11 @@ function UpdateProfileDialog({open, onOpenChange}: {open: boolean; onOpenChange:
 	)
 }
 
-function IconAction({Icon, label, onClick, testId}: {Icon: LucideIcon; label: string; onClick: () => void; testId: string}): ReactNode {
+// `blockedBy` disables the action and takes over its hint, saying why.
+function IconAction({Icon, label, onClick, testId, blockedBy}: {Icon: LucideIcon; label: string; onClick: () => void; testId: string; blockedBy?: ReactNode}): ReactNode {
 	return (
-		<Hint label={label}>
-			<Button type="button" variant="ghost" size="icon-sm" className="shrink-0" aria-label={label} onClick={onClick} data-testid={testId}>
+		<Hint label={blockedBy ?? label}>
+			<Button type="button" variant="ghost" size="icon-sm" className="shrink-0" aria-label={label} onClick={onClick} disabled={blockedBy !== undefined} focusableWhenDisabled data-testid={testId}>
 				<Icon aria-hidden />
 			</Button>
 		</Hint>
@@ -138,10 +140,12 @@ export function ProfileEditLine(): ReactNode {
 	const changed = useAppStore(useShallow(wizardChangedAreas))
 	const profileName = useAppStore(state => state.wizardProfile?.name ?? '')
 	const resetWizardToProfile = useAppStore(state => state.resetWizardToProfile)
+	const saveFailure = useAppStore(useShallow(wizardProfileSaveFailure))
 	const [saveOpen, setSaveOpen] = useState(false)
 	const [updateOpen, setUpdateOpen] = useState(false)
 	if (changed.length === 0 && !saveOpen && !updateOpen) return null
 	const areas = changed.map(area => t(AREA_LABEL_KEYS[area])).join(', ')
+	const blockedBy = saveFailure ? <FilenameTemplateErrorText error={saveFailure} /> : undefined
 
 	return (
 		<>
@@ -153,8 +157,8 @@ export function ProfileEditLine(): ReactNode {
 							<span className="font-semibold text-foreground">{t('wizard.review.changedFrom', {profile: profileName})}</span> {areas}
 						</p>
 					</Hint>
-					<IconAction Icon={Save} label={t('wizard.review.updateProfile', {profile: profileName})} onClick={() => setUpdateOpen(true)} testId="review-update-profile" />
-					<IconAction Icon={CopyPlus} label={t('wizard.review.saveAsProfile')} onClick={() => setSaveOpen(true)} testId="review-save-as-profile" />
+					<IconAction Icon={Save} label={t('wizard.review.updateProfile', {profile: profileName})} onClick={() => setUpdateOpen(true)} testId="review-update-profile" blockedBy={blockedBy} />
+					<IconAction Icon={CopyPlus} label={t('wizard.review.saveAsProfile')} onClick={() => setSaveOpen(true)} testId="review-save-as-profile" blockedBy={blockedBy} />
 					<IconAction Icon={RotateCcw} label={t('wizard.review.reset', {profile: profileName})} onClick={resetWizardToProfile} testId="review-reset" />
 				</div>
 			) : null}

@@ -16,6 +16,7 @@ vi.mock('electron', () => ({
 
 import {registerSettingsHandlers} from '@main/ipc/settingsHandlers.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
+import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 
 async function update(payload: unknown): Promise<void> {
 	const fn = handlers.get(IPC_CHANNELS.settingsUpdate)
@@ -95,5 +96,39 @@ describe('settings update reaches the rate-limit cooldowns', () => {
 	it('leaves them alone when the patch does not touch the proxy', async () => {
 		await update({common: {clipboardWatchEnabled: false}})
 		expect(onProxyChanged).not.toHaveBeenCalled()
+	})
+})
+
+// A profile saved with a filename template that does not validate would fail
+// every download it starts, so the write is refused before it reaches the store.
+describe('settings update refuses a profile filename template that does not validate', () => {
+	const settingsStore = {get: vi.fn(), update: vi.fn().mockResolvedValue({common: {clipboardWatchEnabled: false, hotkeyEnabled: false}, playlist: {}, profiles: {}})}
+	const base = BUILTIN_DOWNLOAD_PROFILES[0]
+
+	beforeEach(() => {
+		handlers.clear()
+		vi.clearAllMocks()
+		registerSettingsHandlers({settingsStore: settingsStore as never, clipboardWatcher: {setEnabled: vi.fn()} as never, queueService: {} as never, hotkeyService: {apply: vi.fn()} as never, exploreView: {destroy: vi.fn()} as never})
+	})
+
+	async function send(payload: unknown): Promise<unknown> {
+		const fn = handlers.get(IPC_CHANNELS.settingsUpdate)
+		if (!fn) throw new Error('settings update handler not registered')
+		return fn({}, payload)
+	}
+
+	it.each([
+		['custom', '{titel}'],
+		['overrides', 'a:b {title}']
+	])('refuses a %s profile with the template %s', async (bucket, template) => {
+		const result = await send({profiles: {[bucket]: [{...base, id: 'mine', filename: {kind: 'custom', template}}]}})
+		expect(result).toMatchObject({ok: false})
+		expect(settingsStore.update).not.toHaveBeenCalled()
+	})
+
+	it('saves a profile whose template validates', async () => {
+		const result = await send({profiles: {custom: [{...base, id: 'mine', filename: {kind: 'custom', template: '{uploader} - {title}'}}]}})
+		expect(result).toMatchObject({ok: true})
+		expect(settingsStore.update).toHaveBeenCalled()
 	})
 })

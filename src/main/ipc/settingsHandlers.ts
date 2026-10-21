@@ -1,5 +1,6 @@
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import {updateSettingsSchema, type UiTheme} from '@shared/schemas.js'
+import {downloadProfileFilenameFailure} from '@shared/downloadProfiles.js'
 import {ok} from '@shared/result.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
 import type {ClipboardWatcher} from '@main/services/ClipboardWatcher.js'
@@ -8,6 +9,18 @@ import type {QueueService} from '@main/services/QueueService.js'
 import type {ExploreViewHost} from '@main/services/explore/ExploreViewHost.js'
 import {DEFAULTS, NORMAL_LANE_CAP} from '@shared/constants.js'
 import {buildCommonPaths, handle, handleRaw, toUnknownFailure} from './utils.js'
+
+// Profile filename templates are checked here rather than in schemas.ts, whose
+// exports the template parser itself imports. The store keeps only templates
+// that validate, so a refused write names the profile that would break.
+const settingsUpdatePayloadSchema = updateSettingsSchema.superRefine((patch, ctx) => {
+	for (const bucket of ['custom', 'overrides'] as const) {
+		patch.profiles?.[bucket]?.forEach((profile, index) => {
+			const failure = downloadProfileFilenameFailure(profile)
+			if (failure) ctx.addIssue({code: 'custom', path: ['profiles', bucket, index, 'filename', 'template'], message: `Download profile "${profile.name}" has an unusable filename template (${failure.code})`})
+		})
+	}
+})
 
 interface SettingsHandlerDeps {
 	settingsStore: SettingsStore
@@ -40,7 +53,7 @@ export function registerSettingsHandlers(deps: SettingsHandlerDeps): void {
 		}
 	})
 
-	handle(IPC_CHANNELS.settingsUpdate, updateSettingsSchema, async data => {
+	handle(IPC_CHANNELS.settingsUpdate, settingsUpdatePayloadSchema, async data => {
 		const updated = await settingsStore.update(data)
 		clipboardWatcher.setEnabled(updated.common.clipboardWatchEnabled)
 		if (data.common?.hotkeyEnabled !== undefined || data.common?.hotkeyAccelerator !== undefined) {

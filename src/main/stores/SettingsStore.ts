@@ -5,7 +5,7 @@ import log from 'electron-log/main.js'
 import type {ZodError} from 'zod'
 import type {AppSettings, CommonSettings, DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
 import type {SettingsPatch} from '@shared/api.js'
-import {BUILTIN_DOWNLOAD_PROFILES, DEFAULT_DOWNLOAD_PROFILE_REF} from '@shared/downloadProfiles.js'
+import {BUILTIN_DOWNLOAD_PROFILES, DEFAULT_DOWNLOAD_PROFILE_REF, downloadProfileFilenameFailure} from '@shared/downloadProfiles.js'
 import {appSettingsSchema, downloadProfileRefSchema, downloadProfileSchema} from '@shared/schemas.js'
 
 export type {SettingsPatch}
@@ -197,6 +197,15 @@ function issuePaths(error: ZodError): string[] {
 	return error.issues.map(issue => `${issue.path.join('.') || '(root)'}: ${issue.message}`)
 }
 
+// A template saved before writes were checked falls back to the global one:
+// the profile keeps working, and saving the list again is not refused.
+function withUsableFilename(profile: DownloadProfile, bucket: 'custom' | 'overrides', index: number): DownloadProfile {
+	const failure = downloadProfileFilenameFailure(profile)
+	if (!failure) return profile
+	logger.warn('Reset unusable download profile filename template', {bucket, index, id: profile.id, code: failure.code})
+	return {...profile, filename: {kind: 'default'}}
+}
+
 function parseProfileList(value: unknown, bucket: 'custom' | 'overrides'): DownloadProfile[] {
 	if (!Array.isArray(value)) {
 		if (value !== undefined) logger.warn('Discarded download profile bucket that is not an array', {bucket, type: typeof value})
@@ -204,7 +213,7 @@ function parseProfileList(value: unknown, bucket: 'custom' | 'overrides'): Downl
 	}
 	return value.flatMap((item, index) => {
 		const parsed = downloadProfileSchema.safeParse(item)
-		if (parsed.success) return [parsed.data]
+		if (parsed.success) return [withUsableFilename(parsed.data, bucket, index)]
 		logger.warn('Dropped invalid download profile', {bucket, index, id: profileIdOf(item), issues: issuePaths(parsed.error)})
 		return []
 	})

@@ -5,6 +5,7 @@
 import {DEFAULTS} from '@shared/constants.js'
 import {resolveAppHdr} from '@renderer/lib/displayHdr.js'
 import {BUILTIN_DOWNLOAD_PROFILES, DEFAULT_DOWNLOAD_PROFILE_REF} from '@shared/downloadProfiles.js'
+import {validateFilenameTemplate, type FilenameTemplateFailure} from '@shared/filenameTemplate.js'
 import {resolveProfileSelection} from '@shared/profileSelection.js'
 import type {DownloadProfile} from '@shared/types.js'
 import type {AppState} from '../types.js'
@@ -123,12 +124,21 @@ export function switchProfilePatch(profile: DownloadProfile, state: AppState, ke
 	return {...patch, ...settings}
 }
 
+// Why the run's settings can't be kept as a profile: a file name changed to a
+// template that does not validate. The profile would fail every download.
+export function wizardProfileSaveFailure(state: WizardReviewState): FilenameTemplateFailure | null {
+	if (!wizardChangedAreas(state).includes('fileName')) return null
+	const validation = validateFilenameTemplate(state.wizardFilenameTemplate)
+	return validation.ok ? null : validation
+}
+
 // The run's settings as a profile with the given identity, or null when nothing
-// differs from the profile it started from (or this isn't a single-video run).
+// differs from the profile it started from, the changes can't be kept, or this
+// isn't a single-video run.
 function draftFromWizard(state: WizardReviewState, identity: {id: string; name: string}): DownloadProfile | null {
 	const base = state.wizardProfile
 	const baseline = state.wizardProfileBaseline
-	if (state.wizardMode !== 'single' || !base || !baseline || wizardChangedAreas(state).length === 0) return null
+	if (state.wizardMode !== 'single' || !base || !baseline || wizardChangedAreas(state).length === 0 || wizardProfileSaveFailure(state)) return null
 	return profileFromWizard(base, baseline, wizardSnapshot(state), state.wizardFormats, {
 		...identity,
 		now: new Date().toISOString(),

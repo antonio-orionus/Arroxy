@@ -32,12 +32,18 @@ export interface FilenameTemplateFieldProps {
 }
 
 function FilenameTemplateError({error}: {error: FilenameTemplateFailure}): ReactNode {
-	const {t} = useTranslation()
 	return (
 		<p className="text-caption text-destructive" data-testid="filename-template-error">
-			{t(ERROR_KEYS[error.code], {token: error.code === 'unknown-token' ? error.token : ''})}
+			<FilenameTemplateErrorText error={error} />
 		</p>
 	)
+}
+
+// Why a template does not validate: under the field, and as the hint on an
+// action the template blocks.
+export function FilenameTemplateErrorText({error}: {error: FilenameTemplateFailure}): ReactNode {
+	const {t} = useTranslation()
+	return t(ERROR_KEYS[error.code], {token: error.code === 'unknown-token' ? error.token : ''})
 }
 
 // Rendered only for a valid template.

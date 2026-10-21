@@ -6,7 +6,7 @@ import {BUILTIN_DOWNLOAD_PROFILES, DEFAULT_DOWNLOAD_PROFILES_PREFS} from '@share
 import {defaultAppSettings} from '@shared/constants.js'
 import type {AppSettings, DownloadProfile, FormatOption} from '@shared/types.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
-import {profilePatch, wizardChangedAreas} from '@renderer/store/wizard/wizardProfileState.js'
+import {editedProfileDraft, profilePatch, wizardChangedAreas} from '@renderer/store/wizard/wizardProfileState.js'
 import {StepReview} from '@renderer/components/wizard/StepReview.js'
 import {RESET_WIZARD_STATE} from '@renderer/store/wizard/commands.js'
 
@@ -316,6 +316,18 @@ describe('wizard slice — profiles', () => {
 		await expect(useAppStore.getState().saveWizardAsProfile('  ')).resolves.toBe(false)
 		expect(saveDownloadProfile).not.toHaveBeenCalled()
 	})
+
+	// A profile saved with such a template would fail every download it starts.
+	it.each(['{titel}', 'a:b {title}'])('Save as profile, Update profile and the after-download offer refuse the file name %s', async template => {
+		const saveDownloadProfile = vi.fn().mockResolvedValue(true)
+		useAppStore.setState({...profilePatch(builtin('hd-1080'), useAppStore.getState()), saveDownloadProfile})
+		useAppStore.setState({wizardFilenameTemplate: template})
+
+		await expect(useAppStore.getState().saveWizardAsProfile('Mine')).resolves.toBe(false)
+		await expect(useAppStore.getState().updateWizardProfile()).resolves.toBe(false)
+		expect(editedProfileDraft(useAppStore.getState(), 'Mine')).toBeNull()
+		expect(saveDownloadProfile).not.toHaveBeenCalled()
+	})
 })
 
 describe('Review — changed from profile', () => {
@@ -324,6 +336,18 @@ describe('Review — changed from profile', () => {
 		render(<StepReview />)
 		expect(screen.getByTestId('review-update-profile')).toHaveAttribute('aria-label', expect.stringContaining('Full HD 1080p'))
 		expect(screen.getByTestId('review-save-as-profile')).toBeTruthy()
+	})
+
+	it('a file name that does not validate disables Update and Save as, but not Undo', () => {
+		useAppStore.setState({...profilePatch(builtin('hd-1080'), useAppStore.getState()), wizardFilenameTemplate: '{titel}'})
+		render(<StepReview />)
+		for (const id of ['review-update-profile', 'review-save-as-profile']) {
+			expect(screen.getByTestId(id)).toHaveAttribute('aria-disabled', 'true')
+			fireEvent.click(screen.getByTestId(id))
+		}
+		expect(screen.queryByTestId('update-profile-dialog')).toBeNull()
+		expect(screen.queryByTestId('save-as-profile-dialog')).toBeNull()
+		expect(screen.getByTestId('review-reset')).not.toHaveAttribute('aria-disabled', 'true')
 	})
 
 	it('Update shows what the profile will change, then saves into it', async () => {
