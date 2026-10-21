@@ -102,6 +102,11 @@ export const et = {
   website_url: "https://arroxy.com/",
   star_cta: "Kui Arroxy säästab teie aega, aitab ⭐ teistel seda leida.",
   ai_notice: "> 🌐 See tõlge valmis tehisintellekti toel. [Ingliskeelne README](README.md) on esmane allikas. Leidsite vea? [Avage PR](../../pulls).",
+  intro_what_is:
+    "**Mis on Arroxy?** Arroxy on tasuta avatud lähtekoodiga töölaua graafiline kasutajaliides, mis laadib alla videoid, heli, esitusloendeid ja subtiitreid YouTube’ist ja 2000+ muult [yt-dlp](https://github.com/yt-dlp/yt-dlp) toetatud saidilt. Töötab süsteemides Windows 10/11, macOS 13+ (Intel + Apple Silicon) ja Linux (AppImage, Flatpak, tar.gz). GPLv3 litsentsiga. Ei mingeid reklaame ega kasutuspiiranguid. Levitatakse: [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage ja otseallalaadimine.",
+  intro_key_difference:
+    "**Peamine erinevus: sisseehitatud brauser.** Enamik tasuta YouTube’i allalaadijaid on õhukesed yt-dlp ümbrised: URL-i kast ja vormingumenüü, ilma oma brauserita. Arroxyl on see olemas – vahekaart **Avasta**. Sirvite YouTube’i või mis tahes muud saiti rakenduse sees ning laadite alla video, esitusloendi või kanali, mille juures olete, või paremklõpsate mis tahes lingil. Logite Avastas korra sisse ja Arroxy laadib alla privaatsed, ainult liikmetele mõeldud ja vanusepiiranguga videod, mida teie konto saab vaadata, samuti teie loendid Vaata hiljem ja Meeldinud videod, ilma küpsiseid eksportimata. Logige seal sisse ka teistele saitidele ning nende allalaadimised kasutavad seda sisselogimist, kui vaja. Kui YouTube palub kinnitada, et te pole robot, proovib Arroxy uuesti selle sisselogimisega. Sisseehitatud brauser hangib ka tunnuse, mida YouTube enne allalaadimist ootab, nii et YouTube ei kärbi allalaadimist vähemate vormingute peale. URL-i kasti ümbris jookseb kõigi nende piirangute otsa. Üksikasjad: [Miks Arroxy](#why-explore).",
+  last_updated: "Viimati uuendatud: {{LAST_UPDATED}}.",
   toc_heading: "Sisukord",
   why_h2: "Miks Arroxy",
   features_h2: "Funktsioonid",

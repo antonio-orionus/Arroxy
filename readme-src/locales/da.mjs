@@ -103,6 +103,11 @@ export const da = {
   star_cta: "Hvis Arroxy sparer dig tid, hjælper en ⭐ andre med at finde den.",
   ai_notice:
     "> 🌐 Denne oversættelse er lavet med hjælp fra AI. [Den engelske README](README.md) er den gældende kilde. Fundet en fejl? [Åbn en PR](../../pulls).",
+  intro_what_is:
+    "**Hvad er Arroxy?** Arroxy er en gratis open source-grænseflade til computeren, der downloader videoer, lyd, afspilningslister og undertekster fra YouTube og over 2000 andre websteder, som [yt-dlp](https://github.com/yt-dlp/yt-dlp) understøtter. Den kører på Windows 10/11, macOS 13+ (Intel + Apple Silicon) og Linux (AppImage, Flatpak, tar.gz). Licenseret under GPLv3. Ingen reklamer, ingen brugsgrænser. Distribueres via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage og direkte download.",
+  intro_key_difference:
+    "**Den afgørende forskel: en indbygget browser.** De fleste gratis YouTube-downloadere er tynde yt-dlp-indpakninger: et URL-felt og en formatmenu uden en browser af deres egen. Arroxy har en, **fanen Udforsk**. Du surfer på YouTube eller et hvilket som helst andet websted i appen og downloader den video, afspilningsliste eller kanal, du er på, eller højreklikker på et vilkårligt link. Du logger ind én gang i Udforsk, og Arroxy downloader private videoer, videoer kun for medlemmer og aldersbegrænsede videoer, som din konto kan se, plus dine lister Se senere og Synes godt om, uden cookie-eksport. Log også ind på andre websteder der, så bruger deres downloads det login, når de har brug for det. Arroxy prøver igen med det login, når YouTube beder dig bekræfte, at du ikke er en robot. Den indbyggede browser henter også det token, YouTube forventer før et download, så YouTube ikke skærer et download ned til færre formater. En indpakning med et URL-felt løber ind i alle disse grænser. Se [Hvorfor Arroxy](#why-explore).",
+  last_updated: "Sidst opdateret: {{LAST_UPDATED}}.",
   toc_heading: "Indhold",
   why_h2: "Hvorfor Arroxy",
   features_h2: "Funktioner",

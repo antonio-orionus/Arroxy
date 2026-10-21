@@ -1506,6 +1506,8 @@
 				"dialog": {
 					"cancelButton": "Отмена"
 				},
+				"noLink": "В буфере обмена нет ссылки",
+				"readFailed": "Не удалось прочитать буфер обмена — вставь ссылку в поле",
 				"replacedLink": "Заменено скопированной ссылкой",
 				"toggle": "Следить за буфером обмена",
 				"toggleDescription": "Автоматически подставляет ссылку YouTube в поле URL при копировании.",
@@ -1640,6 +1642,7 @@
 					"seconds": "сек"
 				}
 			},
+			"pasteLink": "Вставить ссылку",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "Текущий лимит: {{count}} элементов",
@@ -1683,6 +1686,21 @@
 				"badgeCustom": "Пользовательский",
 				"badgeDisabled": "Скрыт",
 				"badgeModified": "Изменён",
+				"builtinName": {
+					"audio-only": "Только аудио",
+					"balanced": "Сбалансированный 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Лучшее качество",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Минимальное качество 144p",
+					"low-240": "Экономия трафика 240p",
+					"mp4-1080": "Смарт-ТВ 1080p",
+					"mp4-480": "Смарт-ТВ 480p",
+					"mp4-720": "Смарт-ТВ 720p",
+					"small-file": "Маленький файл 480p",
+					"subtitles-only": "Только субтитры"
+				},
 				"changeGlobalDestination": "Изменить общую папку назначения",
 				"destinationDetail": {
 					"global": "Используется общая папка назначения",

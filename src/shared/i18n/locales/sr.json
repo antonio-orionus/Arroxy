@@ -1475,6 +1475,8 @@
 				"dialog": {
 					"cancelButton": "Откажи"
 				},
+				"noLink": "Нема линка у клипборду",
+				"readFailed": "Није могуће прочитати клипборд — налепи линк у поље",
 				"replacedLink": "Замењено копираним линком",
 				"toggle": "Прати клипборд",
 				"toggleDescription": "Аутоматски попуни поље URL-а када копираш YouTube линк.",
@@ -1609,6 +1611,7 @@
 					"seconds": "сек"
 				}
 			},
+			"pasteLink": "Налепи линк",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "Тренутно ограничење: {{count}} ставки",
@@ -1652,6 +1655,21 @@
 				"badgeCustom": "Прилагођено",
 				"badgeDisabled": "Скривено",
 				"badgeModified": "Измењено",
+				"builtinName": {
+					"audio-only": "Само аудио",
+					"balanced": "Уравнотежено 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Најбољи квалитет",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Најнижи квалитет 144p",
+					"low-240": "Штедња података 240p",
+					"mp4-1080": "Паметни TV 1080p",
+					"mp4-480": "Паметни TV 480p",
+					"mp4-720": "Паметни TV 720p",
+					"small-file": "Мала датотека 480p",
+					"subtitles-only": "Само титлови"
+				},
 				"changeGlobalDestination": "Промени глобално одредиште",
 				"destinationDetail": {
 					"global": "Користи се глобално одредиште",

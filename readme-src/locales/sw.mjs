@@ -102,6 +102,11 @@ export const sw = {
   website_url: "https://arroxy.com/",
   star_cta: "Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.",
   ai_notice: "",
+  intro_what_is:
+    "**Arroxy ni nini?** Arroxy ni programu huria ya bure ya eneo-kazi yenye kiolesura cha picha (GUI) inayopakua video, sauti, orodha za kucheza, na manukuu kutoka YouTube na tovuti nyingine zaidi ya 2000 zinazoungwa mkono na [yt-dlp](https://github.com/yt-dlp/yt-dlp). Inafanya kazi kwenye Windows 10/11, macOS 13+ (Intel + Apple Silicon), na Linux (AppImage, Flatpak, tar.gz). Ina leseni ya GPLv3. Hakuna matangazo, hakuna kikomo cha matumizi. Inasambazwa kupitia [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, na upakuaji wa moja kwa moja.",
+  intro_key_difference:
+    "**Tofauti kuu: kivinjari kilichojengewa ndani.** Vipakuzi vingi vya bure vya YouTube ni vifuniko vyembamba vya yt-dlp: kisanduku cha URL na menyu ya miundo, bila kivinjari chao wenyewe. Arroxy ina kimoja, **kichupo cha Explore**. Unavinjari YouTube au tovuti nyingine yoyote ndani ya programu na kupakua video, orodha ya kucheza, au kituo ulichopo, au kubofya kulia kiungo chochote. Unaingia mara moja katika Explore, na Arroxy hupakua video za faragha, za wanachama pekee, na zenye kikomo cha umri ambazo akaunti yako inaweza kutazama, pamoja na orodha zako za Tazama Baadaye na Zilizopendwa, bila kuhamisha vidakuzi. Ingia pia kwenye tovuti nyingine humo, na upakuaji wao hutumia kuingia huko pale unapohitajika. Hujaribu tena kwa kuingia huko YouTube inapokuomba uthibitishe kuwa wewe si roboti. Kivinjari chake kilichojengewa ndani pia hupata tokeni ambayo YouTube inatarajia kabla ya upakuaji, ili YouTube isipunguze upakuaji hadi miundo michache zaidi. Kifuniko cha kisanduku cha URL hukumbwa na vikwazo hivi vyote. Maelezo: [Kwa Nini Arroxy](#why-explore).",
+  last_updated: "Imesasishwa mara ya mwisho: {{LAST_UPDATED}}.",
   toc_heading: "Yaliyomo",
   why_h2: "Kwa Nini Arroxy",
   features_h2: "Vipengele",

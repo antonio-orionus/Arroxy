@@ -1506,6 +1506,8 @@
 				"dialog": {
 					"cancelButton": "Zrušiť"
 				},
+				"noLink": "V schránke nie je žiadny odkaz",
+				"readFailed": "Schránku sa nepodarilo prečítať – vložte odkaz do poľa",
 				"replacedLink": "Nahradené skopírovaným odkazom",
 				"toggle": "Sledovať schránku",
 				"toggleDescription": "Pri skopírovaní odkazu na video automaticky vyplní pole adresy URL.",
@@ -1640,6 +1642,7 @@
 					"seconds": "s"
 				}
 			},
+			"pasteLink": "Vložiť odkaz",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Aktuálny limit: {{count}} položiek",
@@ -1683,6 +1686,21 @@
 				"badgeCustom": "Vlastný",
 				"badgeDisabled": "Skrytý",
 				"badgeModified": "Upravený",
+				"builtinName": {
+					"audio-only": "Iba zvuk",
+					"balanced": "Vyvážené 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Najlepšia kvalita",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Najnižšia kvalita 144p",
+					"low-240": "Úspora dát 240p",
+					"mp4-1080": "Smart TV 1080p",
+					"mp4-480": "Smart TV 480p",
+					"mp4-720": "Smart TV 720p",
+					"small-file": "Malý súbor 480p",
+					"subtitles-only": "Iba titulky"
+				},
 				"changeGlobalDestination": "Zmeniť globálny cieľ",
 				"destinationDetail": {
 					"global": "Používa sa globálny cieľ",

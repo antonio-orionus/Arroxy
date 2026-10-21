@@ -104,6 +104,11 @@ export const tr = {
     "Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yardım eder.",
   ai_notice:
     "> 🌐 Bu, yapay zeka destekli bir çeviridir. [İngilizce README](README.md) gerçek kaynak kabul edilir. Hata mı gördün? [PR'lar memnuniyetle karşılanır](../../pulls).",
+  intro_what_is:
+    "**Arroxy nedir?** Arroxy; YouTube'dan ve [yt-dlp](https://github.com/yt-dlp/yt-dlp) tarafından desteklenen 2000'den fazla başka siteden video, ses, oynatma listesi ve altyazı indiren, ücretsiz ve açık kaynaklı bir masaüstü arayüzüdür. Windows 10/11, macOS 13+ (Intel + Apple Silicon) ve Linux (AppImage, Flatpak, tar.gz) üzerinde çalışır. GPLv3 lisanslıdır. Reklam yok, kullanım sınırı yok. [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage ve doğrudan indirme yoluyla dağıtılır.",
+  intro_key_difference:
+    "**Temel fark: yerleşik tarayıcı.** Ücretsiz YouTube indiricilerinin çoğu ince yt-dlp sarmalayıcılarıdır: bir URL kutusu ve bir biçim menüsü, kendi tarayıcıları yok. Arroxy'de var: **Explore sekmesi**. YouTube'da ya da başka herhangi bir sitede uygulamanın içinde gezinirsin; açık olan videoyu, oynatma listesini veya kanalı indirirsin ya da herhangi bir bağlantıya sağ tıklarsın. Explore'da bir kez giriş yaparsın; Arroxy çerez dışa aktarmadan hesabının izleyebildiği özel, üyelere özel ve yaş kısıtlamalı videoları, ayrıca Daha Sonra İzle ve Beğenilenler listelerini indirir. Başka sitelerde de orada giriş yap; onların indirmeleri gerektiğinde bu girişi kullanır. YouTube robot olmadığını doğrulamanı istediğinde de bu girişle yeniden dener. Yerleşik tarayıcısı ayrıca YouTube'un indirmeden önce beklediği belirteci de alır, böylece YouTube indirmeyi daha az biçime indirgemez. Yalnızca URL kutusu olan bir sarmalayıcı bu sınırların hepsine takılır. Ayrıntılar: [Neden Arroxy](#why-explore).",
+  last_updated: "Son güncelleme: {{LAST_UPDATED}}.",
   toc_heading: "İçindekiler",
   why_h2: "Neden Arroxy",
   features_h2: "Özellikler",

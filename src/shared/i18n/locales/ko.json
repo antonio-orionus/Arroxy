@@ -1413,6 +1413,8 @@
 				"dialog": {
 					"cancelButton": "취소"
 				},
+				"noLink": "클립보드에 링크가 없습니다",
+				"readFailed": "클립보드를 읽지 못했습니다. 대신 입력란에 링크를 붙여 넣으세요",
 				"replacedLink": "복사한 링크로 바뀜",
 				"toggle": "클립보드 감시",
 				"toggleDescription": "동영상 링크를 복사하면 URL 필드를 자동으로 채웁니다.",
@@ -1547,6 +1549,7 @@
 					"seconds": "초"
 				}
 			},
+			"pasteLink": "링크 붙여넣기",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "현재 제한: {{count}}개 항목",
@@ -1590,6 +1593,21 @@
 				"badgeCustom": "사용자 지정",
 				"badgeDisabled": "숨김",
 				"badgeModified": "수정됨",
+				"builtinName": {
+					"audio-only": "오디오만",
+					"balanced": "균형 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "최고 품질",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "최저 화질 144p",
+					"low-240": "데이터 절약 240p",
+					"mp4-1080": "스마트 TV 1080p",
+					"mp4-480": "스마트 TV 480p",
+					"mp4-720": "스마트 TV 720p",
+					"small-file": "작은 파일 480p",
+					"subtitles-only": "자막만"
+				},
 				"changeGlobalDestination": "전역 대상 변경",
 				"destinationDetail": {
 					"global": "전역 대상 사용 중",

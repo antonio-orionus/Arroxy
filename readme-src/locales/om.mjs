@@ -103,6 +103,11 @@ export const om = {
   star_cta:
     "Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.",
   ai_notice: "",
+  intro_what_is:
+    "**Arroxy maali?** Arroxy GUI desktop bilisaa fi madda banaa kan viidiyoo, sagalee, playlist fi axxiinni YouTube fi marsariitiiwwan [yt-dlp](https://github.com/yt-dlp/yt-dlp)'n deeggaraman 2000+ biroo irraa buusudha. Windows 10/11, macOS 13+ (Intel + Apple Silicon), fi Linux (AppImage, Flatpak, tar.gz) irratti hojjeta. Hayyama GPLv3. Beeksisni hin jiru, daangaan fayyadamaa hin jiru. [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage fi buufannaa kallattiin ni raabsama.",
+  intro_key_difference:
+    "**Garaagarummaa ijoo: biraawzara keessa ijaarame.** Buufattoonni YouTube bilisaa baay'een wraapperii yt-dlp salphaa dha: saanduqa URL fi menu formaataa, biraawzara mataa isaanii malee. Arroxy tokko qaba, tabii **Daawwannaa**. YouTube ykn marsariitii biraa kamiyyuu app keessatti ilaaltu, viidiyoo, playlist ykn channel irra jirtu buufatta, ykn hidhaa kamiyyuu irratti right-click godhita. Daawwannaa keessatti altokko seenta, Arroxy immoo viidiyoowwan dhuunfaa, miseensoota qofaaf fi umuriin daangeffaman akkaawuntiin kee ilaaluu danda'u, akkasumas tarreewwan Booda Ilaali fi Jaallatamte kee, kuukkii baasuu malee ni buusa. Marsariitiiwwan biraatti illee achitti seeni, buufannaan isaanii yeroo barbaachisu seensa sana fayyadama. YouTube bot akka hin taane akka mirkaneessitu yeroo gaafatu, seensa sanaan irra deebi'ee yaala. Biraawzarri isaa keessa ijaarame tokenii YouTube buufannaa dura eegu illee ni argata, kanaaf YouTube buufannaa formaata xiqqaatti hin hir'isu. Wraapperiin saanduqa URL qofa qabu daangaa kana hundatti dhaqqaba. Bal'inaan: [Maaliif Arroxy](#why-explore).",
+  last_updated: "Yeroo dhumaa haaromfame: {{LAST_UPDATED}}.",
   toc_heading: "Qabiyyee",
   why_h2: "Maaliif Arroxy",
   features_h2: "Amaloota",

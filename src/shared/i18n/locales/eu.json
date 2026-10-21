@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "Utzi"
 				},
+				"noLink": "Ez dago estekarik arbelean",
+				"readFailed": "Ezin izan da arbela irakurri — itsatsi esteka eremuan",
 				"replacedLink": "Kopiatutako estekarekin ordeztu da",
 				"toggle": "Zaindu arbela",
 				"toggleDescription": "Bete URL eremua automatikoki bideo-esteka bat kopiatzen duzunean.",
@@ -1578,6 +1580,7 @@
 					"seconds": "s"
 				}
 			},
+			"pasteLink": "Itsatsi esteka",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Uneko muga: {{count}} elementu",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "Pertsonalizatua",
 				"badgeDisabled": "Ezkutua",
 				"badgeModified": "Aldatua",
+				"builtinName": {
+					"audio-only": "Audioa soilik",
+					"balanced": "Orekatua 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Kalitate onena",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Kalitate baxuena 144p",
+					"low-240": "Datu gutxi 240p",
+					"mp4-1080": "Smart TV 1080p",
+					"mp4-480": "Smart TV 480p",
+					"mp4-720": "Smart TV 720p",
+					"small-file": "Fitxategi txikia 480p",
+					"subtitles-only": "Azpitituluak soilik"
+				},
 				"changeGlobalDestination": "Aldatu helburu orokorra",
 				"destinationDetail": {
 					"global": "Helburu orokorra erabiltzen",

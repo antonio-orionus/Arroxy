@@ -1475,6 +1475,8 @@
 				"dialog": {
 					"cancelButton": "Odustani"
 				},
+				"noLink": "U međuspremniku nema poveznice",
+				"readFailed": "Međuspremnik nije moguće pročitati — zalijepite poveznicu u polje",
 				"replacedLink": "Zamijenjeno kopiranom poveznicom",
 				"toggle": "Prati međuspremnik",
 				"toggleDescription": "Automatski ispunjava polje URL-a kad kopirate poveznicu na videozapis.",
@@ -1609,6 +1611,7 @@
 					"seconds": "s"
 				}
 			},
+			"pasteLink": "Zalijepi poveznicu",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Trenutačno ograničenje: {{count}} stavki",
@@ -1652,6 +1655,21 @@
 				"badgeCustom": "Prilagođeni",
 				"badgeDisabled": "Skriven",
 				"badgeModified": "Izmijenjen",
+				"builtinName": {
+					"audio-only": "Samo audio",
+					"balanced": "Uravnoteženo 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Najbolja kvaliteta",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Najniža kvaliteta 144p",
+					"low-240": "Štednja podataka 240p",
+					"mp4-1080": "Smart TV 1080p",
+					"mp4-480": "Smart TV 480p",
+					"mp4-720": "Smart TV 720p",
+					"small-file": "Mala datoteka 480p",
+					"subtitles-only": "Samo titlovi"
+				},
 				"changeGlobalDestination": "Promijeni globalno odredište",
 				"destinationDetail": {
 					"global": "Koristi se globalno odredište",

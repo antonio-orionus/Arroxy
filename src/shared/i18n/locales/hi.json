@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "रद्द करें"
 				},
+				"noLink": "क्लिपबोर्ड में कोई लिंक नहीं है",
+				"readFailed": "क्लिपबोर्ड पढ़ा नहीं जा सका — इसके बजाय लिंक को फ़ील्ड में पेस्ट करें",
 				"replacedLink": "कॉपी किए गए लिंक से बदला गया",
 				"toggle": "क्लिपबोर्ड देखें",
 				"toggleDescription": "YouTube लिंक कॉपी करने पर URL फ़ील्ड स्वतः भर जाता है।",
@@ -1578,6 +1580,7 @@
 					"seconds": "से."
 				}
 			},
+			"pasteLink": "लिंक पेस्ट करें",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "वर्तमान सीमा: {{count}} आइटम",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "कस्टम",
 				"badgeDisabled": "छिपा हुआ",
 				"badgeModified": "बदला हुआ",
+				"builtinName": {
+					"audio-only": "केवल ऑडियो",
+					"balanced": "संतुलित 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "सर्वोत्तम गुणवत्ता",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "सबसे कम गुणवत्ता 144p",
+					"low-240": "कम डेटा 240p",
+					"mp4-1080": "स्मार्ट TV 1080p",
+					"mp4-480": "स्मार्ट TV 480p",
+					"mp4-720": "स्मार्ट TV 720p",
+					"small-file": "छोटी फ़ाइल 480p",
+					"subtitles-only": "केवल उपशीर्षक"
+				},
 				"changeGlobalDestination": "वैश्विक गंतव्य बदलें",
 				"destinationDetail": {
 					"global": "वैश्विक गंतव्य का उपयोग",

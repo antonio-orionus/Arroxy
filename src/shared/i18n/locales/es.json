@@ -1475,6 +1475,8 @@
 				"dialog": {
 					"cancelButton": "Cancelar"
 				},
+				"noLink": "No hay ningún enlace en el portapapeles",
+				"readFailed": "No se pudo leer el portapapeles — pega el enlace en el campo",
 				"replacedLink": "Reemplazado por el enlace copiado",
 				"toggle": "Vigilar portapapeles",
 				"toggleDescription": "Rellena automáticamente el campo URL al copiar un enlace de YouTube.",
@@ -1609,6 +1611,7 @@
 					"seconds": "seg"
 				}
 			},
+			"pasteLink": "Pegar enlace",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "Límite actual: {{count}} elementos",
@@ -1652,6 +1655,21 @@
 				"badgeCustom": "Personalizado",
 				"badgeDisabled": "Oculto",
 				"badgeModified": "Modificado",
+				"builtinName": {
+					"audio-only": "Solo audio",
+					"balanced": "Equilibrado 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Mejor calidad",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Calidad mínima 144p",
+					"low-240": "Ahorro de datos 240p",
+					"mp4-1080": "TV inteligente 1080p",
+					"mp4-480": "TV inteligente 480p",
+					"mp4-720": "TV inteligente 720p",
+					"small-file": "Archivo pequeño 480p",
+					"subtitles-only": "Solo subtítulos"
+				},
 				"changeGlobalDestination": "Cambiar destino global",
 				"destinationDetail": {
 					"global": "Usando destino global",

@@ -4565,6 +4565,14 @@ msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "Скасувати"
 
+msgctxt "wizard.url.clipboard.noLink"
+msgid "No link in the clipboard"
+msgstr "У буфері обміну немає посилання"
+
+msgctxt "wizard.url.clipboard.readFailed"
+msgid "Couldn't read the clipboard — paste the link into the field instead"
+msgstr "Не вдалося прочитати буфер обміну — натомість встав посилання в поле"
+
 msgctxt "wizard.url.clipboard.replacedLink"
 msgid "Replaced with copied link"
 msgstr "Замінено скопійованим посиланням"
@@ -4969,6 +4977,10 @@ msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "сек"
 
+msgctxt "wizard.url.pasteLink"
+msgid "Paste link"
+msgstr "Вставити посилання"
+
 msgctxt "wizard.url.placeholder"
 msgid "https://..."
 msgstr "https://www.youtube.com/watch?v=..."
@@ -5120,6 +5132,58 @@ msgstr "Приховано"
 msgctxt "wizard.url.profile.badgeModified"
 msgid "Modified"
 msgstr "Змінено"
+
+msgctxt "wizard.url.profile.builtinName.audio-only"
+msgid "Audio only"
+msgstr "Лише аудіо"
+
+msgctxt "wizard.url.profile.builtinName.balanced"
+msgid "Balanced 720p"
+msgstr "Збалансований 720p"
+
+msgctxt "wizard.url.profile.builtinName.best-1440"
+msgid "QHD 1440p"
+msgstr "QHD 1440p"
+
+msgctxt "wizard.url.profile.builtinName.best-2160"
+msgid "4K UHD 2160p"
+msgstr "4K UHD 2160p"
+
+msgctxt "wizard.url.profile.builtinName.best-quality"
+msgid "Best available"
+msgstr "Найкраща якість"
+
+msgctxt "wizard.url.profile.builtinName.hd-1080"
+msgid "Full HD 1080p"
+msgstr "Full HD 1080p"
+
+msgctxt "wizard.url.profile.builtinName.low-144"
+msgid "Lowest 144p"
+msgstr "Найнижча якість 144p"
+
+msgctxt "wizard.url.profile.builtinName.low-240"
+msgid "Low data 240p"
+msgstr "Мало даних 240p"
+
+msgctxt "wizard.url.profile.builtinName.mp4-1080"
+msgid "Smart TV 1080p"
+msgstr "Смарт-ТВ 1080p"
+
+msgctxt "wizard.url.profile.builtinName.mp4-480"
+msgid "Smart TV 480p"
+msgstr "Смарт-ТВ 480p"
+
+msgctxt "wizard.url.profile.builtinName.mp4-720"
+msgid "Smart TV 720p"
+msgstr "Смарт-ТВ 720p"
+
+msgctxt "wizard.url.profile.builtinName.small-file"
+msgid "Small file 480p"
+msgstr "Малий файл 480p"
+
+msgctxt "wizard.url.profile.builtinName.subtitles-only"
+msgid "Subtitles only"
+msgstr "Тільки субтитри"
 
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"

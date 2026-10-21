@@ -103,6 +103,11 @@ export const uz = {
   star_cta:
     "Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.",
   ai_notice: "",
+  intro_what_is:
+    "**Arroxy nima?** Arroxy — YouTube hamda [yt-dlp](https://github.com/yt-dlp/yt-dlp) qo'llab-quvvatlaydigan 2000 dan ortiq boshqa saytlardan video, audio, pleylist va subtitrlarni yuklab oladigan bepul, ochiq manbali desktop ilovasi (GUI). U Windows 10/11, macOS 13+ (Intel + Apple Silicon) va Linux (AppImage, Flatpak, tar.gz) da ishlaydi. GPLv3 litsenziyasi ostida. Reklama yo'q, foydalanish cheklovlari yo'q. [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage va to'g'ridan-to'g'ri yuklab olish orqali tarqatiladi.",
+  intro_key_difference:
+    "**Asosiy farq: o'rnatilgan brauzer.** Ko'pchilik bepul YouTube yuklovchilari yupqa yt-dlp qobiqlaridir: URL maydoni va format menyusi, o'z brauzeri yo'q. Arroxy'da u bor — **Explore bo'limi**. Siz YouTube yoki boshqa istalgan saytni ilova ichida ko'rib chiqasiz va turgan videongiz, pleylistingiz yoki kanalingizni yuklab olasiz, yoki istalgan havolani o'ng tugma bilan bosasiz. Explore'da bir marta tizimga kirasiz, shunda Arroxy hisobingiz ko'ra oladigan yopiq, faqat a'zolar uchun va yosh chegarali videolarni, shuningdek “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringizni kukilarni eksport qilmasdan yuklab oladi. Boshqa saytlarga ham shu yerda kiring — ularning yuklamalari kerak bo'lganda shu kirishdan foydalanadi. YouTube robot emasligingizni tasdiqlashni so'rasa, Arroxy shu kirish bilan qayta urinib ko'radi. Uning o'rnatilgan brauzeri yuklab olishdan oldin YouTube kutadigan tokenni ham oladi, shuning uchun YouTube yuklab olishni kamroq formatgacha qisqartirmaydi. Faqat URL maydonidan iborat qobiq bu cheklovlarning barchasiga duch keladi. Batafsil: [Nima uchun Arroxy](#why-explore).",
+  last_updated: "Oxirgi yangilanish: {{LAST_UPDATED}}.",
   toc_heading: "Mundarija",
   why_h2: "Nima uchun Arroxy",
   features_h2: "Xususiyatlar",

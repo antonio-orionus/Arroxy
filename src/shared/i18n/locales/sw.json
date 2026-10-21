@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "Ghairi"
 				},
+				"noLink": "Hakuna kiungo kwenye ubao wa kunakili",
+				"readFailed": "Imeshindwa kusoma ubao wa kunakili — bandika kiungo kwenye sehemu hiyo badala yake",
 				"replacedLink": "Imebadilishwa na kiungo kilichonakiliwa",
 				"toggle": "Angalia ubao wa kunakili",
 				"toggleDescription": "Jaza sehemu ya URL kiotomatiki unaponakili kiungo cha YouTube.",
@@ -1578,6 +1580,7 @@
 					"seconds": "sek"
 				}
 			},
+			"pasteLink": "Bandika kiungo",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "Kikomo cha sasa: vipande {{count}}",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "Maalum",
 				"badgeDisabled": "Imefichwa",
 				"badgeModified": "Imebadilishwa",
+				"builtinName": {
+					"audio-only": "Sauti pekee",
+					"balanced": "Uwiano 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Ubora wa juu zaidi",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Ubora wa chini kabisa 144p",
+					"low-240": "Data ndogo 240p",
+					"mp4-1080": "Runinga janja 1080p",
+					"mp4-480": "Runinga janja 480p",
+					"mp4-720": "Runinga janja 720p",
+					"small-file": "Faili ndogo 480p",
+					"subtitles-only": "Manukuu peke yake"
+				},
 				"changeGlobalDestination": "Badilisha mahali pa kuhifadhi kwa jumla",
 				"destinationDetail": {
 					"global": "Inatumia mahali pa kuhifadhi kwa jumla",

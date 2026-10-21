@@ -104,6 +104,11 @@ export const vi = {
   star_cta:
     "Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp người khác tìm thấy nó.",
   ai_notice: "",
+  intro_what_is:
+    "**Arroxy là gì?** Arroxy là ứng dụng desktop (GUI) miễn phí, mã nguồn mở, dùng để tải video, âm thanh, danh sách phát và phụ đề từ YouTube cùng hơn 2000 trang khác được [yt-dlp](https://github.com/yt-dlp/yt-dlp) hỗ trợ. Ứng dụng chạy trên Windows 10/11, macOS 13+ (Intel + Apple Silicon) và Linux (AppImage, Flatpak, tar.gz). Giấy phép GPLv3. Không quảng cáo, không giới hạn sử dụng. Phân phối qua [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage và tải trực tiếp.",
+  intro_key_difference:
+    "**Điểm khác biệt chính: trình duyệt tích hợp.** Hầu hết trình tải YouTube miễn phí chỉ là lớp bao mỏng quanh yt-dlp: một ô nhập URL và một menu định dạng, không có trình duyệt riêng. Arroxy thì có, đó là **tab Explore**. Bạn duyệt YouTube hoặc bất kỳ trang nào khác ngay trong ứng dụng và tải video, danh sách phát hoặc kênh đang mở, hoặc nhấp chuột phải vào bất kỳ liên kết nào. Bạn đăng nhập một lần trong Explore, và Arroxy tải video riêng tư, video dành cho thành viên và video giới hạn độ tuổi mà tài khoản của bạn xem được, cùng danh sách Xem sau và Video đã thích của bạn, mà không cần xuất cookie. Bạn cũng có thể đăng nhập các trang khác tại đó, và các lượt tải từ những trang này sẽ dùng đăng nhập đó khi cần. Arroxy thử lại bằng đăng nhập đó khi YouTube yêu cầu xác nhận bạn không phải robot. Trình duyệt tích hợp cũng lấy token mà YouTube mong đợi trước khi tải, nên YouTube không cắt bớt số định dạng của lượt tải. Một lớp bao chỉ có ô nhập URL sẽ vướng tất cả những giới hạn này. Chi tiết: [Tại sao chọn Arroxy](#why-explore).",
+  last_updated: "Cập nhật lần cuối: {{LAST_UPDATED}}.",
   toc_heading: "Mục lục",
   why_h2: "Tại sao chọn Arroxy",
   features_h2: "Tính năng",

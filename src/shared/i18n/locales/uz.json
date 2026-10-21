@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "Bekor qilish"
 				},
+				"noLink": "Buferda havola yo‘q",
+				"readFailed": "Buferni o‘qib bo‘lmadi — o‘rniga havolani maydonga joylashtiring",
 				"replacedLink": "Nusxalangan havola bilan almashtirildi",
 				"toggle": "Buferga nazar solish",
 				"toggleDescription": "YouTube havolasini nusxalaganda URL maydonini avtomatik to'ldiradi.",
@@ -1578,6 +1580,7 @@
 					"seconds": "soniya"
 				}
 			},
+			"pasteLink": "Havolani joylash",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "Joriy chegara: {{count}} ta element",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "Maxsus",
 				"badgeDisabled": "Yashirin",
 				"badgeModified": "O‘zgartirilgan",
+				"builtinName": {
+					"audio-only": "Faqat audio",
+					"balanced": "Muvozanatli 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Eng yaxshi sifat",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Eng past sifat 144p",
+					"low-240": "Kam trafik 240p",
+					"mp4-1080": "Aqlli TV 1080p",
+					"mp4-480": "Aqlli TV 480p",
+					"mp4-720": "Aqlli TV 720p",
+					"small-file": "Kichik fayl 480p",
+					"subtitles-only": "Faqat subtitrlar"
+				},
 				"changeGlobalDestination": "Umumiy saqlash manzilini o'zgartirish",
 				"destinationDetail": {
 					"global": "Umumiy saqlash manzili ishlatilmoqda",

@@ -4100,6 +4100,14 @@ msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "បោះបង់"
 
+msgctxt "wizard.url.clipboard.noLink"
+msgid "No link in the clipboard"
+msgstr "គ្មានតំណក្នុងក្តារតម្បៀតខ្ទាស់"
+
+msgctxt "wizard.url.clipboard.readFailed"
+msgid "Couldn't read the clipboard — paste the link into the field instead"
+msgstr "មិនអាចអានក្តារតម្បៀតខ្ទាស់បានទេ — សូមបិទភ្ជាប់តំណក្នុងប្រអប់ជំនួសវិញ"
+
 msgctxt "wizard.url.clipboard.replacedLink"
 msgid "Replaced with copied link"
 msgstr "បានជំនួសដោយតំណដែលបានចម្លង"
@@ -4504,6 +4512,10 @@ msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "វិនាទី"
 
+msgctxt "wizard.url.pasteLink"
+msgid "Paste link"
+msgstr "បិទភ្ជាប់តំណ"
+
 msgctxt "wizard.url.placeholder"
 msgid "https://..."
 msgstr "https://..."
@@ -4655,6 +4667,58 @@ msgstr "បានលាក់"
 msgctxt "wizard.url.profile.badgeModified"
 msgid "Modified"
 msgstr "បានកែប្រែ"
+
+msgctxt "wizard.url.profile.builtinName.audio-only"
+msgid "Audio only"
+msgstr "តែសំឡេង"
+
+msgctxt "wizard.url.profile.builtinName.balanced"
+msgid "Balanced 720p"
+msgstr "មានតុល្យភាព 720p"
+
+msgctxt "wizard.url.profile.builtinName.best-1440"
+msgid "QHD 1440p"
+msgstr "QHD 1440p"
+
+msgctxt "wizard.url.profile.builtinName.best-2160"
+msgid "4K UHD 2160p"
+msgstr "4K UHD 2160p"
+
+msgctxt "wizard.url.profile.builtinName.best-quality"
+msgid "Best available"
+msgstr "គុណភាពល្អបំផុត"
+
+msgctxt "wizard.url.profile.builtinName.hd-1080"
+msgid "Full HD 1080p"
+msgstr "Full HD 1080p"
+
+msgctxt "wizard.url.profile.builtinName.low-144"
+msgid "Lowest 144p"
+msgstr "ទាបបំផុត 144p"
+
+msgctxt "wizard.url.profile.builtinName.low-240"
+msgid "Low data 240p"
+msgstr "សន្សំទិន្នន័យ 240p"
+
+msgctxt "wizard.url.profile.builtinName.mp4-1080"
+msgid "Smart TV 1080p"
+msgstr "ទូរទស្សន៍ឆ្លាតវៃ 1080p"
+
+msgctxt "wizard.url.profile.builtinName.mp4-480"
+msgid "Smart TV 480p"
+msgstr "ទូរទស្សន៍ឆ្លាតវៃ 480p"
+
+msgctxt "wizard.url.profile.builtinName.mp4-720"
+msgid "Smart TV 720p"
+msgstr "ទូរទស្សន៍ឆ្លាតវៃ 720p"
+
+msgctxt "wizard.url.profile.builtinName.small-file"
+msgid "Small file 480p"
+msgstr "ឯកសារតូច 480p"
+
+msgctxt "wizard.url.profile.builtinName.subtitles-only"
+msgid "Subtitles only"
+msgstr "តែអក្សររត់"
 
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"

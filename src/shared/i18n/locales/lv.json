@@ -1475,6 +1475,8 @@
 				"dialog": {
 					"cancelButton": "Atcelt"
 				},
+				"noLink": "Starpliktuvē nav saites",
+				"readFailed": "Neizdevās nolasīt starpliktuvi — ielīmējiet saiti laukā",
 				"replacedLink": "Aizstāts ar nokopēto saiti",
 				"toggle": "Vērot starpliktuvi",
 				"toggleDescription": "Automātiski aizpilda URL lauku, kad nokopējat video saiti.",
@@ -1609,6 +1611,7 @@
 					"seconds": "s"
 				}
 			},
+			"pasteLink": "Ielīmēt saiti",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Pašreizējais limits: {{count}} vienumi",
@@ -1652,6 +1655,21 @@
 				"badgeCustom": "Pielāgots",
 				"badgeDisabled": "Paslēpts",
 				"badgeModified": "Mainīts",
+				"builtinName": {
+					"audio-only": "Tikai audio",
+					"balanced": "Sabalansēts 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Labākā kvalitāte",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Zemākā kvalitāte 144p",
+					"low-240": "Maz datu 240p",
+					"mp4-1080": "Smart TV 1080p",
+					"mp4-480": "Smart TV 480p",
+					"mp4-720": "Smart TV 720p",
+					"small-file": "Mazs fails 480p",
+					"subtitles-only": "Tikai subtitri"
+				},
 				"changeGlobalDestination": "Mainīt globālo galamērķi",
 				"destinationDetail": {
 					"global": "Izmanto globālo galamērķi",

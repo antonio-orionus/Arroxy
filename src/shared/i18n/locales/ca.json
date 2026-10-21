@@ -1475,6 +1475,8 @@
 				"dialog": {
 					"cancelButton": "Cancel·la"
 				},
+				"noLink": "No hi ha cap enllaç al porta-retalls",
+				"readFailed": "No s'ha pogut llegir el porta-retalls: enganxa l'enllaç al camp",
 				"replacedLink": "Substituït per l'enllaç copiat",
 				"toggle": "Vigila el porta-retalls",
 				"toggleDescription": "Emplena automàticament el camp d'URL quan copies l'enllaç d'un vídeo.",
@@ -1609,6 +1611,7 @@
 					"seconds": "s"
 				}
 			},
+			"pasteLink": "Enganxa l'enllaç",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Límit actual: {{count}} elements",
@@ -1652,6 +1655,21 @@
 				"badgeCustom": "Personalitzat",
 				"badgeDisabled": "Ocult",
 				"badgeModified": "Modificat",
+				"builtinName": {
+					"audio-only": "Només àudio",
+					"balanced": "Equilibrat 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Millor qualitat",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Qualitat mínima 144p",
+					"low-240": "Estalvi de dades 240p",
+					"mp4-1080": "Smart TV 1080p",
+					"mp4-480": "Smart TV 480p",
+					"mp4-720": "Smart TV 720p",
+					"small-file": "Fitxer petit 480p",
+					"subtitles-only": "Només subtítols"
+				},
 				"changeGlobalDestination": "Canvia la destinació global",
 				"destinationDetail": {
 					"global": "Usa la destinació global",

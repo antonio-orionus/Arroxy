@@ -102,6 +102,11 @@ export const nl = {
   website_url: "https://arroxy.com/",
   star_cta: "Bespaart Arroxy je tijd? Met een ⭐ help je anderen het te vinden.",
   ai_notice: "> 🌐 Deze vertaling is tot stand gekomen met behulp van AI. De [Engelse README](README.md) is de leidende bron. Een fout gevonden? [Open een PR](../../pulls).",
+  intro_what_is:
+    "**Wat is Arroxy?** Arroxy is een gratis, opensource desktop-GUI die video’s, audio, afspeellijsten en ondertitels downloadt van YouTube en 2000+ andere sites die [yt-dlp](https://github.com/yt-dlp/yt-dlp) ondersteunt. Het draait op Windows 10/11, macOS 13+ (Intel + Apple Silicon) en Linux (AppImage, Flatpak, tar.gz). Onder GPLv3-licentie. Geen advertenties, geen gebruikslimieten. Verspreid via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage en directe download.",
+  intro_key_difference:
+    "**Het belangrijkste verschil: een ingebouwde browser.** De meeste gratis YouTube-downloaders zijn dunne yt-dlp-wrappers: een URL-vak en een formatmenu, zonder eigen browser. Arroxy heeft er een, het **tabblad Verkennen**. Je surft op YouTube of een andere site binnen de app en downloadt de video, afspeellijst of het kanaal waar je bent, of klikt met de rechtermuisknop op een willekeurige link. Je meldt je één keer aan in Verkennen en Arroxy downloadt privé-, ledenvideo’s en video’s met leeftijdsbeperking die je account kan bekijken, plus je lijsten Later bekijken en Leuk gevonden, zonder cookies te exporteren. Meld je daar ook aan op andere sites, dan gebruiken hun downloads die aanmelding als dat nodig is. Arroxy probeert het opnieuw met die aanmelding wanneer YouTube vraagt te bevestigen dat je geen bot bent. De ingebouwde browser haalt ook het token op dat YouTube vóór een download verwacht, zodat YouTube een download niet terugbrengt tot minder formaten. Een wrapper met alleen een URL-vak loopt tegen al deze beperkingen aan. Details: [Waarom Arroxy](#why-explore).",
+  last_updated: "Laatst bijgewerkt: {{LAST_UPDATED}}.",
   toc_heading: "Inhoud",
   why_h2: "Waarom Arroxy",
   features_h2: "Functies",

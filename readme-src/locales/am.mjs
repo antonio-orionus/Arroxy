@@ -103,6 +103,11 @@ export const am = {
   website_url: "https://arroxy.com/",
   star_cta: "Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረዳል።",
   ai_notice: "",
+  intro_what_is:
+    "**Arroxy ምንድን ነው?** Arroxy ነፃ፣ ክፍት-ምንጭ የዴስክቶፕ GUI ሲሆን ከYouTube እና ከሌሎች 2000+ በ[yt-dlp](https://github.com/yt-dlp/yt-dlp) ከሚደገፉ ጣቢያዎች ቪዲዮዎችን፣ ድምፅን፣ playlistዎችን እና ንዑስ ርዕሶችን ያወርዳል። በWindows 10/11፣ macOS 13+ (Intel + Apple Silicon) እና Linux (AppImage፣ Flatpak፣ tar.gz) ላይ ይሠራል። በGPLv3 ፈቃድ የተሰጠ ነው። ማስታወቂያ የለም፣ የአጠቃቀም ገደብ የለም። በ[Winget](https://winget.run/pkg/AntonioOrionus/Arroxy)፣ [Scoop](https://github.com/antonio-orionus/scoop-bucket)፣ [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy)፣ Flatpak፣ AppImage እና በቀጥታ ማውረድ ይሰራጫል።",
+  intro_key_difference:
+    "**ዋናው ልዩነት፡ አብሮ የተሠራ browser።** አብዛኞቹ ነፃ የYouTube ማውረጃዎች ቀጭን የyt-dlp መጠቅለያዎች ናቸው፦ የURL ሳጥን እና የቅርጸት ምናሌ፣ የራሳቸው browser የሌላቸው። Arroxy አንድ አለው፣ **Explore ትር**። በአፑ ውስጥ YouTubeን ወይም ማንኛውንም ሌላ ጣቢያ ያስሳሉ እና ያሉበትን ቪዲዮ፣ playlist ወይም ቻናል ያወርዳሉ፣ ወይም በማንኛውም ሊንክ ላይ በቀኝ ጠቅ ያደርጋሉ። በExplore ውስጥ አንድ ጊዜ ይገባሉ፣ Arroxy ደግሞ ሒሳብዎ ማየት የሚችላቸውን የግል፣ የአባላት-ብቻ እና ዕድሜ-የተገደቡ ቪዲዮዎች እንዲሁም የWatch Later እና Liked ዝርዝሮችዎን ያወርዳል፣ ኩኪዎችን ወደ ውጭ መላክ ሳያስፈልግ። ወደ ሌሎች ጣቢያዎችም እዚያ ይግቡ፣ ማውረዶቻቸውም ሲያስፈልግ ያንን መግቢያ ይጠቀማሉ። YouTube ቦት አለመሆንዎን እንዲያረጋግጡ ሲጠይቅ በዚያ መግቢያ እንደገና ይሞክራል። አብሮ የተሠራው browser ደግሞ YouTube ከማውረድ በፊት የሚጠብቀውን ቶከን ያገኛል፣ ስለዚህ YouTube ማውረድን ወደ ያነሱ ቅርጸቶች አይቀንስም። የURL ሳጥን ያለው መጠቅለያ ከእነዚህ ሁሉ ገደቦች ጋር ይጋጫል። ዝርዝሮች፦ [ለምን Arroxy](#why-explore)።",
+  last_updated: "መጨረሻ የተዘመነው፦ {{LAST_UPDATED}}።",
   toc_heading: "ዝርዝር",
   why_h2: "ለምን Arroxy",
   features_h2: "ባህሪያት",

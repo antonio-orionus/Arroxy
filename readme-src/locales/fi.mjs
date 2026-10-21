@@ -102,6 +102,11 @@ export const fi = {
   website_url: "https://arroxy.com/",
   star_cta: "Jos Arroxy säästää aikaasi, ⭐ auttaa muita löytämään sen.",
   ai_notice: "> 🌐 Tämä käännös on tehty tekoälyn avulla. [Englanninkielinen README](README.md) on ensisijainen lähde. Löysitkö virheen? [Avaa PR](../../pulls).",
+  intro_what_is:
+    "**Mikä on Arroxy?** Arroxy on ilmainen, avoimen lähdekoodin työpöytäsovellus graafisella käyttöliittymällä, joka lataa videoita, ääntä, soittolistoja ja tekstityksiä YouTubesta ja yli 2000 muulta [yt-dlp](https://github.com/yt-dlp/yt-dlp):n tukemalta sivustolta. Se toimii järjestelmissä Windows 10/11, macOS 13+ (Intel + Apple Silicon) ja Linux (AppImage, Flatpak, tar.gz). GPLv3-lisenssi. Ei mainoksia, ei käyttörajoituksia. Jakelu: [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage ja suora lataus.",
+  intro_key_difference:
+    "**Keskeinen ero: sisäänrakennettu selain.** Useimmat ilmaiset YouTube-lataajat ovat ohuita yt-dlp-kääreitä: URL-kenttä ja muotovalikko, ilman omaa selainta. Arroxyssa sellainen on, **Tutki-välilehti**. Selaat YouTubea tai mitä tahansa muuta sivustoa sovelluksen sisällä ja lataat videon, soittolistan tai kanavan, jolla olet, tai napsautat mitä tahansa linkkiä hiiren kakkospainikkeella. Kirjaudut kerran sisään Tutki-välilehdellä, ja Arroxy lataa yksityiset, vain jäsenille tarkoitetut ja ikärajoitetut videot, joita tilisi voi katsoa, sekä Katso myöhemmin- ja Tykätyt-luettelosi ilman evästeiden vientiä. Kirjaudu myös muille sivustoille siellä, ja niiden lataukset käyttävät kirjautumista tarvittaessa. Arroxy yrittää uudelleen tällä kirjautumisella, kun YouTube pyytää vahvistamaan, ettet ole botti. Sen sisäänrakennettu selain hakee myös merkin, jota YouTube odottaa ennen latausta, joten YouTube ei rajaa latausta vähempiin muotoihin. URL-kentällinen kääre törmää kaikkiin näihin rajoituksiin. Lisätietoja: [Miksi Arroxy](#why-explore).",
+  last_updated: "Päivitetty viimeksi: {{LAST_UPDATED}}.",
   toc_heading: "Sisältö",
   why_h2: "Miksi Arroxy",
   features_h2: "Ominaisuudet",

@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "منسوخ کریں"
 				},
+				"noLink": "کلپ بورڈ میں کوئی لنک نہیں",
+				"readFailed": "کلپ بورڈ پڑھا نہیں جا سکا — اس کے بجائے لنک کو فیلڈ میں پیسٹ کریں",
 				"replacedLink": "کاپی شدہ لنک سے بدل دیا گیا",
 				"toggle": "کلپ بورڈ پر نظر رکھیں",
 				"toggleDescription": "جب آپ YouTube لنک کاپی کریں تو URL فیلڈ خود بھر جائے۔",
@@ -1578,6 +1580,7 @@
 					"seconds": "سیکنڈ"
 				}
 			},
+			"pasteLink": "لنک پیسٹ کریں",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "موجودہ لمٹ: {{count}} آئٹمز",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "حسب ضرورت",
 				"badgeDisabled": "پوشیدہ",
 				"badgeModified": "ترمیم شدہ",
+				"builtinName": {
+					"audio-only": "صرف آڈیو",
+					"balanced": "متوازن 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "بہترین معیار",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "سب سے کم معیار 144p",
+					"low-240": "کم ڈیٹا 240p",
+					"mp4-1080": "سمارٹ TV 1080p",
+					"mp4-480": "سمارٹ TV 480p",
+					"mp4-720": "سمارٹ TV 720p",
+					"small-file": "چھوٹی فائل 480p",
+					"subtitles-only": "صرف سب ٹائٹلز"
+				},
 				"changeGlobalDestination": "عالمی منزل تبدیل کریں",
 				"destinationDetail": {
 					"global": "عالمی منزل استعمال ہو رہی ہے",

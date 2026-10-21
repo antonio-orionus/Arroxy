@@ -104,6 +104,11 @@ export const he = {
   star_cta: "אם Arroxy חוסך לכם זמן, ⭐ עוזר לאחרים למצוא אותו.",
   ai_notice:
     "> 🌐 תרגום זה נוצר בסיוע AI. [ה-README באנגלית](README.md) הוא המקור המחייב. מצאתם שגיאה? [פתחו PR](../../pulls).",
+  intro_what_is:
+    "**מה זה Arroxy?** Arroxy הוא ממשק גרפי חינמי בקוד פתוח למחשב שולחני, שמוריד סרטונים, שמע, רשימות השמעה וכתוביות מ-YouTube ומעוד 2000+ אתרים הנתמכים על ידי [yt-dlp](https://github.com/yt-dlp/yt-dlp). הוא פועל ב-Windows 10/11, ב-macOS 13+ (Intel + Apple Silicon) וב-Linux (AppImage, Flatpak, tar.gz). ברישיון GPLv3. ללא פרסומות וללא מגבלות שימוש. מופץ דרך [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage והורדה ישירה.",
+  intro_key_difference:
+    "**ההבדל המרכזי: דפדפן מובנה.** רוב מורידי YouTube החינמיים הם עטיפות דקות של yt-dlp: תיבת URL ותפריט פורמטים, בלי דפדפן משלהם. ל-Arroxy יש אחד כזה, הכרטיסייה **גילוי**. גולשים ב-YouTube או בכל אתר אחר בתוך היישום ומורידים את הסרטון, רשימת ההשמעה או הערוץ שבהם אתם נמצאים, או לוחצים לחיצה ימנית על כל קישור. מתחברים פעם אחת ב“גילוי”, ו-Arroxy מוריד סרטונים פרטיים, סרטונים לחברי מועדון בלבד וסרטונים מוגבלי גיל שהחשבון שלכם יכול לצפות בהם, וכן את רשימות “צפייה מאוחרת” ו“אהבתי” שלכם, בלי ייצוא קובצי Cookie. התחברו גם לאתרים אחרים שם, וההורדות מהם ישתמשו בהתחברות הזו כשיצטרכו. Arroxy מנסה שוב עם אותה התחברות כש-YouTube מבקש לאשר שאינכם בוט. הדפדפן המובנה שלו גם משיג את האסימון ש-YouTube מצפה לו לפני הורדה, כך ש-YouTube לא מצמצם הורדה לפחות פורמטים. עטיפה עם תיבת URL נתקלת בכל המגבלות האלה. פרטים: [למה Arroxy](#why-explore).",
+  last_updated: "עודכן לאחרונה: {{LAST_UPDATED}}.",
   toc_heading: "תוכן עניינים",
   why_h2: "למה Arroxy",
   features_h2: "תכונות",

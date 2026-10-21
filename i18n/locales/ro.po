@@ -4410,6 +4410,14 @@ msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "Anulare"
 
+msgctxt "wizard.url.clipboard.noLink"
+msgid "No link in the clipboard"
+msgstr "Niciun link în clipboard"
+
+msgctxt "wizard.url.clipboard.readFailed"
+msgid "Couldn't read the clipboard — paste the link into the field instead"
+msgstr "Clipboardul nu a putut fi citit — lipiți linkul în câmp"
+
 msgctxt "wizard.url.clipboard.replacedLink"
 msgid "Replaced with copied link"
 msgstr "Înlocuit cu linkul copiat"
@@ -4814,6 +4822,10 @@ msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "s"
 
+msgctxt "wizard.url.pasteLink"
+msgid "Paste link"
+msgstr "Lipiți linkul"
+
 msgctxt "wizard.url.placeholder"
 msgid "https://..."
 msgstr "https://..."
@@ -4965,6 +4977,58 @@ msgstr "Ascuns"
 msgctxt "wizard.url.profile.badgeModified"
 msgid "Modified"
 msgstr "Modificat"
+
+msgctxt "wizard.url.profile.builtinName.audio-only"
+msgid "Audio only"
+msgstr "Doar audio"
+
+msgctxt "wizard.url.profile.builtinName.balanced"
+msgid "Balanced 720p"
+msgstr "Echilibrat 720p"
+
+msgctxt "wizard.url.profile.builtinName.best-1440"
+msgid "QHD 1440p"
+msgstr "QHD 1440p"
+
+msgctxt "wizard.url.profile.builtinName.best-2160"
+msgid "4K UHD 2160p"
+msgstr "4K UHD 2160p"
+
+msgctxt "wizard.url.profile.builtinName.best-quality"
+msgid "Best available"
+msgstr "Cea mai bună calitate"
+
+msgctxt "wizard.url.profile.builtinName.hd-1080"
+msgid "Full HD 1080p"
+msgstr "Full HD 1080p"
+
+msgctxt "wizard.url.profile.builtinName.low-144"
+msgid "Lowest 144p"
+msgstr "Cea mai joasă calitate 144p"
+
+msgctxt "wizard.url.profile.builtinName.low-240"
+msgid "Low data 240p"
+msgstr "Consum redus 240p"
+
+msgctxt "wizard.url.profile.builtinName.mp4-1080"
+msgid "Smart TV 1080p"
+msgstr "Smart TV 1080p"
+
+msgctxt "wizard.url.profile.builtinName.mp4-480"
+msgid "Smart TV 480p"
+msgstr "Smart TV 480p"
+
+msgctxt "wizard.url.profile.builtinName.mp4-720"
+msgid "Smart TV 720p"
+msgstr "Smart TV 720p"
+
+msgctxt "wizard.url.profile.builtinName.small-file"
+msgid "Small file 480p"
+msgstr "Fișier mic 480p"
+
+msgctxt "wizard.url.profile.builtinName.subtitles-only"
+msgid "Subtitles only"
+msgstr "Doar subtitrări"
 
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"

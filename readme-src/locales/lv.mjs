@@ -102,6 +102,11 @@ export const lv = {
   website_url: "https://arroxy.com/",
   star_cta: "Ja Arroxy ietaupa jūsu laiku, ⭐ palīdz citiem to atrast.",
   ai_notice: "> 🌐 Šis tulkojums tapis ar mākslīgā intelekta atbalstu. [Angļu valodas README](README.md) ir primārais avots. Atradāt kļūdu? [Atveriet PR](../../pulls).",
+  intro_what_is:
+    "**Kas ir Arroxy?** Arroxy ir bezmaksas atvērtā koda darbvirsmas grafiskā saskarne, kas lejupielādē videoklipus, audio, atskaņošanas sarakstus un subtitrus no YouTube un 2000+ citām vietnēm, ko atbalsta [yt-dlp](https://github.com/yt-dlp/yt-dlp). Darbojas operētājsistēmās Windows 10/11, macOS 13+ (Intel + Apple Silicon) un Linux (AppImage, Flatpak, tar.gz). Licence GPLv3. Bez reklāmām, bez lietojuma ierobežojumiem. Izplatīta caur [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage un tiešo lejupielādi.",
+  intro_key_difference:
+    "**Galvenā atšķirība: iebūvēts pārlūks.** Lielākā daļa bezmaksas YouTube lejupielādētāju ir plāni yt-dlp apvalki: URL lodziņš un formātu izvēlne bez paša pārlūka. Arroxy tāds ir – **cilne Izpēte**. Jūs pārlūkojat YouTube vai jebkuru citu vietni lietotnē un lejupielādējat videoklipu, atskaņošanas sarakstu vai kanālu, kurā atrodaties, vai noklikšķiniet ar peles labo pogu uz jebkuras saites. Sadaļā Izpēte pierakstāties vienu reizi, un Arroxy lejupielādē privātus, tikai dalībniekiem paredzētus un vecuma ierobežotus videoklipus, ko jūsu konts var skatīties, kā arī jūsu sarakstus Skatīties vēlāk un Patīk, bez sīkfailu eksportēšanas. Tur varat pierakstīties arī citās vietnēs, un to lejupielādes vajadzības gadījumā izmanto šo pierakstīšanos. Kad YouTube prasa apstiprināt, ka neesat robots, Arroxy mēģina vēlreiz ar šo pierakstīšanos. Iebūvētais pārlūks arī iegūst pilnvaru, ko YouTube gaida pirms lejupielādes, tāpēc YouTube nesašaurina lejupielādi līdz mazākam formātu skaitam. Apvalks ar vienu URL lodziņu saskaras ar visiem šiem ierobežojumiem. Sīkāka informācija: [Kāpēc Arroxy](#why-explore).",
+  last_updated: "Pēdējo reizi atjaunināts: {{LAST_UPDATED}}.",
   toc_heading: "Saturs",
   why_h2: "Kāpēc Arroxy",
   features_h2: "Iespējas",

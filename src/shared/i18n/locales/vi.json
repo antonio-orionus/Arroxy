@@ -1413,6 +1413,8 @@
 				"dialog": {
 					"cancelButton": "Hủy"
 				},
+				"noLink": "Không có liên kết trong bộ nhớ tạm",
+				"readFailed": "Không đọc được bộ nhớ tạm — hãy dán liên kết vào ô nhập thay thế",
 				"replacedLink": "Đã thay bằng liên kết đã sao chép",
 				"toggle": "Theo dõi bộ nhớ tạm",
 				"toggleDescription": "Tự động điền vào trường URL khi bạn sao chép một liên kết YouTube.",
@@ -1547,6 +1549,7 @@
 					"seconds": "giây"
 				}
 			},
+			"pasteLink": "Dán liên kết",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "Giới hạn hiện tại: {{count}} mục",
@@ -1590,6 +1593,21 @@
 				"badgeCustom": "Tùy chỉnh",
 				"badgeDisabled": "Đã ẩn",
 				"badgeModified": "Đã sửa",
+				"builtinName": {
+					"audio-only": "Chỉ âm thanh",
+					"balanced": "Cân bằng 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Chất lượng tốt nhất",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Chất lượng thấp nhất 144p",
+					"low-240": "Ít dữ liệu 240p",
+					"mp4-1080": "TV thông minh 1080p",
+					"mp4-480": "TV thông minh 480p",
+					"mp4-720": "TV thông minh 720p",
+					"small-file": "Tệp nhỏ 480p",
+					"subtitles-only": "Chỉ phụ đề"
+				},
 				"changeGlobalDestination": "Đổi thư mục lưu chung",
 				"destinationDetail": {
 					"global": "Đang dùng thư mục lưu chung",

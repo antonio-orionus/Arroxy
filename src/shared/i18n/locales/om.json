@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "Haqi"
 				},
+				"noLink": "Kliipboordii keessa liinkiin hin jiru",
+				"readFailed": "Kliipboordii dubbisuu hin dandeenye — liinkii sana dirree keessatti maxxansi",
 				"replacedLink": "Liinki waraabbameen bakka buufame",
 				"toggle": "Kliipboordii hordofi",
 				"toggleDescription": "Liinkii YouTube koopii gootee booda dirree URL ofumaan guuti.",
@@ -1578,6 +1580,7 @@
 					"seconds": "sec"
 				}
 			},
+			"pasteLink": "Liinkii maxxansi",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "Daangaa ammaa: wantota {{count}}",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "Mataakee",
 				"badgeDisabled": "Dhokate",
 				"badgeModified": "Fooyyaʼe",
+				"builtinName": {
+					"audio-only": "Sagalee qofa",
+					"balanced": "Walsimu 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Qulqullina isa caalu",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Qulqullina gadi aanaa 144p",
+					"low-240": "Daataa xiqqaa 240p",
+					"mp4-1080": "TV smart 1080p",
+					"mp4-480": "TV smart 480p",
+					"mp4-720": "TV smart 720p",
+					"small-file": "Faayilii xiqqaa 480p",
+					"subtitles-only": "Axxiinni qofa"
+				},
 				"changeGlobalDestination": "Bakki waliigalaa jijjiiri",
 				"destinationDetail": {
 					"global": "Bakka waliigalaa fayyadamaa jira",

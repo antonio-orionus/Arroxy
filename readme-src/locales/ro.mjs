@@ -102,6 +102,11 @@ export const ro = {
   website_url: "https://arroxy.com/",
   star_cta: "Dacă Arroxy vă economisește timp, un ⭐ îi ajută pe alții să-l găsească.",
   ai_notice: "> 🌐 Această traducere a fost realizată cu sprijinul IA. [README-ul în engleză](README.md) este sursa de referință. Ați găsit o greșeală? [Deschideți un PR](../../pulls).",
+  intro_what_is:
+    "**Ce este Arroxy?** Arroxy este o interfață grafică desktop gratuită și open source care descarcă videoclipuri, audio, liste de redare și subtitrări de pe YouTube și de pe peste 2000 de alte site-uri compatibile cu [yt-dlp](https://github.com/yt-dlp/yt-dlp). Rulează pe Windows 10/11, macOS 13+ (Intel + Apple Silicon) și Linux (AppImage, Flatpak, tar.gz). Licență GPLv3. Fără reclame, fără limite de utilizare. Distribuit prin [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage și descărcare directă.",
+  intro_key_difference:
+    "**Diferența cheie: un browser încorporat.** Majoritatea descărcătoarelor gratuite pentru YouTube sunt simple învelișuri peste yt-dlp: o casetă de URL și un meniu de formate, fără browser propriu. Arroxy are unul, **fila Explorare**. Navigați pe YouTube sau pe orice alt site direct în aplicație și descărcați videoclipul, lista de redare sau canalul pe care vă aflați, ori faceți clic dreapta pe orice link. Vă conectați o singură dată în Explorare, iar Arroxy descarcă videoclipurile private, doar pentru membri și cu restricție de vârstă pe care contul dvs. le poate viziona, plus listele Vizionează mai târziu și Apreciate, fără export de cookie-uri. Conectați-vă acolo și la alte site-uri, iar descărcările lor folosesc acea conectare când au nevoie. Reîncearcă cu acea conectare când YouTube vă cere să confirmați că nu sunteți un robot. Browserul său încorporat obține și tokenul pe care YouTube îl așteaptă înainte de o descărcare, astfel încât YouTube nu reduce descărcarea la mai puține formate. Un înveliș cu simplă casetă de URL se lovește de toate aceste limite. Detalii: [De ce Arroxy](#why-explore).",
+  last_updated: "Ultima actualizare: {{LAST_UPDATED}}.",
   toc_heading: "Cuprins",
   why_h2: "De ce Arroxy",
   features_h2: "Funcționalități",

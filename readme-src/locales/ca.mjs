@@ -102,6 +102,11 @@ export const ca = {
   website_url: "https://arroxy.com/",
   star_cta: "Si Arroxy t'estalvia temps, una ⭐ ajuda que altres el trobin.",
   ai_notice: "> 🌐 Aquesta traducció s'ha fet amb ajuda de la IA. El [README en anglès](README.md) és la font principal. Has trobat un error? [Obre una PR](../../pulls).",
+  intro_what_is:
+    "**Què és Arroxy?** Arroxy és una interfície d'escriptori gratuïta i de codi obert que descarrega vídeos, àudio, llistes de reproducció i subtítols de YouTube i de més de 2000 llocs compatibles amb [yt-dlp](https://github.com/yt-dlp/yt-dlp). Funciona a Windows 10/11, macOS 13+ (Intel + Apple Silicon) i Linux (AppImage, Flatpak, tar.gz). Llicència GPLv3. Sense anuncis ni límits d'ús. Es distribueix mitjançant [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage i descàrrega directa.",
+  intro_key_difference:
+    "**La diferència clau: un navegador integrat.** La majoria de descarregadors gratuïts de YouTube són embolcalls prims de yt-dlp: un quadre d'URL i un menú de formats, sense navegador propi. Arroxy en té un, la **pestanya Explora**. Navegues per YouTube o per qualsevol altre lloc dins de l'aplicació i descarregues el vídeo, la llista o el canal on ets, o fas clic dret en qualsevol enllaç. Inicies la sessió una vegada a Explora i Arroxy baixa els vídeos privats, només per a membres i amb restricció d'edat que el teu compte pot veure, a més de les teves llistes Mira-ho més tard i M'agrada, sense exportar galetes. Hi inicies la sessió també en altres llocs, i les seves descàrregues faran servir aquest inici de sessió quan el necessitin. Arroxy ho torna a provar amb aquest inici de sessió quan YouTube et demana confirmar que no ets un robot. El seu navegador integrat també obté el testimoni que YouTube espera abans d'una descàrrega, perquè YouTube no redueixi una descàrrega a menys formats. Un embolcall amb quadre d'URL es troba amb tots aquests límits. Detalls: [Per què Arroxy](#why-explore).",
+  last_updated: "Última actualització: {{LAST_UPDATED}}.",
   toc_heading: "Contingut",
   why_h2: "Per què Arroxy",
   features_h2: "Funcions",

@@ -1475,6 +1475,8 @@
 				"dialog": {
 					"cancelButton": "Annuler"
 				},
+				"noLink": "Aucun lien dans le presse-papiers",
+				"readFailed": "Impossible de lire le presse-papiers — collez le lien dans le champ à la place",
 				"replacedLink": "Remplacé par le lien copié",
 				"toggle": "Surveiller le presse-papiers",
 				"toggleDescription": "Remplit automatiquement le champ URL lorsque vous copiez un lien YouTube.",
@@ -1609,6 +1611,7 @@
 					"seconds": "sec"
 				}
 			},
+			"pasteLink": "Coller le lien",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "Limite actuelle : {{count}} éléments",
@@ -1652,6 +1655,21 @@
 				"badgeCustom": "Personnalisé",
 				"badgeDisabled": "Masqué",
 				"badgeModified": "Modifié",
+				"builtinName": {
+					"audio-only": "Audio uniquement",
+					"balanced": "Équilibré 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Meilleure qualité",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Qualité minimale 144p",
+					"low-240": "Économie de données 240p",
+					"mp4-1080": "TV connectée 1080p",
+					"mp4-480": "TV connectée 480p",
+					"mp4-720": "TV connectée 720p",
+					"small-file": "Petit fichier 480p",
+					"subtitles-only": "Sous-titres uniquement"
+				},
 				"changeGlobalDestination": "Changer la destination globale",
 				"destinationDetail": {
 					"global": "Destination globale utilisée",

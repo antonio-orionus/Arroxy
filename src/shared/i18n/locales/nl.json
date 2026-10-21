@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "Annuleren"
 				},
+				"noLink": "Geen link op je klembord",
+				"readFailed": "Kon het klembord niet lezen — plak de link in plaats daarvan in het veld",
 				"replacedLink": "Vervangen door gekopieerde link",
 				"toggle": "Klembord in de gaten houden",
 				"toggleDescription": "Vult het URL-veld automatisch in wanneer je een videolink kopieert.",
@@ -1578,6 +1580,7 @@
 					"seconds": "sec"
 				}
 			},
+			"pasteLink": "Link plakken",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Huidige limiet: {{count}} items",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "Aangepast",
 				"badgeDisabled": "Verborgen",
 				"badgeModified": "Gewijzigd",
+				"builtinName": {
+					"audio-only": "Alleen audio",
+					"balanced": "Gebalanceerd 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Beste kwaliteit",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Laagste kwaliteit 144p",
+					"low-240": "Weinig data 240p",
+					"mp4-1080": "Smart-tv 1080p",
+					"mp4-480": "Smart-tv 480p",
+					"mp4-720": "Smart-tv 720p",
+					"small-file": "Klein bestand 480p",
+					"subtitles-only": "Alleen ondertitels"
+				},
 				"changeGlobalDestination": "Algemene bestemming wijzigen",
 				"destinationDetail": {
 					"global": "Algemene bestemming wordt gebruikt",

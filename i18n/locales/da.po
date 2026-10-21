@@ -4255,6 +4255,14 @@ msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "Annuller"
 
+msgctxt "wizard.url.clipboard.noLink"
+msgid "No link in the clipboard"
+msgstr "Intet link i udklipsholderen"
+
+msgctxt "wizard.url.clipboard.readFailed"
+msgid "Couldn't read the clipboard — paste the link into the field instead"
+msgstr "Udklipsholderen kunne ikke læses — indsæt linket i feltet i stedet"
+
 msgctxt "wizard.url.clipboard.replacedLink"
 msgid "Replaced with copied link"
 msgstr "Erstattet med det kopierede link"
@@ -4659,6 +4667,10 @@ msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "sek."
 
+msgctxt "wizard.url.pasteLink"
+msgid "Paste link"
+msgstr "Indsæt link"
+
 msgctxt "wizard.url.placeholder"
 msgid "https://..."
 msgstr "https://..."
@@ -4810,6 +4822,58 @@ msgstr "Skjult"
 msgctxt "wizard.url.profile.badgeModified"
 msgid "Modified"
 msgstr "Ændret"
+
+msgctxt "wizard.url.profile.builtinName.audio-only"
+msgid "Audio only"
+msgstr "Kun lyd"
+
+msgctxt "wizard.url.profile.builtinName.balanced"
+msgid "Balanced 720p"
+msgstr "Afbalanceret 720p"
+
+msgctxt "wizard.url.profile.builtinName.best-1440"
+msgid "QHD 1440p"
+msgstr "QHD 1440p"
+
+msgctxt "wizard.url.profile.builtinName.best-2160"
+msgid "4K UHD 2160p"
+msgstr "4K UHD 2160p"
+
+msgctxt "wizard.url.profile.builtinName.best-quality"
+msgid "Best available"
+msgstr "Bedste kvalitet"
+
+msgctxt "wizard.url.profile.builtinName.hd-1080"
+msgid "Full HD 1080p"
+msgstr "Full HD 1080p"
+
+msgctxt "wizard.url.profile.builtinName.low-144"
+msgid "Lowest 144p"
+msgstr "Laveste kvalitet 144p"
+
+msgctxt "wizard.url.profile.builtinName.low-240"
+msgid "Low data 240p"
+msgstr "Lavt dataforbrug 240p"
+
+msgctxt "wizard.url.profile.builtinName.mp4-1080"
+msgid "Smart TV 1080p"
+msgstr "Smart TV 1080p"
+
+msgctxt "wizard.url.profile.builtinName.mp4-480"
+msgid "Smart TV 480p"
+msgstr "Smart TV 480p"
+
+msgctxt "wizard.url.profile.builtinName.mp4-720"
+msgid "Smart TV 720p"
+msgstr "Smart TV 720p"
+
+msgctxt "wizard.url.profile.builtinName.small-file"
+msgid "Small file 480p"
+msgstr "Lille fil 480p"
+
+msgctxt "wizard.url.profile.builtinName.subtitles-only"
+msgid "Subtitles only"
+msgstr "Kun undertekster"
 
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"

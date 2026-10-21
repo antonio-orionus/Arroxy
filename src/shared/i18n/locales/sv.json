@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "Avbryt"
 				},
+				"noLink": "Ingen länk i Urklipp",
+				"readFailed": "Det gick inte att läsa Urklipp – klistra in länken i fältet i stället",
 				"replacedLink": "Ersatt med kopierad länk",
 				"toggle": "Bevaka Urklipp",
 				"toggleDescription": "Fyll i webbadressfältet automatiskt när du kopierar en videolänk.",
@@ -1578,6 +1580,7 @@
 					"seconds": "s"
 				}
 			},
+			"pasteLink": "Klistra in länk",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Aktuell gräns: {{count}} objekt",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "Anpassad",
 				"badgeDisabled": "Dold",
 				"badgeModified": "Ändrad",
+				"builtinName": {
+					"audio-only": "Endast ljud",
+					"balanced": "Balanserad 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Bästa kvalitet",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Lägsta kvalitet 144p",
+					"low-240": "Lite data 240p",
+					"mp4-1080": "Smart TV 1080p",
+					"mp4-480": "Smart TV 480p",
+					"mp4-720": "Smart TV 720p",
+					"small-file": "Liten fil 480p",
+					"subtitles-only": "Endast undertexter"
+				},
 				"changeGlobalDestination": "Ändra globalt mål",
 				"destinationDetail": {
 					"global": "Använder globalt mål",

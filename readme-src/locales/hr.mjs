@@ -102,6 +102,11 @@ export const hr = {
   website_url: "https://arroxy.com/",
   star_cta: "Ako vam Arroxy štedi vrijeme, ⭐ pomaže drugima da ga pronađu.",
   ai_notice: "> 🌐 Ovaj je prijevod nastao uz pomoć umjetne inteligencije. [Englesko izdanje README-a](README.md) mjerodavan je izvor. Pronašli ste pogrešku? [Otvorite PR](../../pulls).",
+  intro_what_is:
+    "**Što je Arroxy?** Arroxy je besplatno grafičko sučelje otvorenog koda za stolna računala koje preuzima videozapise, audio, popise za reprodukciju i titlove s YouTubea i više od 2000 drugih web-mjesta koja podržava [yt-dlp](https://github.com/yt-dlp/yt-dlp). Radi na sustavima Windows 10/11, macOS 13+ (Intel + Apple Silicon) i Linux (AppImage, Flatpak, tar.gz). Licenca GPLv3. Bez oglasa i ograničenja korištenja. Distribucija: [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage i izravno preuzimanje.",
+  intro_key_difference:
+    "**Ključna razlika: ugrađeni preglednik.** Većina besplatnih programa za preuzimanje s YouTubea tanki su omotači oko yt-dlp-a: okvir za URL i izbornik formata, bez vlastitog preglednika. Arroxy ga ima, a to je kartica **Istraži**. Pregledavate YouTube ili bilo koje drugo web-mjesto unutar aplikacije i preuzimate videozapis, popis za reprodukciju ili kanal na kojem se nalazite, ili desnom tipkom miša kliknete bilo koju poveznicu. Jednom se prijavite u Istraži, a Arroxy preuzima privatne videozapise, videozapise samo za članove i one s dobnim ograničenjem koje vaš račun može gledati, uz vaše popise Za kasnije i Označeno sa sviđa mi se, bez izvoza kolačića. Prijavite se tamo i na druga web-mjesta pa će njihova preuzimanja koristiti tu prijavu kad im zatreba. Arroxy ponovno pokušava s tom prijavom kad YouTube zatraži potvrdu da niste bot. Njegov ugrađeni preglednik dobiva i token koji YouTube očekuje prije preuzimanja pa YouTube ne svodi preuzimanje na manje formata. Omotač s okvirom za URL nailazi na sva ta ograničenja. Pojedinosti: [Zašto Arroxy](#why-explore).",
+  last_updated: "Zadnje ažuriranje: {{LAST_UPDATED}}.",
   toc_heading: "Sadržaj",
   why_h2: "Zašto Arroxy",
   features_h2: "Značajke",

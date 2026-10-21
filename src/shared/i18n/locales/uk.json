@@ -1506,6 +1506,8 @@
 				"dialog": {
 					"cancelButton": "Скасувати"
 				},
+				"noLink": "У буфері обміну немає посилання",
+				"readFailed": "Не вдалося прочитати буфер обміну — натомість встав посилання в поле",
 				"replacedLink": "Замінено скопійованим посиланням",
 				"toggle": "Стежити за буфером обміну",
 				"toggleDescription": "Автоматично підставляє посилання YouTube у поле URL при копіюванні.",
@@ -1640,6 +1642,7 @@
 					"seconds": "сек"
 				}
 			},
+			"pasteLink": "Вставити посилання",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "Поточний ліміт: {{count}} елементів",
@@ -1683,6 +1686,21 @@
 				"badgeCustom": "Власний",
 				"badgeDisabled": "Приховано",
 				"badgeModified": "Змінено",
+				"builtinName": {
+					"audio-only": "Лише аудіо",
+					"balanced": "Збалансований 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Найкраща якість",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Найнижча якість 144p",
+					"low-240": "Мало даних 240p",
+					"mp4-1080": "Смарт-ТВ 1080p",
+					"mp4-480": "Смарт-ТВ 480p",
+					"mp4-720": "Смарт-ТВ 720p",
+					"small-file": "Малий файл 480p",
+					"subtitles-only": "Тільки субтитри"
+				},
 				"changeGlobalDestination": "Змінити глобальну теку призначення",
 				"destinationDetail": {
 					"global": "Використовується глобальна тека призначення",

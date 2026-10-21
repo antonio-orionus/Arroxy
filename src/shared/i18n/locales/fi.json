@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "Peruuta"
 				},
+				"noLink": "Leikepöydällä ei ole linkkiä",
+				"readFailed": "Leikepöytää ei voitu lukea – liitä linkki sen sijaan kenttään",
 				"replacedLink": "Korvattu kopioidulla linkillä",
 				"toggle": "Seuraa leikepöytää",
 				"toggleDescription": "Täyttää URL-kentän automaattisesti, kun kopioit videolinkin.",
@@ -1578,6 +1580,7 @@
 					"seconds": "s"
 				}
 			},
+			"pasteLink": "Liitä linkki",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Nykyinen raja: {{count}} kohdetta",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "Mukautettu",
 				"badgeDisabled": "Piilotettu",
 				"badgeModified": "Muokattu",
+				"builtinName": {
+					"audio-only": "Vain ääni",
+					"balanced": "Tasapainoinen 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Paras laatu",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Matalin laatu 144p",
+					"low-240": "Vähän dataa 240p",
+					"mp4-1080": "Smart TV 1080p",
+					"mp4-480": "Smart TV 480p",
+					"mp4-720": "Smart TV 720p",
+					"small-file": "Pieni tiedosto 480p",
+					"subtitles-only": "Vain tekstitykset"
+				},
 				"changeGlobalDestination": "Muuta yleistä kohdetta",
 				"destinationDetail": {
 					"global": "Käytössä yleinen kohde",

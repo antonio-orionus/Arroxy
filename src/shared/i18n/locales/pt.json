@@ -1475,6 +1475,8 @@
 				"dialog": {
 					"cancelButton": "Cancelar"
 				},
+				"noLink": "Nenhum link na área de transferência",
+				"readFailed": "Não foi possível ler a área de transferência — cole o link no campo",
 				"replacedLink": "Substituído pelo link copiado",
 				"toggle": "Monitorar área de transferência",
 				"toggleDescription": "Preenche automaticamente o campo de URL ao copiar um link de vídeo.",
@@ -1609,6 +1611,7 @@
 					"seconds": "s"
 				}
 			},
+			"pasteLink": "Colar link",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Limite atual: {{count}} itens",
@@ -1652,6 +1655,21 @@
 				"badgeCustom": "Personalizado",
 				"badgeDisabled": "Oculto",
 				"badgeModified": "Modificado",
+				"builtinName": {
+					"audio-only": "Apenas áudio",
+					"balanced": "Equilibrado 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Melhor qualidade",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Qualidade mínima 144p",
+					"low-240": "Economia de dados 240p",
+					"mp4-1080": "Smart TV 1080p",
+					"mp4-480": "Smart TV 480p",
+					"mp4-720": "Smart TV 720p",
+					"small-file": "Arquivo pequeno 480p",
+					"subtitles-only": "Somente legendas"
+				},
 				"changeGlobalDestination": "Alterar destino global",
 				"destinationDetail": {
 					"global": "Usando o destino global",

@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "বাতিল"
 				},
+				"noLink": "ক্লিপবোর্ডে কোনো লিংক নেই",
+				"readFailed": "ক্লিপবোর্ড পড়া যায়নি — বরং ফিল্ডে লিংকটি পেস্ট করুন",
 				"replacedLink": "কপি করা লিংক দিয়ে বদলানো হয়েছে",
 				"toggle": "ক্লিপবোর্ড দেখুন",
 				"toggleDescription": "YouTube লিংক কপি করলে URL ফিল্ড স্বয়ংক্রিয়ভাবে পূরণ হবে।",
@@ -1578,6 +1580,7 @@
 					"seconds": "সে"
 				}
 			},
+			"pasteLink": "লিংক পেস্ট করুন",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "বর্তমান সীমা: {{count}}টি আইটেম",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "কাস্টম",
 				"badgeDisabled": "লুকানো",
 				"badgeModified": "পরিবর্তিত",
+				"builtinName": {
+					"audio-only": "শুধু অডিও",
+					"balanced": "ভারসাম্যপূর্ণ 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "সেরা উপলব্ধ মান",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "সর্বনিম্ন 144p",
+					"low-240": "কম ডেটা 240p",
+					"mp4-1080": "স্মার্ট TV 1080p",
+					"mp4-480": "স্মার্ট TV 480p",
+					"mp4-720": "স্মার্ট TV 720p",
+					"small-file": "ছোট ফাইল 480p",
+					"subtitles-only": "শুধু সাবটাইটেল"
+				},
 				"changeGlobalDestination": "গ্লোবাল গন্তব্য পরিবর্তন করুন",
 				"destinationDetail": {
 					"global": "গ্লোবাল গন্তব্য ব্যবহার হচ্ছে",

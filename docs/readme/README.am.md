@@ -26,11 +26,11 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). GPLv3 licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **Arroxy ምንድን ነው?** Arroxy ነፃ፣ ክፍት-ምንጭ የዴስክቶፕ GUI ሲሆን ከYouTube እና ከሌሎች 2000+ በ[yt-dlp](https://github.com/yt-dlp/yt-dlp) ከሚደገፉ ጣቢያዎች ቪዲዮዎችን፣ ድምፅን፣ playlistዎችን እና ንዑስ ርዕሶችን ያወርዳል። በWindows 10/11፣ macOS 13+ (Intel + Apple Silicon) እና Linux (AppImage፣ Flatpak፣ tar.gz) ላይ ይሠራል። በGPLv3 ፈቃድ የተሰጠ ነው። ማስታወቂያ የለም፣ የአጠቃቀም ገደብ የለም። በ[Winget](https://winget.run/pkg/AntonioOrionus/Arroxy)፣ [Scoop](https://github.com/antonio-orionus/scoop-bucket)፣ [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy)፣ Flatpak፣ AppImage እና በቀጥታ ማውረድ ይሰራጫል።
 >
-> **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
+> **ዋናው ልዩነት፡ አብሮ የተሠራ browser።** አብዛኞቹ ነፃ የYouTube ማውረጃዎች ቀጭን የyt-dlp መጠቅለያዎች ናቸው፦ የURL ሳጥን እና የቅርጸት ምናሌ፣ የራሳቸው browser የሌላቸው። Arroxy አንድ አለው፣ **Explore ትር**። በአፑ ውስጥ YouTubeን ወይም ማንኛውንም ሌላ ጣቢያ ያስሳሉ እና ያሉበትን ቪዲዮ፣ playlist ወይም ቻናል ያወርዳሉ፣ ወይም በማንኛውም ሊንክ ላይ በቀኝ ጠቅ ያደርጋሉ። በExplore ውስጥ አንድ ጊዜ ይገባሉ፣ Arroxy ደግሞ ሒሳብዎ ማየት የሚችላቸውን የግል፣ የአባላት-ብቻ እና ዕድሜ-የተገደቡ ቪዲዮዎች እንዲሁም የWatch Later እና Liked ዝርዝሮችዎን ያወርዳል፣ ኩኪዎችን ወደ ውጭ መላክ ሳያስፈልግ። ወደ ሌሎች ጣቢያዎችም እዚያ ይግቡ፣ ማውረዶቻቸውም ሲያስፈልግ ያንን መግቢያ ይጠቀማሉ። YouTube ቦት አለመሆንዎን እንዲያረጋግጡ ሲጠይቅ በዚያ መግቢያ እንደገና ይሞክራል። አብሮ የተሠራው browser ደግሞ YouTube ከማውረድ በፊት የሚጠብቀውን ቶከን ያገኛል፣ ስለዚህ YouTube ማውረድን ወደ ያነሱ ቅርጸቶች አይቀንስም። የURL ሳጥን ያለው መጠቅለያ ከእነዚህ ሁሉ ገደቦች ጋር ይጋጫል። ዝርዝሮች፦ [ለምን Arroxy](#why-explore)።
 >
-> _Last updated: 2026-10-21._
+> _መጨረሻ የተዘመነው፦ 2026-10-21።_
 
 ---
 

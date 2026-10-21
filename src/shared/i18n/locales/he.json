@@ -1475,6 +1475,8 @@
 				"dialog": {
 					"cancelButton": "ביטול"
 				},
+				"noLink": "אין קישור בלוח",
+				"readFailed": "לא ניתן לקרוא את הלוח — הדביקו את הקישור בשדה במקום זאת",
 				"replacedLink": "הוחלף בקישור שהועתק",
 				"toggle": "מעקב אחר הלוח",
 				"toggleDescription": "מילוי אוטומטי של שדה ה-URL כשמעתיקים קישור לסרטון.",
@@ -1609,6 +1611,7 @@
 					"seconds": "שנ׳"
 				}
 			},
+			"pasteLink": "הדבקת קישור",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "מגבלה נוכחית: {{count}} פריטים",
@@ -1652,6 +1655,21 @@
 				"badgeCustom": "מותאם אישית",
 				"badgeDisabled": "מוסתר",
 				"badgeModified": "שונה",
+				"builtinName": {
+					"audio-only": "שמע בלבד",
+					"balanced": "מאוזן 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "האיכות הטובה ביותר",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "איכות נמוכה ביותר 144p",
+					"low-240": "חיסכון בנתונים 240p",
+					"mp4-1080": "טלוויזיה חכמה 1080p",
+					"mp4-480": "טלוויזיה חכמה 480p",
+					"mp4-720": "טלוויזיה חכמה 720p",
+					"small-file": "קובץ קטן 480p",
+					"subtitles-only": "כתוביות בלבד"
+				},
 				"changeGlobalDestination": "שינוי היעד הגלובלי",
 				"destinationDetail": {
 					"global": "משתמש ביעד הגלובלי",

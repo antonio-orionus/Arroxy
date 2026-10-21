@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "ሰርዝ"
 				},
+				"noLink": "በቅጂ ሰሌዳ ላይ አገናኝ የለም",
+				"readFailed": "ቅጂ ሰሌዳውን ማንበብ አልተቻለም — በምትኩ አገናኙን በመስኩ ውስጥ ይለጥፉ",
 				"replacedLink": "በተቀዳው አገናኝ ተተክቷል",
 				"toggle": "ቅጂ ሰሌዳ ተቆጣጠር",
 				"toggleDescription": "YouTube አገናኝ ሲቀዱ የ URL መስክን በራስ ሞላ።",
@@ -1578,6 +1580,7 @@
 					"seconds": "ሰከንድ"
 				}
 			},
+			"pasteLink": "አገናኝ ይለጥፉ",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "የአሁን ገደብ: {{count}} ንጥሎች",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "ብጁ",
 				"badgeDisabled": "የተደበቀ",
 				"badgeModified": "ተቀይሯል",
+				"builtinName": {
+					"audio-only": "ድምፅ ብቻ",
+					"balanced": "ሚዛናዊ 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "ምርጥ ጥራት",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "ዝቅተኛ ጥራት 144p",
+					"low-240": "አነስተኛ ዳታ 240p",
+					"mp4-1080": "ስማርት TV 1080p",
+					"mp4-480": "ስማርት TV 480p",
+					"mp4-720": "ስማርት TV 720p",
+					"small-file": "ትንሽ ፋይል 480p",
+					"subtitles-only": "ንዑስ ርዕሶች ብቻ"
+				},
 				"changeGlobalDestination": "አጠቃላይ መዳረሻ ቀይር",
 				"destinationDetail": {
 					"global": "አጠቃላይ መዳረሻ በመጠቀም",

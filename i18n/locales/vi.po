@@ -4100,6 +4100,14 @@ msgctxt "wizard.url.clipboard.dialog.cancelButton"
 msgid "Cancel"
 msgstr "Hủy"
 
+msgctxt "wizard.url.clipboard.noLink"
+msgid "No link in the clipboard"
+msgstr "Không có liên kết trong bộ nhớ tạm"
+
+msgctxt "wizard.url.clipboard.readFailed"
+msgid "Couldn't read the clipboard — paste the link into the field instead"
+msgstr "Không đọc được bộ nhớ tạm — hãy dán liên kết vào ô nhập thay thế"
+
 msgctxt "wizard.url.clipboard.replacedLink"
 msgid "Replaced with copied link"
 msgstr "Đã thay bằng liên kết đã sao chép"
@@ -4504,6 +4512,10 @@ msgctxt "wizard.url.networkPacing.units.seconds"
 msgid "sec"
 msgstr "giây"
 
+msgctxt "wizard.url.pasteLink"
+msgid "Paste link"
+msgstr "Dán liên kết"
+
 msgctxt "wizard.url.placeholder"
 msgid "https://..."
 msgstr "https://www.youtube.com/watch?v=..."
@@ -4655,6 +4667,58 @@ msgstr "Đã ẩn"
 msgctxt "wizard.url.profile.badgeModified"
 msgid "Modified"
 msgstr "Đã sửa"
+
+msgctxt "wizard.url.profile.builtinName.audio-only"
+msgid "Audio only"
+msgstr "Chỉ âm thanh"
+
+msgctxt "wizard.url.profile.builtinName.balanced"
+msgid "Balanced 720p"
+msgstr "Cân bằng 720p"
+
+msgctxt "wizard.url.profile.builtinName.best-1440"
+msgid "QHD 1440p"
+msgstr "QHD 1440p"
+
+msgctxt "wizard.url.profile.builtinName.best-2160"
+msgid "4K UHD 2160p"
+msgstr "4K UHD 2160p"
+
+msgctxt "wizard.url.profile.builtinName.best-quality"
+msgid "Best available"
+msgstr "Chất lượng tốt nhất"
+
+msgctxt "wizard.url.profile.builtinName.hd-1080"
+msgid "Full HD 1080p"
+msgstr "Full HD 1080p"
+
+msgctxt "wizard.url.profile.builtinName.low-144"
+msgid "Lowest 144p"
+msgstr "Chất lượng thấp nhất 144p"
+
+msgctxt "wizard.url.profile.builtinName.low-240"
+msgid "Low data 240p"
+msgstr "Ít dữ liệu 240p"
+
+msgctxt "wizard.url.profile.builtinName.mp4-1080"
+msgid "Smart TV 1080p"
+msgstr "TV thông minh 1080p"
+
+msgctxt "wizard.url.profile.builtinName.mp4-480"
+msgid "Smart TV 480p"
+msgstr "TV thông minh 480p"
+
+msgctxt "wizard.url.profile.builtinName.mp4-720"
+msgid "Smart TV 720p"
+msgstr "TV thông minh 720p"
+
+msgctxt "wizard.url.profile.builtinName.small-file"
+msgid "Small file 480p"
+msgstr "Tệp nhỏ 480p"
+
+msgctxt "wizard.url.profile.builtinName.subtitles-only"
+msgid "Subtitles only"
+msgstr "Chỉ phụ đề"
 
 msgctxt "wizard.url.profile.changeGlobalDestination"
 msgid "Change global destination"

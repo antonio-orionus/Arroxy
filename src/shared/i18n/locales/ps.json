@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "لغوه کړه"
 				},
+				"noLink": "په کلیپبورډ کې لینک نشته",
+				"readFailed": "کلیپبورډ ونه لوستل شو — لینک پر ځای یې په ساحه کې ونښلوئ",
 				"replacedLink": "په کاپي شوي لینک بدل شو",
 				"toggle": "کلیپبورډ وګورئ",
 				"toggleDescription": "کله چې تاسو یو YouTube لینک کاپي کړئ، د URL ساحه اتوماتیک ډکه کړئ.",
@@ -1578,6 +1580,7 @@
 					"seconds": "ثا"
 				}
 			},
+			"pasteLink": "لینک ونښلوئ",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "اوسنی حد: {{count}} توکي",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "دودیز",
 				"badgeDisabled": "پټ",
 				"badgeModified": "بدل شوی",
+				"builtinName": {
+					"audio-only": "یوازې غږ",
+					"balanced": "متوازن 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "تر ټولو غوره کیفیت",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "تر ټولو ټیټ کیفیت 144p",
+					"low-240": "لږ ډاټا 240p",
+					"mp4-1080": "سمارټ TV 1080p",
+					"mp4-480": "سمارټ TV 480p",
+					"mp4-720": "سمارټ TV 720p",
+					"small-file": "کوچنی فایل 480p",
+					"subtitles-only": "یوازې ژباړلیکونه"
+				},
 				"changeGlobalDestination": "عمومي موخه بدله کړئ",
 				"destinationDetail": {
 					"global": "عمومي موخه کاروي",

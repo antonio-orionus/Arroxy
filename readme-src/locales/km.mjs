@@ -104,6 +104,11 @@ export const km = {
   website_url: "https://arroxy.com/",
   star_cta: "ប្រសិនបើ Arroxy ជួយសន្សំពេលវេលារបស់អ្នក ⭐ មួយជួយឱ្យអ្នកដទៃរកឃើញវា។",
   ai_notice: "",
+  intro_what_is:
+    "**តើ Arroxy ជាអ្វី?** Arroxy គឺជា GUI សម្រាប់កុំព្យូទ័រ ឥតគិតថ្លៃ និងបើកចំហកូដ ដែលទាញយកវីដេអូ សំឡេង បញ្ជីចាក់ និងអក្សររត់ ពី YouTube និងគេហទំព័រផ្សេងទៀតជាង 2000 ដែល [yt-dlp](https://github.com/yt-dlp/yt-dlp) គាំទ្រ។ វាដំណើរការលើ Windows 10/11, macOS 13+ (Intel + Apple Silicon) និង Linux (AppImage, Flatpak, tar.gz)។ មានអាជ្ញាប័ណ្ណ GPLv3។ គ្មានពាណិជ្ជកម្ម គ្មានដែនកំណត់ការប្រើប្រាស់។ ចែកចាយតាម [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage និងការទាញយកផ្ទាល់។",
+  intro_key_difference:
+    "**ភាពខុសគ្នាចម្បង៖ កម្មវិធីរុករកដែលភ្ជាប់មកជាមួយ។** កម្មវិធីទាញយក YouTube ឥតគិតថ្លៃភាគច្រើនគ្រាន់តែជា wrapper yt-dlp សាមញ្ញៗ៖ ប្រអប់ URL និងម៉ឺនុយទម្រង់ ដោយគ្មានកម្មវិធីរុករករបស់ខ្លួនឯង។ Arroxy មានមួយ គឺ**ផ្ទាំង Explore**។ អ្នករុករក YouTube ឬគេហទំព័រផ្សេងទៀតនៅក្នុងកម្មវិធី ហើយទាញយកវីដេអូ បញ្ជីចាក់ ឬប៉ុស្តិ៍ដែលអ្នកកំពុងមើល ឬចុចកណ្ដុរស្ដាំលើតំណណាមួយ។ អ្នកចូលគណនីម្តងក្នុងExplore ហើយ Arroxy ទាញយកវីដេអូឯកជន សម្រាប់តែសមាជិក និងកំណត់អាយុ ដែលគណនីរបស់អ្នកអាចមើលបាន ព្រមទាំងបញ្ជី Watch Later និង Liked របស់អ្នក ដោយមិនចាំបាច់នាំចេញ cookies។ ចូលគណនីគេហទំព័រផ្សេងទៀតនៅទីនោះផងដែរ ហើយការទាញយករបស់ពួកវាប្រើការចូលគណនីនោះនៅពេលត្រូវការ។ Arroxy សាកល្បងម្តងទៀតដោយប្រើការចូលគណនីនោះ នៅពេល YouTube សុំឱ្យអ្នកបញ្ជាក់ថាអ្នកមិនមែនជា bot។ កម្មវិធីរុករកដែលភ្ជាប់មកជាមួយក៏ទទួលបាន token ដែល YouTube រំពឹងទុកមុនការទាញយក ដូច្នេះ YouTube មិនកាត់បន្ថយការទាញយកឱ្យនៅសល់ទម្រង់តិចជាងមុនទេ។ wrapper ដែលមានតែប្រអប់ URL ជួបដែនកំណត់ទាំងអស់នេះ។ ព័ត៌មានលម្អិត៖ [ហេតុអ្វី Arroxy](#why-explore)។",
+  last_updated: "ធ្វើបច្ចុប្បន្នភាពចុងក្រោយ៖ {{LAST_UPDATED}}។",
   toc_heading: "មាតិកា",
   why_h2: "ហេតុអ្វី Arroxy",
   features_h2: "មុខងារ",

@@ -103,6 +103,11 @@ export const ps = {
   website_url: "https://arroxy.com/",
   star_cta: "که Arroxy ستاسو وخت خوندي کوي، یو ⭐ نورو سره مرسته کوي چې ومومي.",
   ai_notice: "",
+  intro_what_is:
+    "**Arroxy څه دی؟** Arroxy یو وړیا، خلاصه سرچینه ډیسکټاپ GUI دی چې له YouTube او نورو 2000+ هغو سایټونو څخه چې [yt-dlp](https://github.com/yt-dlp/yt-dlp) یې ملاتړ کوي، ویډیوګانې، غږ، playlistونه او ساب ټایټلونه ډاونلوډوي. دا په Windows 10/11، macOS 13+ (Intel + Apple Silicon) او Linux (AppImage, Flatpak, tar.gz) کې کار کوي. د GPLv3 جواز لري. بې اعلانه، د کارونې بې حده. د [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy)، [Scoop](https://github.com/antonio-orionus/scoop-bucket)، [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy)، Flatpak، AppImage او مستقیم ډاونلوډ له لارې وېشل کېږي.",
+  intro_key_difference:
+    "**مهم توپیر: په ځان کې جوړ browser.** ډېری وړیا YouTube ډاونلوډرونه نریز yt-dlp wrappers دي: د URL یوه خانه او د فارمټ مینو، پرته له خپل browser. Arroxy یو لري، **د Explore ټب**. تاسو د اپلیکیشن دننه YouTube یا بل هر سایټ ګورئ او هغه ویډیو، playlist یا چینل چې پکې یاست ډاونلوډ کوئ، یا په هر لینک ښي کلیک کوئ. تاسو په سپړنه کې یو ځل sign in کوئ، او Arroxy هغه شخصي، یوازې د غړو او د عمر محدودیت لرونکې ویډیوګانې چې ستاسو اکاونټ یې لیدلی شي، او ستاسو Watch Later او Liked لیستونه، پرته له کوکیز صادرولو ډاونلوډوي. هلته په نورو سایټونو کې هم sign in وکړئ، او د هغوی ډاونلوډونه هغه sign in کاروي کله چې ورته اړتیا وي. کله چې YouTube وغواړي چې تایید کړئ bot نه یاست، دا په هغه sign in بیا هڅه کوي. د دې په ځان کې جوړ browser هغه ټوکن هم ترلاسه کوي چې YouTube یې له ډاونلوډ مخکې تمه لري، نو YouTube ډاونلوډ لږو فارمټونو ته نه محدودوي. د URL خانې wrapper دې ټولو محدودیتونو ته رسېږي. جزئیات: [ولې Arroxy](#why-explore).",
+  last_updated: "وروستی تازه کول: {{LAST_UPDATED}}.",
   toc_heading: "منځپانګه",
   why_h2: "ولې Arroxy",
   features_h2: "ځانګړتیاوې",

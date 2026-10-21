@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "Cancelar"
 				},
+				"noLink": "Non hai ningunha ligazón no portapapeis",
+				"readFailed": "Non se puido ler o portapapeis: pega a ligazón no campo",
 				"replacedLink": "Substituída pola ligazón copiada",
 				"toggle": "Vixiar o portapapeis",
 				"toggleDescription": "Énchese o campo da URL automaticamente cando copias a ligazón dun vídeo.",
@@ -1578,6 +1580,7 @@
 					"seconds": "s"
 				}
 			},
+			"pasteLink": "Pegar ligazón",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Límite actual: {{count}} elementos",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "Personalizado",
 				"badgeDisabled": "Oculto",
 				"badgeModified": "Modificado",
+				"builtinName": {
+					"audio-only": "Só audio",
+					"balanced": "Equilibrado 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Mellor calidade",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Calidade mínima 144p",
+					"low-240": "Poucos datos 240p",
+					"mp4-1080": "Smart TV 1080p",
+					"mp4-480": "Smart TV 480p",
+					"mp4-720": "Smart TV 720p",
+					"small-file": "Ficheiro pequeno 480p",
+					"subtitles-only": "Só subtítulos"
+				},
 				"changeGlobalDestination": "Cambiar o destino global",
 				"destinationDetail": {
 					"global": "Usando o destino global",

@@ -103,6 +103,11 @@ export const zh = {
   star_cta: "如果 Arroxy 帮你节省了时间，点个 ⭐ 让更多人发现它。",
   ai_notice:
     "> 🌐 这是 AI 辅助翻译。[英文 README](README.md) 是真实来源。发现错误？欢迎 [提交 PR](../../pulls)。",
+  intro_what_is:
+    "**Arroxy 是什么？** Arroxy 是一款免费、开源的桌面 GUI，可从 YouTube 以及 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 支持的 2000 多个其他网站下载视频、音频、播放列表和字幕。支持 Windows 10/11、macOS 13+（Intel + Apple Silicon）与 Linux（AppImage、Flatpak、tar.gz）。采用 GPLv3 许可。无广告，无使用限制。可通过 [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy)、[Scoop](https://github.com/antonio-orionus/scoop-bucket)、[Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy)、Flatpak、AppImage 及直接下载获取。",
+  intro_key_difference:
+    "**关键区别：内置浏览器。** 大多数免费 YouTube 下载器只是单薄的 yt-dlp 套壳：一个链接输入框加一个格式菜单，没有自己的浏览器。Arroxy 有，就是 **Explore 标签页**。你可以在应用内浏览 YouTube 或任意其他网站，直接下载当前所在的视频、播放列表或频道，也可以右键点击任意链接。你只需在 Explore 中登录一次，Arroxy 就能下载你的账号可观看的私享、会员专属和年龄限制视频，以及你的“稍后观看”和“赞过的视频”列表，无需导出 Cookie。你也可以在 Explore 中登录其他网站，这些网站的下载在需要时会使用该登录。YouTube 要求确认你不是机器人时，Arroxy 会用该登录重试。其内置浏览器还会在下载前获取 YouTube 所期望的令牌，因此 YouTube 不会把下载缩减为较少的格式。只有链接输入框的套壳工具会碰上所有这些限制。详情：[为什么选 Arroxy](#why-explore)。",
+  last_updated: "最后更新：{{LAST_UPDATED}}。",
   toc_heading: "目录",
   why_h2: "为什么选 Arroxy",
   features_h2: "功能特性",

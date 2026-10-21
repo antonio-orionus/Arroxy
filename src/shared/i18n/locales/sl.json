@@ -1506,6 +1506,8 @@
 				"dialog": {
 					"cancelButton": "Prekliči"
 				},
+				"noLink": "V odložišču ni povezave",
+				"readFailed": "Odložišča ni bilo mogoče prebrati — prilepite povezavo v polje",
 				"replacedLink": "Zamenjano s kopirano povezavo",
 				"toggle": "Spremljaj odložišče",
 				"toggleDescription": "Samodejno izpolni polje URL, ko kopirate povezavo do videoposnetka.",
@@ -1640,6 +1642,7 @@
 					"seconds": "s"
 				}
 			},
+			"pasteLink": "Prilepite povezavo",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Trenutna omejitev: {{count}} elementov",
@@ -1683,6 +1686,21 @@
 				"badgeCustom": "Po meri",
 				"badgeDisabled": "Skrit",
 				"badgeModified": "Spremenjen",
+				"builtinName": {
+					"audio-only": "Samo zvok",
+					"balanced": "Uravnoteženo 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Najboljša kakovost",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Najnižja kakovost 144p",
+					"low-240": "Varčevanje s podatki 240p",
+					"mp4-1080": "Pametni televizor 1080p",
+					"mp4-480": "Pametni televizor 480p",
+					"mp4-720": "Pametni televizor 720p",
+					"small-file": "Majhna datoteka 480p",
+					"subtitles-only": "Samo podnapisi"
+				},
 				"changeGlobalDestination": "Spremeni splošni cilj",
 				"destinationDetail": {
 					"global": "Uporablja splošni cilj",

@@ -26,11 +26,11 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). GPLv3 licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
+> **Arroxy란?** Arroxy는 YouTube와 [yt-dlp](https://github.com/yt-dlp/yt-dlp)가 지원하는 2000개 이상의 다른 사이트에서 동영상, 오디오, 재생목록, 자막을 다운로드하는 무료 오픈 소스 데스크톱 GUI입니다. Windows 10/11, macOS 13+(Intel + Apple Silicon), Linux(AppImage, Flatpak, tar.gz)에서 실행됩니다. GPLv3 라이선스. 광고도, 사용 제한도 없습니다. [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage 및 직접 다운로드로 배포됩니다.
 >
-> **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
+> **핵심 차이: 내장 브라우저.** 대부분의 무료 YouTube 다운로더는 URL 입력창과 형식 메뉴만 있고 자체 브라우저가 없는 얇은 yt-dlp 래퍼입니다. Arroxy에는 **Explore 탭**이 있습니다. 앱 안에서 YouTube나 다른 사이트를 둘러보며 보고 있는 동영상, 재생목록, 채널을 다운로드하거나 링크를 마우스 오른쪽 버튼으로 클릭해 다운로드할 수 있습니다. Explore에서 한 번 로그인하면 Arroxy는 계정으로 볼 수 있는 비공개, 멤버 전용, 연령 제한 동영상은 물론 나중에 볼 동영상과 좋아요 표시한 동영상 목록까지 쿠키 내보내기 없이 다운로드합니다. 다른 사이트에도 그곳에서 로그인하면, 필요할 때 해당 사이트의 다운로드가 그 로그인을 사용합니다. YouTube가 봇이 아님을 확인하라고 요구하면 Arroxy는 그 로그인으로 다시 시도합니다. 내장 브라우저는 다운로드 전에 YouTube가 요구하는 토큰도 받아 오므로, YouTube가 다운로드를 더 적은 형식으로 줄이지 못합니다. URL 입력창만 있는 래퍼는 이 모든 제한에 부딪힙니다. 자세한 내용: [Arroxy를 선택하는 이유](#why-explore).
 >
-> _Last updated: 2026-10-21._
+> _최종 업데이트: 2026-10-21._
 
 > 🌐 이 번역은 AI의 도움으로 작성되었습니다. [영문 README](../../README.md)가 기준 문서입니다. 오류를 발견했다면 [PR을 열어 주세요](../../../../pulls).
 

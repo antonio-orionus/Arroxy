@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "لغو"
 				},
+				"noLink": "پیوندی در کلیپ‌بورد نیست",
+				"readFailed": "خواندن کلیپ‌بورد ممکن نشد — به‌جای آن پیوند را در کادر جای‌گذاری کنید",
 				"replacedLink": "با پیوند کپی‌شده جایگزین شد",
 				"toggle": "پایش کلیپ‌بورد",
 				"toggleDescription": "هنگام کپی پیوند ویدیو، کادر URL را خودکار پر می‌کند.",
@@ -1578,6 +1580,7 @@
 					"seconds": "ثانیه"
 				}
 			},
+			"pasteLink": "جای‌گذاری پیوند",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "محدودیت فعلی: {{count}} مورد",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "سفارشی",
 				"badgeDisabled": "پنهان",
 				"badgeModified": "تغییریافته",
+				"builtinName": {
+					"audio-only": "فقط صدا",
+					"balanced": "متعادل 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "بهترین کیفیت موجود",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "کمترین کیفیت 144p",
+					"low-240": "مصرف کم داده 240p",
+					"mp4-1080": "تلویزیون هوشمند 1080p",
+					"mp4-480": "تلویزیون هوشمند 480p",
+					"mp4-720": "تلویزیون هوشمند 720p",
+					"small-file": "فایل کوچک 480p",
+					"subtitles-only": "فقط زیرنویس"
+				},
 				"changeGlobalDestination": "تغییر مقصد سراسری",
 				"destinationDetail": {
 					"global": "استفاده از مقصد سراسری",

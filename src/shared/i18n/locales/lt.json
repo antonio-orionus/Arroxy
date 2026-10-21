@@ -1506,6 +1506,8 @@
 				"dialog": {
 					"cancelButton": "Atšaukti"
 				},
+				"noLink": "Iškarpinėje nėra nuorodos",
+				"readFailed": "Nepavyko nuskaityti iškarpinės – įklijuokite nuorodą į lauką",
 				"replacedLink": "Pakeista nukopijuota nuoroda",
 				"toggle": "Stebėti iškarpinę",
 				"toggleDescription": "Automatiškai užpildyti URL lauką, kai nukopijuojate vaizdo įrašo nuorodą.",
@@ -1640,6 +1642,7 @@
 					"seconds": "s"
 				}
 			},
+			"pasteLink": "Įklijuoti nuorodą",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Dabartinė riba: {{count}} elementų",
@@ -1683,6 +1686,21 @@
 				"badgeCustom": "Pasirinktinis",
 				"badgeDisabled": "Paslėptas",
 				"badgeModified": "Pakeistas",
+				"builtinName": {
+					"audio-only": "Tik garsas",
+					"balanced": "Subalansuotas 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Geriausia kokybė",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Žemiausia kokybė 144p",
+					"low-240": "Mažai duomenų 240p",
+					"mp4-1080": "Smart TV 1080p",
+					"mp4-480": "Smart TV 480p",
+					"mp4-720": "Smart TV 720p",
+					"small-file": "Mažas failas 480p",
+					"subtitles-only": "Tik subtitrai"
+				},
 				"changeGlobalDestination": "Keisti bendrąją paskirtį",
 				"destinationDetail": {
 					"global": "Naudojama bendroji paskirtis",

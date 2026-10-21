@@ -102,6 +102,11 @@ export const hu = {
   website_url: "https://arroxy.com/",
   star_cta: "Ha az Arroxy időt spórol Önnek, egy ⭐ segít másoknak megtalálni.",
   ai_notice: "> 🌐 Ez a fordítás MI támogatásával készült. Az [angol README](README.md) az irányadó forrás. Hibát talált? [Nyisson egy PR-t](../../pulls).",
+  intro_what_is:
+    "**Mi az Arroxy?** Az Arroxy egy ingyenes, nyílt forráskódú asztali grafikus felület, amely videókat, hangot, lejátszási listákat és feliratokat tölt le a YouTube-ról és 2000+ további, a [yt-dlp](https://github.com/yt-dlp/yt-dlp) által támogatott webhelyről. Windows 10/11, macOS 13+ (Intel + Apple Silicon) és Linux (AppImage, Flatpak, tar.gz) rendszeren fut. GPLv3 licenc alatt. Nincs reklám, nincs használati korlát. Terjesztés: [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage és közvetlen letöltés.",
+  intro_key_difference:
+    "**Fő különbség: beépített böngésző.** A legtöbb ingyenes YouTube-letöltő a yt-dlp vékony burkolója: egy URL-mező és egy formátumválasztó menü, saját böngésző nélkül. Az Arroxyban van egy, a **Felfedezés lap**. Az alkalmazáson belül böngészik a YouTube-on vagy bármely más webhelyen, és letölti az éppen nézett videót, lejátszási listát vagy csatornát, vagy jobb gombbal kattint bármely hivatkozásra. Egyszer bejelentkezik a Felfedezésben, és az Arroxy letölti a privát, csak tagoknak szóló és korhatáros videókat, amelyeket a fiókja megnézhet, valamint a Megnézendő és a Kedvelt listáit, sütik exportálása nélkül. Más webhelyekre is bejelentkezhet ott, és azok letöltései ezt a bejelentkezést használják, ha szükséges. Az Arroxy ezzel a bejelentkezéssel próbálkozik újra, amikor a YouTube azt kéri, erősítse meg, hogy nem robot. A beépített böngészője azt a tokent is megszerzi, amelyet a YouTube a letöltés előtt elvár, így a YouTube nem szűkíti le a letöltést kevesebb formátumra. Az URL-mezős burkoló mindegyik korlátba beleütközik. Részletek: [Miért az Arroxy](#why-explore).",
+  last_updated: "Utolsó frissítés: {{LAST_UPDATED}}.",
   toc_heading: "Tartalom",
   why_h2: "Miért az Arroxy",
   features_h2: "Funkciók",

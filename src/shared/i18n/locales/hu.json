@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "Mégse"
 				},
+				"noLink": "Nincs hivatkozás a vágólapon",
+				"readFailed": "A vágólap nem olvasható – illessze be helyette a hivatkozást a mezőbe",
 				"replacedLink": "Lecserélve a másolt hivatkozásra",
 				"toggle": "Vágólap figyelése",
 				"toggleDescription": "Automatikusan kitölti az URL-mezőt, amikor videóhivatkozást másol.",
@@ -1578,6 +1580,7 @@
 					"seconds": "mp"
 				}
 			},
+			"pasteLink": "Hivatkozás beillesztése",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Jelenlegi korlát: {{count}} elem",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "Egyéni",
 				"badgeDisabled": "Rejtett",
 				"badgeModified": "Módosított",
+				"builtinName": {
+					"audio-only": "Csak hang",
+					"balanced": "Kiegyensúlyozott 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Legjobb minőség",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Legalacsonyabb minőség 144p",
+					"low-240": "Adattakarékos 240p",
+					"mp4-1080": "Okostévé 1080p",
+					"mp4-480": "Okostévé 480p",
+					"mp4-720": "Okostévé 720p",
+					"small-file": "Kis fájl 480p",
+					"subtitles-only": "Csak feliratok"
+				},
 				"changeGlobalDestination": "Globális célmappa módosítása",
 				"destinationDetail": {
 					"global": "A globális célmappát használja",

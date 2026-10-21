@@ -1506,6 +1506,8 @@
 				"dialog": {
 					"cancelButton": "Anuluj"
 				},
+				"noLink": "Brak linku w schowku",
+				"readFailed": "Nie udało się odczytać schowka — wklej link w polu",
 				"replacedLink": "Zastąpiono skopiowanym linkiem",
 				"toggle": "Obserwuj schowek",
 				"toggleDescription": "Automatycznie wypełnia pole URL po skopiowaniu linku do filmu.",
@@ -1640,6 +1642,7 @@
 					"seconds": "s"
 				}
 			},
+			"pasteLink": "Wklej link",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Bieżący limit: {{count}} elementów",
@@ -1683,6 +1686,21 @@
 				"badgeCustom": "Niestandardowo",
 				"badgeDisabled": "Ukryty",
 				"badgeModified": "Zmodyfikowany",
+				"builtinName": {
+					"audio-only": "Tylko dźwięk",
+					"balanced": "Zrównoważony 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Najlepsza jakość",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Najniższa jakość 144p",
+					"low-240": "Mało danych 240p",
+					"mp4-1080": "Smart TV 1080p",
+					"mp4-480": "Smart TV 480p",
+					"mp4-720": "Smart TV 720p",
+					"small-file": "Mały plik 480p",
+					"subtitles-only": "Tylko napisy"
+				},
 				"changeGlobalDestination": "Zmień globalne miejsce docelowe",
 				"destinationDetail": {
 					"global": "Używa globalnego miejsca docelowego",

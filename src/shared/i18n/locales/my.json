@@ -1413,6 +1413,8 @@
 				"dialog": {
 					"cancelButton": "မလုပ်တော့ပါ"
 				},
+				"noLink": "ကလစ်ဘုတ်တွင် လင့်ခ် မရှိပါ",
+				"readFailed": "ကလစ်ဘုတ်ကို ဖတ်မရပါ — လင့်ခ်ကို အကွက်ထဲတွင် တိုက်ရိုက် ကူးထည့်ပါ",
 				"replacedLink": "ကူးယူထားသော လင့်ခ်ဖြင့် အစားထိုးခဲ့သည်",
 				"toggle": "ကလစ်ဘုတ်ကြည့်မည်",
 				"toggleDescription": "YouTube လင့်ခ်ကော်ပီလုပ်လျှင် URL ဖြည့်သွင်းမည်။",
@@ -1547,6 +1549,7 @@
 					"seconds": "စက္ကန့်"
 				}
 			},
+			"pasteLink": "လင့်ခ် ကူးထည့်ပါ",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "လက်ရှိ ကန့်သတ်ချက်: {{count}} ခု",
@@ -1590,6 +1593,21 @@
 				"badgeCustom": "စိတ်ကြိုက်",
 				"badgeDisabled": "ဝှက်ထားသည်",
 				"badgeModified": "ပြင်ဆင်ထားသည်",
+				"builtinName": {
+					"audio-only": "အသံသာ",
+					"balanced": "ဟန်ချက်ညီ 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "အရည်အသွေးအကောင်းဆုံး",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "အနိမ့်ဆုံး 144p",
+					"low-240": "ဒေတာချွေတာ 240p",
+					"mp4-1080": "စမတ် TV 1080p",
+					"mp4-480": "စမတ် TV 480p",
+					"mp4-720": "စမတ် TV 720p",
+					"small-file": "ဖိုင်သေး 480p",
+					"subtitles-only": "စာတန်းထိုးသာ"
+				},
 				"changeGlobalDestination": "အများသုံး သိမ်းဆည်းရာနေရာ ပြောင်းပါ",
 				"destinationDetail": {
 					"global": "အများသုံး သိမ်းဆည်းရာနေရာကို အသုံးပြုနေသည်",

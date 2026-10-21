@@ -103,6 +103,11 @@ export const ar = {
   website_url: "https://arroxy.com/",
   star_cta: "إذا وفّر لك Arroxy الوقت، فإن ⭐ يساعد الآخرين على اكتشافه.",
   ai_notice: "",
+  intro_what_is:
+    "**ما هو Arroxy؟** Arroxy واجهة رسومية مجانية ومفتوحة المصدر لسطح المكتب، تنزّل مقاطع الفيديو والصوت وقوائم التشغيل والترجمات من YouTube ومن أكثر من 2000 موقع آخر يدعمها [yt-dlp](https://github.com/yt-dlp/yt-dlp). يعمل على Windows 10/11 وmacOS 13+ (Intel + Apple Silicon) وLinux (AppImage وFlatpak وtar.gz). مرخّص بموجب GPLv3. بلا إعلانات ولا حدود للاستخدام. يُوزَّع عبر [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy) و[Scoop](https://github.com/antonio-orionus/scoop-bucket) و[Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy) وFlatpak وAppImage والتنزيل المباشر.",
+  intro_key_difference:
+    "**الفرق الجوهري: متصفح مدمج.** معظم برامج تنزيل YouTube المجانية أغلفة رقيقة حول yt-dlp: مربع لإدخال الرابط وقائمة صيغ، بلا متصفح خاص بها. أما Arroxy فلديه واحد، هو **تبويب Explore**. تتصفّح YouTube أو أي موقع آخر داخل التطبيق وتنزّل الفيديو أو قائمة التشغيل أو القناة التي أنت فيها، أو تنقر بزر الفأرة الأيمن على أي رابط. تسجّل الدخول مرة واحدة في Explore، فيُنزّل Arroxy الفيديوهات الخاصة وفيديوهات الأعضاء فقط والمقيَّدة بالعمر التي يستطيع حسابك مشاهدتها، إضافةً إلى قائمتَي «المشاهدة لاحقاً» و«الإعجابات»، دون تصدير الكوكيز. سجّل الدخول إلى مواقع أخرى هناك أيضاً، وستستخدم تنزيلاتها تسجيل الدخول هذا عند الحاجة. ويعيد المحاولة بتسجيل الدخول هذا عندما يطلب YouTube تأكيد أنك لست روبوتاً. كما يحصل متصفحه المدمج على الرمز الذي يتوقعه YouTube قبل التنزيل، فلا يقلّص YouTube التنزيل إلى صيغ أقل. أما الغلاف ذو مربع الرابط فيصطدم بكل هذه الحدود. التفاصيل: [لماذا Arroxy](#why-explore).",
+  last_updated: "آخر تحديث: {{LAST_UPDATED}}.",
   toc_heading: "المحتويات",
   why_h2: "لماذا Arroxy",
   features_h2: "الميزات",

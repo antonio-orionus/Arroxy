@@ -102,6 +102,11 @@ export const eu = {
   website_url: "https://arroxy.com/",
   star_cta: "Arroxy-k denbora aurrezten badizu, ⭐ batek besteei aurkitzen laguntzen die.",
   ai_notice: "> 🌐 Itzulpen hau adimen artifizialaren laguntzaz egin da. [README ingelesa](README.md) da iturri nagusia. Akatsen bat aurkitu duzu? [Ireki PR bat](../../pulls).",
+  intro_what_is:
+    "**Zer da Arroxy?** Arroxy kode irekiko mahaigaineko GUI doakoa da, eta bideoak, audioa, erreprodukzio-zerrendak eta azpitituluak deskargatzen ditu YouTube-tik eta [yt-dlp](https://github.com/yt-dlp/yt-dlp) onartzen duten beste 2000+ gunetatik. Windows 10/11, macOS 13+ (Intel + Apple Silicon) eta Linux (AppImage, Flatpak, tar.gz) sistemetan exekutatzen da. GPLv3 lizentziapean. Iragarkirik gabe, erabilera-mugarik gabe. Hauen bidez banatzen da: [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage eta zuzeneko deskarga.",
+  intro_key_difference:
+    "**Alde nagusia: nabigatzaile integratua.** YouTube-ren deskargatzaile libre gehienak yt-dlp-ren gaineko wrapper meheak dira: URL kutxa bat eta formatu-menu bat, nabigatzaile propiorik gabe. Arroxy-k bat du, **Esploratu fitxa**. YouTube edo beste edozein gune aplikazioaren barruan arakatzen duzu eta ikusten ari zaren bideoa, erreprodukzio-zerrenda edo kanala deskargatzen duzu, edo edozein estekatan eskuineko botoia sakatzen duzu. Esploratu fitxan behin hasten duzu saioa, eta Arroxy-k zure kontuak ikus ditzakeen bideo pribatuak, bazkideentzakoak eta adin-murrizketadunak deskargatzen ditu, baita zure Ikusteko geroago eta Gustuko zerrendak ere, cookie-ak esportatu gabe. Hasi saioa beste guneetan ere hor, eta haien deskargek saio hori erabiliko dute behar dutenean. YouTube-k bot ez zarela berresteko eskatzen duenean, Arroxy-k saio horrekin berriro saiatzen da. Nabigatzaile integratuak YouTube-k deskarga baino lehen espero duen tokena ere lortzen du, YouTube-k deskarga formatu gutxiagora mugatu ez dezan. URL kutxa bateko wrapper batek muga horiek guztiak jotzen ditu. Xehetasunak: [Zergatik Arroxy](#why-explore).",
+  last_updated: "Azken eguneratzea: {{LAST_UPDATED}}.",
   toc_heading: "Edukia",
   why_h2: "Zergatik Arroxy",
   features_h2: "Eginbideak",

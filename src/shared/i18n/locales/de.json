@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "Abbrechen"
 				},
+				"noLink": "Kein Link in der Zwischenablage",
+				"readFailed": "Die Zwischenablage konnte nicht gelesen werden — füge den Link stattdessen ins Feld ein",
 				"replacedLink": "Durch kopierten Link ersetzt",
 				"toggle": "Zwischenablage beobachten",
 				"toggleDescription": "Füllt das URL-Feld automatisch aus, wenn ein YouTube-Link kopiert wird.",
@@ -1578,6 +1580,7 @@
 					"seconds": "Sek"
 				}
 			},
+			"pasteLink": "Link einfügen",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "Aktuelles Limit: {{count}} Einträge",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "Benutzerdefiniert",
 				"badgeDisabled": "Ausgeblendet",
 				"badgeModified": "Geändert",
+				"builtinName": {
+					"audio-only": "Nur Audio",
+					"balanced": "Ausgewogen 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Beste Qualität",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Niedrigste Qualität 144p",
+					"low-240": "Wenig Daten 240p",
+					"mp4-1080": "Smart-TV 1080p",
+					"mp4-480": "Smart-TV 480p",
+					"mp4-720": "Smart-TV 720p",
+					"small-file": "Kleine Datei 480p",
+					"subtitles-only": "Nur Untertitel"
+				},
 				"changeGlobalDestination": "Globales Ziel ändern",
 				"destinationDetail": {
 					"global": "Verwendet globales Ziel",

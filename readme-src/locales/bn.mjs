@@ -104,6 +104,11 @@ export const bn = {
   star_cta:
     "Arroxy যদি আপনার সময় বাঁচায়, তাহলে একটি ⭐ অন্যদের খুঁজে পেতে সাহায্য করে।",
   ai_notice: "",
+  intro_what_is:
+    "**Arroxy কী?** Arroxy একটি বিনামূল্যের, ওপেন-সোর্স ডেস্কটপ GUI, যা YouTube এবং [yt-dlp](https://github.com/yt-dlp/yt-dlp) সমর্থিত আরও ২০০০+ সাইট থেকে ভিডিও, অডিও, প্লেলিস্ট ও সাবটাইটেল ডাউনলোড করে। এটি Windows 10/11, macOS 13+ (Intel + Apple Silicon) এবং Linux (AppImage, Flatpak, tar.gz)-এ চলে। GPLv3 লাইসেন্সপ্রাপ্ত। কোনো বিজ্ঞাপন নেই, ব্যবহারের কোনো সীমা নেই। বিতরণ হয় [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage এবং সরাসরি ডাউনলোডের মাধ্যমে।",
+  intro_key_difference:
+    "**মূল পার্থক্য: বিল্ট-ইন ব্রাউজার।** বেশিরভাগ ফ্রি YouTube ডাউনলোডার yt-dlp-এর পাতলা র‍্যাপার: একটি URL বক্স আর একটি ফরম্যাট মেনু, নিজস্ব কোনো ব্রাউজার ছাড়া। Arroxy-তে একটি আছে: **Explore ট্যাব**। অ্যাপের ভেতরেই YouTube বা অন্য যেকোনো সাইট ব্রাউজ করুন এবং যে ভিডিও, প্লেলিস্ট বা চ্যানেলে আছেন সেটি ডাউনলোড করুন, অথবা যেকোনো লিংকে ডান-ক্লিক করুন। Explore-এ একবার সাইন ইন করলে Arroxy আপনার অ্যাকাউন্টে দেখা যায় এমন প্রাইভেট, শুধু-সদস্যদের ও বয়স-সীমাবদ্ধ ভিডিও ডাউনলোড করে, সঙ্গে আপনার Watch Later ও Liked তালিকা, কোনো কুকি এক্সপোর্ট ছাড়াই। সেখানে অন্য সাইটেও সাইন ইন করুন; প্রয়োজন হলে সেগুলোর ডাউনলোড ওই সাইন-ইন ব্যবহার করবে। YouTube যখন আপনি বট নন তা নিশ্চিত করতে বলে, তখন Arroxy ওই সাইন-ইন দিয়ে আবার চেষ্টা করে। এর বিল্ট-ইন ব্রাউজার ডাউনলোডের আগে YouTube যে টোকেন আশা করে সেটিও সংগ্রহ করে, তাই YouTube ডাউনলোডকে কম ফরম্যাটে নামিয়ে আনে না। URL বক্সওয়ালা র‍্যাপার এই সব সীমাবদ্ধতায় আটকে যায়। বিস্তারিত: [কেন Arroxy](#why-explore)।",
+  last_updated: "সর্বশেষ আপডেট: {{LAST_UPDATED}}।",
   toc_heading: "বিষয়বস্তু",
   why_h2: "কেন Arroxy",
   features_h2: "বৈশিষ্ট্যসমূহ",

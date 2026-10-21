@@ -204,6 +204,10 @@ const LATIN_ONLY_ALLOWED_KEYS: ReadonlySet<string> = new Set([
 	'wizard.url.features.youtube.podcast',
 	'wizard.url.features.youtube.short',
 	'wizard.url.placeholder',
+	// Standard video format names: "4K UHD 2160p", "QHD 1440p", "Full HD 1080p".
+	'wizard.url.profile.builtinName.best-1440',
+	'wizard.url.profile.builtinName.best-2160',
+	'wizard.url.profile.builtinName.hd-1080',
 	'wizard.url.proxy.placeholder',
 	'wizard.url.style.aurora.label'
 ])

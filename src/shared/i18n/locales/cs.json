@@ -1506,6 +1506,8 @@
 				"dialog": {
 					"cancelButton": "Zrušit"
 				},
+				"noLink": "Ve schránce není žádný odkaz",
+				"readFailed": "Schránku se nepodařilo přečíst – vložte odkaz místo toho do pole",
 				"replacedLink": "Nahrazeno zkopírovaným odkazem",
 				"toggle": "Sledovat schránku",
 				"toggleDescription": "Po zkopírování odkazu na video automaticky vyplní pole URL.",
@@ -1640,6 +1642,7 @@
 					"seconds": "s"
 				}
 			},
+			"pasteLink": "Vložit odkaz",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Aktuální limit: {{count}} položek",
@@ -1683,6 +1686,21 @@
 				"badgeCustom": "Vlastní",
 				"badgeDisabled": "Skrytý",
 				"badgeModified": "Upravený",
+				"builtinName": {
+					"audio-only": "Pouze zvuk",
+					"balanced": "Vyvážený 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Nejlepší kvalita",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Nejnižší kvalita 144p",
+					"low-240": "Úspora dat 240p",
+					"mp4-1080": "Smart TV 1080p",
+					"mp4-480": "Smart TV 480p",
+					"mp4-720": "Smart TV 720p",
+					"small-file": "Malý soubor 480p",
+					"subtitles-only": "Pouze titulky"
+				},
 				"changeGlobalDestination": "Změnit globální cíl",
 				"destinationDetail": {
 					"global": "Používá globální cíl",

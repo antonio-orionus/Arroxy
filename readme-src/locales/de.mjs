@@ -103,6 +103,11 @@ export const de = {
   star_cta: "Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.",
   ai_notice:
     "> 🌐 Dies ist eine KI-gestützte Übersetzung. Die [englische README](README.md) ist die maßgebliche Quelle. Fehler entdeckt? [PRs sind willkommen](../../pulls).",
+  intro_what_is:
+    "**Was ist Arroxy?** Arroxy ist eine kostenlose, quelloffene Desktop-Oberfläche, die Videos, Audio, Playlists und Untertitel von YouTube und über 2000 weiteren Seiten lädt, die von [yt-dlp](https://github.com/yt-dlp/yt-dlp) unterstützt werden. Es läuft unter Windows 10/11, macOS 13+ (Intel + Apple Silicon) und Linux (AppImage, Flatpak, tar.gz). Lizenziert unter GPLv3. Keine Werbung, keine Nutzungslimits. Verteilt über [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage und als direkter Download.",
+  intro_key_difference:
+    "**Der entscheidende Unterschied: ein integrierter Browser.** Die meisten kostenlosen YouTube-Downloader sind dünne yt-dlp-Wrapper: ein URL-Feld und ein Formatmenü, ohne eigenen Browser. Arroxy hat einen, den **Explore-Tab**. Du stöberst in der App auf YouTube oder jeder anderen Seite und lädst das Video, die Playlist oder den Kanal herunter, auf dem du gerade bist, oder klickst mit der rechten Maustaste auf einen beliebigen Link. Du meldest dich einmal in Explore an, und Arroxy lädt private, Mitglieder- und altersbeschränkte Videos herunter, die dein Konto ansehen darf, dazu deine Listen „Später ansehen“ und „Gefällt mir“, ganz ohne Cookie-Export. Melde dich dort auch bei anderen Seiten an, und deren Downloads nutzen diese Anmeldung, wenn sie sie brauchen. Mit dieser Anmeldung versucht Arroxy es erneut, wenn YouTube verlangt zu bestätigen, dass du kein Bot bist. Der integrierte Browser holt außerdem das Token, das YouTube vor einem Download erwartet, damit YouTube einen Download nicht auf weniger Formate beschneidet. Ein Wrapper mit URL-Feld stößt an all diese Grenzen. Details: [Warum Arroxy](#why-explore).",
+  last_updated: "Zuletzt aktualisiert: {{LAST_UPDATED}}.",
   toc_heading: "Inhalt",
   why_h2: "Warum Arroxy",
   features_h2: "Funktionen",

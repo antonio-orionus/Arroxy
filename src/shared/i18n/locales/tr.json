@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "İptal"
 				},
+				"noLink": "Panoda bağlantı yok",
+				"readFailed": "Pano okunamadı — bunun yerine bağlantıyı alana yapıştır",
 				"replacedLink": "Kopyalanan bağlantıyla değiştirildi",
 				"toggle": "Panoyu izle",
 				"toggleDescription": "Bir video bağlantısı kopyaladığında URL alanını otomatik doldur.",
@@ -1578,6 +1580,7 @@
 					"seconds": "sn"
 				}
 			},
+			"pasteLink": "Bağlantıyı yapıştır",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Geçerli sınır: {{count}} öğe",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "Özel",
 				"badgeDisabled": "Gizli",
 				"badgeModified": "Değiştirildi",
+				"builtinName": {
+					"audio-only": "Yalnızca ses",
+					"balanced": "Dengeli 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "En iyi kalite",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "En düşük kalite 144p",
+					"low-240": "Düşük veri 240p",
+					"mp4-1080": "Akıllı TV 1080p",
+					"mp4-480": "Akıllı TV 480p",
+					"mp4-720": "Akıllı TV 720p",
+					"small-file": "Küçük dosya 480p",
+					"subtitles-only": "Yalnızca altyazılar"
+				},
 				"changeGlobalDestination": "Genel hedefi değiştir",
 				"destinationDetail": {
 					"global": "Genel hedef kullanılıyor",

@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "Annuller"
 				},
+				"noLink": "Intet link i udklipsholderen",
+				"readFailed": "Udklipsholderen kunne ikke læses — indsæt linket i feltet i stedet",
 				"replacedLink": "Erstattet med det kopierede link",
 				"toggle": "Overvåg udklipsholderen",
 				"toggleDescription": "Udfyld automatisk URL-feltet, når du kopierer et videolink.",
@@ -1578,6 +1580,7 @@
 					"seconds": "sek."
 				}
 			},
+			"pasteLink": "Indsæt link",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Nuværende grænse: {{count}} elementer",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "Brugerdefineret",
 				"badgeDisabled": "Skjult",
 				"badgeModified": "Ændret",
+				"builtinName": {
+					"audio-only": "Kun lyd",
+					"balanced": "Afbalanceret 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Bedste kvalitet",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Laveste kvalitet 144p",
+					"low-240": "Lavt dataforbrug 240p",
+					"mp4-1080": "Smart TV 1080p",
+					"mp4-480": "Smart TV 480p",
+					"mp4-720": "Smart TV 720p",
+					"small-file": "Lille fil 480p",
+					"subtitles-only": "Kun undertekster"
+				},
 				"changeGlobalDestination": "Skift globalt mål",
 				"destinationDetail": {
 					"global": "Bruger globalt mål",

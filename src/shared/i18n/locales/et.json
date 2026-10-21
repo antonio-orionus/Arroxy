@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "Loobu"
 				},
+				"noLink": "Lõikelaual pole linki",
+				"readFailed": "Lõikelauda ei õnnestunud lugeda – kleepige link selle asemel väljale",
 				"replacedLink": "Asendati kopeeritud lingiga",
 				"toggle": "Jälgi lõikelauda",
 				"toggleDescription": "Täidab URL-välja automaatselt, kui kopeerite videolingi.",
@@ -1578,6 +1580,7 @@
 					"seconds": "sek"
 				}
 			},
+			"pasteLink": "Kleebi link",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Praegune piirang: {{count}} üksust",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "Kohandatud",
 				"badgeDisabled": "Peidetud",
 				"badgeModified": "Muudetud",
+				"builtinName": {
+					"audio-only": "Ainult heli",
+					"balanced": "Tasakaalustatud 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Parim kvaliteet",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Madalaim kvaliteet 144p",
+					"low-240": "Andmesääst 240p",
+					"mp4-1080": "Nutiteler 1080p",
+					"mp4-480": "Nutiteler 480p",
+					"mp4-720": "Nutiteler 720p",
+					"small-file": "Väike fail 480p",
+					"subtitles-only": "Ainult subtiitrid"
+				},
 				"changeGlobalDestination": "Muuda globaalset sihtkohta",
 				"destinationDetail": {
 					"global": "Kasutab globaalset sihtkohta",

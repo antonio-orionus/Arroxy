@@ -104,6 +104,11 @@ export const fr = {
     "Si Arroxy te fait gagner du temps, une ⭐ aide les autres à le trouver.",
   ai_notice:
     "> 🌐 Traduction assistée par IA. Le [README en anglais](README.md) fait foi. Tu vois une erreur ? [Les PRs sont les bienvenues](../../pulls).",
+  intro_what_is:
+    "**Qu'est-ce qu'Arroxy ?** Arroxy est une interface de bureau gratuite et open source qui télécharge des vidéos, de l'audio, des playlists et des sous-titres depuis YouTube et plus de 2000 autres sites supportés par [yt-dlp](https://github.com/yt-dlp/yt-dlp). Elle fonctionne sous Windows 10/11, macOS 13+ (Intel + Apple Silicon) et Linux (AppImage, Flatpak, tar.gz). Sous licence GPLv3. Pas de pub, pas de limite d'utilisation. Distribuée via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage et téléchargement direct.",
+  intro_key_difference:
+    "**Différence clé : un navigateur intégré.** La plupart des téléchargeurs YouTube gratuits sont de simples wrappers autour de yt-dlp : un champ d'URL et un menu de formats, sans navigateur à eux. Arroxy en a un, l'onglet **Explore**. Tu parcours YouTube ou n'importe quel autre site dans l'application et tu télécharges la vidéo, la playlist ou la chaîne que tu regardes, ou tu fais un clic droit sur n'importe quel lien. Tu te connectes une fois dans Explore, et Arroxy télécharge les vidéos privées, réservées aux membres et soumises à une limite d'âge que ton compte peut voir, ainsi que tes listes À regarder plus tard et J'aime, sans export de cookies. Connecte-toi aussi aux autres sites là-bas : leurs téléchargements utilisent cette connexion quand ils en ont besoin. Arroxy réessaie avec cette connexion quand YouTube te demande de confirmer que tu n'es pas un robot. Son navigateur intégré obtient aussi le jeton que YouTube attend avant un téléchargement, pour que YouTube ne réduise pas un téléchargement à moins de formats. Un wrapper à champ d'URL se heurte à toutes ces limites. Détails : [Pourquoi Arroxy](#why-explore).",
+  last_updated: "Dernière mise à jour : {{LAST_UPDATED}}.",
   toc_heading: "Sommaire",
   why_h2: "Pourquoi Arroxy",
   features_h2: "Fonctionnalités",

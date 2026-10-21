@@ -1568,6 +1568,8 @@
 				"dialog": {
 					"cancelButton": "إلغاء"
 				},
+				"noLink": "لا يوجد رابط في الحافظة",
+				"readFailed": "تعذّرت قراءة الحافظة — الصق الرابط في الحقل بدلاً من ذلك",
 				"replacedLink": "تم الاستبدال بالرابط المنسوخ",
 				"toggle": "مراقبة الحافظة",
 				"toggleDescription": "يملأ حقل الرابط تلقائياً عند نسخ رابط YouTube.",
@@ -1702,6 +1704,7 @@
 					"seconds": "ث"
 				}
 			},
+			"pasteLink": "لصق الرابط",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "الحد الحالي: {{count}} عناصر",
@@ -1745,6 +1748,21 @@
 				"badgeCustom": "مخصص",
 				"badgeDisabled": "مخفي",
 				"badgeModified": "معدّل",
+				"builtinName": {
+					"audio-only": "صوت فقط",
+					"balanced": "متوازن 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "أفضل جودة متاحة",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "الأدنى 144p",
+					"low-240": "توفير البيانات 240p",
+					"mp4-1080": "تلفاز ذكي 1080p",
+					"mp4-480": "تلفاز ذكي 480p",
+					"mp4-720": "تلفاز ذكي 720p",
+					"small-file": "ملف صغير 480p",
+					"subtitles-only": "ترجمات فقط"
+				},
 				"changeGlobalDestination": "تغيير وجهة الحفظ العامة",
 				"destinationDetail": {
 					"global": "استخدام الوجهة العامة",

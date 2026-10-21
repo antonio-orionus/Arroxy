@@ -104,6 +104,11 @@ export const nb = {
   star_cta: "Hvis Arroxy sparer deg tid, hjelper en ⭐ andre med å finne det.",
   ai_notice:
     "> 🌐 Denne oversettelsen er laget med støtte fra KI. [Den engelske README-filen](README.md) er den overordnede kilden. Fant du en feil? [Åpne en PR](../../pulls).",
+  intro_what_is:
+    "**Hva er Arroxy?** Arroxy er et gratis skrivebordsgrensesnitt med åpen kildekode som laster ned videoer, lyd, spillelister og undertekster fra YouTube og over 2000 andre nettsteder som [yt-dlp](https://github.com/yt-dlp/yt-dlp) støtter. Det kjører på Windows 10/11, macOS 13+ (Intel + Apple Silicon) og Linux (AppImage, Flatpak, tar.gz). Lisensiert under GPLv3. Ingen reklame, ingen bruksgrenser. Distribueres via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage og direkte nedlasting.",
+  intro_key_difference:
+    "**Hovedforskjellen: en innebygd nettleser.** De fleste gratis YouTube-nedlastere er tynne yt-dlp-innpakninger: et nettadressefelt og en formatmeny, uten egen nettleser. Arroxy har en, **fanen Utforsk**. Du surfer på YouTube eller et hvilket som helst annet nettsted i appen og laster ned videoen, spillelisten eller kanalen du er på, eller høyreklikker på en lenke. Du logger på én gang i Utforsk, og Arroxy laster ned private videoer, videoer for medlemmer og videoer med aldersgrense som kontoen din kan se, pluss listene Se senere og Likte videoer, uten å eksportere informasjonskapsler. Logg på andre nettsteder der også, så bruker nedlastingene fra dem den påloggingen når de trenger det. Arroxy prøver på nytt med den påloggingen når YouTube ber deg bekrefte at du ikke er en robot. Den innebygde nettleseren henter også tokenet YouTube forventer før en nedlasting, så YouTube ikke kutter en nedlasting ned til færre formater. En innpakning med bare et nettadressefelt støter på alle disse begrensningene. Detaljer: [Hvorfor Arroxy](#why-explore).",
+  last_updated: "Sist oppdatert: {{LAST_UPDATED}}.",
   toc_heading: "Innhold",
   why_h2: "Hvorfor Arroxy",
   features_h2: "Funksjoner",

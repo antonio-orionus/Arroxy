@@ -100,6 +100,11 @@ export const it = {
   website_url: "https://arroxy.com/",
   star_cta: "Se Arroxy ti fa risparmiare tempo, una ⭐ aiuta altre persone a scoprirlo.",
   ai_notice: "> 🌐 Questa traduzione è stata realizzata con assistenza IA. Il [README in inglese](README.md) è la fonte autorevole. Hai trovato un errore? [Apri una PR](../../pulls).",
+  intro_what_is:
+    "**Cos'è Arroxy?** Arroxy è una GUI desktop gratuita e open source che scarica video, audio, playlist e sottotitoli da YouTube e da oltre 2000 altri siti supportati da [yt-dlp](https://github.com/yt-dlp/yt-dlp). Funziona su Windows 10/11, macOS 13+ (Intel + Apple Silicon) e Linux (AppImage, Flatpak, tar.gz). Licenza GPLv3. Nessuna pubblicità, nessun limite di utilizzo. Distribuito tramite [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage e download diretto.",
+  intro_key_difference:
+    "**La differenza chiave: un browser integrato.** La maggior parte dei downloader gratuiti per YouTube sono semplici wrapper di yt-dlp: una casella per l'URL e un menu dei formati, senza un browser proprio. Arroxy ce l'ha: la **scheda Explore**. Navighi su YouTube o su qualsiasi altro sito dentro l'app e scarichi il video, la playlist o il canale che stai guardando, oppure fai clic destro su un link qualsiasi. Accedi una volta in Explore e Arroxy scarica i video privati, riservati ai membri e con limiti di età che il tuo account può vedere, oltre alle tue liste Guarda più tardi e Piaciuti, senza esportare cookie. Accedi anche ad altri siti da lì, e i loro download useranno quell'accesso quando serve. Arroxy riprova con quell'accesso quando YouTube ti chiede di confermare che non sei un bot. Il suo browser integrato ottiene anche il token che YouTube si aspetta prima di un download, così YouTube non riduce un download a meno formati. Un wrapper con la sola casella per l'URL incontra tutti questi limiti. Dettagli: [Perché Arroxy](#why-explore).",
+  last_updated: "Ultimo aggiornamento: {{LAST_UPDATED}}.",
   toc_heading: "Indice",
   why_h2: "Perché Arroxy",
   features_h2: "Funzionalità",

@@ -104,6 +104,11 @@ export const pt = {
     "Se o Arroxy economiza seu tempo, uma ⭐ ajuda outras pessoas a encontrá-lo.",
   ai_notice:
     "> 🌐 Esta é uma tradução assistida por IA. O [README em inglês](README.md) é a fonte da verdade. Encontrou algum erro? [PRs são bem-vindos](../../pulls).",
+  intro_what_is:
+    "**O que é o Arroxy?** O Arroxy é uma interface gráfica de desktop gratuita e de código aberto que baixa vídeos, áudio, playlists e legendas do YouTube e de mais de 2000 outros sites compatíveis com o [yt-dlp](https://github.com/yt-dlp/yt-dlp). Funciona no Windows 10/11, macOS 13+ (Intel + Apple Silicon) e Linux (AppImage, Flatpak, tar.gz). Licença GPLv3. Sem anúncios, sem limites de uso. Distribuído pelo [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage e download direto.",
+  intro_key_difference:
+    "**Diferença principal: um navegador integrado.** A maioria dos baixadores gratuitos do YouTube são wrappers simples do yt-dlp: um campo de URL e um menu de formatos, sem navegador próprio. O Arroxy tem um: a **aba Explore**. Você navega pelo YouTube ou por qualquer outro site dentro do app e baixa o vídeo, a playlist ou o canal em que está, ou clica com o botão direito em qualquer link. Você entra uma vez no Explore, e o Arroxy baixa vídeos privados, exclusivos para membros e com restrição de idade que a sua conta consegue assistir, além das suas listas Assistir mais tarde e Curtidos, sem exportar cookies. Entre também em outros sites ali, e os downloads deles usam esse login quando precisarem. Ele tenta de novo com esse login quando o YouTube pede para confirmar que você não é um robô. O navegador integrado também obtém o token que o YouTube espera antes de um download, para que o YouTube não reduza o download a menos formatos. Um wrapper com só um campo de URL esbarra em todos esses limites. Detalhes: [Por que o Arroxy](#why-explore).",
+  last_updated: "Última atualização: {{LAST_UPDATED}}.",
   toc_heading: "Conteúdo",
   why_h2: "Por que o Arroxy",
   features_h2: "Recursos",

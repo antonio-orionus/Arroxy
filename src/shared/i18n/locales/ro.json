@@ -1475,6 +1475,8 @@
 				"dialog": {
 					"cancelButton": "Anulare"
 				},
+				"noLink": "Niciun link în clipboard",
+				"readFailed": "Clipboardul nu a putut fi citit — lipiți linkul în câmp",
 				"replacedLink": "Înlocuit cu linkul copiat",
 				"toggle": "Urmărește clipboardul",
 				"toggleDescription": "Completează automat câmpul URL când copiați un link de videoclip.",
@@ -1609,6 +1611,7 @@
 					"seconds": "s"
 				}
 			},
+			"pasteLink": "Lipiți linkul",
 			"placeholder": "https://...",
 			"playlistProbeLimit": {
 				"current": "Limita curentă: {{count}} elemente",
@@ -1652,6 +1655,21 @@
 				"badgeCustom": "Personalizat",
 				"badgeDisabled": "Ascuns",
 				"badgeModified": "Modificat",
+				"builtinName": {
+					"audio-only": "Doar audio",
+					"balanced": "Echilibrat 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Cea mai bună calitate",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Cea mai joasă calitate 144p",
+					"low-240": "Consum redus 240p",
+					"mp4-1080": "Smart TV 1080p",
+					"mp4-480": "Smart TV 480p",
+					"mp4-720": "Smart TV 720p",
+					"small-file": "Fișier mic 480p",
+					"subtitles-only": "Doar subtitrări"
+				},
 				"changeGlobalDestination": "Schimbă destinația globală",
 				"destinationDetail": {
 					"global": "Se folosește destinația globală",

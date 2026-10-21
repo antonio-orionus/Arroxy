@@ -102,6 +102,11 @@ export const sv = {
   website_url: "https://arroxy.com/",
   star_cta: "Om Arroxy sparar tid åt dig hjälper en ⭐ andra att hitta det.",
   ai_notice: "> 🌐 Den här översättningen har tagits fram med hjälp av AI. Den [engelska README-filen](README.md) är den överordnade källan. Hittat ett fel? [Öppna en PR](../../pulls).",
+  intro_what_is:
+    "**Vad är Arroxy?** Arroxy är ett gratis skrivbordsgränssnitt med öppen källkod som hämtar videor, ljud, spellistor och undertexter från YouTube och över 2000 andra webbplatser som stöds av [yt-dlp](https://github.com/yt-dlp/yt-dlp). Det körs på Windows 10/11, macOS 13+ (Intel + Apple Silicon) och Linux (AppImage, Flatpak, tar.gz). GPLv3-licens. Inga annonser, inga användningsgränser. Distribueras via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage och direkthämtning.",
+  intro_key_difference:
+    "**Viktig skillnad: en inbyggd webbläsare.** De flesta gratis YouTube-hämtare är tunna omslag kring yt-dlp: en webbadressruta och en formatmeny, utan egen webbläsare. Arroxy har en, **fliken Utforska**. Du surfar på YouTube eller någon annan webbplats i appen och hämtar videon, spellistan eller kanalen du är på, eller högerklickar på valfri länk. Du loggar in en gång i Utforska, och Arroxy hämtar privata videor, videor för medlemmar och åldersbegränsade videor som ditt konto får se, plus dina listor Titta senare och Gillade, utan att exportera cookies. Logga in på andra webbplatser där också, så använder deras hämtningar den inloggningen när de behöver den. Den försöker igen med den inloggningen när YouTube ber dig bekräfta att du inte är en robot. Den inbyggda webbläsaren hämtar också den token som YouTube förväntar sig före en hämtning, så att YouTube inte begränsar hämtningen till färre format. Ett omslag med bara en webbadressruta stöter på alla dessa gränser. Detaljer: [Varför Arroxy](#why-explore).",
+  last_updated: "Senast uppdaterad: {{LAST_UPDATED}}.",
   toc_heading: "Innehåll",
   why_h2: "Varför Arroxy",
   features_h2: "Funktioner",

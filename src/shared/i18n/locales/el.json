@@ -1444,6 +1444,8 @@
 				"dialog": {
 					"cancelButton": "Ακύρωση"
 				},
+				"noLink": "Δεν υπάρχει σύνδεσμος στο πρόχειρο",
+				"readFailed": "Δεν ήταν δυνατή η ανάγνωση του πρόχειρου — επικόλλησε τον σύνδεσμο στο πεδίο",
 				"replacedLink": "Αντικαταστάθηκε με τον αντιγραμμένο σύνδεσμο",
 				"toggle": "Παρακολούθηση πρόχειρου",
 				"toggleDescription": "Αυτόματη συμπλήρωση του πεδίου URL όταν αντιγράφεις σύνδεσμο YouTube.",
@@ -1578,6 +1580,7 @@
 					"seconds": "δευτ."
 				}
 			},
+			"pasteLink": "Επικόλληση συνδέσμου",
 			"placeholder": "https://www.youtube.com/watch?v=...",
 			"playlistProbeLimit": {
 				"current": "Τρέχον όριο: {{count}} στοιχεία",
@@ -1621,6 +1624,21 @@
 				"badgeCustom": "Προσαρμοσμένο",
 				"badgeDisabled": "Κρυφό",
 				"badgeModified": "Τροποποιημένο",
+				"builtinName": {
+					"audio-only": "Μόνο ήχος",
+					"balanced": "Ισορροπημένη 720p",
+					"best-1440": "QHD 1440p",
+					"best-2160": "4K UHD 2160p",
+					"best-quality": "Καλύτερη ποιότητα",
+					"hd-1080": "Full HD 1080p",
+					"low-144": "Χαμηλότερη ποιότητα 144p",
+					"low-240": "Οικονομία δεδομένων 240p",
+					"mp4-1080": "Έξυπνη TV 1080p",
+					"mp4-480": "Έξυπνη TV 480p",
+					"mp4-720": "Έξυπνη TV 720p",
+					"small-file": "Μικρό αρχείο 480p",
+					"subtitles-only": "Μόνο υπότιτλοι"
+				},
 				"changeGlobalDestination": "Αλλαγή καθολικού προορισμού",
 				"destinationDetail": {
 					"global": "Χρήση καθολικού προορισμού",
