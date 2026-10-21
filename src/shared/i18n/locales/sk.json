@@ -965,6 +965,7 @@
 			"rateLimit": "Web obmedzuje počet požiadaviek z tohto pripojenia.",
 			"ageRestricted": "Toto video je vekovo obmedzené a nedá sa stiahnuť bez prihláseného účtu.",
 			"unavailable": "Toto video nie je dostupné – môže byť súkromné, odstránené alebo zamknuté pre váš región.",
+			"formatUnavailable": "Toto video už neponúka formát, ktorý ste vybrali. Vložte odkaz znova a vyberte z formátov, ktoré ponúka teraz.",
 			"geoBlocked": "Toto video nie je dostupné vo vašom regióne.",
 			"outOfDiskSpace": "Nedostatok miesta na disku. Uvoľnite miesto a skúste to znova.",
 			"outputNotWritable": "Arroxy nemôže zapisovať do priečinka na sťahovanie. Môže byť iba na čítanie, na zamknutom disku alebo zablokovaný nastaveniami ochrany osobných údajov v systéme. Vyberte iný priečinok alebo povoľte prístup a skúste to znova.",

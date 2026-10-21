@@ -522,6 +522,28 @@ describe('QueueManagerTab', () => {
 		await expectHint(subs, /no subtitles in German\. The other languages were saved\./i)
 	})
 
+	it('names the missing subtitle languages beside a notice about the video itself', async () => {
+		useAppStore.setState({
+			queue: [
+				makeItem({id: 'kept', title: 'Kept video', status: 'done', progressPercent: 100, lastStatus: {key: 'audioKept', params: {languageCodes: 'de,fr'}}}),
+				makeItem({id: 'limited', title: 'Limited video', status: 'done', progressPercent: 100, lastStatus: {key: 'qualityLimited', params: {height: 360, languageCodes: 'de'}}}),
+				makeItem({id: 'plain', title: 'Plain kept video', status: 'done', progressPercent: 100, lastStatus: {key: 'audioKept'}})
+			]
+		})
+
+		render(<QueueManagerTab />)
+
+		const kept = within(screen.getByTestId('queue-manager-row-kept'))
+		expect(kept.getByTestId('queue-audio-warning')).toHaveTextContent('Sound not removed')
+		await expectHint(kept.getByTestId('queue-audio-warning'), /audio could not be removed/i)
+		expect(kept.getByTestId('queue-subs-warning')).toHaveTextContent('No subtitles in German, French')
+		await expectHint(kept.getByTestId('queue-subs-warning'), /no subtitles in German, French\. The video was saved without them\./i)
+		const limited = within(screen.getByTestId('queue-manager-row-limited'))
+		expect(limited.getByTestId('queue-quality-warning')).toHaveTextContent('Limited to 360p')
+		expect(limited.getByTestId('queue-subs-warning')).toHaveTextContent('No subtitles in German')
+		expect(within(screen.getByTestId('queue-manager-row-plain')).queryByTestId('queue-subs-warning')).toBeNull()
+	})
+
 	it('names the languages a failed subtitles-only row has no subtitles in', () => {
 		useAppStore.setState({queue: [makeItem({id: 'none', title: 'None job', status: 'error', error: {kind: 'noSubtitles', raw: 'x', languageCodes: ['de', 'fr']}, lastStatus: {key: 'noSubtitles', params: {languageCodes: 'de,fr'}}})]})
 

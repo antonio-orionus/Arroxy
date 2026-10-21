@@ -894,6 +894,7 @@
 			"rateLimit": "Tovuti inazuia maombi kutoka kwa muunganisho huu.",
 			"ageRestricted": "Video hii ina kikwazo cha umri na haiwezi kupakuliwa bila akaunti iliyoingia.",
 			"unavailable": "Video hii haipatikani — inaweza kuwa ya kibinafsi, imefutwa, au imezuiwa kwa mkoa.",
+			"formatUnavailable": "Video hii haitoi tena umbizo ulilochagua. Bandika kiungo tena na uchague kutoka kwenye miundo inayotolewa sasa.",
 			"geoBlocked": "Video hii haipatikani katika eneo lako.",
 			"outOfDiskSpace": "Nafasi ya diski haitoshi. Futa nafasi na ujaribu tena.",
 			"outputNotWritable": "Arroxy haiwezi kuandika kwenye folda ya vipakuliwa. Huenda ni ya kusoma tu, iko kwenye diski iliyofungwa, au imezuiwa na mipangilio ya faragha ya mfumo wako. Chagua folda nyingine au ruhusu ufikiaji, kisha ujaribu tena.",

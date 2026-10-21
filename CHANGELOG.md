@@ -28,6 +28,7 @@ Arroxy's website has a new address: **https://arroxy.com/**. The About, Share an
 - A subtitles-only download whose video has none of the chosen languages now fails and names them, instead of finishing with nothing saved. A video download says which subtitle languages the video lacks.
 - Playlist subtitles, and subtitles from sites other than YouTube, are the exact tracks you asked for, never a machine translation. A subtitles-only download is named after its video.
 - File and folder names keep `$`, `%` and `~` as in the title, instead of look-alike characters.
+- When a video no longer offers the format you picked, Arroxy says so and asks you to pick again, instead of calling the video private, deleted or region-locked.
 - Videos added several links at a time keep more of a long title in their file name. A long-titled playlist video from Vimeo no longer fails with "File name too long".
 
 ## 0.7.2

@@ -61,7 +61,8 @@ This package fills the gap: a curated regex taxonomy of every error kind yt-dlp 
 | `ipBlock` | `YTDLP_IP_BLOCK` | yes | yes | IP-level ban from extractor host |
 | `rateLimit` | `YTDLP_RATE_LIMIT` | yes | yes | HTTP 429 or extractor throttle |
 | `ageRestricted` | `YTDLP_AGE_RESTRICTED` | yes | yes | Login required to confirm age |
-| `unavailable` | `YTDLP_UNAVAILABLE` | no | no | Removed / private / format gone |
+| `unavailable` | `YTDLP_UNAVAILABLE` | no | no | Removed / private |
+| `formatUnavailable` | `YTDLP_FORMAT_UNAVAILABLE` | yes | yes | The format selector or a pinned format id matched none of the run's formats |
 | `geoBlocked` | `YTDLP_GEO_BLOCKED` | yes | yes | Region restriction |
 | `drmProtected` | `YTDLP_DRM_PROTECTED` | no | no | DRM (Widevine/PlayReady) |
 | `loginRequired` | `YTDLP_LOGIN_REQUIRED` | yes | yes | Subscriber-only / private |
@@ -77,6 +78,8 @@ This package fills the gap: a curated regex taxonomy of every error kind yt-dlp 
 | `unknown` | `YTDLP_UNKNOWN` | no | no | No pattern matched; render `raw` |
 
 `unsupportedUrl` is classified from yt-dlp's `Unsupported URL:`, `No suitable extractor ... found for URL` and `... is not a valid URL` lines. Hosts can also set it from their own URL validation before yt-dlp is spawned.
+
+`formatUnavailable` is classified from yt-dlp's `Requested format is not available` line, which yt-dlp raises only when the run did extract formats but none matched `-f`. It does not mean the video is gone: a different player client, or a format list that changed since the host probed it, is the usual cause. Probe again and select from the current list.
 
 `noSubtitles` is classified from yt-dlp's `There are no subtitles for the requested languages` line. yt-dlp prints it to stdout and still exits 0, so pass that output to the classifier yourself. Hosts that check the video's subtitle lists before spawning yt-dlp can also set it.
 

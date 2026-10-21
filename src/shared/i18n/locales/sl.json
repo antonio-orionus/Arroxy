@@ -969,6 +969,7 @@
 			"rateLimit": "Spletno mesto omejuje število zahtev s te povezave.",
 			"ageRestricted": "Ta videoposnetek je starostno omejen in ga ni mogoče prenesti brez prijavljenega računa.",
 			"unavailable": "Ta videoposnetek ni na voljo — morda je zaseben, izbrisan ali omejen na določeno regijo.",
+			"formatUnavailable": "Ta videoposnetek ne ponuja več formata, ki ste ga izbrali. Znova prilepite povezavo in izberite med formati, ki jih ponuja zdaj.",
 			"geoBlocked": "Ta videoposnetek v vaši regiji ni na voljo.",
 			"outOfDiskSpace": "Na disku ni dovolj prostora. Sprostite prostor in poskusite znova.",
 			"outputNotWritable": "Arroxy ne more pisati v mapo za prenose. Morda je samo za branje, na zaklenjenem pogonu ali blokirana z nastavitvami zasebnosti vašega sistema. Izberite drugo mapo ali dovolite dostop, nato poskusite znova.",

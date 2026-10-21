@@ -907,6 +907,7 @@
 			"rateLimit": "Webbplatsen begränsar antalet förfrågningar från den här anslutningen.",
 			"ageRestricted": "Den här videon är åldersbegränsad och kan inte hämtas utan ett inloggat konto.",
 			"unavailable": "Den här videon är inte tillgänglig. Den kan vara privat, borttagen eller regionslåst.",
+			"formatUnavailable": "Den här videon erbjuder inte längre formatet du valde. Klistra in länken igen och välj bland de format den erbjuder nu.",
 			"geoBlocked": "Den här videon är inte tillgänglig i din region.",
 			"outOfDiskSpace": "Det finns inte tillräckligt med diskutrymme. Frigör utrymme och försök igen.",
 			"outputNotWritable": "Arroxy kan inte skriva till hämtningsmappen. Den kan vara skrivskyddad, ligga på en låst enhet eller blockeras av systemets sekretessinställningar. Välj en annan mapp eller ge åtkomst och försök igen.",

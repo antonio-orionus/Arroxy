@@ -943,6 +943,7 @@
 			"rateLimit": "Site-ul limitează cererile din această conexiune.",
 			"ageRestricted": "Acest videoclip are restricție de vârstă și nu poate fi descărcat fără un cont conectat.",
 			"unavailable": "Acest videoclip nu este disponibil — poate fi privat, șters sau blocat regional.",
+			"formatUnavailable": "Acest videoclip nu mai oferă formatul pe care l-ați ales. Lipiți din nou linkul și alegeți dintre formatele oferite acum.",
 			"geoBlocked": "Acest videoclip nu este disponibil în regiunea dvs.",
 			"outOfDiskSpace": "Spațiu insuficient pe disc. Eliberați spațiu și reîncercați.",
 			"outputNotWritable": "Arroxy nu poate scrie în folderul de descărcare. Poate fi doar în citire, pe o unitate blocată sau blocat de setările de confidențialitate ale sistemului. Alegeți alt folder sau permiteți accesul, apoi reîncercați.",

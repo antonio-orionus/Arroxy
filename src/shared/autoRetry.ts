@@ -15,6 +15,12 @@ import type {YtDlpErrorKind} from './types.js'
 //   - Permanent kinds (unavailable, drmProtected, parse, geoBlocked,
 //     ageRestricted, loginRequired, unsupportedUrl) are excluded because the
 //     next attempt cannot succeed either.
+//   - formatUnavailable is excluded although the package calls it
+//     recoverable: the fix is a fresh probe and a new pick, which the user
+//     makes. The failed run already ended on a fresh extraction (the media
+//     phase drops the probe's info-json after a failure), so a queue retry
+//     would relaunch the same command, and waiting does not change which
+//     formats a player client lists.
 const AUTO_RETRY_ERROR_KINDS: ReadonlySet<YtDlpErrorKind> = new Set(['network', 'chunkTransferFailure', 'postprocessFailure', 'rateLimit'])
 
 // Backoff before each attempt, indexed by retries already consumed. Growing

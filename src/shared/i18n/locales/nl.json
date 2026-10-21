@@ -911,6 +911,7 @@
 			"rateLimit": "De site beperkt het aantal verzoeken vanaf deze verbinding.",
 			"ageRestricted": "Deze video heeft een leeftijdsbeperking en kan niet worden gedownload zonder aangemeld account.",
 			"unavailable": "Deze video is niet beschikbaar — mogelijk is hij privé, verwijderd of vergrendeld voor jouw regio.",
+			"formatUnavailable": "Deze video biedt het formaat dat je koos niet meer aan. Plak de link opnieuw en kies uit de formaten die nu beschikbaar zijn.",
 			"geoBlocked": "Deze video is niet beschikbaar in jouw regio.",
 			"outOfDiskSpace": "Onvoldoende schijfruimte. Maak ruimte vrij en probeer het opnieuw.",
 			"outputNotWritable": "Arroxy kan niet naar de downloadmap schrijven. De map is mogelijk alleen-lezen, staat op een vergrendelde schijf of wordt geblokkeerd door de privacyinstellingen van je systeem. Kies een andere map of sta toegang toe en probeer het opnieuw.",
