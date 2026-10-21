@@ -21,7 +21,9 @@ export async function pauseEach(itemIds: readonly string[], {pause, statusOf}: P
 		try {
 			const result = await pause(itemId)
 			const status = statusOf(itemId)
-			if (result.ok && status === QUEUE_STATUS.pausedActive) {
+			// Held counts too: a row that went back to pending while an earlier
+			// row's pause was awaited is held by pause(), not parked.
+			if (result.ok && (status === QUEUE_STATUS.pausedActive || status === QUEUE_STATUS.pausedHeld)) {
 				done.push(itemId)
 				continue
 			}
