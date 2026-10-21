@@ -1,1 +1,1 @@
-Lists of subtitle languages in queue notices and errors are joined with commas and "and" in every language; Russian, Japanese, Chinese and Korean ran the names together.
+Lists of subtitle languages in queue notices and errors use each language's own separators; in Russian, Japanese, Chinese and Korean the names used to run together.
