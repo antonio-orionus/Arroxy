@@ -22,6 +22,7 @@
 			"@preload/*": ["./src/preload/*"],
 			"@renderer/*": ["./src/renderer/src/*"],
 			"@shared/*": ["./src/shared/*"],
+			"arroxy-control": ["./packages/arroxy-control/src/index.ts"],
 			"yt-dlp-bridge": ["./packages/yt-dlp-bridge/src/index.ts"],
 			"yt-dlp-bridge/*": ["./packages/yt-dlp-bridge/src/*.ts"],
 			"ytdlp-errors": ["./packages/ytdlp-errors/src/index.ts"]

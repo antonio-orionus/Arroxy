@@ -7,6 +7,7 @@ const testAliasObj = {
 	'@renderer': path.resolve('src/renderer/src'),
 	'@shared': path.resolve('src/shared'),
 	'ytdlp-errors': path.resolve('packages/ytdlp-errors/src/index.ts'),
+	'arroxy-control': path.resolve('packages/arroxy-control/src/index.ts'),
 	'electron-log/main.js': path.resolve('tests/__mocks__/electron-log-main.ts'),
 	'electron-log/renderer.js': path.resolve('tests/__mocks__/electron-log-renderer.ts'),
 	electron: path.resolve('tests/__mocks__/electron.ts')

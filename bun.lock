@@ -18,6 +18,7 @@
         "@tanstack/react-virtual": "3.14.17",
         "@url-sanitize/clearurls": "2.0.2",
         "@url-sanitize/core": "2.0.2",
+        "arroxy-control": "workspace:*",
         "cacache": "21.0.1",
         "class-variance-authority": "0.7.1",
         "clsx": "2.1.1",

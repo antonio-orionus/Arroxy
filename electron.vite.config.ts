@@ -24,7 +24,8 @@ const {version} = require('./package.json') as {version: string}
 const WORKSPACE_PACKAGE_ALIASES = [
 	{find: /^yt-dlp-bridge\/(.+)$/, replacement: `${path.resolve('packages/yt-dlp-bridge/src')}/$1.ts`},
 	{find: /^yt-dlp-bridge$/, replacement: path.resolve('packages/yt-dlp-bridge/src/index.ts')},
-	{find: /^ytdlp-errors$/, replacement: path.resolve('packages/ytdlp-errors/src/index.ts')}
+	{find: /^ytdlp-errors$/, replacement: path.resolve('packages/ytdlp-errors/src/index.ts')},
+	{find: /^arroxy-control$/, replacement: path.resolve('packages/arroxy-control/src/index.ts')}
 ]
 
 const WINDOWS_ABS_PATH = /^[a-zA-Z]:[\\/]/

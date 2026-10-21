@@ -359,6 +359,17 @@ describe('IntakeService', () => {
 		expect(outcomes(h).at(-1)).toMatchObject({requestId: 'r1', kind: 'failed'})
 	})
 
+	// A Control client's intake over its row cap ends as a probe failure its
+	// client can read, never stays probing.
+	it("settles a Control client's intake as a probe error when the swap is over its row cap", async () => {
+		h.queue.onIntakeAdmission(origin => (origin.kind === 'localClient' ? 2 : null))
+		h.answer(ok(playlist(3)))
+		await h.intake.add({requestId: 'c1', url: PLAYLIST_URL, playlistMode: 'playlist', origin: {kind: 'localClient', clientId: 'client-1'}})
+		await h.settled()
+		await vi.waitFor(() => expect(h.queue.snapshot()).toEqual([expect.objectContaining({status: 'error', origin: {kind: 'localClient', clientId: 'client-1', intakeId: expect.any(String)}})]))
+		expect(h.events.at(-1)).toMatchObject({kind: 'outcome', requestId: 'c1', origin: 'localClient', outcome: {kind: 'failed', probeError: null}})
+	})
+
 	// A write that throws is a broken queue port, not a refusal: the row must
 	// not stay stuck in probing.
 	it('settles the row as a probe error when recording the outcome throws', async () => {
