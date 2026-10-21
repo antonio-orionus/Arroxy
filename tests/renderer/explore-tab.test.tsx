@@ -12,6 +12,7 @@ import {fail, ok} from '@shared/result.js'
 import type {SettingsPatch} from '@shared/api.js'
 import type {AppSettings, CookiesMode, ExploreViewState, ProbeError} from '@shared/types.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
+import {armQueue} from '../shared/quickDownloadHarness.js'
 import {makeItem} from '../shared/fixtures.js'
 
 vi.mock('@tanstack/react-virtual', () => ({
@@ -1115,12 +1116,13 @@ describe('Explore download failures', () => {
 
 	it('leaves the page alone and hands the failure to the Downloads row', async () => {
 		vi.mocked(window.appApi.downloads.probe).mockResolvedValue(fail(botBlock))
+		armQueue(window.appApi)
 		renderExplore()
 		await waitFor(() => expect(visibilityCalls()).toEqual([true]))
 		emitState({url: WATCH_URL})
 		fireEvent.click(screen.getByTestId('explore-download'))
 
-		await waitFor(() => expect(window.appApi.queue.cmd.probeFailed).toHaveBeenCalledWith({itemId: expect.any(String), error: botBlock.error}))
+		await waitFor(() => expect(useAppStore.getState().queue).toMatchObject([{status: 'error', error: botBlock.error}]))
 		expect(within(screen.getByTestId('explore-tab')).queryByTestId('quick-download-feedback')).not.toBeInTheDocument()
 		expect(screen.getByTestId('explore-viewport')).toBeInTheDocument()
 		expect(visibilityCalls()).toEqual([true])

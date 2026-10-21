@@ -9,6 +9,7 @@ import {ok} from '@shared/result.js'
 import type {PlaylistEntry, ProbeResult, QueueItem, QueueItemStatus} from '@shared/types.js'
 import {admitAgainstLive} from '@shared/queueActions.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
+import {armQueue} from '../shared/quickDownloadHarness.js'
 
 // A playlist that overlaps what is already live in the queue must not be lost to
 // the admission guard's conflict. The overlap is dropped before submission, the
@@ -60,6 +61,7 @@ describe('Quick Download of a playlist', () => {
 	function arm(queue: QueueItem[]) {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		armQueue(api)
 		window.appApi = api
 		useAppStore.setState({wizardUrl: PLAYLIST_URL, queue})
 		return api
@@ -96,7 +98,7 @@ describe('Quick Download of a playlist', () => {
 		// The row goes away with nothing to add; nothing failed.
 		expect(await swappedUrls(api)).toEqual([])
 		await vi.waitFor(() => expect(skipNotices()).toHaveLength(1))
-		expect(api.queue.cmd.probeFailed).not.toHaveBeenCalled()
+		expect(useAppStore.getState().queue.filter(item => item.status === 'error')).toEqual([])
 		expect(notices.filter(notice => notice.level === 'error')).toEqual([])
 	})
 

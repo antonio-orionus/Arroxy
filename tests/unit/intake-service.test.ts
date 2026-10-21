@@ -20,21 +20,7 @@ import {makeItem} from '../shared/fixtures.js'
 const VIDEO_URL = 'https://www.youtube.com/watch?v=abc'
 const PLAYLIST_URL = 'https://www.youtube.com/playlist?list=PLtest'
 
-const VIDEO = {
-	kind: 'video',
-	videoId: 'abc',
-	extractor: 'youtube',
-	extractorKey: 'Youtube',
-	webpageUrl: VIDEO_URL,
-	isAudioOnlySource: false,
-	formats: [],
-	title: 'Fixture Video',
-	thumbnail: '',
-	subtitles: {},
-	automaticCaptions: {},
-	isLive: false,
-	hasDrm: false
-} as unknown as ProbeResult
+const VIDEO = {kind: 'video', videoId: 'abc', extractor: 'youtube', extractorKey: 'Youtube', webpageUrl: VIDEO_URL, isAudioOnlySource: false, formats: [], title: 'Fixture Video', thumbnail: '', subtitles: {}, automaticCaptions: {}, isLive: false, hasDrm: false} as unknown as ProbeResult
 
 function entries(count: number): PlaylistEntry[] {
 	return Array.from({length: count}, (_, index) => ({id: `e${index + 1}`, title: `Entry ${index + 1}`, url: `https://youtu.be/v${index + 1}`, thumbnail: '', duration: 60, playlistIndex: index + 1, videoId: `v${index + 1}`}))

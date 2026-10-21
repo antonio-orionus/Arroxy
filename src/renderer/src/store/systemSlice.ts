@@ -8,6 +8,8 @@ import type {GetState, SetState, SystemSlice} from './types.js'
 import {bindQueueProjection, projectQueueSnapshot} from './queueProjection.js'
 import {handleHotkeyTrigger} from './wizard/hotkeyTrigger.js'
 import {bindCopiedLinks} from './wizard/copiedLinkIntake.js'
+import {bindIntakeEvents} from './quickDownload/quickDownloadPipeline.js'
+import {quickDownloadToasts} from './quickDownload/quickDownloadToasts.js'
 import {notify} from '../lib/notify.js'
 import {EMPTY_WARMUP_DOWNLOADS, trackWarmupDownloads} from './warmupDownloads.js'
 import {recordStartupPick, takeStartupPicks, watchStartupPicks} from './startupPicks.js'
@@ -16,6 +18,7 @@ let unbindWarmupProgress: (() => void) | null = null
 let unbindQueueProjection: (() => void) | null = null
 let unbindHotkeyTrigger: (() => void) | null = null
 let unbindCopiedLinks: (() => void) | null = null
+let unbindIntakeEvents: (() => void) | null = null
 let unbindHotkeyOutcome: (() => void) | null = null
 let unbindProbeProgress: (() => void) | null = null
 let unbindExploreView: (() => void) | null = null
@@ -281,6 +284,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			// Both halves of feedback are now bound. Main may register the chord;
 			// presses during the remaining startup work are acknowledged as busy.
 			void window.appApi.hotkey.rendererReady()
+
+			// Lifetime-bound: intake runs in main, and its outcomes come back here.
+			unbindIntakeEvents?.()
+			unbindIntakeEvents = bindIntakeEvents(() => quickDownloadToasts('downloads', get))
 
 			// Lifetime-bound: a link copied on any step waits for the Download tab.
 			unbindCopiedLinks?.()

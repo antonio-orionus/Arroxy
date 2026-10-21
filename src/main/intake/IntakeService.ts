@@ -152,8 +152,13 @@ export class IntakeService {
 		return restarted
 	}
 
-	// The probe a needs-choice row asked about, for its review in the window.
+	// The probe a needs-choice row asked about, for its review in the window;
+	// gone with the row (cancelled, removed, resolved).
 	keptProbe(itemId: string): PlaylistProbeResult | null {
+		if (this.find(itemId)?.status !== QUEUE_STATUS.needsChoice) {
+			this.kept.forget(itemId)
+			return null
+		}
 		return this.kept.get(itemId) ?? null
 	}
 

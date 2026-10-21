@@ -1,22 +1,6 @@
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import type {AppApi} from '@shared/api.js'
-import type {
-	ExploreLinkAction,
-	ExploreViewState,
-	HotkeyOutcomeEvent,
-	HotkeyTriggerPayload,
-	ProbeProgressEvent,
-	ProgressEvent,
-	QueueItem,
-	QueueLane,
-	QueueSelectionAction,
-	QueueSchedulerEventPayload,
-	QueueSnapshotPayload,
-	SiteCooldown,
-	StatusEvent,
-	UpdateAvailablePayload,
-	WarmupProgressEvent
-} from '@shared/types.js'
+import type {ExploreLinkAction, ExploreViewState, HotkeyOutcomeEvent, HotkeyTriggerPayload, ProbeProgressEvent, ProgressEvent, QueueItem, QueueLane, QueueSelectionAction, QueueSchedulerEventPayload, QueueSnapshotPayload, SiteCooldown, StatusEvent, UpdateAvailablePayload, WarmupProgressEvent} from '@shared/types.js'
 import type {IntakeEvent} from '@shared/intake/intakeEvents.js'
 
 // Minimal IpcRenderer shape — only what the api factory uses, no electron dep.

@@ -67,13 +67,7 @@ function makeDeps() {
 	const languageRef: {current: string} = {current: 'en'}
 	const clipboardWatcher = {setEnabled: vi.fn(), dispose: vi.fn()}
 	const hotkeyService = {apply: vi.fn(), dispose: vi.fn(), getState: vi.fn().mockReturnValue({accelerator: null, registered: false})}
-	const intakeService = {
-		add: vi.fn().mockResolvedValue({kind: 'added', itemId: 'p1', title: 'Video'}),
-		retry: vi.fn().mockReturnValue({ok: true, data: undefined}),
-		choose: vi.fn().mockReturnValue({ok: true, data: undefined}),
-		keptProbe: vi.fn().mockReturnValue(null),
-		setWindowContext: vi.fn()
-	}
+	const intakeService = {add: vi.fn().mockResolvedValue({kind: 'added', itemId: 'p1', title: 'Video'}), retry: vi.fn().mockReturnValue({ok: true, data: undefined}), choose: vi.fn().mockReturnValue({ok: true, data: undefined}), keptProbe: vi.fn().mockReturnValue(null), setWindowContext: vi.fn()}
 	return {
 		mainWindow: mainWindow as never,
 		downloadService: downloadService as never,

@@ -10,7 +10,7 @@ import {rewriteYouTubeChannelRoot} from '@shared/intake/urlIntake.js'
 import {projectPlaylistProbeResult} from './probeResultProjection.js'
 import {prepareActiveProfileQueueSubmission} from './queueSubmission.js'
 import {submitPreparedQueueSubmission} from './queueSubmissionAdapter.js'
-import {forgetPlaceholder, placedProfile, settlePlaceholder} from '../quickDownload/quickDownloadPipeline.js'
+import {settlePlaceholder} from '../quickDownload/quickDownloadPipeline.js'
 import {failedQuickDownloadFeedback, preparingQuickDownloadFeedback, queuedQuickDownloadFeedback, quickDownloadProgressPatch, resetQuickDownloadFeedback} from './quickDownloadFeedback.js'
 import {policyForUrlIntent, shouldReviewPlaylistProbeResult} from '@shared/intake/urlIntentPolicy.js'
 
@@ -255,7 +255,7 @@ export async function queueLoadedPlaylistWithActiveProfile(set: SetState, get: G
 		// A review of a quick download's row queues with the profile that row
 		// was placed with, like its other answers.
 		const {reviewSourceRowId} = state
-		const pinned = reviewSourceRowId !== null ? placedProfile(reviewSourceRowId) : undefined
+		const pinned = reviewSourceRowId !== null ? state.queue.find(row => row.id === reviewSourceRowId)?.pinnedProfile : undefined
 		const prepared = prepareActiveProfileQueueSubmission(probe, get(), lane, {url: state.wizardUrl, playlistTitle: state.playlistTitle}, pinned)
 		if (!prepared) {
 			set({...failedQuickDownloadFeedback({kind: 'prepare', messageKey: 'wizard.url.quickPrepareFailed', urls: [state.wizardUrl]}), quickPlaylistCapDialogOpen: false})
@@ -269,7 +269,6 @@ export async function queueLoadedPlaylistWithActiveProfile(set: SetState, get: G
 			return
 		}
 		const result = await submitPreparedQueueSubmission(prepared, reviewSourceRowId)
-		if (result.ok && reviewSourceRowId !== null) forgetPlaceholder(reviewSourceRowId)
 		if (!result.ok) {
 			set({...failedQuickDownloadFeedback({kind: 'queue', message: result.error, urls: [state.wizardUrl]}), quickPlaylistCapDialogOpen: false})
 			return
