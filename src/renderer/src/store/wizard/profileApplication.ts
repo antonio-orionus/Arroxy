@@ -11,7 +11,7 @@ import type {GlobalHdr} from '@shared/hdrSetting.js'
 import {effectiveVideoCodec, type SelectionOrder} from '@shared/selectionOrder.js'
 import {isH264, resolveProfileSelection, videoHeight, type FitNotice, type MediaSelection} from '@shared/profileSelection.js'
 import {PLAYLIST_VIDEO_TIERS} from '@shared/schemas.js'
-import {baseLanguage, pickedTrack, planSubtitleTracks, type PickedTrack} from '@shared/subtitleTracks.js'
+import {baseLanguage, pickedTrack, planSubtitleTracks, type PickedTrack, type SubtitleMaps} from '@shared/subtitleTracks.js'
 import type {AudioSelection, DownloadProfile, NativeAudioPreference, PlaylistVideoTier, VideoCodecPreference, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import type {FormatOption, SubtitleMap} from '@shared/types.js'
 
@@ -203,6 +203,16 @@ type SubtitleSource = DownloadProfile['subtitles']['source']
 // sources that would bring an uploaded track along.
 const SOURCE_PREFERENCE = ['auto-only', 'manual-first', 'manual-only', 'manual-and-auto'] as const satisfies readonly SubtitleSource[]
 
+// The kind of each track picked on the Format screen. Untouched picks keep the
+// kind the profile's own plan gave each one (an auto-only profile must not
+// fetch an uploaded track that shares the key); edited ones follow the section
+// each track was picked from.
+export function wizardPickedTracks(keys: readonly string[], maps: SubtitleMaps, profile: DownloadProfile | null, baselineKeys: readonly string[] | null): PickedTrack[] {
+	const untouched = profile !== null && baselineKeys !== null && sameSet(baselineKeys, keys)
+	const profileTracks = untouched ? planSubtitleTracks({kind: 'languages', languages: profile.subtitles.languages, source: profile.subtitles.source}, maps).tracks : []
+	return keys.map(key => profileTracks.find(track => track.key === key) ?? pickedTrack(key, maps))
+}
+
 // The saved source is one whose pick on this video gives back every picked
 // track, from the same map, and adds no kind of track (manual or automatic)
 // the user left out of a language, so reapplying the profile finds the same
@@ -211,12 +221,11 @@ const SOURCE_PREFERENCE = ['auto-only', 'manual-first', 'manual-only', 'manual-a
 // source covers every language, so picks no single source gives back (both
 // tracks of one language, the manual track alone of another) save as
 // `manual-and-auto`, which keeps every picked track rather than dropping one.
-function subtitleSourceFor(keys: readonly string[], base: SubtitleSource, context: SaveProfileContext): SubtitleSource {
-	if (keys.length === 0) return base
-	const maps = {subtitles: context.subtitles, automaticCaptions: context.automaticCaptions}
+function subtitleSourceFor(picked: readonly PickedTrack[], base: SubtitleSource, maps: SubtitleMaps): SubtitleSource {
+	if (picked.length === 0) return base
 	const tag = (track: PickedTrack): string => `${track.auto ? 'auto' : 'manual'}:${track.key}`
-	const languages = [...new Set(keys.map(baseLanguage))]
-	const wanted = new Map(languages.map(language => [language, keys.filter(key => baseLanguage(key) === language).map(key => tag(pickedTrack(key, maps)))]))
+	const languages = [...new Set(picked.map(track => baseLanguage(track.key)))]
+	const wanted = new Map(languages.map(language => [language, picked.filter(track => baseLanguage(track.key) === language).map(tag)]))
 	const kindOf = (track: string): string => track.slice(0, track.indexOf(':'))
 	const fetched = (language: string, source: SubtitleSource): string[] => planSubtitleTracks({kind: 'languages', languages: [language], source}, maps).tracks.map(tag)
 	const givesBack = (source: SubtitleSource): boolean =>
@@ -229,9 +238,11 @@ function subtitleSourceFor(keys: readonly string[], base: SubtitleSource, contex
 	return [base, ...SOURCE_PREFERENCE].find(givesBack) ?? 'manual-and-auto'
 }
 
-function subtitlesFromWizard(base: DownloadProfile, snapshot: WizardSettingsSnapshot, context: SaveProfileContext): DownloadProfile['subtitles'] {
+function subtitlesFromWizard(base: DownloadProfile, baseline: WizardSettingsSnapshot, snapshot: WizardSettingsSnapshot, context: SaveProfileContext): DownloadProfile['subtitles'] {
+	const maps = {subtitles: context.subtitles, automaticCaptions: context.automaticCaptions}
 	const languages = [...new Set(snapshot.subtitleLanguages.map(baseLanguage))]
-	return {enabled: languages.length > 0, languages, source: subtitleSourceFor(snapshot.subtitleLanguages, base.subtitles.source, context), mode: snapshot.subtitleMode, format: snapshot.subtitleFormat}
+	const picked = wizardPickedTracks(snapshot.subtitleLanguages, maps, base, baseline.subtitleLanguages)
+	return {enabled: languages.length > 0, languages, source: subtitleSourceFor(picked, base.subtitles.source, maps), mode: snapshot.subtitleMode, format: snapshot.subtitleFormat}
 }
 
 // The run's settings as a new profile. Every area the user left alone keeps
@@ -246,7 +257,7 @@ export function profileFromWizard(base: DownloadProfile, baseline: WizardSetting
 		icon: base.icon,
 		enabled: true,
 		media: changed.has('format') ? mediaFromWizard(base, baseline, snapshot, formats) : base.media,
-		subtitles: changed.has('subtitles') ? subtitlesFromWizard(base, snapshot, context) : {...base.subtitles, languages: [...base.subtitles.languages]},
+		subtitles: changed.has('subtitles') ? subtitlesFromWizard(base, baseline, snapshot, context) : {...base.subtitles, languages: [...base.subtitles.languages]},
 		sponsorBlock: changed.has('sponsorBlock') ? {mode: snapshot.sponsorBlockMode, categories: [...snapshot.sponsorBlockCategories]} : {...base.sponsorBlock, categories: [...base.sponsorBlock.categories]},
 		embed: changed.has('extras') ? {...snapshot.embed} : {...base.embed},
 		output: !changed.has('saveTo') ? base.output : snapshot.outputDir === context.defaultOutputDir ? {kind: 'default'} : {kind: 'fixed', dir: snapshot.outputDir},

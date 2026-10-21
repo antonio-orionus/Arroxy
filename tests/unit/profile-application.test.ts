@@ -202,6 +202,14 @@ describe('profileFromWizard', () => {
 		expect(save(autoOnly, snapshot => ({...snapshot, subtitleLanguages: ['en']}), FORMATS, ctx).subtitles).toMatchObject({languages: ['en'], source: 'manual-first'})
 	})
 
+	// The run fetches the caption the profile picked for an untouched shared key,
+	// so saving must not turn it into the uploaded track.
+	it("keeps an auto-only profile's caption under a shared key when only the delivery changed", () => {
+		const ctx = {...context, subtitles: {en: [{ext: 'vtt'}]}, automaticCaptions: {en: [{ext: 'vtt'}]}}
+		const autoOnly = {...builtin('balanced'), subtitles: {...builtin('balanced').subtitles, enabled: true, languages: ['en'], source: 'auto-only' as const, mode: 'sidecar' as const}}
+		expect(save(autoOnly, snapshot => ({...snapshot, subtitleMode: 'embed'}), FORMATS, ctx).subtitles).toMatchObject({languages: ['en'], source: 'auto-only', mode: 'embed'})
+	})
+
 	it('saves audio conversions, folder and file name', () => {
 		const saved = save(builtin('balanced'), snapshot => ({...snapshot, mediaKind: 'audio', videoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 320}, outputDir: '/music', filenameTemplate: '{title}'}))
 		expect(saved.media).toEqual({kind: 'audio-only', audio: {format: 'mp3', bitrateKbps: 320}})
