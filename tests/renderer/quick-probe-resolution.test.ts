@@ -46,7 +46,12 @@ function playlist(count: number): Extract<ProbeResult, {kind: 'playlist'}> {
 
 // Main resolves with the row's pinned profile; these rows were placed with the active one.
 function resolveQuickProbe(result: Result<ProbeResult, ProbeError>, context: QuickProbeContext, current: AppState): QuickProbeResolution {
-	return resolvePinnedQuickProbe(result, {...context, profile: context.profile ?? pinActiveDownloadProfile(current)}, current, {...rendererPreparationEnv(), probeFailedText: () => i18next.t('wizard.url.quickProbeFailed'), prepareFailedText: () => i18next.t('wizard.url.quickPrepareFailed'), outputMissingText: () => i18next.t('wizard.url.profile.outputMissing')})
+	return resolvePinnedQuickProbe(result, {...context, profile: context.profile ?? pinActiveDownloadProfile(current)}, current, {
+		...rendererPreparationEnv(),
+		probeFailedText: () => i18next.t('wizard.url.quickProbeFailed'),
+		prepareFailedText: () => i18next.t('wizard.url.quickPrepareFailed'),
+		outputMissingText: () => i18next.t('wizard.url.profile.outputMissing')
+	})
 }
 
 function state(queue: QueueItem[] = []) {
