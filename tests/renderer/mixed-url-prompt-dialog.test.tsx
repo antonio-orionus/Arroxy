@@ -151,6 +151,35 @@ describe('the video-in-a-list dialog', () => {
 		expect(mockApi.downloads.probe).not.toHaveBeenCalled()
 	})
 
+	it('keeps the kind-specific wording while the dialog closes', async () => {
+		// jsdom runs no animations, so the content would unmount at once; hold it
+		// mounted the way a running exit animation does.
+		let finishExit: () => void = () => {}
+		const exiting = new Promise<void>(resolve => {
+			finishExit = resolve
+		})
+		const original = Object.getOwnPropertyDescriptor(Element.prototype, 'getAnimations')
+		Object.defineProperty(Element.prototype, 'getAnimations', {configurable: true, value: () => [{finished: exiting}]})
+		try {
+			open('https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=OLAK5uy_x', 'url-tab')
+			render(<MixedUrlPromptDialog />)
+			expect(screen.getByTestId('mixed-prompt-title')).toHaveTextContent('Download from this album')
+			await waitFor(() => expect(screen.getByTestId('mixed-single-choice')).toHaveFocus())
+
+			fireEvent.keyDown(document.activeElement ?? document.body, {key: 'Escape'})
+
+			expect(useAppStore.getState().mixedUrlPending).toBeNull()
+			// The store has let go of the link; the content, still on screen while it
+			// fades out, must not fall back to the generic playlist wording.
+			expect(screen.getByTestId('mixed-prompt-title')).toHaveTextContent('Download from this album')
+			expect(screen.getByTestId('mixed-playlist-choice')).toHaveTextContent('The album, first')
+		} finally {
+			finishExit()
+			if (original) Object.defineProperty(Element.prototype, 'getAnimations', original)
+			else Reflect.deleteProperty(Element.prototype, 'getAnimations')
+		}
+	})
+
 	it('renders with settings still loading', () => {
 		useAppStore.setState({settings: null})
 		open(MIXED_URL, 'url-tab')

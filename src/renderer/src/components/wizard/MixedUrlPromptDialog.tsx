@@ -60,8 +60,12 @@ export function MixedUrlPromptDialog(): ReactNode {
 	)
 	const singleButtonRef = useRef<HTMLButtonElement>(null)
 	const [limitSaving, setLimitSaving] = useState(false)
-	const kind = (mixedUrlPending ? listKindForUrl(mixedUrlPending) : null) ?? 'playlist'
-	const isQuick = mixedUrlPromptSource === 'url-tab' || mixedUrlPromptSource === 'explore'
+	// The store clears the link and source the moment an answer is given, before
+	// the exit animation ends. Keep the last real ones for what is still on screen.
+	const [shown, setShown] = useState({url: mixedUrlPending, source: mixedUrlPromptSource})
+	if (mixedUrlPending && (shown.url !== mixedUrlPending || shown.source !== mixedUrlPromptSource)) setShown({url: mixedUrlPending, source: mixedUrlPromptSource})
+	const kind = (shown.url ? listKindForUrl(shown.url) : null) ?? 'playlist'
+	const isQuick = shown.source === 'url-tab' || shown.source === 'explore'
 	const count = resolvePlaylistProbeLimit(settings?.common)
 
 	return (
