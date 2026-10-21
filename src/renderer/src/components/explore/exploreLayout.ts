@@ -3,9 +3,10 @@ import type {ExploreViewBounds} from '@shared/types.js'
 // The native view paints over all DOM, so anything that floats above the page
 // hides it: Base UI dialogs and popovers (role="dialog"/"alertdialog"), select
 // lists and menus (which can open over the view, e.g. the footer language
-// picker), and the startup splash. A popup kept mounted while closed sits in a
+// picker), the startup splash, and the Tally feedback popup (added to <body>
+// with no role, removed on close). A popup kept mounted while closed sits in a
 // `hidden` positioner and does not count.
-const OVERLAY_SELECTOR = '[role="dialog"], [role="alertdialog"], [role="listbox"], [role="menu"], .splash-overlay'
+const OVERLAY_SELECTOR = '[role="dialog"], [role="alertdialog"], [role="listbox"], [role="menu"], .splash-overlay, .tally-popup'
 
 export function hasBlockingOverlay(): boolean {
 	for (const element of document.querySelectorAll(OVERLAY_SELECTOR)) {
