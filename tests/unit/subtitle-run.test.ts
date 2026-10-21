@@ -135,7 +135,7 @@ describe('readSubtitleReport', () => {
 	it("takes each written file from yt-dlp's last report line, relative to the run's folder", async () => {
 		const report = subtitleReportFile(dir)
 		await writeFile(report, `${JSON.stringify({en: {filepath: 'old.en.srt'}})}\n${JSON.stringify({en: {ext: 'srt', filepath: 'subtitles/v.en.srt'}, ja: {ext: 'srt', filepath: join(dir, 'v.ja.srt')}, de: {ext: 'srt'}})}\n`)
-		expect(await readSubtitleReport(report, dir)).toEqual([
+		expect(await readSubtitleReport(report, dir, 'job')).toEqual([
 			{key: 'en', path: join(dir, 'subtitles', 'v.en.srt')},
 			{key: 'ja', path: join(dir, 'v.ja.srt')}
 		])
@@ -143,18 +143,18 @@ describe('readSubtitleReport', () => {
 
 	it('reads nothing from a missing, empty, unparsable or null report', async () => {
 		const report = subtitleReportFile(dir)
-		expect(await readSubtitleReport(report, dir)).toEqual([])
+		expect(await readSubtitleReport(report, dir, 'job')).toEqual([])
 		for (const text of ['', '{oops', 'null\n']) {
 			await writeFile(report, text)
-			expect(await readSubtitleReport(report, dir)).toEqual([])
+			expect(await readSubtitleReport(report, dir, 'job')).toEqual([])
 		}
 	})
 
 	// yt-dlp appends, so a report left by an earlier attempt would answer for this run.
 	it('is cleared before a run', async () => {
 		await writeFile(subtitleReportFile(dir), JSON.stringify({en: {filepath: 'old.en.srt'}}))
-		expect(await clearSubtitleReport(dir)).toBe(true)
-		expect(await readSubtitleReport(subtitleReportFile(dir), dir)).toEqual([])
+		expect(await clearSubtitleReport(dir, 'job')).toBe(true)
+		expect(await readSubtitleReport(subtitleReportFile(dir), dir, 'job')).toEqual([])
 	})
 })
 

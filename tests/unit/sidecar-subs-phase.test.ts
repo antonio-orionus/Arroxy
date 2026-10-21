@@ -179,13 +179,29 @@ describe('SidecarSubsPhase: the fetch', () => {
 		expect(ctx.active.subtitlePaths).toEqual([join(outDir, 'video.en.srt'), join(outDir, 'video.ja.srt')])
 	})
 
-	it('dedupes only the automatic captions, leaving uploaded tracks as written', async () => {
+	it('post-processes every file, rolling-cue dedupe for the automatic captions alone', async () => {
 		await SidecarSubsPhase(false).run(makeCtx({input: input({job: job(codes(['en', 'ja']))})}))
-		expect(postProcessSubtitleFiles).toHaveBeenCalledWith([join(outDir, 'video.ja.srt')], expect.objectContaining({extractor: 'youtube', url: URL}))
+		expect(postProcessSubtitleFiles).toHaveBeenCalledWith([join(outDir, 'video.en.srt'), join(outDir, 'video.ja.srt')], expect.objectContaining({extractor: 'youtube', url: URL, rollingDedupe: [join(outDir, 'video.ja.srt')]}))
 
 		vi.mocked(postProcessSubtitleFiles).mockClear()
 		await SidecarSubsPhase(false).run(makeCtx())
+		expect(postProcessSubtitleFiles).toHaveBeenCalledWith([join(outDir, 'video.en.srt')], expect.objectContaining({rollingDedupe: []}))
+	})
+
+	// yt-dlp reports every file it wrote or found already present.
+	it('soft-fails a fetch that reports no written files', async () => {
+		const ctx = makeCtx()
+		runMock(ctx).mockResolvedValue(SUCCESS)
+		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
 		expect(postProcessSubtitleFiles).not.toHaveBeenCalled()
+	})
+
+	// yt-dlp appends to the report, so an earlier attempt's would answer for this run.
+	it('soft-fails without fetching when an earlier report cannot be removed', async () => {
+		await mkdir(join(tempDir, '_arroxy.subtitles.report.json'))
+		const ctx = makeCtx()
+		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
+		expect(fetchRequest(ctx)).toBeUndefined()
 	})
 
 	it("post-processing's shouldAbort reflects cancelRequested", async () => {

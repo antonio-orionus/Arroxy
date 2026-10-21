@@ -74,10 +74,13 @@ export function subtitleReportFile(tempDir: string): string {
 
 // yt-dlp appends to the report, so one left by an earlier attempt would answer
 // for this run. False when it is still there: the run must not trust it.
-export async function clearSubtitleReport(tempDir: string): Promise<boolean> {
+export async function clearSubtitleReport(tempDir: string, jobId: string): Promise<boolean> {
 	return rm(subtitleReportFile(tempDir), {force: true}).then(
 		() => true,
-		() => false
+		(err: unknown) => {
+			logger.warn('an earlier subtitle report could not be removed', {jobId, code: err instanceof Error && 'code' in err ? err.code : undefined, message: err instanceof Error ? err.message : String(err)})
+			return false
+		}
 	)
 }
 
@@ -140,17 +143,22 @@ export interface ReportedSubtitle {
 	path: string
 }
 
-export async function readSubtitleReport(file: string, outputDir: string): Promise<ReportedSubtitle[]> {
+export async function readSubtitleReport(file: string, outputDir: string, jobId: string): Promise<ReportedSubtitle[]> {
 	const text = await readFile(file, 'utf8').catch(() => null)
 	const line = text?.split(/\r?\n/).findLast(entry => entry.trim().length > 0)
-	if (line === undefined) return []
+	if (line === undefined) {
+		logger.warn('subtitle report missing or empty', {jobId, missing: text === null})
+		return []
+	}
 	let json: unknown
 	try {
 		json = JSON.parse(line)
 	} catch {
+		logger.warn('subtitle report is not JSON', {jobId, line: line.slice(0, 200)})
 		return []
 	}
 	const parsed = reportSchema.safeParse(json)
+	if (!parsed.success) logger.warn('subtitle report has an unexpected shape', {jobId, issue: parsed.error.issues[0]?.message})
 	if (!parsed.success || parsed.data === null) return []
 	return Object.entries(parsed.data).flatMap(([key, track]) => {
 		if (!track.filepath) return []

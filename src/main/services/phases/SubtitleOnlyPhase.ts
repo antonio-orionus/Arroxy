@@ -106,15 +106,16 @@ export const SubtitleOnlyPhase: Phase = {
 
 		const template = compiledOutputTemplate(preparedJob.filenameTemplate)
 		const output = {directory: job.outputDir, subtitleMode: subtitles.mode, ...(template ? {template} : {})}
-		if (!(await clearSubtitleReport(tempDir))) return hardFailure(ctx, {kind: 'outputNotWritable', raw: `${tempDir}: an earlier subtitle report could not be removed`}, {error: 'stale subtitle report'})
+		if (!(await clearSubtitleReport(tempDir, job.id))) return hardFailure(ctx, {kind: 'outputNotWritable', raw: `${tempDir}: an earlier subtitle report could not be removed`}, {error: 'stale subtitle report'})
 		const fetched = await settledRun(subtitleFetchRequest(plan, {url: input.url, output, format: subtitles.format ?? DEFAULTS.subtitleFormat, lists, tempDir}))
 		if (fetched.kind === 'ended') return fetched.outcome
 
-		const reported = await readSubtitleReport(subtitleReportFile(tempDir), job.outputDir)
-		if (reported.length === 0) logger.warn('subtitle run reported no written files', {jobId: job.id})
+		const reported = await readSubtitleReport(subtitleReportFile(tempDir), job.outputDir, job.id)
+		// yt-dlp reports every file it wrote or found already present, so a run
+		// that planned tracks and reports none saved nothing this job is for.
+		if (reported.length === 0) return hardFailure(ctx, {kind: 'unknown', raw: 'The download engine saved none of the planned subtitle tracks'}, {error: 'no subtitle files reported'})
 		active.subtitlePaths = reported.map(entry => entry.path)
-		const captions = automaticCaptionPaths(reported, plan)
-		if (captions.length > 0) await postProcessSubtitleFiles(captions, {extractor: preparedJob.extractor, url: input.url, jobId: job.id, shouldAbort: () => active.cancelRequested})
+		await postProcessSubtitleFiles(active.subtitlePaths, {extractor: preparedJob.extractor, url: input.url, jobId: job.id, shouldAbort: () => active.cancelRequested, rollingDedupe: automaticCaptionPaths(reported, plan)})
 
 		return missing.after ?? {kind: 'completed'}
 	}

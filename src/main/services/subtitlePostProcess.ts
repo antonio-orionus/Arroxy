@@ -35,7 +35,9 @@ export const logger = log.scope('subs')
 // Failures are logged and swallowed: a post-process glitch must never lose a
 // video. The per-file outcome is logged either way — a silent skip here used to
 // be indistinguishable from a pass that ran and found nothing to do.
-export async function postProcessSubtitleFiles(paths: readonly string[], opts: {extractor: string; url: string; jobId: string; shouldAbort: () => boolean}): Promise<void> {
+// `rollingDedupe`: the files of automatic captions, the only ones whose cues
+// roll; overlaps are clamped in every file.
+export async function postProcessSubtitleFiles(paths: readonly string[], opts: {extractor: string; url: string; jobId: string; shouldAbort: () => boolean; rollingDedupe: readonly string[]}): Promise<void> {
 	const site = siteForJob(opts.extractor, opts.url)
 	const {jobId} = opts
 	await Promise.all(
@@ -49,13 +51,14 @@ export async function postProcessSubtitleFiles(paths: readonly string[], opts: {
 			}
 			try {
 				const original = await readFile(path, 'utf8')
-				const deduped = site.needsAutoCaptionDedupe ? dedupe(original) : original
+				const rolling = site.needsAutoCaptionDedupe && opts.rollingDedupe.includes(path)
+				const deduped = rolling ? dedupe(original) : original
 				const {content, clamped} = normalizeCueOverlaps(deduped)
 				const changed = content !== original
 				if (changed && !opts.shouldAbort()) {
 					await writeFile(path, content, 'utf8')
 				}
-				logger.info('subtitle post-process', {jobId, path, site: site.id, rollingDedupe: site.needsAutoCaptionDedupe, overlapsClamped: clamped, changed})
+				logger.info('subtitle post-process', {jobId, path, site: site.id, rollingDedupe: rolling, overlapsClamped: clamped, changed})
 			} catch (err) {
 				logger.warn('subtitle post-process failed', {jobId, path, site: site.id, message: err instanceof Error ? err.message : String(err)})
 			}

@@ -107,6 +107,14 @@ describe('SubtitleOnlyPhase: before anything runs', () => {
 		expect((await SubtitleOnlyPhase.run(makeCtx({input: input({auth: 'exploreSession'})}))).kind).toBe('hard-failed')
 	})
 
+	it('fails, naming the folder, when the temp folder cannot be made', async () => {
+		await writeFile(join(outDir, '.arroxy-temp'), 'a file where the folder goes')
+		const ctx = makeCtx()
+		expect(await SubtitleOnlyPhase.run(ctx)).toMatchObject({kind: 'hard-failed', error: {kind: 'outputNotWritable'}})
+		expect(ctx.emitStatus).toHaveBeenCalledWith('error', STATUS_KEY.outputNotWritable, {dir: outDir}, expect.objectContaining({kind: 'outputNotWritable'}))
+		expect(runs(ctx)).toHaveLength(0)
+	})
+
 	it('makes the job a temp folder and removes it when the job finalizes', async () => {
 		const ctx = makeCtx()
 		await SubtitleOnlyPhase.run(ctx)
@@ -162,10 +170,10 @@ describe('SubtitleOnlyPhase: the fetch', () => {
 		expect(ctx.active.mediaTitle).toBe('The Real Title')
 	})
 
-	it('dedupes only the automatic captions', async () => {
+	it('post-processes every file, rolling-cue dedupe for the automatic captions alone', async () => {
 		const mixed = makeCtx({input: input({job: job(codes(['en', 'ja']))})})
 		await SubtitleOnlyPhase.run(mixed)
-		expect(postProcessSubtitleFiles).toHaveBeenCalledWith([join(outDir, 'video.ja.srt')], expect.objectContaining({extractor: 'youtube', url: URL, jobId: 'job-1'}))
+		expect(postProcessSubtitleFiles).toHaveBeenCalledWith([join(outDir, 'video.en.srt'), join(outDir, 'video.ja.srt')], expect.objectContaining({extractor: 'youtube', url: URL, jobId: 'job-1', rollingDedupe: [join(outDir, 'video.ja.srt')]}))
 		const shouldAbort = vi.mocked(postProcessSubtitleFiles).mock.calls[0]?.[1].shouldAbort
 		expect(shouldAbort?.()).toBe(false)
 		mixed.active.cancelRequested = true
@@ -173,7 +181,22 @@ describe('SubtitleOnlyPhase: the fetch', () => {
 
 		vi.mocked(postProcessSubtitleFiles).mockClear()
 		await SubtitleOnlyPhase.run(makeCtx())
-		expect(postProcessSubtitleFiles).not.toHaveBeenCalled()
+		expect(postProcessSubtitleFiles).toHaveBeenCalledWith([join(outDir, 'video.en.srt')], expect.objectContaining({rollingDedupe: []}))
+	})
+
+	// yt-dlp reports every file it wrote or found already present: none means nothing was saved.
+	it('fails a fetch that reports no written files', async () => {
+		const ctx = makeCtx()
+		runMock(ctx).mockResolvedValue(SUCCESS)
+		expect(await SubtitleOnlyPhase.run(ctx)).toMatchObject({kind: 'hard-failed', error: {kind: 'unknown'}})
+	})
+
+	// yt-dlp appends to the report, so an earlier attempt's would answer for this run.
+	it('fails without fetching when an earlier report cannot be removed', async () => {
+		await mkdir(join(outDir, '.arroxy-temp', 'job-1', '_arroxy.subtitles.report.json'), {recursive: true})
+		const ctx = makeCtx({active: {tempDir: join(outDir, '.arroxy-temp', 'job-1')}})
+		expect(await SubtitleOnlyPhase.run(ctx)).toMatchObject({kind: 'hard-failed', error: {kind: 'outputNotWritable'}})
+		expect(fetchRequest(ctx)).toBeUndefined()
 	})
 
 	it('a failed fetch is a hard failure with the classified error', async () => {

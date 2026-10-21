@@ -55,10 +55,14 @@ afterEach(async () => {
 // `tempDir`: the media run's temp folder, for a subtitle phase run on its own.
 function makeCtx(opts: {runs: YtDlpResult[]; input?: Partial<ResolvedStartDownloadInput>; signedIn?: boolean; verified?: ExploreSignInState; usesCookies?: boolean; tempDir?: boolean}) {
 	const results = [...opts.runs]
-	const run = vi.fn((_req: YtDlpRequest, _signal?: YtDlpSignal, _options?: YtDlpRunOptions) => {
+	// A successful subtitle run reports the file it wrote for each key, as yt-dlp does.
+	const run = vi.fn(async (req: YtDlpRequest, _signal?: YtDlpSignal, _options?: YtDlpRunOptions) => {
 		const next = results.shift()
 		if (!next) throw new Error('unexpected yt-dlp run')
-		return Promise.resolve(next)
+		if (next.kind === 'success' && req.kind === 'subtitles' && 'tracks' in req.subtitles && req.output.report?.subtitles) {
+			await writeFile(req.output.report.subtitles, `${JSON.stringify(Object.fromEntries(req.subtitles.tracks.map(track => [track.key, {ext: 'srt', filepath: `video.${track.key}.srt`}])))}\n`)
+		}
+		return next
 	})
 	const controller = new AbortController()
 	const active: ActiveDownload = {
