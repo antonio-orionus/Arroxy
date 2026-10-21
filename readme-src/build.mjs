@@ -92,15 +92,19 @@ function rebaseRelativeLinks(text, filename) {
 // Screenshots are taken in every UI language (`bun run screenshots:readme`) into
 // build/screenshots/<locale>/. The template names the English shot; each README
 // shows its own language's shot instead, and keeps the English one where that
-// language has none. `exists` takes a repo-root-relative path.
+// language has none, naming it in `missing`. `exists` takes a repo-root-relative path.
 const SCREENSHOT_RE = /build\/screenshots\/en\/([^"'\s)]+)/g;
 
 export function localizeScreenshots(text, code, exists) {
-  if (code === "en") return text;
-  return text.replace(SCREENSHOT_RE, (shot, file) => {
-    const localized = `build/screenshots/${code}/${file}`;
-    return exists(localized) ? localized : shot;
+  if (code === "en") return { text, missing: [] };
+  const missing = new Set();
+  const localized = text.replace(SCREENSHOT_RE, (shot, file) => {
+    const path = `build/screenshots/${code}/${file}`;
+    if (exists(path)) return path;
+    missing.add(file);
+    return shot;
   });
+  return { text: localized, missing: [...missing] };
 }
 
 function buildLangNav(currentLoc, locales) {
@@ -139,10 +143,16 @@ async function main() {
   const template = await readFile(TEMPLATE_PATH, "utf8");
   const en = LOCALES.find((l) => l.code === "en");
   const enStrings = en?.strings ?? {};
+  let shotGaps = 0;
 
   for (const loc of LOCALES) {
     let md = applyStrings(template, loc.strings, enStrings);
-    md = localizeScreenshots(md, loc.code, (path) => existsSync(resolve(ROOT, path)));
+    const shots = localizeScreenshots(md, loc.code, (path) => existsSync(resolve(ROOT, path)));
+    md = shots.text;
+    if (shots.missing.length) {
+      shotGaps++;
+      console.warn(`  ⚠ Locale "${loc.code}" shows English screenshots — missing: ${shots.missing.join(", ")}`);
+    }
     md = rebaseRelativeLinks(md, loc.filename);
     md = applyMacros(md, {
       LANG_NAV: buildLangNav(loc, LOCALES),
@@ -159,6 +169,13 @@ async function main() {
     console.log(
       `  ✓ ${loc.code.padEnd(5)} → ${loc.filename.padEnd(30)} ${date}${changed ? " (updated)" : ""}`,
     );
+  }
+
+  // Like key drift: a warning while iterating, a failure under --strict (`bun run check`).
+  if (shotGaps) {
+    const msg = `${shotGaps} locale(s) lack screenshots and show English ones; retake them with \`bun run screenshots:readme\`.`;
+    if (strict) throw new Error(msg);
+    console.warn(`\n  ⚠ ${msg}`);
   }
 
   console.log(`\nBuilt ${LOCALES.length} READMEs.${strict ? " (strict)" : ""}`);
