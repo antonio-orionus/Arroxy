@@ -1,3 +1,6 @@
+import gt from 'semver/functions/gt.js'
+import valid from 'semver/functions/valid.js'
+
 // Pure helpers for changelog.ts. Each PR adds one changelog fragment,
 // `changelog.d/<slug>.<kind>.md`, instead of editing CHANGELOG.md, so open PRs
 // never conflict on the same lines. The release commit assembles every fragment
@@ -40,7 +43,7 @@ export function fragmentProblems(file: string, contents: string): string[] {
 	const lines = body.split(/\r?\n/).map(line => line.trim())
 	if (lines.some(line => line.startsWith('#'))) problems.push(`${file}: no heading; the kind in the file name picks the section`)
 	if (lines.some(line => /^(?:[-*+]|\d+[.)])\s/.test(line))) problems.push(`${file}: no bullet marker; assembly adds it`)
-	if (kind === 'highlight' && !/^\*\*[^*].*?\*\*/.test(body)) problems.push(`${file}: a highlight opens with a bold lead-in, like **New thing.**`)
+	if (kind === 'highlight' && !/^\*\*[^*].*?\*\*/.test(lines.join(' '))) problems.push(`${file}: a highlight opens with a bold lead-in, like **New thing.**`)
 	return problems
 }
 
@@ -71,6 +74,18 @@ export function assembleSection(version: string, fragments: readonly Fragment[])
 
 const versionHeadings = (changelog: string): string[] => changelog.split(/\r?\n/).flatMap(line => VERSION_HEADING.exec(line.trim())?.[1] ?? [])
 
+/** The body of a version's section, without its heading; null when there is no such section. */
+export function releaseSectionBody(changelog: string, version: string): string | null {
+	const lines = changelog.split(/\r?\n/)
+	const start = lines.findIndex(line => line.trim() === `## ${version}`)
+	if (start === -1) return null
+	const end = lines.findIndex((line, index) => index > start && VERSION_HEADING.test(line.trim()))
+	return lines
+		.slice(start + 1, end === -1 ? lines.length : end)
+		.join('\n')
+		.trim()
+}
+
 /** Puts the section above the newest release, or at the end when there is none. */
 export function insertSection(changelog: string, version: string, section: string): string {
 	if (versionHeadings(changelog).includes(version)) throw new Error(`CHANGELOG.md already has a ## ${version} section`)
@@ -81,9 +96,10 @@ export function insertSection(changelog: string, version: string, section: strin
 }
 
 /**
- * CHANGELOG.md holds released versions only: its newest section must be the
- * package version, which only a `release: X` commit bumps. Corrections to an
- * already-released section stay allowed.
+ * CHANGELOG.md holds released versions only: no section is newer than the
+ * package version, which only a `release: X` commit bumps. A beta may go
+ * without a section of its own, and corrections to an already-released
+ * section stay allowed.
  */
 export function changelogProblems(changelog: string, packageVersion: string): string[] {
 	const useFragments = `Unreleased changes go in a ${FRAGMENT_DIR}/<slug>.<kind>.md fragment; see ${FRAGMENT_DIR}/${FRAGMENT_README}`
@@ -93,24 +109,24 @@ export function changelogProblems(changelog: string, packageVersion: string): st
 	// left out of every release's notes.
 	const stray = lines.slice(0, firstRelease === -1 ? lines.length : firstRelease).find(line => /^##\s/.test(line))
 	if (stray !== undefined) return [`CHANGELOG.md: "${stray}" sits above the newest release. ${useFragments}`]
-	const newest = versionHeadings(changelog)[0]
-	if (newest === undefined || newest === packageVersion) return []
-	return [`CHANGELOG.md: its newest section is ## ${newest}, but package.json is ${packageVersion}. ${useFragments}`]
+	const unreleased = versionHeadings(changelog).find(version => valid(version) !== null && gt(version, packageVersion))
+	if (unreleased === undefined) return []
+	return [`CHANGELOG.md: it has a ## ${unreleased} section, but package.json is ${packageVersion}. ${useFragments}`]
 }
 
 /**
- * Fragment files in the order they reached the repo, read from
- * `git log --diff-filter=A --format=%x00%ct --name-only` (newest commit first).
- * Fragments git has not seen come last; ties go by file name.
+ * Fragment files in the order they reached the branch, read from
+ * `git log --first-parent --diff-filter=A --format=%x00%H --name-only`
+ * (newest commit first). First-parent history ranks a fragment by the squash
+ * or merge commit that brought it in, not by when it was written. Fragments
+ * git has not seen come last; ties go by file name.
  */
 export function orderFragmentFiles(files: readonly string[], gitLog: string): string[] {
-	const addedAt = new Map<string, number>()
-	for (const entry of gitLog.split('\u0000')) {
-		const [timestamp, ...names] = entry.split('\n')
-		const seconds = Number(timestamp)
-		if (!Number.isFinite(seconds) || timestamp === '') continue
-		for (const name of names) if (name !== '' && !addedAt.has(name)) addedAt.set(name, seconds)
-	}
-	const when = (file: string): number => addedAt.get(file) ?? Number.POSITIVE_INFINITY
+	const commits = gitLog.split('\u0000').filter(entry => entry.trim() !== '')
+	const arrival = new Map<string, number>()
+	commits.forEach((entry, newestFirst) => {
+		for (const name of entry.split('\n').slice(1)) if (name !== '' && !arrival.has(name)) arrival.set(name, commits.length - newestFirst)
+	})
+	const when = (file: string): number => arrival.get(file) ?? Number.POSITIVE_INFINITY
 	return [...files].sort((a, b) => when(a) - when(b) || (a < b ? -1 : a > b ? 1 : 0))
 }

@@ -8,7 +8,7 @@
 import {spawnSync} from 'node:child_process'
 import {existsSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync} from 'node:fs'
 import valid from 'semver/functions/valid.js'
-import {assembleSection, changelogProblems, FRAGMENT_DIR, FRAGMENT_README, fragmentProblems, insertSection, orderFragmentFiles, parseFragment} from './changelogFragments.js'
+import {assembleSection, changelogProblems, FRAGMENT_DIR, FRAGMENT_README, fragmentProblems, insertSection, orderFragmentFiles, parseFragment, releaseSectionBody} from './changelogFragments.js'
 
 const CHANGELOG = 'CHANGELOG.md'
 
@@ -31,7 +31,7 @@ const fileProblems = (file: string): string[] => (statSync(file).isFile() ? frag
 const problems = (): string[] => [...fragmentFiles().flatMap(fileProblems), ...changelogProblems(readFileSync(CHANGELOG, 'utf8'), packageVersion())]
 
 function gitAddLog(): string {
-	const result = spawnSync('git', ['log', '--diff-filter=A', '--no-renames', '--format=%x00%ct', '--name-only', '--', FRAGMENT_DIR], {encoding: 'utf8'})
+	const result = spawnSync('git', ['log', '--first-parent', '--diff-filter=A', '--no-renames', '--format=%x00%H', '--name-only', '--', FRAGMENT_DIR], {encoding: 'utf8'})
 	if (result.status === 0) return result.stdout
 	const reason = result.error?.message ?? result.stderr.trim()
 	console.error(`git log could not give the order fragments merged in (${reason}); listing them in file name order. Reorder the section by hand if it matters.`)
@@ -46,13 +46,20 @@ function assemble(requested: string | undefined): void {
 	const broken = files.flatMap(fileProblems)
 	if (broken.length > 0) fail(broken.join('\n'))
 	const fragments = orderFragmentFiles(files, gitAddLog()).map(file => parseFragment(file, readFileSync(file, 'utf8')))
-	let changelog: string
-	try {
-		changelog = insertSection(readFileSync(CHANGELOG, 'utf8'), version, assembleSection(version, fragments))
-	} catch (error) {
-		fail(error instanceof Error ? error.message : String(error))
+	const section = assembleSection(version, fragments)
+	const current = readFileSync(CHANGELOG, 'utf8')
+	// An earlier run that wrote this very section but failed to delete the
+	// fragments only needs the deletion; any other existing section is refused.
+	const alreadyWritten = releaseSectionBody(current, version) === releaseSectionBody(section, version)
+	if (!alreadyWritten) {
+		let changelog: string
+		try {
+			changelog = insertSection(current, version, section)
+		} catch (error) {
+			fail(error instanceof Error ? error.message : String(error))
+		}
+		writeFileSync(CHANGELOG, changelog)
 	}
-	writeFileSync(CHANGELOG, changelog)
 	for (const file of files) rmSync(file)
 	console.log(`Wrote ## ${version} to ${CHANGELOG} from ${files.length} fragment(s) and deleted them. Read it over before committing release: ${version}.`)
 }
@@ -61,10 +68,9 @@ function verifyRelease(version: string | undefined): void {
 	if (version === undefined) fail('usage: bun scripts/changelog.ts verify-release <version>')
 	const left = fragmentFiles()
 	if (left.length > 0) fail(`${left.length} changelog fragment(s) in ${FRAGMENT_DIR}/ are not in a release section; run bun run changelog:assemble before committing release: ${version}`)
-	const headings = readFileSync(CHANGELOG, 'utf8')
-		.split(/\r?\n/)
-		.map(line => line.trim())
-	if (!headings.includes(`## ${version}`)) fail(`${CHANGELOG} has no ## ${version} section; run bun run changelog:assemble before committing release: ${version}`)
+	const body = releaseSectionBody(readFileSync(CHANGELOG, 'utf8'), version)
+	if (body === null) fail(`${CHANGELOG} has no ## ${version} section; run bun run changelog:assemble before committing release: ${version}`)
+	if (body === '') fail(`${CHANGELOG}'s ## ${version} section is empty; the release notes would be PR titles only`)
 }
 
 const [command, argument] = process.argv.slice(2)

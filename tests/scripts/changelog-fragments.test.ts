@@ -31,6 +31,10 @@ describe('fragmentProblems', () => {
 	it('requires a highlight to open with a bold lead-in', () => {
 		expect(fragmentProblems('changelog.d/a.highlight.md', 'Faster downloads.')).toEqual([expect.stringMatching(/bold lead-in/)])
 	})
+
+	it('accepts a bold lead-in wrapped across lines', () => {
+		expect(fragmentProblems('changelog.d/a.highlight.md', '**Manual and auto\nsubtitles together.** Both download.\n')).toEqual([])
+	})
 })
 
 describe('parseFragment', () => {
@@ -78,6 +82,10 @@ describe('changelogProblems', () => {
 		expect(changelogProblems(ahead, '1.2.2')).toEqual([expect.stringMatching(/changelog\.d/)])
 	})
 
+	it('accepts a beta that has no section of its own', () => {
+		expect(changelogProblems(CHANGELOG, '1.2.3-beta.1')).toEqual([])
+	})
+
 	it('rejects an Unreleased or other section above the newest release', () => {
 		const unreleased = CHANGELOG.replace('## 1.2.2', '## Unreleased\n\n- New.\n\n## 1.2.2')
 		expect(changelogProblems(unreleased, '1.2.2')).toEqual([expect.stringMatching(/## Unreleased.*changelog\.d/)])
@@ -85,15 +93,15 @@ describe('changelogProblems', () => {
 })
 
 describe('orderFragmentFiles', () => {
-	it('orders committed fragments by when they were added, then the rest by name', () => {
-		// `git log --diff-filter=A --format=%x00%ct --name-only` lists the newest commit first.
-		const log = '\u0000300\n\nchangelog.d/c.fix.md\n\u0000100\n\nchangelog.d/a.fix.md\nchangelog.d/b.fix.md\n'
+	it('orders committed fragments by when they arrived, then the rest by name', () => {
+		// `git log --first-parent --diff-filter=A --format=%x00%H --name-only` lists the newest commit first.
+		const log = '\u0000c3\n\nchangelog.d/c.fix.md\n\u0000c1\n\nchangelog.d/a.fix.md\nchangelog.d/b.fix.md\n'
 		const files = ['changelog.d/z.fix.md', 'changelog.d/c.fix.md', 'changelog.d/b.fix.md', 'changelog.d/y.fix.md', 'changelog.d/a.fix.md']
 		expect(orderFragmentFiles(files, log)).toEqual(['changelog.d/a.fix.md', 'changelog.d/b.fix.md', 'changelog.d/c.fix.md', 'changelog.d/y.fix.md', 'changelog.d/z.fix.md'])
 	})
 
 	it('uses the latest add of a fragment that was deleted and re-added', () => {
-		const log = '\u0000300\n\nchangelog.d/a.fix.md\n\u0000200\n\nchangelog.d/b.fix.md\n\u0000100\n\nchangelog.d/a.fix.md\n'
+		const log = '\u0000c3\n\nchangelog.d/a.fix.md\n\u0000c2\n\nchangelog.d/b.fix.md\n\u0000c1\n\nchangelog.d/a.fix.md\n'
 		expect(orderFragmentFiles(['changelog.d/a.fix.md', 'changelog.d/b.fix.md'], log)).toEqual(['changelog.d/b.fix.md', 'changelog.d/a.fix.md'])
 	})
 })
@@ -120,7 +128,7 @@ describe('changelog CLI', () => {
 
 	it('assembles the package version from the fragments and deletes them', async () => {
 		const {root, cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': CHANGELOG, 'changelog.d/README.md': 'How to write one.\n', 'changelog.d/new-thing.fix.md': 'New fix.\n'})
-		expect(cli('check')).toMatchObject({status: 1, stderr: expect.stringMatching(/1\.2\.2.*1\.2\.3|1\.2\.3.*1\.2\.2/)})
+		expect(cli('verify-release', '1.2.3')).toMatchObject({status: 1, stderr: expect.stringMatching(/changelog:assemble/)})
 		expect(cli('assemble')).toMatchObject({status: 0})
 		expect(await fs.readFile(path.join(root, 'CHANGELOG.md'), 'utf8')).toContain('---\n\n## 1.2.3\n\n## Fixes\n\n- New fix.\n\n## 1.2.2')
 		expect(await fs.readdir(path.join(root, 'changelog.d'))).toEqual(['README.md'])
@@ -140,6 +148,40 @@ describe('changelog CLI', () => {
 		await commitFragment('apple.fix.md', '2026-01-02T00:00:00Z')
 		expect(cli('assemble')).toMatchObject({status: 0, stderr: ''})
 		expect(await fs.readFile(path.join(root, 'CHANGELOG.md'), 'utf8')).toContain('- zebra.fix.md\n- apple.fix.md\n')
+	})
+
+	it('orders a fragment by when its branch merged, not when it was written', async () => {
+		const {root, cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': CHANGELOG})
+		const git = (args: string[], date = '2026-01-01T00:00:00Z') => spawnSync('git', args, {cwd: root, env: {...ENV, GIT_AUTHOR_DATE: date, GIT_COMMITTER_DATE: date}})
+		git(['commit', '-qm', 'base', '--allow-empty'])
+		git(['checkout', '-qb', 'feature'])
+		await fs.mkdir(path.join(root, 'changelog.d'))
+		await fs.writeFile(path.join(root, 'changelog.d', 'written-first.fix.md'), 'Written first.\n')
+		git(['add', '-A'])
+		git(['commit', '-qm', 'feature'], '2026-01-02T00:00:00Z')
+		git(['checkout', '-q', '-'])
+		await fs.mkdir(path.join(root, 'changelog.d'), {recursive: true})
+		await fs.writeFile(path.join(root, 'changelog.d', 'merged-first.fix.md'), 'Merged first.\n')
+		git(['add', '-A'])
+		git(['commit', '-qm', 'other'], '2026-01-03T00:00:00Z')
+		git(['merge', '-q', '--no-ff', '-m', 'merge feature', 'feature'], '2026-01-04T00:00:00Z')
+		expect(cli('assemble')).toMatchObject({status: 0, stderr: ''})
+		expect(await fs.readFile(path.join(root, 'CHANGELOG.md'), 'utf8')).toContain('- Merged first.\n- Written first.\n')
+	})
+
+	it('finishes an assembly whose fragments were left behind', async () => {
+		const assembled = insertSection(CHANGELOG, '1.2.3', '## 1.2.3\n\n## Fixes\n\n- Fix.\n')
+		const {root, cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': assembled, 'changelog.d/a.fix.md': 'Fix.\n'})
+		expect(cli('assemble')).toMatchObject({status: 0})
+		expect(await fs.readFile(path.join(root, 'CHANGELOG.md'), 'utf8')).toBe(assembled)
+		expect(await fs.readdir(path.join(root, 'changelog.d'))).toEqual([])
+	})
+
+	it('keeps the fragments when the version already has a different section', async () => {
+		const edited = insertSection(CHANGELOG, '1.2.3', '## 1.2.3\n\n## Fixes\n\n- Edited fix.\n')
+		const {root, cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': edited, 'changelog.d/a.fix.md': 'Fix.\n'})
+		expect(cli('assemble')).toMatchObject({status: 1, stderr: expect.stringMatching(/already has/)})
+		expect(await fs.readdir(path.join(root, 'changelog.d'))).toEqual(['a.fix.md'])
 	})
 
 	it('warns when git cannot give the merge order', async () => {
@@ -175,6 +217,11 @@ describe('changelog CLI', () => {
 	it('blocks a release whose fragments were not assembled', async () => {
 		const {cli} = await repo({'package.json': '{"version": "1.2.2"}', 'CHANGELOG.md': CHANGELOG, 'changelog.d/a.fix.md': 'Fix.\n'})
 		expect(cli('verify-release', '1.2.2')).toMatchObject({status: 1, stderr: expect.stringMatching(/changelog:assemble/)})
+	})
+
+	it('blocks a release whose section is empty', async () => {
+		const {cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': CHANGELOG.replace('## 1.2.2', '## 1.2.3\n\n## 1.2.2')})
+		expect(cli('verify-release', '1.2.3')).toMatchObject({status: 1, stderr: expect.stringMatching(/empty/)})
 	})
 
 	it('blocks a release with no section of its own', async () => {

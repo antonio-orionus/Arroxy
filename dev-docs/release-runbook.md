@@ -20,7 +20,7 @@ Bump the patch number for fixes **and** features: throughout 0.4.x even a UI red
 
 User-facing release notes live in `CHANGELOG.md` at the repo root, keyed by version (`## 0.3.5`). The `publish-release` job in `release.yml` extracts the matching section, appends the auto-generated "What's Changed" PR list + Full Changelog link, and posts the combined body as the GitHub Release.
 
-Between releases, `CHANGELOG.md` holds released versions only. Each user-facing PR adds a fragment to `changelog.d/` instead (format in [`changelog.d/README.md`](../changelog.d/README.md)), so open PRs never conflict over the changelog; `bun run check` fails on a malformed fragment or a hand-written unreleased section.
+Between releases, `CHANGELOG.md` holds released versions only. Each user-facing PR adds a fragment to `changelog.d/` instead (format in [`changelog.d/README.md`](../changelog.d/README.md)), so open PRs never conflict over the changelog; `bun run check` fails on a malformed fragment or a hand-written unreleased section (`## Unreleased`, or a section newer than `package.json`).
 
 Before tagging:
 
@@ -28,7 +28,7 @@ Before tagging:
 2. Read the section over: keep each entry to one or two user-facing sentences, put the highlights in the order you want, and cut polish of features new in the same release.
 3. Commit it alongside the `package.json` bump in the same `release: X.Y.Z` commit.
 
-`bun run release:stable` refuses to tag while a fragment is left in `changelog.d/` or the version has no section. A beta skips that check: if it has no section, the workflow logs a `::warning::` and falls back to auto-generated notes (PR titles only).
+`bun run release:stable` refuses to tag while a fragment is left in `changelog.d/` or the version's section is missing or empty. A beta skips that check: if it has no section, the workflow logs a `::warning::` and falls back to auto-generated notes (PR titles only).
 
 Do **not** edit GitHub Release notes directly via the web UI or `gh release edit`. The `publish-release` step runs late (after build + Windows artifact wait) and will overwrite manual edits. Fix `CHANGELOG.md`, push a fix-up commit, and re-run `publish-release`.
 
@@ -109,8 +109,8 @@ Cut a beta only on an explicit request for one; no release plan or rollout depen
 git checkout main
 git pull origin main
 
-# edit package.json: 0.3.1 -> 0.3.2-beta.1, and add `## 0.3.2-beta.1` to CHANGELOG.md by hand,
-# leaving the fragments in changelog.d/ for the stable release to assemble
+# edit package.json: 0.3.1 -> 0.3.2-beta.1; optionally add `## 0.3.2-beta.1` to CHANGELOG.md by hand.
+# Leave the fragments in changelog.d/ for the stable release to assemble.
 bun run check
 git commit -am "release: 0.3.2-beta.1"
 git push origin main

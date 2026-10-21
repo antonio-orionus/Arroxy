@@ -4,7 +4,7 @@ A PR with a user-facing change adds one file here instead of editing `CHANGELOG.
 
 ## Writing one
 
-Name it `<slug>.<kind>.md`: a kebab-case slug unique to the change (the branch name works) and one of these kinds:
+Name it `<slug>.<kind>.md`: a kebab-case slug unique to the change (the branch name with `/` turned into `-`, such as `fix-explore-zoom`) and one of these kinds:
 
 | Kind        | Goes under                          | Shape                                         |
 | ----------- | ----------------------------------- | --------------------------------------------- |
@@ -25,4 +25,4 @@ To change an entry before release, edit its fragment; a PR that reworks a featur
 
 `bun run changelog:assemble` (after the `package.json` bump) writes every fragment into `## <version>` at the top of `CHANGELOG.md`, kinds in the order above and each kind in the order its fragments merged, then deletes them. Read the section over and commit it with `release: <version>`.
 
-`bun run check` fails on a malformed fragment, and on a hand-written unreleased section in `CHANGELOG.md`: a `## Unreleased` heading, or a newest section that is not the `package.json` version. `bun run release:stable` refuses to tag while a fragment is left over or the version has no section.
+`bun run check` fails on a malformed fragment, and on a hand-written unreleased section in `CHANGELOG.md`: a `## Unreleased` heading, or a section newer than the `package.json` version. `bun run release:stable` refuses to tag while a fragment is left over or the version's section is missing or empty.
