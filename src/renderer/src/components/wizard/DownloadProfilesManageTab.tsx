@@ -1,4 +1,4 @@
-import {useRef, type ReactNode, type RefObject} from 'react'
+import {useRef, type ReactNode, type RefObject, useId} from 'react'
 import type {TFunction} from 'i18next'
 import {useTranslation} from 'react-i18next'
 import {DndContext, PointerSensor, closestCenter, useSensor, useSensors, type Announcements, type DragEndEvent, type UniqueIdentifier} from '@dnd-kit/core'
@@ -19,6 +19,7 @@ import {PROFILE_ICONS} from './downloadProfileVisuals.js'
 import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 import {Hint} from '../shared/Hint.js'
 import {ProfileSummaryContent} from './ProfileSummaryContent.js'
+import {profileFormatLabel} from '@renderer/lib/profileSummary.js'
 
 interface ProfilesManageTabProps {
 	activeProfile: DownloadProfile
@@ -116,6 +117,8 @@ interface ProfileCardProps {
 
 function ProfileCard({t, profile, active, profilesPrefs, canToggleOff, suppressClickRef, onEdit, onPick, onRemove, onToggleEnabled}: ProfileCardProps): ReactNode {
 	const nameOf = useProfileDisplayName()
+	const {i18n} = useTranslation()
+	const summaryId = useId()
 	const {attributes, listeners, setNodeRef, setActivatorNodeRef, transform, transition, isDragging} = useSortable({id: profile.id, attributes: {roleDescription: t('wizard.url.profile.movableProfile')}})
 	const Icon = PROFILE_ICONS[profile.icon]
 	const origin = downloadProfileOrigin(profile, profilesPrefs)
@@ -143,6 +146,7 @@ function ProfileCard({t, profile, active, profilesPrefs, canToggleOff, suppressC
 					type="button"
 					className="flex w-full items-center gap-3 text-left"
 					aria-pressed={active}
+					aria-describedby={summaryId}
 					aria-disabled={!profile.enabled}
 					onClick={() => {
 						if (!profile.enabled) return
@@ -154,6 +158,9 @@ function ProfileCard({t, profile, active, profilesPrefs, canToggleOff, suppressC
 						<Icon />
 					</IconTile>
 					<span className="min-w-0 flex-1" data-testid={`profiles-manage-card-${profile.id}-summary`}>
+						<span id={summaryId} className="sr-only">
+							{profileFormatLabel(profile, t, i18n.language)}
+						</span>
 						<span className="flex items-center gap-2" data-testid={`profiles-manage-card-${profile.id}-title-row`}>
 							<span className="truncate text-sm font-semibold" data-testid={`profiles-manage-card-${profile.id}-title`}>
 								{nameOf(profile)}

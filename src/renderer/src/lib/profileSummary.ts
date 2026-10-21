@@ -3,6 +3,7 @@ import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
 import type {DownloadProfile} from '@shared/types.js'
 import {EMBED_FIELDS, EMBED_OPTION_KEYS} from './outputLabels.js'
 import {formatList, resolveSubtitleLabel} from './subtitleLabel.js'
+import {effectiveOutputDir} from '@shared/subfolder.js'
 
 // What a profile does, in the app language, for its hint and every one-line
 // description of it (a queue row's format, the profile update diff). Names say
@@ -81,7 +82,7 @@ function mediaRowLabel(profile: DownloadProfile, t: TFunction): string {
 
 function folderValue(profile: DownloadProfile, t: TFunction): string {
 	const subfolder = profile.subfolder.enabled ? profile.subfolder.name.trim() : ''
-	if (profile.output.kind === 'fixed') return subfolder ? `${profile.output.dir}/${subfolder}` : profile.output.dir
+	if (profile.output.kind === 'fixed') return effectiveOutputDir(profile.output.dir, subfolder !== '', subfolder)
 	return subfolder ? t('wizard.profileEditor.destination.defaultFolderWithSubfolder', {subfolder}) : t('wizard.profileEditor.destination.defaultFolder')
 }
 

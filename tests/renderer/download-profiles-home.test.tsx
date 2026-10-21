@@ -20,6 +20,14 @@ vi.mock('@tanstack/react-virtual', () => ({
 	}
 }))
 
+// What a sighted user reads: screen-reader-only text left out.
+function visibleText(element: HTMLElement): string {
+	const copy = element.cloneNode(true)
+	if (!(copy instanceof HTMLElement)) throw new Error('expected an element')
+	for (const hidden of copy.querySelectorAll('.sr-only')) hidden.remove()
+	return copy.textContent ?? ''
+}
+
 // A mouse arriving on a hint's trigger: Base UI starts a delayed hint on the move.
 function hover(element: HTMLElement): void {
 	fireEvent.pointerEnter(element, {pointerType: 'mouse'})
@@ -202,8 +210,8 @@ describe('DownloadProfilesHome profiles tab visibility', () => {
 
 	it('shows each profile by name only, with what it does in a hint', async () => {
 		render(<DownloadProfilesHome />)
-		const card = screen.getByTestId('profiles-manage-card-mp4-720')
-		expect(card).not.toHaveTextContent('Up to 720p')
+		expect(visibleText(screen.getByTestId('profiles-manage-card-mp4-720'))).not.toContain('Up to 720p')
+		expect(screen.getByTestId('profiles-manage-card-mp4-720-picker')).toHaveAccessibleDescription('Up to 720p · Smart TV')
 
 		hover(screen.getByTestId('profiles-manage-card-mp4-720-picker'))
 		const hint = await screen.findByTestId('profile-summary-mp4-720', undefined, {timeout: 2000})
@@ -219,6 +227,7 @@ describe('DownloadProfilesHome profiles tab visibility', () => {
 		const row = await screen.findByTestId('profiles-profile-option-audio-only')
 		expect(row).toHaveTextContent('Audio only')
 		expect(row).not.toHaveTextContent('Keep as-is')
+		expect(row).toHaveAttribute('aria-description', 'Audio only · Keep as-is')
 
 		hover(row)
 		expect(await screen.findByTestId('profile-summary-audio-only', undefined, {timeout: 2000})).toHaveTextContent('Keep as-is')

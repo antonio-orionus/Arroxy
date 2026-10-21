@@ -57,6 +57,11 @@ describe('profile summary rows', () => {
 		expect(profileSummaryRows(builtin('subtitles-only'), i18next.t, 'en').map(row => row.label)).toEqual(['Subtitles', 'Save to'])
 	})
 
+	it('joins a Windows fixed folder and its subfolder with the Windows separator', () => {
+		const fixed = {...builtin('hd-1080'), output: {kind: 'fixed' as const, dir: 'C:\\Videos'}}
+		expect(profileSummaryRows(fixed, i18next.t, 'en').find(row => row.label === 'Save to')?.value).toBe('C:\\Videos\\Full HD 1080p')
+	})
+
 	it('shows a fixed folder as given, with its subfolder', () => {
 		const fixed = {...builtin('hd-1080'), output: {kind: 'fixed' as const, dir: '/mnt/media'}}
 		expect(profileSummaryRows(fixed, i18next.t, 'en').find(row => row.label === 'Save to')?.value).toBe('/mnt/media/Full HD 1080p')

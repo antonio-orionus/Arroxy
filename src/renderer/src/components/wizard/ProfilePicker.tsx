@@ -54,6 +54,7 @@ interface ProfilePickerOptionsProps {
 }
 
 function ProfilePickerOptions({options, layout, onPick, testIdPrefix}: ProfilePickerOptionsProps): ReactNode {
+	const {t, i18n} = useTranslation()
 	return (
 		<div className={cn('grid', layout === 'grid' ? 'grid-cols-[repeat(auto-fit,minmax(13.5rem,1fr))] gap-2' : 'grid-cols-1 gap-0.5')} data-layout={layout} data-testid={`${testIdPrefix}-profile-menu-grid`}>
 			{options.map(option => (
@@ -63,6 +64,7 @@ function ProfilePickerOptions({options, layout, onPick, testIdPrefix}: ProfilePi
 						variant={layout === 'grid' ? 'outline' : 'ghost'}
 						onClick={() => onPick(option.ref)}
 						aria-pressed={option.current}
+						aria-description={profileFormatLabel(option.profile, t, i18n.language)}
 						data-selected={option.current || undefined}
 						className={cn('h-auto w-full justify-start gap-2.5 rounded-md text-start whitespace-normal', layout === 'grid' ? 'choice-surface min-h-12 px-2.5 py-2' : 'min-h-10 px-2 py-1.5 data-selected:bg-primary/12')}
 						data-testid={`${testIdPrefix}-profile-option-${option.profile.id}`}
