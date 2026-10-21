@@ -3,7 +3,7 @@ import {z} from 'zod'
 // The fixed public error table. The app maps every internal failure to one of
 // these codes at the Control API boundary; clients branch on the code, never on
 // the message. A new code is a new protocol major: clients validate it.
-export const controlErrorCodeSchema = z.enum(['not_found', 'invalid_state', 'invalid_request', 'profile_unavailable', 'desktop_required', 'approval_pending', 'unauthorized', 'rate_limited', 'limit_exceeded', 'unsupported_site', 'probe_failed', 'version_unsupported', 'internal'])
+export const controlErrorCodeSchema = z.enum(['not_found', 'invalid_state', 'invalid_request', 'profile_unavailable', 'desktop_required', 'approval_pending', 'unauthorized', 'rate_limited', 'limit_exceeded', 'unsupported_site', 'probe_failed', 'version_unsupported', 'handshake_timeout', 'internal'])
 export type ControlErrorCode = z.infer<typeof controlErrorCodeSchema>
 export const CONTROL_ERROR_CODES = controlErrorCodeSchema.options
 
@@ -21,13 +21,14 @@ export const CONTROL_ERROR_TABLE = {
 	invalid_request: {retryable: false, next: 'Fix the request to match the arroxy-control schema for this method.'},
 	profile_unavailable: {retryable: false, next: 'Pick an enabled profile from profiles.list, or leave profile out to use the active one.'},
 	desktop_required: {retryable: false, next: 'Finish this in the Arroxy window.'},
-	approval_pending: {retryable: true, next: 'Ask the user to choose Allow in Arroxy, then send hello again.'},
+	approval_pending: {retryable: true, next: 'Ask the user to choose Allow in Arroxy, then connect again and send auth with this approvalId.'},
 	unauthorized: {retryable: false, next: 'Read the discovery file again for a fresh token, or ask the user to allow this client again.'},
 	rate_limited: {retryable: true, next: 'Wait until the site cooldown in status ends, then retry.'},
 	limit_exceeded: {retryable: false, next: 'Ask for fewer items in one request.'},
 	unsupported_site: {retryable: false, next: 'Use a link from a site yt-dlp supports.'},
 	probe_failed: {retryable: true, next: 'Call intake.retry; if it fails again, open the link in a browser to check it.'},
 	version_unsupported: {retryable: false, next: 'Update the client or Arroxy so both speak a common protocol major.'},
+	handshake_timeout: {retryable: true, next: 'Connect again and send hello within 2 s.'},
 	internal: {retryable: true, next: "Retry once; if it fails again, check Arroxy's log."}
 } as const satisfies Record<ControlErrorCode, ControlErrorTableEntry>
 
@@ -36,7 +37,7 @@ export const CONTROL_ERROR_TABLE = {
 export const controlErrorDetailsSchema = z.object({
 	// The ytdlp-errors kind behind a probe_failed.
 	ytdlpKind: z.string().min(1).optional(),
-	// Hand this back in hello once the user has chosen Allow.
+	// Hand this back in auth, on a new connection, once the user has chosen Allow.
 	approvalId: z.string().min(1).optional(),
 	retryAfterMs: z.number().int().nonnegative().optional(),
 	limit: z.number().int().nonnegative().optional(),

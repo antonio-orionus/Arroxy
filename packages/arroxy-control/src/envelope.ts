@@ -14,7 +14,9 @@ const methodNameSchema = z.string().min(1).max(64)
 export const controlRequestEnvelopeSchema = z.strictObject({type: z.literal('request'), id: idSchema, method: methodNameSchema, params: z.unknown().optional()})
 export type ControlRequestEnvelope = z.infer<typeof controlRequestEnvelopeSchema>
 
-export const controlResponseEnvelopeSchema = z.discriminatedUnion('ok', [z.strictObject({type: z.literal('response'), id: idSchema, ok: z.literal(true), result: z.unknown()}), z.strictObject({type: z.literal('response'), id: idSchema, ok: z.literal(false), error: controlErrorSchema})])
+// A failure's id is null only on the closing error line that answers no request,
+// such as handshake_timeout.
+export const controlResponseEnvelopeSchema = z.discriminatedUnion('ok', [z.strictObject({type: z.literal('response'), id: idSchema, ok: z.literal(true), result: z.unknown()}), z.strictObject({type: z.literal('response'), id: idSchema.nullable(), ok: z.literal(false), error: controlErrorSchema})])
 export type ControlResponseEnvelope = z.infer<typeof controlResponseEnvelopeSchema>
 
 // `seq` counts this subscription's events after filtering and coalescing; a gap

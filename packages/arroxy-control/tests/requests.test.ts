@@ -6,7 +6,29 @@ const item = {id: 'q1', title: 'A video', site: 'youtube', status: 'running', pr
 describe('methods', () => {
 	it('covers exactly the v1 requests', () => {
 		expect([...CONTROL_METHOD_NAMES].sort()).toEqual(
-			['hello', 'status', 'profiles.list', 'queue.list', 'queue.get', 'intake.get', 'wait', 'links.add', 'intake.choose', 'intake.retry', 'intake.cancel', 'queue.pause', 'queue.resume', 'queue.cancel', 'queue.retry', 'queue.remove', 'queue.pauseAll', 'queue.resumeAll', 'events.subscribe', 'events.unsubscribe'].sort()
+			[
+				'hello',
+				'auth',
+				'status',
+				'profiles.list',
+				'queue.list',
+				'queue.get',
+				'intake.get',
+				'wait',
+				'links.add',
+				'intake.choose',
+				'intake.retry',
+				'intake.cancel',
+				'queue.pause',
+				'queue.resume',
+				'queue.cancel',
+				'queue.retry',
+				'queue.remove',
+				'queue.pauseAll',
+				'queue.resumeAll',
+				'events.subscribe',
+				'events.unsubscribe'
+			].sort()
 		)
 		expect(isControlMethod('queue.get')).toBe(true)
 		expect(isControlMethod('probe')).toBe(false)
@@ -22,17 +44,57 @@ describe('methods', () => {
 	})
 })
 
+const nonce = 'AAECAwQFBgcICQoLDA0ODw'
+const proof = 'x_IEryNKMjLE5SmIOQBOTwNcA1N-TpctPra9GAb_Irg'
+
 describe('hello', () => {
-	it('takes the client majors, its name and optional credentials', () => {
-		expect(CONTROL_METHODS.hello.params.safeParse({protocol: {majors: [1]}, client: {name: 'arroxy-mcp', version: '0.1.0'}, token: 't', clientSecret: 's'}).success).toBe(true)
-		expect(CONTROL_METHODS.hello.params.safeParse({protocol: {majors: []}, client: {name: 'x'}}).success).toBe(false)
-		expect(CONTROL_METHODS.hello.params.safeParse({protocol: {majors: [1]}, client: {name: ''}}).success).toBe(false)
+	const hello = {protocol: {majors: [1]}, client: {name: 'arroxy-mcp', version: '0.1.0'}, clientNonce: nonce}
+
+	it('takes the client majors, its name and a client nonce', () => {
+		expect(CONTROL_METHODS.hello.params.parse(hello)).toEqual(hello)
+		expect(CONTROL_METHODS.hello.params.safeParse({...hello, protocol: {majors: []}}).success).toBe(false)
+		expect(CONTROL_METHODS.hello.params.safeParse({...hello, client: {name: ''}}).success).toBe(false)
+		expect(CONTROL_METHODS.hello.params.safeParse({protocol: hello.protocol, client: hello.client}).success).toBe(false)
+		expect(CONTROL_METHODS.hello.params.safeParse({...hello, clientNonce: 'short'}).success).toBe(false)
+	})
+
+	it('carries no credential: the server has not proved itself yet', () => {
+		const parsed = CONTROL_METHODS.hello.params.parse({...hello, token: 't', clientSecret: 's', approvalId: 'a1'})
+		expect(parsed).toEqual(hello)
+	})
+
+	it("answers with the server's proof and a server nonce", () => {
+		const challenge = {serverProof: proof, serverNonce: nonce}
+		expect(CONTROL_METHODS.hello.result.parse(challenge)).toEqual(challenge)
+		expect(CONTROL_METHODS.hello.result.safeParse({serverNonce: nonce}).success).toBe(false)
+		expect(CONTROL_METHODS.hello.result.safeParse({...challenge, serverProof: `${proof}=`}).success).toBe(false)
+	})
+})
+
+describe('auth', () => {
+	it('takes a known client id with its proof, a bare proof, or an approval id with its proof', () => {
+		const auth = CONTROL_METHODS.auth.params
+		expect(auth.parse({proof, clientId: 'c1'})).toEqual({proof, clientId: 'c1'})
+		expect(auth.parse({proof})).toEqual({proof})
+		expect(auth.parse({proof, approvalId: 'a1'})).toEqual({proof, approvalId: 'a1'})
+	})
+
+	it('refuses a missing or malformed proof, and a client id together with an approval id', () => {
+		const auth = CONTROL_METHODS.auth.params
+		expect(auth.safeParse({clientId: 'c1'}).success).toBe(false)
+		expect(auth.safeParse({proof: 'not-a-proof', clientId: 'c1'}).success).toBe(false)
+		expect(auth.safeParse({proof, clientId: 'c1', approvalId: 'a1'}).success).toBe(false)
 	})
 
 	it('answers with the chosen major, app version, boot id and granted rules', () => {
 		const result = {protocol: 1, appVersion: '0.8.0', bootId: 'b1', clientId: 'c1', rules: ['trusted', 'paths.read']}
-		expect(CONTROL_METHODS.hello.result.parse(result)).toEqual(result)
-		expect(CONTROL_METHODS.hello.result.safeParse({...result, rules: ['root']}).success).toBe(false)
+		expect(CONTROL_METHODS.auth.result.parse(result)).toEqual(result)
+		expect(CONTROL_METHODS.auth.result.safeParse({...result, rules: ['root']}).success).toBe(false)
+	})
+
+	it('carries the issued client secret on the answer that collects an approval', () => {
+		const result = {protocol: 1, appVersion: '0.8.0', bootId: 'b1', clientId: 'c1', rules: ['trusted'], clientSecret: 's'}
+		expect(CONTROL_METHODS.auth.result.parse(result)).toEqual(result)
 	})
 })
 
@@ -98,6 +160,12 @@ describe('queue verbs', () => {
 		const result = {scheduler: 'paused', done: ['q1', 'q2'], failed: [{itemId: 'q3', code: 'invalid_state'}]}
 		expect(CONTROL_METHODS[method].result.parse(result)).toEqual(result)
 		expect(CONTROL_METHODS[method].result.safeParse({...result, failed: [{itemId: 'q3', code: 'nope'}]}).success).toBe(false)
+	})
+
+	it.each(['queue.pauseAll', 'queue.resumeAll'] as const)('%s reports a running scheduler', method => {
+		const result = {scheduler: 'running', done: [], failed: []}
+		expect(CONTROL_METHODS[method].result.parse(result)).toEqual(result)
+		expect(CONTROL_METHODS[method].result.safeParse({...result, scheduler: 'stopped'}).success).toBe(false)
 	})
 
 	it('pages queue.list with a cursor', () => {

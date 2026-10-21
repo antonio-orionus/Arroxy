@@ -1,4 +1,5 @@
 import {z} from 'zod'
+import {controlDiscoverySchema} from './discovery'
 import {controlEnvelopeSchema} from './envelope'
 import {CONTROL_ERROR_TABLE, type ControlErrorCode} from './errors'
 import {CONTROL_EVENT_NAMES, CONTROL_EVENTS, type ControlEventName} from './events'
@@ -10,6 +11,7 @@ type JsonSchema = z.core.JSONSchema.BaseSchema
 export interface ControlJsonSchemas {
 	readonly protocolMajors: readonly number[]
 	readonly envelope: JsonSchema
+	readonly discovery: JsonSchema
 	readonly methods: Record<ControlMethod, {readonly params: JsonSchema; readonly result: JsonSchema}>
 	readonly events: Record<ControlEventName, JsonSchema>
 	readonly errors: Record<ControlErrorCode, {readonly retryable: boolean; readonly next: string}>
@@ -28,6 +30,7 @@ export function controlJsonSchemas(): ControlJsonSchemas {
 	return {
 		protocolMajors: [...CONTROL_PROTOCOL_MAJORS],
 		envelope: toJsonSchema(controlEnvelopeSchema),
+		discovery: toJsonSchema(controlDiscoverySchema),
 		// Object.fromEntries over every name yields the full record.
 		methods: methods as ControlJsonSchemas['methods'],
 		events: events as ControlJsonSchemas['events'],

@@ -3,7 +3,7 @@ import {CONTROL_ERROR_CODES, CONTROL_ERROR_TABLE, controlError, controlErrorSche
 
 describe('error table', () => {
 	it('has the v1 codes', () => {
-		expect([...CONTROL_ERROR_CODES].sort()).toEqual(['not_found', 'invalid_state', 'invalid_request', 'profile_unavailable', 'desktop_required', 'approval_pending', 'unauthorized', 'rate_limited', 'limit_exceeded', 'unsupported_site', 'probe_failed', 'version_unsupported', 'internal'].sort())
+		expect([...CONTROL_ERROR_CODES].sort()).toEqual(['not_found', 'invalid_state', 'invalid_request', 'profile_unavailable', 'desktop_required', 'approval_pending', 'unauthorized', 'rate_limited', 'limit_exceeded', 'unsupported_site', 'probe_failed', 'version_unsupported', 'handshake_timeout', 'internal'].sort())
 	})
 
 	it('gives every code a retryable flag and a one-line next step', () => {
@@ -17,7 +17,7 @@ describe('error table', () => {
 
 	it('retries only what can succeed unchanged later', () => {
 		const retryable = CONTROL_ERROR_CODES.filter(code => CONTROL_ERROR_TABLE[code].retryable).sort()
-		expect(retryable).toEqual(['approval_pending', 'internal', 'probe_failed', 'rate_limited'])
+		expect(retryable).toEqual(['approval_pending', 'handshake_timeout', 'internal', 'probe_failed', 'rate_limited'])
 	})
 })
 

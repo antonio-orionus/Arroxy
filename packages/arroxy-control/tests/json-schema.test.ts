@@ -36,6 +36,20 @@ describe('controlJsonSchemas', () => {
 		}
 	})
 
+	it('exports the discovery file, open to fields a later app adds', () => {
+		expect(schemas.discovery.$schema).toBe('https://json-schema.org/draft/2020-12/schema')
+		expect(Object.keys(schemas.discovery.properties ?? {}).sort()).toEqual(['socketPath', 'startedAt', 'token', 'version'])
+		expect(schemas.discovery.required?.slice().sort()).toEqual(['socketPath', 'startedAt', 'token', 'version'])
+		expect(schemas.discovery.additionalProperties).not.toBe(false)
+	})
+
+	it('keeps the handshake nonce and proof formats', () => {
+		const nonce = schemas.methods.hello.params.properties?.clientNonce
+		expect(typeof nonce === 'object' && nonce.pattern).toBe('^[A-Za-z0-9_-]{22,86}$')
+		const proof = schemas.methods.hello.result.properties?.serverProof
+		expect(typeof proof === 'object' && proof.pattern).toBe('^[A-Za-z0-9_-]{43}$')
+	})
+
 	it('lists the error table with each code', () => {
 		expect(Object.keys(schemas.errors).sort()).toEqual([...CONTROL_ERROR_CODES].sort())
 		expect(schemas.protocolMajors).toEqual([1])

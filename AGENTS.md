@@ -19,7 +19,7 @@ Arroxy is a Bun workspace (`workspaces: ["packages/*"]`), not a single app:
 - `src/` — the Electron app (`main` / `preload` / `renderer` / `shared`).
 - `packages/yt-dlp-bridge` — yt-dlp workflow planning, argv generation, process execution, output parsing. Published as `yt-dlp-bridge` on npm; the app consumes it via `workspace:*`.
 - `packages/ytdlp-errors` — structured yt-dlp error taxonomy. Published as `ytdlp-errors` on npm; `yt-dlp-bridge` depends on it.
-- `packages/arroxy-control` — Control API schemas (requests, results, events, errors) and their JSON Schema export. Published as `arroxy-control` on npm, not yet: nothing publishes it until the `agentControl` flag turns on.
+- `packages/arroxy-control` — Control API schemas (requests, results, events, errors) and their JSON Schema export. Published as `arroxy-control` on npm, by its own `arroxy-control-v*.*.*` tag; no tag has been cut yet.
 
 **These packages live in this repo — never clone them separately.** "Publishable package" in the tooling contract below means published *from here*, not maintained elsewhere.
 

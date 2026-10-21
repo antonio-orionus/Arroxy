@@ -23,9 +23,30 @@ Every entry point carries the same envelopes: one JSON object per line on the lo
 {"type": "event", "event": "intake.updated", "seq": 4, "bootId": "b1", "data": {"intake": {"intakeId": "i1", "placeholderId": "q1", "state": {"state": "queued", "itemIds": ["q2"]}, "updatedAt": 1760000000000}}}
 ```
 
+On the local socket a connection opens with a three-step handshake. The app proves it holds the discovery token before the client proves anything, so the client's first frame carries no secret: on Windows another OS user can squat a stale pipe name and read whatever a client sends first.
+
+```jsonc
+// 1. The client says hello with the majors it speaks and a fresh nonce. No credential.
+{"type": "request", "id": "h1", "method": "hello", "params": {"protocol": {"majors": [1]}, "client": {"name": "arroxy-mcp", "version": "0.1.0"}, "clientNonce": "<nonce>"}}
+// 2. The app answers with its proof, HMAC(token, clientNonce), and a nonce of its own.
+//    The client checks serverProof and drops the connection if it does not match.
+{"type": "response", "id": "h1", "ok": true, "result": {"serverProof": "<proof>", "serverNonce": "<nonce>"}}
+// 3. The client proves itself over serverNonce.
+{"type": "request", "id": "h2", "method": "auth", "params": {"clientId": "c1", "proof": "<HMAC(clientSecret, serverNonce)>"}}
+{"type": "response", "id": "h2", "ok": true, "result": {"protocol": 1, "appVersion": "0.9.0", "bootId": "b1", "clientId": "c1", "rules": ["trusted"]}}
+```
+
+- **Known client:** `auth {clientId, proof: HMAC(clientSecret, serverNonce)}`.
+- **First connection:** `auth {proof: HMAC(token, serverNonce)}` with no `clientId`. The app answers `approval_pending` with `details.approvalId` and asks the user to Allow or Deny.
+- **After Allow:** on a new connection, `auth {approvalId, proof: HMAC(token, serverNonce)}`. The result carries the `clientId` and the issued `clientSecret`, exactly once.
+
+HMAC is HMAC-SHA256 keyed by the UTF-8 bytes of the secret or token, over the UTF-8 bytes of the nonce string, written as base64url without padding (43 characters). `handshakeProof(secret, nonce)` computes it with WebCrypto. Nonces are 16 to 64 random bytes in base64url without padding (22 to 86 characters). Before a successful `auth` the app accepts only `hello` then `auth`: it closes a connection that sends no `hello` within 2 s with a `handshake_timeout` error whose `id` is `null`, drops a first frame over 4 KiB, and answers any other method with `unauthorized` and closes.
+
+The token and the socket path come from the discovery file, `control.json` in the app's user data folder (`controlDiscoverySchema`). The app rewrites it on each launch and deletes it on a clean quit; a client checks that the app is alive by connecting.
+
 | Kind | Methods |
 | --- | --- |
-| Session | `hello` |
+| Session | `hello`, `auth` |
 | Queries | `status`, `profiles.list`, `queue.list` (paged), `queue.get`, `intake.get` |
 | Wait | `wait` (one intake or one item, `until: settled \| done`, at most 240 s) |
 | Intake | `links.add`, `intake.choose`, `intake.retry`, `intake.cancel` |
@@ -61,11 +82,11 @@ const event = parseControlEvent(controlEventEnvelopeSchema.parse(message))
 if (event.status === 'event' && event.event.event === 'queue.progress') render(event.event.data.progress)
 ```
 
-`controlJsonSchemas()` returns the envelope, every method's params and result, every event's data and the error table as JSON Schema (draft 2020-12).
+`controlJsonSchemas()` returns the envelope, the discovery file, every method's params and result, every event's data and the error table as JSON Schema (draft 2020-12).
 
 ## Stability contract
 
-- `hello` negotiates a protocol **major**: the client lists the majors it speaks, the app answers with the highest one both speak or `version_unsupported` naming both ranges. This release describes major 1.
+- `hello` negotiates a protocol **major**: the client lists the majors it speaks, the app answers `version_unsupported` naming both ranges when none is shared, and the `auth` result carries the highest one both speak. This release describes major 1.
 - Within a major, changes are additive: new optional fields, new methods, new event kinds. Payload schemas drop unknown fields and `parseControlEvent` ignores unknown event kinds, so an older client keeps working against a newer app.
 - The envelope is strict: an unknown envelope field is an error.
 - Enum values (statuses, error codes, states) are closed: a new value is a new major.

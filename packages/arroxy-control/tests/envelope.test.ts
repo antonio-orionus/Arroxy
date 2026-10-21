@@ -23,6 +23,15 @@ describe('envelopes', () => {
 		expect(controlResponseEnvelopeSchema.safeParse({type: 'response', id: 'r1', ok: false, result: {}}).success).toBe(false)
 	})
 
+	it('lets only a failure carry a null id, for the closing error that answers no request', () => {
+		const timeout = {type: 'response', id: null, ok: false, error: {code: 'handshake_timeout', message: 'No hello within 2 s.', retryable: true, next: 'Connect again.'}}
+		expect(controlResponseEnvelopeSchema.safeParse(timeout).success).toBe(true)
+		expect(controlEnvelopeSchema.safeParse(timeout).success).toBe(true)
+		expect(controlResponseEnvelopeSchema.safeParse({type: 'response', id: null, ok: true, result: {}}).success).toBe(false)
+		expect(controlRequestEnvelopeSchema.safeParse({type: 'request', id: null, method: 'status'}).success).toBe(false)
+		expect(controlResponseEnvelopeSchema.safeParse({type: 'response', ok: false, error: timeout.error}).success).toBe(false)
+	})
+
 	it('requires a request id and a non-negative integer event seq', () => {
 		expect(controlRequestEnvelopeSchema.safeParse({type: 'request', id: '', method: 'status'}).success).toBe(false)
 		expect(controlEventEnvelopeSchema.safeParse({type: 'event', event: 'app.status', seq: -1, bootId: 'b1', data: {}}).success).toBe(false)

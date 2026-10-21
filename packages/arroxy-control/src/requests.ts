@@ -1,5 +1,6 @@
 import {z} from 'zod'
 import {controlErrorCodeSchema} from './errors'
+import {handshakeNonceSchema, handshakeProofSchema} from './handshake'
 import {appStatusSchema, idSchema, intakeViewSchema, profileRefSchema, profileViewSchema, queueItemViewSchema, schedulerStateSchema} from './views'
 
 // Every request the Control API v1 answers, with its params and result. Both
@@ -15,20 +16,27 @@ export const WAIT_TIMEOUT_MAX_MS = 240_000
 export const controlRuleSchema = z.enum(['trusted', 'paths.read'])
 export type ControlRule = z.infer<typeof controlRuleSchema>
 
+// hello and auth are the handshake; see handshake.ts for the order and the proofs.
+// hello carries no credential, so a squatter on the socket learns nothing from it.
 const helloParamsSchema = z.object({
+	// No shared major answers version_unsupported here, before any proof.
 	protocol: z.object({majors: z.array(z.number().int().positive()).min(1)}),
 	// Shown to the user as a label when they are asked to allow the client.
 	client: z.object({name: z.string().min(1).max(100), version: z.string().min(1).max(64).optional()}),
-	// Local socket only: the token from the discovery file.
-	token: z.string().min(1).optional(),
-	// Local socket only: the secret this client was issued when the user allowed it.
-	clientSecret: z.string().min(1).optional(),
-	// Local socket only: the id an approval_pending answer carried, sent back
-	// once the user has chosen Allow to collect the secret.
-	approvalId: idSchema.optional()
+	clientNonce: handshakeNonceSchema
 })
 
-const helloResultSchema = z.object({
+// The challenge. serverProof = HMAC(token, clientNonce): the client checks it
+// before sending auth and drops the connection if it does not match.
+const helloResultSchema = z.object({serverProof: handshakeProofSchema, serverNonce: handshakeNonceSchema})
+
+// proof = HMAC(clientSecret, serverNonce) with `clientId` for a known client, and
+// HMAC(token, serverNonce) otherwise: alone to ask the user to allow this client
+// (approval_pending), or with the `approvalId` it carried, on a new connection
+// once the user has chosen Allow, to collect the client id and secret.
+const authParamsSchema = z.union([z.object({proof: handshakeProofSchema, clientId: idSchema.optional(), approvalId: z.never().optional()}), z.object({proof: handshakeProofSchema, approvalId: idSchema, clientId: z.never().optional()})])
+
+const authResultSchema = z.object({
 	protocol: z.number().int().positive(),
 	appVersion: z.string().min(1),
 	// Changes every launch. A new boot id means the app forgot its intakes and
@@ -36,7 +44,7 @@ const helloResultSchema = z.object({
 	bootId: idSchema,
 	clientId: idSchema,
 	rules: z.array(controlRuleSchema),
-	// Issued once, on the hello that collects an approval. Keep it; it is never sent again.
+	// Issued once, on the auth that collects an approval. Keep it; it is never sent again.
 	clientSecret: z.string().min(1).optional()
 })
 
@@ -83,6 +91,7 @@ const bulkResultSchema = z.object({scheduler: schedulerStateSchema, done: z.arra
 
 export const CONTROL_METHODS = {
 	hello: {params: helloParamsSchema, result: helloResultSchema},
+	auth: {params: authParamsSchema, result: authResultSchema},
 	status: {params: emptySchema, result: appStatusSchema},
 	'profiles.list': {params: emptySchema, result: z.object({profiles: z.array(profileViewSchema), active: profileRefSchema})},
 	// Pages are cut by size as well as by `limit`; follow `nextCursor` until it is null.

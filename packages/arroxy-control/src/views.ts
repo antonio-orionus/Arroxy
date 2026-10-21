@@ -6,7 +6,7 @@ import {z} from 'zod'
 
 export const idSchema = z.string().min(1).max(128)
 // Milliseconds since the Unix epoch.
-const timestampSchema = z.number().int().nonnegative()
+export const timestampSchema = z.number().int().nonnegative()
 
 export const profileRefSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('builtin'), id: idSchema}), z.object({kind: z.literal('custom'), id: idSchema})])
 export type ProfileRef = z.infer<typeof profileRefSchema>
