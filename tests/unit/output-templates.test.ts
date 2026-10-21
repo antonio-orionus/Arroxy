@@ -107,7 +107,7 @@ describe('playlistEntryTemplateMeta', () => {
 		if (!bound.ok) return
 		expect(bound.template).toContain('{title}')
 		const compiled = compileFilenameTemplate(bound.template)
-		expect(compiled).toEqual({ok: true, template: '%(title).120B [%(id)s].%(ext)s'})
+		expect(compiled).toEqual({ok: true, template: '%(title).40B [%(id)s].%(ext)s'})
 	})
 })
 

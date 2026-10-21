@@ -11,13 +11,13 @@
 //
 // Why yt-dlp's own truncation cannot be trusted with this: `%(title).150B`
 // truncates to 150 bytes and *then* sanitizes, and sanitization grows the
-// string. `:` becomes " -" (one character to two) and `|`, `*`, `<`, `>` become
-// their full-width counterparts (one byte to three). A cap applied before that
-// pass is advisory, not binding — so Arroxy resolves the name itself and hands
-// yt-dlp literal text.
+// string: `"`, `*`, `:`, `<`, `>`, `?`, `|`, `/` and `\` become full-width
+// look-alikes (one byte to three). A cap applied before that pass is advisory,
+// not binding — so Arroxy resolves the name itself and hands yt-dlp literal text.
 
 import {graphemes, measure, normalizeName, truncateTo, type PlatformLimits} from './pathLimits.js'
 import type {FilenameToken} from './schemas.js'
+import {escapeReservedName} from './subfolder.js'
 
 // The name on disk during a download is longer than the finished name, and how
 // much longer depends on what the job downloads. yt-dlp writes each format of a
@@ -146,9 +146,10 @@ export const TOKEN_FLOOR: Record<ShrinkableToken, number> = {playlist_title: 12,
 /**
  * `placeholder` is a token left for yt-dlp to expand: its text survives into the
  * output but is *not* measured, because what it expands to is what lands on
- * disk. `reserve` is that expansion's worst-case width. Measuring the
- * placeholder text instead would charge the name for `{resolution}` (12
- * characters) on top of what it renders to ("1080p", 5) — and count it twice.
+ * disk. `reserve` is that expansion's worst-case width, after yt-dlp sanitizes
+ * it, and is measured in its place. Measuring the placeholder text instead would
+ * charge the name for `{resolution}` (12 characters) on top of what it renders
+ * to ("1080p", 5) — and count it twice.
  */
 export type BudgetPiece = {kind: 'literal'; text: string} | {kind: 'placeholder'; text: string; reserve: number} | {kind: 'token'; token: FilenameToken; text: string}
 
@@ -170,17 +171,26 @@ function joinPath(dir: string, name: string): string {
 	return /[/\\]$/.test(dir) ? `${dir}${name}` : `${dir}/${name}`
 }
 
-/** Everything the name will contain, including not-yet-expanded placeholders. */
-export function renderName(pieces: readonly BudgetPiece[]): string {
-	return pieces.map(piece => piece.text).join('')
+// Applied to the assembled name, because both hazards are properties of the
+// whole name rather than of any one token: Windows rejects a name ending in a
+// dot or a space (which truncation can expose), and treats a reserved device
+// name as a device with any extension, so `NUL.mp4` is still the null device.
+function finalizeName(value: string): string {
+	return escapeReservedName(value.replace(/[\s.]+$/, ''))
 }
 
-/** Only what counts against the budget — see BudgetPiece on why these differ. */
+/** The name as it will be written, including not-yet-expanded placeholders. */
+export function renderName(pieces: readonly BudgetPiece[]): string {
+	return finalizeName(pieces.map(piece => piece.text).join(''))
+}
+
+// The one rule of the budget: it measures the name as it will be written. That
+// is renderName's output, escaping included, with each placeholder standing in
+// at its reserve: the most yt-dlp can write for it once it has sanitized the
+// value. The stand-in has no dot or space and cannot start a device name, so
+// finalizeName treats it exactly as it treats the `{token}` text it replaces.
 function renderMeasured(pieces: readonly BudgetPiece[]): string {
-	return pieces
-		.filter(piece => piece.kind !== 'placeholder')
-		.map(piece => piece.text)
-		.join('')
+	return finalizeName(pieces.map(piece => (piece.kind === 'placeholder' ? 'x'.repeat(piece.reserve) : piece.text)).join(''))
 }
 
 /**
@@ -193,12 +203,7 @@ function renderMeasured(pieces: readonly BudgetPiece[]): string {
  */
 export function fitName(request: BudgetRequest): BudgetResult {
 	const {outputDir, limits} = request
-	// Placeholder reserves are worst cases for fields yt-dlp will expand, and are
-	// only charged for tokens that actually stayed unbound.
-	const placeholders = request.pieces.reduce((total, piece) => total + (piece.kind === 'placeholder' ? piece.reserve : 0), 0)
 	const inFlight = inFlightReserve(request.inFlight)
-	const componentReserve = inFlight.component + placeholders
-	const pathReserve = inFlight.path + placeholders
 
 	// Composing up front is load-bearing, not tidiness: decomposed text costs
 	// double for the same visible characters, so measuring it raw would truncate
@@ -207,8 +212,8 @@ export function fitName(request: BudgetRequest): BudgetResult {
 
 	const fits = (candidate: readonly BudgetPiece[]): boolean => {
 		const name = renderMeasured(candidate)
-		if (measure(name, limits.componentUnit) + componentReserve > limits.componentMax) return false
-		return measure(joinPath(outputDir, name), limits.pathUnit) + pathReserve <= limits.pathMax
+		if (measure(name, limits.componentUnit) + inFlight.component > limits.componentMax) return false
+		return measure(joinPath(outputDir, name), limits.pathUnit) + inFlight.path <= limits.pathMax
 	}
 
 	if (fits(pieces)) return {ok: true, pieces, truncated: []}
@@ -264,6 +269,6 @@ export function fitName(request: BudgetRequest): BudgetResult {
 	// Every shrinkable token is at its floor and it still does not fit. Which
 	// ceiling is still violated decides which fix to offer the user.
 	const name = renderMeasured(working)
-	const componentOverflows = measure(name, limits.componentUnit) + componentReserve > limits.componentMax
+	const componentOverflows = measure(name, limits.componentUnit) + inFlight.component > limits.componentMax
 	return {ok: false, reason: componentOverflows ? 'template-cannot-fit' : 'path-too-deep'}
 }

@@ -138,7 +138,7 @@ describe('SidecarSubsPhase: the fetch', () => {
 		expect(fetchRequest(ctx)).toEqual({
 			kind: 'subtitles',
 			url: URL,
-			output: {directory: outDir, subtitleMode: 'sidecar', template: '%(title).120B [%(id)s].%(ext)s', report: {subtitles: join(tempDir, '_arroxy.subtitles.report.json')}},
+			output: {directory: outDir, subtitleMode: 'sidecar', template: '%(title).40B [%(id)s].%(ext)s', report: {subtitles: join(tempDir, '_arroxy.subtitles.report.json')}},
 			subtitles: {tracks: [{key: 'en', auto: false}], format: 'srt'},
 			loadInfoJsonPath: join(tempDir, '_arroxy.info.json')
 		})
