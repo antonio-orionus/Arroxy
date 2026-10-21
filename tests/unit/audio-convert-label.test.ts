@@ -54,7 +54,18 @@ describe('resolveAudioLabel — native streams', () => {
 		expect(label({kind: 'native', formatId: '251-0'}, TRACKS)).toBe('Английский · webm · Opus · 130 kbps')
 	})
 
-	it("keeps a label that doesn't start with the track as it is", () => {
-		expect(label({kind: 'native', formatId: '251'}, YOUTUBE)).toBe('251')
+	it('names the track among the listed streams, as the picker does, not their hidden copies', async () => {
+		await i18next.changeLanguage('ru')
+		// YouTube's HLS copy has no codec and its own note for the same language.
+		const hlsCopy: FormatOption = {...track('233', 'en-US', 'American English - original (original)'), audioCodec: undefined}
+		const formats = [track('251-2', 'en-US', 'English (US) original (default)'), hlsCopy, track('251-1', 'de', 'German')]
+
+		expect(label({kind: 'native', formatId: '251-2'}, formats)).toBe('Американский английский · webm · Opus · 130 kbps')
+	})
+
+	it("keeps a label that doesn't start with the track as it is", async () => {
+		await i18next.changeLanguage('ru')
+
+		expect(label({kind: 'native', formatId: '251-0'}, [{...TRACKS[0], label: 'webm · Opus'}, TRACKS[1]])).toBe('webm · Opus')
 	})
 })

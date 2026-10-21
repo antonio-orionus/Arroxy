@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {listedAudioFormats, selectView} from '@renderer/store/formatSelectionView.js'
+import {selectView} from '@renderer/store/formatSelectionView.js'
+import {listedAudioFormats} from '@renderer/lib/audioTracks.js'
 import {buildAudioConvertPayload, buildFormatId} from '@renderer/store/helpers.js'
 import type {FormatOption} from '@shared/types.js'
 import type {AudioSelection} from '@renderer/store/types.js'
@@ -283,6 +284,12 @@ describe('selectView — media kinds', () => {
 			const audio = view([track('a', {audioLanguage: 'qaa', audioTrackLabel: 'Commentary'}), track('b', {audioLanguage: 'en', audioTrackLabel: 'English'}), track('c', {audioLanguage: 'en', audioTrackLabel: 'English (director)'}), track('d', {audioTrackLabel: 'Track 4'})], 'en')
 
 			expect(audio.trackNames).toEqual({Commentary: 'Commentary', English: 'English', 'English (director)': 'English (director)', 'Track 4': 'Track 4'})
+		})
+
+		it("keeps the site's text where a name would match another track's fallback", () => {
+			const audio = view([track('a', {audioLanguage: 'en', audioTrackLabel: 'English (default)'}), track('b', {audioLanguage: 'qaa', audioTrackLabel: 'English'})], 'en')
+
+			expect(audio.trackNames).toEqual({'English (default)': 'English (default)', English: 'English'})
 		})
 	})
 

@@ -4,7 +4,7 @@ import type {FormatSelectionSource} from '@shared/ytdlp/selectableFormat.js'
 import {useMemo} from 'react'
 import {useTranslation} from 'react-i18next'
 import {i18next} from '@shared/i18n/index.js'
-import {audioTrackNames, trackOf} from '@renderer/lib/audioTrackName.js'
+import {audioTrackNames, listedAudioFormats, trackOf} from '@renderer/lib/audioTracks.js'
 import {humanBitrate, humanSize} from '@shared/format.js'
 import {AUDIO_CONVERT_TARGETS} from '@shared/audioTargets.js'
 import {audioCodecName, VIDEO_CODEC_ORDER, videoCodecName} from '@shared/fileTypeFit.js'
@@ -221,30 +221,6 @@ function defaultTrackOf(formats: readonly FormatOption[], tracks: readonly strin
 	const source = formats.find(f => f.isAudioOnly && f.isDefaultAudio === true) ?? formats.find(f => f.isAudioOnly && f.isOriginalAudio === true)
 	const track = source ? trackOf(source) : ''
 	return tracks.includes(track) ? track : tracks[0]
-}
-
-// Everything a chip shows of a stream, and everything yt-dlp ranks it by:
-// streams equal in all of it are copies of one stream (Vimeo lists each once per CDN).
-function copyKey(format: FormatOption): string {
-	return JSON.stringify([format.audioLanguage, format.audioTrackLabel, format.audioCodec, format.ext, format.abr, format.audioTrackQuality, format.quality, format.preference, format.isDrc === true, format.audioChannels, format.sampleRateHz, format.filesize, format.markers ?? []])
-}
-
-// YouTube lists an HLS copy of each audio track with no codec named. The audio
-// column shows it only where its language has no track with a named codec, or
-// when it is the pick: every stream stays pickable, but no track is listed twice.
-// Of identical copies the list keeps the picked one, else the one yt-dlp would
-// take: it lists formats worst first, and equals keep their order, so the last.
-export function listedAudioFormats(formats: readonly FormatOption[], keepIds: readonly (string | null)[]): FormatOption[] {
-	const audio = formats.filter(format => format.isAudioOnly)
-	const namedLanguages = new Set(audio.filter(format => format.audioCodec !== undefined).map(format => format.audioLanguage))
-	const listed = audio.filter(format => format.audioCodec !== undefined || !namedLanguages.has(format.audioLanguage) || keepIds.includes(format.formatId))
-	const shown = new Set(
-		groupBy(listed, copyKey).flatMap(([, copies]) => {
-			const kept = copies.filter(format => keepIds.includes(format.formatId))
-			return kept.length > 0 ? kept : copies.slice(-1)
-		})
-	)
-	return listed.filter(format => shown.has(format))
 }
 
 function nativeAudioRow(format: FormatOption, profileAudioId: string | null, scale: SizeScale): BaseAudioRow {
