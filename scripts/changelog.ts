@@ -3,7 +3,9 @@
 //
 //   bun scripts/changelog.ts check                 every fragment well formed, no unreleased CHANGELOG.md section
 //   bun scripts/changelog.ts assemble [version]    write ## <package.json version> and delete the fragments
-//   bun scripts/changelog.ts verify-release <ver>  CHANGELOG.md has ## <ver> and no fragment is left over
+//   bun scripts/changelog.ts verify-release <ver> [ref]
+//                                                  CHANGELOG.md has ## <ver> and no fragment is left over,
+//                                                  in the checkout or in commit <ref>'s tree
 
 import {spawnSync} from 'node:child_process'
 import {existsSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync} from 'node:fs'
@@ -66,16 +68,33 @@ function assemble(requested: string | undefined): void {
 	console.log(`Wrote ## ${version} to ${CHANGELOG} from ${files.length} fragment(s) and deleted them. Read it over before committing release: ${version}.`)
 }
 
-function verifyRelease(version: string | undefined): void {
-	if (version === undefined) fail('usage: bun scripts/changelog.ts verify-release <version>')
-	const left = fragmentFiles()
+function gitRead(args: string[]): string {
+	const result = spawnSync('git', args, {encoding: 'utf8'})
+	if (result.status !== 0) fail(`git ${args.join(' ')} failed: ${result.error?.message ?? result.stderr.trim()}`)
+	return result.stdout
+}
+
+// A release commit's own tree, so fragments merged after it (or a checkout
+// at another commit) do not change the verdict.
+function treeAt(ref: string): {changelog: string; fragments: string[]} {
+	gitRead(['rev-parse', '--verify', '--quiet', `${ref}^{commit}`])
+	// Paths come back as changelog.d/<name>, and none when the directory is absent.
+	const paths = gitRead(['ls-tree', '--name-only', ref, '--', `${FRAGMENT_DIR}/`]).split('\n')
+	const fragments = paths.filter(path => path !== '' && !/\/(?:README\.md|\.[^/]*)$/.test(path))
+	return {changelog: gitRead(['show', `${ref}:${CHANGELOG}`]), fragments}
+}
+
+function verifyRelease(version: string | undefined, ref: string | undefined): void {
+	if (version === undefined) fail('usage: bun scripts/changelog.ts verify-release <version> [ref]')
+	const tree = ref === undefined ? {changelog: readFileSync(CHANGELOG, 'utf8'), fragments: fragmentFiles()} : treeAt(ref)
+	const left = tree.fragments
 	if (left.length > 0) fail(`${left.length} changelog fragment(s) in ${FRAGMENT_DIR}/ are not in a release section; run bun run changelog:assemble before committing release: ${version}`)
-	const body = releaseSectionBody(readFileSync(CHANGELOG, 'utf8'), version)
+	const body = releaseSectionBody(tree.changelog, version)
 	if (body === null) fail(`${CHANGELOG} has no ## ${version} section; run bun run changelog:assemble before committing release: ${version}`)
 	if (body === '') fail(`${CHANGELOG}'s ## ${version} section is empty; the release notes would be PR titles only`)
 }
 
-const [command, argument] = process.argv.slice(2)
+const [command, argument, ref] = process.argv.slice(2)
 switch (command) {
 	case 'check': {
 		const found = problems()
@@ -86,8 +105,8 @@ switch (command) {
 		assemble(argument)
 		break
 	case 'verify-release':
-		verifyRelease(argument)
+		verifyRelease(argument, ref)
 		break
 	default:
-		fail(`usage: bun scripts/changelog.ts check | assemble [version] | verify-release <version>\n(${FRAGMENT_DIR}/${FRAGMENT_README} explains fragments)`)
+		fail(`usage: bun scripts/changelog.ts check | assemble [version] | verify-release <version> [ref]\n(${FRAGMENT_DIR}/${FRAGMENT_README} explains fragments)`)
 }

@@ -146,10 +146,11 @@ esac
 
 TAG="v$VERSION"
 
-# 4b. stable release notes: the release commit assembled every changelog.d/
-# fragment into this version's CHANGELOG.md section
+# 4b. stable release notes: the commit being tagged assembled every
+# changelog.d/ fragment into this version's CHANGELOG.md section. Judged on
+# that commit's tree, not the checkout.
 if [[ "$MODE" == "stable" ]]; then
-  bun scripts/changelog.ts verify-release "$VERSION"
+  bun scripts/changelog.ts verify-release "$VERSION" "$LOCAL"
 fi
 
 # 5. tag must not already exist locally or on remote

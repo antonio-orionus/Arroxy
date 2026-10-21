@@ -238,6 +238,23 @@ describe('changelog CLI', () => {
 		expect(separatorOnly('verify-release', '1.2.3')).toMatchObject({status: 1, stderr: expect.stringMatching(/empty/)})
 	})
 
+	it('verifies the tree of a given commit instead of the checkout', async () => {
+		const released = CHANGELOG.replace('## 1.2.2', '## 1.2.3\n\n## Fixes\n\n- Fix.\n\n## 1.2.2')
+		const {root, cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': released, 'changelog.d/README.md': 'How.\n'})
+		spawnSync('git', ['add', '-A'], {cwd: root, env: ENV})
+		spawnSync('git', ['commit', '-qm', 'release: 1.2.3'], {cwd: root, env: ENV})
+		// A PR merged after the release commit adds a fragment, and the checkout drifts.
+		await fs.writeFile(path.join(root, 'changelog.d', 'later.fix.md'), 'Later.\n')
+		await fs.writeFile(path.join(root, 'CHANGELOG.md'), CHANGELOG)
+		expect(cli('verify-release', '1.2.3')).toMatchObject({status: 1})
+		expect(cli('verify-release', '1.2.3', 'HEAD')).toMatchObject({status: 0})
+		spawnSync('git', ['add', '-A'], {cwd: root, env: ENV})
+		spawnSync('git', ['commit', '-qm', 'later'], {cwd: root, env: ENV})
+		expect(cli('verify-release', '1.2.3', 'HEAD')).toMatchObject({status: 1, stderr: expect.stringMatching(/fragment/)})
+		expect(cli('verify-release', '1.2.3', 'HEAD~1')).toMatchObject({status: 0})
+		expect(cli('verify-release', '1.2.3', 'no-such-ref')).toMatchObject({status: 1, stderr: expect.stringMatching(/no-such-ref/)})
+	})
+
 	it('blocks a release whose heading the publish workflow would not match', async () => {
 		const {cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': CHANGELOG.replace('## 1.2.2', '## 1.2.3 \n\n- Fix.\n\n## 1.2.2')})
 		expect(cli('verify-release', '1.2.3')).toMatchObject({status: 1, stderr: expect.stringMatching(/no ## 1\.2\.3 section/)})
