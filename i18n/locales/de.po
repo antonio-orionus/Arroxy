@@ -833,7 +833,7 @@ msgstr "Die Einrichtung wurde nicht abgeschlossen. Einige Downloads können bis 
 
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
-msgstr "Audio (best)"
+msgstr "Audio (beste Qualität)"
 
 msgctxt "playlistPresets.audioFormat.m4a"
 msgid "M4A"
@@ -929,7 +929,7 @@ msgstr "Bis 720p"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "Best quality"
+msgstr "Beste Qualität"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -957,7 +957,7 @@ msgstr "Kleine Dateien für knappe Bandbreite"
 
 msgctxt "playlistPresets.tierDesc.480"
 msgid "Low bandwidth"
-msgstr "Low bandwidth"
+msgstr "Geringe Bandbreite"
 
 msgctxt "playlistPresets.tierDesc.720"
 msgid "Smaller files, broad compatibility"
@@ -981,7 +981,7 @@ msgstr "Video"
 
 msgctxt "playlistPresets.videoFormat.best"
 msgid "Best native"
-msgstr "Best codec"
+msgstr "Bestes natives Format"
 
 msgctxt "playlistPresets.videoFormat.mp4"
 msgid "Smart TV H.264 MP4"

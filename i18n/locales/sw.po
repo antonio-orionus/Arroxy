@@ -833,7 +833,7 @@ msgstr "Usanidi haukukamilika. Baadhi ya upakuaji unaweza kushindwa hadi ukamili
 
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
-msgstr "Audio (best)"
+msgstr "Sauti (bora)"
 
 msgctxt "playlistPresets.audioFormat.m4a"
 msgid "M4A"
@@ -849,7 +849,7 @@ msgstr "Opus"
 
 msgctxt "playlistPresets.audioFormatBitrate"
 msgid "Audio ({{format}} {{kbps}}K)"
-msgstr "Audio ({{format}} {{kbps}}K)"
+msgstr "Sauti ({{format}} {{kbps}}K)"
 
 msgctxt "playlistPresets.audioFormatDesc.best"
 msgid "Native best audio, no re-encode"
@@ -929,7 +929,7 @@ msgstr "Hadi 720p"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "Best quality"
+msgstr "Ubora wa juu zaidi"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -957,7 +957,7 @@ msgstr "Faili ndogo kwa bandwidth finyu"
 
 msgctxt "playlistPresets.tierDesc.480"
 msgid "Low bandwidth"
-msgstr "Low bandwidth"
+msgstr "Bandwidth finyu"
 
 msgctxt "playlistPresets.tierDesc.720"
 msgid "Smaller files, broad compatibility"
@@ -969,7 +969,7 @@ msgstr "Video + sauti bora inayopatikana kwa kila kipengee"
 
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
-msgstr "Audio"
+msgstr "Sauti"
 
 msgctxt "playlistPresets.type.subtitles"
 msgid "Subtitles"
@@ -981,7 +981,7 @@ msgstr "Video"
 
 msgctxt "playlistPresets.videoFormat.best"
 msgid "Best native"
-msgstr "Best codec"
+msgstr "Umbizo asilia bora"
 
 msgctxt "playlistPresets.videoFormat.mp4"
 msgid "Smart TV H.264 MP4"

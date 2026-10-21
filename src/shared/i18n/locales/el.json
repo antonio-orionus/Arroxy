@@ -99,8 +99,8 @@
 			"itemCount_other": "{{count}} βίντεο",
 			"itemCountAudio_one": "{{count}} κομμάτι",
 			"itemCountAudio_other": "{{count}} κομμάτια",
-			"itemCountBulk_one": "{{count}} URL",
-			"itemCountBulk_other": "{{count}} URL",
+			"itemCountBulk_one": "{{count}} σύνδεσμος",
+			"itemCountBulk_other": "{{count}} σύνδεσμοι",
 			"bulkMetadataResolving": "Ανάκτηση λεπτομερειών βίντεο… {{done}}/{{total}}",
 			"bulkMetadataOptional": "Δεν χρειάζεται να περιμένετε — τα αρχεία που μπαίνουν στην ουρά τώρα θα πάρουν τα πραγματικά τους ονόματα κατά τη λήψη.",
 			"bulkRowWaiting": "Σε αναμονή",
@@ -127,7 +127,7 @@
 			"loadingPagesFound_other": "Βρέθηκαν {{count}} σελίδες",
 			"loadingLimitHint": "Περιορισμένο στα πρώτα {{count}} στοιχεία",
 			"thumbnailAlt": "Μικρογραφία βίντεο",
-			"durationUnknown": "live",
+			"durationUnknown": "ζωντανά",
 			"syncChange": "Αλλαγή φακέλου…",
 			"syncApply": "Εφαρμογή συγχρονισμού",
 			"syncScanning": "Έλεγχος φακέλου…",
@@ -321,7 +321,7 @@
 				"extensionFirefox": "cookies.txt (Firefox)",
 				"extensionChrome": "Λήψη cookies.txt ΤΟΠΙΚΑ (Chrome)"
 			},
-			"proxy": {"label": "Proxy URL", "description": "Δρομολόγηση κίνησης μέσω proxy — χρήσιμο για περιεχόμενο με γεωγραφικούς περιορισμούς.", "placeholder": "http://host:port", "clear": "Εκκαθάριση"},
+			"proxy": {"label": "Διεύθυνση proxy", "description": "Δρομολόγηση κίνησης μέσω proxy — χρήσιμο για περιεχόμενο με γεωγραφικούς περιορισμούς.", "placeholder": "http://host:port", "clear": "Εκκαθάριση"},
 			"style": {
 				"panelTitle": "Εμφάνιση",
 				"panelDescription": "Πώς φαίνεται το Arroxy. Εναλλάξου μεταξύ ανοιχτόχρωμης και σκούρας εμφάνισης στο υποσέλιδο.",
@@ -411,7 +411,7 @@
 			"mode": {"off": "Απενεργοποιημένο", "mark": "Σήμανση ως κεφάλαια", "remove": "Αφαίρεση τμημάτων"},
 			"modeHint": {"off": "Χωρίς SponsorBlock — το βίντεο παίζει όπως ανέβηκε.", "mark": "Σημαίνει τα τμήματα χορηγών ως κεφάλαια (μη καταστροφικό).", "remove": "Αφαιρεί τμήματα χορηγών από το βίντεο χρησιμοποιώντας FFmpeg."},
 			"categoriesHeading": "Κατηγορίες",
-			"cat": {"sponsor": "Sponsor", "intro": "Intro", "outro": "Outro", "selfpromo": "Self-promo", "music_offtopic": "Music off-topic", "preview": "Preview", "filler": "Filler"}
+			"cat": {"sponsor": "Χορηγός", "intro": "Εισαγωγή", "outro": "Τίτλοι τέλους", "selfpromo": "Αυτοπροβολή", "music_offtopic": "Μη μουσικό τμήμα", "preview": "Προεπισκόπηση", "filler": "Παρέκβαση"}
 		},
 		"formats": {
 			"kind": {"label": "Τι να γίνει λήψη", "video": "Βίντεο + ήχος", "videoOnly": "Βίντεο, χωρίς ήχο", "audio": "Μόνο ήχος", "subtitles": "Μόνο υπότιτλοι"},
@@ -597,7 +597,7 @@
 			"thumbnailEmbedNotSupported": "Το Thumbnail embed παραλείφθηκε — το container εξόδου δεν το υποστηρίζει.",
 			"subtitleEmbedAudioOnly": "Το embed υποτίτλων άλλαξε σε sidecar — τα κομμάτια ήχου δεν υποστηρίζουν ενσωματωμένες ροές υποτίτλων.",
 			"audioOnly": "Μόνο ήχος",
-			"addToQueue": "+ Queue",
+			"addToQueue": "+ Ουρά",
 			"addToQueueTooltip": "Ξεκινά όταν ολοκληρωθούν άλλες λήψεις — αποκτά πλήρες εύρος ζώνης",
 			"pullIt": "Κατέβασέ το! ↓",
 			"pullItTooltip": "Ξεκινά αμέσως — εκτελείται παράλληλα με άλλες ενεργές λήψεις",
@@ -830,7 +830,7 @@
 		"downloading": "Λήψη…",
 		"runAndRestart": "Εκτέλεση & Επανεκκίνηση",
 		"upgrading": "Αναβάθμιση…",
-		"download": "Download ↗",
+		"download": "Λήψη ↗",
 		"downloadDmg": "Λήψη DMG ↗",
 		"dismiss": "Απόρριψη ειδοποίησης ενημέρωσης",
 		"copy": "Αντιγραφή εντολής στο πρόχειρο",
@@ -936,7 +936,7 @@
 		}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio", "subtitles": "Υπότιτλοι"},
+		"type": {"video": "Βίντεο", "audio": "Ήχος", "subtitles": "Υπότιτλοι"},
 		"subtitles": {
 			"note": "Για κάθε βίντεο αποθηκεύονται μόνο αρχεία υποτίτλων — δεν γίνεται λήψη βίντεο ή ήχου.",
 			"languages": "Γλώσσες",
@@ -945,23 +945,23 @@
 			"deliveryHeading": "Αποθήκευση ως",
 			"deliveryLoose": "Απευθείας στον φάκελο αποθήκευσης"
 		},
-		"videoFormat": {"best": "Best codec", "mp4": "Έξυπνη TV H.264 MP4"},
+		"videoFormat": {"best": "Καλύτερο εγγενές", "mp4": "Έξυπνη TV H.264 MP4"},
 		"videoFormatDesc": {"best": "Υψηλότερος διαθέσιμος codec ανά στοιχείο", "mp4": "Προτιμάται H.264 + AAC, κοντέινερ MP4 · βέλτιστη προσπάθεια"},
-		"tier": {"144": "Έως 144p", "240": "Έως 240p", "360": "Έως 360p", "480": "Έως 480p", "720": "Έως 720p", "1080": "Έως 1080p", "1440": "Έως 1440p", "2160": "Έως 4K", "best": "Best quality"},
+		"tier": {"144": "Έως 144p", "240": "Έως 240p", "360": "Έως 360p", "480": "Έως 480p", "720": "Έως 720p", "1080": "Έως 1080p", "1440": "Έως 1440p", "2160": "Έως 4K", "best": "Καλύτερη ποιότητα"},
 		"tierDesc": {
 			"144": "Τα μικρότερα δυνατά αρχεία",
 			"240": "Πολύ μικρά αρχεία, χαμηλή ποιότητα",
 			"360": "Μικρά αρχεία για περιορισμένο εύρος ζώνης",
-			"480": "Low bandwidth",
+			"480": "Χαμηλό εύρος ζώνης",
 			"720": "Μικρότερα αρχεία, ευρεία συμβατότητα",
 			"1080": "Περιορισμός στα 1080p, πέφτει ανά στοιχείο αν χρειαστεί",
 			"1440": "Περιορισμός στα 2K, πέφτει ανά στοιχείο αν χρειαστεί",
 			"2160": "Περιορισμός στα 2160p, πέφτει ανά στοιχείο αν χρειαστεί",
 			"best": "Καλύτερο διαθέσιμο βίντεο + ήχος ανά στοιχείο"
 		},
-		"audioFormat": {"best": "Audio (best)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
+		"audioFormat": {"best": "Ήχος (καλύτερος)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
 		"audioFormatDesc": {"best": "Καλύτερος εγγενής ήχος, χωρίς επανακωδικοποίηση", "mp3": "Μετατροπή σε MP3", "m4a": "Μετατροπή σε M4A (AAC)", "opus": "Μετατροπή σε Opus"},
-		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
+		"audioFormatBitrate": "Ήχος ({{format}} {{kbps}}K)",
 		"mp4Cap": "Το H.264 πάνω από 1080p δεν είναι διαθέσιμο στο YouTube — περιορίζεται αυτόματα στα 1080p"
 	},
 	"formatLabel": {"audioFallback": "Ήχος", "audioOnlyDot": "Μόνο ήχος · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},

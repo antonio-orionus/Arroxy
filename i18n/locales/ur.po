@@ -833,7 +833,7 @@ msgstr "سیٹ اپ مکمل نہیں ہوا۔ مکمل ہونے تک کچھ ڈ�
 
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
-msgstr "Audio (best)"
+msgstr "آڈیو (بہترین)"
 
 msgctxt "playlistPresets.audioFormat.m4a"
 msgid "M4A"
@@ -849,7 +849,7 @@ msgstr "Opus"
 
 msgctxt "playlistPresets.audioFormatBitrate"
 msgid "Audio ({{format}} {{kbps}}K)"
-msgstr "Audio ({{format}} {{kbps}}K)"
+msgstr "آڈیو ({{format}} {{kbps}}K)"
 
 msgctxt "playlistPresets.audioFormatDesc.best"
 msgid "Native best audio, no re-encode"
@@ -929,7 +929,7 @@ msgstr "720p تک"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "Best quality"
+msgstr "بہترین معیار"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -957,7 +957,7 @@ msgstr "محدود بینڈوتھ کے لیے چھوٹی فائلیں"
 
 msgctxt "playlistPresets.tierDesc.480"
 msgid "Low bandwidth"
-msgstr "Low bandwidth"
+msgstr "کم بینڈوتھ"
 
 msgctxt "playlistPresets.tierDesc.720"
 msgid "Smaller files, broad compatibility"
@@ -969,7 +969,7 @@ msgstr "ہر آئٹم کے لیے بہترین ویڈیو + آڈیو"
 
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
-msgstr "Audio"
+msgstr "آڈیو"
 
 msgctxt "playlistPresets.type.subtitles"
 msgid "Subtitles"
@@ -977,11 +977,11 @@ msgstr "سب ٹائٹلز"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"
-msgstr "Video"
+msgstr "ویڈیو"
 
 msgctxt "playlistPresets.videoFormat.best"
 msgid "Best native"
-msgstr "Best codec"
+msgstr "بہترین اصل"
 
 msgctxt "playlistPresets.videoFormat.mp4"
 msgid "Smart TV H.264 MP4"
@@ -1099,7 +1099,7 @@ msgstr "تمام آئٹمز"
 
 msgctxt "queue.header"
 msgid "Downloads"
-msgstr "Downloads"
+msgstr "ڈاؤن لوڈز"
 
 msgctxt "queue.item.audioKept"
 msgid "Sound not removed"
@@ -1231,7 +1231,7 @@ msgstr "{{selected}} منتخب · کل {{total}}"
 
 msgctxt "queue.tabLabel"
 msgid "Downloads"
-msgstr "Downloads"
+msgstr "ڈاؤن لوڈز"
 
 msgctxt "queue.table.added"
 msgid "Added"
@@ -2313,15 +2313,15 @@ msgstr "حسب ضرورت…"
 
 msgctxt "wizard.folder.desktop"
 msgid "Desktop"
-msgstr "Desktop"
+msgstr "ڈیسک ٹاپ"
 
 msgctxt "wizard.folder.documents"
 msgid "Documents"
-msgstr "Documents"
+msgstr "دستاویزات"
 
 msgctxt "wizard.folder.downloads"
 msgid "Downloads"
-msgstr "Downloads"
+msgstr "ڈاؤن لوڈز"
 
 msgctxt "wizard.folder.heading"
 msgid "Save to"
@@ -2329,15 +2329,15 @@ msgstr "محفوظ کریں"
 
 msgctxt "wizard.folder.home"
 msgid "Home"
-msgstr "Home"
+msgstr "ہوم"
 
 msgctxt "wizard.folder.music"
 msgid "Music"
-msgstr "Music"
+msgstr "موسیقی"
 
 msgctxt "wizard.folder.pictures"
 msgid "Pictures"
-msgstr "Pictures"
+msgstr "تصاویر"
 
 msgctxt "wizard.folder.subfolder.invalid"
 msgid "Folder name has invalid characters"
@@ -2353,7 +2353,7 @@ msgstr "سب فولڈر میں محفوظ کریں"
 
 msgctxt "wizard.folder.videos"
 msgid "Movies"
-msgstr "Movies"
+msgstr "فلمیں"
 
 msgctxt "wizard.formats.audio"
 msgid "Audio"
@@ -2447,7 +2447,7 @@ msgstr "ماخذ {{kbps}} kbps ہے"
 
 msgctxt "wizard.formats.convert.wavLabel"
 msgid "WAV (uncompressed)"
-msgstr "WAV (uncompressed)"
+msgstr "WAV (غیر کمپریسڈ)"
 
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
@@ -3103,7 +3103,7 @@ msgstr "انتظار میں"
 
 msgctxt "wizard.playlist.durationUnknown"
 msgid "live"
-msgstr "live"
+msgstr "لائیو"
 
 msgctxt "wizard.playlist.heading"
 msgid "Playlist items"
@@ -3136,12 +3136,12 @@ msgstr "{{count}} ٹریکس"
 #. Plural form "one" for ur: used for counts like 1.
 msgctxt "wizard.playlist.itemCountBulk_one"
 msgid "{{count}} URL"
-msgstr "{{count}} URL"
+msgstr "{{count}} لنک"
 
 #. Plural form "other" for ur: used for counts like 0, 2, 3, 4, 5, 6.
 msgctxt "wizard.playlist.itemCountBulk_other"
 msgid "{{count}} URLs"
-msgstr "{{count}} URLs"
+msgstr "{{count}} لنکس"
 
 msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
@@ -4961,7 +4961,7 @@ msgstr "پراکسی کے ذریعے ٹریفک روٹ کریں — جغرافی
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
-msgstr "Proxy URL"
+msgstr "پراکسی ایڈریس"
 
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"

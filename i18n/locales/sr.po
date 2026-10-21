@@ -168,7 +168,7 @@ msgstr "{{count}} преузимања у току"
 
 msgctxt "dialogs.quitWithActiveDownloads.pause"
 msgid "Pause Downloads & Quit"
-msgstr "Поставить загрузки на паузу и выйти"
+msgstr "Паузирај преузимања и изађи"
 
 msgctxt "dialogs.rendererCrashed.detail"
 msgid "The renderer process crashed ({{reason}}). Reload to try again."
@@ -863,7 +863,7 @@ msgstr "Подешавање није завршено. Нека преузим�
 
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
-msgstr "Audio (best)"
+msgstr "Звук (најбољи)"
 
 msgctxt "playlistPresets.audioFormat.m4a"
 msgid "M4A"
@@ -879,23 +879,23 @@ msgstr "Opus"
 
 msgctxt "playlistPresets.audioFormatBitrate"
 msgid "Audio ({{format}} {{kbps}}K)"
-msgstr "Audio ({{format}} {{kbps}}K)"
+msgstr "Звук ({{format}} {{kbps}}K)"
 
 msgctxt "playlistPresets.audioFormatDesc.best"
 msgid "Native best audio, no re-encode"
-msgstr "Najbolji izvorni audio, bez ponovnog kodiranja"
+msgstr "Најбољи изворни аудио, без поновног кодирања"
 
 msgctxt "playlistPresets.audioFormatDesc.m4a"
 msgid "Convert to M4A (AAC)"
-msgstr "Konvertuj u M4A (AAC)"
+msgstr "Конвертуј у M4A (AAC)"
 
 msgctxt "playlistPresets.audioFormatDesc.mp3"
 msgid "Convert to MP3"
-msgstr "Konvertuj u MP3"
+msgstr "Конвертуј у MP3"
 
 msgctxt "playlistPresets.audioFormatDesc.opus"
 msgid "Convert to Opus"
-msgstr "Konvertuj u Opus"
+msgstr "Конвертуј у Opus"
 
 msgctxt "playlistPresets.mp4Cap"
 msgid "H.264 above 1080p is not available on YouTube — capped to 1080p automatically"
@@ -927,39 +927,39 @@ msgstr "Извор"
 
 msgctxt "playlistPresets.tier.1080"
 msgid "Up to 1080p"
-msgstr "Do 1080p"
+msgstr "До 1080p"
 
 msgctxt "playlistPresets.tier.144"
 msgid "Up to 144p"
-msgstr "Do 144p"
+msgstr "До 144p"
 
 msgctxt "playlistPresets.tier.1440"
 msgid "Up to 1440p"
-msgstr "Do 1440p"
+msgstr "До 1440p"
 
 msgctxt "playlistPresets.tier.2160"
 msgid "Up to 4K"
-msgstr "Do 4K"
+msgstr "До 4K"
 
 msgctxt "playlistPresets.tier.240"
 msgid "Up to 240p"
-msgstr "Do 240p"
+msgstr "До 240p"
 
 msgctxt "playlistPresets.tier.360"
 msgid "Up to 360p"
-msgstr "Do 360p"
+msgstr "До 360p"
 
 msgctxt "playlistPresets.tier.480"
 msgid "Up to 480p"
-msgstr "Do 480p"
+msgstr "До 480p"
 
 msgctxt "playlistPresets.tier.720"
 msgid "Up to 720p"
-msgstr "Do 720p"
+msgstr "До 720p"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "Best quality"
+msgstr "Најбољи квалитет"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -979,7 +979,7 @@ msgstr "Ograničeno na 2160p, pada niže po stavci"
 
 msgctxt "playlistPresets.tierDesc.240"
 msgid "Very small files, low quality"
-msgstr "Veoma mali fajlovi, nizak kvalitet"
+msgstr "Веома мали фајлови, низак квалитет"
 
 msgctxt "playlistPresets.tierDesc.360"
 msgid "Small files for tight bandwidth"
@@ -987,7 +987,7 @@ msgstr "Mali fajlovi za ograničen protok"
 
 msgctxt "playlistPresets.tierDesc.480"
 msgid "Low bandwidth"
-msgstr "Low bandwidth"
+msgstr "Низак пропусни опсег"
 
 msgctxt "playlistPresets.tierDesc.720"
 msgid "Smaller files, broad compatibility"
@@ -995,11 +995,11 @@ msgstr "Manji fajlovi, široka kompatibilnost"
 
 msgctxt "playlistPresets.tierDesc.best"
 msgid "Highest available video + audio per item"
-msgstr "Najbolji dostupan video + audio po stavci"
+msgstr "Најбољи доступан видео + аудио по ставци"
 
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
-msgstr "Audio"
+msgstr "Звук"
 
 msgctxt "playlistPresets.type.subtitles"
 msgid "Subtitles"
@@ -1007,11 +1007,11 @@ msgstr "Титлови"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"
-msgstr "Video"
+msgstr "Видео"
 
 msgctxt "playlistPresets.videoFormat.best"
 msgid "Best native"
-msgstr "Best codec"
+msgstr "Најбољи изворни"
 
 msgctxt "playlistPresets.videoFormat.mp4"
 msgid "Smart TV H.264 MP4"
@@ -1176,7 +1176,7 @@ msgstr "Само на чекању"
 
 msgctxt "queue.item.pullNow"
 msgid "Pull now — skip the queue"
-msgstr "Загрузить сейчас — пропустить очередь"
+msgstr "Преузми одмах — прескочи ред"
 
 msgctxt "queue.item.qualityLimited"
 msgid "Limited to {{height}}p"
@@ -1212,7 +1212,7 @@ msgstr "Изаберите ставке на чекању да подесите 
 
 msgctxt "queue.item.statusCancelled"
 msgid "Cancelled"
-msgstr "Отменено"
+msgstr "Отказано"
 
 msgctxt "queue.item.statusDone"
 msgid "Done"
@@ -1224,7 +1224,7 @@ msgstr "Грешка"
 
 msgctxt "queue.item.statusHeld"
 msgid "Held"
-msgstr "Удержано"
+msgstr "Задржано"
 
 msgctxt "queue.item.statusNeedsChoice"
 msgid "Needs your choice"
@@ -1260,7 +1260,7 @@ msgstr "Ред је паузиран — преузимања на чекању 
 
 msgctxt "queue.resumeAllTitle"
 msgid "Resume paused downloads and let the queue keep going"
-msgstr "Возобновить приостановленные загрузки и продолжить очередь"
+msgstr "Настави паузирана преузимања и пусти ред да иде даље"
 
 msgctxt "queue.resumeQueueAction"
 msgid "Resume queue"
@@ -2090,7 +2090,7 @@ msgstr "Одбаци обавештење о ажурирању"
 
 msgctxt "update.download"
 msgid "Download ↗"
-msgstr "Download ↗"
+msgstr "Преузми ↗"
 
 msgctxt "update.downloadDmg"
 msgid "Download DMG ↗"
@@ -2227,7 +2227,7 @@ msgstr "Групни URL-ови"
 
 msgctxt "wizard.confirm.addToQueue"
 msgid "+ Queue"
-msgstr "+ Queue"
+msgstr "+ Ред"
 
 msgctxt "wizard.confirm.addToQueueTooltip"
 msgid "Adds to the queue — starts when the active download finishes"
@@ -2537,7 +2537,7 @@ msgstr "Извор је {{kbps}} kbps"
 
 msgctxt "wizard.formats.convert.wavLabel"
 msgid "WAV (uncompressed)"
-msgstr "WAV (uncompressed)"
+msgstr "WAV (некомпресован)"
 
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
@@ -2953,7 +2953,7 @@ msgstr "Бирај из плејлисте"
 
 msgctxt "wizard.mixedPrompt.playlistLimit"
 msgid "Playlist probe limit: {{count}} items"
-msgstr "Limit provere plejliste: {{count}} stavki"
+msgstr "Лимит провере плејлисте: {{count}} ставки"
 
 msgctxt "wizard.mixedPrompt.playlistTooltip"
 msgid "Loads the playlist, up to your playlist probe limit, before showing the picker."
@@ -3029,11 +3029,11 @@ msgstr "Сачувај опис"
 
 msgctxt "wizard.output.writeM3u.description"
 msgid "Save an .m3u playlist alongside the videos so they open in order in your media player."
-msgstr "Сохраняет .m3u рядом с видео, чтобы медиаплеер открывал их по порядку."
+msgstr "Чува .m3u плејлисту поред видео снимака да би се отварали по реду у твом медија плејеру."
 
 msgctxt "wizard.output.writeM3u.label"
 msgid "Generate .m3u playlist file"
-msgstr "Создать файл плейлиста .m3u"
+msgstr "Направи .m3u фајл плејлисте"
 
 msgctxt "wizard.output.writeThumbnail.description"
 msgid "Saves the thumbnail as a .jpg image file next to the download."
@@ -3193,7 +3193,7 @@ msgstr "Чека"
 
 msgctxt "wizard.playlist.durationUnknown"
 msgid "live"
-msgstr "live"
+msgstr "уживо"
 
 msgctxt "wizard.playlist.heading"
 msgid "Playlist items"
@@ -3554,7 +3554,7 @@ msgstr "Изабери икону профила"
 
 msgctxt "wizard.profileEditor.action.removeLanguage"
 msgid "Remove {{code}}"
-msgstr "Ukloni {{code}}"
+msgstr "Уклони {{code}}"
 
 msgctxt "wizard.profileEditor.action.reset"
 msgid "Reset profile"
@@ -4180,31 +4180,31 @@ msgstr "Искључено"
 
 msgctxt "wizard.sponsorblock.cat.filler"
 msgid "Filler"
-msgstr "Filler"
+msgstr "Успутно"
 
 msgctxt "wizard.sponsorblock.cat.intro"
 msgid "Intro"
-msgstr "Intro"
+msgstr "Увод"
 
 msgctxt "wizard.sponsorblock.cat.music_offtopic"
 msgid "Music off-topic"
-msgstr "Music off-topic"
+msgstr "Немузички део"
 
 msgctxt "wizard.sponsorblock.cat.outro"
 msgid "Outro"
-msgstr "Outro"
+msgstr "Завршница"
 
 msgctxt "wizard.sponsorblock.cat.preview"
 msgid "Preview"
-msgstr "Preview"
+msgstr "Најава"
 
 msgctxt "wizard.sponsorblock.cat.selfpromo"
 msgid "Self-promo"
-msgstr "Self-promo"
+msgstr "Самореклама"
 
 msgctxt "wizard.sponsorblock.cat.sponsor"
 msgid "Sponsor"
-msgstr "Sponsor"
+msgstr "Спонзор"
 
 msgctxt "wizard.sponsorblock.categoriesHeading"
 msgid "Categories"
@@ -4320,7 +4320,7 @@ msgstr "Нема изабраних титлова"
 
 msgctxt "wizard.subtitles.removeLanguage"
 msgid "Remove {{name}}"
-msgstr "Ukloni {{name}}"
+msgstr "Уклони {{name}}"
 
 msgctxt "wizard.subtitles.saveMode.embed"
 msgid "Embed into video"
@@ -4628,7 +4628,7 @@ msgstr "Ову пречицу већ користи друга апликаци�
 
 msgctxt "wizard.url.hotkey.hintLabel"
 msgid "Or press"
-msgstr "Ili pritisni"
+msgstr "Или притисни"
 
 msgctxt "wizard.url.hotkey.hintTooltip"
 msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
@@ -4672,31 +4672,31 @@ msgstr "Интерактивно преузимање"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
-msgstr "Активные загрузки сохранят текущий лимит. Пауза + Возобновить применит изменения."
+msgstr "Активна преузимања задржавају тренутно ограничење. Паузирај + Настави да примениш измене."
 
 msgctxt "wizard.url.limitRate.custom"
 msgid "Custom…"
-msgstr "Своя…"
+msgstr "Прилагођено…"
 
 msgctxt "wizard.url.limitRate.customPlaceholder"
 msgid "e.g. 750K or 1.5M"
-msgstr "например 750K или 1.5M"
+msgstr "нпр. 750K или 1.5M"
 
 msgctxt "wizard.url.limitRate.description"
 msgid "Cap bandwidth for media downloads. Request pacing below is usually the stronger rate-limit lever."
-msgstr "Ограничивает пропускную способность для загрузки медиа. Интервалы запросов ниже обычно сильнее влияют на лимиты."
+msgstr "Ограничава пропусни опсег за преузимање медија. Паузе између захтева у наставку обично јаче утичу на ограничења сајта."
 
 msgctxt "wizard.url.limitRate.invalid"
 msgid "Use a number followed by K or M (e.g. 500K, 1.5M)"
-msgstr "Введите число с K или M (например 500K, 1.5M)"
+msgstr "Унеси број праћен словом K или M (нпр. 500K, 1.5M)"
 
 msgctxt "wizard.url.limitRate.label"
 msgid "Download speed limit"
-msgstr "Ограничение скорости загрузки"
+msgstr "Ограничење брзине преузимања"
 
 msgctxt "wizard.url.limitRate.off"
 msgid "Off"
-msgstr "Выкл."
+msgstr "Искључено"
 
 msgctxt "wizard.url.mascotBusy"
 msgid "Downloading in the background… I can multitask 😎"
@@ -4728,7 +4728,7 @@ msgstr "Брзо преузимање покреће једно преузима
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
-msgstr "Kompatibilni stereo"
+msgstr "Компатибилни стерео"
 
 msgctxt "wizard.url.nativeAudioPreference.description"
 msgid "Stereo or surround when a profile picks native audio. A profile can override it."
@@ -4736,11 +4736,11 @@ msgstr "Стерео или просторни звук када профил б
 
 msgctxt "wizard.url.nativeAudioPreference.label"
 msgid "Native audio preference"
-msgstr "Postavka izvornog zvuka"
+msgstr "Поставка изворног звука"
 
 msgctxt "wizard.url.nativeAudioPreference.surround"
 msgid "Prefer surround / Dolby"
-msgstr "Daj prednost surround / Dolby"
+msgstr "Дај предност surround / Dolby"
 
 msgctxt "wizard.url.networkPacing.description"
 msgid "Add small waits during each download so Arroxy does not hit the site too aggressively. Values are in seconds."
@@ -4768,7 +4768,7 @@ msgstr "Пажљива преузимања"
 
 msgctxt "wizard.url.networkPacing.presetLabel"
 msgid "How cautious should Arroxy be?"
-msgstr "Насколько осторожным должен быть Arroxy?"
+msgstr "Колико опрезан треба да буде Arroxy?"
 
 msgctxt "wizard.url.networkPacing.presets.balanced"
 msgid "Balanced"
@@ -4960,7 +4960,7 @@ msgstr "Прилагођено"
 
 msgctxt "wizard.url.profile.badgeDisabled"
 msgid "Hidden"
-msgstr "Skriveno"
+msgstr "Скривено"
 
 msgctxt "wizard.url.profile.badgeModified"
 msgid "Modified"
@@ -5000,7 +5000,7 @@ msgstr "Измени активни профил"
 
 msgctxt "wizard.url.profile.enableHint"
 msgid "Hidden profiles stay here but disappear from every profile picker."
-msgstr "Skriveni profili ostaju ovde, ali nestaju iz svakog izbora."
+msgstr "Скривени профили остају овде, али нестају из сваког избора."
 
 msgctxt "wizard.url.profile.enableToggleAria"
 msgid "Show profile in pickers: {{profileName}}"
@@ -5116,7 +5116,7 @@ msgstr "Прусмери саобраћај кроз прокси — корис
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
-msgstr "Proxy URL"
+msgstr "Адреса проксија"
 
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"

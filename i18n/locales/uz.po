@@ -833,7 +833,7 @@ msgstr "Sozlash tugallanmadi. Tugallanmaguncha ba'zi yuklab olishlar muvaffaqiya
 
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
-msgstr "Audio (best)"
+msgstr "Audio (eng yaxshi)"
 
 msgctxt "playlistPresets.audioFormat.m4a"
 msgid "M4A"
@@ -929,7 +929,7 @@ msgstr "720p gacha"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "Best quality"
+msgstr "Eng yaxshi sifat"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -957,7 +957,7 @@ msgstr "Cheklangan trafik uchun kichik fayllar"
 
 msgctxt "playlistPresets.tierDesc.480"
 msgid "Low bandwidth"
-msgstr "Low bandwidth"
+msgstr "Past trafik"
 
 msgctxt "playlistPresets.tierDesc.720"
 msgid "Smaller files, broad compatibility"
@@ -981,7 +981,7 @@ msgstr "Video"
 
 msgctxt "playlistPresets.videoFormat.best"
 msgid "Best native"
-msgstr "Best codec"
+msgstr "Eng yaxshi asl format"
 
 msgctxt "playlistPresets.videoFormat.mp4"
 msgid "Smart TV H.264 MP4"

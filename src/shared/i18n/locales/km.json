@@ -73,7 +73,7 @@
 			"bulkHeading": "URL ច្រើន",
 			"itemCount_other": "{{count}} វីដេអូ",
 			"itemCountAudio_other": "{{count}} បទ",
-			"itemCountBulk_other": "{{count}} URL",
+			"itemCountBulk_other": "{{count}} តំណ",
 			"bulkMetadataResolving": "កំពុងទាញយកព័ត៌មានលម្អិតវីដេអូ… {{done}}/{{total}}",
 			"bulkMetadataOptional": "មិនចាំបាច់រង់ចាំទេ — ឯកសារដែលដាក់ក្នុងជួរឥឡូវនេះនៅតែទទួលបានឈ្មោះពិតនៅពេលទាញយក។",
 			"bulkRowWaiting": "កំពុងរង់ចាំ",
@@ -394,7 +394,7 @@
 			"noAudio": "គ្មានសំឡេង",
 			"withAudio": "មានសំឡេង",
 			"resolutionUnknown": "មិនដឹងគុណភាពបង្ហាញ",
-			"bitrateValue": "Bitrate {{bitrate}}",
+			"bitrateValue": "ប៊ីតរ៉េត {{bitrate}}",
 			"marker": {"aiUpscaled": "ពង្រីកដោយ AI", "aiDubbed": "បញ្ចូលសំឡេងដោយ AI", "audioDescription": "ការពិពណ៌នាជាសំឡេង", "spatialAudio": "សំឡេងលំហ", "vr": "360° / VR", "enhancedBitrate": "Bitrate ប្រសើរជាង", "damaged": "ខូច", "watermarked": "មានវ៉ាត់ម៉ាក"},
 			"keepAudio": "រក្សាដដែល",
 			"keepAudioMeta": "សំឡេងមានស្រាប់",
@@ -412,7 +412,7 @@
 			"audioLanguageCount_other": "{{count}} ភាសា",
 			"convert": {
 				"label": "បម្លែង",
-				"bitrate": "Bitrate",
+				"bitrate": "ប៊ីតរ៉េត",
 				"wavLabel": "WAV (មិនបង្ហាប់)",
 				"lossyLabel": "{{target}} {{bitrate}} kbps",
 				"copyLabel": "{{target}} {{bitrate}} kbps គ្មានការអ៊ិនកូដឡើងវិញ",
@@ -606,7 +606,7 @@
 			"advanced": "កម្រិតខ្ពស់",
 			"goal": {
 				"bestPicture": {"name": "រូបភាពល្អបំផុត", "tag": "AV1 · VP9", "description": "ច្បាស់បំផុតក្នុងទំហំដូចគ្នា។ ទូរទស្សន៍ចាស់ៗ QuickTime និងកម្មវិធីកែសម្រួលមួយចំនួនមិនអាចចាក់វាបានទេ។"},
-				"smartTv": {"name": "Smart TV", "tag": "MP4 · H.264", "description": "ចាក់បានលើទូរទស្សន៍ ទូរស័ព្ទ WhatsApp QuickTime និងកម្មវិធីកែសម្រួលវីដេអូ។ YouTube ផ្តល់ H.264 តែរហូតដល់ 1080p ប៉ុណ្ណោះ។"}
+				"smartTv": {"name": "ទូរទស្សន៍ឆ្លាតវៃ", "tag": "MP4 · H.264", "description": "ចាក់បានលើទូរទស្សន៍ ទូរស័ព្ទ WhatsApp QuickTime និងកម្មវិធីកែសម្រួលវីដេអូ។ YouTube ផ្តល់ H.264 តែរហូតដល់ 1080p ប៉ុណ្ណោះ។"}
 			},
 			"appSetting": "ប្រើការកំណត់កម្មវិធី ({{value}})"
 		},

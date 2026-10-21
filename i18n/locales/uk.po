@@ -893,7 +893,7 @@ msgstr "Налаштування не завершено. Деякі заван�
 
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
-msgstr "Audio (best)"
+msgstr "Аудіо (найкраще)"
 
 msgctxt "playlistPresets.audioFormat.m4a"
 msgid "M4A"
@@ -909,7 +909,7 @@ msgstr "Opus"
 
 msgctxt "playlistPresets.audioFormatBitrate"
 msgid "Audio ({{format}} {{kbps}}K)"
-msgstr "Audio ({{format}} {{kbps}}K)"
+msgstr "Аудіо ({{format}} {{kbps}}K)"
 
 msgctxt "playlistPresets.audioFormatDesc.best"
 msgid "Native best audio, no re-encode"
@@ -989,7 +989,7 @@ msgstr "До 720p"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "Best quality"
+msgstr "Найкраща якість"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -1017,7 +1017,7 @@ msgstr "Малі файли для обмеженого трафіку"
 
 msgctxt "playlistPresets.tierDesc.480"
 msgid "Low bandwidth"
-msgstr "Low bandwidth"
+msgstr "Економія трафіку"
 
 msgctxt "playlistPresets.tierDesc.720"
 msgid "Smaller files, broad compatibility"
@@ -1029,7 +1029,7 @@ msgstr "Найкраще доступне відео + аудіо для кож�
 
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
-msgstr "Audio"
+msgstr "Аудіо"
 
 msgctxt "playlistPresets.type.subtitles"
 msgid "Subtitles"
@@ -1037,11 +1037,11 @@ msgstr "Субтитри"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"
-msgstr "Video"
+msgstr "Відео"
 
 msgctxt "playlistPresets.videoFormat.best"
 msgid "Best native"
-msgstr "Best codec"
+msgstr "Найкращий оригінальний"
 
 msgctxt "playlistPresets.videoFormat.mp4"
 msgid "Smart TV H.264 MP4"
@@ -2627,7 +2627,7 @@ msgstr "Джерело: {{kbps}} кбіт/с"
 
 msgctxt "wizard.formats.convert.wavLabel"
 msgid "WAV (uncompressed)"
-msgstr "WAV (uncompressed)"
+msgstr "WAV (без стиснення)"
 
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
@@ -3283,7 +3283,7 @@ msgstr "Очікування"
 
 msgctxt "wizard.playlist.durationUnknown"
 msgid "live"
-msgstr "live"
+msgstr "наживо"
 
 msgctxt "wizard.playlist.heading"
 msgid "Playlist items"
@@ -3336,22 +3336,22 @@ msgstr "{{count}} треків"
 #. Plural form "few" for uk: used for counts like 2, 3, 4, 22, 23, 24.
 msgctxt "wizard.playlist.itemCountBulk_few"
 msgid "{{count}} URLs"
-msgstr "{{count}} URL"
+msgstr "{{count}} посилання"
 
 #. Plural form "many" for uk: used for counts like 0, 5, 6, 7, 8, 9.
 msgctxt "wizard.playlist.itemCountBulk_many"
 msgid "{{count}} URLs"
-msgstr "{{count}} URL"
+msgstr "{{count}} посилань"
 
 #. Plural form "one" for uk: used for counts like 1, 21, 31, 41, 51, 61.
 msgctxt "wizard.playlist.itemCountBulk_one"
 msgid "{{count}} URL"
-msgstr "{{count}} URL"
+msgstr "{{count}} посилання"
 
 #. Plural form "other" for uk: used for fractional counts and other values not covered by the other forms.
 msgctxt "wizard.playlist.itemCountBulk_other"
 msgid "{{count}} URLs"
-msgstr "{{count}} URL"
+msgstr "{{count}} посилання"
 
 msgctxt "wizard.playlist.loadingItems"
 msgid "Fetching playlist…"
@@ -4459,7 +4459,7 @@ msgstr "Режим вбудовування зберігає файл як .mkv,
 
 msgctxt "wizard.subtitles.format.heading"
 msgid "Format"
-msgstr "Format"
+msgstr "Формат"
 
 msgctxt "wizard.subtitles.noLanguages"
 msgid "No subtitles available for this video"
@@ -5271,7 +5271,7 @@ msgstr "Направляти трафік через проксі — корис
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
-msgstr "Proxy URL"
+msgstr "Адреса проксі"
 
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"

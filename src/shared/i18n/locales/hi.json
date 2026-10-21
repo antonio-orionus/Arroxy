@@ -77,8 +77,8 @@
 			"itemCount_other": "{{count}} वीडियो",
 			"itemCountAudio_one": "{{count}} ट्रैक",
 			"itemCountAudio_other": "{{count}} ट्रैक",
-			"itemCountBulk_one": "{{count}} URL",
-			"itemCountBulk_other": "{{count}} URLs",
+			"itemCountBulk_one": "{{count}} लिंक",
+			"itemCountBulk_other": "{{count}} लिंक",
 			"bulkMetadataResolving": "वीडियो विवरण लाए जा रहे हैं… {{done}}/{{total}}",
 			"bulkMetadataOptional": "इंतज़ार करने की ज़रूरत नहीं — अभी कतार में लगाई गई फ़ाइलों को डाउनलोड के समय उनके असली नाम मिलेंगे।",
 			"bulkRowWaiting": "प्रतीक्षा में",
@@ -105,7 +105,7 @@
 			"loadingPagesFound_other": "{{count}} पेज मिले",
 			"loadingLimitHint": "पहले {{count}} आइटम तक सीमित",
 			"thumbnailAlt": "वीडियो थंबनेल",
-			"durationUnknown": "live",
+			"durationUnknown": "लाइव",
 			"syncChange": "फ़ोल्डर बदलें…",
 			"syncApply": "सिंक लागू करें",
 			"syncScanning": "फ़ोल्डर जाँचा जा रहा है…",
@@ -236,7 +236,7 @@
 			"bulkTooltip": "कई URLs जोड़ें और कतार में डालें।",
 			"features": {
 				"heading": "Arroxy क्या डाउनलोड कर सकता है",
-				"youtube": {"heading": "YouTube", "video": "वीडियो", "channel": "चैनल", "playlist": "प्लेलिस्ट", "short": "Shorts", "music": "संगीत", "podcast": "Podcast"},
+				"youtube": {"heading": "YouTube", "video": "वीडियो", "channel": "चैनल", "playlist": "प्लेलिस्ट", "short": "Shorts", "music": "संगीत", "podcast": "पॉडकास्ट"},
 				"anySite": {"heading": "2000+ साइटें", "video": "वीडियो", "videoPlaylist": "वीडियो playlist", "musicPlaylist": "संगीत playlist"},
 				"always": {"audioOnly": "केवल ऑडियो", "subtitles": "उपशीर्षक"}
 			},
@@ -299,7 +299,7 @@
 				"extensionFirefox": "cookies.txt (Firefox)",
 				"extensionChrome": "cookies.txt स्थानीय रूप से प्राप्त करें (Chrome)"
 			},
-			"proxy": {"label": "Proxy URL", "description": "प्रॉक्सी के माध्यम से ट्रैफ़िक रूट करें — भू-प्रतिबंधित सामग्री के लिए उपयोगी।", "placeholder": "http://host:port", "clear": "साफ़ करें"},
+			"proxy": {"label": "प्रॉक्सी पता", "description": "प्रॉक्सी के माध्यम से ट्रैफ़िक रूट करें — भू-प्रतिबंधित सामग्री के लिए उपयोगी।", "placeholder": "http://host:port", "clear": "साफ़ करें"},
 			"style": {
 				"panelTitle": "दिखावट",
 				"panelDescription": "Arroxy कैसा दिखता है। फ़ुटर में लाइट और डार्क के बीच बदलें।",
@@ -372,7 +372,7 @@
 			"sectionManual": "मैनुअल",
 			"sectionAuto": "स्वतः-जनित",
 			"saveMode": {"heading": "इस रूप में सहेजें", "sidecar": "वीडियो के साथ", "embed": "वीडियो में एम्बेड करें", "subfolder": "subtitles/ सबफ़ोल्डर"},
-			"format": {"heading": "Format"},
+			"format": {"heading": "फॉर्मेट"},
 			"embedNote": "एम्बेड मोड आउटपुट को .mkv के रूप में सहेजता है ताकि उपशीर्षक ट्रैक विश्वसनीय रूप से एम्बेड हों।",
 			"autoAssNote": "स्वतः-जनित उपशीर्षक ASS के बजाय SRT के रूप में सहेजे जाएंगे — उन्हें हमेशा YouTube के रोलिंग-क्यू डुप्लिकेशन से साफ़ किया जाता है, जिसे हमारा ASS कन्वर्टर अभी तक दोहरा नहीं सकता।"
 		},
@@ -434,7 +434,7 @@
 			"convert": {
 				"label": "कनवर्ट करें",
 				"bitrate": "बिटरेट",
-				"wavLabel": "WAV (uncompressed)",
+				"wavLabel": "WAV (असंपीड़ित)",
 				"lossyLabel": "{{target}} {{bitrate}} kbps",
 				"copyLabel": "{{target}} {{bitrate}} kbps, फिर से encode नहीं",
 				"copyLabelNoBitrate": "{{target}}, फिर से encode नहीं",
@@ -869,25 +869,25 @@
 		}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio", "subtitles": "उपशीर्षक"},
+		"type": {"video": "वीडियो", "audio": "ऑडियो", "subtitles": "उपशीर्षक"},
 		"subtitles": {"note": "हर वीडियो के लिए केवल उपशीर्षक फ़ाइलें सहेजी जाती हैं — कोई वीडियो या ऑडियो डाउनलोड नहीं होता।", "languages": "भाषाएँ", "languagesRequired": "जारी रखने के लिए कम से कम एक भाषा चुनें।", "source": "स्रोत", "deliveryHeading": "इस रूप में सहेजें", "deliveryLoose": "सीधे सहेजने वाले फ़ोल्डर में"},
 		"videoFormat": {"best": "सर्वश्रेष्ठ मूल (Native)", "mp4": "स्मार्ट TV H.264 MP4"},
 		"videoFormatDesc": {"best": "हर आइटम के लिए उपलब्ध उच्चतम कोडेक", "mp4": "H.264 + AAC प्राथमिक, MP4 कंटेनर · सर्वोत्तम प्रयास"},
-		"tier": {"144": "144p तक", "240": "240p तक", "360": "360p तक", "480": "480p तक", "720": "720p तक", "1080": "1080p तक", "1440": "1440p तक", "2160": "4K तक", "best": "Best quality"},
+		"tier": {"144": "144p तक", "240": "240p तक", "360": "360p तक", "480": "480p तक", "720": "720p तक", "1080": "1080p तक", "1440": "1440p तक", "2160": "4K तक", "best": "सर्वश्रेष्ठ गुणवत्ता"},
 		"tierDesc": {
 			"144": "सबसे छोटी संभावित फ़ाइलें",
 			"240": "बहुत छोटी फ़ाइलें, कम गुणवत्ता",
 			"360": "कम बैंडविड्थ के लिए छोटी फ़ाइलें",
-			"480": "Low bandwidth",
+			"480": "कम बैंडविड्थ",
 			"720": "छोटी फ़ाइलें, व्यापक संगतता",
 			"1080": "1080p तक सीमित, हर आइटम पर ज़रूरत हो तो कम",
 			"1440": "2K तक सीमित, हर आइटम पर ज़रूरत हो तो कम",
 			"2160": "2160p तक सीमित, हर आइटम पर ज़रूरत हो तो कम",
 			"best": "हर आइटम के लिए सर्वश्रेष्ठ वीडियो + ऑडियो"
 		},
-		"audioFormat": {"best": "Audio (best)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
+		"audioFormat": {"best": "ऑडियो (सर्वश्रेष्ठ)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
 		"audioFormatDesc": {"best": "सर्वश्रेष्ठ मूल ऑडियो, फिर से encode नहीं", "mp3": "MP3 में बदलें", "m4a": "M4A (AAC) में बदलें", "opus": "Opus में बदलें"},
-		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
+		"audioFormatBitrate": "ऑडियो ({{format}} {{kbps}}K)",
 		"mp4Cap": "YouTube पर 1080p से ऊपर H.264 उपलब्ध नहीं है — अपने-आप 1080p तक सीमित"
 	},
 	"formatLabel": {"audioFallback": "ऑडियो", "audioOnlyDot": "सिर्फ़ ऑडियो · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},

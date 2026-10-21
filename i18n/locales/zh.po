@@ -803,7 +803,7 @@ msgstr "初始化未完成。在完成之前，部分下载可能会失败。"
 
 msgctxt "playlistPresets.audioFormat.best"
 msgid "Audio (best)"
-msgstr "Audio (best)"
+msgstr "音频（最佳）"
 
 msgctxt "playlistPresets.audioFormat.m4a"
 msgid "M4A"
@@ -819,7 +819,7 @@ msgstr "Opus"
 
 msgctxt "playlistPresets.audioFormatBitrate"
 msgid "Audio ({{format}} {{kbps}}K)"
-msgstr "Audio ({{format}} {{kbps}}K)"
+msgstr "音频 ({{format}} {{kbps}}K)"
 
 msgctxt "playlistPresets.audioFormatDesc.best"
 msgid "Native best audio, no re-encode"
@@ -899,7 +899,7 @@ msgstr "最高 720p"
 
 msgctxt "playlistPresets.tier.best"
 msgid "Best quality"
-msgstr "Best quality"
+msgstr "最佳画质"
 
 msgctxt "playlistPresets.tierDesc.1080"
 msgid "Capped at 1080p, falls back to lower per item"
@@ -927,7 +927,7 @@ msgstr "带宽紧张时的小文件"
 
 msgctxt "playlistPresets.tierDesc.480"
 msgid "Low bandwidth"
-msgstr "Low bandwidth"
+msgstr "低带宽"
 
 msgctxt "playlistPresets.tierDesc.720"
 msgid "Smaller files, broad compatibility"
@@ -939,7 +939,7 @@ msgstr "每个项目可用的最佳视频 + 音频"
 
 msgctxt "playlistPresets.type.audio"
 msgid "Audio"
-msgstr "Audio"
+msgstr "音频"
 
 msgctxt "playlistPresets.type.subtitles"
 msgid "Subtitles"
@@ -947,11 +947,11 @@ msgstr "字幕"
 
 msgctxt "playlistPresets.type.video"
 msgid "Video"
-msgstr "Video"
+msgstr "视频"
 
 msgctxt "playlistPresets.videoFormat.best"
 msgid "Best native"
-msgstr "Best codec"
+msgstr "最佳原生格式"
 
 msgctxt "playlistPresets.videoFormat.mp4"
 msgid "Smart TV H.264 MP4"
@@ -2357,7 +2357,7 @@ msgstr "源为 {{kbps}} kbps"
 
 msgctxt "wizard.formats.convert.wavLabel"
 msgid "WAV (uncompressed)"
-msgstr "WAV (uncompressed)"
+msgstr "WAV (未压缩)"
 
 msgctxt "wizard.formats.cookiesError.currentModeBrowser"
 msgid "Browser"
@@ -3994,7 +3994,7 @@ msgstr "嵌入模式将输出保存为 .mkv，以便可靠地嵌入字幕轨道�
 
 msgctxt "wizard.subtitles.format.heading"
 msgid "Format"
-msgstr "Format"
+msgstr "格式"
 
 msgctxt "wizard.subtitles.noLanguages"
 msgid "No subtitles available for this video"
@@ -4806,7 +4806,7 @@ msgstr "通过代理路由流量 — 适用于地区限制内容。"
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
-msgstr "Proxy URL"
+msgstr "代理 URL"
 
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"

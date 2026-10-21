@@ -280,7 +280,7 @@
 				"extensionFirefox": "cookies.txt (Firefox)",
 				"extensionChrome": "本地获取 cookies.txt (Chrome)"
 			},
-			"proxy": {"label": "Proxy URL", "description": "通过代理路由流量 — 适用于地区限制内容。", "placeholder": "http://host:port", "clear": "清除"},
+			"proxy": {"label": "代理 URL", "description": "通过代理路由流量 — 适用于地区限制内容。", "placeholder": "http://host:port", "clear": "清除"},
 			"style": {
 				"panelTitle": "外观",
 				"panelDescription": "Arroxy 的外观。可在底部栏切换浅色和深色。",
@@ -352,7 +352,7 @@
 			"sectionManual": "手动",
 			"sectionAuto": "自动生成",
 			"saveMode": {"heading": "保存方式", "sidecar": "与视频同位置", "embed": "嵌入到视频", "subfolder": "subtitles/ 子文件夹"},
-			"format": {"heading": "Format"},
+			"format": {"heading": "格式"},
 			"embedNote": "嵌入模式将输出保存为 .mkv，以便可靠地嵌入字幕轨道。",
 			"autoAssNote": "自动字幕将保存为 SRT 而非 ASS —— 它们会被清除 YouTube 的滚动重复字幕，但我们的 ASS 转换器目前还无法做到这一点。"
 		},
@@ -413,7 +413,7 @@
 			"convert": {
 				"label": "转换",
 				"bitrate": "比特率",
-				"wavLabel": "WAV (uncompressed)",
+				"wavLabel": "WAV (未压缩)",
 				"lossyLabel": "{{target}} {{bitrate}} kbps",
 				"copyLabel": "{{target}} {{bitrate}} kbps，不重新编码",
 				"copyLabelNoBitrate": "{{target}}，不重新编码",
@@ -822,15 +822,15 @@
 		}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio", "subtitles": "字幕"},
+		"type": {"video": "视频", "audio": "音频", "subtitles": "字幕"},
 		"subtitles": {"note": "每个视频仅保存字幕文件 — 不下载视频或音频。", "languages": "语言", "languagesRequired": "请至少选择一种语言以继续。", "source": "来源", "deliveryHeading": "保存方式", "deliveryLoose": "直接保存在保存文件夹中"},
-		"videoFormat": {"best": "Best codec", "mp4": "智能电视 H.264 MP4"},
+		"videoFormat": {"best": "最佳原生格式", "mp4": "智能电视 H.264 MP4"},
 		"videoFormatDesc": {"best": "每个项目可用的最高编解码器", "mp4": "优先 H.264 + AAC，MP4 容器 · 尽力匹配"},
-		"tier": {"144": "最高 144p", "240": "最高 240p", "360": "最高 360p", "480": "最高 480p", "720": "最高 720p", "1080": "最高 1080p", "1440": "最高 1440p", "2160": "最高 4K", "best": "Best quality"},
-		"tierDesc": {"144": "最小的文件", "240": "非常小的文件，低画质", "360": "带宽紧张时的小文件", "480": "Low bandwidth", "720": "文件更小，兼容性广", "1080": "限制为 1080p，每项必要时降级", "1440": "限制为 2K，每项必要时降级", "2160": "限制为 2160p，每项必要时降级", "best": "每个项目可用的最佳视频 + 音频"},
-		"audioFormat": {"best": "Audio (best)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
+		"tier": {"144": "最高 144p", "240": "最高 240p", "360": "最高 360p", "480": "最高 480p", "720": "最高 720p", "1080": "最高 1080p", "1440": "最高 1440p", "2160": "最高 4K", "best": "最佳画质"},
+		"tierDesc": {"144": "最小的文件", "240": "非常小的文件，低画质", "360": "带宽紧张时的小文件", "480": "低带宽", "720": "文件更小，兼容性广", "1080": "限制为 1080p，每项必要时降级", "1440": "限制为 2K，每项必要时降级", "2160": "限制为 2160p，每项必要时降级", "best": "每个项目可用的最佳视频 + 音频"},
+		"audioFormat": {"best": "音频（最佳）", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
 		"audioFormatDesc": {"best": "最佳原生音频，不重新编码", "mp3": "转换为 MP3", "m4a": "转换为 M4A (AAC)", "opus": "转换为 Opus"},
-		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
+		"audioFormatBitrate": "音频 ({{format}} {{kbps}}K)",
 		"mp4Cap": "YouTube 不提供 1080p 以上的 H.264 — 自动限制为 1080p"
 	},
 	"formatLabel": {"audioFallback": "音频", "audioOnlyDot": "仅音频 · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},

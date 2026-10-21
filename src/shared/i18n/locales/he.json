@@ -326,7 +326,7 @@
 				"modeLabel": "סגנון",
 				"modeDescription": "שני הסגנונות זמינים בבהיר ובכהה.",
 				"aurora": {"label": "Aurora", "description": "לוחות זכוכית מעל שמיים נעים. דורש האצת גרפיקה."},
-				"minimal": {"label": "Minimal", "description": "משטחים אחידים ושקטים. רץ בקלות בכל מחשב."},
+				"minimal": {"label": "מינימלי", "description": "משטחים אחידים ושקטים. רץ בקלות בכל מחשב."},
 				"unavailableNotice": "{{style}} דורש האצת גרפיקה, שאינה זמינה כרגע, ולכן Arroxy מציג {{fallback}}."
 			},
 			"limitRate": {

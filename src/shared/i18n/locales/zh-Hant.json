@@ -225,7 +225,7 @@
 			"bulkTooltip": "新增多個 URL 並排入佇列。",
 			"features": {
 				"heading": "Arroxy 可以下載的內容",
-				"youtube": {"heading": "YouTube", "video": "影片", "channel": "頻道", "playlist": "播放清單", "short": "Shorts", "music": "音樂", "podcast": "Podcast"},
+				"youtube": {"heading": "YouTube", "video": "影片", "channel": "頻道", "playlist": "播放清單", "short": "Shorts", "music": "音樂", "podcast": "播客"},
 				"anySite": {"heading": "2000 多個網站", "video": "影片", "videoPlaylist": "影片播放清單", "musicPlaylist": "音樂播放清單"},
 				"always": {"audioOnly": "僅音訊", "subtitles": "字幕"}
 			},
@@ -280,7 +280,7 @@
 				"extensionFirefox": "cookies.txt（Firefox）",
 				"extensionChrome": "在本機取得 cookies.txt（Chrome）"
 			},
-			"proxy": {"label": "Proxy URL", "description": "透過 Proxy 路由流量——適合有地區限制的內容。", "placeholder": "http://host:port", "clear": "清除"},
+			"proxy": {"label": "代理伺服器 URL", "description": "透過 Proxy 路由流量——適合有地區限制的內容。", "placeholder": "http://host:port", "clear": "清除"},
 			"style": {
 				"panelTitle": "外觀",
 				"panelDescription": "Arroxy 的外觀。可在底部列切換淺色和深色。",
@@ -597,7 +597,7 @@
 			},
 			"error": {"save": "無法儲存設定檔設定。", "changeGlobalDestination": "無法變更全域目的地。", "reset": "無法重設設定檔設定。", "folderPicker": "無法開啟資料夾選擇器，請手動輸入路徑。"},
 			"mediaMode": {"videoAudio": {"label": "影片 + 音訊", "description": "一般影片檔案"}, "videoOnly": {"label": "影片，無音訊", "description": "僅無聲影片"}, "audioOnly": {"label": "僅音訊", "description": "音樂或 Podcast"}, "subtitlesOnly": {"label": "僅字幕", "description": "僅字幕檔案"}},
-			"icon": {"controls": "控制項", "download": "下載", "video": "影片", "captions": "字幕", "audio": "音訊", "music": "音樂", "podcast": "Podcast", "classes": "課程", "clip": "短片", "archive": "封存"},
+			"icon": {"controls": "控制項", "download": "下載", "video": "影片", "captions": "字幕", "audio": "音訊", "music": "音樂", "podcast": "播客", "classes": "課程", "clip": "短片", "archive": "封存"},
 			"audioFormat": {"best": "最佳", "wav": "WAV"},
 			"audioQuality": {"128": "最高 128K", "192": "最高 192K", "320": "最高 320K", "best": "最佳畫質"},
 			"subtitleFormat": {"srt": "SRT", "vtt": "VTT", "ass": "ASS"},

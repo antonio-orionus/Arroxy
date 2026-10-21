@@ -911,7 +911,7 @@
 		}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio", "subtitles": "Manukuu"},
+		"type": {"video": "Video", "audio": "Sauti", "subtitles": "Manukuu"},
 		"subtitles": {
 			"note": "Ni faili za manukuu pekee zinazohifadhiwa kwa kila video — hakuna video wala sauti inayopakuliwa.",
 			"languages": "Lugha",
@@ -920,23 +920,23 @@
 			"deliveryHeading": "Hifadhi kama",
 			"deliveryLoose": "Moja kwa moja kwenye folda ya kuhifadhi"
 		},
-		"videoFormat": {"best": "Best codec", "mp4": "Runinga janja H.264 MP4"},
+		"videoFormat": {"best": "Umbizo asilia bora", "mp4": "Runinga janja H.264 MP4"},
 		"videoFormatDesc": {"best": "Kodeki bora inayopatikana kwa kila kipengee", "mp4": "H.264 + AAC inapendelewa, kontena MP4 · juhudi bora"},
-		"tier": {"144": "Hadi 144p", "240": "Hadi 240p", "360": "Hadi 360p", "480": "Hadi 480p", "720": "Hadi 720p", "1080": "Hadi 1080p", "1440": "Hadi 1440p", "2160": "Hadi 4K", "best": "Best quality"},
+		"tier": {"144": "Hadi 144p", "240": "Hadi 240p", "360": "Hadi 360p", "480": "Hadi 480p", "720": "Hadi 720p", "1080": "Hadi 1080p", "1440": "Hadi 1440p", "2160": "Hadi 4K", "best": "Ubora wa juu zaidi"},
 		"tierDesc": {
 			"144": "Faili ndogo kabisa zinazowezekana",
 			"240": "Faili ndogo sana, ubora wa chini",
 			"360": "Faili ndogo kwa bandwidth finyu",
-			"480": "Low bandwidth",
+			"480": "Bandwidth finyu",
 			"720": "Faili ndogo, upatanifu mpana",
 			"1080": "Imepunguzwa hadi 1080p, hushuka kwa kila kipengee ikihitajika",
 			"1440": "Imepunguzwa hadi 2K, hushuka kwa kila kipengee ikihitajika",
 			"2160": "Imepunguzwa hadi 2160p, hushuka kwa kila kipengee ikihitajika",
 			"best": "Video + sauti bora inayopatikana kwa kila kipengee"
 		},
-		"audioFormat": {"best": "Audio (best)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
+		"audioFormat": {"best": "Sauti (bora)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
 		"audioFormatDesc": {"best": "Sauti bora asilia, bila kusimba upya", "mp3": "Geuza kuwa MP3", "m4a": "Geuza kuwa M4A (AAC)", "opus": "Geuza kuwa Opus"},
-		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
+		"audioFormatBitrate": "Sauti ({{format}} {{kbps}}K)",
 		"mp4Cap": "H.264 zaidi ya 1080p haipatikani YouTube — hupunguzwa kiotomatiki hadi 1080p"
 	},
 	"formatLabel": {"audioFallback": "Sauti", "audioOnlyDot": "Sauti peke yake · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},

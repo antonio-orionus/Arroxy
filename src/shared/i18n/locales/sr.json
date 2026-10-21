@@ -121,7 +121,7 @@
 			"loadingPagesFound_other": "Пронађено је {{count}} страница",
 			"loadingLimitHint": "Ограничено на првих {{count}} ставки",
 			"thumbnailAlt": "Сличица видеа",
-			"durationUnknown": "live",
+			"durationUnknown": "уживо",
 			"syncChange": "Промени фолдер…",
 			"syncApply": "Примени синхронизацију",
 			"syncScanning": "Провера фолдера…",
@@ -171,7 +171,7 @@
 			"quickSingleVideo": "Преузми овај видео",
 			"pickFromPlaylist": "Бирај из плејлисте",
 			"quickWholePlaylist": "Преузми целу плејлисту",
-			"playlistLimit": "Limit provere plejliste: {{count}} stavki",
+			"playlistLimit": "Лимит провере плејлисте: {{count}} ставки",
 			"quickLimitDescription": "Највећи број ставки које Arroxy скенира пре стављања плејлисте, канала или резултата претраге у ред.",
 			"singleTooltip": "Учитава само овај видео. Плејлиста везана за ову URL адресу се игнорише.",
 			"quickSingleTooltip": "Ставља једно преузимање у ред и игнорише плејлисту приложену уз овај URL.",
@@ -236,9 +236,9 @@
 				"badgeCustom": "Прилагођено",
 				"badgeModified": "Измењено",
 				"badgeBuiltIn": "Уграђено",
-				"badgeDisabled": "Skriveno",
+				"badgeDisabled": "Скривено",
 				"enableToggleAria": "Prikaži profil u izboru: {{profileName}}",
-				"enableHint": "Skriveni profili ostaju ovde, ali nestaju iz svakog izbora.",
+				"enableHint": "Скривени профили остају овде, али нестају из сваког избора.",
 				"reorderHint": "Превуците профил да га померите. Сваки избор профила прати овај редослед.",
 				"moveHandleAria": "Помери {{profileName}}",
 				"movableProfile": "профил који се може померати",
@@ -288,7 +288,7 @@
 				"recording": "Притисните тастере…",
 				"test": "Тестирај",
 				"conflict": "Ову пречицу већ користи друга апликација — изаберите другу.",
-				"hintLabel": "Ili pritisni",
+				"hintLabel": "Или притисни",
 				"hintTooltip": "Kopiraj video-link bilo gde, pritisni ovu prečicu i Arroxy će ga staviti u red koristeći tvoj aktivni profil — nema potrebe da menjaš prozore.",
 				"hintTooltipSettings": "Promeni ga ili ga isključi u Podešavanjima.",
 				"reset": "Врати на подразумевано"
@@ -319,7 +319,7 @@
 				"extensionFirefox": "cookies.txt (Firefox)",
 				"extensionChrome": "Преузми cookies.txt ЛОКАЛНО (Chrome)"
 			},
-			"proxy": {"label": "Proxy URL", "description": "Прусмери саобраћај кроз прокси — корисно за географски ограничен садржај.", "placeholder": "http://host:port", "clear": "Обриши"},
+			"proxy": {"label": "Адреса проксија", "description": "Прусмери саобраћај кроз прокси — корисно за географски ограничен садржај.", "placeholder": "http://host:port", "clear": "Обриши"},
 			"style": {
 				"panelTitle": "Изглед",
 				"panelDescription": "Како Arroxy изгледа. Пребацујте између светле и тамне теме у подножју.",
@@ -330,13 +330,13 @@
 				"unavailableNotice": "{{style}} захтева графичко убрзање, које тренутно није доступно, па Arroxy приказује {{fallback}}."
 			},
 			"limitRate": {
-				"label": "Ограничение скорости загрузки",
-				"description": "Ограничивает пропускную способность для загрузки медиа. Интервалы запросов ниже обычно сильнее влияют на лимиты.",
-				"off": "Выкл.",
-				"custom": "Своя…",
-				"customPlaceholder": "например 750K или 1.5M",
-				"invalid": "Введите число с K или M (например 500K, 1.5M)",
-				"activeWarning": "Активные загрузки сохранят текущий лимит. Пауза + Возобновить применит изменения."
+				"label": "Ограничење брзине преузимања",
+				"description": "Ограничава пропусни опсег за преузимање медија. Паузе између захтева у наставку обично јаче утичу на ограничења сајта.",
+				"off": "Искључено",
+				"custom": "Прилагођено…",
+				"customPlaceholder": "нпр. 750K или 1.5M",
+				"invalid": "Унеси број праћен словом K или M (нпр. 500K, 1.5M)",
+				"activeWarning": "Активна преузимања задржавају тренутно ограничење. Паузирај + Настави да примениш измене."
 			},
 			"playlistProbeLimit": {
 				"label": "Ставке плејлисте за скенирање",
@@ -352,7 +352,7 @@
 				"invalid": "Унеси цео број од 1 до 5000",
 				"tooltip": "Arroxy тражи само овај број уноса плејлисте, канала или претраге приликом прављења бирача."
 			},
-			"nativeAudioPreference": {"label": "Postavka izvornog zvuka", "description": "Стерео или просторни звук када профил бира изворни звук. Профил то може променити.", "compatible": "Kompatibilni stereo", "surround": "Daj prednost surround / Dolby"},
+			"nativeAudioPreference": {"label": "Поставка изворног звука", "description": "Стерео или просторни звук када профил бира изворни звук. Профил то може променити.", "compatible": "Компатибилни стерео", "surround": "Дај предност surround / Dolby"},
 			"autoRetry": {"label": "Понови неуспела преузимања", "description": "Аутоматски покушава поново након проблема са мрежом или сервером, чекајући дуже пре сваког покушаја. Преузимања која сајт блокира никада се не понављају аутоматски.", "unit": "пута"},
 			"autoRemoveCompleted": {"label": "Уклањај завршена преузимања", "description": "Уклања преузимање са листе Преузимања неколико секунди након завршетка. Датотеке остају у вашем фолдеру; неуспела и отказана преузимања остају на листи."},
 			"concurrentDownloads": {"label": "Истовремена преузимања", "description": "Колико ставки из реда се преузима истовремено. Више одједном брже завршава дугачак ред, али повећава шансу да вас сајт ограничи.", "unit": "преузимања"},
@@ -360,7 +360,7 @@
 			"networkPacing": {
 				"heading": "Пажљива преузимања",
 				"description": "Додаје мале паузе током сваког преузимања тако да Arroxy не приступа сајту превише агресивно. Вредности су у секундама.",
-				"presetLabel": "Насколько осторожным должен быть Arroxy?",
+				"presetLabel": "Колико опрезан треба да буде Arroxy?",
 				"tooltip": "Ове паузе се дешавају унутар сваког преузимања. Колико преузимања се одвија истовремено подешава се одвојено, у «Истовремена преузимања».",
 				"summary": "Паузе: {{requests}} између провера, {{downloads}} пре почетка медија, {{subtitles}} пре фајлова титлова.",
 				"presets": {"off": "Искључено", "balanced": "Уравнотежено", "careful": "Пажљиво", "custom": "Прилагођено"},
@@ -397,7 +397,7 @@
 			"noMatches": "Нема пронађених језика",
 			"clearAll": "Обриши све",
 			"noSelected": "Нема изабраних титлова",
-			"removeLanguage": "Ukloni {{name}}",
+			"removeLanguage": "Уклони {{name}}",
 			"sectionManual": "Ручно",
 			"sectionAuto": "Аутоматски генерисано",
 			"saveMode": {"heading": "Сачувај као", "sidecar": "Поред видеа", "embed": "Уграђено у видео", "subfolder": "subtitles/ поддиректоријум"},
@@ -410,7 +410,7 @@
 			"mode": {"off": "Искључено", "mark": "Означи као поглавља", "remove": "Уклони сегменте"},
 			"modeHint": {"off": "Без SponsorBlock-а — видео се пушта онако како је отпремљен.", "mark": "Означава спонзорске сегменте као поглавља (неразорно).", "remove": "Исеца спонзорске сегменте из видеа коришћењем FFmpeg-а."},
 			"categoriesHeading": "Категорије",
-			"cat": {"sponsor": "Sponsor", "intro": "Intro", "outro": "Outro", "selfpromo": "Self-promo", "music_offtopic": "Music off-topic", "preview": "Preview", "filler": "Filler"}
+			"cat": {"sponsor": "Спонзор", "intro": "Увод", "outro": "Завршница", "selfpromo": "Самореклама", "music_offtopic": "Немузички део", "preview": "Најава", "filler": "Успутно"}
 		},
 		"formats": {
 			"kind": {"label": "Шта преузети", "video": "Видео + аудио", "videoOnly": "Видео, без аудија", "audio": "Само аудио", "subtitles": "Само титлови"},
@@ -464,7 +464,7 @@
 			"convert": {
 				"label": "Конвертуј",
 				"bitrate": "Битрејт",
-				"wavLabel": "WAV (uncompressed)",
+				"wavLabel": "WAV (некомпресован)",
 				"lossyLabel": "{{target}} {{bitrate}} kbps",
 				"copyLabel": "{{target}} {{bitrate}} kbps, без поновног кодирања",
 				"copyLabelNoBitrate": "{{target}}, без поновног кодирања",
@@ -541,7 +541,7 @@
 			"embedThumbnail": {"label": "Уграђена сличица", "description": "Насловна слика унутар датотеке. WebM видео ће бити поново мултиплексован у MKV; прескаче се када су титлови уграђени."},
 			"writeDescription": {"label": "Сачувај опис", "description": "Чува опис видеа као .description текстуалну датотеку поред преузимања."},
 			"writeThumbnail": {"label": "Сачувај сличицу", "description": "Чува сличицу као .jpg датотеку слике поред преузимања."},
-			"writeM3u": {"label": "Создать файл плейлиста .m3u", "description": "Сохраняет .m3u рядом с видео, чтобы медиаплеер открывал их по порядку."}
+			"writeM3u": {"label": "Направи .m3u фајл плејлисте", "description": "Чува .m3u плејлисту поред видео снимака да би се отварали по реду у твом медија плејеру."}
 		},
 		"review": {
 			"changeFormat": "Промени формат",
@@ -584,7 +584,7 @@
 			"thumbnailEmbedNotSupported": "Thumbnail embed је прескочен — излазни container то не подржава.",
 			"subtitleEmbedAudioOnly": "Subtitle embed је промењен у sidecar — аудио стазе не подржавају уграђене токове титлова.",
 			"audioOnly": "Само звук",
-			"addToQueue": "+ Queue",
+			"addToQueue": "+ Ред",
 			"addToQueueTooltip": "Покреће се када друга преузимања заврше — добија пун пропусни опсег",
 			"pullIt": "Преузми! ↓",
 			"pullItTooltip": "Покреће се одмах — ради упоредо са другим активним преузимањима",
@@ -639,7 +639,7 @@
 				"chooseIcon": "Изабери икону профила",
 				"setOverride": "Постави замену профила",
 				"chooseFolder": "Изабери одредишну фасциклу",
-				"removeLanguage": "Ukloni {{code}}",
+				"removeLanguage": "Уклони {{code}}",
 				"useLanguageCode": "Користи код језика „{{code}}“",
 				"changeGlobalShort": "Промени опште",
 				"setOverrideShort": "Постави замену",
@@ -749,7 +749,7 @@
 		"clearTitle": "Обриши завршена преузимања",
 		"autoRemoveCompleted": {"label": "Чисти по завршетку", "hint": "Уклања свако преузимање са листе неколико секунди након завршетка. Датотеке остају у вашем фолдеру."},
 		"pauseAllTitle": "Паузирај сва активна преузимања",
-		"resumeAllTitle": "Возобновить приостановленные загрузки и продолжить очередь",
+		"resumeAllTitle": "Настави паузирана преузимања и пусти ред да иде даље",
 		"pausedBanner": "Ред је паузиран — преузимања на чекању не почињу док ред не наставите",
 		"resumeQueueAction": "Настави ред",
 		"cancelAllTitle": "Откажи сва активна и чекајућа преузимања",
@@ -795,16 +795,16 @@
 			"pendingOnly": "Само на чекању",
 			"openDestinationFolder": "Отвори фасциклу одредишта",
 			"remove": "Уклони",
-			"pullNow": "Загрузить сейчас — пропустить очередь",
+			"pullNow": "Преузми одмах — прескочи ред",
 			"statusProbing": "Преузимање детаља",
 			"statusNeedsChoice": "Потребан је твој избор",
 			"statusPending": "На чекању",
 			"statusRunning": "Преузимање",
-			"statusHeld": "Удержано",
+			"statusHeld": "Задржано",
 			"statusPaused": "Пауза",
 			"statusDone": "Готово",
 			"statusError": "Грешка",
-			"statusCancelled": "Отменено"
+			"statusCancelled": "Отказано"
 		}
 	},
 	"update": {
@@ -819,7 +819,7 @@
 		"downloading": "Преузимање…",
 		"runAndRestart": "Изврши и поново покрени",
 		"upgrading": "Ажурирање…",
-		"download": "Download ↗",
+		"download": "Преузми ↗",
 		"downloadDmg": "Преузми DMG ↗",
 		"dismiss": "Одбаци обавештење о ажурирању",
 		"copy": "Копирај команду у клипборд",
@@ -929,25 +929,25 @@
 		}
 	},
 	"playlistPresets": {
-		"type": {"video": "Video", "audio": "Audio", "subtitles": "Титлови"},
+		"type": {"video": "Видео", "audio": "Звук", "subtitles": "Титлови"},
 		"subtitles": {"note": "За сваки видео чувају се само датотеке титлова — видео и звук се не преузимају.", "languages": "Језици", "languagesRequired": "Изаберите бар један језик да бисте наставили.", "source": "Извор", "deliveryHeading": "Сачувај као", "deliveryLoose": "Директно у фасцикли за чување"},
-		"videoFormat": {"best": "Best codec", "mp4": "Паметни TV H.264 MP4"},
+		"videoFormat": {"best": "Најбољи изворни", "mp4": "Паметни TV H.264 MP4"},
 		"videoFormatDesc": {"best": "Najviši dostupan kodek po stavci", "mp4": "Prednost H.264 + AAC, MP4 kontejner · najbolji pokušaj"},
-		"tier": {"144": "Do 144p", "240": "Do 240p", "360": "Do 360p", "480": "Do 480p", "720": "Do 720p", "1080": "Do 1080p", "1440": "Do 1440p", "2160": "Do 4K", "best": "Best quality"},
+		"tier": {"144": "До 144p", "240": "До 240p", "360": "До 360p", "480": "До 480p", "720": "До 720p", "1080": "До 1080p", "1440": "До 1440p", "2160": "До 4K", "best": "Најбољи квалитет"},
 		"tierDesc": {
 			"144": "Najmanji mogući fajlovi",
-			"240": "Veoma mali fajlovi, nizak kvalitet",
+			"240": "Веома мали фајлови, низак квалитет",
 			"360": "Mali fajlovi za ograničen protok",
-			"480": "Low bandwidth",
+			"480": "Низак пропусни опсег",
 			"720": "Manji fajlovi, široka kompatibilnost",
 			"1080": "Ograničeno na 1080p, pada niže po stavci",
 			"1440": "Ograničeno na 2K, pada niže po stavci",
 			"2160": "Ograničeno na 2160p, pada niže po stavci",
-			"best": "Najbolji dostupan video + audio po stavci"
+			"best": "Најбољи доступан видео + аудио по ставци"
 		},
-		"audioFormat": {"best": "Audio (best)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
-		"audioFormatDesc": {"best": "Najbolji izvorni audio, bez ponovnog kodiranja", "mp3": "Konvertuj u MP3", "m4a": "Konvertuj u M4A (AAC)", "opus": "Konvertuj u Opus"},
-		"audioFormatBitrate": "Audio ({{format}} {{kbps}}K)",
+		"audioFormat": {"best": "Звук (најбољи)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
+		"audioFormatDesc": {"best": "Најбољи изворни аудио, без поновног кодирања", "mp3": "Конвертуј у MP3", "m4a": "Конвертуј у M4A (AAC)", "opus": "Конвертуј у Opus"},
+		"audioFormatBitrate": "Звук ({{format}} {{kbps}}K)",
 		"mp4Cap": "H.264 iznad 1080p nije dostupan na YouTube-u — automatski se ograničava na 1080p"
 	},
 	"formatLabel": {"audioFallback": "Звук", "audioOnlyDot": "Само звук · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
@@ -962,7 +962,7 @@
 			"message_other": "{{count}} преузимања у току",
 			"detail": "Паузирајте да наставите касније или откажите да одбаците напредак.",
 			"confirm": "Откажи преузимања и Затвори",
-			"pause": "Поставить загрузки на паузу и выйти",
+			"pause": "Паузирај преузимања и изађи",
 			"keep": "Настави преузимање"
 		},
 		"closeToTray": {"message": "Сакрити Arroxy у системски трај при затварању?", "detail": "Arroxy наставља да ради и завршава активна преузимања. Промени ово касније у Напредним подешавањима.", "hide": "Сакриј у трај", "quit": "Затвори", "remember": "Не питај поново"},
