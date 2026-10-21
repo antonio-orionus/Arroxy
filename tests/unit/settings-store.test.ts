@@ -572,23 +572,6 @@ describe('settings and recent stores', () => {
 		expect(settings.profiles.active).toEqual({kind: 'custom', id: 'keep-me'})
 	})
 
-	// Saved before templates were checked on write: the profile stays, its
-	// template falls back to the default, so it can start downloads again and
-	// a later save of the profile list is not refused.
-	it('resets a stored profile template that does not validate to the default', async () => {
-		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-bad-template-'))
-		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
-		const custom = {...balanced, id: 'typo', name: 'Typo', filename: {kind: 'custom', template: '{titel}'}, createdAt: NOW, updatedAt: NOW}
-		const override = {...balanced, filename: {kind: 'custom', template: 'a:b {title}'}}
-		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, profiles: {active: {kind: 'custom', id: 'typo'}, custom: [custom], overrides: [override]}}), 'utf-8')
-
-		const settings = await new SettingsStore(userData, baseDefaults).get()
-
-		expect(settings.profiles.custom.map(profile => [profile.id, profile.filename])).toEqual([['typo', {kind: 'default'}]])
-		expect(settings.profiles.overrides[0]?.filename).toEqual({kind: 'default'})
-		expect(settings.profiles.active).toEqual({kind: 'custom', id: 'typo'})
-	})
-
 	it('falls back to the default profile when the active custom profile is dropped', async () => {
 		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-dangling-'))
 		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!

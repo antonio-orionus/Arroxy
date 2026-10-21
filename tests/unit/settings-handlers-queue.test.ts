@@ -101,13 +101,18 @@ describe('settings update reaches the rate-limit cooldowns', () => {
 
 // A profile saved with a filename template that does not validate would fail
 // every download it starts, so the write is refused before it reaches the store.
-describe('settings update refuses a profile filename template that does not validate', () => {
-	const settingsStore = {get: vi.fn(), update: vi.fn().mockResolvedValue({common: {clipboardWatchEnabled: false, hotkeyEnabled: false}, playlist: {}, profiles: {}})}
+// A template already stored is let through, or one old typo would refuse every
+// later save of the profile list.
+describe('settings update refuses a new profile filename template that does not validate', () => {
 	const base = BUILTIN_DOWNLOAD_PROFILES[0]
+	const stored = {...base, id: 'old', filename: {kind: 'custom', template: '{titel}'}}
+	const settingsStore = {get: vi.fn(), update: vi.fn()}
 
 	beforeEach(() => {
 		handlers.clear()
 		vi.clearAllMocks()
+		settingsStore.get.mockResolvedValue({common: {}, playlist: {}, profiles: {active: {kind: 'builtin', id: base.id}, custom: [stored], overrides: [], enabledOverrides: {}}})
+		settingsStore.update.mockResolvedValue({common: {clipboardWatchEnabled: false, hotkeyEnabled: false}, playlist: {}, profiles: {}})
 		registerSettingsHandlers({settingsStore: settingsStore as never, clipboardWatcher: {setEnabled: vi.fn()} as never, queueService: {} as never, hotkeyService: {apply: vi.fn()} as never, exploreView: {destroy: vi.fn()} as never})
 	})
 
@@ -118,16 +123,22 @@ describe('settings update refuses a profile filename template that does not vali
 	}
 
 	it.each([
-		['custom', '{titel}'],
+		['custom', '{tittle}'],
 		['overrides', 'a:b {title}']
 	])('refuses a %s profile with the template %s', async (bucket, template) => {
 		const result = await send({profiles: {[bucket]: [{...base, id: 'mine', filename: {kind: 'custom', template}}]}})
-		expect(result).toMatchObject({ok: false})
+		expect(result).toMatchObject({ok: false, error: {code: 'validation'}})
 		expect(settingsStore.update).not.toHaveBeenCalled()
 	})
 
 	it('saves a profile whose template validates', async () => {
-		const result = await send({profiles: {custom: [{...base, id: 'mine', filename: {kind: 'custom', template: '{uploader} - {title}'}}]}})
+		const result = await send({profiles: {custom: [stored, {...base, id: 'mine', filename: {kind: 'custom', template: '{uploader} - {title}'}}]}})
+		expect(result).toMatchObject({ok: true})
+		expect(settingsStore.update).toHaveBeenCalled()
+	})
+
+	it('lets a template saved before the check through again', async () => {
+		const result = await send({profiles: {custom: [{...stored, name: 'Renamed'}]}})
 		expect(result).toMatchObject({ok: true})
 		expect(settingsStore.update).toHaveBeenCalled()
 	})
