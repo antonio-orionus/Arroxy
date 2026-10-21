@@ -133,6 +133,17 @@ describe('IntakeService', () => {
 		expect(outcomes(h)).toEqual([{requestId: 'r1', kind: 'failed', itemId: row?.id, title: VIDEO_URL, probeError: {kind: 'other', code: 'unknown', message: 'offline'}}])
 	})
 
+	// The window saves a profile pick through a queue of settings writes, so
+	// main's settings can still hold the previous one when the link arrives.
+	it('pins the profile the window names, not the one main read from settings', async () => {
+		h.answer(fail({kind: 'other', code: 'unknown', message: 'offline'}))
+		await h.intake.add({requestId: 'r1', url: VIDEO_URL, playlistMode: 'video', profile: {kind: 'builtin', id: 'audio-only'}, origin: WINDOW})
+		await h.settled()
+		const [row] = h.queue.snapshot()
+		expect(row?.pinnedProfile?.ref).toEqual({kind: 'builtin', id: 'audio-only'})
+		expect(row?.formatLabel).toContain('Audio only')
+	})
+
 	it("a Retry prepares with the row's pinned profile, not the one active by then", async () => {
 		h.answer(fail({kind: 'other', code: 'unknown', message: 'offline'}))
 		await h.intake.add({requestId: 'r1', url: VIDEO_URL, playlistMode: 'video', origin: WINDOW})
@@ -205,6 +216,45 @@ describe('IntakeService', () => {
 		const itemId = h.queue.snapshot()[0]?.id ?? ''
 		expect(h.intake.retry({requestId: 'r2', itemId, origin: 'window'}).ok).toBe(false)
 		expect(h.probes).toHaveLength(1)
+	})
+
+	it('First on a playlist-review row is refused and the row keeps waiting for its choice', async () => {
+		const url = 'https://media.example/watch/42'
+		h.answer(ok({...playlist(1), webpageUrl: url}))
+		await h.intake.add({requestId: 'r1', url, playlistMode: 'video', origin: WINDOW})
+		await h.settled()
+		const itemId = h.queue.snapshot()[0]?.id ?? ''
+		expect(h.queue.snapshot()[0]).toMatchObject({status: 'needs-choice', choice: {kind: 'playlist-review', count: 1}})
+
+		expect(h.intake.choose({requestId: 'r2', itemId, origin: 'window', take: 'first'})).toMatchObject({ok: false, error: {code: 'validation'}})
+		await h.settled()
+		expect(h.queue.snapshot()[0]).toMatchObject({status: 'needs-choice', choice: {kind: 'playlist-review', count: 1}})
+		expect(h.probes).toHaveLength(1)
+	})
+
+	it('a choice on a probe-error row is refused and the row stays a probe error', async () => {
+		h.answer(fail({kind: 'other', code: 'unknown', message: 'offline'}))
+		await h.intake.add({requestId: 'r1', url: VIDEO_URL, playlistMode: 'video', origin: WINDOW})
+		await h.settled()
+		const itemId = h.queue.snapshot()[0]?.id ?? ''
+
+		for (const take of ['first', 'all'] as const) {
+			expect(h.intake.choose({requestId: 'r2', itemId, origin: 'window', take})).toMatchObject({ok: false, error: {code: 'validation'}})
+		}
+		await h.settled()
+		expect(h.queue.snapshot()[0]?.status).toBe('error')
+		expect(h.probes).toHaveLength(1)
+	})
+
+	// The intake admission limit is no conflict: nothing else holds the link,
+	// so the row says why it was refused and a Retry stays possible.
+	it('settles the row as a probe error when the swap is over the intake limit', async () => {
+		h.queue.onIntakeAdmission(() => 2)
+		h.answer(ok(playlist(3)))
+		await h.intake.add({requestId: 'r1', url: PLAYLIST_URL, playlistMode: 'playlist', origin: WINDOW})
+		await h.settled()
+		await vi.waitFor(() => expect(h.queue.snapshot()).toEqual([expect.objectContaining({status: 'error', error: {kind: 'unknown', raw: expect.stringContaining('at most 2 rows')}})]))
+		expect(outcomes(h).at(-1)).toMatchObject({requestId: 'r1', kind: 'failed'})
 	})
 
 	// A write that throws is a broken queue port, not a refusal: the row must

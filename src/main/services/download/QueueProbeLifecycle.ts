@@ -116,7 +116,7 @@ export class QueueProbeLifecycle {
 		const {admitted, skippedAlreadyQueued} = admission.data
 		const {origin} = placeholder
 		const limit = origin ? this.deps.rowsPerIntake(origin) : null
-		if (limit !== null && admitted.length > limit) return fail(createAppError('validation', `intake ${origin?.intakeId} may add at most ${limit} rows, not ${admitted.length}`))
+		if (limit !== null && admitted.length > limit) return fail(createAppError('limit', `intake ${origin?.intakeId} may add at most ${limit} rows, not ${admitted.length}`))
 		this.deps.commitRemove(itemId)
 		if (admitted.length === 0) return ok({ids: [], skippedAlreadyQueued})
 		const queued = withPlaceholderId(itemId, items, origin ? admitted.map(item => ({...item, origin})) : admitted)

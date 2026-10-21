@@ -195,6 +195,22 @@ describe('a profile switch while a quick download prepares', () => {
 		return id
 	}
 
+	// A profile pick is saved through a queue of settings writes, so main can
+	// still hold the previous one when the link arrives.
+	it('pins the profile the window has active before main has saved it', async () => {
+		const stale = defaultAppSettings('/tmp')
+		armQueue(api, {mainSettings: () => stale})
+		const probe = deferredProbe()
+		activate('audio-only', '/music')
+		await useAppStore.getState().quickDownload({url: VIDEO_URL, entry: 'url-tab'})
+		const id = queue()[0]?.id ?? ''
+		expect(row(id)).toMatchObject({formatLabel: 'Audio only · best', pinnedProfile: {ref: {kind: 'builtin', id: 'audio-only'}}})
+		probe.resolve(ok(VIDEO))
+
+		await vi.waitFor(() => expect(row(id)?.status).toBe('pending'))
+		expect(row(id)?.job).toMatchObject({intent: {kind: 'audio-only'}})
+	})
+
 	it('downloads with the profile and folder the row was placed with', async () => {
 		const probe = deferredProbe()
 		const id = await placeAsAudioThenSwitch(VIDEO_URL)
@@ -619,6 +635,20 @@ describe('a probe that needs the user’s choice', () => {
 		await useAppStore.getState().addToQueue()
 
 		expect(queue().map(item => item.url)).toEqual(['https://youtu.be/v1', 'https://youtu.be/v2'])
+	})
+
+	// Over the intake's admission limit the swap is refused, and adding the
+	// videos plainly instead would queue them past that limit, without origin.
+	it('queueing from the review over the intake limit adds nothing and keeps the row', async () => {
+		armQueue(api, {rowsPerIntake: () => 1})
+		const probe = deferredProbe()
+		const id = await cappedRow(probe)
+		await useAppStore.getState().chooseQuickDownloadRow(id, 'review')
+		await useAppStore.getState().addToQueue()
+
+		expect(api.queue.cmd.add).not.toHaveBeenCalledWith(expect.arrayContaining([expect.objectContaining({url: 'https://youtu.be/v1'})]))
+		expect(queue().map(item => [item.id, item.status])).toEqual([[id, 'needs-choice']])
+		expect(useAppStore.getState().wizardStep).toBe('error')
 	})
 
 	it('abandoning the review leaves the row waiting for its choice', async () => {

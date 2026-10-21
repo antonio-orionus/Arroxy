@@ -19,7 +19,6 @@ import type {
 	HotkeyState,
 	HotkeyTriggerPayload,
 	PlaylistProbeResult,
-	ProbePlaylistMode,
 	PauseDownloadInput,
 	PauseDownloadOutput,
 	PlaylistPrefs,
@@ -47,7 +46,7 @@ import type {
 	WizardStepSnapshot
 } from './types.js'
 import type {PlaylistManifest} from './playlistManifest.js'
-import type {IntakeTake, IntakeWindowContext} from './intake/intakeSchemas.js'
+import type {IntakeAddInput, IntakeTake, IntakeWindowContext} from './intake/intakeSchemas.js'
 import type {IntakeEvent, IntakePlacement} from './intake/intakeEvents.js'
 
 export interface SettingsPatch {
@@ -135,7 +134,7 @@ export interface AppApi {
 	// causes come back through `onEvent` carrying it.
 	intake: {
 		// Places the link's row and starts its probe; answers once the row is placed.
-		add(input: {requestId: string; url: string; playlistMode: ProbePlaylistMode; title?: string}): Promise<Result<IntakePlacement>>
+		add(input: IntakeAddInput): Promise<Result<IntakePlacement>>
 		// A probe-error row probes again.
 		retry(input: {requestId: string; itemId: string}): Promise<Result<void>>
 		// A needs-choice row's answer: every video, or the first N it was offered.

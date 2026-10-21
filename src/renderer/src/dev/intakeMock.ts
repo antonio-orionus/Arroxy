@@ -13,7 +13,7 @@ import type {QueueEvent} from '@shared/queueTransition.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import type {IntakeWindowContext, PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
 import {PLAYLIST_PROBE_LIMIT_MAX, QUEUE_STATUS} from '@shared/schemas.js'
-import type {AppSettings, PlaylistProbeResult, PlaylistScope, ProbePlaylistMode, QueueItem} from '@shared/types.js'
+import type {AppSettings, DownloadProfileRef, PlaylistProbeResult, PlaylistScope, ProbePlaylistMode, QueueItem} from '@shared/types.js'
 
 export interface IntakeMockDeps {
 	probe: AppApi['downloads']['probe']
@@ -39,7 +39,7 @@ export function createIntakeMock(deps: IntakeMockDeps): AppApi['intake'] {
 	let windowContext: IntakeWindowContext = {currentOutputDir: '', displayShowsHdr: false}
 	const find = (itemId: string): QueueItem | undefined => deps.items().find(item => item.id === itemId)
 	const emit = (event: IntakeEvent): void => listeners.forEach(listener => listener(event))
-	const activePinned = (): PinnedDownloadProfile => ({ref: resolveActiveDownloadProfile(deps.settings().profiles).ref, outputContext: {currentOutputDir: windowContext.currentOutputDir, defaultOutputDir: deps.settings().common.defaultOutputDir}})
+	const activePinned = (ref: DownloadProfileRef = resolveActiveDownloadProfile(deps.settings().profiles).ref): PinnedDownloadProfile => ({ref, outputContext: {currentOutputDir: windowContext.currentOutputDir, defaultOutputDir: deps.settings().common.defaultOutputDir}})
 	const env = (): QuickProbeEnv => ({
 		newId: () => crypto.randomUUID(),
 		displayShowsHdr: windowContext.displayShowsHdr,
@@ -90,10 +90,10 @@ export function createIntakeMock(deps: IntakeMockDeps): AppApi['intake'] {
 	}
 
 	return {
-		add: async ({requestId, url, playlistMode, title}) => {
+		add: async ({requestId, url, playlistMode, title, profile: requested}) => {
 			const live = deps.items().find(item => isLiveQueueItem(item) && item.url === url)
 			if (live) return ok({kind: 'already-queued', itemId: live.id})
-			const pinned = activePinned()
+			const pinned = activePinned(requested)
 			const {profile} = resolveChosenDownloadProfile(pinned.ref, deps.settings().profiles)
 			let outputDir = ''
 			try {
@@ -131,9 +131,11 @@ export function createIntakeMock(deps: IntakeMockDeps): AppApi['intake'] {
 		},
 		retry: ({requestId, itemId}) => restart(itemId, requestId, {}),
 		choose: ({requestId, itemId, take}) => {
-			const choice = find(itemId)?.choice
+			const row = find(itemId)
+			if (row?.status !== QUEUE_STATUS.needsChoice || !row.choice) return Promise.resolve(fail({code: 'validation', message: `queue item ${itemId} is not waiting for a choice`}))
+			const {choice} = row
 			if (take === 'all') return restart(itemId, requestId, {scope: {items: {kind: 'first', count: PLAYLIST_PROBE_LIMIT_MAX}}, take: {kind: 'all'}})
-			if (choice?.kind !== 'playlist-cap') return Promise.resolve(fail({code: 'validation', message: 'only a playlist over the load limit offers its first videos'}))
+			if (choice.kind !== 'playlist-cap') return Promise.resolve(fail({code: 'validation', message: 'only a playlist over the load limit offers its first videos'}))
 			const first = {kind: 'first', count: choice.loaded} as const
 			return restart(itemId, requestId, {scope: {items: first}, take: first}, kept.get(itemId))
 		},

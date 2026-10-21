@@ -389,6 +389,40 @@ describe('registerIpcHandlers', () => {
 			expect(deps._raw.intakeService.retry).toHaveBeenCalledWith({requestId: 'r1', itemId: 'p1', origin: 'window'})
 		})
 
+		it("intake:cmd:add passes on the window's active profile", async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.intakeCmdAdd)!.fn
+			const added = (await handler(null, {requestId: 'r1', url: 'https://youtu.be/abc', playlistMode: 'video', profile: {kind: 'builtin', id: 'audio-only'}})) as {ok: boolean}
+			expect(added.ok).toBe(true)
+			expect(deps._raw.intakeService.add).toHaveBeenCalledWith({requestId: 'r1', url: 'https://youtu.be/abc', playlistMode: 'video', profile: {kind: 'builtin', id: 'audio-only'}, origin: {kind: 'window'}})
+		})
+
+		// A page title is only a hint until the probe knows the real one: a long
+		// one is cut, never a reason to refuse the link.
+		it('intake:cmd:add takes a link in with a very long title, cut to 2048 characters', async () => {
+			const deps = makeDeps()
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.intakeCmdAdd)!.fn
+			const added = (await handler(null, {requestId: 'r1', url: 'https://youtu.be/abc', playlistMode: 'video', title: 'a'.repeat(3000)})) as {ok: boolean}
+			expect(added.ok).toBe(true)
+			expect(deps._raw.intakeService.add).toHaveBeenCalledWith(expect.objectContaining({title: 'a'.repeat(2048)}))
+		})
+
+		it('intake:cmd:keptProbe forwards the row id and answers with the kept probe', async () => {
+			const deps = makeDeps()
+			const kept = {kind: 'playlist', entries: []}
+			deps._raw.intakeService.keptProbe.mockReturnValue(kept)
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.intakeCmdKeptProbe)!.fn
+			const result = await handler(null, {itemId: 'p1'})
+			expect(result).toEqual({ok: true, data: kept})
+			expect(deps._raw.intakeService.keptProbe).toHaveBeenCalledWith('p1')
+		})
+
 		it('queue:cmd:applySelectionAction accepts a valid action and selected item ids', async () => {
 			const deps = makeDeps()
 			registerIpcHandlers(deps)
