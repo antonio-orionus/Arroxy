@@ -4,6 +4,7 @@ import {useTranslation} from 'react-i18next'
 import {ChevronRight, ClipboardPaste, Link2, ListPlus, Wand2, X, type LucideIcon} from 'lucide-react'
 import {downloadProfileRefFor} from '@shared/downloadProfiles.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
+import {classifyPastedText} from '@shared/clipboardLinks.js'
 import type {DownloadProfile, DownloadProfileRef} from '@shared/types.js'
 import {cn} from '@renderer/lib/utils.js'
 import {notify} from '@renderer/lib/notify.js'
@@ -26,7 +27,6 @@ import {QuickDownloadErrorAlert} from './QuickDownloadErrorAlert.js'
 import {HomeTabsList, QueueTabFirstRunCue} from './DownloadHomeTabs.js'
 import {isProfilesTab, selectProfilesTab, useProfilesTabRoute, useQueueTabSummary, useQueueTabTip, type ProfilesTab} from './homeTabRoute.js'
 import {useBulkUrlDialog, useCopiedLinkIntake} from './downloadHomeIntake.js'
-import {resolvePastedClipboard} from './clipboardIntake.js'
 import {ProfileEditorDialog} from './ProfileEditorDialog.js'
 import {useProfileEditor} from './useProfileEditor.js'
 import hiImg from '../../assets/Hi.png'
@@ -234,13 +234,15 @@ function DownloadUrlInput({view, onPasteBulk}: {view: DownloadHomeView; onPasteB
 	}
 
 	async function handlePasteFromClipboard(): Promise<void> {
-		let raw = ''
+		let raw: string
 		try {
 			raw = await navigator.clipboard.readText()
 		} catch (error) {
 			console.warn('[clipboard] paste button could not read the clipboard', error)
+			notify.clipboard(t('wizard.url.clipboard.readFailed'))
+			return
 		}
-		const pasted = resolvePastedClipboard(raw)
+		const pasted = classifyPastedText(raw)
 		if (pasted.kind === 'none') {
 			notify.clipboard(t('wizard.url.clipboard.noLink'))
 			return

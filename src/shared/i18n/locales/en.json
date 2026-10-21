@@ -1445,6 +1445,7 @@
 					"cancelButton": "Cancel"
 				},
 				"noLink": "No link in the clipboard",
+				"readFailed": "Couldn't read the clipboard — paste the link into the field instead",
 				"replacedLink": "Replaced with copied link",
 				"toggle": "Watch clipboard",
 				"toggleDescription": "Auto-fill the URL field when you copy a video link.",
