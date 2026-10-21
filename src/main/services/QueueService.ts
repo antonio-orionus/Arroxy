@@ -265,7 +265,7 @@ export class QueueService extends EventEmitter {
 		logger.info('pauseAll', {runningCount: running.length, total: this.items.length, snapshot: this.statusSummary()})
 		const {done, failed} = await pauseEach(
 			running.map(i => i.id),
-			itemId => this.pause(itemId)
+			{pause: itemId => this.pause(itemId), statusOf: itemId => this.findItem(itemId)?.status}
 		)
 		// Ensure the flag itself reaches disk even if no items needed pausing
 		// (e.g. queue had only pending items).

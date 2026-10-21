@@ -491,6 +491,31 @@ describe('pauseAll', () => {
 
 		expect(outcome).toEqual({scheduler: 'paused', done: [], failed: [{itemId: 'a', error: expect.objectContaining({code: 'unknown', message: 'unexpected throw'})}]})
 	})
+
+	it('reports an item whose pause found no live download as failed, not done', async () => {
+		const {qs, ds} = makeService()
+		qs.add([makeItem({id: 'a', status: 'running', lastJobId: 'job-a'})])
+		ds.pause.mockResolvedValue(ok({paused: false}))
+
+		const outcome = await qs.pauseAll()
+
+		expect(qs.snapshot().find(i => i.id === 'a')?.status).toBe('running')
+		expect(outcome).toEqual({scheduler: 'paused', done: [], failed: [{itemId: 'a', error: expect.objectContaining({code: 'validation'})}]})
+	})
+
+	it('reports the scheduler as it ends, so a resume landing mid-pause reads running', async () => {
+		const {qs, ds} = makeService()
+		qs.add([makeItem({id: 'a', status: 'running', lastJobId: 'job-a'})])
+		let release: () => void = () => undefined
+		ds.pause.mockReturnValue(new Promise(resolve => (release = () => resolve(ok({paused: true, tempDir: '/tmp/a'})))))
+
+		const pausing = qs.pauseAll()
+		await qs.resumeAll()
+		release()
+		const outcome = await pausing
+
+		expect(outcome.scheduler).toBe('running')
+	})
 })
 
 describe('resumeAll', () => {
