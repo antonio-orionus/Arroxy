@@ -295,6 +295,14 @@ describe('SidecarSubsPhase: the listing run', () => {
 		expect(fetchRequest(ctx)).toMatchObject({subtitles: {tracks: [{key: 'ja', auto: true}]}})
 	})
 
+	// ADR 0002: the video is saved, so a listing the disk refuses costs the subtitles, not the job.
+	it('soft-fails when the listing cannot be saved, and fetches nothing', async () => {
+		await mkdir(join(tempDir, '_arroxy.subtitles.info.json'))
+		const ctx = makeCtx({input: vimeo(codes(['de'])), fake: {listing: VIMEO_INFO}})
+		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
+		expect(fetchRequest(ctx)).toBeUndefined()
+	})
+
 	it('soft-fails when the listing fails or prints no info-json, and fetches nothing', async () => {
 		for (const listingResult of [EXIT_ERROR, {...SUCCESS, stdout: 'not json'}]) {
 			const ctx = makeCtx({input: vimeo(codes(['de'])), fake: {listingResult}})

@@ -93,8 +93,15 @@ export const SubtitleOnlyPhase: Phase = {
 		if (!lists) {
 			const listed = await settledRun({kind: 'subtitle-listing', url: input.url})
 			if (listed.kind === 'ended') return listed.outcome
-			lists = await saveSubtitleListing(listed.result.stdout, tempDir)
-			if (!lists) return hardFailure(ctx, {kind: 'parse', raw: 'The subtitle listing printed no info-json'}, {error: 'no info-json'})
+			const saved = await saveSubtitleListing(listed.result.stdout, tempDir)
+			if (saved.kind === 'not-info-json') return hardFailure(ctx, {kind: 'parse', raw: 'The subtitle listing printed no info-json'}, {error: 'no info-json'})
+			if (saved.kind === 'unwritable') {
+				logger.warn('the subtitle listing could not be saved', {jobId: job.id, raw: saved.raw})
+				const error: LocalizedError = {kind: 'outputNotWritable', raw: saved.raw}
+				ctx.emitStatus('error', STATUS_KEY.outputNotWritable, {dir: job.outputDir}, error)
+				return {kind: 'hard-failed', error}
+			}
+			lists = saved.lists
 		}
 		// A subtitles-only job saves no media, so the row is named from here.
 		if (lists.title !== null) active.mediaTitle = lists.title

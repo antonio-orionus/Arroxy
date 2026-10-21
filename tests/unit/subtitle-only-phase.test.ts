@@ -315,6 +315,15 @@ describe('SubtitleOnlyPhase: the listing run', () => {
 		expect(fetchRequest(ctx)).toBeUndefined()
 	})
 
+	it('a listing that cannot be saved fails the job as an unwritable folder, and fetches nothing', async () => {
+		const tempDir = join(outDir, '.arroxy-temp', 'job-1')
+		await mkdir(join(tempDir, '_arroxy.subtitles.info.json'), {recursive: true})
+		const ctx = makeCtx({input: input({probeInfoJsonPath: undefined}), active: {tempDir}})
+		expect(await SubtitleOnlyPhase.run(ctx)).toMatchObject({kind: 'hard-failed', error: {kind: 'outputNotWritable'}})
+		expect(ctx.emitStatus).toHaveBeenCalledWith('error', STATUS_KEY.outputNotWritable, {dir: outDir}, expect.objectContaining({kind: 'outputNotWritable'}))
+		expect(fetchRequest(ctx)).toBeUndefined()
+	})
+
 	it('a listing that prints no info-json is a hard failure', async () => {
 		const ctx = makeCtx({input: input({probeInfoJsonPath: undefined}), fake: {listingResult: {...SUCCESS, stdout: 'not json'}}})
 		const outcome = await SubtitleOnlyPhase.run(ctx)
