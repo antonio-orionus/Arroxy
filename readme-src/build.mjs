@@ -5,7 +5,7 @@
 //
 // Usage: `node readme-src/build.mjs` (or `npm run build:readme`).
 
-import { existsSync, realpathSync } from "node:fs";
+import { existsSync, readFileSync, realpathSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, posix, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -163,9 +163,49 @@ function applyMacros(text, macros) {
 
 const BUILD_MACROS = ["LANG_NAV", "LANG_COUNT", "LANG_NAME_LIST", "LAST_UPDATED"];
 
+// The English strings the other locales were last translated from, written by
+// the release translation sync (`--record-translated`). Key parity alone cannot
+// see a reworded English string; comparing against this record can.
+export const TRANSLATED_FROM_PATH = resolve(HERE, "translated-from.json");
+
+export function readTranslatedFrom() {
+  return existsSync(TRANSLATED_FROM_PATH) ? JSON.parse(readFileSync(TRANSLATED_FROM_PATH, "utf8")) : {};
+}
+
+// English keys whose text changed, that were added, or that went away since
+// the locales were translated from `translatedFrom`.
+export function untranslatedEnglishChanges(enStrings, translatedFrom) {
+  const keys = Object.keys(enStrings);
+  return {
+    changed: keys.filter((key) => key in translatedFrom && translatedFrom[key] !== enStrings[key]),
+    added: keys.filter((key) => !(key in translatedFrom)),
+    removed: Object.keys(translatedFrom).filter((key) => !(key in enStrings)),
+  };
+}
+
+function checkTranslatedFrom(enStrings, { strict }) {
+  const { changed, added, removed } = untranslatedEnglishChanges(enStrings, readTranslatedFrom());
+  if (!changed.length && !added.length && !removed.length) return;
+  const parts = [];
+  if (changed.length) parts.push(`changed: ${changed.join(", ")}`);
+  if (added.length) parts.push(`added: ${added.join(", ")}`);
+  if (removed.length) parts.push(`removed: ${removed.join(", ")}`);
+  const msg = `English README strings differ from the ones the locales were translated from (${parts.join("; ")}). The release translation sync translates them in every locale, then runs \`bun readme-src/build.mjs --record-translated\`.`;
+  if (strict) throw new Error(msg);
+  console.warn(`  ⚠ ${msg}`);
+}
+
 async function main() {
-  const strict = process.argv.includes("--strict");
+  const record = process.argv.includes("--record-translated");
+  const strict = record || process.argv.includes("--strict");
   checkParity(LOCALES, { strict });
+  const enLocale = LOCALES.find((l) => l.code === "en");
+  if (record) {
+    const sorted = Object.fromEntries(Object.entries(enLocale?.strings ?? {}).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)));
+    await writeFile(TRANSLATED_FROM_PATH, `${JSON.stringify(sorted, null, 2)}\n`, "utf8");
+    console.log(`  ✓ recorded the English the locales are translated from → readme-src/translated-from.json`);
+  }
+  checkTranslatedFrom(enLocale?.strings ?? {}, { strict });
 
   const template = await readFile(TEMPLATE_PATH, "utf8");
   const en = LOCALES.find((l) => l.code === "en");

@@ -226,8 +226,9 @@ function matchingEntry(catalog: GetTextTranslations, key: string, source: string
 	return catalog.translations[key]?.[source]
 }
 
+// i18next trims the variable name, so `{{ name }}` and `{{name}}` are one placeholder.
 function placeholders(text: string): string[] {
-	return [...new Set(text.match(PLACEHOLDER) ?? [])].sort()
+	return [...new Set((text.match(PLACEHOLDER) ?? []).map(token => `{{${token.slice(2, -2).trim()}}}`))].sort()
 }
 
 function describePlaceholders(tokens: readonly string[]): string {
@@ -304,8 +305,9 @@ export function validateLocaleCatalog(lang: string, sourceLeaves: readonly Strin
 			continue
 		}
 
+		// A fuzzy translation is of older English: the sync re-translates it, so only its state counts.
 		if (isFuzzy(entry)) issues.push({kind: 'fuzzy', lang, key: leaf.path})
-		if (!translated(entry)) issues.push({kind: 'untranslated', lang, key: leaf.path})
+		else if (!translated(entry)) issues.push({kind: 'untranslated', lang, key: leaf.path})
 		else issues.push(...entryIssues(lang, leaf.path, entry))
 	}
 

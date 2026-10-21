@@ -5,6 +5,7 @@ import {join, relative} from 'node:path'
 import {spawnSync, type SpawnSyncReturns} from 'node:child_process'
 import {SUPPORTED_LANGS, type SupportedLang} from '../src/shared/schemas.js'
 import type {GetTextTranslations} from 'gettext-parser'
+import {readTranslatedFrom, untranslatedEnglishChanges} from '../readme-src/build.mjs'
 import {LOCALES as README_LOCALES} from '../readme-src/strings.mjs'
 import {
 	buildLocaleCatalog,
@@ -205,6 +206,7 @@ function checkCatalogs({complete}: {complete: boolean}): number {
 
 	let open = 0
 	const behind = new Set<string>()
+	const staleRuntime: SupportedLang[] = []
 	for (const {lang, catalog} of catalogs) {
 		const leaves = localeSourceLeaves(lang)
 		const runtime = readJson(localeJsonPath(lang))
@@ -220,13 +222,14 @@ function checkCatalogs({complete}: {complete: boolean}): number {
 		const openHere = status.filter(isOpenIssue).length
 		open += openHere
 		if (openHere > 0) behind.add(lang)
-		if (complete && !deepEqual(runtime, compileLocaleTree(lang, leaves, catalog))) errors.add(`${lang}: runtime JSON is stale: run bun run i18n:compile`)
+		if (!deepEqual(runtime, compileLocaleTree(lang, leaves, catalog))) staleRuntime.push(lang)
 	}
 
+	const expectedPot = compileCatalog(buildSourceCatalog(sourceLeaves())).toString('utf8')
+	const potStale = (existsSync(POT_PATH) ? readFileSync(POT_PATH, 'utf8') : '') !== expectedPot
 	if (complete) {
-		const expectedPot = compileCatalog(buildSourceCatalog(sourceLeaves())).toString('utf8')
-		const existingPot = existsSync(POT_PATH) ? readFileSync(POT_PATH, 'utf8') : ''
-		if (existingPot !== expectedPot) errors.add('POT is stale: run bun run i18n:sync')
+		if (potStale) errors.add('POT is stale: run bun run i18n:sync')
+		for (const lang of staleRuntime) errors.add(`${lang}: runtime JSON is stale: run bun run i18n:compile`)
 		for (const lang of missing) errors.add(`${lang}: no PO catalog: run bun run i18n:sync`)
 	}
 
@@ -246,6 +249,10 @@ function checkCatalogs({complete}: {complete: boolean}): number {
 	if (complete) console.log('✓ every locale is fully translated and compiled.')
 	else if (open + missing.length === 0) console.log('✓ i18n catalogs are valid; every locale is translated.')
 	else console.log(`✓ i18n catalogs are valid. ${open} entries in ${behind.size + missing.length} locales wait for the release translation sync and show in English until then (bun run i18n:status).`)
+	if (!complete && (potStale || staleRuntime.length > 0)) {
+		const behindFiles = [...(potStale ? ['the POT'] : []), ...(staleRuntime.length > 0 ? [`${staleRuntime.length} runtime locale file${staleRuntime.length === 1 ? '' : 's'}`] : [])]
+		console.log(`  ${behindFiles.join(' and ')} lag the English too; the sync regenerates them.`)
+	}
 	return 0
 }
 
@@ -256,13 +263,16 @@ const STATUS_HEADINGS: Record<(typeof STATUS_COLUMNS)[number], string> = {'missi
 function printStatus(): number {
 	const {catalogs, missing, unreadable} = readLocaleCatalogs()
 	for (const problem of unreadable) console.error(problem)
-	const readmeEnKeys = Object.keys(README_LOCALES.find(locale => locale.code === 'en')?.strings ?? {})
+	const readmeEn = README_LOCALES.find(locale => locale.code === 'en')?.strings ?? {}
+	const readmeEnKeys = Object.keys(readmeEn)
+	// A reworded English README string is stale in every locale that has the key.
+	const readmeChanged = untranslatedEnglishChanges(readmeEn, readTranslatedFrom()).changed
 	const headings = ['locale', ...STATUS_COLUMNS.map(kind => STATUS_HEADINGS[kind]), 'README']
 	const rows: string[][] = []
 	for (const {lang, catalog} of catalogs) {
 		const issues = validateLocaleCatalog(lang, localeSourceLeaves(lang), catalog)
 		const readmeKeys = new Set(Object.keys(README_LOCALES.find(locale => locale.code === lang)?.strings ?? {}))
-		const counts = [...STATUS_COLUMNS.map(kind => issues.filter(issue => issue.kind === kind).length), readmeEnKeys.filter(key => !readmeKeys.has(key)).length]
+		const counts = [...STATUS_COLUMNS.map(kind => issues.filter(issue => issue.kind === kind).length), readmeEnKeys.filter(key => !readmeKeys.has(key) || readmeChanged.includes(key)).length]
 		if (counts.some(count => count > 0)) rows.push([lang, ...counts.map(String)])
 	}
 	for (const lang of missing) rows.push([lang, 'no PO catalog', ...STATUS_COLUMNS.slice(1).map(() => ''), ''])

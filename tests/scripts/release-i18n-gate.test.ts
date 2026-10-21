@@ -28,7 +28,8 @@ describe('translation completeness at release', () => {
 		const preflight = script.indexOf('check:i18n:complete')
 		expect(preflight).toBeGreaterThan(-1)
 		expect(preflight).toBeLessThan(script.indexOf('git tag -a'))
-		expect(script).toContain('Run the i18n sync first')
+		expect(script).toContain('run the i18n sync first')
+		expect(script).not.toMatch(/check:i18n:complete[^\n]*>\s*\/dev\/null/)
 	})
 
 	it('stays out of the gate every PR runs', () => {

@@ -92,6 +92,23 @@ describe('i18n catalog workflow', () => {
 			expect(validateLocaleCatalog('ar', source, catalog)).toEqual([])
 		})
 
+		it('reads {{ name }} and {{name}} as the same variable, as i18next does', () => {
+			const source = flattenStringLeaves({status: 'Downloading {{name}}'})
+			const catalog = buildLocaleCatalog('uk', source, flattenStringLeaves({status: 'Завантаження {{ name }}'}))
+
+			expect(validateLocaleCatalog('uk', source, catalog)).toEqual([])
+		})
+
+		it('reports a fuzzy entry as fuzzy only, since its translation is of older English', () => {
+			const source = flattenStringLeaves({status: 'Downloading {{binary}}'})
+			const catalog = buildLocaleCatalog('uk', source, flattenStringLeaves({status: 'Завантаження {{name}}'}))
+			const entry = catalog.translations.status?.['Downloading {{binary}}']
+			if (!entry) throw new Error('fixture catalog missing status')
+			entry.comments = {...entry.comments, flag: 'fuzzy'}
+
+			expect(validateLocaleCatalog('uk', source, catalog)).toEqual([{kind: 'fuzzy', lang: 'uk', key: 'status'}])
+		})
+
 		it('reports runtime translations whose placeholders drifted from the current English', () => {
 			const source = flattenStringLeaves({status: 'Downloading {{file}}', title: 'Title'})
 

@@ -129,9 +129,10 @@ fi
 
 # 3b. every locale translated: PRs change English only (ADR 0017), and the
 #     release starts with the translation sync PR. release.yml checks it again.
-if ! bun run --silent check:i18n:complete >/dev/null 2>&1; then
-  echo "ERR: translations are incomplete. Run the i18n sync first (translate-arroxy-i18n skill), land its PR, then release." >&2
-  echo "     See what is open: bun run i18n:status; full report: bun run check:i18n:complete" >&2
+echo "Checking translation completeness…"
+if ! bun run --silent check:i18n:complete; then
+  echo "ERR: the translation completeness gate failed (output above). If it lists open entries, run the i18n sync first" >&2
+  echo "     (translate-arroxy-i18n skill; bun run i18n:status shows what is open), land its PR, then release." >&2
   exit 1
 fi
 
