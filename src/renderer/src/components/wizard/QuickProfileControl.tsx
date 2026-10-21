@@ -139,19 +139,10 @@ function QuickDownloadHotkeyHint(): ReactNode {
 					</span>
 				)}
 			/>
-			<TooltipContent side="bottom" className="pointer-events-auto max-w-xs flex-col items-start gap-1 text-left select-text">
+			{/* Rendered inside the Quick Download button: no click in here may reach it. */}
+			<TooltipContent side="bottom" className="pointer-events-auto max-w-xs flex-col items-start gap-1 text-left select-text" onClick={event => event.stopPropagation()}>
 				<span>{t('wizard.url.hotkey.hintTooltip')}</span>
-				<Button
-					type="button"
-					variant="link"
-					size="inline"
-					className="text-start text-muted-foreground hover:text-popover-foreground"
-					onClick={event => {
-						// The tooltip renders inside the Quick Download button: the click stops here.
-						event.stopPropagation()
-						openAdvancedSettings('hotkey')
-					}}
-				>
+				<Button type="button" variant="link" size="inline" className="text-start text-muted-foreground hover:text-popover-foreground" onClick={() => openAdvancedSettings('hotkey')}>
 					{t('wizard.url.hotkey.hintTooltipSettings')}
 				</Button>
 			</TooltipContent>

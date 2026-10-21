@@ -81,6 +81,15 @@ describe('quick download hotkey hint', () => {
 		expect(onDownload).not.toHaveBeenCalled()
 	})
 
+	it('never starts a download from a click anywhere in the tooltip', async () => {
+		const onDownload = vi.fn()
+		mount({hotkeyEnabled: true}, undefined, 'default', 'profiles', onDownload)
+		fireEvent.mouseEnter(await screen.findByTestId('quick-download-hotkey-hint'))
+		fireEvent.click(await screen.findByText('Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows.'))
+
+		expect(onDownload).not.toHaveBeenCalled()
+	})
+
 	it('stays hidden while the hotkey is disabled', () => {
 		mount({hotkeyEnabled: false})
 		expect(screen.getByTestId('profiles-quick-preview')).toBeTruthy()
