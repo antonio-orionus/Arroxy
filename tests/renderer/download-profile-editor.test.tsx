@@ -24,6 +24,13 @@ describe('DownloadProfileEditor', () => {
 		expect(screen.queryByTestId('profiles-editor-audio-quality')).not.toBeInTheDocument()
 	})
 
+	it('starts a new profile with an empty name and its fallback as the hint', async () => {
+		render(<DownloadProfileEditor initialProfile={null} open onOpenChange={() => undefined} />)
+		const name = await screen.findByTestId('profiles-editor-name')
+		expect(name).toHaveValue('')
+		expect(name).toHaveAttribute('placeholder', 'New profile')
+	})
+
 	it('does not render profile-specific playlist cap controls', async () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
 		expect(profile).toBeDefined()

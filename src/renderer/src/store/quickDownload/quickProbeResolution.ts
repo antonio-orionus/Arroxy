@@ -9,7 +9,7 @@ import type {AppState} from '../types.js'
 import {pinActiveDownloadProfile, rendererPreparationEnv} from '../wizard/queueSubmission.js'
 
 function rendererQuickProbeEnv(): QuickProbeEnv {
-	return {...rendererPreparationEnv(), probeFailedText: () => i18next.t('wizard.url.quickProbeFailed'), prepareFailedText: () => i18next.t('wizard.url.quickPrepareFailed')}
+	return {...rendererPreparationEnv(), probeFailedText: () => i18next.t('wizard.url.quickProbeFailed'), prepareFailedText: () => i18next.t('wizard.url.quickPrepareFailed'), outputMissingText: () => i18next.t('wizard.url.profile.outputMissing')}
 }
 
 export function resolveQuickProbe(result: Result<ProbeResult, ProbeError>, context: QuickProbeContext, state: AppState): QuickProbeResolution {

@@ -257,12 +257,22 @@ function nonBlank(dir: string | undefined): string | undefined {
 	return dir?.trim() ? dir : undefined
 }
 
+// A profile whose output folder can't be resolved: a fixed folder left blank,
+// or no current or default folder to fall back on. Callers show it in the app
+// language; the message is for logs.
+export class DownloadProfileOutputMissingError extends Error {
+	constructor() {
+		super('Download profile output directory is required')
+		this.name = 'DownloadProfileOutputMissingError'
+	}
+}
+
 export function resolveDownloadProfileBaseDir(profile: DownloadProfile, context: DownloadProfileOutputContext): string {
 	// Blank means absent; any other folder is kept as given, since a trailing
 	// space is part of a macOS or Linux folder's name.
 	const dir = profile.output.kind === 'fixed' ? nonBlank(profile.output.dir) : (nonBlank(context.currentOutputDir) ?? nonBlank(context.defaultOutputDir))
 	if (dir !== undefined) return dir
-	throw new Error('Download profile output directory is required')
+	throw new DownloadProfileOutputMissingError()
 }
 
 export function resolveDownloadProfileOutputDir(profile: DownloadProfile, context: DownloadProfileOutputContext): string {

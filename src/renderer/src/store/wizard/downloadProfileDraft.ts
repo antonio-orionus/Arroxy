@@ -41,6 +41,8 @@ export interface DownloadProfileDraft {
 	// null: a built-in on its own name, shown in the app language. Text the user
 	// clears on a built-in saves as its own name too.
 	profileName: string | null
+	// The name a profile saves under when its name is left empty, in the app language.
+	fallbackName: string
 	profileIcon: DownloadProfileIcon
 	mediaMode: DownloadProfileMediaMode
 	goal: VideoGoal
@@ -112,15 +114,22 @@ export interface DownloadProfileDraftValidation {
 export const SMART_TV_MP4_MAX_TIER: PlaylistVideoTier = '1080'
 export const SMART_TV_MP4_BLOCKED_TIERS = new Set<PlaylistVideoTier>(['best', '2160', '1440'])
 
-function defaultProfileSubfolderName(name: string): string {
-	return safeFolderName(name.trim() || 'Download Profile')
+function defaultProfileSubfolderName(name: string, fallbackName: string): string {
+	return safeFolderName(name.trim() || fallbackName)
+}
+
+// What a new profile starts from that depends on the app language: the name it
+// saves under when left empty, and the subtitle language it asks for.
+export interface NewProfileDefaults {
+	fallbackName: string
+	subtitleLanguage: string
 }
 
 // The folder a profile saves into when its subfolder field is left empty: a
 // built-in's own, which no rename moves, or one named after a custom profile.
-export function draftDefaultSubfolderName(draft: Pick<DownloadProfileDraft, 'profileId' | 'profileName'>): string {
+export function draftDefaultSubfolderName(draft: Pick<DownloadProfileDraft, 'profileId' | 'profileName' | 'fallbackName'>): string {
 	const builtin = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === draft.profileId)
-	return builtin ? builtin.subfolder.name : defaultProfileSubfolderName(draft.profileName ?? '')
+	return builtin ? builtin.subfolder.name : defaultProfileSubfolderName(draft.profileName ?? '', draft.fallbackName)
 }
 
 function smartTvCompatibleResolution(goal: VideoGoal, resolution: PlaylistVideoTier): PlaylistVideoTier {
@@ -172,8 +181,8 @@ function nativeAudioChoice(nativeAudio: DownloadProfileNativeAudio): NativeAudio
 	return nativeAudio === 'default' ? {kind: 'default'} : {kind: 'custom', preference: nativeAudio}
 }
 
-export function createDownloadProfileDraft(initialProfile: DownloadProfile | null): DownloadProfileDraft {
-	const profileName = initialProfile ? (initialProfile.name ?? null) : 'Study Captions'
+export function createDownloadProfileDraft(initialProfile: DownloadProfile | null, newProfile: NewProfileDefaults): DownloadProfileDraft {
+	const profileName = initialProfile ? (initialProfile.name ?? null) : ''
 	const video = videoMedia(initialProfile)
 	const goal = video?.goal ?? 'smart-tv'
 	const resolution = smartTvCompatibleResolution(goal, video?.tier ?? '1080')
@@ -182,6 +191,7 @@ export function createDownloadProfileDraft(initialProfile: DownloadProfile | nul
 		createdAt: initialProfile?.createdAt ?? null,
 		enabled: initialProfile?.enabled ?? true,
 		profileName,
+		fallbackName: newProfile.fallbackName,
 		profileIcon: initialProfile?.icon ?? 'captions',
 		mediaMode: initialProfile?.media.kind ?? 'video-audio',
 		goal,
@@ -194,14 +204,14 @@ export function createDownloadProfileDraft(initialProfile: DownloadProfile | nul
 		audioFormat: initialAudioFormat(initialProfile),
 		audioQuality: initialProfile?.media.kind === 'audio-only' ? bitrateToQuality(initialProfile.media.audio.bitrateKbps) : '192',
 		subtitleEnabled: initialProfile ? initialProfile.subtitles.enabled || initialProfile.media.kind === 'subtitles-only' : true,
-		subtitleLanguages: initialProfile ? initialProfile.subtitles.languages : ['en', 'uk'],
+		subtitleLanguages: initialProfile ? initialProfile.subtitles.languages : [newProfile.subtitleLanguage],
 		subtitleSource: initialProfile?.subtitles.source ?? 'manual-first',
 		subtitleDelivery: initialProfile?.subtitles.mode ?? 'sidecar',
 		subtitleFormat: initialProfile?.subtitles.format ?? 'srt',
 		destination: initialProfile?.output.kind === 'fixed' ? initialProfile.output.dir : '',
 		filenameTemplate: initialProfile?.filename.kind === 'custom' ? initialProfile.filename.template : '',
 		saveInsideSubfolder: initialProfile?.subfolder.enabled ?? true,
-		subfolderName: initialProfile?.subfolder.name ?? defaultProfileSubfolderName(profileName ?? ''),
+		subfolderName: initialProfile?.subfolder.name ?? defaultProfileSubfolderName(profileName ?? '', newProfile.fallbackName),
 		embedMetadata: initialProfile?.embed.metadata ?? true,
 		embedChapters: initialProfile?.embed.chapters ?? true,
 		embedThumbnail: initialProfile?.embed.thumbnail ?? DEFAULTS.embedThumbnail,
@@ -332,7 +342,7 @@ function effectiveSubtitleEnabled(draft: DownloadProfileDraft): boolean {
 function savedProfileName(draft: DownloadProfileDraft): string | undefined {
 	const typed = draft.profileName?.trim() ?? ''
 	if (typed) return typed
-	return draft.profileId !== null && isBuiltinDownloadProfileId(draft.profileId) ? undefined : 'Download Profile'
+	return draft.profileId !== null && isBuiltinDownloadProfileId(draft.profileId) ? undefined : draft.fallbackName
 }
 
 export function downloadProfileFromDraft(draft: DownloadProfileDraft, now: string, idFactory: () => string): DownloadProfile {
