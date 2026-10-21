@@ -1,4 +1,4 @@
-import {languageLabel} from './languageName.js'
+import {languageLabel} from '@shared/languageName.js'
 
 // Language codes YouTube offers for uploaded subtitles and auto-translated
 // captions, as reported by `yt-dlp --list-subs`. YouTube keeps legacy codes

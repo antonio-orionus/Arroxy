@@ -4,11 +4,12 @@
 
 import i18next from 'i18next'
 import type {AppApi} from '@shared/api.js'
-import {downloadProfileLabel, resolveActiveDownloadProfile, resolveChosenDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
+import {resolveActiveDownloadProfile, resolveChosenDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
 import type {IntakeEvent, QuickDownloadEvent} from '@shared/intake/intakeEvents.js'
 import {resolvePinnedQuickProbe, type QuickProbeEnv, type QuickProbeResolution, type QuickProbeTake} from '@shared/intake/probeResolution.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
+import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 import type {QueueEvent} from '@shared/queueTransition.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import type {IntakeWindowContext, PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
@@ -42,6 +43,7 @@ export function createIntakeMock(deps: IntakeMockDeps): AppApi['intake'] {
 	const activePinned = (ref: DownloadProfileRef = resolveActiveDownloadProfile(deps.settings().profiles).ref): PinnedDownloadProfile => ({ref, outputContext: {currentOutputDir: windowContext.currentOutputDir, defaultOutputDir: deps.settings().common.defaultOutputDir}})
 	const env = (): QuickProbeEnv => ({
 		newId: () => crypto.randomUUID(),
+		profileFormatLabel: profile => profileFormatLabel(profile, i18next.t, i18next.language),
 		displayShowsHdr: windowContext.displayShowsHdr,
 		filenames: {platform: window.platform, shortened: () => undefined, budgetFailed: (reason, outputDir) => emit({kind: 'filename-budget-failed', reason, outputDir})},
 		probeFailedText: () => i18next.t('wizard.url.quickProbeFailed'),
@@ -108,7 +110,7 @@ export function createIntakeMock(deps: IntakeMockDeps): AppApi['intake'] {
 				title: title?.trim() ? title.trim() : url,
 				thumbnail: '',
 				outputDir,
-				formatLabel: downloadProfileLabel(profile),
+				formatLabel: profileFormatLabel(profile, i18next.t, i18next.language),
 				status: QUEUE_STATUS.probing,
 				lane: 'normal',
 				progressPercent: 0,

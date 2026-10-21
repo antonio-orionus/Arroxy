@@ -1,6 +1,6 @@
 ---
 name: land
-description: End-to-end Arroxy flow that takes a fix or feature from report to a merged PR - worktree, test-first change, local Claude + Codex dual review with cross-checked findings, PR, CodeRabbit when the quota allows, auto-merge, and unrelated bugs filed to the private backlog. Use when the user says "land it", "ship this fix", "fix, PR and merge", or asks for the whole chain instead of one step. Releasing is a separate, explicit request.
+description: End-to-end Arroxy flow that takes a fix or feature from report to a merged PR - worktree, test-first change, local Claude + Codex dual review with cross-checked findings, PR, CodeRabbit when the quota allows, auto-merge, and unrelated bugs filed as GitHub issues. Use when the user says "land it", "ship this fix", "fix, PR and merge", or asks for the whole chain instead of one step. Releasing is a separate, explicit request.
 ---
 
 # Land a change
@@ -19,8 +19,8 @@ When the harness has subagents with a model choice, give mechanical work (implem
 ## Phases
 
 ### 1. Intake
-Reproduce or confirm the root cause before touching code: the user report plus logs; for extractor issues, run yt-dlp locally against the failing URL. State the design (what changes, which layer, what is out of scope) in one short paragraph. Then read the backlog (`.internal/bug-backlog.md`, when `.internal/` exists): an entry in a file this change will touch is in scope if fixing it is small and does not change the design.
-verify: root cause named with evidence; design written; backlog entries in touched files are either taken in or deliberately left.
+Reproduce or confirm the root cause before touching code: the user report plus logs; for extractor issues, run yt-dlp locally against the failing URL. State the design (what changes, which layer, what is out of scope) in one short paragraph. Then check the open issues on the files this change will touch (`gh issue list --state open --search "<path> in:body"`): one is in scope if fixing it is small and does not change the design, and the PR then closes it (phase 7).
+verify: root cause named with evidence; design written; open issues in touched files are either taken in or deliberately left.
 
 ### 2. Worktree
 Work in an isolated worktree on `fix/<slug>` or `feat/<slug>` from a fresh `origin/main` (`git fetch origin main`, `git worktree add -b <branch> <path> origin/main`, then `bun run bootstrap` inside it). Never bare `git stash`; use a WIP commit.
@@ -48,7 +48,7 @@ It needs the `claude` and `codex` CLIs logged in; it runs on those subscriptions
 
 - **Fix in this change:** fix each one test-first, as in phase 3. You are still the judge: if a confirmed finding is wrong, say why and record it (below).
 - **Uncertain:** read the code and decide; fix or treat as refuted.
-- **Backlog:** pre-existing bugs outside the changed lines. Promote one into this change when it sits in a function you touched and the fix is small; file the rest (phase 6).
+- **Backlog:** pre-existing bugs outside the changed lines. Promote one into this change when it sits in a function you touched and the fix is small; file the rest as issues (phase 6).
 - **Refuted:** skim; if a refutation is right and the same false alarm could recur, add it to `.agents/memory/review-learnings.md`.
 
 After fixing, run one more round on the fix commits only: `bun run review:dual --light --base <head the first round reviewed>`. Two rounds at most; anything a third round would be needed for goes to the user.
@@ -59,8 +59,14 @@ A run that exits 0 or 1 records the branch's diff against main as reviewed (in t
 verify: every "fix" and "uncertain" entry is fixed or answered with a reason, and `bun run check` passes again.
 
 ### 6. Backlog
-Append each unrelated bug to `.internal/bug-backlog.md` under `## Open` (create the file and its line in `.internal/README.md` if missing): `- **<what breaks>** — \`<file:line>\`. <one-sentence failure scenario>. Found by <tool> reviewing <branch> (<YYYY-MM-DD>).` Skip one already listed. Save with `bun run internal:save`. Without `.internal/`, or when an orchestrating session dispatched this work (its brief says so), list them in the final report instead: the orchestrator owns the backlog.
-verify: `bun run internal:save` pushed, or the bugs are in the report.
+File each unrelated bug as a public issue, unless an orchestrating session dispatched this work (its brief says so): then list them in the final report, and the orchestrator files them. Skip one an open issue already covers (`gh issue list --state open --search "<words>"`). A security problem never goes in an issue: list it in the report for a private advisory.
+
+```bash
+gh issue create --label bug --title "<what breaks, in the user's words>" --body-file <file>
+```
+
+The body has a **Where** section with the \`path/to/file.ts:123\` in code formatting, **What happens** (the failure scenario), and **Found** (the date and the PR or branch under review). Use `tests` or `tech-debt` instead of `bug` for a test gap or a code-health item. The issue is public, so it names no private doc and credits no AI tool with the finding; the issue policy workflow labels one that breaks these rules `needs-triage`.
+verify: each bug is an issue without `needs-triage`, or listed in the report.
 
 ### 7. PR
 Conventional commits, body says what and why, no AI attribution:
@@ -79,7 +85,7 @@ bun run review:check-head   # prints `git diff --stat origin/main...HEAD`; fails
 
 Read the file list it prints. If it names any file beyond what the task declared, stop: find out where the file came from before pushing. On a failure, follow what it prints: re-review the changed diff, or rebuild a broken squash from `git reflog`. Never push around it. The repo's pre-push hook checks for reverts on every branch push too, but only in a clone whose hooks are enabled.
 
-Push and `gh pr create` with: problem, root cause, fix, tests, and a "Review" line (dual review rounds run, findings fixed, findings refuted, backlog entries filed). In the desktop app, bind the PR and turn on Auto-fix.
+Push and `gh pr create` with: problem, root cause, fix, tests, a `Fixes #N` line for each issue it fixes, and a "Review" line (dual review rounds run, findings fixed, findings refuted, issues filed). In the desktop app, bind the PR and turn on Auto-fix.
 verify: `review:check-head` exited 0 on the pushed head, its file list matches the task, PR open, both greps clean.
 
 ### 8. CodeRabbit, when it is worth a trigger
@@ -101,7 +107,7 @@ git branch -D <branch>                       # the squash merge leaves the local
 git worktree prune
 ```
 
-The same goes for any scratch worktree the run made (a docs commit to `main`, a reproduction): remove it as soon as its commit is pushed. If auto-merge is still waiting on checks when you finish, the merge will not wake you; remove the worktree when the next event or session shows the PR merged, and say so in the report. Then report the PR, the dual-review outcome, backlog entries filed, and anything deliberately left out. Do not ask whether to release.
+The same goes for any scratch worktree the run made (a docs commit to `main`, a reproduction): remove it as soon as its commit is pushed. If auto-merge is still waiting on checks when you finish, the merge will not wake you; remove the worktree when the next event or session shows the PR merged, and say so in the report. Then report the PR, the dual-review outcome, issues filed, and anything deliberately left out. Do not ask whether to release.
 verify: `git worktree list` no longer shows the run's worktrees, and `git branch --list <branch>` prints nothing.
 
 ## Stop and ask

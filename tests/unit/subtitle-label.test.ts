@@ -1,5 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {buildSubtitleList, formatLanguageList, languageName, resolveSubtitleLabel} from '@renderer/lib/subtitleLabel.js'
+import {buildSubtitleList, formatLanguageList, languageName} from '@renderer/lib/subtitleLabel.js'
+import {resolveSubtitleLabel} from '@shared/subtitleTrackLabel.js'
 
 // yt-dlp asks YouTube for English track names, whatever the UI language.
 const MANUAL = {en: [{ext: 'vtt', name: 'English'}], ar: [{ext: 'vtt', name: 'Arabic'}]}

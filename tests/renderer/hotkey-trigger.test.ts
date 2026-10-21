@@ -166,7 +166,7 @@ describe('handleHotkeyTrigger', () => {
 
 		expect(api.hotkey.reportOutcome).toHaveBeenCalledWith({outcome: 'queued', url: URL})
 		const id = useAppStore.getState().queue[0]?.id
-		expect(useAppStore.getState().queue[0]).toMatchObject({formatLabel: 'Audio only · best', pinnedProfile: {ref: {kind: 'builtin', id: 'audio-only'}}})
+		expect(useAppStore.getState().queue[0]).toMatchObject({formatLabel: 'Audio only · Keep as-is', pinnedProfile: {ref: {kind: 'builtin', id: 'audio-only'}}})
 		probe.resolve(ok(VIDEO))
 
 		await vi.waitFor(() => expect(useAppStore.getState().queue.find(item => item.id === id)?.status).toBe('pending'))

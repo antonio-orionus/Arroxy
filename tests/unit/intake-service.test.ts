@@ -3,10 +3,13 @@
 import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {EventEmitter} from 'node:events'
 import {IntakeService, type IntakeProbeRequest} from '@main/intake/IntakeService.js'
+import {mainTranslator} from '@main/i18n.js'
 import {QueueService} from '@main/services/QueueService.js'
 import type {DownloadService} from '@main/services/DownloadService.js'
 import type {QueueStore} from '@main/stores/QueueStore.js'
 import {defaultAppSettings} from '@shared/constants.js'
+import type {SupportedLang} from '@shared/i18n/types.js'
+import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 import type {IntakeEvent} from '@shared/intake/intakeEvents.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import type {AppSettings, PlaylistEntry, ProbeError, ProbeResult} from '@shared/types.js'
@@ -44,6 +47,8 @@ interface Harness {
 	events: IntakeEvent[]
 	probes: IntakeProbeRequest[]
 	answer: (result: Result<ProbeResult, ProbeError>) => void
+	// The window's language, which main labels rows in.
+	speak: (language: SupportedLang) => void
 	settled: () => Promise<void>
 }
 
@@ -58,6 +63,7 @@ function harness(): Harness {
 	let next: Result<ProbeResult, ProbeError> = ok(VIDEO)
 	let pending: Promise<unknown>[] = []
 	let id = 0
+	let language: SupportedLang = 'en'
 	const intake = new IntakeService({
 		queue,
 		probe: request => {
@@ -69,6 +75,7 @@ function harness(): Harness {
 		registerManifest: () => Promise.resolve(),
 		settings: () => Promise.resolve(settings),
 		text: key => `text:${key}`,
+		profileFormatLabel: profile => profileFormatLabel(profile, mainTranslator(language), language),
 		emit: event => events.push(event),
 		platform: 'linux',
 		newId: () => `id-${++id}`
@@ -82,6 +89,9 @@ function harness(): Harness {
 		probes,
 		answer: result => {
 			next = result
+		},
+		speak: lang => {
+			language = lang
 		},
 		settled: async () => {
 			await vi.waitFor(async () => {
@@ -142,6 +152,20 @@ describe('IntakeService', () => {
 		const [row] = h.queue.snapshot()
 		expect(row?.pinnedProfile?.ref).toEqual({kind: 'builtin', id: 'audio-only'})
 		expect(row?.formatLabel).toContain('Audio only')
+	})
+
+	it("labels the placeholder and the prepared row in the window's language", async () => {
+		h.speak('de')
+		h.answer(fail({kind: 'other', code: 'unknown', message: 'offline'}))
+		await h.intake.add({requestId: 'r1', url: VIDEO_URL, playlistMode: 'video', origin: WINDOW})
+		await h.settled()
+		const itemId = h.queue.snapshot()[0]?.id ?? ''
+		expect(h.queue.snapshot()[0]?.formatLabel).toBe('Bis 720p · Bestes Bild')
+
+		h.answer(ok(VIDEO))
+		expect(h.intake.retry({requestId: 'r2', itemId, origin: 'window'}).ok).toBe(true)
+		await h.settled()
+		expect(h.queue.snapshot()[0]).toMatchObject({status: 'pending', formatLabel: 'Bis 720p · Bestes Bild'})
 	})
 
 	it("a Retry prepares with the row's pinned profile, not the one active by then", async () => {

@@ -11,7 +11,7 @@
 // pinned profile (it is on the row), and the window only hears outcomes.
 
 import log from 'electron-log/main.js'
-import {downloadProfileLabel, resolveActiveDownloadProfile, resolveChosenDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
+import {resolveActiveDownloadProfile, resolveChosenDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
 import {resolvePinnedQuickProbe, type QuickProbeEnv, type QuickProbeResolution, type QuickProbeTake} from '@shared/intake/probeResolution.js'
 import type {IntakeEvent, IntakePlacement, QuickDownloadEvent} from '@shared/intake/intakeEvents.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
@@ -20,7 +20,7 @@ import type {PlaylistManifestPayload} from '@shared/queueSubmission.js'
 import {fail, type Result} from '@shared/result.js'
 import type {IntakeOrigin, IntakeOriginKind, IntakeTake, IntakeWindowContext, PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
 import {PLAYLIST_PROBE_LIMIT_MAX, QUEUE_STATUS, type JobAuth, type QueueChoice} from '@shared/schemas.js'
-import type {AppSettings, DownloadProfileRef, LocalizedError, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult, QueueItem} from '@shared/types.js'
+import type {AppSettings, DownloadProfile, DownloadProfileRef, LocalizedError, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult, QueueItem} from '@shared/types.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {KeptProbes} from './KeptProbes.js'
 
@@ -54,6 +54,8 @@ export interface IntakeServiceDeps {
 	settings(): Promise<AppSettings>
 	// Words in the window's language for a failure that brings none of its own.
 	text(key: 'wizard.url.quickProbeFailed' | 'wizard.url.quickPrepareFailed' | 'wizard.url.profile.outputMissing'): string
+	// A profile's format for its rows, in the window's language (profileFormatLabel).
+	profileFormatLabel(profile: DownloadProfile): string
 	emit(event: IntakeEvent): void
 	platform: NodeJS.Platform
 	newId(): string
@@ -279,6 +281,7 @@ export class IntakeService {
 	private env(): QuickProbeEnv {
 		return {
 			newId: () => this.deps.newId(),
+			profileFormatLabel: profile => this.deps.profileFormatLabel(profile),
 			displayShowsHdr: this.window.displayShowsHdr,
 			filenames: {
 				platform: this.deps.platform,
@@ -318,7 +321,7 @@ export class IntakeService {
 			title: titleHint.length > 0 ? titleHint : request.url,
 			thumbnail: '',
 			outputDir,
-			formatLabel: downloadProfileLabel(profile),
+			formatLabel: this.deps.profileFormatLabel(profile),
 			status: QUEUE_STATUS.probing,
 			lane: 'normal',
 			progressPercent: 0,

@@ -1,4 +1,4 @@
-import {createInstance} from 'i18next'
+import {createInstance, type TFunction} from 'i18next'
 import {I18NEXT_OPTIONS} from '@shared/i18n/resources.js'
 import type {SupportedLang} from '@shared/i18n/types.js'
 
@@ -16,4 +16,10 @@ const translate = i18n.t as (key: string, options: Record<string, unknown>) => s
 // key itself, and a `count` param picks the locale's own plural form.
 export function mainT(lang: SupportedLang, dottedKey: string, params?: Record<string, string | number>): string {
 	return translate(dottedKey, {...params, lng: lang})
+}
+
+// A translator fixed to one language, for shared code that takes an i18next
+// `t` (profileFormatLabel). Ask for it per use: the window's language changes.
+export function mainTranslator(lang: SupportedLang): TFunction {
+	return i18n.getFixedT(lang)
 }

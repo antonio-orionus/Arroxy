@@ -1,7 +1,7 @@
 import {randomUUID} from 'node:crypto'
 import log from 'electron-log/main.js'
 import type {BrowserWindow} from 'electron'
-import {mainT} from '@main/i18n.js'
+import {mainT, mainTranslator} from '@main/i18n.js'
 import type {ProbeService} from '@main/services/ProbeService.js'
 import type {QueueService} from '@main/services/QueueService.js'
 import type {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
@@ -9,6 +9,7 @@ import type {SettingsStore} from '@main/stores/SettingsStore.js'
 import {cookiesConfigIssueMessage, getIncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import type {IntakeEvent} from '@shared/intake/intakeEvents.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
+import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 import {fail} from '@shared/result.js'
 import type {SupportedLang} from '@shared/i18n/types.js'
 import type {ProbeResult, ProbeError} from '@shared/types.js'
@@ -46,6 +47,7 @@ export function createIntakeService(wiring: IntakeWiring): IntakeService {
 		},
 		settings: () => settingsStore.get(),
 		text: key => mainT(languageRef.current, key),
+		profileFormatLabel: profile => profileFormatLabel(profile, mainTranslator(languageRef.current), languageRef.current),
 		emit: (event: IntakeEvent) => {
 			if (!mainWindow.isDestroyed()) mainWindow.webContents.send(IPC_CHANNELS.intakeEvent, event)
 		},

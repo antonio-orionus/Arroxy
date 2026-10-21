@@ -12,6 +12,8 @@ import type {AppSettings, PlaylistEntry, ProbeError, ProbeInput, ProbeResult, Qu
 import type {IntakeOrigin} from '@shared/intake/intakeSchemas.js'
 import {QueueProbeLifecycle} from '@main/services/download/QueueProbeLifecycle.js'
 import {IntakeService} from '@main/intake/IntakeService.js'
+import {mainTranslator} from '@main/i18n.js'
+import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 import {admitAgainstLive} from '@shared/queueActions.js'
 import {routeIntakeEvent} from '@renderer/store/quickDownload/quickDownloadPipeline.js'
 import {quickDownloadToasts} from '@renderer/store/quickDownload/quickDownloadToasts.js'
@@ -120,6 +122,7 @@ export function armQueue(api: AppApi, options: ArmQueueOptions = {}): IntakeServ
 		},
 		settings: () => Promise.resolve(options.mainSettings?.() ?? useAppStore.getState().settings ?? defaultAppSettings('/tmp')),
 		text: key => key,
+		profileFormatLabel: profile => profileFormatLabel(profile, mainTranslator('en'), 'en'),
 		emit: event => routeIntakeEvent(event, () => quickDownloadToasts('downloads', useAppStore.getState)),
 		platform: 'linux',
 		newId: () => crypto.randomUUID()

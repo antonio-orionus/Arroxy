@@ -1,5 +1,5 @@
 import type {FormatOption} from '@shared/types.js'
-import {languageLabel} from './languageName.js'
+import {languageLabel} from '@shared/languageName.js'
 
 // The track a stream belongs to: its name or language; empty when it is not a
 // named track. It is the track's key, whatever the UI shows for it.
