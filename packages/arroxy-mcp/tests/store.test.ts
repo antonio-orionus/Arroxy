@@ -272,3 +272,58 @@ describe('FileSecretStore lock on a busy lock file', () => {
 		expect(await fs.readdir(dir)).toEqual([])
 	})
 })
+
+// Windows ignores folder ACLs in fs.access and answers EPERM both for a
+// read-only folder and for a lock file mid-delete; these run the win32 paths
+// on any OS through the injected file operations.
+describe('FileSecretStore lock on Windows', () => {
+	it('runs the work unlocked, at once, in a folder the write probe cannot write to', async () => {
+		const dir = await configDir()
+		let creates = 0
+		const readOnly: LockFiles = {
+			...nodeLockFiles,
+			probeWritable: async () => false,
+			create: async () => {
+				creates++
+				throw errnoError('EPERM')
+			}
+		}
+
+		const started = Date.now()
+		const result = await new FileSecretStore(dir, 'win32', {lockFiles: readOnly}).transaction(async () => 'ran')
+
+		expect(result).toBe('ran')
+		expect(creates).toBe(0)
+		expect(Date.now() - started).toBeLessThan(1000)
+	})
+
+	it('waits out a lock file mid-delete in a writable folder, then runs the work locked', async () => {
+		const dir = await configDir()
+		const lock = path.join(dir, 'clients.json.lock')
+		const flaky = failingCreate('EPERM', 2)
+
+		const locked = await new FileSecretStore(dir, 'win32', {lockFiles: flaky}).transaction(() =>
+			fs.stat(lock).then(
+				() => true,
+				() => false
+			)
+		)
+
+		expect(locked).toBe(true)
+		expect(flaky.attempts()).toBe(3)
+	})
+
+	it('treats EPERM on the takeover guard as a busy guard, not an error', async () => {
+		const dir = await configDir()
+		await fs.mkdir(dir, {recursive: true})
+		const lock = path.join(dir, 'clients.json.lock')
+		await fs.writeFile(lock, 'crashed-process')
+		const old = new Date(Date.now() - 60_000)
+		await fs.utimes(lock, old, old)
+		const guardBusy: LockFiles = {...nodeLockFiles, create: async (file, token) => (file.endsWith('.takeover') ? Promise.reject(errnoError('EPERM')) : nodeLockFiles.create(file, token))}
+
+		const pending = new FileSecretStore(dir, 'win32', {lockWaitMs: 50, lockFiles: guardBusy}).transaction(async () => 'ran')
+
+		await expect(pending).rejects.toThrow(LockBusyError)
+	})
+})

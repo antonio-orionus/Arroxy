@@ -29,16 +29,30 @@ export class LockBusyError extends Error {
 	}
 }
 
-// The file operations the lock is built from; tests wrap them to force a race.
+// The file operations the lock is built from; tests wrap them to force a race
+// or to stand in for Windows.
 export interface LockFiles {
 	// Creates `file` holding `token` (O_EXCL); false when it already exists.
 	create(file: string, token: string): Promise<boolean>
 	// The token in `file` and its age, or null when there is no such file.
 	read(file: string): Promise<{readonly token: string; readonly ageMs: number} | null>
 	remove(file: string): Promise<void>
+	// Whether this user can create a file in `dir`, found by creating and
+	// removing one. Used on Windows, where fs.access ignores folder ACLs.
+	probeWritable(dir: string): Promise<boolean>
 }
 
 export const nodeLockFiles: LockFiles = {
+	async probeWritable(dir) {
+		const probe = path.join(dir, `.write-probe-${randomBytes(6).toString('hex')}`)
+		try {
+			await fs.writeFile(probe, '', {flag: 'wx', mode: 0o600})
+		} catch {
+			return false
+		}
+		await fs.rm(probe, {force: true}).catch(() => undefined)
+		return true
+	},
 	async create(file, token) {
 		try {
 			await fs.writeFile(file, token, {flag: 'wx', mode: 0o600})
@@ -215,17 +229,18 @@ export class FileSecretStore {
 		}
 	}
 
-	// False when the folder cannot be created or written to.
+	// False when the folder cannot be created or written to. Rejected here, a
+	// folder this user cannot write to is told apart from a busy lock, which
+	// also answers EPERM or EACCES on create.
 	private async prepareDir(): Promise<boolean> {
 		try {
 			await fs.mkdir(this.dir, {recursive: true, mode: 0o700})
-			if (this.platform === 'win32') return true
+			// fs.access ignores folder ACLs on Windows; only a real write tells.
+			if (this.platform === 'win32') return await this.lockFiles.probeWritable(this.dir)
 			// An existing folder may be open to others; close it without touching
 			// the owner's own bits.
 			const {mode} = await fs.stat(this.dir)
 			if ((mode & 0o077) !== 0) await fs.chmod(this.dir, mode & 0o700)
-			// Rejected here, a folder this user cannot write to is told apart from a
-			// busy lock, which also answers EACCES on create.
 			await fs.access(this.dir, fsConstants.W_OK | fsConstants.X_OK)
 			return true
 		} catch {
@@ -243,7 +258,7 @@ export class FileSecretStore {
 		const deadline = Date.now() + this.lockWaitMs
 		for (;;) {
 			signal?.throwIfAborted()
-			if (await this.tryCreateLock(token)) break
+			if (await this.tryCreate(this.lockFile, token)) break
 			const held = await this.lockFiles.read(this.lockFile)
 			if (held !== null && held.ageMs > LOCK_STALE_MS && (await this.takeOverStale(held.token, token))) continue
 			if (Date.now() > deadline) throw new LockBusyError(this.lockFile, this.lockWaitMs)
@@ -259,17 +274,18 @@ export class FileSecretStore {
 		}
 	}
 
-	// True once this holder has the lock; false while someone else holds it. On
-	// Windows a lock file another holder is still deleting answers EPERM, EACCES
-	// or EBUSY instead of EEXIST: that is a busy lock too, retried until the
-	// wait runs out, never a reason to run unlocked. Anything else is a real
-	// failure of the folder.
-	private async tryCreateLock(token: string): Promise<boolean> {
+	// Creates the lock (or the takeover guard): true once this holder has it,
+	// false while someone else does. On Windows a lock file another holder is
+	// still deleting answers EPERM, EACCES or EBUSY instead of EEXIST: that is
+	// busy too, retried until the wait runs out, never a reason to run unlocked
+	// (prepareDir has already ruled out a folder this user cannot write to).
+	// Anything else is a real failure of the folder.
+	private async tryCreate(file: string, token: string): Promise<boolean> {
 		try {
-			return await this.lockFiles.create(this.lockFile, token)
+			return await this.lockFiles.create(file, token)
 		} catch (error) {
 			if (BUSY_LOCK_CODES.has(errorCode(error) ?? '')) return false
-			throw new SecretStoreError(`Could not create ${this.lockFile}: ${reasonOf(error)}`, this.dir)
+			throw new SecretStoreError(`Could not create ${file}: ${reasonOf(error)}`, this.dir)
 		}
 	}
 
@@ -280,7 +296,7 @@ export class FileSecretStore {
 	// it again and finding the same stale token. True when the stale lock is gone.
 	private async takeOverStale(staleToken: string, token: string): Promise<boolean> {
 		const guard = `${this.lockFile}.takeover`
-		if (!(await this.lockFiles.create(guard, token))) {
+		if (!(await this.tryCreate(guard, token))) {
 			// A takeover in progress holds the guard for milliseconds; one that
 			// died midway left it behind.
 			const stuck = await this.lockFiles.read(guard)
