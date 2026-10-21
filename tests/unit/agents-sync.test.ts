@@ -103,4 +103,22 @@ describe('syncAgents', () => {
 
 		expect(await readFile(join(root, 'CLAUDE.local.md'), 'utf8')).toBe('mine')
 	})
+
+	it('keeps a CLAUDE.local.md link that points somewhere else', async () => {
+		await writeFile(join(root, 'mine.md'), 'mine')
+		await symlink('mine.md', join(root, 'CLAUDE.local.md'))
+
+		await syncAgents(root)
+		await mkdir(join(root, '.internal'), {recursive: true})
+		await writeFile(join(root, '.internal/AGENTS.md'), '# Personal rules\n')
+		await syncAgents(root)
+
+		expect(await readlink(join(root, 'CLAUDE.local.md'))).toBe('mine.md')
+	})
+
+	it('fails instead of unwiring when .internal/AGENTS.md exists but cannot be read', async () => {
+		await mkdir(join(root, '.internal/AGENTS.md'), {recursive: true})
+
+		await expect(syncAgents(root)).rejects.toThrow()
+	})
 })

@@ -3,14 +3,15 @@
 // every worktree points at it, so an edit is visible everywhere at once.
 //   link (bootstrap): clone or fast-forward the shared clone, then link it; skips quietly without access.
 //   save:             commit everything in the shared clone, rebase on its remote, push.
-// Both then rerun agents:sync, which wires the personal `.internal/AGENTS.md` into each tool.
+// Both then rerun agents:sync, which wires the personal `.internal/AGENTS.md` into each tool,
+// and refresh it in every other bootstrapped worktree: they share the clone, but Codex reads a copy.
 import {execFile} from 'node:child_process'
 import {lstat, readlink, rm, stat, symlink} from 'node:fs/promises'
 import path from 'node:path'
 import {fileURLToPath} from 'node:url'
 import {promisify} from 'node:util'
 
-import {syncAgents} from './agents-sync.js'
+import {syncAgents, syncPersonalInstructions} from './agents-sync.js'
 
 const run = promisify(execFile)
 const LINK_NAME = '.internal'
@@ -37,6 +38,21 @@ export async function linkInternalDir(repoRoot: string, target: string): Promise
 	// Junctions need no Windows symlink privilege and take the absolute target as is.
 	await symlink(target, link, process.platform === 'win32' ? 'junction' : 'dir')
 	return 'linked'
+}
+
+export function worktreePaths(porcelain: string): string[] {
+	return porcelain
+		.split('\n')
+		.filter(line => line.startsWith('worktree '))
+		.map(line => line.slice('worktree '.length))
+}
+
+async function refreshPersonalInstructions(repoRoot: string): Promise<void> {
+	await syncAgents(repoRoot)
+	for (const dir of worktreePaths(await git(['worktree', 'list', '--porcelain'], repoRoot))) {
+		if (!(await stat(path.join(dir, '.codex/config.toml')).catch(() => null))) continue
+		await syncPersonalInstructions(dir).catch((error: unknown) => console.warn(`internal-docs: could not refresh agent instructions in ${dir}: ${String(error)}`))
+	}
 }
 
 async function git(args: string[], cwd: string): Promise<string> {
@@ -82,6 +98,5 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
 	if (command === 'link') await link(process.cwd())
 	else if (command === 'save') await save(process.cwd(), rest.join(' ') || 'docs: update internal docs')
 	else throw new Error('usage: bun scripts/internal-docs.ts <link|save> [commit message]')
-	// The personal `.internal/AGENTS.md` reaches Codex as a copy, so refresh it whenever the clone may have changed.
-	await syncAgents(process.cwd())
+	await refreshPersonalInstructions(process.cwd())
 }

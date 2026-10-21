@@ -3,7 +3,7 @@ import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {afterEach, beforeEach, describe, expect, it} from 'vite-plus/test'
 
-import {internalCheckoutDir, internalRepoUrl, linkInternalDir} from '../../scripts/internal-docs.js'
+import {internalCheckoutDir, internalRepoUrl, linkInternalDir, worktreePaths} from '../../scripts/internal-docs.js'
 
 describe('internalRepoUrl', () => {
 	it('keeps the SSH host alias and owner of the public remote', () => {
@@ -17,6 +17,13 @@ describe('internalRepoUrl', () => {
 
 	it('returns null for a remote it cannot parse', () => {
 		expect(internalRepoUrl('not a url')).toBeNull()
+	})
+})
+
+describe('worktreePaths', () => {
+	it('lists every worktree in git worktree list --porcelain output', () => {
+		const porcelain = 'worktree /code/arroxy\nHEAD abc\nbranch refs/heads/main\n\nworktree /code/arroxy/.worktrees/a b\nHEAD def\ndetached\n'
+		expect(worktreePaths(porcelain)).toEqual(['/code/arroxy', '/code/arroxy/.worktrees/a b'])
 	})
 })
 

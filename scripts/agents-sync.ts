@@ -88,20 +88,28 @@ async function syncClaudeSkillLinks(repoRoot: string): Promise<void> {
 	}
 }
 
+// Only a missing file means "nothing to wire"; any other failure would silently drop the rules.
 async function readPersonalInstructions(repoRoot: string): Promise<string | undefined> {
-	return readFile(path.join(repoRoot, PERSONAL_INSTRUCTIONS), 'utf8').catch(() => undefined)
+	return readFile(path.join(repoRoot, PERSONAL_INSTRUCTIONS), 'utf8').catch((error: unknown) => {
+		const code = error instanceof Error && 'code' in error ? error.code : undefined
+		if (code === 'ENOENT' || code === 'ENOTDIR') return undefined
+		throw error
+	})
 }
 
 async function syncClaudeLocalLink(repoRoot: string, hasPersonalInstructions: boolean): Promise<void> {
 	const link = path.join(repoRoot, CLAUDE_LOCAL)
 	const current = await lstat(link).catch(() => null)
-	if (current && !current.isSymbolicLink()) {
-		if (hasPersonalInstructions) console.warn(`agents:sync: leaving ${CLAUDE_LOCAL} alone — it is not a link, so ${PERSONAL_INSTRUCTIONS} is not loaded by Claude Code`)
+	const ours = current?.isSymbolicLink() === true && (await readlink(link)) === PERSONAL_INSTRUCTIONS
+	if (current && !ours) {
+		if (hasPersonalInstructions) console.warn(`agents:sync: leaving ${CLAUDE_LOCAL} alone — it is not this sync's link, so Claude Code does not load ${PERSONAL_INSTRUCTIONS}`)
 		return
 	}
-	if (current && hasPersonalInstructions && (await readlink(link)) === PERSONAL_INSTRUCTIONS) return
-	if (current) await rm(link)
-	if (!hasPersonalInstructions) return
+	if (!hasPersonalInstructions) {
+		if (ours) await rm(link)
+		return
+	}
+	if (ours) return
 	// A file symlink needs Developer Mode on Windows; without it Claude Code just goes without.
 	await symlink(PERSONAL_INSTRUCTIONS, link, 'file').catch((error: unknown) => console.warn(`agents:sync: could not link ${CLAUDE_LOCAL} to ${PERSONAL_INSTRUCTIONS}: ${String(error)}`))
 }
@@ -116,11 +124,16 @@ async function writeMcpTargets(repoRoot: string, personalInstructions: string | 
 	}
 }
 
-export async function syncAgents(repoRoot: string): Promise<void> {
+// The part of the sync that depends on `.internal/AGENTS.md`, for refreshing other worktrees.
+export async function syncPersonalInstructions(repoRoot: string): Promise<void> {
 	const personalInstructions = await readPersonalInstructions(repoRoot)
-	await syncClaudeSkillLinks(repoRoot)
 	await syncClaudeLocalLink(repoRoot, personalInstructions !== undefined)
 	await writeMcpTargets(repoRoot, personalInstructions)
+}
+
+export async function syncAgents(repoRoot: string): Promise<void> {
+	await syncClaudeSkillLinks(repoRoot)
+	await syncPersonalInstructions(repoRoot)
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
