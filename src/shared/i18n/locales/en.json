@@ -754,7 +754,6 @@
 		"confirm": {
 			"addToQueue": "+ Queue",
 			"addToQueueTooltip": "Adds to the queue — starts when the active download finishes",
-			"audioOnly": "Audio only",
 			"itemsValueAudio_one": "{{count}} of {{total}} track",
 			"itemsValueAudio_other": "{{count}} of {{total}} tracks",
 			"itemsValueBulk_one": "{{count}} of {{total}} URL",
@@ -773,7 +772,7 @@
 			"landIn": "Your file will land in",
 			"landInMultiProfile_one": "It'll land in the destination below",
 			"landInMultiProfile_other": "They'll land in the {{count}} destinations below",
-			"nothingToDownload": "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded.",
+			"nothingToDownload": "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded.",
 			"profileBreakdownCount_one": "{{count}} item",
 			"profileBreakdownCount_other": "{{count}} items",
 			"profileBreakdownHeading": "Profiles in this batch",
@@ -807,7 +806,6 @@
 			"audioLanguage": "Audio language",
 			"audioLanguageCount_one": "{{count}} language",
 			"audioLanguageCount_other": "{{count}} languages",
-			"audioOnly": "Audio only",
 			"bitrateValue": "Bitrate {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry.",
@@ -1235,20 +1233,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Music or podcasts",
-					"label": "Audio only"
+					"description": "Music or podcasts"
 				},
 				"subtitlesOnly": {
-					"description": "Caption files only",
-					"label": "Subtitles only"
+					"description": "Caption files only"
 				},
 				"videoAudio": {
-					"description": "Normal video files",
-					"label": "Video + audio"
+					"description": "Normal video files"
 				},
 				"videoOnly": {
-					"description": "Silent video only",
-					"label": "Video, no audio"
+					"description": "Silent video only"
 				}
 			},
 			"note": {

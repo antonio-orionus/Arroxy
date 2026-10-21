@@ -178,9 +178,9 @@ export function buildDownloadReview(state: WizardReviewState, ctx: DownloadRevie
 	const audio: AudioSelection = kind === 'subtitles' ? {kind: 'none'} : state.audioSelection
 
 	const audioFormats = state.wizardFormats.filter(f => f.isAudioOnly)
-	const videoResolution = resolveVideoResolution(videoId, state.wizardFormats, ctx.t('wizard.confirm.audioOnly'))
+	const videoResolution = resolveVideoResolution(videoId, state.wizardFormats, ctx.t('wizard.formats.kind.audio'))
 	const audioLabel = resolveAudioLabel(audio, audioFormats, state.wizardFormatSelection)
-	const videoSummary = kind === 'subtitles' ? ctx.t('wizard.formats.kind.subtitles') : kind === 'audio' ? ctx.t('wizard.confirm.audioOnly') : videoResolution
+	const videoSummary = kind === 'subtitles' ? ctx.t('wizard.formats.kind.subtitles') : kind === 'audio' ? ctx.t('wizard.formats.kind.audio') : videoResolution
 
 	const nativeAudioId = audio.kind === 'native' ? audio.formatId : null
 	const sizes = [videoId, nativeAudioId].flatMap(id => (id ? [state.wizardFormats.find(f => f.formatId === id)?.filesize] : []))

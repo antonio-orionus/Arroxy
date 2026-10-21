@@ -15,10 +15,10 @@ import {ProfileVideoPanel} from './ProfileVideoPanel.js'
 import {mediaModeHasVideo} from './profileMediaMode.js'
 
 const MEDIA_MODES = [
-	{value: 'video-audio', labelKey: 'wizard.profileEditor.mediaMode.videoAudio.label', descriptionKey: 'wizard.profileEditor.mediaMode.videoAudio.description', icon: Film},
-	{value: 'video-only', labelKey: 'wizard.profileEditor.mediaMode.videoOnly.label', descriptionKey: 'wizard.profileEditor.mediaMode.videoOnly.description', icon: Scissors},
-	{value: 'audio-only', labelKey: 'wizard.profileEditor.mediaMode.audioOnly.label', descriptionKey: 'wizard.profileEditor.mediaMode.audioOnly.description', icon: FileAudio},
-	{value: 'subtitles-only', labelKey: 'wizard.profileEditor.mediaMode.subtitlesOnly.label', descriptionKey: 'wizard.profileEditor.mediaMode.subtitlesOnly.description', icon: Captions}
+	{value: 'video-audio', labelKey: 'wizard.formats.kind.video', descriptionKey: 'wizard.profileEditor.mediaMode.videoAudio.description', icon: Film},
+	{value: 'video-only', labelKey: 'wizard.formats.kind.videoOnly', descriptionKey: 'wizard.profileEditor.mediaMode.videoOnly.description', icon: Scissors},
+	{value: 'audio-only', labelKey: 'wizard.formats.kind.audio', descriptionKey: 'wizard.profileEditor.mediaMode.audioOnly.description', icon: FileAudio},
+	{value: 'subtitles-only', labelKey: 'wizard.formats.kind.subtitles', descriptionKey: 'wizard.profileEditor.mediaMode.subtitlesOnly.description', icon: Captions}
 ] as const satisfies readonly {value: DownloadProfileMediaMode; labelKey: ParseKeys; descriptionKey: ParseKeys; icon: LucideIcon}[]
 
 const AUDIO_FORMAT_OPTIONS = [

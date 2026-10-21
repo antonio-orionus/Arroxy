@@ -80,7 +80,7 @@ function VideoPresetFields({selection, onChange}: PresetFieldsProps<PlaylistVide
 
 			{/* Quality / tier grid */}
 			<div>
-				<SectionLabel className="mb-1.5">{t('playlistPresets.tier.best')}</SectionLabel>
+				<SectionLabel className="mb-1.5">{t('wizard.profileEditor.field.quality')}</SectionLabel>
 				<ToggleGroup
 					value={[currentTier]}
 					onValueChange={arr => {
