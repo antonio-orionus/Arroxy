@@ -102,10 +102,10 @@ function findBinary(name: 'yt-dlp' | 'node', override?: string): string {
 	return exeName
 }
 
-function run(binary: string, args: string[]): Promise<RunResult> {
+function run(binary: string, args: string[], cwd?: string): Promise<RunResult> {
 	return new Promise((resolve, reject) => {
 		const start = Date.now()
-		const proc = spawn(binary, args, {stdio: ['ignore', 'pipe', 'pipe']})
+		const proc = spawn(binary, args, {cwd, stdio: ['ignore', 'pipe', 'pipe']})
 		let stdout = ''
 		let stderr = ''
 		let timedOut = false
@@ -193,8 +193,10 @@ async function main(): Promise<void> {
 		const cases = smokeCases()
 		let failed = 0
 		for (const caseDef of cases) {
-			const args = ['--simulate', '--dump-single-json', '--no-warnings', ...nodeArgs(nodePath), ...planWorkflow(reqFor(caseDef.selection, tempDir, infoJsonPath, url)).args]
-			const result = await run(ytDlpPath, args)
+			// The plan's paths are relative to its cwd, so the run has to start there.
+			const plan = planWorkflow(reqFor(caseDef.selection, tempDir, infoJsonPath, url))
+			const args = ['--simulate', '--dump-single-json', '--no-warnings', ...nodeArgs(nodePath), ...plan.args]
+			const result = await run(ytDlpPath, args, plan.cwd)
 			const info = parseSelectedInfo(result.stdout)
 			const failures = info ? validate(caseDef, args, info) : ['yt-dlp did not return parseable JSON']
 			const ok = result.exitCode === 0 && failures.length === 0

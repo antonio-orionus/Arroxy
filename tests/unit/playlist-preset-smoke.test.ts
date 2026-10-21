@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {planWorkflow} from 'yt-dlp-bridge'
-import {reqFor, smokeCases, validate, type SelectedInfo, type SmokeCase} from '../../scripts/playlistPresetSmoke.js'
+import {parseSelectedInfo, reqFor, smokeCases, validate, type SelectedInfo, type SmokeCase} from '../../scripts/playlistPresetSmoke.js'
 
 function plannedArgs(caseDef: SmokeCase): string[] {
 	return planWorkflow(reqFor(caseDef.selection, '/out', '/out/info.json', 'https://www.youtube.com/watch?v=x')).args
@@ -46,5 +46,10 @@ describe('playlist preset smoke validation', () => {
 		const mp4 = caseNamed('video mp4 720')
 		expect(validate(mp4, without(plannedArgs(mp4), '-S', 1), honouredPick(mp4))).toContain('missing -S')
 		expect(validate(mp4, without(plannedArgs(mp4), '--merge-output-format', 1), honouredPick(mp4))).toContain('missing --merge-output-format')
+	})
+
+	it("reads the dumped JSON past the log lines the plan's --no-quiet leaves on stdout", () => {
+		const stdout = ['[info] abcdefghijk: Downloading 1 format(s): 251', JSON.stringify({title: 'Offline', format_id: '251', ext: 'webm', acodec: 'opus', vcodec: 'none'}), ''].join('\n')
+		expect(parseSelectedInfo(stdout)).toMatchObject({title: 'Offline', format_id: '251', acodec: 'opus'})
 	})
 })

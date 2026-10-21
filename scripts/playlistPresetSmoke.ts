@@ -68,7 +68,11 @@ export function smokeCases(): SmokeCase[] {
 	return cases
 }
 
-export function parseSelectedInfo(json: string): SelectedInfo | null {
+// --dump-single-json writes one line; the plan's --no-quiet puts yt-dlp's
+// own log lines on stdout before it.
+export function parseSelectedInfo(stdout: string): SelectedInfo | null {
+	const json = stdout.split('\n').findLast(line => line.startsWith('{'))
+	if (json === undefined) return null
 	try {
 		const parsed: unknown = JSON.parse(json)
 		if (!isRecord(parsed)) return null
