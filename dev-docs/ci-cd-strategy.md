@@ -51,6 +51,11 @@ Required checks: `check`, `FFmpeg remux gate`, `E2E fixtures gate`, `Cold start 
 - Renaming or moving a job → update protection in the same PR.
 - A path-gated suite is required through its gate job, never through a suite job.
 - Do **not** add `startup-gate` to branch protection — it gates `publish-release` and only runs on tags (see [ADR 0006](../docs/adr/0006-pr-startup-gate-linux-only.md)).
+- Changing this list → update `MAIN_REQUIRED_CHECKS` in `scripts/mainHealth.ts` and the `workflow_run` list in `main-health.yml`; `tests/scripts/main-health.test.ts` fails until they match.
+
+### Red `main` alert
+
+Protection is not strict and there is no merge queue, so two PRs green on an older `main` can break it together, and a docs push straight to `main` is never gated. `main-health.yml` runs whenever a workflow above finishes on a push to `main` and judges the tip of `main`: a required check that failed, timed out or never started opens one issue titled "main is red" (label `main-red`) naming the workflow, commit, author or PR and the job link, and later failures comment on it. Once every required check passes on a later tip it comments and closes the issue. A check whose workflow run was cancelled gives no verdict either way. Dry run: `bun scripts/main-health.ts --dry-run [--sha <commit>]`.
 
 ## Release flow
 

@@ -1,0 +1,60 @@
+name: Main Health
+
+# Raises one "main is red" issue (label main-red) when a check branch protection
+# requires fails on `main`, and closes it once they all pass on a later commit.
+# Branch protection is not strict and there is no merge queue, so two pull
+# requests green on an older `main` can break it together, and a docs push
+# straight to `main` skips review. Without this nothing tells anyone: every open
+# pull request turns red and its auto-merge stalls.
+#
+# It wakes when any workflow that reports a required check finishes on `main`,
+# then judges the tip of `main`, not the commit that woke it, so late runs of an
+# older commit cannot reopen or close the issue. The required checks and the
+# workflows below must match dev-docs/ci-cd-strategy.md, "Branch protection
+# contract"; tests/scripts/main-health.test.ts holds them together.
+on:
+  workflow_run:
+    workflows: [CI, FFmpeg Remux Matrix, E2E Fixtures, E2E Cold Start, Windows Installer, Dev Smoke]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+
+# Six workflows finish per push; serialize the read-then-write issue flow and
+# never cancel a run mid-write. Each run re-reads the tip, so a pending run
+# replaced by a newer one loses nothing.
+concurrency:
+  group: main-health
+  cancel-in-progress: false
+
+env:
+  BUN_VERSION: '1.4.2'
+
+jobs:
+  report:
+    name: Report main health
+    # Scheduled and pull request runs of the same workflows say nothing about `main`.
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.event == 'push'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      # actions: read tells a cancelled run's failed gate apart from a real failure.
+      actions: read
+      checks: read
+      issues: write
+    steps:
+      # workflow_run checks out the default branch, never the triggering commit.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+      # Only zod is needed; skipping lifecycle scripts skips the Electron payload.
+      - run: bun install --frozen-lockfile --ignore-scripts
+      - name: Open, update or close the main-red issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bun scripts/main-health.ts
