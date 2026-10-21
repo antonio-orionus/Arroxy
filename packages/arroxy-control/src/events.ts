@@ -1,5 +1,5 @@
 import {z} from 'zod'
-import {appStatusSchema, idSchema, intakeViewSchema, progressViewSchema, queueItemViewSchema} from './views'
+import {appStatusSchema, idSchema, intakeViewSchema, progressViewSchema, queueItemViewSchema} from './views.js'
 
 // Event kinds and their data. Clients ignore kinds they do not know, so a
 // later minor can add kinds; data drops unknown fields.

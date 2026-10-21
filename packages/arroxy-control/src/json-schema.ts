@@ -1,10 +1,10 @@
 import {z} from 'zod'
-import {controlDiscoverySchema} from './discovery'
-import {controlEnvelopeSchema} from './envelope'
-import {CONTROL_ERROR_TABLE, type ControlErrorCode} from './errors'
-import {CONTROL_EVENT_NAMES, CONTROL_EVENTS, type ControlEventName} from './events'
-import {CONTROL_METHOD_NAMES, CONTROL_METHODS, type ControlMethod} from './requests'
-import {CONTROL_PROTOCOL_MAJORS} from './version'
+import {controlDiscoverySchema} from './discovery.js'
+import {controlEnvelopeSchema} from './envelope.js'
+import {CONTROL_ERROR_TABLE, type ControlErrorCode} from './errors.js'
+import {CONTROL_EVENT_NAMES, CONTROL_EVENTS, type ControlEventName} from './events.js'
+import {CONTROL_METHOD_NAMES, CONTROL_METHODS, type ControlMethod} from './requests.js'
+import {CONTROL_PROTOCOL_MAJORS} from './version.js'
 
 type JsonSchema = z.core.JSONSchema.BaseSchema
 

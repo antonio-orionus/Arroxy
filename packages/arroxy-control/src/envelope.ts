@@ -1,8 +1,8 @@
 import {z} from 'zod'
-import {type ControlError, controlError, controlErrorSchema} from './errors'
-import {CONTROL_EVENTS, type ControlEventData, type ControlEventName, isControlEventName} from './events'
-import {CONTROL_METHODS, type ControlMethod, type ControlParams, type ControlResult, isControlMethod} from './requests'
-import {idSchema} from './views'
+import {type ControlError, controlError, controlErrorSchema} from './errors.js'
+import {CONTROL_EVENTS, type ControlEventData, type ControlEventName, isControlEventName} from './events.js'
+import {CONTROL_METHODS, type ControlMethod, type ControlParams, type ControlResult, isControlMethod} from './requests.js'
+import {idSchema} from './views.js'
 
 // One Control API message, as carried by every entry point (one per line on the
 // local socket, one per Noise frame on the relay). The envelope is strict: an

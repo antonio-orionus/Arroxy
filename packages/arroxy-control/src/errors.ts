@@ -1,5 +1,5 @@
 import {z} from 'zod'
-import {idSchema} from './views'
+import {idSchema} from './views.js'
 
 // The fixed public error table. The app maps every internal failure to one of
 // these codes at the Control API boundary; clients branch on the code, never on

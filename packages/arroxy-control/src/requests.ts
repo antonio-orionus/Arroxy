@@ -1,7 +1,7 @@
 import {z} from 'zod'
-import {controlErrorCodeSchema} from './errors'
-import {handshakeNonceSchema, handshakeProofSchema} from './handshake'
-import {appStatusSchema, idSchema, intakeViewSchema, profileRefSchema, profileViewSchema, queueItemViewSchema, schedulerStateSchema} from './views'
+import {controlErrorCodeSchema} from './errors.js'
+import {handshakeNonceSchema, handshakeProofSchema} from './handshake.js'
+import {appStatusSchema, idSchema, intakeViewSchema, profileRefSchema, profileViewSchema, queueItemViewSchema, schedulerStateSchema} from './views.js'
 
 // Every request the Control API v1 answers, with its params and result. Both
 // sides drop unknown payload fields, so a newer peer within the same major can

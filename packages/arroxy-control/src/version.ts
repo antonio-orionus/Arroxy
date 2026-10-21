@@ -1,4 +1,4 @@
-import {type ControlError, controlError} from './errors'
+import {type ControlError, controlError} from './errors.js'
 
 // Protocol majors this package describes. Within a major every change is
 // additive: new optional fields, new methods, new event kinds.

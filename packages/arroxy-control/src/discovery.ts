@@ -1,5 +1,5 @@
 import {z} from 'zod'
-import {timestampSchema} from './views'
+import {timestampSchema} from './views.js'
 
 // The file that tells a local client where the app listens. It lives in the
 // app's userData folder, which is owner-only on every OS, is rewritten on each
