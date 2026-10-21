@@ -161,7 +161,14 @@ describe('fitName — the counting unit is the platform’s own', () => {
 
 describe('fitName — the shrink ladder', () => {
 	it('sacrifices context before identity', () => {
-		expect([...SHRINK_ORDER]).toEqual(['playlist_title', 'uploader', 'title'])
+		expect([...SHRINK_ORDER]).toEqual(['playlist_title', 'album', 'categories', 'uploader', 'artist', 'track', 'title'])
+	})
+
+	it('shortens long music credits instead of giving up on the template', () => {
+		const pieces: BudgetPiece[] = [tok('artist', 'A'.repeat(150)), lit(' - '), tok('album', 'B'.repeat(150)), lit(' - '), tok('track', 'C'.repeat(150)), lit(' [id]')]
+		const result = fitName({pieces, outputDir: '/home/antonio/Videos', limits: limitsFor('linux'), inFlight: YOUTUBE})
+		expect(result.ok).toBe(true)
+		expect(measure(nameOf(result), 'utf8-bytes')).toBeLessThanOrEqual(255 - RESERVE.component)
 	})
 
 	it('shrinks playlist_title before touching uploader or title', () => {

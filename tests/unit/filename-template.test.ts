@@ -58,7 +58,13 @@ describe('media tokens', () => {
 
 	it('falls back to the uploader for {artist} outside music, as the compiled token does', () => {
 		expect(renderTemplateDirs('{artist}/{title}', SINGLE_META)).toEqual(['Blender Foundation'])
-		expect(compiled('{artist}{id}')).toContain('%(artist,uploader,channel,creator,uploader_id).60B')
+		expect(compiled('{artist}{id}')).toContain('%(artist,uploader,channel,creator,uploader_id|).60B')
+	})
+
+	it('leaves {artist} for yt-dlp in a filename when the probe had no artist', () => {
+		// A flat playlist entry carries the uploader but never the credits; binding
+		// the uploader here would hide the performer yt-dlp finds at download time.
+		expect(bound('{artist} - {title} [{id}]', SINGLE_META)).toBe('{artist} - Big Buck Bunny [YE7VzlLtp-4]')
 	})
 
 	it('collapses an album or track folder for a video that is not music', () => {
@@ -100,7 +106,10 @@ describe('templateSite', () => {
 	it('names the site by its domain, without www, as yt-dlp does', () => {
 		expect(templateSite('https://www.youtube.com/watch?v=v1')).toBe('youtube.com')
 		expect(templateSite('https://vimeo.com/123')).toBe('vimeo.com')
-		expect(templateSite('https://music.youtube.com/watch?v=v1')).toBe('music.youtube.com')
+	})
+
+	it('names every YouTube address youtube.com, since yt-dlp reports the watch page for each', () => {
+		for (const url of ['https://youtu.be/v1', 'https://m.youtube.com/watch?v=v1', 'https://music.youtube.com/watch?v=v1']) expect(templateSite(url)).toBe('youtube.com')
 	})
 
 	it('leaves the port out, which no folder name can carry on Windows', () => {

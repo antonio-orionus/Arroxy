@@ -17,6 +17,7 @@ import {templateLiteral} from 'yt-dlp-bridge/output-template'
 import {limitsFor} from './pathLimits.js'
 import {FILENAME_TEMPLATE_MAX, FILENAME_TOKENS, type FilenameToken} from './schemas.js'
 import {escapeReservedName, isValidSubfolder, joinSubfolder, sanitizeDirSegment} from './subfolder.js'
+import {isYouTubeHostname} from './sites/youtube.js'
 
 export const DEFAULT_FILENAME_TEMPLATE = '{title} [{id}]'
 
@@ -50,7 +51,7 @@ const TOKEN_FIELDS: Record<Exclude<FilenameToken, 'title'>, string> = {
 	resolution: '%(height&{}p|)s',
 	site: '%(webpage_url_domain|)s',
 	categories: '%(categories.0|).60B',
-	artist: '%(artist,uploader,channel,creator,uploader_id).60B',
+	artist: '%(artist,uploader,channel,creator,uploader_id|).60B',
 	album: '%(album|).60B',
 	track: '%(track|).80B',
 	playlist_index: '%(playlist_index|)03d',
@@ -283,11 +284,14 @@ function firstPresent(...values: (string | undefined)[]): string {
 /**
  * The site a page belongs to, as `{site}` names it: yt-dlp's
  * `webpage_url_domain`, which is the host without a leading `www.`. The port is
- * dropped too, because no folder can carry `:` on Windows.
+ * dropped too, because no folder can carry `:` on Windows. Every YouTube
+ * address is `youtube.com`: yt-dlp reports the watch page whichever form was
+ * pasted, and a pasted `youtu.be` link would otherwise file apart.
  */
 export function templateSite(url: string): string | undefined {
 	try {
 		const host = new URL(url).hostname
+		if (isYouTubeHostname(host)) return 'youtube.com'
 		return host.startsWith('www.') ? host.slice(4) : host || undefined
 	} catch {
 		return undefined
@@ -387,6 +391,14 @@ function sanitizeBoundLiteral(value: string): string {
 	)
 }
 
+// What a token binds to in the filename. `{artist}` binds only a known artist:
+// its uploader fallback is a guess where the probe was sparse (a flat playlist
+// entry never carries credits), and binding it would hide the performer yt-dlp
+// finds at download time. Left unbound, yt-dlp walks the same chain itself.
+function boundValue(token: FilenameToken, meta: TemplateMetadata): string {
+	return token === 'artist' ? (meta.artist?.trim() ?? '') : renderToken(token, meta)
+}
+
 // Applied to the assembled name, because both hazards are properties of the
 // whole name rather than of any one token: Windows rejects a name ending in a
 // dot or a space (which truncation can expose), and treats a reserved device
@@ -426,7 +438,7 @@ export function bindFilenameTemplate(template: string, meta: TemplateMetadata, c
 
 	const pieces: BudgetPiece[] = parsed.file.map(segment => {
 		if (segment.kind === 'literal') return {kind: 'literal' as const, text: segment.text}
-		const value = sanitizeBoundLiteral(renderToken(segment.token, meta))
+		const value = sanitizeBoundLiteral(boundValue(segment.token, meta))
 		// Arroxy's metadata is not always richer than yt-dlp's. Where Arroxy has
 		// no value and yt-dlp might — an extractor that omits `uploader`, a probe
 		// that never filled in the id — binding to empty would throw away a field

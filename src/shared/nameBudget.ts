@@ -121,18 +121,19 @@ export function requestedFormats(formatSpec: string | undefined, probed: readonl
 /**
  * The order in which tokens give up length: context is sacrificed before
  * identity. A shortened playlist name still leaves a recognisable file; a
- * shortened title does not.
+ * shortened title does not. A track name is the title of a song, so it goes
+ * just before the title.
  *
  * `{id}` is absent by design and must stay absent — playlist dedupe
  * (`findPlayableFileName`) and M3U writing locate files by matching `[videoId]`
  * before the extension, so truncating it silently breaks both.
  */
-export const SHRINK_ORDER = ['playlist_title', 'uploader', 'title'] as const
+export const SHRINK_ORDER = ['playlist_title', 'album', 'categories', 'uploader', 'artist', 'track', 'title'] as const
 
 export type ShrinkableToken = (typeof SHRINK_ORDER)[number]
 
 /** What each shrinkable token keeps before the next one starts giving. */
-export const TOKEN_FLOOR: Record<ShrinkableToken, number> = {playlist_title: 12, uploader: 12, title: 40}
+export const TOKEN_FLOOR: Record<ShrinkableToken, number> = {playlist_title: 12, album: 12, categories: 12, uploader: 12, artist: 12, track: 24, title: 40}
 
 /**
  * `placeholder` is a token left for yt-dlp to expand: its text survives into the
