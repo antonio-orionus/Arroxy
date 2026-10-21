@@ -16,7 +16,7 @@ import type {ActiveDownload, PausedDownload} from './phases/index.js'
 import type {ExploreSignInCheck} from './phases/types.js'
 import type {ExploreGate} from './exploreGate.js'
 import type {ExploreSpawnGate} from './exploreSpawnGate.js'
-import {killActiveProcesses} from './download/processControl.js'
+import {stopActiveProcesses} from './download/processControl.js'
 import {cleanupPartFiles, cleanupTempDirByPath} from './download/cleanup.js'
 import {QueueResumeLifecycle} from './download/QueueResumeLifecycle.js'
 import {ProgressParser} from './download/progressParser.js'
@@ -417,26 +417,28 @@ export class DownloadService extends EventEmitter {
 			logger.info('Pausing a job with no live process — it parks before its next spawn', {jobId: active.job.id})
 			return ok({paused: true, tempDir: active.tempDir, jobId: active.job.id})
 		}
-		// killActiveProcesses tree-kills both yt-dlp and ffmpeg (when present)
-		// via process-group on Unix and taskkill /T on Windows. Pause may land
-		// mid-mux (SidecarSubsPhase.runEmbedMux); without killing ffmpeg too, the
-		// mux completes after the user thinks they paused.
-		killActiveProcesses(active, 'SIGTERM')
-		logger.info('SIGTERM sent to active processes', {jobId: active.job.id})
+		// stopActiveProcesses stops both yt-dlp and ffmpeg (when present) with
+		// their trees: SIGTERM then SIGKILL to the process group on Unix, taskkill
+		// /T on Windows. Pause may land mid-mux (SidecarSubsPhase.runEmbedMux);
+		// without stopping ffmpeg too, the mux completes after the user thinks
+		// they paused. Neither finishes its file on SIGTERM, so the `.part` stays
+		// for resume.
+		stopActiveProcesses(active)
+		logger.info('Stopping active processes for pause', {jobId: active.job.id})
 		return ok({paused: true, tempDir: active.tempDir, jobId: active.job.id})
 	}
 
 	private async cancelOne(active: ActiveDownload): Promise<Result<CancelDownloadOutput>> {
 		active.cancelRequested = true
 		// controller.abort() drops the AbortSignal; any in-flight ytDlp.run that
-		// received `signal: active.signal` will SIGKILL its child and resolve
+		// received `signal: active.signal` will stop its child's tree and resolve
 		// with a Cancelled exit-error. Mirrors the cancelRequested flag for code
 		// paths that already poll the boolean.
 		active.controller.abort()
 
 		if (active.ytDlpProcess || active.ffmpegProcess) {
-			logger.info('Sending SIGKILL to active processes', {jobId: active.job.id})
-			killActiveProcesses(active, 'SIGKILL')
+			logger.info('Stopping active processes for cancel', {jobId: active.job.id})
+			stopActiveProcesses(active)
 			return ok({cancelled: true})
 		}
 

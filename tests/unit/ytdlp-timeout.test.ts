@@ -33,7 +33,7 @@ describe('YtDlp — probe timeout override', () => {
 
 		const result = await makeYtDlp().run(probeRequest(), {timeoutMs: 50})
 
-		expect(proc.kill).toHaveBeenCalledWith('SIGKILL')
+		expect(proc.kill).toHaveBeenCalledWith('SIGTERM')
 		expect(result.kind).toBe('exit-error')
 		if (result.kind === 'exit-error') {
 			expect(result.exitCode).toBe(-1)

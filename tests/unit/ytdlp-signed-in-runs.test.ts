@@ -184,7 +184,7 @@ describe.skipIf(process.platform === 'win32')('a stopped signed-in run', () => {
 		const result = await ytDlp.run(PROBE, {timeoutMs: 30}, {identity: 'exploreSession'})
 
 		expect(result).toMatchObject({kind: 'exit-error', rawError: PROBE_TIMEOUT_MESSAGE})
-		expect(events).toEqual(['jar-written', 'group-kill:SIGKILL', 'close', 'jar-deleted'])
+		expect(events).toEqual(['jar-written', 'group-kill:SIGTERM', 'close', 'jar-deleted'])
 	})
 
 	it('kills the whole process tree on cancel and keeps the jar until the tree is gone', async () => {
@@ -196,7 +196,7 @@ describe.skipIf(process.platform === 'win32')('a stopped signed-in run', () => {
 		controller.abort()
 
 		await expect(run).resolves.toMatchObject({rawError: 'Cancelled'})
-		expect(events).toEqual(['jar-written', 'group-kill:SIGKILL', 'close', 'jar-deleted'])
+		expect(events).toEqual(['jar-written', 'group-kill:SIGTERM', 'close', 'jar-deleted'])
 	})
 
 	it('stops an anonymous run the same way: the whole tree is killed and the run settles once it is gone', async () => {
@@ -205,7 +205,7 @@ describe.skipIf(process.platform === 'win32')('a stopped signed-in run', () => {
 		const result = await ytDlp.run(PROBE, {timeoutMs: 30})
 
 		expect(result).toMatchObject({kind: 'exit-error', rawError: PROBE_TIMEOUT_MESSAGE})
-		expect(events).toEqual(['group-kill:SIGKILL', 'close'])
+		expect(events).toEqual(['group-kill:SIGTERM', 'close'])
 		expect(procs.values().next().value?.kill).not.toHaveBeenCalled()
 	})
 })

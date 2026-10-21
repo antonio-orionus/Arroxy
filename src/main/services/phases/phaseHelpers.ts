@@ -7,7 +7,7 @@ import {STATUS_KEY} from '@shared/schemas.js'
 import {exploreCookieScopeFor} from '@shared/sites/exploreCookieScope.js'
 import type {LocalizedError} from '@shared/types.js'
 import type {YtDlpSignal} from '../YtDlp.js'
-import {forgetOnExit, killJobProcess} from '../download/processControl.js'
+import {forgetOnExit, stopJobProcess} from '../download/processControl.js'
 import type {ActiveJob, PhaseContext, PhaseOutcome} from './types.js'
 
 // The info-json a media run writes into the job's temp dir: replayed on resume,
@@ -73,8 +73,8 @@ export async function guardSignedInSpawn(ctx: PhaseContext): Promise<PhaseOutcom
 
 // Shared yt-dlp signal handlers used by every phase that spawns yt-dlp:
 //   - assign `active.ytDlpProcess` on spawn, and clear it when the child exits
-//   - tree-kill immediately if cancel was requested before spawn returned
-//   - register a tree-kill disposable for finalize-time drain
+//   - stop the tree at once if cancel was requested before spawn returned
+//   - register a tree-stop disposable for finalize-time drain
 //   - pipe stdout/stderr into ctx.safeConsume
 //   - cancel through the job's signal; pause stops a run that has not spawned
 //     yet (a running process is paused by DownloadService)
@@ -93,9 +93,9 @@ export function buildYtDlpSignal(ctx: PhaseContext, active: ActiveJob, extra: Om
 			forgetOnExit(proc, () => {
 				if (active.ytDlpProcess === proc) active.ytDlpProcess = undefined
 			})
-			if (active.cancelRequested) killJobProcess(proc, 'SIGKILL')
+			if (active.cancelRequested) stopJobProcess(proc)
 			ctx.register(() => {
-				killJobProcess(proc, 'SIGKILL')
+				stopJobProcess(proc)
 			})
 			extraOnSpawn?.(proc, cwd)
 		},
@@ -106,16 +106,16 @@ export function buildYtDlpSignal(ctx: PhaseContext, active: ActiveJob, extra: Om
 
 // The ffmpeg counterpart of buildYtDlpSignal's onSpawn, for the phases that
 // run ffmpeg on the downloaded file: hold the process on the job so pause and
-// cancel reach it, tree-kill it if cancel came first, and drain it at finalize.
+// cancel reach it, stop its tree if cancel came first, and drain it at finalize.
 export function trackFfmpegProcess(ctx: PhaseContext, active: ActiveJob): (proc: ChildProcessWithoutNullStreams) => void {
 	return proc => {
 		active.ffmpegProcess = proc
 		forgetOnExit(proc, () => {
 			if (active.ffmpegProcess === proc) active.ffmpegProcess = undefined
 		})
-		if (active.cancelRequested) killJobProcess(proc, 'SIGKILL')
+		if (active.cancelRequested) stopJobProcess(proc)
 		ctx.register(() => {
-			killJobProcess(proc, 'SIGKILL')
+			stopJobProcess(proc)
 		})
 	}
 }

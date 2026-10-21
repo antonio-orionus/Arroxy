@@ -2,12 +2,12 @@ import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import {randomUUID} from 'node:crypto'
 import {mkdir} from 'node:fs/promises'
 import log from 'electron-log/main.js'
-import {spawnYtDlp} from '@main/utils/process.js'
+import {spawnYtDlp, terminateProcessTree} from '@main/utils/process.js'
 import {accountCookiesRejected, classifyYtDlpStderr, extractLastError, rateLimitEvidence, rateLimitLine} from 'ytdlp-errors'
 import type {YtDlpErrorKind} from 'ytdlp-errors'
 import {duplicateExtractorArgsBlocks, planWorkflow, withExtractorArgs, type CallerMediaWorkflowInput, type CallerSubtitlesWorkflowInput, type ExtractorArgs, type ProbePlaylistMode, type ProbeWorkflowInput, type SubtitleFormat, type SubtitleListingWorkflowInput, type WorkflowPlanOptions} from 'yt-dlp-bridge'
 import {redactArgs} from 'yt-dlp-bridge/redaction'
-import {createStreamTextReader, killProcessTree} from 'yt-dlp-bridge/runner'
+import {createStreamTextReader} from 'yt-dlp-bridge/runner'
 import {resolveCookies, type ResolvedCookies} from './cookiesResolver.js'
 import {nonEmpty} from '@shared/format.js'
 import {unknownToMessage} from '@main/utils/errorFactory.js'
@@ -57,7 +57,7 @@ export interface YtDlpSignal {
 	onStdout?: (chunk: string) => void
 	onStderr?: (chunk: string) => void
 	// Caller-driven cancellation. When aborted, in-flight yt-dlp processes are
-	// SIGKILLed and the run resolves with an exit-error (rawError: 'Cancelled').
+	// stopped with their tree and the run resolves with an exit-error (rawError: 'Cancelled').
 	abortSignal?: AbortSignal
 	// Pause: a run that has not spawned yet (binary setup, token mint, waiting
 	// for a signed-in spawn slot) resolves Cancelled without spawning. A process
@@ -343,10 +343,11 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 			if (err.lines) opts.signal?.onStderr?.(err.lines)
 		}
 
-		// A stopped run kills its whole process tree, while the leader is still
+		// A stopped run stops its whole process tree, while the leader is still
 		// alive: a PyInstaller build's leader leaves its Python child downloading
 		// when only the leader is killed, and on Windows `taskkill /T` cannot walk
-		// from a dead leader to that child. The run settles only once the tree has
+		// from a dead leader to that child. On Unix the tree gets SIGTERM first,
+		// so the bootloader can remove its unpack folder (terminateProcessTree). The run settles only once the tree has
 		// closed (bounded, in case close never comes), so whoever acts on the
 		// result next (cancel's temp-folder cleanup, a signed-in run deleting its
 		// jar, which yt-dlp writes cookies back into) finds no process still
@@ -373,11 +374,11 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 			// Recorded before the kill, so a 'close' that follows it settles with this result.
 			stopped = result()
 			const pending = stopped
-			killProcessTree(proc, 'SIGKILL', ytDlpLog)
+			terminateProcessTree(proc, ytDlpLog)
 			if (!settled) exitGrace = setTimeout(() => settleUnclosed(pending), STOPPED_RUN_EXIT_GRACE_MS)
 		}
 
-		// The tree kill did not end the run in time (taskkill failed to start or
+		// The tree stop did not end the run in time (taskkill failed to start or
 		// was refused, or a descendant still holds the pipes). A leader still
 		// alive gets the direct kill as a last resort; either way the run settles,
 		// and the log says the tree may have outlived it.

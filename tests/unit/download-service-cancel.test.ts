@@ -6,7 +6,7 @@ vi.mock('@main/utils/process', async importOriginal => {
 	return {...actual, spawnYtDlp: vi.fn()}
 })
 
-import {spawnYtDlp} from '@main/utils/process.js'
+import {spawnYtDlp, TERMINATE_GRACE_MS} from '@main/utils/process.js'
 import {DownloadService} from '@main/services/DownloadService.js'
 import {YtDlp} from '@main/services/YtDlp.js'
 import type {PreparedJob, EmbedOptions, SponsorBlockOptions} from '@shared/preparedJob.js'
@@ -50,7 +50,7 @@ describe('runningJobCount', () => {
 		expect(svc.runningJobCount).toBe(1)
 
 		await svc.cancel()
-		// SIGKILL sent but close event not yet fired — job still in activeJobs
+		// Stop signal sent but close event not yet fired — job still in activeJobs
 		expect(svc.activeCount).toBe(1)
 		// cancelRequested is true so runningJobCount should be 0
 		expect(svc.runningJobCount).toBe(0)
@@ -78,8 +78,9 @@ describe('runningJobCount', () => {
 	})
 })
 
-describe('process group kill on POSIX', () => {
-	it('kills the process group (negative PID) on non-Windows', async () => {
+describe('process group stop on POSIX', () => {
+	// SIGTERM lets yt-dlp's PyInstaller bootloader remove its `_MEI*` unpack folder; SIGKILL would leave it in TMPDIR.
+	it('sends SIGTERM to the process group, and SIGKILL only if it outlives the grace', async () => {
 		if (process.platform === 'win32') return
 
 		const stubs = makeStubs()
@@ -99,9 +100,17 @@ describe('process group kill on POSIX', () => {
 			expect((svc as any).activeJobs.get(result.data.job.id)?.ytDlpProcess).toBe(fakeProc)
 		})
 
-		await svc.cancel()
+		vi.useFakeTimers()
+		try {
+			await svc.cancel()
 
-		expect(killSpy).toHaveBeenCalledWith(-999, 'SIGKILL')
+			expect(killSpy).toHaveBeenCalledWith(-999, 'SIGTERM')
+			expect(killSpy).not.toHaveBeenCalledWith(-999, 'SIGKILL')
+			vi.advanceTimersByTime(TERMINATE_GRACE_MS)
+			expect(killSpy).toHaveBeenCalledWith(-999, 'SIGKILL')
+		} finally {
+			vi.useRealTimers()
+		}
 	})
 })
 

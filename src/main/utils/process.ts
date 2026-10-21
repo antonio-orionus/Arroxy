@@ -1,7 +1,7 @@
-import {spawn, type ChildProcessWithoutNullStreams} from 'node:child_process'
+import {spawn, type ChildProcess, type ChildProcessWithoutNullStreams} from 'node:child_process'
 import {existsSync} from 'node:fs'
 import path from 'node:path'
-import {SPAWN_AS_PROCESS_GROUP} from 'yt-dlp-bridge/runner'
+import {killProcessTree, SPAWN_AS_PROCESS_GROUP, type KillableProcess, type RunnerLogger} from 'yt-dlp-bridge/runner'
 import type {E2eHarnessMode} from '@main/e2eHarness.js'
 
 // Linux: BtbN's shared ffmpeg build expects libav*.so.* siblings in
@@ -56,4 +56,25 @@ export function spawnFFmpeg(binaryPath: string, args: string[]): ChildProcessWit
 		// hardware-accelerated codecs that fan out to vendor helpers).
 		detached: SPAWN_AS_PROCESS_GROUP
 	})
+}
+
+// How long a stopped tree gets to exit on SIGTERM before it is SIGKILLed.
+export const TERMINATE_GRACE_MS = 2_000
+
+// Stops a child spawned with SPAWN_AS_PROCESS_GROUP together with everything it
+// forked. On Unix it sends SIGTERM first: yt-dlp's PyInstaller bootloader only
+// removes its `_MEI*` unpack folder from TMPDIR when it can handle the signal,
+// so SIGKILL alone leaves tens of MB behind on every stop (and some distros
+// keep /tmp in RAM). yt-dlp and ffmpeg both exit at once on SIGTERM without
+// finishing the file, so the `.part` stays a `.part`. Whatever is still alive
+// after the grace gets SIGKILL. Windows' `taskkill /T /F` is already forced,
+// so there is nothing to escalate there.
+export function terminateProcessTree(proc: KillableProcess & Pick<ChildProcess, 'once'>, logger?: RunnerLogger): void {
+	killProcessTree(proc, 'SIGTERM', logger)
+	if (process.platform === 'win32') return
+	const escalate = setTimeout(() => killProcessTree(proc, 'SIGKILL', logger), TERMINATE_GRACE_MS)
+	escalate.unref()
+	const settle = (): void => clearTimeout(escalate)
+	proc.once('exit', settle)
+	proc.once('close', settle)
 }

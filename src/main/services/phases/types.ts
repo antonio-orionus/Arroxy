@@ -43,7 +43,7 @@ export interface ActiveJobInput {
 	// same moment `controller.abort()` runs.
 	cancelRequested: boolean
 	// Pause is gentler than cancel — phases call it to set this flag, the
-	// active processes get SIGTERM, and the phase returns 'paused'. Cancel,
+	// active processes are stopped, and the phase returns 'paused'. Cancel,
 	// by contrast, calls controller.abort() and triggers the disposable drain.
 	pauseRequested: boolean
 	// Aborted by pause(). A spawned process is paused by signal instead; this
