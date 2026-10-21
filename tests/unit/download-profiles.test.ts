@@ -4,10 +4,10 @@ import en from '@shared/i18n/locales/en.json' with {type: 'json'}
 import {
 	BUILTIN_DOWNLOAD_PROFILES,
 	DEFAULT_DOWNLOAD_PROFILE_REF,
+	DownloadProfileOutputMissingError,
 	DEFAULT_DOWNLOAD_PROFILES_PREFS,
 	allDownloadProfiles,
 	downloadProfileFilenameFailure,
-	downloadProfileLabel,
 	downloadProfileOrigin,
 	downloadProfileRefFor,
 	enabledDownloadProfiles,
@@ -145,14 +145,6 @@ describe('download profiles', () => {
 		expect(resolved.spec?.mergeOutputFormat).toBeUndefined()
 	})
 
-	it('leads profile labels with the visible format difference', () => {
-		expect(downloadProfileLabel(BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'best-quality')!)).toBe('Best available · Best picture')
-		expect(downloadProfileLabel(BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')!)).toBe('Up to 720p · Best picture')
-		expect(downloadProfileLabel(BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'small-file')!)).toBe('Up to 480p · Best picture')
-		expect(downloadProfileLabel(BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'mp4-720')!)).toBe('Up to 720p · Smart TV')
-		expect(downloadProfileLabel(BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'subtitles-only')!)).toBe('Subtitles only · en · SRT')
-	})
-
 	it('derives a builtin ref when resolving a builtin profile without an explicit ref', () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
 		expect(profile).toBeDefined()
@@ -198,8 +190,8 @@ describe('download profiles', () => {
 		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
 		if (!balanced) throw new Error('expected balanced profile')
 
-		expect(() => resolveDownloadProfileBaseDir(balanced, {currentOutputDir: '', defaultOutputDir: ''})).toThrow('Download profile output directory is required')
-		expect(() => resolveDownloadProfileOutputDir(balanced, {currentOutputDir: '', defaultOutputDir: ''})).toThrow('Download profile output directory is required')
+		expect(() => resolveDownloadProfileBaseDir(balanced, {currentOutputDir: '', defaultOutputDir: ''})).toThrow(DownloadProfileOutputMissingError)
+		expect(() => resolveDownloadProfileOutputDir(balanced, {currentOutputDir: '', defaultOutputDir: ''})).toThrow(DownloadProfileOutputMissingError)
 	})
 
 	it('upserts and removes custom profiles while preserving active fallback', () => {
@@ -275,7 +267,6 @@ describe('download profiles', () => {
 		expect(resolved.subtitles).toEqual({request: {kind: 'languages', languages: ['en', 'uk'], source: 'manual-first'}, mode: 'sidecar', format: 'srt'})
 		expect(resolved.sponsorBlock).toEqual({mode: 'remove', categories: ['sponsor']})
 		expect(resolved.embed).toEqual({chapters: true, metadata: true, thumbnail: false, description: true, thumbnailSidecar: true})
-		expect(downloadProfileLabel(profile)).toBe('Up to 1080p · Smart TV')
 	})
 
 	it('treats subtitles-only profiles as non-media jobs with sanitized embed and SponsorBlock options', () => {
@@ -310,7 +301,6 @@ describe('download profiles', () => {
 		const resolved = resolveDownloadProfile(profile, {kind: 'custom', id: profile.id})
 
 		expect(resolved.spec?.audioConvert).toEqual({target: 'wav'})
-		expect(downloadProfileLabel(profile)).toBe('Audio only · WAV')
 	})
 
 	it('uses the default filename shape after normalizing a legacy profile', () => {

@@ -1,7 +1,7 @@
 import {DEFAULTS} from './constants.js'
 import {DEFAULT_HDR_PREFERENCE} from './hdrSetting.js'
-import {builtinDownloadProfileIdSchema, DEFAULT_AUDIO_BITRATE} from './schemas.js'
-import type {BuiltinDownloadProfileId, DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, HdrPreference, MediaIntent, NativeAudioPreference, PlaylistVideoTier, VideoFileType, VideoGoal} from './schemas.js'
+import {builtinDownloadProfileIdSchema} from './schemas.js'
+import type {BuiltinDownloadProfileId, DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, HdrPreference, MediaIntent, NativeAudioPreference, PlaylistVideoTier, VideoGoal} from './schemas.js'
 import {mediaIntentFromProfileMedia, mediaIntentSpec, type MediaIntentSpec} from './mediaIntent.js'
 import type {EmbedOptions, SponsorBlockOptions, SubtitleOptions} from './preparedJob.js'
 import {effectiveOutputDir, safeFolderName} from './subfolder.js'
@@ -40,18 +40,6 @@ function baseProfile(id: BuiltinDownloadProfileId, subfolderName: string, media:
 function subtitlesOnlyProfile(): DownloadProfile {
 	const base = baseProfile('subtitles-only', 'Subtitles only', {kind: 'subtitles-only'}, 'captions')
 	return {...base, subtitles: {...base.subtitles, enabled: true, languages: ['en']}}
-}
-
-function videoGoalLabel(goal: VideoGoal): string {
-	return goal === 'smart-tv' ? 'Smart TV' : 'Best picture'
-}
-
-function videoTierLabel(tier: PlaylistVideoTier): string {
-	return tier === 'best' ? 'Best available' : `Up to ${tier}p`
-}
-
-function videoFileTypeLabel(fileType: VideoFileType): string[] {
-	return fileType === 'auto' ? [] : [fileType.toUpperCase()]
 }
 
 export const BUILTIN_DOWNLOAD_PROFILES: readonly DownloadProfile[] = [
@@ -257,12 +245,22 @@ function nonBlank(dir: string | undefined): string | undefined {
 	return dir?.trim() ? dir : undefined
 }
 
+// A profile whose output folder can't be resolved: a fixed folder left blank,
+// or no current or default folder to fall back on. Callers show it in the app
+// language; the message is for logs.
+export class DownloadProfileOutputMissingError extends Error {
+	constructor() {
+		super('Download profile output directory is required')
+		this.name = 'DownloadProfileOutputMissingError'
+	}
+}
+
 export function resolveDownloadProfileBaseDir(profile: DownloadProfile, context: DownloadProfileOutputContext): string {
 	// Blank means absent; any other folder is kept as given, since a trailing
 	// space is part of a macOS or Linux folder's name.
 	const dir = profile.output.kind === 'fixed' ? nonBlank(profile.output.dir) : (nonBlank(context.currentOutputDir) ?? nonBlank(context.defaultOutputDir))
 	if (dir !== undefined) return dir
-	throw new Error('Download profile output directory is required')
+	throw new DownloadProfileOutputMissingError()
 }
 
 export function resolveDownloadProfileOutputDir(profile: DownloadProfile, context: DownloadProfileOutputContext): string {
@@ -290,19 +288,4 @@ export function downloadProfileFilenameFailure(profile: Pick<DownloadProfile, 'f
 	if (profile.filename.kind !== 'custom') return null
 	const validation = validateFilenameTemplate(profile.filename.template)
 	return validation.ok ? null : validation
-}
-
-export function downloadProfileLabel(profile: DownloadProfile): string {
-	switch (profile.media.kind) {
-		case 'video-audio':
-			return [videoTierLabel(profile.media.tier), videoGoalLabel(profile.media.goal), ...videoFileTypeLabel(profile.media.fileType)].join(' · ')
-		case 'video-only':
-			return [videoTierLabel(profile.media.tier), videoGoalLabel(profile.media.goal), ...videoFileTypeLabel(profile.media.fileType), 'No audio'].join(' · ')
-		case 'audio-only':
-			if (profile.media.audio.format === 'best') return 'Audio only · best'
-			if (profile.media.audio.format === 'wav') return 'Audio only · WAV'
-			return `Audio only · ${profile.media.audio.format.toUpperCase()} ${profile.media.audio.bitrateKbps ?? DEFAULT_AUDIO_BITRATE}K`
-		case 'subtitles-only':
-			return ['Subtitles only', profile.subtitles.languages.join(', '), profile.subtitles.format.toUpperCase()].filter(part => part.length > 0).join(' · ')
-	}
 }

@@ -104,7 +104,7 @@ function reviewRowEntries(state: WizardReviewState, summary: SingleSettingsSumma
 function ReviewFormatStrip({state, review, onChangeFormat}: {state: WizardReviewState; review: DownloadReview; onChangeFormat: () => void}): ReactNode {
 	const {t} = useTranslation()
 	const kind = state.wizardMediaKind
-	const savesAs = kind === 'video' ? `${t('wizard.formats.savesAs.label')} .${resolveOutputContainer(state.selectedVideoFormatId, state.audioSelection, state.wizardSubtitleMode, state.wizardFormats, kind, state.wizardEmbedThumbnail, state.wizardFileType)}` : null
+	const savesAs = kind === 'video' ? t('wizard.formats.savesAs.value', {ext: resolveOutputContainer(state.selectedVideoFormatId, state.audioSelection, state.wizardSubtitleMode, state.wizardFormats, kind, state.wizardEmbedThumbnail, state.wizardFileType)}) : null
 	const part = wizardVideoPart(state)
 	const partLabel = part ? t('wizard.part.summary', {start: formatPartTime(part.startSeconds), end: formatPartTime(part.endSeconds)}) : null
 	const formatLine = kind === 'subtitles' ? t('wizard.formats.kind.subtitles') : [partLabel, review.videoSummary, review.summaryRows.find(row => row.key === 'audio')?.value, savesAs].filter(Boolean).join(' · ')

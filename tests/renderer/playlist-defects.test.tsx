@@ -5,6 +5,7 @@ import {useAppStore} from '@renderer/store/useAppStore.js'
 import {StepConfirm} from '@renderer/components/wizard/StepConfirm.js'
 import {ok} from '../shared/fixtures.js'
 import type {DownloadProfile, DownloadProfileRef, PlaylistEntry} from '@shared/types.js'
+import {i18next} from '@shared/i18n/index.js'
 
 const PLAYLIST_ENTRIES: PlaylistEntry[] = [
 	{id: 'p1', url: 'https://youtube.com/watch?v=p1', title: 'Vid 1', thumbnail: '', playlistIndex: 1, videoId: 'p1'},
@@ -268,7 +269,7 @@ describe('M-submit — addToQueue surfaces a wizard error for the same unresolve
 		await useAppStore.getState().addToQueue()
 
 		expect(useAppStore.getState().wizardStep).toBe('error')
-		expect(useAppStore.getState().wizardError).toMatchObject({kind: 'other', code: 'unknown'})
+		expect(useAppStore.getState().wizardError).toMatchObject({kind: 'other', code: 'unknown', message: i18next.t('wizard.url.profile.outputMissing')})
 	})
 })
 

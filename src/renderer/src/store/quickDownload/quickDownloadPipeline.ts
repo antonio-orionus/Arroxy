@@ -13,7 +13,7 @@
 
 import {QUEUE_STATUS, PLAYLIST_PROBE_LIMIT_MAX, type QueueChoice, type QuickProbeTake} from '@shared/schemas.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
-import {downloadProfileLabel, resolveChosenDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
+import {resolveChosenDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import type {PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, QueueItem} from '@shared/types.js'
 import type {AppState, GetState} from '../types.js'
@@ -23,6 +23,8 @@ import type {PinnedDownloadProfile} from '@shared/queueSubmission.js'
 import type {QuickProbeResolution} from '@shared/intake/probeResolution.js'
 import {pinActiveDownloadProfile} from '../wizard/queueSubmission.js'
 import {resolveQuickProbe, scopeForTake} from './quickProbeResolution.js'
+import {profileFormatLabel} from '@renderer/lib/profileSummary.js'
+import i18next from 'i18next'
 
 export interface QuickDownloadRequest {
 	// Cleaned, and already through the entry point's intake policy.
@@ -122,7 +124,7 @@ function placeholderRow(request: QuickDownloadRequest, pinned: PinnedDownloadPro
 		title: titleHint.length > 0 ? titleHint : request.url,
 		thumbnail: '',
 		outputDir,
-		formatLabel: downloadProfileLabel(profile),
+		formatLabel: profileFormatLabel(profile, i18next.t, i18next.language),
 		status: QUEUE_STATUS.probing,
 		lane: 'normal',
 		progressPercent: 0,

@@ -8,7 +8,7 @@ import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
 import {profileDisplayName} from '@renderer/lib/profileName.js'
 import {profilePickerOptions} from '@renderer/components/wizard/profilePickerOptions.js'
-import {resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
+import {formatList, resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
 import {resolveAudioLabel, resolveVideoResolution} from '../helpers.js'
 import type {AppState, AudioSelection} from '../types.js'
 import type {WizardReviewState} from './wizardReviewState.js'
@@ -72,7 +72,11 @@ function playlistPresetLabel(state: WizardReviewState, t: Translate, language: s
 	const {playlistSelection} = state
 	if (!playlistSelection) return ''
 	if (playlistSelection.kind === 'subtitles') {
-		const languages = playlistSelection.languages.map(code => resolveSubtitleLabel(code, {}, {}, language)).join(', ')
+		const languages = formatList(
+			playlistSelection.languages.map(code => resolveSubtitleLabel(code, {}, {}, language)),
+			language,
+			'conjunction'
+		)
 		return [t('wizard.formats.kind.subtitles'), languages, playlistSelection.format.toUpperCase()].filter(part => part.length > 0).join(' · ')
 	}
 	if (playlistSelection.kind === 'audio') {
@@ -85,7 +89,11 @@ function playlistPresetLabel(state: WizardReviewState, t: Translate, language: s
 
 function buildSubtitleValue(state: WizardReviewState, effectiveSubtitleLanguages: string[], ctx: DownloadReviewLocaleContext): string {
 	if (effectiveSubtitleLanguages.length === 0) return ctx.t('wizard.confirm.subtitlesNone')
-	const langList = effectiveSubtitleLanguages.map(code => resolveSubtitleLabel(code, state.wizardSubtitles, state.wizardAutomaticCaptions, ctx.language)).join(', ')
+	const langList = formatList(
+		effectiveSubtitleLanguages.map(code => resolveSubtitleLabel(code, state.wizardSubtitles, state.wizardAutomaticCaptions, ctx.language)),
+		ctx.language,
+		'conjunction'
+	)
 	const modeLabel = ctx.t(SUBTITLE_MODE_I18N_KEYS[state.wizardSubtitleMode])
 	const formatPart = state.wizardSubtitleMode !== 'embed' ? `${state.wizardSubtitleFormat.toUpperCase()} · ` : ''
 	return `${langList} · ${formatPart}${modeLabel}`

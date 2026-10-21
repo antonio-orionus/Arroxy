@@ -1,0 +1,140 @@
+name: Publish arroxy-control
+
+on:
+  push:
+    tags:
+      - 'arroxy-control-v*.*.*'
+  workflow_dispatch:
+
+env:
+  BUN_VERSION: '1.4.2'
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+  PACKAGE_DIR: packages/arroxy-control
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-arroxy-control-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2.2.0
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Validate release tag
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          version="$(node -p "require('./${PACKAGE_DIR}/package.json').version")"
+          expected="arroxy-control-v${version}"
+          if [ "${GITHUB_REF_NAME}" != "${expected}" ]; then
+            echo "::error::Tag ${GITHUB_REF_NAME} does not match ${PACKAGE_DIR}/package.json version ${version}."
+            exit 1
+          fi
+
+          git fetch --no-tags origin "+refs/heads/main:refs/remotes/origin/main"
+          tag_commit="$(git rev-list -n 1 "${GITHUB_REF_NAME}")"
+          if ! git merge-base --is-ancestor "${tag_commit}" "origin/main"; then
+            echo "::error::Tag ${GITHUB_REF_NAME} must point to a commit reachable from origin/main."
+            echo "::error::Tag commit: ${tag_commit}"
+            exit 1
+          fi
+
+      - name: Check registry version
+        run: |
+          package_name="$(node -p "require('./${PACKAGE_DIR}/package.json').name")"
+          version="$(node -p "require('./${PACKAGE_DIR}/package.json').version")"
+          if bun pm view "${package_name}@${version}" version >/dev/null 2>&1; then
+            if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+              echo "::error::${package_name}@${version} is already published."
+              exit 1
+            fi
+            echo "::warning::${package_name}@${version} is already published; workflow_dispatch is validation-only."
+          fi
+
+      - name: Check package
+        run: bun run control:check
+
+      - name: Pack registry package
+        run: |
+          mkdir -p "${GITHUB_WORKSPACE}/npm-artifacts"
+          cd "${PACKAGE_DIR}"
+          bun pm pack --destination "${GITHUB_WORKSPACE}/npm-artifacts"
+
+      - name: Upload registry artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: arroxy-control-npm-pack
+          path: npm-artifacts/*.tgz
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    name: Publish package
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: validate
+    runs-on: ubuntu-latest
+    environment:
+      name: npm
+      url: https://www.npmjs.com/package/arroxy-control
+    permissions:
+      attestations: write
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Download registry artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: arroxy-control-npm-pack
+          path: npm-artifacts
+
+      - name: Attest registry package
+        uses: actions/attest@v4
+        with:
+          subject-path: npm-artifacts/*.tgz
+
+      # Trusted publishing (OIDC) can only publish a package that already exists
+      # on the registry with this workflow registered as its trusted publisher.
+      # The first release needs a one-time setup by the maintainer: an
+      # authenticated first publish, then registering this workflow as the
+      # trusted publisher.
+      - name: Publish
+        run: npm publish ./npm-artifacts/*.tgz --access public

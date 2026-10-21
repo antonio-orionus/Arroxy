@@ -1,4 +1,5 @@
 import {type ReactNode} from 'react'
+import {Trans, useTranslation} from 'react-i18next'
 import {AlertTriangle} from 'lucide-react'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {useAppStore} from '../../store/useAppStore.js'
@@ -7,6 +8,7 @@ import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, Di
 import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
 
 export function QuickPlaylistCapDialog(): ReactNode {
+	const {t} = useTranslation()
 	const quickPlaylistCapDialogOpen = useAppStore(state => state.quickPlaylistCapDialogOpen)
 	const playlistItems = useAppStore(state => state.playlistItems)
 	const playlistTitle = useAppStore(state => state.playlistTitle)
@@ -29,15 +31,16 @@ export function QuickPlaylistCapDialog(): ReactNode {
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
 						<AlertTriangle className="text-warning" aria-hidden />
-						Playlist scan is capped
+						{t('wizard.playlistCap.title')}
 					</DialogTitle>
 					<DialogDescription>
-						{playlistTitle ? `${playlistTitle}: ` : ''}Arroxy loaded {itemCount} item{itemCount === 1 ? '' : 's'} using the current limit of {playlistLimit}. Queue the loaded items now, or increase the limit and scan again.
+						{/* The title is the playlist's own text: an element, so the message's placeholders never reach into it. */}
+						{playlistTitle ? <Trans i18nKey="wizard.playlistCap.descriptionWithTitle" count={itemCount} values={{limit: playlistLimit}} components={{title: <span>{playlistTitle}</span>}} /> : t('wizard.playlistCap.description', {count: itemCount, limit: playlistLimit})}
 					</DialogDescription>
 				</DialogHeader>
 
 				<div className="rounded-lg border border-border bg-background/30 p-3">
-					<p className="mb-2 text-xs font-semibold text-foreground">Change load limit</p>
+					<p className="mb-2 text-xs font-semibold text-foreground">{t('wizard.playlistCap.changeLimit')}</p>
 					<PlaylistProbeLimitSelector
 						testId="quick-playlist-cap-probe-limit"
 						showCurrent={false}
@@ -49,10 +52,10 @@ export function QuickPlaylistCapDialog(): ReactNode {
 
 				<DialogFooter>
 					<Button type="button" variant="outline" onClick={dismissQuickPlaylistCapDialog}>
-						Cancel
+						{t('common.cancel')}
 					</Button>
 					<Button variant="glow" type="button" onClick={() => void queueLoadedPlaylistWithActiveProfile()} disabled={itemCount === 0 || isSubmittingToQueue} data-testid="quick-playlist-cap-queue-loaded">
-						Queue loaded items
+						{t('wizard.playlistCap.queueLoaded')}
 					</Button>
 				</DialogFooter>
 			</DialogContent>

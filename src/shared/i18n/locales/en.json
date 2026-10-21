@@ -959,7 +959,8 @@
 			"resolutionUnknown": "Unknown resolution",
 			"savesAs": {
 				"label": "Saves as",
-				"reset": "WebM can't hold {{codec}}, so the file type went back to Auto."
+				"reset": "WebM can't hold {{codec}}, so the file type went back to Auto.",
+				"value": "Saves as .{{ext}}"
 			},
 			"sizeUnknown": "Size unknown",
 			"skipToConfirm": "Skip to confirm",
@@ -1007,19 +1008,23 @@
 		"output": {
 			"embedChapters": {
 				"description": "Chapter markers navigable in any modern player.",
-				"label": "Embed chapters"
+				"label": "Embed chapters",
+				"short": "Chapters"
 			},
 			"embedMetadata": {
 				"description": "Title, artist, description, and upload date written into the file.",
-				"label": "Embed metadata"
+				"label": "Embed metadata",
+				"short": "Metadata"
 			},
 			"embedThumbnail": {
 				"description": "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded.",
-				"label": "Embed thumbnail"
+				"label": "Embed thumbnail",
+				"short": "Cover art"
 			},
 			"writeDescription": {
 				"description": "Saves the video description as a .description text file next to the download.",
-				"label": "Save description"
+				"label": "Save description",
+				"short": "Description file"
 			},
 			"writeM3u": {
 				"description": "Save an .m3u playlist alongside the videos so they open in order in your media player.",
@@ -1027,7 +1032,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Saves the thumbnail as a .jpg image file next to the download.",
-				"label": "Save thumbnail"
+				"label": "Save thumbnail",
+				"short": "Thumbnail file"
 			}
 		},
 		"part": {
@@ -1126,6 +1132,15 @@
 			"syncScanning": "Checking folder…",
 			"thumbnailAlt": "Video thumbnail"
 		},
+		"playlistCap": {
+			"changeLimit": "Change load limit",
+			"descriptionWithTitle_one": "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again.",
+			"descriptionWithTitle_other": "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again.",
+			"description_one": "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again.",
+			"description_other": "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again.",
+			"queueLoaded": "Queue loaded items",
+			"title": "Playlist scan is capped"
+		},
 		"playlistPresets": {
 			"heading": "Pick quality for the batch",
 			"itemCount_one": "{{count}} item",
@@ -1174,6 +1189,7 @@
 				"320": "Up to 320K",
 				"best": "Best quality"
 			},
+			"defaultName": "New profile",
 			"destination": {
 				"defaultFolder": "Default downloads folder",
 				"defaultFolderWithSubfolder": "Default downloads folder / {{subfolder}}",
@@ -1682,19 +1698,12 @@
 				"moveOver": "{{profileName}} is over position {{position}} of {{count}}.",
 				"movePickedUp": "Picked up {{profileName}}. It is in position {{position}} of {{count}}.",
 				"newProfile": "New profile",
+				"outputMissing": "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default.",
 				"panelDescription": "Create, select, edit, or remove reusable download setups.",
 				"panelTitle": "Download Profiles",
 				"remove": "Remove",
 				"reorderHint": "Drag a profile to move it. Every profile picker follows this order.",
 				"reset": "Reset",
-				"summary": {
-					"aacAudio": "AAC audio",
-					"bestAudio": "best audio",
-					"bestVideo": "best video",
-					"noAudio": "no audio",
-					"subtitlesOnly": "subtitles only",
-					"wavAudio": "WAV audio"
-				},
 				"switchAria": "Switch download profile: {{profileName}}",
 				"switchTitle": "Switch download profile"
 			},

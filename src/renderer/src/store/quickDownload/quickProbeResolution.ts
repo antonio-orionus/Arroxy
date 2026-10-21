@@ -10,7 +10,7 @@ import type {AppState} from '../types.js'
 import {pinActiveDownloadProfile, rendererPreparationEnv} from '../wizard/queueSubmission.js'
 
 function rendererQuickProbeEnv(): QuickProbeEnv {
-	return {...rendererPreparationEnv(), probeFailedText: () => i18next.t('wizard.url.quickProbeFailed'), prepareFailedText: () => i18next.t('wizard.url.quickPrepareFailed')}
+	return {...rendererPreparationEnv(), probeFailedText: () => i18next.t('wizard.url.quickProbeFailed'), prepareFailedText: () => i18next.t('wizard.url.quickPrepareFailed'), outputMissingText: () => i18next.t('wizard.url.profile.outputMissing')}
 }
 
 // How far a probe looks for a take: exactly N, or as wide as the load ceiling.

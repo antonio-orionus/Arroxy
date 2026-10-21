@@ -190,6 +190,26 @@ describe('playlist probe limit selector alert', () => {
 })
 
 describe('quick playlist cap dialog', () => {
+	it('shows a playlist title literally, even one that looks like a placeholder', () => {
+		installApi()
+		resetStore(50, 2, true)
+		useAppStore.setState({wizardStep: 'url', quickPlaylistCapDialogOpen: true, playlistTitle: 'Mix {{count}}'} as never)
+		render(<QuickPlaylistCapDialog />)
+
+		const description = screen.getByTestId('quick-playlist-cap-dialog')
+		expect(description).toHaveTextContent('Mix {{count}}')
+		expect(description).toHaveTextContent('loaded 2 items using')
+	})
+
+	it('counts loaded items with the plural form', () => {
+		installApi()
+		resetStore(50, 1, true)
+		useAppStore.setState({wizardStep: 'url', quickPlaylistCapDialogOpen: true} as never)
+		render(<QuickPlaylistCapDialog />)
+
+		expect(screen.getByTestId('quick-playlist-cap-dialog')).toHaveTextContent('loaded 1 item using')
+	})
+
 	it('saves a new limit and retries through quick download instead of opening interactive review', async () => {
 		const api = installApi()
 		resetStore(50, 50, true)

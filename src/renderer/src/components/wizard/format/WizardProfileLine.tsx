@@ -19,6 +19,7 @@ import {ProfilePickerMenu} from '../ProfilePicker.js'
 import {buildDownloadProfileActionModel} from '../downloadProfileActions.js'
 import {ProfileTag} from './ProfileTag.js'
 import {useProfileDisplayName} from '@renderer/lib/profileName.js'
+import {ProfileSummaryContent} from '../ProfileSummaryContent.js'
 
 const MODE_LABEL_KEYS = {video: 'wizard.formats.kind.video', 'video-only': 'wizard.formats.kind.videoOnly', audio: 'wizard.formats.kind.audio', subtitles: 'wizard.formats.kind.subtitles'} as const satisfies Record<FormatMode, string>
 
@@ -117,7 +118,7 @@ export function WizardProfileLine(): ReactNode {
 				<span className="text-sm text-muted-foreground">{t('wizard.formats.profile.preselected')}</span>
 				<div className="flex min-w-0 items-center gap-0.5">
 					<Popover open={menuOpen} onOpenChange={changeMenuOpen}>
-						<Hint label={t('wizard.url.profile.switchTitle')}>
+						<Hint label={<ProfileSummaryContent profile={activeProfile} />} delay={600}>
 							<PopoverTrigger
 								render={
 									<Button type="button" variant="outline" size="sm" className="min-w-0 max-w-64 gap-1.5" aria-label={t('wizard.url.profile.switchAria', {profileName: nameOf(activeProfile)})} data-testid="wizard-profile-trigger">

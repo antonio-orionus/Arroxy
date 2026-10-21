@@ -18,6 +18,8 @@ import {Hint} from '../shared/Hint.js'
 import {FilenameTemplateErrorText} from '../shared/FilenameTemplateField.js'
 import {AREA_LABEL_KEYS} from '../../lib/changedAreaLabels.js'
 import {useProfileDisplayName} from '@renderer/lib/profileName.js'
+import {profileFormatLabel} from '@renderer/lib/profileSummary.js'
+import {formatList} from '@renderer/lib/subtitleLabel.js'
 
 function SaveAsProfileDialog({open, onOpenChange}: {open: boolean; onOpenChange: (open: boolean) => void}): ReactNode {
 	const {t} = useTranslation()
@@ -75,14 +77,17 @@ const DIFF_LABEL_KEYS = {format: 'wizard.review.update.rows.format', subtitles: 
 
 // Confirms an update with the profile's values before and after, area by area.
 function UpdateProfileDialog({open, onOpenChange}: {open: boolean; onOpenChange: (open: boolean) => void}): ReactNode {
-	const {t} = useTranslation()
+	const {t, i18n} = useTranslation()
 	const nameOf = useProfileDisplayName()
 	const state = useAppStore(useShallow(selectWizardReviewState))
 	const updateWizardProfile = useAppStore(s => s.updateWizardProfile)
 	const [saving, setSaving] = useState(false)
 	const before = state.wizardProfile
 	const after = updatedProfileDraft(state)
-	const rows = before && after ? profileDiffRows(before, after, {t: createTranslationPort(t), defaultOutputDir: state.settings?.common?.defaultOutputDir ?? '', globalFilenameTemplate: state.settings?.common?.filenameTemplate, commonPaths: state.commonPaths}) : []
+	const rows =
+		before && after
+			? profileDiffRows(before, after, {t: createTranslationPort(t), profileFormat: profile => profileFormatLabel(profile, t, i18n.language), defaultOutputDir: state.settings?.common?.defaultOutputDir ?? '', globalFilenameTemplate: state.settings?.common?.filenameTemplate, commonPaths: state.commonPaths})
+			: []
 	const name = before ? nameOf(before) : ''
 
 	async function update(): Promise<void> {
@@ -140,7 +145,7 @@ function IconAction({Icon, label, onClick, testId, blockedBy}: {Icon: LucideIcon
 // The footer row of Format and Review, only once the run differs from its
 // profile: what changed, then update that profile, save a new one, or undo.
 export function ProfileEditLine(): ReactNode {
-	const {t} = useTranslation()
+	const {t, i18n} = useTranslation()
 	const nameOf = useProfileDisplayName()
 	const changed = useAppStore(useShallow(wizardChangedAreas))
 	const wizardProfile = useAppStore(state => state.wizardProfile)
@@ -151,7 +156,11 @@ export function ProfileEditLine(): ReactNode {
 	const [saveOpen, setSaveOpen] = useState(false)
 	const [updateOpen, setUpdateOpen] = useState(false)
 	if (changed.length === 0 && !saveOpen && !updateOpen) return null
-	const areas = changed.map(area => t(AREA_LABEL_KEYS[area])).join(', ')
+	const areas = formatList(
+		changed.map(area => t(AREA_LABEL_KEYS[area])),
+		i18n.language,
+		'conjunction'
+	)
 
 	return (
 		<>

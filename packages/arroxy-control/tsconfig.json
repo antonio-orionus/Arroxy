@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"ignoreDeprecations": "6.0",
+		"lib": ["ES2022", "DOM"],
+		"strict": true,
+		"noUncheckedIndexedAccess": true,
+		"exactOptionalPropertyTypes": true,
+		"noImplicitOverride": true,
+		"noFallthroughCasesInSwitch": true,
+		"noEmit": true,
+		"declaration": true,
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"verbatimModuleSyntax": false,
+		"types": []
+	},
+	"include": ["src/**/*.ts", "tests/**/*.ts", "vite.config.ts"]
+}

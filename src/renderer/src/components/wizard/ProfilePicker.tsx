@@ -18,6 +18,8 @@ import {Separator} from '../ui/separator.js'
 import {Hint} from '../shared/Hint.js'
 import type {ProfilePickerOption} from './profilePickerOptions.js'
 import {useProfileDisplayName} from '@renderer/lib/profileName.js'
+import {ProfileSummaryContent} from './ProfileSummaryContent.js'
+import {profileFormatLabel} from '@renderer/lib/profileSummary.js'
 
 export type ProfilePickerLayout = 'grid' | 'list'
 export type ProfilePickerTestIdPrefix = 'profiles' | 'bulk' | 'explore' | 'wizard' | 'playlist' | 'playlist-row' | 'kit'
@@ -26,7 +28,7 @@ export type ProfilePickerTestIdPrefix = 'profiles' | 'bulk' | 'explore' | 'wizar
 function ProfileOptionLabel({option}: {option: ProfilePickerOption}): ReactNode {
 	const {t} = useTranslation()
 	const nameOf = useProfileDisplayName()
-	const {profile, Icon, label, hidden} = option
+	const {profile, Icon, hidden} = option
 	return (
 		<>
 			<Icon className="shrink-0 text-primary" aria-hidden />
@@ -39,7 +41,6 @@ function ProfileOptionLabel({option}: {option: ProfilePickerOption}): ReactNode 
 						</Badge>
 					) : null}
 				</span>
-				<span className="block truncate text-caption font-normal leading-tight text-subtle-foreground">{label}</span>
 			</span>
 		</>
 	)
@@ -53,16 +54,17 @@ interface ProfilePickerOptionsProps {
 }
 
 function ProfilePickerOptions({options, layout, onPick, testIdPrefix}: ProfilePickerOptionsProps): ReactNode {
-	const nameOf = useProfileDisplayName()
+	const {t, i18n} = useTranslation()
 	return (
 		<div className={cn('grid', layout === 'grid' ? 'grid-cols-[repeat(auto-fit,minmax(13.5rem,1fr))] gap-2' : 'grid-cols-1 gap-0.5')} data-layout={layout} data-testid={`${testIdPrefix}-profile-menu-grid`}>
 			{options.map(option => (
-				<Hint key={option.profile.id} label={`${nameOf(option.profile)}: ${option.label}`} reveal>
+				<Hint key={option.profile.id} label={<ProfileSummaryContent profile={option.profile} />} delay={600} side="inline-end">
 					<Button
 						type="button"
 						variant={layout === 'grid' ? 'outline' : 'ghost'}
 						onClick={() => onPick(option.ref)}
 						aria-pressed={option.current}
+						aria-description={profileFormatLabel(option.profile, t, i18n.language)}
 						data-selected={option.current || undefined}
 						className={cn('h-auto w-full justify-start gap-2.5 rounded-md text-start whitespace-normal', layout === 'grid' ? 'choice-surface min-h-12 px-2.5 py-2' : 'min-h-10 px-2 py-1.5 data-selected:bg-primary/12')}
 						data-testid={`${testIdPrefix}-profile-option-${option.profile.id}`}
@@ -185,14 +187,16 @@ export function ProfilePickerMenu({align = 'end', onClose, onPickProfile, onEdit
 // The same options inside a right-click menu: radio items, so the menu's own
 // check marks the current profile, and the rows' Hidden profile shows first.
 // Radio items stay open on a click by default; a pick closes the menu like its other items.
+// A menu has no hints, so each profile carries its summary as a description.
 export function ProfilePickerContextItems({options, label, onPick}: {options: readonly ProfilePickerOption[]; label: string; onPick: (ref: DownloadProfileRef) => void}): ReactNode {
+	const {t, i18n} = useTranslation()
 	const current = options.find(option => option.current)
 	return (
 		<ContextMenuGroup>
 			<ContextMenuLabel>{label}</ContextMenuLabel>
 			<ContextMenuRadioGroup value={current?.profile.id ?? null}>
 				{options.map(option => (
-					<ContextMenuRadioItem key={option.profile.id} value={option.profile.id} closeOnClick onClick={() => onPick(option.ref)} className="gap-2.5 py-1.5">
+					<ContextMenuRadioItem key={option.profile.id} value={option.profile.id} closeOnClick onClick={() => onPick(option.ref)} aria-description={profileFormatLabel(option.profile, t, i18n.language)} className="gap-2.5 py-1.5">
 						<ProfileOptionLabel option={option} />
 					</ContextMenuRadioItem>
 				))}

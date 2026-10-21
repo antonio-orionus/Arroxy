@@ -4,7 +4,7 @@
 import {isYouTubeExtractor} from '@shared/ytdlp/extractorPredicates.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
-import {resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
+import {formatList, resolveSubtitleLabel, SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
 import type {AppState} from '../types.js'
 import type {WizardReviewState} from './wizardReviewState.js'
 import {videoPartSuffix} from '@shared/videoPart.js'
@@ -49,7 +49,18 @@ export function buildSingleSettingsSummary(state: WizardReviewState, ctx: {t: Tr
 	const subtitles =
 		languages.length === 0
 			? t('wizard.review.value.subtitlesOff')
-			: [languages.map(code => resolveSubtitleLabel(code, state.wizardSubtitles, state.wizardAutomaticCaptions, ctx.language)).join(', '), state.wizardSubtitleMode === 'embed' ? null : state.wizardSubtitleFormat.toUpperCase(), t(SUBTITLE_MODE_I18N_KEYS[state.wizardSubtitleMode]), fullLength].filter(Boolean).join(' · ')
+			: [
+					formatList(
+						languages.map(code => resolveSubtitleLabel(code, state.wizardSubtitles, state.wizardAutomaticCaptions, ctx.language)),
+						ctx.language,
+						'conjunction'
+					),
+					state.wizardSubtitleMode === 'embed' ? null : state.wizardSubtitleFormat.toUpperCase(),
+					t(SUBTITLE_MODE_I18N_KEYS[state.wizardSubtitleMode]),
+					fullLength
+				]
+					.filter(Boolean)
+					.join(' · ')
 	const sponsorBlock = sponsorBlockApplies(state) ? (state.wizardSponsorBlockMode === 'off' ? t('wizard.review.value.sponsorBlockOff') : t(SPONSOR_BLOCK_MODE_LABEL_KEYS[state.wizardSponsorBlockMode])) : null
 	// A part never gets chapters embedded (yt-dlp would not shift them), so the
 	// summary doesn't promise them.
@@ -58,5 +69,5 @@ export function buildSingleSettingsSummary(state: WizardReviewState, ctx: {t: Tr
 	// A part's file name ends in its range, appended when the job is queued.
 	const part = wizardVideoPart(state)
 	const fileName = part ? `${state.wizardFilenameTemplate} ${videoPartSuffix(part)}` : state.wizardFilenameTemplate
-	return {subtitles, subtitlesOn: languages.length > 0, subtitlesAvailable, sponsorBlock, extras: extras.length > 0 ? extras.join(', ') : t('wizard.review.value.extrasNone'), extrasOn: extras.length > 0, saveTo, fileName}
+	return {subtitles, subtitlesOn: languages.length > 0, subtitlesAvailable, sponsorBlock, extras: extras.length > 0 ? formatList(extras, ctx.language, 'conjunction') : t('wizard.review.value.extrasNone'), extrasOn: extras.length > 0, saveTo, fileName}
 }

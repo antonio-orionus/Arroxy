@@ -3,6 +3,8 @@ import {resolveQuickProbe, scopeForTake} from '@renderer/store/quickDownload/qui
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {RESET_WIZARD_STATE} from '@renderer/store/wizard/commands.js'
 import {defaultAppSettings} from '@shared/constants.js'
+import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
+import {i18next} from '@shared/i18n/index.js'
 import {fail, ok} from '@shared/result.js'
 import type {PlaylistEntry, ProbeResult, QueueItem} from '@shared/types.js'
 
@@ -50,6 +52,17 @@ beforeEach(() => {
 })
 
 describe('resolveQuickProbe', () => {
+	it('names a profile with no output folder in the app language on the row', () => {
+		const base = defaultAppSettings('/tmp')
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')
+		if (!balanced) throw new Error('expected the balanced profile')
+		useAppStore.setState({...RESET_WIZARD_STATE, settings: {...base, profiles: {...base.profiles, overrides: [{...balanced, output: {kind: 'fixed', dir: ' '}}]}}, wizardOutputDir: '/tmp', queue: []})
+
+		const resolution = resolveQuickProbe(ok(VIDEO), {url: VIDEO_URL, playlistMode: 'video', limit: 100}, useAppStore.getState())
+		expect(resolution.kind).toBe('failed')
+		expect(JSON.stringify(resolution)).toContain(i18next.t('wizard.url.profile.outputMissing'))
+	})
+
 	it('queues a video with the active profile', () => {
 		const resolution = resolveQuickProbe(ok(VIDEO), {url: VIDEO_URL, playlistMode: 'video', limit: 100}, state())
 		expect(resolution.kind).toBe('queue')

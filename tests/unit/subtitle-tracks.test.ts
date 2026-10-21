@@ -107,3 +107,32 @@ describe('pickedTrack', () => {
 		expect(pickedTrack('constructor', maps)).toEqual({key: 'constructor', auto: true})
 	})
 })
+
+describe('language codes with two spellings', () => {
+	// YouTube serves Hebrew as iw and Norwegian Bokmål as no; other sites and
+	// the app's own language use he and nb.
+	it('match each other in either direction, regions included', () => {
+		expect(matchesSubtitleLanguage('iw', 'he')).toBe(true)
+		expect(matchesSubtitleLanguage('he', 'iw')).toBe(true)
+		expect(matchesSubtitleLanguage('no', 'nb')).toBe(true)
+		expect(matchesSubtitleLanguage('nb', 'no')).toBe(true)
+		expect(matchesSubtitleLanguage('yi', 'ji')).toBe(true)
+		expect(matchesSubtitleLanguage('he', 'iw-IL')).toBe(true)
+	})
+
+	it('match with a region on either side', () => {
+		expect(matchesSubtitleLanguage('he-IL', 'iw-IL')).toBe(true)
+		expect(matchesSubtitleLanguage('iw-IL', 'he-IL')).toBe(true)
+	})
+
+	it('count as one language when manual tracks win', () => {
+		const plan = planSubtitleTracks({kind: 'languages', languages: ['he'], source: 'manual-first'}, {subtitles: {he: [{ext: 'vtt'}]}, automaticCaptions: {'iw-orig': [{ext: 'vtt'}]}})
+		expect(plan.tracks.map(track => track.key)).toEqual(['he'])
+	})
+
+	it('match nothing else', () => {
+		expect(matchesSubtitleLanguage('iw', 'id')).toBe(false)
+		expect(matchesSubtitleLanguage('no', 'nl')).toBe(false)
+		expect(matchesSubtitleLanguage('he', 'iw-en')).toBe(false)
+	})
+})

@@ -2,9 +2,11 @@ import {describe, expect, it} from 'vite-plus/test'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import type {DownloadProfile} from '@shared/types.js'
 import {profileDiffRows} from '@renderer/store/wizard/profileDiff.js'
+import {profileFormatLabel} from '@renderer/lib/profileSummary.js'
+import {i18next} from '@shared/i18n/index.js'
 
 const t = (key: string): string => key
-const CTX = {t, defaultOutputDir: '/home/user/Downloads', globalFilenameTemplate: undefined, commonPaths: undefined}
+const CTX = {t, profileFormat: (profile: DownloadProfile): string => profileFormatLabel(profile, i18next.t, 'en'), defaultOutputDir: '/home/user/Downloads', globalFilenameTemplate: undefined, commonPaths: undefined}
 
 function builtin(id: string): DownloadProfile {
 	const profile = BUILTIN_DOWNLOAD_PROFILES.find(candidate => candidate.id === id)

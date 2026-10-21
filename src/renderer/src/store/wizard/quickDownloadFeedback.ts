@@ -4,7 +4,7 @@ import {QUEUE_STATUS, type QueueItemStatus} from '@shared/schemas.js'
 // The feedback of a Bulk URLs quick download, prepared in one modal run. A
 // single link's quick download is a placeholder row in Downloads instead.
 
-export type QuickDownloadFailureMessageKey = 'wizard.url.quickPrepareFailed' | 'wizard.url.quickBulkAllFailed'
+export type QuickDownloadFailureMessageKey = 'wizard.url.quickPrepareFailed' | 'wizard.url.quickBulkAllFailed' | 'wizard.url.profile.outputMissing'
 
 // `urls`: what Retry runs again. `errorUrl`: the link whose failure `error` is,
 // so its guidance (a site's rate-limit cooldown) is about the right site.

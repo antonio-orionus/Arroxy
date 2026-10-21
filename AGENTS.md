@@ -19,17 +19,19 @@ Arroxy is a Bun workspace (`workspaces: ["packages/*"]`), not a single app:
 - `src/` — the Electron app (`main` / `preload` / `renderer` / `shared`).
 - `packages/yt-dlp-bridge` — yt-dlp workflow planning, argv generation, process execution, output parsing. Published as `yt-dlp-bridge` on npm; the app consumes it via `workspace:*`.
 - `packages/ytdlp-errors` — structured yt-dlp error taxonomy. Published as `ytdlp-errors` on npm; `yt-dlp-bridge` depends on it.
+- `packages/arroxy-control` — Control API schemas (requests, results, events, errors) and their JSON Schema export. Published as `arroxy-control` on npm, by its own `arroxy-control-v*.*.*` tag; no tag has been cut yet.
 
-**Both packages live in this repo — never clone them separately.** "Publishable package" in the tooling contract below means published *from here*, not maintained elsewhere.
+**These packages live in this repo — never clone them separately.** "Publishable package" in the tooling contract below means published *from here*, not maintained elsewhere.
 
-Gates after touching either package:
+Gates after touching a package:
 
 ```bash
-bun run errors:check   # ytdlp-errors: typecheck + test + build + pack:dry-run
-bun run bridge:check   # yt-dlp-bridge: builds ytdlp-errors first, then the same chain
+bun run errors:check    # ytdlp-errors: typecheck + test + build + pack:dry-run
+bun run bridge:check    # yt-dlp-bridge: builds ytdlp-errors first, then the same chain
+bun run control:check   # arroxy-control: the same chain
 ```
 
-Publishing is **not** part of the app release. Each package ships on its own annotated tag — `yt-dlp-bridge-v*.*.*` and `ytdlp-errors-v*.*.*` (`.github/workflows/publish-*.yml`), or manual `workflow_dispatch`. Pushing to `main` publishes nothing. So a package change is a separately-released change: keep it off the critical path of an app-side fix that does not need it.
+Publishing is **not** part of the app release. Each package ships on its own annotated tag — `yt-dlp-bridge-v*.*.*`, `ytdlp-errors-v*.*.*` and `arroxy-control-v*.*.*` (`.github/workflows/publish-*.yml`), or manual `workflow_dispatch`. Pushing to `main` publishes nothing. So a package change is a separately-released change: keep it off the critical path of an app-side fix that does not need it.
 
 A PR that changes a package never edits that package's changelog. Only the `release(packages): <pkg> <version>` PR writes the version's section, so feature PRs never conflict over it or claim a version number before the release picks one.
 
@@ -74,6 +76,9 @@ Write an ADR in `docs/adr/NNNN-slug.md` (sequential numbers) only for a decision
 **One concern per PR.** Each PR makes one reviewable change and passes `bun run check` on its own, so every review reads a single idea.
 
 - **Split along seams:** a `packages/*` change apart from the app change that uses it; a behaviour-free refactor or rename before the feature that needs it; mechanical churn (formatting, licence headers, dependency bumps, locale sync, regenerated files) apart from logic; independent features or modules as separate PRs off `main`.
+- **A concern can be several tasks.** One plan built in one branch, task by task (an implementer and then a reviewer per task), is one PR: the rule is one idea per review, not one task per PR.
+- **Same-kind mechanical changes may share a PR** when each is a few lines and none changes behaviour, such as several `ci:` or tooling tweaks. It gets the light review, and a behaviour change never rides along. On 2026-10-21, 36 of 172 PRs were under 50 lines, each paying a full CI and review cycle.
+- **Small fixes in one area may land as a batch PR.** Up to about five confirmed issues that share files or a theme, about 500 lines in all, one review kind, never a package change beside an app change. Each issue gets its own test-first commit, the PR body has a `Fixes #N` line per issue, and the batch gets one dual review, one CI cycle and at most one CodeRabbit trigger. It merges with a merge commit, not a squash, so each fix stays revertable on its own; that overrides the `land` skill's squash steps. A PR push costs about 8 minutes of CI, and CodeRabbit's hourly budget is per trigger: on 2026-10-20/21, seven PRs hit its rate limit.
 - **Tests stay with their code.** Never split by layer (a code PR, then a "tests and docs" PR).
 - **Keep one PR** when the pieces cannot each be green alone, and say why in its body.
 - **Don't stack PRs.** Every PR branches from `main`. When one piece needs another that hasn't merged, keep both in one PR with a commit each (and say why), or start the second once the first merges. Each merge in a stack makes the next PR take `main` again, rerun CI and have its auto-merge turned on by hand, and nothing wakes anyone when its base merges.
