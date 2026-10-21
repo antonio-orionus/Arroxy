@@ -126,7 +126,7 @@ function QuickDownloadHotkeyHint(): ReactNode {
 	const chordKeys = formatHotkeyChord(accelerator)
 	const spokenChord = formatHotkeyChordSpoken(accelerator)
 	return (
-		<Tooltip>
+		<Tooltip disableHoverablePopup={false}>
 			<TooltipTrigger
 				render={props => (
 					<span {...props} aria-label={`${t('wizard.url.hotkey.hintLabel')} ${spokenChord.join(' ')}`} data-testid="quick-download-hotkey-hint" className="mt-2 flex flex-wrap items-center gap-1.5 text-caption font-medium text-quick-card-muted">
@@ -139,7 +139,7 @@ function QuickDownloadHotkeyHint(): ReactNode {
 					</span>
 				)}
 			/>
-			<TooltipContent side="bottom" className="max-w-xs flex-col items-start gap-1 text-left">
+			<TooltipContent side="bottom" className="pointer-events-auto max-w-xs flex-col items-start gap-1 text-left select-text">
 				<span>{t('wizard.url.hotkey.hintTooltip')}</span>
 				<Button type="button" variant="link" size="inline" className="text-start text-background opacity-80 hover:text-background" onClick={() => openAdvancedSettings('hotkey')}>
 					{t('wizard.url.hotkey.hintTooltipSettings')}

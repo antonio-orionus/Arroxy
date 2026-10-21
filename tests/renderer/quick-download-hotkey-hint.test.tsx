@@ -57,7 +57,10 @@ describe('quick download hotkey hint', () => {
 		const hint = await screen.findByTestId('quick-download-hotkey-hint')
 		fireEvent.mouseEnter(hint)
 
-		fireEvent.click(await screen.findByRole('button', {name: 'Change or turn it off in Settings.'}))
+		const action = await screen.findByRole('button', {name: 'Change or turn it off in Settings.'})
+		// The one tooltip with an action in it stays reachable by the pointer.
+		expect(action.closest('[data-slot="tooltip-content"]')).toHaveClass('pointer-events-auto', 'select-text')
+		fireEvent.click(action)
 
 		expect(openAdvancedSettings).toHaveBeenCalledWith('hotkey')
 	})
