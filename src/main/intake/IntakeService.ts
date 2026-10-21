@@ -35,7 +35,8 @@ export interface IntakeQueue {
 	replaceProbing(itemId: string, items: QueueItem[]): Promise<QueueAddResult>
 	needsChoice(itemId: string, choice: QueueChoice, title: string): Result<void>
 	probeFailed(itemId: string, error: LocalizedError, auth?: JobAuth): Result<void>
-	reprobe(itemId: string): Result<void>
+	// A choice's answer (`take`) is stored on the row, as a count chosen at intake is.
+	reprobe(itemId: string, take?: QuickProbeTake): Result<void>
 }
 
 export interface IntakeProbeRequest {
@@ -147,7 +148,8 @@ export class IntakeService {
 	}
 
 	// A needs-choice row's answer: every video, or the first N it was offered.
-	// The answer overrides any count the row was placed with.
+	// The answer overrides any count the row was placed with, and is stored on
+	// the row before its probe starts, so a Retry and a restart keep to it.
 	choose(call: IntakeCall & {take: IntakeTake}): Result<void> {
 		const row = this.placeholder(call.itemId)
 		// A refused answer leaves the row as it is: restarting it here would
@@ -161,7 +163,7 @@ export class IntakeService {
 		if (!kept) return this.reprobe(row, {...probe, scope: scopeForTake(take), take}, call)
 		// The kept probe already holds the first N: no second probe. The row
 		// still goes back to probing, so a failure can land on it as usual.
-		const restarted = this.deps.queue.reprobe(call.itemId)
+		const restarted = this.deps.queue.reprobe(call.itemId, take)
 		if (!restarted.ok) return restarted
 		this.kept.forget(call.itemId)
 		void this.settle(row.id, probe, call, async () => this.resolve(row.id, {ok: true, data: kept}, {...probe, take}, take.count))
@@ -179,7 +181,7 @@ export class IntakeService {
 	}
 
 	private reprobe(row: PlaceholderRow, probe: PlaceholderProbe, caller: Caller): Result<void> {
-		const restarted = this.deps.queue.reprobe(row.id)
+		const restarted = this.deps.queue.reprobe(row.id, probe.take)
 		if (!restarted.ok) return restarted
 		this.kept.forget(row.id)
 		void this.runProbe(row.id, probe, caller)

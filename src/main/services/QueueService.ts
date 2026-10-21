@@ -29,7 +29,7 @@ import {fail, ok, type Result} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {nowIso} from '@main/utils/clock.js'
 import type {IntakeOrigin} from '@shared/intake/intakeSchemas.js'
-import {QUEUE_STATUS, type JobAuth, type QueueChoice, type QueueLane} from '@shared/schemas.js'
+import {QUEUE_STATUS, type JobAuth, type QueueChoice, type QueueLane, type QuickProbeTake} from '@shared/schemas.js'
 import {transition, illegalTransition} from '@shared/queueTransition.js'
 import {MAX_CONCURRENT_DOWNLOADS, NORMAL_LANE_CAP, PRIORITY_LANE_HEADROOM} from '@shared/constants.js'
 import {InterJobSleep} from './download/InterJobSleep.js'
@@ -203,8 +203,8 @@ export class QueueService extends EventEmitter {
 		return this.probeLifecycle.needsChoice(itemId, choice, title)
 	}
 
-	reprobe(itemId: string): Result<void> {
-		return this.probeLifecycle.reprobe(itemId)
+	reprobe(itemId: string, take?: QuickProbeTake): Result<void> {
+		return this.probeLifecycle.reprobe(itemId, take)
 	}
 
 	// commands ---------------------------------------------------------------

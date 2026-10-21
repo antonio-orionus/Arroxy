@@ -90,7 +90,7 @@ export function createIntakeMock(deps: IntakeMockDeps): AppApi['intake'] {
 	async function restart(itemId: string, requestId: string, widen: Pick<Probe, 'scope' | 'take'>, answer?: PlaylistProbeResult): Promise<Result<void>> {
 		const row = find(itemId)
 		if (!row?.probeMode) return fail({code: 'validation', message: `queue item ${itemId} has no probe to restart`})
-		const restarted = await deps.transition(itemId, {kind: 'probe-restarted'})
+		const restarted = await deps.transition(itemId, {kind: 'probe-restarted', ...(widen.take ? {probeTake: widen.take} : {})})
 		if (!restarted.ok) return restarted
 		kept.delete(itemId)
 		void runProbe(itemId, {url: row.url, playlistMode: row.probeMode, title: row.title, ...widen}, requestId, answer)

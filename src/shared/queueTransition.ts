@@ -7,7 +7,7 @@
 // renderer-side projection can call it identically.
 
 import type {LocalizedError, QueueItem, QueueResumeContext} from './types.js'
-import {QUEUE_STATUS, type JobAuth, type QueueChoice} from './schemas.js'
+import {QUEUE_STATUS, type JobAuth, type QueueChoice, type QuickProbeTake} from './schemas.js'
 
 // Closed union of state-change signals. Mapped 1:1 from DownloadService /
 // QueueService events.
@@ -25,7 +25,8 @@ export type QueueEvent =
 	// `auth`: who the failed probe ran as; set only when it failed signed in.
 	| {kind: 'probe-failed'; error: LocalizedError; auth?: JobAuth}
 	| {kind: 'needs-choice'; choice: QueueChoice; title: string}
-	| {kind: 'probe-restarted'}
+	// `probeTake`: a choice's answer, stored on the row so a Retry and a restart keep to it.
+	| {kind: 'probe-restarted'; probeTake?: QuickProbeTake}
 	| {kind: 'completed'; lastStatusKey?: import('./schemas.js').StatusKey; params?: Record<string, string | number>; finishedAt: string}
 	| {kind: 'cancelled'}
 	| {kind: 'retry-reset'}
@@ -75,7 +76,7 @@ export function transition(item: QueueItem, evt: QueueEvent): QueueItem {
 		case 'needs-choice':
 			return {...item, status: QUEUE_STATUS.needsChoice, choice: evt.choice, title: evt.title, progressPercent: 0, progressDetail: null}
 		case 'probe-restarted':
-			return {...withoutChoice(item), status: QUEUE_STATUS.probing, error: null, progressPercent: 0, progressDetail: null, finishedAt: null}
+			return {...withoutChoice(item), status: QUEUE_STATUS.probing, error: null, progressPercent: 0, progressDetail: null, finishedAt: null, ...(evt.probeTake ? {probeTake: evt.probeTake} : {})}
 		case 'completed':
 			return {...withoutProbeInfoJsonRef(item), status: QUEUE_STATUS.done, progressPercent: 100, finishedAt: evt.finishedAt, lastJobId: undefined, tempDir: undefined, resumeContext: undefined, ...(evt.lastStatusKey ? {lastStatus: {key: evt.lastStatusKey, params: evt.params}} : {})}
 		case 'cancelled':

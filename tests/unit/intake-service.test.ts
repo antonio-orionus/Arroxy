@@ -234,6 +234,76 @@ describe('IntakeService', () => {
 		expect(h.queue.snapshot()).toHaveLength(3)
 	})
 
+	// The answer to "how many?" rides on the row, as a count chosen at intake
+	// does: a Retry after the widened probe failed (or after a restart) keeps
+	// to it and does not ask again.
+	describe('an answered choice whose probe fails', () => {
+		const OFFLINE = fail<ProbeResult, ProbeError>({kind: 'other', code: 'unknown', message: 'offline'})
+
+		async function waitingRow(): Promise<string> {
+			h.settings.common = {...h.settings.common, playlistProbeLimit: 2}
+			h.answer(ok(playlist(3)))
+			await h.intake.add({requestId: 'r1', url: PLAYLIST_URL, playlistMode: 'playlist', origin: WINDOW})
+			await h.settled()
+			expect(h.queue.snapshot()[0]?.status).toBe('needs-choice')
+			return h.queue.snapshot()[0]?.id ?? ''
+		}
+
+		it('All stays on the row, and a Retry probes the whole playlist again', async () => {
+			const itemId = await waitingRow()
+			h.answer(OFFLINE)
+			expect(h.intake.choose({requestId: 'r2', itemId, origin: 'window', take: 'all'}).ok).toBe(true)
+			expect(h.queue.snapshot()[0]).toMatchObject({status: 'probing', probeTake: {kind: 'all'}})
+			await h.settled()
+			expect(h.queue.snapshot()[0]).toMatchObject({status: 'error', probeTake: {kind: 'all'}})
+
+			h.answer(ok(playlist(3)))
+			expect(h.intake.retry({requestId: 'r3', itemId, origin: 'window'}).ok).toBe(true)
+			await h.settled()
+			expect(h.probes.at(-1)).toEqual({url: PLAYLIST_URL, playlistMode: 'playlist', ownerKey: itemId, playlistScope: {items: {kind: 'first', count: 5000}}})
+			expect(h.queue.snapshot()).toHaveLength(3)
+			expect(outcomes(h).at(-1)).toEqual({requestId: 'r3', kind: 'queued', itemId, skippedAlreadyQueued: 0})
+		})
+
+		it('First N with no kept probe stays on the row, and a Retry probes those N again', async () => {
+			h.answer(OFFLINE)
+			await h.intake.add({requestId: 'r1', url: PLAYLIST_URL, playlistMode: 'playlist', origin: WINDOW})
+			await h.settled()
+			const itemId = h.queue.snapshot()[0]?.id ?? ''
+			// A needs-choice row restored after a restart: its kept probe is gone.
+			expect(h.queue.reprobe(itemId).ok).toBe(true)
+			expect(h.queue.needsChoice(itemId, {kind: 'playlist-cap', loaded: 2}, 'Road trip mix').ok).toBe(true)
+			h.settings.common = {...h.settings.common, playlistProbeLimit: 2}
+
+			expect(h.intake.choose({requestId: 'r2', itemId, origin: 'window', take: 'first'}).ok).toBe(true)
+			expect(h.queue.snapshot()[0]).toMatchObject({status: 'probing', probeTake: {kind: 'first', count: 2}})
+			await h.settled()
+			expect(h.queue.snapshot()[0]).toMatchObject({status: 'error', probeTake: {kind: 'first', count: 2}})
+
+			h.answer(ok(playlist(3)))
+			expect(h.intake.retry({requestId: 'r3', itemId, origin: 'window'}).ok).toBe(true)
+			await h.settled()
+			expect(h.probes.at(-1)).toEqual({url: PLAYLIST_URL, playlistMode: 'playlist', ownerKey: itemId, playlistScope: {items: {kind: 'first', count: 2}}})
+			expect(h.queue.snapshot().map(row => row.url)).toEqual(['https://youtu.be/v1', 'https://youtu.be/v2'])
+		})
+
+		it('First N from the kept probe stays on the row, and a Retry probes those N', async () => {
+			const itemId = await waitingRow()
+			// The kept probe's rows are refused, so the row settles as a probe error.
+			h.queue.onIntakeAdmission(() => 1)
+			expect(h.intake.choose({requestId: 'r2', itemId, origin: 'window', take: 'first'}).ok).toBe(true)
+			expect(h.queue.snapshot()[0]).toMatchObject({status: 'probing', probeTake: {kind: 'first', count: 2}})
+			await vi.waitFor(() => expect(h.queue.snapshot()[0]).toMatchObject({status: 'error', probeTake: {kind: 'first', count: 2}}))
+
+			h.queue.onIntakeAdmission(() => null)
+			h.answer(ok(playlist(3)))
+			expect(h.intake.retry({requestId: 'r3', itemId, origin: 'window'}).ok).toBe(true)
+			await h.settled()
+			expect(h.probes.at(-1)).toEqual({url: PLAYLIST_URL, playlistMode: 'playlist', ownerKey: itemId, playlistScope: {items: {kind: 'first', count: 2}}})
+			expect(h.queue.snapshot().map(row => row.url)).toEqual(['https://youtu.be/v1', 'https://youtu.be/v2'])
+		})
+	})
+
 	it('a Retry on a row that is not a probe error is refused and probes nothing', async () => {
 		await h.intake.add({requestId: 'r1', url: VIDEO_URL, playlistMode: 'video', origin: WINDOW})
 		await h.settled()

@@ -110,10 +110,10 @@ export function armQueue(api: AppApi, options: ArmQueueOptions = {}): IntakeServ
 			replaceProbing: (itemId, items) => api.queue.cmd.replaceProbing({itemId, items}),
 			needsChoice: (itemId, choice, title) => applyEvent(itemId, {kind: 'needs-choice', choice, title}),
 			probeFailed: (itemId, error, auth) => applyEvent(itemId, {kind: 'probe-failed', error, ...(auth ? {auth} : {})}),
-			reprobe: itemId => {
+			reprobe: (itemId, take) => {
 				const item = row(itemId)
 				if (item?.status !== 'needs-choice' && !(item?.status === 'error' && item.job.kind === 'unresolved')) return fail({code: 'validation', message: `queue item ${itemId} has no probe to restart`, recoverable: true})
-				return applyEvent(itemId, {kind: 'probe-restarted'})
+				return applyEvent(itemId, {kind: 'probe-restarted', ...(take ? {probeTake: take} : {})})
 			}
 		},
 		probe: ({url, playlistMode, ownerKey, playlistScope}) => api.downloads.probe({url, playlistMode, ownerKey, ...(playlistScope ? {playlistScope} : {})}),

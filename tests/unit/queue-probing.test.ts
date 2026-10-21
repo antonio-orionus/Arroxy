@@ -142,6 +142,16 @@ describe('needs-choice queue-item contract', () => {
 		expect(queueItemSchema.safeParse(retried).success).toBe(true)
 	})
 
+	// A choice's answer rides on the row, so a Retry and a restart keep to it.
+	it('a restart with an answer stores it as the row count, and one without keeps the count it had', () => {
+		const answered = transition(choiceItem({probeTake: {kind: 'first', count: 2}}), {kind: 'probe-restarted', probeTake: {kind: 'all'}})
+		expect(answered).toMatchObject({status: 'probing', probeTake: {kind: 'all'}})
+		expect(queueItemSchema.safeParse(answered).success).toBe(true)
+
+		const failed = transition(answered, {kind: 'probe-failed', error: {kind: 'network', raw: 'x'}})
+		expect(transition(failed, {kind: 'probe-restarted'}).probeTake).toEqual({kind: 'all'})
+	})
+
 	it('restarts no probe on a row that has a real job', () => {
 		expect(illegalTransition(makeItem({id: 'a', status: 'error', error: {kind: 'network', raw: 'x'}}), {kind: 'probe-restarted'})).toBeTruthy()
 		expect(illegalTransition(probingItem(), {kind: 'probe-restarted'})).toBeTruthy()
