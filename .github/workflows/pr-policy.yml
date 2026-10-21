@@ -1,0 +1,69 @@
+name: PR policy
+
+# What a pull request may contain, from its own diff against the merge base
+# (scripts/prPolicy.ts): a changelog fragment for an app fix or feature, no new
+# entries in a released CHANGELOG.md section, English-only copy, packages apart
+# from the app, `main` as the base, and no AI attribution. Each rule has an
+# opt-out line for the PR body (CONTRIBUTING.md, "Commit & PR conventions").
+#
+# Its own workflow, not a CI job: `edited` re-runs it when the title, body or
+# base changes, so adding an opt-out line re-checks the PR without re-running
+# the CI suites. It runs on every pull request, unfiltered, so it always
+# reports and could be made a required check.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}${{ github.event_name != 'pull_request' && format('-{0}', github.sha) || '' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+  BUN_VERSION: '1.4.2'
+
+permissions:
+  contents: read
+
+jobs:
+  pr-policy:
+    name: pr-policy
+    runs-on: ubuntu-latest
+    steps:
+      # The default merge checkout, so the checker is the one on the base even
+      # for a branch older than it; the diff and commits come from the base
+      # and head SHAs, which the full history holds.
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version-file: .node-version
+
+      - uses: oven-sh/setup-bun@v2.2.0
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      # The title and body reach the script through the environment, never the
+      # command line: they are the PR author's text.
+      - name: Check the pull request
+        id: policy
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_BASE_REF: ${{ github.event.pull_request.base.ref }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: bun scripts/check-pr-policy.ts "$BASE_SHA" "$HEAD_SHA"
+
+      # The translation sync is the one PR that must leave every locale
+      # translated (ADR 0017); runs even when a policy rule failed.
+      - name: Check the translation sync is complete
+        if: ${{ !cancelled() && steps.policy.outputs.translation_sync == 'true' }}
+        run: bun run check:i18n:complete

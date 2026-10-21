@@ -25,4 +25,6 @@ To change an entry before release, edit its fragment; a PR that reworks a featur
 
 `bun run changelog:assemble` (after the `package.json` bump) writes every fragment into `## <version>` at the top of `CHANGELOG.md`, kinds in the order above and each kind in the order its fragments merged, then deletes them. Read the section over and commit it with `release: <version>`.
 
+The `pr-policy` check fails a `fix` or `feat` PR that changes `src/` without adding or editing a fragment, and a PR that adds entries to a released section of `CHANGELOG.md`. A PR with nothing user-facing, or behind a release flag, says so with a `No changelog: <reason>` line in its body; a missed entry for a release already out takes `Released changelog edit: <reason>`. All opt-outs: [`CONTRIBUTING.md`](../CONTRIBUTING.md#pr-policy).
+
 `bun run check` fails on a malformed fragment, and on a hand-written unreleased section in `CHANGELOG.md`: a `## Unreleased` heading, or a section newer than the `package.json` version. `bun run release:stable` refuses to tag while a fragment is left over or the version's section is missing or empty.

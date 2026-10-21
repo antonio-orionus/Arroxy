@@ -25,7 +25,21 @@
 Run from the repo root and confirm clean:
 
 - [ ] `bun run check`
-- [ ] A user-facing change adds a `changelog.d/` fragment ([how](../changelog.d/README.md)).
+- [ ] A user-facing change adds a `changelog.d/` fragment ([how](../changelog.d/README.md)), or says `No changelog: <reason>` below.
+
+## Policy exceptions
+
+<!--
+The pr-policy check fails a PR that breaks a rule in CONTRIBUTING.md ("PR policy").
+If this PR is a genuine exception, add the line for it below, outside this comment:
+
+No changelog: <reason>
+Released changelog edit: <reason>
+Translation change: <reason>
+Package and app together: <reason>
+Stacked PR: <reason>
+Attribution false positive: <reason>
+-->
 
 ## Testing
 

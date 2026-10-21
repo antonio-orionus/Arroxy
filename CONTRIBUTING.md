@@ -160,6 +160,21 @@ For a fresh-Windows-box bootstrap, see `scripts/build/build-windows.ps1`.
 - **Small, separable commits.** If your PR has two unrelated concerns, make them two commits — reviewers may take one and not the other.
 - **Sign your commits** if your Git identity is set up for it. Not required.
 
+### PR policy
+
+The `pr-policy` check (`.github/workflows/pr-policy.yml`) reads each PR's own diff, its commits and its title and body, and fails a PR that breaks one of the rules below. A PR that is a genuine exception says so with one line of its own in the PR body, `<key>: <reason>`, and the check passes with the reason noted. Editing the body re-runs the check. Lines inside HTML comments do not count.
+
+| Rule | Fails when | Opt-out line |
+| --- | --- | --- |
+| Changelog fragment | A `fix` or `feat` PR (by its Conventional Commits title) changes `src/` and adds or edits no `changelog.d/` fragment | `No changelog: <reason>` |
+| Released changelog | A section of `CHANGELOG.md` that is already released gains entries (rewording one stays allowed) | `Released changelog edit: <reason>` |
+| English only | A translation changes: `i18n/`, a non-English locale under `src/shared/i18n/locales/` or `readme-src/locales/`, `readme-src/translated-from.json`, or `docs/readme/` without an English README source change. The `i18n: sync translations` PR is exempt and must pass `bun run check:i18n:complete` instead | `Translation change: <reason>` |
+| Package scope | The PR changes both `packages/` and `src/` | `Package and app together: <reason>` |
+| Base branch | The PR targets a branch other than `main` | `Stacked PR: <reason>` |
+| No AI attribution | A commit message or the PR body credits an AI as a co-author or generator | `Attribution false positive: <reason>` (the body only; reword a commit instead) |
+
+Typical exceptions: a feature behind a release flag (`No changelog: behind the <flag> release flag`), or a package change the app cannot build without (`Package and app together: <why neither is green alone>`).
+
 ## Licensing
 
 Arroxy is licensed under the GNU General Public License v3.0 or later (see [`LICENSE`](LICENSE)). By submitting a PR you agree your contribution is licensed under the same terms. The `yt-dlp-bridge` and `ytdlp-errors` packages stay MIT; a contribution to one of them is MIT-licensed. The Arroxy name and logo are covered by [`TRADEMARKS.md`](TRADEMARKS.md).
