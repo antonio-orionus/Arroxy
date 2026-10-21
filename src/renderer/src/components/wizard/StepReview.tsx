@@ -11,6 +11,7 @@ import {buildSingleSettingsSummary, sponsorBlockApplies, type SingleSettingsSumm
 import {mp4CaveatCodec, resolveOutputContainer} from '../../store/wizard/resolveContainer.js'
 import type {Mp4Caveat} from '@shared/fileTypeFit.js'
 import {createTranslationPort} from '../../lib/translation.js'
+import {useQuickTimeHost} from '../../lib/quickTimeHost.js'
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from '../ui/accordion.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
@@ -149,6 +150,7 @@ export function StepReview(): ReactNode {
 	const {t, i18n} = useTranslation()
 	const state = useAppStore(useShallow(selectWizardReviewState))
 	const {wizardReviewRow, setWizardReviewRow, goToStep, dismissReviewCallout} = useAppStore(useShallow(s => ({wizardReviewRow: s.wizardReviewRow, setWizardReviewRow: s.setWizardReviewRow, goToStep: s.goToStep, dismissReviewCallout: s.dismissReviewCallout})))
+	const quickTimeHost = useQuickTimeHost()
 	const reviewCalloutPending = state.settings?.common?.reviewCalloutDismissed !== true && (state.settings?.common?.successfulDownloadCount ?? 0) > 0
 
 	function openRow(row: ReviewRow | null): void {
@@ -161,7 +163,7 @@ export function StepReview(): ReactNode {
 	const rows = reviewRowEntries(state, summary)
 	const changed = wizardChangedAreas(state)
 	const changedFrom = t('wizard.review.changedFrom', {profile: state.wizardProfile?.name ?? ''})
-	const caveat = mp4CaveatCodec(state)
+	const caveat = mp4CaveatCodec(state, quickTimeHost)
 	const size = review.summaryRows.find(row => row.key === 'size')?.value
 
 	return (

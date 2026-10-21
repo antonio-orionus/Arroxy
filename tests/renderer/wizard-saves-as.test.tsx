@@ -224,6 +224,16 @@ describe('ProfileTag: why this one', () => {
 })
 
 describe('MP4 playback caveat', () => {
+	const originalPlatform = window.platform
+	// The warnings name QuickTime, so they show on a Mac only. jsdom has no
+	// Media Capabilities API, which reads as a Mac without AV1 hardware.
+	beforeEach(() => {
+		window.platform = 'darwin'
+	})
+	afterEach(() => {
+		window.platform = originalPlatform
+	})
+
 	function showSummary(): void {
 		render(<FormatFooterWarnings />)
 	}
@@ -263,10 +273,18 @@ describe('MP4 playback caveat', () => {
 		expect(screen.queryByTestId('summary-mp4-caveat')).not.toBeInTheDocument()
 	})
 
-	it('also follows an Auto file type that ends as an MP4 with AV1', () => {
+	it('also follows an Auto file type that ends as an MP4 with AV1', async () => {
 		useAppStore.setState({wizardFormats: [{formatId: '399', label: '1080p av1', ext: 'mp4', resolution: '1920x1080', videoCodec: 'av01.0.08M.08', isVideoOnly: true, isAudioOnly: false}, FORMATS[3]], selectedVideoFormatId: '399', audioSelection: {kind: 'native', formatId: '140'}, wizardFileType: 'auto'})
 		showSummary()
 
-		expect(screen.getByTestId('summary-mp4-caveat')).toHaveTextContent('AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere.')
+		expect(await screen.findByTestId('summary-mp4-caveat')).toHaveTextContent('AV1 in an MP4 needs a recent Mac to play in QuickTime. H.264 plays everywhere.')
+	})
+
+	it('says nothing on Windows or Linux, which have no QuickTime', () => {
+		useAppStore.setState({wizardFileType: 'mp4'})
+		window.platform = 'win32'
+		showSummary()
+
+		expect(screen.queryByTestId('summary-mp4-caveat')).not.toBeInTheDocument()
 	})
 })
