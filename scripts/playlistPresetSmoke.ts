@@ -3,8 +3,8 @@
 // picked. Kept apart so tests can run the checks without a network probe.
 
 import {isAudioConvertTargetLossy} from '../src/shared/audioTargets.js'
-import {mediaIntentSpec, playlistSelectionToMediaIntent} from '../src/shared/mediaIntent.js'
-import {AUDIO_BITRATES, PLAYLIST_VIDEO_TIERS, playlistAudioFormatSchema, type AudioBitrate, type AudioConvert, type PlaylistSelection} from '../src/shared/schemas.js'
+import {mediaIntentSpec, playlistSelectionToMediaIntent, type MediaIntentSpec} from '../src/shared/mediaIntent.js'
+import {AUDIO_BITRATES, PLAYLIST_VIDEO_TIERS, playlistAudioFormatSchema, type AudioConvert, type PlaylistSelection} from '../src/shared/schemas.js'
 import type {AudioConvert as BridgeAudioConvert, WorkflowInput} from 'yt-dlp-bridge'
 
 const OUTPUT_TEMPLATE = '%(title).200B [%(id)s].%(ext)s'
@@ -28,10 +28,14 @@ export interface SmokeCase {
 	selection: PlaylistSelection
 }
 
-export function reqFor(selection: PlaylistSelection, outputDir: string, infoJsonPath: string, url: string): WorkflowInput {
+function smokeSpec(selection: PlaylistSelection): MediaIntentSpec {
 	const intent = playlistSelectionToMediaIntent(selection)
 	if (!intent) throw new Error(`smoke case has no media intent: ${JSON.stringify(selection)}`)
-	const spec = mediaIntentSpec(intent)
+	return mediaIntentSpec(intent)
+}
+
+export function reqFor(selection: PlaylistSelection, outputDir: string, infoJsonPath: string, url: string): WorkflowInput {
+	const spec = smokeSpec(selection)
 	return {
 		kind: 'media',
 		url,
@@ -122,9 +126,8 @@ export function validate(caseDef: SmokeCase, args: string[], info: SelectedInfo)
 		if (caseDef.selection.codec === 'mp4') {
 			if (info.ext !== 'mp4') failures.push(`merged ext expected mp4, got ${info.ext ?? '<missing>'}`)
 			if (video.vcodec === undefined || !/^(avc|h264)/i.test(video.vcodec)) failures.push(`video codec expected H.264/AVC preference, got ${video.vcodec ?? '<missing>'}`)
-			failures.push(...[assertArgValue(args, '--merge-output-format', 'mp4')].filter((s): s is string => s !== null))
 		}
-		return failures
+		return [...failures, ...planFailures(smokeSpec(caseDef.selection), args)]
 	}
 
 	// Smoke cases cover media selections only; a subtitles batch has no stream to inspect.
@@ -133,16 +136,22 @@ export function validate(caseDef: SmokeCase, args: string[], info: SelectedInfo)
 	const video = selectedVideo(info)
 	if (!audio) failures.push('yt-dlp selected no audio stream')
 	if (video) failures.push(`audio preset selected a video stream (${video.format_id ?? video.vcodec ?? 'unknown'})`)
-	failures.push(...[assertArgValue(args, '-f', 'bestaudio/best')].filter((s): s is string => s !== null))
+	return [...failures, ...planFailures(smokeSpec(caseDef.selection), args)]
+}
 
-	if (caseDef.selection.format === 'best') {
-		if (args.includes('-x')) failures.push('audio best should not extract/convert')
-		return failures
-	}
-
-	const expectedBitrate: AudioBitrate = caseDef.selection.bitrateKbps ?? 192
-	failures.push(...[args.includes('-x') ? null : 'missing -x', assertArgValue(args, '--audio-format', caseDef.selection.format), assertArgValue(args, '--audio-quality', `${expectedBitrate}K`)].filter((s): s is string => s !== null))
-	return failures
+// The argv has to carry what the plan promises. Expectations come from the
+// spec reqFor planned from, never a copy of it, so they move with the plan.
+// A converted pick's `-f` is the bridge's own (its conversion source), so only
+// a selector the spec names is checked.
+function planFailures(spec: MediaIntentSpec, args: string[]): string[] {
+	const convert = spec.audioConvert
+	const checks = [
+		spec.formatSelector === undefined ? null : assertArgValue(args, '-f', spec.formatSelector),
+		spec.formatSort === undefined ? null : assertArgValue(args, '-S', spec.formatSort),
+		spec.mergeOutputFormat === undefined ? null : assertArgValue(args, '--merge-output-format', spec.mergeOutputFormat),
+		...(convert ? [args.includes('-x') ? null : 'missing -x', assertArgValue(args, '--audio-format', convert.target), 'bitrateKbps' in convert ? assertArgValue(args, '--audio-quality', `${convert.bitrateKbps}K`) : null] : [args.includes('-x') ? 'unplanned -x' : null])
+	]
+	return checks.filter((s): s is string => s !== null)
 }
 
 export function describeSelection(info: SelectedInfo): string {
