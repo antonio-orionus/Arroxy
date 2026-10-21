@@ -280,6 +280,19 @@ describe('quickDownload', () => {
 		expect(api.downloads.probe).toHaveBeenCalledWith(expect.objectContaining({url: mixedUrl, playlistMode: 'playlist', playlistScope: {items: {kind: 'app-limit'}}}))
 	})
 
+	it.each(['video', 'playlist'] as const)('opens the cookies config dialog instead of probing when the Interactive prompt answers %s with an incomplete cookie setup', async choice => {
+		const api = buildMockAppApi()
+		window.appApi = api
+		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
+		const defaults = defaultAppSettings('/tmp')
+		useAppStore.setState({wizardUrl: mixedUrl, settings: {...defaults, common: {...defaults.common, cookiesMode: 'file', cookiesPath: ''}}, mixedUrlPromptOpen: true, mixedUrlPending: mixedUrl, mixedUrlPromptSource: 'wizard'})
+
+		await useAppStore.getState().dismissMixedPrompt(choice)
+
+		expect(api.downloads.probe).not.toHaveBeenCalled()
+		expect(useAppStore.getState().cookiesConfigDialogIssue).toBe('file-missing-path')
+	})
+
 	it('works on first launch with default profile settings', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))

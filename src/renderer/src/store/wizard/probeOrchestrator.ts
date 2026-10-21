@@ -433,8 +433,10 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 				}
 				return
 			}
+			// The prompt opens before submitWizardUrl's own cookie guard runs, so
+			// both answers check the cookie setup here.
+			if (maybeBlockIncompleteCookiesConfig(pending, set, get)) return
 			if (choice === 'video') {
-				if (maybeBlockIncompleteCookiesConfig(pending, set, get)) return
 				await runProbe(pending, 'video', set, get)
 			} else {
 				// The dialog promises the first N, N being the load limit. A range left
