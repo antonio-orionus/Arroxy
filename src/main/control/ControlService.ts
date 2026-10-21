@@ -16,7 +16,7 @@ import {queuePage} from './controlPaging.js'
 import {activeProfileRef} from './controlProfiles.js'
 import {intakeView, profileView, queueItemView} from './controlProjections.js'
 import type {ControlContext, ControlFeedSubscription, ControlQueue, ControlServiceDeps, ControlSink} from './controlTypes.js'
-import {waitFor, type WaitEnd} from './controlWait.js'
+import {WaitChanges, waitFor, type WaitChange, type WaitEnd} from './controlWait.js'
 import type {IntakeRecord} from './IntakeRegistry.js'
 
 const logger = log.scope('control')
@@ -29,15 +29,20 @@ export interface ControlSession {
 	close(): void
 }
 
+// Waits one session may hold open at once; one more answers limit_exceeded.
+export const CONTROL_WAITS_PER_SESSION = 16
+
 export class ControlService {
 	private readonly intakes: ControlIntakes
+	private readonly changes: WaitChanges
 
 	constructor(private readonly deps: ControlServiceDeps) {
 		this.intakes = new ControlIntakes(deps)
+		this.changes = new WaitChanges(deps)
 	}
 
 	openSession(context: ControlContext, sink: ControlSink): ControlSession {
-		return new Session(this.deps, this.intakes, context, sink)
+		return new Session(this.deps, this.intakes, this.changes, context, sink)
 	}
 }
 
@@ -65,10 +70,12 @@ const ITEM_SETTLED: ReadonlySet<QueueItemStatus> = new Set(['needs-choice', 'pau
 class Session implements ControlSession {
 	private readonly closing = new AbortController()
 	private subscription: ControlFeedSubscription | null = null
+	private waiting = 0
 
 	constructor(
 		private readonly deps: ControlServiceDeps,
 		private readonly intakes: ControlIntakes,
+		private readonly changes: WaitChanges,
 		private readonly context: ControlContext,
 		private readonly sink: ControlSink
 	) {}
@@ -180,31 +187,52 @@ class Session implements ControlSession {
 	}
 
 	private async wait(params: ControlParams<'wait'>): Promise<ControlResult<'wait'>> {
-		const subscribe = (onChange: () => void): (() => void) => {
-			const stops = [this.deps.registry.onChange(() => onChange()), this.deps.queue.onChange(onChange)]
-			return () => {
-				for (const stop of stops) stop()
-			}
+		if (this.waiting >= CONTROL_WAITS_PER_SESSION) throw controlFailure('limit_exceeded', `This session already holds ${CONTROL_WAITS_PER_SESSION} waits; let one end first.`, {retryable: true, details: {limit: CONTROL_WAITS_PER_SESSION}})
+		this.waiting++
+		try {
+			return await (params.intakeId === undefined ? this.waitItem(params.itemId, params.until, params.timeoutMs) : this.waitIntake(params.intakeId, params.until, params.timeoutMs))
+		} finally {
+			this.waiting--
 		}
-		if (params.intakeId !== undefined) {
-			const {intakeId, until} = params
-			const end = await waitFor({read: () => this.deps.registry.get(intakeId), reached: record => this.intakeReached(record, until), subscribe}, params.timeoutMs, this.closing.signal)
-			return waitResult(end, record => ({kind: 'intake', intake: intakeView(record)}))
+	}
+
+	// Re-read on the intake's own changes and, for `done`, on its rows'.
+	private async waitIntake(intakeId: string, until: 'settled' | 'done', timeoutMs: number): Promise<ControlResult<'wait'>> {
+		let rows: ReadonlySet<string> = new Set()
+		const read = (): IntakeRecord | undefined => {
+			const record = this.deps.registry.get(intakeId)
+			rows = new Set(record?.state.state === 'queued' ? record.state.itemIds : [])
+			return record
 		}
-		const {itemId, until} = params
-		const end = await waitFor({read: () => this.find(itemId), reached: item => (until === 'done' ? item.status === 'done' : ITEM_SETTLED.has(item.status)), subscribe}, params.timeoutMs, this.closing.signal)
+		const touches = (change: WaitChange): boolean => (change.kind === 'intake' ? change.intakeId === intakeId : until === 'done' && change.itemIds.some(itemId => rows.has(itemId)))
+		const end = await waitFor({read, reached: record => this.intakeReached(record, until), subscribe: onChange => this.listen(touches, onChange)}, timeoutMs, this.closing.signal)
+		return waitResult(end, record => ({kind: 'intake', intake: intakeView(record)}))
+	}
+
+	private async waitItem(itemId: string, until: 'settled' | 'done', timeoutMs: number): Promise<ControlResult<'wait'>> {
+		const touches = (change: WaitChange): boolean => change.kind === 'rows' && change.itemIds.includes(itemId)
+		const end = await waitFor({read: () => this.find(itemId), reached: item => (until === 'done' ? item.status === 'done' : ITEM_SETTLED.has(item.status)), subscribe: onChange => this.listen(touches, onChange)}, timeoutMs, this.closing.signal)
 		return waitResult(end, item => ({kind: 'item', item: this.view(item)}))
 	}
 
-	// `done`: queued, and none of its rows left in the queue is unfinished. A
-	// done row may already be gone (auto-remove), so a row the queue no longer
-	// holds counts as finished.
+	private listen(touches: (change: WaitChange) => boolean, onChange: () => void): () => void {
+		return this.changes.listen(change => {
+			if (touches(change)) onChange()
+		})
+	}
+
+	// `done`: queued, and every row it made is done: still in the queue as
+	// done, or taken out by auto-remove, which takes only done rows. A row
+	// removed any other way never finishes, so the wait runs to its timeout.
 	private intakeReached(record: IntakeRecord, until: 'settled' | 'done'): boolean {
 		const {state} = record
 		if (until === 'settled') return state.state !== 'probing'
 		if (state.state !== 'queued') return false
 		const rows = new Map(this.deps.queue.snapshot().map(item => [item.id, item.status]))
-		return state.itemIds.every(itemId => (rows.get(itemId) ?? 'done') === 'done')
+		return state.itemIds.every(itemId => {
+			const status = rows.get(itemId)
+			return status === undefined ? this.deps.registry.rowLeftDone(record.intakeId, itemId) : status === 'done'
+		})
 	}
 }
 

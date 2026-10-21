@@ -47,6 +47,8 @@ interface Entry {
 	releasedAt: number | null
 	// A queued intake's rows still in the queue.
 	rows: Set<string>
+	// Its rows the queue took out once done (auto-remove).
+	leftDone: Set<string>
 }
 
 export class IntakeRegistry {
@@ -74,15 +76,28 @@ export class IntakeRegistry {
 		return count >= CONTROL_PROBING_INTAKES_PER_CLIENT
 	}
 
-	// links.add found the link already live: a fresh intake, queued on that
-	// row, so the client can wait on it like any other.
+	// links.add found the link already live. A placeholder this registry
+	// follows answers with its own intake; any other row gets a fresh intake
+	// in the row's state (a placeholder of the window's or the hotkey's is
+	// followed from here on), so the client can wait on it like any other.
 	adoptLive(clientId: string, itemId: string): IntakeRecord {
-		const record: IntakeRecord = {intakeId: this.deps.newId(), placeholderId: itemId, clientId, state: {state: 'queued', itemIds: [itemId]}, updatedAt: this.deps.now()}
-		const entry: Entry = {record, releasedAt: null, rows: new Set()}
+		const row = this.deps.rows().find(item => item.id === itemId)
+		const known = row ? this.entryForRow(row) : undefined
+		if (known) return known.record
+		const state = row ? liveState(row) : {state: 'queued' as const, itemIds: [itemId]}
+		const record: IntakeRecord = {intakeId: this.deps.newId(), placeholderId: itemId, clientId, state, updatedAt: this.deps.now()}
+		const entry: Entry = {record, releasedAt: null, rows: new Set(), leftDone: new Set()}
 		this.entries.set(record.intakeId, entry)
+		if (state.state !== 'queued') this.byPlaceholder.set(itemId, record.intakeId)
 		this.hold(entry)
 		this.changed(record)
 		return record
+	}
+
+	// Whether one of a queued intake's rows left the queue done (auto-remove)
+	// rather than removed unfinished.
+	rowLeftDone(intakeId: string, itemId: string): boolean {
+		return this.entries.get(intakeId)?.leftDone.has(itemId) ?? false
 	}
 
 	onChange(listener: (record: IntakeRecord) => void): () => void {
@@ -94,11 +109,11 @@ export class IntakeRegistry {
 	// intake; a placeholder probing again (a Retry or a choice) moves it back.
 	hearRows(items: readonly QueueItem[]): void {
 		for (const item of items) {
-			const {origin} = item
-			if (origin?.kind !== 'localClient' || item.status !== QUEUE_STATUS.probing) continue
-			const entry = this.entries.get(origin.intakeId)
+			if (item.status !== QUEUE_STATUS.probing) continue
+			const entry = this.entryForRow(item)
 			if (!entry) {
-				if (item.job.kind === 'unresolved') this.start(origin.intakeId, origin.clientId, item.id)
+				const {origin} = item
+				if (origin?.kind === 'localClient' && item.job.kind === 'unresolved') this.start(origin.intakeId, origin.clientId, item.id)
 				continue
 			}
 			const {state} = entry.record.state
@@ -111,7 +126,7 @@ export class IntakeRegistry {
 	// (`nothingNew`). Any other removal of a live placeholder cancels its intake.
 	hearRemoved(itemId: string, reason: QueueRemovalReason): void {
 		if (reason === 'replaced') return
-		this.releaseRow(itemId)
+		this.releaseRow(itemId, reason)
 		const intakeId = this.byPlaceholder.get(itemId)
 		const entry = intakeId === undefined ? undefined : this.entries.get(intakeId)
 		if (!entry) return
@@ -128,7 +143,7 @@ export class IntakeRegistry {
 	}
 
 	hearOutcome(event: IntakeOutcomeEvent): void {
-		const entry = event.intakeId === null ? undefined : this.entries.get(event.intakeId)
+		const entry = this.entryForOutcome(event)
 		// A cancelled intake's probe writes nothing; an outcome now is stale.
 		if (!entry || entry.record.state.state === 'cancelled') return
 		const next = this.stateFor(event.intakeId, event.outcome)
@@ -158,9 +173,28 @@ export class IntakeRegistry {
 		}
 	}
 
+	// The intake a row is the placeholder of: one followed by its row (an
+	// adopted placeholder), else a client's own by the row's origin.
+	private entryForRow(item: QueueItem): Entry | undefined {
+		const intakeId = this.byPlaceholder.get(item.id) ?? (item.origin?.kind === 'localClient' ? item.origin.intakeId : undefined)
+		return intakeId === undefined ? undefined : this.entries.get(intakeId)
+	}
+
+	// By the outcome's intake id, else by the placeholder the outcome settles
+	// (an adopted placeholder of another intake). already-queued names another
+	// row, never the placeholder.
+	private entryForOutcome(event: IntakeOutcomeEvent): Entry | undefined {
+		const own = event.intakeId === null ? undefined : this.entries.get(event.intakeId)
+		if (own) return own
+		const {outcome} = event
+		if (outcome.kind !== 'added' && outcome.kind !== 'queued' && outcome.kind !== 'failed' && outcome.kind !== 'needs-choice') return undefined
+		const intakeId = this.byPlaceholder.get(outcome.itemId)
+		return intakeId === undefined ? undefined : this.entries.get(intakeId)
+	}
+
 	private start(intakeId: string, clientId: string, placeholderId: string): void {
 		const record: IntakeRecord = {intakeId, placeholderId, clientId, state: {state: 'probing'}, updatedAt: this.deps.now()}
-		this.entries.set(intakeId, {record, releasedAt: null, rows: new Set()})
+		this.entries.set(intakeId, {record, releasedAt: null, rows: new Set(), leftDone: new Set()})
 		this.byPlaceholder.set(placeholderId, intakeId)
 		this.changed(record)
 	}
@@ -195,7 +229,7 @@ export class IntakeRegistry {
 	}
 
 	// A queued intake is released once the last of its rows leaves the queue.
-	private releaseRow(itemId: string): void {
+	private releaseRow(itemId: string, reason: QueueRemovalReason): void {
 		const waiting = this.byRow.get(itemId)
 		if (!waiting) return
 		this.byRow.delete(itemId)
@@ -203,6 +237,8 @@ export class IntakeRegistry {
 			const entry = this.entries.get(intakeId)
 			if (!entry) continue
 			entry.rows.delete(itemId)
+			// Auto-remove takes out only done rows.
+			if (reason === 'autoRemoved') entry.leftDone.add(itemId)
 			if (entry.rows.size === 0 && entry.releasedAt === null) entry.releasedAt = this.deps.now()
 		}
 	}
@@ -259,6 +295,14 @@ export class IntakeRegistry {
 function probeFailure(error: ProbeError | null): {ytdlpKind: string | null; retryable: boolean} {
 	if (error?.kind === 'ytdlp') return {ytdlpKind: error.error.kind, retryable: errorKindMetadata(error.error.kind).recoverable}
 	return {ytdlpKind: null, retryable: error === null || !LASTING_PROBE_FAILURES.has(error.code)}
+}
+
+// A live row's state as an intake: a placeholder still probing or asking,
+// else a row that is queued.
+function liveState(row: QueueItem): IntakeState {
+	if (row.status === QUEUE_STATUS.probing) return {state: 'probing'}
+	if (row.status === QUEUE_STATUS.needsChoice && row.choice) return needsYourChoice(row.choice, false)
+	return {state: 'queued', itemIds: [row.id]}
 }
 
 // `total` is known only when the probe saw the whole collection.

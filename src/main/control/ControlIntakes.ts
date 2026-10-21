@@ -5,6 +5,7 @@
 
 import log from 'electron-log/main.js'
 import type {ControlParams, IntakeView} from 'arroxy-control'
+import {cleanUrl} from '@shared/cleanUrl.js'
 import {rewriteYouTubeChannelRoot} from '@shared/intake/urlIntake.js'
 import {policyForUrlIntent} from '@shared/intake/urlIntentPolicy.js'
 import {requestSiteFor} from '@shared/sites/index.js'
@@ -49,7 +50,7 @@ export class ControlIntakes {
 		const {state} = record
 		if (state.state !== 'needsYourChoice') throw controlFailure('invalid_state', `The intake is ${state.state}; only one that needs your choice takes one.`)
 		if (params.take === 'first') {
-			if (state.kind === 'playlistReview') throw controlFailure('invalid_state', 'A playlist to review offers all its videos here; picking some happens in the Arroxy window.')
+			if (state.kind === 'playlistReview') throw controlFailure('desktop_required', 'Picking some videos of a playlist to review happens in the Arroxy window; here it takes all.')
 			// Intake takes the videos it loaded; any other count would need a new probe.
 			if (params.count !== state.offered) throw controlFailure('invalid_request', `Take the first ${state.offered}, the number that was loaded, or take all.`)
 		}
@@ -79,13 +80,15 @@ export class ControlIntakes {
 	private async place(clientId: string, params: ControlParams<'links.add'>): Promise<LinksAdded> {
 		// Before the first await, so concurrent calls count each other as placing.
 		if (this.deps.registry.probingCapReached(clientId, this.requests.placing(clientId))) {
-			throw controlFailure('limit_exceeded', `This client already has ${CONTROL_PROBING_INTAKES_PER_CLIENT} links probing; wait for some to settle.`, {limit: CONTROL_PROBING_INTAKES_PER_CLIENT})
+			throw controlFailure('limit_exceeded', `This client already has ${CONTROL_PROBING_INTAKES_PER_CLIENT} links probing; wait for some to settle.`, {retryable: true, details: {limit: CONTROL_PROBING_INTAKES_PER_CLIENT}})
 		}
-		const url = rewriteYouTubeChannelRoot(params.url)
-		this.refuseCoolingSite(url)
+		// Cleaned as the window and the hotkey clean a link, so the same video
+		// is the same link (already-queued) and yt-dlp gets an address it reads.
+		const url = rewriteYouTubeChannelRoot(cleanUrl(params.url))
 		const settings = await this.deps.settings()
 		const profile = params.profile ? enabledProfileRef(settings, params.profile) : activeProfileRef(settings, this.deps.intake.windowProfile())
 		if (!profile) throw controlFailure('profile_unavailable', 'No enabled profile has that ref.')
+		this.refuseCoolingSite(url)
 		let placement: IntakePlacement
 		try {
 			placement = await this.deps.intake.add({requestId: this.deps.newId(), url, playlistMode: params.playlistMode ?? hotkeyPlaylistMode(url), profile, origin: {kind: 'localClient', clientId}})
@@ -114,7 +117,7 @@ export class ControlIntakes {
 		const site = requestSiteFor(url)
 		const cooldown = this.deps.status.current().cooldowns.find(candidate => candidate.site === site)
 		const retryAfterMs = cooldown ? cooldown.until - this.deps.now() : 0
-		if (retryAfterMs > 0) throw controlFailure('rate_limited', `${site} asked Arroxy to slow down; links to it wait until the cooldown ends.`, {retryAfterMs})
+		if (retryAfterMs > 0) throw controlFailure('rate_limited', `${site} asked Arroxy to slow down; links to it wait until the cooldown ends.`, {details: {retryAfterMs}})
 	}
 }
 

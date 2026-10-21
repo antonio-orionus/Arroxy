@@ -57,14 +57,14 @@ export interface ControlQueue {
 	remove(itemId: string): Promise<Result<void>>
 	pauseAll(): Promise<QueueSchedulerCommandResult>
 	resumeAll(): Promise<QueueSchedulerCommandResult>
-	// Any row added, changed or removed.
-	onChange(listener: () => void): Unsubscribe
+	// The rows added, changed or removed.
+	onChange(listener: (itemIds: readonly string[]) => void): Unsubscribe
 }
 
 export interface ControlServiceDeps {
 	intake: Pick<IntakeService, 'add' | 'choose' | 'retry' | 'windowProfile'>
 	queue: ControlQueue
-	registry: Pick<IntakeRegistry, 'bootId' | 'get' | 'probingCapReached' | 'adoptLive' | 'onChange'>
+	registry: Pick<IntakeRegistry, 'bootId' | 'get' | 'probingCapReached' | 'adoptLive' | 'onChange' | 'rowLeftDone'>
 	settings(): Promise<AppSettings>
 	status: Pick<ControlStatus, 'current'>
 	feed: ControlFeed

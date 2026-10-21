@@ -1,6 +1,7 @@
 // @vitest-environment node
 
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
+import {CONTROL_WAITS_PER_SESSION} from '@main/control/ControlService.js'
 import {makeItem} from '../shared/fixtures.js'
 import {context, errorOf, harness, resultOf, SINK, type Harness} from '../helpers/controlServiceHarness.js'
 
@@ -80,6 +81,51 @@ describe('ControlService wait', () => {
 		h.put(makeItem({id: placeholderId, status: 'done', origin}))
 		h.drop(placeholderId, 'autoRemoved')
 		expect(resultOf('wait', await waiting).reached).toBe(true)
+	})
+
+	it('never reports an intake done once one of its rows was taken out unfinished', async () => {
+		const {intakeId, placeholderId} = await addLink()
+		const origin = {kind: 'localClient', clientId: 'client-1', intakeId} as const
+		h.put(makeItem({id: placeholderId, status: 'pending', origin}))
+		h.put(makeItem({id: 'second', status: 'pending', origin}))
+		h.outcome(intakeId, {kind: 'queued', itemId: placeholderId, skippedAlreadyQueued: 0})
+		const waiting = h.send('wait', {intakeId, until: 'done', timeoutMs: 30_000})
+		h.drop('second', 'removed')
+		h.put(makeItem({id: placeholderId, status: 'done', origin}))
+		h.drop(placeholderId, 'autoRemoved')
+		await vi.advanceTimersByTimeAsync(30_000)
+		expect(resultOf('wait', await waiting)).toMatchObject({reached: false, target: {kind: 'intake', intake: {state: {state: 'queued'}}}})
+	})
+
+	it('listens once for all its waits, and re-reads only for the targets a change touches', async () => {
+		h.put(makeItem({id: 'a', status: 'running'}))
+		h.put(makeItem({id: 'b', status: 'running'}))
+		const first = h.send('wait', {itemId: 'a', until: 'done', timeoutMs: 60_000})
+		const second = h.send('wait', {itemId: 'a', until: 'settled', timeoutMs: 60_000})
+		await vi.advanceTimersByTimeAsync(0)
+		expect(h.queueListeners.size).toBe(1)
+		h.queue.snapshot.mockClear()
+		for (let tick = 1; tick <= 10; tick++) h.put(makeItem({id: 'b', status: 'running', progressPercent: tick}))
+		expect(h.queue.snapshot).not.toHaveBeenCalled()
+		h.put(makeItem({id: 'a', status: 'done'}))
+		expect(resultOf('wait', await first).reached).toBe(true)
+		expect(resultOf('wait', await second).reached).toBe(true)
+		expect(h.queueListeners.size).toBe(0)
+	})
+
+	it(`holds at most ${CONTROL_WAITS_PER_SESSION} waits per session`, async () => {
+		h.put(makeItem({id: 'a', status: 'running'}))
+		const held = Array.from({length: CONTROL_WAITS_PER_SESSION}, () => h.send('wait', {itemId: 'a', until: 'done', timeoutMs: 60_000}))
+		await vi.advanceTimersByTimeAsync(0)
+		const refused = errorOf(await h.send('wait', {itemId: 'a', until: 'done', timeoutMs: 60_000}))
+		expect(refused).toMatchObject({code: 'limit_exceeded', retryable: true, details: {limit: CONTROL_WAITS_PER_SESSION}})
+		// Another session has its own.
+		const elsewhere = h.send('wait', {itemId: 'a', until: 'done', timeoutMs: 0}, context('client-2'))
+		await vi.advanceTimersByTimeAsync(0)
+		expect(resultOf('wait', await elsewhere).reached).toBe(false)
+		h.put(makeItem({id: 'a', status: 'done'}))
+		await Promise.all(held)
+		expect(resultOf('wait', await h.send('wait', {itemId: 'a', until: 'done', timeoutMs: 0})).reached).toBe(true)
 	})
 
 	it('answers an item settled when it stops moving on its own, done only when done', async () => {

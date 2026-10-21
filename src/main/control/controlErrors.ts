@@ -15,8 +15,8 @@ export class ControlFailure extends Error {
 	}
 }
 
-export function controlFailure(code: ControlErrorCode, message: string, details?: ControlErrorDetails): ControlFailure {
-	return new ControlFailure(controlError(code, message, details ? {details} : {}))
+export function controlFailure(code: ControlErrorCode, message: string, options: {details?: ControlErrorDetails; retryable?: boolean} = {}): ControlFailure {
+	return new ControlFailure(controlError(code, message, options))
 }
 
 interface PublicError {

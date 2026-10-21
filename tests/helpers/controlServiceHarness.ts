@@ -27,12 +27,12 @@ export function context(clientId = 'client-1', rules: ControlRule[] = ['trusted'
 
 export function harness() {
 	const rows: QueueItem[] = []
-	const queueListeners = new Set<() => void>()
+	const queueListeners = new Set<(itemIds: readonly string[]) => void>()
 	const clock = {now: START}
 	let ids = 0
 	const registry = new IntakeRegistry({rows: () => rows, now: () => clock.now, newId: () => `adopted-${++ids}`, defer: run => run()})
-	const changed = (): void => {
-		for (const listener of [...queueListeners]) listener()
+	const changed = (itemIds: readonly string[]): void => {
+		for (const listener of [...queueListeners]) listener(itemIds)
 	}
 	// Writes a row the way the queue does: the registry hears it, then listeners.
 	const put = (row: QueueItem): QueueItem => {
@@ -40,18 +40,18 @@ export function harness() {
 		if (index >= 0) rows[index] = row
 		else rows.push(row)
 		registry.hearRows([row])
-		changed()
+		changed([row.id])
 		return row
 	}
 	const drop = (itemId: string, reason: QueueRemovalReason): void => {
 		const index = rows.findIndex(row => row.id === itemId)
 		if (index >= 0) rows.splice(index, 1)
 		registry.hearRemoved(itemId, reason)
-		changed()
+		changed([itemId])
 	}
 	const schedulerResult = (): QueueSchedulerCommandResult => ({scheduler: 'paused', done: [], failed: []})
 	const queue = {
-		snapshot: () => rows,
+		snapshot: vi.fn((): readonly QueueItem[] => rows),
 		pause: vi.fn((_itemId: string): Promise<Result<void>> => Promise.resolve(ok(undefined))),
 		resume: vi.fn((_itemId: string): Promise<Result<void>> => Promise.resolve(ok(undefined))),
 		cancel: vi.fn((itemId: string): Promise<Result<void>> => {
@@ -67,7 +67,7 @@ export function harness() {
 		}),
 		pauseAll: vi.fn(() => Promise.resolve(schedulerResult())),
 		resumeAll: vi.fn(() => Promise.resolve({...schedulerResult(), scheduler: 'running' as const})),
-		onChange: (listener: () => void) => {
+		onChange: (listener: (itemIds: readonly string[]) => void) => {
 			queueListeners.add(listener)
 			return () => queueListeners.delete(listener)
 		}

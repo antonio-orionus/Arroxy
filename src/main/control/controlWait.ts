@@ -3,6 +3,42 @@
 // timeout with the target as it is, when the target is gone, or when the
 // session closes; every listener and the timer go with it.
 
+import type {ControlQueue} from './controlTypes.js'
+import type {IntakeRegistry} from './IntakeRegistry.js'
+
+// What moved: queue rows, or one intake.
+export type WaitChange = {kind: 'rows'; itemIds: readonly string[]} | {kind: 'intake'; intakeId: string}
+
+// One listener on the queue and the registry for every wait in the service,
+// held only while a wait runs. Each wait filters for its own target, so a
+// progress tick on one row re-reads no other wait's target.
+export class WaitChanges {
+	private readonly listeners = new Set<(change: WaitChange) => void>()
+	private stop: (() => void) | null = null
+
+	constructor(private readonly sources: {queue: Pick<ControlQueue, 'onChange'>; registry: Pick<IntakeRegistry, 'onChange'>}) {}
+
+	listen(listener: (change: WaitChange) => void): () => void {
+		this.listeners.add(listener)
+		if (!this.stop) {
+			const stops = [this.sources.queue.onChange(itemIds => this.tell({kind: 'rows', itemIds})), this.sources.registry.onChange(record => this.tell({kind: 'intake', intakeId: record.intakeId}))]
+			this.stop = () => {
+				for (const stop of stops) stop()
+			}
+		}
+		return () => {
+			this.listeners.delete(listener)
+			if (this.listeners.size > 0 || !this.stop) return
+			this.stop()
+			this.stop = null
+		}
+	}
+
+	private tell(change: WaitChange): void {
+		for (const listener of [...this.listeners]) listener(change)
+	}
+}
+
 export interface WaitWatch<T> {
 	// The target now; undefined once it is gone.
 	read(): T | undefined

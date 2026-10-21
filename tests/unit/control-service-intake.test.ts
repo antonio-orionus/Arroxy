@@ -65,6 +65,18 @@ describe('ControlService links.add', () => {
 		expect(lastAdd(h).url).toBe('https://www.youtube.com/@someone/videos')
 	})
 
+	it('cleans the link as the window and the hotkey do, before anything reads it', async () => {
+		await addLink(h, 'r1', 'https://www.youtube.com/show/VLPLabc123')
+		expect(lastAdd(h)).toMatchObject({url: 'https://www.youtube.com/playlist?list=PLabc123', playlistMode: 'playlist'})
+		await addLink(h, 'r2', 'https://www.youtube.com/watch?v=abc&utm_source=newsletter')
+		expect(lastAdd(h).url).toBe('https://www.youtube.com/watch?v=abc')
+	})
+
+	it('names an unknown profile before a cooling site', async () => {
+		h.status.value = {...h.status.value, cooldowns: [{site: 'youtube', until: h.clock.now + 90_000}]}
+		expect(errorOf(await h.send('links.add', {requestId: 'r1', url: VIDEO, profile: {kind: 'custom', id: 'nope'}})).code).toBe('profile_unavailable')
+	})
+
 	it('prepares the link with the profile the caller names, never making it active', async () => {
 		const custom: DownloadProfile = {...BUILTIN_DOWNLOAD_PROFILES[0], id: 'mine', name: 'Mine'}
 		h.settings.profiles = {...h.settings.profiles, custom: [custom]}
@@ -123,7 +135,7 @@ describe('ControlService links.add', () => {
 		it(`refuses a link past ${CONTROL_PROBING_INTAKES_PER_CLIENT} intakes still probing`, async () => {
 			for (let index = 0; index < CONTROL_PROBING_INTAKES_PER_CLIENT; index++) await addLink(h, `r${index}`, `https://example.com/${index}`)
 			const error = errorOf(await h.send('links.add', {requestId: 'one-more', url: 'https://example.com/more'}))
-			expect(error).toMatchObject({code: 'limit_exceeded', details: {limit: CONTROL_PROBING_INTAKES_PER_CLIENT}})
+			expect(error).toMatchObject({code: 'limit_exceeded', retryable: true, details: {limit: CONTROL_PROBING_INTAKES_PER_CLIENT}})
 			// Another client has its own.
 			resultOf('links.add', await h.send('links.add', {requestId: 'r0', url: 'https://example.com/other'}, context('client-2')))
 		})
@@ -206,9 +218,9 @@ describe('ControlService intake answers', () => {
 		expect(h.intake.choose).not.toHaveBeenCalled()
 	})
 
-	it('answers invalid_state for the first videos of a playlist to review', async () => {
+	it('answers desktop_required for some videos of a playlist to review', async () => {
 		const {intakeId} = await needingChoice({kind: 'playlist-review', count: 12})
-		expect(errorOf(await h.send('intake.choose', {intakeId, take: 'first', count: 12})).code).toBe('invalid_state')
+		expect(errorOf(await h.send('intake.choose', {intakeId, take: 'first', count: 12})).code).toBe('desktop_required')
 		resultOf('intake.choose', await h.send('intake.choose', {intakeId, take: 'all'}))
 	})
 

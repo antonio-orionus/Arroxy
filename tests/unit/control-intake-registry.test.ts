@@ -266,6 +266,59 @@ describe('IntakeRegistry', () => {
 		expect(h.registry.get('fresh-1')).toEqual(record)
 	})
 
+	describe('a link already live on a placeholder', () => {
+		const windowOrigin: IntakeOrigin = {kind: 'window', intakeId: 'win-1'}
+
+		it("answers the placeholder's own intake when the registry knows it", () => {
+			h.place('p1', 'i1')
+			expect(h.registry.adoptLive('client-2', 'p1')).toMatchObject({intakeId: 'i1', placeholderId: 'p1', state: {state: 'probing'}})
+		})
+
+		it('follows a probing placeholder of another intake to its outcome', () => {
+			h.rows.push(placeholderRow('w1', windowOrigin))
+			const {intakeId, state: adopted} = h.registry.adoptLive('client-1', 'w1')
+			expect(adopted).toEqual({state: 'probing'})
+			h.rows.splice(0, 1, makeItem({id: 'w1', status: 'pending', origin: windowOrigin}))
+			h.registry.hearOutcome({kind: 'outcome', requestId: 'r', intakeId: 'win-1', origin: 'window', outcome: {kind: 'queued', itemId: 'w1', skippedAlreadyQueued: 0}})
+			expect(state(h, intakeId)).toEqual({state: 'queued', itemIds: ['w1']})
+		})
+
+		it('follows a placeholder of an intake with no id to its failure and its retry', () => {
+			h.rows.push(placeholderRow('old', {kind: 'window', intakeId: 'unknown'}))
+			const {intakeId} = h.registry.adoptLive('client-1', 'old')
+			h.registry.hearOutcome({kind: 'outcome', requestId: 'r', intakeId: null, origin: 'window', outcome: {kind: 'failed', itemId: 'old', title: 't', probeError: YTDLP_UNAVAILABLE}})
+			expect(state(h, intakeId)).toMatchObject({state: 'probeFailed', ytdlpKind: 'unavailable'})
+			h.registry.hearRows([placeholderRow('old', {kind: 'window', intakeId: 'unknown'})])
+			expect(state(h, intakeId)).toEqual({state: 'probing'})
+		})
+
+		it('starts from a choice the placeholder already asks for, and is cancelled with it', () => {
+			h.rows.push(placeholderRow('w1', windowOrigin, 'needs-choice'))
+			const {intakeId, state: adopted} = h.registry.adoptLive('client-1', 'w1')
+			expect(adopted).toEqual({state: 'needsYourChoice', kind: 'loadLimit', total: null, offered: 2})
+			h.remove('w1', 'cancelled')
+			expect(state(h, intakeId)).toEqual({state: 'cancelled'})
+		})
+
+		it("never takes another row's already-queued outcome as its own", () => {
+			h.rows.push(placeholderRow('w1', windowOrigin))
+			const {intakeId} = h.registry.adoptLive('client-1', 'w1')
+			h.registry.hearOutcome({kind: 'outcome', requestId: 'r', intakeId: null, origin: 'window', outcome: {kind: 'already-queued', itemId: 'w1'}})
+			expect(state(h, intakeId)).toEqual({state: 'probing'})
+		})
+	})
+
+	it('remembers which of a queued intake’s rows the queue took out as done', () => {
+		h.place('p1', 'i1')
+		h.rows.splice(0, 1, makeItem({id: 'p1', status: 'done', origin: origin('i1')}), makeItem({id: 'r2', status: 'done', url: 'https://youtu.be/v2', origin: origin('i1')}))
+		h.outcome('i1', {kind: 'queued', itemId: 'p1', skippedAlreadyQueued: 0})
+		h.remove('p1', 'autoRemoved')
+		h.remove('r2', 'removed')
+		expect(h.registry.rowLeftDone('i1', 'p1')).toBe(true)
+		expect(h.registry.rowLeftDone('i1', 'r2')).toBe(false)
+		expect(h.registry.rowLeftDone('nope', 'p1')).toBe(false)
+	})
+
 	it('tells listeners about every change, until they stop listening', () => {
 		const heard = vi.fn<(record: IntakeRecord) => void>()
 		const stop = h.registry.onChange(heard)

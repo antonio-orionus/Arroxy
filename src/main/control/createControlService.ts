@@ -15,8 +15,6 @@ import type {ControlFeed, ControlQueue} from './controlTypes.js'
 import {controlRowsPerIntake} from './intakeAdmission.js'
 import {IntakeRegistry} from './IntakeRegistry.js'
 
-type Unsubscribe = () => void
-
 // What the event feed is built from.
 export interface ControlFeedSources {
 	queueService: QueueService
@@ -52,7 +50,18 @@ export function createControlService(wiring: ControlWiring): {service: ControlSe
 	queueService.on('removed', ({itemId, reason}: {itemId: string; reason: QueueRemovalReason}) => registry.hearRemoved(itemId, reason))
 	outcomes.listen(event => registry.hearOutcome(event))
 	queueService.onIntakeAdmission(controlRowsPerIntake)
-	const status = createControlStatus({binaries, cooldowns: siteRequests, scheduler: {paused: () => queueService.snapshotPayload().schedulerPaused, onChange: listener => listen(queueService, ['scheduler'], listener)}})
+	const status = createControlStatus({
+		binaries,
+		cooldowns: siteRequests,
+		scheduler: {
+			paused: () => queueService.snapshotPayload().schedulerPaused,
+			onChange: listener => {
+				const heard = (): void => listener()
+				queueService.on('scheduler', heard)
+				return () => queueService.off('scheduler', heard)
+			}
+		}
+	})
 	const queue: ControlQueue = {
 		snapshot: () => queueService.snapshot(),
 		pause: itemId => queueService.pause(itemId),
@@ -62,7 +71,19 @@ export function createControlService(wiring: ControlWiring): {service: ControlSe
 		remove: itemId => queueService.remove(itemId),
 		pauseAll: () => queueService.pauseAll(),
 		resumeAll: () => queueService.resumeAll(),
-		onChange: listener => listen(queueService, ['added', 'updated', 'removed'], listener)
+		onChange: listener => {
+			const added = ({items}: {items: QueueItem[]}): void => listener(items.map(item => item.id))
+			const updated = ({item}: {item: QueueItem}): void => listener([item.id])
+			const removed = ({itemId}: {itemId: string}): void => listener([itemId])
+			queueService.on('added', added)
+			queueService.on('updated', updated)
+			queueService.on('removed', removed)
+			return () => {
+				queueService.off('added', added)
+				queueService.off('updated', updated)
+				queueService.off('removed', removed)
+			}
+		}
 	}
 	const service = new ControlService({
 		intake,
@@ -78,12 +99,4 @@ export function createControlService(wiring: ControlWiring): {service: ControlSe
 		now: Date.now
 	})
 	return {service, registry, status}
-}
-
-function listen(queueService: QueueService, events: string[], listener: () => void): Unsubscribe {
-	const heard = (): void => listener()
-	for (const event of events) queueService.on(event, heard)
-	return () => {
-		for (const event of events) queueService.off(event, heard)
-	}
 }
