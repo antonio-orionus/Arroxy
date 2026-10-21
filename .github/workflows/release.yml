@@ -631,24 +631,6 @@ jobs:
       - id: deploy
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
 
-  notify-web-release-manifest:
-    needs: publish-release
-    # Only stable releases should update the public landing-page manifest.
-    # Pre-releases are intentionally invisible to /releases/latest.
-    if: ${{ !contains(github.ref_name, '-') }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dispatch arroxy-web manifest refresh
-        env:
-          GH_TOKEN: ${{ secrets.ARROXY_WEB_DISPATCH_TOKEN || secrets.WINGET_TOKEN }}
-          REF_NAME: ${{ github.ref_name }}
-        run: |
-          gh api repos/antonio-orionus/arroxy-web/dispatches \
-            --method POST \
-            -f event_type=arroxy-release \
-            -f client_payload[tag]="$REF_NAME" \
-            -f client_payload[source_repo]="$GITHUB_REPOSITORY"
-
   publish-scoop:
     needs: publish-release
     # Skip for pre-release tags (e.g. v0.4.0-beta.1) — only stable releases
