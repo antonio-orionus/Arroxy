@@ -59,7 +59,7 @@
 		{"id": "yt-raise-geo-restricted-default", "fragment": "This video is not available from your location due to geo restriction", "source": "yt_dlp/extractor/common.py:1260", "call": "default_msg", "kind": "geoBlocked"},
 		{"id": "yt-raise-login-required-default", "fragment": "This video is only available for registered users", "source": "yt_dlp/extractor/common.py:1250", "call": "default_msg", "kind": "loginRequired"},
 		{"id": "yt-raise-no-formats-drm", "fragment": "This video is DRM protected", "source": "yt_dlp/YoutubeDL.py:2898", "call": "raise_no_formats", "kind": "drmProtected"},
-		{"id": "yt-requested-format-not-available", "fragment": "Requested format is not available", "source": "yt_dlp/YoutubeDL.py:3052", "call": "report_error", "kind": "unavailable"},
+		{"id": "yt-requested-format-not-available", "fragment": "Requested format is not available", "source": "yt_dlp/YoutubeDL.py:3052", "call": "report_error", "kind": "formatUnavailable"},
 		{"id": "yt-unable-download-video-data", "fragment": "unable to download video data", "source": "yt_dlp/YoutubeDL.py:3553", "call": "report_error", "kind": "network", "notes": "Generic wrapper around network_exceptions; classify as network when the wrapped exception text is unavailable."}
 	]
 }

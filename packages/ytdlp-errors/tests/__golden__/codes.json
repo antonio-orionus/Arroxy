@@ -5,6 +5,7 @@
 		"botBlock": "YTDLP_BOT_BLOCK",
 		"chunkTransferFailure": "YTDLP_CHUNK_TRANSFER_FAILURE",
 		"drmProtected": "YTDLP_DRM_PROTECTED",
+		"formatUnavailable": "YTDLP_FORMAT_UNAVAILABLE",
 		"geoBlocked": "YTDLP_GEO_BLOCKED",
 		"ipBlock": "YTDLP_IP_BLOCK",
 		"loginRequired": "YTDLP_LOGIN_REQUIRED",

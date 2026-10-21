@@ -41,7 +41,15 @@ export const ERROR_PATTERNS: Record<ClassifierKind, RegExp> = {
 	// Generic yt-dlp + extractor unavailability lines. Includes the youtube
 	// 'This video is unavailable' reason and 'Private video' from the
 	// playabilityStatus skip reasons.
-	unavailable: /private video|this video is unavailable|video has been removed|requested format is not available/i,
+	unavailable: /private video|this video is unavailable|video has been removed/i,
+
+	// YoutubeDL.process_video_result raises "Requested format is not
+	// available. Use --list-formats for a list of available formats" when the
+	// selector picks nothing from a non-empty format list (an empty list raises
+	// "No video formats found!" earlier). The video is there; the requested
+	// format is not, often because this run's player client lists different
+	// formats than the one that probed it.
+	formatUnavailable: /requested format is not available/i,
 
 	// Default GeoRestrictedError msg (extractor/common.py:1259): "This video
 	// is not available from your location due to geo restriction". Plus the

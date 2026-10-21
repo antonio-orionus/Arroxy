@@ -875,6 +875,7 @@
 			"rateLimit": "The site is rate-limiting requests from this connection.",
 			"ageRestricted": "This video is age-restricted and cannot be downloaded without a signed-in account.",
 			"unavailable": "This video is unavailable — it may be private, deleted, or region-locked.",
+			"formatUnavailable": "This video no longer offers the format you picked. Paste the link again and pick from the formats it offers now.",
 			"geoBlocked": "This video is not available in your region.",
 			"outOfDiskSpace": "Not enough disk space. Free up space and retry.",
 			"outputNotWritable": "Arroxy can't write to the download folder. It may be read-only, on a locked drive, or blocked by your system's privacy settings. Choose another folder or allow access, then retry.",
