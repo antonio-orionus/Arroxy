@@ -54,7 +54,8 @@ const result = checkPullRequest({
 	defaultBranch: process.env.DEFAULT_BRANCH ?? 'main',
 	files,
 	commits: commitsBetween(base, head),
-	changelog: files.some(file => file.path === CHANGELOG) ? {base: fileAt(mergeBase, CHANGELOG), head: fileAt(head, CHANGELOG), releasedVersion: packageVersionAt(mergeBase)} : null
+	changelog: files.some(file => file.path === CHANGELOG) ? {base: fileAt(mergeBase, CHANGELOG), head: fileAt(head, CHANGELOG), releasedVersion: packageVersionAt(mergeBase)} : null,
+	packageReadmes: files.filter(file => /^packages\/[^/]+\/README\.md$/.test(file.path)).map(file => ({path: file.path, base: fileAt(mergeBase, file.path), head: fileAt(head, file.path)}))
 })
 
 if (process.env.GITHUB_OUTPUT !== undefined) appendFileSync(process.env.GITHUB_OUTPUT, `translation_sync=${result.translationSync}\n`)

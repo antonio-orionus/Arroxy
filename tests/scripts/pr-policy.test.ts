@@ -5,7 +5,7 @@ import {type ChangedFile, checkPullRequest, OPT_OUT_KEYS, parseNameStatus, type 
 const modified = (...paths: string[]): ChangedFile[] => paths.map(path => ({status: 'M', path}))
 
 function facts(overrides: Partial<PullRequestFacts> = {}): PullRequestFacts {
-	return {title: 'chore(tooling): tidy a script', body: '## Summary\n\nTidies a script.\n', baseRef: 'main', defaultBranch: 'main', files: modified('scripts/doctor.ts'), commits: [{sha: 'a'.repeat(40), message: 'chore(tooling): tidy a script\n'}], changelog: null, ...overrides}
+	return {title: 'chore(tooling): tidy a script', body: '## Summary\n\nTidies a script.\n', baseRef: 'main', defaultBranch: 'main', files: modified('scripts/doctor.ts'), commits: [{sha: 'a'.repeat(40), message: 'chore(tooling): tidy a script\n'}], changelog: null, packageReadmes: [], ...overrides}
 }
 
 const failedRules = (input: PullRequestFacts): PolicyRule[] => checkPullRequest(input).failures.map(failure => failure.rule)
@@ -178,6 +178,56 @@ describe('package-scope', () => {
 
 	it('is waived by a `Package and app together:` line', () => {
 		expect(failedRules(facts({files: modified('packages/ytdlp-errors/src/a.ts', 'src/main/a.ts'), body: 'Package and app together: the renamed export breaks the app build until both change\n'}))).toEqual([])
+	})
+})
+
+const BRIDGE_README = `# yt-dlp-bridge
+
+Intro.
+
+## Features
+
+- Plans commands.
+
+## What changed in 0.6.2
+
+- Paths stay unexpanded.
+
+## What changed in 0.6.1
+
+- A fix.
+
+## Usage
+
+Call it.
+`
+
+describe('package-changelog', () => {
+	const readme = (head: string): Partial<PullRequestFacts> => ({files: modified('packages/yt-dlp-bridge/README.md'), packageReadmes: [{path: 'packages/yt-dlp-bridge/README.md', base: BRIDGE_README, head}]})
+
+	it('fails a PR that edits a package CHANGELOG.md', () => {
+		const result = checkPullRequest(facts({title: 'feat(errors): classify a new failure', files: modified('packages/ytdlp-errors/src/catalog.ts', 'packages/ytdlp-errors/CHANGELOG.md')}))
+		expect(result.failures.map(failure => failure.rule)).toEqual(['package-changelog'])
+		expect(result.failures[0]?.message).toContain('packages/ytdlp-errors/CHANGELOG.md')
+	})
+
+	it('fails a PR that edits a "What changed" section of a package README', () => {
+		expect(failedRules(facts(readme(BRIDGE_README.replace('- Paths stay unexpanded.', '- Paths stay unexpanded.\n- A new flag.'))))).toEqual(['package-changelog'])
+		expect(failedRules(facts(readme(BRIDGE_README.replace('## Features', '## What changed in 0.6.3\n\n- New.\n\n## Features'))))).toEqual(['package-changelog'])
+	})
+
+	it('allows README edits outside the "What changed" sections', () => {
+		expect(failedRules(facts(readme(BRIDGE_README.replace('Call it.', 'Call it with a plan.').replace('- Plans commands.', '- Plans and runs commands.'))))).toEqual([])
+	})
+
+	it('lets the release(packages) PR write the section', () => {
+		const head = BRIDGE_README.replace('## What changed in 0.6.2', '## What changed in 0.6.3\n\n- New.\n\n## What changed in 0.6.2')
+		expect(failedRules(facts({...readme(head), title: 'release(packages): yt-dlp-bridge 0.6.3'}))).toEqual([])
+		expect(failedRules(facts({title: 'release(packages): ytdlp-errors 1.6.0', files: modified('packages/ytdlp-errors/CHANGELOG.md', 'packages/ytdlp-errors/package.json')}))).toEqual([])
+	})
+
+	it('is waived by a `Package changelog edit:` line', () => {
+		expect(failedRules(facts({files: modified('packages/ytdlp-errors/CHANGELOG.md'), body: 'Package changelog edit: fixes a typo in the 1.5.0 notes\n'}))).toEqual([])
 	})
 })
 

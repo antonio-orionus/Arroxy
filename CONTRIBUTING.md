@@ -31,6 +31,8 @@ Maintainers publish `yt-dlp-bridge` by bumping `packages/yt-dlp-bridge/package.j
 
 Maintainers publish `ytdlp-errors` by bumping `packages/ytdlp-errors/package.json`, merging to `main`, then pushing a tag named `ytdlp-errors-vX.Y.Z`.
 
+A package's changelog (`packages/ytdlp-errors/CHANGELOG.md`, the "What changed in X" sections of `packages/yt-dlp-bridge/README.md`) is written only by its `release(packages): <pkg> <version>` PR, from the commits since the last tag; feature PRs leave it alone.
+
 Both registry workflows build tarballs with Bun, then publish through registry trusted publishing. They do not use long-lived registry publish tokens.
 
 ## Reporting bugs / requesting features
@@ -169,6 +171,7 @@ The `pr-policy` check (`.github/workflows/pr-policy.yml`) reads each PR's own di
 | Released changelog | A section of `CHANGELOG.md` that is already released gains entries (rewording one stays allowed) | `Released changelog edit: <reason>` |
 | English only | A translation changes: `i18n/`, a non-English locale under `src/shared/i18n/locales/` or `readme-src/locales/`, `readme-src/translated-from.json`, or `docs/readme/` without an English README source change. The `i18n: sync translations` PR is exempt and must pass `bun run check:i18n:complete` instead | `Translation change: <reason>` |
 | Package scope | The PR changes both `packages/` and `src/` | `Package and app together: <reason>` |
+| Package changelog | The PR edits `packages/<pkg>/CHANGELOG.md` or a "What changed in X" section of `packages/<pkg>/README.md`. The `release(packages): <pkg> <version>` PR is exempt: it writes the section from the commits since the package's last tag | `Package changelog edit: <reason>` |
 | Base branch | The PR targets a branch other than `main` | `Stacked PR: <reason>` |
 | No AI attribution | A commit message or the PR body credits an AI as a co-author or generator | `Attribution false positive: <reason>` (the body only; reword a commit instead) |
 

@@ -37,6 +37,7 @@ No changelog: <reason>
 Released changelog edit: <reason>
 Translation change: <reason>
 Package and app together: <reason>
+Package changelog edit: <reason>
 Stacked PR: <reason>
 Attribution false positive: <reason>
 -->
