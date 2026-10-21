@@ -1,6 +1,24 @@
 import {describe, expect, it} from 'vite-plus/test'
 
-import {classifyCodexFailure, coverageSummary, needsAction, parseChangedRanges, parseReviewOutput, parseVerdicts, renderReport, resolveCandidates, reviewJsonSchema, toCandidates, verdictJsonSchema, verifierFor, type Candidate, type Checked, type Coverage, type Finding} from '../../scripts/dual-review/core.js'
+import {
+	claudeArgs,
+	classifyCodexFailure,
+	coverageSummary,
+	needsAction,
+	parseChangedRanges,
+	parseReviewOutput,
+	parseVerdicts,
+	renderReport,
+	resolveCandidates,
+	reviewJsonSchema,
+	toCandidates,
+	verdictJsonSchema,
+	verifierFor,
+	type Candidate,
+	type Checked,
+	type Coverage,
+	type Finding
+} from '../../scripts/dual-review/core.js'
 
 const ROOT = '/repo'
 
@@ -267,5 +285,24 @@ describe('renderReport', () => {
 		expect(report).toContain('## Refuted (1)')
 		expect(report).toContain('refuted because of the code')
 		expect(report).toContain('claude review-claude-tests exited with 1')
+	})
+})
+
+describe('claudeArgs', () => {
+	const args = claudeArgs('Review it', reviewJsonSchema)
+	const after = (flag: string) => args[args.indexOf(flag) + 1]
+
+	// A user-level hook that rewrites `git diff` (RTK's `rtk git diff`) no longer
+	// matches the allow-list, and the headless lane is denied the diff.
+	it('runs the lane with every hook off, so its git commands reach the allow-list as written', () => {
+		expect(JSON.parse(after('--settings'))).toEqual({disableAllHooks: true})
+	})
+
+	it('allows only read-only tools and passes the prompt last', () => {
+		const allowed = args.slice(args.indexOf('--allowedTools') + 1, args.indexOf('--disallowedTools'))
+		expect(allowed).toEqual(expect.arrayContaining(['Read', 'Bash(git diff:*)', 'Bash(git show:*)']))
+		expect(allowed.some(tool => /Edit|Write|Bash\((?!git (?:diff|log|show|blame):)/.test(tool))).toBe(false)
+		expect(after('--permission-mode')).toBe('default')
+		expect(args.slice(-2)).toEqual(['--', 'Review it'])
 	})
 })
