@@ -226,9 +226,31 @@ function matchingEntry(catalog: GetTextTranslations, key: string, source: string
 	return catalog.translations[key]?.[source]
 }
 
-// i18next trims the variable name, so `{{ name }}` and `{{name}}` are one placeholder.
+const LINE_TERMINATOR = /[\n\r\u2028\u2029]/
+
+// `value, number`: i18next splits off the formatter and trims each part.
+function canonicalName(name: string): string {
+	return name
+		.split(',')
+		.map(part => part.trim())
+		.join(', ')
+}
+
+/**
+ * A placeholder as i18next reads it: `{{-name}}` (unescaped) or `{{name}}`, with the name and any
+ * `, formatter` trimmed, so `{{ name }}` and `{{name}}` are one variable. A token across lines is
+ * not interpolated at all, and `{{ -name }}` names a variable "-name": both keep their own form.
+ */
+function canonicalPlaceholder(token: string): string {
+	if (LINE_TERMINATOR.test(token)) return token
+	const inner = token.slice(2, -2)
+	if (inner.startsWith('-')) return `{{-${canonicalName(inner.slice(1))}}}`
+	const name = canonicalName(inner)
+	return name.startsWith('-') ? `{{ ${name} }}` : `{{${name}}}`
+}
+
 function placeholders(text: string): string[] {
-	return [...new Set((text.match(PLACEHOLDER) ?? []).map(token => `{{${token.slice(2, -2).trim()}}}`))].sort()
+	return [...new Set((text.match(PLACEHOLDER) ?? []).map(canonicalPlaceholder))].sort()
 }
 
 function describePlaceholders(tokens: readonly string[]): string {

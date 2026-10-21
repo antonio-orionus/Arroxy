@@ -92,11 +92,18 @@ describe('i18n catalog workflow', () => {
 			expect(validateLocaleCatalog('ar', source, catalog)).toEqual([])
 		})
 
-		it('reads {{ name }} and {{name}} as the same variable, as i18next does', () => {
-			const source = flattenStringLeaves({status: 'Downloading {{name}}'})
-			const catalog = buildLocaleCatalog('uk', source, flattenStringLeaves({status: 'Завантаження {{ name }}'}))
+		it('reads the spacing i18next trims away as the same variable', () => {
+			const source = flattenStringLeaves({status: 'Downloading {{name}}', saved: 'Saved to {{-path}}', done: 'Done: {{name}}', size: '{{value, number}} files'})
+			const catalog = buildLocaleCatalog('uk', source, flattenStringLeaves({status: 'Завантаження {{ name }}', saved: 'Збережено в {{-path }}', done: 'Готово: {{\u00a0name\u00a0}}', size: '{{value,number}} файлів'}))
 
 			expect(validateLocaleCatalog('uk', source, catalog)).toEqual([])
+		})
+
+		it('still flags spacing i18next does not resolve: a name across lines, or a space before the unescape prefix', () => {
+			const source = flattenStringLeaves({plain: 'Downloading {{name}}', raw: 'Saved to {{-path}}', crlf: 'Saved to {{-path}}'})
+			const catalog = buildLocaleCatalog('uk', source, flattenStringLeaves({plain: 'Завантаження {{\nname\n}}', raw: 'Збережено в {{ -path }}', crlf: 'Збережено в {{-\rpath\r}}'}))
+
+			expect(validateLocaleCatalog('uk', source, catalog).map(issue => `${issue.kind} ${issue.key}`)).toEqual(['placeholder-mismatch plain', 'placeholder-mismatch raw', 'placeholder-mismatch crlf'])
 		})
 
 		it('reports a fuzzy entry as fuzzy only, since its translation is of older English', () => {
