@@ -374,7 +374,7 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 
 	const canDownload = isSubtitleOnly || (isAudioOnly ? audioSelection.kind !== 'none' : selectedVideoFormatId !== '')
 
-	const resolutionLabelText = isSubtitleOnly ? i18next.t('wizard.formats.kind.subtitles') : isAudioOnly ? i18next.t('wizard.formats.audioOnly') : resolveVideoResolution(selectedVideoFormatId, wizardFormats, i18next.t('wizard.formats.audioOnly'))
+	const resolutionLabelText = isSubtitleOnly ? i18next.t('wizard.formats.kind.subtitles') : isAudioOnly ? i18next.t('wizard.formats.kind.audio') : resolveVideoResolution(selectedVideoFormatId, wizardFormats, i18next.t('wizard.formats.kind.audio'))
 	const videoWide = markerTags(wizardFormats.find(f => f.formatId === selectedVideoFormatId)?.markers, VIDEO_MARKERS)
 	const currentResolutionLabel = [resolutionLabelText, ...videoWide].join(' · ')
 

@@ -86,7 +86,14 @@ function UpdateProfileDialog({open, onOpenChange}: {open: boolean; onOpenChange:
 	const after = updatedProfileDraft(state)
 	const rows =
 		before && after
-			? profileDiffRows(before, after, {t: createTranslationPort(t), profileFormat: profile => profileFormatLabel(profile, t, i18n.language), defaultOutputDir: state.settings?.common?.defaultOutputDir ?? '', globalFilenameTemplate: state.settings?.common?.filenameTemplate, commonPaths: state.commonPaths})
+			? profileDiffRows(before, after, {
+					t: createTranslationPort(t),
+					language: i18n.language,
+					profileFormat: profile => profileFormatLabel(profile, t, i18n.language),
+					defaultOutputDir: state.settings?.common?.defaultOutputDir ?? '',
+					globalFilenameTemplate: state.settings?.common?.filenameTemplate,
+					commonPaths: state.commonPaths
+				})
 			: []
 	const name = before ? nameOf(before) : ''
 

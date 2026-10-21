@@ -33,7 +33,7 @@ export function FormatFooter({view, onBack, onContinue}: FormatFooterProps): Rea
 				{t(view.sizesScaledToPart ? 'wizard.part.totalEstimate' : 'wizard.formats.total')} <span className="text-title font-semibold text-foreground tabular-nums">~{humanSize(view.selectedFilesize, i18n.language)}</span>
 			</>
 		) : view.mode === 'audio-only' ? (
-			t('wizard.formats.audioOnly')
+			t('wizard.formats.kind.audio')
 		) : (
 			t('wizard.formats.sizeUnknown')
 		)

@@ -2,13 +2,12 @@ import type {TFunction} from 'i18next'
 import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
 import type {DownloadProfile} from './types.js'
 import {formatList} from './listFormat.js'
-import {resolveSubtitleLabel} from './subtitleTrackLabel.js'
+import {resolveSubtitleLabel, SUBTITLE_SOURCE_LABEL_KEYS} from './subtitleTrackLabel.js'
+import {FILE_TYPE_LABEL_KEYS, HDR_LABEL_KEYS, NATIVE_AUDIO_LABEL_KEYS, VIDEO_CODEC_LABEL_KEYS} from './videoLabels.js'
 
 // What a profile downloads, in the app language, as one line: a queue row's
 // format and the profile update diff's. The window and main both build rows,
 // so each passes its own translator and language.
-
-const FILE_TYPE_LABEL_KEYS = {mp4: 'fileType.mp4', mkv: 'fileType.mkv', webm: 'fileType.webm'} as const
 
 function subtitleLanguages(languages: readonly string[], language: string): string {
 	return formatList(
@@ -21,7 +20,8 @@ function subtitleLanguages(languages: readonly string[], language: string): stri
 export function profileSubtitlesValue(profile: DownloadProfile, t: TFunction, language: string): string {
 	const {languages, format, mode} = profile.subtitles
 	if (languages.length === 0) return t('wizard.subtitles.noSelected')
-	return [subtitleLanguages(languages, language), mode === 'embed' ? null : format.toUpperCase()].filter(Boolean).join(' · ')
+	const {source} = profile.subtitles
+	return [subtitleLanguages(languages, language), mode === 'embed' ? null : format.toUpperCase(), source === 'manual-first' ? null : t(SUBTITLE_SOURCE_LABEL_KEYS[source])].filter(Boolean).join(' · ')
 }
 
 // What a profile downloads, without its kind: the video it picks, the audio it
@@ -33,6 +33,11 @@ export function profileMediaValue(profile: DownloadProfile, t: TFunction, langua
 		case 'video-only': {
 			const parts = [t(`playlistPresets.tier.${media.tier}`), t(media.goal === 'smart-tv' ? 'wizard.profileEditor.goal.smartTv.name' : 'wizard.profileEditor.goal.bestPicture.name')]
 			if (media.fileType !== 'auto') parts.push(t(FILE_TYPE_LABEL_KEYS[media.fileType]))
+			// Advanced settings only when the profile overrides them.
+			if (media.videoCodec !== undefined) parts.push(t(VIDEO_CODEC_LABEL_KEYS[media.videoCodec]))
+			if (media.hdr?.kind === 'custom') parts.push(t(HDR_LABEL_KEYS[media.hdr.preference]))
+			if (media.aiUpscaled === 'allow') parts.push(t('aiUpscaled.allowedSummary'))
+			if (media.kind === 'video-audio' && media.audio.native.kind === 'custom') parts.push(t(NATIVE_AUDIO_LABEL_KEYS[media.audio.native.preference]))
 			if (media.kind === 'video-only') parts.push(t('wizard.formats.noAudio'))
 			return parts.join(' · ')
 		}

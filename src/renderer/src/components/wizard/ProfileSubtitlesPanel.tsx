@@ -11,6 +11,7 @@ import {Panel} from '../shared/Panel.js'
 import {SubtitleLanguagePicker} from './SubtitleLanguagePicker.js'
 import {ProfileSelect} from './ProfileSelect.js'
 import type {SelectOption} from './profileSelectOptions.js'
+import {SUBTITLE_SOURCE_LABEL_KEYS} from '@shared/subtitleTrackLabel.js'
 
 // Reuses the wizard's subtitle vocabulary — these are the same three delivery
 // modes, and describing them differently in two screens invites confusion.
@@ -29,10 +30,10 @@ const SUBTITLE_FORMAT_OPTIONS = [
 ] as const satisfies readonly {value: SubtitleFormat; labelKey: ParseKeys}[]
 
 const SUBTITLE_SOURCE_OPTIONS = [
-	{value: 'manual-first', labelKey: 'wizard.profileEditor.subtitleSource.manualFirst'},
-	{value: 'manual-and-auto', labelKey: 'wizard.profileEditor.subtitleSource.manualAndAuto'},
-	{value: 'manual-only', labelKey: 'wizard.profileEditor.subtitleSource.manualOnly'},
-	{value: 'auto-only', labelKey: 'wizard.profileEditor.subtitleSource.autoOnly'}
+	{value: 'manual-first', labelKey: SUBTITLE_SOURCE_LABEL_KEYS['manual-first']},
+	{value: 'manual-and-auto', labelKey: SUBTITLE_SOURCE_LABEL_KEYS['manual-and-auto']},
+	{value: 'manual-only', labelKey: SUBTITLE_SOURCE_LABEL_KEYS['manual-only']},
+	{value: 'auto-only', labelKey: SUBTITLE_SOURCE_LABEL_KEYS['auto-only']}
 ] as const satisfies readonly SelectOption<DownloadProfileSubtitleSource>[]
 
 interface ProfileSubtitlesPanelProps {

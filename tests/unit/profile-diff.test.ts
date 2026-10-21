@@ -6,7 +6,7 @@ import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 import {i18next} from '@shared/i18n/index.js'
 
 const t = (key: string): string => key
-const CTX = {t, profileFormat: (profile: DownloadProfile): string => profileFormatLabel(profile, i18next.t, 'en'), defaultOutputDir: '/home/user/Downloads', globalFilenameTemplate: undefined, commonPaths: undefined}
+const CTX = {t, language: 'en', profileFormat: (profile: DownloadProfile): string => profileFormatLabel(profile, i18next.t, 'en'), defaultOutputDir: '/home/user/Downloads', globalFilenameTemplate: undefined, commonPaths: undefined}
 
 function builtin(id: string): DownloadProfile {
 	const profile = BUILTIN_DOWNLOAD_PROFILES.find(candidate => candidate.id === id)
@@ -15,6 +15,20 @@ function builtin(id: string): DownloadProfile {
 }
 
 describe('profileDiffRows', () => {
+	// A codec-only edit from the Format screen is an edit: Update must offer it.
+	it('lists a change of an advanced video setting alone', () => {
+		const before = builtin('hd-1080')
+		const after: DownloadProfile = {...before, media: {...before.media, videoCodec: 'h264'} as DownloadProfile['media']}
+		expect(profileDiffRows(before, after, CTX)).toEqual([{area: 'format', before: 'Up to 1080p · Best picture', after: 'Up to 1080p · Best picture · H.264 first'}])
+	})
+
+	// Swapping a manual track for an automatic one changes only the source.
+	it('lists a change of the subtitle source alone', () => {
+		const before: DownloadProfile = {...builtin('hd-1080'), subtitles: {enabled: true, languages: ['en'], source: 'manual-first', mode: 'sidecar', format: 'srt'}}
+		const after: DownloadProfile = {...before, subtitles: {...before.subtitles, source: 'auto-only'}}
+		expect(profileDiffRows(before, after, CTX).map(row => row.area)).toEqual(['subtitles'])
+	})
+
 	it('is empty for identical profiles', () => {
 		expect(profileDiffRows(builtin('hd-1080'), builtin('hd-1080'), CTX)).toEqual([])
 	})
@@ -39,7 +53,7 @@ describe('profileDiffRows', () => {
 		const rows = profileDiffRows(before, after, CTX)
 		expect(rows.map(row => row.area)).toEqual(['format', 'subtitles', 'sponsorBlock', 'saveTo', 'fileName'])
 		expect(rows[0]).toEqual({area: 'format', before: 'Up to 1080p · Best picture', after: 'Up to 720p · Best picture'})
-		expect(rows[1]).toEqual({area: 'subtitles', before: 'wizard.review.value.subtitlesOff', after: 'en, de · SRT · wizard.subtitles.saveMode.sidecar'})
+		expect(rows[1]).toEqual({area: 'subtitles', before: 'wizard.review.value.subtitlesOff', after: 'English and German · SRT · wizard.subtitles.saveMode.sidecar'})
 		expect(rows[2]).toEqual({area: 'sponsorBlock', before: 'wizard.review.value.sponsorBlockOff', after: 'wizard.sponsorblock.mode.remove · wizard.sponsorblock.cat.sponsor'})
 		expect(rows[3]).toEqual({area: 'saveTo', before: '/home/user/Downloads/Full HD 1080p', after: '/media/videos'})
 		expect(rows[4].after).toBe('{title}')

@@ -1,5 +1,13 @@
-import type {SubtitleMap} from './types.js'
+import type {DownloadProfileSubtitleSource, SubtitleMap} from './types.js'
 import {languageLabel} from './languageName.js'
+
+// Where a profile's subtitles come from; manual first is the default.
+export const SUBTITLE_SOURCE_LABEL_KEYS = {
+	'manual-first': 'wizard.profileEditor.subtitleSource.manualFirst',
+	'manual-and-auto': 'wizard.profileEditor.subtitleSource.manualAndAuto',
+	'manual-only': 'wizard.profileEditor.subtitleSource.manualOnly',
+	'auto-only': 'wizard.profileEditor.subtitleSource.autoOnly'
+} as const satisfies Record<DownloadProfileSubtitleSource, string>
 
 // An `-orig` key is YouTube's caption of the spoken language, the only
 // automatic caption Arroxy keeps there. yt-dlp names it "English (Original)",
