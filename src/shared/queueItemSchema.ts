@@ -3,7 +3,8 @@
 // needs-choice answers) live in `./schemas.ts` with every other enum.
 
 import {z} from 'zod'
-import {QUEUE_STATUS, intakeOriginSchema, jobAuthSchema, pinnedDownloadProfileSchema, probePlaylistModeSchema, queueArtifactKindSchema, queueChoiceSchema, queueItemStatusSchema, queueLaneSchema, statusKeySchema, ytDlpErrorKindSchema} from './schemas.js'
+import {intakeOriginSchema, pinnedDownloadProfileSchema} from './intake/intakeSchemas.js'
+import {QUEUE_STATUS, jobAuthSchema, probePlaylistModeSchema, queueArtifactKindSchema, queueChoiceSchema, queueItemStatusSchema, queueLaneSchema, statusKeySchema, ytDlpErrorKindSchema} from './schemas.js'
 import {preparedJobSchema} from './preparedJob.js'
 
 // Used by both the queue IPC handlers and QueueStore.load to reject corrupted

@@ -6,7 +6,7 @@
 
 import type {StoreApi} from 'zustand'
 import {displayShowsHdr} from '@renderer/lib/displayHdr.js'
-import type {IntakeWindowContext} from '@shared/schemas.js'
+import type {IntakeWindowContext} from '@shared/intake/intakeSchemas.js'
 import {detach} from './detachedTask.js'
 import type {AppState} from '../types.js'
 

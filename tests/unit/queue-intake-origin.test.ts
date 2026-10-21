@@ -6,7 +6,7 @@ import {QueueService} from '@main/services/QueueService.js'
 import type {DownloadService} from '@main/services/DownloadService.js'
 import type {QueueStore} from '@main/stores/QueueStore.js'
 import {ok} from '@shared/result.js'
-import type {IntakeOrigin} from '@shared/schemas.js'
+import type {IntakeOrigin} from '@shared/intake/intakeSchemas.js'
 import type {QueueItem} from '@shared/types.js'
 import {makeItem} from '../shared/fixtures.js'
 

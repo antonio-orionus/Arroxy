@@ -4,10 +4,10 @@
 // only in how a link is taken in and how the user hears about it.
 
 import {classifyUrlIntent} from '@shared/urlIntent.js'
+import type {PinnedDownloadProfile} from './intakeSchemas.js'
 import type {QueueChoice} from '@shared/schemas.js'
 import type {Result} from '@shared/result.js'
 import type {LocalizedError, PlaylistProbeResult, ProbeError, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
-import type {PinnedDownloadProfile} from '@shared/schemas.js'
 import {preparePinnedProfileQueueSubmission, type PreparedQueueSubmission, type QueuePreparationEnv, type QueuePreparationInputs} from '@shared/queueSubmission.js'
 
 // The user's answer to a needs-choice row, applied to a fresh or kept probe.

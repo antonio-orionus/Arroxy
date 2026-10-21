@@ -11,7 +11,8 @@ import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
 import type {QueueEvent} from '@shared/queueTransition.js'
 import {fail, ok, type Result} from '@shared/result.js'
-import {PLAYLIST_PROBE_LIMIT_MAX, QUEUE_STATUS, type IntakeWindowContext, type PinnedDownloadProfile} from '@shared/schemas.js'
+import type {IntakeWindowContext, PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
+import {PLAYLIST_PROBE_LIMIT_MAX, QUEUE_STATUS} from '@shared/schemas.js'
 import type {AppSettings, PlaylistProbeResult, PlaylistScope, ProbePlaylistMode, QueueItem} from '@shared/types.js'
 
 export interface IntakeMockDeps {

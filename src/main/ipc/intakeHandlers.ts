@@ -1,6 +1,6 @@
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import {ok} from '@shared/result.js'
-import {intakeAddInputSchema, intakeChooseInputSchema, intakeItemInputSchema, intakeRetryInputSchema, intakeWindowContextSchema} from '@shared/schemas.js'
+import {intakeAddInputSchema, intakeChooseInputSchema, intakeItemInputSchema, intakeRetryInputSchema, intakeWindowContextSchema} from '@shared/intake/intakeSchemas.js'
 import type {IntakeService} from '@main/intake/IntakeService.js'
 import {handle} from './utils.js'
 

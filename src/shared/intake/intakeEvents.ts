@@ -2,7 +2,8 @@
 // window turns these into toasts, and the hotkey into its notifications.
 
 import type {BudgetFailure} from '@shared/nameBudget.js'
-import type {IntakeOriginKind, QueueChoice} from '@shared/schemas.js'
+import type {IntakeOriginKind} from './intakeSchemas.js'
+import type {QueueChoice} from '@shared/schemas.js'
 import type {ProbeError} from '@shared/types.js'
 
 // What the user hears about. Rows the event names are already in the queue.

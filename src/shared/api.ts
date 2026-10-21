@@ -47,7 +47,7 @@ import type {
 	WizardStepSnapshot
 } from './types.js'
 import type {PlaylistManifest} from './playlistManifest.js'
-import type {IntakeTake, IntakeWindowContext} from './schemas.js'
+import type {IntakeTake, IntakeWindowContext} from './intake/intakeSchemas.js'
 import type {IntakeEvent, IntakePlacement} from './intake/intakeEvents.js'
 
 export interface SettingsPatch {

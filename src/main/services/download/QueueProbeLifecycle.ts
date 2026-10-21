@@ -11,11 +11,12 @@
 // mutation goes back through the injected commit callbacks.
 
 import log from 'electron-log/main.js'
+import type {IntakeOrigin} from '@shared/intake/intakeSchemas.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {admitAgainstLiveQueue, findInadmissibleQueueItem} from './queueAdmission.js'
-import type {IntakeOrigin, JobAuth, QueueChoice} from '@shared/schemas.js'
+import type {JobAuth, QueueChoice} from '@shared/schemas.js'
 import type {LocalizedError, QueueItem} from '@shared/types.js'
 
 const logger = log.scope('queue')

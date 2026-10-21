@@ -13,7 +13,7 @@
 import {notify} from '@renderer/lib/notify.js'
 import type {IntakeEvent, IntakePlacement, QuickDownloadEvent} from '@shared/intake/intakeEvents.js'
 import type {Result} from '@shared/result.js'
-import type {IntakeTake} from '@shared/schemas.js'
+import type {IntakeTake} from '@shared/intake/intakeSchemas.js'
 import type {PlaylistProbeResult, ProbePlaylistMode} from '@shared/types.js'
 import {generateId} from '../helpers.js'
 
