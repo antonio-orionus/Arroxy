@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 import {existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync} from 'node:fs'
 import {tmpdir} from 'node:os'
-import {join, relative} from 'node:path'
+import {join, relative, sep} from 'node:path'
 import {spawnSync, type SpawnSyncReturns} from 'node:child_process'
 import {SUPPORTED_LANGS, type SupportedLang} from '../src/shared/schemas.js'
 import type {GetTextTranslations} from 'gettext-parser'
@@ -56,6 +56,11 @@ function sourceLeaves(): StringLeaf[] {
 // English only has one/other; each locale's catalog is keyed by its own CLDR plural categories.
 function localeSourceLeaves(lang: SupportedLang): StringLeaf[] {
 	return expandPluralLeaves(lang, sourceLeaves())
+}
+
+/** `path` relative to the checkout, with `/` on every platform, for messages. */
+function repoPath(path: string): string {
+	return relative(process.cwd(), path).split(sep).join('/')
 }
 
 function write(path: string, content: Buffer | string): void {
@@ -117,7 +122,7 @@ function canonicalizeLocaleFiles({writeFiles}: {writeFiles: boolean}): string[] 
 		const text = readFileSync(path, 'utf8')
 		const canonical = canonicalLocaleJson(text)
 		if (text === canonical) continue
-		stale.push(relative(process.cwd(), path))
+		stale.push(repoPath(path))
 		if (writeFiles) write(path, canonical)
 	}
 	return stale
@@ -166,7 +171,7 @@ function readLocaleCatalogs(): LocaleCatalogs {
 		try {
 			result.catalogs.push({lang, catalog: parseCatalog(readFileSync(poPath))})
 		} catch (error) {
-			result.unreadable.push(`${relative(process.cwd(), poPath)} does not parse: ${error instanceof Error ? error.message : String(error)}`)
+			result.unreadable.push(`${repoPath(poPath)} does not parse: ${error instanceof Error ? error.message : String(error)}`)
 		}
 	}
 	return result
