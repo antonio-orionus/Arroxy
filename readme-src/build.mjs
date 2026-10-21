@@ -183,6 +183,16 @@ export function untranslatedEnglishChanges(enStrings, translatedFrom) {
   };
 }
 
+// The README keys the release sync still has to handle for one locale: keys it
+// lacks, keys whose English changed or was never recorded, and keys it or the
+// record keep that English dropped. `--strict` fails on each of these.
+export function readmeOpenKeys(enStrings, localeStrings, translatedFrom) {
+  const { changed, added, removed } = untranslatedEnglishChanges(enStrings, translatedFrom);
+  const missing = Object.keys(enStrings).filter((key) => !(key in localeStrings));
+  const extra = Object.keys(localeStrings).filter((key) => !(key in enStrings));
+  return [...new Set([...missing, ...changed, ...added, ...extra, ...removed])].sort();
+}
+
 function checkTranslatedFrom(enStrings, { strict }) {
   const { changed, added, removed } = untranslatedEnglishChanges(enStrings, readTranslatedFrom());
   if (!changed.length && !added.length && !removed.length) return;

@@ -5,7 +5,7 @@ import {join, relative, sep} from 'node:path'
 import {spawnSync, type SpawnSyncReturns} from 'node:child_process'
 import {SUPPORTED_LANGS, type SupportedLang} from '../src/shared/schemas.js'
 import type {GetTextTranslations} from 'gettext-parser'
-import {readTranslatedFrom, untranslatedEnglishChanges} from '../readme-src/build.mjs'
+import {readmeOpenKeys, readTranslatedFrom} from '../readme-src/build.mjs'
 import {LOCALES as README_LOCALES} from '../readme-src/strings.mjs'
 import {
 	buildLocaleCatalog,
@@ -269,15 +269,13 @@ function printStatus(): number {
 	const {catalogs, missing, unreadable} = readLocaleCatalogs()
 	for (const problem of unreadable) console.error(problem)
 	const readmeEn = README_LOCALES.find(locale => locale.code === 'en')?.strings ?? {}
-	const readmeEnKeys = Object.keys(readmeEn)
-	// A reworded English README string is stale in every locale that has the key.
-	const readmeChanged = untranslatedEnglishChanges(readmeEn, readTranslatedFrom()).changed
+	const translatedFrom = readTranslatedFrom()
 	const headings = ['locale', ...STATUS_COLUMNS.map(kind => STATUS_HEADINGS[kind]), 'README']
 	const rows: string[][] = []
 	for (const {lang, catalog} of catalogs) {
 		const issues = validateLocaleCatalog(lang, localeSourceLeaves(lang), catalog)
-		const readmeKeys = new Set(Object.keys(README_LOCALES.find(locale => locale.code === lang)?.strings ?? {}))
-		const counts = [...STATUS_COLUMNS.map(kind => issues.filter(issue => issue.kind === kind).length), readmeEnKeys.filter(key => !readmeKeys.has(key) || readmeChanged.includes(key)).length]
+		const readmeLocale = README_LOCALES.find(locale => locale.code === lang)?.strings ?? {}
+		const counts = [...STATUS_COLUMNS.map(kind => issues.filter(issue => issue.kind === kind).length), readmeOpenKeys(readmeEn, readmeLocale, translatedFrom).length]
 		if (counts.some(count => count > 0)) rows.push([lang, ...counts.map(String)])
 	}
 	for (const lang of missing) rows.push([lang, 'no PO catalog', ...STATUS_COLUMNS.slice(1).map(() => ''), ''])

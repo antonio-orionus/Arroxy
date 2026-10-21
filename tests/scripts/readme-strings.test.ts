@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {applyStrings, missingTemplateKeys, untranslatedEnglishChanges} from '../../readme-src/build.mjs'
+import {applyStrings, missingTemplateKeys, readmeOpenKeys, untranslatedEnglishChanges} from '../../readme-src/build.mjs'
 
 const TEMPLATE = '# {{title}}\n{{intro}}\n{{LANG_NAV}}'
 
@@ -19,5 +19,16 @@ describe('README strings', () => {
 
 		expect(untranslatedEnglishChanges(en, translatedFrom)).toEqual({changed: ['intro'], added: ['added'], removed: ['gone']})
 		expect(untranslatedEnglishChanges(translatedFrom, translatedFrom)).toEqual({changed: [], added: [], removed: []})
+	})
+
+	it('counts every README key the sync has to handle in a locale, removed ones included', () => {
+		const translatedFrom = {title: 'Arroxy', intro: 'Download anything.', gone: 'Old line'}
+		const en = {title: 'Arroxy', intro: 'Download almost anything.', added: 'New line'}
+		const de = {title: 'Arroxy', intro: 'Lade alles herunter.', gone: 'Alte Zeile'}
+
+		expect(readmeOpenKeys(en, de, translatedFrom)).toEqual(['added', 'gone', 'intro'])
+		expect(readmeOpenKeys(en, {title: 'Arroxy', intro: 'Lade fast alles herunter.', added: 'Neue Zeile'}, en)).toEqual([])
+		// Translated everywhere but not recorded yet: the sync still has to run --record-translated.
+		expect(readmeOpenKeys(en, {title: 'Arroxy', intro: 'Lade fast alles herunter.', added: 'Neue Zeile'}, {title: 'Arroxy', intro: 'Download almost anything.'})).toEqual(['added'])
 	})
 })
