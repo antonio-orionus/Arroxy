@@ -8,7 +8,7 @@ import {setNotificationSink, type NotificationActions, type NotificationLevel} f
 import {defaultAppSettings} from '@shared/constants.js'
 import {fail, ok} from '@shared/result.js'
 import type {AppApi, SettingsPatch} from '@shared/api.js'
-import type {ProbeError, QueueItem} from '@shared/types.js'
+import type {ProbeError} from '@shared/types.js'
 import {makeItem} from '../shared/fixtures.js'
 import {armQueue, BOT_BLOCK, deferredProbe as deferredProbeOn, entries, OTHER_URL, playlist, PLAYLIST_URL, queue, row, VIDEO, VIDEO_URL, type DeferredProbe} from '../shared/quickDownloadHarness.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
@@ -39,7 +39,7 @@ beforeEach(() => {
 	window.history.replaceState(null, '', '#download')
 	toasts.length = 0
 	setNotificationSink((level, message, id, actions) => toasts.push({level, message, id, actions}))
-	useAppStore.setState({...RESET_WIZARD_STATE, settings: defaultAppSettings('/tmp'), wizardOutputDir: '/tmp', queue: [], queueFocus: null, exploreView: null})
+	useAppStore.setState({...RESET_WIZARD_STATE, initialized: true, settings: defaultAppSettings('/tmp'), wizardOutputDir: '/tmp', queue: [], queueFocus: null, exploreView: null})
 })
 
 afterEach(() => {
@@ -86,7 +86,6 @@ describe('Quick Download from the URL tab', () => {
 		probe.resolve(ok(VIDEO))
 
 		await vi.waitFor(() => expect(row(id)).toBeUndefined())
-		expect(api.queue.cmd.probeFailed).not.toHaveBeenCalled()
 		expect(toasts.map(toast => toast.message)).toEqual(['Already in the queue'])
 		toasts[0]?.actions?.[0].onClick()
 		expect(useAppStore.getState().queueFocus?.itemId).toBe('live')
@@ -172,7 +171,7 @@ describe('the wizard cancelling its probes', () => {
 		await vi.waitFor(() => expect(row(id)?.status).toBe('pending'))
 		probe.resolve(ok(VIDEO))
 		await submitting
-		expect(api.queue.cmd.probeFailed).not.toHaveBeenCalled()
+		expect(queue().filter(item => item.status === 'error')).toEqual([])
 		expect(toasts.filter(toast => toast.level === 'error')).toEqual([])
 	})
 })
@@ -206,31 +205,6 @@ describe('a profile switch while a quick download prepares', () => {
 		expect(row(id)?.job).toMatchObject({intent: {kind: 'audio-only'}})
 	})
 
-	// The store's queue is a projection flushed on animation frames, which do
-	// not run while the window is hidden. A second link placed then (the
-	// hotkey) sees a queue without the first row; the first keeps its profile.
-	it('keeps the profile of a row the queue projection does not show yet', async () => {
-		const probe = deferredProbe()
-		const project = api.queue.cmd.add
-		let unprojected: QueueItem | undefined
-		api.queue.cmd.add = vi.fn((items: QueueItem[]) => {
-			unprojected = items[0]
-			return Promise.resolve(ok({ids: items.map(item => item.id), skippedAlreadyQueued: 0}))
-		})
-		activate('audio-only', '/music')
-		await useAppStore.getState().quickDownload({url: VIDEO_URL, entry: 'url-tab'})
-		api.queue.cmd.add = project
-		await useAppStore.getState().quickDownload({url: OTHER_URL, entry: 'url-tab'})
-		if (!unprojected) throw new Error('expected the first row')
-		const first = unprojected
-		useAppStore.setState({queue: [first, ...queue()]})
-		activate('balanced', '/videos')
-		probe.resolve(ok(VIDEO))
-
-		await vi.waitFor(() => expect(row(first.id)?.status).toBe('pending'))
-		expect(row(first.id)).toMatchObject({formatLabel: 'Audio only · best', outputDir: '/music/Audio only'})
-	})
-
 	it('keeps them when the review queues the loaded videos', async () => {
 		const probe = deferredProbe()
 		const settings = useAppStore.getState().settings
@@ -254,6 +228,7 @@ describe('a profile switch while a quick download prepares', () => {
 		probe.resolve(ok(playlist(3)))
 		await vi.waitFor(() => expect(row(id)?.status).toBe('needs-choice'))
 		await useAppStore.getState().chooseQuickDownloadRow(id, 'first')
+		await vi.waitFor(() => expect(queue()).toHaveLength(2))
 		expect(queue().map(item => [item.formatLabel, item.outputDir])).toEqual([
 			['Audio only · best', '/music/Audio only'],
 			['Audio only · best', '/music/Audio only']
@@ -267,33 +242,18 @@ describe('a profile switch while a quick download prepares', () => {
 		await vi.waitFor(() => expect(probe.calls).toHaveLength(3))
 		probe.resolve(ok({...VIDEO, webpageUrl: OTHER_URL}))
 		await retrying
-		expect(row(retried)?.status).toBe('pending')
+		await vi.waitFor(() => expect(row(retried)?.status).toBe('pending'))
 		expect(row(retried)).toMatchObject({formatLabel: 'Audio only · best', outputDir: '/music/Audio only'})
 	})
 })
 
 // A rejected IPC call is the transport failing, not a refusal. No detached
-// task may leave it unhandled, and no row may stay stuck in probing.
+// task may leave it unhandled. (Main's own writes failing is IntakeService's.)
 describe('a rejected IPC call in the background pipeline', () => {
 	beforeEach(() => vi.spyOn(console, 'error').mockImplementation(() => undefined))
 
-	it.each([
-		['replaceProbing', VIDEO_URL, VIDEO],
-		['needsChoice', 'https://media.example/watch/42', {...playlist(1), webpageUrl: 'https://media.example/watch/42'}]
-	] as const)('settles the row as a probe error when %s rejects', async (command, url, result) => {
-		const probe = deferredProbe()
-		api.queue.cmd[command] = vi.fn().mockRejectedValue(new Error('IPC closed'))
-		await useAppStore.getState().quickDownload({url, entry: 'url-tab'})
-		const id = queue()[0]?.id ?? ''
-		probe.resolve(ok(result))
-
-		await vi.waitFor(() => expect(row(id)).toMatchObject({status: 'error', error: {kind: 'unknown', raw: 'IPC closed'}}))
-		expect(toasts.find(toast => toast.level === 'error')?.message).toMatch(/^Couldn't prepare/)
-		expect(console.error).toHaveBeenCalled()
-	})
-
 	it('says the link was not added when placing it rejects', async () => {
-		api.queue.cmd.add = vi.fn().mockRejectedValue(new Error('IPC closed'))
+		api.intake.add = vi.fn().mockRejectedValue(new Error('IPC closed'))
 		await useAppStore.getState().quickDownload({url: VIDEO_URL, entry: 'url-tab'})
 		expect(toasts.map(toast => toast.message)).toEqual(["Couldn't add that link — try again"])
 	})
@@ -309,7 +269,8 @@ describe('a rejected IPC call in the background pipeline', () => {
 		probe.resolve(fail(BOT_BLOCK))
 		probe.resolve(ok(playlist(3)))
 		await vi.waitFor(() => expect(queue().map(item => item.status)).toEqual(['error', 'needs-choice']))
-		api.queue.cmd.reprobe = vi.fn().mockRejectedValue(new Error('IPC closed'))
+		api.intake.retry = vi.fn().mockRejectedValue(new Error('IPC closed'))
+		api.intake.choose = vi.fn().mockRejectedValue(new Error('IPC closed'))
 
 		await expect(useAppStore.getState().retryQuickDownloadRow(failedId ?? '')).resolves.toBeUndefined()
 		await expect(useAppStore.getState().chooseQuickDownloadRow(choiceId ?? '', 'first')).resolves.toBeUndefined()
@@ -323,7 +284,7 @@ describe('a rejected IPC call in the background pipeline', () => {
 		await useAppStore.getState().quickDownload({url: VIDEO_URL, entry: 'url-tab'})
 		probe.resolve(fail(BOT_BLOCK))
 		await vi.waitFor(() => expect(toasts.some(toast => toast.level === 'error')).toBe(true))
-		api.queue.cmd.reprobe = vi.fn().mockRejectedValue(new Error('IPC closed'))
+		api.intake.retry = vi.fn().mockRejectedValue(new Error('IPC closed'))
 		const settings = useAppStore.getState().settings
 		if (settings) useAppStore.setState({settings: {...settings, common: {...settings.common, exploreEnabled: false}}})
 		toasts.find(toast => toast.level === 'error')?.actions?.[0].onClick()
@@ -406,7 +367,7 @@ describe('a failed probe', () => {
 
 		expect(window.location.hash).toBe('#download')
 		expect(useAppStore.getState().wizardStep).toBe('formats')
-		await vi.waitFor(() => expect(api.queue.cmd.reprobe).toHaveBeenCalledWith({itemId: id}))
+		await vi.waitFor(() => expect(api.intake.retry).toHaveBeenCalledWith({requestId: expect.any(String), itemId: id}))
 	})
 
 	it('retries from the row with the same probe mode and succeeds', async () => {
@@ -422,7 +383,7 @@ describe('a failed probe', () => {
 		expect(probe.calls[1]).toEqual({url: VIDEO_URL, playlistMode: 'video', ownerKey: id})
 		probe.resolve(ok(VIDEO))
 		await retry
-		expect(row(id)).toMatchObject({status: 'pending', title: 'Fixture Video'})
+		await vi.waitFor(() => expect(row(id)).toMatchObject({status: 'pending', title: 'Fixture Video'}))
 	})
 
 	// The successor of the wizard-era retryQuickDownloadWithCookies('explore'):
@@ -443,7 +404,7 @@ describe('a failed probe', () => {
 		expect(row(id)?.title).toBe('Fixture Video - YouTube')
 		probe.resolve(ok(VIDEO))
 		await retry
-		expect(row(id)).toMatchObject({status: 'pending', title: 'Fixture Video'})
+		await vi.waitFor(() => expect(row(id)).toMatchObject({status: 'pending', title: 'Fixture Video'}))
 	})
 
 	it('records on the row that the probe failed signed in, and not otherwise', async () => {
@@ -451,7 +412,7 @@ describe('a failed probe', () => {
 		await useAppStore.getState().quickDownload({url: VIDEO_URL, entry: 'url-tab'})
 		const id = queue()[0]?.id ?? ''
 		probe.resolve(fail({kind: 'ytdlp', error: {kind: 'loginRequired', raw: 'You need to log in'}, auth: 'exploreSession'}))
-		await vi.waitFor(() => expect(api.queue.cmd.probeFailed).toHaveBeenCalledWith({itemId: id, error: {kind: 'loginRequired', raw: 'You need to log in'}, auth: 'exploreSession'}))
+		await vi.waitFor(() => expect(row(id)).toMatchObject({status: 'error', error: {kind: 'loginRequired', raw: 'You need to log in'}, auth: 'exploreSession'}))
 	})
 
 	it('records no identity for an anonymous probe failure', async () => {
@@ -459,7 +420,8 @@ describe('a failed probe', () => {
 		await useAppStore.getState().quickDownload({url: VIDEO_URL, entry: 'url-tab'})
 		const id = queue()[0]?.id ?? ''
 		probe.resolve(fail(BOT_BLOCK))
-		await vi.waitFor(() => expect(api.queue.cmd.probeFailed).toHaveBeenCalledWith({itemId: id, error: BOT_BLOCK.error}))
+		await vi.waitFor(() => expect(row(id)).toMatchObject({status: 'error', error: BOT_BLOCK.error}))
+		expect(row(id)?.auth).toBeUndefined()
 	})
 
 	it('says nothing once the row was cancelled while its probe ran', async () => {
@@ -468,8 +430,8 @@ describe('a failed probe', () => {
 		const id = queue()[0]?.id ?? ''
 		await useAppStore.getState().cancelItemDownload(id)
 		probe.resolve(fail(BOT_BLOCK))
+		await new Promise(resolve => setTimeout(resolve, 10))
 
-		await vi.waitFor(() => expect(api.queue.cmd.probeFailed).toHaveBeenCalled())
 		expect(toasts.filter(toast => toast.level === 'error')).toEqual([])
 		expect(queue()).toEqual([])
 	})
@@ -520,7 +482,7 @@ describe('a failed probe under the off cookie mode with Explore enabled', () => 
 		useAppStore.setState({wizardStep: 'formats'})
 		failureToast()?.actions?.[0].onClick()
 		expect(window.location.hash).toBe('#download')
-		await vi.waitFor(() => expect(api.queue.cmd.reprobe).toHaveBeenCalledWith({itemId: id}))
+		await vi.waitFor(() => expect(api.intake.retry).toHaveBeenCalledWith({requestId: expect.any(String), itemId: id}))
 		expect(useAppStore.getState().exploreRetryTargets).toEqual([])
 	})
 
@@ -532,7 +494,7 @@ describe('a failed probe under the off cookie mode with Explore enabled', () => 
 		if (!settings) throw new Error('no settings')
 		useAppStore.setState({settings: {...settings, common: {...settings.common, cookiesMode: 'file', cookiesPath: '/tmp/cookies.txt'}}})
 		failureToast()?.actions?.[0].onClick()
-		await vi.waitFor(() => expect(api.queue.cmd.reprobe).toHaveBeenCalledWith({itemId: id}))
+		await vi.waitFor(() => expect(api.intake.retry).toHaveBeenCalledWith({requestId: expect.any(String), itemId: id}))
 		expect(api.settings.update).not.toHaveBeenCalled()
 		expect(useAppStore.getState().settings?.common.cookiesMode).toBe('file')
 		expect(window.location.hash).toBe('#download')
@@ -542,7 +504,7 @@ describe('a failed probe under the off cookie mode with Explore enabled', () => 
 		const id = await failQuickDownload(true, wizardStep)
 		expect(failureToast()?.actions?.[0].label).toBe('Use my Explore sign-in and retry')
 		failureToast()?.actions?.[0].onClick()
-		await vi.waitFor(() => expect(api.queue.cmd.reprobe).toHaveBeenCalledWith({itemId: id}))
+		await vi.waitFor(() => expect(api.intake.retry).toHaveBeenCalledWith({requestId: expect.any(String), itemId: id}))
 		expect(useAppStore.getState().settings?.common.cookiesMode).toBe('explore')
 		expect(window.location.hash).toBe('#download')
 	})
@@ -589,8 +551,8 @@ describe('a probe that needs the user’s choice', () => {
 		const id = await cappedRow(probe)
 		await useAppStore.getState().chooseQuickDownloadRow(id, 'first')
 
+		await vi.waitFor(() => expect(queue().map(item => item.url)).toEqual(['https://youtu.be/v1', 'https://youtu.be/v2']))
 		expect(probe.calls).toHaveLength(1)
-		expect(queue().map(item => item.url)).toEqual(['https://youtu.be/v1', 'https://youtu.be/v2'])
 		expect(queue()[0]?.id).toBe(id)
 	})
 
@@ -602,14 +564,14 @@ describe('a probe that needs the user’s choice', () => {
 		expect(probe.calls[0]).toMatchObject({url: PLAYLIST_URL, playlistMode: 'playlist', ownerKey: 'restored', playlistScope: {items: {kind: 'first', count: 2}}})
 		probe.resolve(ok(playlist(3)))
 		await choosing
-		expect(queue()).toHaveLength(2)
+		await vi.waitFor(() => expect(queue()).toHaveLength(2))
 	})
 
 	it('forgets the kept probe once the row is cancelled', async () => {
 		const probe = deferredProbe()
 		const id = await cappedRow(probe)
 		await useAppStore.getState().cancelItemDownload(id)
-		expect(keptChoiceProbe(id)).toBeUndefined()
+		expect(await keptChoiceProbe(id)).toBeUndefined()
 	})
 
 	it('All probes again without the load limit and queues everything', async () => {
@@ -620,7 +582,7 @@ describe('a probe that needs the user’s choice', () => {
 		expect(probe.calls[1]).toMatchObject({playlistMode: 'playlist', ownerKey: id, playlistScope: {items: {kind: 'first', count: 5000}}})
 		probe.resolve(ok(playlist(3)))
 		await choosing
-		expect(queue()).toHaveLength(3)
+		await vi.waitFor(() => expect(queue()).toHaveLength(3))
 	})
 
 	// P2-R40: the row is the decision until the wizard actually queues.
@@ -669,8 +631,8 @@ describe('a probe that needs the user’s choice', () => {
 		expect(useAppStore.getState().reviewSourceRowId).toBeNull()
 		// The kept probe survives: First N still needs no second probe.
 		await useAppStore.getState().chooseQuickDownloadRow(id, 'first')
+		await vi.waitFor(() => expect(queue()).toHaveLength(2))
 		expect(probe.calls).toHaveLength(1)
-		expect(queue()).toHaveLength(2)
 	})
 
 	// The link lives exactly as long as its review run (P2-R40).

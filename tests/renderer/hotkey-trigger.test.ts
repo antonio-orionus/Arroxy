@@ -3,8 +3,9 @@ import {handleHotkeyTrigger, intakeHotkeyTrigger, outcomeForProbeError} from '@r
 import type {ProbeError, QueueItem} from '@shared/types.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {defaultAppSettings} from '@shared/constants.js'
-import {fail, ok} from '@shared/result.js'
+import {fail} from '@shared/result.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
+import {armQueue} from '../shared/quickDownloadHarness.js'
 
 const URL = 'https://www.youtube.com/watch?v=one'
 
@@ -36,9 +37,10 @@ function run(trigger: Parameters<typeof intakeHotkeyTrigger>[0]) {
 	return intakeHotkeyTrigger(trigger)
 }
 
-// A press placed through the real pipeline, against a given live queue.
+// A press placed through the real pipeline (main's intake), against a given live queue.
 async function press(url: string, queue: QueueItem[]) {
 	const api = buildMockAppApi()
+	armQueue(api)
 	Object.defineProperty(globalThis, 'window', {configurable: true, value: {appApi: api}})
 	useAppStore.setState({settings: defaultAppSettings('/tmp'), queue, wizardOutputDir: '/tmp'})
 	await handleHotkeyTrigger({kind: 'single', url}, useAppStore.getState)
@@ -86,7 +88,7 @@ describe('a press on a link already live in the queue', () => {
 	it('dedupes against live queue items by cleaned URL', async () => {
 		const api = await press(URL, [queueItem({status: 'running'}), queueItem({id: 'q2', status: 'pending', url: 'https://other.example/x'})])
 		expect(api.hotkey.reportOutcome).toHaveBeenCalledWith({outcome: 'already-queued', url: URL})
-		expect(api.queue.cmd.add).not.toHaveBeenCalled()
+		expect(useAppStore.getState().queue.map(item => item.id)).toEqual(['q1', 'q2'])
 	})
 
 	it('treats a probing placeholder as live: same URL is already-queued, not busy', async () => {
@@ -136,17 +138,16 @@ describe('handleHotkeyTrigger', () => {
 
 	it('does not write quick-download or wizard state when the probe-stage swap fails', async () => {
 		const api = buildMockAppApi()
-		api.queue.cmd.add = vi.fn(async (items: QueueItem[]) => {
-			useAppStore.setState({queue: items})
-			return ok({ids: items.map(item => item.id), skippedAlreadyQueued: 0})
-		})
+		armQueue(api)
 		api.queue.cmd.replaceProbing = vi.fn().mockResolvedValue(fail({code: 'validation', message: 'placeholder cancelled', recoverable: true}))
 		Object.defineProperty(globalThis, 'window', {configurable: true, value: {appApi: api}})
 		useAppStore.setState({settings: defaultAppSettings('/tmp'), queue: [], quickDownloadStatus: 'idle', quickDownloadFailure: null, quickPlaylistCapDialogOpen: false, wizardOutputDir: '/tmp'})
 
 		await handleHotkeyTrigger({kind: 'single', url: URL}, useAppStore.getState)
 
-		await vi.waitFor(() => expect(api.queue.cmd.replaceProbing).toHaveBeenCalledOnce())
+		// The failed swap settles the row as a probe error; the hotkey hears it last.
+		await vi.waitFor(() => expect(api.hotkey.reportOutcome).toHaveBeenCalledWith({outcome: 'submission-failed', url: URL}))
+		expect(api.queue.cmd.replaceProbing).toHaveBeenCalledOnce()
 		expect(useAppStore.getState()).toMatchObject({quickDownloadStatus: 'idle', quickDownloadFailure: null, quickPlaylistCapDialogOpen: false, wizardUrl: ''})
 	})
 })

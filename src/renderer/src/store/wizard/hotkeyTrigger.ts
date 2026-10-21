@@ -102,7 +102,6 @@ export async function handleHotkeyTrigger(trigger: HotkeyTriggerPayload, get: Ge
 	}
 	await placeQuickDownload(
 		{url: intake.url, playlistMode: intake.playlistMode},
-		get,
 		hotkeyFeedback(outcome => report(outcome, intake.url))
 	)
 }

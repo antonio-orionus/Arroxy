@@ -375,6 +375,8 @@ export interface QueueItem {
 	// Placeholder rows only: the probe's playlist mode, and the open decision.
 	probeMode?: ProbePlaylistMode
 	choice?: import('./schemas.js').QueueChoice
+	pinnedProfile?: import('./intake/intakeSchemas.js').PinnedDownloadProfile
+	origin?: import('./intake/intakeSchemas.js').IntakeOrigin
 	job: PreparedJob
 }
 

@@ -11,6 +11,7 @@
 // mutation goes back through the injected commit callbacks.
 
 import log from 'electron-log/main.js'
+import type {IntakeOrigin} from '@shared/intake/intakeSchemas.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
@@ -29,6 +30,8 @@ export interface QueueProbeLifecycleDeps {
 	// no await between them, so no other command can interleave.
 	commitRemove: (itemId: string) => void
 	commitAdd: (items: QueueItem[]) => void
+	// How many rows one intake may become, by who took it in; null for no limit.
+	rowsPerIntake: (origin: IntakeOrigin) => number | null
 }
 
 export class QueueProbeLifecycle {
@@ -96,6 +99,8 @@ export class QueueProbeLifecycle {
 	// record is read in the same tick as the swap, and counted: an overlapping
 	// playlist prepared at the same time still queues its new entries. Only a
 	// batch with nothing new is refused as a conflict, keeping the placeholder.
+	// Every row the placeholder becomes carries its intake origin, and a batch
+	// over the intake's admission limit is refused before anything is committed.
 	replaceProbing(itemId: string, items: QueueItem[]): Result<{ids: string[]; skippedAlreadyQueued: number}> {
 		const placeholder = this.find(itemId)
 		if (placeholder?.status !== QUEUE_STATUS.probing && placeholder?.status !== QUEUE_STATUS.needsChoice) {
@@ -109,9 +114,12 @@ export class QueueProbeLifecycle {
 		)
 		if (!admission.ok) return admission
 		const {admitted, skippedAlreadyQueued} = admission.data
+		const {origin} = placeholder
+		const limit = origin ? this.deps.rowsPerIntake(origin) : null
+		if (limit !== null && admitted.length > limit) return fail(createAppError('validation', `intake ${origin?.intakeId} may add at most ${limit} rows, not ${admitted.length}`))
 		this.deps.commitRemove(itemId)
 		if (admitted.length === 0) return ok({ids: [], skippedAlreadyQueued})
-		const queued = withPlaceholderId(itemId, items, admitted)
+		const queued = withPlaceholderId(itemId, items, origin ? admitted.map(item => ({...item, origin})) : admitted)
 		this.deps.commitAdd(queued)
 		logger.info('replaceProbing', {itemId, replacedBy: queued.map(i => i.id), skippedAlreadyQueued})
 		return ok({ids: queued.map(i => i.id), skippedAlreadyQueued})

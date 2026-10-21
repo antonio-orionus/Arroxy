@@ -9,15 +9,18 @@ import {ok} from '@shared/result.js'
 import type {PlaylistEntry, ProbeResult, QueueItem, QueueItemStatus} from '@shared/types.js'
 import {admitAgainstLive} from '@shared/queueActions.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
+import {armQueue, queue} from '../shared/quickDownloadHarness.js'
 
 // A playlist that overlaps what is already live in the queue must not be lost to
 // the admission guard's conflict. The overlap is dropped before submission, the
 // rest is queued, and the user is told how many were skipped. Everything already
 // queued is neither a failure nor an empty selection.
 
-const URL_A = 'https://youtu.be/a'
-const URL_B = 'https://youtu.be/b'
-const URL_C = 'https://youtu.be/c'
+// Real-shaped video ids: main's queue admission refuses a URL that reads as a
+// collection, and a bare `youtu.be/c` reads as a channel's /c/ path.
+const URL_A = 'https://youtu.be/aaaaaaaaaaa'
+const URL_B = 'https://youtu.be/bbbbbbbbbbb'
+const URL_C = 'https://youtu.be/ccccccccccc'
 const PLAYLIST_URL = 'https://www.youtube.com/playlist?list=PLtest'
 
 const ENTRIES: PlaylistEntry[] = [URL_A, URL_B, URL_C].map((url, index) => ({id: `e${index + 1}`, title: `Entry ${index + 1}`, url, thumbnail: '', duration: 60, playlistIndex: index + 1, videoId: `e${index + 1}`}))
@@ -60,6 +63,7 @@ describe('Quick Download of a playlist', () => {
 	function arm(queue: QueueItem[]) {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		armQueue(api)
 		window.appApi = api
 		useAppStore.setState({wizardUrl: PLAYLIST_URL, queue})
 		return api
@@ -96,7 +100,7 @@ describe('Quick Download of a playlist', () => {
 		// The row goes away with nothing to add; nothing failed.
 		expect(await swappedUrls(api)).toEqual([])
 		await vi.waitFor(() => expect(skipNotices()).toHaveLength(1))
-		expect(api.queue.cmd.probeFailed).not.toHaveBeenCalled()
+		expect(useAppStore.getState().queue.filter(item => item.status === 'error')).toEqual([])
 		expect(notices.filter(notice => notice.level === 'error')).toEqual([])
 	})
 
@@ -106,15 +110,23 @@ describe('Quick Download of a playlist', () => {
 		await quickDownload()
 
 		expect(await swappedUrls(api)).toHaveLength(3)
+		// The outcome (queued, nothing skipped) shows nothing, so wait for the
+		// three rows to land and for the outcome chain to finish: it runs on
+		// promises the mocks resolve at once, so a macrotask outlasts it.
+		await vi.waitFor(() => expect(queue().filter(item => item.status === 'pending')).toHaveLength(3))
+		await new Promise(resolve => setTimeout(resolve, 0))
 		expect(skipNotices()).toEqual([])
 	})
 
 	it('answers a lone already-queued video with Already in the queue, placing nothing', async () => {
-		const api = arm([queued(URL_A)])
+		const seeded = [queued(URL_A)]
+		const api = arm(seeded)
 
 		await quickDownload(URL_A)
 
-		expect(api.queue.cmd.add).not.toHaveBeenCalled()
+		expect(api.intake.add).toHaveBeenCalledOnce()
+		expect(queue()).toEqual(seeded)
+		expect(api.queue.cmd.replaceProbing).not.toHaveBeenCalled()
 		expect(notices.map(notice => notice.message)).toEqual(['Already in the queue'])
 	})
 })

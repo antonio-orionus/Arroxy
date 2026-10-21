@@ -45,7 +45,7 @@ function signIn(): void {
 }
 
 function reprobed(): string[] {
-	return vi.mocked(api.queue.cmd.reprobe).mock.calls.map(([input]) => input.itemId)
+	return vi.mocked(api.intake.retry).mock.calls.map(([input]) => input.itemId)
 }
 
 beforeEach(() => {
@@ -179,7 +179,7 @@ describe('Sign in with Explore on a failed row', () => {
 		const logged = vi.spyOn(console, 'error').mockImplementation(() => undefined)
 		seed()
 		await useAppStore.getState().signInWithExploreThenRetry({kind: 'row', itemId: 'a'}, YOUTUBE_SIGN_IN)
-		api.queue.cmd.reprobe = vi.fn().mockRejectedValue(new Error('IPC closed'))
+		api.intake.retry = vi.fn().mockRejectedValue(new Error('IPC closed'))
 		signIn()
 		await vi.waitFor(() => expect(logged).toHaveBeenCalledWith(expect.stringContaining('[quick-download]'), expect.any(Error)))
 		logged.mockRestore()

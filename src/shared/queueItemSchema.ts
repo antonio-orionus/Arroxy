@@ -3,13 +3,14 @@
 // needs-choice answers) live in `./schemas.ts` with every other enum.
 
 import {z} from 'zod'
+import {intakeOriginSchema, pinnedDownloadProfileSchema} from './intake/intakeSchemas.js'
 import {QUEUE_STATUS, jobAuthSchema, probePlaylistModeSchema, queueArtifactKindSchema, queueChoiceSchema, queueItemStatusSchema, queueLaneSchema, statusKeySchema, ytDlpErrorKindSchema} from './schemas.js'
 import {preparedJobSchema} from './preparedJob.js'
 
 // Used by both the queue IPC handlers and QueueStore.load to reject corrupted
 // persistence (manual edits, partial writes). The error shape is exported for
 // IPC input validation (queue:cmd:probeFailed) — the same shape the item uses.
-export const localizedErrorSchemaShape = z.object({kind: ytDlpErrorKindSchema, raw: z.string(), languageCodes: z.array(z.string()).optional()})
+const localizedErrorSchemaShape = z.object({kind: ytDlpErrorKindSchema, raw: z.string(), languageCodes: z.array(z.string()).optional()})
 
 const statusSnapshotSchema = z.object({key: statusKeySchema, params: z.record(z.string(), z.union([z.string(), z.number()])).optional()})
 
@@ -64,6 +65,12 @@ export const queueItemSchema = z
 		// probes the same way.
 		probeMode: probePlaylistModeSchema.optional(),
 		choice: queueChoiceSchema.optional(),
+		// Placeholder rows only: the profile and folders the row was placed
+		// with. A row saved before they were stored has none, and prepares with
+		// the active profile.
+		pinnedProfile: pinnedDownloadProfileSchema.optional(),
+		// Who took the link in; copied onto every row the placeholder becomes.
+		origin: intakeOriginSchema.optional(),
 		job: preparedJobSchema
 	})
 	.superRefine((item, ctx) => {

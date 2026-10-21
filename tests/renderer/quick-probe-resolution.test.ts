@@ -1,10 +1,13 @@
 import {beforeEach, describe, expect, it} from 'vite-plus/test'
-import {resolveQuickProbe} from '@renderer/store/quickDownload/quickProbeResolution.js'
+import {resolvePinnedQuickProbe, type QuickProbeContext, type QuickProbeResolution} from '@shared/intake/probeResolution.js'
+import {pinActiveDownloadProfile, rendererPreparationEnv} from '@renderer/store/wizard/queueSubmission.js'
+import type {AppState} from '@renderer/store/types.js'
+import type {Result} from '@shared/result.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {RESET_WIZARD_STATE} from '@renderer/store/wizard/commands.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import {fail, ok} from '@shared/result.js'
-import type {PlaylistEntry, ProbeResult, QueueItem} from '@shared/types.js'
+import type {PlaylistEntry, ProbeError, ProbeResult, QueueItem} from '@shared/types.js'
 
 // What a quick download's placeholder row becomes once its probe answers. One
 // rule set for every entry point (URL tab, Explore, the hotkey): a video or a
@@ -37,6 +40,11 @@ function entries(count: number): PlaylistEntry[] {
 
 function playlist(count: number): Extract<ProbeResult, {kind: 'playlist'}> {
 	return {kind: 'playlist', extractor: 'youtube:tab', extractorKey: 'YoutubeTab', webpageUrl: PLAYLIST_URL, isAudioOnlySource: false, playlistTitle: 'Road trip mix', playlistId: 'PLtest', isMultiVideo: false, entries: entries(count)}
+}
+
+// Main resolves with the row's pinned profile; these rows were placed with the active one.
+function resolveQuickProbe(result: Result<ProbeResult, ProbeError>, context: QuickProbeContext, current: AppState): QuickProbeResolution {
+	return resolvePinnedQuickProbe(result, {...context, profile: context.profile ?? pinActiveDownloadProfile(current)}, current, {...rendererPreparationEnv(), probeFailedText: () => 'probe failed', prepareFailedText: () => 'prepare failed'})
 }
 
 function state(queue: QueueItem[] = []) {

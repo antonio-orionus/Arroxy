@@ -78,13 +78,18 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 			onHotkeyOutcome: vi.fn().mockReturnValue(() => undefined),
 			onWarmupProgress: vi.fn().mockReturnValue(() => undefined)
 		},
+		intake: {
+			add: vi.fn().mockResolvedValue(ok({kind: 'not-added'})),
+			retry: vi.fn().mockResolvedValue(ok(undefined)),
+			choose: vi.fn().mockResolvedValue(ok(undefined)),
+			keptProbe: vi.fn().mockResolvedValue(ok(null)),
+			setWindowContext: vi.fn().mockResolvedValue(ok(undefined)),
+			onEvent: vi.fn().mockReturnValue(() => undefined)
+		},
 		queue: {
 			cmd: {
 				add: vi.fn((items: QueueItem[]) => Promise.resolve(ok({ids: items.map(item => item.id), skippedAlreadyQueued: 0}))),
 				getSnapshot: vi.fn().mockResolvedValue(ok({items: [] as import('@shared/types.js').QueueItem[], schedulerPaused: false})),
-				probeFailed: vi.fn().mockResolvedValue(ok(undefined)),
-				needsChoice: vi.fn().mockResolvedValue(ok(undefined)),
-				reprobe: vi.fn().mockResolvedValue(ok(undefined)),
 				start: vi.fn().mockResolvedValue(ok(undefined)),
 				pause: vi.fn().mockResolvedValue(ok(undefined)),
 				resume: vi.fn().mockResolvedValue(ok(undefined)),

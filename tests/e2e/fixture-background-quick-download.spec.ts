@@ -3,7 +3,7 @@ import {expect, test, type ElectronApplication, type Page} from '@playwright/tes
 import {toastItemName} from '../../src/renderer/src/lib/toastItemName.js'
 import type {AppSettings, ExploreLinkAction, ExploreViewState} from '../../src/shared/types.js'
 import {FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
-import {withFixtureProductApp} from './fixtureProductE2E.js'
+import {readPersistedQueue, withFixtureProductApp} from './fixtureProductE2E.js'
 
 // Background quick download risk group (P2-R37/R38). A single link's Quick
 // Download — the URL tab's card and Explore's Download — must never block the
@@ -258,6 +258,48 @@ test('a failed probe becomes an error row, and Retry from the row succeeds once 
 		await expect(page.getByTestId(rowTestId ?? '')).toHaveAttribute('data-status', 'done', {timeout: 120_000})
 		await expect(rows(page)).toHaveCount(1)
 		await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(1)
+	})
+})
+
+// Risk: the profile a row was placed with lived only in the window, so a
+// reload (or anything else that dropped it) made the row's Retry prepare with
+// whatever profile was active by then: another format, another folder.
+// Actions: Quick Download a video whose probe fails under Balanced 720p,
+// switch the active profile to Audio only, reload the window, then Retry on
+// the row once the failure is lifted.
+// Milestones: the error row before the reload, and again after it; probing
+// again after Retry; done.
+// Oracles: the row is labelled with Balanced's format in Downloads and in
+// queue.json, and the file on disk is an mp4 in Balanced's folder, not audio.
+test('a row keeps the profile it was placed with across a window reload', async () => {
+	test.setTimeout(180_000)
+	const videoId = FIXTURE_VIDEO_IDS[1]
+	if (!videoId) throw new Error('fixture catalog needs a second video')
+
+	await withFixtureProductApp({behavior: {metadataFailureIds: [videoId]}, userDataPrefix: 'arroxy-fixture-bg-quick-pinned-user-', outputPrefix: 'arroxy-fixture-bg-quick-pinned-out-'}, async ({page, fixtureServer, userDataDir, urls, files}) => {
+		const url = urls.video(videoId)
+		await quickDownloadFromUrlTab(page, url)
+		await viewFromToast(page, `Couldn't prepare ${toastItemName(url)}`)
+		const rowTestId = (await rows(page).first().getAttribute('data-testid')) ?? ''
+		await expect(page.getByTestId(rowTestId)).toHaveAttribute('data-status', 'error')
+		await expect(page.getByTestId(rowTestId)).toContainText('Balanced 720p')
+
+		const switched = await page.evaluate(async () => (await window.appApi.settings.update({profiles: {active: {kind: 'builtin', id: 'audio-only'}}})).ok)
+		expect(switched).toBe(true)
+		await page.reload()
+		await page.locator('.downloads-tab-trigger').click()
+		await expect(page.getByTestId(rowTestId)).toHaveAttribute('data-status', 'error', {timeout: 30_000})
+
+		fixtureServer.setBehavior({metadataDelayMs: PROBE_DELAY_MS})
+		const itemId = rowTestId.replace('queue-manager-row-', '')
+		await page.getByTestId(`queue-attention-${itemId}`).getByRole('button', {name: 'Retry'}).click()
+		await expect(page.getByTestId(rowTestId)).toHaveAttribute('data-status', 'done', {timeout: 120_000})
+
+		await expect(page.getByTestId(rowTestId)).toContainText('Up to 720p · Best picture')
+		const persisted = readPersistedQueue(userDataDir)
+		expect(persisted.map(item => item.formatLabel)).toEqual(['Up to 720p · Best picture'])
+		await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(1)
+		expect(files.mediaFiles('mp4')[0]).toContain('Balanced 720p')
 	})
 })
 

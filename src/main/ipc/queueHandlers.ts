@@ -1,7 +1,7 @@
 import {z} from 'zod'
 import {IPC_CHANNELS} from '@shared/ipc.js'
-import {jobAuthSchema, queueChoiceSchema, queueLaneSchema, queueSelectionActionSchema} from '@shared/schemas.js'
-import {localizedErrorSchemaShape, queueArraySchema} from '@shared/queueItemSchema.js'
+import {queueLaneSchema, queueSelectionActionSchema} from '@shared/schemas.js'
+import {queueArraySchema} from '@shared/queueItemSchema.js'
 import {ok} from '@shared/result.js'
 import type {QueueService} from '@main/services/QueueService.js'
 import type {ProbeService} from '@main/services/ProbeService.js'
@@ -13,9 +13,7 @@ const cancelInputSchema = z.object({itemId: z.string().nullable()})
 const setLaneInputSchema = z.object({itemId: z.string(), lane: queueLaneSchema})
 const applySelectionActionInputSchema = z.object({action: queueSelectionActionSchema, itemIds: z.array(z.string())})
 const changeOutputTargetInputSchema = z.object({itemIds: z.array(z.string()), outputDir: z.string().refine(dir => dir.trim().length > 0)})
-const probeFailedInputSchema = z.object({itemId: z.string().min(1), error: localizedErrorSchemaShape, auth: jobAuthSchema.optional()})
 const replaceProbingInputSchema = z.object({itemId: z.string().min(1), items: queueArraySchema})
-const needsChoiceInputSchema = z.object({itemId: z.string().min(1), choice: queueChoiceSchema, title: z.string()})
 
 export function registerQueueHandlers(queueService: QueueService, probeService: ProbeService): void {
 	// A probing item's cancellation aborts exactly its own probe — never the
@@ -35,30 +33,6 @@ export function registerQueueHandlers(queueService: QueueService, probeService: 
 	handle(IPC_CHANNELS.queueCmdAdd, queueArraySchema, items => {
 		try {
 			return Promise.resolve(queueService.add(items))
-		} catch (err) {
-			return Promise.resolve(toUnknownFailure(err))
-		}
-	})
-
-	handle(IPC_CHANNELS.queueCmdProbeFailed, probeFailedInputSchema, ({itemId, error, auth}) => {
-		try {
-			return Promise.resolve(queueService.probeFailed(itemId, error, auth))
-		} catch (err) {
-			return Promise.resolve(toUnknownFailure(err))
-		}
-	})
-
-	handle(IPC_CHANNELS.queueCmdNeedsChoice, needsChoiceInputSchema, ({itemId, choice, title}) => {
-		try {
-			return Promise.resolve(queueService.needsChoice(itemId, choice, title))
-		} catch (err) {
-			return Promise.resolve(toUnknownFailure(err))
-		}
-	})
-
-	handle(IPC_CHANNELS.queueCmdReprobe, itemIdSchema, ({itemId}) => {
-		try {
-			return Promise.resolve(queueService.reprobe(itemId))
 		} catch (err) {
 			return Promise.resolve(toUnknownFailure(err))
 		}

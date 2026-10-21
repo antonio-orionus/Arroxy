@@ -38,6 +38,7 @@ import {
 import {playSetupScript, simulateFirstLaunchDownloads} from './dev/warmupPlayback.js'
 import {isRtl} from '@shared/i18n/rtl.js'
 import {applyThemeLive, readKnobs} from './dev/browserMockKnobs.js'
+import {createIntakeMock} from './dev/intakeMock.js'
 import {buildProbeErrorForKind} from './dev/scenarios/probeScenarios.js'
 import {createExploreMock} from './dev/exploreMock.js'
 import {createSiteRequestsMock} from './dev/siteRequestsMock.js'
@@ -468,6 +469,8 @@ export function installBrowserMock(): void {
 			}
 		},
 
+		intake: createIntakeMock({probe: input => mock.downloads.probe(input), add: items => mock.queue.cmd.add(items), replaceProbing: input => mock.queue.cmd.replaceProbing(input), items: () => queueItems, transition: applyProbeStageEvent, settings: () => settings}),
+
 		hotkey: {
 			reportOutcome: () => Promise.resolve({ok: true, data: undefined} as const),
 			// Registration mirrors the mock setting so the URL screen's hotkey hint
@@ -572,9 +575,6 @@ export function installBrowserMock(): void {
 					return Promise.resolve({ok: true, data: {ids: items.map(item => item.id), skippedAlreadyQueued: admission.skippedAlreadyQueued}} as const)
 				},
 				getSnapshot: () => Promise.resolve({ok: true, data: {items: [...queueItems], schedulerPaused: mockSchedulerPaused}} as const),
-				probeFailed: ({itemId, error}) => applyProbeStageEvent(itemId, {kind: 'probe-failed', error}),
-				needsChoice: ({itemId, choice, title}) => applyProbeStageEvent(itemId, {kind: 'needs-choice', choice, title}),
-				reprobe: ({itemId}) => applyProbeStageEvent(itemId, {kind: 'probe-restarted'}),
 				start: ({itemId}) => {
 					const item = queueItemById.get(itemId)
 					if (item && item.status !== QUEUE_STATUS.done && item.status !== QUEUE_STATUS.cancelled) {
