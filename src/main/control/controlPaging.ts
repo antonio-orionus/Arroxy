@@ -22,23 +22,28 @@ export interface QueuePage {
 
 export function queuePage(rows: readonly QueueItem[], view: (item: QueueItem) => QueueItemView, request: {cursor?: string; limit?: number}): QueuePage {
 	const start = request.cursor === undefined ? 0 : startOf(rows, decodeCursor(request.cursor))
-	const limit = request.limit ?? QUEUE_LIST_DEFAULT_LIMIT
+	const {items, next} = takePage(rows, view, start, request.limit ?? QUEUE_LIST_DEFAULT_LIMIT)
+	const last = items.at(-1)
+	return {items, nextCursor: next < rows.length && last ? encodeCursor({after: last.id, next}) : null}
+}
+
+// The views of rows from `start` that fit one page, and where the next page
+// starts. A page always takes one row, however large, so paging always moves on.
+export function takePage<T>(rows: readonly T[], view: (row: T) => QueueItemView, start: number, limit: number): {items: QueueItemView[]; next: number} {
 	const items: QueueItemView[] = []
 	// The brackets of the array, then each item and its comma.
 	let bytes = 2
 	let index = start
 	for (; index < rows.length && items.length < limit; index++) {
 		const row = rows[index]
-		if (!row) break
+		if (row === undefined) break
 		const item = view(row)
 		const size = Buffer.byteLength(JSON.stringify(item)) + 1
-		// A page always takes one row, however large, so paging always moves on.
 		if (items.length > 0 && bytes + size > CONTROL_PAGE_BYTES) break
 		items.push(item)
 		bytes += size
 	}
-	const last = items.at(-1)
-	return {items, nextCursor: index < rows.length && last ? encodeCursor({after: last.id, next: index}) : null}
+	return {items, next: index}
 }
 
 function startOf(rows: readonly QueueItem[], cursor: Cursor): number {

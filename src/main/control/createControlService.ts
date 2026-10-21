@@ -6,22 +6,16 @@ import type {QueueService} from '@main/services/QueueService.js'
 import type {QueueRemovalReason} from '@main/services/download/queueMutation.js'
 import type {SiteRequestState} from '@main/services/SiteRequestState.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
+import type {YtDlpErrorKind} from 'ytdlp-errors'
 import {downloadProfileName} from '@shared/downloadProfileName.js'
 import type {SupportedLang} from '@shared/i18n/types.js'
 import type {QueueItem} from '@shared/types.js'
+import {ControlEventFeed, type ControlFeedQueue, type ControlFeedSources} from './ControlEventFeed.js'
 import {ControlService} from './ControlService.js'
 import {type ControlBinaries, type ControlStatus, createControlStatus} from './controlStatus.js'
 import type {ControlFeed, ControlQueue} from './controlTypes.js'
 import {controlRowsPerIntake} from './intakeAdmission.js'
 import {IntakeRegistry} from './IntakeRegistry.js'
-
-// What the event feed is built from.
-export interface ControlFeedSources {
-	queueService: QueueService
-	registry: IntakeRegistry
-	status: ControlStatus
-	clientLabel(clientId: string): string | null
-}
 
 export interface ControlWiring {
 	queueService: QueueService
@@ -35,7 +29,8 @@ export interface ControlWiring {
 	languageRef: {current: SupportedLang}
 	// The Control client store's label for a client; null once removed.
 	clientLabel(clientId: string): string | null
-	createFeed(sources: ControlFeedSources): ControlFeed
+	// The event feed; ControlEventFeed unless a test supplies another.
+	createFeed?(sources: ControlFeedSources): ControlFeed
 }
 
 // Composition root for the Control API: the intake registry follows the
@@ -44,6 +39,7 @@ export interface ControlWiring {
 export function createControlService(wiring: ControlWiring): {service: ControlService; registry: IntakeRegistry; status: ControlStatus} {
 	const {queueService, intake, outcomes, settingsStore, siteRequests, binaries, languageRef} = wiring
 	const clientLabel = (clientId: string): string | null => wiring.clientLabel(clientId)
+	const errorText = (kind: YtDlpErrorKind): string => mainT('en', `errors.ytdlp.${kind}`)
 	const registry = new IntakeRegistry({rows: () => queueService.snapshot(), now: Date.now, newId: randomUUID})
 	queueService.on('added', ({items}: {items: QueueItem[]}) => registry.hearRows(items))
 	queueService.on('updated', ({item}: {item: QueueItem}) => registry.hearRows([item]))
@@ -85,18 +81,33 @@ export function createControlService(wiring: ControlWiring): {service: ControlSe
 			}
 		}
 	}
+	const feedSources: ControlFeedSources = {queue: feedQueue(queueService), registry, status, clientLabel, errorText}
 	const service = new ControlService({
 		intake,
 		queue,
 		registry,
 		settings: () => settingsStore.get(),
 		status,
-		feed: wiring.createFeed({queueService, registry, status, clientLabel}),
+		feed: wiring.createFeed ? wiring.createFeed(feedSources) : new ControlEventFeed(feedSources),
 		clientLabel,
 		profileName: profile => downloadProfileName(profile, key => mainT(languageRef.current, key)),
-		errorText: kind => mainT('en', `errors.ytdlp.${kind}`),
+		errorText,
 		newId: randomUUID,
 		now: Date.now
 	})
 	return {service, registry, status}
+}
+
+// The queue's row events, each listener taken off again on unsubscribe.
+function feedQueue(queueService: QueueService): ControlFeedQueue {
+	const listen = <T>(event: 'added' | 'updated' | 'removed', listener: (payload: T) => void): (() => void) => {
+		queueService.on(event, listener)
+		return () => queueService.off(event, listener)
+	}
+	return {
+		snapshot: () => queueService.snapshot(),
+		onAdded: listener => listen<{items: QueueItem[]}>('added', ({items}) => listener(items)),
+		onUpdated: listener => listen<{item: QueueItem}>('updated', ({item}) => listener(item)),
+		onRemoved: listener => listen<{itemId: string; reason: QueueRemovalReason}>('removed', ({itemId, reason}) => listener(itemId, reason))
+	}
 }

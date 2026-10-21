@@ -36,7 +36,7 @@ class FakeDownloadService extends EventEmitter {
 	setMaxConcurrent = vi.fn()
 }
 
-function wired() {
+function wired(options: {realFeed?: boolean; sink?: ControlSink} = {}) {
 	const store = {load: vi.fn().mockResolvedValue(ok({items: [], schedulerPaused: true})), save: vi.fn().mockResolvedValue(ok(undefined))} as unknown as QueueStore
 	const queueService = new QueueService(store, new FakeDownloadService() as unknown as DownloadService)
 	void queueService.pauseAll()
@@ -58,9 +58,9 @@ function wired() {
 		binaries: {current: () => ({ytDlp: 'ready', ffmpeg: 'ready'}), onChange: () => () => undefined},
 		languageRef: {current: 'en'},
 		clientLabel: clientId => (clientId === 'client-1' ? 'Claude Code' : null),
-		createFeed
+		...(options.realFeed ? {} : {createFeed})
 	})
-	const session = control.service.openSession({clientId: 'client-1', kind: 'localClient', label: 'Claude Code', rules: ['trusted']}, SINK)
+	const session = control.service.openSession({clientId: 'client-1', kind: 'localClient', label: 'Claude Code', rules: ['trusted']}, options.sink ?? SINK)
 	let requests = 0
 	const send = async (method: ControlMethod, params: Record<string, unknown>) => {
 		const parsed = parseControlRequest({type: 'request', id: `req-${++requests}`, method, params})
@@ -98,8 +98,28 @@ describe('createControlService', () => {
 
 	it('hands the event feed its sources and the session sink', async () => {
 		const h = wired()
-		expect(h.createFeed).toHaveBeenCalledWith(expect.objectContaining({queueService: expect.any(QueueService), registry: h.control.registry, status: h.control.status}))
+		expect(h.createFeed).toHaveBeenCalledWith(expect.objectContaining({queue: expect.objectContaining({snapshot: expect.any(Function)}), registry: h.control.registry, status: h.control.status}))
 		expect(await h.send('events.subscribe', {})).toEqual({bootId: h.control.registry.bootId})
 		expect(h.feed.subscribe).toHaveBeenCalledWith(SINK, expect.objectContaining({snapshot: true}))
+	})
+
+	it("pairs a placeholder's swap on the real queue's event feed", async () => {
+		const lines: string[] = []
+		const h = wired({realFeed: true, sink: {write: line => lines.push(line) > 0, onDrain: () => () => undefined}})
+		await h.send('events.subscribe', {snapshot: false})
+		await new Promise(resolve => setImmediate(resolve))
+		const {intakeId, placeholderId} = (await h.send('links.add', {requestId: 'r1', url: VIDEO_URL})) as {intakeId: string; placeholderId: string}
+		await h.send('wait', {intakeId, until: 'settled', timeoutMs: 5000})
+		const events = lines.map(line => JSON.parse(line) as {event: string; seq: number; bootId: string; data: Record<string, unknown>})
+		expect(events.map(event => event.seq)).toEqual(events.map((_, index) => index))
+		expect(new Set(events.map(event => event.bootId))).toEqual(new Set([h.control.registry.bootId]))
+		const queueEvents = events.filter(event => event.event.startsWith('queue.')).map(event => [event.event, event.data])
+		expect(queueEvents).toEqual([
+			['queue.item', {item: expect.objectContaining({id: placeholderId, status: 'probing', intakeId})}],
+			['queue.removed', {itemId: placeholderId, reason: 'replaced'}],
+			['queue.replaced', {fromId: placeholderId, toIds: [placeholderId]}],
+			['queue.item', {item: expect.objectContaining({id: placeholderId, status: 'pending', origin: {kind: 'localClient', clientId: 'client-1', label: 'Claude Code'}})}]
+		])
+		expect(events.filter(event => event.event === 'intake.updated').at(-1)?.data).toMatchObject({intake: {intakeId, state: {state: 'queued', itemIds: [placeholderId]}}})
 	})
 })
