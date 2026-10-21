@@ -202,7 +202,7 @@ export function StepPlaylistPresets(): ReactNode {
 		<div className="flex h-full flex-col gap-3 px-4 py-3" data-testid="step-playlist-presets">
 			<div className="flex items-baseline justify-between gap-2">
 				<h2 className="text-sm font-semibold">{t('wizard.playlistPresets.heading')}</h2>
-				<span className="shrink-0 text-xs text-muted-foreground">{t('wizard.playlistPresets.itemCount_other', {count: selectedPlaylistItemIds.length})}</span>
+				<span className="shrink-0 text-xs text-muted-foreground">{t('wizard.playlistPresets.itemCount', {count: selectedPlaylistItemIds.length})}</span>
 			</div>
 
 			<ScrollArea className="h-[calc(100vh-272px)] min-h-[280px]">

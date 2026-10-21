@@ -959,7 +959,8 @@
 			"resolutionUnknown": "Unknown resolution",
 			"savesAs": {
 				"label": "Saves as",
-				"reset": "WebM can't hold {{codec}}, so the file type went back to Auto."
+				"reset": "WebM can't hold {{codec}}, so the file type went back to Auto.",
+				"value": "Saves as .{{ext}}"
 			},
 			"sizeUnknown": "Size unknown",
 			"skipToConfirm": "Skip to confirm",
@@ -1105,6 +1106,15 @@
 			"syncNoneTitle": "Nothing downloaded yet",
 			"syncScanning": "Checking folder…",
 			"thumbnailAlt": "Video thumbnail"
+		},
+		"playlistCap": {
+			"changeLimit": "Change load limit",
+			"descriptionWithTitle_one": "{{title}}: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again.",
+			"descriptionWithTitle_other": "{{title}}: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again.",
+			"description_one": "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again.",
+			"description_other": "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again.",
+			"queueLoaded": "Queue loaded items",
+			"title": "Playlist scan is capped"
 		},
 		"playlistPresets": {
 			"heading": "Pick quality for the batch",

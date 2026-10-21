@@ -17,6 +17,12 @@ describe('StepPlaylistPresets', () => {
 		expect(screen.getByRole('button', {name: 'Audio'})).toHaveAttribute('aria-pressed', 'false')
 	})
 
+	it('counts one selected item in the singular', () => {
+		render(<StepPlaylistPresets />)
+		expect(screen.getByTestId('step-playlist-presets')).toHaveTextContent('1 item')
+		expect(screen.getByTestId('step-playlist-presets')).not.toHaveTextContent('1 items')
+	})
+
 	it('renders video quality tiers from highest to lowest', () => {
 		render(<StepPlaylistPresets />)
 
