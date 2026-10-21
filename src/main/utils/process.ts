@@ -70,6 +70,9 @@ export const TERMINATE_GRACE_MS = 2_000
 // closed after the grace gets SIGKILL. Windows' `taskkill /T /F` is already
 // forced, so there is nothing to escalate there.
 export function terminateProcessTree(proc: KillableProcess & Pick<ChildProcess, 'once'>, logger?: RunnerLogger): void {
+	// Already reaped (a finalize drain reaches long-closed children): its pid and
+	// group id may belong to someone else by now, and 'close' will not come again.
+	if (leaderExited(proc)) return
 	killProcessTree(proc, 'SIGTERM', logger)
 	if (process.platform === 'win32') return
 	const escalate = setTimeout(() => killUnclosedTree(proc, logger), TERMINATE_GRACE_MS)
@@ -79,8 +82,12 @@ export function terminateProcessTree(proc: KillableProcess & Pick<ChildProcess, 
 	proc.once('close', () => clearTimeout(escalate))
 }
 
+function leaderExited(proc: KillableProcess): boolean {
+	return (proc.exitCode ?? null) !== null || (proc.signalCode ?? null) !== null
+}
+
 function killUnclosedTree(proc: KillableProcess, logger?: RunnerLogger): void {
-	if ((proc.exitCode ?? null) === null && (proc.signalCode ?? null) === null) {
+	if (!leaderExited(proc)) {
 		killProcessTree(proc, 'SIGKILL', logger)
 		return
 	}

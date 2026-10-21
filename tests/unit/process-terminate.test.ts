@@ -77,6 +77,18 @@ describe.skipIf(process.platform === 'win32')('terminateProcessTree on Unix', ()
 		])
 	})
 
+	// A job's finalize drain stops every child it spawned, most of them long closed.
+	it('leaves a child that had already exited alone, with nothing armed', () => {
+		const proc = child()
+		proc.exitCode = 0
+
+		terminateProcessTree(proc)
+		vi.advanceTimersByTime(TERMINATE_GRACE_MS)
+
+		expect(processKill).not.toHaveBeenCalled()
+		expect(vi.getTimerCount()).toBe(0)
+	})
+
 	it('survives a group that is already gone when the grace runs out', () => {
 		const proc = child()
 		terminateProcessTree(proc)
