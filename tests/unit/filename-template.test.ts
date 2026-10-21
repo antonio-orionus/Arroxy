@@ -58,7 +58,7 @@ describe('media tokens', () => {
 
 	it('falls back to the uploader for {artist} outside music, as the compiled token does', () => {
 		expect(renderTemplateDirs('{artist}/{title}', SINGLE_META)).toEqual(['Blender Foundation'])
-		expect(compiled('{artist}{id}')).toContain('%(artist,uploader,channel,creator,uploader_id|).60B')
+		expect(compiled('{artist}{id}')).toContain('%(artist,uploader,channel,creator,uploader_id|).20B')
 	})
 
 	it('leaves {artist} for yt-dlp in a filename when the probe had no artist', () => {
@@ -81,9 +81,9 @@ describe('media tokens', () => {
 		const template = compiled('{year} {site} {categories} {album} {track} {id}')
 		expect(template).toContain('%(upload_date>%Y|)s')
 		expect(template).toContain('%(webpage_url_domain|)s')
-		expect(template).toContain('%(categories.0|).60B')
-		expect(template).toContain('%(album|).60B')
-		expect(template).toContain('%(track|).80B')
+		expect(template).toContain('%(categories.0|).20B')
+		expect(template).toContain('%(album|).20B')
+		expect(template).toContain('%(track|).26B')
 	})
 
 	it('renders {year} empty when the upload date is missing or malformed', () => {
@@ -236,11 +236,11 @@ describe('templateHasDirs', () => {
 
 describe('compileFilenameTemplate', () => {
 	it('appends the extension and never asks the user to type it', () => {
-		expect(compiled('{title}')).toBe('%(title).120B.%(ext)s')
+		expect(compiled('{title}')).toBe('%(title).40B.%(ext)s')
 	})
 
 	it('resolves uploader through a fallback chain so absent fields do not print NA', () => {
-		expect(compiled('{uploader}{id}')).toBe('%(uploader,channel,creator,uploader_id).60B%(id)s.%(ext)s')
+		expect(compiled('{uploader}{id}')).toBe('%(uploader,channel,creator,uploader_id).20B%(id)s.%(ext)s')
 	})
 
 	it('gives every optional token an empty default rather than NA', () => {
@@ -250,15 +250,15 @@ describe('compileFilenameTemplate', () => {
 	})
 
 	it('compiles the new playlist tokens with empty defaults', () => {
-		expect(compiled('{playlist_title} {playlist_id} {id}')).toBe('%(playlist_title|).60B %(playlist_id|)s %(id)s.%(ext)s')
+		expect(compiled('{playlist_title} {playlist_id} {id}')).toBe('%(playlist_title|).20B %(playlist_id|)s %(id)s.%(ext)s')
 	})
 
 	it('compiles the default template', () => {
-		expect(compiled(DEFAULT_FILENAME_TEMPLATE)).toBe('%(title).120B [%(id)s].%(ext)s')
+		expect(compiled(DEFAULT_FILENAME_TEMPLATE)).toBe('%(title).40B [%(id)s].%(ext)s')
 	})
 
 	it('escapes literal percent signs so they survive yt-dlp expansion', () => {
-		expect(compiled('100% {title}')).toBe('100%(_absent|%)s %(title).120B.%(ext)s')
+		expect(compiled('100% {title}')).toBe('100%(_absent|%)s %(title).40B.%(ext)s')
 	})
 
 	it('propagates validation failures instead of emitting a broken -o string', () => {
@@ -266,11 +266,11 @@ describe('compileFilenameTemplate', () => {
 	})
 
 	it('trims surrounding whitespace', () => {
-		expect(compiled('  {title}  ')).toBe('%(title).120B.%(ext)s')
+		expect(compiled('  {title}  ')).toBe('%(title).40B.%(ext)s')
 	})
 
 	it('compiles only the filename segment — directories are Arroxy-rendered', () => {
-		expect(compiled('{playlist_title}/{playlist_index} - {title}')).toBe('%(playlist_index|)03d - %(title).120B.%(ext)s')
+		expect(compiled('{playlist_title}/{playlist_index} - {title}')).toBe('%(playlist_index|)03d - %(title).40B.%(ext)s')
 	})
 
 	it('never emits a separator into -o, whatever the template nesting', () => {
@@ -411,6 +411,41 @@ describe('bindFilenameTemplate — the names yt-dlp writes mid-download', () => 
 	})
 })
 
+describe('bindFilenameTemplate — the budget measures the name as it will be written', () => {
+	// The fragment names of the YouTube download LINUX budgets for; `251.webm`
+	// is the longest, so a name budgeted to the limit fills 255 bytes with it.
+	function fragmentNames(name: string): string[] {
+		return YOUTUBE_IN_FLIGHT.formats?.map(({formatId, ext}) => `${name}.f${formatId}.${ext}.part-Frag999999.part`) ?? []
+	}
+
+	// The longest name yt-dlp can write for a template it still expands. A
+	// `%(field).NB` field is cut to N bytes and only then sanitized
+	// (YoutubeDL.prepare_outtmpl), and sanitizing writes each of `"*:<>?|/\` as
+	// a 3-byte full-width look-alike, so N bytes of `|` are written as 3N.
+	function worstCaseExpansion(compiledTemplate: string): string {
+		return compiledTemplate.replace(/%\([^)]*\)\.(\d+)B/g, (_, bytes: string) => '｜'.repeat(Number(bytes))).replace(/\.%\(ext\)s$/, '')
+	}
+
+	it('counts the underscore that escapes a reserved device name', () => {
+		const name = bound('{title} [{id}]', {...SINGLE_META, title: `CON.${'T'.repeat(300)}`})
+		expect(name.startsWith('CON_.')).toBe(true)
+		for (const fragment of fragmentNames(name)) expect(utf8Bytes(fragment)).toBeLessThanOrEqual(255)
+	})
+
+	it('reserves what yt-dlp writes for a token it fills in, after sanitizing it', () => {
+		const lateTokens = ['title', 'uploader', 'categories', 'artist', 'album', 'track'] as const
+		const overruns = lateTokens.flatMap(token => {
+			const template = token === 'title' ? '{title} [{id}]' : `{${token}} - {title} [{id}]`
+			const meta: TemplateMetadata = token === 'title' ? {id: 'YE7VzlLtp-4'} : {title: 'T'.repeat(300), id: 'YE7VzlLtp-4'}
+			const name = bound(template, meta)
+			expect(name).toContain(`{${token}}`)
+			const longest = Math.max(...fragmentNames(worstCaseExpansion(compiled(name))).map(utf8Bytes))
+			return longest > 255 ? [`{${token}}: ${longest} bytes`] : []
+		})
+		expect(overruns).toEqual([])
+	})
+})
+
 describe('bindFilenameTemplate', () => {
 	describe('with a part-of-video suffix', () => {
 		const SUFFIX = '[3m40s-7m15s]'
@@ -445,9 +480,9 @@ describe('bindFilenameTemplate', () => {
 	})
 
 	// Every token but {resolution} becomes literal text here. yt-dlp cannot be
-	// trusted to cap what it expands: `%(title).120B` truncates to 120 bytes and
-	// *then* sanitizes, and sanitizing grows the string — ':' becomes ' -', and
-	// '|', '*', '<', '>' become 3-byte full-width forms. A cap it applies before
+	// trusted to cap what it expands: `%(title).40B` truncates to 40 bytes and
+	// *then* sanitizes, and sanitizing grows the string — ':', '|', '*', '<',
+	// '>' and their kin become 3-byte full-width forms. A cap it applies before
 	// that pass is advisory, so Arroxy resolves the name itself.
 	it('binds every token it knows, leaving only {resolution} for yt-dlp', () => {
 		expect(bound('{uploader} - {title} [{id}] {date} {resolution}', PLAYLIST_META)).toBe('Blender Foundation - Big Buck Bunny [YE7VzlLtp-4] 2026-08-03 {resolution}')
@@ -596,7 +631,7 @@ describe('render parity between directory and filename position', () => {
 
 	it('falls back through the uploader chain in a directory, as the compiled token does', () => {
 		expect(renderTemplateDirs('{uploader}/{title}', {...SINGLE_META, uploader: undefined, channel: 'Fallback Channel'})).toEqual(['Fallback Channel'])
-		expect(compiled('{uploader}{id}')).toContain('%(uploader,channel,creator,uploader_id).60B')
+		expect(compiled('{uploader}{id}')).toContain('%(uploader,channel,creator,uploader_id).20B')
 	})
 })
 
@@ -690,8 +725,8 @@ describe('unbound fallback title cap', () => {
 	// must hold on Linux (the strictest unit) and survive yt-dlp sanitizing after
 	// it is applied, which can turn one byte into three.
 	it('applies one fixed cap regardless of what else the template contains', () => {
-		expect(compiled('{title} [{id}]')).toContain('%(title).120B')
-		expect(compiled('{uploader} - {title} [{id}] {date} {resolution}')).toContain('%(title).120B')
+		expect(compiled('{title} [{id}]')).toContain('%(title).40B')
+		expect(compiled('{uploader} - {title} [{id}] {date} {resolution}')).toContain('%(title).40B')
 	})
 
 	it('no longer rejects a template on a rendered-length guess', () => {
@@ -721,7 +756,7 @@ describe('literal text in yt-dlp output templates', () => {
 	it('escapes every literal sign in the compiled -o, and leaves fields alone', () => {
 		expect(compiled('Why $HOME rules [abc]')).toBe('Why %(_absent|$)sHOME rules [abc].%(ext)s')
 		expect(compiled('~root [{id}]')).toBe('%(_absent|~)sroot [%(id)s].%(ext)s')
-		expect(compiled('{title} %USERPROFILE% 100%')).toBe('%(title).120B %(_absent|%)sUSERPROFILE%(_absent|%)s 100%(_absent|%)s.%(ext)s')
+		expect(compiled('{title} %USERPROFILE% 100%')).toBe('%(title).40B %(_absent|%)sUSERPROFILE%(_absent|%)s 100%(_absent|%)s.%(ext)s')
 	})
 
 	it('keeps variables in rendered directories as typed', () => {

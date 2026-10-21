@@ -50,7 +50,9 @@ Requires Node.js >= 22.13 and ESM.
 - Source-derived option catalog generated from `yt_dlp.options.create_parser`.
 - ESM and TypeScript declarations.
 
-## What changed in 0.6.2 (unreleased)
+## What changed in 0.6.2
+
+0.6.2 requires `ytdlp-errors` 1.5.0.
 
 - `--paths temp:`, `--load-info-json` and `--download-archive` take a path inside the run's folder as `./<path>`, and `--paths` values end in `/` (a temp root that is the output root itself is `temp:./`). yt-dlp expands these with no escape and strips `--paths` values, so since 0.6.0 a temp folder such as `<directory>/~/tmp` went to the home folder, and one ending in a space lost it. yt-dlp now names temp files `./<path>/…` in its output on POSIX; resolve them against `plan.cwd`. A variable below the folder cannot be protected there (`$NAME` or `${NAME}`; on Windows also a `%NAME%` pair, `%%` and `$$`), so `output.tempDirectory`, `loadInfoJsonPath`, a managed temp root inside the output root or a download archive that names one now throws.
 - A relative cookie jar (`auth.cookiesFile`, `YTDLP_MCP_COOKIES_FILE`), `auth.netrcLocation` or plugin folder is resolved against the caller's working directory when a plan that writes files is made. Since 0.6.0 such a plan runs in its output folder, where yt-dlp looked for them instead; plans that write no files run in the caller's directory and take the path as given. Each path is read the way yt-dlp reads its flag: a cookie jar that starts with `~` or a variable goes as given, and a relative one throws when the caller's directory names a variable; a netrc that starts with `~` goes as given; plugin folders are never expanded, and the sentinel `default` goes as given. The environment check expands a leading `~` in `YTDLP_MCP_COOKIES_FILE`, and leaves `fileExists` unset for a path with a variable.

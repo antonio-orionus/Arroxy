@@ -61,6 +61,8 @@ Write an ADR in `docs/adr/NNNN-slug.md` (sequential numbers) only for a decision
 
 **schemas.ts is SSOT for all enum types.** Pattern: `z.enum([...])` → `type Foo = z.infer<…>` → `const FOOS = fooSchema.options`. Don't redeclare as TS union literals. `QUEUE_STATUS` / `STATUS_KEY` live in `schemas.ts` (not `constants.ts`). `DEFAULTS` lives in `constants.ts`.
 
+**Release flags, not long-lived branches.** Work meant for a later release merges to `main` in small PRs behind a release flag, declared in the one typed registry in `src/shared/releaseFlags.ts` and read with `isReleaseFlagOn`. A flag is on in dev, the Scenario Workbench and tests, and off in release builds; it gates only entry points (menu items, buttons, routes, IPC exposure), never the logic behind them. Turning it on for release is one tiny PR, and the flag is deleted in the release after it ships. Details: [`dev-docs/release-flags.md`](dev-docs/release-flags.md).
+
 **TDD for non-trivial changes.** Write failing tests first, implement minimally, then refactor. Skip only for typo fixes and single-line edits.
 
 **`bunx`, never `npx`.** Run one-off package CLIs with `bunx` (e.g. `bunx skills find <query>`, `bunx skills add <owner/repo@skill>`), even when a skill or upstream doc says `npx`. Inside this checkout `npx` fails with `EOVERRIDE` (`Override for @types/react@… conflicts with direct dependency`) because the root `overrides` apply to npm's package runner; `bunx` ignores them. `check:tooling-contract` already rejects npm-family commands in tracked tooling and docs.
