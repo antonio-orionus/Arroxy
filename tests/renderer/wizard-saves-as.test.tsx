@@ -1,12 +1,13 @@
 // @vitest-environment jsdom
 import {fireEvent, render, screen} from '@testing-library/react'
 import {selectionSourceFromOptions} from '@shared/ytdlp/optionSelectionSource.js'
-import {beforeEach, describe, expect, it} from 'vite-plus/test'
+import {afterEach, beforeEach, describe, expect, it} from 'vite-plus/test'
 import {SavesAsControl} from '@renderer/components/wizard/format/SavesAsControl.js'
 import {ProfileTag} from '@renderer/components/wizard/format/ProfileTag.js'
 import {FitNotices} from '@renderer/components/wizard/format/FitNotices.js'
 import {FormatFooterWarnings} from '@renderer/components/wizard/format/FormatFooterWarnings.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
+import {i18next} from '@shared/i18n/index.js'
 import {profilePatch} from '@renderer/store/wizard/wizardProfileState.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {defaultAppSettings} from '@shared/constants.js'
@@ -171,6 +172,20 @@ describe('store rule: the newer action wins', () => {
 		render(<FitNotices />)
 
 		expect(screen.getByTestId('file-type-reset-notice')).toHaveTextContent("WebM can't hold H.264, so the file type went back to Auto.")
+	})
+})
+
+describe('FitNotices: missing subtitle languages', () => {
+	afterEach(async () => {
+		await i18next.changeLanguage('en')
+	})
+
+	it('names them mid-sentence in the UI language, lowercase as CLDR writes them', async () => {
+		await i18next.changeLanguage('ru')
+		useAppStore.setState({wizardFitNotices: [{kind: 'subtitle-languages-missing', languages: ['de', 'en-orig']}]})
+		render(<FitNotices />)
+
+		expect(screen.getByTestId('fit-notice-subtitle-languages-missing')).toHaveTextContent('немецкий, английский.')
 	})
 })
 

@@ -29,31 +29,33 @@ function capitalizeFirst(text: string, uiLanguage: string): string {
 	return first.toLocaleUpperCase(uiLanguage) + text.slice(first.length)
 }
 
-function intlLanguageName(code: string, uiLanguage: string): string | undefined {
-	try {
-		return displayNamesFor(uiLanguage).of(code)
-	} catch {
-		// Other sites' keys need not be BCP 47 tags (NRK's `nb-ttv`).
-		return undefined
-	}
-}
-
 // An `-orig` key is YouTube's caption of the spoken language, the only
 // automatic caption Arroxy keeps there. yt-dlp names it "English (Original)",
 // which next to the Auto badge reads as the uploaded track, so it never takes
 // that name.
 const ORIGINAL_CAPTION_SUFFIX = '-orig'
 
+function captionLanguage(code: string): string {
+	return code.endsWith(ORIGINAL_CAPTION_SUFFIX) ? code.slice(0, -ORIGINAL_CAPTION_SUFFIX.length) : code
+}
+
+function intlLanguageName(code: string, uiLanguage: string): string | undefined {
+	try {
+		return displayNamesFor(uiLanguage).of(captionLanguage(code).replace('_', '-'))
+	} catch {
+		// Other sites' keys need not be BCP 47 tags (NRK's `nb-ttv`).
+		return undefined
+	}
+}
+
 // The label of a subtitle track wherever the UI lists one, in the UI language:
 // yt-dlp's track names are English whatever the UI language, so they are used
 // only for codes Intl cannot name.
 export function resolveSubtitleLabel(code: string, subtitles: SubtitleMap, automaticCaptions: SubtitleMap, uiLanguage: string): string {
-	const isOriginalCaption = code.endsWith(ORIGINAL_CAPTION_SUFFIX)
-	const languageCode = isOriginalCaption ? code.slice(0, -ORIGINAL_CAPTION_SUFFIX.length) : code
-	const fromIntl = intlLanguageName(languageCode.replace('_', '-'), uiLanguage)
+	const fromIntl = intlLanguageName(code, uiLanguage)
 	if (fromIntl) return capitalizeFirst(fromIntl, uiLanguage)
-	const fromMeta = isOriginalCaption ? undefined : (subtitles[code]?.[0]?.name ?? automaticCaptions[code]?.[0]?.name)
-	return fromMeta ?? languageCode
+	const fromMeta = code.endsWith(ORIGINAL_CAPTION_SUFFIX) ? undefined : (subtitles[code]?.[0]?.name ?? automaticCaptions[code]?.[0]?.name)
+	return fromMeta ?? captionLanguage(code)
 }
 
 export function buildSubtitleList(subtitles: SubtitleMap, automaticCaptions: SubtitleMap, uiLanguage: string): {code: string; displayName: string; isAuto: boolean}[] {
@@ -65,7 +67,7 @@ export function buildSubtitleList(subtitles: SubtitleMap, automaticCaptions: Sub
 // A language name for running text, in the UI language's own casing
 // ("subtitles in German" / "субтитры на языках: немецкий").
 export function languageName(code: string, uiLanguage: string): string {
-	return intlLanguageName(code, uiLanguage) ?? code
+	return intlLanguageName(code, uiLanguage) ?? captionLanguage(code)
 }
 
 const listFormatByLanguage = new Map<string, Intl.ListFormat>()

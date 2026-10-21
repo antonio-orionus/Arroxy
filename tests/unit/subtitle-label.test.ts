@@ -47,6 +47,11 @@ describe('names for running text', () => {
 		expect(formatLanguageList(['de'], 'ru')).toBe('немецкий')
 	})
 
+	it('name an -orig caption code by its language', () => {
+		expect(languageName('en-orig', 'ru')).toBe('английский')
+		expect(formatLanguageList(['en-orig'], 'en')).toBe('English')
+	})
+
 	it('fall back to the code Intl cannot name', () => {
 		expect(languageName('nb-ttv', 'ru')).toBe('nb-ttv')
 	})
