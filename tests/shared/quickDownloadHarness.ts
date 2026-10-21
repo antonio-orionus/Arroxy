@@ -8,7 +8,8 @@ import {useAppStore} from '@renderer/store/useAppStore.js'
 import {illegalTransition, transition, type QueueEvent} from '@shared/queueTransition.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import type {AppApi} from '@shared/api.js'
-import type {PlaylistEntry, ProbeError, ProbeInput, ProbeResult, QueueItem} from '@shared/types.js'
+import type {AppSettings, PlaylistEntry, ProbeError, ProbeInput, ProbeResult, QueueItem} from '@shared/types.js'
+import type {IntakeOrigin} from '@shared/intake/intakeSchemas.js'
 import {QueueProbeLifecycle} from '@main/services/download/QueueProbeLifecycle.js'
 import {IntakeService} from '@main/intake/IntakeService.js'
 import {admitAgainstLive} from '@shared/queueActions.js'
@@ -68,10 +69,18 @@ function addToQueue(items: QueueItem[]): Result<{ids: string[]; skippedAlreadyQu
 	return ok({ids: admission.admitted.map(item => item.id), skippedAlreadyQueued: admission.skippedAlreadyQueued})
 }
 
+export interface ArmQueueOptions {
+	// Main's settings, when they should differ from the window's (a save still
+	// in flight); by default main reads the store's.
+	mainSettings?: () => AppSettings
+	// The intake admission limit main's queue applies to a probe-stage swap.
+	rowsPerIntake?: (origin: IntakeOrigin) => number | null
+}
+
 // The queue as main keeps it, projected straight into the store, and main's
 // own IntakeService on it: the window's intake calls reach it as over IPC, and
 // its outcomes come back through the window's own routing.
-export function armQueue(api: AppApi): IntakeService {
+export function armQueue(api: AppApi, options: ArmQueueOptions = {}): IntakeService {
 	api.queue.cmd.add = vi.fn((items: QueueItem[]) => Promise.resolve(addToQueue(items)))
 	// The swap runs through main's own probe lifecycle, so placeholder checks
 	// and duplicate admission are the real rules, not a permissive stand-in.
@@ -82,7 +91,7 @@ export function armQueue(api: AppApi): IntakeService {
 		abortProbe: () => undefined,
 		commitRemove: itemId => useAppStore.setState({queue: queue().filter(item => item.id !== itemId)}),
 		commitAdd: items => useAppStore.setState({queue: [...queue(), ...items]}),
-		rowsPerIntake: () => null
+		rowsPerIntake: options.rowsPerIntake ?? (() => null)
 	})
 	api.queue.cmd.replaceProbing = vi.fn(({itemId, items}: {itemId: string; items: QueueItem[]}) => Promise.resolve(lifecycle.replaceProbing(itemId, items)))
 	const drop = vi.fn(({itemId}: {itemId: string | null}) => {
@@ -109,7 +118,7 @@ export function armQueue(api: AppApi): IntakeService {
 		registerManifest: async manifest => {
 			await api.playlist.registerManifest(manifest)
 		},
-		settings: () => Promise.resolve(useAppStore.getState().settings ?? defaultAppSettings('/tmp')),
+		settings: () => Promise.resolve(options.mainSettings?.() ?? useAppStore.getState().settings ?? defaultAppSettings('/tmp')),
 		text: key => key,
 		emit: event => routeIntakeEvent(event, () => quickDownloadToasts('downloads', useAppStore.getState)),
 		platform: 'linux',

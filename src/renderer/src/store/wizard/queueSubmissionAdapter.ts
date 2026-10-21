@@ -19,6 +19,8 @@ async function registerManifest(prepared: PreparedQueueSubmission): Promise<void
 // row's review, P2-R40). Its first item keeps the row's id, so the row turns
 // into the queued videos in place. A row that is already gone (cancelled or
 // removed meanwhile) is no reason to lose the submission: it is added plainly.
+// A conflict (the videos went live meanwhile) or the intake's admission limit
+// is a real refusal, which adding plainly would only get around.
 export async function submitPreparedQueueSubmission(prepared: PreparedQueueSubmission, replacing: string | null = null): Promise<QueueSubmissionResult> {
 	await registerManifest(prepared)
 	if (replacing !== null) {
@@ -26,7 +28,7 @@ export async function submitPreparedQueueSubmission(prepared: PreparedQueueSubmi
 		const items = first ? [{...first, id: replacing}, ...rest] : []
 		const replaced = await window.appApi.queue.cmd.replaceProbing({itemId: replacing, items})
 		if (replaced.ok) return {ok: true, ...replaced.data}
-		if (replaced.error.code === 'conflict') return {ok: false, error: replaced.error.message}
+		if (replaced.error.code === 'conflict' || replaced.error.code === 'limit') return {ok: false, error: replaced.error.message}
 	}
 	const addResult = await window.appApi.queue.cmd.add(prepared.items)
 	if (!addResult.ok) return {ok: false, error: addResult.error.message}

@@ -17,10 +17,11 @@ import type {IntakeEvent, IntakePlacement, QuickDownloadEvent} from '@shared/int
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
 import type {PlaylistManifestPayload} from '@shared/queueSubmission.js'
-import type {Result} from '@shared/result.js'
+import {fail, type Result} from '@shared/result.js'
 import type {IntakeOrigin, IntakeOriginKind, IntakeTake, IntakeWindowContext, PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
 import {PLAYLIST_PROBE_LIMIT_MAX, QUEUE_STATUS, type JobAuth, type QueueChoice} from '@shared/schemas.js'
-import type {AppSettings, LocalizedError, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult, QueueItem} from '@shared/types.js'
+import type {AppSettings, DownloadProfileRef, LocalizedError, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult, QueueItem} from '@shared/types.js'
+import {createAppError} from '@main/utils/errorFactory.js'
 import {KeptProbes} from './KeptProbes.js'
 
 const logger = log.scope('intake')
@@ -65,6 +66,10 @@ export interface IntakeAddRequest {
 	playlistMode: ProbePlaylistMode
 	// The row's title until the probe knows the real one (Explore's page title).
 	title?: string
+	// The profile the caller has active. The window saves a profile pick
+	// through a queue of settings writes, so main's settings may not hold it
+	// yet; without one, the row pins the profile active in main's settings.
+	profile?: DownloadProfileRef
 	origin: {kind: IntakeOriginKind; clientId?: string}
 }
 
@@ -111,7 +116,7 @@ export class IntakeService {
 		if (live) return {kind: 'already-queued', itemId: live.id}
 		const settings = await this.deps.settings()
 		const origin: IntakeOrigin = {...request.origin, intakeId: this.deps.newId()}
-		const row = this.placeholderRow(request, this.activePinned(settings), origin, settings)
+		const row = this.placeholderRow(request, this.activePinned(settings, request.profile), origin, settings)
 		const added = this.deps.queue.add([row])
 		if (!added.ok) {
 			// The queue of record refused: a conflict means another row holds the link.
@@ -137,11 +142,13 @@ export class IntakeService {
 	// A needs-choice row's answer: every video, or the first N it was offered.
 	choose(call: IntakeCall & {take: IntakeTake}): Result<void> {
 		const row = this.placeholder(call.itemId)
-		if (row?.status !== QUEUE_STATUS.needsChoice || !row.choice) return this.deps.queue.reprobe(call.itemId)
+		// A refused answer leaves the row as it is: restarting it here would
+		// leave it probing with no probe running.
+		if (row?.status !== QUEUE_STATUS.needsChoice || !row.choice) return fail(createAppError('validation', `queue item ${call.itemId} is not waiting for a choice`))
 		const kept = this.kept.get(call.itemId)
 		const probe = {url: row.url, playlistMode: row.probeMode, title: row.title}
 		if (call.take === 'all') return this.reprobe(row, {...probe, scope: {items: {kind: 'first', count: PLAYLIST_PROBE_LIMIT_MAX}}, take: {kind: 'all'}}, call)
-		if (row.choice.kind !== 'playlist-cap') return this.deps.queue.reprobe(call.itemId)
+		if (row.choice.kind !== 'playlist-cap') return fail(createAppError('validation', 'only a playlist over the load limit offers its first videos'))
 		const take = {kind: 'first', count: row.choice.loaded} as const
 		if (!kept) return this.reprobe(row, {...probe, scope: {items: take}, take}, call)
 		// The kept probe already holds the first N: no second probe. The row
@@ -286,9 +293,10 @@ export class IntakeService {
 		}
 	}
 
-	// The active profile, with the folders it resolves against right now.
-	private activePinned(settings: AppSettings): PinnedDownloadProfile {
-		return {ref: resolveActiveDownloadProfile(settings.profiles).ref, outputContext: {currentOutputDir: this.window.currentOutputDir, defaultOutputDir: settings.common.defaultOutputDir}}
+	// The active profile (the caller's, else main's), with the folders it
+	// resolves against right now.
+	private activePinned(settings: AppSettings, ref: DownloadProfileRef = resolveActiveDownloadProfile(settings.profiles).ref): PinnedDownloadProfile {
+		return {ref, outputContext: {currentOutputDir: this.window.currentOutputDir, defaultOutputDir: settings.common.defaultOutputDir}}
 	}
 
 	// The profile placed with supplies format label and folder so the row never

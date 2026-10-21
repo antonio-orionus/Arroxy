@@ -20,7 +20,22 @@ export type PinnedDownloadProfile = z.infer<typeof pinnedDownloadProfileSchema>
 // `requestId` names the call, so the window can match the outcome events to
 // the request that caused them.
 const intakeRequestIdSchema = z.string().min(1).max(128)
-export const intakeAddInputSchema = z.object({requestId: intakeRequestIdSchema, url: webUrlSchema, playlistMode: probePlaylistModeSchema, title: z.string().max(2048).optional()})
+// A page title is only the row's label until the probe knows the real one:
+// a long one is cut, never a reason to refuse the link.
+const INTAKE_TITLE_MAX = 2048
+// `profile`: the caller's active profile, which main's settings may not hold
+// yet (the window saves a pick through a queue of settings writes).
+export const intakeAddInputSchema = z.object({
+	requestId: intakeRequestIdSchema,
+	url: webUrlSchema,
+	playlistMode: probePlaylistModeSchema,
+	title: z
+		.string()
+		.transform(title => title.slice(0, INTAKE_TITLE_MAX))
+		.optional(),
+	profile: downloadProfileRefSchema.optional()
+})
+export type IntakeAddInput = z.input<typeof intakeAddInputSchema>
 export const intakeRetryInputSchema = z.object({requestId: intakeRequestIdSchema, itemId: z.string().min(1)})
 // The answers a needs-choice row takes in main; Review stays in the window.
 export const intakeTakeSchema = z.enum(['all', 'first'])

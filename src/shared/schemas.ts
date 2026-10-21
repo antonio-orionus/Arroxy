@@ -383,7 +383,8 @@ export type BulkMetadataCancelReason = z.infer<typeof bulkMetadataCancelReasonSc
 export const probeOtherErrorCodeSchema = z.enum(['cancelled', 'cookies_config', 'invalid_url', 'no_formats', 'parse', 'playlist_empty', 'redirect_loop', 'schema', 'unknown'])
 export type ProbeOtherErrorCode = z.infer<typeof probeOtherErrorCodeSchema>
 
-export const appErrorCodeSchema = z.enum(['validation', 'conflict', 'token', 'binary', 'download', 'ipc', 'unknown'])
+// `limit`: refused by an admission limit (an intake's rows), not by the input.
+export const appErrorCodeSchema = z.enum(['validation', 'conflict', 'limit', 'token', 'binary', 'download', 'ipc', 'unknown'])
 export type AppErrorCode = z.infer<typeof appErrorCodeSchema>
 
 export const bulkUrlKindSchema = z.enum(['single', 'playlist', 'channel', 'search', 'mixed', 'unknown'])

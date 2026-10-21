@@ -6,6 +6,7 @@
 
 import {cleanUrl} from '@shared/cleanUrl.js'
 import {getIncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
+import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
 import {classifyUrlIntent} from '@shared/urlIntent.js'
 import type {ProbePlaylistMode, QueueItem} from '@shared/types.js'
@@ -100,7 +101,10 @@ export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDow
 			}
 			const toasts = quickDownloadToasts(entry, get)
 			let placed = false
-			await placeQuickDownload({url: cleaned, playlistMode: mode, ...(title ? {title} : {})}, event => {
+			// The profile this window shows as active, which main may not have saved yet.
+			const profiles = get().settings?.profiles
+			const profile = profiles ? resolveActiveDownloadProfile(profiles).ref : undefined
+			await placeQuickDownload({url: cleaned, playlistMode: mode, ...(title ? {title} : {}), ...(profile ? {profile} : {})}, event => {
 				if (event.kind === 'added' || event.kind === 'already-queued') placed = true
 				toasts(event)
 			})

@@ -60,7 +60,7 @@ describe('replaceProbing and the intake origin', () => {
 		qs.onIntakeAdmission(limit)
 		qs.add([placeholder(ORIGIN)])
 		const result = await qs.replaceProbing('p1', prepared(3))
-		expect(result.ok).toBe(false)
+		expect(result).toMatchObject({ok: false, error: {code: 'limit'}})
 		expect(limit).toHaveBeenCalledWith(ORIGIN)
 		expect(qs.snapshot().map(item => item.id)).toEqual(['p1'])
 	})
