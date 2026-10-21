@@ -7,7 +7,8 @@
 
 import {isYouTubeExtractor} from '../ytdlp/extractorPredicates.js'
 import {genericSite} from './generic.js'
-import {isYouTubeHostname, youtubeSite} from './youtube.js'
+import {youtubeSite} from './youtube.js'
+import {isYouTubeHostname} from './youtubeHost.js'
 import type {Site, SiteId} from './types.js'
 
 export type {Site} from './types.js'

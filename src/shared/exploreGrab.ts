@@ -1,5 +1,5 @@
 import {cleanUrl} from '@shared/cleanUrl.js'
-import {isYouTubeHostname} from '@shared/sites/youtube.js'
+import {isYouTubeHostname} from '@shared/sites/youtubeHost.js'
 import {classifyUrlIntent} from '@shared/urlIntent.js'
 
 const WEB_PROTOCOLS = new Set(['http:', 'https:'])

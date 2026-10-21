@@ -7,15 +7,11 @@
 // identifiers; see refs/yt-dlp/yt_dlp/extractor/youtube/_video.py for the
 // full taxonomy. When yt-dlp adds new id types, update both predicates below.
 
+import type {ListKind} from '../schemas.js'
 import type {ExploreCookie, PlaylistEntryHint, Site} from './types.js'
+import {youtubeListKind} from './youtubeListKind.js'
 
-// The one answer to "is this a YouTube host?" for URLs. yt-dlp's YoutubeIE
-// accepts youtube-nocookie.com embeds, so they get every YouTube behavior too.
-// Cookie domains are a different question (see onYouTube below).
-export function isYouTubeHostname(hostname: string): boolean {
-	const host = hostname.toLowerCase()
-	return host === 'youtu.be' || host === 'youtube.com' || host.endsWith('.youtube.com') || host === 'youtube-nocookie.com' || host.endsWith('.youtube-nocookie.com')
-}
+const LIST_KIND_HINT: Record<ListKind, string> = {playlist: 'Playlist', mix: 'Mix', album: 'Album', uploads: 'Uploads', 'watch-later': 'Watch later', liked: 'Liked'}
 
 // Returns a category-prefixed display label for an entry whose title is
 // missing. Mirrors the pre-seam `youtubeIdHint` logic exactly so the playlist
@@ -23,9 +19,7 @@ export function isYouTubeHostname(hostname: string): boolean {
 function youtubeHintForId(id: string): string | null {
 	if (!id) return null
 	if (id.startsWith('UC') && id.length === 24) return `Channel · ${id}`
-	if (id.startsWith('VLPL') || id.startsWith('VLOLAK')) return `Playlist · ${id.slice(2)}`
-	if (id.startsWith('VLRD')) return `Mix · ${id.slice(2)}`
-	if (id.startsWith('VL')) return `Playlist · ${id.slice(2)}`
+	if (id.startsWith('VL')) return `${LIST_KIND_HINT[youtubeListKind(id.slice(2))]} · ${id.slice(2)}`
 	if (id.startsWith('MPRE')) return `Album · ${id}`
 	if (id.startsWith('MPSPPL')) return `Search playlist · ${id}`
 	if (id.startsWith('MPLAUC') || id.startsWith('MPSP')) return `Section · ${id}`
