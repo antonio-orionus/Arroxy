@@ -171,7 +171,7 @@ The `pr-policy` check (`.github/workflows/pr-policy.yml`) reads each PR's own di
 | Released changelog | A section of `CHANGELOG.md` that is already released gains entries (rewording one stays allowed) | `Released changelog edit: <reason>` |
 | English only | A translation changes: `i18n/`, a non-English locale under `src/shared/i18n/locales/` or `readme-src/locales/`, `readme-src/translated-from.json`, or `docs/readme/` without an English README source change. The `i18n: sync translations` PR is exempt and must pass `bun run check:i18n:complete` instead | `Translation change: <reason>` |
 | Package scope | The PR changes both `packages/` and `src/` | `Package and app together: <reason>` |
-| Package changelog | The PR edits `packages/<pkg>/CHANGELOG.md` or a "What changed in X" section of `packages/<pkg>/README.md`. The `release(packages): <pkg> <version>` PR is exempt: it writes the section from the commits since the package's last tag | `Package changelog edit: <reason>` |
+| Package changelog | The PR edits `packages/<pkg>/CHANGELOG.md` or a "What changed in X" section of `packages/<pkg>/README.md`. The `release(packages): <pkg> <version>` PR is exempt for the packages its title names: it writes their sections from the commits since each last tag | `Package changelog edit: <reason>` |
 | Base branch | The PR targets a branch other than `main` | `Stacked PR: <reason>` |
 | No AI attribution | A commit message or the PR body credits an AI as a co-author or generator | `Attribution false positive: <reason>` (the body only; reword a commit instead) |
 

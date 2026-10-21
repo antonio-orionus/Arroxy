@@ -226,6 +226,13 @@ describe('package-changelog', () => {
 		expect(failedRules(facts({title: 'release(packages): ytdlp-errors 1.6.0', files: modified('packages/ytdlp-errors/CHANGELOG.md', 'packages/ytdlp-errors/package.json')}))).toEqual([])
 	})
 
+	it('exempts only the packages the release title names', () => {
+		const head = BRIDGE_README.replace('- A fix.', '- A fix, reworded.')
+		expect(failedRules(facts({...readme(head), title: 'release(packages): ytdlp-errors 1.6.0'}))).toEqual(['package-changelog'])
+		expect(failedRules(facts({...readme(head), title: 'release(packages):'}))).toEqual(['package-changelog'])
+		expect(failedRules(facts({...readme(head), files: modified('packages/yt-dlp-bridge/README.md', 'packages/ytdlp-errors/CHANGELOG.md'), title: 'release(packages): ytdlp-errors 1.6.0 and yt-dlp-bridge 0.6.3'}))).toEqual([])
+	})
+
 	it('is waived by a `Package changelog edit:` line', () => {
 		expect(failedRules(facts({files: modified('packages/ytdlp-errors/CHANGELOG.md'), body: 'Package changelog edit: fixes a typo in the 1.5.0 notes\n'}))).toEqual([])
 	})

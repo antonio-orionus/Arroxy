@@ -24,8 +24,12 @@ export const OPT_OUT_KEYS: Readonly<Record<PolicyRule, string>> = {
 /** The title the release translation sync PR opens with (translate-arroxy-i18n skill). */
 export const TRANSLATION_SYNC_TITLE = 'i18n: sync translations'
 
-/** The title a package release PR opens with, `release(packages): <pkg> <version>`. */
+/** A package release PR's title: `release(packages): <pkg> <version>`, one pair per package it releases. */
 const PACKAGE_RELEASE_TITLE = /^release\(packages\):/i
+const RELEASED_PACKAGE = /\b([a-z0-9][a-z0-9-]*)\s+v?\d+\.\d+\.\d+\S*/gi
+
+/** The packages a `release(packages): …` title releases; empty for any other title. */
+const releasedPackages = (title: string): Set<string> => (PACKAGE_RELEASE_TITLE.test(title.trim()) ? new Set([...title.matchAll(RELEASED_PACKAGE)].map(([, name = '']) => name.toLowerCase())) : new Set())
 
 export interface ChangedFile {
 	/** The status letter of `git diff --name-status --no-renames`: A, M, D or T. */
@@ -183,9 +187,10 @@ function whatChangedSections(readme: string): string {
 // A package's changelog is written once, by the PR that releases it, from the
 // commits since its last tag; a feature PR leaves it alone.
 function packageChangelog(input: PullRequestFacts): string | null {
-	if (PACKAGE_RELEASE_TITLE.test(input.title.trim())) return null
-	const changelogs = input.files.map(file => file.path).filter(path => /^packages\/[^/]+\/CHANGELOG\.md$/.test(path))
-	const readmes = input.packageReadmes.filter(readme => whatChangedSections(readme.base) !== whatChangedSections(readme.head)).map(readme => `the "What changed" sections of ${readme.path}`)
+	const released = releasedPackages(input.title)
+	const unreleased = (path: string): boolean => !released.has(path.split('/')[1]?.toLowerCase() ?? '')
+	const changelogs = input.files.map(file => file.path).filter(path => /^packages\/[^/]+\/CHANGELOG\.md$/.test(path) && unreleased(path))
+	const readmes = input.packageReadmes.filter(readme => unreleased(readme.path) && whatChangedSections(readme.base) !== whatChangedSections(readme.head)).map(readme => `the "What changed" sections of ${readme.path}`)
 	const edited = [...changelogs, ...readmes]
 	if (edited.length === 0) return null
 	return `Only the "release(packages): <pkg> <version>" PR writes a package's changelog. This PR edits ${edited.join(' and ')}.`
