@@ -84,6 +84,15 @@ describe('inFlightReserve — the names yt-dlp writes before the finished file',
 		for (const format of recorded) expect(unknown.component).toBeGreaterThanOrEqual(inFlightReserve({formats: [format], subtitleLanguages: []}).component)
 	})
 
+	it('bounds unknown formats above Vimeo’s audio ids, which carry the track’s name', () => {
+		// yt-dlp's Vimeo extractor names an HLS CDN `hls-<cdn>`, `_sep` for its
+		// split-stream manifest, and the m3u8 parser appends the audio group and the
+		// track's NAME: `English` is recorded in probeSources/vimeo.json, and a
+		// `Portuguese (Brazil)` track sanitizes to the name below.
+		const vimeo: InFlightFormat = {formatId: 'hls-akfire_interconnect_quic_sep-audio-high-Portuguese__Brazil_', ext: 'mp4'}
+		expect(inFlightReserve({formats: null, subtitleLanguages: []}).component).toBeGreaterThanOrEqual(inFlightReserve({formats: [vimeo], subtitleLanguages: []}).component)
+	})
+
 	it('covers subtitle names, regional variants included', () => {
 		const {component} = inFlightReserve({formats: [], subtitleLanguages: ['zh', 'en-orig']})
 		expect(component).toBeGreaterThanOrEqual('.zh-Hans.json3.part'.length)

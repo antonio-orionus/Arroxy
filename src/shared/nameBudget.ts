@@ -30,7 +30,9 @@ import type {FilenameToken} from './schemas.js'
 // both shorter than a fragment name, as is the finished `<name>.<ext>`.
 // Subtitles land beside the video as `<name>.<lang>.<ext>.part`. So the longest
 // name is a fragment name for the longest format id — a 22-character DASH id
-// (Instagram) costs 50 bytes, not the handful a YouTube id needs.
+// (Instagram) costs 50 bytes, not the handful a YouTube id needs. yt-dlp's
+// `--trim-filenames` would not help: it trims the name before these suffixes
+// are added, and Arroxy does not pass it.
 
 /** One format yt-dlp may write for a job, as the probe reported it. */
 export interface InFlightFormat {
@@ -59,11 +61,17 @@ export interface InFlightReserve {
 // over eleven days of one-second segments.
 const FRAGMENT_INDEX = '9'.repeat(6)
 
-// yt-dlp sets no maximum on format ids: DASH and HLS ids embed manifest names,
-// which can be UUIDs (`dash-` + 36). Where no format is known yet this is the
-// allowance, comfortably over every id recorded in the probe sources (longest:
-// 22). `unknown_video` is yt-dlp's own fallback extension, the longest it emits.
-const UNKNOWN_FORMAT: InFlightFormat = {formatId: 'f'.repeat(48), ext: 'unknown_video'}
+// Where no format is known yet (a flat playlist's entries), this stands in for
+// it. The extension is a true bound: yt-dlp refuses to write any extension
+// outside its allowlist (`_UnsafeExtensionError`), whose longest is
+// `unknown_video`. The id is not: yt-dlp sets no maximum, and manifest ids embed
+// whatever the manifest names. HLS ids join the CDN, the audio group and the
+// track's own NAME, so Vimeo's split-stream audio runs to
+// `hls-akfire_interconnect_quic_sep-audio-high-Portuguese__Brazil_` (63), with
+// an `mp4` extension that leaves nine of `unknown_video`'s characters spare.
+// The allowance cannot grow much: an entry whose title yt-dlp still has to fill
+// in reserves 120 bytes for it, and past 71 such a name no longer fits 255.
+const UNKNOWN_FORMAT: InFlightFormat = {formatId: 'f'.repeat(64), ext: 'unknown_video'}
 
 // The extension in a format's in-flight name is either its own or the merge
 // container's (`mp4`, `mkv`, `webm`), and the finished name may carry a converted

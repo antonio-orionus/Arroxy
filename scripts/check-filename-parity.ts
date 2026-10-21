@@ -17,6 +17,12 @@
 // yt-dlp is the pinned release below, its zipapp fetched once into
 // node_modules/.cache and checked against the published SHA-256; it runs under
 // python3 (scripts/filename-parity/oracle.py), offline, from a recorded probe.
+//
+// A second set of cases checks the names yt-dlp writes while downloading, which
+// are longer than the finished one (`.f<format_id>`, `.part`, fragments; see
+// nameBudget.ts). Each really downloads, from streams the oracle serves on
+// 127.0.0.1, and every file yt-dlp wrote must fit within the reserve Arroxy
+// budgeted the name with.
 
 import {execFile} from 'node:child_process'
 import {createHash} from 'node:crypto'
@@ -27,6 +33,8 @@ import path from 'node:path'
 import {promisify} from 'node:util'
 import {planWorkflow, templateLiteral, type WorkflowPlan} from 'yt-dlp-bridge'
 import {bindFilenameTemplate, compileFilenameTemplate, templateOutputDir, type TemplateMetadata} from '../src/shared/filenameTemplate.js'
+import {inFlightReserve, type InFlightReserve} from '../src/shared/nameBudget.js'
+import {limitsFor, measure} from '../src/shared/pathLimits.js'
 import {findPython, PYTHON_REQUIREMENT, type PythonCommand} from './selection-parity/python.js'
 
 const YT_DLP = {version: '2026.08.19', sha256: '1fa6733c37ea6fb51c99ad8fe785e7b7e5f3246c9b980230329d4fb72ed8d4d6'}
@@ -104,6 +112,48 @@ function infoJson(title: string, uploader: string): unknown {
 	const info: {formats?: unknown} = fixture.info
 	const formats = Array.isArray(info.formats) ? info.formats : []
 	return {...info, title, uploader, channel: uploader, formats: formats.map((format: unknown, index) => (typeof format === 'object' && format !== null ? {...format, url: `https://parity.invalid/${index}`} : format))}
+}
+
+// A video and an audio format as yt-dlp's extractor names them. The oracle
+// serves each one.
+interface StreamPair {
+	video: {format_id: string; ext: string}
+	audio: {format_id: string; ext: string}
+}
+const YOUTUBE_STREAMS: StreamPair = {video: {format_id: '137', ext: 'mp4'}, audio: {format_id: '251', ext: 'webm'}}
+// yt-dlp's Vimeo extractor with a split-stream (`_sep`) manifest: its HLS
+// audio ids end in the track's NAME, here `Portuguese (Brazil)` sanitized.
+const VIMEO_STREAMS: StreamPair = {video: {format_id: 'hls-akfire_interconnect_quic_sep-2644', ext: 'mp4'}, audio: {format_id: 'hls-akfire_interconnect_quic_sep-audio-high-Portuguese__Brazil_', ext: 'mp4'}}
+const LONG_TITLE = `A playlist entry whose title runs on ${'and on '.repeat(50)}`
+const NON_ASCII_TITLE = '日本語のタイトル 🎉 Привет, мир — ünïcödé '.repeat(12)
+// `probed`: whether Arroxy knew the formats when it bound the name, as for one
+// probed video or a hydrated playlist row; a flat playlist row did not.
+const DOWNLOADS: readonly {label: string; title: string; streams: StreamPair; probed: boolean}[] = [
+	{label: 'long title, flat playlist row', title: LONG_TITLE, streams: YOUTUBE_STREAMS, probed: false},
+	{label: 'long title, hydrated playlist row', title: LONG_TITLE, streams: YOUTUBE_STREAMS, probed: true},
+	{label: 'long format id, flat playlist row', title: LONG_TITLE, streams: VIMEO_STREAMS, probed: false},
+	{label: 'long format id, probed video', title: LONG_TITLE, streams: VIMEO_STREAMS, probed: true},
+	{label: 'non-ASCII title, flat playlist row', title: NON_ASCII_TITLE, streams: YOUTUBE_STREAMS, probed: false},
+	{label: 'non-ASCII title, probed video', title: NON_ASCII_TITLE, streams: VIMEO_STREAMS, probed: true}
+]
+
+interface Download {
+	label: string
+	cwd: string
+	infoJson: string
+	format: string
+	outputArgs: string[]
+	// The bound name, without its extension, the folder it lands in, and the
+	// reserve it was budgeted with.
+	outputDir: string
+	name: string
+	reserve: InFlightReserve
+}
+
+// What a written file adds to the bound name, in the platform's own units.
+function overrun(download: Download, file: string): {component: number; path: number} {
+	const limits = limitsFor(process.platform)
+	return {component: measure(path.basename(file), limits.componentUnit) - measure(download.name, limits.componentUnit), path: measure(file, limits.pathUnit) - measure(path.join(download.outputDir, download.name), limits.pathUnit)}
 }
 
 interface Case {
@@ -193,7 +243,27 @@ try {
 		cases.push({label: `${label} · media`, cwd: planCwd(media), expected: path.join(directory, `${title} [${id}]`), infoJson: infoPath, outputArgs: outputArgs(media.args), report: path.join(directory, '.arroxy-tmp', `${title.slice(0, 20)}.txt`)})
 		cases.push({label: `${label} · subtitles in a subfolder`, cwd: planCwd(subtitles), expected: path.join(directory, 'subtitles', `${title} [${id}]`), infoJson: infoPath, outputArgs: outputArgs(subtitles.args)})
 	}
-	for (const testCase of cases) mkdirSync(testCase.cwd, {recursive: true})
+	const downloads: Download[] = DOWNLOADS.map(({label, title, streams, probed}, index) => {
+		const infoPath = path.join(work, `download-${index}.info.json`)
+		const info = infoJson(title, 'Ordinary Channel')
+		const formats = [
+			{...streams.video, vcodec: 'avc1.640028', acodec: 'none'},
+			{...streams.audio, vcodec: 'none', acodec: 'mp4a.40.2'}
+		]
+		writeFileSync(infoPath, JSON.stringify(typeof info === 'object' && info !== null ? {...info, formats} : info))
+		const meta: TemplateMetadata = {title, id: 'dQw4w9WgXcQ', uploader: 'Ordinary Channel'}
+		const outputDir = path.join(work, DOWNLOAD_FOLDER, `download ${index}`)
+		const inFlight = {formats: probed ? formats.map(format => ({formatId: format.format_id, ext: format.ext})) : null, subtitleLanguages: []}
+		const bound = bindFilenameTemplate('{title} [{id}]', meta, {outputDir, platform: process.platform, inFlight})
+		if (!bound.ok) throw new Error(`${label}: bind failed (${bound.reason})`)
+		const compiled = compileFilenameTemplate(bound.template)
+		if (!compiled.ok) throw new Error(`${label}: compile failed (${compiled.code})`)
+		const format = `${streams.video.format_id}+${streams.audio.format_id}`
+		// The temp folder as setupTempDir names it: `.arroxy-temp/<job id, 8 chars>`.
+		const plan = planWorkflow({kind: 'media', url: 'https://parity.invalid', format: {format}, output: {directory: outputDir, template: compiled.template, tempDirectory: path.join(outputDir, '.arroxy-temp', 'parity01')}, resume: {loadInfoJsonPath: infoPath}})
+		return {label: `download · ${label}`, cwd: planCwd(plan), infoJson: infoPath, format, outputArgs: outputArgs(plan.args), outputDir, name: bound.template, reserve: inFlightReserve(inFlight)}
+	})
+	for (const testCase of [...cases, ...downloads]) mkdirSync(testCase.cwd, {recursive: true})
 
 	const {python, ytDlp} = ready
 	const request = JSON.stringify({
@@ -202,13 +272,18 @@ try {
 			const values = (flag: string): string[] => args.flatMap((arg, index) => (arg === flag ? [args[index + 1] ?? ''] : []))
 			const reports = args.flatMap((arg, index) => (arg === '--print-to-file' ? [args[index + 2] ?? ''] : []))
 			return {cwd: testCase.cwd, info_json: testCase.infoJson, output_args: args, outtmpls: [...values('-o').map(value => value.replace(/^infojson:/, '')), ...reports], paths: values('--paths').map(value => value.replace(/^(home|temp):/, '')), report: testCase.report ?? null}
-		})
+		}),
+		downloads: downloads.map(download => ({cwd: download.cwd, info_json: download.infoJson, format: download.format, output_args: download.outputArgs}))
 	})
 	const child = run(python.command, [...python.args, ORACLE, ytDlp], {maxBuffer: 64 * 1024 * 1024, env: {...process.env, ...PARITY_VAR, ...WINDOWS_ENV}})
 	child.child.stdin?.end(request)
 	const {stdout} = await child
-	const results: unknown = JSON.parse(stdout)
+	const response: unknown = JSON.parse(stdout)
+	if (typeof response !== 'object' || response === null || !('cases' in response) || !('downloads' in response)) throw new Error('the oracle returned a malformed response')
+	const results = response.cases
 	if (!Array.isArray(results) || results.length !== cases.length) throw new Error('the oracle returned a different number of results than cases')
+	const downloadResults = response.downloads
+	if (!Array.isArray(downloadResults) || downloadResults.length !== downloads.length) throw new Error('the oracle returned a different number of results than downloads')
 
 	const differences = cases.flatMap((testCase, index) => {
 		const result: unknown = results[index]
@@ -225,8 +300,30 @@ try {
 		if (Array.isArray(nt) && nt.length > 0) problems.push(`Windows expansion changes ${nt.join('; ')}`)
 		return problems.map(problem => `${testCase.label}: ${problem}`)
 	})
+	const slack: string[] = []
+	for (const [index, download] of downloads.entries()) {
+		const result: unknown = downloadResults[index]
+		if (typeof result !== 'object' || result === null) throw new Error(`malformed oracle result for ${download.label}`)
+		if ('error' in result) {
+			differences.push(`${download.label}: yt-dlp failed: ${JSON.stringify(result.error)}`)
+			continue
+		}
+		if (!('written' in result) || !Array.isArray(result.written)) throw new Error(`malformed oracle result for ${download.label}`)
+		const written = result.written.filter((file: unknown): file is string => typeof file === 'string' && path.basename(file).startsWith(download.name))
+		// Without fragments the case would not exercise the longest name.
+		if (!written.some(file => file.includes('.part-Frag'))) differences.push(`${download.label}: yt-dlp wrote no fragment`)
+		let longest = {component: 0, path: 0}
+		for (const file of written) {
+			const added = overrun(download, file)
+			longest = {component: Math.max(longest.component, added.component), path: Math.max(longest.path, added.path)}
+			if (added.component > download.reserve.component) differences.push(`${download.label}: ${JSON.stringify(path.basename(file).slice(download.name.length))} adds ${added.component} to the name, reserve ${download.reserve.component}`)
+			else if (added.path > download.reserve.path) differences.push(`${download.label}: ${JSON.stringify(path.relative(download.outputDir, file))} adds ${added.path} to the path, reserve ${download.reserve.path}`)
+		}
+		slack.push(`${download.label}: longest in-flight name adds ${longest.component} of ${download.reserve.component} reserved, path ${longest.path} of ${download.reserve.path}`)
+	}
 	if (verbose) for (const testCase of cases) console.log(`${testCase.label}: ${path.relative(work, testCase.expected)}`)
-	console.log(`filename parity: ${cases.length} cases, yt-dlp ${YT_DLP.version}; ${differences.length} differ`)
+	if (verbose) for (const line of slack) console.log(line)
+	console.log(`filename parity: ${cases.length} cases and ${downloads.length} downloads, yt-dlp ${YT_DLP.version}; ${differences.length} differ`)
 	for (const difference of differences) console.log(`  ${difference}`)
 	if (differences.length > 0) process.exitCode = 1
 } finally {

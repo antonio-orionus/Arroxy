@@ -78,6 +78,26 @@ describe('playlist hydration', () => {
 		expect(useAppStore.getState().playlistItems[0]?.auth).toBe('exploreSession')
 	})
 
+	it('keeps the probed format ids and extensions, so the row’s name is budgeted from them', async () => {
+		const api = buildMockAppApi()
+		const formats = [
+			{formatId: '137', label: '1080p', ext: 'mp4', resolution: '1920x1080', isVideoOnly: true, isAudioOnly: false},
+			{formatId: '251', label: 'opus', ext: 'webm', resolution: 'audio only', isVideoOnly: false, isAudioOnly: true}
+		]
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE({formats})))
+		window.appApi = api
+		const id = 'bulk-1'
+		const url = 'https://www.youtube.com/watch?v=abc'
+		useAppStore.setState({wizardMode: 'bulk', playlistItems: [{id, url, title: url, thumbnail: '', playlistIndex: 1, videoId: null}], selectedPlaylistItemIds: [id], bulkMetadataStatus: 'resolving', bulkMetadataCompleted: 0, bulkMetadataTotal: 1, bulkMetadataById: {}})
+
+		await hydrateBulkMetadata([{id, url, index: 0}], useAppStore.setState, nextBulkMetadataRunId())
+
+		expect(useAppStore.getState().playlistItems[0]?.probedFormats).toEqual([
+			{formatId: '137', ext: 'mp4'},
+			{formatId: '251', ext: 'webm'}
+		])
+	})
+
 	it('never probes non-placeholder rows when only placeholder targets are passed', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE()))

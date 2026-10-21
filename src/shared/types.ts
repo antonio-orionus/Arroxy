@@ -1,4 +1,5 @@
 import type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
+import type {InFlightFormat} from './nameBudget.js'
 import type {PreparedJob} from './preparedJob.js'
 import type {FormatSelectionSource} from './ytdlp/selectableFormat.js'
 
@@ -389,6 +390,9 @@ export interface PlaylistEntry {
 	playlistIndex: number
 	videoId: string | null // raw yt-dlp %(id)s; null when extractor yields none
 	probeInfoJsonRef?: ProbeInfoJsonRef
+	// Set by this row's own hydration probe; a flat playlist probe lists none.
+	// The name budget sizes yt-dlp's in-flight names from them.
+	probedFormats?: readonly InFlightFormat[]
 	// Inherited from the playlist probe, or set by this row's own hydration probe.
 	auth?: JobAuth
 	// Filename templates can name directories after {uploader} / {date}, and
