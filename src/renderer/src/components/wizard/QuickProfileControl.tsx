@@ -15,6 +15,7 @@ import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
 import {buildDownloadProfileActionModel, type DownloadProfileActionModel} from './downloadProfileActions.js'
 import {ProfilePickerMenu, type ProfilePickerTestIdPrefix} from './ProfilePicker.js'
 import {Hint} from '../shared/Hint.js'
+import {ProfileSummaryContent} from './ProfileSummaryContent.js'
 
 // The URL tab and the Bulk dialog; Explore opens the same menu from its own toolbar.
 type QuickProfileTestIdPrefix = Extract<ProfilePickerTestIdPrefix, 'profiles' | 'bulk'>
@@ -187,7 +188,6 @@ function ProfileMenu({
 	const activeProfileLabel = t('wizard.url.profile.activeLabel')
 	const changeGlobalDestinationLabel = t('wizard.url.profile.changeGlobalDestination')
 	const editActiveProfileLabel = t('wizard.url.profile.editActive')
-	const switchProfileTitle = t('wizard.url.profile.switchTitle')
 
 	function closeAndRun(action: () => void): void {
 		setMenuOpen(false)
@@ -204,7 +204,7 @@ function ProfileMenu({
 				data-testid={`${testIdPrefix}-active-profile-card`}
 			>
 				<div className="relative flex min-w-0 items-center gap-2">
-					<Hint label={switchProfileTitle}>
+					<Hint label={<ProfileSummaryContent profile={activeProfile} />} delay={600}>
 						<PopoverTrigger
 							render={
 								<Button

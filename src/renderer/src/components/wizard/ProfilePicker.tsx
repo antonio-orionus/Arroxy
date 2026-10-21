@@ -19,6 +19,7 @@ import {Hint} from '../shared/Hint.js'
 import type {ProfilePickerOption} from './profilePickerOptions.js'
 import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 import {ProfileSummaryContent} from './ProfileSummaryContent.js'
+import {profileFormatLabel} from '@renderer/lib/profileSummary.js'
 
 export type ProfilePickerLayout = 'grid' | 'list'
 export type ProfilePickerTestIdPrefix = 'profiles' | 'bulk' | 'explore' | 'wizard' | 'playlist' | 'playlist-row' | 'kit'
@@ -184,14 +185,16 @@ export function ProfilePickerMenu({align = 'end', onClose, onPickProfile, onEdit
 // The same options inside a right-click menu: radio items, so the menu's own
 // check marks the current profile, and the rows' Hidden profile shows first.
 // Radio items stay open on a click by default; a pick closes the menu like its other items.
+// A menu has no hints, so each profile carries its summary as a description.
 export function ProfilePickerContextItems({options, label, onPick}: {options: readonly ProfilePickerOption[]; label: string; onPick: (ref: DownloadProfileRef) => void}): ReactNode {
+	const {t, i18n} = useTranslation()
 	const current = options.find(option => option.current)
 	return (
 		<ContextMenuGroup>
 			<ContextMenuLabel>{label}</ContextMenuLabel>
 			<ContextMenuRadioGroup value={current?.profile.id ?? null}>
 				{options.map(option => (
-					<ContextMenuRadioItem key={option.profile.id} value={option.profile.id} closeOnClick onClick={() => onPick(option.ref)} className="gap-2.5 py-1.5">
+					<ContextMenuRadioItem key={option.profile.id} value={option.profile.id} closeOnClick onClick={() => onPick(option.ref)} aria-description={profileFormatLabel(option.profile, t, i18n.language)} className="gap-2.5 py-1.5">
 						<ProfileOptionLabel option={option} />
 					</ContextMenuRadioItem>
 				))}

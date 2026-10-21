@@ -398,6 +398,14 @@ describe('StepPlaylistProfiles', () => {
 		})
 	})
 
+	// A menu has no hints: each profile in it carries its summary as a description.
+	it('describes each profile in the row context menu', async () => {
+		renderStep()
+		fireEvent.contextMenu(screen.getByTestId('profile-row-b'))
+		const item = await screen.findByRole('menuitemradio', {name: /^Balanced 720p/})
+		expect(item).toHaveAttribute('aria-description', 'Up to 720p · Best picture')
+	})
+
 	it('removes the row from the context menu, prunes its profile assignment, and shows a restore control', async () => {
 		renderStep()
 		pickFromRow('b', 'podcast')
