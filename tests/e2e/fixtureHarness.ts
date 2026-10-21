@@ -38,6 +38,9 @@ const JPEG_1X1 = Buffer.from(
 export interface FixtureServer {
 	baseUrl: string
 	setBehavior: (behavior: FixtureServerBehavior) => void
+	// Lets a held slow download finish: its held bytes go out at once, and later
+	// requests for that video are served at full speed. No id releases them all.
+	releaseSlowMedia: (videoId?: string) => void
 	telemetry: () => FixtureServerTelemetry
 	resetTelemetry: () => void
 	close: () => Promise<void>
@@ -46,6 +49,8 @@ export interface FixtureServer {
 export interface FixtureServerBehavior {
 	metadataDelayMs?: number | Record<string, number>
 	metadataFailureIds?: readonly string[]
+	// Media for these videos trickles, then holds its last bytes until the test
+	// calls releaseSlowMedia: the download stays running however slow the host.
 	mediaSlowIds?: readonly string[]
 	mediaFailureIds?: readonly string[]
 	mediaFailuresBeforeSuccess?: Record<string, number>
@@ -251,22 +256,51 @@ function delay(ms: number): Promise<void> {
 	return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-function streamSlowly(res: http.ServerResponse, body: Buffer): void {
+const SLOW_CHUNK_BYTES = 8_192
+const SLOW_CHUNK_INTERVAL_MS = 75
+// The held tail goes out one byte a second, inside the E2E socket timeout
+// (5 s), so yt-dlp keeps waiting instead of retrying; 4 KB outlasts any test.
+const HELD_TAIL_BYTES = 4_096
+const HELD_BYTE_INTERVAL_MS = 1_000
+
+// Registers the release that finishes a held response; returns its unregister.
+type HoldSlowMedia = (release: () => void) => () => void
+
+function streamSlowly(res: http.ServerResponse, body: Buffer, hold: HoldSlowMedia): void {
+	const heldFrom = Math.max(0, body.length - HELD_TAIL_BYTES)
 	let offset = 0
-	const timer = setInterval(() => {
+	let timer: NodeJS.Timeout | undefined
+	const send = (bytes: number): void => {
+		const next = Math.min(offset + bytes, body.length)
+		res.write(body.subarray(offset, next))
+		offset = next
+	}
+	const tick = (): void => {
 		if (offset >= body.length) {
-			clearInterval(timer)
 			res.end()
 			return
 		}
-		const next = Math.min(offset + 8_192, body.length)
-		res.write(body.subarray(offset, next))
-		offset = next
-	}, 75)
-	res.on('close', () => clearInterval(timer))
+		if (offset < heldFrom) {
+			send(Math.min(SLOW_CHUNK_BYTES, heldFrom - offset))
+			timer = setTimeout(tick, SLOW_CHUNK_INTERVAL_MS)
+		} else {
+			send(1)
+			timer = setTimeout(tick, HELD_BYTE_INTERVAL_MS)
+		}
+	}
+	const unregister = hold(() => {
+		clearTimeout(timer)
+		res.end(body.subarray(offset))
+		offset = body.length
+	})
+	res.on('close', () => {
+		clearTimeout(timer)
+		unregister()
+	})
+	tick()
 }
 
-function serveBuffer(req: http.IncomingMessage, res: http.ServerResponse, body: Buffer, contentType: string, slow: boolean): void {
+function serveBuffer(req: http.IncomingMessage, res: http.ServerResponse, body: Buffer, contentType: string, hold?: HoldSlowMedia): void {
 	const range = parseRange(req.headers.range, body.length)
 	const start = range?.start ?? 0
 	const end = range?.end ?? body.length - 1
@@ -282,8 +316,8 @@ function serveBuffer(req: http.IncomingMessage, res: http.ServerResponse, body: 
 		res.end()
 		return
 	}
-	if (slow) {
-		streamSlowly(res, chunk)
+	if (hold) {
+		streamSlowly(res, chunk, hold)
 		return
 	}
 	res.end(chunk)
@@ -336,6 +370,27 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 	let requests: FixtureServerRequest[] = []
 	let activeProbes = 0
 	let maxActiveProbes = 0
+	// Release callbacks of the slow responses still held, by video.
+	const heldSlowMedia = new Map<string, Set<() => void>>()
+
+	function holdSlowMedia(videoId: string): HoldSlowMedia {
+		return release => {
+			const held = heldSlowMedia.get(videoId) ?? new Set()
+			heldSlowMedia.set(videoId, held)
+			held.add(release)
+			return () => held.delete(release)
+		}
+	}
+
+	function releaseSlowMedia(videoId?: string): void {
+		const videoIds = videoId === undefined ? new Set([...behavior.mediaSlowIds, ...heldSlowMedia.keys()]) : new Set([videoId])
+		for (const id of videoIds) {
+			behavior.mediaSlowIds.delete(id)
+			const held = heldSlowMedia.get(id)
+			heldSlowMedia.delete(id)
+			for (const release of held ?? []) release()
+		}
+	}
 
 	function record(request: FixtureServerRequest): void {
 		requests.push(request)
@@ -419,13 +474,13 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 					return
 				}
 				record({kind: 'media', videoId, formatId, method, status: 200, at: Date.now()})
-				serveBuffer(req, res, body, contentType, formatId === 'slow' || behavior.mediaSlowIds.has(videoId))
+				serveBuffer(req, res, body, contentType, behavior.mediaSlowIds.has(videoId) ? holdSlowMedia(videoId) : undefined)
 				return
 			}
 			const thumbMatch = /^\/thumbnails\/([^/]+)\.jpg$/.exec(requestUrl.pathname)
 			if (thumbMatch) {
 				record({kind: 'thumbnail', videoId: thumbMatch[1], status: 200, at: Date.now()})
-				serveBuffer(req, res, JPEG_1X1, 'image/jpeg', false)
+				serveBuffer(req, res, JPEG_1X1, 'image/jpeg')
 				return
 			}
 			const subtitleMatch = /^\/subtitles\/([^/]+)\/(en|es|de)(\.auto)?\.vtt$/.exec(requestUrl.pathname)
@@ -440,7 +495,7 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 					return
 				}
 				record({kind: 'subtitle', videoId, lang, track, status: 200, at: Date.now()})
-				serveBuffer(req, res, vtt(videoId, lang, track), 'text/vtt; charset=utf-8', false)
+				serveBuffer(req, res, vtt(videoId, lang, track), 'text/vtt; charset=utf-8')
 				return
 			}
 			res.writeHead(404, {'Content-Type': 'text/plain; charset=utf-8'})
@@ -455,7 +510,9 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 		baseUrl: `http://127.0.0.1:${port}`,
 		setBehavior: next => {
 			behavior = normalizeBehavior(next)
+			for (const videoId of heldSlowMedia.keys()) if (!behavior.mediaSlowIds.has(videoId)) releaseSlowMedia(videoId)
 		},
+		releaseSlowMedia,
 		telemetry: () => {
 			const mediaRequestsById: Record<string, number> = {}
 			for (const request of requests) {

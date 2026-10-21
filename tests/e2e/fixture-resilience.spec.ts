@@ -15,7 +15,7 @@ test('Electron queue controls handle hold, priority, cancel, pause queue, and re
 	test.setTimeout(180_000)
 	const [firstId, secondId, thirdId] = FIXTURE_VIDEO_IDS
 
-	await withFixtureProductApp({behavior: {mediaSlowIds: [firstId, secondId, thirdId]}, userDataPrefix: 'arroxy-fixture-controls-user-', outputPrefix: 'arroxy-fixture-controls-out-'}, async ({app, page, urls, queue, files}) => {
+	await withFixtureProductApp({behavior: {mediaSlowIds: [firstId, secondId, thirdId]}, userDataPrefix: 'arroxy-fixture-controls-user-', outputPrefix: 'arroxy-fixture-controls-out-'}, async ({app, page, fixtureServer, urls, queue, files}) => {
 		await startBulkFromClipboard(page, app, [firstId, secondId, thirdId].map(urls.video).join('\n'))
 		await expect(page.locator('[data-testid="bulk-url-valid-count"]')).toContainText('3')
 		await page.locator('[data-testid="bulk-url-confirm"]').click()
@@ -45,6 +45,7 @@ test('Electron queue controls handle hold, priority, cancel, pause queue, and re
 		await page.getByTestId('btn-pause-all').click()
 		await queue.expectStatus('Fixture Video 1', 'paused-active')
 		await expect(page.getByTestId('btn-resume-first')).toBeVisible()
+		fixtureServer.releaseSlowMedia()
 		await page.getByTestId('btn-resume-first').click()
 
 		await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(2, {timeout: 150_000})
@@ -299,7 +300,7 @@ test('Electron paused active fixture download resumes after app relaunch', async
 	test.setTimeout(180_000)
 	const videoId = FIXTURE_VIDEO_IDS[6]
 
-	await withFixtureProductApp({behavior: {mediaSlowIds: [videoId]}, userDataPrefix: 'arroxy-fixture-restart-user-', outputPrefix: 'arroxy-fixture-restart-out-'}, async ({page, queue, files, relaunch}) => {
+	await withFixtureProductApp({behavior: {mediaSlowIds: [videoId]}, userDataPrefix: 'arroxy-fixture-restart-user-', outputPrefix: 'arroxy-fixture-restart-out-'}, async ({page, fixtureServer, queue, files, relaunch}) => {
 		await prepareSingleReview(page, videoId)
 		await page.locator('[data-testid="btn-download"]').click()
 		await queue.expectStatus('Fixture Video 7', 'running', 60_000)
@@ -309,6 +310,7 @@ test('Electron paused active fixture download resumes after app relaunch', async
 		const relaunched = await relaunch()
 		await relaunched.queue.open()
 		await relaunched.queue.expectStatus('Fixture Video 7', 'paused-active', 60_000)
+		fixtureServer.releaseSlowMedia(videoId)
 		await relaunched.queue.action('Fixture Video 7', 'resume')
 		await relaunched.queue.expectStatus('Fixture Video 7', 'done', 120_000)
 

@@ -9,19 +9,19 @@ import {openQueueTab} from './fixtureWorkflow.js'
 // boot snapshot crossing the real preload bridge.
 //
 // Scenario: quick-download the fixture playlist (3 entries; the normal-lane
-// cap leaves two waiting while one runs, and the running one is slowed so it
+// cap leaves two waiting while one runs, and the running one is held so it
 // cannot finish before we pause). Pause all, then assert the banner over real
 // IPC, relaunch against the same profile, assert the banner is still there
-// (persistence + hydration), resume from the banner, and prove the queue
-// drains to real files on disk. The harness's deny proxy asserts no external
-// network was touched.
+// (persistence + hydration), release the held media, resume from the banner,
+// and prove the queue drains to real files on disk. The harness's deny proxy
+// asserts no external network was touched.
 
 const FIRST_VIDEO_ID = FIXTURE_PLAYLIST_VIDEO_IDS[0]
 
 test('Electron pause-all banner is visible over real IPC, survives restart, and resumes to completed files', async () => {
 	test.setTimeout(300_000)
 
-	await withFixtureProductApp({behavior: {mediaSlowIds: [FIRST_VIDEO_ID]}, userDataPrefix: 'arroxy-fixture-queue-pause-user-', outputPrefix: 'arroxy-fixture-queue-pause-out-'}, async ({page, relaunch, urls, files}) => {
+	await withFixtureProductApp({behavior: {mediaSlowIds: [FIRST_VIDEO_ID]}, userDataPrefix: 'arroxy-fixture-queue-pause-user-', outputPrefix: 'arroxy-fixture-queue-pause-out-'}, async ({page, fixtureServer, relaunch, urls, files}) => {
 		await page.locator('[data-testid="profiles-main-input"]').fill(urls.playlist())
 		await page.locator('[data-testid="profiles-quick-download"]').click()
 
@@ -49,6 +49,7 @@ test('Electron pause-all banner is visible over real IPC, survives restart, and 
 		await expect(relaunched.page.locator('[data-testid^="queue-manager-row-"][data-status="running"]')).toHaveCount(0, {timeout: 30_000})
 
 		// Resume from the banner; the queue drains to real output files.
+		fixtureServer.releaseSlowMedia(FIRST_VIDEO_ID)
 		await relaunched.page.getByTestId('queue-resume-from-banner').click()
 		await expect(relaunched.page.getByTestId('queue-paused-banner')).toBeHidden()
 		await expect(relaunched.page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 200_000})
