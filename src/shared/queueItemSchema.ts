@@ -3,7 +3,7 @@
 // needs-choice answers) live in `./schemas.ts` with every other enum.
 
 import {z} from 'zod'
-import {QUEUE_STATUS, jobAuthSchema, probePlaylistModeSchema, queueArtifactKindSchema, queueChoiceSchema, queueItemStatusSchema, queueLaneSchema, statusKeySchema, ytDlpErrorKindSchema} from './schemas.js'
+import {QUEUE_STATUS, intakeOriginSchema, jobAuthSchema, pinnedDownloadProfileSchema, probePlaylistModeSchema, queueArtifactKindSchema, queueChoiceSchema, queueItemStatusSchema, queueLaneSchema, statusKeySchema, ytDlpErrorKindSchema} from './schemas.js'
 import {preparedJobSchema} from './preparedJob.js'
 
 // Used by both the queue IPC handlers and QueueStore.load to reject corrupted
@@ -64,6 +64,12 @@ export const queueItemSchema = z
 		// probes the same way.
 		probeMode: probePlaylistModeSchema.optional(),
 		choice: queueChoiceSchema.optional(),
+		// Placeholder rows only: the profile and folders the row was placed
+		// with. A row saved before they were stored has none, and prepares with
+		// the active profile.
+		pinnedProfile: pinnedDownloadProfileSchema.optional(),
+		// Who took the link in; copied onto every row the placeholder becomes.
+		origin: intakeOriginSchema.optional(),
 		job: preparedJobSchema
 	})
 	.superRefine((item, ctx) => {

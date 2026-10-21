@@ -28,7 +28,7 @@ import log from 'electron-log/main.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {nowIso} from '@main/utils/clock.js'
-import {QUEUE_STATUS, type JobAuth, type QueueChoice, type QueueLane} from '@shared/schemas.js'
+import {QUEUE_STATUS, type IntakeOrigin, type JobAuth, type QueueChoice, type QueueLane} from '@shared/schemas.js'
 import {transition, illegalTransition} from '@shared/queueTransition.js'
 import {MAX_CONCURRENT_DOWNLOADS, NORMAL_LANE_CAP, PRIORITY_LANE_HEADROOM} from '@shared/constants.js'
 import {InterJobSleep} from './download/InterJobSleep.js'
@@ -114,10 +114,15 @@ export class QueueService extends EventEmitter {
 		commitEvent: (itemId, evt) => this.commit({kind: 'event', itemId, evt}),
 		abortProbe: itemId => this.probeAbortHook(itemId),
 		commitRemove: itemId => this.commit({kind: 'remove', itemId}),
-		commitAdd: items => this.commit({kind: 'add', items})
+		commitAdd: items => this.commit({kind: 'add', items}),
+		rowsPerIntake: origin => this.intakeAdmission(origin)
 	})
+	private intakeAdmission: (origin: IntakeOrigin) => number | null = () => null
 	onProbeAbort(hook: (itemId: string) => void): void {
 		this.probeAbortHook = hook
+	}
+	onIntakeAdmission(limit: (origin: IntakeOrigin) => number | null): void {
+		this.intakeAdmission = limit
 	}
 
 	// Deferred title-backfill probe, wired at the composition root

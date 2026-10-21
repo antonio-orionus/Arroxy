@@ -5,7 +5,7 @@
 // wherever intake runs.
 
 import {DEFAULTS} from '@shared/constants.js'
-import {downloadProfileLabel, resolveChosenDownloadProfile, resolveDownloadProfile, resolveDownloadProfileBaseDir, resolveDownloadProfileOutputDir, type DownloadProfileOutputContext, type ResolvedDownloadProfile} from '@shared/downloadProfiles.js'
+import {downloadProfileLabel, resolveChosenDownloadProfile, resolveDownloadProfile, resolveDownloadProfileBaseDir, resolveDownloadProfileOutputDir, type ResolvedDownloadProfile} from '@shared/downloadProfiles.js'
 import {templateOutputDir} from '@shared/filenameTemplate.js'
 import {resolveHdrSetting} from '@shared/hdrSetting.js'
 import {bindJobFilename, canWriteM3u, playlistEntryTemplateMeta, profileInFlight, resolveJobFilenameTemplate, templateOwnsDirs, videoProbeTemplateMeta, type FilenameBinding} from '@shared/outputTemplates.js'
@@ -14,7 +14,7 @@ import type {PreparedJob} from '@shared/preparedJob.js'
 import {prepareJob} from '@shared/prepareJob.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
-import {QUEUE_STATUS} from '@shared/schemas.js'
+import {QUEUE_STATUS, type PinnedDownloadProfile} from '@shared/schemas.js'
 import {playlistBaseDir} from '@shared/subfolder.js'
 import type {AppSettings, DownloadProfile, DownloadProfileRef, HdrPreference, JobAuth, NativeAudioPreference, PlaylistEntry, ProbeResult, QueueItem, QueueLane} from '@shared/types.js'
 
@@ -48,17 +48,6 @@ export interface QueuePreparationEnv {
 export interface QueuePreparationInputs {
 	settings: AppSettings | null | undefined
 	queue: readonly QueueItem[]
-}
-
-/**
- * The download profile a background quick download was placed with, and the
- * folders it resolved against then. Its row is labelled with them, so the
- * download keeps them when the user switches profile or folder while the
- * probe runs.
- */
-export interface PinnedDownloadProfile {
-	ref: DownloadProfileRef
-	outputContext: DownloadProfileOutputContext
 }
 
 /**

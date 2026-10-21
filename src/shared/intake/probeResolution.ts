@@ -7,7 +7,8 @@ import {classifyUrlIntent} from '@shared/urlIntent.js'
 import type {QueueChoice} from '@shared/schemas.js'
 import type {Result} from '@shared/result.js'
 import type {LocalizedError, PlaylistProbeResult, ProbeError, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
-import {preparePinnedProfileQueueSubmission, type PinnedDownloadProfile, type PreparedQueueSubmission, type QueuePreparationEnv, type QueuePreparationInputs} from '@shared/queueSubmission.js'
+import type {PinnedDownloadProfile} from '@shared/schemas.js'
+import {preparePinnedProfileQueueSubmission, type PreparedQueueSubmission, type QueuePreparationEnv, type QueuePreparationInputs} from '@shared/queueSubmission.js'
 
 // The user's answer to a needs-choice row, applied to a fresh or kept probe.
 export type QuickProbeTake = {kind: 'first'; count: number} | {kind: 'all'}
