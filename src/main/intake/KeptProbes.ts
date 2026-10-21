@@ -4,8 +4,8 @@
 
 import type {PlaylistProbeResult} from '@shared/types.js'
 
-export const KEPT_PROBE_LIMIT = 32
-export const KEPT_PROBE_TTL_MS = 60 * 60 * 1000
+const KEPT_PROBE_LIMIT = 32
+const KEPT_PROBE_TTL_MS = 60 * 60 * 1000
 
 interface Kept {
 	probe: PlaylistProbeResult

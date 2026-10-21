@@ -10,7 +10,7 @@ import {preparedJobSchema} from './preparedJob.js'
 // Used by both the queue IPC handlers and QueueStore.load to reject corrupted
 // persistence (manual edits, partial writes). The error shape is exported for
 // IPC input validation (queue:cmd:probeFailed) — the same shape the item uses.
-export const localizedErrorSchemaShape = z.object({kind: ytDlpErrorKindSchema, raw: z.string(), languageCodes: z.array(z.string()).optional()})
+const localizedErrorSchemaShape = z.object({kind: ytDlpErrorKindSchema, raw: z.string(), languageCodes: z.array(z.string()).optional()})
 
 const statusSnapshotSchema = z.object({key: statusKeySchema, params: z.record(z.string(), z.union([z.string(), z.number()])).optional()})
 
