@@ -58,6 +58,10 @@ export class IntakeRegistry {
 	private readonly byPlaceholder = new Map<string, string>()
 	// Row id → the queued intakes waiting on it, for removals.
 	private readonly byRow = new Map<string, Set<string>>()
+	// The window's or the hotkey's intake id → the intake adopted on its
+	// placeholder, so the adopted one hears every outcome of the original,
+	// including those told after the placeholder is gone.
+	private readonly adopted = new Map<string, string>()
 	private readonly listeners = new Set<(record: IntakeRecord) => void>()
 
 	constructor(private readonly deps: IntakeRegistryDeps) {}
@@ -88,7 +92,10 @@ export class IntakeRegistry {
 		const record: IntakeRecord = {intakeId: this.deps.newId(), placeholderId: itemId, clientId, state, updatedAt: this.deps.now()}
 		const entry: Entry = {record, releasedAt: null, rows: new Set(), leftDone: new Set()}
 		this.entries.set(record.intakeId, entry)
-		if (state.state !== 'queued') this.byPlaceholder.set(itemId, record.intakeId)
+		if (state.state !== 'queued') {
+			this.byPlaceholder.set(itemId, record.intakeId)
+			if (row?.origin) this.adopted.set(row.origin.intakeId, record.intakeId)
+		}
 		this.hold(entry)
 		this.changed(record)
 		return record
@@ -180,12 +187,15 @@ export class IntakeRegistry {
 		return intakeId === undefined ? undefined : this.entries.get(intakeId)
 	}
 
-	// By the outcome's intake id, else by the placeholder the outcome settles
-	// (an adopted placeholder of another intake). already-queued names another
-	// row, never the placeholder.
+	// By the outcome's intake id, or the intake adopted on that intake's
+	// placeholder; else, for a placeholder with no intake id, by the
+	// placeholder the outcome settles (already-queued names another row).
 	private entryForOutcome(event: IntakeOutcomeEvent): Entry | undefined {
-		const own = event.intakeId === null ? undefined : this.entries.get(event.intakeId)
-		if (own) return own
+		if (event.intakeId !== null) {
+			const adopted = this.adopted.get(event.intakeId)
+			const own = this.entries.get(event.intakeId) ?? (adopted === undefined ? undefined : this.entries.get(adopted))
+			if (own) return own
+		}
 		const {outcome} = event
 		if (outcome.kind !== 'added' && outcome.kind !== 'queued' && outcome.kind !== 'failed' && outcome.kind !== 'needs-choice') return undefined
 		const intakeId = this.byPlaceholder.get(outcome.itemId)
@@ -281,6 +291,7 @@ export class IntakeRegistry {
 		this.entries.delete(intakeId)
 		if (!entry) return
 		if (this.byPlaceholder.get(entry.record.placeholderId) === intakeId) this.byPlaceholder.delete(entry.record.placeholderId)
+		for (const [original, adopted] of this.adopted) if (adopted === intakeId) this.adopted.delete(original)
 		for (const itemId of entry.rows) {
 			const waiting = this.byRow.get(itemId)
 			waiting?.delete(intakeId)

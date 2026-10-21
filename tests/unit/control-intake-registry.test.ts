@@ -300,6 +300,25 @@ describe('IntakeRegistry', () => {
 			expect(state(h, intakeId)).toEqual({state: 'cancelled'})
 		})
 
+		// The probe found every video live elsewhere: intake drops the
+		// placeholder (a nothingNew swap), then tells already-queued.
+		it("follows its intake's already-queued outcome after the placeholder is dropped", () => {
+			h.rows.push(placeholderRow('w1', windowOrigin), makeItem({id: 'live-row', status: 'pending'}))
+			const {intakeId} = h.registry.adoptLive('client-1', 'w1')
+			h.remove('w1', 'nothingNew')
+			h.registry.hearOutcome({kind: 'outcome', requestId: 'r', intakeId: 'win-1', origin: 'window', outcome: {kind: 'already-queued', itemId: 'live-row'}})
+			for (const run of h.deferred.splice(0)) run()
+			expect(state(h, intakeId)).toEqual({state: 'queued', itemIds: ['live-row']})
+		})
+
+		it("follows every outcome of the placeholder's own intake", () => {
+			h.rows.push(placeholderRow('w1', windowOrigin))
+			const {intakeId} = h.registry.adoptLive('client-1', 'w1')
+			h.remove('w1', 'nothingNew')
+			h.registry.hearOutcome({kind: 'outcome', requestId: 'r', intakeId: 'win-1', origin: 'window', outcome: {kind: 'nothing-new', skippedAlreadyQueued: 1}})
+			expect(state(h, intakeId)).toEqual({state: 'nothingNew'})
+		})
+
 		it("never takes another row's already-queued outcome as its own", () => {
 			h.rows.push(placeholderRow('w1', windowOrigin))
 			const {intakeId} = h.registry.adoptLive('client-1', 'w1')
