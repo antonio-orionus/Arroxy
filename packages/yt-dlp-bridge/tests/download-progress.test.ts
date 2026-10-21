@@ -1,3 +1,4 @@
+import {readFileSync} from 'node:fs'
 import {describe, expect, it} from 'vite-plus/test'
 import {parseYtDlpOutputLine, YT_DLP_PROGRESS_TEMPLATE, YT_DLP_REQUESTED_FORMATS_TEMPLATE, YtDlpDownloadProgressTracker, type YtDlpDownloadProgress} from '../src/parsers.js'
 import {planWorkflow} from '../src/workflow.js'
@@ -32,6 +33,19 @@ describe('parseYtDlpOutputLine — structured progress', () => {
 			formats: [
 				{formatId: '395', filesize: 223779, filesizeApprox: 223778},
 				{formatId: '250', filesize: 143795, filesizeApprox: 143794}
+			]
+		})
+	})
+
+	// A fragmented (HLS/DASH manifest) stream has no size before it downloads:
+	// yt-dlp fills `filesize_approx` from the bitrate only for other formats.
+	it("sizes a requested format from its bitrate and the video's duration", () => {
+		const line = '[yt-dlp-bridge:formats] {"format_id":"604+251","filesize":null,"filesize_approx":252182,"tbr":304.65,"duration":19,"requested":[{"format_id": "604", "tbr": 198.586}, {"format_id": "251", "filesize": 252182, "filesize_approx": 252180, "tbr": 106.064}]}'
+		expect(parseYtDlpOutputLine(line)).toEqual({
+			kind: 'requested-formats',
+			formats: [
+				{formatId: '604', filesizeFromBitrate: 471641},
+				{formatId: '251', filesize: 252182, filesizeApprox: 252180, filesizeFromBitrate: 251902}
 			]
 		})
 	})
@@ -119,13 +133,72 @@ describe('YtDlpDownloadProgressTracker', () => {
 		expect(tracker.update(progress({formatId: 'dash-1080', downloadedBytes: 1000, totalBytesEstimate: 2000, fragmentIndex: 3, fragmentCount: 12})).percent).toBeCloseTo(25, 5)
 	})
 
-	it('gives every stream an equal share while one size is unknown', () => {
+	it('weighs a stream by its bitrate size when yt-dlp knows no other', () => {
+		const tracker = new YtDlpDownloadProgressTracker()
+		tracker.setRequestedFormats([
+			{formatId: '160', filesize: 1000},
+			{formatId: '234', filesizeFromBitrate: 9000}
+		])
+
+		expect(tracker.update(progress({status: 'finished', formatId: '160', downloadedBytes: 1000, totalBytes: 1000})).percent).toBeCloseTo(10, 5)
+	})
+
+	it('gives every stream an equal share when no size is known', () => {
+		const tracker = new YtDlpDownloadProgressTracker()
+		tracker.setRequestedFormats([{formatId: '160'}, {formatId: '234'}])
+
+		expect(tracker.update(progress({status: 'finished', formatId: '160', downloadedBytes: 1000})).percent).toBe(50)
+	})
+
+	it('gives a stream of unknown size the mean share of the known ones', () => {
 		const tracker = new YtDlpDownloadProgressTracker()
 		tracker.setRequestedFormats([VIDEO, {formatId: '250'}])
 
 		expect(tracker.update(progress({status: 'finished', formatId: '395', downloadedBytes: VIDEO.filesize, totalBytes: VIDEO.filesize})).percent).toBe(50)
 		// The audio's first record brings its size, and with it byte weights.
 		expect(tracker.update(progress({formatId: '250', downloadedBytes: 500, totalBytes: 1000})).percent).toBeCloseTo(((VIDEO.filesize + 500) / (VIDEO.filesize + 1000)) * 100, 5)
+	})
+
+	// A stream of unknown size used to add nothing until its size was known.
+	it('moves through a stream of unknown size by its fragments', () => {
+		const tracker = new YtDlpDownloadProgressTracker()
+		tracker.setRequestedFormats([{formatId: 'hls-audio'}])
+
+		expect(tracker.update(progress({formatId: 'hls-audio', downloadedBytes: 512, fragmentIndex: 0, fragmentCount: 4})).percent).toBe(0)
+		// Two fragments of 1000 bytes each put the stream at about 4000 bytes.
+		expect(tracker.update(progress({formatId: 'hls-audio', downloadedBytes: 2000, fragmentIndex: 2, fragmentCount: 4})).percent).toBeCloseTo(50, 5)
+		expect(tracker.update(progress({formatId: 'hls-audio', downloadedBytes: 2600, fragmentIndex: 2, fragmentCount: 4})).percent).toBeCloseTo(65, 5)
+	})
+
+	it('never moves the bar back when a size turns out larger', () => {
+		const tracker = new YtDlpDownloadProgressTracker()
+		tracker.setRequestedFormats([{formatId: '160', filesize: 1000}, {formatId: 'hls-audio'}])
+
+		expect(tracker.update(progress({status: 'finished', formatId: '160', downloadedBytes: 1000, totalBytes: 1000})).percent).toBe(50)
+		// One of three fragments is 10000 bytes: by bytes the whole is a third done.
+		expect(tracker.update(progress({formatId: 'hls-audio', downloadedBytes: 10_000, fragmentIndex: 1, fragmentCount: 3})).percent).toBe(50)
+		expect(tracker.update(progress({formatId: 'hls-audio', downloadedBytes: 20_000, fragmentIndex: 2, fragmentCount: 3})).percent).toBeCloseTo((21_000 / 31_000) * 100, 5)
+	})
+
+	// Captured from `-f 160+234` of jNQXAC9IVRw with yt-dlp 2026.08.19: a 191 KiB
+	// DASH video, then a 302 KiB HLS audio whose size yt-dlp does not know.
+	it('replays a video with an audio of unknown size without going back', () => {
+		const lines = readFileSync(new URL('./fixtures/progress-dash-video-hls-audio.log', import.meta.url), 'utf8')
+			.split('\n')
+			.filter(Boolean)
+		const tracker = new YtDlpDownloadProgressTracker()
+		const percents: number[] = []
+		for (const line of lines) {
+			const event = parseYtDlpOutputLine(line)
+			if (event?.kind === 'requested-formats') tracker.setRequestedFormats(event.formats)
+			if (event?.kind === 'download-progress') percents.push(tracker.update(event.progress).percent ?? Number.NaN)
+		}
+
+		percents.forEach((percent, i) => expect(percent, `record ${i}`).toBeGreaterThanOrEqual(percents[i - 1] ?? 0))
+		expect(percents.at(-1)).toBe(100)
+		// The bar moves on through the audio's fragments.
+		const videoDone = percents[8] ?? 0
+		expect(new Set(percents.slice(9, -1).filter(percent => percent > videoDone)).size).toBeGreaterThan(5)
 	})
 
 	// yt-dlp downloads requested formats one after another, in order, and prints
