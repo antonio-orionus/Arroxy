@@ -1,6 +1,6 @@
 ---
 name: ship-means-merge-not-release
-description: "Ship" or "land" means fix → PR → merge; release only on an explicit "release", stable only, never a -beta.N, and never ask or offer to release. Releases are immutable and fan out to five channels.
+description: "Ship" or "land" means fix → PR → merge; release only on an explicit "release", stable by default, a -beta.N only when he explicitly asks for one, and never ask or offer to release. Releases are immutable and fan out to five channels.
 metadata:
   type: feedback
 ---
@@ -9,9 +9,9 @@ When Antonio says "ship", "ship the fix" or "land it", stop after the
 squash-merge. Cut a release (version bump, tag, `release:stable`) only when he
 explicitly says "release" or names a version.
 
-**No betas** ("no betas!", 2026-10-19). `bun run release:beta` and the
-`-beta.N` tag path exist, but no plan may depend on them, and "one beta" is never
-a rollout gate. De-risk a risky change before the merge instead: live smoke
+**No betas unless he asks** ("no betas!", 2026-10-19). `bun run release:beta`
+and the `-beta.N` tag path exist for an explicit request (AGENTS.md), but no plan
+may depend on them, and "one beta" is never a rollout gate. De-risk a risky change before the merge instead: live smoke
 comparisons, fixture E2E, or log-only shadow mode in a normal stable release.
 
 **Why:** on 2026-10-15 "ship the multi-language embed fix" was read as the full

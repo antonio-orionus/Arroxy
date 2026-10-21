@@ -128,7 +128,7 @@ approximate" hint, suffixed filenames, full-length subs documented.
   bridge tests; run `bun run bridge:check`.
 - `VideoPhase`: map to `downloadSections: ["*START-END"]` next to the
   `sponsorBlock` passthrough. `YtDlp.ts` spawn needs no changes.
-- i18n: new keys in `en.json`; other 23 locales fall back until translated.
+- i18n: new keys in `en.json`; the other locales fall back to English until the release sync translates them.
 - Tests: vitest for the validator (valid / invalid / reversed /
   beyond-duration); one Fixture Product E2E for a short section download
   (filesystem oracle: suffixed file exists; deny-proxy log clean). Do not

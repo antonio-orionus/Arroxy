@@ -293,11 +293,11 @@ The single file a user saves from Settings to attach to a bug report: a snapshot
 _Avoid_: log bundle, crash report, support dump
 
 **Warmup**:
-The readiness check that verifies the dependencies are present and working — fetching any that are missing — and runs at startup and again on demand from the repair flow. The media dependencies (the downloader and the media tools) gate downloads; the token warm-up is best-effort and never blocks. Verification means actually running each dependency; a passing verdict is remembered for up to seven days, as long as the file it was checked against hasn't changed.
+The readiness check that verifies the dependencies are present and working — fetching any that are missing — and runs at startup and again on demand from the repair flow. The media dependencies (the downloader and the media tools) gate downloads; the token warm-up is best-effort and never blocks. Verification means actually running each dependency; a passing verdict is remembered for several days, as long as the file it was checked against hasn't changed.
 _Avoid_: bootstrap, init, preflight
 
 **Quality limit**:
-A download that finished below both the quality its profile asked for and 720p because the video platform withheld the higher formats for that session, rather than because the video lacks them.
+A download that finished below both the quality its profile asked for and the HD floor because the video platform withheld the higher formats for that session, rather than because the video lacks them.
 _Avoid_: low quality, degraded download, SABR error
 
 **Cookieless retry**:
@@ -317,6 +317,10 @@ _Avoid_: built-in browser, web view, browse tab
 **Explore session**:
 The persistent browsing identity behind Explore, owned by the app and kept separate from the user's own browser. Signing in to Explore signs in this identity; signing out of Explore clears it.
 _Avoid_: Explore account, browser profile
+
+**Sign-in page**:
+A page where an account provider signs the user in or checks a sign-in: a whole host such as Google's account pages, or only some paths on a host that also serves the site, such as Facebook's login and checkpoint pages. Explore's ad blocker never acts on a sign-in page, nor on what it loads.
+_Avoid_: login page, auth host
 
 **Idle unload**:
 Releasing the Explore page once the user has been away from the tab for a while, to free its memory. Off unless the user turns it on: coming back costs a reload. Only pages a reload cannot cost anything are released (the site's home and search results); coming back reloads the page at the same place in its history, in the same **Explore session**.

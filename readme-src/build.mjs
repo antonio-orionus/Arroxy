@@ -5,7 +5,7 @@
 //
 // Usage: `node readme-src/build.mjs` (or `npm run build:readme`).
 
-import { existsSync, realpathSync } from "node:fs";
+import { existsSync, readFileSync, realpathSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, posix, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -69,7 +69,7 @@ function checkParity(locales, { strict }) {
       `\n  ⚠ ${driftCount} locale(s) drift from en. Build continued with en fallback for missing keys; extras ignored.`,
     );
     console.warn(
-      `  Run \`bun run check:readme\` (or \`bun readme-src/build.mjs --strict\`) before pushing to fail on drift.\n`,
+      `  The release translation sync closes the gap; \`bun run check:readme\` (or \`bun readme-src/build.mjs --strict\`) fails on it.\n`,
     );
   }
 }
@@ -137,12 +137,21 @@ function buildLangNameList(locales) {
   return locales.map((l) => l.name).join(" · ");
 }
 
-function applyStrings(template, strings, fallback = {}) {
+// A locale's missing key renders the English string: a PR changes English only,
+// and the release translation sync fills the other locales (ADR 0017).
+export function applyStrings(template, strings, fallback = {}) {
   return template.replace(/\{\{(\w+)\}\}/g, (match, key) => {
     if (key in strings) return strings[key];
     if (key in fallback) return fallback[key];
     return match;
   });
+}
+
+// Template keys English itself lacks, which would reach every README as a raw
+// `{{key}}`. `macros` are the keys the build fills in itself.
+export function missingTemplateKeys(template, strings, macros) {
+  const keys = new Set([...template.matchAll(/\{\{(\w+)\}\}/g)].map((match) => match[1]));
+  return [...keys].filter((key) => !(key in strings) && !macros.includes(key));
 }
 
 function applyMacros(text, macros) {
@@ -152,13 +161,69 @@ function applyMacros(text, macros) {
   return text;
 }
 
+const BUILD_MACROS = ["LANG_NAV", "LANG_COUNT", "LANG_NAME_LIST", "LAST_UPDATED"];
+
+// The English strings the other locales were last translated from, written by
+// the release translation sync (`--record-translated`). Key parity alone cannot
+// see a reworded English string; comparing against this record can.
+export const TRANSLATED_FROM_PATH = resolve(HERE, "translated-from.json");
+
+export function readTranslatedFrom() {
+  return existsSync(TRANSLATED_FROM_PATH) ? JSON.parse(readFileSync(TRANSLATED_FROM_PATH, "utf8")) : {};
+}
+
+// English keys whose text changed, that were added, or that went away since
+// the locales were translated from `translatedFrom`.
+export function untranslatedEnglishChanges(enStrings, translatedFrom) {
+  const keys = Object.keys(enStrings);
+  return {
+    changed: keys.filter((key) => key in translatedFrom && translatedFrom[key] !== enStrings[key]),
+    added: keys.filter((key) => !(key in translatedFrom)),
+    removed: Object.keys(translatedFrom).filter((key) => !(key in enStrings)),
+  };
+}
+
+// The README keys the release sync still has to handle for one locale: keys it
+// lacks, keys whose English changed or was never recorded, and keys it or the
+// record keep that English dropped. `--strict` fails on each of these.
+export function readmeOpenKeys(enStrings, localeStrings, translatedFrom) {
+  const { changed, added, removed } = untranslatedEnglishChanges(enStrings, translatedFrom);
+  const missing = Object.keys(enStrings).filter((key) => !(key in localeStrings));
+  const extra = Object.keys(localeStrings).filter((key) => !(key in enStrings));
+  return [...new Set([...missing, ...changed, ...added, ...extra, ...removed])].sort();
+}
+
+function checkTranslatedFrom(enStrings, { strict }) {
+  const { changed, added, removed } = untranslatedEnglishChanges(enStrings, readTranslatedFrom());
+  if (!changed.length && !added.length && !removed.length) return;
+  const parts = [];
+  if (changed.length) parts.push(`changed: ${changed.join(", ")}`);
+  if (added.length) parts.push(`added: ${added.join(", ")}`);
+  if (removed.length) parts.push(`removed: ${removed.join(", ")}`);
+  const msg = `English README strings differ from the ones the locales were translated from (${parts.join("; ")}). The release translation sync translates them in every locale, then runs \`bun readme-src/build.mjs --record-translated\`.`;
+  if (strict) throw new Error(msg);
+  console.warn(`  ⚠ ${msg}`);
+}
+
 async function main() {
-  const strict = process.argv.includes("--strict");
+  const record = process.argv.includes("--record-translated");
+  const strict = record || process.argv.includes("--strict");
   checkParity(LOCALES, { strict });
+  const enLocale = LOCALES.find((l) => l.code === "en");
+  if (record) {
+    const sorted = Object.fromEntries(Object.entries(enLocale?.strings ?? {}).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)));
+    await writeFile(TRANSLATED_FROM_PATH, `${JSON.stringify(sorted, null, 2)}\n`, "utf8");
+    console.log(`  ✓ recorded the English the locales are translated from → readme-src/translated-from.json`);
+  }
+  checkTranslatedFrom(enLocale?.strings ?? {}, { strict });
 
   const template = await readFile(TEMPLATE_PATH, "utf8");
   const en = LOCALES.find((l) => l.code === "en");
   const enStrings = en?.strings ?? {};
+  const undefinedKeys = missingTemplateKeys(template, enStrings, BUILD_MACROS);
+  if (undefinedKeys.length) {
+    throw new Error(`readme-src/template.md uses keys readme-src/locales/en.mjs does not define: ${undefinedKeys.join(", ")}`);
+  }
   let shotGaps = 0;
 
   for (const loc of LOCALES) {

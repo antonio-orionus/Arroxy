@@ -9,4 +9,4 @@ A docs-only change is committed and pushed straight to `main`. That covers READM
 
 **Why:** a docs edit doesn't need CodeRabbit or a 20-minute CI round, and docs ship from GitHub, not with the app.
 
-**How to apply:** still run `bun run check` (the README build enforces locale key parity; the tooling contract scans tracked docs) and the no-attribution greps, then push to `main`. Code, scripts, workflows and config still go through a PR per [[finish-before-pr]] and the `land` flow. If a release tag is waiting on `main`'s required checks, tag first: a new commit on `main` restarts that wait.
+**How to apply:** still run `bun run check` (the English README must build; the tooling contract scans tracked docs) and the no-attribution greps, then push to `main`. Code, scripts, workflows and config still go through a PR per [[finish-before-pr]] and the `land` flow. If a release tag is waiting on `main`'s required checks, tag first: a new commit on `main` restarts that wait.

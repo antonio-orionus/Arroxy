@@ -1675,7 +1675,6 @@
 			"quickPrepareFailed": "Queue item could not be prepared",
 			"quickPreparing": "Preparing",
 			"quickProbeFailed": "Probe failed",
-			"quickQueued": "Added to queue",
 			"quickSingleOnly": "Paste a video, playlist, channel, or search URL to get started.",
 			"settings": {
 				"behaviorDescription": "Global behavior that affects profile-driven downloads too.",

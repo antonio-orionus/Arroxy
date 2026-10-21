@@ -26,16 +26,9 @@ How to run Arroxy with any coding agent without the repo depending on one.
 
 3. **Harness plugins** — installed per machine, per tool, never tracked. The repo must work without them.
 
-## Recommended plugins
+## Harness plugins
 
-Each tool wires plugins its own way, so install separately in every tool you use.
-
-| Plugin | Claude Code | Codex CLI | OpenCode |
-| --- | --- | --- | --- |
-| Superpowers | `/plugin install superpowers@claude-plugins-official` | `/plugins` → search `superpowers` → Install | add `"superpowers@git+https://github.com/obra/superpowers.git"` to `plugin` in `~/.config/opencode/opencode.json` |
-| CodeGraph prompt hook | `UserPromptSubmit` hook running `codegraph prompt-hook` in `.claude/settings.json` (local) | none — rely on the CodeGraph section of `AGENTS.md` | none — same |
-
-Current install steps: [Superpowers README](https://github.com/obra/superpowers#installation).
+Plugins (Superpowers, a CodeGraph prompt hook) are installed per machine and per tool, each in that tool's own way, and never tracked. Nothing here may depend on one: write a rule the repo relies on into `AGENTS.md` or a project skill instead.
 
 ## Adding things
 

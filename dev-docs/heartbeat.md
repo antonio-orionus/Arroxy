@@ -60,42 +60,7 @@ Browser and Device cards stay empty or constant — ignore them.
 
 ## Deploy
 
-The live collector is Counterscale 3.4.1 built **from source with an auth patch** (see below), deployed with Wrangler as Worker `counterscale` on the custom domain `stats.orionus.dev` (`HEARTBEAT_URL` in `heartbeat.ts`; released builds keep the host they shipped with). Site id: `arroxy` (`HEARTBEAT_SITE_ID`). `workers.dev` is off.
-
-1. **Analytics Engine.** Dashboard → Storage & Databases → Analytics Engine → Create Dataset `metricsDataset`. If a deploy still fails with `[code: 10089] You need to enable Analytics Engine` (a leftover beta opt-in gate, cloudflare/workers-sdk#9312), deploy once without the `analytics_engine_datasets` block, add the binding `WEB_COUNTER_AE` → `metricsDataset` on the Worker in the dashboard (Settings → Bindings), then deploy normally.
-2. **R2 bucket** for the daily rollup: `bunx wrangler r2 bucket create counterscale-daily-rollups`.
-3. **Build and deploy from source** (outside this checkout — npm-family tools hit this repo's `overrides`):
-
-   ```bash
-   git clone --depth 1 --branch v3.4.1 https://github.com/benvinegar/counterscale.git
-   cd counterscale && pnpm install --frozen-lockfile && cd packages/server
-   # apply the auth patch below, then:
-   pnpm exec react-router build
-   pnpm exec wrangler deploy --config wrangler.arroxy.json --var VERSION:v3.4.1-authpatch
-   ```
-
-   `wrangler.arroxy.json` is `wrangler.json` plus `"account_id"` and `"routes": [{"pattern": "stats.orionus.dev", "custom_domain": true}]`.
-4. **Secrets** on the Worker: `CF_ACCOUNT_ID`, `CF_AUTH_ENABLED=true`, `CF_JWT_SECRET` (random), `CF_PASSWORD_HASH` (bcrypt of the dashboard password), `CF_BEARER_TOKEN` (API token with only **Account › Account Analytics › Read**). Set them with `wrangler secret bulk <json-file> --config wrangler.arroxy.json`, never by pasting values into chat or commits. With `CF_AUTH_ENABLED=true` and no password hash the dashboard fails closed (500), which is the safe interim state. The Counterscale CLI's `auth` commands run Wrangler through npm's package runner; run them from `~`, not from a repo checkout.
-
-5. **Rate limit** on the zone (`orionus.dev` → Security → WAF → Rate limiting rules; the Free plan's one rule): `http.host eq "stats.orionus.dev" and http.request.uri.path eq "/collect"`, counted per IP and colo, 5 requests per 10 seconds, block for 10 seconds. A real install sends one heartbeat a day, so this only stops floods from one address; it cannot stop fake heartbeats spread across many IPs, and nothing can without an identifier. Verify with a burst of parameterless `curl` requests to `/collect`: the first few return `400`, the rest `429`.
-
-6. **Datacenter filter** on the same zone (Security → WAF → Custom rules): block `http.host eq "stats.orionus.dev" and http.request.uri.path eq "/collect" and ip.src.asnum eq 8075`. AS8075 is Microsoft, where GitHub-hosted runners, WinGet's validation VMs and Defender's sandboxes run, so automation outside this repo's control (forks' CI, package validation, malware scans) never reaches the dashboard. The cost is real users on Azure VMs or Windows 365 Cloud PCs, which is accepted.
-
-### Auth patch (required until upstream fixes it)
-
-Counterscale ≤ 3.4.1 checks the login only on the `stats`, `timeseries` and `paths` data routes; `country`, `device`, `referrer`, `browser`, `browserversion` and the five `utm-*` routes answer anyone — and the UTM routes hold the heartbeat's install channel, platform, OS and languages. Before every build, add the same guard to each unprotected `app/routes/resources.*.tsx` loader:
-
-```ts
-import { requireAuth } from "~/lib/auth";
-
-export async function loader({ context, request }: LoaderFunctionArgs) {
-    await requireAuth(request, context.cloudflare.env);
-    // ...
-```
-
-and add `vi.mock("~/lib/auth", () => ({ requireAuth: vi.fn() }));` to the matching `__tests__/resources.*.test.tsx`, as the `stats` test already does (`TZ=EST pnpm exec vitest run` must pass). After deploying, every `https://stats.orionus.dev/resources/<route>?site=arroxy` must return `302` without a session cookie.
-
-Free-plan fit: Analytics Engine takes 100k writes/day and keeps raw data 90 days; Counterscale's daily R2 rollup (on by default) keeps older data within R2's free tier.
+The live collector is a self-hosted Counterscale on Cloudflare, at the host in `HEARTBEAT_URL` (`src/main/services/heartbeat.ts`; released builds keep the host they shipped with). Its deployment and hardening runbook (secrets, rate limiting, the auth patch Counterscale needs) is maintainer-only.
 
 ## Test locally end to end
 

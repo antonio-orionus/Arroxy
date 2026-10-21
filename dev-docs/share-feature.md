@@ -147,7 +147,7 @@ None. Share surfaces send no events; the app reports nothing but the daily anony
 
 ## 6. i18n
 
-8 keys under `share.*` in every locale (see `SUPPORTED_LANGS` in `src/shared/schemas.ts` for the canonical list). `bun run check:app` enforces key parity, placeholder leakage, and gettext catalog freshness; runtime non-English JSON is generated from `i18n/locales/*.po`.
+8 keys under `share.*` (see `SUPPORTED_LANGS` in `src/shared/schemas.ts` for the canonical locale list). `bun run check:i18n:complete`, the release gate, enforces key parity, placeholder leakage and gettext catalog freshness; runtime non-English JSON is generated from `i18n/locales/*.po`.
 
 Keys:
 
@@ -171,7 +171,7 @@ Arroxy — free, open-source video downloader for Windows, macOS & Linux. Works 
 4K · HDR · MP3 · Shorts · Subtitles · SponsorBlock
 ```
 
-When keys change, edit English first, run `bun run i18n:sync`, translate the fuzzy/untranslated PO entries across every non-English locale, then run `bun run i18n:compile`.
+When keys change, edit English only; the release sync translates the other locales (ADR 0017).
 
 ---
 

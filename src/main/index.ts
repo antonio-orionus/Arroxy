@@ -26,6 +26,7 @@ import {ExploreAdBlocker} from '@main/services/explore/ExploreAdBlocker.js'
 import {loadFilterListEngine, loadPrebuiltEngine, refreshPrebuiltEngine} from '@main/services/explore/exploreAdBlockEngine.js'
 import {EXPLORE_ADBLOCK_PRELOAD_FILE} from '@main/services/explore/exploreAdBlockPreload.js'
 import {siteById} from '@shared/sites/index.js'
+import {EXPLORE_SIGN_IN_PAGES} from '@shared/sites/signInPages.js'
 import {createExploreGate} from '@main/services/exploreGate.js'
 import {ExploreSpawnGate} from '@main/services/exploreSpawnGate.js'
 import {QueueService} from '@main/services/QueueService.js'
@@ -428,7 +429,7 @@ if (hasSingleInstanceLock) {
 		const exploreAdBlocker = new ExploreAdBlocker({
 			session: () => exploreSession.getSession(),
 			preloadPath: path.join(import.meta.dirname, EXPLORE_ADBLOCK_PRELOAD_FILE),
-			signInHosts: youtubeExplore?.signInHosts ?? [],
+			signInPages: EXPLORE_SIGN_IN_PAGES,
 			// The E2E harness's fixed filter list is never refreshed.
 			...(exploreAdBlockFilters === undefined ? {loadEngine: () => loadPrebuiltEngine(prebuiltLists), refreshEngine: () => refreshPrebuiltEngine(prebuiltLists)} : {loadEngine: () => loadFilterListEngine(exploreAdBlockFilters, scriptletFreeDomains)})
 		})

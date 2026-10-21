@@ -168,6 +168,6 @@ One machine, one OS, one network; n=2 for cold. **There are no Windows or Linux 
 ## Rejected, with reasons — do not resurrect
 
 - **Ship yt-dlp as a Python zipapp** to avoid the PyInstaller unpack. Inverted: stock macOS ships only a Command Line Tools stub for `python3` and Windows ships none — the two platforms with the problem — while Linux, which does not have the problem, is the only one it would help.
-- **Name macOS in the splash copy.** The actor differs per platform, so platform-neutral copy is both more accurate and avoids a 24-locale × 3-platform matrix.
+- **Name macOS in the splash copy.** The actor differs per platform, so platform-neutral copy is both more accurate and avoids a per-locale × per-platform matrix.
 - **A cheaper probe than `--version`.** Already the cheapest; the unpack precedes any Python execution.
 - **Skipping the splash entirely below ~250ms.** The splash mounts at t=0 unconditionally, so the flash this would prevent cannot occur.

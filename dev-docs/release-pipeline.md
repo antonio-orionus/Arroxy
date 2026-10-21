@@ -6,11 +6,17 @@ What happens after `bun run release:stable` (or, on an explicit request for a be
 | --- | --- |
 | `.github/workflows/release.yml` | Tag-triggered build, publish, package-manager bumps |
 | `.github/workflows/release_to_winget.yml` | Winget PR on the `released` event |
-| `scripts/release.sh` | Tag guards: branch, clean tree, version, required checks |
+| `scripts/release.sh`, `scripts/release-gate.ts` | Tag guards: branch, clean tree, version, the release commit and its required checks |
+
+## Which commit a stable release tags
+
+A stable tag goes on the release commit, the `release: X` commit on `main` that carries the version bump and changelog, not on `main`'s HEAD. `release.sh` waits until every check branch protection requires on `main` passed on that commit, then pushes the tag alone; work merged after it is in the next release. Nothing downstream assumes the tag is `main`'s HEAD: `verify-version` only requires the tagged commit to be reachable from `origin/main` and its `package.json` to match the tag, every later job works from the tag name, and `notify-web-release-manifest` sends only the tag.
+
+That needs a finished run on every `main` commit, so the CI workflows (`ci.yml`, `e2e-fixtures.yml`, `e2e-cold-start.yml`, `dev-smoke.yml`, `installer-smoke.yml`, `ffmpeg-remux-matrix.yml`) cancel superseded runs only on pull requests. A push to `main` or a tag gets a concurrency group of its own (keyed by commit), so its runs neither cancel nor queue behind the next merge (`tests/scripts/workflow-concurrency.test.ts`). The heavy suites still skip a docs-only push through `.github/actions/app-changes`, when the previous `main` commit's run passed.
 
 ## Job graph
 
-`.github/workflows/release.yml`: `verify-version` → `quality-gate` (`bun run check`) → `prepare-release` → `build` matrix (linux + mac on `ubuntu-latest`/`macos-latest`); `fetch-flatpak-source` downloads the Linux tarball from the draft release after `build` (it alone holds the write token; drafts are invisible to a read-only one), then `build-flatpak` (read-only: builds, signs the Flatpak repo with `scripts/flatpak/publish-repo.sh`, builds the bundle), then `upload-flatpak`; `publish-release` waits for `upload-flatpak`, polls for Windows assets, generates `SHA256SUMS`, then un-drafts the release. Stable tags also run `publish-scoop`, `publish-homebrew`, `publish-flatpak-repo` (GitHub Pages deploy), and `notify-web-release-manifest` after `publish-release`. Read the YAML for step-level detail.
+`.github/workflows/release.yml`: `verify-version` → `quality-gate` (`bun run check`) → `prepare-release` → `build` matrix (linux + mac on `ubuntu-latest`/`macos-latest`); `fetch-flatpak-source` downloads the Linux tarball from the draft release after `build` (it alone holds the write token; drafts are invisible to a read-only one), then `build-flatpak` (read-only: builds, signs the Flatpak repo with `scripts/flatpak/publish-repo.sh`, builds the bundle), then `upload-flatpak`; `publish-release` waits for `upload-flatpak`, polls for Windows assets, generates `SHA256SUMS`, then un-drafts the release. Stable tags also run `publish-scoop`, `publish-homebrew` and `publish-flatpak-repo` (GitHub Pages deploy) after `publish-release`. Read the YAML for step-level detail.
 
 Windows is built separately via a dedicated Windows Installer workflow (smoke-testable before publish); `publish-release` polls up to 15min until the Windows Setup + Portable `.exe` artifacts appear before generating `SHA256SUMS` and un-drafting the release.
 
@@ -49,7 +55,7 @@ which WinGet passes on every `winget install` and `winget upgrade`; `build/insta
 - [`antonio-orionus/scoop-bucket`](https://github.com/antonio-orionus/scoop-bucket) — single `bucket/arroxy.json` manifest, auto-bumped per release
 - [`antonio-orionus/homebrew-arroxy`](https://github.com/antonio-orionus/homebrew-arroxy) — single `Casks/arroxy.rb` cask with `on_arm`/`on_intel` stanzas, auto-bumped per release
 - [`microsoft/winget-pkgs`](https://github.com/microsoft/winget-pkgs) — community repo; PRs land at `manifests/a/AntonioOrionus/Arroxy/<version>/`
-- This repo's GitHub Pages — Arroxy's Flatpak repo at https://antonio-orionus.github.io/Arroxy/flatpak/, replaced by every stable release (`publish-flatpak-repo`). See [`dev-docs/flatpak-repo.md`](dev-docs/flatpak-repo.md); never rotate its signing key casually — installed copies reject updates signed by another key.
+- This repo's GitHub Pages — Arroxy's Flatpak repo at https://antonio-orionus.github.io/Arroxy/flatpak/, replaced by every stable release (`publish-flatpak-repo`). See [`flatpak-repo.md`](flatpak-repo.md); never rotate its signing key casually — installed copies reject updates signed by another key.
 
 GitHub Releases ships: NSIS installer, portable `.exe`, arm64 DMG, x64 DMG, AppImage, tar.gz source, and a Flatpak bundle (stable bundles carry the Flatpak repo as their remote, so `flatpak update` works after installing one). No Snap. An AUR `arroxy-bin` package (repackaging the x64 tar.gz, auto-published like Scoop/Homebrew) is on the roadmap for Arch/Omarchy users, blocked until AUR reopens new-account registration (closed as of 2026-10).
 

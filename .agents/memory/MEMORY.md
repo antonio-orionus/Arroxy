@@ -2,18 +2,15 @@
 
 ## How Antonio wants work done
 
-- [Finish before PR](finish-before-pr.md) — close every related follow-up (tests, locales, README, CHANGELOG) before proposing a PR.
-- [Ship means merge, not release](ship-means-merge-not-release.md) — "ship"/"land" stops at the merge; release only on an explicit "release", stable only, never a beta; never ask or offer to release.
-- [Orchestrator session](orchestrator-session.md) — on "orchestrator"/"orchestrate", load the `orchestrate` skill: it holds the standing rules (dispatch, verify first, start sessions yourself, ask only critical decisions, never release Arroxy).
+- [Finish before PR](finish-before-pr.md) — close every related follow-up (tests, English copy and README, changelog fragment) before proposing a PR; translation is not part of it.
+- [Ship means merge, not release](ship-means-merge-not-release.md) — "ship"/"land" stops at the merge; release only on an explicit "release", stable by default, a beta only when he asks for one; never ask or offer to release.
 - [CodeRabbit review workflow](coderabbit-review-workflow.md) — 2 reviews/hour shared and adaptive, auto reviews off: trigger behaviour PRs once on a final head after CI is green, one retry at most, never push mid-review.
-- [Review learnings](review-learnings.md) — rules the dual review injects into every reviewer; add one when a refuted finding would recur.
-- [Squash onto the merge-base](squash-onto-merge-base.md) — never `reset --soft origin/main` (PR #430 reverted 168 files); run `review:check-head` before every land push.
+- [Review learnings](review-learnings.md) — rules the dual review injects into every reviewer and CodeRabbit reads as a guideline; add one when a refuted finding would recur.
 - [No AI attribution](no-ai-attribution.md) — never add Co-Authored-By or "Generated with" lines to commits or PRs.
 - [Docs edits skip the PR](readme-edits-skip-pr.md) — docs-only changes (README, dev-docs, AGENTS.md, ADRs, memory) go straight to main after `bun run check`.
-- [Approve design before tests](approve-design-before-tests.md) — during UI redesigns, iterate on mocks and screenshots; tests only after the design is approved.
-- [Translate at the final stage](translate-at-final-stage.md) — en only during development (`check:i18n` red is accepted); translate once, right before the PR.
+- [English-only PRs](english-only-prs.md) — PRs change en.json and en.mjs only; every translation happens in one sync PR as the first step of a release.
 - [LOC limits are architecture signals](loc-limits-are-architecture-signals.md) — never raise the LOC cap to land a change; extract a cohesive concern instead.
-- [Changelog stays laconic](changelog-laconic.md) — one or two user-facing sentences per entry, no internals, no exact sizes.
+- [Changelog stays laconic](changelog-laconic.md) — one or two user-facing sentences per fragment or entry, no internals, no exact sizes.
 
 ## Releases and packaging
 
@@ -26,7 +23,7 @@
 - [Windows VM testing](windows-vm-testing.md) — ssh into the Win11 ARM64 VM for `dist:win:dir` + `verify:startup`; bash on PATH, x64-only assets, node not bun.
 - [Linux VM testing](linux-vm-testing.md) — Ubuntu ARM64 guest for Linux/Electron/GPU checks; `scripts/vm/ubu-*` launch over ssh; never log the session out.
 - [Inherited ELECTRON_RUN_AS_NODE](electron-run-as-node-leak.md) — agent shells can carry it; hand-launched Electron then fails on `BrowserWindow`. Strip it.
-- [macOS 26 Electron Audio Service](macos-26-electron-audio-service.md) — Electron 42 can crash-loop `audio.mojom.AudioService`; disabled out of process on Darwin 25+.
+- [macOS 26 Electron Audio Service](macos-26-electron-audio-service.md) — Electron (seen on 42) can crash-loop `audio.mojom.AudioService`; disabled out of process on Darwin 25+.
 - [Linux theme portal race](linux-theme-portal-race.md) — wrong theme on first Linux launch is unexplained; read `theme:startup` logs, never repro by stopping the portal.
 
 ## Code gotchas

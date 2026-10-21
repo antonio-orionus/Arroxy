@@ -1,6 +1,9 @@
 import {IPC_CHANNELS} from '@shared/ipc.js'
-import {updateSettingsSchema, type UiTheme} from '@shared/schemas.js'
-import {ok} from '@shared/result.js'
+import {updateSettingsSchema, type DownloadProfile, type DownloadProfilesPrefs, type UiTheme} from '@shared/schemas.js'
+import type {SettingsPatch} from '@shared/api.js'
+import {downloadProfileFilenameFailure} from '@shared/downloadProfiles.js'
+import {fail, ok} from '@shared/result.js'
+import {createAppError} from '@main/utils/errorFactory.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
 import type {ClipboardWatcher} from '@main/services/ClipboardWatcher.js'
 import type {HotkeyService} from '@main/services/HotkeyService.js'
@@ -8,6 +11,18 @@ import type {QueueService} from '@main/services/QueueService.js'
 import type {ExploreViewHost} from '@main/services/explore/ExploreViewHost.js'
 import {DEFAULTS, NORMAL_LANE_CAP} from '@shared/constants.js'
 import {buildCommonPaths, handle, handleRaw, toUnknownFailure} from './utils.js'
+
+// A profile saved with a filename template that does not validate would fail
+// every download it starts. Checked here rather than in schemas.ts, whose
+// exports the template parser imports, and against what is stored: a profile
+// keeps its own template saved before this check, so one old typo can't refuse
+// every later save of the profile list, but no other profile takes it on. The
+// Profiles tab shows it as an error to fix.
+function newUnusableFilename(patch: SettingsPatch['profiles'], stored: DownloadProfilesPrefs): DownloadProfile | null {
+	const storedTemplates = new Map([...stored.custom, ...stored.overrides].flatMap(profile => (profile.filename.kind === 'custom' ? [[profile.id, profile.filename.template] as const] : [])))
+	const written = [...(patch?.custom ?? []), ...(patch?.overrides ?? [])]
+	return written.find(profile => profile.filename.kind === 'custom' && storedTemplates.get(profile.id) !== profile.filename.template && downloadProfileFilenameFailure(profile)) ?? null
+}
 
 interface SettingsHandlerDeps {
 	settingsStore: SettingsStore
@@ -41,6 +56,8 @@ export function registerSettingsHandlers(deps: SettingsHandlerDeps): void {
 	})
 
 	handle(IPC_CHANNELS.settingsUpdate, updateSettingsSchema, async data => {
+		const unusable = data.profiles ? newUnusableFilename(data.profiles, (await settingsStore.get()).profiles) : null
+		if (unusable) return fail(createAppError('validation', `Download profile "${unusable.name}" has an unusable filename template`))
 		const updated = await settingsStore.update(data)
 		clipboardWatcher.setEnabled(updated.common.clipboardWatchEnabled)
 		if (data.common?.hotkeyEnabled !== undefined || data.common?.hotkeyAccelerator !== undefined) {

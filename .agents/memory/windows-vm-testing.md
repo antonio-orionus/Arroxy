@@ -9,14 +9,12 @@ metadata:
 
 The local Windows 11 ARM64 test VM is the fast loop for Windows-only verification: build `dist:win:dir`, run `verify:startup`, exercise installer/portable flows — no tag push, no 16-minute CI round trip. Connection details (host, credentials, launch constraints) live in the **user-level agent config** of whichever tool you run (for example `~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`, `~/.config/opencode/AGENTS.md`) and `~/.ssh/config` (alias `win-vm`, key auth), never in this repo. The VM must be booted manually in the Fusion GUI first; verify reachability before use.
 
-## Provisioned state (2026-08-31)
+## On the VM
 
-- winget-installed: Git 2.55 (`C:\Program Files\Git\cmd\git.exe`), Bun 1.4 (`~/.bun/bin/bun.exe`), Node 24 (`C:\Program Files\nodejs`), 7-Zip 26 (`C:\Program Files\7-Zip\7z.exe`, arm64 build).
-- Repo checkout at `C:\Arroxy` (no remote; `git init` + local tags `v0.4.7`, `v0.4.8-beta.5` for the inherited-update journey). **Use `scripts/vm/win-sync.sh`** (tracked + untracked non-ignored files, ~26 MB, deletes files removed since the last sync) and **`scripts/vm/win-build.sh`** (`bun install` + `dist:win:dir`, ~45 s warm). `scripts/vm/win-install-release.sh [tag]` installs a published release as a baseline (0.4.16 installed 2026-09-16). All go through the `win-vm` SSH alias with key auth; see `dev-docs/download-smoke.md`.
-- `bun install` with `$env:CI='true'` (no .git there, so `vp config` installs no hooks).
-- (2026-09-13) Standalone `yt-dlp.exe` at `C:\Users\admin\yt-dlp.exe` (official release, not Arroxy's managed copy). Lets yt-dlp's Windows stdout behaviour be checked without building the app — drive it from `node` through a pipe, with a crafted info.json or a local `http://127.0.0.1` file server so no external network is needed. Recipe and results in [[ytdlp-stdout-drops-non-ascii]].
-- **Leftover from the issue #222 repro (2026-09-14):** `%APPDATA%\arroxy\settings.json` may still hold `cookiesMode: browser`, `cookiesBrowser: firefox` and a dead `proxyUrl: 192.168.212.1:18080`. Restore its `settings.json.issue222-*.bak` or use an isolated `ELECTRON_USER_DATA` before trusting a live run. The hosts-file block was removed 2026-09-16.
-- The console codepage is **437**, a legacy OEM page. That makes the VM a faithful repro host for anything that depends on a non-UTF-8 codepage.
+- An Arroxy checkout at `C:\Arroxy` without a remote. Keep it current with **`scripts/vm/win-sync.sh`** (tracked and untracked non-ignored files, ~26 MB, deletes files removed since the last sync) and build with **`scripts/vm/win-build.sh`** (`bun install` + `dist:win:dir`, ~45 s warm). `scripts/vm/win-install-release.sh [tag]` installs a published release as a baseline. All go through the `win-vm` SSH alias with key auth; see `dev-docs/download-smoke.md`.
+- `bun install` runs with `$env:CI='true'` (no `.git` there, so `vp config` installs no hooks).
+- What else is installed, the console codepage, and any leftover state from earlier repros are machine facts: they live in the user-level agent config, next to the connection details.
+- yt-dlp's Windows stdout behaviour can be checked without building the app with a standalone official `yt-dlp.exe`, driven from `node` through a pipe with a crafted info.json or a local `http://127.0.0.1` file server. Recipe and results in [[ytdlp-stdout-drops-non-ascii]].
 
 ## Gotchas
 

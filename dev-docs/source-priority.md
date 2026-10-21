@@ -1,6 +1,6 @@
 # Source priority: how a profile picks streams
 
-**Status: built on `feat/source-priority`, not merged.** The three delivery
+**Status: built** (#301). The three delivery
 steps below landed together; the English copy is approved and all 30
 non-English locales are translated. A download profile picks one video and one
 audio stream out of everything a video offers by ranking them in a fixed
@@ -416,4 +416,4 @@ itself, Windows players, TVs, editors, Macs without AV1 hardware.
    the Saves as choice on Format and its line on Review, conflict
    warnings, E2E.
 
-Translations happen once, right before PR 2 and PR 3.
+Each PR changes English only; the release sync translates (ADR 0017).

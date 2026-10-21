@@ -16,6 +16,6 @@ SyntaxError: The requested module 'electron' does not provide an export named 'B
 The message points nowhere near the cause. Check with `env | grep ELECTRON_RUN_AS_NODE`.
 
 **How to apply:**
-- Launch the built app with `env -u ELECTRON_RUN_AS_NODE ./node_modules/.bin/electron out/main/index.js`, or use a wrapper that already strips it: `bun run smoke:download`, the fixture E2E env (`buildFixtureEnv`), and the startup journeys (`scripts/startup/runJourney.ts`).
+- Launch the built app with `env -u ELECTRON_RUN_AS_NODE ./node_modules/.bin/electron out/main/index.js`, or use a wrapper that already strips it: `bun run smoke:download`, the fixture E2E env (`buildFixtureEnv`), and the startup journeys (`scripts/startup/launchEnv.ts`).
 - Any new script that spawns Electron must `delete env.ELECTRON_RUN_AS_NODE` itself.
-- Unrelated to Arroxy's own deliberate use of the variable: it is set only in the yt-dlp child-process env so yt-dlp can use Electron as its JS runtime (see AGENTS.md "Electron-as-Node security note"). The runtime smoke fails if it leaks into the app process.
+- Unrelated to Arroxy's own deliberate use of the variable: it is set only in the yt-dlp child-process env so yt-dlp can use Electron as its JS runtime (AGENTS.md "Binary distribution strategy", `dev-docs/binary-distribution.md`). The runtime smoke fails if it leaks into the app process.

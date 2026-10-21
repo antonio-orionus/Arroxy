@@ -1,6 +1,6 @@
 ---
 name: macos-26-electron-audio-service
-description: macOS 26 with Electron 42 can crash-loop Chromium's out-of-process Audio Service during Arroxy dev startup
+description: macOS 26 with Electron (observed on 42.4.0) can crash-loop Chromium's out-of-process Audio Service during Arroxy dev startup
 metadata:
   type: project
 ---

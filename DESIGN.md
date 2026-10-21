@@ -356,7 +356,7 @@ Arroxy ships more than one **style**, Aurora and Minimal, and each style comes i
 1. Add the id to the style enum in `src/shared/schemas.ts`.
 2. Add its registry entry: label key, and a backdrop scene per scheme or none. Type checking fails until the entry exists.
 3. Add its stylesheet with the full contract for light and dark.
-4. Add the label string in every locale (`translate-arroxy-i18n`).
+4. Add the label string to `en.json`; the release sync translates it (ADR 0017).
 5. Review it in the UI Kit (`/?kit`) in both schemes and RTL.
 
 Nothing else changes: the Settings picker, persistence, the hardware fallback and the contrast gate all read the registry.

@@ -11,7 +11,7 @@ stdout (`[download] Destination:`, `[info] Writing video subtitles to:` →
 human-facing presentation stream, not an API, and it corrupts paths **four**
 independent ways. All four fail identically and silently: the path we hold was
 never written, `postProcessSubtitleFiles` ENOENTs, the warning is swallowed by
-design, and auto-captions keep the overlaps [[cue-overlap fix]] removes.
+design, and auto-captions keep the overlaps the cue-overlap pass (`src/main/services/cueOverlap.ts`) removes.
 
 Found via a 2026-09-12 report — a playlist of Persian-titled videos on Windows.
 Reported as "playlists break subtitles"; it is really **non-ASCII titles**, and a

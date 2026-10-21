@@ -64,6 +64,11 @@ jobs:
       - name: Check
         run: bun run check
 
+      # PRs change English only (ADR 0017); the release starts with the translation
+      # sync PR, so by the tag every locale must be fully translated and compiled.
+      - name: Translation completeness
+        run: bun run check:i18n:complete
+
   # Blocks publication: `publish-release` needs it, so a red gate leaves the
   # release a draft and nothing reaches users or package managers. It gates
   # publish rather than `prepare-release` so the builds run alongside it and the
@@ -630,24 +635,6 @@ jobs:
     steps:
       - id: deploy
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
-
-  notify-web-release-manifest:
-    needs: publish-release
-    # Only stable releases should update the public landing-page manifest.
-    # Pre-releases are intentionally invisible to /releases/latest.
-    if: ${{ !contains(github.ref_name, '-') }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dispatch arroxy-web manifest refresh
-        env:
-          GH_TOKEN: ${{ secrets.ARROXY_WEB_DISPATCH_TOKEN || secrets.WINGET_TOKEN }}
-          REF_NAME: ${{ github.ref_name }}
-        run: |
-          gh api repos/antonio-orionus/arroxy-web/dispatches \
-            --method POST \
-            -f event_type=arroxy-release \
-            -f client_payload[tag]="$REF_NAME" \
-            -f client_payload[source_repo]="$GITHUB_REPOSITORY"
 
   publish-scoop:
     needs: publish-release

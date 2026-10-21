@@ -7,7 +7,17 @@ export interface StringLeaf {
 	note?: string
 }
 
-export type CatalogIssueKind = 'missing-entry' | 'stale-source' | 'untranslated' | 'fuzzy' | 'latin-only' | 'extra-entry'
+export type CatalogIssueKind = 'missing-entry' | 'stale-source' | 'untranslated' | 'fuzzy' | 'latin-only' | 'placeholder-mismatch' | 'placeholder-drift' | 'extra-entry'
+
+/**
+ * Issues that only mean a locale is behind the English source. A PR that changes English leaves
+ * them behind on purpose; the translation sync at release closes them.
+ */
+const OPEN_ISSUE_KINDS: ReadonlySet<CatalogIssueKind> = new Set(['missing-entry', 'stale-source', 'untranslated', 'fuzzy', 'extra-entry'])
+
+export function isOpenIssue(issue: CatalogIssue): boolean {
+	return OPEN_ISSUE_KINDS.has(issue.kind)
+}
 
 export interface CatalogIssue {
 	kind: CatalogIssueKind
@@ -216,10 +226,93 @@ function matchingEntry(catalog: GetTextTranslations, key: string, source: string
 	return catalog.translations[key]?.[source]
 }
 
+const LINE_TERMINATOR = /[\n\r\u2028\u2029]/
+
+// `value, number`: i18next splits off the formatter and trims each part.
+function canonicalName(name: string): string {
+	return name
+		.split(',')
+		.map(part => part.trim())
+		.join(', ')
+}
+
+/**
+ * A placeholder as i18next reads it: `{{-name}}` (unescaped) or `{{name}}`, with the name and any
+ * `, formatter` trimmed, so `{{ name }}` and `{{name}}` are one variable. A token across lines is
+ * not interpolated at all, and `{{ -name }}` names a variable "-name": both keep their own form.
+ */
+function canonicalPlaceholder(token: string): string {
+	if (LINE_TERMINATOR.test(token)) return token
+	const inner = token.slice(2, -2)
+	if (inner.startsWith('-')) return `{{-${canonicalName(inner.slice(1))}}}`
+	const name = canonicalName(inner)
+	return name.startsWith('-') ? `{{ ${name} }}` : `{{${name}}}`
+}
+
+function placeholders(text: string): string[] {
+	return [...new Set((text.match(PLACEHOLDER) ?? []).map(canonicalPlaceholder))].sort()
+}
+
+function describePlaceholders(tokens: readonly string[]): string {
+	return tokens.length === 0 ? 'none' : tokens.join(' ')
+}
+
+/**
+ * Why `translation` cannot stand in for `source`, or undefined when its interpolation tokens match.
+ * A plural form may drop or add `{{count}}`: i18next always supplies it, and many languages spell
+ * out "one file" instead of "1 file".
+ */
+function placeholderMismatch(key: string, source: string, translation: string): string | undefined {
+	const ignoresCount = PLURAL_KEY.test(key)
+	const comparable = (tokens: string[]): string => tokens.filter(token => !ignoresCount || token !== '{{count}}').join(' ')
+	const expected = placeholders(source)
+	const found = placeholders(translation)
+	if (comparable(expected) === comparable(found)) return undefined
+	return `expected ${describePlaceholders(expected)}, found ${describePlaceholders(found)}`
+}
+
+function entryIssues(lang: string, key: string, entry: GetTextTranslation): CatalogIssue[] {
+	const translation = entry.msgstr[0] ?? ''
+	const issues: CatalogIssue[] = []
+	if (!usesLatinScript(lang) && !LATIN_ONLY_ALLOWED_KEYS.has(key) && isLatinOnly(translation)) issues.push({kind: 'latin-only', lang, key, detail: translation})
+	const mismatch = placeholderMismatch(key, entry.msgid, translation)
+	if (mismatch !== undefined) issues.push({kind: 'placeholder-mismatch', lang, key, detail: mismatch})
+	return issues
+}
+
+/**
+ * Problems with the translations a catalog already has, whatever the current English says: a
+ * translation that breaks its own source's placeholders, or English copied into a non-Latin-script
+ * locale. Untranslated and fuzzy entries are skipped; they are open work, not wrong translations.
+ */
+export function validateCatalogEntries(lang: string, catalog: GetTextTranslations): CatalogIssue[] {
+	const issues: CatalogIssue[] = []
+	for (const [key, entries] of Object.entries(catalog.translations)) {
+		if (key === '') continue
+		for (const entry of Object.values(entries)) {
+			if (isFuzzy(entry) || !translated(entry)) continue
+			issues.push(...entryIssues(lang, key, entry))
+		}
+	}
+	return issues
+}
+
+/** Runtime translations whose interpolation tokens no longer match the current English source. */
+export function placeholderDrift(lang: string, sourceLeaves: readonly StringLeaf[], localeLeaves: readonly StringLeaf[]): CatalogIssue[] {
+	const localeByPath = leafMap(localeLeaves)
+	const issues: CatalogIssue[] = []
+	for (const leaf of sourceLeaves) {
+		const translation = localeByPath.get(leaf.path)
+		if (translation === undefined) continue
+		const mismatch = placeholderMismatch(leaf.path, leaf.value, translation)
+		if (mismatch !== undefined) issues.push({kind: 'placeholder-drift', lang, key: leaf.path, detail: mismatch})
+	}
+	return issues
+}
+
 export function validateLocaleCatalog(lang: string, sourceLeaves: readonly StringLeaf[], catalog: GetTextTranslations): CatalogIssue[] {
 	const issues: CatalogIssue[] = []
 	const sourceByPath = leafMap(sourceLeaves)
-	const requiresOwnScript = !usesLatinScript(lang)
 
 	for (const leaf of sourceLeaves) {
 		const context = catalog.translations[leaf.path]
@@ -234,9 +327,10 @@ export function validateLocaleCatalog(lang: string, sourceLeaves: readonly Strin
 			continue
 		}
 
+		// A fuzzy translation is of older English: the sync re-translates it, so only its state counts.
 		if (isFuzzy(entry)) issues.push({kind: 'fuzzy', lang, key: leaf.path})
-		if (!translated(entry)) issues.push({kind: 'untranslated', lang, key: leaf.path})
-		else if (requiresOwnScript && !LATIN_ONLY_ALLOWED_KEYS.has(leaf.path) && isLatinOnly(entry.msgstr[0] ?? '')) issues.push({kind: 'latin-only', lang, key: leaf.path, detail: entry.msgstr[0]})
+		else if (!translated(entry)) issues.push({kind: 'untranslated', lang, key: leaf.path})
+		else issues.push(...entryIssues(lang, leaf.path, entry))
 	}
 
 	for (const key of Object.keys(catalog.translations)) {
@@ -263,11 +357,25 @@ function setPath(root: JsonObject, path: string, value: string): void {
 	cursor[parts[parts.length - 1] ?? path] = value
 }
 
-export function compileLocaleTree(sourceLeaves: readonly StringLeaf[], catalog: GetTextTranslations): JsonObject {
+/**
+ * The runtime tree for `lang`: every entry translated for the current English, and nothing else.
+ * An entry that is missing, untranslated, fuzzy, stale or wrong is left out, so the app shows
+ * English there (`fallbackLng`) until the release sync translates it. A plural group is written
+ * whole or not at all, so one message never switches language between counts.
+ */
+export function compileLocaleTree(lang: string, sourceLeaves: readonly StringLeaf[], catalog: GetTextTranslations): JsonObject {
+	const blocked = new Set(
+		validateLocaleCatalog(lang, sourceLeaves, catalog)
+			.filter(issue => issue.kind !== 'extra-entry')
+			.map(issue => issue.key)
+	)
+	const blockedPluralBases = new Set([...blocked].flatMap(key => PLURAL_KEY.exec(key)?.[1] ?? []))
 	const root: JsonObject = {}
 	for (const leaf of sourceLeaves) {
+		const pluralBase = PLURAL_KEY.exec(leaf.path)?.[1]
+		if (blocked.has(leaf.path) || (pluralBase !== undefined && blockedPluralBases.has(pluralBase))) continue
 		const entry = matchingEntry(catalog, leaf.path, leaf.value)
-		setPath(root, leaf.path, entry?.msgstr[0] ?? '')
+		if (entry !== undefined) setPath(root, leaf.path, entry.msgstr[0] ?? '')
 	}
 	return root
 }

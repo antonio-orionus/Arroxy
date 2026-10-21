@@ -16,7 +16,7 @@ Key decisions (all learned the hard way over several wrong attempts — hand-rol
 - **Stars:** dark aurora keeps hashed twinkling dots in the upper sky. Light ocean has no stars.
 - **Sharpness:** raw nimitz reads as fog. Three knobs make it read as defined curtains: `triNoise2d` return exponent `pow(rz*29.0, 1.5)` (was 1.3 = thinner brighter peaks), `aur = smoothstep(0.0, 1.15, aur)` contrast lift, and `aur.rgb = pow(aur.rgb, vec3(0.85))` gamma.
 - **Render scale:** dark aurora is heavier and renders at its scene scale. Light ocean is deliberately cheaper: one fragment shader, no Three.js, no meshes, no render targets, no postprocessing.
-- rAF pauses on `document.hidden`; `prefers-reduced-motion` draws one static frame. If WebGL is unavailable the host switches to the CSS gradient fallback (`backdrop-static-fallback` body class, set by `CanvasSceneHost`).
+- rAF pauses on `document.hidden`; `prefers-reduced-motion` draws one static frame. While WebGL runs, `CanvasSceneHost` sets the `backdrop-webgl-active` body class; without it (no WebGL, or a rejected software renderer) the CSS gradients show instead.
 
 Tune the right layer:
 

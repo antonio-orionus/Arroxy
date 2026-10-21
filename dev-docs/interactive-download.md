@@ -11,12 +11,11 @@ Lives in (today's code this changes):
 | Area | Files |
 | --- | --- |
 | Step graph | `src/renderer/src/store/wizard/wizardStepGraph.ts`, `src/shared/schemas.ts` (`wizardStepNameSchema`) |
-| Format screen | `src/renderer/src/components/wizard/StepFormatSelect.tsx`, `components/wizard/format/*` (`PresetStrip`, `VideoColumn`, `AudioColumn`, `FormatFooter`, `BotWallNotice`) |
-| Other steps | `StepSubtitles.tsx`, `StepSponsorBlock.tsx`, `StepOutput.tsx`, `StepFolderConfirm.tsx`, `StepConfirm.tsx` |
-| Selection state | `store/wizard/formatPicker.ts`, `probeResultProjection.ts`, `persistFormatPrefs.ts`, `formatSelectionView.ts`, `resolveContainer.ts` |
+| Format screen | `src/renderer/src/components/wizard/StepFormatSelect.tsx`, `components/wizard/format/*` (`VideoColumn`, `AudioColumn`, `FormatFooter`, `VideoPartControls`, `BotWallNotice`) |
+| Other steps | `StepSponsorBlock.tsx`, `StepOutput.tsx`, `StepFolderConfirm.tsx`, `StepConfirm.tsx` |
+| Selection state | `store/wizard/formatPicker.ts`, `probeResultProjection.ts`, `persistFormatPrefs.ts`, `resolveContainer.ts`, `store/formatSelectionView.ts` |
 | Review and submit | `store/wizard/downloadReviewProjection.ts`, `queueSubmission.ts`, `src/shared/prepareJob.ts`, `src/shared/sanitizeJobOptions.ts` |
 | Profiles | `src/shared/downloadProfiles.ts`, `src/shared/mediaIntent.ts` |
-| Presets | `src/shared/presetTraits.ts`, `presetSchema` in `src/shared/schemas.ts` |
 | Clips | `packages/yt-dlp-bridge/src/workflow.ts` (`CallerMediaWorkflowInput`), `src/main/services/phases/VideoPhase.ts`, `src/main/services/ProbeService.ts`, `src/shared/filenameTemplate.ts`, `src/shared/playlistMedia.ts` |
 
 ## Why
@@ -300,8 +299,7 @@ removed settings.
    the package is a separate release. Then probe chapters, job field,
    VideoPhase mapping, UI, E2E.
 
-Translations happen once, right before each PR (English only while
-building).
+Each PR changes English only; the release sync translates (ADR 0017).
 
 ## Out of scope
 

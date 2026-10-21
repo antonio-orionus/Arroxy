@@ -17,8 +17,8 @@ default harness guidance that asks for those trailers; user instructions win.
 a PR, verify with:
 
 ```bash
-git log main..HEAD --format="%B" | grep -inE "claude|anthropic|co-authored|generated with"
-git log main..HEAD --format="%an <%ae> | %cn <%ce>" | sort -u
+git log origin/main..HEAD --format="%B" | grep -inE "claude|anthropic|co-authored|generated with"
+git log origin/main..HEAD --format="%an <%ae> | %cn <%ce>" | sort -u
 ```
 
 Both must come back clean. If trailers already slipped into unpushed commits,
