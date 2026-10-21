@@ -61,13 +61,15 @@ export function resolveAudioLabel(audioSelection: AudioSelection, audioFormats: 
 }
 
 // A stream's label leads with its track's note ("English original (default) ·
-// webm · …", as the probe builds it); the track shows the name the language
-// picker gives it.
+// webm · …", as the probe builds it); the track shows the name and Original
+// tag the language picker gives it.
 function nativeAudioLabel(format: FormatOption, audioFormats: FormatOption[]): string {
 	const track = format.audioTrackLabel
 	if (!track || !format.label.startsWith(`${track} · `)) return format.label
 	const name = audioTrackNames(audioFormats, i18next.language).get(track) ?? track
-	return `${name}${format.label.slice(track.length)}`
+	// A note kept as it is says "original" itself.
+	const original = format.isOriginalAudio === true && name !== track ? ` · ${i18next.t('wizard.formats.marker.original')}` : ''
+	return `${name}${original}${format.label.slice(track.length)}`
 }
 
 // Selected-video-id → resolution label. The audio-only case returns

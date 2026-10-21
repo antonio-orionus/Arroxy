@@ -54,6 +54,20 @@ describe('resolveAudioLabel — native streams', () => {
 		expect(label({kind: 'native', formatId: '251-0'}, TRACKS)).toBe('Английский · webm · Opus · 130 kbps')
 	})
 
+	it('says the track is the original, as the language picker does', async () => {
+		await i18next.changeLanguage('ru')
+		const original = {...TRACKS[0], isOriginalAudio: true}
+
+		expect(label({kind: 'native', formatId: '251-0'}, [original, TRACKS[1]])).toMatch(/^Английский · \S+ · webm · Opus · 130 kbps$/)
+		expect(label({kind: 'native', formatId: '251-0'}, [original, TRACKS[1]])).not.toContain('English')
+	})
+
+	it("doesn't repeat the original in a note kept as it is", () => {
+		const unnamed = {...track('251-9', 'qaa', 'Commentary original (default)'), isOriginalAudio: true}
+
+		expect(label({kind: 'native', formatId: '251-9'}, [unnamed, TRACKS[1]])).toBe('Commentary original (default) · webm · Opus · 130 kbps')
+	})
+
 	it('names the track among the listed streams, as the picker does, not their hidden copies', async () => {
 		await i18next.changeLanguage('ru')
 		// YouTube's HLS copy has no codec and its own note for the same language.
