@@ -226,23 +226,72 @@ describe('quickDownload', () => {
 		expect(useAppStore.getState().wizardStep).toBe('url')
 	})
 
-	it('queues the whole playlist when quick download mixed URL prompt chooses the playlist', async () => {
+	it('queues the first N of the playlist, N being the load limit, when quick download mixed URL prompt chooses the playlist', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
 		window.appApi = api
 
 		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
-		useAppStore.setState({wizardUrl: mixedUrl, wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
+		const settings = defaultAppSettings('/tmp')
+		useAppStore.setState({wizardUrl: mixedUrl, wizardOutputDir: '/tmp', settings})
 
 		await useAppStore.getState().quickDownload({url: mixedUrl, entry: 'url-tab'})
+		// The limit is read when the answer comes, not when the prompt opened.
+		useAppStore.setState({settings: {...settings, common: {...settings.common, playlistProbeLimit: 250}}})
 		await useAppStore.getState().dismissMixedPrompt('playlist')
 
-		expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'playlist', ownerKey: expect.any(String)})
+		expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'playlist', playlistScope: {items: {kind: 'first', count: 250}}, ownerKey: expect.any(String)})
 		const items = await swapped(api)
 		expect(items).toHaveLength(2)
 		expect(items.every(item => item.job.kind === 'ranged-format')).toBe(true)
 		expect(items.every(item => item.playlistGroupId === items[0]?.playlistGroupId)).toBe(true)
 		expect(useAppStore.getState().wizardStep).toBe('url')
+	})
+
+	it('answers an Explore prompt with the first N for the list and no take for the video', async () => {
+		const api = buildMockAppApi()
+		window.appApi = api
+		const realQuickDownload = useAppStore.getState().quickDownload
+		const quickDownload = vi.fn(async () => {})
+		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
+		const settings = defaultAppSettings('/tmp')
+		useAppStore.setState({settings: {...settings, common: {...settings.common, playlistProbeLimit: 250}}, quickDownload})
+		try {
+			useAppStore.setState({mixedUrlPromptOpen: true, mixedUrlPending: mixedUrl, mixedUrlPromptSource: 'explore'})
+			await useAppStore.getState().dismissMixedPrompt('playlist')
+			expect(quickDownload).toHaveBeenLastCalledWith({url: mixedUrl, entry: 'explore', playlistMode: 'playlist', take: {kind: 'first', count: 250}})
+
+			useAppStore.setState({mixedUrlPromptOpen: true, mixedUrlPending: mixedUrl, mixedUrlPromptSource: 'explore'})
+			await useAppStore.getState().dismissMixedPrompt('video')
+			expect(quickDownload).toHaveBeenLastCalledWith({url: mixedUrl, entry: 'explore', playlistMode: 'video'})
+		} finally {
+			useAppStore.setState({quickDownload: realQuickDownload})
+		}
+	})
+
+	it('loads the first N the Interactive prompt promises, not a custom range left over from an earlier list', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
+		useAppStore.setState({wizardUrl: mixedUrl, playlistScope: {items: {kind: 'range', from: 10, to: 20}}, mixedUrlPromptOpen: true, mixedUrlPending: mixedUrl, mixedUrlPromptSource: 'wizard'})
+
+		await useAppStore.getState().dismissMixedPrompt('playlist')
+
+		expect(api.downloads.probe).toHaveBeenCalledWith(expect.objectContaining({url: mixedUrl, playlistMode: 'playlist', playlistScope: {items: {kind: 'app-limit'}}}))
+	})
+
+	it.each(['video', 'playlist'] as const)('opens the cookies config dialog instead of probing when the Interactive prompt answers %s with an incomplete cookie setup', async choice => {
+		const api = buildMockAppApi()
+		window.appApi = api
+		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
+		const defaults = defaultAppSettings('/tmp')
+		useAppStore.setState({wizardUrl: mixedUrl, settings: {...defaults, common: {...defaults.common, cookiesMode: 'file', cookiesPath: ''}}, mixedUrlPromptOpen: true, mixedUrlPending: mixedUrl, mixedUrlPromptSource: 'wizard'})
+
+		await useAppStore.getState().dismissMixedPrompt(choice)
+
+		expect(api.downloads.probe).not.toHaveBeenCalled()
+		expect(useAppStore.getState().cookiesConfigDialogIssue).toBe('file-missing-path')
 	})
 
 	it('works on first launch with default profile settings', async () => {

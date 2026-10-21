@@ -1,0 +1,1 @@
+On a link to a video inside a playlist, the dialog now starts on just that video, names the kind of list (album, uploads, Watch later and more), and keeps the number of videos you chose when you retry.

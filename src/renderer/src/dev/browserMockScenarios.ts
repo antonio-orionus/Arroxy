@@ -250,8 +250,8 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'probe-live-stream', group: 'Probe Results', title: 'Live stream', description: 'isLive:true - live-stream indicator and format restrictions should show.', kind: 'probe'},
 	// Real probes kept as fixtures (`bun run probe-sources:capture`), mapped the way the app maps them.
 	...PROBE_SOURCES.map((source): BrowserMockScenario => ({id: `source-${source.id}`, group: 'Real sites', title: source.id, description: source.shows, kind: 'probe'})),
-	{id: 'dialog-mixed-url', group: 'Dialogs', title: 'Mixed URL prompt', description: 'Opens the "This link has a playlist" prompt from the wizard at startup.', kind: 'dialog'},
-	{id: 'dialog-mixed-url-quick', group: 'Dialogs', title: 'Mixed URL prompt (Quick Download)', description: 'Opens the "This link has a playlist" prompt from the URL tab, with the longer Quick Download actions.', kind: 'dialog'},
+	{id: 'dialog-mixed-url', group: 'Dialogs', title: 'Mixed URL prompt', description: 'Opens the "Download from this playlist" prompt from Interactive at startup: "Just this video" or "Pick from the playlist, first [N]".', kind: 'dialog'},
+	{id: 'dialog-mixed-url-quick', group: 'Dialogs', title: 'Mixed URL prompt (Quick Download)', description: 'Opens the "Download from this playlist" prompt from the URL tab: "With <profile>", "Just this video" or "The playlist, first [N]".', kind: 'dialog'},
 	{id: 'dialog-cookies-issue', group: 'Dialogs', title: 'Cookies config issue', description: 'Triggers the cookies config issue dialog (file mode, missing path).', kind: 'dialog'},
 	{id: 'update-direct', group: 'Updates', title: 'Direct update', description: 'Install & Restart action (Win/Linux direct install).', kind: 'update'},
 	{id: 'update-darwin-dmg', group: 'Updates', title: 'Darwin DMG', description: 'Direct channel on macOS - shows Download link. Use platform=mac knob to activate darwin path.', kind: 'update'},
@@ -538,7 +538,7 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 	}
 	if (scenario.kind === 'dialog') {
 		if (scenario.id === 'dialog-mixed-url') {
-			store.setState({mixedUrlPromptOpen: true, mixedUrlPending: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ\nhttps://www.youtube.com/watch?v=jNQXAC9IVRw'})
+			store.setState({mixedUrlPromptOpen: true, mixedUrlPending: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf', mixedUrlPromptSource: 'wizard'})
 		} else if (scenario.id === 'dialog-mixed-url-quick') {
 			store.setState({mixedUrlPromptOpen: true, mixedUrlPending: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf', mixedUrlPromptSource: 'url-tab'})
 		} else if (scenario.id === 'dialog-cookies-issue') {

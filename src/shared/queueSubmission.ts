@@ -5,7 +5,7 @@
 // wherever intake runs.
 
 import {DEFAULTS} from '@shared/constants.js'
-import {downloadProfileLabel, resolveChosenDownloadProfile, resolveDownloadProfile, resolveDownloadProfileBaseDir, resolveDownloadProfileOutputDir, type DownloadProfileOutputContext, type ResolvedDownloadProfile} from '@shared/downloadProfiles.js'
+import {resolveChosenDownloadProfile, resolveDownloadProfile, resolveDownloadProfileBaseDir, resolveDownloadProfileOutputDir, type DownloadProfileOutputContext, type ResolvedDownloadProfile} from '@shared/downloadProfiles.js'
 import {templateOutputDir} from '@shared/filenameTemplate.js'
 import {resolveHdrSetting} from '@shared/hdrSetting.js'
 import {bindJobFilename, canWriteM3u, playlistEntryTemplateMeta, profileInFlight, resolveJobFilenameTemplate, templateOwnsDirs, videoProbeTemplateMeta, type FilenameBinding} from '@shared/outputTemplates.js'
@@ -39,6 +39,8 @@ export interface PreparedQueueSubmission {
 /** What preparing rows needs from the host it runs in. */
 export interface QueuePreparationEnv {
 	newId(): string
+	// A profile's format for its queue rows, in the app language.
+	profileFormatLabel(profile: DownloadProfile): string
 	// Whether the screen shows HDR, which settles the Auto HDR setting.
 	displayShowsHdr: boolean
 	filenames: FilenameBinding
@@ -141,6 +143,7 @@ export function buildProfileEntryQueueItem(params: {
 	extractorKey: string
 	resolved: ResolvedDownloadProfile
 	profile: DownloadProfile
+	formatLabel: string
 	filenameTemplate: string
 	nativeAudioPreference: NativeAudioPreference
 	hdrPreference: HdrPreference
@@ -155,7 +158,7 @@ export function buildProfileEntryQueueItem(params: {
 		...placeholderTitleFlag(params.entry.titleIsPlaceholder),
 		thumbnail: params.entry.thumbnail,
 		outputDir: params.outputDir,
-		formatLabel: downloadProfileLabel(params.profile),
+		formatLabel: params.formatLabel,
 		status: QUEUE_STATUS.pending,
 		lane: params.lane,
 		progressPercent: 0,
@@ -184,6 +187,7 @@ export function preparePinnedProfileQueueSubmission(probe: ProbeResult, inputs: 
 	const nativeAudioPreference = settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
 	const hdrPreference = resolveHdrSetting(settings?.common?.hdrPreference ?? DEFAULTS.hdrPreference, env.displayShowsHdr).preference
 	const resolved = resolveDownloadProfile(profile, ref, nativeAudioPreference, hdrPreference)
+	const formatLabel = env.profileFormatLabel(profile)
 	const {outputContext} = pinned
 	const baseDir = resolveDownloadProfileBaseDir(profile, outputContext)
 	const singleOutputDir = resolveDownloadProfileOutputDir(profile, outputContext)
@@ -203,6 +207,7 @@ export function preparePinnedProfileQueueSubmission(probe: ProbeResult, inputs: 
 			extractorKey: probe.extractorKey,
 			resolved,
 			profile,
+			formatLabel,
 			filenameTemplate: bindJobFilename(template, templateMeta, templateOutputDir(singleOutputDir, template, templateMeta), profileInFlight(resolved, probe.formats), env.filenames),
 			nativeAudioPreference,
 			hdrPreference,
@@ -241,6 +246,7 @@ export function preparePinnedProfileQueueSubmission(probe: ProbeResult, inputs: 
 			extractorKey: probe.extractorKey,
 			resolved,
 			profile,
+			formatLabel,
 			filenameTemplate: bindJobFilename(profileTemplate, entryMeta, ownsDirs ? templateOutputDir(playlistRoot, profileTemplate, entryMeta) : playlistRoot, profileInFlight(resolved, entry.probedFormats ?? []), env.filenames),
 			nativeAudioPreference,
 			hdrPreference,

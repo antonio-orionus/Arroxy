@@ -1,5 +1,5 @@
 import {beforeEach, describe, expect, it} from 'vite-plus/test'
-import {resolveQuickProbe} from '@renderer/store/quickDownload/quickProbeResolution.js'
+import {resolveQuickProbe, scopeForTake} from '@renderer/store/quickDownload/quickProbeResolution.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {RESET_WIZARD_STATE} from '@renderer/store/wizard/commands.js'
 import {defaultAppSettings} from '@shared/constants.js'
@@ -16,6 +16,7 @@ import type {PlaylistEntry, ProbeResult, QueueItem} from '@shared/types.js'
 
 const PLAYLIST_URL = 'https://www.youtube.com/playlist?list=PLtest'
 const VIDEO_URL = 'https://www.youtube.com/watch?v=abc'
+const MIXED_URL = 'https://www.youtube.com/watch?v=abc&list=PLtest'
 const VIDEO: Extract<ProbeResult, {kind: 'video'}> = {
 	kind: 'video',
 	extractor: 'youtube',
@@ -122,6 +123,17 @@ describe('resolveQuickProbe', () => {
 		expect(resolution.kind === 'queue' && resolution.prepared.items.length).toBe(5)
 	})
 
+	it('a take larger than the list queues every entry without a choice', () => {
+		const resolution = resolveQuickProbe(ok(playlist(3)), {url: MIXED_URL, playlistMode: 'playlist', limit: 10, take: {kind: 'first', count: 10}}, state())
+		expect(resolution.kind).toBe('queue')
+		if (resolution.kind === 'queue') expect(resolution.prepared.items).toHaveLength(3)
+	})
+
+	it('a take stops the cap question even when the probe found more than the take', () => {
+		const resolution = resolveQuickProbe(ok(playlist(5)), {url: MIXED_URL, playlistMode: 'playlist', limit: 2, take: {kind: 'first', count: 2}}, state())
+		expect(resolution.kind).toBe('queue')
+	})
+
 	it('reports nothing new when every video is already live in the queue', () => {
 		const live = entries(2).map((entry, index) => ({id: `q${index}`, url: entry.url, status: 'pending'}) as QueueItem)
 		expect(resolveQuickProbe(ok(playlist(2)), {url: PLAYLIST_URL, playlistMode: 'playlist', limit: 100}, state(live))).toEqual({kind: 'nothing-new', skippedAlreadyQueued: 2})
@@ -148,5 +160,12 @@ describe('resolveQuickProbe', () => {
 		const containers = {...playlist(2), entries: entries(2).map(entry => ({...entry, isContainer: true as const}))}
 		const resolution = resolveQuickProbe(ok(containers), {url: PLAYLIST_URL, playlistMode: 'playlist', limit: 100}, state())
 		expect(resolution).toMatchObject({kind: 'failed', probeError: null})
+	})
+})
+
+describe('scopeForTake', () => {
+	it('looks at exactly the first N for a count, and as wide as the load ceiling for All', () => {
+		expect(scopeForTake({kind: 'first', count: 7})).toEqual({items: {kind: 'first', count: 7}})
+		expect(scopeForTake({kind: 'all'})).toEqual({items: {kind: 'first', count: 5000}})
 	})
 })

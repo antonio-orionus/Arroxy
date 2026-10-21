@@ -11,6 +11,7 @@ import {ProfilesManageTab} from '../components/wizard/DownloadProfilesManageTab.
 import {ProfilePickerContextItems, ProfilePickerInline, ProfilePickerMenu, type ProfilePickerLayout, type ProfilePickerPanelProps} from '../components/wizard/ProfilePicker.js'
 import {profilePickerOptions} from '../components/wizard/profilePickerOptions.js'
 import {useProfileDisplayName} from '@renderer/lib/profileName.js'
+import {ProfileSummaryContent} from '../components/wizard/ProfileSummaryContent.js'
 
 // One set of saved profiles behind every picker below: a custom profile moved
 // up the saved order, two built-ins and a custom profile hidden.
@@ -28,6 +29,21 @@ const PREFS: DownloadProfilesPrefs = {active: {kind: 'builtin', id: 'balanced'},
 const ACTIVE = resolveActiveDownloadProfile(PREFS).profile
 const QHD = allDownloadProfiles(PREFS).find(profile => profile.id === 'best-1440') ?? ACTIVE
 const LECTURES_SAVED = allDownloadProfiles(PREFS).find(profile => profile.id === LECTURES.id) ?? LECTURES
+
+// Every kind of profile the summary hint has to describe.
+const WAV: DownloadProfile = {...builtin('audio-only'), id: 'kit-wav', name: 'Studio WAV', icon: 'music', media: {kind: 'audio-only', audio: {format: 'wav'}}}
+const COURSE: DownloadProfile = {
+	...builtin('hd-1080'),
+	id: 'kit-course',
+	name: 'Course archive',
+	icon: 'classes',
+	media: {kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'mkv', audio: {native: {kind: 'default'}}},
+	subtitles: {enabled: true, languages: ['en', 'de', 'uk'], source: 'manual-first', mode: 'sidecar', format: 'srt'},
+	output: {kind: 'fixed', dir: '~/Videos/Courses'},
+	embed: {chapters: true, metadata: true, thumbnail: true, description: true, thumbnailSidecar: false}
+}
+const SILENT: DownloadProfile = {...builtin('balanced'), id: 'kit-silent', name: 'B-roll', icon: 'clip', media: {kind: 'video-only', goal: 'smart-tv', tier: '720', fileType: 'mp4'}}
+const SUMMARY_SAMPLES: readonly DownloadProfile[] = [builtin('best-quality'), builtin('balanced'), builtin('mp4-720'), builtin('audio-only'), PODCAST, WAV, builtin('subtitles-only'), COURSE, SILENT]
 
 const noop = (): void => undefined
 const panelHandlers = {onPickProfile: noop, onEditProfile: noop, onNewProfile: noop}
@@ -121,6 +137,16 @@ export function UiKitProfilePickers(): ReactNode {
 						</li>
 					))}
 				</ol>
+			</Variant>
+
+			<Variant title="Summary hint" rule="Profile lists show names only. Hovering a profile in any picker or on the Profiles tab opens this beside it: everything the profile does, in the app language. Shown open here for each kind of profile.">
+				<div className="flex flex-wrap items-start gap-3">
+					{SUMMARY_SAMPLES.map(profile => (
+						<div key={profile.id} className="w-fit rounded-md bg-popover px-3 py-1.5 text-xs text-popover-foreground shadow-md ring-1 ring-foreground/10">
+							<ProfileSummaryContent profile={profile} />
+						</div>
+					))}
+				</div>
 			</Variant>
 
 			<Variant title="Editor · Profiles tab" rule="Stays an editor (every profile, hidden ones dimmed, drag to reorder) and shares the check, the selected surface and the Hidden tag.">

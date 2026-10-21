@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import type {ElectronApplication, Page} from '@playwright/test'
-import {DEFAULT_DOWNLOAD_PROFILES_PREFS, downloadProfileLabel, resolveActiveDownloadProfile, resolveDownloadProfile} from '../../src/shared/downloadProfiles.js'
+import {DEFAULT_DOWNLOAD_PROFILES_PREFS, resolveActiveDownloadProfile, resolveDownloadProfile} from '../../src/shared/downloadProfiles.js'
 import {DEFAULT_FILENAME_TEMPLATE} from '../../src/shared/filenameTemplate.js'
 import {prepareJob} from '../../src/shared/prepareJob.js'
 import {queueArraySchema} from '../../src/shared/queueItemSchema.js'
@@ -16,6 +16,7 @@ import {
 	fixturePlaylistUrl,
 	fixtureRepeatedPlaylistUrl,
 	fixtureUrl,
+	fixtureVideoInPlaylistUrl,
 	runProcess,
 	startDenyProxy,
 	startFixtureServer,
@@ -53,6 +54,7 @@ interface FixtureYtDlpOptions {
 
 interface UrlHelpers {
 	video: (videoId: string) => string
+	videoInPlaylist: (videoId: string) => string
 	playlist: () => string
 	repeatedPlaylist: () => string
 	overlapPlaylist: () => string
@@ -98,7 +100,7 @@ export interface FixtureYtDlpContext {
 }
 
 function urls(): UrlHelpers {
-	return {video: fixtureUrl, playlist: fixturePlaylistUrl, repeatedPlaylist: fixtureRepeatedPlaylistUrl, overlapPlaylist: fixtureOverlapPlaylistUrl, videos: videoIds => videoIds.map(fixtureUrl)}
+	return {video: fixtureUrl, videoInPlaylist: fixtureVideoInPlaylistUrl, playlist: fixturePlaylistUrl, repeatedPlaylist: fixtureRepeatedPlaylistUrl, overlapPlaylist: fixtureOverlapPlaylistUrl, videos: videoIds => videoIds.map(fixtureUrl)}
 }
 
 function queue(page: Page): QueueHelpers {
@@ -149,7 +151,7 @@ export function restoredQueueItem(id: string, videoId: string, title: string, ou
 		title,
 		thumbnail: '',
 		outputDir,
-		formatLabel: downloadProfileLabel(profile),
+		formatLabel: 'Up to 720p · Best picture',
 		status: 'pending',
 		lane: 'normal',
 		progressPercent: 0,

@@ -1,5 +1,5 @@
 import type {AppApi} from '@shared/api.js'
-import {isYouTubeHostname} from '@shared/sites/youtube.js'
+import {isYouTubeHostname} from '@shared/sites/youtubeHost.js'
 import type {
 	AppSettings,
 	DependencyDiagnostic,

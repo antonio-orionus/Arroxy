@@ -150,6 +150,10 @@ _Avoid_: URL type, URL kind
 A source URL that expands into multiple videos queued together — including a channel or a search, which Arroxy treats as playlists. The URL classifier may still tag the source as playlist, channel, or search for routing.
 _Avoid_: collection, batch
 
+**List kind**:
+What kind of list a link names, read from the link itself: playlist, Mix, album, uploads, Watch later or liked. When the link doesn't say, it's a playlist.
+_Avoid_: list type, collection type
+
 **Load limit**:
 The most entries Arroxy loads from one playlist before going on; a playlist that runs past it is capped, and its count is only a lower bound. The user sets it.
 _Avoid_: scan limit, probe limit, playlist cap
@@ -159,7 +163,7 @@ A URL that names one video and a playlist at once, so the user's intent is genui
 _Avoid_: combo URL, dual URL, video+playlist URL
 
 **Mixed URL prompt**:
-The question a mixed URL raises before its probe: this video, or the whole playlist. The global hotkey never asks it and takes the video, since a stray video is cheaper to undo than a stray playlist; Bulk URLs settle mixed URLs in their own review.
+The question a mixed URL raises before its probe, from the download or Interactive control: just this video (the default), or the list with how many to load. It asks what, never how. The global hotkey never asks it and takes the video, since a stray video is cheaper to undo than a stray playlist; Bulk URLs settle mixed URLs in their own review.
 _Avoid_: playlist prompt, video-or-playlist dialog
 
 **Placeholder title**:

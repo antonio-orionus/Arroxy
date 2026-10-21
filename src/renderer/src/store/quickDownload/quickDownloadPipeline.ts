@@ -11,18 +11,20 @@
 // Entry points differ only in how a link is taken in (their own intake) and in
 // how the user hears about it: the `QuickDownloadFeedback` they pass.
 
-import {QUEUE_STATUS, PLAYLIST_PROBE_LIMIT_MAX, type QueueChoice} from '@shared/schemas.js'
+import {QUEUE_STATUS, PLAYLIST_PROBE_LIMIT_MAX, type QueueChoice, type QuickProbeTake} from '@shared/schemas.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
-import {downloadProfileLabel, resolveChosenDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
+import {resolveChosenDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import type {PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, QueueItem} from '@shared/types.js'
 import type {AppState, GetState} from '../types.js'
 import {generateId} from '../helpers.js'
 import {detach} from './detachedTask.js'
 import type {PinnedDownloadProfile} from '@shared/queueSubmission.js'
-import type {QuickProbeResolution, QuickProbeTake} from '@shared/intake/probeResolution.js'
+import type {QuickProbeResolution} from '@shared/intake/probeResolution.js'
 import {pinActiveDownloadProfile} from '../wizard/queueSubmission.js'
-import {resolveQuickProbe} from './quickProbeResolution.js'
+import {resolveQuickProbe, scopeForTake} from './quickProbeResolution.js'
+import {profileFormatLabel} from '@renderer/lib/profileSummary.js'
+import i18next from 'i18next'
 
 export interface QuickDownloadRequest {
 	// Cleaned, and already through the entry point's intake policy.
@@ -30,6 +32,9 @@ export interface QuickDownloadRequest {
 	playlistMode: ProbePlaylistMode
 	// The row's title until the probe knows the real one (Explore's page title).
 	title?: string
+	// How much of a collection to keep, when the user already chose. It rides on
+	// the row, so Retry and a restart keep to it and nothing asks again.
+	take?: QuickProbeTake
 }
 
 // What the user hears about. Rows the event names are already in the queue.
@@ -119,7 +124,7 @@ function placeholderRow(request: QuickDownloadRequest, pinned: PinnedDownloadPro
 		title: titleHint.length > 0 ? titleHint : request.url,
 		thumbnail: '',
 		outputDir,
-		formatLabel: downloadProfileLabel(profile),
+		formatLabel: profileFormatLabel(profile, i18next.t, i18next.language),
 		status: QUEUE_STATUS.probing,
 		lane: 'normal',
 		progressPercent: 0,
@@ -132,6 +137,7 @@ function placeholderRow(request: QuickDownloadRequest, pinned: PinnedDownloadPro
 		writeM3u: false,
 		retryCount: 0,
 		probeMode: request.playlistMode,
+		...(request.take ? {probeTake: request.take} : {}),
 		job: {kind: 'unresolved', extractor: '', extractorKey: ''}
 	}
 }
@@ -161,7 +167,7 @@ export async function placeQuickDownload(request: QuickDownloadRequest, get: Get
 	}
 	placedProfiles.set(row.id, pinned)
 	feedback({kind: 'added', itemId: row.id, title: row.title})
-	detach(runPlaceholderProbe(row.id, {url: row.url, playlistMode: request.playlistMode, title: row.title}, get, feedback), 'background probe')
+	detach(runPlaceholderProbe(row.id, {url: row.url, playlistMode: request.playlistMode, title: row.title, ...(request.take ? {take: request.take, scope: scopeForTake(request.take)} : {})}, get, feedback), 'background probe')
 	return row.id
 }
 

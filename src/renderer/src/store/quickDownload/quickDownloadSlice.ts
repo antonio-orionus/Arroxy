@@ -5,17 +5,17 @@
 
 import {cleanUrl} from '@shared/cleanUrl.js'
 import {getIncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
-import {PLAYLIST_PROBE_LIMIT_MAX, QUEUE_STATUS} from '@shared/schemas.js'
+import {QUEUE_STATUS, type QuickProbeTake} from '@shared/schemas.js'
 import {classifyUrlIntent} from '@shared/urlIntent.js'
 import {ok} from '@shared/result.js'
-import type {ProbePlaylistMode, QueueItem} from '@shared/types.js'
+import type {PlaylistScope, ProbePlaylistMode, QueueItem} from '@shared/types.js'
 import type {ExploreRetryTarget, GetState, QuickDownloadSlice, SetState} from '../types.js'
 import {mixedUrlPromptPatch} from '../wizard/mixedUrlPrompt.js'
 import {canSwitchToExplore, configuredCookiesRetryMode} from '../wizard/probeErrorExperience.js'
 import {rewriteYouTubeChannelRoot} from '@shared/intake/urlIntake.js'
 import {policyForUrlIntent} from '@shared/intake/urlIntentPolicy.js'
 import {applyResolution, forgetChoiceProbe, keptChoiceProbe, placedProfile, placeQuickDownload, runPlaceholderProbe} from './quickDownloadPipeline.js'
-import {resolveQuickProbe} from './quickProbeResolution.js'
+import {resolveQuickProbe, scopeForTake} from './quickProbeResolution.js'
 import {quickDownloadToasts} from './quickDownloadToasts.js'
 import {withRetryTarget} from './exploreSignInRetry.js'
 
@@ -45,11 +45,14 @@ async function restartProbe(itemId: string): Promise<boolean> {
 	}
 }
 
-// Back to probing in main, then probe again with the row's own settings.
-async function reprobeRow(row: PlaceholderRow, get: GetState, widen?: Pick<Parameters<typeof runPlaceholderProbe>[1], 'scope' | 'take'>): Promise<void> {
+// Back to probing in main, then probe again with the row's own settings: a
+// widening answer overrides them, otherwise the count the row was placed with
+// (if any) applies, so a Retry or a restart never asks "how many?" again.
+async function reprobeRow(row: PlaceholderRow, get: GetState, widen?: {scope: PlaylistScope; take: QuickProbeTake}): Promise<void> {
 	if (!(await restartProbe(row.id))) return
 	forgetChoiceProbe(row.id)
-	await runPlaceholderProbe(row.id, {url: row.url, playlistMode: row.probeMode, title: row.title, ...widen}, get, quickDownloadToasts('downloads', get))
+	const own = row.probeTake ? {scope: scopeForTake(row.probeTake), take: row.probeTake} : {}
+	await runPlaceholderProbe(row.id, {url: row.url, playlistMode: row.probeMode, title: row.title, ...(widen ?? own)}, get, quickDownloadToasts('downloads', get))
 }
 
 // A retry from where the user is: a failed preparation probes again in the
@@ -99,7 +102,7 @@ export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDow
 			await retryTargetNow(target, get)
 		},
 
-		quickDownload: async ({url, entry, title, playlistMode}) => {
+		quickDownload: async ({url, entry, title, playlistMode, take}) => {
 			const cleaned = cleanQuickDownloadUrl(url)
 			if (!cleaned) return
 			// Decisions that need no probe stay upfront, as a dialog.
@@ -120,7 +123,7 @@ export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDow
 			}
 			const toasts = quickDownloadToasts(entry, get)
 			let placed = false
-			await placeQuickDownload({url: cleaned, playlistMode: mode, ...(title ? {title} : {})}, get, event => {
+			await placeQuickDownload({url: cleaned, playlistMode: mode, ...(title ? {title} : {}), ...(take ? {take} : {})}, get, event => {
 				if (event.kind === 'added' || event.kind === 'already-queued') placed = true
 				toasts(event)
 			})
@@ -153,7 +156,7 @@ export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDow
 				return
 			}
 			if (answer === 'all') {
-				await reprobeRow(row, get, {scope: {items: {kind: 'first', count: PLAYLIST_PROBE_LIMIT_MAX}}, take: {kind: 'all'}})
+				await reprobeRow(row, get, {scope: scopeForTake({kind: 'all'}), take: {kind: 'all'}})
 				return
 			}
 			if (row.choice.kind !== 'playlist-cap') return

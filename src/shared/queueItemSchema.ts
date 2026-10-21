@@ -3,7 +3,7 @@
 // needs-choice answers) live in `./schemas.ts` with every other enum.
 
 import {z} from 'zod'
-import {QUEUE_STATUS, jobAuthSchema, probePlaylistModeSchema, queueArtifactKindSchema, queueChoiceSchema, queueItemStatusSchema, queueLaneSchema, statusKeySchema, ytDlpErrorKindSchema} from './schemas.js'
+import {QUEUE_STATUS, jobAuthSchema, probePlaylistModeSchema, quickProbeTakeSchema, queueArtifactKindSchema, queueChoiceSchema, queueItemStatusSchema, queueLaneSchema, statusKeySchema, ytDlpErrorKindSchema} from './schemas.js'
 import {preparedJobSchema} from './preparedJob.js'
 
 // Used by both the queue IPC handlers and QueueStore.load to reject corrupted
@@ -63,6 +63,10 @@ export const queueItemSchema = z
 		// (the policy, or the user's answer to the mixed-URL prompt); a retry
 		// probes the same way.
 		probeMode: probePlaylistModeSchema.optional(),
+		// The count the user chose for a placeholder's collection; every probe of
+		// the row (the first, a Retry, one after a restart) keeps to it. Optional,
+		// so queues saved before it existed load unchanged.
+		probeTake: quickProbeTakeSchema.optional(),
 		choice: queueChoiceSchema.optional(),
 		job: preparedJobSchema
 	})
@@ -79,6 +83,9 @@ export const queueItemSchema = z
 		// A placeholder's Retry probes the way it was submitted.
 		if (unresolved && item.probeMode === undefined) {
 			ctx.addIssue({code: 'custom', path: ['probeMode'], message: 'a placeholder row needs the probe mode it was submitted with'})
+		}
+		if (item.probeTake !== undefined && !unresolved) {
+			ctx.addIssue({code: 'custom', path: ['probeTake'], message: 'a chosen count belongs to a placeholder row'})
 		}
 		if ((item.status === QUEUE_STATUS.needsChoice) !== (item.choice !== undefined)) {
 			ctx.addIssue({code: 'custom', path: ['choice'], message: 'a choice belongs to a needs-choice row, and a needs-choice row needs one'})

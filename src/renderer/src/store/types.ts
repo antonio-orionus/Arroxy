@@ -53,7 +53,7 @@ import type {
 	WizardStepName
 } from '@shared/types.js'
 import type {Result} from '@shared/result.js'
-import type {AudioSelection, ExploreSearchEngine, FormatMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
+import type {AudioSelection, ExploreSearchEngine, FormatMode, QuickProbeTake, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import type {FitNotice} from '@shared/profileSelection.js'
 import type {SelectionOrder} from '@shared/selectionOrder.js'
 import type {VideoPartFields} from '@shared/videoPart.js'
@@ -229,7 +229,7 @@ export interface ProbeOrchestratorSlice {
 export interface QuickDownloadSlice {
 	// The URL tab's Quick Download and Explore's Download. `playlistMode` is the
 	// answer to the mixed-URL prompt; without it the intake policy decides.
-	quickDownload: (request: {url: string; entry: Exclude<InAppQuickDownloadEntry, 'downloads'>; title?: string; playlistMode?: Extract<ProbePlaylistMode, 'video' | 'playlist'>}) => Promise<void>
+	quickDownload: (request: {url: string; entry: Exclude<InAppQuickDownloadEntry, 'downloads'>; title?: string; playlistMode?: Extract<ProbePlaylistMode, 'video' | 'playlist'>; take?: QuickProbeTake}) => Promise<void>
 	// The Downloads tab's resolution of a placeholder row.
 	retryQuickDownloadRow: (itemId: string) => Promise<void>
 	retryQuickDownloadRowWithCookies: (itemId: string) => Promise<void>

@@ -12,9 +12,10 @@ import {Kbd, KbdGroup} from '../ui/kbd.js'
 import {Popover, PopoverTrigger} from '../ui/popover.js'
 import {Spinner} from '../ui/spinner.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
-import {buildDownloadProfileActionModel, quickProfileSummary, type DownloadProfileActionModel} from './downloadProfileActions.js'
+import {buildDownloadProfileActionModel, type DownloadProfileActionModel} from './downloadProfileActions.js'
 import {ProfilePickerMenu, type ProfilePickerTestIdPrefix} from './ProfilePicker.js'
 import {Hint} from '../shared/Hint.js'
+import {ProfileSummaryContent} from './ProfileSummaryContent.js'
 
 // The URL tab and the Bulk dialog; Explore opens the same menu from its own toolbar.
 type QuickProfileTestIdPrefix = Extract<ProfilePickerTestIdPrefix, 'profiles' | 'bulk'>
@@ -181,14 +182,12 @@ function ProfileMenu({
 	const nameOf = useProfileDisplayName()
 	const [menuOpen, setMenuOpen] = useState(defaultOpen)
 	const {ActiveIcon} = model
-	const activeSummary = quickProfileSummary(activeProfile, t)
 	const destinationLabel = compact ? undefined : destination?.trim()
 	const destinationDetailText = destinationDetail?.trim()
 	const destinationDetailLabel = destinationDetailText === undefined || destinationDetailText.length === 0 ? t('wizard.url.profile.destinationFallback') : destinationDetailText
 	const activeProfileLabel = t('wizard.url.profile.activeLabel')
 	const changeGlobalDestinationLabel = t('wizard.url.profile.changeGlobalDestination')
 	const editActiveProfileLabel = t('wizard.url.profile.editActive')
-	const switchProfileTitle = t('wizard.url.profile.switchTitle')
 
 	function closeAndRun(action: () => void): void {
 		setMenuOpen(false)
@@ -205,7 +204,7 @@ function ProfileMenu({
 				data-testid={`${testIdPrefix}-active-profile-card`}
 			>
 				<div className="relative flex min-w-0 items-center gap-2">
-					<Hint label={switchProfileTitle}>
+					<Hint label={<ProfileSummaryContent profile={activeProfile} />} delay={600}>
 						<PopoverTrigger
 							render={
 								<Button
@@ -221,7 +220,6 @@ function ProfileMenu({
 									<span className="min-w-0 flex-1">
 										<span className="quick-profile-selector-kicker mb-1 block truncate text-label uppercase">{activeProfileLabel}</span>
 										<span className={cn('quick-profile-selector-title block truncate', compact ? 'text-title' : 'text-title md:text-headline')}>{nameOf(activeProfile)}</span>
-										<span className={cn('quick-profile-selector-meta mt-0.5 block truncate font-normal leading-snug', compact ? 'text-xs' : 'text-xs md:text-sm')}>{activeSummary}</span>
 									</span>
 									<span className={cn('quick-profile-chevron grid shrink-0 place-items-center rounded-full', compact ? 'size-9' : 'size-10')}>
 										<ChevronDown aria-hidden className="size-5 transition-transform duration-200 group-aria-expanded/button:rotate-180" />

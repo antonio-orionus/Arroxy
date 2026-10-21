@@ -10,6 +10,7 @@
 	},
 	"aiUpscaled": {
 		"allow": "Allow",
+		"allowedSummary": "AI-upscaled allowed",
 		"description": "YouTube offers some old videos in sizes it made with AI. Skip keeps the original streams; you can still pick an upscaled one by hand.",
 		"label": "AI-upscaled streams",
 		"skip": "Skip"
@@ -754,7 +755,6 @@
 		"confirm": {
 			"addToQueue": "+ Queue",
 			"addToQueueTooltip": "Adds to the queue — starts when the active download finishes",
-			"audioOnly": "Audio only",
 			"itemsValueAudio_one": "{{count}} of {{total}} track",
 			"itemsValueAudio_other": "{{count}} of {{total}} tracks",
 			"itemsValueBulk_one": "{{count}} of {{total}} URL",
@@ -773,7 +773,7 @@
 			"landIn": "Your file will land in",
 			"landInMultiProfile_one": "It'll land in the destination below",
 			"landInMultiProfile_other": "They'll land in the {{count}} destinations below",
-			"nothingToDownload": "Subtitles only preset is active but no subtitle language is selected — nothing will be downloaded.",
+			"nothingToDownload": "The Subtitles only profile is active but no subtitle language is selected — nothing will be downloaded.",
 			"profileBreakdownCount_one": "{{count}} item",
 			"profileBreakdownCount_other": "{{count}} items",
 			"profileBreakdownHeading": "Profiles in this batch",
@@ -807,7 +807,6 @@
 			"audioLanguage": "Audio language",
 			"audioLanguageCount_one": "{{count}} language",
 			"audioLanguageCount_other": "{{count}} languages",
-			"audioOnly": "Audio only",
 			"bitrateValue": "Bitrate {{bitrate}}",
 			"botWall": {
 				"bodyDisabled": "Cookies are configured but turned off. Enable them and retry to get the full list, or change network and retry.",
@@ -970,37 +969,61 @@
 			"video": "Video",
 			"withAudio": "with audio"
 		},
-		"mixedPrompt": {
-			"body": "Want only the video you clicked, or pick from the playlist? You'll choose specific videos or a range next.",
-			"pickFromPlaylist": "Pick from playlist",
-			"playlistLimit": "Playlist probe limit: {{count}} items",
-			"playlistTooltip": "Loads the playlist, up to your playlist probe limit, before showing the picker.",
-			"quickBody": "Download only this video, or queue the whole playlist with your active Quick Download profile.",
-			"quickLimitDescription": "Maximum entries Arroxy scans before queueing a playlist, channel, or search result.",
-			"quickPlaylistTooltip": "Queues every loaded playlist item with the active Quick Download profile. If the scan hits your limit, Arroxy asks before queueing.",
-			"quickSingleTooltip": "Queues one download and ignores the playlist attached to this URL.",
-			"quickSingleVideo": "Download this video",
-			"quickWholePlaylist": "Download whole playlist",
-			"singleTooltip": "Loads only this video. The playlist attached to this URL is ignored.",
-			"singleVideo": "Just this one",
-			"title": "This link has a playlist"
+		"listPrompt": {
+			"escHint": "Esc cancels. Nothing loads until you choose.",
+			"interactiveSubtitle": "Choose formats yourself",
+			"justThisVideo": "Just this video",
+			"justThisVideoInteractiveHint": "Opens its formats",
+			"justThisVideoQuickHint": "Loads one video",
+			"listInteractiveHint": "Loads up to {{count}} to choose from",
+			"listOption": {
+				"album": "The album, first",
+				"liked": "Your liked videos, first",
+				"mix": "The Mix, first",
+				"playlist": "The playlist, first",
+				"uploads": "The uploads, first",
+				"watchLater": "Watch later, first"
+			},
+			"listQuickHint": "Loads up to {{count}}, then downloads them",
+			"mixNote": "A Mix changes every time you open it.",
+			"pickOption": {
+				"album": "Pick from the album, first",
+				"liked": "Pick from your liked videos, first",
+				"mix": "Pick from the Mix, first",
+				"playlist": "Pick from the playlist, first",
+				"uploads": "Pick from the uploads, first",
+				"watchLater": "Pick from Watch later, first"
+			},
+			"title": {
+				"album": "Download from this album",
+				"liked": "Download from your liked videos",
+				"mix": "Download from this Mix",
+				"playlist": "Download from this playlist",
+				"uploads": "Download from this channel's uploads",
+				"watchLater": "Download from Watch later"
+			},
+			"withProfile": "With {{profileName}}"
 		},
 		"output": {
 			"embedChapters": {
 				"description": "Chapter markers navigable in any modern player.",
-				"label": "Embed chapters"
+				"label": "Embed chapters",
+				"short": "Chapters"
 			},
 			"embedMetadata": {
 				"description": "Title, artist, description, and upload date written into the file.",
-				"label": "Embed metadata"
+				"label": "Embed metadata",
+				"short": "Metadata"
 			},
 			"embedThumbnail": {
 				"description": "Cover art inside the file. WebM video will be remuxed to MKV; skipped when subtitles are embedded.",
-				"label": "Embed thumbnail"
+				"label": "Embed thumbnail",
+				"short": "Cover art"
 			},
 			"writeDescription": {
 				"description": "Saves the video description as a .description text file next to the download.",
-				"label": "Save description"
+				"label": "Save description",
+				"short": "Description file"
 			},
 			"writeM3u": {
 				"description": "Save an .m3u playlist alongside the videos so they open in order in your media player.",
@@ -1008,7 +1031,8 @@
 			},
 			"writeThumbnail": {
 				"description": "Saves the thumbnail as a .jpg image file next to the download.",
-				"label": "Save thumbnail"
+				"label": "Save thumbnail",
+				"short": "Thumbnail file"
 			}
 		},
 		"part": {
@@ -1230,20 +1254,16 @@
 			},
 			"mediaMode": {
 				"audioOnly": {
-					"description": "Music or podcasts",
-					"label": "Audio only"
+					"description": "Music or podcasts"
 				},
 				"subtitlesOnly": {
-					"description": "Caption files only",
-					"label": "Subtitles only"
+					"description": "Caption files only"
 				},
 				"videoAudio": {
-					"description": "Normal video files",
-					"label": "Video + audio"
+					"description": "Normal video files"
 				},
 				"videoOnly": {
-					"description": "Silent video only",
-					"label": "Video, no audio"
+					"description": "Silent video only"
 				}
 			},
 			"note": {
@@ -1604,8 +1624,7 @@
 				"description": "Maximum entries Arroxy loads when a playlist, channel, or search result is opened.",
 				"invalid": "Use a whole number from 1 to 5000",
 				"label": "Playlist items to scan",
-				"option": "{{count}} items",
-				"tooltip": "Arroxy only asks for this many playlist, channel, or search entries while building the picker."
+				"option": "{{count}} items"
 			},
 			"playlistScope": {
 				"appLimit": "Use app limit: {{count}}",
@@ -1680,14 +1699,6 @@
 				"remove": "Remove",
 				"reorderHint": "Drag a profile to move it. Every profile picker follows this order.",
 				"reset": "Reset",
-				"summary": {
-					"aacAudio": "AAC audio",
-					"bestAudio": "best audio",
-					"bestVideo": "best video",
-					"noAudio": "no audio",
-					"subtitlesOnly": "subtitles only",
-					"wavAudio": "WAV audio"
-				},
 				"switchAria": "Switch download profile: {{profileName}}",
 				"switchTitle": "Switch download profile"
 			},
