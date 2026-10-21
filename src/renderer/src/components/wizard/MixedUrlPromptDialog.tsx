@@ -29,7 +29,7 @@ export function MixedUrlPromptDialog(): ReactNode {
 		<Dialog open={mixedUrlPromptOpen} onOpenChange={open => !open && cancelMixedPrompt()}>
 			{/* Focus the playlist action on open, the recommended action, instead
           of the close button or the nested playlist-limit selector. */}
-			<DialogContent initialFocus={playlistButtonRef}>
+			<DialogContent className="sm:max-w-md" initialFocus={playlistButtonRef}>
 				<DialogTitle>{t('wizard.mixedPrompt.title')}</DialogTitle>
 				<DialogDescription>{t(isQuickDownload ? 'wizard.mixedPrompt.quickBody' : 'wizard.mixedPrompt.body')}</DialogDescription>
 				<Alert variant="info" size="sm" className="mt-3" data-testid="mixed-playlist-cap">
