@@ -3,20 +3,28 @@
 // builds. A flag gates entry points only (a menu item, a button, a route, an
 // IPC handler), never the logic behind them. See dev-docs/release-flags.md.
 
-export interface ReleaseFlagDefinition {
-	/** What the flag hides, in a few words. */
-	summary: string
-	/** Set by the one-line PR that ships the work: the flag is then on in release builds too, and deleted in the release after. */
-	inRelease: boolean
-}
+export type ReleaseFlagDefinition =
+	| {
+			/** What the flag hides, in a few words. */
+			summary: string
+			inRelease: false
+	  }
+	| {
+			summary: string
+			/** Set by the one-line PR that ships the work: the flag is then on in release builds too. */
+			inRelease: true
+			/** The release that turns it on. Once package.json is past it, a unit test fails until the flag is deleted. */
+			shippedIn: string
+	  }
 
 // The one place flags are declared, e.g.
-// `batchRename: {summary: 'Batch rename in the queue', inRelease: false}`.
+// `batchRename: {summary: 'Batch rename in the queue', inRelease: false}`, then
+// `{summary: 'Batch rename in the queue', inRelease: true, shippedIn: '0.7.3'}`.
 const RELEASE_FLAG_DEFINITIONS = {} satisfies Record<string, ReleaseFlagDefinition>
 
 export type ReleaseFlag = keyof typeof RELEASE_FLAG_DEFINITIONS
 
-const RELEASE_FLAGS: Readonly<Record<string, ReleaseFlagDefinition>> = RELEASE_FLAG_DEFINITIONS
+export const RELEASE_FLAGS: Readonly<Record<string, ReleaseFlagDefinition>> = RELEASE_FLAG_DEFINITIONS
 
 // Release builds are Vite's `production` mode; dev (`development`), the
 // Scenario Workbench (`browser-mock`) and Vitest (`test`) are not. A
