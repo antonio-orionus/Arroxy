@@ -2,7 +2,6 @@ import {existsSync, readdirSync, readFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {describe, expect, it} from 'vite-plus/test'
 import {WINDOWS_APP_USER_MODEL_ID} from '@shared/constants.js'
-import {RELEASE_FLAGS} from '@shared/releaseFlags.js'
 
 const root = process.cwd()
 
@@ -54,16 +53,12 @@ describe('release asset names', () => {
 		expect(config).not.toContain('"artifactName": "${productName}-${version}.${ext}"')
 	})
 
-	it('registers no arroxy:// links with the OS while linkScheme is unreleased', () => {
-		// The PR that ships linkScheme adds the registration (electron-builder
-		// `protocols`, the build/installer.nsh keys, the Flatpak MimeType) and
-		// replaces this test; until then a release must claim no scheme.
-		expect(RELEASE_FLAGS.linkScheme?.inRelease).toBe(false)
+	it('registers arroxy:// links on every platform', () => {
 		const config = JSON.parse(read('electron-builder.json5')) as {protocols?: unknown}
-		expect(config.protocols).toBeUndefined()
-		expect(read('electron-builder.json5')).not.toMatch(/schemes/)
-		expect(read('build/installer.nsh')).not.toMatch(/Software\\Classes\\arroxy/i)
-		expect(read('flatpak/io.github.antonio_orionus.Arroxy.desktop')).not.toMatch(/x-scheme-handler\/arroxy/i)
+		// Info.plist on macOS and the .desktop MimeType on Linux; NSIS needs its own keys.
+		expect(config.protocols).toEqual([{name: 'Arroxy link', schemes: ['arroxy']}])
+		expect(read('build/installer.nsh')).toContain(`WriteRegStr HKCU "\${ARROXY_LINK_KEY}\\shell\\open\\command" "" '"$appExe" -- "%1"'`)
+		expect(read('flatpak/io.github.antonio_orionus.Arroxy.desktop')).toContain('MimeType=x-scheme-handler/arroxy;')
 	})
 
 	it('configures a branded drag-to-Applications DMG window', () => {
