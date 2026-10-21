@@ -43,6 +43,15 @@ const listFormats = new Map<string, Intl.ListFormat>()
 // subtitles in German and French" lists them all. Intl spells either in each
 // language's own separators.
 export function formatLanguageList(codes: readonly string[], uiLanguage: string, type: 'conjunction' | 'disjunction'): string {
+	return formatList(
+		codes.map(code => languageName(code, uiLanguage)),
+		uiLanguage,
+		type
+	)
+}
+
+// Labels as one list in the UI language's own separators ("A, B and C").
+export function formatList(items: readonly string[], uiLanguage: string, type: 'conjunction' | 'disjunction'): string {
 	const key = `${type}:${uiLanguage}`
 	let list = listFormats.get(key)
 	if (!list) {
@@ -50,5 +59,5 @@ export function formatLanguageList(codes: readonly string[], uiLanguage: string,
 		list = new Intl.ListFormat([uiLanguage, 'en'], {type})
 		listFormats.set(key, list)
 	}
-	return list.format(codes.map(code => languageName(code, uiLanguage)))
+	return list.format(items)
 }

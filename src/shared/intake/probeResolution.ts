@@ -9,6 +9,7 @@ import type {QueueChoice} from '@shared/schemas.js'
 import type {Result} from '@shared/result.js'
 import type {LocalizedError, PlaylistProbeResult, ProbeError, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
 import {preparePinnedProfileQueueSubmission, type PreparedQueueSubmission, type QueuePreparationEnv, type QueuePreparationInputs} from '@shared/queueSubmission.js'
+import {DownloadProfileOutputMissingError} from '@shared/downloadProfiles.js'
 
 // The user's answer to a needs-choice row, applied to a fresh or kept probe.
 export type QuickProbeTake = {kind: 'first'; count: number} | {kind: 'all'}
@@ -42,6 +43,7 @@ export interface QuickProbeContext {
 export interface QuickProbeEnv extends QueuePreparationEnv {
 	probeFailedText(): string
 	prepareFailedText(): string
+	outputMissingText(): string
 }
 
 // Lossless: a non-yt-dlp failure keeps its details, so the row's guidance
@@ -94,7 +96,7 @@ export function resolvePinnedQuickProbe(result: Result<ProbeResult, ProbeError>,
 		prepared = preparePinnedProfileQueueSubmission(forQueue, inputs, 'normal', {url: context.url, playlistTitle: ''}, context.profile, env)
 	} catch (error) {
 		// A profile with a fixed folder left blank cannot resolve its output.
-		return prepareFailure(error instanceof Error ? error.message : String(error))
+		return prepareFailure(error instanceof DownloadProfileOutputMissingError ? env.outputMissingText() : error instanceof Error ? error.message : String(error))
 	}
 	if (!prepared) return prepareFailure(env.prepareFailedText())
 	if (prepared.items.length === 0) return {kind: 'nothing-new', skippedAlreadyQueued: prepared.skippedAlreadyQueued}

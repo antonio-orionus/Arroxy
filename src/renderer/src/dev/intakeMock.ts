@@ -45,7 +45,8 @@ export function createIntakeMock(deps: IntakeMockDeps): AppApi['intake'] {
 		displayShowsHdr: windowContext.displayShowsHdr,
 		filenames: {platform: window.platform, shortened: () => undefined, budgetFailed: (reason, outputDir) => emit({kind: 'filename-budget-failed', reason, outputDir})},
 		probeFailedText: () => i18next.t('wizard.url.quickProbeFailed'),
-		prepareFailedText: () => i18next.t('wizard.url.quickPrepareFailed')
+		prepareFailedText: () => i18next.t('wizard.url.quickPrepareFailed'),
+		outputMissingText: () => i18next.t('wizard.url.profile.outputMissing')
 	})
 
 	async function write(itemId: string, title: string, resolution: QuickProbeResolution, tell: (outcome: QuickDownloadEvent) => void): Promise<void> {

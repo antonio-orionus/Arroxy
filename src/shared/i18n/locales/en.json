@@ -959,7 +959,8 @@
 			"resolutionUnknown": "Unknown resolution",
 			"savesAs": {
 				"label": "Saves as",
-				"reset": "WebM can't hold {{codec}}, so the file type went back to Auto."
+				"reset": "WebM can't hold {{codec}}, so the file type went back to Auto.",
+				"value": "Saves as .{{ext}}"
 			},
 			"sizeUnknown": "Size unknown",
 			"skipToConfirm": "Skip to confirm",
@@ -1106,6 +1107,15 @@
 			"syncScanning": "Checking folder…",
 			"thumbnailAlt": "Video thumbnail"
 		},
+		"playlistCap": {
+			"changeLimit": "Change load limit",
+			"descriptionWithTitle_one": "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again.",
+			"descriptionWithTitle_other": "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again.",
+			"description_one": "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again.",
+			"description_other": "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again.",
+			"queueLoaded": "Queue loaded items",
+			"title": "Playlist scan is capped"
+		},
 		"playlistPresets": {
 			"heading": "Pick quality for the batch",
 			"itemCount_one": "{{count}} item",
@@ -1154,6 +1164,7 @@
 				"320": "Up to 320K",
 				"best": "Best quality"
 			},
+			"defaultName": "New profile",
 			"destination": {
 				"defaultFolder": "Default downloads folder",
 				"defaultFolderWithSubfolder": "Default downloads folder / {{subfolder}}",
@@ -1663,6 +1674,7 @@
 				"moveOver": "{{profileName}} is over position {{position}} of {{count}}.",
 				"movePickedUp": "Picked up {{profileName}}. It is in position {{position}} of {{count}}.",
 				"newProfile": "New profile",
+				"outputMissing": "This profile saves to a folder that isn't set. Choose a folder in the profile, or set it back to the default.",
 				"panelDescription": "Create, select, edit, or remove reusable download setups.",
 				"panelTitle": "Download Profiles",
 				"remove": "Remove",

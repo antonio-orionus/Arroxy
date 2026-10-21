@@ -2,6 +2,7 @@
 	"$schema": "https://unpkg.com/knip@6/schema.json",
 	"workspaces": {
 		".": {"entry": ["src/main/index.ts", "src/preload/index.cts", "src/renderer/src/main.tsx", "electron.vite.config.ts", "scripts/**/*.ts"], "project": ["src/**/*.{ts,tsx}", "scripts/**/*.ts", "tests/**/*.{ts,tsx}"]},
+		"packages/arroxy-control": {"project": ["src/**/*.ts", "tests/**/*.ts"]},
 		"packages/yt-dlp-bridge": {"project": ["src/**/*.ts", "tests/**/*.ts"]},
 		"packages/ytdlp-errors": {"project": ["src/**/*.ts", "tests/**/*.ts", "scripts/**/*.mjs", "*.config.ts"]}
 	},

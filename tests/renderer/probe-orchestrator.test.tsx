@@ -7,6 +7,7 @@ import {defaultAppSettings} from '@shared/constants.js'
 import {RESET_WIZARD_STATE} from '@renderer/store/wizard/commands.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 import {armQueue} from '../shared/quickDownloadHarness.js'
+import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 
@@ -385,6 +386,20 @@ describe('quickDownload', () => {
 		expect(allQueued.every(item => item.job.kind === 'ranged-format')).toBe(true)
 		expect(useAppStore.getState().quickDownloadStatus).toBe('queued')
 		expect(useAppStore.getState().wizardStep).toBe('url')
+	})
+
+	it('quickDownloadUrls reports a profile with no output folder in the app language', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
+		window.appApi = api
+		const base = defaultAppSettings('/tmp')
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')
+		if (!balanced) throw new Error('expected the balanced profile')
+
+		useAppStore.setState({wizardOutputDir: '/tmp', settings: {...base, profiles: {...base.profiles, overrides: [{...balanced, output: {kind: 'fixed', dir: ' '}}]}}})
+		await useAppStore.getState().quickDownloadUrls(['https://youtu.be/one', 'https://youtu.be/two'])
+
+		expect(useAppStore.getState().quickDownloadFailure).toMatchObject({kind: 'prepare', messageKey: 'wizard.url.profile.outputMissing'})
 	})
 
 	it('quickDownloadUrls routes mixed watch/list URLs to bulk review instead of silently forcing single-video mode', async () => {

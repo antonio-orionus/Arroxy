@@ -53,7 +53,7 @@ export interface IntakeServiceDeps {
 	registerManifest(manifest: PlaylistManifestPayload): Promise<void>
 	settings(): Promise<AppSettings>
 	// Words in the window's language for a failure that brings none of its own.
-	text(key: 'wizard.url.quickProbeFailed' | 'wizard.url.quickPrepareFailed'): string
+	text(key: 'wizard.url.quickProbeFailed' | 'wizard.url.quickPrepareFailed' | 'wizard.url.profile.outputMissing'): string
 	emit(event: IntakeEvent): void
 	platform: NodeJS.Platform
 	newId(): string
@@ -289,7 +289,8 @@ export class IntakeService {
 				}
 			},
 			probeFailedText: () => this.deps.text('wizard.url.quickProbeFailed'),
-			prepareFailedText: () => this.deps.text('wizard.url.quickPrepareFailed')
+			prepareFailedText: () => this.deps.text('wizard.url.quickPrepareFailed'),
+			outputMissingText: () => this.deps.text('wizard.url.profile.outputMissing')
 		}
 	}
 

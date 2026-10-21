@@ -1,7 +1,7 @@
 import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {ParseKeys} from 'i18next'
-import {SPONSORBLOCK_CATEGORIES} from '@shared/schemas.js'
+import {SPONSORBLOCK_CATEGORIES, SPONSORBLOCK_MODES} from '@shared/schemas.js'
 import type {CommonSettings, SponsorBlockCategory, SponsorBlockMode} from '@shared/types.js'
 import {canDraftEmbedThumbnail, draftDefaultSubfolderName, type DownloadProfileDraft, type DownloadProfileDraftAction, type DownloadProfileDraftValidation, type DownloadProfileMediaMode} from '../../store/wizard/downloadProfileDraft.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
@@ -21,22 +21,11 @@ import {optionLabel, type SelectOption} from './profileSelectOptions.js'
 import {mediaModeHasVideo} from './profileMediaMode.js'
 import {ProfileDestinationPolicy} from './ProfileDestinationPolicy.js'
 import type {ProfileDestinationControls} from './useProfileDestinationControls.js'
+import {EMBED_OPTION_KEYS, SPONSOR_BLOCK_MODE_LABEL_KEYS} from '@renderer/lib/outputLabels.js'
 
 // Every one of these already exists verbatim under wizard.output.*, so the
 // editor reuses them rather than duplicating the copy.
-const OUTPUT_OPTION_KEYS = {
-	chapters: {labelKey: 'wizard.output.embedChapters.label', descriptionKey: 'wizard.output.embedChapters.description'},
-	metadata: {labelKey: 'wizard.output.embedMetadata.label', descriptionKey: 'wizard.output.embedMetadata.description'},
-	embedThumbnail: {labelKey: 'wizard.output.embedThumbnail.label', descriptionKey: 'wizard.output.embedThumbnail.description'},
-	description: {labelKey: 'wizard.output.writeDescription.label', descriptionKey: 'wizard.output.writeDescription.description'},
-	thumbnail: {labelKey: 'wizard.output.writeThumbnail.label', descriptionKey: 'wizard.output.writeThumbnail.description'}
-} as const
-
-const SPONSOR_BLOCK_OPTIONS = [
-	{value: 'off', labelKey: 'wizard.sponsorblock.mode.off'},
-	{value: 'mark', labelKey: 'wizard.sponsorblock.mode.mark'},
-	{value: 'remove', labelKey: 'wizard.sponsorblock.mode.remove'}
-] as const satisfies readonly SelectOption<SponsorBlockMode>[]
+const SPONSOR_BLOCK_OPTIONS = SPONSORBLOCK_MODES.map(value => ({value, labelKey: SPONSOR_BLOCK_MODE_LABEL_KEYS[value]})) satisfies readonly SelectOption<SponsorBlockMode>[]
 
 const SPONSOR_BLOCK_HINT_KEYS = {off: 'wizard.profileEditor.sponsorBlockHint.off', mark: 'wizard.profileEditor.sponsorBlockHint.mark', remove: 'wizard.profileEditor.sponsorBlockHint.remove'} as const satisfies Record<SponsorBlockMode, ParseKeys>
 
@@ -133,20 +122,13 @@ function ProfileOutputSection({draft, onAction}: ProfileOutputSectionProps): Rea
 	return (
 		<PanelSection title={t('wizard.profileEditor.panel.output.title')} action={<Badge variant="outline">{t('wizard.profileEditor.panel.output.enabledCount', {count: outputEnabledCount})}</Badge>}>
 			<div className="grid gap-3">
-				<SettingSwitch id="profile-output-metadata" label={t(OUTPUT_OPTION_KEYS.metadata.labelKey)} help={t(OUTPUT_OPTION_KEYS.metadata.descriptionKey)} checked={embedMetadata} onCheckedChange={next => onAction({type: 'set-embed-metadata', embedMetadata: next})} />
-				<SettingSwitch id="profile-output-chapters" label={t(OUTPUT_OPTION_KEYS.chapters.labelKey)} help={t(OUTPUT_OPTION_KEYS.chapters.descriptionKey)} checked={embedChapters} onCheckedChange={next => onAction({type: 'set-embed-chapters', embedChapters: next})} />
+				<SettingSwitch id="profile-output-metadata" label={t(EMBED_OPTION_KEYS.metadata.labelKey)} help={t(EMBED_OPTION_KEYS.metadata.descriptionKey)} checked={embedMetadata} onCheckedChange={next => onAction({type: 'set-embed-metadata', embedMetadata: next})} />
+				<SettingSwitch id="profile-output-chapters" label={t(EMBED_OPTION_KEYS.chapters.labelKey)} help={t(EMBED_OPTION_KEYS.chapters.descriptionKey)} checked={embedChapters} onCheckedChange={next => onAction({type: 'set-embed-chapters', embedChapters: next})} />
 				{showEmbedThumbnail ? (
-					<SettingSwitch
-						id="profile-output-embed-thumbnail"
-						label={t(OUTPUT_OPTION_KEYS.embedThumbnail.labelKey)}
-						help={t(OUTPUT_OPTION_KEYS.embedThumbnail.descriptionKey)}
-						checked={embedThumbnail}
-						onCheckedChange={next => onAction({type: 'set-embed-thumbnail', embedThumbnail: next})}
-						testId="profiles-editor-embed-thumbnail"
-					/>
+					<SettingSwitch id="profile-output-embed-thumbnail" label={t(EMBED_OPTION_KEYS.thumbnail.labelKey)} help={t(EMBED_OPTION_KEYS.thumbnail.descriptionKey)} checked={embedThumbnail} onCheckedChange={next => onAction({type: 'set-embed-thumbnail', embedThumbnail: next})} testId="profiles-editor-embed-thumbnail" />
 				) : null}
-				<SettingSwitch id="profile-output-description" label={t(OUTPUT_OPTION_KEYS.description.labelKey)} help={t(OUTPUT_OPTION_KEYS.description.descriptionKey)} checked={saveDescription} onCheckedChange={next => onAction({type: 'set-save-description', saveDescription: next})} />
-				<SettingSwitch id="profile-output-thumbnail" label={t(OUTPUT_OPTION_KEYS.thumbnail.labelKey)} help={t(OUTPUT_OPTION_KEYS.thumbnail.descriptionKey)} checked={saveThumbnail} onCheckedChange={next => onAction({type: 'set-save-thumbnail', saveThumbnail: next})} />
+				<SettingSwitch id="profile-output-description" label={t(EMBED_OPTION_KEYS.description.labelKey)} help={t(EMBED_OPTION_KEYS.description.descriptionKey)} checked={saveDescription} onCheckedChange={next => onAction({type: 'set-save-description', saveDescription: next})} />
+				<SettingSwitch id="profile-output-thumbnail" label={t(EMBED_OPTION_KEYS.thumbnailSidecar.labelKey)} help={t(EMBED_OPTION_KEYS.thumbnailSidecar.descriptionKey)} checked={saveThumbnail} onCheckedChange={next => onAction({type: 'set-save-thumbnail', saveThumbnail: next})} />
 			</div>
 		</PanelSection>
 	)

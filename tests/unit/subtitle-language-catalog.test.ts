@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {buildSubtitleLanguageOptions, normalizeSubtitleLanguageCode, searchSubtitleLanguages, subtitleLanguageChoices} from '@renderer/lib/subtitleLanguageCatalog.js'
+import {buildSubtitleLanguageOptions, normalizeSubtitleLanguageCode, searchSubtitleLanguages, subtitleCodeForLanguage, subtitleLanguageChoices} from '@renderer/lib/subtitleLanguageCatalog.js'
 
 const EN_OPTIONS = buildSubtitleLanguageOptions('en')
 
@@ -105,5 +105,17 @@ describe('normalizeSubtitleLanguageCode', () => {
 		expect(normalizeSubtitleLanguageCode('russian')).toBeNull()
 		expect(normalizeSubtitleLanguageCode('bad_value')).toBeNull()
 		expect(normalizeSubtitleLanguageCode('')).toBeNull()
+	})
+})
+
+describe('subtitleCodeForLanguage', () => {
+	// An app language as the code YouTube serves its subtitles under.
+	it('maps app languages to the subtitle codes YouTube uses', () => {
+		expect(subtitleCodeForLanguage('he')).toBe('iw')
+		expect(subtitleCodeForLanguage('nb')).toBe('no')
+		expect(subtitleCodeForLanguage('zh')).toBe('zh-Hans')
+		expect(subtitleCodeForLanguage('zh-Hant')).toBe('zh-Hant')
+		expect(subtitleCodeForLanguage('de')).toBe('de')
+		expect(subtitleCodeForLanguage('pt')).toBe('pt')
 	})
 })

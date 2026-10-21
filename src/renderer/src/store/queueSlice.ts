@@ -20,6 +20,7 @@ import {prepareManualQueueSubmission, prepareMultiProfileQueueSubmission} from '
 import {submitPreparedQueueSubmission} from './wizard/queueSubmissionAdapter.js'
 import {queueLoadedPlaylistWithActiveProfile} from './wizard/quickDownloadPreparation.js'
 import {settlePlaceholder} from './quickDownload/quickDownloadPipeline.js'
+import {DownloadProfileOutputMissingError} from '@shared/downloadProfiles.js'
 
 function errorMessage(error: unknown): string {
 	return error instanceof Error ? error.message : String(error)
@@ -89,7 +90,7 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
 		// safeProfileOutputDir) so it can render a blank row instead of
 		// crashing; this call site has no such guard upstream, so left
 		// uncaught, Add to Queue silently rejected with no wizard error shown.
-		set({wizardStep: 'error', wizardError: {kind: 'other', code: 'unknown', message: errorMessage(error)}, wizardErrorOrigin: null})
+		set({wizardStep: 'error', wizardError: {kind: 'other', code: 'unknown', message: error instanceof DownloadProfileOutputMissingError ? i18next.t('wizard.url.profile.outputMissing') : errorMessage(error)}, wizardErrorOrigin: null})
 	} finally {
 		set({isSubmittingToQueue: false})
 	}

@@ -116,15 +116,23 @@ describe('DownloadReviewProjection', () => {
 
 describe('subtitle language labels in a Russian UI', () => {
 	const ruState = state({wizardSubtitleLanguages: ['ar', 'en-orig'], wizardSubtitles: {en: [{ext: 'vtt', name: 'English'}], ar: [{ext: 'vtt', name: 'Arabic'}]}, wizardAutomaticCaptions: {'en-orig': [{ext: 'vtt', name: 'English (Original)'}]}})
-	const listLabels = buildSubtitleList(ruState.wizardSubtitles, ruState.wizardAutomaticCaptions, 'ru')
+	const pickedLabels = buildSubtitleList(ruState.wizardSubtitles, ruState.wizardAutomaticCaptions, 'ru')
 		.filter(item => ruState.wizardSubtitleLanguages.includes(item.code))
 		.map(item => item.displayName)
-		.join(', ')
+	const listLabels = new Intl.ListFormat('ru', {type: 'conjunction'}).format(pickedLabels)
 
-	it('match the picker list in the review row and the section summary', () => {
-		expect(listLabels).toBe('Арабский, Английский')
+	it('match the picker list in the review row and the section summary, joined the Russian way', () => {
+		expect(listLabels).toBe('Арабский и Английский')
 		expect(buildDownloadReview(ruState, {t, language: 'ru', commonPaths: ruState.commonPaths}).subtitleValue.startsWith(`${listLabels} · `)).toBe(true)
 		expect(buildSingleSettingsSummary(ruState, {t, language: 'ru'}).subtitles.startsWith(`${listLabels} · `)).toBe(true)
+	})
+})
+
+describe('extras in a Russian UI', () => {
+	it('join with the Russian list separators', () => {
+		const summary = buildSingleSettingsSummary(state({wizardEmbedChapters: true, wizardEmbedMetadata: true, wizardEmbedThumbnail: false, wizardWriteDescription: false, wizardWriteThumbnail: false}), {t, language: 'ru'})
+		expect(summary.extras).toBe(new Intl.ListFormat('ru', {type: 'conjunction'}).format([t('wizard.output.embedChapters.label'), t('wizard.output.embedMetadata.label')]))
+		expect(summary.extras).toContain(' и ')
 	})
 })
 
@@ -134,7 +142,7 @@ describe('subtitles-only batch review', () => {
 	it('summarizes the preset as subtitles with languages and format', () => {
 		const review = buildDownloadReview(state({wizardMode: 'bulk', playlistSelection: SUBS}), {t, language: 'en', commonPaths: state().commonPaths})
 
-		expect(review.playlistPresetLabel).toBe('wizard.formats.kind.subtitles · English, Polish · SRT')
+		expect(review.playlistPresetLabel).toBe('wizard.formats.kind.subtitles · English and Polish · SRT')
 		expect(review.itemCountLabel).toEqual({key: 'wizard.confirm.itemsValueBulk', params: {count: 2, total: '2'}})
 		expect(review.hasNothingSelected).toBe(false)
 	})

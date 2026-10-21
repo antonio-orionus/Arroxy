@@ -13,6 +13,7 @@ import {submitPreparedQueueSubmission} from './queueSubmissionAdapter.js'
 import {settlePlaceholder} from '../quickDownload/quickDownloadPipeline.js'
 import {failedQuickDownloadFeedback, preparingQuickDownloadFeedback, queuedQuickDownloadFeedback, quickDownloadProgressPatch, resetQuickDownloadFeedback} from './quickDownloadFeedback.js'
 import {policyForUrlIntent, shouldReviewPlaylistProbeResult} from '@shared/intake/urlIntentPolicy.js'
+import {DownloadProfileOutputMissingError} from '@shared/downloadProfiles.js'
 
 // Bulk URLs' quick download: several links probed in one modal run, then
 // queued together. A single link's quick download runs in the background as
@@ -203,7 +204,7 @@ export async function quickDownloadUrls(urls: string[], set: SetState, get: GetS
 		set(queuedQuickDownloadFeedback(queuedIds, failedCount))
 	} catch (err) {
 		if (!isRunActive(runId)) return
-		set(failedQuickDownloadFeedback({kind: 'exception', message: err instanceof Error ? err.message : String(err), urls: cleanedUrls}))
+		set(failedQuickDownloadFeedback(err instanceof DownloadProfileOutputMissingError ? {kind: 'prepare', messageKey: 'wizard.url.profile.outputMissing', urls: cleanedUrls} : {kind: 'exception', message: err instanceof Error ? err.message : String(err), urls: cleanedUrls}))
 	}
 }
 

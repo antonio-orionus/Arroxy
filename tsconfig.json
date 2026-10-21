@@ -27,5 +27,20 @@
 			"ytdlp-errors": ["./packages/ytdlp-errors/src/index.ts"]
 		}
 	},
-	"include": ["src", "electron.vite.config.ts", "vite.config.ts", "playwright.config.ts", "playwright.browser.config.ts", "tests", "scripts", "workers", "packages/yt-dlp-bridge/src", "packages/yt-dlp-bridge/tests", "packages/ytdlp-errors/src", "packages/ytdlp-errors/tests"]
+	"include": [
+		"src",
+		"electron.vite.config.ts",
+		"vite.config.ts",
+		"playwright.config.ts",
+		"playwright.browser.config.ts",
+		"tests",
+		"scripts",
+		"workers",
+		"packages/arroxy-control/src",
+		"packages/arroxy-control/tests",
+		"packages/yt-dlp-bridge/src",
+		"packages/yt-dlp-bridge/tests",
+		"packages/ytdlp-errors/src",
+		"packages/ytdlp-errors/tests"
+	]
 }

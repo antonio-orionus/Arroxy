@@ -26,7 +26,7 @@ const STAGED_FORMAT_PATTERN = '*.{json,jsonc,css}'
 const STAGED_CODE_PATTERN = '*.{ts,tsx,cts,mts,js,mjs,cjs}'
 const VALID_STAGED = {[STAGED_FORMAT_PATTERN]: 'vp fmt --no-error-on-unmatched-pattern', [STAGED_CODE_PATTERN]: 'bash -lc \'bun run errors:build; vp fmt "$@"; vp lint --fix --deny-warnings "$@"\' --'}
 
-function packageJson(options: {devDependencies?: Record<string, string>} = {}): string {
+function packageJson(options: {devDependencies?: Record<string, string>; packagesCheck?: string} = {}): string {
 	return `${JSON.stringify(
 		{
 			private: true,
@@ -42,7 +42,7 @@ function packageJson(options: {devDependencies?: Record<string, string>} = {}): 
 				'check:tooling-contract': 'node scripts/check-tooling-contract.mjs',
 				'packages:verify-metadata': 'node scripts/check-package-publish-metadata.mjs',
 				check: 'vp run quality-gate',
-				'packages:check': 'bun run errors:check && bun run bridge:check && bun run packages:verify-metadata'
+				'packages:check': options.packagesCheck ?? 'bun run errors:check && bun run bridge:check && bun run control:check && bun run packages:verify-metadata'
 			}
 		},
 		null,
@@ -64,10 +64,10 @@ function publishWorkflow(command: string): string {
 	return `permissions:\n  id-token: write\nsteps:\n  - uses: actions/setup-node@v6\n    with:\n      node-version: 24\n      registry-url: https://registry.npmjs.org\n      package-manager-cache: false\n  - run: ${command}\n  - run: bun pm view\n  - run: bun pm pack --destination npm-artifacts\n  run: npm publish ./npm-artifacts/*.tgz --access public\n`
 }
 
-async function createContractFixture(overrides: {gitignore?: string; mise?: string; staged?: Record<string, string>; lintOptions?: Record<string, unknown>; noCycle?: unknown; devDependencies?: Record<string, string>; bundledOxlint?: string} = {}): Promise<string> {
+async function createContractFixture(overrides: {gitignore?: string; mise?: string; staged?: Record<string, string>; lintOptions?: Record<string, unknown>; noCycle?: unknown; devDependencies?: Record<string, string>; bundledOxlint?: string; packagesCheck?: string} = {}): Promise<string> {
 	const root = await tempRoot()
 	await Promise.all([
-		writeFixtureFile(root, 'package.json', packageJson({devDependencies: overrides.devDependencies})),
+		writeFixtureFile(root, 'package.json', packageJson({devDependencies: overrides.devDependencies, packagesCheck: overrides.packagesCheck})),
 		writeFixtureFile(root, 'vite.config.ts', viteConfig({staged: overrides.staged, lintOptions: overrides.lintOptions, noCycle: overrides.noCycle})),
 		writeFixtureFile(root, 'node_modules/vite-plus/package.json', JSON.stringify({name: 'vite-plus', dependencies: {oxlint: overrides.bundledOxlint ?? '=1.78.0', 'oxlint-tsgolint': '=7.0.1'}})),
 		writeFixtureFile(root, '.vite-hooks/pre-commit', 'vp staged\n\nbun scripts/check-commit-fallout.ts\n'),
@@ -77,7 +77,8 @@ async function createContractFixture(overrides: {gitignore?: string; mise?: stri
 		writeFixtureFile(root, '.gitignore', overrides.gitignore ?? 'mise.local.toml\n.mise.local.toml\n.playwright-browsers/\n'),
 		writeFixtureFile(root, '.github/workflows/ci.yml', 'steps:\n  - run: bun run check\n'),
 		writeFixtureFile(root, '.github/workflows/publish-ytdlp-errors.yml', publishWorkflow('bun run errors:check')),
-		writeFixtureFile(root, '.github/workflows/publish-yt-dlp-bridge.yml', publishWorkflow('bun run bridge:check'))
+		writeFixtureFile(root, '.github/workflows/publish-yt-dlp-bridge.yml', publishWorkflow('bun run bridge:check')),
+		writeFixtureFile(root, '.github/workflows/publish-arroxy-control.yml', publishWorkflow('bun run control:check'))
 	])
 	return root
 }
@@ -95,6 +96,25 @@ describe('tooling contract', () => {
 		const result = runToolingContract(root)
 
 		expect(result.status).toBe(0)
+	})
+
+	it('fails when packages:check skips the arroxy-control gate', async () => {
+		const root = await createContractFixture({packagesCheck: 'bun run errors:check && bun run bridge:check && bun run packages:verify-metadata'})
+
+		const result = runToolingContract(root)
+
+		expect(result.status).toBe(1)
+		expect(result.output).toContain('packages:check must run errors:check, bridge:check and control:check, then packages:verify-metadata.')
+	})
+
+	it('fails when the arroxy-control publish workflow skips its gate', async () => {
+		const root = await createContractFixture()
+		await writeFixtureFile(root, '.github/workflows/publish-arroxy-control.yml', publishWorkflow('bun run errors:check'))
+
+		const result = runToolingContract(root)
+
+		expect(result.status).toBe(1)
+		expect(result.output).toContain('publish-arroxy-control.yml must call "bun run control:check"')
 	})
 
 	it('fails when the plugin bridge drifts from the oxlint version vite-plus bundles', async () => {

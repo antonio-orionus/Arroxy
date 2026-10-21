@@ -11,7 +11,7 @@
 
 import en from '../src/shared/i18n/locales/en.json' with {type: 'json'}
 import {SUPPORTED_LANGS} from '../src/shared/schemas.js'
-import {expandPluralLeaves} from './i18n-catalog-core.js'
+import {expandPluralLeaves, KEPT_AS_WRITTEN_KEYS} from './i18n-catalog-core.js'
 import {readdirSync, readFileSync, statSync} from 'node:fs'
 import {join, relative} from 'node:path'
 import {fileURLToPath} from 'node:url'
@@ -38,9 +38,6 @@ function flattenLeaves(obj: unknown, prefix = ''): LeafEntry[] {
 }
 
 const PLACEHOLDER_MIN_WORDS = 3 // skip 1-2-word values (brand names, single-word labels) — too noisy
-// Standard video format names that many languages keep exactly as in English.
-const SAME_AS_ENGLISH_ALLOWED: ReadonlySet<string> = new Set(['wizard.url.profile.builtinName.best-2160', 'wizard.url.profile.builtinName.hd-1080', 'wizard.url.profile.builtinName.mp4-1080', 'wizard.url.profile.builtinName.mp4-720', 'wizard.url.profile.builtinName.mp4-480'])
-
 const enLeaves = flattenLeaves(en)
 const strict = process.argv.includes('--strict')
 
@@ -67,7 +64,7 @@ for (const lang of SUPPORTED_LANGS) {
 	const placeholders = [...enKeys].filter(k => {
 		const lv = localeByPath.get(k)
 		const ev = enByPath.get(k)
-		if (lv === undefined || ev === undefined || lv !== ev || SAME_AS_ENGLISH_ALLOWED.has(k)) return false
+		if (lv === undefined || ev === undefined || lv !== ev || KEPT_AS_WRITTEN_KEYS.has(k)) return false
 		const words = lv
 			.trim()
 			.replace(/\{\{[^}]+\}\}/g, '')

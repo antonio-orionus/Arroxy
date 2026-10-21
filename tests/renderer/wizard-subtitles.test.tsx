@@ -12,6 +12,7 @@ import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {wizardSnapshot} from '@renderer/store/wizard/wizardProfileState.js'
 import {selectWizardReviewState} from '@renderer/store/wizard/wizardReviewState.js'
 import {profileDisplayName} from '@renderer/lib/profileName.js'
+import {i18next} from '@shared/i18n/index.js'
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 
@@ -465,6 +466,29 @@ describe('Review — rows', () => {
 		render(<StepReview />)
 		expect(screen.getByTestId('review-row-subtitles-value')).toHaveAttribute('data-value-state', 'on')
 		expect(screen.getByTestId('review-row-extras-value')).toHaveAttribute('data-value-state', 'on')
+	})
+
+	it('words the saved file type the way the catalog orders it', () => {
+		const original = i18next.t('wizard.formats.savesAs.value', {ext: '{{ext}}'})
+		i18next.addResource('en', 'translation', 'wizard.formats.savesAs.value', 'file type {{ext}} it is')
+		try {
+			singleState({wizardReviewRow: null})
+			render(<StepReview />)
+			expect(screen.getByTestId('review-format-strip').textContent).toMatch(/file type \w+ it is/)
+		} finally {
+			i18next.addResource('en', 'translation', 'wizard.formats.savesAs.value', original)
+		}
+	})
+
+	it("lists the changed areas with the language's own separators", () => {
+		const profile = BUILTIN_DOWNLOAD_PROFILES[0]
+		singleState({wizardReviewRow: null, wizardProfile: profile})
+		useAppStore.setState({wizardProfileBaseline: wizardSnapshot(selectWizardReviewState(useAppStore.getState()))})
+		useAppStore.setState({wizardFilenameTemplate: '{uploader} - {title}', wizardWriteDescription: !useAppStore.getState().wizardWriteDescription})
+		render(<StepReview />)
+
+		expect(screen.getByTestId('review-changed-bar').textContent).toMatch(/\w and \w/)
+		expect(screen.getByTestId('review-changed-bar').textContent).not.toMatch(/\w, \w/)
 	})
 
 	it('marks only the rows this run changed from its profile', () => {
