@@ -2,7 +2,7 @@ import {useMemo, type ReactNode} from 'react'
 import {createColumnHelper, type ColumnDef} from '@tanstack/react-table'
 import type {TFunction} from 'i18next'
 import {AlertTriangle, Ban, Captions, CheckCircle2, ChevronDown, CircleHelp, Clock, Loader2, Pause, PauseCircle, X, XCircle} from 'lucide-react'
-import type {StatusKey} from '@shared/schemas.js'
+import {STATUS_KEY, type StatusKey} from '@shared/schemas.js'
 import type {QueueItem, QueueItemStatus} from '@shared/types.js'
 import {visibleQueueArtifacts} from '@shared/queueArtifacts.js'
 import {compactSize} from '@shared/format.js'
@@ -97,6 +97,16 @@ function doneNotice(item: QueueItem): DoneNotice | undefined {
 	return item.status === 'done' && item.lastStatus ? DONE_NOTICES[item.lastStatus.key] : undefined
 }
 
+// A notice about the video itself (kept sound, limited quality) carries the
+// subtitle languages the video lacks; they get the line they have on a row of
+// their own.
+function missingLanguagesBeside(item: QueueItem): string | null {
+	const status = item.lastStatus
+	const codes = status?.params?.languageCodes
+	if (!doneNotice(item) || status?.key === STATUS_KEY.subtitleLanguagesMissing || status?.key === STATUS_KEY.subtitleLanguagesMissingOthersSaved) return null
+	return typeof codes === 'string' ? codes : null
+}
+
 // `onCancelProbing`: a probing row's own Cancel, which aborts its probe and drops the row.
 export function useQueueManagerColumns({expandedIds, onToggleExpanded, onCancelProbing, t}: {expandedIds: ReadonlySet<string>; onToggleExpanded: (itemId: string) => void; onCancelProbing: (itemId: string) => void; t: TFunction}): ColumnDef<QueueTableFeatures, QueueItem>[] {
 	return useMemo(
@@ -127,6 +137,7 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, onCancelP
 						const item = info.row.original
 						const meta = STATUS_META[item.status]
 						const detail = rowStatusDetail(item, t)
+						const missingCodes = missingLanguagesBeside(item)
 						return (
 							<div className="flex min-w-0 flex-col gap-1">
 								<div className="flex min-w-0 flex-nowrap items-center gap-1">
@@ -159,6 +170,13 @@ export function useQueueManagerColumns({expandedIds, onToggleExpanded, onCancelP
 									<Hint label={doneNotice(item) ? formatStatus(item.lastStatus) : detail} reveal={!doneNotice(item)}>
 										<span data-testid={item.status === 'error' ? 'queue-error-msg' : doneNotice(item)?.testId} className={cn('max-w-48 truncate text-caption', item.status === 'error' ? 'text-destructive' : doneNotice(item) ? 'text-warning' : 'text-subtle-foreground')}>
 											{detail}
+										</span>
+									</Hint>
+								) : null}
+								{missingCodes ? (
+									<Hint label={formatStatus({key: STATUS_KEY.subtitleLanguagesMissing, params: {languageCodes: missingCodes}})}>
+										<span data-testid="queue-subs-warning" className="max-w-48 truncate text-caption text-warning">
+											{missingLanguagesLabel(item, t)}
 										</span>
 									</Hint>
 								) : null}
