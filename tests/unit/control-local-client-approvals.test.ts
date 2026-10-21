@@ -1,55 +1,96 @@
 // @vitest-environment node
 
 import {describe, expect, it} from 'vite-plus/test'
-import {MemoryLocalClientApprovals, PENDING_APPROVALS_MAX} from '@main/control/socket/localClientApprovals.js'
+import {ALLOWED_APPROVAL_TTL_MS, type ApprovalClaim, type LocalClient, MemoryLocalClientApprovals, PENDING_APPROVALS_MAX} from '@main/control/socket/localClientApprovals.js'
 
 // Who may use the Control API over the local socket, in memory until the
 // Devices and apps screen persists it.
+
+function claimed(claim: ApprovalClaim): LocalClient {
+	if (claim.status !== 'allowed') throw new Error(`expected allowed, got ${claim.status}`)
+	return claim.client
+}
 
 describe('MemoryLocalClientApprovals', () => {
 	it('keeps a request pending until the user chooses', () => {
 		const approvals = new MemoryLocalClientApprovals()
 		const approvalId = approvals.request('arroxy-mcp')
 		expect(approvals.pending()).toEqual([{approvalId, label: 'arroxy-mcp'}])
-		expect(approvals.collect(approvalId)).toEqual({status: 'pending'})
+		expect(approvals.claim(approvalId)).toEqual({status: 'pending'})
 	})
 
-	it('issues a client id and secret once after Allow', () => {
+	it('issues a client once its answer was delivered', () => {
 		const approvals = new MemoryLocalClientApprovals()
 		const approvalId = approvals.request('arroxy-mcp')
 		expect(approvals.allow(approvalId)).toBe(true)
-		const collected = approvals.collect(approvalId)
-		if (collected.status !== 'allowed') throw new Error(`expected allowed, got ${collected.status}`)
-		expect(collected.clientSecret).toMatch(/^[A-Za-z0-9_-]{43}$/)
-		expect(approvals.client(collected.clientId)).toEqual({clientId: collected.clientId, label: 'arroxy-mcp', secret: collected.clientSecret, rules: ['trusted']})
-		expect(approvals.label(collected.clientId)).toBe('arroxy-mcp')
-		expect(approvals.collect(approvalId)).toEqual({status: 'refused'})
+		const client = claimed(approvals.claim(approvalId))
+		expect(client).toEqual({clientId: expect.any(String), label: 'arroxy-mcp', secret: expect.stringMatching(/^[A-Za-z0-9_-]{43}$/), rules: ['trusted']})
+		expect(approvals.client(client.clientId)).toBeNull()
+		approvals.confirm(approvalId)
+		expect(approvals.client(client.clientId)).toEqual(client)
+		expect(approvals.label(client.clientId)).toBe('arroxy-mcp')
+		expect(approvals.claim(approvalId)).toEqual({status: 'refused'})
 		expect(approvals.pending()).toEqual([])
+	})
+
+	it('holds a claimed approval for one connection, and frees it when the answer is lost', () => {
+		const approvals = new MemoryLocalClientApprovals()
+		const approvalId = approvals.request('arroxy-mcp')
+		approvals.allow(approvalId)
+		const first = claimed(approvals.claim(approvalId))
+		expect(approvals.claim(approvalId)).toEqual({status: 'pending'})
+		approvals.release(approvalId)
+		expect(approvals.client(first.clientId)).toBeNull()
+		expect(claimed(approvals.claim(approvalId))).toEqual(first)
 	})
 
 	it('grants paths.read only when the user allows it', () => {
 		const approvals = new MemoryLocalClientApprovals()
 		const approvalId = approvals.request('Claude Code')
 		approvals.allow(approvalId, {pathsRead: true})
-		const collected = approvals.collect(approvalId)
-		if (collected.status !== 'allowed') throw new Error('expected allowed')
-		expect(approvals.client(collected.clientId)?.rules).toEqual(['trusted', 'paths.read'])
+		expect(claimed(approvals.claim(approvalId)).rules).toEqual(['trusted', 'paths.read'])
 	})
 
-	it('refuses a denied, unknown or removed client', () => {
+	it('refuses a denied, withdrawn or unknown request', () => {
 		const approvals = new MemoryLocalClientApprovals()
 		const denied = approvals.request('x')
 		expect(approvals.deny(denied)).toBe(true)
-		expect(approvals.collect(denied)).toEqual({status: 'refused'})
-		expect(approvals.collect('nope')).toEqual({status: 'refused'})
+		expect(approvals.claim(denied)).toEqual({status: 'refused'})
+		const withdrawn = approvals.request('y')
+		approvals.withdraw(withdrawn)
+		expect(approvals.pending()).toEqual([])
+		expect(approvals.claim(withdrawn)).toEqual({status: 'refused'})
+		expect(approvals.claim('nope')).toEqual({status: 'refused'})
 		expect(approvals.allow('nope')).toBe(false)
-		const allowed = approvals.request('y')
-		approvals.allow(allowed)
-		const collected = approvals.collect(allowed)
-		if (collected.status !== 'allowed') throw new Error('expected allowed')
-		expect(approvals.remove(collected.clientId)).toBe(true)
-		expect(approvals.client(collected.clientId)).toBeNull()
-		expect(approvals.label(collected.clientId)).toBeNull()
+	})
+
+	it('tells listeners when a client is removed', () => {
+		const approvals = new MemoryLocalClientApprovals()
+		const revoked: string[] = []
+		const stop = approvals.onRevoked(clientId => revoked.push(clientId))
+		const approvalId = approvals.request('y')
+		approvals.allow(approvalId)
+		const client = claimed(approvals.claim(approvalId))
+		approvals.confirm(approvalId)
+		expect(approvals.remove(client.clientId)).toBe(true)
+		expect(approvals.client(client.clientId)).toBeNull()
+		expect(revoked).toEqual([client.clientId])
+		stop()
+		expect(approvals.remove(client.clientId)).toBe(false)
+		expect(revoked).toHaveLength(1)
+	})
+
+	it('expires an allowed approval nobody collected', () => {
+		const clock = {now: 0}
+		const approvals = new MemoryLocalClientApprovals({now: () => clock.now})
+		const approvalId = approvals.request('x')
+		clock.now = 5_000
+		approvals.allow(approvalId)
+		clock.now = 5_000 + ALLOWED_APPROVAL_TTL_MS
+		expect(approvals.claim(approvalId).status).toBe('allowed')
+		approvals.release(approvalId)
+		clock.now += 1
+		expect(approvals.claim(approvalId)).toEqual({status: 'refused'})
 	})
 
 	it('drops the oldest pending request past the cap', () => {
@@ -57,13 +98,13 @@ describe('MemoryLocalClientApprovals', () => {
 		const first = approvals.request('first')
 		for (let i = 0; i < PENDING_APPROVALS_MAX; i++) approvals.request(`n${i}`)
 		expect(approvals.pending()).toHaveLength(PENDING_APPROVALS_MAX)
-		expect(approvals.collect(first)).toEqual({status: 'refused'})
+		expect(approvals.claim(first)).toEqual({status: 'refused'})
 	})
 
 	it('allows at once when built to auto-allow (E2E runs only)', () => {
 		const approvals = new MemoryLocalClientApprovals({autoAllow: true})
 		const approvalId = approvals.request('arroxy-mcp')
 		expect(approvals.pending()).toEqual([])
-		expect(approvals.collect(approvalId).status).toBe('allowed')
+		expect(approvals.claim(approvalId).status).toBe('allowed')
 	})
 })

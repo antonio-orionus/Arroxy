@@ -10,15 +10,17 @@ import fs from 'node:fs/promises'
 import net from 'node:net'
 import path from 'node:path'
 import type {ControlService} from '../ControlService.js'
+import {type ConnectionLimits, ConnectionSlots} from './connectionSlots.js'
 import {type ControlSocketLog, serveControlConnection} from './controlConnection.js'
 import {errnoCode} from './errnoCode.js'
 import {deleteDiscoveryFile, readDiscoveryFile, removeStaleSocketDir, writeDiscoveryFile} from './discoveryFile.js'
 import type {LocalClientApprovals} from './localClientApprovals.js'
 import {type ControlEndpointPlan, controlEndpointPlan, fitsSocketPath, pipePath, SOCKET_DIR_PREFIX, SOCKET_PATH_MAX_BYTES, socketPathIn} from './socketPaths.js'
 
-// Connections open at once, authenticated or not. A handshake ends within
-// 2 s, so this only stops a runaway local script from exhausting descriptors.
-const CONTROL_SOCKET_MAX_CONNECTIONS = 32
+// Sessions open at once, and connections still in their handshake (each for
+// at most 2 s; the oldest is dropped to admit a new one). Only stops a
+// runaway local script from exhausting descriptors.
+const DEFAULT_LIMITS: ConnectionLimits = {sessions: 32, handshakes: 64}
 // Fresh pipe names tried when one is taken.
 const PIPE_NAME_ATTEMPTS = 3
 
@@ -35,6 +37,8 @@ export interface ControlSocketOptions {
 	readonly now?: () => number
 	// Tests shorten it; the protocol fixes it.
 	readonly handshakeTimeoutMs?: number
+	// Tests lower them.
+	readonly limits?: ConnectionLimits
 }
 
 export interface ControlSocket {
@@ -58,23 +62,22 @@ export async function startControlSocket(options: ControlSocketOptions): Promise
 		return null
 	}
 	const token = randomBytes(32).toString('base64url')
-	const sockets = new Set<net.Socket>()
+	const slots = new ConnectionSlots<net.Socket>(options.limits ?? DEFAULT_LIMITS)
 	const server = net.createServer(socket => {
-		sockets.add(socket)
-		socket.on('close', () => sockets.delete(socket))
+		slots.admit(socket)
 		const {appVersion, bootId, approvals, service, handshakeTimeoutMs} = options
-		serveControlConnection(socket, {token, appVersion, bootId, approvals, service, log, ...(handshakeTimeoutMs === undefined ? {} : {handshakeTimeoutMs})})
+		serveControlConnection(socket, {token, appVersion, bootId, approvals, service, slots, log, ...(handshakeTimeoutMs === undefined ? {} : {handshakeTimeoutMs})})
 	})
-	server.maxConnections = CONTROL_SOCKET_MAX_CONNECTIONS
+	// From the start, so an error while the socket is set up is never unhandled.
+	server.on('error', error => log.error('the control socket failed', {code: errnoCode(error)}))
 	let listening: Listening | null = null
 	try {
 		listening = plan.kind === 'pipe' ? await listenOnPipe(server) : await listenInFreshDir(server, plan.baseDir, log)
 		if (listening === null) return null
-		server.on('error', error => log.error('the control socket failed', {code: errnoCode(error)}))
 		await writeDiscoveryFile(userDataDir, {socketPath: listening.socketPath, token, version: options.appVersion, startedAt: (options.now ?? Date.now)()})
 	} catch (error) {
-		log.error('the control socket could not start', {code: errnoCode(error), message: error instanceof Error ? error.message : String(error)})
-		await close(server, sockets, listening?.socketDir ?? null)
+		log.error('the control socket could not start', {code: errnoCode(error) ?? (error instanceof Error ? error.name : 'unknown')})
+		await close(server, slots, listening?.socketDir ?? null)
 		return null
 	}
 	log.info('the control socket is listening', {socketPath: listening.socketPath})
@@ -85,7 +88,7 @@ export async function startControlSocket(options: ControlSocketOptions): Promise
 		stop: () => {
 			stopping ??= (async () => {
 				await deleteDiscoveryFile(userDataDir, socketPath).catch((error: unknown) => log.warn('control.json could not be deleted', {code: errnoCode(error)}))
-				await close(server, sockets, socketDir)
+				await close(server, slots, socketDir)
 			})()
 			return stopping
 		}
@@ -148,8 +151,8 @@ function listen(server: net.Server, socketPath: string): Promise<void> {
 	})
 }
 
-async function close(server: net.Server, sockets: Set<net.Socket>, socketDir: string | null): Promise<void> {
-	for (const socket of sockets) socket.destroy()
+async function close(server: net.Server, slots: ConnectionSlots<net.Socket>, socketDir: string | null): Promise<void> {
+	slots.closeAll()
 	if (server.listening) await new Promise<void>(resolve => server.close(() => resolve()))
 	if (socketDir !== null) await fs.rm(socketDir, {recursive: true, force: true})
 }

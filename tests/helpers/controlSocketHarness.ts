@@ -22,24 +22,41 @@ export interface OpenedSession {
 	readonly close: ReturnType<typeof vi.fn>
 }
 
-// Answers status at once and anything else after `delays[method]` ms with an
-// empty result, so tests can see responses leave in completion order.
-export function fakeService(delays: Readonly<Record<string, number>> = {}) {
+export interface FakeServiceOptions {
+	// Answer these methods after so many ms, so tests see completion order.
+	readonly delays?: Readonly<Record<string, number>>
+	// Hold these methods until release().
+	readonly held?: readonly string[]
+	readonly failOpen?: boolean
+}
+
+// Answers status with READY and anything else with an empty result.
+export function fakeService({delays = {}, held = [], failOpen = false}: FakeServiceOptions = {}) {
 	const sessions: OpenedSession[] = []
+	const handled: string[] = []
+	let releaseHeld: () => void = () => undefined
+	let heldGate = new Promise<void>(resolve => (releaseHeld = resolve))
 	const openSession = (context: ControlContext, sink: ControlSink): ControlSession => {
+		if (failOpen) throw new Error('openSession failed')
 		const close = vi.fn()
 		sessions.push({context, sink, close})
 		return {
 			close,
 			handle: async (request): Promise<ControlResponse> => {
+				handled.push(request.id)
 				const delay = delays[request.method]
 				if (delay !== undefined) await new Promise(resolve => setTimeout(resolve, delay))
+				if (held.includes(request.method)) await heldGate
 				if (request.method === 'status') return {ok: true, result: READY}
 				return {ok: true, result: {}}
 			}
 		}
 	}
-	return {sessions, openSession}
+	const release = (): void => {
+		releaseHeld()
+		heldGate = new Promise<void>(resolve => (releaseHeld = resolve))
+	}
+	return {sessions, handled, release, openSession}
 }
 
 export const silentLog = (): ControlSocketLog => ({info: vi.fn(), warn: vi.fn(), error: vi.fn()})
@@ -53,10 +70,10 @@ export interface SocketHarness {
 	cleanup(): Promise<void>
 }
 
-export async function startHarness(overrides: Partial<ControlSocketOptions> & {delays?: Record<string, number>} = {}): Promise<SocketHarness> {
+export async function startHarness(overrides: Partial<ControlSocketOptions> & FakeServiceOptions = {}): Promise<SocketHarness> {
 	const userDataDir = await fs.mkdtemp(path.join(os.tmpdir(), 'acs-'))
 	const approvals = new MemoryLocalClientApprovals()
-	const service = fakeService(overrides.delays)
+	const service = fakeService(overrides)
 	const socket = await startControlSocket({userDataDir, appVersion: '9.9.9', platform: process.platform, env: {}, service, approvals, bootId: 'boot-1', log: silentLog(), ...overrides})
 	if (socket === null) throw new Error('the control socket did not start')
 	return {
@@ -169,7 +186,8 @@ export const secretProof =
 export function allowedClient(approvals: MemoryLocalClientApprovals, pathsRead = false): {clientId: string; secret: string} {
 	const approvalId = approvals.request('test-client')
 	approvals.allow(approvalId, {pathsRead})
-	const collected = approvals.collect(approvalId)
-	if (collected.status !== 'allowed') throw new Error('expected allowed')
-	return {clientId: collected.clientId, secret: collected.clientSecret}
+	const claim = approvals.claim(approvalId)
+	if (claim.status !== 'allowed') throw new Error('expected allowed')
+	approvals.confirm(approvalId)
+	return {clientId: claim.client.clientId, secret: claim.client.secret}
 }
