@@ -1,5 +1,6 @@
 import gt from 'semver/functions/gt.js'
 import valid from 'semver/functions/valid.js'
+import {creditsAnAssistant} from './aiAttribution.js'
 import {releaseSectionBody} from './changelogFragments.js'
 
 // Pure rules for check-pr-policy.ts: what a pull request may contain, read from
@@ -200,17 +201,6 @@ function baseBranch(input: PullRequestFacts): string | null {
 	if (input.baseRef === input.defaultBranch) return null
 	return `The PR targets ${input.baseRef}; every PR branches from ${input.defaultBranch} (AGENTS.md, "Don't stack PRs").`
 }
-
-// A co-author trailer naming an assistant product, a "generated with/by"
-// credit, or an assistant's noreply address. A trailer matches products only,
-// never words that are also people's names (Devin, Ai); `claude` never
-// matches as `CLAUDE.md`.
-const ATTRIBUTION = [
-	/co-authored-by:.*\b(?:claude\b(?!\.md)|anthropic|codex|openai|chatgpt|gpt-?\d\w*|copilot|gemini|cursor agent|aider)\b/i,
-	/generated (?:with|by) \[?(?:claude\b(?!\.md)|anthropic|codex|openai|chatgpt|gpt-?\d\w*|copilot|gemini|cursor agent|devin|aider|an? ai|ai)\b/i,
-	/noreply@(?:anthropic|openai)\.com/i
-]
-const creditsAnAssistant = (text: string): boolean => ATTRIBUTION.some(pattern => pattern.test(text))
 
 function attributionIn(input: PullRequestFacts): {commits: string[]; body: boolean} {
 	return {commits: input.commits.filter(commit => creditsAnAssistant(commit.message)).map(commit => commit.sha.slice(0, 7)), body: creditsAnAssistant(input.body)}

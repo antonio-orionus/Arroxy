@@ -1,0 +1,71 @@
+name: Issue policy
+
+# What an issue a maintainer files must carry (scripts/issuePolicy.ts): one kind
+# label, a `file:line` for a bug, test gap or tech debt, no pointers to the
+# private maintainer docs, and no AI credited with finding it. Community issues
+# come through the issue forms and are skipped.
+#
+# An issue can't be blocked, so a failing one gets the needs-triage label and
+# one comment saying what to fix; the label comes off when an edit passes.
+# Labels added with GITHUB_TOKEN don't trigger workflows, so this never loops.
+on:
+  issues:
+    types: [opened, edited, reopened, labeled, unlabeled]
+
+# One run at a time per issue, never cancelled mid-way: a cancelled run could
+# leave the label added without its comment. A burst of edits queues, and the
+# last edit's run gives the final verdict.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+  BUN_VERSION: '1.4.2'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  issue-policy:
+    name: issue-policy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: oven-sh/setup-bun@v2.2.0
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      # The checker has no dependencies, so no install. The issue's text
+      # reaches it through the environment, never the command line.
+      - name: Check the issue
+        id: check
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_LABELS: ${{ toJSON(github.event.issue.labels.*.name) }}
+          ISSUE_AUTHOR_ASSOCIATION: ${{ github.event.issue.author_association }}
+          ISSUE_REPORT: ${{ runner.temp }}/issue-policy.md
+        run: bun scripts/check-issue-policy.ts
+
+      - name: Flag the issue
+        if: ${{ steps.check.outputs.verdict == 'fail' && !contains(github.event.issue.labels.*.name, 'needs-triage') }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+        run: |
+          gh issue edit "$NUMBER" --add-label needs-triage
+          gh issue comment "$NUMBER" --body-file "$RUNNER_TEMP/issue-policy.md"
+
+      - name: Clear the flag
+        if: ${{ steps.check.outputs.verdict == 'pass' && contains(github.event.issue.labels.*.name, 'needs-triage') }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+        run: gh issue edit "$NUMBER" --remove-label needs-triage
