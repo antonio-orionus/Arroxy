@@ -66,15 +66,31 @@ export const TERMINATE_GRACE_MS = 2_000
 // removes its `_MEI*` unpack folder from TMPDIR when it can handle the signal,
 // so SIGKILL alone leaves tens of MB behind on every stop (and some distros
 // keep /tmp in RAM). yt-dlp and ffmpeg both exit at once on SIGTERM without
-// finishing the file, so the `.part` stays a `.part`. Whatever is still alive
-// after the grace gets SIGKILL. Windows' `taskkill /T /F` is already forced,
-// so there is nothing to escalate there.
+// finishing the file, so the `.part` stays a `.part`. A tree that has not
+// closed after the grace gets SIGKILL. Windows' `taskkill /T /F` is already
+// forced, so there is nothing to escalate there.
 export function terminateProcessTree(proc: KillableProcess & Pick<ChildProcess, 'once'>, logger?: RunnerLogger): void {
 	killProcessTree(proc, 'SIGTERM', logger)
 	if (process.platform === 'win32') return
-	const escalate = setTimeout(() => killProcessTree(proc, 'SIGKILL', logger), TERMINATE_GRACE_MS)
+	const escalate = setTimeout(() => killUnclosedTree(proc, logger), TERMINATE_GRACE_MS)
 	escalate.unref()
-	const settle = (): void => clearTimeout(escalate)
-	proc.once('exit', settle)
-	proc.once('close', settle)
+	// 'close', not 'exit': the leader can exit on SIGTERM while a descendant that
+	// ignored it still holds the pipes, and that descendant still needs SIGKILL.
+	proc.once('close', () => clearTimeout(escalate))
+}
+
+function killUnclosedTree(proc: KillableProcess, logger?: RunnerLogger): void {
+	if ((proc.exitCode ?? null) === null && (proc.signalCode ?? null) === null) {
+		killProcessTree(proc, 'SIGKILL', logger)
+		return
+	}
+	// The leader is reaped, so killProcessTree refuses its pid. The group is not:
+	// a descendant holding the pipes keeps it alive, and a group id is never
+	// handed to a new process while its group exists.
+	if (proc.pid == null) return
+	try {
+		process.kill(-proc.pid, 'SIGKILL')
+	} catch {
+		/* the group ended meanwhile */
+	}
 }

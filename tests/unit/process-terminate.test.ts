@@ -47,7 +47,23 @@ describe.skipIf(process.platform === 'win32')('terminateProcessTree on Unix', ()
 		])
 	})
 
-	it('never sends SIGKILL to a tree that exited on SIGTERM: its pid may have been reused', () => {
+	it('never sends SIGKILL to a tree that closed on SIGTERM: its pid may have been reused', () => {
+		const proc = child()
+		terminateProcessTree(proc)
+		proc.signalCode = 'SIGTERM'
+		proc.emit('exit', null, 'SIGTERM')
+		proc.emit('close', null, 'SIGTERM')
+
+		vi.advanceTimersByTime(TERMINATE_GRACE_MS)
+
+		expect(processKill.mock.calls).toEqual([[-4242, 'SIGTERM']])
+		expect(vi.getTimerCount()).toBe(0)
+	})
+
+	// The leader (PyInstaller's bootloader) exited, but a descendant that shrugged
+	// off SIGTERM still holds the pipes, so 'close' never came. Its group still
+	// exists, so its id cannot have been handed to another process.
+	it('sends SIGKILL to the group when the leader exited but the tree never closed', () => {
 		const proc = child()
 		terminateProcessTree(proc)
 		proc.signalCode = 'SIGTERM'
@@ -55,8 +71,22 @@ describe.skipIf(process.platform === 'win32')('terminateProcessTree on Unix', ()
 
 		vi.advanceTimersByTime(TERMINATE_GRACE_MS)
 
-		expect(processKill.mock.calls).toEqual([[-4242, 'SIGTERM']])
-		expect(vi.getTimerCount()).toBe(0)
+		expect(processKill.mock.calls).toEqual([
+			[-4242, 'SIGTERM'],
+			[-4242, 'SIGKILL']
+		])
+	})
+
+	it('survives a group that is already gone when the grace runs out', () => {
+		const proc = child()
+		terminateProcessTree(proc)
+		proc.signalCode = 'SIGTERM'
+		proc.emit('exit', null, 'SIGTERM')
+		processKill.mockImplementationOnce(() => {
+			throw Object.assign(new Error('kill ESRCH'), {code: 'ESRCH'})
+		})
+
+		expect(() => vi.advanceTimersByTime(TERMINATE_GRACE_MS)).not.toThrow()
 	})
 })
 
