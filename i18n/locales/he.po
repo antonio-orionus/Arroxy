@@ -4066,10 +4066,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "שינוי פורמט"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "אסימונים: {title}, {id}, {uploader}, {date}, {resolution}. הסיומת מתווספת עבורכם."
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "שמירה כפרופיל"
@@ -5164,10 +5160,6 @@ msgstr "מכין"
 msgctxt "wizard.url.quickProbeFailed"
 msgid "Probe failed"
 msgstr "הבדיקה נכשלה"
-
-msgctxt "wizard.url.quickQueued"
-msgid "Added to queue"
-msgstr "נוסף לתור"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."

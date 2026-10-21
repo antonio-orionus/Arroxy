@@ -1319,7 +1319,6 @@
 			"changeFormat": "Formatni o'zgartirish",
 			"changed": "{{profile}} dan o'zgartirilgan: {{areas}}. Faqat shu yuklab olish uchun amal qiladi.",
 			"changedFrom": "{{profile}} dan o'zgartirilgan:",
-			"fileNameHint": "Teglar: {title}, {id}, {uploader}, {date}, {resolution}. Kengaytma avtomatik qo'shiladi.",
 			"nextTime": {
 				"action": "Profil sifatida saqlash",
 				"defaultName": "{{profile}} (tahrirlangan)",
@@ -1676,7 +1675,6 @@
 			"quickPrepareFailed": "Navbat elementi tayyorlanmadi",
 			"quickPreparing": "Tayyorlanmoqda",
 			"quickProbeFailed": "Tekshiruv muvaffaqiyatsiz",
-			"quickQueued": "Navbatga qo‘shildi",
 			"quickSingleOnly": "Boshlash uchun video, pleylist, kanal yoki qidiruv URL manzilini joylang.",
 			"settings": {
 				"behaviorDescription": "Profillar orqali boshqariladigan yuklamalarga ham taʼsir qiluvchi global xatti-harakat.",

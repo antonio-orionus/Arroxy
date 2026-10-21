@@ -1319,7 +1319,6 @@
 			"changeFormat": "Muuta muotoa",
 			"changed": "Muutettu profiilista {{profile}}: {{areas}}. Koskee vain tätä latausta.",
 			"changedFrom": "Muutettu profiilista {{profile}}:",
-			"fileNameHint": "Tunnisteet: {title}, {id}, {uploader}, {date}, {resolution}. Tiedostopääte lisätään puolestasi.",
 			"nextTime": {
 				"action": "Tallenna profiiliksi",
 				"defaultName": "{{profile}} (muokattu)",
@@ -1676,7 +1675,6 @@
 			"quickPrepareFailed": "Jonon kohdetta ei voitu valmistella",
 			"quickPreparing": "Valmistellaan",
 			"quickProbeFailed": "Tietojen haku epäonnistui",
-			"quickQueued": "Lisätty jonoon",
 			"quickSingleOnly": "Aloita liittämällä video-, soittolista-, kanava- tai haku-URL.",
 			"settings": {
 				"behaviorDescription": "Yleinen toiminta, joka vaikuttaa myös profiilipohjaisiin latauksiin.",

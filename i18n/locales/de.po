@@ -3911,10 +3911,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Format ändern"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "Platzhalter: {title}, {id}, {uploader}, {date}, {resolution}. Die Dateiendung wird automatisch ergänzt."
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Als Profil speichern"
@@ -5004,10 +5000,6 @@ msgstr "Wird vorbereitet"
 msgctxt "wizard.url.quickProbeFailed"
 msgid "Probe failed"
 msgstr "Prüfung fehlgeschlagen"
-
-msgctxt "wizard.url.quickQueued"
-msgid "Added to queue"
-msgstr "Zur Warteschlange hinzugefügt"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."

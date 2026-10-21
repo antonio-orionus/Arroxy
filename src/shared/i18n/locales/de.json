@@ -1319,7 +1319,6 @@
 			"changeFormat": "Format ändern",
 			"changed": "Geändert gegenüber {{profile}}: {{areas}}. Gilt nur für diesen Download.",
 			"changedFrom": "Geändert gegenüber {{profile}}:",
-			"fileNameHint": "Platzhalter: {title}, {id}, {uploader}, {date}, {resolution}. Die Dateiendung wird automatisch ergänzt.",
 			"nextTime": {
 				"action": "Als Profil speichern",
 				"defaultName": "{{profile}} (bearbeitet)",
@@ -1676,7 +1675,6 @@
 			"quickPrepareFailed": "Warteschlangeneintrag konnte nicht vorbereitet werden",
 			"quickPreparing": "Wird vorbereitet",
 			"quickProbeFailed": "Prüfung fehlgeschlagen",
-			"quickQueued": "Zur Warteschlange hinzugefügt",
 			"quickSingleOnly": "Füge eine Video-, Playlist-, Kanal- oder Such-URL ein, um loszulegen.",
 			"settings": {
 				"behaviorDescription": "Globales Verhalten, das auch profilgesteuerte Downloads betrifft.",

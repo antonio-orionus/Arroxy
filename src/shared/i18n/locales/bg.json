@@ -1319,7 +1319,6 @@
 			"changeFormat": "Смяна на формата",
 			"changed": "Променено спрямо {{profile}}: {{areas}}. Важи само за това изтегляне.",
 			"changedFrom": "Променено спрямо {{profile}}:",
-			"fileNameHint": "Маркери: {title}, {id}, {uploader}, {date}, {resolution}. Разширението се добавя автоматично.",
 			"nextTime": {
 				"action": "Запазване като профил",
 				"defaultName": "{{profile}} (редактиран)",
@@ -1676,7 +1675,6 @@
 			"quickPrepareFailed": "Елементът от опашката не можа да се подготви",
 			"quickPreparing": "Подготовка",
 			"quickProbeFailed": "Анализът не успя",
-			"quickQueued": "Добавено в опашката",
 			"quickSingleOnly": "Поставете адрес на видео, плейлист, канал или търсене, за да започнете.",
 			"settings": {
 				"behaviorDescription": "Глобално поведение, което засяга и изтеглянията по профил.",

@@ -4221,10 +4221,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Keisti formatą"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "Žymės: {title}, {id}, {uploader}, {date}, {resolution}. Plėtinys pridedamas automatiškai."
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Įrašyti kaip profilį"
@@ -5324,10 +5320,6 @@ msgstr "Ruošiama"
 msgctxt "wizard.url.quickProbeFailed"
 msgid "Probe failed"
 msgstr "Nuskaitymas nepavyko"
-
-msgctxt "wizard.url.quickQueued"
-msgid "Added to queue"
-msgstr "Įtraukta į eilę"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."

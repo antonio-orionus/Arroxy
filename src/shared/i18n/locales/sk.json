@@ -1381,7 +1381,6 @@
 			"changeFormat": "Zmeniť formát",
 			"changed": "Zmenené oproti profilu {{profile}}: {{areas}}. Platí iba pre toto sťahovanie.",
 			"changedFrom": "Zmenené oproti profilu {{profile}}:",
-			"fileNameHint": "Tokeny: {title}, {id}, {uploader}, {date}, {resolution}. Prípona sa pridá automaticky.",
 			"nextTime": {
 				"action": "Uložiť ako profil",
 				"defaultName": "{{profile}} (upravený)",
@@ -1740,7 +1739,6 @@
 			"quickPrepareFailed": "Položku radu sa nepodarilo pripraviť",
 			"quickPreparing": "Pripravuje sa",
 			"quickProbeFailed": "Zisťovanie podrobností zlyhalo",
-			"quickQueued": "Pridané do radu",
 			"quickSingleOnly": "Ak chcete začať, vložte adresu URL videa, zoznamu skladieb, kanála alebo vyhľadávania.",
 			"settings": {
 				"behaviorDescription": "Globálne správanie, ktoré ovplyvňuje aj sťahovania riadené profilmi.",

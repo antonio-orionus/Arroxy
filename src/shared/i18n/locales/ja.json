@@ -1288,7 +1288,6 @@
 			"changeFormat": "形式を変更",
 			"changed": "{{profile}} からの変更: {{areas}}。このダウンロードにのみ適用されます。",
 			"changedFrom": "{{profile}} からの変更:",
-			"fileNameHint": "使えるトークン: {title}、{id}、{uploader}、{date}、{resolution}。拡張子は自動で付きます。",
 			"nextTime": {
 				"action": "プロフィールとして保存",
 				"defaultName": "{{profile}}（編集済み）",
@@ -1644,7 +1643,6 @@
 			"quickPrepareFailed": "キュー項目を準備できませんでした",
 			"quickPreparing": "準備中",
 			"quickProbeFailed": "解析に失敗しました",
-			"quickQueued": "キューに追加しました",
 			"quickSingleOnly": "開始するには、動画、プレイリスト、チャンネル、検索の URL を貼り付けてください。",
 			"settings": {
 				"behaviorDescription": "プロフィールによるダウンロードにも影響する全体の動作です。",

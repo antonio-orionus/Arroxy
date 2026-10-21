@@ -1381,7 +1381,6 @@
 			"changeFormat": "Keisti formatą",
 			"changed": "Pakeista, palyginti su „{{profile}}“: {{areas}}. Taikoma tik šiam atsisiuntimui.",
 			"changedFrom": "Pakeista, palyginti su „{{profile}}“:",
-			"fileNameHint": "Žymės: {title}, {id}, {uploader}, {date}, {resolution}. Plėtinys pridedamas automatiškai.",
 			"nextTime": {
 				"action": "Įrašyti kaip profilį",
 				"defaultName": "{{profile}} (redaguotas)",
@@ -1740,7 +1739,6 @@
 			"quickPrepareFailed": "Nepavyko paruošti eilės elemento",
 			"quickPreparing": "Ruošiama",
 			"quickProbeFailed": "Nuskaitymas nepavyko",
-			"quickQueued": "Įtraukta į eilę",
 			"quickSingleOnly": "Norėdami pradėti, įklijuokite vaizdo įrašo, grojaraščio, kanalo ar paieškos URL.",
 			"settings": {
 				"behaviorDescription": "Bendrasis elgesys, turintis įtakos ir pagal profilį vykdomiems atsisiuntimams.",

@@ -1381,7 +1381,6 @@
 			"changeFormat": "Zmień format",
 			"changed": "Zmieniono względem {{profile}}: {{areas}}. Dotyczy tylko tego pobrania.",
 			"changedFrom": "Zmieniono względem {{profile}}:",
-			"fileNameHint": "Znaczniki: {title}, {id}, {uploader}, {date}, {resolution}. Rozszerzenie zostanie dodane automatycznie.",
 			"nextTime": {
 				"action": "Zapisz jako profil",
 				"defaultName": "{{profile}} (edytowany)",
@@ -1740,7 +1739,6 @@
 			"quickPrepareFailed": "Nie udało się przygotować elementu kolejki",
 			"quickPreparing": "Przygotowywanie",
 			"quickProbeFailed": "Sprawdzanie nie powiodło się",
-			"quickQueued": "Dodano do kolejki",
 			"quickSingleOnly": "Wklej adres URL filmu, playlisty, kanału lub wyszukiwania, aby rozpocząć.",
 			"settings": {
 				"behaviorDescription": "Ustawienia globalne wpływające także na pobieranie sterowane profilami.",

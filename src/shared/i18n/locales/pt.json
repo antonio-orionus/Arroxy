@@ -1350,7 +1350,6 @@
 			"changeFormat": "Alterar formato",
 			"changed": "Alterado em relação a {{profile}}: {{areas}}. Vale apenas para este download.",
 			"changedFrom": "Alterado em relação a {{profile}}:",
-			"fileNameHint": "Variáveis: {title}, {id}, {uploader}, {date}, {resolution}. A extensão é adicionada automaticamente.",
 			"nextTime": {
 				"action": "Salvar como perfil",
 				"defaultName": "{{profile}} (editado)",
@@ -1708,7 +1707,6 @@
 			"quickPrepareFailed": "Não foi possível preparar o item da fila",
 			"quickPreparing": "Preparando",
 			"quickProbeFailed": "Falha na análise",
-			"quickQueued": "Adicionado à fila",
 			"quickSingleOnly": "Cole a URL de um vídeo, playlist, canal ou busca para começar.",
 			"settings": {
 				"behaviorDescription": "Comportamento global que também afeta downloads gerenciados por perfis.",

@@ -1319,7 +1319,6 @@
 			"changeFormat": "تغییر قالب",
 			"changed": "تغییر نسبت به {{profile}}: {{areas}}. فقط برای این دانلود اعمال می‌شود.",
 			"changedFrom": "تغییر نسبت به {{profile}}:",
-			"fileNameHint": "نشانه‌ها: {title}، {id}، {uploader}، {date}، {resolution}. پسوند خودکار اضافه می‌شود.",
 			"nextTime": {
 				"action": "ذخیره به‌عنوان نمایه",
 				"defaultName": "{{profile}} (ویرایش‌شده)",
@@ -1676,7 +1675,6 @@
 			"quickPrepareFailed": "مورد صف آماده نشد",
 			"quickPreparing": "در حال آماده‌سازی",
 			"quickProbeFailed": "بررسی ناموفق بود",
-			"quickQueued": "به صف افزوده شد",
 			"quickSingleOnly": "برای شروع URL ویدیو، فهرست پخش، کانال یا جستجو را جای‌گذاری کنید.",
 			"settings": {
 				"behaviorDescription": "رفتار سراسری که بر دانلودهای مبتنی بر نمایه نیز اثر می‌گذارد.",

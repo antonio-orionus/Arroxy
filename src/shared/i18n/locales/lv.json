@@ -1350,7 +1350,6 @@
 			"changeFormat": "Mainīt formātu",
 			"changed": "Mainīts salīdzinājumā ar {{profile}}: {{areas}}. Attiecas tikai uz šo lejupielādi.",
 			"changedFrom": "Mainīts salīdzinājumā ar {{profile}}:",
-			"fileNameHint": "Marķieri: {title}, {id}, {uploader}, {date}, {resolution}. Paplašinājums tiek pievienots automātiski.",
 			"nextTime": {
 				"action": "Saglabāt kā profilu",
 				"defaultName": "{{profile}} (rediģēts)",
@@ -1708,7 +1707,6 @@
 			"quickPrepareFailed": "Rindas vienumu nevarēja sagatavot",
 			"quickPreparing": "Sagatavo",
 			"quickProbeFailed": "Pārbaude neizdevās",
-			"quickQueued": "Pievienots rindai",
 			"quickSingleOnly": "Lai sāktu, ielīmējiet video, atskaņošanas saraksta, kanāla vai meklēšanas URL.",
 			"settings": {
 				"behaviorDescription": "Globāla darbība, kas ietekmē arī uz profiliem balstītās lejupielādes.",

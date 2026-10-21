@@ -1350,7 +1350,6 @@
 			"changeFormat": "שינוי פורמט",
 			"changed": "שונה לעומת {{profile}}: {{areas}}. חל על הורדה זו בלבד.",
 			"changedFrom": "שונה לעומת {{profile}}:",
-			"fileNameHint": "אסימונים: {title}, {id}, {uploader}, {date}, {resolution}. הסיומת מתווספת עבורכם.",
 			"nextTime": {
 				"action": "שמירה כפרופיל",
 				"defaultName": "{{profile}} (נערך)",
@@ -1708,7 +1707,6 @@
 			"quickPrepareFailed": "לא ניתן היה להכין את פריט התור",
 			"quickPreparing": "מכין",
 			"quickProbeFailed": "הבדיקה נכשלה",
-			"quickQueued": "נוסף לתור",
 			"quickSingleOnly": "הדביקו כתובת URL של סרטון, רשימת השמעה, ערוץ או חיפוש כדי להתחיל.",
 			"settings": {
 				"behaviorDescription": "התנהגות גלובלית שמשפיעה גם על הורדות מבוססות פרופיל.",

@@ -3843,10 +3843,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr ""
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr ""
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr ""
@@ -4933,10 +4929,6 @@ msgstr ""
 
 msgctxt "wizard.url.quickProbeFailed"
 msgid "Probe failed"
-msgstr ""
-
-msgctxt "wizard.url.quickQueued"
-msgid "Added to queue"
 msgstr ""
 
 msgctxt "wizard.url.quickSingleOnly"

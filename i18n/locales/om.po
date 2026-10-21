@@ -3911,10 +3911,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Foormaatii jijjiiri"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "Mallattoolee: {title}, {id}, {uploader}, {date}, {resolution}. Dheeraan ofumaan siif dabalama."
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Akka piroofaayiliitti olkaa'i"
@@ -5004,10 +5000,6 @@ msgstr "Qopheessaa jira"
 msgctxt "wizard.url.quickProbeFailed"
 msgid "Probe failed"
 msgstr "Sakatta’iinsi hin milkoofne"
-
-msgctxt "wizard.url.quickQueued"
-msgid "Added to queue"
-msgstr "Tarreetti dabalame"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."

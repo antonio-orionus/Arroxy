@@ -4221,10 +4221,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Zmień format"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "Znaczniki: {title}, {id}, {uploader}, {date}, {resolution}. Rozszerzenie zostanie dodane automatycznie."
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Zapisz jako profil"
@@ -5324,10 +5320,6 @@ msgstr "Przygotowywanie"
 msgctxt "wizard.url.quickProbeFailed"
 msgid "Probe failed"
 msgstr "Sprawdzanie nie powiodło się"
-
-msgctxt "wizard.url.quickQueued"
-msgid "Added to queue"
-msgstr "Dodano do kolejki"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."

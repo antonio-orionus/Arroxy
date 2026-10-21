@@ -1319,7 +1319,6 @@
 			"changeFormat": "Skift format",
 			"changed": "Ændret fra {{profile}}: {{areas}}. Gælder kun for dette download.",
 			"changedFrom": "Ændret fra {{profile}}:",
-			"fileNameHint": "Mærker: {title}, {id}, {uploader}, {date}, {resolution}. Filtypenavnet tilføjes automatisk.",
 			"nextTime": {
 				"action": "Gem som profil",
 				"defaultName": "{{profile}} (redigeret)",
@@ -1676,7 +1675,6 @@
 			"quickPrepareFailed": "Elementet i køen kunne ikke klargøres",
 			"quickPreparing": "Klargør",
 			"quickProbeFailed": "Analysen mislykkedes",
-			"quickQueued": "Føjet til køen",
 			"quickSingleOnly": "Indsæt en URL til en video, afspilningsliste, kanal eller søgning for at komme i gang.",
 			"settings": {
 				"behaviorDescription": "Global adfærd, der også påvirker profilstyrede downloads.",

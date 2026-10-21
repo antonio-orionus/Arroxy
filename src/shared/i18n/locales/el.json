@@ -1319,7 +1319,6 @@
 			"changeFormat": "Αλλαγή μορφής",
 			"changed": "Αλλαγές σε σχέση με το {{profile}}: {{areas}}. Ισχύει μόνο για αυτή τη λήψη.",
 			"changedFrom": "Αλλαγές σε σχέση με το {{profile}}:",
-			"fileNameHint": "Μεταβλητές: {title}, {id}, {uploader}, {date}, {resolution}. Η επέκταση προστίθεται αυτόματα.",
 			"nextTime": {
 				"action": "Αποθήκευση ως προφίλ",
 				"defaultName": "{{profile}} (τροποποιημένο)",
@@ -1676,7 +1675,6 @@
 			"quickPrepareFailed": "Δεν ήταν δυνατή η προετοιμασία του στοιχείου ουράς",
 			"quickPreparing": "Προετοιμασία",
 			"quickProbeFailed": "Ο έλεγχος απέτυχε",
-			"quickQueued": "Προστέθηκε στην ουρά",
 			"quickSingleOnly": "Επικόλλησε URL βίντεο, playlist, καναλιού ή αναζήτησης για να ξεκινήσεις.",
 			"settings": {
 				"behaviorDescription": "Γενική συμπεριφορά που επηρεάζει και τις λήψεις που ελέγχονται από προφίλ.",

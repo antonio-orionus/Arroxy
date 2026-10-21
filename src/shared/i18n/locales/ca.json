@@ -1350,7 +1350,6 @@
 			"changeFormat": "Canvia el format",
 			"changed": "Canviat respecte de {{profile}}: {{areas}}. S'aplica només a aquesta descàrrega.",
 			"changedFrom": "Canviat respecte de {{profile}}:",
-			"fileNameHint": "Variables: {title}, {id}, {uploader}, {date}, {resolution}. L'extensió s'afegeix automàticament.",
 			"nextTime": {
 				"action": "Desa com a perfil",
 				"defaultName": "{{profile}} (editat)",
@@ -1708,7 +1707,6 @@
 			"quickPrepareFailed": "No s'ha pogut preparar l'element de la cua",
 			"quickPreparing": "Preparant",
 			"quickProbeFailed": "L'anàlisi ha fallat",
-			"quickQueued": "Afegit a la cua",
 			"quickSingleOnly": "Enganxa l'URL d'un vídeo, una llista de reproducció, un canal o una cerca per començar.",
 			"settings": {
 				"behaviorDescription": "Comportament global que també afecta les descàrregues basades en perfils.",

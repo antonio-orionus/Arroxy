@@ -1288,7 +1288,6 @@
 			"changeFormat": "Ubah format",
 			"changed": "Diubah dari {{profile}}: {{areas}}. Hanya berlaku untuk unduhan ini.",
 			"changedFrom": "Diubah dari {{profile}}:",
-			"fileNameHint": "Token: {title}, {id}, {uploader}, {date}, {resolution}. Ekstensi ditambahkan otomatis.",
 			"nextTime": {
 				"action": "Simpan sebagai profil",
 				"defaultName": "{{profile}} (diedit)",
@@ -1644,7 +1643,6 @@
 			"quickPrepareFailed": "Item antrean tidak dapat disiapkan",
 			"quickPreparing": "Mempersiapkan",
 			"quickProbeFailed": "Penyelidikan gagal",
-			"quickQueued": "Ditambahkan ke antrean",
 			"quickSingleOnly": "Tempelkan video, daftar putar, saluran, atau URL pencarian untuk memulai.",
 			"settings": {
 				"behaviorDescription": "Perilaku global yang juga memengaruhi unduhan yang digerakkan oleh profil.",

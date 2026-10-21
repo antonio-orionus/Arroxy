@@ -1350,7 +1350,6 @@
 			"changeFormat": "Promijeni format",
 			"changed": "Promijenjeno u odnosu na {{profile}}: {{areas}}. Vrijedi samo za ovo preuzimanje.",
 			"changedFrom": "Promijenjeno u odnosu na {{profile}}:",
-			"fileNameHint": "Tokeni: {title}, {id}, {uploader}, {date}, {resolution}. Ekstenzija se dodaje automatski.",
 			"nextTime": {
 				"action": "Spremi kao profil",
 				"defaultName": "{{profile}} (uređeno)",
@@ -1708,7 +1707,6 @@
 			"quickPrepareFailed": "Stavku reda nije bilo moguće pripremiti",
 			"quickPreparing": "Priprema",
 			"quickProbeFailed": "Provjera nije uspjela",
-			"quickQueued": "Dodano u red",
 			"quickSingleOnly": "Zalijepite URL videozapisa, popisa za reprodukciju, kanala ili pretrage za početak.",
 			"settings": {
 				"behaviorDescription": "Globalno ponašanje koje utječe i na preuzimanja vođena profilom.",

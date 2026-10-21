@@ -1443,7 +1443,6 @@
 			"changeFormat": "تغيير الصيغة",
 			"changed": "تغيّر عن {{profile}}: {{areas}}. ينطبق على هذا التنزيل فقط.",
 			"changedFrom": "تغيّر عن {{profile}}:",
-			"fileNameHint": "الرموز: {title}، {id}، {uploader}، {date}، {resolution}. تتم إضافة الامتداد تلقائيًا.",
 			"nextTime": {
 				"action": "حفظ كملف تعريف",
 				"defaultName": "{{profile}} (معدّل)",
@@ -1804,7 +1803,6 @@
 			"quickPrepareFailed": "تعذر تحضير عنصر قائمة الانتظار",
 			"quickPreparing": "جارٍ التحضير",
 			"quickProbeFailed": "فشل الفحص",
-			"quickQueued": "تمت الإضافة إلى قائمة الانتظار",
 			"quickSingleOnly": "الصق رابط فيديو أو قائمة تشغيل أو قناة أو بحث للبدء.",
 			"settings": {
 				"behaviorDescription": "سلوك عام يؤثر أيضًا على التنزيلات المُدارة بواسطة الملفات الشخصية.",

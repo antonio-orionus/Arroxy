@@ -1319,7 +1319,6 @@
 			"changeFormat": "Cambiar formato",
 			"changed": "Cambiado respecto de {{profile}}: {{areas}}. Aplícase só a esta descarga.",
 			"changedFrom": "Cambiado respecto de {{profile}}:",
-			"fileNameHint": "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. A extensión engádese automaticamente.",
 			"nextTime": {
 				"action": "Gardar como perfil",
 				"defaultName": "{{profile}} (editado)",
@@ -1676,7 +1675,6 @@
 			"quickPrepareFailed": "Non se puido preparar o elemento da cola",
 			"quickPreparing": "Preparando",
 			"quickProbeFailed": "Fallou a análise",
-			"quickQueued": "Engadido á cola",
 			"quickSingleOnly": "Pega a URL dun vídeo, lista de reprodución, canle ou busca para comezar.",
 			"settings": {
 				"behaviorDescription": "Comportamento global que tamén afecta ás descargas guiadas por perfís.",

@@ -1381,7 +1381,6 @@
 			"changeFormat": "Změnit formát",
 			"changed": "Změněno oproti profilu {{profile}}: {{areas}}. Platí jen pro toto stahování.",
 			"changedFrom": "Změněno oproti profilu {{profile}}:",
-			"fileNameHint": "Tokeny: {title}, {id}, {uploader}, {date}, {resolution}. Příponu doplníme za vás.",
 			"nextTime": {
 				"action": "Uložit jako profil",
 				"defaultName": "{{profile}} (upraveno)",
@@ -1740,7 +1739,6 @@
 			"quickPrepareFailed": "Položku fronty se nepodařilo připravit",
 			"quickPreparing": "Příprava",
 			"quickProbeFailed": "Zjišťování se nezdařilo",
-			"quickQueued": "Přidáno do fronty",
 			"quickSingleOnly": "Chcete-li začít, vložte adresu URL videa, playlistu, kanálu nebo hledání.",
 			"settings": {
 				"behaviorDescription": "Globální chování, které ovlivňuje i stahování řízená profily.",

@@ -3911,10 +3911,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Skift format"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "Mærker: {title}, {id}, {uploader}, {date}, {resolution}. Filtypenavnet tilføjes automatisk."
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Gem som profil"
@@ -5004,10 +5000,6 @@ msgstr "Klargør"
 msgctxt "wizard.url.quickProbeFailed"
 msgid "Probe failed"
 msgstr "Analysen mislykkedes"
-
-msgctxt "wizard.url.quickQueued"
-msgid "Added to queue"
-msgstr "Føjet til køen"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."

@@ -1319,7 +1319,6 @@
 			"changeFormat": "Ändra format",
 			"changed": "Ändrat från {{profile}}: {{areas}}. Gäller bara den här hämtningen.",
 			"changedFrom": "Ändrat från {{profile}}:",
-			"fileNameHint": "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. Filändelsen läggs till åt dig.",
 			"nextTime": {
 				"action": "Spara som profil",
 				"defaultName": "{{profile}} (redigerad)",
@@ -1676,7 +1675,6 @@
 			"quickPrepareFailed": "Köobjektet kunde inte förberedas",
 			"quickPreparing": "Förbereder",
 			"quickProbeFailed": "Analysen misslyckades",
-			"quickQueued": "Tillagd i kön",
 			"quickSingleOnly": "Klistra in en webbadress till en video, spellista, kanal eller sökning för att komma igång.",
 			"settings": {
 				"behaviorDescription": "Globalt beteende som även påverkar profilstyrda hämtningar.",

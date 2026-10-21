@@ -1381,7 +1381,6 @@
 			"changeFormat": "Spremeni format",
 			"changed": "Spremenjeno glede na {{profile}}: {{areas}}. Velja samo za ta prenos.",
 			"changedFrom": "Spremenjeno glede na {{profile}}:",
-			"fileNameHint": "Žetoni: {title}, {id}, {uploader}, {date}, {resolution}. Pripona se doda samodejno.",
 			"nextTime": {
 				"action": "Shrani kot profil",
 				"defaultName": "{{profile}} (urejen)",
@@ -1740,7 +1739,6 @@
 			"quickPrepareFailed": "Elementa vrste ni bilo mogoče pripraviti",
 			"quickPreparing": "Priprava",
 			"quickProbeFailed": "Sondiranje ni uspelo",
-			"quickQueued": "Dodano v vrsto",
 			"quickSingleOnly": "Za začetek prilepite URL videoposnetka, seznama predvajanja, kanala ali iskanja.",
 			"settings": {
 				"behaviorDescription": "Splošno vedenje, ki vpliva tudi na prenose, vodene s profili.",

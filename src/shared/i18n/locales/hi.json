@@ -1319,7 +1319,6 @@
 			"changeFormat": "फ़ॉर्मैट बदलें",
 			"changed": "{{profile}} से बदला गया: {{areas}}। यह केवल इसी डाउनलोड पर लागू होता है।",
 			"changedFrom": "{{profile}} से बदला गया:",
-			"fileNameHint": "टोकन: {title}, {id}, {uploader}, {date}, {resolution}। एक्सटेंशन अपने आप जुड़ जाता है।",
 			"nextTime": {
 				"action": "प्रोफ़ाइल के रूप में सहेजें",
 				"defaultName": "{{profile}} (संपादित)",
@@ -1676,7 +1675,6 @@
 			"quickPrepareFailed": "क्यू आइटम तैयार नहीं किया जा सका",
 			"quickPreparing": "तैयार हो रहा है",
 			"quickProbeFailed": "जाँच विफल रही",
-			"quickQueued": "क्यू में जोड़ दिया गया",
 			"quickSingleOnly": "शुरू करने के लिए वीडियो, प्लेलिस्ट, चैनल या खोज URL पेस्ट करें।",
 			"settings": {
 				"behaviorDescription": "ग्लोबल व्यवहार जो प्रोफ़ाइल-आधारित डाउनलोड को भी प्रभावित करता है।",

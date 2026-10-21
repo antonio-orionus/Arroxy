@@ -4066,10 +4066,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Canvia el format"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "Variables: {title}, {id}, {uploader}, {date}, {resolution}. L'extensió s'afegeix automàticament."
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Desa com a perfil"
@@ -5164,10 +5160,6 @@ msgstr "Preparant"
 msgctxt "wizard.url.quickProbeFailed"
 msgid "Probe failed"
 msgstr "L'anàlisi ha fallat"
-
-msgctxt "wizard.url.quickQueued"
-msgid "Added to queue"
-msgstr "Afegit a la cua"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."

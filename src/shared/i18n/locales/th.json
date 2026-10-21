@@ -1288,7 +1288,6 @@
 			"changeFormat": "เปลี่ยนรูปแบบ",
 			"changed": "เปลี่ยนจาก {{profile}}: {{areas}} ใช้กับการดาวน์โหลดนี้เท่านั้น",
 			"changedFrom": "เปลี่ยนจาก {{profile}}:",
-			"fileNameHint": "โทเค็นที่ใช้ได้: {title}, {id}, {uploader}, {date}, {resolution} ระบบจะเติมนามสกุลไฟล์ให้เอง",
 			"nextTime": {
 				"action": "บันทึกเป็นโปรไฟล์",
 				"defaultName": "{{profile}} (แก้ไขแล้ว)",
@@ -1644,7 +1643,6 @@
 			"quickPrepareFailed": "เตรียมรายการในคิวไม่ได้",
 			"quickPreparing": "กำลังเตรียม",
 			"quickProbeFailed": "ตรวจสอบไม่สำเร็จ",
-			"quickQueued": "เพิ่มลงคิวแล้ว",
 			"quickSingleOnly": "วาง URL ของวิดีโอ เพลย์ลิสต์ ช่อง หรือการค้นหาเพื่อเริ่มต้น",
 			"settings": {
 				"behaviorDescription": "การทำงานส่วนกลางที่มีผลต่อการดาวน์โหลดผ่านโปรไฟล์ด้วย",

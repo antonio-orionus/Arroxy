@@ -1288,7 +1288,6 @@
 			"changeFormat": "變更格式",
 			"changed": "與 {{profile}} 相比有變更：{{areas}}。僅套用於這次下載。",
 			"changedFrom": "與 {{profile}} 相比的變更：",
-			"fileNameHint": "可用權杖：{title}、{id}、{uploader}、{date}、{resolution}。副檔名會自動加上。",
 			"nextTime": {
 				"action": "另存為設定檔",
 				"defaultName": "{{profile}}（已編輯）",
@@ -1644,7 +1643,6 @@
 			"quickPrepareFailed": "無法準備佇列項目",
 			"quickPreparing": "準備中",
 			"quickProbeFailed": "探查失敗",
-			"quickQueued": "已加入佇列",
 			"quickSingleOnly": "貼上影片、播放清單、頻道或搜尋 URL 以開始。",
 			"settings": {
 				"behaviorDescription": "也會影響設定檔下載的全域行為。",

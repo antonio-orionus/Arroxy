@@ -3911,10 +3911,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "ফরম্যাট বদলান"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "টোকেন: {title}, {id}, {uploader}, {date}, {resolution}। এক্সটেনশন আপনার জন্য যোগ হয়ে যাবে।"
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "প্রোফাইল হিসেবে সংরক্ষণ করুন"
@@ -5004,10 +5000,6 @@ msgstr "প্রস্তুত হচ্ছে"
 msgctxt "wizard.url.quickProbeFailed"
 msgid "Probe failed"
 msgstr "প্রোব ব্যর্থ হয়েছে"
-
-msgctxt "wizard.url.quickQueued"
-msgid "Added to queue"
-msgstr "কিউতে যোগ করা হয়েছে"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."

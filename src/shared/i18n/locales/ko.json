@@ -1288,7 +1288,6 @@
 			"changeFormat": "형식 변경",
 			"changed": "{{profile}}에서 변경됨: {{areas}}. 이 다운로드에만 적용됩니다.",
 			"changedFrom": "{{profile}}에서 변경됨:",
-			"fileNameHint": "사용 가능한 토큰: {title}, {id}, {uploader}, {date}, {resolution}. 확장자는 자동으로 붙습니다.",
 			"nextTime": {
 				"action": "프로필로 저장",
 				"defaultName": "{{profile}}(수정됨)",
@@ -1644,7 +1643,6 @@
 			"quickPrepareFailed": "대기열 항목을 준비할 수 없습니다",
 			"quickPreparing": "준비 중",
 			"quickProbeFailed": "분석 실패",
-			"quickQueued": "대기열에 추가됨",
 			"quickSingleOnly": "시작하려면 동영상, 재생목록, 채널 또는 검색 URL을 붙여넣으세요.",
 			"settings": {
 				"behaviorDescription": "프로필 기반 다운로드에도 영향을 주는 전역 동작입니다.",

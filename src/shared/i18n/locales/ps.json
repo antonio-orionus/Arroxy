@@ -1319,7 +1319,6 @@
 			"changeFormat": "بڼه بدله کړئ",
 			"changed": "له {{profile}} څخه بدل شو: {{areas}}. یوازې پر دې ښکته کولو پلي کیږي.",
 			"changedFrom": "له {{profile}} څخه بدل شو:",
-			"fileNameHint": "ټوکنونه: {title}، {id}، {uploader}، {date}، {resolution}. توسیعه ستاسو لپاره زیاتیږي.",
 			"nextTime": {
 				"action": "د پروفایل په توګه خوندي کړئ",
 				"defaultName": "{{profile}} (ایډیټ شوی)",
@@ -1676,7 +1675,6 @@
 			"quickPrepareFailed": "د قطار توکی چمتو نه شو",
 			"quickPreparing": "چمتو کېږي",
 			"quickProbeFailed": "کتنه ناکامه شوه",
-			"quickQueued": "قطار ته زیات شو",
 			"quickSingleOnly": "د پیل لپاره د ویډیو، پلې‌لېست، چینل یا لټون URL ونښلوئ.",
 			"settings": {
 				"behaviorDescription": "عمومی سلوک چې د پروفایل له لارې رابېشتلي ډاونلوډ هم اغېزمن کوي.",

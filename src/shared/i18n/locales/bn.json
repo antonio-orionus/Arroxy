@@ -1319,7 +1319,6 @@
 			"changeFormat": "ফরম্যাট বদলান",
 			"changed": "{{profile}} থেকে পরিবর্তিত: {{areas}}। শুধু এই ডাউনলোডে প্রযোজ্য।",
 			"changedFrom": "{{profile}} থেকে পরিবর্তিত:",
-			"fileNameHint": "টোকেন: {title}, {id}, {uploader}, {date}, {resolution}। এক্সটেনশন আপনার জন্য যোগ হয়ে যাবে।",
 			"nextTime": {
 				"action": "প্রোফাইল হিসেবে সংরক্ষণ করুন",
 				"defaultName": "{{profile}} (সম্পাদিত)",
@@ -1676,7 +1675,6 @@
 			"quickPrepareFailed": "কিউ আইটেম প্রস্তুত করা যায়নি",
 			"quickPreparing": "প্রস্তুত হচ্ছে",
 			"quickProbeFailed": "প্রোব ব্যর্থ হয়েছে",
-			"quickQueued": "কিউতে যোগ করা হয়েছে",
 			"quickSingleOnly": "শুরু করতে ভিডিও, প্লেলিস্ট, চ্যানেল বা সার্চ URL পেস্ট করুন।",
 			"settings": {
 				"behaviorDescription": "গ্লোবাল আচরণ যা প্রোফাইল-চালিত ডাউনলোডকেও প্রভাবিত করে।",

@@ -1350,7 +1350,6 @@
 			"changeFormat": "Cambia formato",
 			"changed": "Modificato rispetto a {{profile}}: {{areas}}. Vale solo per questo download.",
 			"changedFrom": "Modificato rispetto a {{profile}}:",
-			"fileNameHint": "Segnaposto: {title}, {id}, {uploader}, {date}, {resolution}. L’estensione viene aggiunta automaticamente.",
 			"nextTime": {
 				"action": "Salva come profilo",
 				"defaultName": "{{profile}} (modificato)",
@@ -1708,7 +1707,6 @@
 			"quickPrepareFailed": "Impossibile preparare l'elemento della coda",
 			"quickPreparing": "Preparazione",
 			"quickProbeFailed": "Analisi non riuscita",
-			"quickQueued": "Aggiunto alla coda",
 			"quickSingleOnly": "Incolla l'URL di un video, una playlist, un canale o una ricerca per iniziare.",
 			"settings": {
 				"behaviorDescription": "Comportamento globale che influisce anche sui download basati sui profili.",

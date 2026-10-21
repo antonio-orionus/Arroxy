@@ -3911,10 +3911,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "ቅርጸት ቀይር"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "ምልክቶች፦ {title}፣ {id}፣ {uploader}፣ {date}፣ {resolution}። ቅጥያው በራስ-ሰር ይታከላል።"
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "እንደ መገለጫ አስቀምጥ"
@@ -5004,10 +5000,6 @@ msgstr "በመዘጋጀት ላይ"
 msgctxt "wizard.url.quickProbeFailed"
 msgid "Probe failed"
 msgstr "መፈተሹ አልተሳካም"
-
-msgctxt "wizard.url.quickQueued"
-msgid "Added to queue"
-msgstr "ወደ ወረፋ ታክሏል"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."

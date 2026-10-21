@@ -1381,7 +1381,6 @@
 			"changeFormat": "Змінити формат",
 			"changed": "Змінено порівняно з {{profile}}: {{areas}}. Стосується лише цього завантаження.",
 			"changedFrom": "Змінено порівняно з {{profile}}:",
-			"fileNameHint": "Шаблони: {title}, {id}, {uploader}, {date}, {resolution}. Розширення додається автоматично.",
 			"nextTime": {
 				"action": "Зберегти як профіль",
 				"defaultName": "{{profile}} (змінений)",
@@ -1740,7 +1739,6 @@
 			"quickPrepareFailed": "Не вдалося підготувати елемент черги",
 			"quickPreparing": "Підготовка",
 			"quickProbeFailed": "Перевірка не вдалася",
-			"quickQueued": "Додано в чергу",
 			"quickSingleOnly": "Вставте URL відео, плейлиста, каналу або пошуку, щоб почати.",
 			"settings": {
 				"behaviorDescription": "Глобальна поведінка, що впливає також на завантаження, керовані профілями.",

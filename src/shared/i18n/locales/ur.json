@@ -1319,7 +1319,6 @@
 			"changeFormat": "فارمیٹ تبدیل کریں",
 			"changed": "{{profile}} سے تبدیل: {{areas}}۔ صرف اس ڈاؤن لوڈ پر لاگو ہوتا ہے۔",
 			"changedFrom": "{{profile}} سے تبدیل:",
-			"fileNameHint": "ٹوکنز: {title}، {id}، {uploader}، {date}، {resolution}۔ ایکسٹینشن خود بخود شامل ہو جاتی ہے۔",
 			"nextTime": {
 				"action": "پروفائل کے طور پر محفوظ کریں",
 				"defaultName": "{{profile}} (ترمیم شدہ)",
@@ -1676,7 +1675,6 @@
 			"quickPrepareFailed": "قطار آئٹم تیار نہیں کیا جا سکا",
 			"quickPreparing": "تیاری ہو رہی ہے",
 			"quickProbeFailed": "جانچ ناکام ہوگئی",
-			"quickQueued": "قطار میں شامل ہو گیا",
 			"quickSingleOnly": "شروع کرنے کے لیے ویڈیو، پلے لسٹ، چینل یا تلاش کا URL پیسٹ کریں۔",
 			"settings": {
 				"behaviorDescription": "یہ عمومی ترتیب پروفائل کے ذریعے ہونے والی ڈاؤن لوڈ پر بھی اثر ڈالتی ہے۔",

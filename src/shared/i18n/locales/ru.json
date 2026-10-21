@@ -1381,7 +1381,6 @@
 			"changeFormat": "Изменить формат",
 			"changed": "Изменено относительно {{profile}}: {{areas}}. Действует только для этой загрузки.",
 			"changedFrom": "Изменено относительно {{profile}}:",
-			"fileNameHint": "Шаблоны: {title}, {id}, {uploader}, {date}, {resolution}. Расширение добавляется автоматически.",
 			"nextTime": {
 				"action": "Сохранить как профиль",
 				"defaultName": "{{profile}} (изменён)",
@@ -1740,7 +1739,6 @@
 			"quickPrepareFailed": "Не удалось подготовить элемент очереди",
 			"quickPreparing": "Подготовка",
 			"quickProbeFailed": "Проверка не удалась",
-			"quickQueued": "Добавлено в очередь",
 			"quickSingleOnly": "Вставьте URL видео, плейлиста, канала или поиска, чтобы начать.",
 			"settings": {
 				"behaviorDescription": "Глобальное поведение, влияющее также на загрузки, запускаемые профилями.",

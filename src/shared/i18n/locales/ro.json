@@ -1350,7 +1350,6 @@
 			"changeFormat": "Schimbă formatul",
 			"changed": "Modificat față de {{profile}}: {{areas}}. Se aplică doar acestei descărcări.",
 			"changedFrom": "Modificat față de {{profile}}:",
-			"fileNameHint": "Simboluri: {title}, {id}, {uploader}, {date}, {resolution}. Extensia se adaugă automat.",
 			"nextTime": {
 				"action": "Salvează ca profil",
 				"defaultName": "{{profile}} (editat)",
@@ -1708,7 +1707,6 @@
 			"quickPrepareFailed": "Elementul din coadă nu a putut fi pregătit",
 			"quickPreparing": "Se pregătește",
 			"quickProbeFailed": "Sondarea a eșuat",
-			"quickQueued": "Adăugat în coadă",
 			"quickSingleOnly": "Lipiți un URL de videoclip, listă de redare, canal sau căutare pentru a începe.",
 			"settings": {
 				"behaviorDescription": "Comportament global care afectează și descărcările conduse de profil.",

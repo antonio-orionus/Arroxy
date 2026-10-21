@@ -3756,10 +3756,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Đổi định dạng"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "Mã thay thế: {title}, {id}, {uploader}, {date}, {resolution}. Phần mở rộng được thêm tự động."
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Lưu thành hồ sơ"
@@ -4844,10 +4840,6 @@ msgstr "Đang chuẩn bị"
 msgctxt "wizard.url.quickProbeFailed"
 msgid "Probe failed"
 msgstr "Thăm dò thất bại"
-
-msgctxt "wizard.url.quickQueued"
-msgid "Added to queue"
-msgstr "Đã thêm vào hàng đợi"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."

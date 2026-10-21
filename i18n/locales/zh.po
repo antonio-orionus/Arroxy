@@ -3756,10 +3756,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "更改格式"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "可用标记：{title}、{id}、{uploader}、{date}、{resolution}。扩展名会自动添加。"
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "另存为配置"
@@ -4844,10 +4840,6 @@ msgstr "正在准备"
 msgctxt "wizard.url.quickProbeFailed"
 msgid "Probe failed"
 msgstr "探测失败"
-
-msgctxt "wizard.url.quickQueued"
-msgid "Added to queue"
-msgstr "已加入队列"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."

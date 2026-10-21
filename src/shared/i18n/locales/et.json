@@ -1319,7 +1319,6 @@
 			"changeFormat": "Muuda vormingut",
 			"changed": "Muudetud profiilist {{profile}}: {{areas}}. Kehtib ainult sellele allalaadimisele.",
 			"changedFrom": "Muudetud profiilist {{profile}}:",
-			"fileNameHint": "Sümbolid: {title}, {id}, {uploader}, {date}, {resolution}. Laiend lisatakse automaatselt.",
 			"nextTime": {
 				"action": "Salvesta profiilina",
 				"defaultName": "{{profile}} (muudetud)",
@@ -1676,7 +1675,6 @@
 			"quickPrepareFailed": "Järjekorra üksust ei õnnestunud ette valmistada",
 			"quickPreparing": "Ettevalmistamine",
 			"quickProbeFailed": "Päring ebaõnnestus",
-			"quickQueued": "Lisatud järjekorda",
 			"quickSingleOnly": "Alustamiseks kleepige video, esitusloendi, kanali või otsingu URL.",
 			"settings": {
 				"behaviorDescription": "Globaalne käitumine, mis mõjutab ka profiilipõhiseid allalaadimisi.",

@@ -3911,10 +3911,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "فارمیٹ تبدیل کریں"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "ٹوکنز: {title}، {id}، {uploader}، {date}، {resolution}۔ ایکسٹینشن خود بخود شامل ہو جاتی ہے۔"
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "پروفائل کے طور پر محفوظ کریں"
@@ -5004,10 +5000,6 @@ msgstr "تیاری ہو رہی ہے"
 msgctxt "wizard.url.quickProbeFailed"
 msgid "Probe failed"
 msgstr "جانچ ناکام ہوگئی"
-
-msgctxt "wizard.url.quickQueued"
-msgid "Added to queue"
-msgstr "قطار میں شامل ہو گیا"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."

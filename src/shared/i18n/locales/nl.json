@@ -1319,7 +1319,6 @@
 			"changeFormat": "Formaat wijzigen",
 			"changed": "Gewijzigd ten opzichte van {{profile}}: {{areas}}. Geldt alleen voor deze download.",
 			"changedFrom": "Gewijzigd ten opzichte van {{profile}}:",
-			"fileNameHint": "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. De extensie wordt automatisch toegevoegd.",
 			"nextTime": {
 				"action": "Opslaan als profiel",
 				"defaultName": "{{profile}} (bewerkt)",
@@ -1676,7 +1675,6 @@
 			"quickPrepareFailed": "Wachtrij-item kon niet worden voorbereid",
 			"quickPreparing": "Voorbereiden",
 			"quickProbeFailed": "Analyse mislukt",
-			"quickQueued": "Toegevoegd aan wachtrij",
 			"quickSingleOnly": "Plak een video-, afspeellijst-, kanaal- of zoek-URL om te beginnen.",
 			"settings": {
 				"behaviorDescription": "Algemeen gedrag dat ook van invloed is op downloads via profielen.",

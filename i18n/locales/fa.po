@@ -3911,10 +3911,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "تغییر قالب"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "نشانه‌ها: {title}، {id}، {uploader}، {date}، {resolution}. پسوند خودکار اضافه می‌شود."
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "ذخیره به‌عنوان نمایه"
@@ -5004,10 +5000,6 @@ msgstr "در حال آماده‌سازی"
 msgctxt "wizard.url.quickProbeFailed"
 msgid "Probe failed"
 msgstr "بررسی ناموفق بود"
-
-msgctxt "wizard.url.quickQueued"
-msgid "Added to queue"
-msgstr "به صف افزوده شد"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."

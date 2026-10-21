@@ -1288,7 +1288,6 @@
 			"changeFormat": "更改格式",
 			"changed": "与 {{profile}} 相比有更改：{{areas}}。仅应用于本次下载。",
 			"changedFrom": "与 {{profile}} 相比的更改：",
-			"fileNameHint": "可用标记：{title}、{id}、{uploader}、{date}、{resolution}。扩展名会自动添加。",
 			"nextTime": {
 				"action": "另存为配置",
 				"defaultName": "{{profile}}（已编辑）",
@@ -1644,7 +1643,6 @@
 			"quickPrepareFailed": "无法准备队列项目",
 			"quickPreparing": "正在准备",
 			"quickProbeFailed": "探测失败",
-			"quickQueued": "已加入队列",
 			"quickSingleOnly": "粘贴视频、播放列表、频道或搜索 URL 以开始。",
 			"settings": {
 				"behaviorDescription": "全局行为，同样影响由配置驱动的下载。",

@@ -1319,7 +1319,6 @@
 			"changeFormat": "Aldatu formatua",
 			"changed": "Profiletik aldatuta ({{profile}}): {{areas}}. Deskarga honi soilik aplikatzen zaio.",
 			"changedFrom": "Profiletik aldatuta ({{profile}}):",
-			"fileNameHint": "Tokenak: {title}, {id}, {uploader}, {date}, {resolution}. Luzapena automatikoki gehitzen da.",
 			"nextTime": {
 				"action": "Gorde profil gisa",
 				"defaultName": "{{profile}} (editatua)",
@@ -1676,7 +1675,6 @@
 			"quickPrepareFailed": "Ilarako elementua ezin izan da prestatu",
 			"quickPreparing": "Prestatzen",
 			"quickProbeFailed": "Azterketak huts egin du",
-			"quickQueued": "Ilarara gehitu da",
 			"quickSingleOnly": "Itsatsi bideo-, erreprodukzio-zerrenda-, kanal- edo bilaketa-URL bat hasteko.",
 			"settings": {
 				"behaviorDescription": "Profiletan oinarritutako deskargei ere eragiten dien portaera orokorra.",

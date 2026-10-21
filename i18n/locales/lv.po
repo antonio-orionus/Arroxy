@@ -4066,10 +4066,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Mainīt formātu"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "Marķieri: {title}, {id}, {uploader}, {date}, {resolution}. Paplašinājums tiek pievienots automātiski."
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Saglabāt kā profilu"
@@ -5164,10 +5160,6 @@ msgstr "Sagatavo"
 msgctxt "wizard.url.quickProbeFailed"
 msgid "Probe failed"
 msgstr "Pārbaude neizdevās"
-
-msgctxt "wizard.url.quickQueued"
-msgid "Added to queue"
-msgstr "Pievienots rindai"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."

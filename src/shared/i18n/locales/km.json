@@ -1288,7 +1288,6 @@
 			"changeFormat": "ប្តូរទម្រង់",
 			"changed": "បានផ្លាស់ប្តូរពី {{profile}}៖ {{areas}}។ អនុវត្តចំពោះការទាញយកនេះតែប៉ុណ្ណោះ។",
 			"changedFrom": "បានផ្លាស់ប្តូរពី {{profile}}៖",
-			"fileNameHint": "Token៖ {title}, {id}, {uploader}, {date}, {resolution}។ កន្ទុយឯកសារត្រូវបានបន្ថែមជូនអ្នក។",
 			"nextTime": {
 				"action": "រក្សាទុកជាប្រវត្តិរូប",
 				"defaultName": "{{profile}} (បានកែសម្រួល)",
@@ -1644,7 +1643,6 @@
 			"quickPrepareFailed": "មិនអាចរៀបចំធាតុក្នុងជួរបានទេ",
 			"quickPreparing": "កំពុងរៀបចំ",
 			"quickProbeFailed": "ការពិនិត្យបានបរាជ័យ",
-			"quickQueued": "បានបន្ថែមទៅជួរ",
 			"quickSingleOnly": "បិទភ្ជាប់ URL វីដេអូ បញ្ជីចាក់ ប៉ុស្តិ៍ ឬការស្វែងរកដើម្បីចាប់ផ្តើម។",
 			"settings": {
 				"behaviorDescription": "ឥរិយាបថសកលដែលប៉ះពាល់ដល់ការទាញយកតាមប្រវត្តិរូបផងដែរ។",

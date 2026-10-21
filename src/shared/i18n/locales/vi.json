@@ -1288,7 +1288,6 @@
 			"changeFormat": "Đổi định dạng",
 			"changed": "Khác với {{profile}}: {{areas}}. Chỉ áp dụng cho lượt tải này.",
 			"changedFrom": "Khác với {{profile}}:",
-			"fileNameHint": "Mã thay thế: {title}, {id}, {uploader}, {date}, {resolution}. Phần mở rộng được thêm tự động.",
 			"nextTime": {
 				"action": "Lưu thành hồ sơ",
 				"defaultName": "{{profile}} (đã sửa)",
@@ -1644,7 +1643,6 @@
 			"quickPrepareFailed": "Không thể chuẩn bị mục hàng đợi",
 			"quickPreparing": "Đang chuẩn bị",
 			"quickProbeFailed": "Thăm dò thất bại",
-			"quickQueued": "Đã thêm vào hàng đợi",
 			"quickSingleOnly": "Dán URL video, danh sách phát, kênh hoặc tìm kiếm để bắt đầu.",
 			"settings": {
 				"behaviorDescription": "Hành vi toàn cục cũng ảnh hưởng đến các tải xuống do hồ sơ điều khiển.",

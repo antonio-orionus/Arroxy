@@ -1319,7 +1319,6 @@
 			"changeFormat": "Foormaatii jijjiiri",
 			"changed": "{{profile}} irraa jijjiirame: {{areas}}. Buufata kanaaf qofa hojiirra oola.",
 			"changedFrom": "{{profile}} irraa jijjiirame:",
-			"fileNameHint": "Mallattoolee: {title}, {id}, {uploader}, {date}, {resolution}. Dheeraan ofumaan siif dabalama.",
 			"nextTime": {
 				"action": "Akka piroofaayiliitti olkaa'i",
 				"defaultName": "{{profile}} (jijjiirame)",
@@ -1676,7 +1675,6 @@
 			"quickPrepareFailed": "Wantoota tarree qopheessuu hin dandeenye",
 			"quickPreparing": "Qopheessaa jira",
 			"quickProbeFailed": "Sakatta’iinsi hin milkoofne",
-			"quickQueued": "Tarreetti dabalame",
 			"quickSingleOnly": "Jalqabuuf URL viidiyoo, playlist, channel, yookiin barbaacha maxxansi.",
 			"settings": {
 				"behaviorDescription": "Amala waliigalaa piroofaayilii mataan ga’umsa iyyuu.",

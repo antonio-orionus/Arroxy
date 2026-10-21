@@ -3911,10 +3911,6 @@ msgctxt "wizard.review.changeFormat"
 msgid "Change format"
 msgstr "Muuda vormingut"
 
-msgctxt "wizard.review.fileNameHint"
-msgid "Tokens: {title}, {id}, {uploader}, {date}, {resolution}. The extension is added for you."
-msgstr "Sümbolid: {title}, {id}, {uploader}, {date}, {resolution}. Laiend lisatakse automaatselt."
-
 msgctxt "wizard.review.nextTime.action"
 msgid "Save as profile"
 msgstr "Salvesta profiilina"
@@ -5004,10 +5000,6 @@ msgstr "Ettevalmistamine"
 msgctxt "wizard.url.quickProbeFailed"
 msgid "Probe failed"
 msgstr "Päring ebaõnnestus"
-
-msgctxt "wizard.url.quickQueued"
-msgid "Added to queue"
-msgstr "Lisatud järjekorda"
 
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
