@@ -55,7 +55,7 @@ After fixing, run one more round on the fix commits only: `bun run review:dual -
 
 A run that exits 0 or 1 records the branch's diff against main as reviewed (in this worktree's git dir). Phase 7 pushes only that diff: any later edit or squash that changes it needs another round. A clean rebase or a merge of main does not.
 
-**Squash safely.** To fold the branch into one commit, use `git reset --soft $(git merge-base origin/main HEAD)` then `git commit`, or `git commit --amend`. Never `git reset --soft origin/main`. Once main has moved, that re-parents the stale index onto the new main, and the commit reverts everything merged in between (PR #430). Squash before the review, not after.
+**Squash safely.** To fold the branch into one commit, use `git reset --soft $(git merge-base origin/main HEAD)` then `git commit`, or `git commit --amend`. Never `git reset --soft origin/main`. Once main has moved, that re-parents the stale index onto the new main, and the commit reverts everything merged in between (PR #430). Squash before the review, not after. A batch PR (AGENTS.md, "Small fixes in one area may land as a batch PR") is never squashed: it keeps one test-first commit per issue, so each fix stays revertable on its own.
 verify: every "fix" and "uncertain" entry is fixed or answered with a reason, and `bun run check` passes again.
 
 ### 6. Backlog
@@ -93,7 +93,7 @@ Follow `coderabbit-review-workflow`: only behaviour-changing PRs, one trigger on
 verify: the review covered the head commit, or the skip is stated with its reason.
 
 ### 9. Merge
-Once the last review is through, turn on auto-merge (squash) rather than waiting for green and merging by hand; required checks still gate it. A green CodeRabbit check alone proves nothing.
+Once the last review is through, turn on auto-merge (squash, or a merge commit for a batch PR) rather than waiting for green and merging by hand; required checks still gate it. A green CodeRabbit check alone proves nothing.
 Don't stack PRs (`AGENTS.md`, "Don't stack PRs"). A PR stacked anyway keeps auto-merge off until GitHub moves it onto `main` after its base merges, or it merges into the parent's branch. Then turn auto-merge on, merging `origin/main` in first only if it conflicts.
 verify: `gh pr view <N> --json state` reports `MERGED` (or auto-merge is enabled and waiting on checks).
 
@@ -103,7 +103,7 @@ Prune what this run created, and only that: other agents work in their own workt
 ```bash
 git -C <worktree> status --short             # must print nothing: uncommitted work is never discarded
 git worktree remove <worktree>               # refuses on its own if anything is left
-git branch -D <branch>                       # the squash merge leaves the local branch unmerged by ancestry
+git branch -D <branch>                       # a squash merge leaves the local branch unmerged by ancestry
 git worktree prune
 ```
 
