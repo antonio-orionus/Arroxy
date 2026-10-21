@@ -64,6 +64,29 @@ describe('LinkInbox', () => {
 		expect(deliver).toHaveBeenCalledExactlyOnceWith(FIRST, expect.any(Function))
 	})
 
+	it('drops a link whose delivery throws, logging the reason but not the link, and still delivers the next one', async () => {
+		const log = fakeLog()
+		const inbox = new LinkInbox(log)
+		const deliver = vi.fn<LinkInboxTarget['deliver']>().mockRejectedValueOnce(new Error('Render frame was disposed')).mockResolvedValue(true)
+		inbox.attach({deliver})
+		inbox.rendererReady()
+		const unhandled = vi.fn()
+		process.on('unhandledRejection', unhandled)
+		try {
+			inbox.receive(buildArroxyLink(FIRST), 'open-url')
+			await new Promise(resolve => setTimeout(resolve, 0))
+			expect(unhandled).not.toHaveBeenCalled()
+		} finally {
+			process.off('unhandledRejection', unhandled)
+		}
+		expect(log.warn).toHaveBeenCalledExactlyOnceWith('arroxy link not delivered', {reason: 'Render frame was disposed'})
+		expect(JSON.stringify(log.warn.mock.calls)).not.toContain('youtube')
+		// The failed link is gone: it is not retried.
+		expect(deliver).toHaveBeenCalledOnce()
+		inbox.receive(buildArroxyLink(SECOND), 'open-url')
+		expect(deliver).toHaveBeenLastCalledWith(SECOND, expect.any(Function))
+	})
+
 	it('drops a malformed link silently, with a log line that names why but not the link', () => {
 		const {inbox, deliver, log} = readyInbox()
 		const raw = `arroxy://open?url=${encodeURIComponent('file:///secret/path')}`

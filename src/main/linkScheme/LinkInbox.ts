@@ -79,5 +79,10 @@ export class LinkInbox {
 				this.pending = url
 				this.flush()
 			})
+			// A delivery that throws (a disposed frame, a window gone mid-send) drops
+			// the link: keeping it would only retry a failure that is likely to recur.
+			.catch((error: unknown) => {
+				this.log.warn('arroxy link not delivered', {reason: error instanceof Error ? error.message : 'deliveryFailed'})
+			})
 	}
 }

@@ -72,9 +72,6 @@ export type MixedUrlPromptSource = 'wizard' | 'url-tab' | 'explore'
 // The home tab a wizard run started from, and lands back on when it ends.
 export type WizardOrigin = 'download' | 'explore'
 
-// Explicit mode tag so consumers don't re-derive intent from
-// `playlistItems.length > 0`. `single` = format-probe flow; `playlist` =
-// flat-probe + preset flow. Set on probe entry, cleared on reset.
 // Where a copied link came from: the clipboard watcher, or an arroxy:// link
 // another app or a web page opened. Only the toast's wording differs.
 export interface CopiedLink {
@@ -82,6 +79,9 @@ export interface CopiedLink {
 	from: 'clipboard' | 'link'
 }
 
+// Explicit mode tag so consumers don't re-derive intent from
+// `playlistItems.length > 0`. `single` = format-probe flow; `playlist` =
+// flat-probe + preset flow. Set on probe entry, cleared on reset.
 export type SetState = StoreApi<AppState>['setState']
 export type GetState = StoreApi<AppState>['getState']
 

@@ -123,6 +123,14 @@ describe('ClipboardWatcher', () => {
 		expect(win.send).toHaveBeenCalledExactlyOnceWith('events:clipboardUrl', yt('copiedAfter'))
 	})
 
+	it('ignoreCurrentClipboard does not read the clipboard while watching is disabled', async () => {
+		const reader = {readText: vi.fn().mockResolvedValue(yt('copiedEarlier'))}
+		const watcher = new ClipboardWatcher(makeWindow(), 800, reader)
+
+		await watcher.ignoreCurrentClipboard()
+		expect(reader.readText).not.toHaveBeenCalled()
+	})
+
 	it('does not poll when disabled by default', async () => {
 		const reader = {readText: vi.fn().mockResolvedValue('')}
 		const win = makeWindow()
