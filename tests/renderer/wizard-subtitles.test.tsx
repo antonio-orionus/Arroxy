@@ -492,6 +492,10 @@ describe('Review — rows', () => {
 
 		fireEvent.change(screen.getByTestId('review-filename-input'), {target: {value: '{titel}'}})
 		expect(screen.getByTestId('filename-template-error').textContent).toContain('titel')
+		// A screen reader names the error from the input.
+		const errorId = screen.getByTestId('filename-template-error').id
+		expect(errorId).not.toBe('')
+		expect(screen.getByTestId('review-filename-input').getAttribute('aria-describedby')).toBe(errorId)
 		expect(screen.getByTestId('btn-download')).toHaveAttribute('aria-disabled', 'true')
 
 		fireEvent.change(screen.getByTestId('review-filename-input'), {target: {value: '{title}'}})

@@ -37,9 +37,9 @@ export interface FilenameTemplateFieldProps {
 const playlistTokens: readonly FilenameToken[] = PLAYLIST_FILENAME_TOKENS
 const SINGLE_VIDEO_TOKENS = FILENAME_TOKENS.filter(token => !playlistTokens.includes(token))
 
-function FilenameTemplateError({error}: {error: FilenameTemplateFailure}): ReactNode {
+function FilenameTemplateError({id, error}: {id: string; error: FilenameTemplateFailure}): ReactNode {
 	return (
-		<p className="text-caption text-destructive" data-testid="filename-template-error">
+		<p id={id} className="text-caption text-destructive" data-testid="filename-template-error">
 			<FilenameTemplateErrorText error={error} />
 		</p>
 	)
@@ -86,6 +86,7 @@ function FilenameTemplatePreview({value, singleVideo}: {value: string; singleVid
 export function FilenameTemplateField({value, onChange, error, label, description, placeholder, testId, singleVideo = false}: FilenameTemplateFieldProps): React.JSX.Element {
 	const {t} = useTranslation()
 	const inputId = useId()
+	const errorId = useId()
 	const inputRef = useRef<HTMLInputElement>(null)
 
 	const insertToken = useCallback(
@@ -122,7 +123,7 @@ export function FilenameTemplateField({value, onChange, error, label, descriptio
 				<FieldDescription>{description}</FieldDescription>
 			</FieldContent>
 
-			<Input id={inputId} ref={inputRef} value={value} placeholder={placeholder} onChange={event => onChange(event.target.value)} spellCheck={false} autoComplete="off" className="font-mono text-xs" data-testid={testId} aria-invalid={error !== null} />
+			<Input id={inputId} ref={inputRef} value={value} placeholder={placeholder} onChange={event => onChange(event.target.value)} spellCheck={false} autoComplete="off" className="font-mono text-xs" data-testid={testId} aria-invalid={error !== null} aria-describedby={error ? errorId : undefined} />
 
 			<div className="flex flex-wrap gap-1">
 				{tokens.map(token => (
@@ -132,7 +133,7 @@ export function FilenameTemplateField({value, onChange, error, label, descriptio
 				))}
 			</div>
 
-			{error ? <FilenameTemplateError error={error} /> : <FilenameTemplatePreview value={value} singleVideo={singleVideo} />}
+			{error ? <FilenameTemplateError id={errorId} error={error} /> : <FilenameTemplatePreview value={value} singleVideo={singleVideo} />}
 
 			{showIdWarning ? (
 				<p className="flex items-start gap-1.5 text-caption text-subtle-foreground" data-testid="filename-template-id-warning">
