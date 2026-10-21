@@ -51,6 +51,16 @@ describe('location', () => {
 		}
 	})
 
+	it('accepts a tracked file without an extension when it has a folder', () => {
+		for (const body of ['See `.github/CODEOWNERS:1`.', 'In `.vite-hooks/pre-push:4`.']) {
+			expect(failedRules(facts({body}))).toEqual([])
+		}
+	})
+
+	it('does not count a host and port as a location', () => {
+		expect(failedRules(facts({body: 'The dev server on `localhost:8080` stops.'}))).toEqual(['location'])
+	})
+
 	it('does not count a bare path, or one outside code formatting', () => {
 		expect(failedRules(facts({body: 'See `src/shared/bulkUrls.ts`.'}))).toEqual(['location'])
 		expect(failedRules(facts({body: 'See src/shared/bulkUrls.ts:27.'}))).toEqual(['location'])
@@ -77,7 +87,7 @@ describe('private-docs', () => {
 
 describe('ai-attribution', () => {
 	it('fails an issue that credits an assistant with finding or writing it', () => {
-		for (const line of ['Found by Codex reviewing fix/x (2026-10-21).', 'Found by dual review (Codex + Claude).', 'Generated with Claude Code', 'Co-Authored-By: Claude <noreply@anthropic.com>']) {
+		for (const line of ['Found by Codex reviewing fix/x (2026-10-21).', 'Found by CodeRabbit reviewing #519.', 'Found by dual review (Codex + Claude).', 'Generated with Claude Code', 'Co-Authored-By: Claude <noreply@anthropic.com>']) {
 			expect(failedRules(facts({body: `${BODY}\n${line}\n`}))).toEqual(['ai-attribution'])
 		}
 	})

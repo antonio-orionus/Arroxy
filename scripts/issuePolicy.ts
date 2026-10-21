@@ -34,8 +34,10 @@ export interface IssueResult {
 	failures: IssueFailure[]
 }
 
-// A path with an extension and a line (or range), in code formatting.
-const LOCATION = /`[\w.@-]+(?:\/[\w.@-]+)*\.[A-Za-z0-9]+:\d+(?:-\d+)?`/
+// A file and a line (or range), in code formatting: a path with a folder
+// (`.github/CODEOWNERS:1`) or a name with an extension (`package.json:12`),
+// so a host and port like `localhost:8080` doesn't count.
+const LOCATION = /`(?:[\w.@-]+(?:\/[\w.@-]+)+|[\w.@-]+\.[A-Za-z0-9]+):\d+(?:-\d+)?`/
 // The private maintainer docs: the `.internal/` folder or the repo behind it.
 const PRIVATE_DOCS = /(?:^|[\s`(/])\.internal\b|arroxy-internal/i
 

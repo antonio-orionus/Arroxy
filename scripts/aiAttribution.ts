@@ -16,8 +16,9 @@ const ATTRIBUTION = [
 /** Text that credits an assistant as an author of a commit, PR or issue. */
 export const creditsAnAssistant = (text: string): boolean => ATTRIBUTION.some(pattern => pattern.test(text))
 
-// "Found by Codex reviewing …": a finding credited to an assistant.
-const FINDER = /\bfound by\b[^\n]*\b(?:claude\b(?!\.md)|anthropic|codex|openai|chatgpt|gpt-?\d\w*|copilot|gemini|cursor agent|aider)\b/i
+// "Found by Codex reviewing …": a finding credited to an assistant or an AI
+// review bot.
+const FINDER = /\bfound by\b[^\n]*\b(?:claude\b(?!\.md)|anthropic|codex|openai|chatgpt|gpt-?\d\w*|copilot|gemini|cursor agent|aider|coderabbit)\b/i
 
 /** Text that credits an assistant as an author or as the finder of what it reports. */
 export const creditsAnAssistantFinding = (text: string): boolean => creditsAnAssistant(text) || FINDER.test(text)

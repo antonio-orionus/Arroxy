@@ -45,6 +45,12 @@ describe('issue policy workflow', () => {
 		expect(record(steps[0]?.with, 'checkout.with')['persist-credentials']).toBe(false)
 	})
 
+	it("reads the issue's current labels, not the event's snapshot of them", () => {
+		const read = step('Read the current labels')
+		expect(String(read.run)).toContain('gh issue view "$NUMBER" --json labels')
+		expect(record(step('Check the issue').env, 'env').ISSUE_LABELS).toBe('${{ steps.labels.outputs.labels }}')
+	})
+
 	it('passes the issue text through the environment, not the command line', () => {
 		const check = step('Check the issue')
 		expect(check.run).toBe('bun scripts/check-issue-policy.ts')
@@ -56,14 +62,18 @@ describe('issue policy workflow', () => {
 
 	it('adds needs-triage with the report on a failing issue, once', () => {
 		const flag = step('Flag the issue')
-		expect(flag.if).toBe("${{ steps.check.outputs.verdict == 'fail' && !contains(github.event.issue.labels.*.name, 'needs-triage') }}")
+		expect(flag.if).toBe("${{ steps.check.outputs.verdict == 'fail' && steps.check.outputs.flagged == 'false' }}")
 		expect(String(flag.run)).toContain('--add-label needs-triage')
 		expect(String(flag.run)).toContain('gh issue comment')
 	})
 
 	it('removes needs-triage once the issue passes', () => {
 		const clear = step('Clear the flag')
-		expect(clear.if).toBe("${{ steps.check.outputs.verdict == 'pass' && contains(github.event.issue.labels.*.name, 'needs-triage') }}")
+		expect(clear.if).toBe("${{ steps.check.outputs.verdict == 'pass' && steps.check.outputs.flagged == 'true' }}")
 		expect(String(clear.run)).toContain('--remove-label needs-triage')
+	})
+
+	it('never reads the labels from the event payload', () => {
+		expect(readFileSync('.github/workflows/issue-policy.yml', 'utf8')).not.toContain('github.event.issue.labels')
 	})
 })

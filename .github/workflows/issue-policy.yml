@@ -7,7 +7,9 @@ name: Issue policy
 #
 # An issue can't be blocked, so a failing one gets the needs-triage label and
 # one comment saying what to fix; the label comes off when an edit passes.
-# Labels added with GITHUB_TOKEN don't trigger workflows, so this never loops.
+# Each run reads the issue's labels fresh, so a queued run never re-flags or
+# leaves flagged an issue an earlier run already settled. Labels added with
+# GITHUB_TOKEN don't trigger workflows, so this never loops.
 on:
   issues:
     types: [opened, edited, reopened, labeled, unlabeled]
@@ -40,6 +42,16 @@ jobs:
         with:
           bun-version: ${{ env.BUN_VERSION }}
 
+      # The labels as they are now: a queued run's event payload may predate a
+      # label an earlier run added or removed.
+      - name: Read the current labels
+        id: labels
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+        run: echo "labels=$(gh issue view "$NUMBER" --json labels --jq '[.labels[].name]')" >> "$GITHUB_OUTPUT"
+
       # The checker has no dependencies, so no install. The issue's text
       # reaches it through the environment, never the command line.
       - name: Check the issue
@@ -47,13 +59,13 @@ jobs:
         env:
           ISSUE_TITLE: ${{ github.event.issue.title }}
           ISSUE_BODY: ${{ github.event.issue.body }}
-          ISSUE_LABELS: ${{ toJSON(github.event.issue.labels.*.name) }}
+          ISSUE_LABELS: ${{ steps.labels.outputs.labels }}
           ISSUE_AUTHOR_ASSOCIATION: ${{ github.event.issue.author_association }}
           ISSUE_REPORT: ${{ runner.temp }}/issue-policy.md
         run: bun scripts/check-issue-policy.ts
 
       - name: Flag the issue
-        if: ${{ steps.check.outputs.verdict == 'fail' && !contains(github.event.issue.labels.*.name, 'needs-triage') }}
+        if: ${{ steps.check.outputs.verdict == 'fail' && steps.check.outputs.flagged == 'false' }}
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -63,7 +75,7 @@ jobs:
           gh issue comment "$NUMBER" --body-file "$RUNNER_TEMP/issue-policy.md"
 
       - name: Clear the flag
-        if: ${{ steps.check.outputs.verdict == 'pass' && contains(github.event.issue.labels.*.name, 'needs-triage') }}
+        if: ${{ steps.check.outputs.verdict == 'pass' && steps.check.outputs.flagged == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
