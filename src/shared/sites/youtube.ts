@@ -137,6 +137,10 @@ export const youtubeSite: Site = {
 			{kind: 'exact', host: 'accounts.youtube.com'},
 			{kind: 'exact', host: 'myaccount.google.com'}
 		],
+		// After one watch page has run the lists' YouTube scriptlets, every
+		// result and grid loses its view count and upload date; the pre-roll
+		// plays either way.
+		scriptletFreeDomains: ['youtube.com'],
 		isSignedIn: youtubeIsSignedIn,
 		// Home and search results: a search box whose query is in the URL. Watch
 		// pages (comments, the player), channels and posts stay.
