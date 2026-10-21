@@ -301,6 +301,42 @@ describe('HotkeyIntake', () => {
 	})
 })
 
+// Follow-ups are deduped by intake id, over a bounded memory of intakes.
+describe('HotkeyIntake follow-up dedupe', () => {
+	// HotkeyIntake's FOLLOWED_UP_LIMIT.
+	const LIMIT = 200
+	const failed = (intakeId: string | null): IntakeEvent => ({kind: 'outcome', requestId: `r-${intakeId ?? 'none'}`, intakeId, origin: 'hotkey', outcome: {kind: 'failed', itemId: 'x', title: URL, probeError: null}})
+	function hotkey(): {hotkey: HotkeyIntake; sent: HotkeyOutcomePayload[]} {
+		const sent: HotkeyOutcomePayload[] = []
+		const add = (): Promise<IntakePlacement> => Promise.resolve({kind: 'not-added'})
+		return {hotkey: new HotkeyIntake({intake: {add, windowProfile: () => undefined}, notify: event => sent.push(event), newId: () => 'r'}), sent}
+	}
+
+	// A row gone before its outcome names no intake, so nothing can repeat it.
+	it('sends every follow-up that names no intake, without an intake id', () => {
+		const h = hotkey()
+		expect(h.hotkey.hear(failed(null))).toBe(true)
+		expect(h.hotkey.hear(failed(null))).toBe(true)
+		expect(h.sent).toEqual([{outcome: 'submission-failed'}, {outcome: 'submission-failed'}])
+	})
+
+	it('forgets the oldest intake past the limit, and keeps deduping the recent ones', () => {
+		const h = hotkey()
+		const ids = Array.from({length: LIMIT + 1}, (_, index) => `i${index}`)
+		for (const id of ids) h.hotkey.hear(failed(id))
+		expect(h.sent).toHaveLength(LIMIT + 1)
+
+		// The newest LIMIT intakes are still remembered.
+		for (const id of ids.slice(1)) h.hotkey.hear(failed(id))
+		expect(h.sent).toHaveLength(LIMIT + 1)
+
+		// The first was evicted, so its follow-up goes out again.
+		h.hotkey.hear(failed('i0'))
+		expect(h.sent).toHaveLength(LIMIT + 2)
+		expect(h.sent.at(-1)).toEqual({outcome: 'submission-failed', intakeId: 'i0'})
+	})
+})
+
 // Dedupe lives in intake; the hotkey hears it as already-queued.
 describe('a press on a link already live in the queue', () => {
 	const unresolved = {kind: 'unresolved', extractor: '', extractorKey: ''} as const

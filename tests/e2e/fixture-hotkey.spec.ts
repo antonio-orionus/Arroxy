@@ -215,9 +215,10 @@ const countSinkLines = async (file: string, text: string): Promise<number> => (a
 
 // Risk: the window held the press and its follow-up, so a reload while the
 // link was prepared lost the follow-up (or could repeat it).
-// Fixtures: a catalog video whose probe is held open, then fails.
+// Fixtures: a catalog video whose probe the fixture server holds open until
+// the test releases it, then fails: a slow reload cannot outlast the probe.
 // Actions: on a hidden window, press the hotkey; reload the renderer while the
-// probe is open; press again once the chord is back.
+// probe is held; release the probe once the chord is back; press again.
 // Milestones: the ack in the OS sink; the probe open at the fixture server
 // across the reload; the chord registered again.
 // Oracles: the failure follow-up reaches the OS sink exactly once, and the ack
@@ -229,8 +230,8 @@ test('hotkey follow-up survives a window reload while the link is prepared', asy
 
 	await withFixtureProductApp(
 		{
-			// Held long enough to reload the renderer while the probe is open, then failed.
-			behavior: {metadataDelayMs: {[videoId]: 12_000}, metadataFailureIds: [videoId]},
+			// Held open until released after the reload, then failed.
+			behavior: {metadataHeldIds: [videoId], metadataFailureIds: [videoId]},
 			userDataPrefix: 'arroxy-fixture-hotkey-reload-user-',
 			outputPrefix: 'arroxy-fixture-hotkey-reload-out-',
 			settings: settings => {
@@ -254,6 +255,7 @@ test('hotkey follow-up survives a window reload while the link is prepared', asy
 			await page.reload()
 			await expectHotkeyRegistered(app)
 			expect(probeEvents('probe-end'), 'the reload should land while the probe is still open').toBe(0)
+			fixtureServer.releaseMetadata(videoId)
 
 			// The follow-up still arrives, once, and the ack is not repeated.
 			await expectSinkLine(sink, 'Could not add that link')

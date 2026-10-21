@@ -41,6 +41,9 @@ export interface FixtureServer {
 	// Lets a held slow download finish: its held bytes go out at once, and later
 	// requests for that video are served at full speed. No id releases them all.
 	releaseSlowMedia: (videoId?: string) => void
+	// Lets a held probe answer (metadataHeldIds), now and from then on. No id
+	// releases them all.
+	releaseMetadata: (videoId?: string) => void
 	telemetry: () => FixtureServerTelemetry
 	resetTelemetry: () => void
 	close: () => Promise<void>
@@ -49,6 +52,10 @@ export interface FixtureServer {
 export interface FixtureServerBehavior {
 	metadataDelayMs?: number | Record<string, number>
 	metadataFailureIds?: readonly string[]
+	// Probes for these videos stay open until the test calls releaseMetadata,
+	// however slow the host: no delay to outrun. Any metadataDelayMs and
+	// metadataFailureIds apply once released.
+	metadataHeldIds?: readonly string[]
 	// Media for these videos trickles, then holds its last bytes until the test
 	// calls releaseSlowMedia: the download stays running however slow the host.
 	mediaSlowIds?: readonly string[]
@@ -99,6 +106,7 @@ export interface FixtureServerTelemetry {
 interface NormalizedFixtureBehavior {
 	metadataDelayMs: number | Record<string, number>
 	metadataFailureIds: Set<string>
+	metadataHeldIds: Set<string>
 	mediaSlowIds: Set<string>
 	mediaFailureIds: Set<string>
 	mediaFailuresBeforeSuccess: Map<string, number>
@@ -350,6 +358,7 @@ function normalizeBehavior(input: FixtureServerBehavior = {}): NormalizedFixture
 	return {
 		metadataDelayMs: input.metadataDelayMs ?? 0,
 		metadataFailureIds: new Set(input.metadataFailureIds ?? []),
+		metadataHeldIds: new Set(input.metadataHeldIds ?? []),
 		mediaSlowIds: new Set(input.mediaSlowIds ?? []),
 		mediaFailureIds: new Set(input.mediaFailureIds ?? []),
 		mediaFailuresBeforeSuccess: new Map(Object.entries(input.mediaFailuresBeforeSuccess ?? {})),
@@ -372,6 +381,26 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 	let maxActiveProbes = 0
 	// Release callbacks of the slow responses still held, by video.
 	const heldSlowMedia = new Map<string, Set<() => void>>()
+	// Release callbacks of the probes still held, by video.
+	const heldMetadata = new Map<string, Set<() => void>>()
+
+	function holdMetadata(videoId: string): Promise<void> {
+		return new Promise(resolve => {
+			const held = heldMetadata.get(videoId) ?? new Set()
+			heldMetadata.set(videoId, held)
+			held.add(resolve)
+		})
+	}
+
+	function releaseMetadata(videoId?: string): void {
+		const videoIds = videoId === undefined ? new Set([...behavior.metadataHeldIds, ...heldMetadata.keys()]) : new Set([videoId])
+		for (const id of videoIds) {
+			behavior.metadataHeldIds.delete(id)
+			const held = heldMetadata.get(id)
+			heldMetadata.delete(id)
+			for (const release of held ?? []) release()
+		}
+	}
 
 	function holdSlowMedia(videoId: string): HoldSlowMedia {
 		return release => {
@@ -401,6 +430,7 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 		maxActiveProbes = Math.max(maxActiveProbes, activeProbes)
 		const cookieDomains = (query.get('domains') ?? '').split(',').filter(domain => domain !== '')
 		record({kind: 'probe-start', videoId, activeProbeCount: activeProbes, signedIn: query.get('signedIn') === '1', marker: query.get('marker'), cookieDomains, extractorArgs: parsedExtractorArgs(query), at: Date.now()})
+		if (behavior.metadataHeldIds.has(videoId)) await holdMetadata(videoId)
 		const delayMs = metadataDelayFor(behavior, videoId)
 		if (delayMs > 0) await delay(delayMs)
 		const step = behavior.extractionScript.get(videoId)?.shift()
@@ -511,8 +541,10 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 		setBehavior: next => {
 			behavior = normalizeBehavior(next)
 			for (const videoId of heldSlowMedia.keys()) if (!behavior.mediaSlowIds.has(videoId)) releaseSlowMedia(videoId)
+			for (const videoId of heldMetadata.keys()) if (!behavior.metadataHeldIds.has(videoId)) releaseMetadata(videoId)
 		},
 		releaseSlowMedia,
+		releaseMetadata,
 		telemetry: () => {
 			const mediaRequestsById: Record<string, number> = {}
 			for (const request of requests) {
@@ -525,7 +557,11 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 			activeProbes = 0
 			maxActiveProbes = 0
 		},
-		close: () => closeServer(server)
+		close: () => {
+			// A held probe would keep its connection, and so the server, open.
+			releaseMetadata()
+			return closeServer(server)
+		}
 	}
 }
 
