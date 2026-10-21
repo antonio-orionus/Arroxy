@@ -63,6 +63,7 @@ function fakes() {
 	const feed = new ControlEventFeed({queue, registry, status, clientLabel: () => 'Claude Code', errorText: kind => `Text for ${kind}`})
 	return {
 		rows,
+		queue,
 		sink,
 		flow,
 		feed,
@@ -204,19 +205,28 @@ describe('ControlEventFeed', () => {
 			])
 		})
 
-		it('sends added rows, removals with their reason, and intake and status changes', () => {
+		it('sends added rows, removals with their reason, and intake and status changes', async () => {
 			f.add(pending('b'))
 			f.remove('b', 'removed')
 			f.intake({intakeId: 'intake-1', placeholderId: 'b', clientId: 'client-1', state: {state: 'probing'}, updatedAt: 1})
 			f.setStatus({...READY, scheduler: 'paused'})
 			// The same status again is not news.
 			f.setStatus({...READY, scheduler: 'paused'})
+			await Promise.resolve()
 			expect(f.written()).toEqual([
 				{event: 'queue.item', seq: 0, data: {item: expect.objectContaining({id: 'b'})}},
 				{event: 'queue.removed', seq: 1, data: {itemId: 'b', reason: 'removed'}},
-				{event: 'intake.updated', seq: 2, data: {intake: {intakeId: 'intake-1', placeholderId: 'b', state: {state: 'probing'}, updatedAt: 1}}},
-				{event: 'app.status', seq: 3, data: {status: {...READY, scheduler: 'paused'}}}
+				{event: 'app.status', seq: 2, data: {status: {...READY, scheduler: 'paused'}}},
+				{event: 'intake.updated', seq: 3, data: {intake: {intakeId: 'intake-1', placeholderId: 'b', state: {state: 'probing'}, updatedAt: 1}}}
 			])
+		})
+
+		it('sends an intake update after the rows it names, heard in the same turn', async () => {
+			f.intake({intakeId: 'intake-1', placeholderId: 'q', clientId: 'client-1', state: {state: 'queued', itemIds: ['q']}, updatedAt: 1})
+			f.add(pending('q'))
+			expect(events(f)).toEqual(['queue.item'])
+			await Promise.resolve()
+			expect(events(f)).toEqual(['queue.item', 'intake.updated'])
 		})
 
 		it('pairs a placeholder removed as replaced with the rows that replace it', () => {
@@ -369,6 +379,26 @@ describe('ControlEventFeed', () => {
 			turn()
 			expect(f.sink.write).not.toHaveBeenCalled()
 			expect(f.listeners()).toBe(0)
+		})
+
+		it('holds no intake update for a subscription closed in the same turn', async () => {
+			const subscription = f.subscribe({snapshot: false})
+			turn()
+			f.intake({intakeId: 'intake-1', placeholderId: 'q', clientId: 'client-1', state: {state: 'probing'}, updatedAt: 1})
+			subscription.close()
+			await Promise.resolve()
+			expect(f.sink.write).not.toHaveBeenCalled()
+		})
+
+		it('tells the subscriber to resync and closes when starting fails', () => {
+			vi.spyOn(f.queue, 'snapshot').mockImplementation(() => {
+				throw new Error('projection bug')
+			})
+			f.subscribe()
+			turn()
+			expect(f.written()).toEqual([{event: 'events.resync', seq: 0, data: {reason: 'lagging'}}])
+			expect(f.listeners()).toBe(0)
+			expect(logged.error).toHaveBeenCalled()
 		})
 
 		it('closes when the sink throws', () => {

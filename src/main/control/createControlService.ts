@@ -41,9 +41,9 @@ export function createControlService(wiring: ControlWiring): {service: ControlSe
 	const clientLabel = (clientId: string): string | null => wiring.clientLabel(clientId)
 	const errorText = (kind: YtDlpErrorKind): string => mainT('en', `errors.ytdlp.${kind}`)
 	const registry = new IntakeRegistry({rows: () => queueService.snapshot(), now: Date.now, newId: randomUUID})
-	queueService.on('added', ({items}: {items: QueueItem[]}) => registry.hearRows(items))
-	queueService.on('updated', ({item}: {item: QueueItem}) => registry.hearRows([item]))
-	queueService.on('removed', ({itemId, reason}: {itemId: string; reason: QueueRemovalReason}) => registry.hearRemoved(itemId, reason))
+	onQueue(queueService, 'added', ({items}) => registry.hearRows(items))
+	onQueue(queueService, 'updated', ({item}) => registry.hearRows([item]))
+	onQueue(queueService, 'removed', ({itemId, reason}) => registry.hearRemoved(itemId, reason))
 	outcomes.listen(event => registry.hearOutcome(event))
 	queueService.onIntakeAdmission(controlRowsPerIntake)
 	const status = createControlStatus({
@@ -68,16 +68,9 @@ export function createControlService(wiring: ControlWiring): {service: ControlSe
 		pauseAll: () => queueService.pauseAll(),
 		resumeAll: () => queueService.resumeAll(),
 		onChange: listener => {
-			const added = ({items}: {items: QueueItem[]}): void => listener(items.map(item => item.id))
-			const updated = ({item}: {item: QueueItem}): void => listener([item.id])
-			const removed = ({itemId}: {itemId: string}): void => listener([itemId])
-			queueService.on('added', added)
-			queueService.on('updated', updated)
-			queueService.on('removed', removed)
+			const stops = [onQueue(queueService, 'added', ({items}) => listener(items.map(item => item.id))), onQueue(queueService, 'updated', ({item}) => listener([item.id])), onQueue(queueService, 'removed', ({itemId}) => listener([itemId]))]
 			return () => {
-				queueService.off('added', added)
-				queueService.off('updated', updated)
-				queueService.off('removed', removed)
+				for (const stop of stops) stop()
 			}
 		}
 	}
@@ -98,16 +91,25 @@ export function createControlService(wiring: ControlWiring): {service: ControlSe
 	return {service, registry, status}
 }
 
-// The queue's row events, each listener taken off again on unsubscribe.
+// QueueService's row events. Its emitter is untyped; these payloads rest on
+// its commit pipeline, the only place that emits them (commit and
+// emitImmediate in QueueService.ts), which builds each from these types.
+interface QueueRowEvents {
+	added: {items: QueueItem[]}
+	updated: {item: QueueItem}
+	removed: {itemId: string; reason: QueueRemovalReason}
+}
+
+function onQueue<E extends keyof QueueRowEvents>(queueService: QueueService, event: E, listener: (payload: QueueRowEvents[E]) => void): () => void {
+	queueService.on(event, listener)
+	return () => queueService.off(event, listener)
+}
+
 function feedQueue(queueService: QueueService): ControlFeedQueue {
-	const listen = <T>(event: 'added' | 'updated' | 'removed', listener: (payload: T) => void): (() => void) => {
-		queueService.on(event, listener)
-		return () => queueService.off(event, listener)
-	}
 	return {
 		snapshot: () => queueService.snapshot(),
-		onAdded: listener => listen<{items: QueueItem[]}>('added', ({items}) => listener(items)),
-		onUpdated: listener => listen<{item: QueueItem}>('updated', ({item}) => listener(item)),
-		onRemoved: listener => listen<{itemId: string; reason: QueueRemovalReason}>('removed', ({itemId, reason}) => listener(itemId, reason))
+		onAdded: listener => onQueue(queueService, 'added', ({items}) => listener(items)),
+		onUpdated: listener => onQueue(queueService, 'updated', ({item}) => listener(item)),
+		onRemoved: listener => onQueue(queueService, 'removed', ({itemId, reason}) => listener(itemId, reason))
 	}
 }

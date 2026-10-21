@@ -14,7 +14,7 @@ import {takePage} from './controlPaging.js'
 import {intakeView, type ItemProjection, queueItemView} from './controlProjections.js'
 import type {ControlStatus} from './controlStatus.js'
 import type {ControlFeed, ControlFeedOptions, ControlFeedSubscription, ControlSink} from './controlTypes.js'
-import type {IntakeRegistry} from './IntakeRegistry.js'
+import type {IntakeRecord, IntakeRegistry} from './IntakeRegistry.js'
 
 const logger = log.scope('control')
 
@@ -57,6 +57,9 @@ class Subscription implements ControlFeedSubscription {
 	private status = ''
 	// A placeholder just removed as replaced, until the rows replacing it arrive.
 	private replacing: string | null = null
+	// Intake changes heard this turn. The registry hears the queue before this
+	// subscription does, so an intake naming its rows waits for them.
+	private intakes: IntakeRecord[] = []
 	private closed = false
 
 	constructor(
@@ -78,25 +81,33 @@ class Subscription implements ControlFeedSubscription {
 		for (const stop of this.stops) stop()
 		this.stops = []
 		this.views.clear()
+		this.intakes = []
 		this.outbox.close()
 	}
 
 	// The snapshot is the queue as it stands when the listeners attach, so
-	// every later change arrives as a delta after its final page.
+	// every later change arrives as a delta after its final page. A failure
+	// here would leave the client subscribed to nothing, so it is told to resync.
 	private start(): void {
 		this.starting = null
-		const {queue, registry, status} = this.sources
-		const views = queue.snapshot().map(row => this.view(row))
-		for (const view of views) this.views.set(view.id, view)
-		this.status = JSON.stringify(status.current())
-		this.stops = [
-			queue.onAdded(guarded(items => this.added(items))),
-			queue.onUpdated(guarded(item => this.updated(item))),
-			queue.onRemoved(guarded((itemId, reason) => this.removed(itemId, reason))),
-			registry.onChange(guarded(record => this.push({event: 'intake.updated', data: {intake: intakeView(record)}}))),
-			status.onChange(guarded(() => this.statusChanged()))
-		]
-		if (this.options.snapshot) this.outbox.lead(snapshotPages(views))
+		try {
+			const {queue, registry, status} = this.sources
+			const views = queue.snapshot().map(row => this.view(row))
+			for (const view of views) this.views.set(view.id, view)
+			this.status = JSON.stringify(status.current())
+			this.stops = [
+				queue.onAdded(guarded(items => this.added(items))),
+				queue.onUpdated(guarded(item => this.updated(item))),
+				queue.onRemoved(guarded((itemId, reason) => this.removed(itemId, reason))),
+				registry.onChange(guarded(record => this.intakeChanged(record))),
+				status.onChange(guarded(() => this.statusChanged()))
+			]
+			if (this.options.snapshot) this.outbox.lead(snapshotPages(views))
+		} catch (error) {
+			logger.error('the Control API event feed failed to start', {error: error instanceof Error ? error.message : String(error)})
+			this.outbox.resync()
+			this.close()
+		}
 	}
 
 	private push(event: ControlFeedEvent): void {
@@ -143,6 +154,18 @@ class Subscription implements ControlFeedSubscription {
 		queueMicrotask(() => {
 			if (this.replacing === itemId) this.replacing = null
 		})
+	}
+
+	private intakeChanged(record: IntakeRecord): void {
+		this.intakes.push(record)
+		if (this.intakes.length > 1) return
+		queueMicrotask(
+			guarded(() => {
+				const records = this.intakes
+				this.intakes = []
+				for (const held of records) this.push({event: 'intake.updated', data: {intake: intakeView(held)}})
+			})
+		)
 	}
 
 	// Status sources also fire for changes a client cannot see.

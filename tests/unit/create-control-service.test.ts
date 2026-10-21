@@ -120,6 +120,9 @@ describe('createControlService', () => {
 			['queue.replaced', {fromId: placeholderId, toIds: [placeholderId]}],
 			['queue.item', {item: expect.objectContaining({id: placeholderId, status: 'pending', origin: {kind: 'localClient', clientId: 'client-1', label: 'Claude Code'}})}]
 		])
-		expect(events.filter(event => event.event === 'intake.updated').at(-1)?.data).toMatchObject({intake: {intakeId, state: {state: 'queued', itemIds: [placeholderId]}}})
+		// The intake names its rows only after the client has heard them.
+		const queued = events.findIndex(event => event.event === 'intake.updated' && (event.data.intake as {state: {state: string}}).state.state === 'queued')
+		expect(events[queued]?.data).toMatchObject({intake: {intakeId, state: {state: 'queued', itemIds: [placeholderId]}}})
+		expect(queued).toBeGreaterThan(events.findLastIndex(event => event.event === 'queue.item'))
 	})
 })
