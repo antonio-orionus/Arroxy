@@ -292,7 +292,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       - name: Set release title and notes
         # Hand-written user-facing notes live in CHANGELOG.md, keyed by version
-        # (e.g. `## 0.3.5`). Extract that section, then append the
+        # (e.g. `## 0.3.5`). Extract that section from main, then append the
         # auto-generated "What's Changed" PR list + Full Changelog link from
         # the GitHub API so the bottom half stays automatic.
         # A beta with no matching section falls back to pure auto-generated
@@ -307,11 +307,25 @@ jobs:
             -f tag_name="${REF_NAME}" --jq .body)
           # Stop only on next *version* heading (## followed by a digit), so
           # nested `## Highlights` subsections inside the entry are kept.
-          MANUAL_NOTES=$(awk -v ver="## ${VERSION}" '
-            $0 == ver { capture = 1; next }
-            capture && /^## [0-9]/ { capture = 0 }
-            capture { print }
-          ' CHANGELOG.md)
+          section() {
+            awk -v ver="## ${VERSION}" '
+              $0 == ver { capture = 1; next }
+              capture && /^## [0-9]/ { capture = 0 }
+              capture { print }
+            '
+          }
+          has_text() { [ -n "$(printf '%s' "$1" | tr -d '[:space:]')" ]; }
+          # The notes come from main's CHANGELOG.md, so a fix-up pushed to main
+          # after the tag reaches a re-run of this job. The tag's copy is the
+          # fallback, for a version main has no section for.
+          git fetch --no-tags --depth=1 origin "+refs/heads/main:refs/remotes/origin/main"
+          MANUAL_NOTES=$({ git show origin/main:CHANGELOG.md 2>/dev/null || true; } | section)
+          if ! has_text "$MANUAL_NOTES"; then
+            MANUAL_NOTES=$(section < CHANGELOG.md)
+            if has_text "$MANUAL_NOTES"; then
+              echo "::warning::main's CHANGELOG.md has no ## ${VERSION} section; using the tag's copy"
+            fi
+          fi
           DOWNLOAD_BADGES=$(cat <<EOF
           ## Install
 
@@ -321,7 +335,7 @@ jobs:
           [![SHA256](https://img.shields.io/badge/SHA256-Checksums-4B5563?style=for-the-badge&logo=github&logoColor=white)](https://github.com/${REPO}/releases/download/${REF_NAME}/SHA256SUMS)
           EOF
           )
-          if [ -n "$(echo "$MANUAL_NOTES" | tr -d '[:space:]')" ]; then
+          if has_text "$MANUAL_NOTES"; then
             NOTES="${DOWNLOAD_BADGES}"$'\n\n'"${MANUAL_NOTES}"$'\n\n---\n\n'"${AUTO_NOTES}"
           else
             if [[ "$VERSION" != *-* ]]; then
