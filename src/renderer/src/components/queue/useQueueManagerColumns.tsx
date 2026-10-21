@@ -18,24 +18,18 @@ import {Hint} from '../shared/Hint.js'
 import {QueueDateCell} from './QueueDateCell.js'
 import {QueueProgressCell} from './QueueProgressCell.js'
 import {QueueMetadataCell} from './QueueMetadataCell.js'
+import {QUEUE_STATUS_LABEL_KEYS} from './queueManagerActions.js'
 
-const STATUS_META: Record<
-	QueueItemStatus,
-	{
-		variant: 'secondary' | 'info' | 'warning' | 'success' | 'destructive'
-		icon: ReactNode
-		labelKey: 'queue.item.statusProbing' | 'queue.item.statusNeedsChoice' | 'queue.item.statusPending' | 'queue.item.statusRunning' | 'queue.item.statusHeld' | 'queue.item.statusPaused' | 'queue.item.statusDone' | 'queue.item.statusError' | 'queue.item.statusCancelled'
-	}
-> = {
-	probing: {variant: 'secondary', icon: <Loader2 size={12} className="animate-spin" aria-hidden />, labelKey: 'queue.item.statusProbing'},
-	'needs-choice': {variant: 'warning', icon: <CircleHelp size={12} aria-hidden />, labelKey: 'queue.item.statusNeedsChoice'},
-	pending: {variant: 'secondary', icon: <Clock size={12} aria-hidden />, labelKey: 'queue.item.statusPending'},
-	running: {variant: 'info', icon: <Loader2 size={12} className="animate-spin" aria-hidden />, labelKey: 'queue.item.statusRunning'},
-	'paused-held': {variant: 'warning', icon: <PauseCircle size={12} aria-hidden />, labelKey: 'queue.item.statusHeld'},
-	'paused-active': {variant: 'warning', icon: <Pause size={12} aria-hidden />, labelKey: 'queue.item.statusPaused'},
-	done: {variant: 'success', icon: <CheckCircle2 size={12} aria-hidden />, labelKey: 'queue.item.statusDone'},
-	error: {variant: 'destructive', icon: <XCircle size={12} aria-hidden />, labelKey: 'queue.item.statusError'},
-	cancelled: {variant: 'secondary', icon: <Ban size={12} aria-hidden />, labelKey: 'queue.item.statusCancelled'}
+const STATUS_META: Record<QueueItemStatus, {variant: 'secondary' | 'info' | 'warning' | 'success' | 'destructive'; icon: ReactNode}> = {
+	probing: {variant: 'secondary', icon: <Loader2 size={12} className="animate-spin" aria-hidden />},
+	'needs-choice': {variant: 'warning', icon: <CircleHelp size={12} aria-hidden />},
+	pending: {variant: 'secondary', icon: <Clock size={12} aria-hidden />},
+	running: {variant: 'info', icon: <Loader2 size={12} className="animate-spin" aria-hidden />},
+	'paused-held': {variant: 'warning', icon: <PauseCircle size={12} aria-hidden />},
+	'paused-active': {variant: 'warning', icon: <Pause size={12} aria-hidden />},
+	done: {variant: 'success', icon: <CheckCircle2 size={12} aria-hidden />},
+	error: {variant: 'destructive', icon: <XCircle size={12} aria-hidden />},
+	cancelled: {variant: 'secondary', icon: <Ban size={12} aria-hidden />}
 }
 
 const columnHelper = createColumnHelper<QueueTableFeatures, QueueItem>()
@@ -51,7 +45,7 @@ function sortableHeader(label: string, column: {getIsSorted: () => false | 'asc'
 }
 
 function statusText(item: QueueItem, t: TFunction): string {
-	return t(STATUS_META[item.status].labelKey)
+	return t(QUEUE_STATUS_LABEL_KEYS[item.status])
 }
 
 function rowStatusDetail(item: QueueItem, t: TFunction): string {
