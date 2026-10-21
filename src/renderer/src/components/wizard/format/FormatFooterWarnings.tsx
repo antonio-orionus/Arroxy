@@ -5,6 +5,7 @@ import {useShallow} from 'zustand/react/shallow'
 import {useAppStore} from '../../../store/useAppStore.js'
 import {conflictLabelKey, singleConflictWarnings} from '../../../store/wizard/downloadReviewProjection.js'
 import {mp4CaveatCodec} from '../../../store/wizard/resolveContainer.js'
+import {useQuickTimeHost} from '../../../lib/quickTimeHost.js'
 
 // The MP4 caveat and the conflicts under Format's footer, one warning line each:
 // the Download beside Continue skips Review, where they also show. No wrapper,
@@ -12,7 +13,8 @@ import {mp4CaveatCodec} from '../../../store/wizard/resolveContainer.js'
 export function FormatFooterWarnings(): ReactNode {
 	const {t} = useTranslation()
 	// Only what the lines say: the footer stays still while downloads tick the store.
-	const caveat = useAppStore(mp4CaveatCodec)
+	const host = useQuickTimeHost()
+	const caveat = useAppStore(state => mp4CaveatCodec(state, host))
 	const conflicts = useAppStore(useShallow(state => singleConflictWarnings(state).map(conflict => conflict.code)))
 	return (
 		<>

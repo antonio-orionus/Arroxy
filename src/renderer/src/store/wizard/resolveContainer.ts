@@ -1,6 +1,6 @@
 import type {AudioSelection, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import {audioConversionOutcome} from 'yt-dlp-bridge/audio-conversion'
-import {fileTypeFits, mp4Caveat, type Mp4Caveat} from '@shared/fileTypeFit.js'
+import {fileTypeFits, mp4Caveat, type Mp4Caveat, type QuickTimeHost} from '@shared/fileTypeFit.js'
 import {EXTRACTED_AUDIO_CONTAINER} from '@shared/thumbnailEmbed.js'
 import {compatibleExt} from '@shared/ytdlp/compatibleExt.js'
 import type {FormatOption} from '@shared/types.js'
@@ -70,12 +70,15 @@ export function resolveOutputContainer(selectedVideoFormatId: string, audioSelec
 	return merged === 'webm' && embedThumbnail ? 'mkv' : merged
 }
 
-// The video codec that makes an MP4 risky to play in QuickTime (VP9 or AV1),
-// when this download ends as an MP4; null otherwise, and always null when
-// embedded subtitles turn the file into an MKV.
-export function mp4CaveatCodec(state: Pick<AppState, 'wizardMediaKind' | 'selectedVideoFormatId' | 'audioSelection' | 'wizardSubtitleMode' | 'wizardFormats' | 'wizardEmbedThumbnail' | 'wizardFileType'>): Mp4Caveat | null {
+// The video codec that makes an MP4 risky to play in QuickTime on this host
+// (VP9 or AV1), when this download ends as an MP4; null otherwise, and always
+// null when embedded subtitles turn the file into an MKV.
+export function mp4CaveatCodec(state: Pick<AppState, 'wizardMediaKind' | 'selectedVideoFormatId' | 'audioSelection' | 'wizardSubtitleMode' | 'wizardFormats' | 'wizardEmbedThumbnail' | 'wizardFileType'>, host: QuickTimeHost): Mp4Caveat | null {
 	if (state.wizardMediaKind !== 'video' || state.selectedVideoFormatId === '') return null
 	const container = resolveOutputContainer(state.selectedVideoFormatId, state.audioSelection, state.wizardSubtitleMode, state.wizardFormats, state.wizardMediaKind, state.wizardEmbedThumbnail, state.wizardFileType)
 	if (container !== 'mp4') return null
-	return mp4Caveat(state.wizardFormats.find(f => f.formatId === state.selectedVideoFormatId))
+	return mp4Caveat(
+		state.wizardFormats.find(f => f.formatId === state.selectedVideoFormatId),
+		host
+	)
 }

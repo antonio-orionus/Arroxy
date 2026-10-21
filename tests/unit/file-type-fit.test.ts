@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {audioCodecName, fileTypeFits, mp4Caveat, videoCodecName, webmBlocker} from '@shared/fileTypeFit.js'
+import {audioCodecName, fileTypeFits, mp4Caveat, videoCodecName, webmBlocker, type QuickTimeHost} from '@shared/fileTypeFit.js'
 import type {FormatOption} from '@shared/types.js'
 
 function video(videoCodec: string, extra: Partial<FormatOption> = {}): FormatOption {
@@ -63,23 +63,37 @@ describe('WebM fit', () => {
 })
 
 describe('MP4 playback caveat', () => {
+	const oldMac: QuickTimeHost = {mac: true, av1Hardware: false}
+	const newMac: QuickTimeHost = {mac: true, av1Hardware: true}
+	const notMac: QuickTimeHost = {mac: false, av1Hardware: false}
+
 	it('names the video codec QuickTime cannot play inside an MP4', () => {
-		expect(mp4Caveat(video('vp9'))).toBe('VP9')
-		expect(mp4Caveat(video('vp09.00.40.08'))).toBe('VP9')
-		expect(mp4Caveat(video('av01.0.08M.08'))).toBe('AV1')
+		expect(mp4Caveat(video('vp9'), oldMac)).toBe('VP9')
+		expect(mp4Caveat(video('vp09.00.40.08'), oldMac)).toBe('VP9')
+		expect(mp4Caveat(video('av01.0.08M.08'), oldMac)).toBe('AV1')
+	})
+
+	it('drops AV1 on a Mac that decodes it in hardware, but never VP9', () => {
+		expect(mp4Caveat(video('av01.0.08M.08'), newMac)).toBeNull()
+		expect(mp4Caveat(video('vp09.00.40.08'), newMac)).toBe('VP9')
+	})
+
+	it('says nothing off a Mac, where there is no QuickTime', () => {
+		expect(mp4Caveat(video('av01.0.08M.08'), notMac)).toBeNull()
+		expect(mp4Caveat(video('vp09.00.40.08'), notMac)).toBeNull()
 	})
 
 	it('says nothing for H.264 or HEVC, which QuickTime plays', () => {
-		expect(mp4Caveat(video('avc1.640028'))).toBeNull()
-		expect(mp4Caveat(video('hev1.1.6.L93.B0'))).toBeNull()
+		expect(mp4Caveat(video('avc1.640028'), oldMac)).toBeNull()
+		expect(mp4Caveat(video('hev1.1.6.L93.B0'), oldMac)).toBeNull()
 	})
 
 	it('does not blame the audio: Opus in an MP4 played in QuickTime', () => {
-		expect(mp4Caveat(video('avc1.640028', {isVideoOnly: false, audioCodec: 'opus'}))).toBeNull()
+		expect(mp4Caveat(video('avc1.640028', {isVideoOnly: false, audioCodec: 'opus'}), oldMac)).toBeNull()
 	})
 
 	it('has no opinion while no video is picked or its codec is unknown', () => {
-		expect(mp4Caveat(undefined)).toBeNull()
-		expect(mp4Caveat(video('weird'))).toBeNull()
+		expect(mp4Caveat(undefined, oldMac)).toBeNull()
+		expect(mp4Caveat(video('weird'), oldMac)).toBeNull()
 	})
 })

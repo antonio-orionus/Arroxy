@@ -55,13 +55,23 @@ export function webmBlocker(video: FormatOption | undefined, audio: FormatOption
 
 // The video codec that makes an MP4 risky to play in QuickTime, or null.
 // Tested on a Mac with AV1 hardware (macOS 27): VP9 in an MP4 failed to decode
-// its video, while AV1 and Opus played. AV1 needs the chip to decode it, so it
-// is worth a warning too; Opus audio in an MP4 is not.
+// its video, while AV1 and Opus played. QuickTime plays AV1 only where the chip
+// decodes it (Apple has no software decoder), so AV1 warns on other Macs; Opus
+// audio in an MP4 never does. Off a Mac there is no QuickTime, and the usual
+// players there play both, so neither warns.
 export type Mp4Caveat = 'VP9' | 'AV1'
 
-export function mp4Caveat(video: FormatOption | undefined): Mp4Caveat | null {
+// The machine the file is saved on, as far as QuickTime cares.
+export interface QuickTimeHost {
+	readonly mac: boolean
+	readonly av1Hardware: boolean
+}
+
+export function mp4Caveat(video: FormatOption | undefined, host: QuickTimeHost): Mp4Caveat | null {
+	if (!host.mac) return null
 	const codec = video ? videoCodecName(video.videoCodec) : null
-	return codec === 'VP9' || codec === 'AV1' ? codec : null
+	if (codec === 'VP9') return codec
+	return codec === 'AV1' && !host.av1Hardware ? codec : null
 }
 
 export function fileTypeFits(fileType: VideoFileType, video: FormatOption | undefined, audio: FormatOption | undefined): boolean {
