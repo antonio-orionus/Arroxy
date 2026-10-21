@@ -113,7 +113,7 @@
     },
     "packages/ytdlp-errors": {
       "name": "ytdlp-errors",
-      "version": "1.4.0",
+      "version": "1.5.0",
       "devDependencies": {
         "@types/node": "26.6.5",
         "typescript": "6.0.3",
