@@ -128,9 +128,9 @@ function isolatedFromUserYtDlp(e2eMode: E2eHarnessMode | undefined): Pick<Workfl
 // one retry — keep the literal in sync if this ever changes.
 export const PROBE_TIMEOUT_MESSAGE = 'Probe timed out'
 
-// How long a stopped signed-in run waits for its killed tree to close before
-// it settles (and its jar is deleted) anyway.
-const STOPPED_SESSION_EXIT_GRACE_MS = 5000
+// How long a stopped run waits for its killed tree to close before it settles
+// (and a signed-in run's jar is deleted) anyway.
+const STOPPED_RUN_EXIT_GRACE_MS = 5000
 
 // Which identity a run uses. `configured`: the selected cookie mode (anonymous
 // under `explore`). `none`: no cookies this run (the quality fallback).
@@ -343,12 +343,14 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 			if (err.lines) opts.signal?.onStderr?.(err.lines)
 		}
 
-		// A signed-in run's jar must not outlive its process tree: yt-dlp writes
-		// cookies back into the jar, and a PyInstaller build's leader leaves its
-		// Python child running when only the leader is killed. So a stopped
-		// session run kills the whole tree and settles (releasing the jar) only
-		// once the child has closed — bounded, in case close never comes.
-		const sessionRun = opts.cookies?.kind === 'session'
+		// A stopped run kills its whole process tree, while the leader is still
+		// alive: a PyInstaller build's leader leaves its Python child downloading
+		// when only the leader is killed, and on Windows `taskkill /T` cannot walk
+		// from a dead leader to that child. The run settles only once the tree has
+		// closed (bounded, in case close never comes), so whoever acts on the
+		// result next (cancel's temp-folder cleanup, a signed-in run deleting its
+		// jar, which yt-dlp writes cookies back into) finds no process still
+		// holding the files.
 		let stopped: YtDlpResult | null = null
 		let exitGrace: NodeJS.Timeout | null = null
 
@@ -363,33 +365,19 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 
 		const stop = (result: () => YtDlpResult): void => {
 			if (settled || stopped) return
-			if (sessionRun) {
-				killProcessTree(proc, 'SIGKILL', ytDlpLog)
-			} else {
-				try {
-					proc.kill('SIGKILL')
-				} catch {
-					/* already exited */
-				}
-			}
 			drainStreams()
-			// Detach buffered listeners — the dead proc will eventually fire
-			// 'close' (the settled guard absorbs it), but until GC the closure
-			// captures stdout/stderr buffers we no longer need.
+			// Detach buffered listeners: the result below is final, and until GC
+			// the closure would keep growing stdout/stderr buffers we no longer need.
 			proc.stdout.removeAllListeners('data')
 			proc.stderr.removeAllListeners('data')
-			if (!sessionRun) {
-				finish(result())
-				return
-			}
+			// Recorded before the kill, so a 'close' that follows it settles with this result.
 			stopped = result()
 			const pending = stopped
-			exitGrace = setTimeout(() => finish(pending), STOPPED_SESSION_EXIT_GRACE_MS)
+			killProcessTree(proc, 'SIGKILL', ytDlpLog)
+			if (!settled) exitGrace = setTimeout(() => finish(pending), STOPPED_RUN_EXIT_GRACE_MS)
 		}
 
-		// Force-kill if the process exceeds opts.timeoutMs. SIGKILL on win32 is
-		// implemented by node as TerminateProcess — the close event still fires,
-		// which the `settled` guard absorbs as a no-op.
+		// Force-kill the tree if the process exceeds opts.timeoutMs.
 		const timer = opts.timeoutMs ? setTimeout(() => stop(() => ({kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: PROBE_TIMEOUT_MESSAGE, stdout, stderr})), opts.timeoutMs) : null
 
 		// Caller-driven cancel — kill the child and resolve with a Cancelled

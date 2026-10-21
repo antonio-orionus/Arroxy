@@ -35,7 +35,7 @@ export interface ActiveJobInput {
 	job: DownloadJob
 	input: StartDownloadInput
 	// AbortController.abort() drops the signal. Process spawns register
-	// `() => proc.kill('SIGKILL')` against `signal.aborted`, so cancel = abort.
+	// a tree kill against `signal.aborted`, so cancel = abort.
 	controller: AbortController
 	signal: AbortSignal
 	// Mirrors `signal.aborted` for code paths that already poll the boolean.

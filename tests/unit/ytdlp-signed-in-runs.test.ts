@@ -199,13 +199,13 @@ describe.skipIf(process.platform === 'win32')('a stopped signed-in run', () => {
 		expect(events).toEqual(['jar-written', 'group-kill:SIGKILL', 'close', 'jar-deleted'])
 	})
 
-	it('leaves an anonymous run as before: the leader is killed directly and the run settles at once', async () => {
+	it('stops an anonymous run the same way: the whole tree is killed and the run settles once it is gone', async () => {
 		const {ytDlp} = makeYtDlp(new ExploreSpawnGate({minSpacingMs: 0}))
 
 		const result = await ytDlp.run(PROBE, {timeoutMs: 30})
 
 		expect(result).toMatchObject({kind: 'exit-error', rawError: PROBE_TIMEOUT_MESSAGE})
-		expect(processKill).not.toHaveBeenCalled()
-		expect(procs.values().next().value?.kill).toHaveBeenCalledWith('SIGKILL')
+		expect(events).toEqual(['group-kill:SIGKILL', 'close'])
+		expect(procs.values().next().value?.kill).not.toHaveBeenCalled()
 	})
 })

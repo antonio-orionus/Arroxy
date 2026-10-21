@@ -1,6 +1,6 @@
 import {STATUS_KEY} from '@shared/schemas.js'
 import {dropAudioStreams, logger} from '../audioStrip.js'
-import {forgetOnExit} from '../download/processControl.js'
+import {forgetOnExit, killJobProcess} from '../download/processControl.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {interruptedOutcome} from './phaseHelpers.js'
 
@@ -28,9 +28,9 @@ export const DropAudioPhase: Phase = {
 					forgetOnExit(proc, () => {
 						if (active.ffmpegProcess === proc) active.ffmpegProcess = undefined
 					})
-					if (active.cancelRequested) proc.kill('SIGKILL')
+					if (active.cancelRequested) killJobProcess(proc, 'SIGKILL')
 					ctx.register(() => {
-						proc.kill('SIGKILL')
+						killJobProcess(proc, 'SIGKILL')
 					})
 				},
 				jobId: job.id

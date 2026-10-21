@@ -22,7 +22,14 @@ export function forgetOnExit(proc: ChildProcessWithoutNullStreams, forget: () =>
 	proc.once('close', forget)
 }
 
+// Every stop of a job's child goes through the tree kill, never a bare
+// `proc.kill`: on Windows that ends only a PyInstaller yt-dlp's leader, its
+// Python child keeps downloading, and `taskkill /T` can no longer reach it.
+export function killJobProcess(proc: ChildProcessWithoutNullStreams, signal: NodeJS.Signals): void {
+	killProcessTree(proc, signal, logger)
+}
+
 export function killActiveProcesses(active: JobProcesses, signal: NodeJS.Signals): void {
-	if (active.ytDlpProcess) killProcessTree(active.ytDlpProcess, signal, logger)
-	if (active.ffmpegProcess) killProcessTree(active.ffmpegProcess, signal, logger)
+	if (active.ytDlpProcess) killJobProcess(active.ytDlpProcess, signal)
+	if (active.ffmpegProcess) killJobProcess(active.ffmpegProcess, signal)
 }

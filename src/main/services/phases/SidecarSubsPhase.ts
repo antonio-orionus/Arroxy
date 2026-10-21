@@ -7,7 +7,7 @@ import {join} from 'node:path'
 import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, INFO_JSON_NAME, interruptedOutcome, probeInfoJsonInTemp} from './phaseHelpers.js'
 import {automaticCaptionPaths, clearSubtitleReport, eagerSubtitleLists, endWithoutFetching, missingSubtitles, planSubtitleRun, readSubtitleReport, saveSubtitleListing, subtitleEmbedTracks, subtitleFetchRequest, subtitleReportFile, type ReportedSubtitle, type SubtitleLists} from './subtitleTracks.js'
 import {identityFor} from '../exploreGate.js'
-import {forgetOnExit} from '../download/processControl.js'
+import {forgetOnExit, killJobProcess} from '../download/processControl.js'
 import {siteForJob} from '@shared/sites/index.js'
 import type {YtDlpRequest, YtDlpResult} from '../YtDlp.js'
 import {settleWithExploreSession} from './signedInFlow.js'
@@ -44,9 +44,9 @@ async function runEmbedMux(ctx: PhaseContext, plan: SubtitlePlan, reported: read
 				forgetOnExit(proc, () => {
 					if (active.ffmpegProcess === proc) active.ffmpegProcess = undefined
 				})
-				if (active.cancelRequested) proc.kill('SIGKILL')
+				if (active.cancelRequested) killJobProcess(proc, 'SIGKILL')
 				ctx.register(() => {
-					proc.kill('SIGKILL')
+					killJobProcess(proc, 'SIGKILL')
 				})
 			},
 			jobId: job.id

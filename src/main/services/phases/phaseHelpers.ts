@@ -6,7 +6,7 @@ import {STATUS_KEY} from '@shared/schemas.js'
 import {exploreCookieScopeFor} from '@shared/sites/exploreCookieScope.js'
 import type {LocalizedError} from '@shared/types.js'
 import type {YtDlpSignal} from '../YtDlp.js'
-import {forgetOnExit} from '../download/processControl.js'
+import {forgetOnExit, killJobProcess} from '../download/processControl.js'
 import type {ActiveJob, PhaseContext, PhaseOutcome} from './types.js'
 
 // The info-json a media run writes into the job's temp dir: replayed on resume,
@@ -72,8 +72,8 @@ export async function guardSignedInSpawn(ctx: PhaseContext): Promise<PhaseOutcom
 
 // Shared yt-dlp signal handlers used by every phase that spawns yt-dlp:
 //   - assign `active.ytDlpProcess` on spawn, and clear it when the child exits
-//   - SIGKILL immediately if cancel was requested before spawn returned
-//   - register SIGKILL disposable for finalize-time drain
+//   - tree-kill immediately if cancel was requested before spawn returned
+//   - register a tree-kill disposable for finalize-time drain
 //   - pipe stdout/stderr into ctx.safeConsume
 //   - cancel through the job's signal; pause stops a run that has not spawned
 //     yet (a running process is paused by DownloadService)
@@ -92,9 +92,9 @@ export function buildYtDlpSignal(ctx: PhaseContext, active: ActiveJob, extra: Om
 			forgetOnExit(proc, () => {
 				if (active.ytDlpProcess === proc) active.ytDlpProcess = undefined
 			})
-			if (active.cancelRequested) proc.kill('SIGKILL')
+			if (active.cancelRequested) killJobProcess(proc, 'SIGKILL')
 			ctx.register(() => {
-				proc.kill('SIGKILL')
+				killJobProcess(proc, 'SIGKILL')
 			})
 			extraOnSpawn?.(proc, cwd)
 		},
