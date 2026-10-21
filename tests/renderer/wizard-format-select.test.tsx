@@ -9,6 +9,7 @@ import {useAppStore} from '@renderer/store/useAppStore.js'
 import {editedProfileDraft, profilePatch, wizardChangedAreas} from '@renderer/store/wizard/wizardProfileState.js'
 import {StepReview} from '@renderer/components/wizard/StepReview.js'
 import {RESET_WIZARD_STATE} from '@renderer/store/wizard/commands.js'
+import {buildMockAppApi} from '../shared/mockAppApi.js'
 
 const FORMATS: FormatOption[] = [
 	{formatId: '137', label: '1080p | mp4 | 30fps', ext: 'mp4', resolution: '1080p', fps: 30, filesize: 800_000_000, isVideoOnly: true, isAudioOnly: false},
@@ -33,6 +34,7 @@ function builtin(id: string): DownloadProfile {
 const SETTINGS: AppSettings = {...defaultAppSettings('/downloads'), common: {...defaultAppSettings('/downloads').common, language: 'es'}}
 
 beforeEach(() => {
+	window.appApi = buildMockAppApi()
 	useAppStore.setState({
 		settings: SETTINGS,
 		wizardMode: 'single',

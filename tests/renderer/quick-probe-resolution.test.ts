@@ -10,6 +10,7 @@ import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {i18next} from '@shared/i18n/index.js'
 import {fail, ok} from '@shared/result.js'
 import type {PlaylistEntry, ProbeError, ProbeResult, QueueItem} from '@shared/types.js'
+import {buildMockAppApi} from '../shared/mockAppApi.js'
 
 // What a quick download's placeholder row becomes once its probe answers. One
 // rule set for every entry point (URL tab, Explore, the hotkey): a video or a
@@ -55,6 +56,7 @@ function resolveQuickProbe(result: Result<ProbeResult, ProbeError>, context: Qui
 }
 
 function state(queue: QueueItem[] = []) {
+	Object.defineProperty(globalThis, 'window', {configurable: true, value: {appApi: buildMockAppApi()}})
 	useAppStore.setState({...RESET_WIZARD_STATE, settings: defaultAppSettings('/tmp'), wizardOutputDir: '/tmp', queue})
 	return useAppStore.getState()
 }

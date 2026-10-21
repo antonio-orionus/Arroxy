@@ -3,9 +3,11 @@ import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {BulkUrlDialog} from '@renderer/components/wizard/BulkUrlDialog.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {defaultAppSettings} from '@shared/constants.js'
+import {buildMockAppApi} from '../shared/mockAppApi.js'
 
 describe('BulkUrlDialog', () => {
 	beforeEach(() => {
+		window.appApi = buildMockAppApi()
 		useAppStore.setState({settings: defaultAppSettings('/tmp'), quickDownloadStatus: 'idle', startBulkUrls: vi.fn(), quickDownloadUrls: vi.fn().mockResolvedValue(undefined)})
 	})
 

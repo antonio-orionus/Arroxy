@@ -7,6 +7,7 @@ import type {FormatOption} from '@shared/types.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {StepReview} from '@renderer/components/wizard/StepReview.js'
 import {FormatFooterWarnings} from '@renderer/components/wizard/format/FormatFooterWarnings.js'
+import {buildMockAppApi} from '../shared/mockAppApi.js'
 
 // Both places that show the QuickTime caveat, on a Mac whose chip decodes AV1
 // (as an M3 and later do) and on Windows. The probe answers once per app run,
@@ -36,6 +37,7 @@ afterAll(() => {
 
 beforeEach(() => {
 	window.platform = 'darwin'
+	window.appApi = buildMockAppApi()
 	useAppStore.setState({
 		settings: defaultAppSettings('/downloads'),
 		wizardMode: 'single',

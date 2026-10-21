@@ -1,8 +1,9 @@
 // Intake runs in main but needs two things only the window knows: the folder
 // its wizard points at (a profile without a fixed folder downloads there) and
 // whether its screen shows HDR (which settles the Auto HDR setting). They are
-// reported once the app is up and again whenever either changes, so a link
-// taken in by the hotkey prepares exactly as one taken in here.
+// reported as soon as settings load (the hotkey answers from then, before
+// warmup ends) and again whenever either changes, so a link taken in by the
+// hotkey prepares exactly as one taken in here.
 
 import type {StoreApi} from 'zustand'
 import {displayShowsHdr} from '@renderer/lib/displayHdr.js'
@@ -18,8 +19,10 @@ export function watchIntakeWindowContext(store: Pick<StoreApi<AppState>, 'getSta
 	let reported: IntakeWindowContext | null = null
 	const sync = (): void => {
 		const state = store.getState()
-		// Before settings load, the wizard has no folder yet.
-		if (!state.initialized) return
+		// Before settings load, the wizard has no folder yet. Settings set the
+		// folder before warmup ends, and the hotkey stops answering `busy` then,
+		// so waiting for `initialized` would leave main on a stale folder.
+		if (state.settings === null) return
 		const next = {currentOutputDir: state.wizardOutputDir, displayShowsHdr: displayShowsHdr()}
 		if (reported !== null && reported.currentOutputDir === next.currentOutputDir && reported.displayShowsHdr === next.displayShowsHdr) return
 		reported = next

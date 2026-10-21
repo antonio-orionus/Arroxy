@@ -1,4 +1,5 @@
 import {parseBulkUrls} from '@shared/bulkUrls.js'
+import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {classifyUrlIntent} from '@shared/urlIntent.js'
 import type {HotkeyOutcome, HotkeyTriggerPayload, ProbeError, ProbePlaylistMode} from '@shared/types.js'
 import type {GetState} from '../types.js'
@@ -91,7 +92,8 @@ export async function handleHotkeyTrigger(trigger: HotkeyTriggerPayload, get: Ge
 	const report = (outcome: HotkeyOutcome, url = triggerUrl): void => {
 		detach(window.appApi.hotkey.reportOutcome({outcome, ...(url ? {url} : {})}), 'hotkey outcome report')
 	}
-	if (!get().settings) {
+	const settings = get().settings
+	if (!settings) {
 		report('busy')
 		return
 	}
@@ -100,8 +102,11 @@ export async function handleHotkeyTrigger(trigger: HotkeyTriggerPayload, get: Ge
 		report(intake.outcome)
 		return
 	}
+	// The profile this window shows as active, which main may not have saved
+	// yet: the row pins it, as a link taken in through the app does.
+	const profile = resolveActiveDownloadProfile(settings.profiles).ref
 	await placeQuickDownload(
-		{url: intake.url, playlistMode: intake.playlistMode},
+		{url: intake.url, playlistMode: intake.playlistMode, profile},
 		hotkeyFeedback(outcome => report(outcome, intake.url))
 	)
 }

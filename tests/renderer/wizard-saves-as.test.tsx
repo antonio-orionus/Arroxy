@@ -13,6 +13,7 @@ import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import {selectionOrder} from '@shared/selectionOrder.js'
 import type {FormatOption} from '@shared/types.js'
+import {buildMockAppApi} from '../shared/mockAppApi.js'
 
 const FORMATS: FormatOption[] = [
 	{formatId: '248', label: '1080p vp9', ext: 'webm', resolution: '1920x1080', videoCodec: 'vp9', isVideoOnly: true, isAudioOnly: false},
@@ -28,6 +29,7 @@ function builtin(id: string) {
 }
 
 beforeEach(() => {
+	window.appApi = buildMockAppApi()
 	useAppStore.setState({
 		settings: defaultAppSettings('/downloads'),
 		wizardMode: 'single',

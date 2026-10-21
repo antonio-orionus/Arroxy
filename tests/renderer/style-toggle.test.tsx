@@ -20,7 +20,7 @@ describe('StyleToggle', () => {
 	beforeEach(() => {
 		vi.useFakeTimers()
 		update.mockClear()
-		window.appApi = {settings: {update}} as unknown as typeof window.appApi
+		window.appApi = {settings: {update}, intake: {setWindowContext: vi.fn().mockResolvedValue({ok: true, data: undefined})}} as unknown as typeof window.appApi
 	})
 
 	afterEach(() => {

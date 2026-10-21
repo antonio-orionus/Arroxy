@@ -37,6 +37,7 @@ beforeEach(() => {
 	notices.length = 0
 	setNotificationSink((level, message, id) => notices.push({level, message, id}))
 	vi.spyOn(console, 'info').mockImplementation(() => {})
+	window.appApi = buildMockAppApi()
 	useAppStore.setState({...RESET_WIZARD_STATE, initialized: false, initializing: false, settings: defaultAppSettings('/tmp'), wizardOutputDir: '/tmp', queue: []})
 })
 

@@ -3,9 +3,9 @@ import {handleHotkeyTrigger, intakeHotkeyTrigger, outcomeForProbeError} from '@r
 import type {ProbeError, QueueItem} from '@shared/types.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {defaultAppSettings} from '@shared/constants.js'
-import {fail} from '@shared/result.js'
+import {fail, ok} from '@shared/result.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
-import {armQueue} from '../shared/quickDownloadHarness.js'
+import {armQueue, deferredProbe, VIDEO} from '../shared/quickDownloadHarness.js'
 
 const URL = 'https://www.youtube.com/watch?v=one'
 
@@ -149,5 +149,27 @@ describe('handleHotkeyTrigger', () => {
 		await vi.waitFor(() => expect(api.hotkey.reportOutcome).toHaveBeenCalledWith({outcome: 'submission-failed', url: URL}))
 		expect(api.queue.cmd.replaceProbing).toHaveBeenCalledOnce()
 		expect(useAppStore.getState()).toMatchObject({quickDownloadStatus: 'idle', quickDownloadFailure: null, quickPlaylistCapDialogOpen: false, wizardUrl: ''})
+	})
+
+	// A profile pick is saved through a queue of settings writes, so main can
+	// still hold the previous one when the hotkey fires: the row pins the
+	// profile the window shows, as an in-app link does.
+	it('pins the profile the window has active before main has saved it', async () => {
+		const api = buildMockAppApi()
+		const stale = defaultAppSettings('/tmp')
+		armQueue(api, {mainSettings: () => stale})
+		const probe = deferredProbe(api)
+		Object.defineProperty(globalThis, 'window', {configurable: true, value: {appApi: api}})
+		useAppStore.setState({settings: {...stale, profiles: {...stale.profiles, active: {kind: 'builtin', id: 'audio-only'}}}, queue: [], wizardOutputDir: '/tmp'})
+
+		await handleHotkeyTrigger({kind: 'single', url: URL}, useAppStore.getState)
+
+		expect(api.hotkey.reportOutcome).toHaveBeenCalledWith({outcome: 'queued', url: URL})
+		const id = useAppStore.getState().queue[0]?.id
+		expect(useAppStore.getState().queue[0]).toMatchObject({formatLabel: 'Audio only · best', pinnedProfile: {ref: {kind: 'builtin', id: 'audio-only'}}})
+		probe.resolve(ok(VIDEO))
+
+		await vi.waitFor(() => expect(useAppStore.getState().queue.find(item => item.id === id)?.status).toBe('pending'))
+		expect(useAppStore.getState().queue.find(item => item.id === id)?.job).toMatchObject({intent: {kind: 'audio-only'}})
 	})
 })

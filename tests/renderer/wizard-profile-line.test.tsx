@@ -8,6 +8,7 @@ import {profilePatch} from '@renderer/store/wizard/wizardProfileState.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import type {FormatOption} from '@shared/types.js'
+import {buildMockAppApi} from '../shared/mockAppApi.js'
 
 const FORMATS: FormatOption[] = [
 	{formatId: '248', label: '1080p vp9', ext: 'webm', resolution: '1920x1080', videoCodec: 'vp9', isVideoOnly: true, isAudioOnly: false},
@@ -32,6 +33,7 @@ const chooseWizardProfile = vi.fn()
 beforeEach(() => {
 	saveDownloadProfile.mockReset().mockResolvedValue(true)
 	chooseWizardProfile.mockReset()
+	window.appApi = buildMockAppApi()
 	useAppStore.setState({
 		settings: seedSettings({formatProfileCalloutDismissed: true}),
 		wizardMode: 'single',
@@ -153,7 +155,7 @@ describe('One-time profile callout on the Format step', () => {
 
 	beforeEach(() => {
 		update.mockClear()
-		window.appApi = {settings: {update}} as unknown as typeof window.appApi
+		window.appApi = {settings: {update}, intake: {setWindowContext: vi.fn().mockResolvedValue({ok: true, data: undefined})}} as unknown as typeof window.appApi
 		useAppStore.setState({settings: seedSettings({})})
 	})
 

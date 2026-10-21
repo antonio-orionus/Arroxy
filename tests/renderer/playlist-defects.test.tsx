@@ -48,6 +48,7 @@ function buildMockApi(settingsUpdateMock?: ReturnType<typeof vi.fn>) {
 		},
 		settings: {get: vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: false})), update: settingsUpdateMock ?? vi.fn().mockResolvedValue(ok({defaultOutputDir: '/tmp', rememberLastOutputDir: false}))},
 		shell: {openFolder: vi.fn(), openExternal: vi.fn()},
+		intake: {setWindowContext: vi.fn().mockResolvedValue({ok: true, data: undefined})},
 		logs: {openDir: vi.fn()},
 		dialog: {chooseFolder: vi.fn()},
 		events: {onStatus: vi.fn().mockReturnValue(() => undefined), onProgress: vi.fn().mockReturnValue(() => undefined), onProbeProgress: vi.fn().mockReturnValue(() => undefined), onClipboardUrl: vi.fn().mockReturnValue(() => undefined)},
@@ -120,6 +121,7 @@ function resetStore() {
 }
 
 beforeEach(() => {
+	window.appApi = buildMockApi() as never
 	resetStore()
 	vi.clearAllMocks()
 })

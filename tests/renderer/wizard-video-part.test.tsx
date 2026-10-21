@@ -4,6 +4,7 @@ import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {UrlStartOffer, VideoPartCallout, VideoPartPanel, VideoPartSwitch} from '@renderer/components/wizard/format/VideoPartControls.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {defaultAppSettings} from '@shared/constants.js'
+import {buildMockAppApi} from '../shared/mockAppApi.js'
 
 const CHAPTERS = [
 	{title: 'Intro', startSeconds: 0, endSeconds: 60},
@@ -22,6 +23,7 @@ function renderPart(): void {
 }
 
 beforeEach(() => {
+	window.appApi = buildMockAppApi()
 	useAppStore.setState({settings: defaultAppSettings('/downloads'), wizardMediaKind: 'video', wizardDuration: 600, wizardChapters: CHAPTERS, wizardUrlStartSeconds: null, wizardPart: null})
 })
 
@@ -91,7 +93,7 @@ describe('One-time Part of video callout', () => {
 
 	beforeEach(() => {
 		update.mockClear()
-		window.appApi = {settings: {update}} as unknown as typeof window.appApi
+		window.appApi = {settings: {update}, intake: {setWindowContext: vi.fn().mockResolvedValue({ok: true, data: undefined})}} as unknown as typeof window.appApi
 	})
 
 	it('points out the Part switch the first time, until dismissed', async () => {
