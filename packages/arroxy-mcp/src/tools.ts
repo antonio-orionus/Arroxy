@@ -60,9 +60,12 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 	return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
+// A warning never replaces the result: an agent that lost the intake handle of
+// arroxy_add_link might add the link again. It rides along as a second block.
 function toolResult(outcome: CallOutcome<unknown>): CallToolResult {
-	if (!outcome.ok) return errorResult(formatFailure(outcome.failure))
-	const result: CallToolResult = {content: [{type: 'text', text: JSON.stringify(outcome.value, null, 2)}]}
+	const warning = outcome.warning === undefined ? [] : [formatFailure(outcome.warning)]
+	if (!outcome.ok) return errorResult([formatFailure(outcome.failure), ...warning].join('\n\n'))
+	const result: CallToolResult = {content: [JSON.stringify(outcome.value, null, 2), ...warning].map(text => ({type: 'text', text}))}
 	if (isRecord(outcome.value)) result.structuredContent = outcome.value
 	return result
 }

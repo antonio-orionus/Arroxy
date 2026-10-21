@@ -1,3 +1,4 @@
+import fs from 'node:fs/promises'
 import path from 'node:path'
 import {controlError} from 'arroxy-control'
 import {afterEach, describe, expect, it} from 'vite-plus/test'
@@ -151,6 +152,36 @@ describe('runCli', () => {
 		expect(result.stdout).toBe('')
 		expect(result.stderr).toContain('q1 is done.')
 		expect(result.stderr).toContain('Read the current state with queue.get')
+	})
+
+	it.skipIf(process.platform === 'win32')('prints the result and exits 0, with the lost-secret warning on stderr', async () => {
+		const box = await sandbox()
+		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a')})
+		await run(box, ['status'])
+		app.allow(app.pendingApprovals()[0] ?? '')
+		await fs.chmod(box.configDir, 0o500)
+		cleanups.push(() => fs.chmod(box.configDir, 0o700))
+
+		const result = await run(box, ['add', 'https://example.com/v'])
+
+		expect(result.code).toBe(0)
+		expect(JSON.parse(result.stdout)).toEqual({intakeId: 'i1', placeholderId: 'q1'})
+		expect(result.stderr).toContain(box.configDir)
+	})
+
+	it.skipIf(process.platform === 'win32')('prints both the error and the lost-secret warning when the request fails', async () => {
+		const box = await sandbox()
+		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a'), handlers: {'queue.pause': () => ({error: controlError('invalid_state', 'q1 is done.')})}})
+		await run(box, ['status'])
+		app.allow(app.pendingApprovals()[0] ?? '')
+		await fs.chmod(box.configDir, 0o500)
+		cleanups.push(() => fs.chmod(box.configDir, 0o700))
+
+		const result = await run(box, ['pause', 'q1'])
+
+		expect(result.code).toBe(1)
+		expect(result.stderr).toContain('q1 is done.')
+		expect(result.stderr).toContain(box.configDir)
 	})
 
 	it('reports the approval request on stderr', async () => {

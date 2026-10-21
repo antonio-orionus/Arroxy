@@ -2,7 +2,7 @@ import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import {afterEach, describe, expect, it} from 'vite-plus/test'
-import {FileSecretStore} from '../src/store'
+import {FileSecretStore, LockBusyError, type LockFiles, nodeLockFiles} from '../src/store'
 
 const isWindows = process.platform === 'win32'
 const roots: string[] = []
@@ -49,7 +49,7 @@ describe('FileSecretStore', () => {
 		const dir = await configDir()
 		await fs.mkdir(dir, {recursive: true})
 		const logs: string[] = []
-		const store = new FileSecretStore(dir, process.platform, line => logs.push(line))
+		const store = new FileSecretStore(dir, process.platform, {log: line => logs.push(line)})
 
 		await fs.writeFile(path.join(dir, 'clients.json'), '{not json')
 		expect(await store.get('/a')).toBeNull()
@@ -113,5 +113,77 @@ describe('FileSecretStore', () => {
 		await new FileSecretStore(dir, process.platform).set('/a', {approvalId: 'a1'})
 
 		expect(await fs.readdir(dir)).toEqual(['clients.json'])
+	})
+
+	it('never lets a late takeover steal a lock another process has just taken over', async () => {
+		const dir = await configDir()
+		await fs.mkdir(dir, {recursive: true})
+		const lock = path.join(dir, 'clients.json.lock')
+		await fs.writeFile(lock, 'crashed-process')
+		const old = new Date(Date.now() - 60_000)
+		await fs.utimes(lock, old, old)
+		let inside = 0
+		let most = 0
+		const hold = async (): Promise<void> => {
+			inside++
+			most = Math.max(most, inside)
+			await new Promise(resolve => setTimeout(resolve, 60))
+			inside--
+		}
+		// The late process saw the same stale lock, but acts on it (claims the
+		// takeover, removes the lock) only after the first has already replaced it
+		// with a fresh one.
+		const later = (): Promise<void> => new Promise(resolve => setTimeout(resolve, 30))
+		const late: LockFiles = {...nodeLockFiles, create: async (file, token) => (file.endsWith('.takeover') ? (await later(), nodeLockFiles.create(file, token)) : nodeLockFiles.create(file, token)), remove: async file => (file === lock ? (await later(), nodeLockFiles.remove(file)) : nodeLockFiles.remove(file))}
+
+		await Promise.all([new FileSecretStore(dir, process.platform).transaction(hold), new FileSecretStore(dir, process.platform, {lockFiles: late}).transaction(hold)])
+
+		expect(most).toBe(1)
+		expect(await fs.readdir(dir)).toEqual([])
+	})
+
+	it('lets only one of several processes take over a stale lock', async () => {
+		for (let round = 0; round < 20; round++) {
+			const dir = await configDir()
+			await fs.mkdir(dir, {recursive: true})
+			const lock = path.join(dir, 'clients.json.lock')
+			await fs.writeFile(lock, 'crashed-process')
+			const old = new Date(Date.now() - 60_000)
+			await fs.utimes(lock, old, old)
+			let inside = 0
+			let most = 0
+			const hold = async (): Promise<void> => {
+				inside++
+				most = Math.max(most, inside)
+				await new Promise(resolve => setTimeout(resolve, 20))
+				inside--
+			}
+
+			await Promise.all(Array.from({length: 4}, () => new FileSecretStore(dir, process.platform).transaction(hold)))
+
+			expect(most, `round ${round}`).toBe(1)
+			expect(await fs.readdir(dir)).toEqual([])
+		}
+	})
+
+	it('removes the lock on release only while it still holds its own token', async () => {
+		const dir = await configDir()
+		const store = new FileSecretStore(dir, process.platform)
+		const lock = path.join(dir, 'clients.json.lock')
+
+		await store.transaction(async () => {
+			// Another process took the lock over while this one held it.
+			await fs.writeFile(lock, 'another-process')
+		})
+
+		expect(await fs.readFile(lock, 'utf8')).toBe('another-process')
+	})
+
+	it('gives up after the lock wait with an error saying another arroxy-mcp holds it', async () => {
+		const dir = await configDir()
+		await fs.mkdir(dir, {recursive: true})
+		await fs.writeFile(path.join(dir, 'clients.json.lock'), 'another-process')
+
+		await expect(new FileSecretStore(dir, process.platform, {lockWaitMs: 50}).set('/a', {approvalId: 'a1'})).rejects.toThrow(LockBusyError)
 	})
 })

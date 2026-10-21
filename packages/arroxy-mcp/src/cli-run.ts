@@ -197,11 +197,11 @@ export async function runCli(argv: readonly string[], dependencies: CliDependenc
 			return EXIT_OK
 		case 'call': {
 			const outcome = await dependencies.client.callUnchecked(command.method, command.params)
-			if (outcome.ok) {
-				dependencies.stdout(`${JSON.stringify(outcome.value, null, 2)}\n`)
-				return EXIT_OK
-			}
-			dependencies.stderr(`${formatFailure(outcome.failure)}\n`)
+			// The result still prints, and the exit code follows the request alone.
+			if (outcome.ok) dependencies.stdout(`${JSON.stringify(outcome.value, null, 2)}\n`)
+			else dependencies.stderr(`${formatFailure(outcome.failure)}\n`)
+			if (outcome.warning !== undefined) dependencies.stderr(`${formatFailure(outcome.warning)}\n`)
+			if (outcome.ok) return EXIT_OK
 			return outcome.failure.kind === 'notRunning' ? EXIT_NOT_RUNNING : EXIT_ERROR
 		}
 	}

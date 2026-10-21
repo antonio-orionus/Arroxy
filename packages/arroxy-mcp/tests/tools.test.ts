@@ -1,3 +1,4 @@
+import fs from 'node:fs/promises'
 import path from 'node:path'
 import {Client} from '@modelcontextprotocol/client'
 import {InMemoryTransport} from '@modelcontextprotocol/server'
@@ -173,6 +174,24 @@ describe('MCP tools against the app', () => {
 		expect(choose.isError).toBe(true)
 
 		expect(app.connections.length).toBe(before)
+	})
+
+	it.skipIf(process.platform === 'win32')('returns the intake handle plus a warning block when the issued secret could not be saved', async () => {
+		const box = await sandbox()
+		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a')})
+		const client = await connect(box)
+		await client.callTool({name: 'arroxy_status', arguments: {}})
+		app.allow(app.pendingApprovals()[0] ?? '')
+		await fs.chmod(box.configDir, 0o500)
+		cleanups.push(() => fs.chmod(box.configDir, 0o700))
+
+		const result = await client.callTool({name: 'arroxy_add_link', arguments: {url: 'https://example.com/v'}})
+
+		expect(result.isError).toBeFalsy()
+		expect(JSON.parse(textOf(result))).toEqual({intakeId: 'i1', placeholderId: 'q1'})
+		expect(result.structuredContent).toEqual({intakeId: 'i1', placeholderId: 'q1'})
+		const warning = result.content[1]
+		expect(warning?.type === 'text' ? warning.text : '').toContain(box.configDir)
 	})
 
 	it('closes the Arroxy connection when the MCP client cancels a call', async () => {

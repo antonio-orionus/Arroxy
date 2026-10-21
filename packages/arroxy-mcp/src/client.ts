@@ -18,9 +18,9 @@ import {
 } from 'arroxy-control'
 import {z} from 'zod'
 import {ConnectionClosedError, LineConnection} from './connection'
-import {readDiscovery, untrustedSocketDirReason} from './discovery'
+import {checkSocketDir, readDiscovery} from './discovery'
 import {type BridgeEnvironment, bridgeConfigDir, userDataCandidates} from './environment'
-import {FileSecretStore, SecretStoreError, type SecretStoreTransaction, type StoredClient} from './store'
+import {FileSecretStore, LockBusyError, SecretStoreError, type SecretStoreTransaction, type StoredClient} from './store'
 import {ARROXY_MCP_VERSION} from './version'
 
 export const NOT_RUNNING_MESSAGE = 'Arroxy is not running. Open Arroxy and try again.'
@@ -52,7 +52,9 @@ export interface BridgeFailure {
 	readonly code?: ControlErrorCode
 }
 
-export type CallOutcome<T> = {readonly ok: true; readonly value: T} | {readonly ok: false; readonly failure: BridgeFailure}
+// `warning`: something the caller must hear about even though it does not
+// change the outcome, such as an issued secret that could not be saved.
+export type CallOutcome<T> = {readonly ok: true; readonly value: T; readonly warning?: BridgeFailure} | {readonly ok: false; readonly failure: BridgeFailure; readonly warning?: BridgeFailure}
 
 export interface CallOptions {
 	// Aborting closes the connection, which ends a pending wait on the app side.
@@ -123,6 +125,8 @@ export interface ArroxyClientOptions {
 	readonly handshakeTimeoutMs?: number
 	readonly requestTimeoutMs?: number
 	readonly waitTimeoutMarginMs?: number
+	// How long a call waits for another arroxy-mcp to finish its handshake.
+	readonly lockWaitMs?: number
 }
 
 interface OpenedConnection {
@@ -143,7 +147,8 @@ export class ArroxyClient {
 
 	constructor(private readonly options: ArroxyClientOptions) {
 		this.configDir = bridgeConfigDir(options.environment)
-		this.store = new FileSecretStore(this.configDir, options.environment.platform, options.log)
+		const storeOptions = {...(options.log === undefined ? {} : {log: options.log}), ...(options.lockWaitMs === undefined ? {} : {lockWaitMs: options.lockWaitMs})}
+		this.store = new FileSecretStore(this.configDir, options.environment.platform, storeOptions)
 		this.handshakeTimeoutMs = options.handshakeTimeoutMs ?? HANDSHAKE_TIMEOUT_MS
 		this.requestTimeoutMs = options.requestTimeoutMs ?? DEFAULT_REQUEST_TIMEOUT_MS
 		this.waitTimeoutMarginMs = options.waitTimeoutMarginMs ?? DEFAULT_WAIT_TIMEOUT_MARGIN_MS
@@ -173,30 +178,37 @@ export class ArroxyClient {
 		let opened: OpenedConnection | undefined
 		const onAbort = (): void => opened?.connection.close(new CancelledError())
 		signal?.addEventListener('abort', onAbort)
+		// Set by the handshake; reported with whatever the call ends in.
+		const handshakeNote: {warning: BridgeFailure | null} = {warning: null}
+		const withWarning = (outcome: CallOutcome<T>): CallOutcome<T> => (handshakeNote.warning === null ? outcome : {...outcome, warning: handshakeNote.warning})
 		try {
-			const current = await this.open()
-			opened = current
-			if (signal?.aborted) throw new CancelledError()
 			// Handshakes take turns, across processes too, under the store's lock,
 			// and read the stored credential inside it: concurrent calls never race
-			// for the one-time secret or raise two approval requests.
-			const secretNotSaved = await this.store.transaction(store => this.handshake(current, store))
-			const connection = current.connection
+			// for the one-time secret or raise two approval requests. The lock is
+			// taken before connecting, because Arroxy's handshake window starts at
+			// connect.
+			const connection = await this.store.transaction(async store => {
+				const current = await this.open()
+				opened = current
+				if (signal?.aborted) throw new CancelledError()
+				handshakeNote.warning = await this.handshake(current, store)
+				return current.connection
+			}, signal)
 			let counter = 0
 			const value = await work((method, params) => this.exchange(connection, `r${++counter}`, method, params))
-			// The request went through; now say the secret is lost.
-			return secretNotSaved === null ? {ok: true, value} : {ok: false, failure: secretNotSaved}
+			return withWarning({ok: true, value})
 		} catch (error) {
-			return {ok: false, failure: this.toFailure(error)}
+			return withWarning({ok: false, failure: this.toFailure(error, signal)})
 		} finally {
 			signal?.removeEventListener('abort', onAbort)
 			opened?.connection.close()
 		}
 	}
 
-	private toFailure(error: unknown): BridgeFailure {
+	private toFailure(error: unknown, signal: AbortSignal | undefined): BridgeFailure {
 		if (error instanceof BridgeFailureError) return error.failure
-		if (error instanceof CancelledError) return CANCELLED
+		if (error instanceof CancelledError || signal?.aborted === true) return CANCELLED
+		if (error instanceof LockBusyError) return {kind: 'failed', message: 'Another arroxy-mcp is talking to Arroxy right now.', next: 'Wait a moment, then try again.'}
 		if (error instanceof SecretStoreError) return {kind: 'failed', message: error.message, next: `Make sure ${error.dir} belongs to you and is readable and writable, or point ARROXY_MCP_CONFIG_DIR at another folder.`}
 		return {kind: 'failed', message: reasonOf(error)}
 	}
@@ -211,9 +223,10 @@ export class ArroxyClient {
 			const discovery = await readDiscovery(userDataDir)
 			if (discovery === null) continue
 			const {socketPath} = discovery
-			const reason = await untrustedSocketDirReason(socketPath, this.options.environment.platform)
-			if (reason !== null) {
-				unreachable ??= fail('failed', `arroxy-mcp did not connect to Arroxy's control socket ${socketPath}: ${reason}.`, 'Make that folder yours and closed to other users (chmod 700), or quit and reopen Arroxy.')
+			const folder = await checkSocketDir(socketPath, this.options.environment.platform)
+			if (folder.status === 'gone') continue
+			if (folder.status === 'untrusted') {
+				unreachable ??= fail('failed', `arroxy-mcp did not connect to Arroxy's control socket ${socketPath}: ${folder.reason}.`, 'Make that folder yours and closed to other users (chmod 700), or quit and reopen Arroxy.')
 				continue
 			}
 			try {
@@ -257,7 +270,7 @@ export class ArroxyClient {
 		}
 		const {serverNonce} = challenge.data
 
-		const stored = store.get(userDataDir)
+		const stored = await store.get(userDataDir)
 		const credential = await this.authParams(stored, discovery.token, serverNonce, clientNonce)
 		connection.send({type: 'request', id: 'h2', method: 'auth', params: credential.params})
 		const auth = await this.response(connection, 'h2')

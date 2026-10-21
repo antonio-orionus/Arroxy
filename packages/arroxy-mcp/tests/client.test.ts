@@ -206,6 +206,31 @@ describe('not running', () => {
 
 // A control.json exists, so Arroxy may well be running: say why it could not be
 // reached instead of claiming it is closed.
+describe('not running after a reboot', () => {
+	it.skipIf(isWindows)('when the socket folder named in a leftover control.json is gone', async () => {
+		const box = await sandbox()
+		await fs.mkdir(box.userDataDir, {recursive: true})
+		const socketPath = path.join(box.root, 'gone', 'control.sock')
+		await fs.writeFile(path.join(box.userDataDir, CONTROL_DISCOVERY_FILE_NAME), JSON.stringify({socketPath, token: 't', version: '0.9.0', startedAt: 1}))
+		const {client} = harness(box)
+
+		expect(failureOf(await client.call('status', {}))).toMatchObject({kind: 'notRunning', message: NOT_RUNNING_MESSAGE})
+	})
+
+	it.skipIf(isWindows)('tries the next folder when the first one names a vanished socket folder', async () => {
+		const box = await sandbox()
+		const home = path.join(box.root, 'home')
+		const nativeDir = path.join(home, '.config', 'arroxy')
+		await fs.mkdir(nativeDir, {recursive: true})
+		await fs.writeFile(path.join(nativeDir, CONTROL_DISCOVERY_FILE_NAME), JSON.stringify({socketPath: path.join(box.root, 'gone', 'control.sock'), token: 't', version: '0.9.0', startedAt: 1}))
+		const app = await startApp({userDataDir: path.join(home, '.var', 'app', 'io.github.antonio_orionus.Arroxy', 'config', 'arroxy'), socketPath: box.socketPath('flatpak')})
+		const client = new ArroxyClient({environment: {platform: 'linux', homedir: home, env: {ARROXY_MCP_CONFIG_DIR: box.configDir}}})
+
+		expect(failureOf(await client.call('status', {})).kind).toBe('approvalPending')
+		expect(app.connections).toEqual([['hello', 'auth']])
+	})
+})
+
 describe('unreachable', () => {
 	it.skipIf(isWindows)('names a socket folder open to other users, without connecting', async () => {
 		const box = await sandbox()
@@ -437,21 +462,40 @@ describe('concurrent calls', () => {
 })
 
 describe('secret store failures', () => {
-	it.skipIf(isWindows)('finishes the call that collected the secret, then says it could not be saved and how to recover', async () => {
-		const box = await sandbox()
-		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a')})
-		const {client} = harness(box)
+	// Arroxy allowed the bridge; the config folder then refuses the secret.
+	async function allowedWithReadOnlyConfig(box: Sandbox, app: FakeApp, client: ArroxyClient): Promise<void> {
 		await client.call('status', {})
 		app.allow(app.pendingApprovals()[0] ?? '')
 		await fs.chmod(box.configDir, 0o500)
 		cleanups.push(() => fs.chmod(box.configDir, 0o700))
+	}
 
-		const failure = failureOf(await client.call('links.add', {requestId: 'r-1', url: 'https://example.com/v'}))
+	it.skipIf(isWindows)('keeps the result of the call that collected the secret, with a warning that it could not be saved', async () => {
+		const box = await sandbox()
+		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a')})
+		const {client} = harness(box)
+		await allowedWithReadOnlyConfig(box, app, client)
+
+		const outcome = await client.call('links.add', {requestId: 'r-1', url: 'https://example.com/v'})
 
 		expect(app.requests.map(request => request.method)).toEqual(['links.add'])
-		expect(failure.kind).toBe('failed')
-		expect(failure.message).toContain(box.configDir)
-		expect(failure.next).toContain('remove arroxy-mcp in Arroxy')
+		if (!outcome.ok) throw new Error(`expected the result, got ${outcome.failure.message}`)
+		// The intake handle survives, so a caller never re-adds the link.
+		expect(outcome.value).toEqual({intakeId: 'i1', placeholderId: 'q1'})
+		expect(outcome.warning?.message).toContain(box.configDir)
+		expect(outcome.warning?.next).toContain('remove arroxy-mcp in Arroxy')
+	})
+
+	it.skipIf(isWindows)('keeps the warning when the request itself fails', async () => {
+		const box = await sandbox()
+		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a'), handlers: {'queue.get': () => ({error: controlError('not_found', 'No queue item q9.')})}})
+		const {client} = harness(box)
+		await allowedWithReadOnlyConfig(box, app, client)
+
+		const outcome = await client.call('queue.get', {itemId: 'q9'})
+
+		expect(failureOf(outcome)).toMatchObject({kind: 'control', code: 'not_found'})
+		expect(outcome.warning?.message).toContain(box.configDir)
 	})
 
 	it.skipIf(isWindows)('reports an unreadable clients.json instead of starting over', async () => {
@@ -468,5 +512,56 @@ describe('secret store failures', () => {
 		expect(failure.kind).toBe('failed')
 		expect(failure.message).toContain(file)
 		expect(app.pendingApprovals()).toEqual([])
+	})
+})
+
+// Another arroxy-mcp process holding the store lock, by its lock file.
+async function holdLock(box: Sandbox): Promise<string> {
+	await fs.mkdir(box.configDir, {recursive: true})
+	const lockFile = path.join(box.configDir, 'clients.json.lock')
+	await fs.writeFile(lockFile, 'another-process')
+	return lockFile
+}
+
+describe('waiting for the store lock', () => {
+	it("waits before connecting, so the wait never eats into the app's handshake window", async () => {
+		const box = await sandbox()
+		await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a'), handshakeWindowMs: 300})
+		const lockFile = await holdLock(box)
+		const released = new Promise<void>(resolve => setTimeout(() => void fs.rm(lockFile).then(() => resolve()), 600))
+		const {client} = harness(box)
+
+		const outcome = await client.call('status', {})
+		await released
+
+		expect(failureOf(outcome).kind).toBe('approvalPending')
+	})
+
+	it('says another arroxy-mcp is busy when the lock stays held', async () => {
+		const box = await sandbox()
+		const app = await startApp({userDataDir: box.userDataDir, socketPath: box.socketPath('a')})
+		await holdLock(box)
+		const {client} = harness(box, {lockWaitMs: 100})
+
+		const failure = failureOf(await client.call('status', {}))
+
+		expect(failure.kind).toBe('failed')
+		expect(failure.message).toContain('Another arroxy-mcp')
+		expect(failure.next).toContain('try again')
+		expect(app.connections).toEqual([])
+	})
+
+	it('stops waiting promptly when the caller aborts', async () => {
+		const box = await sandbox()
+		await holdLock(box)
+		const {client} = harness(box)
+		const controller = new AbortController()
+		setTimeout(() => controller.abort(), 50)
+
+		const started = Date.now()
+		const failure = failureOf(await client.call('status', {}, {signal: controller.signal}))
+
+		expect(failure.message).toContain('cancelled')
+		expect(Date.now() - started).toBeLessThan(1000)
 	})
 })

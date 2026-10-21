@@ -20,21 +20,27 @@ export async function readDiscovery(userDataDir: string): Promise<ControlDiscove
 	}
 }
 
-// Why the folder holding a Unix socket must not be trusted, or null when it is
-// a real folder owned by this user and closed to everyone else. Another user
+// Whether the folder holding a Unix socket can be trusted: a real folder owned
+// by this user and closed to everyone else. Another user
 // who can write there could swap in a socket of their own. Windows pipe names
 // have no folder; the handshake's server proof covers them.
-export async function untrustedSocketDirReason(socketPath: string, platform: NodeJS.Platform): Promise<string | null> {
-	if (platform === 'win32') return null
+// `gone`: the folder no longer exists (a control.json left behind by a reboot),
+// so nothing can be listening there.
+export type SocketDirCheck = {readonly status: 'trusted'} | {readonly status: 'gone'} | {readonly status: 'untrusted'; readonly reason: string}
+
+export async function checkSocketDir(socketPath: string, platform: NodeJS.Platform): Promise<SocketDirCheck> {
+	if (platform === 'win32') return {status: 'trusted'}
 	const dir = path.dirname(socketPath)
 	let stat: Awaited<ReturnType<typeof fs.lstat>>
 	try {
 		stat = await fs.lstat(dir)
-	} catch {
-		return `${dir} does not exist`
+	} catch (error) {
+		const code = error instanceof Error && 'code' in error ? error.code : undefined
+		if (code === 'ENOENT' || code === 'ENOTDIR') return {status: 'gone'}
+		return {status: 'untrusted', reason: `${dir} could not be checked (${error instanceof Error ? error.message : String(error)})`}
 	}
-	if (!stat.isDirectory()) return `${dir} is not a folder`
-	if (process.getuid !== undefined && stat.uid !== process.getuid()) return `${dir} belongs to another user`
-	if ((stat.mode & 0o077) !== 0) return `${dir} is open to other users (mode ${(stat.mode & 0o777).toString(8)})`
-	return null
+	if (!stat.isDirectory()) return {status: 'untrusted', reason: `${dir} is not a folder`}
+	if (process.getuid !== undefined && stat.uid !== process.getuid()) return {status: 'untrusted', reason: `${dir} belongs to another user`}
+	if ((stat.mode & 0o077) !== 0) return {status: 'untrusted', reason: `${dir} is open to other users (mode ${(stat.mode & 0o777).toString(8)})`}
+	return {status: 'trusted'}
 }

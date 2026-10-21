@@ -34,6 +34,9 @@ export interface FakeAppOptions {
 	readonly handlers?: Readonly<Record<string, FakeHandler>>
 	// Answer auth with the app's closing handshake_timeout line (id null) and close.
 	readonly handshakeTimeoutOnAuth?: boolean
+	// Like the real app: a connection still unauthenticated this long after
+	// connect gets the closing handshake_timeout line and is closed.
+	readonly handshakeWindowMs?: number
 }
 
 // Every method each connection received, in order.
@@ -121,6 +124,15 @@ export class FakeApp {
 		}
 		const fail = (id: string | null, error: ControlError): void => {
 			write({type: 'response', id, ok: false, error})
+		}
+		if (this.options.handshakeWindowMs !== undefined) {
+			const window = setTimeout(() => {
+				if (stage !== 'ready') {
+					fail(null, controlError('handshake_timeout', 'The handshake took too long.'))
+					socket.end()
+				}
+			}, this.options.handshakeWindowMs)
+			socket.on('close', () => clearTimeout(window))
 		}
 		const handle = async (line: string): Promise<void> => {
 			const envelope = controlRequestEnvelopeSchema.safeParse(JSON.parse(line))
