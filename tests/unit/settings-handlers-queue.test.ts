@@ -127,7 +127,13 @@ describe('settings update refuses a new profile filename template that does not 
 		['overrides', 'a:b {title}']
 	])('refuses a %s profile with the template %s', async (bucket, template) => {
 		const result = await send({profiles: {[bucket]: [{...base, id: 'mine', filename: {kind: 'custom', template}}]}})
-		expect(result).toMatchObject({ok: false, error: {code: 'validation'}})
+		expect(result).toMatchObject({ok: false, error: {code: 'validation', message: `Download profile "${base.name}" has an unusable filename template`}})
+		expect(settingsStore.update).not.toHaveBeenCalled()
+	})
+
+	it("refuses a new profile that takes on another profile's stored template", async () => {
+		const result = await send({profiles: {custom: [stored, {...stored, id: 'copy', name: 'Copy'}]}})
+		expect(result).toMatchObject({ok: false, error: {code: 'validation', message: 'Download profile "Copy" has an unusable filename template'}})
 		expect(settingsStore.update).not.toHaveBeenCalled()
 	})
 
@@ -137,7 +143,7 @@ describe('settings update refuses a new profile filename template that does not 
 		expect(settingsStore.update).toHaveBeenCalled()
 	})
 
-	it('lets a template saved before the check through again', async () => {
+	it('lets a profile keep its own template saved before the check', async () => {
 		const result = await send({profiles: {custom: [{...stored, name: 'Renamed'}]}})
 		expect(result).toMatchObject({ok: true})
 		expect(settingsStore.update).toHaveBeenCalled()

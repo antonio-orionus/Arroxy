@@ -140,12 +140,12 @@ export function ProfileEditLine(): ReactNode {
 	const changed = useAppStore(useShallow(wizardChangedAreas))
 	const profileName = useAppStore(state => state.wizardProfile?.name ?? '')
 	const resetWizardToProfile = useAppStore(state => state.resetWizardToProfile)
-	const saveFailure = useAppStore(useShallow(wizardProfileSaveFailure))
+	const updateFailure = useAppStore(useShallow(state => wizardProfileSaveFailure(state, false)))
+	const saveAsFailure = useAppStore(useShallow(state => wizardProfileSaveFailure(state, true)))
 	const [saveOpen, setSaveOpen] = useState(false)
 	const [updateOpen, setUpdateOpen] = useState(false)
 	if (changed.length === 0 && !saveOpen && !updateOpen) return null
 	const areas = changed.map(area => t(AREA_LABEL_KEYS[area])).join(', ')
-	const blockedBy = saveFailure ? <FilenameTemplateErrorText error={saveFailure} /> : undefined
 
 	return (
 		<>
@@ -157,8 +157,8 @@ export function ProfileEditLine(): ReactNode {
 							<span className="font-semibold text-foreground">{t('wizard.review.changedFrom', {profile: profileName})}</span> {areas}
 						</p>
 					</Hint>
-					<IconAction Icon={Save} label={t('wizard.review.updateProfile', {profile: profileName})} onClick={() => setUpdateOpen(true)} testId="review-update-profile" blockedBy={blockedBy} />
-					<IconAction Icon={CopyPlus} label={t('wizard.review.saveAsProfile')} onClick={() => setSaveOpen(true)} testId="review-save-as-profile" blockedBy={blockedBy} />
+					<IconAction Icon={Save} label={t('wizard.review.updateProfile', {profile: profileName})} onClick={() => setUpdateOpen(true)} testId="review-update-profile" blockedBy={updateFailure ? <FilenameTemplateErrorText error={updateFailure} /> : undefined} />
+					<IconAction Icon={CopyPlus} label={t('wizard.review.saveAsProfile')} onClick={() => setSaveOpen(true)} testId="review-save-as-profile" blockedBy={saveAsFailure ? <FilenameTemplateErrorText error={saveAsFailure} /> : undefined} />
 					<IconAction Icon={RotateCcw} label={t('wizard.review.reset', {profile: profileName})} onClick={resetWizardToProfile} testId="review-reset" />
 				</div>
 			) : null}

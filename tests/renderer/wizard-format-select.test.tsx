@@ -328,6 +328,20 @@ describe('wizard slice — profiles', () => {
 		expect(editedProfileDraft(useAppStore.getState(), 'Mine')).toBeNull()
 		expect(saveDownloadProfile).not.toHaveBeenCalled()
 	})
+
+	// Saved before templates were checked: the profile may keep it, but a new
+	// profile may not take it on.
+	it("Save as refuses a profile's stored template that does not validate, while Update keeps it", async () => {
+		const saveDownloadProfile = vi.fn().mockResolvedValue(true)
+		const typo: DownloadProfile = {...builtin('hd-1080'), filename: {kind: 'custom', template: '{titel}'}}
+		useAppStore.setState({...profilePatch(typo, useAppStore.getState()), saveDownloadProfile})
+		useAppStore.setState({wizardSponsorBlockMode: 'remove'})
+
+		await expect(useAppStore.getState().saveWizardAsProfile('Mine')).resolves.toBe(false)
+		expect(saveDownloadProfile).not.toHaveBeenCalled()
+		await expect(useAppStore.getState().updateWizardProfile()).resolves.toBe(true)
+		expect(saveDownloadProfile).toHaveBeenCalledWith(expect.objectContaining({id: 'hd-1080', filename: typo.filename}), false)
+	})
 })
 
 describe('Review — changed from profile', () => {
@@ -348,6 +362,14 @@ describe('Review — changed from profile', () => {
 		expect(screen.queryByTestId('update-profile-dialog')).toBeNull()
 		expect(screen.queryByTestId('save-as-profile-dialog')).toBeNull()
 		expect(screen.getByTestId('review-reset')).not.toHaveAttribute('aria-disabled', 'true')
+	})
+
+	it("a profile's stored template that does not validate disables only Save as", () => {
+		useAppStore.setState(profilePatch({...builtin('hd-1080'), filename: {kind: 'custom', template: '{titel}'}}, useAppStore.getState()))
+		useAppStore.setState({wizardSponsorBlockMode: 'remove'})
+		render(<StepReview />)
+		expect(screen.getByTestId('review-save-as-profile')).toHaveAttribute('aria-disabled', 'true')
+		expect(screen.getByTestId('review-update-profile')).not.toHaveAttribute('aria-disabled', 'true')
 	})
 
 	it('Update shows what the profile will change, then saves into it', async () => {

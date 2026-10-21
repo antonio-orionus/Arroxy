@@ -14,13 +14,14 @@ import {buildCommonPaths, handle, handleRaw, toUnknownFailure} from './utils.js'
 
 // A profile saved with a filename template that does not validate would fail
 // every download it starts. Checked here rather than in schemas.ts, whose
-// exports the template parser imports, and against what is stored: a template
-// saved before this check passes again, so it can't refuse every later save of
-// the profile list. The Profiles tab shows it as an error to fix.
+// exports the template parser imports, and against what is stored: a profile
+// keeps its own template saved before this check, so one old typo can't refuse
+// every later save of the profile list, but no other profile takes it on. The
+// Profiles tab shows it as an error to fix.
 function newUnusableFilename(patch: SettingsPatch['profiles'], stored: DownloadProfilesPrefs): DownloadProfile | null {
-	const storedTemplates = new Set([...stored.custom, ...stored.overrides].flatMap(profile => (profile.filename.kind === 'custom' ? [profile.filename.template] : [])))
+	const storedTemplates = new Map([...stored.custom, ...stored.overrides].flatMap(profile => (profile.filename.kind === 'custom' ? [[profile.id, profile.filename.template] as const] : [])))
 	const written = [...(patch?.custom ?? []), ...(patch?.overrides ?? [])]
-	return written.find(profile => profile.filename.kind === 'custom' && !storedTemplates.has(profile.filename.template) && downloadProfileFilenameFailure(profile)) ?? null
+	return written.find(profile => profile.filename.kind === 'custom' && storedTemplates.get(profile.id) !== profile.filename.template && downloadProfileFilenameFailure(profile)) ?? null
 }
 
 interface SettingsHandlerDeps {
