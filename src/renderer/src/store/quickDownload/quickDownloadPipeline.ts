@@ -19,8 +19,10 @@ import type {PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, 
 import type {AppState, GetState} from '../types.js'
 import {generateId} from '../helpers.js'
 import {detach} from './detachedTask.js'
-import {pinActiveDownloadProfile, type PinnedDownloadProfile} from '../wizard/queueSubmission.js'
-import {resolveQuickProbe, type QuickProbeResolution, type QuickProbeTake} from './quickProbeResolution.js'
+import type {PinnedDownloadProfile} from '@shared/queueSubmission.js'
+import type {QuickProbeResolution, QuickProbeTake} from '@shared/intake/probeResolution.js'
+import {pinActiveDownloadProfile} from '../wizard/queueSubmission.js'
+import {resolveQuickProbe} from './quickProbeResolution.js'
 
 export interface QuickDownloadRequest {
 	// Cleaned, and already through the entry point's intake policy.

@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {describe, expect, it} from 'vite-plus/test'
-import {rewriteYouTubeChannelRoot, isMixedYouTubeUrl} from '@renderer/store/wizard/urlIntake.js'
+import {rewriteYouTubeChannelRoot, isMixedYouTubeUrl} from '@shared/intake/urlIntake.js'
 
 describe('rewriteYouTubeChannelRoot — appends /videos to bare channel-root URLs', () => {
 	it('rewrites /@handle → /@handle/videos', () => {

@@ -22,14 +22,14 @@ import {BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, currentBulkMetadata
 import {expandBulkCollectionUrls, hasCollectionUrl} from './bulkCollectionExpansion.js'
 import {isSelectablePlaylistRow} from './playlistRowSelection.js'
 import {playlistScopeReloadErrorMessage, unknownPlaylistScopeReloadErrorMessage} from './playlistScopeReload.js'
-import {rewriteYouTubeChannelRoot} from './urlIntake.js'
+import {rewriteYouTubeChannelRoot} from '@shared/intake/urlIntake.js'
 import {quickDownloadUrls, cancelQuickDownload, retryQuickDownloadFailure, retryQuickDownloadWithCookies, retryQuickPlaylistCap} from './quickDownloadPreparation.js'
 import {resetQuickDownloadFeedback} from './quickDownloadFeedback.js'
 import {projectBulkStart, projectPlaylistProbeResult, projectProbeFailure, projectProbeStart, projectVideoProbeResult, type BulkEntrySeed} from './probeResultProjection.js'
 import {mixedUrlPromptPatch} from './mixedUrlPrompt.js'
 import {configuredCookiesRetryMode} from './probeErrorExperience.js'
-import {policyForUrlIntent} from './urlIntentPolicy.js'
-import {canScanPlaylistFolder} from './outputTemplates.js'
+import {policyForUrlIntent} from '@shared/intake/urlIntentPolicy.js'
+import {canScanPlaylistFolder} from '@shared/outputTemplates.js'
 import {blockerReviewRow, singleDownloadBlocker} from './singleDownloadReadiness.js'
 
 function pickWizardSnapshot(state: AppState): Record<string, unknown> {

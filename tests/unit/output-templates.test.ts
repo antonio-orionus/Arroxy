@@ -1,6 +1,7 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {bindFilenameTemplate, compileFilenameTemplate} from '@shared/filenameTemplate.js'
-import {bindJobFilenameTemplate, canMatchDownloadsById, canScanPlaylistFolder, canWriteM3u, playlistEntryTemplateMeta, playlistSelectionInFlight, singleTemplateMeta, templateOwnsDirs, videoProbeTemplateMeta} from '@renderer/store/wizard/outputTemplates.js'
+import {bindJobFilenameTemplate, singleTemplateMeta} from '@renderer/store/wizard/outputTemplates.js'
+import {canMatchDownloadsById, canScanPlaylistFolder, canWriteM3u, playlistEntryTemplateMeta, playlistSelectionInFlight, templateOwnsDirs, videoProbeTemplateMeta} from '@shared/outputTemplates.js'
 import type {PlaylistSelection} from '@shared/schemas.js'
 import type {PlaylistEntry} from '@shared/types.js'
 

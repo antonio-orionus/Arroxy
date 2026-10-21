@@ -24,7 +24,8 @@
 					"src/renderer/src/store/helpers.ts",
 					"src/renderer/src/store/wizard/profileApplication.ts",
 					"src/renderer/src/store/wizard/queueSubmission.ts",
-					"src/shared/profileSelection.ts"
+					"src/shared/profileSelection.ts",
+					"src/shared/queueSubmission.ts"
 				],
 				"rules": ["react-doctor/js-set-map-lookups"]
 			},

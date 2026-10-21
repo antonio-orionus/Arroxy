@@ -1,5 +1,5 @@
 import {queueIdsFromAddResult} from './quickDownloadFeedback.js'
-import type {PreparedQueueSubmission} from './queueSubmission.js'
+import type {PreparedQueueSubmission} from '@shared/queueSubmission.js'
 
 // `skippedAlreadyQueued`: rows main left out because their video is live
 // there (the renderer's queue lags main's); the preparation counts its own.

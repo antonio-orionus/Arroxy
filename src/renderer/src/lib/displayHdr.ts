@@ -6,7 +6,7 @@ import type {HdrSetting} from '@shared/types.js'
 // the `dynamic-range` media query (true on an HDR display with HDR on, false
 // otherwise), per window, so it follows the monitor the window sits on.
 // Anything that cannot answer reads as SDR, which looks right everywhere.
-function displayShowsHdr(): boolean {
+export function displayShowsHdr(): boolean {
 	try {
 		return window.matchMedia('(dynamic-range: high)').matches
 	} catch {

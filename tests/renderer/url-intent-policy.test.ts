@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {policyForUrlIntent} from '@renderer/store/wizard/urlIntentPolicy.js'
+import {policyForUrlIntent} from '@shared/intake/urlIntentPolicy.js'
 import {classifyUrlIntent} from '@shared/urlIntent.js'
 
 const mixed = classifyUrlIntent('https://www.youtube.com/watch?v=one&list=PL1')

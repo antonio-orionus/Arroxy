@@ -1,7 +1,7 @@
 import {templateOutputDir} from '@shared/filenameTemplate.js'
 import {effectiveOutputDir, playlistBaseDir} from '@shared/subfolder.js'
 import type {AppState} from '../types.js'
-import {resolveJobFilenameTemplate, templateOwnsDirs} from './outputTemplates.js'
+import {resolveJobFilenameTemplate, templateOwnsDirs} from '@shared/outputTemplates.js'
 
 type PlaylistDirState = Pick<AppState, 'wizardOutputDir' | 'wizardSubfolderEnabled' | 'wizardSubfolderName' | 'playlistTitle' | 'playlistId' | 'settings'>
 

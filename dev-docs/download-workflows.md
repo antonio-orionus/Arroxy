@@ -78,9 +78,9 @@ picker edge sets the active profile that Quick Download uses.
 | QBTN, PICK | Quick Download with the active profile; the arrow switches it | active profile | `DownloadProfilesHome`, `systemSlice.setActiveDownloadProfile` |
 | EXD, EXW | Explore's Download button (quick) and wand (`submitUrl('explore')`, returns to Explore) | active profile / wizard | `ExploreTab`, `probeOrchestrator` |
 | EXL | Right-click a link in the Explore page: the same Download, profile pick (sets the active profile first) and wand, for the link; a native menu built in main | active profile / wizard | `exploreLinkMenu.ts`, `exploreLinkActions.ts` |
-| HK | Hotkey chord, tray item, or Settings test press; a mixed URL is forced to its video | active profile | `HotkeyService`, `hotkeyTrigger.ts`, `urlIntentPolicy.ts` |
+| HK | Hotkey chord, tray item, or Settings test press; a mixed URL is forced to its video | active profile | `HotkeyService`, `hotkeyTrigger.ts`, `src/shared/intake/urlIntentPolicy.ts` |
 | QD, MIX | Cleans the URL, blocks on incomplete cookies setup, asks video-or-list for mixed URLs | — | `quickDownloadSlice.quickDownload` |
-| PLC → SWAP | Pins the active profile on a placeholder row, probes in the background, then swaps in prepared items or leaves a needs-choice / probe-error row | pinned active profile | `quickDownloadPipeline.ts`, `quickProbeResolution.ts` |
+| PLC → SWAP | Pins the active profile on a placeholder row, probes in the background, then swaps in prepared items or leaves a needs-choice / probe-error row | pinned active profile | `quickDownloadPipeline.ts`, `src/shared/intake/probeResolution.ts` |
 | NC, PE | Rows that need the user: All / first N / Review; Retry / cookies / sign in | pinned profile; Review uses wizard selections | `QueueAttentionRow`, `quickDownloadSlice` |
 | BULK, BQ, CAP | Bulk dialog: quick runs a modal probe loop (no placeholder rows, own cap dialog); otherwise the bulk wizard | active profile / wizard | `BulkUrlDialog`, `quickDownloadPreparation.ts` |
 | DLR, BOOT | Retry on a resolved row re-runs its stored job; startup restores `queue.json`, stale probing rows become errors | the row's job | `queueSlice`, `QueueService`, `QueueProbeLifecycle`, `QueueAutoRetry` |
@@ -141,8 +141,10 @@ Five sources feed jobs, and which one applies depends on the path:
 ## Where settings become job options
 
 - **Profile path:** `resolveDownloadProfile` (`src/shared/downloadProfiles.ts`)
-  → `prepareActiveProfileQueueSubmission` / `prepareMultiProfileQueueSubmission`
-  → `profileJob` → `prepareJob` (`queueSubmission.ts`).
+  → `preparePinnedProfileQueueSubmission` (`src/shared/queueSubmission.ts`,
+  pure: the renderer passes the wizard's folder, its screen's HDR and its
+  filename reports in) / `prepareMultiProfileQueueSubmission`
+  → `profileJob` → `prepareJob`.
 - **Wizard path:** `buildSingleQueueItemFromState` (single, exact format ids
   from the profile pick or the user's edits, via `sanitizeJobOptions`) and
   `buildPlaylistQueueItem` (playlist/bulk, via

@@ -6,13 +6,13 @@ import {notify} from '@renderer/lib/notify.js'
 import type {GetState, SetState} from '../types.js'
 import {WizardCommands} from './commands.js'
 import {configuredCookiesRetryMode, selectProbeErrorForGuidance} from './probeErrorExperience.js'
-import {rewriteYouTubeChannelRoot} from './urlIntake.js'
+import {rewriteYouTubeChannelRoot} from '@shared/intake/urlIntake.js'
 import {projectPlaylistProbeResult} from './probeResultProjection.js'
 import {prepareActiveProfileQueueSubmission} from './queueSubmission.js'
 import {submitPreparedQueueSubmission} from './queueSubmissionAdapter.js'
 import {forgetPlaceholder, placedProfile, settlePlaceholder} from '../quickDownload/quickDownloadPipeline.js'
 import {failedQuickDownloadFeedback, preparingQuickDownloadFeedback, queuedQuickDownloadFeedback, quickDownloadProgressPatch, resetQuickDownloadFeedback} from './quickDownloadFeedback.js'
-import {policyForUrlIntent, shouldReviewPlaylistProbeResult} from './urlIntentPolicy.js'
+import {policyForUrlIntent, shouldReviewPlaylistProbeResult} from '@shared/intake/urlIntentPolicy.js'
 
 // Bulk URLs' quick download: several links probed in one modal run, then
 // queued together. A single link's quick download runs in the background as

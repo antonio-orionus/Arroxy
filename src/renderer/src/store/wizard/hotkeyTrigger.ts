@@ -4,8 +4,8 @@ import type {HotkeyOutcome, HotkeyTriggerPayload, ProbeError, ProbePlaylistMode}
 import type {GetState} from '../types.js'
 import {placeQuickDownload, type QuickDownloadFeedback} from '../quickDownload/quickDownloadPipeline.js'
 import {detach} from '../quickDownload/detachedTask.js'
-import {rewriteYouTubeChannelRoot} from './urlIntake.js'
-import {policyForUrlIntent} from './urlIntentPolicy.js'
+import {rewriteYouTubeChannelRoot} from '@shared/intake/urlIntake.js'
+import {policyForUrlIntent} from '@shared/intake/urlIntentPolicy.js'
 
 // The global hotkey's end of the background quick download. Main presses the
 // bell (a pre-classified trigger); this module takes the link in and hands it
