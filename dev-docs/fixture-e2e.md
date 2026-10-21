@@ -4,7 +4,8 @@ Which test layer owns a behavior, and how to write Fixture Product E2E scenarios
 
 | Lives in | What |
 | --- | --- |
-| `tests/e2e/fixture-*.spec.ts` | Scenarios grouped by risk |
+| `tests/e2e/*.spec.ts` | Scenarios grouped by risk (`fixture-*`, `profile-*`, …) and the Mock Electron smoke specs |
+| `scripts/e2eSpecs.mjs` | Which of them gate CI (see [What gates CI](#what-gates-ci)) |
 | `tests/e2e/fixtureHarness.ts` | Fixture extractor, local media server, deny proxy, diagnostics |
 | `src/main/e2eHarness.ts` | `ARROXY_E2E` / `ARROXY_E2E_HEADLESS` app-side switches |
 
@@ -66,6 +67,14 @@ For each risk group, add Fixture Product E2E only for behavior that needs real a
 - Do not treat browser-mock as proof that real IPC, yt-dlp, queue scheduling, or filesystem behavior works.
 - Do not use fake yt-dlp as the normal download acceptance strategy. Keep fake yt-dlp only for process-supervision failures such as spawn failure, permission denied, crash, invalid JSON, huge stderr, hang, and signal termination.
 - Do not make one super scenario that covers every risk at once. Prefer grouped, realistic scenarios with clear ownership.
+
+## What gates CI
+
+Every `*.spec.ts` in `tests/e2e/` gates CI, whatever its name: the E2E Fixtures workflow runs `bun run test:e2e:fixtures:ci`, and `scripts/e2eSpecs.mjs` picks the specs by listing the directory. Fixture Product E2E and the Mock Electron smoke specs share that run. The only way out is `PACKAGED_SPECS` in the same file, for specs that drive a packaged build (`PACKAGED_EXE`) and so cannot run against `out/`; today that is `startup-journeys.spec.ts`, which the Cold Start workflow runs. `tests/scripts/e2e-specs.test.ts` fails if a spec that needs no packaged build is left out, or one that does is let in.
+
+Name a spec by its risk group, not to get it selected: the selection once matched `fixture-*` only, and the `profile-*` and `playlist-multi-profile` specs never ran in CI.
+
+CI splits the run over four runners with Playwright's `--shard`, which divides by test, not by file, so a spec with many tests spreads across shards on its own. Add a shard to the matrix in `.github/workflows/e2e-fixtures.yml` when the slowest shard nears its 30-minute timeout, rather than leaving a spec out.
 
 ## Running headless
 
