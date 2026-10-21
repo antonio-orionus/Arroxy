@@ -398,7 +398,7 @@ export class ExploreViewHost {
 		this.mediaPlaying = false
 		if (!this.deps.window.isDestroyed()) this.deps.window.contentView.removeChildView(view)
 		// Typed as always there, but Electron may drop the contents before their
-		// 'destroyed' event reaches idleUnloaded: then there is nothing to close.
+		// 'destroyed' event reaches contentsGone: then there is nothing to close.
 		const wc: WebContents | undefined = view.webContents
 		if (wc && !wc.isDestroyed()) wc.close()
 	}
@@ -450,17 +450,22 @@ export class ExploreViewHost {
 			this.snapshot = null
 			logger.info('explore view kept while away', {reason: 'beforeunload'})
 		})
-		wc.on('destroyed', () => this.idleUnloaded(view))
+		wc.on('destroyed', () => this.contentsGone(view))
 	}
 
-	// The page let the close through. A user back meanwhile gets the view rebuilt at once.
-	private idleUnloaded(view: WebContentsView): void {
-		if (this.closing !== view) return
-		this.closing = null
+	// The page's contents are gone: an idle unload the page let through, or the
+	// page closing itself (window.close()) or Electron destroying them. Either
+	// way the view is released and the next visit opens a fresh one; while the
+	// tab is shown, that is now. A crashed renderer keeps its contents: the page
+	// error's Retry reloads it in place.
+	private contentsGone(view: WebContentsView): void {
+		const idle = this.closing === view
+		if (idle) this.closing = null
 		if (this.view !== view) return
+		this.cancelIdleUnload()
 		this.unwatch()
 		this.release(view)
-		logger.info('explore view unloaded')
+		logger.info(idle ? 'explore view unloaded' : 'explore view contents gone')
 		this.emitState()
 		if (this.visible) void this.setVisible(true)
 	}
