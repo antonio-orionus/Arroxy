@@ -1,4 +1,5 @@
 import {randomBytes} from 'node:crypto'
+import {constants as fsConstants} from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import {z} from 'zod'
@@ -18,6 +19,7 @@ const CLIENTS_FILE_NAME = 'clients.json'
 const LOCK_STALE_MS = 10_000
 const LOCK_WAIT_MS = 5_000
 const LOCK_RETRY_MS = 15
+const BUSY_LOCK_CODES = new Set(['EPERM', 'EACCES', 'EBUSY'])
 
 // Another arroxy-mcp held the lock for the whole wait.
 export class LockBusyError extends Error {
@@ -222,6 +224,9 @@ export class FileSecretStore {
 			// the owner's own bits.
 			const {mode} = await fs.stat(this.dir)
 			if ((mode & 0o077) !== 0) await fs.chmod(this.dir, mode & 0o700)
+			// Rejected here, a folder this user cannot write to is told apart from a
+			// busy lock, which also answers EACCES on create.
+			await fs.access(this.dir, fsConstants.W_OK | fsConstants.X_OK)
 			return true
 		} catch {
 			return false
@@ -238,11 +243,7 @@ export class FileSecretStore {
 		const deadline = Date.now() + this.lockWaitMs
 		for (;;) {
 			signal?.throwIfAborted()
-			try {
-				if (await this.lockFiles.create(this.lockFile, token)) break
-			} catch {
-				return work()
-			}
+			if (await this.tryCreateLock(token)) break
 			const held = await this.lockFiles.read(this.lockFile)
 			if (held !== null && held.ageMs > LOCK_STALE_MS && (await this.takeOverStale(held.token, token))) continue
 			if (Date.now() > deadline) throw new LockBusyError(this.lockFile, this.lockWaitMs)
@@ -255,6 +256,20 @@ export class FileSecretStore {
 			// kept past LOCK_STALE_MS may already belong to someone else.
 			const held = await this.lockFiles.read(this.lockFile)
 			if (held?.token === token) await this.lockFiles.remove(this.lockFile)
+		}
+	}
+
+	// True once this holder has the lock; false while someone else holds it. On
+	// Windows a lock file another holder is still deleting answers EPERM, EACCES
+	// or EBUSY instead of EEXIST: that is a busy lock too, retried until the
+	// wait runs out, never a reason to run unlocked. Anything else is a real
+	// failure of the folder.
+	private async tryCreateLock(token: string): Promise<boolean> {
+		try {
+			return await this.lockFiles.create(this.lockFile, token)
+		} catch (error) {
+			if (BUSY_LOCK_CODES.has(errorCode(error) ?? '')) return false
+			throw new SecretStoreError(`Could not create ${this.lockFile}: ${reasonOf(error)}`, this.dir)
 		}
 	}
 

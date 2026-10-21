@@ -2,7 +2,7 @@ import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import {afterEach, describe, expect, it} from 'vite-plus/test'
-import {FileSecretStore, LockBusyError, type LockFiles, nodeLockFiles} from '../src/store'
+import {FileSecretStore, LockBusyError, type LockFiles, nodeLockFiles, SecretStoreError} from '../src/store'
 
 const isWindows = process.platform === 'win32'
 const roots: string[] = []
@@ -185,5 +185,90 @@ describe('FileSecretStore', () => {
 		await fs.writeFile(path.join(dir, 'clients.json.lock'), 'another-process')
 
 		await expect(new FileSecretStore(dir, process.platform, {lockWaitMs: 50}).set('/a', {approvalId: 'a1'})).rejects.toThrow(LockBusyError)
+	})
+})
+
+function errnoError(code: string): Error {
+	return Object.assign(new Error(`${code}: lock file is busy`), {code})
+}
+
+// What Windows answers while the lock file of a finishing holder is still
+// being deleted: EPERM, EACCES or EBUSY instead of EEXIST.
+function failingCreate(code: string, times: number): LockFiles & {readonly attempts: () => number} {
+	let attempts = 0
+	return {
+		...nodeLockFiles,
+		create: async (file, token) => {
+			attempts++
+			if (attempts <= times) throw errnoError(code)
+			return nodeLockFiles.create(file, token)
+		},
+		attempts: () => attempts
+	}
+}
+
+describe('FileSecretStore lock on a busy lock file', () => {
+	it('retries EPERM from create and runs the work only once it holds the lock, never alongside another holder', async () => {
+		const dir = await configDir()
+		const lock = path.join(dir, 'clients.json.lock')
+		const flaky = failingCreate('EPERM', 2)
+		let inside = 0
+		let most = 0
+		const lockedWork = async (): Promise<boolean> => {
+			inside++
+			most = Math.max(most, inside)
+			const locked = await fs.stat(lock).then(
+				() => true,
+				() => false
+			)
+			await new Promise(resolve => setTimeout(resolve, 20))
+			inside--
+			return locked
+		}
+
+		const ran = await Promise.all([new FileSecretStore(dir, process.platform, {lockFiles: flaky}).transaction(lockedWork), new FileSecretStore(dir, process.platform).transaction(lockedWork)])
+
+		expect(ran).toEqual([true, true])
+		expect(most).toBe(1)
+		expect(flaky.attempts()).toBeGreaterThanOrEqual(3)
+	})
+
+	for (const code of ['EPERM', 'EACCES', 'EBUSY']) {
+		it(`gives up with LockBusyError when create keeps failing with ${code} until the deadline`, async () => {
+			const dir = await configDir()
+			let ran = false
+
+			const pending = new FileSecretStore(dir, process.platform, {lockWaitMs: 50, lockFiles: failingCreate(code, Number.POSITIVE_INFINITY)}).transaction(async () => {
+				ran = true
+			})
+
+			await expect(pending).rejects.toThrow(LockBusyError)
+			expect(ran).toBe(false)
+		})
+	}
+
+	it('surfaces any other create error as a store error naming the folder, without running the work', async () => {
+		const dir = await configDir()
+		let ran = false
+
+		const pending = new FileSecretStore(dir, process.platform, {lockFiles: failingCreate('ENOSPC', Number.POSITIVE_INFINITY)}).transaction(async () => {
+			ran = true
+		})
+
+		await expect(pending).rejects.toThrow(SecretStoreError)
+		await expect(pending).rejects.toThrow(dir)
+		expect(ran).toBe(false)
+	})
+
+	it.skipIf(isWindows)('still runs the work unlocked in a folder it cannot write to', async () => {
+		const dir = await configDir()
+		await fs.mkdir(dir, {recursive: true})
+		await fs.chmod(dir, 0o500)
+
+		const result = await new FileSecretStore(dir, process.platform).transaction(async () => 'ran')
+
+		expect(result).toBe('ran')
+		await fs.chmod(dir, 0o700)
+		expect(await fs.readdir(dir)).toEqual([])
 	})
 })
