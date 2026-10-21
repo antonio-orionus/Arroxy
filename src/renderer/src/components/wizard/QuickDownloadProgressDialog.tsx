@@ -100,7 +100,7 @@ export function QuickDownloadProgressDialog(): ReactNode {
 				</DialogHeader>
 
 				<div className="grid min-w-0 gap-3" data-testid="quick-download-progress-body">
-					<Card variant="inset" size="sm" className="min-w-0 max-w-full gap-0 px-3" data-testid="quick-download-progress-current" aria-live="polite">
+					<Card variant="inset" className="min-w-0 max-w-full gap-0 p-3" data-testid="quick-download-progress-current" aria-live="polite">
 						<div className="flex min-w-0 items-center gap-2">
 							<Link2 className="size-4 shrink-0 text-primary" aria-hidden />
 							<span className="min-w-0 flex-1 truncate text-sm font-medium text-foreground" data-testid="quick-download-progress-current-label">
