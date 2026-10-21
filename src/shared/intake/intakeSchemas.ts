@@ -4,12 +4,20 @@ import {downloadProfileRefSchema, probePlaylistModeSchema, quickProbeTakeSchema,
 // Link intake (Control API step zero): taking a link in, probing it in the
 // background and queueing what it finds runs in main. `window` is the app's
 // own window (the Download button, Explore, a row's Retry or choice);
-// `hotkey` the global hotkey.
-export const intakeOriginKindSchema = z.enum(['window', 'hotkey'])
+// `hotkey` the global hotkey; `localClient` a Control API client on this
+// machine, named by its client id.
+export const intakeOriginKindSchema = z.enum(['window', 'hotkey', 'localClient'])
 export type IntakeOriginKind = z.infer<typeof intakeOriginKindSchema>
 
+// Who takes a link in, before intake names the intake.
+const appIntakeCallerSchema = z.object({kind: intakeOriginKindSchema.exclude(['localClient'])})
+const clientIntakeCallerSchema = z.object({kind: z.literal('localClient'), clientId: z.string().min(1)})
+export type IntakeCaller = z.infer<typeof appIntakeCallerSchema> | z.infer<typeof clientIntakeCallerSchema>
+
 // Stamped on a placeholder row in main and copied onto every row it becomes.
-export const intakeOriginSchema = z.object({kind: intakeOriginKindSchema, clientId: z.string().min(1).optional(), intakeId: z.string().min(1)})
+// Saved in the queue: a new kind is only ever added.
+const intakeIdSchema = z.string().min(1)
+export const intakeOriginSchema = z.discriminatedUnion('kind', [appIntakeCallerSchema.extend({intakeId: intakeIdSchema}), clientIntakeCallerSchema.extend({intakeId: intakeIdSchema})])
 export type IntakeOrigin = z.infer<typeof intakeOriginSchema>
 
 // The profile a placeholder row was placed with, and the folders it resolved

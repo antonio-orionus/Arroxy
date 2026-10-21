@@ -14,7 +14,7 @@ import {isLiveQueueItem} from '@shared/queueActions.js'
 import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 import type {QueueEvent} from '@shared/queueTransition.js'
 import {fail, ok, type Result} from '@shared/result.js'
-import type {IntakeAddInput, IntakeOriginKind, IntakeWindowContext, PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
+import type {IntakeAddInput, IntakeCaller, IntakeOriginKind, IntakeWindowContext, PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
 import {PLAYLIST_PROBE_LIMIT_MAX, QUEUE_STATUS, type QuickProbeTake} from '@shared/schemas.js'
 import type {AppSettings, DownloadProfileRef, PlaylistProbeResult, PlaylistScope, ProbePlaylistMode, QueueItem} from '@shared/types.js'
 
@@ -114,7 +114,7 @@ export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 		return restarted
 	}
 
-	async function place({requestId, url, playlistMode, title, profile: requested, take}: IntakeAddInput, originKind: IntakeOriginKind): Promise<IntakePlacement> {
+	async function place({requestId, url, playlistMode, title, profile: requested, take}: IntakeAddInput, caller: IntakeCaller): Promise<IntakePlacement> {
 		const live = deps.items().find(item => isLiveQueueItem(item) && item.url === url)
 		if (live) return {kind: 'already-queued', itemId: live.id}
 		const intakeId = crypto.randomUUID()
@@ -147,17 +147,17 @@ export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 			probeMode: playlistMode,
 			...(take ? {probeTake: take} : {}),
 			pinnedProfile: pinned,
-			origin: {kind: originKind, intakeId},
+			origin: {...caller, intakeId},
 			job: {kind: 'unresolved', extractor: '', extractorKey: ''}
 		}
 		const added = await deps.add([row])
 		if (!added.ok) return added.error.code === 'conflict' ? {kind: 'already-queued', itemId: null} : {kind: 'not-added'}
-		void runProbe(row.id, {url, playlistMode, title: row.title, ...ownTake(row)}, requestId, originKind)
+		void runProbe(row.id, {url, playlistMode, title: row.title, ...ownTake(row)}, requestId, caller.kind)
 		return {kind: 'added', itemId: row.id, title: row.title, intakeId}
 	}
 
 	return {
-		add: async request => ok(await place(request, 'window')),
+		add: async request => ok(await place(request, {kind: 'window'})),
 		retry: ({requestId, itemId}) => {
 			const row = find(itemId)
 			return restart(itemId, requestId, row ? ownTake(row) : {})
@@ -182,7 +182,7 @@ export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 			return () => listeners.delete(listener)
 		},
 		hotkey: {
-			add: request => place(request, 'hotkey'),
+			add: request => place(request, {kind: 'hotkey'}),
 			windowProfile: () => windowContext.activeProfile,
 			onEvent: listener => {
 				hotkeyListeners.add(listener)

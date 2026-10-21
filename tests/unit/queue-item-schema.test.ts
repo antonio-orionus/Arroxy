@@ -33,6 +33,17 @@ describe('queue item schema', () => {
 		expect(queueItemSchema.safeParse({...makeItem({id: 'resolved', status: 'pending'}), probeTake: {kind: 'first', count: 100}}).success).toBe(false)
 	})
 
+	// The intake origin is users' data: rows saved before the Control API keep
+	// loading, and a Control client's row names the client that added it.
+	it('accepts every intake origin kind, and a Control client origin only with its client id', () => {
+		const origin = (value: unknown) => queueItemSchema.safeParse({...makeItem({id: 'row', status: 'pending'}), origin: value})
+		expect(origin({kind: 'window', intakeId: 'i1'}).success).toBe(true)
+		expect(origin({kind: 'hotkey', intakeId: 'i1'}).success).toBe(true)
+		expect(origin({kind: 'localClient', clientId: 'c1', intakeId: 'i1'}).success).toBe(true)
+		expect(origin({kind: 'localClient', intakeId: 'i1'}).success).toBe(false)
+		expect(origin({kind: 'pairedDevice', clientId: 'c1', intakeId: 'i1'}).success).toBe(false)
+	})
+
 	it('still loads a saved placeholder that has no probeTake', () => {
 		const unresolved = {kind: 'unresolved', extractor: '', extractorKey: ''} as const
 		const parsed = queueItemSchema.safeParse(makeItem({id: 'old', status: 'probing', probeMode: 'video', job: unresolved}))

@@ -147,6 +147,20 @@ describe('QueueStore', () => {
 		expect((await loadOk(store)).map(item => item.id)).toEqual(['first', 'last'])
 	})
 
+	// Rows saved before Control API clients existed carry a window or hotkey
+	// origin, or none: each loads as saved, next to a client's row.
+	it('loads rows saved with every intake origin, and with none', async () => {
+		const [store] = await tempStore()
+		const rows = [
+			makeItem({id: 'none', status: 'pending'}),
+			makeItem({id: 'window', status: 'pending', origin: {kind: 'window', intakeId: 'i1'}}),
+			makeItem({id: 'hotkey', status: 'pending', origin: {kind: 'hotkey', intakeId: 'i2'}}),
+			makeItem({id: 'client', status: 'pending', origin: {kind: 'localClient', clientId: 'c1', intakeId: 'i3'}})
+		]
+		await store.save(rows)
+		expect((await loadOk(store)).map(item => [item.id, item.origin])).toEqual(rows.map(item => [item.id, item.origin]))
+	})
+
 	it('returns validation failure for non-array JSON (no silent recovery)', async () => {
 		const [store, dir] = await tempStore()
 		await fs.writeFile(path.join(dir, 'queue.json'), '{"not": "an array"}', 'utf-8')
