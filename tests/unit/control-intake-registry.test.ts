@@ -5,6 +5,7 @@ import {intakeViewSchema} from 'arroxy-control'
 import {CONTROL_PROBING_INTAKES_PER_CLIENT} from '@main/control/intakeAdmission.js'
 import {INTAKE_RECORDS_MAX, INTAKE_RETENTION_MS, IntakeRegistry, type IntakeRecord} from '@main/control/IntakeRegistry.js'
 import type {IntakeOutcomeEvent} from '@main/intake/ControlOutcomes.js'
+import type {QueueRemovalReason} from '@main/services/download/queueMutation.js'
 import type {QuickDownloadEvent} from '@shared/intake/intakeEvents.js'
 import type {IntakeOrigin} from '@shared/intake/intakeSchemas.js'
 import type {ProbeError, QueueItem} from '@shared/types.js'
@@ -24,6 +25,10 @@ interface Harness {
 	// Places a client's placeholder row, the way the queue reports it.
 	place(itemId: string, intakeId: string, clientId?: string): void
 	outcome(intakeId: string, outcome: QuickDownloadEvent): void
+	// Takes a row out of the queue, the way the queue reports it.
+	remove(itemId: string, reason: QueueRemovalReason): void
+	// Work the registry put off until intake had its turn.
+	deferred: (() => void)[]
 }
 
 function origin(intakeId: string, clientId = 'client-1'): IntakeOrigin {
@@ -38,11 +43,18 @@ function harness(): Harness {
 	const rows: QueueItem[] = []
 	const clock = {now: START}
 	let id = 0
-	const registry = new IntakeRegistry({rows: () => rows, now: () => clock.now, newId: () => `fresh-${++id}`})
+	const deferred: (() => void)[] = []
+	const registry = new IntakeRegistry({rows: () => rows, now: () => clock.now, newId: () => `fresh-${++id}`, defer: run => deferred.push(run)})
 	return {
 		registry,
 		rows,
 		clock,
+		deferred,
+		remove: (itemId, reason) => {
+			const index = rows.findIndex(row => row.id === itemId)
+			if (index >= 0) rows.splice(index, 1)
+			registry.hearRemoved(itemId, reason)
+		},
 		place: (itemId, intakeId, clientId) => {
 			const row = placeholderRow(itemId, origin(intakeId, clientId))
 			rows.push(row)
@@ -148,6 +160,13 @@ describe('IntakeRegistry', () => {
 			})
 		})
 
+		// The same link would make as many rows again.
+		it('a swap refused over the row cap is a probe failure no retry can fix', () => {
+			h.place('p1', 'i1')
+			h.outcome('i1', {kind: 'failed', itemId: 'p1', title: 't', probeError: null, overRowLimit: true})
+			expect(state(h, 'i1')).toEqual({state: 'probeFailed', ytdlpKind: null, retryable: false})
+		})
+
 		it('a load limit or a playlist review needs the client to choose', () => {
 			h.place('p1', 'i1')
 			h.place('p2', 'i2')
@@ -187,6 +206,21 @@ describe('IntakeRegistry', () => {
 			expect(state(h, 'i2')).toEqual({state: 'probing'})
 			h.outcome('i2', {kind: 'nothing-new', skippedAlreadyQueued: 1})
 			expect(state(h, 'i2')).toEqual({state: 'nothingNew'})
+		})
+
+		// Intake tells the outcome in the same turn as the swap; if it never
+		// comes (a write threw), the intake still must not stay probing.
+		it('a placeholder swapped for nothing settles as nothingNew when no outcome follows', () => {
+			h.place('p1', 'i1')
+			h.place('p2', 'i2')
+			h.remove('p1', 'nothingNew')
+			h.remove('p2', 'nothingNew')
+			h.outcome('i2', {kind: 'already-queued', itemId: 'live-row'})
+			expect(state(h, 'i1')).toEqual({state: 'probing'})
+			h.deferred.forEach(run => run())
+			expect(state(h, 'i1')).toEqual({state: 'nothingNew'})
+			expect(state(h, 'i2')).toEqual({state: 'queued', itemIds: ['live-row']})
+			expect(h.registry.probingCapReached('client-1')).toBe(false)
 		})
 
 		it('a cancelled intake hears no later outcome', () => {
@@ -240,6 +274,18 @@ describe('IntakeRegistry', () => {
 		])
 	})
 
+	// Listeners run inside the queue's own emit: one that throws must not
+	// break the queue's caller or the other listeners.
+	it('keeps telling the other listeners when one throws', () => {
+		const heard = vi.fn<(record: IntakeRecord) => void>()
+		h.registry.onChange(() => {
+			throw new Error('broken listener')
+		})
+		h.registry.onChange(heard)
+		expect(() => h.place('p1', 'i1')).not.toThrow()
+		expect(heard).toHaveBeenCalledOnce()
+	})
+
 	describe('retention', () => {
 		it('forgets an ended intake once the retention window has passed', () => {
 			h.place('p1', 'i1')
@@ -248,6 +294,31 @@ describe('IntakeRegistry', () => {
 			expect(state(h, 'i1')).toEqual({state: 'nothingNew'})
 			h.clock.now += 1
 			expect(h.registry.get('i1')).toBeUndefined()
+		})
+
+		it('keeps a queued intake while any of its rows is in the queue, and a window past the last one', () => {
+			h.place('p1', 'i1')
+			h.rows.splice(0, 1, makeItem({id: 'p1', status: 'pending', origin: origin('i1')}), makeItem({id: 'r2', status: 'pending', url: 'https://youtu.be/v2', origin: origin('i1')}))
+			h.outcome('i1', {kind: 'queued', itemId: 'p1', skippedAlreadyQueued: 0})
+			h.clock.now += INTAKE_RETENTION_MS * 10
+			h.remove('p1', 'removed')
+			h.clock.now += INTAKE_RETENTION_MS * 10
+			expect(state(h, 'i1')).toEqual({state: 'queued', itemIds: ['p1', 'r2']})
+			h.remove('r2', 'autoRemoved')
+			h.clock.now += INTAKE_RETENTION_MS - 1
+			expect(state(h, 'i1')).toMatchObject({state: 'queued'})
+			h.clock.now += 1
+			expect(h.registry.get('i1')).toBeUndefined()
+		})
+
+		it('keeps an intake adopted on a live row while that row is in the queue', () => {
+			h.rows.push(makeItem({id: 'live-row', status: 'pending'}))
+			const {intakeId} = h.registry.adoptLive('client-1', 'live-row')
+			h.clock.now += INTAKE_RETENTION_MS * 10
+			expect(state(h, intakeId)).toMatchObject({state: 'queued'})
+			h.remove('live-row', 'removed')
+			h.clock.now += INTAKE_RETENTION_MS
+			expect(h.registry.get(intakeId)).toBeUndefined()
 		})
 
 		it('keeps an intake probing or waiting for a choice for as long as its placeholder lives', () => {
@@ -273,15 +344,20 @@ describe('IntakeRegistry', () => {
 
 		it('past its bound forgets the oldest ended intakes first, never a live one', () => {
 			h.place('live', 'i-live')
+			h.rows.push(makeItem({id: 'downloading', status: 'pending'}))
+			const queued = h.registry.adoptLive('client-1', 'downloading')
 			for (let index = 0; index < INTAKE_RECORDS_MAX; index++) {
 				h.clock.now += 1
 				h.registry.adoptLive('client-1', `row-${index}`)
 			}
-			// One over the bound: the oldest ended intake goes, the probing one stays.
+			// Two over the bound: the two oldest ended intakes go; the probing one
+			// and the one whose row still downloads stay.
 			expect(h.registry.get('i-live')).toBeDefined()
-			expect(h.registry.get('fresh-1')).toBeUndefined()
-			expect(h.registry.get('fresh-2')).toBeDefined()
-			expect(h.registry.get(`fresh-${INTAKE_RECORDS_MAX}`)).toBeDefined()
+			expect(h.registry.get(queued.intakeId)).toBeDefined()
+			expect(h.registry.get('fresh-2')).toBeUndefined()
+			expect(h.registry.get('fresh-3')).toBeUndefined()
+			expect(h.registry.get('fresh-4')).toBeDefined()
+			expect(h.registry.get(`fresh-${INTAKE_RECORDS_MAX + 1}`)).toBeDefined()
 		})
 	})
 })
