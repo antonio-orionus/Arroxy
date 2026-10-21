@@ -225,18 +225,21 @@ describe('quickDownload', () => {
 		expect(useAppStore.getState().wizardStep).toBe('url')
 	})
 
-	it('queues the whole playlist when quick download mixed URL prompt chooses the playlist', async () => {
+	it('queues the first N of the playlist, N being the load limit, when quick download mixed URL prompt chooses the playlist', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
 		window.appApi = api
 
 		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
-		useAppStore.setState({wizardUrl: mixedUrl, wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
+		const settings = defaultAppSettings('/tmp')
+		useAppStore.setState({wizardUrl: mixedUrl, wizardOutputDir: '/tmp', settings})
 
 		await useAppStore.getState().quickDownload({url: mixedUrl, entry: 'url-tab'})
+		// The limit is read when the answer comes, not when the prompt opened.
+		useAppStore.setState({settings: {...settings, common: {...settings.common, playlistProbeLimit: 250}}})
 		await useAppStore.getState().dismissMixedPrompt('playlist')
 
-		expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'playlist', ownerKey: expect.any(String)})
+		expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'playlist', playlistScope: {items: {kind: 'first', count: 250}}, ownerKey: expect.any(String)})
 		const items = await swapped(api)
 		expect(items).toHaveLength(2)
 		expect(items.every(item => item.job.kind === 'ranged-format')).toBe(true)

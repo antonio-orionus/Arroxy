@@ -602,7 +602,6 @@ export type ProbePlaylistMode = z.infer<typeof probePlaylistModeSchema>
 // What a YouTube `list=` id names, read from its prefix.
 export const listKindSchema = z.enum(['playlist', 'mix', 'album', 'uploads', 'watch-later', 'liked'])
 export type ListKind = z.infer<typeof listKindSchema>
-export const LIST_KINDS = listKindSchema.options
 
 export const probeSchema = z.object({url: webUrlSchema, playlistMode: probePlaylistModeSchema.optional(), playlistScope: playlistScopeSchema.optional(), ownerKey: z.string().min(1).optional(), timeoutMs: probeTimeoutMsSchema.optional()})
 

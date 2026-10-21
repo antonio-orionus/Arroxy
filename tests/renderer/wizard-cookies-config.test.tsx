@@ -12,6 +12,7 @@ import type {AppSettings, GraphicsPolicy} from '@shared/types.js'
 import {ok} from '../shared/fixtures.js'
 
 const SINGLE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+const MIXED_URL = `${SINGLE_URL}&list=PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf`
 
 let mockApi: AppApi
 
@@ -263,9 +264,9 @@ describe('advanced network settings', () => {
 		expect(screen.queryByTestId('profiles-settings-style-fallback')).not.toBeInTheDocument()
 	})
 
-	it('mixed URL dialog shows the current playlist cap and changes it inline', async () => {
+	it('mixed URL dialog shows the load limit inside the list option and changes it inline', async () => {
 		resetStore(buildSettings({playlistProbeLimit: 250}))
-		useAppStore.setState({mixedUrlPromptOpen: true, mixedUrlPending: SINGLE_URL, mixedUrlPromptSource: 'wizard'})
+		useAppStore.setState({mixedUrlPromptOpen: true, mixedUrlPending: MIXED_URL, mixedUrlPromptSource: 'wizard'})
 
 		render(
 			<TooltipProvider>
@@ -273,7 +274,7 @@ describe('advanced network settings', () => {
 			</TooltipProvider>
 		)
 
-		expect(screen.getByTestId('mixed-playlist-cap')).toHaveTextContent('250')
+		expect(screen.getByTestId('mixed-playlist-probe-limit-trigger')).toHaveTextContent('250')
 		expect(screen.queryByTestId('mixed-open-advanced')).not.toBeInTheDocument()
 		fireEvent.click(screen.getByTestId('mixed-playlist-probe-limit-trigger'))
 		fireEvent.click(await screen.findByTestId('mixed-playlist-probe-limit-option-500'))
@@ -285,25 +286,9 @@ describe('advanced network settings', () => {
 		expect(useAppStore.getState().advancedAutoOpen).toBe(false)
 	})
 
-	it('mixed URL dialog uses Quick Download labels when opened from Quick Download', () => {
-		resetStore(buildSettings({playlistProbeLimit: 100}))
-		useAppStore.setState({mixedUrlPromptOpen: true, mixedUrlPending: SINGLE_URL, mixedUrlPromptSource: 'url-tab'})
-
-		render(
-			<TooltipProvider>
-				<MixedUrlPromptDialog />
-			</TooltipProvider>
-		)
-
-		expect(screen.getByText('Download only this video, or queue the whole playlist with your active Quick Download profile.')).toBeInTheDocument()
-		expect(screen.getByTestId('mixed-single-choice')).toHaveTextContent('Download this video')
-		expect(screen.getByTestId('mixed-playlist-choice')).toHaveTextContent('Download whole playlist')
-		expect(screen.queryByRole('button', {name: 'Pick from playlist'})).not.toBeInTheDocument()
-	})
-
 	it('keeps the mixed URL dialog close button working after closing the custom limit dialog', async () => {
 		resetStore(buildSettings({playlistProbeLimit: 250}))
-		useAppStore.setState({mixedUrlPromptOpen: true, mixedUrlPending: SINGLE_URL})
+		useAppStore.setState({mixedUrlPromptOpen: true, mixedUrlPending: MIXED_URL})
 
 		render(
 			<TooltipProvider>
