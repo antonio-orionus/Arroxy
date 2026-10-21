@@ -137,11 +137,13 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			if (!lists) {
 				const listed = await settledRun({kind: 'subtitle-listing', url: input.url})
 				if (listed.kind !== 'success') return listed
-				lists = await saveSubtitleListing(listed.stdout, tempDir)
-				if (!lists) {
-					logger.warn('Subtitles skipped — the subtitle listing printed no info-json; video already saved', {jobId: job.id})
+				const saved = await saveSubtitleListing(listed.stdout, tempDir)
+				if (saved.kind !== 'saved') {
+					if (saved.kind === 'not-info-json') logger.warn('Subtitles skipped — the subtitle listing printed no info-json; video already saved', {jobId: job.id})
+					else logger.warn('Subtitles skipped — the subtitle listing could not be saved; video already saved', {jobId: job.id, raw: saved.raw})
 					return SUBTITLES_FAILED
 				}
+				lists = saved.lists
 			}
 
 			const plan = planSubtitleRun(requested, lists, {site, jobId: job.id})

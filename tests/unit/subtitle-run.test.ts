@@ -1,4 +1,4 @@
-import {mkdtemp, readFile, rm, writeFile} from 'node:fs/promises'
+import {mkdir, mkdtemp, readFile, rm, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
@@ -58,12 +58,18 @@ describe('eagerSubtitleLists', () => {
 describe('saveSubtitleListing', () => {
 	it("saves a listing's stdout in the temp folder for the fetch to load", async () => {
 		const saved = await saveSubtitleListing(JSON.stringify(INFO), dir)
-		expect(saved?.infoJsonPath).toBe(join(dir, '_arroxy.subtitles.info.json'))
+		expect(saved.kind === 'saved' ? saved.lists.infoJsonPath : saved.kind).toBe(join(dir, '_arroxy.subtitles.info.json'))
 		expect(JSON.parse(await readFile(join(dir, '_arroxy.subtitles.info.json'), 'utf8'))).toEqual(INFO)
 	})
 
 	it('saves nothing that is not an info-json', async () => {
-		expect(await saveSubtitleListing('[info] Downloading', dir)).toBeNull()
+		expect(await saveSubtitleListing('[info] Downloading', dir)).toEqual({kind: 'not-info-json'})
+	})
+
+	// A full disk or a vanished folder is an answer, not a throw: the phase decides what it costs the job.
+	it('says the listing could not be written instead of throwing', async () => {
+		await mkdir(join(dir, '_arroxy.subtitles.info.json'))
+		expect(await saveSubtitleListing(JSON.stringify(INFO), dir)).toMatchObject({kind: 'unwritable', raw: expect.stringContaining('_arroxy.subtitles.info.json')})
 	})
 })
 

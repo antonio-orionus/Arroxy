@@ -23,6 +23,7 @@ import os from 'node:os'
 import path from 'node:path'
 import {parseArgs} from 'node:util'
 import {
+	claudeArgs,
 	classifyCodexFailure,
 	coverageSummary,
 	needsAction,
@@ -48,10 +49,6 @@ import {recordReviewed, reviewedSnapshot} from './reviewedState.js'
 
 const TIMEOUT_MS = 30 * 60 * 1000
 const LEARNINGS_FILE = '.agents/memory/review-learnings.md'
-
-// Read-only tools only; the permission mode makes anything else a denial
-// instead of a prompt nobody is there to answer.
-const CLAUDE_TOOLS = ['Read', 'Grep', 'Glob', 'Bash(git diff:*)', 'Bash(git log:*)', 'Bash(git show:*)', 'Bash(git blame:*)', 'mcp__codegraph__codegraph_explore']
 
 function git(args: string[]): string {
 	const result = spawnSync('git', args, {encoding: 'utf8', maxBuffer: 64 * 1024 * 1024})
@@ -118,8 +115,7 @@ async function runCodex(prompt: string, schema: OutputJsonSchema, outDir: string
 }
 
 async function runClaude(prompt: string, schema: OutputJsonSchema, outDir: string, name: string): Promise<string> {
-	const args = ['-p', '--output-format', 'json', '--json-schema', JSON.stringify(schema), '--permission-mode', 'default', '--allowedTools', ...CLAUDE_TOOLS, '--disallowedTools', 'Edit', 'Write', 'NotebookEdit', '--', prompt]
-	const result = await runProcess('claude', args, path.join(outDir, `${name}.log`))
+	const result = await runProcess('claude', claudeArgs(prompt, schema), path.join(outDir, `${name}.log`))
 	if (!result.ok) throw new AgentError(`claude ${name} ${result.detail}`)
 	const envelope: unknown = JSON.parse(result.stdout)
 	if (typeof envelope !== 'object' || envelope === null || !('structured_output' in envelope)) throw new Error('no structured_output in the response envelope')

@@ -58,14 +58,19 @@ export async function eagerSubtitleLists(infoJsonPaths: readonly (string | undef
 const LISTING_FILE_NAME = '_arroxy.subtitles.info.json'
 const REPORT_FILE_NAME = '_arroxy.subtitles.report.json'
 
+export type SavedListing = {kind: 'saved'; lists: SubtitleLists} | {kind: 'not-info-json'} | {kind: 'unwritable'; raw: string}
+
 // A subtitle listing's stdout, saved in the job's temp folder for the fetch
-// to load. Null when it is not an info-json.
-export async function saveSubtitleListing(stdout: string, tempDir: string): Promise<SubtitleLists | null> {
+// to load. A write the disk refuses (full, or the folder gone) is returned,
+// not thrown: what it costs the job is the phase's call (ADR 0002).
+export async function saveSubtitleListing(stdout: string, tempDir: string): Promise<SavedListing> {
 	const path = join(tempDir, LISTING_FILE_NAME)
 	const lists = parseSubtitleLists(stdout, path)
-	if (!lists) return null
-	await writeFile(path, stdout, 'utf8')
-	return lists
+	if (!lists) return {kind: 'not-info-json'}
+	return writeFile(path, stdout, 'utf8').then(
+		(): SavedListing => ({kind: 'saved', lists}),
+		(err: unknown): SavedListing => ({kind: 'unwritable', raw: `${path}: ${err instanceof Error ? err.message : String(err)}`})
+	)
 }
 
 export function subtitleReportFile(tempDir: string): string {

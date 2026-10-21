@@ -90,11 +90,11 @@
 			"itemCountAudio_one": "{{count}} нумера",
 			"itemCountAudio_few": "{{count}} нумере",
 			"itemCountAudio_other": "{{count}} нумера",
-			"itemCountBulk_one": "{{count}} URL",
+			"itemCountBulk_one": "{{count}} URL адреса",
 			"itemCountBulk_few": "{{count}} URL-а",
 			"itemCountBulk_other": "{{count}} URL-ова",
 			"bulkMetadataResolving": "Преузимање детаља видеа… {{done}}/{{total}}",
-			"bulkMetadataOptional": "Nema potrebe da čekate — datoteke koje sada stavite u red će prilikom preuzimanja ipak dobiti svoja prava imena.",
+			"bulkMetadataOptional": "Нема потребе да чекате — датотеке које сада ставите у ред ће приликом преузимања ипак добити своја права имена.",
 			"bulkRowWaiting": "Чека",
 			"bulkRowResolving": "Преузимање детаља",
 			"bulkRowFailed": "Детаљи нису доступни",
@@ -162,7 +162,7 @@
 			"reject": {"duplicate": "Дупликат"}
 		},
 		"tabsNavAria": "Навигација кроз профиле преузимања",
-		"profileSwitchRow": {"helpAria": "Pomoć za {{label}}"},
+		"profileSwitchRow": {"helpAria": "Помоћ за {{label}}"},
 		"mixedPrompt": {
 			"title": "Овај линк је из плејлисте",
 			"body": "Желиш само видео на који си кликнуо, или да бираш из плејлисте? Следећи корак ти омогућава да одабереш одређене видеосе или распон.",
@@ -237,7 +237,7 @@
 				"badgeModified": "Измењено",
 				"badgeBuiltIn": "Уграђено",
 				"badgeDisabled": "Скривено",
-				"enableToggleAria": "Prikaži profil u izboru: {{profileName}}",
+				"enableToggleAria": "Прикажи профил у избору: {{profileName}}",
 				"enableHint": "Скривени профили остају овде, али нестају из сваког избора.",
 				"reorderHint": "Превуците профил да га померите. Сваки избор профила прати овај редослед.",
 				"moveHandleAria": "Помери {{profileName}}",
@@ -247,7 +247,7 @@
 				"moveOver": "Профил {{profileName}} је изнад позиције {{position}} од {{count}}.",
 				"moveDropped": "Профил {{profileName}} је спуштен на позицију {{position}} од {{count}}.",
 				"moveCancelled": "Померање је отказано. Профил {{profileName}} остаје на позицији {{position}} од {{count}}.",
-				"lastEnabledHint": "Zadrži bar jedan dostupan profil.",
+				"lastEnabledHint": "Задржи бар један доступан профил.",
 				"edit": "Уреди",
 				"remove": "Уклони",
 				"reset": "Ресетуј"
@@ -289,8 +289,8 @@
 				"test": "Тестирај",
 				"conflict": "Ову пречицу већ користи друга апликација — изаберите другу.",
 				"hintLabel": "Или притисни",
-				"hintTooltip": "Kopiraj video-link bilo gde, pritisni ovu prečicu i Arroxy će ga staviti u red koristeći tvoj aktivni profil — nema potrebe da menjaš prozore.",
-				"hintTooltipSettings": "Promeni ga ili ga isključi u Podešavanjima.",
+				"hintTooltip": "Копирај видео-линк било где, притисни ову пречицу и Arroxy ће га ставити у ред користећи твој активни профил — нема потребе да мењаш прозоре.",
+				"hintTooltipSettings": "Промени га или га искључи у Подешавањима.",
 				"reset": "Врати на подразумевано"
 			},
 			"cookies": {
@@ -932,23 +932,23 @@
 		"type": {"video": "Видео", "audio": "Звук", "subtitles": "Титлови"},
 		"subtitles": {"note": "За сваки видео чувају се само датотеке титлова — видео и звук се не преузимају.", "languages": "Језици", "languagesRequired": "Изаберите бар један језик да бисте наставили.", "source": "Извор", "deliveryHeading": "Сачувај као", "deliveryLoose": "Директно у фасцикли за чување"},
 		"videoFormat": {"best": "Најбољи изворни", "mp4": "Паметни TV H.264 MP4"},
-		"videoFormatDesc": {"best": "Najviši dostupan kodek po stavci", "mp4": "Prednost H.264 + AAC, MP4 kontejner · najbolji pokušaj"},
+		"videoFormatDesc": {"best": "Највиши доступан кодек по ставци", "mp4": "Предност H.264 + AAC, MP4 контејнер · најбољи покушај"},
 		"tier": {"144": "До 144p", "240": "До 240p", "360": "До 360p", "480": "До 480p", "720": "До 720p", "1080": "До 1080p", "1440": "До 1440p", "2160": "До 4K", "best": "Најбољи квалитет"},
 		"tierDesc": {
-			"144": "Najmanji mogući fajlovi",
+			"144": "Најмањи могући фајлови",
 			"240": "Веома мали фајлови, низак квалитет",
-			"360": "Mali fajlovi za ograničen protok",
+			"360": "Мали фајлови за ограничен проток",
 			"480": "Низак пропусни опсег",
-			"720": "Manji fajlovi, široka kompatibilnost",
-			"1080": "Ograničeno na 1080p, pada niže po stavci",
-			"1440": "Ograničeno na 2K, pada niže po stavci",
-			"2160": "Ograničeno na 2160p, pada niže po stavci",
+			"720": "Мањи фајлови, широка компатибилност",
+			"1080": "Ограничено на 1080p, пада ниже по ставци",
+			"1440": "Ограничено на 2K, пада ниже по ставци",
+			"2160": "Ограничено на 2160p, пада ниже по ставци",
 			"best": "Најбољи доступан видео + аудио по ставци"
 		},
 		"audioFormat": {"best": "Звук (најбољи)", "mp3": "MP3", "m4a": "M4A", "opus": "Opus"},
 		"audioFormatDesc": {"best": "Најбољи изворни аудио, без поновног кодирања", "mp3": "Конвертуј у MP3", "m4a": "Конвертуј у M4A (AAC)", "opus": "Конвертуј у Opus"},
 		"audioFormatBitrate": "Звук ({{format}} {{kbps}}K)",
-		"mp4Cap": "H.264 iznad 1080p nije dostupan na YouTube-u — automatski se ograničava na 1080p"
+		"mp4Cap": "H.264 изнад 1080p није доступан на YouTube-у — аутоматски се ограничава на 1080p"
 	},
 	"formatLabel": {"audioFallback": "Звук", "audioOnlyDot": "Само звук · {{audio}}", "videoDot": "{{resolution}} · {{audio}}"},
 	"tray": {

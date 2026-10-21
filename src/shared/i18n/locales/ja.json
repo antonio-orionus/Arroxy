@@ -573,7 +573,7 @@
 			"labelItems": "件数",
 			"itemsValue_other": "全{{total}}本中{{count}}本",
 			"itemsValueAudio_other": "全{{total}}曲中{{count}}曲",
-			"itemsValueBulk_other": "{{count}} / {{total}} URL",
+			"itemsValueBulk_other": "{{total}} 件中 {{count}} 件の URL",
 			"profileBreakdownHeading": "このバッチのプロファイル",
 			"profileBreakdownCount_other": "{{count}} 件",
 			"subtitleEmbedForcesMkv": "動画内に字幕を埋め込むには MKV ファイルが必要なので、.mkv で保存されます。"

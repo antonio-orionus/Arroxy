@@ -19,7 +19,7 @@ These are Antonio's rules. Follow them without asking him again.
 - **Ask only critical decisions.** "Critical" means hard to reverse, or product behaviour that no approved design or existing rule settles. Everything else is the orchestrator's to decide and then report in one line: copy approval, naming, sequencing, which lane owns a file, retiring a branch, archiving sessions, resuming stalled ones, publishing dependencies. When the codebase can settle a question, investigate it instead of asking.
 - **Release any dependency, never Arroxy.** Publish `ytdlp-errors`, `yt-dlp-bridge` or any other dependency when its merged changes form a coherent version. Never cut an Arroxy app release, not even a beta.
 - **Merged means `MERGED`.** An entry moves to Fixed only after `gh pr view <N> --json state` says `MERGED`. A session's "done" doesn't count.
-- **Child sessions never touch `.internal/`.** They report out-of-scope bugs in their final message, and the orchestrator files and dispatches them. The one exception is a design session writing its own new design doc.
+- **Child sessions never touch `.internal/`.** Every brief says so, overriding the `land` skill's backlog step. At intake, still look for entries a session appended anyway: they are new candidates, and may sit in the wrong place. They report out-of-scope bugs in their final message, and the orchestrator files and dispatches them. The one exception is a design session writing its own new design doc.
 
 ## Phases
 
