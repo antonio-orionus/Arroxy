@@ -20,6 +20,10 @@ describe('buildSubtitleList', () => {
 })
 
 describe('resolveSubtitleLabel', () => {
+	it('reads every underscore in a key as a subtag separator', () => {
+		expect(resolveSubtitleLabel('zh_Hans_CN', {zh_Hans_CN: [{ext: 'vtt', name: 'Chinese'}]}, {}, 'en')).toBe('Chinese (Simplified, China)')
+	})
+
 	it('falls back to the yt-dlp name for a key Intl cannot parse', () => {
 		expect(resolveSubtitleLabel('nb-ttv', {'nb-ttv': [{ext: 'vtt', name: 'Norsk - tekstet'}]}, {}, 'ru')).toBe('Norsk - tekstet')
 	})

@@ -41,7 +41,7 @@ function captionLanguage(code: string): string {
 
 function intlLanguageName(code: string, uiLanguage: string): string | undefined {
 	try {
-		return displayNamesFor(uiLanguage).of(captionLanguage(code).replace('_', '-'))
+		return displayNamesFor(uiLanguage).of(captionLanguage(code).replaceAll('_', '-'))
 	} catch {
 		// Other sites' keys need not be BCP 47 tags (NRK's `nb-ttv`).
 		return undefined
