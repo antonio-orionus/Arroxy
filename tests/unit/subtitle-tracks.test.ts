@@ -107,3 +107,22 @@ describe('pickedTrack', () => {
 		expect(pickedTrack('constructor', maps)).toEqual({key: 'constructor', auto: true})
 	})
 })
+
+describe('language codes with two spellings', () => {
+	// YouTube serves Hebrew as iw and Norwegian Bokmål as no; other sites and
+	// the app's own language use he and nb.
+	it('match each other in either direction, regions included', () => {
+		expect(matchesSubtitleLanguage('iw', 'he')).toBe(true)
+		expect(matchesSubtitleLanguage('he', 'iw')).toBe(true)
+		expect(matchesSubtitleLanguage('no', 'nb')).toBe(true)
+		expect(matchesSubtitleLanguage('nb', 'no')).toBe(true)
+		expect(matchesSubtitleLanguage('yi', 'ji')).toBe(true)
+		expect(matchesSubtitleLanguage('he', 'iw-IL')).toBe(true)
+	})
+
+	it('match nothing else', () => {
+		expect(matchesSubtitleLanguage('iw', 'id')).toBe(false)
+		expect(matchesSubtitleLanguage('no', 'nl')).toBe(false)
+		expect(matchesSubtitleLanguage('he', 'iw-en')).toBe(false)
+	})
+})

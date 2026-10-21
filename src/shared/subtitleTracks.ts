@@ -57,10 +57,28 @@ export interface SubtitlePlan {
 // code, so letter case is what tells them apart.
 const REGIONAL_SUFFIX = /^-(?:[A-Z]{2}|[A-Z][a-z]{3}|\d{3})$/
 
-export function matchesSubtitleLanguage(code: string, trackKey: string): boolean {
-	if (trackKey.slice(0, code.length).toLowerCase() !== code.toLowerCase()) return false
+// Languages with two codes in use: YouTube serves Hebrew as `iw`, Norwegian
+// Bokmål as `no` and Yiddish as `ji`, where other sites and the app's own
+// language list say `he`, `nb` and `yi`. Either spelling finds the other.
+const SAME_LANGUAGE_CODES: readonly (readonly string[])[] = [
+	['he', 'iw'],
+	['nb', 'no'],
+	['yi', 'ji']
+]
+
+function sameLanguageCodes(code: string): readonly string[] {
+	const lower = code.toLowerCase()
+	return SAME_LANGUAGE_CODES.find(codes => codes.includes(lower)) ?? [lower]
+}
+
+function matchesCode(code: string, trackKey: string): boolean {
+	if (trackKey.slice(0, code.length).toLowerCase() !== code) return false
 	const suffix = trackKey.slice(code.length)
 	return suffix === '' || REGIONAL_SUFFIX.test(suffix)
+}
+
+export function matchesSubtitleLanguage(code: string, trackKey: string): boolean {
+	return sameLanguageCodes(code).some(spelling => matchesCode(spelling, trackKey))
 }
 
 // YouTube's real automatic captions carry this suffix once the subtitle map is
