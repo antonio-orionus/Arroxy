@@ -56,7 +56,7 @@ git commit -am "release: 0.3.2"
 git push origin main
 ```
 
-This `release: 0.3.2` commit is the **release commit**: the tag goes on it, and on nothing else. Its subject must be exactly `release: <version>` (a squash-merged PR's ` (#N)` suffix is accepted).
+This `release: 0.3.2` commit is the **release commit**: the tag goes on it, and on nothing else. Its subject must be exactly `release: <version>` (a squash-merged PR's `(#N)` suffix after it is accepted).
 
 ## 2. Cut the stable release
 

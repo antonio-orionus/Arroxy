@@ -176,7 +176,7 @@ The user starts every update (auto-download is off), and every install channel m
 
 Pushing an annotated `v*` tag publishes to GitHub Releases, Scoop, Homebrew Cask, Winget and Arroxy's own Flatpak repo in one go; a `-beta.N` suffix makes a pre-release that skips the package managers and never auto-updates installed copies. Releases are stable and cut straight from `main`, the only long-lived branch; a beta is never a step before a stable release.
 
-- **When the user says "release X":** run `bun run check`, add the `## X` section to `CHANGELOG.md`, commit `release: X` with the `package.json` bump, push it, then run `bun run release:stable` yourself (`bun run release:beta` only when the user explicitly asks for a beta). Don't hand the script back to the user. It tags that release commit, not `main`'s HEAD, once the commit's required checks pass, and waits for them while they run.
+- **When the user says "release X":** add the `## X` section to `CHANGELOG.md`, bump `package.json` to X, run `bun run check`, commit both as `release: X`, push it, then run `bun run release:stable` yourself (`bun run release:beta` only when the user explicitly asks for a beta). Don't hand the script back to the user. It tags that release commit, not `main`'s HEAD, once the commit's required checks pass, and waits for them while they run.
 - **Tags go through the wrapper**, which makes them annotated and pushes each one alone; a hand-pushed tag can silently fail to start the pipeline.
 - **`CHANGELOG.md` is the release-notes source.** Never edit GitHub release notes in the web UI or with `gh release edit`; `publish-release` overwrites them. Fix the changelog and re-run that job.
 
