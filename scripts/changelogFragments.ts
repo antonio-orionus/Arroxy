@@ -100,6 +100,71 @@ export function insertSection(changelog: string, version: string, section: strin
 	return [...lines.slice(0, at), ...section.split('\n'), ...lines.slice(at)].join('\n')
 }
 
+/** Whether the section body already lists the fragment, as a paragraph or a bullet. */
+export const sectionHasFragment = (body: string, fragment: Fragment): boolean => body.split(/\r?\n/).some(line => line.trim() === fragment.text || line.trim() === `- ${fragment.text}`)
+
+const SUBSECTION_HEADING = /^##\s+(.*\S)\s*$/
+const isBlank = (line: string): boolean => line.trim() === '' || line.trim() === '---'
+
+function trimBlankEdges(lines: string[]): string[] {
+	let start = 0
+	let end = lines.length
+	while (start < end && isBlank(lines[start] ?? '')) start++
+	while (end > start && isBlank(lines[end - 1] ?? '')) end--
+	return lines.slice(start, end)
+}
+
+/**
+ * Adds fragments to a version's existing section, for a release commit that is
+ * redone before its version is tagged. Hand edits stay: intro paragraphs go
+ * after the intro, bullets at the end of their heading's list, and a missing
+ * heading is added in section order.
+ */
+export function mergeIntoSection(changelog: string, version: string, fragments: readonly Fragment[]): string {
+	const lines = changelog.split('\n')
+	const start = lines.findIndex(line => line === `## ${version}`)
+	if (start === -1) throw new Error(`CHANGELOG.md has no ## ${version} section`)
+	const next = lines.findIndex((line, index) => index > start && VERSION_HEADING.test(line.trim()))
+	const end = next === -1 ? lines.length : next
+	let contentEnd = end
+	while (contentEnd > start + 1 && isBlank(lines[contentEnd - 1] ?? '')) contentEnd--
+
+	const body = lines.slice(start + 1, contentEnd)
+	const firstHeading = body.findIndex(line => SUBSECTION_HEADING.test(line))
+	let intro = trimBlankEdges(firstHeading === -1 ? body : body.slice(0, firstHeading))
+	const subsections: {title: string; lines: string[]}[] = []
+	for (const line of firstHeading === -1 ? [] : body.slice(firstHeading)) {
+		const title = SUBSECTION_HEADING.exec(line)?.[1]
+		if (title !== undefined) subsections.push({title, lines: []})
+		else subsections.at(-1)?.lines.push(line)
+	}
+	for (const subsection of subsections) subsection.lines = trimBlankEdges(subsection.lines)
+
+	const rank = (title: string): number => FRAGMENT_KINDS.findIndex(kind => FRAGMENT_SECTIONS[kind] === title)
+	for (const kind of FRAGMENT_KINDS) {
+		const texts = fragments.filter(fragment => fragment.kind === kind).map(fragment => fragment.text)
+		if (texts.length === 0) continue
+		const title = FRAGMENT_SECTIONS[kind]
+		if (title === null) {
+			intro = [...intro, ...texts.flatMap(text => ['', text])].slice(intro.length === 0 ? 1 : 0)
+			continue
+		}
+		const bullets = texts.map(text => `- ${text}`)
+		const existing = subsections.find(subsection => subsection.title === title)
+		if (existing !== undefined) {
+			const last = existing.lines.at(-1)
+			existing.lines.push(...(last === undefined || last.startsWith('- ') ? bullets : ['', ...bullets]))
+			continue
+		}
+		const later = subsections.findIndex(subsection => rank(subsection.title) > rank(title))
+		subsections.splice(later === -1 ? subsections.length : later, 0, {title, lines: bullets})
+	}
+
+	const blocks = [[`## ${version}`], ...(intro.length > 0 ? [intro] : []), ...subsections.map(subsection => [`## ${subsection.title}`, ...(subsection.lines.length > 0 ? ['', ...subsection.lines] : [])])]
+	const section = blocks.flatMap((block, index) => (index === 0 ? block : ['', ...block]))
+	return [...lines.slice(0, start), ...section, ...lines.slice(contentEnd)].join('\n')
+}
+
 /**
  * CHANGELOG.md holds released versions only: no section is newer than the
  * package version, which only a `release: X` commit bumps. A beta may go

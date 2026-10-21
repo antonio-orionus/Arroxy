@@ -13,7 +13,7 @@
 import {spawnSync} from 'node:child_process'
 import {parseArgs} from 'node:util'
 import {z} from 'zod'
-import {checkRunsResponseSchema, findReleaseCommit, waitForRequiredChecks, type CheckRun, type CheckState} from './releaseGate.js'
+import {checkRunsResponseSchema, findReleaseCommit, pushOfCommit, repoActivitiesSchema, waitForRequiredChecks, type CheckRun, type CheckState, type PushVerdict, type RepoActivity} from './releaseGate.js'
 
 const POLL_INTERVAL_MS = 30_000
 
@@ -26,7 +26,7 @@ function exec(cmd: string, args: string[]): string {
 	return result.stdout
 }
 
-const ghJson = (path: string): unknown => JSON.parse(exec('gh', ['api', path]))
+const ghJson = (path: string, ...flags: string[]): unknown => JSON.parse(exec('gh', ['api', ...flags, path]))
 
 function releaseCommit(version: string, ref: string): string {
 	const log = exec('git', ['log', '--format=%H%x09%s', ref])
@@ -37,11 +37,38 @@ function releaseCommit(version: string, ref: string): string {
 		})
 	const lookup = findReleaseCommit(log, version)
 	if (lookup.kind === 'missing') throw new GateError(`no 'release: ${version}' commit on ${ref}. Commit the version bump and changelog as 'release: ${version}' and push it to main first.`)
-	if (lookup.kind === 'ambiguous') throw new GateError(`${lookup.shas.length} commits on ${ref} are titled 'release: ${version}' (${lookup.shas.join(', ')}); bump to a new version instead.`)
+	if (lookup.superseded.length > 0) console.error(`Note: ${lookup.sha.slice(0, 9)} supersedes ${lookup.superseded.length} earlier 'release: ${version}' commit(s) (${lookup.superseded.map(sha => sha.slice(0, 9)).join(', ')}).`)
 
 	const tagged = z.object({version: z.string()}).parse(JSON.parse(exec('git', ['show', `${lookup.sha}:package.json`]))).version
 	if (tagged !== version) throw new GateError(`release commit ${lookup.sha} has package.json version '${tagged}', not '${version}'.`)
 	return lookup.sha
+}
+
+const isAncestor = (ancestor: string, descendant: string): boolean | null => {
+	const result = spawnSync('git', ['merge-base', '--is-ancestor', ancestor, descendant])
+	return result.status === 0 ? true : result.status === 1 ? false : null
+}
+
+// Whether a push's before..after range holds the commit; null when git does not
+// know the push's commits (a force push dropped them, or the fetch is stale).
+function pushContains(activity: RepoActivity, sha: string): boolean | null {
+	const inAfter = isAncestor(sha, activity.after)
+	if (inAfter !== true) return inAfter
+	if (/^0+$/.test(activity.before)) return true
+	const inBefore = isAncestor(sha, activity.before)
+	return inBefore === null ? null : !inBefore
+}
+
+// Main's pushes from GitHub, every page: a busy day fills one. Unknown when
+// they cannot be read, so the gate then waits as it would without them.
+function pushOfReleaseCommit(repo: string, commit: string): PushVerdict {
+	try {
+		const pages = z.array(repoActivitiesSchema).parse(ghJson(`repos/${repo}/activity?ref=refs/heads/main&per_page=100`, '--paginate', '--slurp'))
+		return pushOfCommit(pages.flat(), commit, pushContains)
+	} catch (error) {
+		console.error(`Could not read main's push history (${error instanceof Error ? error.message : String(error)}); waiting on checks as usual.`)
+		return {kind: 'unknown'}
+	}
 }
 
 function describeCheck(check: CheckState): string {
@@ -59,6 +86,14 @@ async function checks(commit: string, timeoutMinutes: number): Promise<number> {
 	}
 	if (contexts.length === 0) throw new GateError('main has no required status checks configured; refusing to cut an unguarded stable release.')
 
+	const push = pushOfReleaseCommit(repo, commit)
+	if (push.kind === 'buried') {
+		const version = z.object({version: z.string()}).parse(JSON.parse(exec('git', ['show', `${commit}:package.json`]))).version
+		throw new GateError(
+			`release commit ${commit.slice(0, 9)} was pushed under ${push.head.slice(0, 9)}: GitHub runs push workflows on a push's head commit only, so it will never get its required checks.\n     Cut a new release commit at main's head and run the release again:\n       git pull origin main && bun run changelog:assemble && git add -A && git commit --allow-empty -m 'release: ${version}' && git push origin main`
+		)
+	}
+
 	// Synchronous gh calls; a throw is caught by the poll loop like a rejection.
 	const fetchCheckRuns = (): Promise<CheckRun[]> => Promise.resolve(contexts.flatMap(context => checkRunsResponseSchema.parse(ghJson(`repos/${repo}/commits/${commit}/check-runs?check_name=${encodeURIComponent(context)}&filter=all&per_page=100`)).check_runs))
 
@@ -67,7 +102,7 @@ async function checks(commit: string, timeoutMinutes: number): Promise<number> {
 
 	if (result.verdict === 'passed') return 0
 	if (result.verdict === 'failed') {
-		console.error(`ERR: a required check did not pass on ${commit}; fix it on main and cut a new release commit, or re-run a flaky or cancelled check:`)
+		console.error(`ERR: a required check did not pass on ${commit}; re-run a flaky or cancelled check, or fix it on main and redo the release commit (dev-docs/release-runbook.md, "Redo a release commit"):`)
 		for (const check of result.checks.filter(c => c.state === 'failed')) console.error(describeCheck(check))
 		return 1
 	}

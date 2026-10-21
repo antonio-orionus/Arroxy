@@ -166,13 +166,22 @@ git tag -a "$TAG" "$TARGET" -m "release $VERSION"
 # Push exactly this tag (and, for a beta, the branch). --follow-tags would also
 # push every stale annotated local tag reachable from main, and GitHub creates
 # no tag events at all when a push carries more than three tags, so the release
-# workflow would never start.
+# workflow would never start. A rejected push drops the local tag again, or the
+# next run would refuse at step 5.
 if [[ "$MODE" == "stable" ]]; then
   echo "Pushing tag…"
-  git push origin "refs/tags/$TAG"
+  PUSH=(git push origin "refs/tags/$TAG")
 else
   echo "Pushing branch + tag…"
-  git push --atomic origin "HEAD:refs/heads/$BRANCH" "refs/tags/$TAG"
+  PUSH=(git push --atomic origin "HEAD:refs/heads/$BRANCH" "refs/tags/$TAG")
+fi
+if ! "${PUSH[@]}"; then
+  git tag -d "$TAG" >/dev/null
+  echo "ERR: the push was rejected (output above); deleted the local tag $TAG, so the release can run again." >&2
+  if [[ "$MODE" == "beta" ]]; then
+    echo "     If main moved, pull it (git pull --rebase origin main) and run the release again." >&2
+  fi
+  exit 1
 fi
 
 echo

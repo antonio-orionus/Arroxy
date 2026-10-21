@@ -65,7 +65,18 @@ git commit -am "release: 0.3.2"
 git push origin main
 ```
 
-This `release: 0.3.2` commit is the **release commit**: the tag goes on it, and on nothing else. Its subject must be exactly `release: <version>` (a squash-merged PR's `(#N)` suffix after it is accepted).
+This `release: 0.3.2` commit is the **release commit**: the tag goes on it, and on nothing else. Its subject must be exactly `release: <version>` (a squash-merged PR's `(#N)` suffix after it is accepted). Until the version is tagged, the newest `release: 0.3.2` commit on `origin/main` is the release commit, so a release commit is redone by committing a new one on top (below).
+
+Push it as the head of its push, with nothing committed after it: GitHub runs push workflows on a push's head commit only, so a release commit pushed under later commits never gets its required checks. `release:stable` spots that from main's push history and stops at once; redo the release commit.
+
+If the push is rejected because a PR merged meanwhile, pull it in and fold any fragment it brought into the section, still in the unpushed release commit:
+
+```bash
+git pull --rebase origin main
+bun run changelog:assemble   # adds new fragments to ## 0.3.2; says so when there are none
+git add -A && git commit --amend --no-edit
+git push origin main
+```
 
 ## 2. Cut the stable release
 
@@ -77,7 +88,22 @@ bun run release:stable
 
 The script finds the release commit on `origin/main`, waits for every check branch protection requires on `main` to pass on that commit (listed in [`ci-cd-strategy.md`](ci-cd-strategy.md#branch-protection-contract-main)), then creates the annotated `vX.Y.Z` tag on it and pushes only the tag. PRs merged after the release commit do not matter: they are not in the release, and their runs are not waited on. CI on `main` never cancels a run, so the release commit always gets a verdict.
 
-While checks run it prints which ones it is still waiting on every 30 seconds, for up to 60 minutes (`RELEASE_CHECKS_TIMEOUT_MINUTES` changes the limit). It refuses at once if a required check failed, was cancelled or was skipped: fix it on `main` and cut a new release commit, or re-run a flaky job (`gh run rerun <id> --failed`) and run `release:stable` again. Local `main` may be behind `origin/main`, but not ahead: the release commit must be pushed first. The version comes from `origin/main`'s `package.json`.
+While checks run it prints which ones it is still waiting on every 30 seconds, for up to 60 minutes (`RELEASE_CHECKS_TIMEOUT_MINUTES` changes the limit). It refuses at once if a required check failed, was cancelled or was skipped: re-run a flaky job (`gh run rerun <id> --failed`) and run `release:stable` again, or fix it on `main` and redo the release commit. Local `main` may be behind `origin/main`, but not ahead: the release commit must be pushed first. The version comes from `origin/main`'s `package.json`.
+
+### Redo a release commit
+
+Keep the version. Bumping to the next one instead would leave this version's notes out of every GitHub release, since `publish-release` posts only the tagged version's section. Once the fix is on `main`:
+
+```bash
+git checkout main
+git pull origin main
+bun run changelog:assemble   # adds fragments merged since to ## 0.3.2, keeping your edits
+git add -A && git commit --allow-empty -m "release: 0.3.2"
+git push origin main
+bun run release:stable       # tags the newest release: 0.3.2 commit
+```
+
+`changelog:assemble` extends an existing section only while its version has no tag, locally or on `origin`; for a tagged version it stops and keeps the fragments.
 
 Dry check, which looks once and does not wait or tag:
 
@@ -105,11 +131,14 @@ git push origin main
 bun run release:beta
 ```
 
+The beta pushes `main` and its tag together, atomically. If the push is rejected (main moved), the script deletes the local tag again: `git pull --rebase origin main` and run `release:beta` again.
+
 Download the pre-release artifacts from GitHub Releases to test them. Afterwards, the stable release is the normal path above (`0.3.2-beta.1` -> `0.3.2`); do not leave `main` on a new pre-release version.
 
 ## Common misses
 
 - Do not forget `git push origin main` after the version bump; `release:stable` refuses while local `main` is ahead of `origin/main`.
-- `no 'release: X' commit` means the version bump was committed under another subject. Tag a new version from a correctly titled commit rather than renaming a pushed one.
-- A required check that is missing until the time limit usually means the release commit predates that check, or its workflow never started; `gh run list --commit <sha>` shows what ran.
+- `no 'release: X' commit` means the version bump was committed under another subject. Commit a correctly titled `release: X` on top rather than renaming a pushed one.
+- A required check that is missing until the time limit usually means the release commit predates that check, or its workflow never started; `gh run list --commit <sha>` shows what ran. A release commit pushed under later commits is caught before the wait.
+- A rejected tag push leaves no local tag behind: fix the cause and run the release again.
 - Tags must be annotated (`git tag -a …`). The `release.sh` wrapper enforces this; manual `git tag NAME` lightweight tags are silently skipped by `git push --follow-tags` and the release pipeline never fires. Push the tag by name (`git push origin refs/tags/vX.Y.Z`), never `--follow-tags` or `--tags`: those also push stale local tags, and GitHub creates no tag events for a push carrying more than three tags.

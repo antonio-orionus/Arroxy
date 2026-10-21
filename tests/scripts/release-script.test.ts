@@ -17,15 +17,16 @@ afterEach(async () => {
 })
 
 // Answers only the calls release-gate.ts makes. The required contexts come
-// from $FAKE_CONTEXTS, and each commit's check run from $FAKE_CHECKS/<sha>, as
-// `status conclusion`; a commit without a file has no check run yet.
+// from $FAKE_CONTEXTS, each commit's check run from $FAKE_CHECKS/<sha>, as
+// `status conclusion` (a commit without a file has no check run yet), and
+// main's push history from $FAKE_CHECKS/activity.json (none when absent).
 const FAKE_GH = `#!/usr/bin/env bash
 set -euo pipefail
 case "$1 $2" in
   "auth status") exit 0 ;;
   "repo view") echo o/r; exit 0 ;;
 esac
-path="$2"
+path="\${@: -1}"
 if [[ "$path" == repos/o/r/branches/main/protection/required_status_checks ]]; then
   echo "{\\"contexts\\":$FAKE_CONTEXTS}"
 elif [[ "$path" =~ ^repos/o/r/commits/([0-9a-f]+)/check-runs ]]; then
@@ -37,6 +38,9 @@ elif [[ "$path" =~ ^repos/o/r/commits/([0-9a-f]+)/check-runs ]]; then
   else
     echo '{"check_runs":[]}'
   fi
+elif [[ "$path" == repos/o/r/activity?* ]]; then
+  [[ "$*" == *"--paginate --slurp"* ]] || { echo "activity read without every page" >&2; exit 1; }
+  echo "[$(cat "$FAKE_CHECKS/activity.json" 2>/dev/null || echo '[]')]"
 else
   echo "unexpected gh call: $*" >&2
   exit 1
@@ -48,13 +52,14 @@ const GIT_ENV = {GIT_CONFIG_GLOBAL: '/dev/null', GIT_CONFIG_NOSYSTEM: '1', GIT_A
 // Every commit carries CHANGELOG.md with a section for its version, the way a
 // `release: X` commit assembles it, unless `notes` is false. `fragment` adds an
 // unassembled changelog.d/ fragment. `i18nComplete: false` makes its translation
-// completeness gate fail.
+// completeness gate fail. `push: false` leaves the commit unpushed.
 interface CommitOptions {
 	version?: string
 	cwd?: string
 	notes?: boolean
 	fragment?: string
 	i18nComplete?: boolean
+	push?: boolean
 }
 
 interface Fixture {
@@ -64,6 +69,8 @@ interface Fixture {
 	commit: (subject: string, options?: CommitOptions) => Promise<string>
 	cloneAgain: () => string
 	setCheck: (sha: string, status: string, conclusion: string) => Promise<void>
+	setPushes: (pushes: {before: string; after: string}[]) => Promise<void>
+	rejectPushes: (reject: boolean) => Promise<void>
 	release: (mode: 'stable' | 'beta', args?: string[], env?: Record<string, string>) => {status: number | null; output: string}
 }
 
@@ -103,7 +110,7 @@ async function fixture(): Promise<Fixture> {
 		await fs.appendFile(path.join(cwd, 'log.txt'), `${subject}\n`)
 		git(cwd, 'add', '.')
 		git(cwd, 'commit', '--quiet', '-m', subject)
-		git(cwd, 'push', '--quiet', 'origin', 'main')
+		if (options.push !== false) git(cwd, 'push', '--quiet', 'origin', 'main')
 		return git(cwd, 'rev-parse', 'HEAD')
 	}
 	let clones = 0
@@ -121,8 +128,16 @@ async function fixture(): Promise<Fixture> {
 		commit,
 		cloneAgain,
 		setCheck: (sha, status, conclusion) => fs.writeFile(path.join(checks, sha), `${status} ${conclusion}\n`),
+		setPushes: pushes => fs.writeFile(path.join(checks, 'activity.json'), JSON.stringify([...pushes].reverse().map(push => ({...push, activity_type: 'push'})))),
+		// Origin refuses every push while on, as when main moved under a release.
+		rejectPushes: async reject => {
+			const hook = path.join(origin, 'hooks', 'pre-receive')
+			if (reject) await fs.writeFile(hook, '#!/usr/bin/env bash\necho "rejected by test hook" >&2\nexit 1\n', {mode: 0o755})
+			else await fs.rm(hook, {force: true})
+		},
 		release: (mode, args = [], extraEnv = {}) => {
-			const result = spawnSync('bash', [SCRIPT, mode, ...args], {cwd: clone, env: {...env, ...extraEnv}, encoding: 'utf8'})
+			// The time limit turns a release that waits on checks into a failure, not a hang.
+			const result = spawnSync('bash', [SCRIPT, mode, ...args], {cwd: clone, env: {...env, ...extraEnv}, encoding: 'utf8', timeout: 60_000, killSignal: 'SIGKILL'})
 			return {status: result.status, output: `${result.stdout}${result.stderr}`}
 		}
 	}
@@ -223,6 +238,73 @@ describe.skipIf(process.platform === 'win32')('release.sh stable', () => {
 		expect(f.git(f.origin, 'tag', '--list')).toBe('')
 	})
 
+	it('tags the newest release commit when a failed one was redone on top of the fix', async () => {
+		const f = await fixture()
+		const failed = await f.commit('release: 1.2.3', {version: '1.2.3'})
+		await f.commit('fix: the check that failed (#9)')
+		const redone = await f.commit('release: 1.2.3')
+		await f.setCheck(failed, 'completed', 'failure')
+		await f.setCheck(redone, 'completed', 'success')
+
+		const {status, output} = f.release('stable')
+
+		expect(output).toContain('supersedes')
+		expect(status).toBe(0)
+		expect(f.git(f.origin, 'rev-parse', 'v1.2.3^{commit}')).toBe(redone)
+	})
+
+	it('refuses at once a release commit pushed under later commits, which gets no checks', async () => {
+		const f = await fixture()
+		const before = await f.commit('feat: earlier work')
+		const releaseCommit = await f.commit('release: 1.2.3', {version: '1.2.3', push: false})
+		const head = await f.commit('docs: a note committed after it')
+		await f.setPushes([{before, after: head}])
+
+		const {status, output} = f.release('stable', [], {RELEASE_CHECKS_TIMEOUT_MINUTES: '60'})
+
+		expect(status).toBe(1)
+		expect(output).toContain(`pushed under ${head.slice(0, 9)}`)
+		expect(output).toContain("git commit --allow-empty -m 'release: 1.2.3'")
+		expect(f.git(f.origin, 'tag', '--list')).toBe('')
+		expect(releaseCommit).not.toBe(head)
+	})
+
+	it('waits as usual for a release commit that was the head of its push', async () => {
+		const f = await fixture()
+		const before = await f.commit('feat: earlier work')
+		const releaseCommit = await f.commit('release: 1.2.3', {version: '1.2.3'})
+		const later = await f.commit('fix: merged after the release commit (#9)')
+		await f.setPushes([
+			{before, after: releaseCommit},
+			{before: releaseCommit, after: later}
+		])
+		await f.setCheck(releaseCommit, 'completed', 'success')
+
+		const {status} = f.release('stable')
+
+		expect(status).toBe(0)
+		expect(f.git(f.origin, 'rev-parse', 'v1.2.3^{commit}')).toBe(releaseCommit)
+	})
+
+	it('drops its local tag when the tag push is rejected, so the release can run again', async () => {
+		const f = await fixture()
+		const releaseCommit = await f.commit('release: 1.2.3', {version: '1.2.3'})
+		await f.setCheck(releaseCommit, 'completed', 'success')
+		await f.rejectPushes(true)
+
+		const rejected = f.release('stable')
+
+		expect(rejected.status).toBe(1)
+		expect(rejected.output).toContain('rejected by test hook')
+		expect(f.git(f.clone, 'tag', '--list')).toBe('')
+
+		await f.rejectPushes(false)
+		const {status} = f.release('stable')
+
+		expect(status).toBe(0)
+		expect(f.git(f.origin, 'rev-parse', 'v1.2.3^{commit}')).toBe(releaseCommit)
+	})
+
 	it('refuses when the release commit is not on origin/main yet', async () => {
 		const f = await fixture()
 		await f.commit('feat: pushed work')
@@ -321,5 +403,25 @@ describe.skipIf(process.platform === 'win32')('release.sh beta', () => {
 		expect(f.git(f.origin, 'rev-parse', 'v1.2.3-beta.2^{commit}')).toBe(head)
 		expect(f.git(f.origin, 'cat-file', '-t', 'v1.2.3-beta.2')).toBe('tag')
 		expect(f.git(f.origin, 'rev-parse', 'main')).toBe(head)
+	})
+
+	it('drops its local tag when the push is rejected, so the beta can run again', async () => {
+		const f = await fixture()
+		await f.commit('feat: earlier work')
+		const head = await f.commit('release: 1.2.3-beta.1', {version: '1.2.3-beta.1', push: false})
+		await f.rejectPushes(true)
+
+		const rejected = f.release('beta')
+
+		expect(rejected.status).toBe(1)
+		expect(rejected.output).toContain('rejected by test hook')
+		expect(f.git(f.clone, 'tag', '--list')).toBe('')
+
+		await f.rejectPushes(false)
+		const {status, output} = f.release('beta')
+
+		expect(output).toContain('pushed v1.2.3-beta.1')
+		expect(status).toBe(0)
+		expect(f.git(f.origin, 'rev-parse', 'v1.2.3-beta.1^{commit}')).toBe(head)
 	})
 })

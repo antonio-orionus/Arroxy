@@ -189,10 +189,33 @@ describe('changelog CLI', () => {
 		expect(await fs.readdir(path.join(root, 'changelog.d'))).toEqual([])
 	})
 
-	it('keeps the fragments when the version already has a different section', async () => {
-		const edited = insertSection(CHANGELOG, '1.2.3', '## 1.2.3\n\n## Fixes\n\n- Edited fix.\n')
-		const {root, cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': edited, 'changelog.d/a.fix.md': 'Fix.\n'})
-		expect(cli('assemble')).toMatchObject({status: 1, stderr: expect.stringMatching(/already has/)})
+	// A release commit that is redone (a failed check, or main moved under its
+	// push) picks up fragments merged since into the section it already wrote.
+	it('adds new fragments to the section of a version not tagged yet, keeping its edits', async () => {
+		const edited = insertSection(CHANGELOG, '1.2.3', '## 1.2.3\n\nWelcome.\n\n## Fixes\n\n- Edited fix.\n')
+		const {root, cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': edited, 'changelog.d/a.fix.md': 'New fix.\n', 'changelog.d/b.highlight.md': '**New.** Thing.\n', 'changelog.d/c.note.md': 'A note.\n', 'changelog.d/d.intro.md': 'More.\n', 'changelog.d/e.fix.md': 'Edited fix.\n'})
+		expect(cli('assemble')).toMatchObject({status: 0})
+		expect(await fs.readFile(path.join(root, 'CHANGELOG.md'), 'utf8')).toBe(insertSection(CHANGELOG, '1.2.3', ['## 1.2.3', '', 'Welcome.', '', 'More.', '', '## Highlights', '', '- **New.** Thing.', '', '## Fixes', '', '- Edited fix.', '- New fix.', '', '## Good to know', '', '- A note.', ''].join('\n')))
+		expect(await fs.readdir(path.join(root, 'changelog.d'))).toEqual([])
+		expect(cli('verify-release', '1.2.3')).toMatchObject({status: 0})
+	})
+
+	it('leaves the section of a version not tagged yet as it is when no fragment is new', async () => {
+		const assembled = insertSection(CHANGELOG, '1.2.3', '## 1.2.3\n\n## Fixes\n\n- Fix.\n')
+		const {root, cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': assembled})
+		expect(cli('assemble')).toMatchObject({status: 0, stdout: expect.stringMatching(/already/)})
+		expect(await fs.readFile(path.join(root, 'CHANGELOG.md'), 'utf8')).toBe(assembled)
+	})
+
+	it('keeps the fragments when the version is already tagged', async () => {
+		const released = insertSection(CHANGELOG, '1.2.3', '## 1.2.3\n\n## Fixes\n\n- Released fix.\n')
+		const {root, cli} = await repo({'package.json': '{"version": "1.2.3"}', 'CHANGELOG.md': released})
+		spawnSync('git', ['commit', '-qm', 'release: 1.2.3', '--allow-empty'], {cwd: root, env: ENV})
+		spawnSync('git', ['tag', '-a', 'v1.2.3', '-m', 'release 1.2.3'], {cwd: root, env: ENV})
+		await fs.mkdir(path.join(root, 'changelog.d'))
+		await fs.writeFile(path.join(root, 'changelog.d', 'a.fix.md'), 'Fix.\n')
+		expect(cli('assemble')).toMatchObject({status: 1, stderr: expect.stringMatching(/v1\.2\.3.*bump package\.json/)})
+		expect(await fs.readFile(path.join(root, 'CHANGELOG.md'), 'utf8')).toBe(released)
 		expect(await fs.readdir(path.join(root, 'changelog.d'))).toEqual(['a.fix.md'])
 	})
 

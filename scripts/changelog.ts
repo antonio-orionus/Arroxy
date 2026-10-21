@@ -2,7 +2,8 @@
 // section they assemble into. Runs from the repo root:
 //
 //   bun scripts/changelog.ts check                 every fragment well formed, no unreleased CHANGELOG.md section
-//   bun scripts/changelog.ts assemble [version]    write ## <package.json version> and delete the fragments
+//   bun scripts/changelog.ts assemble [version]    write ## <package.json version> and delete the fragments;
+//                                                  adds them to that section while the version is not tagged
 //   bun scripts/changelog.ts verify-release <ver> [ref]
 //                                                  CHANGELOG.md has ## <ver> and no fragment is left over,
 //                                                  in the checkout or in commit <ref>'s tree
@@ -10,7 +11,7 @@
 import {spawnSync} from 'node:child_process'
 import {existsSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync} from 'node:fs'
 import valid from 'semver/functions/valid.js'
-import {assembleSection, changelogProblems, FRAGMENT_DIR, FRAGMENT_README, fragmentProblems, insertSection, orderFragmentFiles, parseFragment, releaseSectionBody} from './changelogFragments.js'
+import {assembleSection, changelogProblems, FRAGMENT_DIR, FRAGMENT_README, fragmentProblems, insertSection, mergeIntoSection, orderFragmentFiles, parseFragment, releaseSectionBody, sectionHasFragment} from './changelogFragments.js'
 
 const CHANGELOG = 'CHANGELOG.md'
 
@@ -40,32 +41,44 @@ function gitAddLog(): string {
 	return ''
 }
 
+// The tag of a released version, locally or on origin; null when neither has
+// it. Origin is asked too, since the tag may come from another machine.
+function releaseTag(version: string): string | null {
+	const tag = `v${version}`
+	if (spawnSync('git', ['rev-parse', '--verify', '--quiet', `refs/tags/${tag}`]).status === 0) return tag
+	const remote = spawnSync('git', ['ls-remote', '--exit-code', '--tags', 'origin', `refs/tags/${tag}`], {encoding: 'utf8', timeout: 30_000})
+	if (remote.status === 0) return tag
+	if (remote.status !== 2) console.error(`Could not ask origin whether ${tag} exists (${remote.error?.message ?? remote.stderr.trim()}); checked local tags only.`)
+	return null
+}
+
 function assemble(requested: string | undefined): void {
 	const version = packageVersion()
 	if (requested !== undefined && requested.replace(/^v/, '') !== version) fail(`package.json is ${version}, not ${requested}: bump package.json first`)
 	const files = fragmentFiles()
-	if (files.length === 0) fail(`No changelog fragments in ${FRAGMENT_DIR}/: nothing user-facing to release for ${version}. Write ## ${version} by hand only if there is.`)
+	const current = readFileSync(CHANGELOG, 'utf8')
+	// A section for the version already exists when a release commit is redone
+	// (a required check failed, or main moved under its push) or an earlier run
+	// stopped halfway. Until the version is tagged, new fragments join it.
+	const existing = releaseSectionBody(current, version)
+	if (existing !== null) {
+		const tag = releaseTag(version)
+		if (tag !== null) fail(`${CHANGELOG} already has ## ${version}, released as ${tag}: bump package.json to the next version first. The fragments are kept.`)
+	}
+	if (files.length === 0) {
+		if (existing !== null) return console.log(`## ${version} in ${CHANGELOG} already holds the release notes, and no fragment is new.`)
+		fail(`No changelog fragments in ${FRAGMENT_DIR}/: nothing user-facing to release for ${version}. Write ## ${version} by hand only if there is.`)
+	}
 	const broken = files.flatMap(fileProblems)
 	if (broken.length > 0) fail(broken.join('\n'))
 	const fragments = orderFragmentFiles(files, gitAddLog()).map(file => parseFragment(file, readFileSync(file, 'utf8')))
-	const section = assembleSection(version, fragments)
-	const current = readFileSync(CHANGELOG, 'utf8')
-	// An earlier run that wrote the section but failed to delete every fragment
-	// only needs the deletion: each fragment left must already be in the
-	// section. Any other existing section is refused, fragments kept.
-	const existing = releaseSectionBody(current, version)
-	const alreadyWritten = existing !== null && fragments.every(fragment => existing.split('\n').some(line => line === fragment.text || line === `- ${fragment.text}`))
-	if (!alreadyWritten) {
-		let changelog: string
-		try {
-			changelog = insertSection(current, version, section)
-		} catch (error) {
-			fail(error instanceof Error ? error.message : String(error))
-		}
-		writeFileSync(CHANGELOG, changelog)
+	if (existing === null) writeFileSync(CHANGELOG, insertSection(current, version, assembleSection(version, fragments)))
+	else {
+		const fresh = fragments.filter(fragment => !sectionHasFragment(existing, fragment))
+		if (fresh.length > 0) writeFileSync(CHANGELOG, mergeIntoSection(current, version, fresh))
 	}
 	for (const file of files) rmSync(file)
-	console.log(`Wrote ## ${version} to ${CHANGELOG} from ${files.length} fragment(s) and deleted them. Read it over before committing release: ${version}.`)
+	console.log(`${existing === null ? 'Wrote' : 'Added to'} ## ${version} in ${CHANGELOG} from ${files.length} fragment(s) and deleted them. Read it over before committing release: ${version}.`)
 }
 
 function gitRead(args: string[]): string {

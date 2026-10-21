@@ -10,18 +10,37 @@ export interface CommitLine {
 	subject: string
 }
 
-export type ReleaseCommitLookup = {kind: 'found'; sha: string} | {kind: 'missing'} | {kind: 'ambiguous'; shas: string[]}
+export type ReleaseCommitLookup = {kind: 'found'; sha: string; superseded: string[]} | {kind: 'missing'}
 
 // The release commit is the `release: X` commit that carries the version bump
 // and the changelog. Pushed straight to main its subject is exactly that; a
 // squash-merged pull request appends ` (#N)`.
 const RELEASE_SUBJECT = /^release: (\S+?)(?: \(#\d+\))?$/
 
+// Commits come newest first. A release commit whose checks failed, or that
+// never got any, is redone with a new `release: X` commit on top, so the newest
+// one wins; release.sh refuses a version that is already tagged before asking.
 export function findReleaseCommit(commits: readonly CommitLine[], version: string): ReleaseCommitLookup {
-	const shas = commits.filter(commit => RELEASE_SUBJECT.exec(commit.subject)?.[1] === version).map(commit => commit.sha)
-	if (shas.length === 0) return {kind: 'missing'}
-	const [sha] = shas
-	return shas.length === 1 && sha !== undefined ? {kind: 'found', sha} : {kind: 'ambiguous', shas}
+	const [sha, ...superseded] = commits.filter(commit => RELEASE_SUBJECT.exec(commit.subject)?.[1] === version).map(commit => commit.sha)
+	return sha === undefined ? {kind: 'missing'} : {kind: 'found', sha, superseded}
+}
+
+// One entry of GitHub's repository activity for main: a push, force push or
+// pull request merge that moved the branch from `before` to `after`.
+export const repoActivitySchema = z.object({before: z.string(), after: z.string(), activity_type: z.string()})
+export type RepoActivity = z.infer<typeof repoActivitySchema>
+export const repoActivitiesSchema = z.array(repoActivitySchema)
+
+export type PushVerdict = {kind: 'head'} | {kind: 'buried'; head: string} | {kind: 'unknown'}
+
+// GitHub runs push workflows on a push's head commit only, so a commit that
+// reached main under later commits of the same push never gets a check run.
+// `contains` says whether an activity's before..after range holds the commit,
+// or null when git does not know its commits.
+export function pushOfCommit(activities: readonly RepoActivity[], sha: string, contains: (activity: RepoActivity, sha: string) => boolean | null): PushVerdict {
+	if (activities.some(activity => activity.after === sha)) return {kind: 'head'}
+	const carrier = activities.find(activity => contains(activity, sha) === true)
+	return carrier === undefined ? {kind: 'unknown'} : {kind: 'buried', head: carrier.after}
 }
 
 export const checkRunSchema = z.object({id: z.number(), name: z.string(), status: z.string(), conclusion: z.string().nullable(), html_url: z.string().nullable()})
