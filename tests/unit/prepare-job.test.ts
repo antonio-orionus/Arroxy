@@ -2,6 +2,7 @@ import {describe, expect, it} from 'vite-plus/test'
 import {prepareJob, type PrepareJobInput} from '@shared/prepareJob.js'
 import {preparedJobSchema, type EmbedOptions} from '@shared/preparedJob.js'
 import {COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
+import {h264First} from '../shared/smartTvSelectors.js'
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const EMBED_ALL: EmbedOptions = {chapters: true, metadata: true, thumbnail: true, description: true, thumbnailSidecar: true}
@@ -161,10 +162,10 @@ describe('prepareJob', () => {
 			expect(job.formatSelector).toBeUndefined()
 		})
 
-		it('mp4 codec emits formatSort + mergeOutputFormat', () => {
+		it('mp4 codec takes H.264 first and merges to mp4', () => {
 			const job = prepareJob({...BASE, mode: 'playlist', playlistSelection: {kind: 'video', tier: '720', codec: 'mp4'}, filenameTemplate: 't.ext'})
 			if (job.kind !== 'ranged-format') throw new Error('unreachable')
-			expect(job.formatSort).toContain('vcodec:h264')
+			expect(job.formatSelector).toBe(skippingAiUpscaled(h264First('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')))
 			expect(job.mergeOutputFormat).toBe('mp4')
 		})
 
@@ -180,8 +181,8 @@ describe('prepareJob', () => {
 			const job = prepareJob({...BASE, mode: 'playlist', mediaIntent: intent, filenameTemplate: 't.ext'})
 			if (job.kind !== 'ranged-format') throw new Error('unreachable')
 			expect(job.intent).toEqual(intent)
-			expect(job.formatSelector).toBe(skippingAiUpscaled('bestvideo/bestvideo*/best'))
-			expect(job.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,hdr:sdr')
+			expect(job.formatSelector).toBe(skippingAiUpscaled(h264First('bestvideo/bestvideo*/best')))
+			expect(job.formatSort).toBe('res:1080,fps,hdr:sdr')
 		})
 
 		// yt-dlp remuxes a merged WebM to MKV for cover art, but a single native

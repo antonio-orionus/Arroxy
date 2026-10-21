@@ -2,6 +2,7 @@ import {describe, expect, it} from 'vite-plus/test'
 import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaIntent.js'
 import type {MediaIntent, PlaylistSelection} from '@shared/schemas.js'
 import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
+import {h264First} from '../shared/smartTvSelectors.js'
 
 function specFor(selection: PlaylistSelection) {
 	const intent = playlistSelectionToMediaIntent(selection)
@@ -37,8 +38,8 @@ describe('mediaIntentSpec', () => {
 			// Do not use bv*: on YouTube, old combined 360p MP4 can outrank 1080p
 			// video-only H.264 when compatibility fields sort first.
 			expect(spec.formatSelector).not.toContain('bv*')
-			expect(spec.formatSelector).toBe(skippingAiUpscaled('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best'))
-			expect(spec.formatSort).toBe(`vcodec:h264,ext:mp4,res:${tier},fps,hdr:sdr,acodec:m4a`)
+			expect(spec.formatSelector).toBe(skippingAiUpscaled(h264First('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')))
+			expect(spec.formatSort).toBe(`res:${tier},fps,hdr:sdr,acodec:m4a`)
 			expect(spec.mergeOutputFormat).toBe('mp4')
 			expect(spec.audioConvert).toBeUndefined()
 			expect(spec.producesVideo).toBe(true)
@@ -63,8 +64,8 @@ describe('mediaIntentSpec', () => {
 			const intent: MediaIntent = {kind: 'video-audio', goal: 'smart-tv', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}}
 			const spec = mediaIntentSpec(intent)
 
-			expect(spec.formatSelector).toBe(skippingAiUpscaled('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best'))
-			expect(spec.formatSort).toBe('vcodec:h264,ext:mp4,res:1080,fps,hdr:sdr,acodec:m4a')
+			expect(spec.formatSelector).toBe(skippingAiUpscaled(h264First('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')))
+			expect(spec.formatSort).toBe('res:1080,fps,hdr:sdr,acodec:m4a')
 			expect(spec.mergeOutputFormat).toBe('mp4')
 			expect(spec.audioConvert).toBeUndefined()
 			expect(spec.producesVideo).toBe(true)

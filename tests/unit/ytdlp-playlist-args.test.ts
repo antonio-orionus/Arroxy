@@ -16,6 +16,7 @@ import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaInte
 import {planWorkflow, type AudioConvert as BridgeAudioConvert, type WorkflowInput} from 'yt-dlp-bridge'
 import type {AudioConvert, PlaylistSelection} from '@shared/schemas.js'
 import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, audioConversionSourceSelector, skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
+import {h264First} from '../shared/smartTvSelectors.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
 const OUTPUT_DIR = '/tmp/out'
@@ -74,12 +75,12 @@ describe('Video · MP4 codec', () => {
 		// Avoid bv*: YouTube's combined 360p MP4 can otherwise beat 1080p
 		// video-only H.264 when compatibility fields sort first.
 		expect(fVal).not.toContain('bv*')
-		expect(fVal).toBe(skippingAiUpscaled('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best'))
+		expect(fVal).toBe(skippingAiUpscaled(h264First('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')))
 		// MP4 profiles prioritize compatibility first; the selected tier guides
 		// resolution within the compatible candidates.
 		const sIdx = args.indexOf('-S')
 		expect(sIdx).toBeGreaterThan(-1)
-		expect(args[sIdx + 1]).toBe(`vcodec:h264,ext:mp4,res:${tier},fps,hdr:sdr,acodec:m4a`)
+		expect(args[sIdx + 1]).toBe(`res:${tier},fps,hdr:sdr,acodec:m4a`)
 		// container override
 		const mIdx = args.indexOf('--merge-output-format')
 		expect(mIdx).toBeGreaterThan(-1)

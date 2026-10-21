@@ -286,7 +286,7 @@ function validate(caseDef: SmokeCase, args: string[], info: SelectedInfo): strin
 		if (caseDef.selection.codec === 'mp4') {
 			if (info.ext !== 'mp4') failures.push(`merged ext expected mp4, got ${info.ext ?? '<missing>'}`)
 			if (video.vcodec === undefined || !/^(avc|h264)/i.test(video.vcodec)) failures.push(`video codec expected H.264/AVC preference, got ${video.vcodec ?? '<missing>'}`)
-			failures.push(...[assertArgValue(args, '--merge-output-format', 'mp4'), assertArgValue(args, '-S', 'vcodec:h264,acodec:m4a,ext:mp4')].filter((s): s is string => s !== null))
+			failures.push(...[assertArgValue(args, '--merge-output-format', 'mp4')].filter((s): s is string => s !== null))
 		}
 		return failures
 	}

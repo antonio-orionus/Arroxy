@@ -28,9 +28,14 @@ import {resolveProfileSelection} from '../src/shared/profileSelection.js'
 import {VIDEO_CODEC_PREFERENCES, type DownloadProfile, type DownloadProfileMedia, type HdrPreference, type NativeAudioPreference, type PlaylistVideoTier, type VideoCodecPreference, type VideoFileType, type VideoGoal} from '../src/shared/schemas.js'
 import {videoCodecAllowed} from '../src/shared/selectionOrder.js'
 import {findPython, PYTHON_REQUIREMENT} from './selection-parity/python.js'
+import {CONSTRUCTED_PROBES} from './selection-parity/constructedProbes.js'
+import {mapFormats} from '../src/shared/ytdlp/formatMapping.js'
+import {formatSelectionSource, type FormatSelectionSource, type YtDlpSelectableFormat} from '../src/shared/ytdlp/selectableFormat.js'
+import type {FormatOption} from '../src/shared/types.js'
+import {infoDictSchema} from 'yt-dlp-bridge/info'
 import {probeSourceResult} from '../src/renderer/src/dev/probeSources/index.js'
 import {resolveOutputContainer} from '../src/renderer/src/store/wizard/resolveContainer.js'
-import {PROBE_SOURCES, type ProbeSourceId} from '../src/renderer/src/dev/probeSources/sources.js'
+import {PROBE_SOURCES} from '../src/renderer/src/dev/probeSources/sources.js'
 
 const YT_DLP = {version: '2026.08.19', sha256: '1fa6733c37ea6fb51c99ad8fe785e7b7e5f3246c9b980230329d4fb72ed8d4d6'}
 
@@ -96,13 +101,42 @@ function profileCases(): ProfileCase[] {
 const BASE_PROFILE = BUILTIN_DOWNLOAD_PROFILES[0]
 if (!BASE_PROFILE) throw new Error('no built-in profile to vary')
 
+// A probe as the check reads it: what the app builds from it, and the info dict yt-dlp loads.
+interface ParityProbe {
+	id: string
+	formats: FormatOption[]
+	formatSelection: FormatSelectionSource
+	isAudioOnlySource: boolean
+	info: unknown
+}
+
+// The fixture's info dict as yt-dlp would load it: every format needs a URL to
+// be chosen, and the fixtures keep none.
+function withUrls(info: unknown, id: string): unknown {
+	if (typeof info !== 'object' || info === null) throw new Error(`${id}: fixture has no info dict`)
+	const {formats}: {formats?: unknown} = info
+	return {...info, formats: (Array.isArray(formats) ? formats : []).map((format: unknown, index) => (typeof format === 'object' && format !== null ? {...format, url: `https://parity.invalid/${index}`} : format))}
+}
+
+function recordedProbe(id: (typeof PROBE_SOURCES)[number]['id']): ParityProbe {
+	const probe = probeSourceResult(id)
+	if (!probe.formatSelection) throw new Error(`${id}: the probe carries no yt-dlp formats`)
+	const fixture: unknown = JSON.parse(readFileSync(path.join(ROOT, 'src/renderer/src/dev/probeSources', `${id}.json`), 'utf8'))
+	if (typeof fixture !== 'object' || fixture === null || !('info' in fixture)) throw new Error(`${id}: fixture has no info dict`)
+	return {id, formats: probe.formats, formatSelection: probe.formatSelection, isAudioOnlySource: probe.isAudioOnlySource, info: withUrls(fixture.info, id)}
+}
+
+function constructedProbe(id: string, raw: unknown): ParityProbe {
+	const info = infoDictSchema.parse(raw)
+	if (info._type !== 'video') throw new Error(`${id}: a constructed probe must be a single video`)
+	return {id, formats: mapFormats(info.formats ?? [], {durationSeconds: info.duration}), formatSelection: formatSelectionSource(info, undefined), isAudioOnlySource: false, info: withUrls(raw, id)}
+}
+
 // The app's pick in yt-dlp's format_id shape ("video+audio"), or null when the
 // app picks nothing yt-dlp would name (subtitles), with the container the
 // Format screen says the file saves as.
-function appPick(probeId: ProbeSourceId, profileCase: ProfileCase): {id: string; container: string} | null {
-	const probe = probeSourceResult(probeId)
+function appPick(probe: ParityProbe, profileCase: ProfileCase): {id: string; container: string} | null {
 	const profile: DownloadProfile = {...BASE_PROFILE, media: profileCase.media}
-	if (!probe.formatSelection) throw new Error(`${probeId}: the probe carries no yt-dlp formats`)
 	const {media} = resolveProfileSelection({profile, formats: probe.formats, selection: probe.formatSelection, subtitles: {}, automaticCaptions: {}, isAudioOnlySource: probe.isAudioOnlySource, nativeAudioPreference: profileCase.nativeAudio})
 	// Keep as-is names the combined file whose audio it extracts, as yt-dlp's `-x` does.
 	const audio = media.audioSelection.kind === 'native' || media.audioSelection.kind === 'extract' ? (media.audioSelection.formatId ?? null) : null
@@ -113,18 +147,8 @@ function appPick(probeId: ProbeSourceId, profileCase: ProfileCase): {id: string;
 	return {id: audio === null ? media.videoFormatId : `${media.videoFormatId}+${audio}`, container}
 }
 
-// The fixture's info dict as yt-dlp would load it: every format needs a URL to
-// be chosen, and the fixtures keep none.
-function oracleInfo(probeId: ProbeSourceId): unknown {
-	const fixture: unknown = JSON.parse(readFileSync(path.join(ROOT, 'src/renderer/src/dev/probeSources', `${probeId}.json`), 'utf8'))
-	if (typeof fixture !== 'object' || fixture === null || !('info' in fixture) || typeof fixture.info !== 'object' || fixture.info === null) throw new Error(`${probeId}: fixture has no info dict`)
-	const info: {formats?: unknown} = fixture.info
-	const formats = Array.isArray(info.formats) ? info.formats : []
-	return {...info, formats: formats.map((format: unknown, index) => (typeof format === 'object' && format !== null ? {...format, url: `https://parity.invalid/${index}`} : format))}
-}
-
 interface Case {
-	probe: ProbeSourceId
+	probe: string
 	label: string
 	format: string
 	sort?: string
@@ -137,16 +161,18 @@ interface Case {
 // Differences already known to be bugs, each with its fix under way. Listed so
 // the check stays a gate for everything else; an entry that no longer occurs
 // fails it too, so the list shrinks as the fixes land.
-const KNOWN_DIFFERENCES: readonly {probe: ProbeSourceId; label: string; reason: string}[] = []
+const KNOWN_DIFFERENCES: readonly {probe: string; label: string; reason: string}[] = []
 
-const isKnown = (testCase: {probe: ProbeSourceId; label: string}): boolean => KNOWN_DIFFERENCES.some(known => known.probe === testCase.probe && known.label === testCase.label)
+const isKnown = (testCase: {probe: string; label: string}): boolean => KNOWN_DIFFERENCES.some(known => known.probe === testCase.probe && known.label === testCase.label)
 
 const verbose = process.argv.includes('--verbose')
-const probeIds: readonly ProbeSourceId[] = PROBE_SOURCES.map(source => source.id)
+const probes: readonly ParityProbe[] = [...PROBE_SOURCES.map(source => recordedProbe(source.id)), ...Object.entries(CONSTRUCTED_PROBES).map(([id, constructed]) => constructedProbe(id, constructed.info))]
+const probeById = new Map(probes.map(probe => [probe.id, probe]))
 const cases: Case[] = []
-for (const probe of probeIds) {
+for (const parityProbe of probes) {
+	const probe = parityProbe.id
 	for (const profileCase of profileCases()) {
-		const app = appPick(probe, profileCase)
+		const app = appPick(parityProbe, profileCase)
 		if (app === null) continue
 		const media = profileCase.media
 		const comparesContainer = (media.kind === 'video-audio' || media.kind === 'video-only') && media.goal === 'best-picture' && media.fileType === 'auto'
@@ -170,9 +196,7 @@ function conversionSelector(target: string): string {
 // Conversions: the stream the app says a conversion starts from (its copy
 // labels and notes, a language's source) against the bridge's own selector,
 // which yt-dlp runs. The app runs the same selector through its port.
-for (const probe of probeIds) {
-	const selection = probeSourceResult(probe).formatSelection
-	if (!selection) continue
+for (const {id: probe, formatSelection: selection} of probes) {
 	for (const {target} of AUDIO_CONVERT_TARGETS) {
 		const predicted = conversionSource(selection, target)
 		if (predicted) cases.push({probe, label: `convert ${target}`, format: conversionSelector(target), expected: predicted.formatId})
@@ -180,7 +204,7 @@ for (const probe of probeIds) {
 }
 
 const ytDlp = await pinnedYtDlp()
-const request = JSON.stringify({probes: Object.fromEntries(probeIds.map(id => [id, oracleInfo(id)])), cases: cases.map(({probe, format, sort}) => ({probe, format, sort}))})
+const request = JSON.stringify({probes: Object.fromEntries(probes.map(probe => [probe.id, probe.info])), cases: cases.map(({probe, format, sort}) => ({probe, format, sort}))})
 const python = await findPython()
 if (python === null) throw new Error(`check:selection-parity needs ${PYTHON_REQUIREMENT}. Install it, then run the check again.`)
 const child = run(python.command, [...python.args, ORACLE, ytDlp], {maxBuffer: 64 * 1024 * 1024})
@@ -207,10 +231,32 @@ const differences = cases.flatMap((testCase, index) => {
 	const ytDlp = answer ? `${answer.id}${testCase.expectedExt ? ` (${answer.ext ?? '?'})` : ''}` : 'null'
 	return same ? [] : [`${testCase.probe} · ${testCase.label}: app ${app}, yt-dlp ${ytDlp}  (-f ${testCase.format}${testCase.sort ? ` -S ${testCase.sort}` : ''})`]
 })
+// Smart TV's intent, held to yt-dlp's own pick: H.264 wherever the site offers
+// it; otherwise yt-dlp's own order, where a constructed probe names the pick
+// (a stream that names no codec once won there at any height).
+const isH264 = (format: YtDlpSelectableFormat): boolean => /^(?:[hx]264|avc)/i.test(format.vcodec ?? '')
+function smartTvMiss(testCase: Case, answerId: string): string | null {
+	const tier = testCase.label.split(' ')[1]
+	const wanted = Object.entries(CONSTRUCTED_PROBES[testCase.probe]?.smartTv ?? {}).find(([height]) => height === tier)?.[1]
+	if (wanted !== undefined) return answerId === wanted ? null : `took ${answerId}, not ${wanted}`
+	const videos = (probeById.get(testCase.probe)?.formatSelection.formats ?? []).filter(format => format.vcodec !== 'none')
+	const picked = answerId
+		.split('+')
+		.map(id => videos.find(format => format.format_id === id))
+		.find(format => format !== undefined)
+	return picked && videos.some(isH264) && !isH264(picked) ? `took ${picked.format_id} (${picked.vcodec ?? 'no codec'}) though the site offers H.264` : null
+}
+const smartTvMisses = cases.flatMap((testCase, index) => {
+	const answer = oracleAnswer(picks[index])
+	const miss = testCase.label.startsWith('smart-tv') && answer ? smartTvMiss(testCase, answer.id) : null
+	return miss ? [`${testCase.probe} · ${testCase.label}: ${miss}`] : []
+})
 if (verbose) for (const testCase of cases) console.log(`${testCase.probe} · ${testCase.label}: ${testCase.expected}`)
-console.log(`selection parity: ${cases.length} cases over ${probeIds.length} probes, yt-dlp ${YT_DLP.version}; ${differences.length} differ`)
+console.log(`selection parity: ${cases.length} cases over ${probes.length} probes, yt-dlp ${YT_DLP.version}; ${differences.length} differ`)
 for (const difference of differences) console.log(`  ${difference}`)
 const stale = KNOWN_DIFFERENCES.filter(entry => !known.has(`${entry.probe} · ${entry.label}`))
 if (known.size > 0) console.log(`  ${known.size} known (${[...new Set(KNOWN_DIFFERENCES.map(entry => entry.reason))].join('; ')})`)
 for (const entry of stale) console.log(`  no longer differs, remove it from KNOWN_DIFFERENCES: ${entry.probe} · ${entry.label}`)
-if (differences.length > 0 || stale.length > 0) process.exitCode = 1
+console.log(`smart tv intent: ${smartTvMisses.length} misses`)
+for (const miss of smartTvMisses) console.log(`  ${miss}`)
+if (differences.length > 0 || stale.length > 0 || smartTvMisses.length > 0) process.exitCode = 1

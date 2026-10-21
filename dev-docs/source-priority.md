@@ -73,7 +73,8 @@ never in the download path.
   pick uses, and the readable ladder in the UI. The Interactive pick
   evaluates the same `-f`/`-S` strings through a translation of yt-dlp's sort and
   selector, and `bun run check:selection-parity` holds it to a pinned
-  yt-dlp over every recorded probe (ADR 0013).
+  yt-dlp over every recorded probe, and constructed ones for shapes no
+  recorded site has (ADR 0013).
 - **D2. A goal, not a codec.** The profile's video choice names what the
   file is for, following the Two-Audience Rule in `DESIGN.md` (plain name,
   technical tag, tooltip):
@@ -147,7 +148,15 @@ Every order starts with two rules, before the goal's own ranks:
 HEVC, H.264) · size.
 
 **Smart TV:** H.264 · MP4 container · resolution ≤ tier · fps · HDR · source
-· size.
+· size. H.264 and MP4 are filters in the selector, not `-S` fields: each
+alternative is tried with H.264 in MP4, then H.264, then as it is. Under
+`-S vcodec:h264` yt-dlp ranked the codecs it orders below H.264, and a stream
+that names no codec, above AV1, VP9 and HEVC, and before the resolution, so a
+site without H.264 gave a codec-less stream at any height. With no H.264 the
+rest is yt-dlp's own order: the resolution, then AV1, VP9, HEVC before a
+stream that names no codec. A constructed probe in the selection parity check
+(`scripts/selection-parity/constructedProbes.ts`) holds yt-dlp to that, and
+the check fails where a site offers H.264 and yt-dlp takes another codec.
 
 **Video codec preference** (`videoCodec`, Best picture only): VP9 or H.264
 first. It is a `vcodec:` limit in `-S` (`vcodec:vp9.2`, the limit yt-dlp

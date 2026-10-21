@@ -2,7 +2,8 @@
 // video and one audio stream, best first. It is built once from the profile
 // (goal, tier, file type, native audio) and the global settings, and three
 // things are derived from it instead of being written by hand:
-//   - the yt-dlp `-S` sort a queued download passes (`formatSortFor`),
+//   - the yt-dlp `-f` and `-S` a queued download passes (`mediaIntentSpec`,
+//     `formatSortFor`),
 //   - the Interactive Download pick over a probe (`profileSelection.ts`),
 //   - the "Why this one" explanation the UI shows (the ranks themselves).
 
@@ -161,10 +162,12 @@ function videoSortToken(rank: VideoRank, order: SelectionOrder): string | undefi
 		// `-S` can't leave streams out: the format selector filters them (mediaIntent).
 		case 'original':
 			return undefined
+		// The format selector takes these first (mediaIntent): `vcodec:h264` would
+		// also rank a stream that names no codec above AV1, VP9 and HEVC, and
+		// both would come before the resolution where there is no H.264.
 		case 'h264':
-			return 'vcodec:h264'
 		case 'mp4-streams':
-			return 'ext:mp4'
+			return undefined
 		case 'resolution':
 			if (rank.tier !== 'best') return `res:${rank.tier}`
 			return spellOut ? 'res' : undefined
