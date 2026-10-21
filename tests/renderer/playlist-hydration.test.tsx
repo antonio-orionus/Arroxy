@@ -46,7 +46,7 @@ describe('playlist hydration', () => {
 
 		useAppStore.setState({
 			wizardMode: 'playlist',
-			playlistItems: [{id: '1::https://www.bilibili.com/video/BV1bK411W797?p=1', url: 'https://www.bilibili.com/video/BV1bK411W797?p=1', title: 'Untitled · #1', thumbnail: '', playlistIndex: 1, videoId: null, titleIsPlaceholder: true}],
+			playlistItems: [{id: '1::https://www.bilibili.com/video/BV1bK411W797?p=1', url: 'https://www.bilibili.com/video/BV1bK411W797?p=1', title: 'Untitled · #1', thumbnail: '', playlistIndex: 1, videoId: null, titleIsPlaceholder: true, mediaTags: {album: 'Listed Album'}}],
 			selectedPlaylistItemIds: ['1::https://www.bilibili.com/video/BV1bK411W797?p=1'],
 			bulkMetadataStatus: 'resolving',
 			bulkMetadataCompleted: 0,
@@ -62,7 +62,8 @@ describe('playlist hydration', () => {
 		expect(state.playlistItems[0]?.title).toBe('Real Part Title')
 		expect(state.playlistItems[0]?.uploader).toBe('Some Uploader')
 		expect(state.playlistItems[0]?.uploadDate).toBe('20260803')
-		expect(state.playlistItems[0]?.mediaTags).toEqual({category: 'Music'})
+		// The probe adds a category; the album the listing supplied is kept.
+		expect(state.playlistItems[0]?.mediaTags).toEqual({album: 'Listed Album', category: 'Music'})
 		expect(state.playlistItems[0]?.timestamp).toBe(1754000000)
 		expect(state.playlistItems[0]?.titleIsPlaceholder).toBeUndefined()
 	})

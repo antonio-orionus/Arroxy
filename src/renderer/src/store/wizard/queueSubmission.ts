@@ -453,9 +453,11 @@ export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: A
 
 	if (probe.kind === 'video') {
 		const template = resolveJobFilenameTemplate(profile, state.settings?.common?.filenameTemplate)
-		const templateMeta = videoProbeTemplateMeta(probe)
+		const url = probe.webpageUrl || source.url
+		// {site} comes from the link that is queued, which falls back to the source.
+		const templateMeta = videoProbeTemplateMeta({...probe, webpageUrl: url})
 		const item = buildProfileEntryQueueItem({
-			entry: {url: probe.webpageUrl || source.url, title: probe.title, thumbnail: probe.thumbnail},
+			entry: {url, title: probe.title, thumbnail: probe.thumbnail},
 			probeInfoJsonRef: probe.probeInfoJsonRef,
 			auth: probe.auth,
 			outputDir: templateOutputDir(singleOutputDir, template, templateMeta),

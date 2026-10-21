@@ -291,6 +291,14 @@ describe('QueueSubmission', () => {
 		}
 	})
 
+	it('names a {site} folder after the queued link when the probe reports no page URL', () => {
+		const settings = defaultAppSettings('/downloads')
+		settings.common.filenameTemplate = '{site}/{title} [{id}]'
+		const prepared = prepareActiveProfileQueueSubmission({...VIDEO_PROBE, webpageUrl: ''}, state({settings}), 'normal', {url: 'https://vimeo.com/1', playlistTitle: ''})
+
+		expect(prepared?.items[0]?.outputDir).toMatch(/[/\\]vimeo\.com$/)
+	})
+
 	it('uses the probe webpage URL for active-profile video items when wizard state is stale', () => {
 		const prepared = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({wizardUrl: 'https://www.youtube.com/watch?v=stale'}), 'normal', NO_SOURCE)
 
