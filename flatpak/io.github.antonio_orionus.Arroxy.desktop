@@ -21,5 +21,4 @@ Exec=arroxy.sh %U
 Icon=io.github.antonio_orionus.Arroxy
 Type=Application
 Categories=Network;AudioVideo;
-MimeType=x-scheme-handler/arroxy;
 Keywords=youtube;video;audio;download;media;mp4;mkv;subtitle;playlist;

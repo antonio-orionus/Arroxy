@@ -10,12 +10,6 @@
 
 !define ARROXY_SOURCE_KEY "Software\Arroxy"
 
-; arroxy:// links (src/main/linkScheme). electron-builder's `protocols` covers
-; macOS and Linux but not NSIS, so the scheme is registered here. The `--` ends
-; Chromium's switches, so nothing inside a link can pass one; the app ignores
-; the link unless its release flag is on.
-!define ARROXY_LINK_KEY "Software\Classes\arroxy"
-
 !macro customInstall
   Push $R0
   Push $R1
@@ -31,21 +25,16 @@
     FileOpen $R1 "$INSTDIR\installed-by-winget" w
     FileClose $R1
   ${endIf}
-  WriteRegStr HKCU "${ARROXY_LINK_KEY}" "" "URL:Arroxy link"
-  WriteRegStr HKCU "${ARROXY_LINK_KEY}" "URL Protocol" ""
-  WriteRegStr HKCU "${ARROXY_LINK_KEY}\DefaultIcon" "" "$appExe,0"
-  WriteRegStr HKCU "${ARROXY_LINK_KEY}\shell\open\command" "" '"$appExe" -- "%1"'
   ClearErrors
   Pop $R1
   Pop $R0
 !macroend
 
 ; A reinstall runs the old uninstaller with --updated; only a real uninstall
-; forgets where the install came from and unregisters arroxy:// links.
+; forgets where the install came from.
 !macro customUnInstall
   ${ifNot} ${isUpdated}
     DeleteRegValue HKCU "${ARROXY_SOURCE_KEY}" "InstallSource"
     DeleteRegKey /ifempty HKCU "${ARROXY_SOURCE_KEY}"
-    DeleteRegKey HKCU "${ARROXY_LINK_KEY}"
   ${endIf}
 !macroend

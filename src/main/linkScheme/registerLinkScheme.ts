@@ -12,9 +12,9 @@ export interface LinkSchemeDeps {
 	log: LinkInboxLog
 }
 
-// The entry point for `arroxy://` links. Installers register the scheme
-// whether or not the flag is on, so with the flag off nothing listens: the
-// link only starts or focuses Arroxy.
+// The entry point for `arroxy://` links. Installers register the scheme only
+// once the flag ships; until then a link reaches Arroxy only on a command
+// line, and with the flag off nothing listens.
 export function registerLinkScheme({onOpenUrl, onSecondInstance, argv, log}: LinkSchemeDeps): LinkInbox | null {
 	if (!isReleaseFlagOn('linkScheme')) return null
 	const inbox = new LinkInbox(log)
