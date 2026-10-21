@@ -46,4 +46,9 @@ describe('README strings', () => {
 
 		expect(resolveStamp(rendered, '> _Last updated: 2026-05-14._\n', '2026-10-21')).toEqual({date: '2026-10-21', changed: true})
 	})
+
+	it('refuses a README whose stamp string lost its date placeholder', () => {
+		expect(() => resolveStamp('> _Zuletzt aktualisiert: {{LAST_UPDATED }}._\n', null, '2026-10-21')).toThrow(/LAST_UPDATED/)
+		expect(() => resolveStamp(`${STAMP_TOKEN} ${STAMP_TOKEN}`, null, '2026-10-21')).toThrow(/LAST_UPDATED/)
+	})
 })

@@ -31,9 +31,15 @@ function todayUtc() {
 }
 
 // Returns the date to stamp plus whether it moved, given the previous file (if any).
+// Throws when the render does not carry the stamp exactly once: a translation of
+// `last_updated` that lost its {{LAST_UPDATED}} would otherwise ship without a date.
 export function resolveStamp(rendered, previous, today = todayUtc()) {
-  const [before, after] = rendered.split(STAMP_TOKEN);
-  if (previous && after !== undefined && previous.startsWith(before) && previous.endsWith(after)) {
+  const parts = rendered.split(STAMP_TOKEN);
+  if (parts.length !== 2) {
+    throw new Error(`the README must show {{LAST_UPDATED}} exactly once (found ${parts.length - 1}); check its last_updated string`);
+  }
+  const [before, after] = parts;
+  if (previous && previous.startsWith(before) && previous.endsWith(after)) {
     const prevDate = previous.slice(before.length, previous.length - after.length);
     if (STAMP_DATE_RE.test(prevDate)) return { date: prevDate, changed: false };
   }
@@ -246,7 +252,13 @@ async function main() {
 
     const outPath = resolve(ROOT, loc.filename);
     const previous = await readFile(outPath, "utf8").catch(() => null);
-    const { date, changed } = resolveStamp(md, previous);
+    let stamp;
+    try {
+      stamp = resolveStamp(md, previous);
+    } catch (error) {
+      throw new Error(`Locale "${loc.code}": ${error instanceof Error ? error.message : String(error)}`);
+    }
+    const { date, changed } = stamp;
     await writeFile(outPath, md.replace(STAMP_TOKEN, date), "utf8");
     console.log(
       `  ✓ ${loc.code.padEnd(5)} → ${loc.filename.padEnd(30)} ${date}${changed ? " (updated)" : ""}`,
