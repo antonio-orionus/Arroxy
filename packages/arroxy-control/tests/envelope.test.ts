@@ -50,6 +50,12 @@ describe('parseControlRequest', () => {
 		expect(parseControlRequest({type: 'request', id: 'r1', method: 'status'})).toEqual({ok: true, request: {type: 'request', id: 'r1', method: 'status', params: {}}})
 	})
 
+	it('refuses null params with invalid_request: only missing params mean an empty object', () => {
+		const parsed = parseControlRequest({type: 'request', id: 'r1', method: 'queue.pauseAll', params: null})
+		expect(parsed.ok).toBe(false)
+		if (!parsed.ok) expect(parsed.error.code).toBe('invalid_request')
+	})
+
 	it('refuses an unknown method with invalid_request', () => {
 		const parsed = parseControlRequest({type: 'request', id: 'r1', method: 'probe', params: {}})
 		expect(parsed.ok).toBe(false)

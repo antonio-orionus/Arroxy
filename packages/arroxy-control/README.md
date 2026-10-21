@@ -27,20 +27,35 @@ On the local socket a connection opens with a three-step handshake. The app prov
 
 ```jsonc
 // 1. The client says hello with the majors it speaks and a fresh nonce. No credential.
-{"type": "request", "id": "h1", "method": "hello", "params": {"protocol": {"majors": [1]}, "client": {"name": "arroxy-mcp", "version": "0.1.0"}, "clientNonce": "<nonce>"}}
-// 2. The app answers with its proof, HMAC(token, clientNonce), and a nonce of its own.
+{"type": "request", "id": "h1", "method": "hello", "params": {"protocol": {"majors": [1]}, "client": {"name": "arroxy-mcp", "version": "0.1.0"}, "clientNonce": "<clientNonce>"}}
+// 2. The app answers with its proof over clientNonce and a nonce of its own.
 //    The client checks serverProof and drops the connection if it does not match.
-{"type": "response", "id": "h1", "ok": true, "result": {"serverProof": "<proof>", "serverNonce": "<nonce>"}}
-// 3. The client proves itself over serverNonce.
-{"type": "request", "id": "h2", "method": "auth", "params": {"clientId": "c1", "proof": "<HMAC(clientSecret, serverNonce)>"}}
+{"type": "response", "id": "h1", "ok": true, "result": {"serverProof": "<server proof>", "serverNonce": "<serverNonce>"}}
+// 3. The client proves itself over both nonces.
+{"type": "request", "id": "h2", "method": "auth", "params": {"clientId": "c1", "proof": "<client proof>"}}
 {"type": "response", "id": "h2", "ok": true, "result": {"protocol": 1, "appVersion": "0.9.0", "bootId": "b1", "clientId": "c1", "rules": ["trusted"]}}
 ```
 
-- **Known client:** `auth {clientId, proof: HMAC(clientSecret, serverNonce)}`.
-- **First connection:** `auth {proof: HMAC(token, serverNonce)}` with no `clientId`. The app answers `approval_pending` with `details.approvalId` and asks the user to Allow or Deny.
-- **After Allow:** on a new connection, `auth {approvalId, proof: HMAC(token, serverNonce)}`. The result carries the `clientId` and the issued `clientSecret`, exactly once.
+The proofs:
 
-HMAC is HMAC-SHA256 keyed by the UTF-8 bytes of the secret or token, over the UTF-8 bytes of the nonce string, written as base64url without padding (43 characters). `handshakeProof(secret, nonce)` computes it with WebCrypto. Nonces are 16 to 64 random bytes in base64url without padding (22 to 86 characters). Before a successful `auth` the app accepts only `hello` then `auth`: it closes a connection that sends no `hello` within 2 s with a `handshake_timeout` error whose `id` is `null`, drops a first frame over 4 KiB, and answers any other method with `unauthorized` and closes.
+```text
+serverProof = HMAC(token, "arroxy-control/v1 server\n" + clientNonce)
+proof       = HMAC(key,   "arroxy-control/v1 client\n" + serverNonce + "\n" + clientNonce)
+```
+
+The two labels keep a server proof from ever passing as a client proof, so a client without the token cannot say hello with another connection's `serverNonce` and replay the answer as its `auth` proof. The `key` depends on the case:
+
+- **Known client:** `auth {clientId, proof}`, keyed by its `clientSecret`.
+- **First connection:** `auth {proof}` with no `clientId`, keyed by the token. The app answers `approval_pending` with `details.approvalId` and asks the user to Allow or Deny.
+- **After Allow:** on a new connection, `auth {approvalId, proof}`, keyed by the token. The result carries the `clientId` and the issued `clientSecret`, exactly once.
+
+HMAC is HMAC-SHA256 keyed by the UTF-8 bytes of the secret or token, over the UTF-8 bytes of the message, written as base64url without padding (43 characters). `handshakeServerProof(token, clientNonce)` and `handshakeClientProof(key, serverNonce, clientNonce)` compute them with WebCrypto. Nonces are 16 to 64 random bytes in base64url without padding (22 to 86 characters).
+
+Until `auth` succeeds the app accepts one `hello`, then one `auth`, and nothing else:
+
+- The connection has 2 s from connect until `auth` succeeds. Past that the app sends a `handshake_timeout` error whose `id` is `null` and closes.
+- Every frame before a successful `auth` is capped at 4 KiB; a longer one drops the connection.
+- A second `hello`, any method other than `auth` after `hello`, or any method before `hello` answers `unauthorized` and closes.
 
 The token and the socket path come from the discovery file, `control.json` in the app's user data folder (`controlDiscoverySchema`). The app rewrites it on each launch and deletes it on a clean quit; a client checks that the app is alive by connecting.
 

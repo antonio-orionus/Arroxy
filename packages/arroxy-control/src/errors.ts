@@ -1,4 +1,5 @@
 import {z} from 'zod'
+import {idSchema} from './views'
 
 // The fixed public error table. The app maps every internal failure to one of
 // these codes at the Control API boundary; clients branch on the code, never on
@@ -28,7 +29,7 @@ export const CONTROL_ERROR_TABLE = {
 	unsupported_site: {retryable: false, next: 'Use a link from a site yt-dlp supports.'},
 	probe_failed: {retryable: true, next: 'Call intake.retry; if it fails again, open the link in a browser to check it.'},
 	version_unsupported: {retryable: false, next: 'Update the client or Arroxy so both speak a common protocol major.'},
-	handshake_timeout: {retryable: true, next: 'Connect again and send hello within 2 s.'},
+	handshake_timeout: {retryable: true, next: 'Connect again and finish hello and auth within 2 s.'},
 	internal: {retryable: true, next: "Retry once; if it fails again, check Arroxy's log."}
 } as const satisfies Record<ControlErrorCode, ControlErrorTableEntry>
 
@@ -38,7 +39,7 @@ export const controlErrorDetailsSchema = z.object({
 	// The ytdlp-errors kind behind a probe_failed.
 	ytdlpKind: z.string().min(1).optional(),
 	// Hand this back in auth, on a new connection, once the user has chosen Allow.
-	approvalId: z.string().min(1).optional(),
+	approvalId: idSchema.optional(),
 	retryAfterMs: z.number().int().nonnegative().optional(),
 	limit: z.number().int().nonnegative().optional(),
 	clientMajors: z.array(z.number().int().positive()).optional(),

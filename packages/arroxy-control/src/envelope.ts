@@ -36,7 +36,8 @@ export type ParsedControlRequest = {readonly ok: true; readonly request: Control
 export function parseControlRequest(envelope: ControlRequestEnvelope): ParsedControlRequest {
 	if (!isControlMethod(envelope.method)) return {ok: false, error: controlError('invalid_request', `Unknown method ${envelope.method}.`)}
 	const method = envelope.method
-	const parsed = CONTROL_METHODS[method].params.safeParse(envelope.params ?? {})
+	// Only missing params mean "none"; an explicit null is a malformed request.
+	const parsed = CONTROL_METHODS[method].params.safeParse(envelope.params === undefined ? {} : envelope.params)
 	if (!parsed.success) return {ok: false, error: controlError('invalid_request', `Invalid params for ${method}: ${z.prettifyError(parsed.error)}`)}
 	// parsed.data came from CONTROL_METHODS[method].params, so it is ControlParams<typeof method>;
 	// TypeScript cannot correlate the two unions without this.

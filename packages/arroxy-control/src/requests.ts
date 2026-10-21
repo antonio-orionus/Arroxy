@@ -26,14 +26,16 @@ const helloParamsSchema = z.object({
 	clientNonce: handshakeNonceSchema
 })
 
-// The challenge. serverProof = HMAC(token, clientNonce): the client checks it
-// before sending auth and drops the connection if it does not match.
+// The challenge. serverProof is handshakeServerProof(token, clientNonce): the
+// client checks it before sending auth and drops the connection if it does not
+// match.
 const helloResultSchema = z.object({serverProof: handshakeProofSchema, serverNonce: handshakeNonceSchema})
 
-// proof = HMAC(clientSecret, serverNonce) with `clientId` for a known client, and
-// HMAC(token, serverNonce) otherwise: alone to ask the user to allow this client
-// (approval_pending), or with the `approvalId` it carried, on a new connection
-// once the user has chosen Allow, to collect the client id and secret.
+// proof is handshakeClientProof(key, serverNonce, clientNonce). The key is the
+// client secret with `clientId` for a known client, and the token otherwise:
+// alone to ask the user to allow this client (approval_pending), or with the
+// `approvalId` it carried, on a new connection once the user has chosen Allow,
+// to collect the client id and secret.
 const authParamsSchema = z.union([z.object({proof: handshakeProofSchema, clientId: idSchema.optional(), approvalId: z.never().optional()}), z.object({proof: handshakeProofSchema, approvalId: idSchema, clientId: z.never().optional()})])
 
 const authResultSchema = z.object({

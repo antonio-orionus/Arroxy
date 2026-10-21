@@ -39,6 +39,12 @@ describe('controlError', () => {
 		expect(controlErrorSchema.parse(error).details).toEqual({clientMajors: [2], serverMajors: [1]})
 	})
 
+	it('bounds an approval id as auth does', () => {
+		const error = {code: 'approval_pending', message: 'Waiting for Allow.', retryable: true, next: 'y'}
+		expect(controlErrorSchema.safeParse({...error, details: {approvalId: 'a'.repeat(128)}}).success).toBe(true)
+		expect(controlErrorSchema.safeParse({...error, details: {approvalId: 'a'.repeat(129)}}).success).toBe(false)
+	})
+
 	it('refuses an unknown code', () => {
 		expect(controlErrorSchema.safeParse({code: 'teapot', message: 'x', retryable: false, next: 'y'}).success).toBe(false)
 	})

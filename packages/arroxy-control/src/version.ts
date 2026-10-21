@@ -6,7 +6,8 @@ export const CONTROL_PROTOCOL_MAJORS: readonly number[] = [1]
 
 export type ProtocolNegotiation = {readonly ok: true; readonly major: number} | {readonly ok: false; readonly error: ControlError}
 
-// The app answers hello with the highest major both sides speak.
+// hello refuses with version_unsupported when no major is shared; otherwise the
+// highest major both sides speak comes back in the auth result.
 export function negotiateProtocolMajor(clientMajors: readonly number[], serverMajors: readonly number[] = CONTROL_PROTOCOL_MAJORS): ProtocolNegotiation {
 	const shared = clientMajors.filter(major => serverMajors.includes(major))
 	if (shared.length > 0) return {ok: true, major: Math.max(...shared)}
