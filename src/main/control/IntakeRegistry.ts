@@ -66,9 +66,10 @@ export class IntakeRegistry {
 	}
 
 	// Whether the client already has as many intakes probing as it may
-	// (links.add answers limit_exceeded then).
-	probingCapReached(clientId: string): boolean {
-		let count = 0
+	// (links.add answers limit_exceeded then). `placing`: the client's links
+	// whose rows are not placed yet, which this cannot see.
+	probingCapReached(clientId: string, placing = 0): boolean {
+		let count = placing
 		for (const {record} of this.entries.values()) if (record.clientId === clientId && record.state.state === 'probing') count++
 		return count >= CONTROL_PROBING_INTAKES_PER_CLIENT
 	}

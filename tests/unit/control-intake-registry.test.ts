@@ -110,6 +110,13 @@ describe('IntakeRegistry', () => {
 		expect(h.registry.probingCapReached('client-1')).toBe(false)
 	})
 
+	it('counts the links a client is still placing toward its cap', () => {
+		for (let index = 1; index < CONTROL_PROBING_INTAKES_PER_CLIENT; index++) h.place(`p${index}`, `i${index}`)
+		expect(h.registry.probingCapReached('client-1', 0)).toBe(false)
+		expect(h.registry.probingCapReached('client-1', 1)).toBe(true)
+		expect(h.registry.probingCapReached('client-2', CONTROL_PROBING_INTAKES_PER_CLIENT - 1)).toBe(false)
+	})
+
 	describe('intake outcomes', () => {
 		it('queues the intake with every row it made', () => {
 			h.place('p1', 'i1')

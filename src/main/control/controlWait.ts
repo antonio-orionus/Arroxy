@@ -1,0 +1,48 @@
+// `wait`: hold a request until its target reaches a state, listening to the
+// sources that change it and never polling. Ends at the target, at the
+// timeout with the target as it is, when the target is gone, or when the
+// session closes; every listener and the timer go with it.
+
+export interface WaitWatch<T> {
+	// The target now; undefined once it is gone.
+	read(): T | undefined
+	reached(target: T): boolean
+	// Calls back on any change that may have moved the target.
+	subscribe(onChange: () => void): () => void
+}
+
+export type WaitEnd<T> = {kind: 'reached' | 'timeout'; target: T} | {kind: 'gone'} | {kind: 'aborted'}
+
+export function waitFor<T>(watch: WaitWatch<T>, timeoutMs: number, signal: AbortSignal): Promise<WaitEnd<T>> {
+	return new Promise(resolve => {
+		if (signal.aborted) {
+			resolve({kind: 'aborted'})
+			return
+		}
+		let ended = false
+		let unsubscribe = (): void => undefined
+		let timer: ReturnType<typeof setTimeout> | undefined
+		const end = (result: WaitEnd<T>): void => {
+			if (ended) return
+			ended = true
+			unsubscribe()
+			clearTimeout(timer)
+			signal.removeEventListener('abort', onAbort)
+			resolve(result)
+		}
+		const onAbort = (): void => end({kind: 'aborted'})
+		const look = (): void => {
+			const target = watch.read()
+			if (target === undefined) end({kind: 'gone'})
+			else if (watch.reached(target)) end({kind: 'reached', target})
+		}
+		look()
+		if (ended) return
+		unsubscribe = watch.subscribe(look)
+		signal.addEventListener('abort', onAbort, {once: true})
+		timer = setTimeout(() => {
+			const target = watch.read()
+			end(target === undefined ? {kind: 'gone'} : {kind: 'timeout', target})
+		}, timeoutMs)
+	})
+}
