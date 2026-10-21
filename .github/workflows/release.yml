@@ -317,13 +317,15 @@ jobs:
           has_text() { [ -n "$(printf '%s' "$1" | tr -d '[:space:]')" ]; }
           # The notes come from main's CHANGELOG.md, so a fix-up pushed to main
           # after the tag reaches a re-run of this job. The tag's copy is the
-          # fallback, for a version main has no section for.
+          # fallback, for a version main has no section for; main's file must be
+          # readable, or a stale copy would be posted without notice.
           git fetch --no-tags --depth=1 origin "+refs/heads/main:refs/remotes/origin/main"
-          MANUAL_NOTES=$({ git show origin/main:CHANGELOG.md 2>/dev/null || true; } | section)
+          MAIN_CHANGELOG=$(git show origin/main:CHANGELOG.md)
+          MANUAL_NOTES=$(printf '%s\n' "$MAIN_CHANGELOG" | section)
           if ! has_text "$MANUAL_NOTES"; then
             MANUAL_NOTES=$(section < CHANGELOG.md)
             if has_text "$MANUAL_NOTES"; then
-              echo "::warning::main's CHANGELOG.md has no ## ${VERSION} section; using the tag's copy"
+              echo "::warning::main's CHANGELOG.md has no ## ${VERSION} section with content; using the tag's copy"
             fi
           fi
           DOWNLOAD_BADGES=$(cat <<EOF

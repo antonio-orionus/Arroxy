@@ -62,8 +62,9 @@ echo "unexpected gh call: $*" >&2; exit 1
 `
 	const changelog = (sections: Record<string, string>): string => ['# Changelog', '', ...Object.entries(sections).flatMap(([version, fix]) => [`## ${version}`, '', '## Fixes', '', `- ${fix}`, ''])].join('\n')
 
-	// The tag commit carries `atTag`; main later moves to `onMain`.
-	async function publish(version: string, atTag: string, onMain: string): Promise<{status: number | null; notes: string; output: string}> {
+	// The tag commit carries `atTag`; main later moves to `onMain`, or drops
+	// CHANGELOG.md when it is null.
+	async function publish(version: string, atTag: string, onMain: string | null): Promise<{status: number | null; notes: string; output: string}> {
 		const root = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-publish-notes-'))
 		tempDirs.push(root)
 		const git = (cwd: string, ...args: string[]): string => {
@@ -80,7 +81,8 @@ echo "unexpected gh call: $*" >&2; exit 1
 		git(work, 'add', '.')
 		git(work, 'commit', '-qm', `release: ${version}`)
 		git(work, 'tag', '-a', `v${version}`, '-m', `release ${version}`)
-		await fs.writeFile(path.join(work, 'CHANGELOG.md'), onMain)
+		if (onMain === null) git(work, 'rm', '-q', 'CHANGELOG.md')
+		else await fs.writeFile(path.join(work, 'CHANGELOG.md'), onMain)
 		git(work, 'commit', '-qam', 'docs(changelog): fix the notes', '--allow-empty')
 		git(work, 'push', '-q', 'origin', 'main', `refs/tags/v${version}`)
 		// The job's checkout: the tag commit alone, as actions/checkout leaves it.
@@ -111,7 +113,16 @@ echo "unexpected gh call: $*" >&2; exit 1
 
 		expect(status).toBe(0)
 		expect(notes).toContain('- Only at the tag.')
-		expect(output).toContain('::warning::')
+		expect(output).toContain("::warning::main's CHANGELOG.md has no ## 1.2.3-beta.1 section")
+	})
+
+	it("fails rather than fall back when main's changelog cannot be read", async () => {
+		const {status, notes, output} = await publish('1.2.3', changelog({'1.2.3': 'Only at the tag.'}), null)
+
+		expect(status).not.toBe(0)
+		expect(notes).toBe('')
+		expect(output).toContain('CHANGELOG.md')
+		expect(output).not.toContain('::warning::')
 	})
 
 	it('refuses a stable tag with no section on main or at the tag', async () => {
