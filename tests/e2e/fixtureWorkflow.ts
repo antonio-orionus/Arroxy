@@ -95,8 +95,17 @@ export async function launchFixtureApp(ytDlpPath: string, input: Omit<FixtureEnv
 	// profile). The splash leaves only once startup has applied them, and the
 	// settings read waits on the graphics policy, which a cold CI launch can
 	// hold for seconds. A user never sees the home before this point either.
-	await expect(page.getByTestId('splash-overlay')).toBeHidden({timeout: 60_000})
+	await waitForStartupSplashToLeave(page, 60_000)
 	return {app, page}
+}
+
+// The splash starts leaving once startup has applied the settings
+// (`data-state="fading"`, inert from then on) and unmounts only when its fade
+// transition ends. A hidden window on GNOME Wayland draws no frames, so that
+// transition never ends there and the faded splash stays mounted, which
+// `toBeHidden` reads as visible. "Fading or gone" holds on every platform.
+export async function waitForStartupSplashToLeave(page: Page, timeout: number): Promise<void> {
+	await expect(page.locator('[data-testid="splash-overlay"]:not([data-state="fading"])')).toHaveCount(0, {timeout})
 }
 
 export async function startBulkFromClipboard(page: Page, app: ElectronApplication, rawUrls: string): Promise<void> {

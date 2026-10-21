@@ -3,6 +3,7 @@ import os from 'node:os'
 import fs from 'node:fs'
 import {expect, test, _electron as electron, type ElectronApplication} from '@playwright/test'
 import {ensureYtDlpPath} from './fixtureHarness.js'
+import {waitForStartupSplashToLeave} from './fixtureWorkflow.js'
 
 function buildEnv(userDataDir: string, ytDlpPath: string): Record<string, string> {
 	const env: Record<string, string> = Object.fromEntries(Object.entries(process.env).filter((entry): entry is [string, string] => typeof entry[1] === 'string'))
@@ -83,7 +84,7 @@ test('seeded pending queue → Queue Manager hydrates from persisted store', asy
 	const page = await app.firstWindow()
 
 	await expect(page.locator('[data-testid="app-root"]')).toBeVisible({timeout: 15_000})
-	await expect(page.getByTestId('splash-overlay')).toBeHidden({timeout: 30_000})
+	await waitForStartupSplashToLeave(page, 30_000)
 	// The queue lives behind the Downloads tab; its class is locale-independent.
 	await page.locator('.downloads-tab-trigger').click()
 	await expect(page.locator('[data-testid="queue-manager-tab"]')).toBeVisible()

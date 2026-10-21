@@ -78,7 +78,9 @@ CI splits the run over four runners with Playwright's `--shard`, which divides b
 
 ## Running headless
 
-`ARROXY_E2E_HEADLESS=1` maps to `show: false` on the `BrowserWindow`, so the app runs and is fully driveable, just never paints on screen. Electron has no Chrome-style `--headless`, and `xvfb-run` only helps on Linux, so this is the portable option on macOS and Windows.
+`ARROXY_E2E_HEADLESS=1` maps to `show: false` on the `BrowserWindow`, so the app runs and is fully driveable, just never paints on screen. Electron has no Chrome-style `--headless`, and `xvfb-run` only helps on Linux, so this is the option on macOS and Windows.
+
+It does not work on Linux. A hidden window on a Linux desktop draws no frames (GNOME Wayland sends an unmapped window none), so `requestAnimationFrame` stops, the startup splash's fade never ends, and every Playwright click waits forever for its element to be stable. Linux runs under `xvfb-run` with a visible window instead, as CI does, and `node scripts/e2e-fixtures.mjs` picks that on its own. By hand, clear the session's Wayland variables, or Electron opens on the real desktop rather than Xvfb: `env -u WAYLAND_DISPLAY -u XDG_SESSION_TYPE -u ARROXY_E2E_HEADLESS xvfb-run -a bunx playwright test …`.
 
 The flag only takes effect in an E2E launch — `ARROXY_E2E=1` (set by the fixture harness) or `MOCK_BACKEND=1` (set by the smoke and startup-resilience specs) — so a stray export never hides a normal launch; see `isHeadlessWindowRequested()` in `src/main/e2eHarness.ts`. Any new spec that launches the app must set one of the two, or its window shows. Specs that need a focused window (hotkey feedback, clipboard watching) skip themselves under the flag. `startup-journeys.spec.ts` drives a packaged build (`PACKAGED_EXE`) and is not covered.
 

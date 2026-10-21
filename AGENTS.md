@@ -126,7 +126,7 @@ When adding idempotent IPC registration (`ipcMain.removeHandler()`, `autoUpdater
 
 ### Run Electron E2E without stealing focus
 
-Electron E2E launches a real app window, which steals focus and interrupts whoever is at the keyboard. **Always set `ARROXY_E2E_HEADLESS=1`** when running these locally — for the whole suite or one spec:
+Electron E2E launches a real app window, which steals focus and interrupts whoever is at the keyboard. **Always set `ARROXY_E2E_HEADLESS=1`** when running these locally on macOS or Windows — for the whole suite or one spec (Linux runs under `xvfb-run` instead: a hidden window there draws no frames):
 
 ```bash
 ARROXY_E2E_HEADLESS=1 bunx playwright test --config playwright.config.ts --workers=1
