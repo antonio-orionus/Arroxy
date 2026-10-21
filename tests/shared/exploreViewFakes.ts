@@ -112,4 +112,10 @@ export class FakeView {
 	constructor(readonly options: {webPreferences: Record<string, unknown>}) {
 		views.push(this)
 	}
+	// Electron may drop a view's webContents before their 'destroyed' event
+	// reaches listeners: from then on the view reads undefined.
+	dropContentsWhenDestroyed(): void {
+		const wc = this.webContents
+		Object.defineProperty(this, 'webContents', {get: () => (wc.destroyed ? undefined : wc)})
+	}
 }

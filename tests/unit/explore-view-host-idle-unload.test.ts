@@ -117,6 +117,18 @@ describe('ExploreViewHost idle unload timing', () => {
 		expect(lastState(h.emit)).toMatchObject({url: '', canGoBack: false, loading: false})
 	})
 
+	it('a view whose contents Electron already dropped is still released and its state emitted', async () => {
+		const {h} = await browsing()
+		onlyView().dropContentsWhenDestroyed()
+		await leave(h)
+		vi.advanceTimersByTime(DELAY)
+		expect(h.window.contentView.removeChildView).toHaveBeenCalledWith(onlyView())
+		expect(lastState(h.emit)).toMatchObject({url: '', canGoBack: false, loading: false})
+
+		await comeBack(h)
+		expect(secondView().navigationHistory.restore).toHaveBeenCalledTimes(1)
+	})
+
 	it('coming back before the delay cancels it', async () => {
 		const {h, wc} = await browsing()
 		await leave(h)

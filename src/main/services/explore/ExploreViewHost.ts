@@ -397,7 +397,10 @@ export class ExploreViewHost {
 		this.resumeUrl = null
 		this.mediaPlaying = false
 		if (!this.deps.window.isDestroyed()) this.deps.window.contentView.removeChildView(view)
-		if (!view.webContents.isDestroyed()) view.webContents.close()
+		// Typed as always there, but Electron may drop the contents before their
+		// 'destroyed' event reaches idleUnloaded: then there is nothing to close.
+		const wc: WebContents | undefined = view.webContents
+		if (wc && !wc.isDestroyed()) wc.close()
 	}
 
 	// One deadline per leave: a repeated inactive notice does not push it back.
