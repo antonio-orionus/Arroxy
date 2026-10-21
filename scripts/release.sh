@@ -51,7 +51,12 @@ if [[ -n "$(git status --porcelain)" ]]; then
 fi
 
 # 3. branch sync policy
-git fetch --quiet origin "$BRANCH" 2>/dev/null || true
+# A stable release looks for its release commit on origin/main, so a stale
+# origin/main would hide it.
+if ! git fetch --quiet origin "$BRANCH" 2>/dev/null && [[ "$MODE" == "stable" ]]; then
+  echo "ERR: could not fetch origin/$BRANCH; a stable release needs it up to date." >&2
+  exit 1
+fi
 LOCAL=$(git rev-parse HEAD)
 REMOTE=$(git rev-parse "origin/$BRANCH" 2>/dev/null || echo '')
 if [[ -n "$REMOTE" && "$LOCAL" != "$REMOTE" ]]; then
@@ -76,8 +81,13 @@ elif [[ -z "$REMOTE" && "$MODE" == "stable" ]]; then
   exit 1
 fi
 
-# 4. read package.json version + validate shape matches mode
-VERSION=$(node -p "require('./package.json').version")
+# 4. read package.json version + validate shape matches mode. A stable release
+# reads origin/main's, since the checkout may lag behind the release commit.
+if [[ "$MODE" == "stable" ]]; then
+  VERSION=$(git show "origin/$BRANCH:package.json" | node -e "process.stdout.write(JSON.parse(require('fs').readFileSync(0, 'utf8')).version)")
+else
+  VERSION=$(node -p "require('./package.json').version")
+fi
 case "$MODE" in
   beta)
     if [[ "$VERSION" != *-* ]]; then

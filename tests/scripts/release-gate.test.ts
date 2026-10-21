@@ -1,8 +1,9 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {evaluateRequiredChecks, findReleaseCommit, waitForRequiredChecks, type CheckRun} from '../../scripts/releaseGate.js'
 
-function run(name: string, status: string, conclusion: string | null = null, startedAt = '2026-10-21T10:00:00Z'): CheckRun {
-	return {name, status, conclusion, started_at: startedAt, html_url: `https://github.com/o/r/runs/${name.replaceAll(' ', '-')}`}
+// GitHub numbers check runs in creation order, so a later attempt has a higher id.
+function run(name: string, status: string, conclusion: string | null = null, id = 1): CheckRun {
+	return {id, name, status, conclusion, html_url: `https://github.com/o/r/runs/${name.replaceAll(' ', '-')}`}
 }
 
 describe('findReleaseCommit', () => {
@@ -64,14 +65,13 @@ describe('evaluateRequiredChecks', () => {
 	})
 
 	it('judges a re-run by its latest attempt', () => {
-		const failedThenPassed = [run('check', 'completed', 'failure', '2026-10-21T10:00:00Z'), run('check', 'completed', 'success', '2026-10-21T10:30:00Z')]
+		const failedThenPassed = [run('check', 'completed', 'failure', 1), run('check', 'completed', 'success', 2)]
 		expect(evaluateRequiredChecks(['check'], failedThenPassed).verdict).toBe('passed')
 		expect(evaluateRequiredChecks(['check'], [...failedThenPassed].reverse()).verdict).toBe('passed')
 	})
 
-	it('waits on a re-run that has not started yet', () => {
-		const rerun = {...run('check', 'queued'), started_at: null}
-		expect(evaluateRequiredChecks(['check'], [run('check', 'completed', 'failure'), rerun]).verdict).toBe('pending')
+	it('waits on a re-run that has not finished yet', () => {
+		expect(evaluateRequiredChecks(['check'], [run('check', 'completed', 'failure', 1), run('check', 'queued', null, 2)]).verdict).toBe('pending')
 	})
 
 	it('ignores check runs that are not required', () => {
@@ -155,5 +155,30 @@ describe('waitForRequiredChecks', () => {
 
 		expect(result.verdict).toBe('passed')
 		expect(lines.some(line => line.includes('HTTP 502'))).toBe(true)
+	})
+
+	it('says the lookup failed, not that checks are running, when it never succeeded', async () => {
+		const result = await waitForRequiredChecks({contexts: ['check'], timeoutMs: 0, intervalMs: 30_000, fetchCheckRuns: () => Promise.reject(new Error('HTTP 403: rate limit exceeded')), sleep: async () => {}, now: () => 0, log: () => {}})
+
+		expect(result).toMatchObject({verdict: 'timeout', lookupError: 'HTTP 403: rate limit exceeded'})
+	})
+
+	it('clears an earlier lookup failure once a poll succeeds', async () => {
+		let calls = 0
+		const fetchCheckRuns = () => (++calls === 1 ? Promise.reject(new Error('HTTP 502')) : Promise.resolve([run('check', 'in_progress')]))
+		let clock = 0
+		const result = await waitForRequiredChecks({
+			contexts: ['check'],
+			timeoutMs: 30_000,
+			intervalMs: 30_000,
+			fetchCheckRuns,
+			sleep: async ms => {
+				clock += ms
+			},
+			now: () => clock,
+			log: () => {}
+		})
+
+		expect(result).toMatchObject({verdict: 'timeout', lookupError: null})
 	})
 })

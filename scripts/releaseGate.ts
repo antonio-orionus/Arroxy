@@ -24,7 +24,7 @@ export function findReleaseCommit(commits: readonly CommitLine[], version: strin
 	return shas.length === 1 && sha !== undefined ? {kind: 'found', sha} : {kind: 'ambiguous', shas}
 }
 
-export const checkRunSchema = z.object({name: z.string(), status: z.string(), conclusion: z.string().nullable(), started_at: z.string().nullable(), html_url: z.string().nullable()})
+export const checkRunSchema = z.object({id: z.number(), name: z.string(), status: z.string(), conclusion: z.string().nullable(), html_url: z.string().nullable()})
 export type CheckRun = z.infer<typeof checkRunSchema>
 export const checkRunsResponseSchema = z.object({check_runs: z.array(checkRunSchema)})
 
@@ -36,12 +36,11 @@ export interface CheckState {
 }
 export type ChecksVerdict = 'passed' | 'pending' | 'failed'
 
-// A re-run that has not started yet has no start time and is newer than every
-// attempt that has.
-const startedAt = (run: CheckRun): string => run.started_at ?? '\uffff'
-
+// GitHub numbers check runs in creation order, so the highest id is the latest
+// attempt, whether or not it has started. Start times are missing on attempts
+// that never ran, so they cannot order re-runs.
 function latestRun(runs: readonly CheckRun[], context: string): CheckRun | undefined {
-	return runs.filter(run => run.name === context).reduce<CheckRun | undefined>((latest, run) => (latest === undefined || startedAt(run) >= startedAt(latest) ? run : latest), undefined)
+	return runs.filter(run => run.name === context).reduce<CheckRun | undefined>((latest, run) => (latest === undefined || run.id > latest.id ? run : latest), undefined)
 }
 
 function checkState(context: string, run: CheckRun | undefined): CheckState {
@@ -70,18 +69,23 @@ export interface WaitOptions {
 
 const duration = (ms: number): string => `${Math.floor(ms / 60_000)}m${String(Math.floor((ms % 60_000) / 1000)).padStart(2, '0')}s`
 
+export type WaitResult = {verdict: 'passed'; checks: CheckState[]} | {verdict: 'failed'; checks: CheckState[]} | {verdict: 'timeout'; checks: CheckState[]; lookupError: string | null}
+
 // Polls until every required check passed or one failed, for at most timeoutMs.
 // A zero limit looks once. A lookup that fails (a GitHub hiccup) is reported and
-// retried on the next poll, within the same limit.
-export async function waitForRequiredChecks(options: WaitOptions): Promise<{verdict: 'passed' | 'failed' | 'timeout'; checks: CheckState[]}> {
+// retried on the next poll, within the same limit; a timeout carries the error
+// when the last lookup failed, so it is not mistaken for checks still running.
+export async function waitForRequiredChecks(options: WaitOptions): Promise<WaitResult> {
 	const {contexts, timeoutMs, intervalMs, fetchCheckRuns, sleep, now, log} = options
 	const start = now()
 	const reported = new Set<string>()
 	let checks: CheckState[] = contexts.map(context => checkState(context, undefined))
+	let lookupError: string | null = null
 
 	for (;;) {
 		try {
 			const result = evaluateRequiredChecks(contexts, await fetchCheckRuns())
+			lookupError = null
 			checks = result.checks
 			for (const check of checks) {
 				if (check.state === 'passed' && !reported.has(check.context)) {
@@ -93,11 +97,12 @@ export async function waitForRequiredChecks(options: WaitOptions): Promise<{verd
 			const pending = checks.filter(check => check.state === 'pending')
 			log(`… Waiting on ${pending.length} of ${contexts.length} required check(s), ${duration(now() - start)} of ${duration(timeoutMs)}: ${pending.map(check => `${check.context} (${check.detail})`).join(', ')}`)
 		} catch (error) {
-			log(`… Could not read check runs (${error instanceof Error ? error.message : String(error)}); retrying.`)
+			lookupError = error instanceof Error ? error.message : String(error)
+			log(`… Could not read check runs (${lookupError}); retrying.`)
 		}
 
 		const remaining = start + timeoutMs - now()
-		if (remaining <= 0) return {verdict: 'timeout', checks}
+		if (remaining <= 0) return {verdict: 'timeout', checks, lookupError}
 		await sleep(Math.min(intervalMs, remaining))
 	}
 }

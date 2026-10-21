@@ -68,7 +68,7 @@ bun run release:stable
 
 The script finds the release commit on `origin/main`, waits for every check branch protection requires on `main` to pass on that commit (today `check`, `FFmpeg remux gate`, `E2E fixtures gate`, `Cold start gate`, `Windows installer gate`, `Dev smoke gate`), then creates the annotated `vX.Y.Z` tag on it and pushes only the tag. PRs merged after the release commit do not matter: they are not in the release, and their runs are not waited on. CI on `main` never cancels a run, so the release commit always gets a verdict.
 
-While checks run it prints which ones it is still waiting on every 30 seconds, for up to 60 minutes (`RELEASE_CHECKS_TIMEOUT_MINUTES` changes the limit). It refuses at once if a required check failed, was cancelled or was skipped: fix it on `main` and cut a new release commit, or re-run a flaky job (`gh run rerun <id> --failed`) and run `release:stable` again. Local `main` may be behind `origin/main`, but not ahead: the release commit must be pushed first.
+While checks run it prints which ones it is still waiting on every 30 seconds, for up to 60 minutes (`RELEASE_CHECKS_TIMEOUT_MINUTES` changes the limit). It refuses at once if a required check failed, was cancelled or was skipped: fix it on `main` and cut a new release commit, or re-run a flaky job (`gh run rerun <id> --failed`) and run `release:stable` again. Local `main` may be behind `origin/main`, but not ahead: the release commit must be pushed first. The version comes from `origin/main`'s `package.json`.
 
 Dry check, which looks once and does not wait or tag:
 

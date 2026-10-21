@@ -71,6 +71,10 @@ async function checks(commit: string, timeoutMinutes: number): Promise<number> {
 		for (const check of result.checks.filter(c => c.state === 'failed')) console.error(describeCheck(check))
 		return 1
 	}
+	if (result.lookupError !== null) {
+		console.error(`ERR: could not read the check runs of ${commit} from GitHub: ${result.lookupError}`)
+		return 1
+	}
 	const pending = result.checks.filter(check => check.state === 'pending')
 	console.error(timeoutMinutes === 0 ? `ERR: required checks are still running on ${commit}:` : `ERR: timed out after ${timeoutMinutes} min; required checks still running on ${commit}:`)
 	for (const check of pending) console.error(describeCheck(check))
