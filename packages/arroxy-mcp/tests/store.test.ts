@@ -2,7 +2,7 @@ import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
-import {FileSecretStore, LockBusyError, type LockFiles, nodeLockFiles, SecretStoreError} from '../src/store'
+import {claimFile, FileSecretStore, LockBusyError, type LockFiles, nodeLockFiles, SecretStoreError} from '../src/store'
 
 const isWindows = process.platform === 'win32'
 const roots: string[] = []
@@ -263,6 +263,41 @@ describe('FileSecretStore lock on a busy lock file', () => {
 		expect(ran).toBe(false)
 	})
 
+	it('keeps the outcome of the work, and logs, when releasing the lock fails', async () => {
+		const dir = await configDir()
+		const lock = path.join(dir, 'clients.json.lock')
+		const logs: string[] = []
+		const noClaims: LockFiles = {create: async (file, token) => (file.includes('.takeover-') ? Promise.reject(errnoError('ENOSPC')) : nodeLockFiles.create(file, token)), read: nodeLockFiles.read, remove: nodeLockFiles.remove}
+		const store = new FileSecretStore(dir, process.platform, {log: line => logs.push(line), lockFiles: noClaims})
+
+		expect(await store.transaction(async () => 'stored')).toBe('stored')
+		expect(logs).toEqual([expect.stringContaining(lock)])
+		await fs.rm(lock)
+		await expect(
+			store.transaction(async () => {
+				throw new Error('work failed')
+			})
+		).rejects.toThrow('work failed')
+		expect(logs).toHaveLength(2)
+	})
+
+	it('waits out a release claim Windows answers EPERM for, then removes the lock', async () => {
+		const dir = await configDir()
+		let claimAttempts = 0
+		const busyClaim: LockFiles = {
+			create: async (file, token) => {
+				if (file.includes('.takeover-') && ++claimAttempts === 1) throw errnoError('EPERM')
+				return nodeLockFiles.create(file, token)
+			},
+			read: nodeLockFiles.read,
+			remove: nodeLockFiles.remove
+		}
+
+		expect(await new FileSecretStore(dir, process.platform, {lockFiles: busyClaim}).transaction(async () => 'ran')).toBe('ran')
+		expect(claimAttempts).toBe(2)
+		expect(await fs.readdir(dir)).toEqual([])
+	})
+
 	it.skipIf(isWindows)('still runs the work unlocked in a folder it cannot write to', async () => {
 		const dir = await configDir()
 		await fs.mkdir(dir, {recursive: true})
@@ -387,10 +422,10 @@ function mostInside(log: readonly Step[]): number {
 // file that `isStale` names reads as left long ago, so no test waits out
 // LOCK_STALE_MS. A hook that returns a pending promise holds the process
 // just before that operation.
-function processFiles(who: string, s: Steps, isStale: (file: string, token: string) => boolean, hooks: {readonly beforeRead?: (file: string) => Promise<void>; readonly beforeRemove?: (file: string) => Promise<void>} = {}): LockFiles {
+function processFiles(who: string, s: Steps, isStale: (file: string, token: string) => boolean, hooks: {readonly beforeCreate?: (file: string) => Promise<void>; readonly beforeRead?: (file: string) => Promise<void>; readonly beforeRemove?: (file: string) => Promise<void>} = {}): LockFiles {
 	return {
-		...nodeLockFiles,
 		create: async (file, token) => {
+			await hooks.beforeCreate?.(file)
 			const created = await nodeLockFiles.create(file, token)
 			s.push({who, what: 'create', file, token, created})
 			return created
@@ -514,6 +549,108 @@ describe('FileSecretStore lock with a paused or crashed process', () => {
 
 		expect(mostInside(s.log)).toBe(1)
 	})
+
+	it('never lets a holder paused before claiming its release remove the lock its successor took over meanwhile', async () => {
+		const dir = await configDir()
+		const lock = path.join(dir, 'clients.json.lock')
+		const s = steps()
+		let pausedToken: string | undefined
+		const isStale = (file: string, token: string): boolean => file === lock && token === pausedToken
+		// A is paused before it claims its own lock for release, until B has
+		// found that lock stale, taken it over and is inside.
+		const aFiles = processFiles('A', s, isStale, {
+			beforeCreate: async file => {
+				if (!file.includes('.takeover-') || did(s.log, 'A', 'paused')) return
+				s.push({who: 'A', what: 'paused'})
+				await s.until(log => did(log, 'B', 'inside'))
+			}
+		})
+		const a = run('A', s, new FileSecretStore(dir, process.platform, {lockFiles: aFiles}), async () => undefined)
+		await s.until(log => did(log, 'A', 'paused'))
+		pausedToken = createdToken(s.log, 'A', file => file === lock)
+
+		let lockOnceAReleased: string | null | undefined
+		let c: Promise<void> | undefined
+		const b = run('B', s, new FileSecretStore(dir, process.platform, {lockFiles: processFiles('B', s, isStale)}), async () => {
+			await s.until(log => did(log, 'A', 'done'))
+			lockOnceAReleased = await fs.readFile(lock, 'utf8').catch(() => null)
+			c = run('C', s, new FileSecretStore(dir, process.platform, {lockFiles: processFiles('C', s, isStale)}), async () => undefined)
+			await s.until(log => lockCreates(log, 'C', lock).length >= 1)
+		})
+		await Promise.all([a, b])
+		await c
+
+		expect(lockOnceAReleased).toBe(createdToken(s.log, 'B', file => file === lock))
+		expect(mostInside(s.log)).toBe(1)
+	})
+
+	it('never takes over a live lock on a read that paired its token with the age of the stale lock it replaced', async () => {
+		const dir = await configDir()
+		const lock = path.join(dir, 'clients.json.lock')
+		const s = steps()
+		let lockAsQLeaves: string | null | undefined
+		// Q stays inside until P has acted on the torn read: P is inside too, or
+		// has tried the lock again after it.
+		const q = run('Q', s, new FileSecretStore(dir, process.platform, {lockFiles: processFiles('Q', s, () => false)}), async () => {
+			await s.until(log => did(log, 'P', 'inside') || lockCreates(log, 'P', lock).length >= 2)
+			lockAsQLeaves = await fs.readFile(lock, 'utf8').catch(() => null)
+		})
+		await s.until(log => did(log, 'Q', 'inside'))
+		const qToken = createdToken(s.log, 'Q', file => file === lock)
+		// P's first read of the lock is torn: Q's live token with the age of the
+		// stale lock Q took over. Every later read is true.
+		let tornReads = 0
+		const tornOnce = (file: string, token: string): boolean => file === lock && token === qToken && tornReads++ === 0
+		const p = run('P', s, new FileSecretStore(dir, process.platform, {lockFiles: processFiles('P', s, tornOnce)}), async () => undefined)
+		await Promise.all([q, p])
+
+		expect(lockAsQLeaves).toBe(qToken)
+		expect(mostInside(s.log)).toBe(1)
+	})
+
+	// A stale lock and, on it, claims left by takers that died midway, each
+	// claim on the one before.
+	async function deadChain(dir: string, deadTakers: number): Promise<Set<string>> {
+		await fs.mkdir(dir, {recursive: true})
+		let file = path.join(dir, 'clients.json.lock')
+		let token = 'dead-holder'
+		const dead = new Set([token])
+		await fs.writeFile(file, token)
+		for (let taker = 1; taker <= deadTakers; taker++) {
+			file = claimFile(file, token)
+			token = `dead-taker-${taker}`
+			dead.add(token)
+			await fs.writeFile(file, token)
+		}
+		return dead
+	}
+
+	it('takes over a stale lock through the claims of two takers that died midway', async () => {
+		const dir = await configDir()
+		const dead = await deadChain(dir, 2)
+		const s = steps()
+
+		const result = await new FileSecretStore(dir, process.platform, {lockFiles: processFiles('P', s, (_file, token) => dead.has(token))}).transaction(async () => 'ran')
+
+		expect(result).toBe('ran')
+		expect(await fs.readdir(dir)).toEqual([])
+	})
+
+	it('gives up with LockBusyError, retrying at its pace, on dead claims one level deeper than it breaks', async () => {
+		const dir = await configDir()
+		const dead = await deadChain(dir, 3)
+		const s = steps()
+		let ran = false
+
+		const pending = new FileSecretStore(dir, process.platform, {lockWaitMs: 100, lockFiles: processFiles('P', s, (_file, token) => dead.has(token))}).transaction(async () => {
+			ran = true
+		})
+
+		await expect(pending).rejects.toThrow(LockBusyError)
+		expect(ran).toBe(false)
+		// Rounds 15 ms apart over a 100 ms wait, not a hot loop.
+		expect(lockCreates(s.log, 'P', path.join(dir, 'clients.json.lock')).length).toBeLessThan(20)
+	})
 })
 
 describe('FileSecretStore write probe on Windows', () => {
@@ -553,12 +690,17 @@ describe('FileSecretStore write probe on Windows', () => {
 			return rm(target, options)
 		})
 
+		const logs: string[] = []
+
 		const started = Date.now()
-		const locked = await new FileSecretStore(dir, 'win32').transaction(() => lockHeld(lock))
+		const locked = await new FileSecretStore(dir, 'win32', {log: line => logs.push(line)}).transaction(() => lockHeld(lock))
 
 		expect(locked).toBe(false)
 		expect(probeRemovals).toBeGreaterThan(1)
 		expect(Date.now() - started).toBeLessThan(1000)
+		const [probe] = (await fs.readdir(dir)).filter(isProbe)
+		expect(logs).toEqual([expect.stringContaining(path.join(dir, probe ?? '.write-probe-'))])
+		expect(logs[0]).toContain('unlocked')
 	})
 
 	it('runs the real probe in a writable folder: the work runs locked and leaves no probe or claim behind', async () => {
