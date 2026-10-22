@@ -32,6 +32,7 @@ export type {
 	SupportedLang,
 	UiTheme,
 	UiStyle,
+	VideoCodecFilter,
 	GraphicsPolicyBackdropReason,
 	QueueItemStatus,
 	QueueLane,
@@ -83,6 +84,7 @@ import type {
 	SupportedLang,
 	UiTheme,
 	UiStyle,
+	VideoCodecFilter,
 	GraphicsPolicyBackdropReason,
 	StatusKey,
 	CookiesMode,
@@ -139,6 +141,7 @@ export interface CommonSettings {
 	uiZoom?: number
 	uiTheme?: UiTheme
 	uiStyle?: UiStyle
+	videoCodecFilter?: VideoCodecFilter
 	language?: SupportedLang
 	commonPaths?: {downloads: string | null; videos: string | null; desktop: string | null; music: string | null; documents: string | null; pictures: string | null; home: string | null}
 	cookiesPath?: string

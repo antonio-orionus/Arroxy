@@ -1,0 +1,1 @@
+The Format screen can show one video codec at a time (AV1, VP9, H.264...) and remembers your choice for the next video; a video without that codec shows them all. The Video codec setting now says that Auto takes AV1 first.

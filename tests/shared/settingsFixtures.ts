@@ -5,6 +5,7 @@ const COMMON_KEYS = new Set([
 	'rememberLastOutputDir',
 	'uiZoom',
 	'uiTheme',
+	'videoCodecFilter',
 	'language',
 	'commonPaths',
 	'cookiesPath',

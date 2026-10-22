@@ -3,10 +3,10 @@
 // codec the supported sites serve; WebM holds only VP8, VP9 and AV1 video
 // with Opus or Vorbis audio.
 
-import type {VideoFileType} from './schemas.js'
+import type {VideoCodecName, VideoFileType} from './schemas.js'
 import type {FormatOption} from './types.js'
 
-const VIDEO_CODEC_NAMES: readonly (readonly [string, string])[] = [
+const VIDEO_CODEC_NAMES: readonly (readonly [string, VideoCodecName])[] = [
 	['av01', 'AV1'],
 	['vp09', 'VP9'],
 	['vp9', 'VP9'],
@@ -19,9 +19,9 @@ const VIDEO_CODEC_NAMES: readonly (readonly [string, string])[] = [
 ]
 
 // The codec names in yt-dlp's preference order, for listing them the same way on every row.
-export const VIDEO_CODEC_ORDER: readonly string[] = [...new Set(VIDEO_CODEC_NAMES.map(([, name]) => name))]
+export const VIDEO_CODEC_ORDER: readonly VideoCodecName[] = [...new Set(VIDEO_CODEC_NAMES.map(([, name]) => name))]
 
-export function videoCodecName(codec: string | undefined): string | null {
+export function videoCodecName(codec: string | undefined): VideoCodecName | null {
 	const lower = codec?.toLowerCase() ?? ''
 	if (lower === '' || lower === 'none') return null
 	return VIDEO_CODEC_NAMES.find(([prefix]) => lower.startsWith(prefix))?.[1] ?? null

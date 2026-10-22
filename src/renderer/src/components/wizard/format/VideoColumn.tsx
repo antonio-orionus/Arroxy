@@ -1,7 +1,9 @@
 import {Fragment, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
+import {videoCodecFilterSchema, type VideoCodecFilter} from '@shared/schemas.js'
 import type {FormatSelectionView, VideoFormatRow, VideoLine} from '../../../store/formatSelectionView.js'
 import {RadioGroup} from '../../ui/radio-group.js'
+import {ToggleGroup, ToggleGroupItem} from '../../ui/toggle-group.js'
 import {SectionLabel} from '../../shared/SectionLabel.js'
 import {FormatChip, FormatLineName} from './FormatLine.js'
 
@@ -9,6 +11,7 @@ interface VideoColumnProps {
 	view: FormatSelectionView['video']
 	selectedVideoFormatId: string
 	onSelect: (formatId: string) => void
+	onFilter: (filter: VideoCodecFilter) => void
 }
 
 // Every fact about the stream, for its spoken name.
@@ -22,7 +25,7 @@ function streamName(line: VideoLine, row: VideoFormatRow, profileLabel: string |
 // on every chip, and a codec sits in the same column on every line. Columns are
 // as wide as their widest chip and pack to the start, so an SDR-only video with
 // one codec is one compact column rather than chips stretched across the screen.
-export function VideoColumn({view, selectedVideoFormatId, onSelect}: VideoColumnProps): ReactNode {
+export function VideoColumn({view, selectedVideoFormatId, onSelect, onFilter}: VideoColumnProps): ReactNode {
 	const {t} = useTranslation()
 	const profileLabel = t(view.profilePickIsFallback ? 'wizard.formats.profile.closestTag' : 'wizard.formats.profile.tag')
 	const columns = {gridTemplateColumns: `max-content repeat(${view.columns.length}, auto)`}
@@ -30,8 +33,29 @@ export function VideoColumn({view, selectedVideoFormatId, onSelect}: VideoColumn
 	return (
 		<div className="flex min-w-0 flex-col" data-testid="video-column">
 			{/* Same height as the Audio header, which may hold the language picker, so both lists start level. */}
-			<div className="mb-1.5 flex min-h-8 items-center">
+			<div className="mb-1.5 flex min-h-8 flex-wrap items-center gap-x-4 gap-y-1.5">
 				<SectionLabel>{t('wizard.formats.video')}</SectionLabel>
+				{/* A remembered codec this video lacks shows every codec; the setting keeps it for the next video. */}
+				{view.codecs.length >= 2 ? (
+					<ToggleGroup
+						size="sm"
+						variant="outline"
+						aria-label={t('wizard.formats.codecFilter.label')}
+						value={[view.codecFilter ?? 'all']}
+						onValueChange={value => {
+							const filter = videoCodecFilterSchema.safeParse(value[0])
+							if (filter.success) onFilter(filter.data)
+						}}
+						disabled={view.disabled}
+					>
+						<ToggleGroupItem value="all">{t('wizard.formats.codecFilter.all')}</ToggleGroupItem>
+						{view.codecs.map(codec => (
+							<ToggleGroupItem key={codec} value={codec}>
+								{codec}
+							</ToggleGroupItem>
+						))}
+					</ToggleGroup>
+				) : null}
 			</div>
 
 			{/* The step scrolls down; the list scrolls sideways only when the step is narrower than its chips (many

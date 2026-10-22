@@ -61,7 +61,7 @@ function FormatsLoading({onCancel}: {onCancel: () => void}): ReactNode {
 // Single video, screen 1: what to download. Every option comes from the probe;
 // the download profile only decides what starts selected.
 export function StepFormatSelect(): ReactNode {
-	const {formatsLoading, wizardTitle, wizardThumbnail, wizardDuration, wizardWebpageUrl, wizardMediaKind, chapterCount, selectedVideoFormatId, audioSelection, setSelectedVideoFormatId, setAudioSelection, back, openReview, cancelWizardProbe, silent} = useAppStore(
+	const {formatsLoading, wizardTitle, wizardThumbnail, wizardDuration, wizardWebpageUrl, wizardMediaKind, chapterCount, selectedVideoFormatId, audioSelection, setSelectedVideoFormatId, setVideoCodecFilter, setAudioSelection, back, openReview, cancelWizardProbe, silent} = useAppStore(
 		useShallow(state => ({
 			formatsLoading: state.formatsLoading,
 			wizardTitle: state.wizardTitle,
@@ -73,6 +73,7 @@ export function StepFormatSelect(): ReactNode {
 			selectedVideoFormatId: state.selectedVideoFormatId,
 			audioSelection: state.audioSelection,
 			setSelectedVideoFormatId: state.setSelectedVideoFormatId,
+			setVideoCodecFilter: state.setVideoCodecFilter,
 			setAudioSelection: state.setAudioSelection,
 			back: state.back,
 			openReview: state.openReview,
@@ -115,7 +116,7 @@ export function StepFormatSelect(): ReactNode {
 					// width instead, and a video with many codec columns (8K HDR) spilled over the other list.
 					<div className="flex flex-wrap items-start gap-5 lg:gap-x-12">
 						<div className="max-w-full flex-none">
-							<VideoColumn view={view.video} selectedVideoFormatId={selectedVideoFormatId} onSelect={setSelectedVideoFormatId} />
+							<VideoColumn view={view.video} selectedVideoFormatId={selectedVideoFormatId} onSelect={setSelectedVideoFormatId} onFilter={setVideoCodecFilter} />
 						</div>
 						{silent ? null : (
 							<div className="max-w-full min-w-72 flex-1 basis-0">

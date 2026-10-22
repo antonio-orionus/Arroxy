@@ -16,6 +16,7 @@ import type {AppState, FormatPickerSlice, GetState, SetState} from '../types.js'
 import {notify} from '@renderer/lib/notify.js'
 import {profileDisplayName} from '@renderer/lib/profileName.js'
 import {formatMode} from './formatMode.js'
+import {codecFilterPick} from '../videoCodecFilter.js'
 import type {FormatMode} from '@shared/schemas.js'
 import {editedProfileDraft, profilePatch, profileVideoPick, switchProfilePatch, updatedProfileDraft, wizardSnapshot} from './wizardProfileState.js'
 
@@ -141,6 +142,7 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 		audioSelection: {kind: 'none'},
 		wizardSilencedAudio: null,
 		lastConvertBitrate: DEFAULT_AUDIO_BITRATE,
+		videoCodecFilter: DEFAULTS.videoCodecFilter,
 		wizardMediaKind: 'video',
 		wizardSubtitles: {},
 		wizardAutomaticCaptions: {},
@@ -155,6 +157,23 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 		wizardIsAudioOnlySource: false,
 		wizardFileType: 'auto',
 		wizardFileTypeReset: null,
+
+		setVideoCodecFilter: filter => {
+			set({videoCodecFilter: filter})
+			void window.appApi.settings.update({common: {videoCodecFilter: filter}}).then(result => {
+				if (!result.ok) console.error('[settings] videoCodecFilter save failed', result.error)
+			})
+			get().keepPickInCodecFilter()
+		},
+
+		keepPickInCodecFilter: () => {
+			const state = get()
+			if (state.wizardMediaKind !== 'video') return
+			// The streams the Video list shows: Video, no audio leaves out those with their own sound.
+			const formats = formatMode(state) === 'video-only' ? state.wizardFormats.filter(f => f.isVideoOnly || f.isAudioOnly) : state.wizardFormats
+			const id = codecFilterPick(formats, state.selectedVideoFormatId, state.videoCodecFilter)
+			if (id) state.setSelectedVideoFormatId(id)
+		},
 
 		// Invariant: a video stream and a convert target are mutually exclusive —
 		// convert (-x) can't be merged with video. Reconcile here instead of

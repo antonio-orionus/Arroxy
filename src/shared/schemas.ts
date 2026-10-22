@@ -59,6 +59,15 @@ export const videoCodecPreferenceSchema = z.enum(['vp9', 'h264'])
 export type VideoCodecPreference = z.infer<typeof videoCodecPreferenceSchema>
 export const VIDEO_CODEC_PREFERENCES = videoCodecPreferenceSchema.options
 
+// The short codec names the Format screen shows on video chips and columns.
+export const videoCodecNameSchema = z.enum(['AV1', 'VP9', 'VP8', 'HEVC', 'H.264'])
+export type VideoCodecName = z.infer<typeof videoCodecNameSchema>
+
+// The Format screen's Video filter: one codec, or every codec ('all'). Kept
+// across videos; a video without the codec shows every one.
+export const videoCodecFilterSchema = z.enum(['all', ...videoCodecNameSchema.options])
+export type VideoCodecFilter = z.infer<typeof videoCodecFilterSchema>
+
 // The kind of file a video download is saved as. `auto` lets the picked
 // streams decide; the others remux (copy streams, never re-encode).
 export const videoFileTypeSchema = z.enum(['auto', 'mp4', 'mkv', 'webm'])
@@ -667,6 +676,7 @@ const commonSettingsSchema = z.object({
 	uiZoom: z.number().min(ZOOM_MIN).max(ZOOM_MAX).optional(),
 	uiTheme: uiThemeSchema.optional(),
 	uiStyle: uiStyleSchema.optional(),
+	videoCodecFilter: videoCodecFilterSchema.optional(),
 	language: supportedLangSchema.optional(),
 	commonPaths: commonPathsSchema.optional(),
 	cookiesPath: z.string().optional(),

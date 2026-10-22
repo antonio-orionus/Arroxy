@@ -428,6 +428,28 @@ describe('selectView — one chip per codec', () => {
 		expect(chipOf('hls-akfire-2644')).toEqual(['hls-akfire-2644'])
 	})
 
+	it('offers a filter for each codec the video has, and shows only the filtered codec’s columns and lines', () => {
+		const formats = [video('701', '3840x2160', 'mp4', 'av01.0.12M.10'), video('313', '3840x2160', 'webm', 'vp9'), video('137', '1920x1080', 'mp4', 'avc1.640028'), video('248', '1920x1080', 'webm', 'vp9')]
+		const filtered = (videoCodecFilter: 'all' | 'AV1' | 'VP9' | 'HEVC') => selectView({selectedVideoFormatId: '313', audioSelection: {kind: 'none'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: formats, videoCodecFilter}).video
+		const all = filtered('all')
+		expect(all.codecs).toEqual(['AV1', 'VP9', 'H.264'])
+		expect(all.codecFilter).toBeNull()
+		expect(all.columns.map(column => column.codec)).toEqual(['AV1', 'VP9', 'H.264'])
+		const vp9 = filtered('VP9')
+		expect(vp9.codecFilter).toBe('VP9')
+		expect(vp9.columns).toEqual([{range: 'SDR', codec: 'VP9'}])
+		expect(vp9.lines.map(line => [line.name, line.variants.map(row => row.formatId)])).toEqual([
+			['2160p', ['313']],
+			['1080p', ['248']]
+		])
+		expect(vp9.rows.map(row => row.formatId)).toEqual(['313', '248'])
+		// AV1 has no 1080p: the line goes.
+		expect(filtered('AV1').lines.map(line => line.name)).toEqual(['2160p'])
+		// A remembered codec this video lacks shows every codec.
+		expect(filtered('HEVC').codecFilter).toBeNull()
+		expect(filtered('HEVC').columns).toHaveLength(3)
+	})
+
 	it('puts streams with no codec name in one shared column, labelled by file type', () => {
 		const {columns, lines} = view([video('2', '1280x720', 'avi', undefined, false), video('1', '640x360', 'mp4', undefined, false)])
 		expect(columns).toEqual([{range: 'SDR', codec: null}])

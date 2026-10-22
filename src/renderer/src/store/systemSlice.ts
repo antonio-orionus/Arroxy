@@ -324,7 +324,17 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				document.documentElement.lang = nextLanguage
 				document.documentElement.dir = isRtl(nextLanguage) ? 'rtl' : 'ltr'
 				void window.appApi.app.setLanguage(nextLanguage)
-				set({settings, hotkeyRegistration: common.hotkeyEnabled ? 'pending' : 'off', wizardOutputDir: common.defaultOutputDir, commonPaths: common.commonPaths, uiZoom: zoom, uiTheme: theme, uiStyle: common.uiStyle ?? DEFAULTS.uiStyle, language: nextLanguage})
+				set({
+					settings,
+					hotkeyRegistration: common.hotkeyEnabled ? 'pending' : 'off',
+					wizardOutputDir: common.defaultOutputDir,
+					commonPaths: common.commonPaths,
+					uiZoom: zoom,
+					uiTheme: theme,
+					uiStyle: common.uiStyle ?? DEFAULTS.uiStyle,
+					videoCodecFilter: common.videoCodecFilter ?? DEFAULTS.videoCodecFilter,
+					language: nextLanguage
+				})
 				if (common.hotkeyEnabled) void refreshHotkeyRegistration(get, set)
 				else ++hotkeyStatusRequest
 			}

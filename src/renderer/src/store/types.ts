@@ -51,7 +51,7 @@ import type {
 	WizardStepName
 } from '@shared/types.js'
 import type {Result} from '@shared/result.js'
-import type {AudioSelection, ExploreSearchEngine, FormatMode, QuickProbeTake, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
+import type {AudioSelection, ExploreSearchEngine, FormatMode, QuickProbeTake, VideoCodecFilter, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import type {FitNotice} from '@shared/profileSelection.js'
 import type {SelectionOrder} from '@shared/selectionOrder.js'
 import type {VideoPartFields} from '@shared/videoPart.js'
@@ -281,6 +281,9 @@ export interface FormatPickerSlice {
 	// Preserves the user's bitrate choice when toggling between mp3/m4a/opus
 	// rows or away to wav and back. Default 192 (industry standard MP3).
 	lastConvertBitrate: AudioBitrate
+	// The Format screen's Video codec filter, a saved setting: kept from one
+	// video to the next.
+	videoCodecFilter: VideoCodecFilter
 	// The Format screen's Video / Audio / Subtitles switch.
 	wizardMediaKind: WizardMediaKind
 	wizardSubtitles: SubtitleMap
@@ -306,6 +309,10 @@ export interface FormatPickerSlice {
 	wizardFileTypeReset: {from: VideoFileType; blocker: string} | null
 
 	setSelectedVideoFormatId: (id: string) => void
+	// Saves the filter and moves a pick it would hide to the closest shown stream.
+	setVideoCodecFilter: (filter: VideoCodecFilter) => void
+	// After a probe lands: the remembered filter's stream replaces a pick it hides.
+	keepPickInCodecFilter: () => void
 	setWizardFileType: (fileType: VideoFileType) => void
 	setAudioSelection: (sel: AudioSelection) => void
 	setWizardMediaKind: (kind: WizardMediaKind) => void

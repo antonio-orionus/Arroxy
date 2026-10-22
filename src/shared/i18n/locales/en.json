@@ -797,8 +797,8 @@
 		"titlePlaceholder": "Loading…"
 	},
 	"videoCodec": {
-		"auto": "Auto",
-		"description": "Which codec to take first among streams of the same height. Auto keeps yt-dlp's own order, which favours AV1, the smallest; H.264 plays on older TVs and phones.",
+		"auto": "Auto (AV1 first)",
+		"description": "Which codec to take first among streams of the same height. Auto keeps Arroxy's order: AV1 first, the smallest files, then VP9; H.264 plays on older TVs and phones.",
 		"h264": "H.264 first",
 		"label": "Video codec",
 		"smartTv": "Smart TV always takes H.264.",
@@ -882,6 +882,10 @@
 				"enableRetryCta": "Enable cookies and retry",
 				"heading": "Probe was limited",
 				"retryCta": "Retry"
+			},
+			"codecFilter": {
+				"all": "All",
+				"label": "Show one codec"
 			},
 			"convert": {
 				"bitrate": "Bitrate",

@@ -112,6 +112,8 @@ function maybeBlockIncompleteCookiesConfig(url: string, set: SetState, get: GetS
 
 function applyVideoProbeResult(probe: Extract<ProbeResult, {kind: 'video'}>, set: SetState, get: GetState, firstProbe: boolean): void {
 	set(projectVideoProbeResult(probe, get(), firstProbe))
+	// The profile's pick, unless the remembered codec filter would hide it.
+	get().keepPickInCodecFilter()
 }
 
 // `limit`: the load limit the probe was taken with, when not the current one.

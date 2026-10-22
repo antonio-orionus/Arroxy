@@ -11,7 +11,7 @@ import {audioCodecName, VIDEO_CODEC_ORDER, videoCodecName} from '@shared/fileTyp
 import {channelLabel, sampleRateLabel} from '@shared/audioTrackMeta.js'
 import type {FormatMarker} from '@shared/types.js'
 import type {AudioBitrate, AudioConvertTarget, FormatOption} from '@shared/types.js'
-import type {AudioTrackQuality, WizardMediaKind} from '@shared/schemas.js'
+import type {AudioTrackQuality, VideoCodecFilter, VideoCodecName, WizardMediaKind} from '@shared/schemas.js'
 import type {VideoPart} from '@shared/preparedJob.js'
 import {scaleBytesToPart} from '@shared/videoPart.js'
 import type {AudioSelection} from './types.js'
@@ -31,7 +31,7 @@ export interface VideoFormatRow {
 	// The probe's own text ("3840x2160"); its line names it the way people say it.
 	resolution: string
 	ext: string
-	codec: string | null
+	codec: VideoCodecName | null
 	fps: number | null
 	dynamicRange: string | null
 	size: string | null
@@ -119,7 +119,12 @@ export interface FormatSelectionView {
 		// Inside each range, one column per codec in yt-dlp's order, so a codec
 		// sits in the same column on every line; streams whose codec the site
 		// doesn't name (null) share one last column, labelled by file type.
-		columns: {range: string; codec: string | null}[]
+		columns: {range: string; codec: VideoCodecName | null}[]
+		// The codecs the filter offers, in the columns' order; filtering needs two.
+		codecs: VideoCodecName[]
+		// The codec the list shows alone, or null for every codec (also when the
+		// remembered one is not among this video's).
+		codecFilter: VideoCodecName | null
 		profilePickIsFallback: boolean
 		// Some streams carry their own audio and some don't (YouTube's 360p MP4):
 		// only then is "with audio" worth saying on a chip.
@@ -323,6 +328,8 @@ export interface SelectViewInput {
 	silentVideo?: boolean
 	// UI language for sizes; without one the digits stay plain en-US.
 	language?: string
+	// The Video list's codec filter; 'all' when absent.
+	videoCodecFilter?: VideoCodecFilter
 }
 
 // "1080p" → 1080; names that are not a tier sort last.
@@ -444,7 +451,12 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 			)
 		].map(codec => ({range, codec}))
 	)
-	const videoLines = groupBy(videoRows, row => lineOf(row).id)
+	const codecs = [...new Set(videoColumns.flatMap(column => (column.codec ? [column.codec] : [])))]
+	const filter = state.videoCodecFilter ?? 'all'
+	const codecFilter = filter !== 'all' && codecs.length >= 2 && codecs.includes(filter) ? filter : null
+	const shownColumns = codecFilter === null ? videoColumns : videoColumns.filter(column => column.codec === codecFilter)
+	const shownRows = codecFilter === null ? videoRows : videoRows.filter(row => row.codec === codecFilter)
+	const videoLines = groupBy(shownRows, row => lineOf(row).id)
 		.map(([, variants]): VideoLine => ({resolution: variants[0].resolution, ...lineOf(variants[0]), variants: variants.toSorted(byCodec)}))
 		// Size-only files (no tier of their own) follow the tiers, the biggest first.
 		.toSorted((a, b) => tierHeight(b.name) - tierHeight(a.name) || (b.variants[0]?.filesize ?? 0) - (a.variants[0]?.filesize ?? 0))
@@ -464,7 +476,17 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 		currentResolutionLabel,
 		selectedFilesize,
 		sizesScaledToPart: scale.scaled,
-		video: {disabled: isSubtitleOnly, lines: videoLines, rows: videoLines.flatMap(line => line.variants), ranges, columns: videoColumns, profilePickIsFallback: state.profileVideoFallback === true, mixedAudio: videoRows.some(row => row.hasAudio) && videoRows.some(row => !row.hasAudio)},
+		video: {
+			disabled: isSubtitleOnly,
+			lines: videoLines,
+			rows: videoLines.flatMap(line => line.variants),
+			ranges: ranges.filter(range => shownColumns.some(column => column.range === range)),
+			columns: shownColumns,
+			codecs,
+			codecFilter,
+			profilePickIsFallback: state.profileVideoFallback === true,
+			mixedAudio: videoRows.some(row => row.hasAudio) && videoRows.some(row => !row.hasAudio)
+		},
 		audio: {
 			lines,
 			nativeRows: lines.flatMap(line => line.variants),
@@ -489,6 +511,7 @@ export function useFormatSelectionView(): FormatSelectionView {
 	const selectedVideoFormatId = useAppStore(s => s.selectedVideoFormatId)
 	const audioSelection = useAppStore(s => s.audioSelection)
 	const lastConvertBitrate = useAppStore(s => s.lastConvertBitrate)
+	const videoCodecFilter = useAppStore(s => s.videoCodecFilter)
 	const mediaKind = useAppStore(s => s.wizardMediaKind)
 	const wizardFormats = useAppStore(s => s.wizardFormats)
 	const formatSelection = useAppStore(s => s.wizardFormatSelection)
@@ -504,6 +527,6 @@ export function useFormatSelectionView(): FormatSelectionView {
 	return useMemo(() => {
 		const part = wizardVideoPart({wizardPart, wizardDuration, wizardMediaKind: mediaKind})
 		const videoPart = part && wizardDuration !== undefined ? {part, durationSeconds: wizardDuration} : null
-		return selectView({selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, formatSelection, profilePick: baseline, profileVideoFallback, videoPart, silentVideo, language})
-	}, [selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, formatSelection, baseline, profileVideoFallback, wizardPart, wizardDuration, silentVideo, language])
+		return selectView({selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, formatSelection, profilePick: baseline, profileVideoFallback, videoPart, silentVideo, language, videoCodecFilter})
+	}, [selectedVideoFormatId, audioSelection, lastConvertBitrate, mediaKind, wizardFormats, formatSelection, baseline, profileVideoFallback, wizardPart, wizardDuration, silentVideo, language, videoCodecFilter])
 }
