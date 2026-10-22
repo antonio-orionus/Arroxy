@@ -191,6 +191,12 @@ describe('tiers on real probes', () => {
 		expect(selectionFor('balanced', probeSourceResult('bitchute')).notices).toEqual([])
 	})
 
+	// Archive names no codecs: its 720p is an AVI and the pick a 360p MP4, so
+	// the notice can't say the 720p is only in other codecs, or that the pick is H.264.
+	it('names no reason for leaving a tier that does not hold for the pick', () => {
+		expect(selectionFor('mp4-720', probeSourceResult('archive')).notices).toContainEqual({kind: 'video-tier-fallback', wanted: '720', picked: 360, passedOver: 'profile'})
+	})
+
 	it("picks the copy the site rates higher at one height: Twitch's landscape clip, not its portrait crop", () => {
 		expect(selectionFor('balanced', probeSourceResult('twitch-clip')).media.videoFormatId).toBe('720')
 	})

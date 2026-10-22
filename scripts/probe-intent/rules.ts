@@ -126,8 +126,9 @@ export const RULES: Record<string, Rule> = {
 			if (notice?.kind !== 'video-tier-fallback') return []
 			const atTier = raw.filter(format => hasVideo(format) && meetsTier(format, wanted))
 			if (notice.passedOver === undefined && atTier.length > 0) return [`${profile.id} says the video has no ${wanted}p though it lists ${atTier.map(format => format.format_id).join(', ')}`]
-			if (notice.passedOver === 'h264' && (atTier.length === 0 || atTier.some(isH264))) return [`${profile.id} says the video has ${wanted}p only in other codecs`]
-			if (notice.passedOver === 'ai-upscaled' && (atTier.length === 0 || !atTier.every(isUpscaled))) return [`${profile.id} says the video's ${wanted}p is only AI-upscaled`]
+			if (notice.passedOver !== undefined && atTier.length === 0) return [`${profile.id} says the video's ${wanted}p was passed over, but it lists none`]
+			if (notice.passedOver === 'h264' && (atTier.some(isH264) || !isH264(picked))) return [`${profile.id} says the video has ${wanted}p only in other codecs and picks H.264`]
+			if (notice.passedOver === 'ai-upscaled' && (!atTier.every(isUpscaled) || isUpscaled(picked))) return [`${profile.id} says the video's ${wanted}p is only AI-upscaled and picks an original`]
 			return []
 		}),
 

@@ -33,4 +33,9 @@ describe('FitNotices', () => {
 		render(<FitNotices />)
 		expect(screen.getByTestId('fit-notice-video-tier-fallback')).toHaveTextContent("Your profile asks for 720p. This video's 720p is AI-upscaled, so the original 480p is selected.")
 	})
+	it('says a tier did not fit the profile when no one reason explains it', () => {
+		useAppStore.setState({wizardFitNotices: [{kind: 'video-tier-fallback', wanted: '720', picked: 480, passedOver: 'profile'}]})
+		render(<FitNotices />)
+		expect(screen.getByTestId('fit-notice-video-tier-fallback')).toHaveTextContent("Your profile asks for 720p. This video's 720p doesn't fit the rest of your profile, so 480p is selected.")
+	})
 })

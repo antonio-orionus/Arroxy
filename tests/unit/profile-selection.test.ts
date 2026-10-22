@@ -390,6 +390,15 @@ describe('resolveProfileSelection: selection order and file type', () => {
 		expect(notices).toEqual([{kind: 'video-tier-fallback', wanted: '720', picked: 480, passedOver: 'ai-upscaled'}])
 	})
 
+	// A reason is named only when it holds for the tier and the pick alike.
+	it('says the tier did not fit the profile when no one reason explains it', () => {
+		const mixed = [rawVideo('vp9-720', 720, {vcodec: 'vp9', ext: 'webm'}), rawVideo('136-sr', 720, {format_note: '720p, AI-upscaled'}), rawVideo('135', 480, {width: 854, resolution: '854x480'}), rawAudio('140')]
+		expect(resolveRaw(builtin('mp4-720'), mixed).notices).toEqual([{kind: 'video-tier-fallback', wanted: '720', picked: 480, passedOver: 'profile'}])
+		const allUpscaled = [rawVideo('vp9-720-sr', 720, {vcodec: 'vp9', ext: 'webm', format_note: '720p, AI-upscaled'}), rawVideo('135-sr', 480, {width: 854, resolution: '854x480', format_note: '480p, AI-upscaled'}), rawAudio('140')]
+		// The 480p pick is upscaled too, so the notice names the codec, never an "original".
+		expect(resolveRaw(builtin('mp4-720'), allUpscaled).notices).toContainEqual({kind: 'video-tier-fallback', wanted: '720', picked: 480, passedOver: 'h264'})
+	})
+
 	// A profile takes every stream its tier names on the Format screen (#657):
 	// a 960x540 row is 480p, though yt-dlp's `res` counts it as 540.
 	it('takes the top of its tier as the rows name it, not only what res counts under the tier', () => {

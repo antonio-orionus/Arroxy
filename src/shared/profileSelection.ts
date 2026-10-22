@@ -40,10 +40,11 @@ export interface MediaSelection {
 	audioSelection: AudioSelection
 }
 
-export type TierPassedOver = 'h264' | 'ai-upscaled'
+export type TierPassedOver = 'h264' | 'ai-upscaled' | 'profile'
 
-// `passedOver`: the video has the wanted tier, but only in streams the
-// profile leaves for others (not H.264 for Smart TV, or AI-upscaled).
+// `passedOver`: the video has the wanted tier, but in streams the profile
+// leaves: none H.264 for Smart TV ('h264'), all AI-upscaled ('ai-upscaled'),
+// or for no one reason that also holds for the pick ('profile').
 export type FitNotice = {kind: 'video-tier-fallback'; wanted: Exclude<PlaylistVideoTier, 'best'>; picked: number; passedOver?: TierPassedOver} | {kind: 'mp4-unavailable'} | {kind: 'webm-unavailable'; blocker: string} | {kind: 'no-video'} | {kind: 'subtitle-languages-missing'; languages: string[]}
 
 export interface ProfileSelection {
@@ -109,13 +110,16 @@ function forThisVideo(order: SelectionOrder, sortFields: readonly string[]): Sel
 	return {...order, video: order.video.filter(rank => (rank.kind !== 'source' || named('source')) && (rank.kind !== 'protocol' || named('proto')))}
 }
 
-// Why a pick left the profile's tier when the video has streams there.
-function tierPassedOver(formats: readonly FormatOption[], tier: number, order: SelectionOrder): TierPassedOver | undefined {
+// Why a pick left the profile's tier when the video has streams there. A
+// reason is named only when it holds for the pick too: an H.264 pick for
+// "only in other codecs", an original one for "AI-upscaled".
+function tierPassedOver(formats: readonly FormatOption[], tier: number, order: SelectionOrder, picked: FormatOption): TierPassedOver | undefined {
 	const atTier = formats.filter(format => !format.isAudioOnly && videoHeight(format.resolution) === tier)
 	if (atTier.length === 0) return undefined
-	if (order.skipAiUpscaled && atTier.every(format => format.markers?.includes('ai-upscaled') === true)) return 'ai-upscaled'
-	if (order.goal === 'smart-tv' && !atTier.some(isH264)) return 'h264'
-	return undefined
+	const upscaled = (format: FormatOption): boolean => format.markers?.includes('ai-upscaled') === true
+	if (order.skipAiUpscaled && atTier.every(upscaled) && !upscaled(picked)) return 'ai-upscaled'
+	if (order.goal === 'smart-tv' && !atTier.some(isH264) && isH264(picked)) return 'h264'
+	return 'profile'
 }
 
 function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): {media: MediaSelection; order: SelectionOrder | null} {
@@ -140,7 +144,7 @@ function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): {medi
 	// size (0) says nothing.
 	const pickedHeight = videoHeight(video.resolution)
 	if (order.tier !== 'best' && pickedHeight !== 0 && pickedHeight !== Number(order.tier)) {
-		const passedOver = tierPassedOver(formats, Number(order.tier), order)
+		const passedOver = tierPassedOver(formats, Number(order.tier), order, video)
 		notices.push({kind: 'video-tier-fallback', wanted: order.tier, picked: pickedHeight, ...(passedOver ? {passedOver} : {})})
 	}
 	return {media: {kind: 'video', videoFormatId: video.formatId, audioSelection: audio ? {kind: 'native', formatId: audio.formatId} : NO_AUDIO}, order}
