@@ -35,7 +35,8 @@ const offenders = []
 
 for (const f of files) {
 	const text = await readFile(f, 'utf8')
-	const lines = text.split('\n').length
+	// Count like `wc -l`: a trailing newline ends the last line rather than starting another.
+	const lines = text.split('\n').length - (text.endsWith('\n') ? 1 : 0)
 	if (lines > MAX_LOC) {
 		offenders.push({file: f, lines})
 	}
