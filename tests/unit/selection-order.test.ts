@@ -5,6 +5,7 @@ import {mediaIntentSchema, type MediaIntent, type NativeAudioPreference, type Vi
 import {readFileSync} from 'node:fs'
 import {skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
 import {h264First} from '../shared/smartTvSelectors.js'
+import {tierBounded, tierRes} from '../shared/tierSelectors.js'
 
 // Recorded from the code before the selection order existed: every profile
 // media combination and the yt-dlp spec it produced. Reading each old intent
@@ -71,8 +72,18 @@ function withSmartTvFiltersFirst(spec: Record<string, unknown>): Record<string, 
 	return {...rest, formatSelector: h264First(selector), ...(remaining ? {formatSort: remaining} : {})}
 }
 
+// Fixed since the recording: a tier takes what the Format screen's rows name
+// (#657, #654). `res:N` caps at the tier's ceiling, and the selector tries the
+// streams the rows put at or under the tier first, then any of known size.
+function withTierBounds(spec: Record<string, unknown>): Record<string, unknown> {
+	const {formatSort: sort, formatSelector: selector} = spec
+	const tier = typeof sort === 'string' ? /(?:^|,)res:(\d+)(?:,|$)/.exec(sort)?.[1] : undefined
+	if (typeof sort !== 'string' || typeof selector !== 'string' || tier === undefined) return spec
+	return {...spec, formatSort: sort.replace(`res:${tier}`, tierRes(tier)), formatSelector: tierBounded(selector, tier)}
+}
+
 function asNowFixed(spec: Record<string, unknown>): Record<string, unknown> {
-	return withExtractedBestAudio(withVideoRanksBeforeAudio(withStrictInclusionFilters(withSkippedAiUpscaled(withSmartTvFiltersFirst(withVideoOnlyFallback(spec))))))
+	return withExtractedBestAudio(withVideoRanksBeforeAudio(withStrictInclusionFilters(withSkippedAiUpscaled(withTierBounds(withSmartTvFiltersFirst(withVideoOnlyFallback(spec)))))))
 }
 
 describe('selection order parity with the recorded yt-dlp specs', () => {
@@ -104,8 +115,8 @@ describe('selection order parity with the recorded yt-dlp specs', () => {
 		const upgraded = mediaIntentSchema.parse({kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'mp4', audio: {native: {kind: 'default'}}})
 		expect(upgraded).toEqual({kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'mp4', audio: {native: {kind: 'default'}}})
 		const spec = mediaIntentSpec(upgraded, 'compatible', 'hdr')
-		expect(spec.formatSelector).toBe(skippingAiUpscaled('bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best'))
-		expect(spec.formatSort).toBe('res:1080,fps,hdr:12,acodec:m4a')
+		expect(spec.formatSelector).toBe(skippingAiUpscaled(tierBounded('bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best', '1080')))
+		expect(spec.formatSort).toBe(`${tierRes('1080')},fps,hdr:12,acodec:m4a`)
 		expect(spec.mergeOutputFormat).toBe('mp4')
 		expect(spec.remuxVideo).toBe('mp4')
 	})
@@ -155,9 +166,9 @@ describe('selectionOrder', () => {
 	})
 
 	it('derives the sort for the new combinations', () => {
-		expect(formatSortFor(selectionOrder(video('best-picture', 'webm'), 'compatible'))).toBe('res:1080,fps,hdr:sdr,acodec:opus')
+		expect(formatSortFor(selectionOrder(video('best-picture', 'webm'), 'compatible'))).toBe(`${tierRes('1080')},fps,hdr:sdr,acodec:opus`)
 		expect(formatSortFor(selectionOrder(video('best-picture', 'mkv', 'best'), 'compatible'))).toBe('res,fps,hdr:sdr')
-		expect(formatSortFor(selectionOrder(video('smart-tv', 'mkv', '720'), 'compatible'))).toBe('res:720,fps,hdr:sdr,acodec:m4a')
+		expect(formatSortFor(selectionOrder(video('smart-tv', 'mkv', '720'), 'compatible'))).toBe(`${tierRes('720')},fps,hdr:sdr,acodec:m4a`)
 	})
 })
 
@@ -182,8 +193,8 @@ describe('container args', () => {
 describe('HDR preference', () => {
 	it('defaults to SDR first, and names resolution and fps before hdr so it never trades height for SDR', () => {
 		expect(formatSortFor(selectionOrder(video('best-picture', 'auto', 'best'), 'compatible'))).toBe('res,fps,hdr:sdr')
-		expect(formatSortFor(selectionOrder(video('best-picture', 'auto', '1080'), 'compatible'))).toBe('res:1080,fps,hdr:sdr')
-		expect(formatSortFor(selectionOrder(video('smart-tv', 'auto', '720'), 'compatible'))).toBe('res:720,fps,hdr:sdr,acodec:m4a')
+		expect(formatSortFor(selectionOrder(video('best-picture', 'auto', '1080'), 'compatible'))).toBe(`${tierRes('1080')},fps,hdr:sdr`)
+		expect(formatSortFor(selectionOrder(video('smart-tv', 'auto', '720'), 'compatible'))).toBe(`${tierRes('720')},fps,hdr:sdr,acodec:m4a`)
 	})
 
 	// A field named in -S outranks every default yt-dlp field, so an audio token
@@ -192,14 +203,14 @@ describe('HDR preference', () => {
 	it('names resolution, fps and HDR before any audio token, so audio never costs height', () => {
 		expect(formatSortFor(selectionOrder(video('best-picture', 'mp4', 'best'), 'compatible', 'hdr'))).toBe('res,fps,hdr:12,acodec:m4a')
 		expect(formatSortFor(selectionOrder(video('best-picture', 'webm', 'best'), 'compatible', 'hdr'))).toBe('res,fps,hdr:12,acodec:opus')
-		expect(formatSortFor(selectionOrder(video('best-picture', 'mp4', '1080'), 'compatible', 'hdr'))).toBe('res:1080,fps,hdr:12,acodec:m4a')
-		expect(formatSortFor(selectionOrder(video('smart-tv', 'auto', '720'), 'compatible', 'hdr'))).toBe('res:720,fps,hdr:12,acodec:m4a')
+		expect(formatSortFor(selectionOrder(video('best-picture', 'mp4', '1080'), 'compatible', 'hdr'))).toBe(`${tierRes('1080')},fps,hdr:12,acodec:m4a`)
+		expect(formatSortFor(selectionOrder(video('smart-tv', 'auto', '720'), 'compatible', 'hdr'))).toBe(`${tierRes('720')},fps,hdr:12,acodec:m4a`)
 		expect(formatSortFor(selectionOrder(video('best-picture', 'mp4', 'best'), 'compatible', 'sdr'))).toBe('res,fps,hdr:sdr,acodec:m4a')
 	})
 
 	it("leaves yt-dlp's own order, HDR first, when the app setting is HDR", () => {
 		expect(formatSortFor(selectionOrder(video('best-picture', 'auto', 'best'), 'compatible', 'hdr'))).toBeUndefined()
-		expect(formatSortFor(selectionOrder(video('best-picture', 'auto', '1080'), 'compatible', 'hdr'))).toBe('res:1080,fps')
+		expect(formatSortFor(selectionOrder(video('best-picture', 'auto', '1080'), 'compatible', 'hdr'))).toBe(`${tierRes('1080')},fps`)
 	})
 
 	it('lets a profile override the app setting either way', () => {
@@ -207,9 +218,9 @@ describe('HDR preference', () => {
 		const hdrProfile = {...video('best-picture', 'auto', '1080'), hdr: {kind: 'custom' as const, preference: 'hdr' as const}}
 
 		expect(selectionOrder(sdrProfile, 'compatible', 'hdr').hdr).toEqual({preference: 'sdr', source: 'profile'})
-		expect(formatSortFor(selectionOrder(sdrProfile, 'compatible', 'hdr'))).toBe('res:1080,fps,hdr:sdr')
+		expect(formatSortFor(selectionOrder(sdrProfile, 'compatible', 'hdr'))).toBe(`${tierRes('1080')},fps,hdr:sdr`)
 		expect(selectionOrder(hdrProfile, 'compatible', 'sdr').hdr).toEqual({preference: 'hdr', source: 'profile'})
-		expect(formatSortFor(selectionOrder(hdrProfile, 'compatible', 'sdr'))).toBe('res:1080,fps')
+		expect(formatSortFor(selectionOrder(hdrProfile, 'compatible', 'sdr'))).toBe(`${tierRes('1080')},fps`)
 	})
 
 	it('follows the app setting when the profile says nothing, and says so', () => {
@@ -218,7 +229,7 @@ describe('HDR preference', () => {
 	})
 
 	it('applies to a video-only profile too', () => {
-		expect(formatSortFor(selectionOrder({kind: 'video-only', goal: 'best-picture', tier: '1440', fileType: 'auto'}, 'compatible'))).toBe('res:1440,fps,hdr:sdr')
+		expect(formatSortFor(selectionOrder({kind: 'video-only', goal: 'best-picture', tier: '1440', fileType: 'auto'}, 'compatible'))).toBe(`${tierRes('1440')},fps,hdr:sdr`)
 	})
 
 	it('survives parsing: a stored profile choice stays, an absent one reads as the app setting', () => {
@@ -239,9 +250,9 @@ describe('video codec preference', () => {
 
 	it("uses yt-dlp's own codec limits, naming resolution, fps and HDR first so the codec never costs height", () => {
 		expect(formatSortFor(selectionOrder(withCodec(video('best-picture', 'auto', 'best'), 'vp9'), 'compatible', 'hdr'))).toBe('res,fps,hdr:12,vcodec:vp9.2')
-		expect(formatSortFor(selectionOrder(withCodec(video('best-picture', 'auto', '1080'), 'h264'), 'compatible', 'hdr'))).toBe('res:1080,fps,hdr:12,vcodec:h264')
+		expect(formatSortFor(selectionOrder(withCodec(video('best-picture', 'auto', '1080'), 'h264'), 'compatible', 'hdr'))).toBe(`${tierRes('1080')},fps,hdr:12,vcodec:h264`)
 		expect(formatSortFor(selectionOrder(withCodec(video('best-picture', 'auto', 'best'), 'h264'), 'compatible', 'sdr'))).toBe('res,fps,hdr:sdr,vcodec:h264')
-		expect(formatSortFor(selectionOrder(withCodec(video('best-picture', 'mp4', '720'), 'vp9'), 'compatible', 'sdr'))).toBe('res:720,fps,hdr:sdr,vcodec:vp9.2,acodec:m4a')
+		expect(formatSortFor(selectionOrder(withCodec(video('best-picture', 'mp4', '720'), 'vp9'), 'compatible', 'sdr'))).toBe(`${tierRes('720')},fps,hdr:sdr,vcodec:vp9.2,acodec:m4a`)
 	})
 
 	it('has no effect on Smart TV, which always takes H.264', () => {

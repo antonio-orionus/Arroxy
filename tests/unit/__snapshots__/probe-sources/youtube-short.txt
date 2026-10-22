@@ -22,7 +22,7 @@ best-2160: 616 (1080x1920, mp4) + audio 251 (audio only, webm) (notices: {"kind"
 best-1440: 616 (1080x1920, mp4) + audio 251 (audio only, webm) (notices: {"kind":"video-tier-fallback","wanted":"1440","picked":1080})
 hd-1080: 616 (1080x1920, mp4) + audio 251 (audio only, webm)
 balanced: 398 (720x1280, mp4) + audio 251 (audio only, webm)
-small-file: 135 (480x854, mp4) + audio 251 (audio only, webm)
+small-file: 788 (608x1080, mp4) + audio 251 (audio only, webm)
 mp4-1080: 137 (1080x1920, mp4) + audio 140 (audio only, m4a)
 mp4-720: 136 (720x1280, mp4) + audio 140 (audio only, m4a)
 mp4-480: 135 (480x854, mp4) + audio 140 (audio only, m4a)

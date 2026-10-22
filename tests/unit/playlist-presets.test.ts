@@ -3,6 +3,7 @@ import {mediaIntentSpec, playlistSelectionToMediaIntent} from '@shared/mediaInte
 import type {MediaIntent, PlaylistSelection} from '@shared/schemas.js'
 import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
 import {h264First} from '../shared/smartTvSelectors.js'
+import {tierBounded, tierRes} from '../shared/tierSelectors.js'
 
 function specFor(selection: PlaylistSelection) {
 	const intent = playlistSelectionToMediaIntent(selection)
@@ -21,11 +22,11 @@ describe('mediaIntentSpec', () => {
 			expect(spec.producesVideo).toBe(true)
 		})
 
-		it.each(['2160', '1440', '1080', '720', '480', '360', '240', '144'] as const)('tier=%s uses yt-dlp resolution sort instead of a hard height filter', tier => {
+		it.each(['2160', '1440', '1080', '720', '480', '360', '240', '144'] as const)('tier=%s takes the streams its rows name first, and never fails for want of one', tier => {
 			const spec = specFor({kind: 'video', tier, codec: 'best'})
-			expect(spec.formatSelector).toBe(skippingAiUpscaled(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR))
-			expect(spec.formatSelector).not.toContain('height<=')
-			expect(spec.formatSort).toBe(`res:${tier},fps,hdr:sdr`)
+			expect(spec.formatSelector).toBe(skippingAiUpscaled(tierBounded(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, tier)))
+			expect(spec.formatSelector?.split('/').at(-1)).toBe('best')
+			expect(spec.formatSort).toBe(`${tierRes(tier)},fps,hdr:sdr`)
 			expect(spec.mergeOutputFormat).toBeUndefined()
 			expect(spec.producesVideo).toBe(true)
 		})
@@ -34,12 +35,12 @@ describe('mediaIntentSpec', () => {
 	describe('video · mp4 codec', () => {
 		it.each(['1080', '720', '480', '360'] as const)('tier=%s → no-fail selector + compatibility-first sort + mp4 merge', tier => {
 			const spec = specFor({kind: 'video', tier, codec: 'mp4'})
-			expect(spec.formatSelector).not.toContain('height<=')
+			expect(spec.formatSelector?.split('/').at(-1)).toBe('best')
 			// Do not use bv*: on YouTube, old combined 360p MP4 can outrank 1080p
 			// video-only H.264 when compatibility fields sort first.
 			expect(spec.formatSelector).not.toContain('bv*')
-			expect(spec.formatSelector).toBe(skippingAiUpscaled(h264First('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')))
-			expect(spec.formatSort).toBe(`res:${tier},fps,hdr:sdr,acodec:m4a`)
+			expect(spec.formatSelector).toBe(skippingAiUpscaled(tierBounded(h264First('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best'), tier)))
+			expect(spec.formatSort).toBe(`${tierRes(tier)},fps,hdr:sdr,acodec:m4a`)
 			expect(spec.mergeOutputFormat).toBe('mp4')
 			expect(spec.audioConvert).toBeUndefined()
 			expect(spec.producesVideo).toBe(true)
@@ -51,8 +52,8 @@ describe('mediaIntentSpec', () => {
 			const intent: MediaIntent = {kind: 'video-audio', goal: 'best-picture', tier: '1440', fileType: 'mp4', audio: {native: {kind: 'default'}}}
 			const spec = mediaIntentSpec(intent)
 
-			expect(spec.formatSelector).toBe(skippingAiUpscaled('bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best'))
-			expect(spec.formatSort).toBe('res:1440,fps,hdr:sdr,acodec:m4a')
+			expect(spec.formatSelector).toBe(skippingAiUpscaled(tierBounded('bestvideo*+bestaudio[ext=m4a]/bestvideo*+bestaudio/best', '1440')))
+			expect(spec.formatSort).toBe(`${tierRes('1440')},fps,hdr:sdr,acodec:m4a`)
 			expect(spec.mergeOutputFormat).toBe('mp4')
 			expect(spec.remuxVideo).toBe('mp4')
 			expect(spec.audioConvert).toBeUndefined()
@@ -64,8 +65,8 @@ describe('mediaIntentSpec', () => {
 			const intent: MediaIntent = {kind: 'video-audio', goal: 'smart-tv', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}}
 			const spec = mediaIntentSpec(intent)
 
-			expect(spec.formatSelector).toBe(skippingAiUpscaled(h264First('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')))
-			expect(spec.formatSort).toBe('res:1080,fps,hdr:sdr,acodec:m4a')
+			expect(spec.formatSelector).toBe(skippingAiUpscaled(tierBounded(h264First('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best'), '1080')))
+			expect(spec.formatSort).toBe(`${tierRes('1080')},fps,hdr:sdr,acodec:m4a`)
 			expect(spec.mergeOutputFormat).toBe('mp4')
 			expect(spec.audioConvert).toBeUndefined()
 			expect(spec.producesVideo).toBe(true)

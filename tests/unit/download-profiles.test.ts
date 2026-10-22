@@ -26,6 +26,7 @@ import {downloadProfileName} from '@shared/downloadProfileName.js'
 import type {DownloadProfile} from '@shared/types.js'
 import {COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
 import {h264First} from '../shared/smartTvSelectors.js'
+import {tierBounded, tierRes} from '../shared/tierSelectors.js'
 import {englishProfileName} from '../shared/profileNames.js'
 
 function customProfile(overrides: Partial<DownloadProfile> = {}): DownloadProfile {
@@ -129,19 +130,19 @@ describe('download profiles', () => {
 			expect(profile?.media).toEqual({kind: 'video-audio', goal: 'smart-tv', tier: tier, fileType: 'auto', audio: {native: {kind: 'default'}}})
 
 			const resolved = resolveDownloadProfile(profile!, {kind: 'builtin', id})
-			expect(resolved.spec?.formatSelector).toBe(skippingAiUpscaled(h264First('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')))
-			expect(resolved.spec?.formatSort).toBe(`res:${tier},fps,hdr:sdr,acodec:m4a`)
+			expect(resolved.spec?.formatSelector).toBe(skippingAiUpscaled(tierBounded(h264First('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best'), tier)))
+			expect(resolved.spec?.formatSort).toBe(`${tierRes(tier)},fps,hdr:sdr,acodec:m4a`)
 			expect(resolved.spec?.mergeOutputFormat).toBe('mp4')
 		}
 	})
 
-	it('keeps small-file as a single 480p tier and relies on yt-dlp fallback sorting', () => {
+	it('keeps small-file as a single 480p tier, the streams its rows name first, with yt-dlp fallback sorting', () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'small-file')
 		expect(profile?.media).toEqual({kind: 'video-audio', goal: 'best-picture', tier: '480', fileType: 'auto', audio: {native: {kind: 'default'}}})
 
 		const resolved = resolveDownloadProfile(profile!, {kind: 'builtin', id: 'small-file'})
-		expect(resolved.spec?.formatSelector).toBe(skippingAiUpscaled(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR))
-		expect(resolved.spec?.formatSort).toBe('res:480,fps,hdr:sdr')
+		expect(resolved.spec?.formatSelector).toBe(skippingAiUpscaled(tierBounded(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, '480')))
+		expect(resolved.spec?.formatSort).toBe(`${tierRes('480')},fps,hdr:sdr`)
 		expect(resolved.spec?.mergeOutputFormat).toBeUndefined()
 	})
 
@@ -262,8 +263,8 @@ describe('download profiles', () => {
 		const resolved = resolveDownloadProfile(profile, {kind: 'custom', id: profile.id})
 
 		expect(resolved.intent).toEqual({kind: 'video-audio', goal: 'smart-tv', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}})
-		expect(resolved.spec?.formatSelector).toBe(skippingAiUpscaled(h264First('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')))
-		expect(resolved.spec?.formatSort).toBe('res:1080,fps,hdr:sdr,acodec:m4a')
+		expect(resolved.spec?.formatSelector).toBe(skippingAiUpscaled(tierBounded(h264First('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best'), '1080')))
+		expect(resolved.spec?.formatSort).toBe(`${tierRes('1080')},fps,hdr:sdr,acodec:m4a`)
 		expect(resolved.subtitles).toEqual({request: {kind: 'languages', languages: ['en', 'uk'], source: 'manual-first'}, mode: 'sidecar', format: 'srt'})
 		expect(resolved.sponsorBlock).toEqual({mode: 'remove', categories: ['sponsor']})
 		expect(resolved.embed).toEqual({chapters: true, metadata: true, thumbnail: false, description: true, thumbnailSidecar: true})

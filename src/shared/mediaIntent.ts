@@ -4,6 +4,7 @@ import {DEFAULT_AUDIO_BITRATE} from './schemas.js'
 import type {SubtitleOptions} from './preparedJob.js'
 import {containerArgsFor, formatSortFor, selectionOrder, type AudioRank, type SelectionOrder} from './selectionOrder.js'
 import {canHoldEmbeddedThumbnail} from './thumbnailEmbed.js'
+import {tierCeiling} from './videoTier.js'
 
 export interface MediaIntentSpec {
 	formatSelector?: string
@@ -184,11 +185,31 @@ function preferredFirst(selector: string, order: SelectionOrder): string {
 		.join('/')
 }
 
+// A tiered profile takes what its tier names on the Format screen (videoTier).
+// `-S res:` caps the short side at the tier's ceiling (selectionOrder), and
+// the alternatives are tried in three layers: streams whose long side keeps
+// them at or under the tier, then any stream of known size, then the rest. The
+// first keeps out a widescreen stream the rows put in the next tier (1280x640
+// is 720p), the second a file with no size, which passes any `res` limit and
+// would otherwise win over sized streams above the tier (Facebook's `hd`).
+const VIDEO_ATOM = /^best(?:video)?\*?/
+
+function withinTier(selector: string, order: SelectionOrder): string {
+	const ceiling = order.tier === 'best' ? null : tierCeiling(Number(order.tier))
+	if (!ceiling) return selector
+	const layer = (filter: string): string =>
+		selector
+			.split('/')
+			.map(alternative => alternative.replace(VIDEO_ATOM, atom => `${atom}${filter}`))
+			.join('/')
+	return [layer(`[width<=${ceiling.longSide}][height<=${ceiling.longSide}]`), layer('[height>0]'), selector].join('/')
+}
+
 function videoIntentSpec(intent: VideoMediaIntent, nativeAudioPreference: NativeAudioPreference, hdrPreference: HdrPreference): MediaIntentSpec {
 	const order = selectionOrder(intent, nativeAudioPreference, hdrPreference)
 	const audio = order.audio?.[0]
 	const container = containerArgsFor(order)
-	const selector = preferredFirst(videoSelector(order, audio), order)
+	const selector = withinTier(preferredFirst(videoSelector(order, audio), order), order)
 	return {formatSelector: order.skipAiUpscaled ? withoutAiUpscaled(selector) : selector, formatSort: formatSortFor(order), ...container, fileType: order.fileType, producesVideo: true, producesAudio: audio !== undefined}
 }
 

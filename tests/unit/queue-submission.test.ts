@@ -9,6 +9,7 @@ import type {PreparedQueueSubmission} from '@shared/queueSubmission.js'
 import {profilePatch} from '@renderer/store/wizard/wizardProfileState.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {FORMATS, PLAYLIST_ITEMS, wizardState as state} from '../shared/queueSubmissionState.js'
+import {tierRes} from '../shared/tierSelectors.js'
 
 const VIDEO_PROBE: Extract<ProbeResult, {kind: 'video'}> = {
 	kind: 'video',
@@ -419,12 +420,12 @@ describe('the HDR preference reaches the queued job', () => {
 	}
 
 	it('asks for SDR first by default: Auto reads as SDR where there is no HDR screen', () => {
-		expect(sortFor('sdr')).toBe('res:720,fps,hdr:sdr')
-		expect(sortFor(undefined)).toBe('res:720,fps,hdr:sdr')
+		expect(sortFor('sdr')).toBe(`${tierRes('720')},fps,hdr:sdr`)
+		expect(sortFor(undefined)).toBe(`${tierRes('720')},fps,hdr:sdr`)
 	})
 
 	it("leaves yt-dlp's HDR-first order alone when the app setting is HDR", () => {
-		expect(sortFor('hdr')).toBe('res:720,fps')
+		expect(sortFor('hdr')).toBe(`${tierRes('720')},fps`)
 	})
 })
 
@@ -439,7 +440,7 @@ describe('a profile file type reaches the quick download job', () => {
 		const job = prepareActiveProfileQueueSubmission(VIDEO_PROBE, state({settings}), 'normal', NO_SOURCE)?.items[0]?.job
 
 		expect(job).toMatchObject({kind: 'ranged-format', mergeOutputFormat: 'mp4', remuxVideo: 'mp4'})
-		if (job?.kind === 'ranged-format') expect(job.formatSort).toBe('res:1080,fps,hdr:sdr,acodec:m4a')
+		if (job?.kind === 'ranged-format') expect(job.formatSort).toBe(`${tierRes('1080')},fps,hdr:sdr,acodec:m4a`)
 	})
 })
 

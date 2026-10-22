@@ -17,6 +17,7 @@ import {planWorkflow, type AudioConvert as BridgeAudioConvert, type WorkflowInpu
 import type {AudioConvert, PlaylistSelection} from '@shared/schemas.js'
 import {COMPATIBLE_AUDIO_ONLY_SELECTOR, COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, audioConversionSourceSelector, skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
 import {h264First} from '../shared/smartTvSelectors.js'
+import {tierBounded, tierRes} from '../shared/tierSelectors.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
 const OUTPUT_DIR = '/tmp/out'
@@ -56,11 +57,11 @@ describe('Video · Best codec', () => {
 	it.each(['2160', '1440', '1080', '720', '480', '360', '240', '144'] as const)('tier=%s → stable -f selector + resolution sort', tier => {
 		const args = argsFor({kind: 'video', tier, codec: 'best'})
 		const fIdx = args.indexOf('-f')
-		expect(args[fIdx + 1]).toBe(skippingAiUpscaled(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR))
-		expect(args[fIdx + 1]).not.toContain('height<=')
+		expect(args[fIdx + 1]).toBe(skippingAiUpscaled(tierBounded(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, tier)))
+		expect(args[fIdx + 1]?.split('/').at(-1)).toBe('best')
 		const sIdx = args.indexOf('-S')
 		expect(sIdx).toBeGreaterThan(-1)
-		expect(args[sIdx + 1]).toBe(`res:${tier},fps,hdr:sdr`)
+		expect(args[sIdx + 1]).toBe(`${tierRes(tier)},fps,hdr:sdr`)
 		expect(args).not.toContain('--merge-output-format')
 	})
 })
@@ -71,16 +72,16 @@ describe('Video · MP4 codec', () => {
 		const fIdx = args.indexOf('-f')
 		expect(fIdx).toBeGreaterThan(-1)
 		const fVal = args[fIdx + 1]
-		expect(fVal).not.toContain('height<=')
+		expect(fVal?.split('/').at(-1)).toBe('best')
 		// Avoid bv*: YouTube's combined 360p MP4 can otherwise beat 1080p
 		// video-only H.264 when compatibility fields sort first.
 		expect(fVal).not.toContain('bv*')
-		expect(fVal).toBe(skippingAiUpscaled(h264First('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')))
+		expect(fVal).toBe(skippingAiUpscaled(tierBounded(h264First('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best'), tier)))
 		// MP4 profiles prioritize compatibility first; the selected tier guides
 		// resolution within the compatible candidates.
 		const sIdx = args.indexOf('-S')
 		expect(sIdx).toBeGreaterThan(-1)
-		expect(args[sIdx + 1]).toBe(`res:${tier},fps,hdr:sdr,acodec:m4a`)
+		expect(args[sIdx + 1]).toBe(`${tierRes(tier)},fps,hdr:sdr,acodec:m4a`)
 		// container override
 		const mIdx = args.indexOf('--merge-output-format')
 		expect(mIdx).toBeGreaterThan(-1)

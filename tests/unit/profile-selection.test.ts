@@ -364,6 +364,31 @@ describe('resolveProfileSelection: selection order and file type', () => {
 		expect(notices).toEqual([])
 	})
 
+	// A profile takes every stream its tier names on the Format screen (#657):
+	// a 960x540 row is 480p, though yt-dlp's `res` counts it as 540.
+	it('takes the top of its tier as the rows name it, not only what res counts under the tier', () => {
+		const raw = [rawVideo('540', 540, {width: 960, resolution: '960x540'}), rawVideo('360', 360, {width: 640, resolution: '640x360'}), rawAudio('140')]
+		const {media, notices} = resolveRaw(builtin('small-file'), raw)
+		expect(media.videoFormatId).toBe('540')
+		expect(notices).toEqual([])
+	})
+
+	it('keeps a widescreen stream the rows put in the next tier out of a lower tier', () => {
+		const raw = [rawVideo('640', 640, {width: 1280, resolution: '1280x640'}), rawVideo('480', 480, {width: 854, resolution: '854x480'}), rawAudio('140')]
+		expect(resolveRaw(builtin('small-file'), raw).media.videoFormatId).toBe('480')
+	})
+
+	// A stream with no size passes yt-dlp's `res` limit; a profile with sized streams to choose from takes one of those (#654).
+	it('takes a stream of known size over a file of unknown size', () => {
+		const unknown = {format_id: 'hd', ext: 'mp4', protocol: 'https'}
+		const raw = [unknown, rawVideo('540v', 960, {width: 540, height: 960, resolution: '540x960', vcodec: 'av01.0.04M.08'}), rawAudio('140')]
+		expect(resolveRaw(builtin('small-file'), raw, []).media.videoFormatId).toBe('540v')
+		const low = resolveRaw(builtin('low-240'), raw, [])
+		expect(low.media.videoFormatId).toBe('540v')
+		expect(low.notices).toEqual([{kind: 'video-tier-fallback', wanted: '240', picked: 480}])
+		expect(resolveRaw(builtin('small-file'), [unknown, rawAudio('140')], []).media.videoFormatId).toBe('hd')
+	})
+
 	it('still says so when the video only goes lower', () => {
 		const raw = [rawVideo('720', 720), rawAudio('140')]
 		expect(resolveRaw(builtin('hd-1080'), raw).notices).toEqual([{kind: 'video-tier-fallback', wanted: '1080', picked: 720}])

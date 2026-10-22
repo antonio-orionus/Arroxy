@@ -1,0 +1,1 @@
+Download profiles take the resolution the Format screen names: a 480p profile takes a 960x540 video listed as 480p instead of a smaller one, and Small file and Low data no longer download a large file of unknown resolution when smaller ones are listed.

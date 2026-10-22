@@ -3,6 +3,7 @@ import {prepareJob, type PrepareJobInput} from '@shared/prepareJob.js'
 import {preparedJobSchema, type EmbedOptions} from '@shared/preparedJob.js'
 import {COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
 import {h264First} from '../shared/smartTvSelectors.js'
+import {tierBounded, tierRes} from '../shared/tierSelectors.js'
 
 const EMBED_OFF: EmbedOptions = {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}
 const EMBED_ALL: EmbedOptions = {chapters: true, metadata: true, thumbnail: true, description: true, thumbnailSidecar: true}
@@ -142,8 +143,8 @@ describe('prepareJob', () => {
 				extractor: 'youtube',
 				extractorKey: 'Youtube',
 				intent: {kind: 'video-audio', goal: 'best-picture', tier: '1080', fileType: 'auto', audio: {native: {kind: 'default'}}},
-				formatSelector: skippingAiUpscaled(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR),
-				formatSort: 'res:1080,fps,hdr:sdr',
+				formatSelector: skippingAiUpscaled(tierBounded(COMPATIBLE_BEST_VIDEO_AUDIO_SELECTOR, '1080')),
+				formatSort: `${tierRes('1080')},fps,hdr:sdr`,
 				mergeOutputFormat: undefined,
 				audioConvert: undefined,
 				filenameTemplate: '01 - {title}',
@@ -165,7 +166,7 @@ describe('prepareJob', () => {
 		it('mp4 codec takes H.264 first and merges to mp4', () => {
 			const job = prepareJob({...BASE, mode: 'playlist', playlistSelection: {kind: 'video', tier: '720', codec: 'mp4'}, filenameTemplate: 't.ext'})
 			if (job.kind !== 'ranged-format') throw new Error('unreachable')
-			expect(job.formatSelector).toBe(skippingAiUpscaled(h264First('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best')))
+			expect(job.formatSelector).toBe(skippingAiUpscaled(tierBounded(h264First('bestvideo+bestaudio[ext=m4a]/bestvideo+bestaudio/best[ext=mp4]/best'), '720')))
 			expect(job.mergeOutputFormat).toBe('mp4')
 		})
 
@@ -181,8 +182,8 @@ describe('prepareJob', () => {
 			const job = prepareJob({...BASE, mode: 'playlist', mediaIntent: intent, filenameTemplate: 't.ext'})
 			if (job.kind !== 'ranged-format') throw new Error('unreachable')
 			expect(job.intent).toEqual(intent)
-			expect(job.formatSelector).toBe(skippingAiUpscaled(h264First('bestvideo/bestvideo*/best')))
-			expect(job.formatSort).toBe('res:1080,fps,hdr:sdr')
+			expect(job.formatSelector).toBe(skippingAiUpscaled(tierBounded(h264First('bestvideo/bestvideo*/best'), '1080')))
+			expect(job.formatSort).toBe(`${tierRes('1080')},fps,hdr:sdr`)
 		})
 
 		// yt-dlp remuxes a merged WebM to MKV for cover art, but a single native

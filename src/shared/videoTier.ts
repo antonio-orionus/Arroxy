@@ -14,3 +14,13 @@ export function tierHeightOf(width: number, height: number): number | null {
 	const equivalentHeight = Math.max(Math.min(width, height), (Math.max(width, height) * 9) / 16)
 	return TIER_HEIGHTS.find(tier => equivalentHeight >= tier * (1 - TIER_TOLERANCE)) ?? null
 }
+
+// The largest a stream can be and still sit at or under `tier`: its short side
+// and its long side, as whole pixels under the next tier's threshold. Null
+// for the top tier, which has nothing above it.
+export function tierCeiling(tier: number): {shortSide: number; longSide: number} | null {
+	const next = TIER_HEIGHTS.toReversed().find(height => height > tier)
+	if (next === undefined) return null
+	const threshold = next * (1 - TIER_TOLERANCE)
+	return {shortSide: Math.ceil(threshold) - 1, longSide: Math.ceil((threshold * 16) / 9) - 1}
+}

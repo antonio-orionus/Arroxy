@@ -8,6 +8,7 @@
 //   - the "Why this one" explanation the UI shows (the ranks themselves).
 
 import {asResolvedHdr, DEFAULT_HDR_PREFERENCE, type GlobalHdr, type HdrSource} from './hdrSetting.js'
+import {tierCeiling} from './videoTier.js'
 import type {HdrChoice, HdrPreference, NativeAudioChoice, NativeAudioPreference, PlaylistVideoTier, VideoCodecPreference, VideoFileType, VideoGoal, VideoMediaIntent} from './schemas.js'
 
 export type VideoRank =
@@ -168,8 +169,11 @@ function videoSortToken(rank: VideoRank, order: SelectionOrder): string | undefi
 		case 'h264':
 		case 'mp4-streams':
 			return undefined
+		// A tier caps the short side, yt-dlp's `res`, at the tier's ceiling, so
+		// a 960x540 stream the rows call 480p is under a 480p limit; the
+		// selector keeps out what the rows put in the next tier (mediaIntent).
 		case 'resolution':
-			if (rank.tier !== 'best') return `res:${rank.tier}`
+			if (rank.tier !== 'best') return `res:${tierCeiling(Number(rank.tier))?.shortSide ?? rank.tier}`
 			return spellOut ? 'res' : undefined
 		case 'fps':
 			return order.tier === 'best' && !spellOut ? undefined : 'fps'

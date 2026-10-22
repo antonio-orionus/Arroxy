@@ -1,7 +1,8 @@
 import {skippingAiUpscaled} from '../shared/nativeAudioSelectors.js'
 import {describe, expect, it} from 'vite-plus/test'
 import {mediaIntentSpec} from '@shared/mediaIntent.js'
-import type {MediaIntent} from '@shared/schemas.js'
+import {NATIVE_AUDIO_PREFERENCES, PLAYLIST_VIDEO_TIERS, VIDEO_CODEC_PREFERENCES, VIDEO_FILE_TYPES, VIDEO_GOALS, type MediaIntent} from '@shared/schemas.js'
+import {fileTypeAllowed} from '@shared/selectionOrder.js'
 
 const BEST_VIDEO: MediaIntent = {kind: 'video-audio', goal: 'best-picture', tier: 'best', fileType: 'auto', audio: {native: {kind: 'default'}}}
 const BEST_AUDIO: MediaIntent = {kind: 'audio-only', audio: {format: 'best'}}
@@ -82,5 +83,31 @@ describe('mediaIntentSpec native audio preference', () => {
 		expect(selector).not.toMatch(/\[acodec~=\?/)
 		expect(selector).not.toMatch(/\[format_note~=\?/)
 		expect(selector).toContain("[acodec!~=?'^(?:e-?ac-?3|ec-3|ac-?3)$']")
+	})
+})
+
+// Every video choice reaches yt-dlp as one `-f` argument, and Windows caps a
+// whole command line at 32,767 characters: a selector past 16,000 would leave
+// too little room for cookies, extractor arguments and output paths.
+describe('selector length', () => {
+	it('stays under 16,000 characters for every video choice', () => {
+		const lengths = VIDEO_GOALS.flatMap(goal =>
+			PLAYLIST_VIDEO_TIERS.flatMap(tier =>
+				VIDEO_FILE_TYPES.filter(fileType => fileTypeAllowed(goal, fileType)).flatMap(fileType =>
+					[undefined, ...VIDEO_CODEC_PREFERENCES].flatMap(videoCodec =>
+						NATIVE_AUDIO_PREFERENCES.flatMap(preference =>
+							(['sdr', 'hdr'] as const).flatMap(hdr =>
+								(['video-audio', 'video-only'] as const).map(kind => {
+									const intent: MediaIntent = kind === 'video-audio' ? {kind, goal, tier, fileType, ...(videoCodec ? {videoCodec} : {}), audio: {native: {kind: 'default'}}} : {kind, goal, tier, fileType, ...(videoCodec ? {videoCodec} : {})}
+									return {label: `${kind} ${goal} ${tier} ${fileType} ${videoCodec ?? '-'} ${preference} ${hdr}`, length: mediaIntentSpec(intent, preference, hdr).formatSelector?.length ?? 0}
+								})
+							)
+						)
+					)
+				)
+			)
+		)
+		expect(lengths.filter(({length}) => length >= 16_000)).toEqual([])
+		expect(lengths.length).toBeGreaterThan(100)
 	})
 })

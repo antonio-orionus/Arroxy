@@ -19,13 +19,13 @@ best-2160: dash-1407570984907314v (1080x1920, mp4) + audio dash-1407570791574000
 best-1440: dash-1407570984907314v (1080x1920, mp4) + audio dash-1407570791574000a (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"1440","picked":1080})
 hd-1080: dash-1407570984907314v (1080x1920, mp4) + audio dash-1407570791574000a (audio only, m4a)
 balanced: dash-1407570978240648v (720x1280, mp4) + audio dash-1407570791574000a (audio only, m4a)
-small-file: dash-1407570974907315v (360x640, mp4) + audio dash-1407570791574000a (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"480","picked":360})
+small-file: dash-1407570971573982v (540x960, mp4) + audio dash-1407570791574000a (audio only, m4a)
 mp4-1080: dash-1407570984907314v (1080x1920, mp4) + audio dash-1407570791574000a (audio only, m4a) (notices: {"kind":"mp4-unavailable"})
 mp4-720: dash-1407570978240648v (720x1280, mp4) + audio dash-1407570791574000a (audio only, m4a) (notices: {"kind":"mp4-unavailable"})
-mp4-480: dash-1407570974907315v (360x640, mp4) + audio dash-1407570791574000a (audio only, m4a) (notices: {"kind":"mp4-unavailable"}, {"kind":"video-tier-fallback","wanted":"480","picked":360})
+mp4-480: dash-1407570971573982v (540x960, mp4) + audio dash-1407570791574000a (audio only, m4a) (notices: {"kind":"mp4-unavailable"})
 audio-only: audio dash-1407570791574000a (audio only, m4a)
-low-240: 3 (no resolution, mp4) + audio none
-low-144: 3 (no resolution, mp4) + audio none
+low-240: dash-1407570974907315v (360x640, mp4) + audio dash-1407570791574000a (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"240","picked":360})
+low-144: dash-1407570974907315v (360x640, mp4) + audio dash-1407570791574000a (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"144","picked":360})
 
 Subtitles: none
 Auto captions: none

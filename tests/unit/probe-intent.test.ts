@@ -13,15 +13,7 @@ import {PROBE_SOURCES, type ProbeSourceId} from '@renderer/dev/probeSources/sour
 import {rawFormats, RULES} from '../../scripts/probe-intent/rules.js'
 
 // Filed bugs, by rule and probe; each line must still be reported.
-const KNOWN_VIOLATIONS: Record<string, Partial<Record<ProbeSourceId, string[]>>> = {
-	'a tiered profile picks its tier, or says what it picked instead': {
-		// #654: a format with no resolution passes yt-dlp's `res` limit.
-		facebook: ['small-file picks hd, of unknown size, over sized streams', 'low-240 picks hd, of unknown size, over sized streams', 'low-144 picks hd, of unknown size, over sized streams'],
-		// #657: a 960x540 row is 480p, but `res:480` measures it as 540 (with #654's two).
-		instagram: ['small-file picks 360p though a 480p stream it can take exists', 'low-240 picks 3, of unknown size, over sized streams', 'low-144 picks 3, of unknown size, over sized streams'],
-		vimeo: ['small-file picks 360p though a 480p stream it can take exists', 'mp4-480 picks 360p though a 480p stream it can take exists']
-	}
-}
+const KNOWN_VIOLATIONS: Record<string, Partial<Record<ProbeSourceId, string[]>>> = {}
 
 describe('profile picks match the user’s request on every recorded probe', () => {
 	for (const [rule, check] of Object.entries(RULES)) {
