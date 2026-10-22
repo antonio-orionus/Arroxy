@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {classifyUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId, isMixedUrlIntent, isObviousSingleUrlIntent, urlIntentBulkLabel, urlIntentHomeLabel} from '@shared/urlIntent.js'
+import {classifyBulkUrlIntent, classifyUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId, isMixedUrlIntent, isObviousSingleUrlIntent, urlIntentBulkLabel, urlIntentHomeLabel, videoListKind} from '@shared/urlIntent.js'
 
 describe('classifyUrlIntent', () => {
 	it.each([
@@ -31,27 +31,38 @@ describe('classifyUrlIntent', () => {
 		expect(classifyUrlIntent(url)).toEqual({kind: 'mixed', reason: 'youtube-video-with-list', url})
 	})
 
-	// A radio/mix list is generated per session and has no stable membership, so
-	// "download the playlist" is not a real option — the `v=` is the only thing
-	// the URL actually addresses. These must never reach the mixed prompt.
+	// A link that names a video and a list is ambiguous whatever the list: a Mix
+	// (`RD…`, or any list reached through `start_radio`) and a YouTube Music
+	// playlist (`RDCLAK…`) included. Each entry point decides what to do with it.
 	it.each([
-		'https://www.youtube.com/watch?v=abc123&list=RDabc123',
-		'https://www.youtube.com/watch?v=abc123&list=RDMMabc123',
-		'https://www.youtube.com/watch?v=abc123&list=RDAMVMabc123',
-		'https://music.youtube.com/watch?v=abc123&list=RDCLAK5uy_abc',
-		'https://www.youtube.com/watch?v=abc123&list=RDabc123&start_radio=1',
-		'https://youtu.be/abc123?list=RDabc123',
-		'https://www.youtube.com/watch?v=abc123&list=PLtest&start_radio=1'
-	])('%s -> obvious single (radio)', url => {
-		expect(classifyUrlIntent(url)).toEqual({kind: 'obvious-single', site: 'youtube', url})
+		['https://www.youtube.com/watch?v=abc123&list=PLtest', 'playlist'],
+		['https://www.youtube.com/watch?v=abc123&list=RDabc123', 'mix'],
+		['https://www.youtube.com/watch?v=abc123&list=RDMMabc123', 'mix'],
+		['https://www.youtube.com/watch?v=abc123&list=RDAMVMabc123', 'mix'],
+		['https://music.youtube.com/watch?v=abc123&list=RDCLAK5uy_abc', 'playlist'],
+		['https://music.youtube.com/watch?v=abc123&list=OLAK5uy_abc', 'album'],
+		['https://www.youtube.com/watch?v=abc123&list=UUabc', 'uploads'],
+		['https://www.youtube.com/watch?v=abc123&list=WL&index=2', 'watch-later'],
+		['https://www.youtube.com/watch?v=abc123&list=LL', 'liked'],
+		['https://www.youtube.com/watch?v=abc123&list=FLabc', 'playlist'],
+		['https://www.youtube.com/watch?v=abc123&list=RDabc123&start_radio=1', 'mix'],
+		['https://www.youtube.com/watch?v=abc123&list=PLtest&start_radio=1', 'mix'],
+		['https://youtu.be/abc123?list=RDabc123', 'mix'],
+		['https://www.youtube.com/shorts/abc123?list=PLtest', 'playlist']
+	] as const)('%s -> mixed, naming a %s', (url, kind) => {
+		expect(classifyUrlIntent(url)).toEqual({kind: 'mixed', reason: 'youtube-video-with-list', url})
+		expect(videoListKind(url)).toBe(kind)
 	})
+
+	it.each(['https://www.youtube.com/watch?v=abc123', 'https://www.youtube.com/playlist?list=PLtest', 'https://www.youtube.com/playlist?list=RDabc123', 'https://www.youtube.com/@arroxy', 'https://vimeo.com/123?list=PLtest', 'https://example.com/watch?v=abc&list=PLxyz', 'not a url', ''])(
+		'%s names no video in a list',
+		url => {
+			expect(videoListKind(url)).toBeNull()
+		}
+	)
 
 	it('still treats a radio list with no video behind it as a collection', () => {
 		expect(classifyUrlIntent('https://www.youtube.com/playlist?list=RDabc123')).toMatchObject({kind: 'obvious-collection', collection: 'playlist'})
-	})
-
-	it('extracts the video id from a radio URL so filenames and dedupe see it', () => {
-		expect(extractUrlIntentYouTubeVideoId(classifyUrlIntent('https://www.youtube.com/watch?v=ScsahA7OzVo&list=RDScsahA7OzVo&start_radio=1'))).toBe('ScsahA7OzVo')
 	})
 
 	it.each(['https://vimeo.com/123', 'https://example.com/watch?v=abc&list=PLxyz', 'https://www.youtube.com/live', 'https://www.youtube.com/clip', 'https://www.youtube.com/embed/videoseries', 'not a url', ''])('%s -> unknown', url => {
@@ -113,5 +124,28 @@ describe('classifyUrlIntent', () => {
 		expect(urlIntentBulkLabel(playlist)).toBe('playlist')
 		expect(urlIntentBulkLabel(mixed)).toBe('mixed')
 		expect(urlIntentBulkLabel(unknown)).toBe('unknown')
+	})
+})
+
+// Bulk URLs is out of scope for the video-or-list question: every link that was
+// Radio before (`RD…`, `RDCLAK…` included, and `start_radio`) stays one video
+// there, with its id and "YouTube <id>" label, and a plain mixed link keeps
+// diverting the batch to the Bulk review.
+describe('classifyBulkUrlIntent', () => {
+	it.each(['https://www.youtube.com/watch?v=abc123&list=RDabc123', 'https://music.youtube.com/watch?v=abc123&list=RDCLAK5uy_abc', 'https://www.youtube.com/watch?v=abc123&list=PLtest&start_radio=1', 'https://youtu.be/abc123?list=RDabc123'])('%s stays a single video', url => {
+		expect(classifyBulkUrlIntent(url)).toEqual({kind: 'obvious-single', site: 'youtube', url})
+		expect(extractUrlIntentYouTubeVideoId(classifyBulkUrlIntent(url))).toBe('abc123')
+		expect(deriveUrlIntentLabel(url)).toBe('YouTube abc123')
+	})
+
+	it('keeps a plain mixed link mixed, with no id and a path label', () => {
+		const url = 'https://www.youtube.com/watch?v=abc123&list=PLtest'
+		expect(classifyBulkUrlIntent(url)).toEqual({kind: 'mixed', reason: 'youtube-video-with-list', url})
+		expect(extractUrlIntentYouTubeVideoId(classifyBulkUrlIntent(url))).toBeNull()
+		expect(deriveUrlIntentLabel(url)).toBe('www.youtube.com/watch')
+	})
+
+	it('reads every other link as classifyUrlIntent does', () => {
+		for (const url of ['https://www.youtube.com/watch?v=abc123', 'https://www.youtube.com/playlist?list=RDabc123', 'https://vimeo.com/123']) expect(classifyBulkUrlIntent(url)).toEqual(classifyUrlIntent(url))
 	})
 })

@@ -1,6 +1,6 @@
 import {cleanUrl} from './cleanUrl.js'
 import type {BulkUrlKind, BulkUrlRejectReason} from './schemas.js'
-import {classifyUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId, isObviousSingleUrlIntent, type UrlIntent, urlIntentBulkLabel} from './urlIntent.js'
+import {classifyBulkUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId, isObviousSingleUrlIntent, type UrlIntent, urlIntentBulkLabel} from './urlIntent.js'
 
 export interface BulkUrlAccepted {
 	url: string
@@ -110,15 +110,15 @@ function isObviouslyNonMediaUrl(url: string): boolean {
 }
 
 export function classifyBulkUrlKind(url: string): BulkUrlKind {
-	return urlIntentBulkLabel(classifyUrlIntent(url))
+	return urlIntentBulkLabel(classifyBulkUrlIntent(url))
 }
 
 export function isClearlyIndividualYouTubeUrl(url: string): boolean {
-	return isObviousSingleUrlIntent(classifyUrlIntent(url))
+	return isObviousSingleUrlIntent(classifyBulkUrlIntent(url))
 }
 
 export function extractYouTubeVideoId(url: string): string | null {
-	return extractUrlIntentYouTubeVideoId(classifyUrlIntent(url))
+	return extractUrlIntentYouTubeVideoId(classifyBulkUrlIntent(url))
 }
 
 export function deriveBulkUrlLabel(url: string): string | null {
@@ -155,7 +155,7 @@ export function parseBulkUrls(raw: string): BulkUrlParseResult {
 		}
 
 		seen.add(cleaned)
-		const intent = classifyUrlIntent(cleaned)
+		const intent = classifyBulkUrlIntent(cleaned)
 		accepted.push({url: cleaned, kind: urlIntentBulkLabel(intent), intent})
 	}
 

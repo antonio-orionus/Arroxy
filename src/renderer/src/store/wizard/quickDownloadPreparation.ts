@@ -1,7 +1,7 @@
 import type {PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult, QueueLane} from '@shared/types.js'
 import {getIncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
-import {classifyUrlIntent, type UrlIntent} from '@shared/urlIntent.js'
+import {classifyBulkUrlIntent, type UrlIntent} from '@shared/urlIntent.js'
 import {notify} from '@renderer/lib/notify.js'
 import type {GetState, SetState} from '../types.js'
 import {WizardCommands} from './commands.js'
@@ -121,7 +121,7 @@ export async function quickDownloadUrls(urls: string[], set: SetState, get: GetS
 	for (const url of cleanedUrls) {
 		if (maybeBlockIncompleteCookiesConfig(url, set, get)) return
 	}
-	const intents = cleanedUrls.map(url => classifyUrlIntent(url))
+	const intents = cleanedUrls.map(url => classifyBulkUrlIntent(url))
 	if (intents.some(intent => policyForUrlIntent(intent, 'bulk-quick-download').kind === 'open-bulk-review')) {
 		get().startBulkUrls(cleanedUrls)
 		set(resetQuickDownloadFeedback())

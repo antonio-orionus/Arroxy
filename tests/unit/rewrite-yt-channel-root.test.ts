@@ -55,10 +55,9 @@ describe('isMixedYouTubeUrl — delegates to UrlIntent mixed classification', ()
 		expect(isMixedYouTubeUrl(url)).toBe(false)
 	})
 
-	// A radio list carries a video and a list but is not ambiguous: the list is
-	// generated per session, so the video is the only thing worth resolving.
-	it.each(['https://www.youtube.com/watch?v=abc&list=RDabc', 'https://www.youtube.com/watch?v=abc&list=RDabc&start_radio=1'])('returns false for radio URL: %s', url => {
-		expect(isMixedYouTubeUrl(url)).toBe(false)
+	// A Mix names a video and a list too: it is offered as a snapshot.
+	it.each(['https://www.youtube.com/watch?v=abc&list=RDabc', 'https://www.youtube.com/watch?v=abc&list=RDabc&start_radio=1'])('returns true for a video in a Mix: %s', url => {
+		expect(isMixedYouTubeUrl(url)).toBe(true)
 	})
 
 	it('returns false for mixed-shape URL on non-YT host', () => {

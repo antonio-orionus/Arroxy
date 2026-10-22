@@ -130,6 +130,10 @@ describe('classifyBulkUrlKind', () => {
 		['https://www.youtube.com/live/abc123', 'single'],
 		['https://www.youtube.com/clip/clip123', 'single'],
 		['https://www.youtube.com/watch?v=abc123&list=PLtest', 'mixed'],
+		// Former Radio links stay single videos in Bulk URLs.
+		['https://www.youtube.com/watch?v=abc123&list=RDabc123', 'single'],
+		['https://music.youtube.com/watch?v=abc123&list=RDCLAK5uy_abc', 'single'],
+		['https://www.youtube.com/watch?v=abc123&list=PLtest&start_radio=1', 'single'],
 		['https://www.youtube.com/embed/videoseries?list=PLtest', 'playlist'],
 		['https://www.youtube.com/playlist?list=PLtest', 'playlist'],
 		['https://www.youtube.com/@arroxy', 'channel'],
@@ -143,6 +147,12 @@ describe('classifyBulkUrlKind', () => {
 describe('deriveBulkUrlLabel', () => {
 	it('uses YouTube video IDs when available', () => {
 		expect(deriveBulkUrlLabel('https://www.youtube.com/watch?v=abc123')).toBe('YouTube abc123')
+	})
+
+	it('labels a video in a Mix by its id, as before Mix links became ambiguous', () => {
+		expect(deriveBulkUrlLabel('https://www.youtube.com/watch?v=abc123&list=RDabc123&start_radio=1')).toBe('YouTube abc123')
+		expect(extractYouTubeVideoId('https://music.youtube.com/watch?v=abc123&list=RDCLAK5uy_abc')).toBe('abc123')
+		expect(isClearlyIndividualYouTubeUrl('https://www.youtube.com/watch?v=abc123&list=RDabc123')).toBe(true)
 	})
 
 	it('derives a host/path label for non-YouTube URLs without query strings', () => {

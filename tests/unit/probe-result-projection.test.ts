@@ -179,6 +179,24 @@ describe('ProbeResultProjection', () => {
 		expect(projection.patch.selectedPlaylistItemIds).toEqual(['bulk-1', 'bulk-2'])
 	})
 
+	// The Bulk review reads a former Radio link as the video alone, as before a
+	// Mix became a list to offer; a plain mixed link keeps its path label and no id.
+	it('keeps a video in a Mix a YouTube video row in the Bulk review', () => {
+		const mix = 'https://www.youtube.com/watch?v=abc&list=RDabc&start_radio=1'
+		const music = 'https://music.youtube.com/watch?v=def&list=RDCLAK5uy_x'
+		const plain = 'https://www.youtube.com/watch?v=ghi&list=PLx'
+		const projection = projectBulkStart([mix, music], appState())
+
+		expect(projection.allYouTubeVideos).toBe(true)
+		expect(projection.patch.playlistItems?.map(item => [item.title, item.videoId])).toEqual([
+			['YouTube abc', 'abc'],
+			['YouTube def', 'def']
+		])
+		const mixed = projectBulkStart([mix, plain], appState())
+		expect(mixed.allYouTubeVideos).toBe(false)
+		expect(mixed.patch.playlistItems?.[1]).toMatchObject({title: 'www.youtube.com/watch', videoId: null})
+	})
+
 	it('projects probe failure into the error step', () => {
 		const error = {kind: 'other' as const, code: 'unknown' as const, message: 'failed'}
 

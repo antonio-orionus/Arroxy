@@ -1,6 +1,7 @@
-import type {BulkUrlKind} from './schemas.js'
+import type {BulkUrlKind, ListKind} from './schemas.js'
 import {isYouTubeContainerId} from './sites/youtube.js'
 import {isYouTubeHostname} from './sites/youtubeHost.js'
+import {listKindForUrl} from './sites/youtubeListKind.js'
 
 export type UrlIntent = {kind: 'obvious-single'; url: string; site: 'youtube' | 'other'} | {kind: 'obvious-collection'; url: string; collection: 'playlist' | 'channel' | 'search'} | {kind: 'mixed'; url: string; reason: 'youtube-video-with-list'} | {kind: 'unknown'; url: string}
 
@@ -51,14 +52,10 @@ function isYouTubeBrowseCollectionPath(segments: string[]): boolean {
 	return segments.length === 2 && segments[0] === 'browse' && isYouTubeContainerId(segments[1] ?? '')
 }
 
-// A radio/mix list (`RD…`, or any list reached via `start_radio`) is generated
-// on the fly, is personalised, and has different membership every session — so
-// "download the playlist" names nothing stable and yt-dlp would expand it to an
-// arbitrary slice. The `v=` is the only thing such a URL actually addresses.
-// Nothing on YouTube's page or in the copied link tells a human that they are
-// on a radio rather than a plain video, so the ambiguity is ours to resolve,
-// not theirs to be asked about.
-function isYouTubeRadioList(searchParams: URLSearchParams): boolean {
+// What was Radio before a Mix became a list to offer: any `RD…` list
+// (`RDCLAK…` included), or any list reached through `start_radio`. Only Bulk
+// URLs still reads such a link as the video alone (classifyBulkUrlIntent).
+function isFormerRadioLink(searchParams: URLSearchParams): boolean {
 	if (searchParams.has('start_radio')) return true
 	return searchParams.get('list')?.startsWith('RD') === true
 }
@@ -72,13 +69,32 @@ export function classifyUrlIntent(url: string): UrlIntent {
 	const hasList = parsed.searchParams.has('list')
 	const hasConcreteVideo = isYouTubeVideoPath(host, segments, parsed.searchParams)
 
-	if (hasConcreteVideo && hasList) return isYouTubeRadioList(parsed.searchParams) ? {kind: 'obvious-single', url, site: 'youtube'} : {kind: 'mixed', url, reason: 'youtube-video-with-list'}
+	// A video with any list names both: a Mix (`RD…`, `start_radio`) and a
+	// YouTube Music playlist (`RDCLAK…`) included. Each entry point decides.
+	if (hasConcreteVideo && hasList) return {kind: 'mixed', url, reason: 'youtube-video-with-list'}
 	if (segments[0] === 'results' && parsed.searchParams.has('search_query')) return {kind: 'obvious-collection', url, collection: 'search'}
 	if (isYouTubeChannelPath(segments)) return {kind: 'obvious-collection', url, collection: 'channel'}
 	if (isYouTubeBrowseCollectionPath(segments)) return {kind: 'obvious-collection', url, collection: 'playlist'}
 	if (hasList) return {kind: 'obvious-collection', url, collection: 'playlist'}
 	if (hasConcreteVideo) return {kind: 'obvious-single', url, site: 'youtube'}
 	return {kind: 'unknown', url}
+}
+
+// The kind of list a YouTube link names beside its video, or null when it
+// names only one of them (or is not YouTube). The download controls read it to
+// offer This video beside the list.
+export function videoListKind(url: string): ListKind | null {
+	return classifyUrlIntent(url).kind === 'mixed' ? listKindForUrl(url) : null
+}
+
+// Bulk URLs' reading of a link. Bulk is out of the video-or-list question: a
+// link that was Radio before stays the video alone there, with its id and
+// label, while a plain mixed link still diverts the batch to the Bulk review.
+export function classifyBulkUrlIntent(url: string): UrlIntent {
+	const intent = classifyUrlIntent(url)
+	if (intent.kind !== 'mixed') return intent
+	const parsed = parseUrl(url)
+	return parsed && isFormerRadioLink(parsed.searchParams) ? {kind: 'obvious-single', url, site: 'youtube'} : intent
 }
 
 export function isObviousSingleUrlIntent(intent: UrlIntent): intent is Extract<UrlIntent, {kind: 'obvious-single'}> {
@@ -144,11 +160,12 @@ export function extractUrlIntentYouTubeVideoId(intent: UrlIntent): string | null
 	return null
 }
 
+// A Bulk row's placeholder label, read as Bulk URLs reads the link.
 export function deriveUrlIntentLabel(url: string): string | null {
 	const parsed = parseUrl(url)
 	if (!parsed) return null
 
-	const videoId = extractUrlIntentYouTubeVideoId(classifyUrlIntent(url))
+	const videoId = extractUrlIntentYouTubeVideoId(classifyBulkUrlIntent(url))
 	if (videoId) return `YouTube ${videoId}`
 
 	const path = parsed.pathname.replace(/\/+$/g, '').split('/').filter(Boolean).slice(-2).join('/')

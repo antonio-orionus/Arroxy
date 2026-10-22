@@ -465,6 +465,23 @@ describe('quickDownload', () => {
 		expect(useAppStore.getState().playlistItems.map(item => item.url)).toEqual(['https://youtu.be/one', mixedUrl])
 	})
 
+	// Bulk URLs is out of the video-or-list question: a link that was Radio
+	// before stays one video there, probed alone and queued with no question.
+	it.each(['&list=RDtest&start_radio=1', '&list=RDCLAK5uy_test', '&list=PLtest&start_radio=1'])('quickDownloadUrls keeps a video in a Mix (%s) as one video', async suffix => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
+		window.appApi = api
+
+		const mixUrl = `${YOUTUBE_URL}${suffix}`
+		useAppStore.setState({wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
+		await useAppStore.getState().quickDownloadUrls(['https://youtu.be/one', mixUrl])
+
+		expect(useAppStore.getState().mixedUrlPromptOpen).toBe(false)
+		expect(vi.mocked(api.downloads.probe).mock.calls.map(call => call[0].playlistMode)).toEqual(['video', 'video'])
+		expect(api.queue.cmd.add).toHaveBeenCalledTimes(2)
+		expect(useAppStore.getState().wizardMode).not.toBe('bulk')
+	})
+
 	it('quickDownloadUrls opens playlist review when an unknown bulk URL probes as a playlist', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok({...PLAYLIST_PROBE, webpageUrl: 'https://example.com/series'}))

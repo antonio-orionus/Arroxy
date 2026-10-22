@@ -8,7 +8,7 @@ import type {AudioSelection} from '@shared/schemas.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import type {AppSettings, BulkMetadataStatus, FormatOption, PlaylistEntry, PlaylistSelection, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
 import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
-import {classifyUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId, isObviousSingleUrlIntent} from '@shared/urlIntent.js'
+import {classifyBulkUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId, isObviousSingleUrlIntent} from '@shared/urlIntent.js'
 import type {AppState, WizardStep} from '../types.js'
 import type {BulkMetadataTarget} from './bulkMetadataHydration.js'
 import {profilePatch, snapshotPatch, wizardSnapshot} from './wizardProfileState.js'
@@ -235,14 +235,14 @@ export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'p
 
 export function projectBulkStart(urls: readonly string[], state: AppState, seeds?: ReadonlyMap<string, BulkEntrySeed>): BulkStartProjection {
 	const settings = state.settings
-	const intents = urls.map(url => classifyUrlIntent(url))
+	const intents = urls.map(url => classifyBulkUrlIntent(url))
 	const allYouTubeVideos = intents.length > 0 && intents.every(isObviousSingleUrlIntent)
 	const playlistSelection: PlaylistSelection = settings?.playlist?.lastPlaylistSelection ?? DEFAULT_PLAYLIST_SELECTION
 	const metadataTargets: BulkMetadataTarget[] = []
 	const playlistItems = urls.map((url, index) => {
 		const number = index + 1
 		const id = `bulk-${number}`
-		const intent = intents[index] ?? classifyUrlIntent(url)
+		const intent = intents[index] ?? classifyBulkUrlIntent(url)
 		const seed = seeds?.get(url)
 		if (!seed) metadataTargets.push({id, url, index})
 		// A seeded row takes the playlist probe's own title, exactly as the normal
