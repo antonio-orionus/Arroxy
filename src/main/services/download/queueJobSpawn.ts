@@ -61,12 +61,14 @@ async function resumeParkedJob(deps: QueueJobSpawnDeps, item: QueueItem, jobId: 
 	if (current?.status === QUEUE_STATUS.pausedHeld && current.lastJobId === jobId) {
 		// Paused meanwhile: paused-active on the job it names, so a later resume
 		// continues that job (or the row's temp dir, once the job is gone) rather
-		// than reset the row and leave the job parked.
+		// than reset the row and leave the job parked. A failed resume still
+		// fails the row below, which a held row would drop.
 		deps.patch(item.id, 'spawn:pausedWhileResuming', prev => ({...prev, status: QUEUE_STATUS.pausedActive}))
-		deps.settled()
-		return ok(undefined)
-	}
-	if (current?.status !== item.status || current.lastJobId !== jobId) {
+		if (resumed.ok) {
+			deps.settled()
+			return ok(undefined)
+		}
+	} else if (current?.status !== item.status || current.lastJobId !== jobId) {
 		deps.settled()
 		return ok(undefined)
 	}

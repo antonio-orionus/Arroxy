@@ -110,6 +110,14 @@ describe('spawn of a row paused while its parked job is being resumed', () => {
 		expect(ds.start).toHaveBeenCalledOnce()
 	})
 
+	it('fails the row when resuming its parked job failed, rather than leave it paused', async () => {
+		const {qs, ds} = makeService()
+		const answer = await pausedDuringResume(qs, ds)
+		answer({ok: false, error: {code: 'download', message: 'boom'}})
+		await vi.waitFor(() => expect(qs.snapshot()[0]?.status).toBe('error'))
+		expect(ds.start).toHaveBeenCalledOnce()
+	})
+
 	it.each([
 		['Resume', (qs: QueueService) => qs.resume('a')],
 		['Resume All', (qs: QueueService) => qs.resumeAll()]
