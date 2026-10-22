@@ -12,6 +12,7 @@ import type {PlaylistProbeResult, PlaylistScope, ProbePlaylistMode, ProbeResult,
 import {getIncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
 import {classifyUrlIntent} from '@shared/urlIntent.js'
+import {youtubeVideoOnlyUrl} from '@shared/sites/youtube.js'
 import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
 import {resolvePlaylistDir} from './playlistDir.js'
@@ -449,8 +450,12 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 					await get().quickDownload({url, entry: source, playlistMode: 'video'})
 					return
 				}
-				if (maybeBlockIncompleteCookiesConfig(url, set, get)) return
-				await runProbe(url, 'video', set, get)
+				// The run keeps the link without its list: a retry probes it as a
+				// plain video, never asking again or loading the list.
+				const video = youtubeVideoOnlyUrl(url)
+				set({wizardUrl: video})
+				if (maybeBlockIncompleteCookiesConfig(video, set, get)) return
+				await runProbe(video, 'video', set, get)
 				return
 			}
 			if (answer.kind !== 'pick') {

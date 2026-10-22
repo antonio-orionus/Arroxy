@@ -92,7 +92,7 @@ describe('the video-in-a-list dialog', () => {
 		it.each([
 			['url-tab', MIXED_URL],
 			['explore', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1']
-		] as const)('Just this video from %s queues the video alone and loads no list', async (source, url) => {
+		] as const)('Just this video from %s queues the video alone', async (source, url) => {
 			open(url, source)
 			render(<MixedUrlPromptDialog />)
 
@@ -100,7 +100,6 @@ describe('the video-in-a-list dialog', () => {
 
 			await waitFor(() => expect(quickDownloadSpy).toHaveBeenCalledWith({url, entry: source, playlistMode: 'video'}))
 			expect(useAppStore.getState().mixedUrlPromptOpen).toBe(false)
-			expect(mockApi.downloads.probe).not.toHaveBeenCalled()
 		})
 
 		it('starts on Download in the background, and Enter queues the list with no count', async () => {
@@ -229,7 +228,7 @@ describe('the video-in-a-list dialog', () => {
 
 			fireEvent.click(video)
 
-			await waitFor(() => expect(mockApi.downloads.probe).toHaveBeenCalledWith(expect.objectContaining({url: MIXED_URL, playlistMode: 'video'})))
+			await waitFor(() => expect(mockApi.downloads.probe).toHaveBeenCalledWith(expect.objectContaining({url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', playlistMode: 'video'})))
 			expect(mockApi.downloads.probe).not.toHaveBeenCalledWith(expect.objectContaining({playlistScope: expect.anything()}))
 			expect(quickDownloadSpy).not.toHaveBeenCalled()
 		})

@@ -88,6 +88,22 @@ export function youtubeVideoInListWatchUrl(url: string): string | null {
 	return watch.toString()
 }
 
+// A YouTube link with its list taken out (`list`, `index`, `start_radio`), so
+// it reads as the one video wherever it goes next. Any other URL as it is.
+const LIST_PARAMS = ['list', 'index', 'start_radio'] as const
+
+export function youtubeVideoOnlyUrl(url: string): string {
+	let parsed: URL
+	try {
+		parsed = new URL(url)
+	} catch {
+		return url
+	}
+	if (!isYouTubeHostname(parsed.hostname) || !LIST_PARAMS.some(key => parsed.searchParams.has(key))) return url
+	for (const key of LIST_PARAMS) parsed.searchParams.delete(key)
+	return parsed.toString()
+}
+
 // Used to filter heterogeneous flat-playlist results so the wizard's
 // "pick videos" model isn't broken by nested entries.
 function youtubeIsNested(entry: PlaylistEntryHint): boolean {

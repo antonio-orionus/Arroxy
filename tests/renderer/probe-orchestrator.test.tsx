@@ -328,6 +328,26 @@ describe('quickDownload', () => {
 		expect(useAppStore.getState().cookiesConfigDialogIssue).toBe('file-missing-path')
 	})
 
+	it("Interactive's Just this video drops the list from the link, so a retry neither asks again nor loads the list", async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', code: 'unknown', message: 'Bot block'}))
+		window.appApi = api
+		const mixedUrl = `${YOUTUBE_URL}&list=PLtest&index=3`
+		useAppStore.setState({wizardUrl: mixedUrl, settings: defaultAppSettings('/tmp'), mixedUrlPromptOpen: true, mixedUrlPending: mixedUrl, mixedUrlPromptSource: 'wizard'})
+
+		await useAppStore.getState().dismissMixedPrompt({kind: 'video'})
+		expect(api.downloads.probe).toHaveBeenLastCalledWith(expect.objectContaining({url: YOUTUBE_URL, playlistMode: 'video'}))
+		expect(useAppStore.getState().wizardUrl).toBe(YOUTUBE_URL)
+
+		await useAppStore.getState().retry()
+		expect(useAppStore.getState().mixedUrlPromptOpen).toBe(false)
+		expect(api.downloads.probe).toHaveBeenCalledTimes(2)
+		expect(api.downloads.probe).toHaveBeenLastCalledWith(expect.objectContaining({url: YOUTUBE_URL}))
+
+		await useAppStore.getState().retryFormatProbe()
+		expect(api.downloads.probe).toHaveBeenLastCalledWith(expect.objectContaining({url: YOUTUBE_URL}))
+	})
+
 	it('opens the cookies config dialog instead of probing when the Interactive prompt answers Just this video with an incomplete cookie setup', async () => {
 		const api = buildMockAppApi()
 		window.appApi = api
