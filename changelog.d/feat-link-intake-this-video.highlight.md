@@ -1,0 +1,1 @@
+**This video, or the whole list.** A link to a video inside a playlist, Mix or album now offers This video beside the list on the URL tab, in the Explore toolbar and in its right-click menu, so the video takes one click and the list is one dialog away. A Mix can now be downloaded as a list too.

@@ -26,7 +26,9 @@ def _fixture_catalog():
 
 
 def _fixture_playlists(catalog):
-    return [catalog['playlist'], catalog['repeatedPlaylist'], catalog['overlapPlaylist']]
+    # Plain playlists, a Mix (`RD…`) and a YouTube Music playlist (`RDCLAK…`):
+    # each served the same way, as a flat list.
+    return [catalog['playlist'], catalog['repeatedPlaylist'], catalog['overlapPlaylist'], catalog['mixPlaylist'], catalog['musicPlaylist']]
 
 
 def _fixture_playlist_id_pattern():

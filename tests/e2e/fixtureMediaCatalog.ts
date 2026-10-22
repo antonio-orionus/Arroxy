@@ -117,6 +117,11 @@ export const FIXTURE_REPEATED_PLAYLIST_UNIQUE_VIDEO_IDS = [...new Set(FIXTURE_RE
 export const FIXTURE_OVERLAP_PLAYLIST_ID = catalog.overlapPlaylist.id
 export const FIXTURE_OVERLAP_PLAYLIST_TITLE = catalog.overlapPlaylist.title
 export const FIXTURE_OVERLAP_PLAYLIST_VIDEO_IDS = catalog.overlapPlaylist.videoIds
+// A Mix (`RD` + the video it started from), as YouTube names one.
+export const FIXTURE_MIX_ID = catalog.mixPlaylist.id
+export const FIXTURE_MIX_VIDEO_IDS = catalog.mixPlaylist.videoIds
+// A YouTube Music playlist: an `RDCLAK…` id, a stable playlist, not a Mix.
+export const FIXTURE_MUSIC_PLAYLIST_ID = catalog.musicPlaylist.id
 export const FIXTURE_MEDIA_FORMAT_IDS = Object.values(catalog.formatSets).flatMap(formatSet => formatSet.map(format => format.id))
 
 export function fixtureMediaPathExtension(formatId: string): string {
