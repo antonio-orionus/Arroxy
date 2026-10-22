@@ -235,7 +235,7 @@ export interface ProbeOrchestratorSlice {
 	cancelWizardProbe: () => void
 	// A needs-choice row's Review: the wizard's playlist step for the link,
 	// from the row's kept probe when there is one, else from a fresh probe.
-	openPlaylistReview: (url: string, playlistMode: ProbePlaylistMode, sourceRowId: string, probe?: PlaylistProbeResult, skipVideoId?: string) => Promise<void>
+	openPlaylistReview: (url: string, playlistMode: ProbePlaylistMode, sourceRowId: string, probe?: PlaylistProbeResult) => Promise<void>
 }
 
 // QuickDownload — the in-app ends of the background quick download (P2-R37/R38).

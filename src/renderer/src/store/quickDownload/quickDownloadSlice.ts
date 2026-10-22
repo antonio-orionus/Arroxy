@@ -132,7 +132,7 @@ export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDow
 			if (answer === 'review') {
 				// The row stays until the review queues (P2-R40): the wizard's
 				// submission replaces it, and an abandoned review leaves it waiting.
-				await get().openPlaylistReview(row.url, row.probeMode, itemId, await keptChoiceProbe(itemId), row.skipVideoId)
+				await get().openPlaylistReview(row.url, row.probeMode, itemId, await keptChoiceProbe(itemId))
 				return
 			}
 			if (answer === 'first' && !row.choice.capped) return
