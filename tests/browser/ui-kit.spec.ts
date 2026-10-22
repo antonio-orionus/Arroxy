@@ -29,3 +29,33 @@ for (const variant of VARIANTS) {
 		await page.screenshot({path: `tests/browser/screenshots/ui-kit-${variant.name}.png`})
 	})
 }
+
+// A profile picker's list row answers the pointer in both skies: an unpicked row
+// takes a tint on hover, and the picked row keeps its own tint rather than
+// trading it for the hover's.
+for (const theme of ['dark', 'light'] as const) {
+	test(`profile picker list rows show hover and keep the selected tint (${theme})`, async ({page}) => {
+		await page.setViewportSize({width: 900, height: 760})
+		await page.goto(`/?kit&theme=${theme}`)
+		// The Format step's list: QHD 1440p is picked, Full HD 1080p is not.
+		const list = page.getByTestId('kit-profile-picker-list').first()
+		const picked = list.getByTestId('kit-profile-option-best-1440')
+		const unpicked = list.getByTestId('kit-profile-option-hd-1080')
+		await expect(picked).toHaveAttribute('data-selected')
+		const background = (row: typeof picked): Promise<string> => row.evaluate(element => getComputedStyle(element).backgroundColor)
+
+		await unpicked.scrollIntoViewIfNeeded()
+		const restingUnpicked = await background(unpicked)
+		const restingPicked = await background(picked)
+		expect(restingPicked).not.toBe(restingUnpicked)
+
+		await unpicked.hover()
+		await expect.poll(() => background(unpicked)).not.toBe(restingUnpicked)
+
+		await picked.hover()
+		// Let the hover's colour transition finish before reading the picked row.
+		await expect.poll(() => picked.evaluate(element => element.getAnimations().length)).toBe(0)
+		expect(await background(picked)).toBe(restingPicked)
+		await expect.poll(() => background(unpicked)).toBe(restingUnpicked)
+	})
+}

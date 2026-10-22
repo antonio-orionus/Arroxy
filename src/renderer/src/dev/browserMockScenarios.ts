@@ -10,6 +10,7 @@ import {ATTENTION_SCENARIO_FAILED_URL, ATTENTION_SCENARIO_ROWS, buildQueueItems,
 import {buildUpdate} from './scenarios/updateScenarios.js'
 import {buildWarmUp} from './scenarios/diagnosticScenarios.js'
 import {buildExploreView, exploreProfilesPatch, exploreSettingsPatch} from './scenarios/exploreScenarios.js'
+import {ORIGINS_CUSTOM_REF, ORIGINS_HIDDEN_REF, profileOriginsPatch} from './scenarios/profileOriginScenarios.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {PROBE_SOURCES} from './probeSources/sources.js'
@@ -33,6 +34,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'playlist-loading',
 	'playlist-multi-profile',
 	'playlist-multi-profile-scale',
+	'playlist-profile-origins',
 	'playlist-scope-empty-reload',
 	'playlist-no-thumbnails',
 	'playlist-long-titles',
@@ -55,6 +57,8 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'profiles-bulk-huge-input',
 	'profiles-playlist-cap',
 	'profiles-quick-progress',
+	'profiles-manage-origins',
+	'profiles-picker-origins',
 	'probe-audio-only',
 	'probe-audio-multilingual',
 	'probe-audio-surround',
@@ -235,6 +239,13 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'playlist-loading', group: 'Playlist', title: 'Playlist loading scaffold', description: 'Playlist loading state with the final controls and full-width row skeletons visible.', kind: 'state'},
 	{id: 'playlist-multi-profile', group: 'Playlist', title: 'Playlist multi-profile', description: 'Playlist profiles step landing directly, with 17 items already split across the baseline, audio-only, and Full HD 1080p profiles.', kind: 'state'},
 	{id: 'playlist-multi-profile-scale', group: 'Playlist', title: 'Playlist multi-profile at scale', description: 'Playlist profiles step with 500 mixed-assignment items for scroll and virtualization review.', kind: 'state'},
+	{
+		id: 'playlist-profile-origins',
+		group: 'Playlist',
+		title: 'Playlist profiles: every badge',
+		description: "Playlist profiles step with rows on a modified built-in (active), a custom profile and a custom profile turned off since: open a row's profile button for the list picker, or right-click rows for the menu.",
+		kind: 'state'
+	},
 	{id: 'playlist-scope-empty-reload', group: 'Playlist', title: 'Scope reload empty', description: 'Playlist opens normally; applying any non-default scope reload returns no entries and should stay inline.', kind: 'probe'},
 	{id: 'playlist-no-thumbnails', group: 'Playlist', title: 'No thumbnails', description: 'Playlist rows with no thumbnail column.', kind: 'probe'},
 	{id: 'playlist-long-titles', group: 'Playlist', title: 'Long titles', description: 'Playlist rows with intentionally long titles.', kind: 'probe'},
@@ -257,6 +268,8 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'profiles-bulk-huge-input', group: 'Profiles', title: 'Bulk URLs huge input', description: 'Bulk URLs dialog seeded with a giant pasted log so textarea scrolling and dialog chrome stay visible.', kind: 'profile'},
 	{id: 'profiles-playlist-cap', group: 'Profiles', title: 'Playlist cap dialog', description: 'Quick Download playlist probe limit confirmation.', kind: 'profile'},
 	{id: 'profiles-quick-progress', group: 'Profiles', title: 'Quick Download progress', description: 'Preparing dialog while Quick Download reads the second of three links.', kind: 'profile'},
+	{id: 'profiles-manage-origins', group: 'Profiles', title: 'Profiles tab: every badge', description: 'Profiles tab with built-in, custom, modified (active) and hidden profiles, one hidden built-in and one hidden custom.', kind: 'profile'},
+	{id: 'profiles-picker-origins', group: 'Profiles', title: 'Profile menu: every badge', description: 'Quick Download profile picker opened over built-in, custom and modified (active) profiles.', kind: 'profile'},
 	{id: 'probe-audio-only', group: 'Probe Results', title: 'Audio only source', description: 'isAudioOnlySource:true - wizard defaults to audio-only mode (Bandcamp/SoundCloud-like extractor).', kind: 'probe'},
 	{id: 'probe-audio-multilingual', group: 'Probe Results', title: 'Audio multilingual', description: 'YouTube-like audio list with multiple spoken-language tracks, quality badges, and DRC variants.', kind: 'probe'},
 	{id: 'probe-audio-surround', group: 'Probe Results', title: 'Audio surround', description: 'Audio list with high-quality 6ch Dolby tracks plus stereo fallbacks.', kind: 'probe'},
@@ -493,6 +506,12 @@ function playlistMultiProfileState(): Partial<AppState> {
 	return playlistProfileAssignmentsState(playlist, assignments)
 }
 
+// Rows on every kind of profile, one of them turned off since it was assigned.
+function playlistProfileOriginsState(): Partial<AppState> {
+	const playlist = playlistProbe(9, {webpageUrl: 'https://www.youtube.com/playlist?list=PLmock_profile_origins'})
+	return playlistProfileAssignmentsState(playlist, {mock2: ORIGINS_CUSTOM_REF, mock3: ORIGINS_CUSTOM_REF, mock5: ORIGINS_HIDDEN_REF})
+}
+
 function playlistMultiProfileScaleState(): Partial<AppState> {
 	const playlist = playlistProbe(500, {webpageUrl: 'https://www.youtube.com/playlist?list=PLmock_multiprofile_scale'})
 	const assignments: Record<string, DownloadProfileRef> = {}
@@ -537,6 +556,7 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 		store.reset()
 		// The hotkey section lives on the Settings tab, as openAdvancedSettings opens it.
 		if (scenario.id === 'hotkey-conflict') replaceHash('settings')
+		if (scenario.id === 'profiles-manage-origins') replaceHash('profiles')
 		store.setState(profileScenarioPatch(scenario))
 		return
 	}
@@ -545,6 +565,7 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 		if (scenario.id === 'playlist-loading') store.setState(playlistLoadingState())
 		else if (scenario.id === 'playlist-multi-profile') store.setState(playlistMultiProfileState())
 		else if (scenario.id === 'playlist-multi-profile-scale') store.setState(playlistMultiProfileScaleState())
+		else if (scenario.id === 'playlist-profile-origins') store.setState(playlistProfileOriginsState())
 		return
 	}
 	if (scenario.kind === 'explore') {
@@ -612,6 +633,6 @@ function buildSettings(scenario: BrowserMockScenario, knobs?: BrowserMockKnobs):
 			...(knobs?.theme !== null && knobs?.theme !== undefined ? {uiTheme: knobs.theme} : {}),
 			...(knobs?.style ? {uiStyle: knobs.style} : {})
 		},
-		profiles: {...base.profiles, ...exploreProfilesPatch(scenario)}
+		profiles: {...base.profiles, ...exploreProfilesPatch(scenario), ...profileOriginsPatch(scenario)}
 	}
 }

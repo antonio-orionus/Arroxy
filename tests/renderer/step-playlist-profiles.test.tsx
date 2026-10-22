@@ -826,7 +826,7 @@ describe('StepPlaylistProfiles with a profile hidden after it was assigned', () 
 		fireEvent.contextMenu(screen.getByTestId('profile-row-b'))
 
 		const radios = await screen.findAllByRole('menuitemradio')
-		expect(radios[0]?.textContent).toMatch(/^Podcast MP3Hidden/)
+		expect(radios[0]?.textContent).toMatch(/^Podcast MP3CustomHidden/)
 		expect(radios[0]).toHaveAttribute('aria-checked', 'true')
 		expect(radios.filter(radio => radio.getAttribute('aria-checked') === 'true')).toHaveLength(1)
 

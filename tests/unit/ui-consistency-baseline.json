@@ -1,8 +1,1 @@
-{
-	"App.tsx": {"raw-control": 1},
-	"components/layout/TitleBar.tsx": {"arbitrary-color": 1, "raw-control": 3},
-	"components/queue/useQueueManagerColumns.tsx": {"raw-control": 1},
-	"components/wizard/DownloadProfilesManageTab.tsx": {"raw-control": 1},
-	"components/wizard/QuickProfileControl.tsx": {"raw-control": 1},
-	"components/wizard/StepPlaylistItems.tsx": {"arbitrary-radius": 1}
-}
+{"App.tsx": {"raw-control": 1}, "components/layout/TitleBar.tsx": {"arbitrary-color": 1, "raw-control": 3}, "components/queue/useQueueManagerColumns.tsx": {"raw-control": 1}, "components/wizard/QuickProfileControl.tsx": {"raw-control": 1}, "components/wizard/StepPlaylistItems.tsx": {"arbitrary-radius": 1}}

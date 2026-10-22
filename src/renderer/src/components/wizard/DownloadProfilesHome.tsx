@@ -188,7 +188,7 @@ function DownloadTabPanel({view, initialBrowserMockScenario, onEditProfile, onMa
 			</CardHeader>
 			<CardContent className="@container px-5 pb-4 md:px-6">
 				<QuickProfileControl
-					defaultProfileMenuOpen={initialBrowserMockScenario === 'profiles-split-menu'}
+					defaultProfileMenuOpen={initialBrowserMockScenario === 'profiles-split-menu' || initialBrowserMockScenario === 'profiles-picker-origins'}
 					destination={activeProfileDestination}
 					destinationDetail={t(activeProfileDestinationDetailKey)}
 					disabled={!urlReady}

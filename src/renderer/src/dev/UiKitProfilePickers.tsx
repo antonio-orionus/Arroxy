@@ -14,7 +14,7 @@ import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 import {ProfileSummaryContent} from '../components/wizard/ProfileSummaryContent.js'
 
 // One set of saved profiles behind every picker below: a custom profile moved
-// up the saved order, two built-ins and a custom profile hidden.
+// up the saved order, the active built-in modified, two built-ins and a custom profile hidden.
 function builtin(id: string): DownloadProfile {
 	const profile = BUILTIN_DOWNLOAD_PROFILES.find(candidate => candidate.id === id)
 	if (!profile) throw new Error(`No built-in profile ${id}`)
@@ -24,7 +24,10 @@ function builtin(id: string): DownloadProfile {
 const PODCAST: DownloadProfile = {...builtin('audio-only'), id: 'kit-podcast', name: 'Podcast MP3', icon: 'podcast', media: {kind: 'audio-only', audio: {format: 'mp3', bitrateKbps: 128}}}
 const LECTURES: DownloadProfile = {...builtin('balanced'), id: 'kit-lectures', name: 'Lectures 720p', icon: 'classes', enabled: false}
 
-const PREFS: DownloadProfilesPrefs = {active: {kind: 'builtin', id: 'balanced'}, custom: [PODCAST, LECTURES], overrides: [], enabledOverrides: {'best-2160': false, 'best-1440': false}, order: ['balanced', 'kit-podcast', 'hd-1080', 'best-quality', 'kit-lectures']}
+const BALANCED = builtin('balanced')
+const BALANCED_WITH_SUBS: DownloadProfile = {...BALANCED, subtitles: {...BALANCED.subtitles, enabled: true, languages: ['en']}}
+
+const PREFS: DownloadProfilesPrefs = {active: {kind: 'builtin', id: 'balanced'}, custom: [PODCAST, LECTURES], overrides: [BALANCED_WITH_SUBS], enabledOverrides: {'best-2160': false, 'best-1440': false}, order: ['balanced', 'kit-podcast', 'hd-1080', 'best-quality', 'kit-lectures']}
 
 const ACTIVE = resolveActiveDownloadProfile(PREFS).profile
 const QHD = allDownloadProfiles(PREFS).find(profile => profile.id === 'best-1440') ?? ACTIVE
@@ -84,7 +87,10 @@ export function UiKitProfilePickers(): ReactNode {
 	const oneRow = profilePickerOptions(PREFS, {current: PODCAST})
 	return (
 		<div className="flex flex-col gap-6">
-			<p className="text-sm text-muted-foreground">Every picker lists your saved order. A profile something already uses but you have hidden still shows, first, tagged Hidden. The current profile has a check on a selected surface; when the rows differ, nothing is checked and Edit drops out.</p>
+			<p className="text-sm text-muted-foreground">
+				Every picker lists your saved order, each profile badged Built-in, Custom or Modified as on the Profiles tab. A profile something already uses but you have hidden still shows, first, tagged Hidden. The current profile has a check on a selected surface; when the rows differ, nothing is checked and Edit drops
+				out.
+			</p>
 
 			<Variant title="Grid · switches the active profile" rule="Download tab profile card, Bulk URLs, Explore “Download with”. Edit, New and Manage.">
 				<ProfilePickerInline {...panelHandlers} options={switcher} layout="grid" description={t('wizard.url.profile.menuDescription')} editProfile={ACTIVE} onManageProfiles={noop} testIdPrefix="kit" />
@@ -149,7 +155,7 @@ export function UiKitProfilePickers(): ReactNode {
 				</div>
 			</Variant>
 
-			<Variant title="Editor · Profiles tab" rule="Stays an editor (every profile, hidden ones dimmed, drag to reorder) and shares the check, the selected surface and the Hidden tag.">
+			<Variant title="Editor · Profiles tab" rule="Stays an editor (every profile, hidden ones dimmed, drag to reorder) and shares the profile card with the pickers: icon, name, badges, check and summary hint.">
 				<ProfilesManageTab activeProfile={ACTIVE} profiles={allDownloadProfiles(PREFS)} profilesPrefs={PREFS} onEdit={noop} onMove={noop} onPick={noop} onRemove={noop} onToggleEnabled={noop} />
 			</Variant>
 		</div>

@@ -1,25 +1,20 @@
-import {useRef, type ReactNode, type RefObject, useId} from 'react'
+import {useRef, type ReactNode, type RefObject} from 'react'
 import type {TFunction} from 'i18next'
 import {useTranslation} from 'react-i18next'
 import {DndContext, PointerSensor, closestCenter, useSensor, useSensors, type Announcements, type DragEndEvent, type UniqueIdentifier} from '@dnd-kit/core'
 import {SortableContext, rectSortingStrategy, sortableKeyboardCoordinates, useSortable} from '@dnd-kit/sortable'
 import {CSS} from '@dnd-kit/utilities'
-import {Check, GripVertical, PenLine, Plus, X} from 'lucide-react'
+import {GripVertical, PenLine, Plus, X} from 'lucide-react'
 import {downloadProfileOrigin} from '@shared/downloadProfiles.js'
 import type {DownloadProfile, DownloadProfilesPrefs} from '@shared/types.js'
 import {KeyboardSortSensor} from '@renderer/lib/keyboardSortSensor.js'
 import {cn} from '@renderer/lib/utils.js'
-import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '../ui/card.js'
 import {Switch} from '../ui/switch.js'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip.js'
-import {IconTile} from '../shared/IconTile.js'
-import {PROFILE_ICONS} from './downloadProfileVisuals.js'
 import {useProfileDisplayName} from '@renderer/lib/profileName.js'
-import {Hint} from '../shared/Hint.js'
-import {ProfileSummaryContent} from './ProfileSummaryContent.js'
-import {profileFormatLabel} from '@shared/profileFormatLabel.js'
+import {ProfileCard} from './ProfileCard.js'
 
 interface ProfilesManageTabProps {
 	activeProfile: DownloadProfile
@@ -93,7 +88,19 @@ export function ProfilesManageTab({activeProfile, onEdit, onMove, onPick, onRemo
 				<SortableContext items={profiles.map(profile => profile.id)} strategy={rectSortingStrategy}>
 					<CardContent className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
 						{profiles.map(profile => (
-							<ProfileCard key={profile.id} t={t} profile={profile} active={activeProfile.id === profile.id} profilesPrefs={profilesPrefs} canToggleOff={profile.enabled ? enabledCount > 1 : true} suppressClickRef={suppressClickRef} onEdit={onEdit} onPick={onPick} onRemove={onRemove} onToggleEnabled={onToggleEnabled} />
+							<ManagedProfileCard
+								key={profile.id}
+								t={t}
+								profile={profile}
+								active={activeProfile.id === profile.id}
+								profilesPrefs={profilesPrefs}
+								canToggleOff={profile.enabled ? enabledCount > 1 : true}
+								suppressClickRef={suppressClickRef}
+								onEdit={onEdit}
+								onPick={onPick}
+								onRemove={onRemove}
+								onToggleEnabled={onToggleEnabled}
+							/>
 						))}
 					</CardContent>
 				</SortableContext>
@@ -102,7 +109,7 @@ export function ProfilesManageTab({activeProfile, onEdit, onMove, onPick, onRemo
 	)
 }
 
-interface ProfileCardProps {
+interface ManagedProfileCardProps {
 	t: TFunction
 	profile: DownloadProfile
 	active: boolean
@@ -115,17 +122,14 @@ interface ProfileCardProps {
 	onToggleEnabled: (id: string, enabled: boolean) => void
 }
 
-function ProfileCard({t, profile, active, profilesPrefs, canToggleOff, suppressClickRef, onEdit, onPick, onRemove, onToggleEnabled}: ProfileCardProps): ReactNode {
+function ManagedProfileCard({t, profile, active, profilesPrefs, canToggleOff, suppressClickRef, onEdit, onPick, onRemove, onToggleEnabled}: ManagedProfileCardProps): ReactNode {
 	const nameOf = useProfileDisplayName()
-	const {i18n} = useTranslation()
-	const summaryId = useId()
 	const {attributes, listeners, setNodeRef, setActivatorNodeRef, transform, transition, isDragging} = useSortable({id: profile.id, attributes: {roleDescription: t('wizard.url.profile.movableProfile')}})
-	const Icon = PROFILE_ICONS[profile.icon]
 	const origin = downloadProfileOrigin(profile, profilesPrefs)
 	const isCustom = origin.kind === 'custom'
 	const canRemove = isCustom || origin.overridden
 	return (
-		<article
+		<ProfileCard
 			ref={setNodeRef}
 			{...listeners}
 			style={{transform: CSS.Translate.toString(transform), transition}}
@@ -134,45 +138,15 @@ function ProfileCard({t, profile, active, profilesPrefs, canToggleOff, suppressC
 				event.preventDefault()
 				event.stopPropagation()
 			}}
-			data-active={active ? 'true' : undefined}
-			data-selected={active || undefined}
-			data-disabled-profile={!profile.enabled ? 'true' : undefined}
 			data-dragging={isDragging || undefined}
-			className={cn('choice-surface relative rounded-lg p-3', !profile.enabled && 'opacity-60 saturate-[0.7]', isDragging && 'z-20 cursor-grabbing backdrop-blur-md outline-2 outline-offset-2 outline-primary/70')}
-			data-testid={`profiles-manage-card-${profile.id}`}
-		>
-			<Hint label={<ProfileSummaryContent profile={profile} />} delay={600} side="inline-end">
-				<button
-					type="button"
-					className="flex w-full items-center gap-3 text-left"
-					aria-pressed={active}
-					aria-describedby={summaryId}
-					aria-disabled={!profile.enabled}
-					onClick={() => {
-						if (!profile.enabled) return
-						onPick(profile)
-					}}
-					data-testid={`profiles-manage-card-${profile.id}-picker`}
-				>
-					<IconTile>
-						<Icon />
-					</IconTile>
-					<span className="min-w-0 flex-1" data-testid={`profiles-manage-card-${profile.id}-summary`}>
-						<span className="flex items-center gap-2" data-testid={`profiles-manage-card-${profile.id}-title-row`}>
-							<span className="truncate text-sm font-semibold" data-testid={`profiles-manage-card-${profile.id}-title`}>
-								{nameOf(profile)}
-							</span>
-							<Badge variant={isCustom || origin.overridden ? 'outline' : 'secondary'}>{isCustom ? t('wizard.url.profile.badgeCustom') : origin.overridden ? t('wizard.url.profile.badgeModified') : t('wizard.url.profile.badgeBuiltIn')}</Badge>
-							{!profile.enabled ? <Badge variant="outline">{t('wizard.url.profile.badgeDisabled')}</Badge> : null}
-							<Check className={cn('ms-auto size-4 shrink-0 text-primary transition-opacity duration-150', active ? 'opacity-100' : 'opacity-0')} aria-hidden data-testid={`profiles-manage-card-${profile.id}-check`} />
-						</span>
-					</span>
-				</button>
-			</Hint>
-			<span id={summaryId} className="sr-only">
-				{profileFormatLabel(profile, t, i18n.language)}
-			</span>
-			<div className="mt-3 flex items-center gap-2" data-testid={`profiles-manage-card-${profile.id}-actions`}>
+			className={cn(isDragging && 'z-20 cursor-grabbing backdrop-blur-md outline-2 outline-offset-2 outline-primary/70')}
+			profile={profile}
+			origin={origin}
+			hidden={!profile.enabled}
+			current={active}
+			onPick={() => onPick(profile)}
+			testId={`profiles-manage-card-${profile.id}`}
+			handle={
 				<Button
 					ref={setActivatorNodeRef}
 					{...attributes}
@@ -185,7 +159,9 @@ function ProfileCard({t, profile, active, profilesPrefs, canToggleOff, suppressC
 				>
 					<GripVertical />
 				</Button>
-				<div className="grid flex-1 grid-cols-2 gap-2">
+			}
+			actions={
+				<>
 					<Button type="button" variant="outline" size="sm" onClick={() => onEdit(profile)}>
 						<PenLine data-icon="inline-start" />
 						{t('wizard.url.profile.edit')}
@@ -194,7 +170,9 @@ function ProfileCard({t, profile, active, profilesPrefs, canToggleOff, suppressC
 						<X data-icon="inline-start" />
 						{isCustom ? t('wizard.url.profile.remove') : t('wizard.url.profile.reset')}
 					</Button>
-				</div>
+				</>
+			}
+			toggle={
 				<Tooltip>
 					<TooltipTrigger
 						render={props => (
@@ -214,7 +192,7 @@ function ProfileCard({t, profile, active, profilesPrefs, canToggleOff, suppressC
 					/>
 					{!canToggleOff ? <TooltipContent>{t('wizard.url.profile.lastEnabledHint')}</TooltipContent> : null}
 				</Tooltip>
-			</div>
-		</article>
+			}
+		/>
 	)
 }

@@ -7,44 +7,19 @@
 
 import {useId, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {Check, PenLine, Plus, Users} from 'lucide-react'
+import {PenLine, Plus, Users} from 'lucide-react'
 import type {DownloadProfile, DownloadProfileRef} from '@shared/types.js'
 import {cn} from '@renderer/lib/utils.js'
-import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {ContextMenuGroup, ContextMenuLabel, ContextMenuRadioGroup, ContextMenuRadioItem} from '../ui/context-menu.js'
 import {PopoverContent} from '../ui/popover.js'
 import {Separator} from '../ui/separator.js'
-import {Hint} from '../shared/Hint.js'
 import type {ProfilePickerOption} from './profilePickerOptions.js'
-import {useProfileDisplayName} from '@renderer/lib/profileName.js'
-import {ProfileSummaryContent} from './ProfileSummaryContent.js'
+import {ProfileCardLabel, ProfileCardPick} from './ProfileCard.js'
 import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 
 export type ProfilePickerLayout = 'grid' | 'list'
 export type ProfilePickerTestIdPrefix = 'profiles' | 'bulk' | 'explore' | 'wizard' | 'playlist' | 'playlist-row' | 'kit'
-
-// Icon, name, the Hidden tag for a profile kept only because it is in use, and its summary.
-function ProfileOptionLabel({option}: {option: ProfilePickerOption}): ReactNode {
-	const {t} = useTranslation()
-	const nameOf = useProfileDisplayName()
-	const {profile, Icon, hidden} = option
-	return (
-		<>
-			<Icon className="shrink-0 text-primary" aria-hidden />
-			<span className="min-w-0 flex-1">
-				<span className="flex min-w-0 items-center gap-1.5">
-					<span className="truncate text-sm font-semibold text-foreground">{nameOf(profile)}</span>
-					{hidden ? (
-						<Badge variant="outline" size="sm">
-							{t('wizard.url.profile.badgeDisabled')}
-						</Badge>
-					) : null}
-				</span>
-			</span>
-		</>
-	)
-}
 
 interface ProfilePickerOptionsProps {
 	options: readonly ProfilePickerOption[]
@@ -54,25 +29,10 @@ interface ProfilePickerOptionsProps {
 }
 
 function ProfilePickerOptions({options, layout, onPick, testIdPrefix}: ProfilePickerOptionsProps): ReactNode {
-	const {t, i18n} = useTranslation()
 	return (
 		<div className={cn('grid', layout === 'grid' ? 'grid-cols-[repeat(auto-fit,minmax(13.5rem,1fr))] gap-2' : 'grid-cols-1 gap-0.5')} data-layout={layout} data-testid={`${testIdPrefix}-profile-menu-grid`}>
 			{options.map(option => (
-				<Hint key={option.profile.id} label={<ProfileSummaryContent profile={option.profile} />} delay={600} side="inline-end">
-					<Button
-						type="button"
-						variant={layout === 'grid' ? 'outline' : 'ghost'}
-						onClick={() => onPick(option.ref)}
-						aria-pressed={option.current}
-						aria-description={profileFormatLabel(option.profile, t, i18n.language)}
-						data-selected={option.current || undefined}
-						className={cn('h-auto w-full justify-start gap-2.5 rounded-md text-start whitespace-normal', layout === 'grid' ? 'choice-surface min-h-12 px-2.5 py-2' : 'min-h-10 px-2 py-1.5 data-selected:bg-primary/12')}
-						data-testid={`${testIdPrefix}-profile-option-${option.profile.id}`}
-					>
-						<ProfileOptionLabel option={option} />
-						{option.current ? <Check className="shrink-0 text-primary" aria-hidden /> : null}
-					</Button>
-				</Hint>
+				<ProfileCardPick key={option.profile.id} profile={option.profile} origin={option.origin} hidden={option.hidden} size={layout === 'grid' ? 'tile' : 'row'} current={option.current} onPick={() => onPick(option.ref)} testId={`${testIdPrefix}-profile-option-${option.profile.id}`} />
 			))}
 		</div>
 	)
@@ -197,7 +157,7 @@ export function ProfilePickerContextItems({options, label, onPick}: {options: re
 			<ContextMenuRadioGroup value={current?.profile.id ?? null}>
 				{options.map(option => (
 					<ContextMenuRadioItem key={option.profile.id} value={option.profile.id} closeOnClick onClick={() => onPick(option.ref)} aria-description={profileFormatLabel(option.profile, t, i18n.language)} className="gap-2.5 py-1.5">
-						<ProfileOptionLabel option={option} />
+						<ProfileCardLabel profile={option.profile} origin={option.origin} hidden={option.hidden} />
 					</ContextMenuRadioItem>
 				))}
 			</ContextMenuRadioGroup>
