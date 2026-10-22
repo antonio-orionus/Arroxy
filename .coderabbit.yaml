@@ -3,6 +3,9 @@ reviews:
   profile: chill
   auto_review:
     enabled: false
+  # Reviews run only when triggered, so the "Review skipped" status note on every
+  # new PR is noise that wakes the agent watching it.
+  review_status: false
   high_level_summary_instructions: >-
     Write a concise PR summary with:
 
