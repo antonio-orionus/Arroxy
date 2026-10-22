@@ -1,5 +1,5 @@
 import type {BulkMetadataItemStatus, PlaylistEntry} from '@shared/types.js'
-import type {AppState} from '../../store/types.js'
+import type {AppState, BulkCappedList} from '../../store/types.js'
 
 export interface BulkStressFixture {
 	entries: PlaylistEntry[]
@@ -46,4 +46,16 @@ export function bulkStressState(): Partial<AppState> {
 		syncedDownloadedIds: [],
 		syncScanState: 'idle'
 	}
+}
+
+// The pasted lists a Bulk URLs review says were cut at the load limit.
+export function bulkCappedListsFor(scenarioId: string): BulkCappedList[] {
+	if (scenarioId === 'bulk-capped-list') return [{url: 'https://www.youtube.com/@3blue1brown/videos', title: '3Blue1Brown - Videos'}]
+	if (scenarioId === 'bulk-capped-lists')
+		return [
+			{url: 'https://www.youtube.com/@3blue1brown/videos', title: '3Blue1Brown - Videos'},
+			{url: 'https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi', title: 'Neural networks'},
+			{url: 'https://www.youtube.com/results?search_query=lofi', title: 'lofi'}
+		]
+	return []
 }

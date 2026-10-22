@@ -233,4 +233,11 @@ describe('ProbeResultProjection — job auth', () => {
 
 		expect(projection.playlistItems[0]?.auth).toBe('exploreSession')
 	})
+
+	it('a bulk start carries the lists cut at the load limit, and none by default', () => {
+		const capped = [{url: 'https://www.youtube.com/playlist?list=PLx', title: 'Every lecture'}]
+
+		expect(projectBulkStart(['https://youtu.be/a'], appState(), undefined, capped).patch.bulkCappedLists).toEqual(capped)
+		expect(projectBulkStart(['https://youtu.be/a'], appState()).patch.bulkCappedLists).toEqual([])
+	})
 })

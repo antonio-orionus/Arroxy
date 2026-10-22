@@ -142,7 +142,7 @@ describe('expandBulkCollectionUrls — abort', () => {
 		const probe = vi.fn().mockResolvedValue({ok: true, data: {kind: 'playlist', entries: [{id: 'e1', title: 'E1', url: 'https://youtu.be/e1', thumbnail: '', playlistIndex: 1, videoId: 'e1'}]}})
 		let active = true
 
-		const result = await expandBulkCollectionUrls([PLAYLIST, CHANNEL, SEARCH], probe as never, {items: {kind: 'app-limit'}} as never, () => {
+		const result = await expandBulkCollectionUrls([PLAYLIST, CHANNEL, SEARCH], probe as never, {limit: 100}, () => {
 			const wasActive = active
 			active = false
 			return wasActive
@@ -153,12 +153,50 @@ describe('expandBulkCollectionUrls — abort', () => {
 	})
 })
 
+describe('expandBulkCollectionUrls — load limit', () => {
+	function entries(count: number) {
+		return Array.from({length: count}, (_, index) => ({id: `e${index + 1}`, title: `E${index + 1}`, url: `https://youtu.be/e${index + 1}`, thumbnail: '', playlistIndex: index + 1, videoId: `e${index + 1}`}))
+	}
+
+	// The probe asks for one past the limit to tell the list goes on (#584).
+	it('cuts a list past the load limit there and names it', async () => {
+		const {expandBulkCollectionUrls} = await import('@renderer/store/wizard/bulkCollectionExpansion.js')
+		const probe = vi.fn().mockResolvedValue({ok: true, data: {kind: 'playlist', playlistTitle: 'Every lecture', entries: entries(4)}})
+
+		const result = await expandBulkCollectionUrls([VIDEO, PLAYLIST], probe as never, {limit: 3})
+
+		expect(result.urls).toEqual([VIDEO, 'https://youtu.be/e1', 'https://youtu.be/e2', 'https://youtu.be/e3'])
+		expect(result.capped).toEqual([{url: PLAYLIST, title: 'Every lecture'}])
+	})
+
+	it('keeps a list that fits whole and names none', async () => {
+		const {expandBulkCollectionUrls} = await import('@renderer/store/wizard/bulkCollectionExpansion.js')
+		const probe = vi.fn().mockResolvedValue({ok: true, data: {kind: 'playlist', playlistTitle: 'Short', entries: entries(3)}})
+
+		const result = await expandBulkCollectionUrls([PLAYLIST], probe as never, {limit: 3})
+
+		expect(result.urls).toHaveLength(3)
+		expect(result.capped).toEqual([])
+	})
+
+	// Bulk URLs has no scope control: a first-N or range scope left from a
+	// single playlist must not reach its lists.
+	it('loads every list up to the load limit, whatever scope the wizard last held', async () => {
+		const {expandBulkCollectionUrls} = await import('@renderer/store/wizard/bulkCollectionExpansion.js')
+		const probe = vi.fn().mockResolvedValue({ok: true, data: {kind: 'playlist', playlistTitle: 'P', entries: entries(1)}})
+
+		await expandBulkCollectionUrls([PLAYLIST], probe as never, {limit: 100})
+
+		expect(probe).toHaveBeenCalledWith({url: PLAYLIST, playlistMode: 'playlist', playlistScope: {items: {kind: 'app-limit'}}})
+	})
+})
+
 describe('expandBulkCollectionUrls — job auth', () => {
 	it('seeds each entry with the auth main gave it (an account-only collection)', async () => {
 		const {expandBulkCollectionUrls} = await import('@renderer/store/wizard/bulkCollectionExpansion.js')
 		const probe = vi.fn().mockResolvedValue({ok: true, data: {kind: 'playlist', auth: 'exploreSession', entries: [{id: 'e1', title: 'E1', url: 'https://youtu.be/e1', thumbnail: '', playlistIndex: 1, videoId: 'e1', auth: 'exploreSession'}]}})
 
-		const result = await expandBulkCollectionUrls([PLAYLIST], probe as never, {items: {kind: 'app-limit'}} as never)
+		const result = await expandBulkCollectionUrls([PLAYLIST], probe as never, {limit: 100})
 
 		expect(result.seeds.get('https://youtu.be/e1')?.auth).toBe('exploreSession')
 	})
@@ -167,7 +205,7 @@ describe('expandBulkCollectionUrls — job auth', () => {
 		const {expandBulkCollectionUrls} = await import('@renderer/store/wizard/bulkCollectionExpansion.js')
 		const probe = vi.fn().mockResolvedValue({ok: true, data: {kind: 'playlist', auth: 'exploreSession', entries: [{id: 'e1', title: 'E1', url: 'https://youtu.be/e1', thumbnail: '', playlistIndex: 1, videoId: 'e1'}]}})
 
-		const result = await expandBulkCollectionUrls([PLAYLIST], probe as never, {items: {kind: 'app-limit'}} as never)
+		const result = await expandBulkCollectionUrls([PLAYLIST], probe as never, {limit: 100})
 
 		expect(result.seeds.get('https://youtu.be/e1')?.auth).toBeUndefined()
 	})

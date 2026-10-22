@@ -9,7 +9,7 @@ import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import type {AppSettings, BulkMetadataStatus, FormatOption, PlaylistEntry, PlaylistSelection, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
 import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {classifyBulkUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId, isObviousSingleUrlIntent} from '@shared/urlIntent.js'
-import type {AppState, WizardStep} from '../types.js'
+import type {AppState, BulkCappedList, WizardStep} from '../types.js'
 import type {BulkMetadataTarget} from './bulkMetadataHydration.js'
 import {profilePatch, snapshotPatch, wizardSnapshot} from './wizardProfileState.js'
 import type {WizardSettingsSnapshot} from './profileApplication.js'
@@ -89,6 +89,7 @@ export function projectProbeStart(state: AppState, url: string, playlistMode: Pr
 			bulkMetadataCompleted: 0,
 			bulkMetadataTotal: 0,
 			bulkMetadataById: {},
+			bulkCappedLists: [],
 			syncedDownloadedIds: [],
 			syncScanState: 'idle',
 			wizardExtractor: '',
@@ -233,7 +234,7 @@ export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'p
 	}
 }
 
-export function projectBulkStart(urls: readonly string[], state: AppState, seeds?: ReadonlyMap<string, BulkEntrySeed>): BulkStartProjection {
+export function projectBulkStart(urls: readonly string[], state: AppState, seeds?: ReadonlyMap<string, BulkEntrySeed>, cappedLists: BulkCappedList[] = []): BulkStartProjection {
 	const settings = state.settings
 	const intents = urls.map(url => classifyBulkUrlIntent(url))
 	const allYouTubeVideos = intents.length > 0 && intents.every(isObviousSingleUrlIntent)
@@ -327,6 +328,7 @@ export function projectBulkStart(urls: readonly string[], state: AppState, seeds
 			bulkMetadataCompleted: seededCount,
 			bulkMetadataTotal: urls.length,
 			bulkMetadataById: Object.fromEntries(playlistItems.map(entry => [entry.id, seeds?.has(entry.url) ? 'done' : 'pending'])),
+			bulkCappedLists: cappedLists,
 			syncedDownloadedIds: [],
 			syncScanState: 'idle',
 			...restoreCommonWizardPrefs(settings),

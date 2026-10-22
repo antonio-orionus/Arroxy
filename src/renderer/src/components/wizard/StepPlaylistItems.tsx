@@ -116,6 +116,22 @@ function PlaylistCollectionNotices({busy, playlistLimit, copyKeys}: {busy: boole
 	)
 }
 
+// Bulk URLs has no load-limit control: a pasted list past the limit is cut
+// there, and its own link pasted alone asks how many.
+function BulkCappedNotice({playlistLimit}: {playlistLimit: number}): ReactNode {
+	const {t} = useTranslation()
+	const cappedLists = useAppStore(s => s.bulkCappedLists)
+	if (cappedLists.length === 0) return null
+	const count = cappedLists.length
+	return (
+		<Alert variant="warning" data-testid="bulk-capped-alert">
+			<Info />
+			<AlertTitle>{t('wizard.playlist.bulkCappedTitle', {count, title: cappedLists[0]?.title || cappedLists[0]?.url, limit: playlistLimit})}</AlertTitle>
+			<AlertDescription>{t('wizard.playlist.bulkCappedDesc', {count})}</AlertDescription>
+		</Alert>
+	)
+}
+
 function BulkMetadataProgress(): ReactNode {
 	const {t} = useTranslation()
 	const bulkMetadataStatus = useAppStore(s => s.bulkMetadataStatus)
@@ -292,7 +308,7 @@ export function StepPlaylistItems(): ReactNode {
 			<div className="flex min-h-0 flex-1 flex-col gap-3 py-3">
 				<PlaylistItemsHeading isBulk={isBulk} copyKeys={copyKeys} itemCount={playlistItems.length} />
 
-				{!isBulk ? <PlaylistCollectionNotices busy={playlistBusy} playlistLimit={playlistLimit} copyKeys={copyKeys} /> : null}
+				{isBulk ? <BulkCappedNotice playlistLimit={playlistLimit} /> : <PlaylistCollectionNotices busy={playlistBusy} playlistLimit={playlistLimit} copyKeys={copyKeys} />}
 
 				{playlistBusy ? <PlaylistProbeLoading loadingLabel={t(copyKeys.loadingItems)} progress={playlistProbeProgress} limit={playlistLimit} /> : null}
 
