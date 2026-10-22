@@ -209,11 +209,13 @@ type WriteCallback = (error?: Error | null) => void
 // Makes every socket write that takes a callback (the server's auth answer and
 // closing lines) call it `ms` late, as a Windows pipe can: the client reads
 // the line before the server hears that it was written. Answers the restore.
-export function delayWriteCallbacks(ms: number): () => void {
+// `fails(chunk)`: report those writes as failed, although the line went out.
+export function delayWriteCallbacks(ms: number, fails: (chunk: string) => boolean = () => false): () => void {
 	const write = net.Socket.prototype.write
 	const spy = vi.spyOn(net.Socket.prototype, 'write').mockImplementation(function (this: net.Socket, chunk: string | Uint8Array, encodingOrCallback?: BufferEncoding | WriteCallback, callback?: WriteCallback): boolean {
 		if (typeof encodingOrCallback !== 'function') return write.call(this, chunk, encodingOrCallback, callback)
-		return write.call(this, chunk, undefined, error => void setTimeout(() => encodingOrCallback(error), ms))
+		const failure = fails(typeof chunk === 'string' ? chunk : Buffer.from(chunk).toString('utf8')) ? new Error('write reported as failed') : null
+		return write.call(this, chunk, undefined, error => void setTimeout(() => encodingOrCallback(failure ?? error), ms))
 	})
 	return () => spy.mockRestore()
 }

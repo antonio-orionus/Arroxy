@@ -44,6 +44,10 @@ export interface LocalClientApprovals {
 	confirm(approvalId: string): void
 	// The answer was not written: the approval can be collected again.
 	release(approvalId: string): void
+	// A proof made with this client's secret was valid, so the secret arrived:
+	// an approval still being collected for it is confirmed, and a later
+	// release from the connection that wrote it changes nothing.
+	proven(clientId: string): void
 	// A known client, or one whose secret is being written to it right now
 	// (the client can read it, and reconnect, before the write completes; a
 	// proof made with the secret shows it arrived). Null when unknown or removed.
@@ -118,10 +122,12 @@ export class MemoryLocalClientApprovals implements LocalClientApprovals {
 	}
 
 	client(clientId: string): LocalClient | null {
-		const known = this.clients.get(clientId)
-		if (known) return known
-		for (const approval of this.approvals.values()) if (approval.state === 'allowed' && approval.claimed && approval.client.clientId === clientId) return approval.client
-		return null
+		return this.clients.get(clientId) ?? this.claimedFor(clientId)?.client ?? null
+	}
+
+	proven(clientId: string): void {
+		const claimed = this.claimedFor(clientId)
+		if (claimed) this.confirm(claimed.approvalId)
 	}
 
 	onRevoked(listener: (clientId: string) => void): () => void {
@@ -156,6 +162,12 @@ export class MemoryLocalClientApprovals implements LocalClientApprovals {
 		if (!this.clients.delete(clientId)) return false
 		for (const listener of [...this.revokedListeners]) listener(clientId)
 		return true
+	}
+
+	// The approval being collected for `clientId`, whose secret is being written.
+	private claimedFor(clientId: string): {readonly approvalId: string; readonly client: LocalClient} | null {
+		for (const [approvalId, approval] of this.approvals) if (approval.state === 'allowed' && approval.claimed && approval.client.clientId === clientId) return {approvalId, client: approval.client}
+		return null
 	}
 
 	// A claimed approval is mid-write and stays until confirmed or released.

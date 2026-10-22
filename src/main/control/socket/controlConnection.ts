@@ -180,6 +180,7 @@ class ControlConnection {
 				return this.closeWith(request.id, approvalPending(approvalId), () => this.deps.approvals.withdraw(approvalId))
 			}
 			case 'known':
+				this.deps.approvals.proven(claim.client.clientId)
 				return this.accept(request.id, hello, claim.client, null)
 			case 'collect': {
 				const collected = this.deps.approvals.claim(claim.approvalId)

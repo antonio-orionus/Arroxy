@@ -188,6 +188,27 @@ describe('control socket limits', () => {
 		}
 	})
 
+	it('keeps a client that proved its secret although the answer that issued it reported a failed write', async () => {
+		const restore = delayWriteCallbacks(100, chunk => chunk.includes('"clientSecret"'))
+		try {
+			const harness = await start()
+			const {token} = await harness.discovery()
+			const approvalId = harness.approvals.request('test-client')
+			harness.approvals.allow(approvalId)
+			const collect = await handshake(harness.socket.socketPath, tokenProof(token, {approvalId}))
+			const {clientId, clientSecret} = collectedCredentials(collect.auth)
+			const known = await handshake(harness.socket.socketPath, secretProof(clientId, clientSecret))
+			expect(known.auth).toMatchObject({ok: true, result: {clientId}})
+			await settle(200)
+			expect(harness.approvals.client(clientId)).not.toBeNull()
+			expect(harness.approvals.claim(approvalId)).toEqual({status: 'refused'})
+			expect(harness.approvals.remove(clientId)).toBe(true)
+			await known.client.closed
+		} finally {
+			restore()
+		}
+	})
+
 	it('closes a client removed while its auth answer is still being written', async () => {
 		// The server's write callbacks fire late, as they can on a Windows pipe:
 		// the client reads the answer and is removed before the write completes.

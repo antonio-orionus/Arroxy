@@ -45,6 +45,18 @@ describe('MemoryLocalClientApprovals', () => {
 		expect(claimed(approvals.claim(approvalId))).toEqual(first)
 	})
 
+	it('confirms a claimed approval once its secret is proven, so a later release changes nothing', () => {
+		const approvals = new MemoryLocalClientApprovals()
+		const approvalId = approvals.request('arroxy-mcp')
+		approvals.allow(approvalId)
+		const client = claimed(approvals.claim(approvalId))
+		approvals.proven(client.clientId)
+		approvals.release(approvalId)
+		expect(approvals.client(client.clientId)).toEqual(client)
+		expect(approvals.claim(approvalId)).toEqual({status: 'refused'})
+		expect(approvals.remove(client.clientId)).toBe(true)
+	})
+
 	it('grants paths.read only when the user allows it', () => {
 		const approvals = new MemoryLocalClientApprovals()
 		const approvalId = approvals.request('Claude Code')
