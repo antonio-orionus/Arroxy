@@ -1,6 +1,6 @@
 # Heartbeat — Internal Reference
 
-Arroxy has no telemetry. The only thing it reports is one anonymous heartbeat per install per UTC day, sent to a self-hosted [Counterscale](https://github.com/benvinegar/counterscale) on Cloudflare. It answers how many people use the app, how many are new, where they are, and on which version, OS, and language. Code lives in:
+Arroxy has no telemetry. Release builds report one thing: one anonymous heartbeat per install per UTC day, sent to a self-hosted [Counterscale](https://github.com/benvinegar/counterscale) on Cloudflare. It answers how many people use the app, how many are new, where they are, and on which version, OS, and language. A second signal, the [warmup report](#warmup-reports), is built but stays off in release builds behind the `warmupReport` release flag until the public wording covers it. Code lives in:
 
 | Path                                        | Role                                                                    |
 | ------------------------------------------- | ----------------------------------------------------------------------- |
@@ -57,6 +57,40 @@ Values never contain spaces: a collector that decodes `+` and `%20` differently 
 Browser and Device cards stay empty or constant — ignore them.
 
 **New and returning installs.** Click `new` on the Referrer card: the filter applies to the chart and every other card, so the chart shows new installs per day, and Country, Path and UTM Source show where they come from, which version they start on and how they installed. A filter matches one value, so returning installs for a day are total Visitors minus `new`. Growth in `8-30d`, `31-90d` and `over-90d` from week to week is the retention signal.
+
+## Warmup reports
+
+A warmup that has to fetch a managed binary (yt-dlp, or the FFmpeg package) sends a warmup report to the same collector under its own site id, `arroxy-warmup` (ADR 0021). A warmup that only verifies sends nothing. It answers how many first setups and updates start, finish, fail, are stopped or are abandoned, how long they take and how fast the downloads run, by country.
+
+| Path | Role |
+| --- | --- |
+| `src/main/services/warmupReport.ts` | Buckets, the hit's field mapping, the GET sender |
+| `src/main/services/WarmupReporter.ts` | Turns warmup runs into reports: kind, attempt, `started`, outcome, `quit`, the kept report |
+| `src/main/stores/WarmupReportStore.ts` | `warmup-report.json`: attempt count, whether a first setup is still unfinished, one undelivered report |
+| `src/main/warmupReporting.ts` | Release flag gate, quit hold, wiring |
+| `src/main/services/WarmupService.ts` | `WarmupRunObserver`: every progress event, then the result |
+
+**When.** `started` goes out at a run's first download. Exactly one outcome follows when the run settles: `ok`, `failed` (blocking failures, or a warmup that failed before any diagnostics), or `stopped` (the user's "Having trouble?"). If the app quits while the run is still downloading, `quit` is sent instead; the quit waits at most one second for it. Started minus outcomes counts setups that were abandoned by a crash, a force-quit or a lost request.
+
+**Kind and attempt.** `first` means nothing managed was on disk when the run began; `update` means something was (a new yt-dlp build, a new FFmpeg pin). A first setup that does not finish stays `first` on the next attempts until one does. The attempt counts warmups in a row that fetched without finishing, and resets on `ok`. A run cannot name which binaries it will fetch at its first download (the other branch may not have decided yet), so the kind is `first` or `update` only.
+
+**Delivery.** The report is a plain GET in the tracker's query format (the server tracker keeps one global client, already used by the heartbeat). A report the collector did not answer with 2xx is kept, sent once at the next launch, and dropped after seven days or if that send fails too.
+
+**Rules.** Same switch as the heartbeat (`analyticsEnabled`): off sends nothing and keeps nothing. Same collector and environment rules: never in E2E, nowhere in dev, mock and smoke sessions unless `ARROXY_HEARTBEAT_URL` names a collector, and nowhere with `ARROXY_HEARTBEAT_URL=off`. In release builds the `warmupReport` release flag keeps it off entirely.
+
+| Dashboard card | Holds | Example |
+| --- | --- | --- |
+| Visitors | reports | — |
+| Path | version, kind, attempt, stage | `/0.7.4/first/a1/started`, `/0.7.4/update/a2/failed` |
+| Referrer | time since `started` (empty on `started`) | `0-10s`, `10-30s`, `30s-2m`, `2-5m`, `5-15m`, `15m-plus` |
+| Country | Cloudflare country | `CN` |
+| UTM Source | OS locale | `zh-CN` |
+| UTM Medium | platform-arch | `win32-x64` |
+| UTM Campaign | where the binary manifest came from | `remote`, `last-known-good`, `bundled`, `local`, `unknown` |
+| UTM Term | first failure (outcomes only) | `none`, `ffmpeg:timeout`, `yt-dlp:download_failed`, `unknown` |
+| UTM Content | speed of the largest download (outcomes only) | `0-0.5mbps`, `0.5-2mbps`, `2-10mbps`, `10mbps-plus`, `unknown` |
+
+**Reading it.** Pick `arroxy-warmup` in the site picker (it appears once it has data). On the Path card, first-try success is `/<v>/first/a1/ok` divided by `/<v>/first/a1/started`; abandonment is started minus all outcomes. Filter Country `CN` (or UTM Source `zh-CN`, which also catches users behind a VPN) and compare with no filter.
 
 ## Deploy
 

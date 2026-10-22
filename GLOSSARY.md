@@ -345,12 +345,16 @@ _Avoid_: login state, credentials
 ### Heartbeat
 
 **Heartbeat**:
-The one anonymous signal an install sends per day, unless turned off: app version, OS, language, install channel, install age. It carries no identifier; the country is added where it is received. It only counts active and new installs, and is the only thing Arroxy reports.
+The one anonymous signal an install sends per day, unless turned off: app version, OS, language, install channel, install age. It carries no identifier; the country is added where it is received. It only counts active and new installs. It shares its opt-out with the **Warmup report**.
 _Avoid_: telemetry, analytics event, usage ping, tracking
 
 **Install age**:
 How long ago an install sent its first heartbeat, as a coarse bucket (new, up to a week, a month, three months, older) shared by many installs. It is what tells new installs from returning ones without an identifier.
 _Avoid_: install date, user age, cohort ID
+
+**Warmup report**:
+The anonymous note an install sends about a **Warmup** that had to fetch a managed binary: that it started, then how it ended (finished, failed, stopped, or the app quit) and roughly how long and how fast it was. It covers only that process and never carries crash reports, feature usage, links or anything about the user's downloads.
+_Avoid_: setup report (Setup is the Windows installer), telemetry, crash report, install event
 
 ### Appearance
 

@@ -17,7 +17,7 @@ import type {IntakeService} from '@main/intake/IntakeService.js'
 import {DownloadEventBridge} from '@main/services/DownloadEventBridge.js'
 import {QueueEventBridge} from '@main/services/QueueEventBridge.js'
 import {ProbeEventBridge} from '@main/services/ProbeEventBridge.js'
-import {WarmupService} from '@main/services/WarmupService.js'
+import {WarmupService, type WarmupRunObserver} from '@main/services/WarmupService.js'
 import {applyNativeThemeSource} from '@main/windowPresentation.js'
 import {registerAppHandlers} from './appHandlers.js'
 import {registerWindowHandlers} from './windowHandlers.js'
@@ -50,6 +50,8 @@ export interface IpcDependencies {
 	intakeService: IntakeService
 	// Rebuilds the native application menu (macOS) after a language, style, theme, or speed-limit change.
 	refreshAppMenu?: () => void
+	// Watches each warmup run; the warmup report is one.
+	warmupObserver?: WarmupRunObserver
 }
 
 let activeDownloadBridge: DownloadEventBridge | null = null
@@ -57,9 +59,9 @@ let activeQueueBridge: QueueEventBridge | null = null
 let activeProbeBridge: ProbeEventBridge | null = null
 
 export function registerIpcHandlers(deps: IpcDependencies): void {
-	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, playlistManifestStore, exploreView, siteRequests, graphicsPolicyProvider, intakeService, refreshAppMenu} = deps
+	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, playlistManifestStore, exploreView, siteRequests, graphicsPolicyProvider, intakeService, refreshAppMenu, warmupObserver} = deps
 
-	const warmupService = new WarmupService({binaryManager, tokenService, window: mainWindow})
+	const warmupService = new WarmupService({binaryManager, tokenService, window: mainWindow, observer: warmupObserver})
 	registerAppHandlers({warmupService, binaryManager, languageRef, graphicsPolicyProvider, onLanguageChanged: refreshAppMenu})
 	registerWindowHandlers(mainWindow)
 	registerDownloadHandlers({downloadService, probeService, settingsStore})

@@ -3,6 +3,7 @@ import fsPromises from 'node:fs/promises'
 import path from 'node:path'
 import log from 'electron-log/main.js'
 import {ffmpegPackageCacheKey, readRuntimeBinaryIndex, runtimeBinaryCacheKey, runtimeEntriesForCurrentTarget} from '@shared/runtimeBinaryManifest.js'
+import type {BinaryManifestSource} from '@shared/schemas.js'
 import type {FfmpegPackageEntry, RuntimeBinaryId, RuntimeBinaryIndex, RuntimeBinaryIndexEntry, RuntimeBinaryManifestEntry} from '@shared/types.js'
 import {downloadText} from './BinaryDownloader.js'
 import {BUNDLED_RUNTIME_BINARY_INDEX} from './BundledRuntimeBinaryIndex.js'
@@ -22,7 +23,7 @@ export interface RuntimeBinaryIndexLogger {
 interface LoadedIndexes {
 	primary: RuntimeBinaryIndex
 	fallbacks: RuntimeBinaryIndex[]
-	source: 'local' | 'remote' | 'last-known-good' | 'bundled'
+	source: BinaryManifestSource
 }
 
 export interface RuntimeBinaryIndexProvider {
@@ -30,6 +31,8 @@ export interface RuntimeBinaryIndexProvider {
 	ffmpegPackageCandidates(signal?: AbortSignal): Promise<FfmpegPackageEntry[]>
 	// Forget the index this session settled on, so the next caller reads it again.
 	invalidate(): void
+	// Where the index this session last settled on came from; null before one is chosen.
+	selectedSource?(): BinaryManifestSource | null
 }
 
 export interface RuntimeBinaryIndexServiceOptions {
@@ -103,6 +106,8 @@ export class RuntimeBinaryIndexService implements RuntimeBinaryIndexProvider {
 	private readonly fetchText: FetchText
 	private readonly logger: RuntimeBinaryIndexLogger
 	private loaded: Promise<LoadedIndexes> | null = null
+
+	private lastSource: BinaryManifestSource | null = null
 
 	constructor(userDataPath: string, options: RuntimeBinaryIndexServiceOptions = {}) {
 		this.manifestDir = path.join(userDataPath, 'runtime-cache', 'manifests')
@@ -182,7 +187,12 @@ export class RuntimeBinaryIndexService implements RuntimeBinaryIndexProvider {
 		return this.selectIndexes({primary: this.bundledIndex, fallbacks: [], source: 'bundled'})
 	}
 
+	selectedSource(): BinaryManifestSource | null {
+		return this.lastSource
+	}
+
 	private selectIndexes(loaded: LoadedIndexes): LoadedIndexes {
+		this.lastSource = loaded.source
 		this.logger.info('Runtime binary index selected', {source: loaded.source, generatedAt: loaded.primary.generatedAt, entryCount: loaded.primary.entries.length, fallbackCount: loaded.fallbacks.length})
 		return loaded
 	}

@@ -39,11 +39,23 @@ const TOKEN_WARMUP_BUDGET_MS = 30 * 1000
 // the first YouTube probe mints on demand.
 type WarmupBranch = 'ytDlp' | 'ffmpeg' | 'token'
 
+// Watches one warmup run: every progress event as it happens (before the IPC
+// throttle), then the result. The warmup report is built on it.
+export interface WarmupRunObservation {
+	progress(event: WarmupProgressEvent): void
+	settled(result: Result<WarmUpOutput>): Promise<void>
+}
+
+export interface WarmupRunObserver {
+	runStarted(): WarmupRunObservation
+}
+
 interface WarmupServiceDeps {
 	binaryManager: BinaryManager
 	tokenService: TokenService
 	window?: BrowserWindow
 	onResolved?: () => void
+	observer?: WarmupRunObserver
 }
 
 export class WarmupService {
@@ -73,7 +85,8 @@ export class WarmupService {
 		}
 		const controller = new AbortController()
 		this.currentController = controller
-		const promise = this.settleRun(controller, this.executeRun(controller.signal))
+		const observation = this.observe()
+		const promise = this.settleRun(controller, this.executeRun(controller.signal, observation), observation)
 		this.currentRun = promise
 		return promise
 	}
@@ -82,10 +95,12 @@ export class WarmupService {
 	// chained onto it. A chained handler settles a microtask *after* the caller's
 	// `await` resumes, so a caller that runs again the moment warmup finishes was
 	// handed back the run that had just completed instead of a fresh one.
-	private async settleRun(controller: AbortController, work: Promise<Result<WarmUpOutput>>): Promise<Result<WarmUpOutput>> {
+	private async settleRun(controller: AbortController, work: Promise<Result<WarmUpOutput>>, observation: WarmupRunObservation | null): Promise<Result<WarmUpOutput>> {
 		try {
 			const result = await work
 			this.lastResult = result
+			// Not awaited: an observer may go to the network, and the splash must not wait for it.
+			void observation?.settled(result).catch((err: unknown) => logger.warn('Warmup observer failed', {error: unknownToMessage(err)}))
 			return result
 		} finally {
 			// A force-run that started meanwhile owns these now; only clear our own.
@@ -96,7 +111,17 @@ export class WarmupService {
 		}
 	}
 
-	private async executeRun(userSignal: AbortSignal): Promise<Result<WarmUpOutput>> {
+	// An observer that throws loses its run, never the warmup.
+	private observe(): WarmupRunObservation | null {
+		try {
+			return this.deps.observer?.runStarted() ?? null
+		} catch (err) {
+			logger.warn('Warmup observer failed', {error: unknownToMessage(err)})
+			return null
+		}
+	}
+
+	private async executeRun(userSignal: AbortSignal, observation: WarmupRunObservation | null): Promise<Result<WarmUpOutput>> {
 		const {binaryManager, tokenService, window, onResolved} = this.deps
 
 		const sendNow = (event: WarmupProgressEvent): void => {
@@ -107,6 +132,11 @@ export class WarmupService {
 		const throttle = throttleByKey<DependencyId, WarmupProgressEvent>(sendNow, DOWNLOAD_PROGRESS_THROTTLE_MS)
 
 		const emit = (event: WarmupProgressEvent): void => {
+			try {
+				observation?.progress(event)
+			} catch (err) {
+				logger.warn('Warmup observer failed', {error: unknownToMessage(err)})
+			}
 			if (event.phase === 'downloading') {
 				throttle.push(event.binary, event)
 				return

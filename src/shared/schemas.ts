@@ -309,6 +309,10 @@ export type UiTheme = z.infer<typeof uiThemeSchema>
 export const installAgeSchema = z.enum(['new', '1-7d', '8-30d', '31-90d', 'over-90d', 'existing'])
 export type InstallAge = z.infer<typeof installAgeSchema>
 
+// Where the binary manifest a warmup used came from.
+export const binaryManifestSourceSchema = z.enum(['local', 'remote', 'last-known-good', 'bundled'])
+export type BinaryManifestSource = z.infer<typeof binaryManifestSourceSchema>
+
 export const closeBehaviorSchema = z.enum(['ask', 'tray', 'quit'])
 export type CloseBehavior = z.infer<typeof closeBehaviorSchema>
 

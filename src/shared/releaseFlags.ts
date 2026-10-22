@@ -22,7 +22,8 @@ export type ReleaseFlagDefinition =
 // `{summary: 'Batch rename in the queue', inRelease: true, shippedIn: '0.7.3'}`.
 const RELEASE_FLAG_DEFINITIONS = {
 	linkScheme: {summary: 'arroxy:// links fill the URL field', inRelease: false},
-	agentControl: {summary: 'Agent control over a local socket', inRelease: false}
+	agentControl: {summary: 'Agent control over a local socket', inRelease: false},
+	warmupReport: {summary: 'Warmup reports to the heartbeat collector', inRelease: false}
 } satisfies Record<string, ReleaseFlagDefinition>
 
 export type ReleaseFlag = keyof typeof RELEASE_FLAG_DEFINITIONS

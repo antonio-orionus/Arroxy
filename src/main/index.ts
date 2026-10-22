@@ -14,6 +14,7 @@ import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {registerIpcHandlers} from '@main/ipc/registerIpcHandlers.js'
 import {registerUpdaterHandlers} from '@main/ipc/registerUpdaterHandlers.js'
 import {counterscaleSender, createHeartbeat, HEARTBEAT_SITE_ID, heartbeatUrl, osLocale} from '@main/services/heartbeat.js'
+import {holdQuitForWarmupReport, startWarmupReporting, warmupReportCollector} from '@main/warmupReporting.js'
 import {detectInstallChannel} from '@main/installChannel.js'
 import {installChannelArg, systemLanguageArg} from '@shared/runtimeInfo.js'
 import {BinaryManager} from '@main/services/BinaryManager.js'
@@ -420,6 +421,17 @@ if (hasSingleInstanceLock) {
 			// Hourly re-check: a session left running in the tray is counted on each new UTC day.
 			setInterval(() => void heartbeat.maybeSend(), HEARTBEAT_CHECK_INTERVAL_MS).unref()
 		}
+		const warmupCollectorUrl = e2eMode.disableAnalytics ? undefined : warmupReportCollector(collectorUrl)
+		const warmupReporter = warmupCollectorUrl
+			? startWarmupReporting({
+					collectorUrl: warmupCollectorUrl,
+					userDataPath,
+					binaryManager,
+					isEnabled: () => settingsStore.getSync().common.analyticsEnabled ?? true,
+					context: () => ({appVersion: app.getVersion(), platform: process.platform, arch: process.arch, osLocale: osLocale(app.getPreferredSystemLanguages(), app.getLocale())})
+				})
+			: undefined
+		if (warmupReporter) holdQuitForWarmupReport(app, warmupReporter)
 
 		// Before the window exists, so the first paint and the Explore view agree with the saved theme.
 		applyNativeThemeSource(nativeTheme, initialSettings.common.uiTheme)
@@ -642,7 +654,25 @@ if (hasSingleInstanceLock) {
 
 		const appMenu = installAppMenu({settingsStore, languageRef, getWindow: () => mainWindow})
 
-		registerIpcHandlers({mainWindow, binaryManager, downloadService, probeService, settingsStore, queueService, tokenService, languageRef, clipboardWatcher, hotkeyService, playlistManifestStore, exploreView, siteRequests, graphicsPolicyProvider, intakeService, refreshAppMenu: appMenu.refresh})
+		registerIpcHandlers({
+			mainWindow,
+			binaryManager,
+			downloadService,
+			probeService,
+			settingsStore,
+			queueService,
+			tokenService,
+			languageRef,
+			clipboardWatcher,
+			hotkeyService,
+			playlistManifestStore,
+			exploreView,
+			siteRequests,
+			graphicsPolicyProvider,
+			intakeService,
+			refreshAppMenu: appMenu.refresh,
+			warmupObserver: warmupReporter
+		})
 
 		if (!e2eMode.disableUpdater) {
 			registerUpdaterHandlers(mainWindow)

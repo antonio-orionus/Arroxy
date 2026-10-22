@@ -65,6 +65,7 @@ describe('RuntimeBinaryIndexService', () => {
 
 		await expect(svc.candidatesFor('yt-dlp')).resolves.toEqual([entry])
 		await expect(fs.readFile(path.join(userData, 'runtime-cache', 'manifests', 'runtime-index-v2.json'), 'utf8')).resolves.toBe(payload.raw)
+		expect(svc.selectedSource()).toBe('remote')
 		expect(logger.info).toHaveBeenCalledWith('Remote runtime binary index verified', {indexUrl: remoteIndexUrl, signatureUrl: remoteSignatureUrl, sourceRepo: 'antonio-orionus/arroxy-runtime-binaries', generatedAt: index.generatedAt, entryCount: 1, elapsedMs: expect.any(Number)})
 		expect(logger.info).toHaveBeenCalledWith('Persisted last-known-good runtime binary index', {manifestDir: path.join(userData, 'runtime-cache', 'manifests'), generatedAt: index.generatedAt, entryCount: 1})
 		expect(logger.info).toHaveBeenCalledWith('Runtime binary index selected', {source: 'remote', generatedAt: index.generatedAt, entryCount: 1, fallbackCount: 1})
@@ -138,7 +139,9 @@ describe('RuntimeBinaryIndexService', () => {
 			logger
 		})
 
+		expect(svc.selectedSource()).toBeNull()
 		await expect(svc.candidatesFor('yt-dlp')).resolves.toEqual(bundled.entries)
+		expect(svc.selectedSource()).toBe('bundled')
 		expect(logger.warn).toHaveBeenCalledWith('Remote runtime binary index unavailable', {indexUrl: 'https://updates.example/runtime-index-v2.json', signatureUrl: 'https://updates.example/runtime-index-v2.sig', sourceRepo: null, error: 'Runtime binary index signature verification failed'})
 		expect(logger.info).toHaveBeenCalledWith('Runtime binary index selected', {source: 'bundled', generatedAt: bundled.generatedAt, entryCount: 1, fallbackCount: 0})
 		expect(logger.debug).toHaveBeenCalledWith('Runtime binary candidates loaded', expect.objectContaining({source: 'bundled', indexUrl: null, sourceRepo: null}))
@@ -164,6 +167,7 @@ describe('RuntimeBinaryIndexService', () => {
 		})
 
 		await expect(svc.candidatesFor('yt-dlp')).resolves.toEqual([entry])
+		expect(svc.selectedSource()).toBe('last-known-good')
 	})
 
 	it('keeps the usable entries of a remote index and logs each entry it drops', async () => {
