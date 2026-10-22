@@ -51,104 +51,166 @@ describe('the video-in-a-list dialog', () => {
 		expect(screen.getByTestId('mixed-prompt-title')).toHaveTextContent(title)
 	})
 
-	it('names the profile for a quick download and says "Choose formats yourself" for Interactive', () => {
-		open(MIXED_URL, 'url-tab')
-		const {unmount} = render(<MixedUrlPromptDialog />)
-		expect(screen.getByTestId('mixed-prompt-subtitle')).toHaveTextContent('With Balanced 720p')
-		expect(screen.getByTestId('mixed-playlist-choice')).toHaveTextContent('The playlist, first')
-		unmount()
-
-		open(MIXED_URL, 'wizard')
+	it('names the Mix and says it changes every time', () => {
+		open('https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1', 'explore')
 		render(<MixedUrlPromptDialog />)
-		expect(screen.getByTestId('mixed-prompt-subtitle')).toHaveTextContent('Choose formats yourself')
+		expect(screen.getByTestId('mixed-prompt-title')).toHaveTextContent('Download from this Mix')
+		expect(screen.getByTestId('mixed-prompt-mix-note')).toHaveTextContent('A Mix changes every time you open it.')
 	})
 
-	it('starts on Just this video, and Enter downloads only the video', async () => {
-		open(MIXED_URL, 'url-tab')
+	it('reads a YouTube Music playlist (RDCLAK) as a playlist, with no Mix note', () => {
+		open('https://music.youtube.com/watch?v=dQw4w9WgXcQ&list=RDCLAK5uy_x', 'url-tab')
 		render(<MixedUrlPromptDialog />)
-		const single = screen.getByTestId('mixed-single-choice')
-		expect(single).toHaveTextContent('Just this video')
-		await waitFor(() => expect(single).toHaveFocus())
-
-		// jsdom does not turn Enter on a focused button into a click; the browser does.
-		fireEvent.click(document.activeElement ?? single)
-
-		await waitFor(() => expect(quickDownloadSpy).toHaveBeenCalledWith(expect.objectContaining({url: MIXED_URL, entry: 'url-tab', playlistMode: 'video'})))
-		expect(quickDownloadSpy.mock.calls[0]?.[0].take).toBeUndefined()
+		expect(screen.getByTestId('mixed-prompt-title')).toHaveTextContent('Download from this playlist')
+		expect(screen.queryByTestId('mixed-prompt-mix-note')).toBeNull()
 	})
 
-	it('the list option downloads the first N, N being the load limit', async () => {
-		useAppStore.setState({settings: buildSettings({playlistProbeLimit: 250})})
-		open(MIXED_URL, 'url-tab')
-		render(<MixedUrlPromptDialog />)
-		expect(screen.getByTestId('mixed-playlist-choice')).toHaveTextContent('Loads up to 250, then downloads them')
+	describe('from the list button', () => {
+		it('offers three answers, names only, what each does in its hint', () => {
+			useAppStore.setState({settings: buildSettings({playlistProbeLimit: 250})})
+			open(MIXED_URL, 'url-tab')
+			render(<MixedUrlPromptDialog />)
+			const list = screen.getByTestId('mixed-list-choice')
+			const first = screen.getByTestId('mixed-first-choice')
+			const pick = screen.getByTestId('mixed-pick-choice')
+			expect(list).toHaveTextContent('Download in the background')
+			expect(list).toHaveAttribute('aria-description', 'With Balanced 720p. If it has more than 250 videos, Downloads asks how many.')
+			expect(first).toHaveTextContent('Download the first250')
+			expect(screen.getByTestId('mixed-first-count')).toHaveTextContent('250')
+			expect(first).toHaveAttribute('aria-description', 'Exactly the first 250, with Balanced 720p.')
+			expect(pick).toHaveTextContent('Interactive download…')
+			expect(pick).toHaveAttribute('aria-description', expect.stringContaining('Pick from the first 250 videos'))
+			expect(screen.getByTestId('mixed-limit')).toHaveTextContent('Limit')
+			expect(screen.getByText('Esc cancels.')).toBeInTheDocument()
+			expect(screen.queryByText('Just this video')).toBeNull()
+		})
 
-		fireEvent.click(screen.getByTestId('mixed-playlist-choice'))
+		it('starts on Download in the background, and Enter queues the list with no count', async () => {
+			open(MIXED_URL, 'url-tab')
+			render(<MixedUrlPromptDialog />)
+			const list = screen.getByTestId('mixed-list-choice')
+			await waitFor(() => expect(list).toHaveFocus())
 
-		await waitFor(() => expect(quickDownloadSpy).toHaveBeenCalledWith(expect.objectContaining({url: MIXED_URL, playlistMode: 'playlist', take: {kind: 'first', count: 250}})))
+			// jsdom does not turn Enter on a focused button into a click; the browser does.
+			fireEvent.click(document.activeElement ?? list)
+
+			await waitFor(() => expect(quickDownloadSpy).toHaveBeenCalledWith({url: MIXED_URL, entry: 'url-tab', playlistMode: 'playlist'}))
+		})
+
+		it('Download the first N takes exactly N, N being the load limit', async () => {
+			useAppStore.setState({settings: buildSettings({playlistProbeLimit: 250})})
+			open(MIXED_URL, 'explore')
+			render(<MixedUrlPromptDialog />)
+
+			fireEvent.click(screen.getByTestId('mixed-first-choice'))
+
+			await waitFor(() => expect(quickDownloadSpy).toHaveBeenCalledWith({url: MIXED_URL, entry: 'explore', playlistMode: 'playlist', take: {kind: 'first', count: 250}}))
+		})
+
+		it('Interactive download… opens the picker with the load limit', async () => {
+			open(MIXED_URL, 'url-tab')
+			render(<MixedUrlPromptDialog />)
+
+			fireEvent.click(screen.getByTestId('mixed-pick-choice'))
+
+			await waitFor(() => expect(mockApi.downloads.probe).toHaveBeenCalledWith(expect.objectContaining({url: MIXED_URL, playlistMode: 'playlist', playlistScope: {items: {kind: 'app-limit'}}})))
+			expect(quickDownloadSpy).not.toHaveBeenCalled()
+		})
+
+		it('uses the count the selector just saved', async () => {
+			open(MIXED_URL, 'url-tab')
+			render(<MixedUrlPromptDialog />)
+
+			fireEvent.click(screen.getByTestId('mixed-playlist-probe-limit-trigger'))
+			fireEvent.click(await screen.findByTestId('mixed-playlist-probe-limit-option-500'))
+			await waitFor(() => expect(screen.getByTestId('mixed-first-choice')).not.toHaveAttribute('aria-disabled', 'true'))
+			await waitFor(() => expect(screen.getByTestId('mixed-first-count')).toHaveTextContent('500'))
+
+			fireEvent.click(screen.getByTestId('mixed-first-choice'))
+
+			await waitFor(() => expect(quickDownloadSpy).toHaveBeenCalledWith(expect.objectContaining({playlistMode: 'playlist', take: {kind: 'first', count: 500}})))
+			expect(useAppStore.getState().settings?.common.playlistProbeLimit).toBe(500)
+		})
+
+		it('holds every answer while the selector saves', async () => {
+			let release: () => void = () => {}
+			mockApi.settings.update = vi.fn(
+				(input: SettingsPatch) =>
+					new Promise<Result<AppSettings>>(resolve => {
+						release = () => {
+							const current = useAppStore.getState().settings ?? buildSettings()
+							resolve(ok({...current, common: {...current.common, ...(input.common ?? {})}}))
+						}
+					})
+			)
+			open(MIXED_URL, 'url-tab')
+			render(<MixedUrlPromptDialog />)
+
+			fireEvent.click(screen.getByTestId('mixed-playlist-probe-limit-trigger'))
+			fireEvent.click(await screen.findByTestId('mixed-playlist-probe-limit-option-500'))
+
+			await waitFor(() => expect(screen.getByTestId('mixed-first-choice')).toHaveAttribute('aria-disabled', 'true'))
+			fireEvent.click(screen.getByTestId('mixed-list-choice'))
+			expect(quickDownloadSpy).not.toHaveBeenCalled()
+			release()
+			await waitFor(() => expect(screen.getByTestId('mixed-first-choice')).not.toHaveAttribute('aria-disabled', 'true'))
+		})
+
+		it('Esc closes it and loads nothing', async () => {
+			open(MIXED_URL, 'url-tab')
+			render(<MixedUrlPromptDialog />)
+			await waitFor(() => expect(screen.getByTestId('mixed-list-choice')).toHaveFocus())
+
+			// Focus opens the focused answer's hint (jsdom reads every focus as
+			// keyboard focus); the first Esc dismisses the hint, the next the dialog.
+			fireEvent.keyDown(document.activeElement ?? document.body, {key: 'Escape'})
+			fireEvent.keyDown(document.activeElement ?? document.body, {key: 'Escape'})
+
+			await waitFor(() => expect(useAppStore.getState().mixedUrlPromptOpen).toBe(false))
+			expect(useAppStore.getState().mixedUrlPending).toBeNull()
+			expect(quickDownloadSpy).not.toHaveBeenCalled()
+			expect(mockApi.downloads.probe).not.toHaveBeenCalled()
+		})
 	})
 
-	it('uses the count the selector just saved', async () => {
-		open(MIXED_URL, 'url-tab')
-		render(<MixedUrlPromptDialog />)
+	describe('from Interactive', () => {
+		it.each([
+			['list=PLx', 'Pick from this playlist'],
+			['list=RDx', 'Pick from this Mix'],
+			['list=OLAK5uy_x', 'Pick from this album']
+		])('titles a %s link "%s" and only confirms how many to load', (query, title) => {
+			open(`https://www.youtube.com/watch?v=dQw4w9WgXcQ&${query}`, 'wizard')
+			render(<MixedUrlPromptDialog />)
+			expect(screen.getByTestId('mixed-prompt-title')).toHaveTextContent(title)
+			expect(screen.getByText(/Load the first/)).toHaveTextContent('Load the first')
+			expect(screen.getByText('You can change it on the next step.')).toBeInTheDocument()
+			expect(screen.getByTestId('mixed-playlist-probe-limit-trigger')).toHaveTextContent('100')
+			expect(screen.queryByTestId('mixed-list-choice')).toBeNull()
+			expect(screen.queryByTestId('mixed-first-choice')).toBeNull()
+		})
 
-		fireEvent.click(screen.getByTestId('mixed-playlist-probe-limit-trigger'))
-		fireEvent.click(await screen.findByTestId('mixed-playlist-probe-limit-option-500'))
-		await waitFor(() => expect(screen.getByTestId('mixed-playlist-choice')).not.toBeDisabled())
-		await waitFor(() => expect(screen.getByTestId('mixed-playlist-probe-limit-trigger')).toHaveTextContent('500'))
+		it('starts on Continue, which opens the picker with the load limit', async () => {
+			open(MIXED_URL, 'wizard')
+			render(<MixedUrlPromptDialog />)
+			const next = screen.getByTestId('mixed-pick-continue')
+			expect(next).toHaveTextContent('Continue')
+			await waitFor(() => expect(next).toHaveFocus())
 
-		fireEvent.click(screen.getByTestId('mixed-playlist-choice'))
+			fireEvent.click(next)
 
-		await waitFor(() => expect(quickDownloadSpy).toHaveBeenCalledWith(expect.objectContaining({playlistMode: 'playlist', take: {kind: 'first', count: 500}})))
-	})
+			await waitFor(() => expect(mockApi.downloads.probe).toHaveBeenCalledWith(expect.objectContaining({url: MIXED_URL, playlistMode: 'playlist', playlistScope: {items: {kind: 'app-limit'}}})))
+			expect(quickDownloadSpy).not.toHaveBeenCalled()
+		})
 
-	it('holds the list option while the selector saves', async () => {
-		let release: () => void = () => {}
-		mockApi.settings.update = vi.fn(
-			(input: SettingsPatch) =>
-				new Promise<Result<AppSettings>>(resolve => {
-					release = () => {
-						const current = useAppStore.getState().settings ?? buildSettings()
-						resolve(ok({...current, common: {...current.common, ...(input.common ?? {})}}))
-					}
-				})
-		)
-		open(MIXED_URL, 'url-tab')
-		render(<MixedUrlPromptDialog />)
+		it('Cancel loads nothing', async () => {
+			open(MIXED_URL, 'wizard')
+			render(<MixedUrlPromptDialog />)
 
-		fireEvent.click(screen.getByTestId('mixed-playlist-probe-limit-trigger'))
-		fireEvent.click(await screen.findByTestId('mixed-playlist-probe-limit-option-500'))
+			fireEvent.click(screen.getByTestId('mixed-pick-cancel'))
 
-		await waitFor(() => expect(screen.getByTestId('mixed-playlist-choice')).toBeDisabled())
-		release()
-		await waitFor(() => expect(screen.getByTestId('mixed-playlist-choice')).not.toBeDisabled())
-	})
-
-	it('Interactive: the list option reads "Pick from the playlist, first" and opens the picker', async () => {
-		open(MIXED_URL, 'wizard')
-		render(<MixedUrlPromptDialog />)
-		expect(screen.getByTestId('mixed-single-choice')).toHaveTextContent('Opens its formats')
-		expect(screen.getByTestId('mixed-playlist-choice')).toHaveTextContent('Pick from the playlist, first')
-		expect(screen.getByTestId('mixed-playlist-choice')).toHaveTextContent('Loads up to 100 to choose from')
-
-		fireEvent.click(screen.getByTestId('mixed-playlist-choice'))
-
-		await waitFor(() => expect(mockApi.downloads.probe).toHaveBeenCalledWith(expect.objectContaining({url: MIXED_URL, playlistMode: 'playlist'})))
-		expect(quickDownloadSpy).not.toHaveBeenCalled()
-	})
-
-	it('Esc closes it and loads nothing', async () => {
-		open(MIXED_URL, 'url-tab')
-		render(<MixedUrlPromptDialog />)
-		expect(screen.getByText('Esc cancels. Nothing loads until you choose.')).toBeInTheDocument()
-		await waitFor(() => expect(screen.getByTestId('mixed-single-choice')).toHaveFocus())
-
-		fireEvent.keyDown(document.activeElement ?? document.body, {key: 'Escape'})
-
-		await waitFor(() => expect(useAppStore.getState().mixedUrlPromptOpen).toBe(false))
-		expect(useAppStore.getState().mixedUrlPending).toBeNull()
-		expect(quickDownloadSpy).not.toHaveBeenCalled()
-		expect(mockApi.downloads.probe).not.toHaveBeenCalled()
+			await waitFor(() => expect(useAppStore.getState().mixedUrlPromptOpen).toBe(false))
+			expect(mockApi.downloads.probe).not.toHaveBeenCalled()
+		})
 	})
 
 	it('keeps the kind-specific wording while the dialog closes', async () => {
@@ -164,15 +226,17 @@ describe('the video-in-a-list dialog', () => {
 			open('https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=OLAK5uy_x', 'url-tab')
 			render(<MixedUrlPromptDialog />)
 			expect(screen.getByTestId('mixed-prompt-title')).toHaveTextContent('Download from this album')
-			await waitFor(() => expect(screen.getByTestId('mixed-single-choice')).toHaveFocus())
+			await waitFor(() => expect(screen.getByTestId('mixed-list-choice')).toHaveFocus())
 
+			// The first Esc dismisses the focused answer's hint, the next the dialog.
+			fireEvent.keyDown(document.activeElement ?? document.body, {key: 'Escape'})
 			fireEvent.keyDown(document.activeElement ?? document.body, {key: 'Escape'})
 
 			expect(useAppStore.getState().mixedUrlPending).toBeNull()
 			// The store has let go of the link; the content, still on screen while it
-			// fades out, must not fall back to the generic playlist wording.
+			// fades out, must not fall back to the generic playlist wording or form.
 			expect(screen.getByTestId('mixed-prompt-title')).toHaveTextContent('Download from this album')
-			expect(screen.getByTestId('mixed-playlist-choice')).toHaveTextContent('The album, first')
+			expect(screen.getByTestId('mixed-list-choice')).toBeInTheDocument()
 		} finally {
 			finishExit()
 			if (original) Object.defineProperty(Element.prototype, 'getAnimations', original)
@@ -185,7 +249,7 @@ describe('the video-in-a-list dialog', () => {
 		open(MIXED_URL, 'url-tab')
 		render(<MixedUrlPromptDialog />)
 		// No saved prefs: the default profile, Balanced 720p.
-		expect(screen.getByTestId('mixed-prompt-subtitle')).toHaveTextContent('With Balanced 720p')
+		expect(screen.getByTestId('mixed-list-choice')).toHaveAttribute('aria-description', expect.stringContaining('With Balanced 720p.'))
 		expect(screen.getByTestId('mixed-playlist-probe-limit-trigger')).toHaveTextContent('100')
 	})
 })

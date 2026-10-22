@@ -1,64 +1,79 @@
-import {useRef, useState, type ReactNode} from 'react'
+import {useRef, useState, type ReactNode, type RefObject} from 'react'
 import {useShallow} from 'zustand/react/shallow'
 import {useTranslation} from 'react-i18next'
+import {Gauge, ListChecks, ListStart, ListVideo, type LucideIcon} from 'lucide-react'
 import type {ListKind} from '@shared/schemas.js'
 import {listKindForUrl} from '@shared/sites/youtubeListKind.js'
 import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
-import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from '../ui/dialog.js'
+import {Badge} from '../ui/badge.js'
+import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from '../ui/dialog.js'
 import {Button} from '../ui/button.js'
-import {Item, ItemActions, ItemGroup} from '../ui/item.js'
+import {Item, ItemGroup} from '../ui/item.js'
 import {Kbd} from '../ui/kbd.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {useProfileDisplayName} from '../../lib/profileName.js'
+import {Hint} from '../shared/Hint.js'
+import {IconTile} from '../shared/IconTile.js'
 import {PlaylistProbeLimitSelector} from './PlaylistProbeLimitSelector.js'
+import {LIST_TITLE_KEY} from './listKindCopy.js'
 
 // Every kind-dependent string, spelled out so the unused-key check sees each one.
-const TITLE_KEYS = {playlist: 'wizard.listPrompt.title.playlist', mix: 'wizard.listPrompt.title.mix', album: 'wizard.listPrompt.title.album', uploads: 'wizard.listPrompt.title.uploads', 'watch-later': 'wizard.listPrompt.title.watchLater', liked: 'wizard.listPrompt.title.liked'} as const satisfies Record<
-	ListKind,
-	string
->
-
-const LIST_OPTION_KEYS = {
-	playlist: 'wizard.listPrompt.listOption.playlist',
-	mix: 'wizard.listPrompt.listOption.mix',
-	album: 'wizard.listPrompt.listOption.album',
-	uploads: 'wizard.listPrompt.listOption.uploads',
-	'watch-later': 'wizard.listPrompt.listOption.watchLater',
-	liked: 'wizard.listPrompt.listOption.liked'
+const PICK_TITLE_KEYS = {
+	playlist: 'wizard.listPrompt.pickTitle.playlist',
+	mix: 'wizard.listPrompt.pickTitle.mix',
+	album: 'wizard.listPrompt.pickTitle.album',
+	uploads: 'wizard.listPrompt.pickTitle.uploads',
+	'watch-later': 'wizard.listPrompt.pickTitle.watchLater',
+	liked: 'wizard.listPrompt.pickTitle.liked'
 } as const satisfies Record<ListKind, string>
 
-const PICK_OPTION_KEYS = {
-	playlist: 'wizard.listPrompt.pickOption.playlist',
-	mix: 'wizard.listPrompt.pickOption.mix',
-	album: 'wizard.listPrompt.pickOption.album',
-	uploads: 'wizard.listPrompt.pickOption.uploads',
-	'watch-later': 'wizard.listPrompt.pickOption.watchLater',
-	liked: 'wizard.listPrompt.pickOption.liked'
-} as const satisfies Record<ListKind, string>
+const OPTION_CLASS = 'h-auto min-w-0 flex-1 justify-start gap-3 px-2 py-2 text-start whitespace-normal'
 
-// An option's label and what it does. Spans, since it sits inside a button.
-function OptionText({label, hint}: {label: string; hint: string}): ReactNode {
+// One answer: an icon, its name, and what it does in the hint.
+function Option({icon: Icon, label, hint, enter, disabled, buttonRef, onChoose, testId}: {icon: LucideIcon; label: ReactNode; hint: string; enter: boolean; disabled: boolean; buttonRef?: RefObject<HTMLButtonElement | null>; onChoose: () => void; testId: string}): ReactNode {
 	return (
-		<span className="flex min-w-0 flex-1 flex-col gap-0.5">
-			<span>{label}</span>
-			<span className="text-caption font-normal text-subtle-foreground">{hint}</span>
-		</span>
+		<Item variant="outline" size="sm" className="p-1">
+			<Hint label={hint}>
+				<Button ref={buttonRef} type="button" variant="ghost" disabled={disabled} focusableWhenDisabled aria-description={hint} className={OPTION_CLASS} onClick={onChoose} data-testid={testId}>
+					<IconTile size="sm">
+						<Icon aria-hidden />
+					</IconTile>
+					<span className="flex min-w-0 flex-1 items-center gap-2 text-title">{label}</span>
+					{enter ? <Kbd aria-hidden>Enter</Kbd> : null}
+				</Button>
+			</Hint>
+		</Item>
+	)
+}
+
+// The one number every answer reads: the playlist load limit, with what it does in its hint.
+function LimitControl({onSavingChange}: {onSavingChange: (saving: boolean) => void}): ReactNode {
+	const {t} = useTranslation()
+	return (
+		<Hint label={t('wizard.listPrompt.limitHint')}>
+			<span className="flex items-center gap-2 text-caption text-subtle-foreground" data-testid="mixed-limit">
+				<Gauge className="size-4" aria-hidden />
+				{t('wizard.listPrompt.limitLabel')}
+				<PlaylistProbeLimitSelector testId="mixed-playlist-probe-limit" showCurrent={false} onSavingChange={onSavingChange} />
+			</span>
+		</Hint>
 	)
 }
 
 // A YouTube link naming a video and a list (?v=X&list=Y) could mean either. The
-// store opens this before loading anything; it asks only what to take, the
-// video or the first N of the list, N being the load limit the selector edits.
-// A quick download already knows how (the active profile); Interactive goes on
-// to the formats or the playlist picker.
+// store opens this before loading anything, and only for the list: This video
+// sits beside the button that opens it. From the list button: the list in the
+// background, its row asking past the limit; exactly the first N; or
+// Interactive's picker. From Interactive it only confirms how many to load for
+// the picker. One number, the playlist load limit, sets N.
 export function MixedUrlPromptDialog(): ReactNode {
 	const {t} = useTranslation()
-	const profileName = useProfileDisplayName()
+	const profileNameOf = useProfileDisplayName()
 	const {mixedUrlPromptOpen, mixedUrlPending, mixedUrlPromptSource, cancelMixedPrompt, dismissMixedPrompt, settings} = useAppStore(
 		useShallow(state => ({mixedUrlPromptOpen: state.mixedUrlPromptOpen, mixedUrlPending: state.mixedUrlPending, mixedUrlPromptSource: state.mixedUrlPromptSource, cancelMixedPrompt: state.cancelMixedPrompt, dismissMixedPrompt: state.dismissMixedPrompt, settings: state.settings}))
 	)
-	const singleButtonRef = useRef<HTMLButtonElement>(null)
+	const focusRef = useRef<HTMLButtonElement>(null)
 	const [limitSaving, setLimitSaving] = useState(false)
 	// The store clears the link and source the moment an answer is given, before
 	// the exit animation ends. Keep the last real ones for what is still on screen.
@@ -66,33 +81,64 @@ export function MixedUrlPromptDialog(): ReactNode {
 	if (mixedUrlPending && (shown.url !== mixedUrlPending || shown.source !== mixedUrlPromptSource)) setShown({url: mixedUrlPending, source: mixedUrlPromptSource})
 	const kind = (shown.url ? listKindForUrl(shown.url) : null) ?? 'playlist'
 	const isQuick = shown.source === 'url-tab' || shown.source === 'explore'
+	const profileName = profileNameOf(resolveActiveDownloadProfile(settings?.profiles).profile)
 	const count = resolvePlaylistProbeLimit(settings?.common)
 
 	return (
 		<Dialog open={mixedUrlPromptOpen} onOpenChange={open => !open && cancelMixedPrompt()}>
-			<DialogContent className="sm:max-w-md" initialFocus={singleButtonRef}>
+			<DialogContent className="sm:max-w-md" initialFocus={focusRef}>
 				<DialogHeader className="gap-1 pe-8">
-					<DialogTitle data-testid="mixed-prompt-title">{t(TITLE_KEYS[kind])}</DialogTitle>
-					<DialogDescription data-testid="mixed-prompt-subtitle">{isQuick ? t('wizard.listPrompt.withProfile', {profileName: profileName(resolveActiveDownloadProfile(settings?.profiles).profile)}) : t('wizard.listPrompt.interactiveSubtitle')}</DialogDescription>
-					{kind === 'mix' && <p className="text-caption text-subtle-foreground">{t('wizard.listPrompt.mixNote')}</p>}
+					<DialogTitle data-testid="mixed-prompt-title">{t(isQuick ? LIST_TITLE_KEY[kind] : PICK_TITLE_KEYS[kind])}</DialogTitle>
+					{kind === 'mix' ? <DialogDescription data-testid="mixed-prompt-mix-note">{t('wizard.listPrompt.mixNote')}</DialogDescription> : null}
 				</DialogHeader>
-				<ItemGroup className="gap-2">
-					<Item variant="outline" size="sm" className="p-1">
-						<Button ref={singleButtonRef} type="button" variant="ghost" className="h-auto min-w-0 flex-1 justify-start gap-2.5 px-2 py-1.5 text-start whitespace-normal" onClick={() => void dismissMixedPrompt('video')} data-testid="mixed-single-choice">
-							<OptionText label={t('wizard.listPrompt.justThisVideo')} hint={t(isQuick ? 'wizard.listPrompt.justThisVideoQuickHint' : 'wizard.listPrompt.justThisVideoInteractiveHint')} />
-							<Kbd aria-hidden>Enter</Kbd>
-						</Button>
-					</Item>
-					<Item variant="outline" size="sm" className="p-1 pe-2">
-						<Button type="button" variant="ghost" disabled={limitSaving} className="h-auto min-w-0 flex-1 justify-start px-2 py-1.5 text-start whitespace-normal" onClick={() => void dismissMixedPrompt('playlist')} data-testid="mixed-playlist-choice">
-							<OptionText label={t(isQuick ? LIST_OPTION_KEYS[kind] : PICK_OPTION_KEYS[kind])} hint={t(isQuick ? 'wizard.listPrompt.listQuickHint' : 'wizard.listPrompt.listInteractiveHint', {count})} />
-						</Button>
-						<ItemActions>
-							<PlaylistProbeLimitSelector testId="mixed-playlist-probe-limit" showCurrent={false} onSavingChange={setLimitSaving} />
-						</ItemActions>
-					</Item>
-				</ItemGroup>
-				<p className="text-caption text-subtle-foreground">{t('wizard.listPrompt.escHint')}</p>
+				{isQuick ? (
+					<>
+						<ItemGroup className="gap-2">
+							<Option icon={ListVideo} label={t('wizard.listPrompt.backgroundLabel')} hint={t('wizard.listPrompt.backgroundHint', {profileName, count})} enter buttonRef={focusRef} disabled={limitSaving} onChoose={() => void dismissMixedPrompt({kind: 'list'})} testId="mixed-list-choice" />
+							<Option
+								icon={ListStart}
+								label={
+									<>
+										{t('wizard.listPrompt.firstLabel')}
+										<Badge variant="secondary" data-testid="mixed-first-count">
+											{count}
+										</Badge>
+									</>
+								}
+								hint={t('wizard.listPrompt.firstHint', {profileName, count})}
+								enter={false}
+								disabled={limitSaving}
+								onChoose={() => void dismissMixedPrompt({kind: 'first', count})}
+								testId="mixed-first-choice"
+							/>
+							<Option icon={ListChecks} label={t('wizard.listPrompt.interactiveLabel')} hint={t('wizard.listPrompt.interactiveHint', {count})} enter={false} disabled={limitSaving} onChoose={() => void dismissMixedPrompt({kind: 'pick'})} testId="mixed-pick-choice" />
+						</ItemGroup>
+						<div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+							<LimitControl onSavingChange={setLimitSaving} />
+							<p className="text-caption text-subtle-foreground">{t('wizard.listPrompt.escOnly')}</p>
+						</div>
+					</>
+				) : (
+					// Interactive already means "pick": it only confirms how many to load.
+					<>
+						<div className="flex flex-col gap-1.5">
+							<p className="flex flex-wrap items-center gap-2 text-body">
+								{t('wizard.listPrompt.pickLoadBefore')}
+								<PlaylistProbeLimitSelector testId="mixed-playlist-probe-limit" showCurrent={false} onSavingChange={setLimitSaving} />
+								{t('wizard.listPrompt.pickLoadAfter')}
+							</p>
+							<p className="text-caption text-subtle-foreground">{t('wizard.listPrompt.pickLoadNote')}</p>
+						</div>
+						<DialogFooter className="flex-row justify-end">
+							<Button type="button" variant="outline" onClick={cancelMixedPrompt} data-testid="mixed-pick-cancel">
+								{t('common.cancel')}
+							</Button>
+							<Button ref={focusRef} type="button" disabled={limitSaving} focusableWhenDisabled onClick={() => void dismissMixedPrompt({kind: 'pick'})} data-testid="mixed-pick-continue">
+								{t('common.continue')}
+							</Button>
+						</DialogFooter>
+					</>
+				)}
 			</DialogContent>
 		</Dialog>
 	)

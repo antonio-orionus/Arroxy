@@ -5,6 +5,7 @@ import {ChevronRight, ClipboardPaste, Link2, ListPlus, Wand2, X, type LucideIcon
 import {downloadProfileRefFor} from '@shared/downloadProfiles.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
 import {classifyPastedText} from '@shared/clipboardLinks.js'
+import {videoListKind} from '@shared/urlIntent.js'
 import type {DownloadProfile, DownloadProfileRef} from '@shared/types.js'
 import {cn} from '@renderer/lib/utils.js'
 import {notify} from '@renderer/lib/notify.js'
@@ -45,7 +46,12 @@ function browserMockScenarioId(): string | null {
 
 // What the mascot says under the heading: what Quick Download will do with the
 // link in the field, or how it is getting on.
-function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t}: {activeProfileName: string; hasActiveDownloads: boolean; hasInput: boolean; inputType: DownloadInputType | null; quickDownloadStatus: string; t: TFunction}): {body: string; image: string} {
+// `inHint`: the buttons already say what the link offers, so the line waits in the heading's hint.
+function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t}: {activeProfileName: string; hasActiveDownloads: boolean; hasInput: boolean; inputType: DownloadInputType | null; quickDownloadStatus: string; t: TFunction}): {
+	body: string
+	image: string
+	inHint?: boolean
+} {
 	if (quickDownloadStatus === 'preparing') {
 		return {body: t('wizard.url.mascotPreparing', {quickDownload: t('wizard.url.quickDownload'), profileName: activeProfileName}), image: downloadingImg}
 	}
@@ -63,7 +69,7 @@ function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, in
 	}
 
 	if (inputType === 'Mixed URL') {
-		return {body: t('wizard.url.mascotMixed'), image: hiImg}
+		return {body: t('wizard.url.mascotVideoInList'), image: hiImg, inHint: true}
 	}
 
 	if (inputType === 'Single URL') {
@@ -168,6 +174,7 @@ interface DownloadTabPanelProps {
 function DownloadTabPanel({view, initialBrowserMockScenario, onEditProfile, onManageProfiles, onOpenBulk, onPasteBulk}: DownloadTabPanelProps): ReactNode {
 	const {t} = useTranslation()
 	const {activeProfileDestination, activeProfileDestinationDetailKey, profilesPrefs, quickDownload, setActiveDownloadProfile, submitUrl, urlReady, wizardUrl} = view
+	const listKind = videoListKind(wizardUrl.trim())
 	const pickProfileRef = (ref: DownloadProfileRef): void => {
 		void setActiveDownloadProfile(ref)
 	}
@@ -179,13 +186,15 @@ function DownloadTabPanel({view, initialBrowserMockScenario, onEditProfile, onMa
 					<DownloadUrlInput view={view} onPasteBulk={onPasteBulk} />
 				</div>
 			</CardHeader>
-			<CardContent className="px-5 pb-4 md:px-6">
+			<CardContent className="@container px-5 pb-4 md:px-6">
 				<QuickProfileControl
 					defaultProfileMenuOpen={initialBrowserMockScenario === 'profiles-split-menu'}
 					destination={activeProfileDestination}
 					destinationDetail={t(activeProfileDestinationDetailKey)}
 					disabled={!urlReady}
 					onDownload={() => void quickDownload({url: wizardUrl, entry: 'url-tab'})}
+					onDownloadVideo={() => void quickDownload({url: wizardUrl, entry: 'url-tab', playlistMode: 'video'})}
+					listKind={listKind}
 					onEditProfile={onEditProfile}
 					onManageProfiles={onManageProfiles}
 					onNewProfile={() => onEditProfile(null)}
@@ -196,7 +205,7 @@ function DownloadTabPanel({view, initialBrowserMockScenario, onEditProfile, onMa
 				<QuickDownloadFeedback view={view} />
 
 				<div className="mt-3 grid w-full gap-2 sm:grid-cols-2" data-testid="profiles-action-rows">
-					<ActionRow disabled={!urlReady} icon={Wand2} title={t('wizard.url.interactiveDownload')} description={t('wizard.url.fetchFormatsTooltip')} onClick={() => void submitUrl()} testId="profiles-interactive-download" />
+					<ActionRow disabled={!urlReady} icon={Wand2} title={listKind ? t('wizard.url.interactiveDownloadAsks') : t('wizard.url.interactiveDownload')} description={t('wizard.url.fetchFormatsTooltip')} onClick={() => void submitUrl()} testId="profiles-interactive-download" />
 					<ActionRow icon={ListPlus} title={t('wizard.url.bulkButton')} description={t('wizard.url.bulkTooltip')} onClick={onOpenBulk} testId="profiles-bulk-urls" />
 				</div>
 			</CardContent>
@@ -212,14 +221,27 @@ function DownloadMascotHeader({view}: {view: DownloadHomeView}): ReactNode {
 	const showMascotHelp = inputType !== 'Unknown URL' && inputType !== 'Unsupported URL'
 	const mascotHeaderBody = showMascotHelp ? mascotHelp.body : t('wizard.url.quickSingleOnly')
 	const mascotHeaderImage = showMascotHelp ? mascotHelp.image : hiImg
+	// The buttons say what a video-in-a-list link offers; the why waits in the heading's hint.
+	const bodyInHint = showMascotHelp && mascotHelp.inHint === true
+	const title = <CardTitle className="text-display">{t('wizard.url.heading')}</CardTitle>
 	return (
 		<div className="flex min-w-0 items-start gap-3" data-testid="profiles-mascot-header">
 			<img src={mascotHeaderImage} alt="" aria-hidden className="mt-0.5 size-12 shrink-0 object-contain sm:size-14" draggable={false} />
 			<div className="min-w-0 flex-1">
-				<CardTitle className="text-display">{t('wizard.url.heading')}</CardTitle>
-				<CardDescription className="mt-1.5 text-body text-subtle-foreground" data-testid="profiles-mascot-copy">
-					{mascotHeaderBody}
-				</CardDescription>
+				{bodyInHint ? (
+					<Hint label={<span className="block max-w-xs">{mascotHeaderBody}</span>}>
+						<span className="inline-block" data-testid="profiles-mascot-copy-hint">
+							{title}
+						</span>
+					</Hint>
+				) : (
+					<>
+						{title}
+						<CardDescription className="mt-1.5 text-body text-subtle-foreground" data-testid="profiles-mascot-copy">
+							{mascotHeaderBody}
+						</CardDescription>
+					</>
+				)}
 			</div>
 		</div>
 	)

@@ -108,7 +108,19 @@
 		},
 		"linkMenu": {
 			"copyLink": "Copy link",
-			"downloadWith": "Download with"
+			"downloadFirst": "Download the first {{count}}",
+			"downloadThisVideo": "Download this video · {{profileName}}",
+			"downloadWith": "Download with",
+			"fromList": {
+				"album": "From this album",
+				"liked": "From your liked videos",
+				"mix": "From this Mix",
+				"playlist": "From this playlist",
+				"uploads": "From this channel’s uploads",
+				"watchLater": "From Watch later"
+			},
+			"interactive": "Interactive Download…",
+			"thisVideoWith": "This video with"
 		},
 		"newBadge": "New",
 		"notice": {
@@ -165,6 +177,8 @@
 			"refusedHint": "Explore can't open that address.",
 			"reload": "Reload",
 			"searchTooLong": "That search is too long.",
+			"thisVideo": "This video",
+			"thisVideoHint": "Download just this video with {{profileName}}",
 			"zoom": {
 				"hint": "Page zoom: {{percent}}%",
 				"in": "Zoom in",
@@ -968,29 +982,26 @@
 			"withAudio": "with audio"
 		},
 		"listPrompt": {
-			"escHint": "Esc cancels. Nothing loads until you choose.",
-			"interactiveSubtitle": "Choose formats yourself",
-			"justThisVideo": "Just this video",
-			"justThisVideoInteractiveHint": "Opens its formats",
-			"justThisVideoQuickHint": "Loads one video",
-			"listInteractiveHint": "Loads up to {{count}} to choose from",
-			"listOption": {
-				"album": "The album, first",
-				"liked": "Your liked videos, first",
-				"mix": "The Mix, first",
-				"playlist": "The playlist, first",
-				"uploads": "The uploads, first",
-				"watchLater": "Watch later, first"
-			},
-			"listQuickHint": "Loads up to {{count}}, then downloads them",
+			"backgroundHint": "With {{profileName}}. If it has more than {{count}} videos, Downloads asks how many.",
+			"backgroundLabel": "Download in the background",
+			"escOnly": "Esc cancels.",
+			"firstHint": "Exactly the first {{count}}, with {{profileName}}.",
+			"firstLabel": "Download the first",
+			"interactiveHint": "Pick from the first {{count}} videos (or change the count on the next step), then set up the download.",
+			"interactiveLabel": "Interactive download…",
+			"limitHint": "How many videos to take from the list: the first option asks past it, the second takes exactly that many. The same as Settings › Playlist items to scan.",
+			"limitLabel": "Limit",
 			"mixNote": "A Mix changes every time you open it.",
-			"pickOption": {
-				"album": "Pick from the album, first",
-				"liked": "Pick from your liked videos, first",
-				"mix": "Pick from the Mix, first",
-				"playlist": "Pick from the playlist, first",
-				"uploads": "Pick from the uploads, first",
-				"watchLater": "Pick from Watch later, first"
+			"pickLoadAfter": "to pick from.",
+			"pickLoadBefore": "Load the first",
+			"pickLoadNote": "You can change it on the next step.",
+			"pickTitle": {
+				"album": "Pick from this album",
+				"liked": "Pick from your liked videos",
+				"mix": "Pick from this Mix",
+				"playlist": "Pick from this playlist",
+				"uploads": "Pick from this channel’s uploads",
+				"watchLater": "Pick from Watch later"
 			},
 			"title": {
 				"album": "Download from this album",
@@ -1520,6 +1531,14 @@
 				"label": "Download connections",
 				"unit": "connections"
 			},
+			"downloadList": {
+				"album": "Download album…",
+				"liked": "Download liked videos…",
+				"mix": "Download Mix…",
+				"playlist": "Download playlist…",
+				"uploads": "Download uploads…",
+				"watchLater": "Download Watch later…"
+			},
 			"features": {
 				"always": {
 					"audioOnly": "Audio only",
@@ -1557,6 +1576,7 @@
 				"toggleDescriptionDetail": "Copy a video link in any app and press the shortcut: Arroxy queues it with your active profile, without switching windows. A link to a video in a playlist downloads the video."
 			},
 			"interactiveDownload": "Interactive Download",
+			"interactiveDownloadAsks": "Interactive Download…",
 			"limitRate": {
 				"activeWarning": "Active downloads keep their current limit. Pause + Resume to apply changes.",
 				"custom": "Custom…",
@@ -1569,10 +1589,10 @@
 			"mascotBusy": "Downloading in the background… I can multitask 😎",
 			"mascotCollection": "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first.",
 			"mascotIdle": "Drop a link and let Arroxy pull it ✨",
-			"mascotMixed": "This link points at one video inside a collection. Arroxy will ask which one you want before probing.",
 			"mascotPreparing": "{{quickDownload}} is reading this link and applying {{profileName}}.",
 			"mascotQueued": "The queue is handling this download. You can paste another link while it works.",
 			"mascotSingle": "Quick starts one download with {{profileName}}. Use Interactive for one-off changes.",
+			"mascotVideoInList": "This link names a video and the list it’s in: download just the video, or the list.",
 			"nativeAudioPreference": {
 				"compatible": "Compatible stereo",
 				"description": "Stereo or surround when a profile picks native audio. A profile can override it.",
@@ -1743,7 +1763,9 @@
 			"tabs": {
 				"profiles": "Profiles",
 				"settings": "Settings"
-			}
+			},
+			"thisVideo": "This video",
+			"thisVideoTooltip": "Downloads just this video with {{profileName}}"
 		}
 	}
 }

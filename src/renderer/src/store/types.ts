@@ -69,6 +69,10 @@ export type WizardStep = WizardStepName
 export type AdvancedSettingsTarget = 'cookies' | 'network' | 'hotkey'
 // `url-tab` / `explore`: a quick download asked, and its answer places the row.
 export type MixedUrlPromptSource = 'wizard' | 'url-tab' | 'explore'
+// What was answered for a link that names a video and a list: the list in the
+// background (its row asks past the load limit), exactly the first N, or the
+// wizard's picker. The video alone never asks: This video sits beside the list.
+export type MixedPromptAnswer = {kind: 'list'} | {kind: 'first'; count: number} | {kind: 'pick'}
 // The home tab a wizard run started from, and lands back on when it ends.
 export type WizardOrigin = 'download' | 'explore'
 
@@ -191,7 +195,9 @@ export interface ProbeOrchestratorSlice {
 	dismissQuickDownloadFailure: () => void
 	startBulkUrls: (urls: string[]) => void
 	cancelBulkMetadata: (reason?: BulkMetadataCancelReason) => void
-	dismissMixedPrompt: (choice: 'video' | 'playlist') => Promise<void>
+	dismissMixedPrompt: (answer: MixedPromptAnswer) => Promise<void>
+	// The same answers for a link given directly (Explore's link menu offers them without the dialog).
+	answerVideoListLink: (url: string, source: MixedUrlPromptSource, answer: MixedPromptAnswer) => Promise<void>
 	setPlaylistItemSelected: (id: string, checked: boolean) => void
 	setPlaylistScope: (scope: PlaylistScope) => void
 	reloadPlaylistWithScope: (scope: PlaylistScope) => Promise<void>

@@ -135,7 +135,7 @@ describe('Quick Download from the URL tab', () => {
 		expect(queue()).toEqual([])
 	})
 
-	it('asks "this video or the whole playlist?" first, then places the answer', async () => {
+	it('asks how to take the list first, then places the answer', async () => {
 		const probe = deferredProbe()
 		const mixed = 'https://www.youtube.com/watch?v=abc&list=PLtest'
 		useAppStore.setState({wizardUrl: mixed})
@@ -143,7 +143,7 @@ describe('Quick Download from the URL tab', () => {
 		expect(useAppStore.getState()).toMatchObject({mixedUrlPromptOpen: true, mixedUrlPending: mixed, mixedUrlPromptSource: 'url-tab'})
 		expect(queue()).toEqual([])
 
-		await useAppStore.getState().dismissMixedPrompt('playlist')
+		await useAppStore.getState().dismissMixedPrompt({kind: 'list'})
 		expect(queue()[0]).toMatchObject({url: mixed, probeMode: 'playlist', status: 'probing'})
 		expect(probe.calls[0]?.playlistMode).toBe('playlist')
 		expect(useAppStore.getState().wizardUrl).toBe('')

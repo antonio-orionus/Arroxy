@@ -243,6 +243,10 @@ body {
 	color: var(--quick-card-ink);
 	box-shadow: var(--quick-action-shadow);
 }
+.quick-profile-video {
+	/* This video, outlined beside the list button: the same corners as the filled one. */
+	border-radius: calc(1.25rem - 1px);
+}
 .quick-profile-selector {
 	position: relative;
 	border: 0 !important;
@@ -280,6 +284,7 @@ body {
 	background: color-mix(in oklab, var(--surface-raised) 70%, transparent);
 }
 .quick-profile-action:focus-visible,
+.quick-profile-video:focus-visible,
 .quick-profile-selector:focus-visible,
 .quick-profile-selector-trigger:focus-visible,
 .quick-profile-inline-action:focus-visible {

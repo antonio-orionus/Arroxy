@@ -170,6 +170,56 @@ describe('DownloadProfilesHome downloads tab', () => {
 	})
 })
 
+// A link that names a video and a list splits the card: This video beside the
+// list button. The mascot's line for it waits in the heading's hint.
+describe('DownloadProfilesHome URL tab on a video in a list', () => {
+	const MIX = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1'
+	const PLAIN = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+
+	beforeEach(() => {
+		window.appApi = buildMockAppApi()
+		window.history.replaceState(null, '', '#download')
+		localStorage.clear()
+		useAppStore.setState({queue: [], wizardUrl: '', quickDownloadStatus: 'idle', quickDownloadFailure: null, settings: defaultAppSettings('/tmp')})
+	})
+
+	it('offers This video and the Mix, with Interactive Download… below', () => {
+		useAppStore.setState({wizardUrl: MIX})
+		render(<DownloadProfilesHome />)
+		expect(screen.getByTestId('profiles-quick-download-video')).toHaveTextContent('This video')
+		expect(screen.getByTestId('profiles-quick-download')).toHaveTextContent('Download Mix…')
+		expect(screen.getByTestId('profiles-interactive-download')).toHaveTextContent('Interactive Download…')
+	})
+
+	it("moves the mascot line into the heading's hint", async () => {
+		useAppStore.setState({wizardUrl: MIX})
+		render(<DownloadProfilesHome />)
+		expect(screen.queryByTestId('profiles-mascot-copy')).toBeNull()
+		await expectHint(screen.getByTestId('profiles-mascot-copy-hint'), 'This link names a video and the list it’s in')
+	})
+
+	it('This video queues the video alone, and the list button asks', () => {
+		const quickDownload = vi.fn(async () => {})
+		useAppStore.setState({wizardUrl: MIX, quickDownload})
+		render(<DownloadProfilesHome />)
+
+		fireEvent.click(screen.getByTestId('profiles-quick-download-video'))
+		expect(quickDownload).toHaveBeenLastCalledWith({url: MIX, entry: 'url-tab', playlistMode: 'video'})
+
+		fireEvent.click(screen.getByTestId('profiles-quick-download'))
+		expect(quickDownload).toHaveBeenLastCalledWith({url: MIX, entry: 'url-tab'})
+	})
+
+	it("keeps a plain link's card, mascot line and Interactive Download as they were", () => {
+		useAppStore.setState({wizardUrl: PLAIN})
+		render(<DownloadProfilesHome />)
+		expect(screen.queryByTestId('profiles-quick-download-video')).toBeNull()
+		expect(visibleText(screen.getByTestId('profiles-quick-download'))).toBe('Quick Download')
+		expect(visibleText(screen.getByTestId('profiles-interactive-download'))).toBe('Interactive Download')
+		expect(screen.getByTestId('profiles-mascot-copy')).toHaveTextContent('Quick starts one download')
+	})
+})
+
 describe('DownloadProfilesHome profiles tab visibility', () => {
 	beforeEach(() => {
 		window.appApi = buildMockAppApi()

@@ -5,6 +5,7 @@ import {formatHotkeyChord} from '@renderer/lib/hotkeyLabel.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import type {AppSettings, HotkeyRegistrationStatus} from '@shared/types.js'
+import type {ListKind} from '@shared/schemas.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 import {expectHint} from '../shared/hint.js'
 import {TooltipProvider} from '@renderer/components/ui/tooltip.js'
@@ -28,15 +29,31 @@ interface MountOptions {
 	destinationDetail?: string
 	disabled?: boolean
 	onDownload?: () => void
+	onDownloadVideo?: () => void
+	listKind?: ListKind | null
 }
 
-function mount({common = {}, registration, size = 'default', testIdPrefix = 'profiles', destination, destinationDetail, disabled = false, onDownload = vi.fn()}: MountOptions = {}): void {
+function mount({common = {}, registration, size = 'default', testIdPrefix = 'profiles', destination, destinationDetail, disabled = false, onDownload = vi.fn(), onDownloadVideo, listKind}: MountOptions = {}): void {
 	Object.defineProperty(window, 'appApi', {writable: true, value: buildMockAppApi()})
 	const settings = buildSettings(common)
 	useAppStore.setState({initialized: true, initializing: false, settings, hotkeyRegistration: registration ?? (settings.common.hotkeyEnabled ? 'registered' : 'off')})
 	render(
 		<TooltipProvider>
-			<QuickProfileControl destination={destination} destinationDetail={destinationDetail} disabled={disabled} onDownload={onDownload} onEditProfile={vi.fn()} onManageProfiles={vi.fn()} onNewProfile={vi.fn()} onPickProfile={vi.fn()} preparing={false} size={size} testIdPrefix={testIdPrefix} />
+			<QuickProfileControl
+				destination={destination}
+				destinationDetail={destinationDetail}
+				disabled={disabled}
+				onDownload={onDownload}
+				onDownloadVideo={onDownloadVideo}
+				listKind={listKind}
+				onEditProfile={vi.fn()}
+				onManageProfiles={vi.fn()}
+				onNewProfile={vi.fn()}
+				onPickProfile={vi.fn()}
+				preparing={false}
+				size={size}
+				testIdPrefix={testIdPrefix}
+			/>
 		</TooltipProvider>
 	)
 }
@@ -138,6 +155,97 @@ describe('Quick Download action', () => {
 		expect(hint).toHaveTextContent('Will download using: Balanced 720p')
 		expect(hint).not.toHaveTextContent('Global shortcut')
 		expect(within(hint).queryByTestId('quick-download-global-hotkey')).toBeNull()
+	})
+})
+
+// On a link that names a video and a list, the card splits: This video (an
+// outlined primary action that starts at once), the list button (the filled
+// primary, which asks), and the profile tile.
+describe('split card on a video in a list', () => {
+	beforeEach(() => {
+		useAppStore.setState({settings: null, hotkeyRegistration: 'off'})
+	})
+
+	it.each<[ListKind, string, string]>([
+		['playlist', 'Download playlist…', 'Download from this playlist'],
+		['mix', 'Download Mix…', 'Download from this Mix'],
+		['album', 'Download album…', 'Download from this album'],
+		['uploads', 'Download uploads…', "Download from this channel's uploads"],
+		['watch-later', 'Download Watch later…', 'Download from Watch later'],
+		['liked', 'Download liked videos…', 'Download from your liked videos']
+	])('names a %s on the list button, with an arrow, and what it asks in its hint', async (listKind, label, title) => {
+		mount({listKind, onDownloadVideo: vi.fn()})
+		const list = screen.getByTestId('profiles-quick-download')
+		expect(list.textContent).toBe(label)
+		expect(list).toHaveAttribute('data-list-kind', listKind)
+		expect(list.querySelector('.lucide-chevron-right')).not.toBeNull()
+		await expectHint(list, title)
+		await expectHint(list, 'Will download using: Balanced 720p')
+		expect(list).toHaveAccessibleName(label)
+		expect(list).toHaveAccessibleDescription(`${title}. Will download using: Balanced 720p`)
+	})
+
+	it('puts This video first, named only, with no arrow, and downloads at once', async () => {
+		const onDownloadVideo = vi.fn()
+		const onDownload = vi.fn()
+		mount({listKind: 'playlist', onDownload, onDownloadVideo})
+		const video = screen.getByTestId('profiles-quick-download-video')
+		const cluster = screen.getByTestId('profiles-quick-preview')
+		expect(cluster.firstElementChild).toBe(video)
+		expect(video.textContent).toBe('This video')
+		expect(video.querySelector('.lucide-chevron-right')).toBeNull()
+		expect(video).toHaveAccessibleDescription('Downloads just this video with Balanced 720p')
+		await expectHint(video, 'Downloads just this video with Balanced 720p')
+
+		fireEvent.click(video)
+		expect(onDownloadVideo).toHaveBeenCalledTimes(1)
+		expect(onDownload).not.toHaveBeenCalled()
+		fireEvent.click(screen.getByTestId('profiles-quick-download'))
+		expect(onDownload).toHaveBeenCalledTimes(1)
+	})
+
+	it("moves the global shortcut into This video's hint while the hotkey is registered", async () => {
+		mount({listKind: 'mix', onDownloadVideo: vi.fn(), common: {hotkeyEnabled: true, hotkeyAccelerator: 'CommandOrControl+Shift+D'}})
+		await expectHint(screen.getByTestId('profiles-quick-download-video'), 'Global shortcut')
+		const hint = await openQuickDownloadHint()
+		expect(within(hint).queryByTestId('quick-download-global-hotkey')).toBeNull()
+	})
+
+	it('names no shortcut on This video while the hotkey is off', async () => {
+		mount({listKind: 'playlist', onDownloadVideo: vi.fn(), common: {hotkeyEnabled: false}})
+		const video = screen.getByTestId('profiles-quick-download-video')
+		fireEvent.mouseEnter(video)
+		fireEvent.mouseMove(video)
+		const hint = await screen.findByTestId('profiles-quick-download-video-hint', undefined, {timeout: 1500})
+		expect(hint).toHaveTextContent('Downloads just this video with Balanced 720p')
+		expect(within(hint).queryByTestId('quick-download-global-hotkey')).toBeNull()
+	})
+
+	it('keeps This video reachable but inert while the field holds no link', () => {
+		const onDownloadVideo = vi.fn()
+		mount({listKind: 'playlist', onDownloadVideo, disabled: true})
+		const video = screen.getByTestId('profiles-quick-download-video')
+		expect(video).toHaveAttribute('aria-disabled', 'true')
+		fireEvent.click(video)
+		expect(onDownloadVideo).not.toHaveBeenCalled()
+	})
+
+	it("lays the three columns out by the card's own width", () => {
+		mount({listKind: 'playlist', onDownloadVideo: vi.fn()})
+		expect(screen.getByTestId('profiles-quick-preview').className).toContain('@3xl:grid-cols-[1fr_1fr_1.5fr]')
+		expect(screen.getByTestId('profiles-active-profile-card').className).toContain('@xl:col-span-2')
+	})
+
+	it("stays today's card on a plain link", () => {
+		mount({listKind: null, onDownloadVideo: vi.fn()})
+		expect(screen.queryByTestId('profiles-quick-download-video')).toBeNull()
+		expect(screen.getByTestId('profiles-quick-download').textContent).toBe('Quick Download')
+	})
+
+	it('never splits in the Bulk dialog', () => {
+		mount({listKind: 'playlist', onDownloadVideo: vi.fn(), size: 'compact', testIdPrefix: 'bulk'})
+		expect(screen.queryByTestId('profiles-quick-download-video')).toBeNull()
+		expect(screen.getByTestId('bulk-quick-download').textContent).toBe('Quick Download')
 	})
 })
 

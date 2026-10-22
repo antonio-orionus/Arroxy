@@ -4,6 +4,7 @@ import type {ExploreNavigateCommand, ExploreViewState} from '@shared/types.js'
 import {isExploreAdBlockOn} from '@shared/exploreAdBlock.js'
 import {exploreZoomOf} from '@shared/exploreZoom.js'
 import {isExploreGrabbable} from '@shared/exploreGrab.js'
+import {videoListKind} from '@shared/urlIntent.js'
 import {exploreSearchEngineOf} from '@shared/sites/exploreSearch.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
 import {selectCompactChrome} from '../../store/uiSlice.js'
@@ -72,6 +73,11 @@ function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfi
 		void useAppStore.getState().quickDownload({url: state.url, entry: 'explore', title: state.title})
 	}
 
+	// This video: the page's video alone, with no question.
+	function grabVideo(): void {
+		void useAppStore.getState().quickDownload({url: state.url, entry: 'explore', title: state.title, playlistMode: 'video'})
+	}
+
 	// A result that lands after the tab was left is dropped: the hint must not come back.
 	async function submitAddress(text: string): Promise<boolean> {
 		const outcome = await submitExploreAddress(text, searchEngine)
@@ -88,6 +94,7 @@ function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfi
 				state={state}
 				pointerEntries={pointerEntries}
 				grabbable={isExploreGrabbable(state.url)}
+				listKind={videoListKind(state.url)}
 				profiles={profiles}
 				profileMenu={{onPickProfile: ref => void setActiveDownloadProfile(ref), onEditProfile, onNewProfile, onManageProfiles}}
 				onNavigate={navigate}
@@ -95,6 +102,7 @@ function ExploreBrowser({compactTabs, onEditProfile, onNewProfile, onManageProfi
 				onSubmitAddress={submitAddress}
 				onAddressEdit={() => setAddressHint(null)}
 				onDownload={grab}
+				onDownloadVideo={grabVideo}
 				onInteractive={() => openExploreInteractive(state.url)}
 				onToggleAdBlock={enabled => void setExploreAdBlock(enabled)}
 				zoom={zoom}

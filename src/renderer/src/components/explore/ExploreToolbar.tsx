@@ -1,10 +1,11 @@
 import {useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {ArrowLeft, ArrowRight, ChevronDown, House, Maximize2, Minimize2, RotateCw, ShieldAlert, ShieldCheck, ShieldEllipsis, ShieldOff, WandSparkles, type LucideIcon} from 'lucide-react'
-import type {ExploreAdBlockStatus, ExploreSearchEngine} from '@shared/schemas.js'
+import {ArrowLeft, ArrowRight, ChevronDown, House, Maximize2, Minimize2, Play, RotateCw, ShieldAlert, ShieldCheck, ShieldEllipsis, ShieldOff, WandSparkles, type LucideIcon} from 'lucide-react'
+import type {ExploreAdBlockStatus, ExploreSearchEngine, ListKind} from '@shared/schemas.js'
 import type {DownloadProfile, DownloadProfileRef, ExploreNavigateCommand, ExploreViewState} from '@shared/types.js'
 import type {DownloadProfileActionModel} from '../wizard/downloadProfileActions.js'
 import {ProfilePickerMenu} from '../wizard/ProfilePicker.js'
+import {DOWNLOAD_LIST_KEY, LIST_KIND_ICONS, LIST_TITLE_KEY} from '../wizard/listKindCopy.js'
 import {cn} from '@renderer/lib/utils.js'
 import {Button} from '../ui/button.js'
 import {ButtonGroup} from '../ui/button-group.js'
@@ -31,6 +32,8 @@ interface ExploreToolbarProps {
 	// How many times the pointer entered the native view (main reports each entry).
 	pointerEntries: number
 	grabbable: boolean
+	// The kind of list the page's link names beside its video; null for a plain link.
+	listKind: ListKind | null
 	profiles: DownloadProfileActionModel
 	profileMenu: ExploreProfileMenuActions
 	onNavigate: (command: ExploreNavigateCommand) => void
@@ -40,6 +43,8 @@ interface ExploreToolbarProps {
 	onSubmitAddress: (text: string) => Promise<boolean>
 	onAddressEdit: () => void
 	onDownload: () => void
+	// This video: the page's video with the active profile, no question.
+	onDownloadVideo: () => void
 	onInteractive: () => void
 	onToggleAdBlock: (enabled: boolean) => void
 	// The page's zoom factor (1 = 100%) and its change.
@@ -96,7 +101,7 @@ function CompactToggle({compact, onToggle}: {compact: boolean; onToggle: (compac
 // stays focusable (`focusableWhenDisabled`, so aria-disabled instead of
 // disabled): the browser fires no hover on a disabled button, and that is when
 // its tooltip has to say why.
-export function ExploreToolbar({state, pointerEntries, grabbable, profiles, profileMenu, onNavigate, searchEngine, onSubmitAddress, onAddressEdit, onDownload, onInteractive, onToggleAdBlock, zoom, onZoomChange, compact, leading, onToggleCompact}: ExploreToolbarProps): ReactNode {
+export function ExploreToolbar({state, pointerEntries, grabbable, listKind, profiles, profileMenu, onNavigate, searchEngine, onSubmitAddress, onAddressEdit, onDownload, onDownloadVideo, onInteractive, onToggleAdBlock, zoom, onZoomChange, compact, leading, onToggleCompact}: ExploreToolbarProps): ReactNode {
 	const {t} = useTranslation()
 	const nameOf = useProfileDisplayName()
 	const [menuOpen, setMenuOpen] = useState(false)
@@ -104,9 +109,15 @@ export function ExploreToolbar({state, pointerEntries, grabbable, profiles, prof
 	const blocked = !grabbable
 	const grabHint = grabbable ? undefined : t('explore.toolbar.grabUnavailable')
 	const profileName = nameOf(activeProfile)
-	// No profile name on the button: the hint names it.
-	const downloadLabel = t('explore.toolbar.download')
-	const downloadHint = `${downloadLabel} · ${t('wizard.listPrompt.withProfile', {profileName})}`
+	// No profile name on a button: the profile is in the hint, on every link. On a
+	// link that names a video and a list the filled segment names the list and asks.
+	const downloadLabel = listKind ? t(DOWNLOAD_LIST_KEY[listKind]) : t('explore.toolbar.download')
+	const downloadHint = `${listKind ? t(LIST_TITLE_KEY[listKind]) : downloadLabel} · ${t('wizard.listPrompt.withProfile', {profileName})}`
+	const thisVideoLabel = t('explore.toolbar.thisVideo')
+	const thisVideoHint = t('explore.toolbar.thisVideoHint', {profileName})
+	const DownloadIcon = listKind ? LIST_KIND_ICONS[listKind] : ActiveIcon
+	// Compact shrinks the group to icons, named in their tooltips; a plain link keeps its label, which truncates.
+	const iconsOnly = compact && listKind !== null
 	const interactiveHint = t('explore.toolbar.interactiveHint')
 	return (
 		<NativeViewPointerEntries value={pointerEntries}>
@@ -147,10 +158,30 @@ export function ExploreToolbar({state, pointerEntries, grabbable, profiles, prof
 				<div className="flex min-w-0 max-w-full items-center gap-2" data-testid="explore-download-cluster">
 					<Popover open={menuOpen} onOpenChange={setMenuOpen}>
 						<ButtonGroup className="min-w-0">
+							{/* This video grows to the left, into the address bar's room: the filled segment and ▾ keep their place. */}
+							{listKind ? (
+								<Hint label={grabHint ?? thisVideoHint}>
+									<Button type="button" size={iconsOnly ? 'icon-sm' : 'sm'} variant="outline" disabled={blocked} focusableWhenDisabled aria-label={iconsOnly ? thisVideoLabel : undefined} aria-description={grabHint ?? thisVideoHint} onClick={onDownloadVideo} className="shrink-0" data-testid="explore-download-video">
+										<Play data-icon={iconsOnly ? undefined : 'inline-start'} aria-hidden />
+										{iconsOnly ? null : <span>{thisVideoLabel}</span>}
+									</Button>
+								</Hint>
+							) : null}
 							<Hint label={grabHint ?? downloadHint}>
-								<Button type="button" size="sm" disabled={blocked} focusableWhenDisabled aria-description={grabHint ?? downloadHint} onClick={onDownload} className="min-w-8 shrink" data-testid="explore-download">
-									<ActiveIcon data-icon="inline-start" aria-hidden />
-									<span className="min-w-0 truncate">{downloadLabel}</span>
+								<Button
+									type="button"
+									size={iconsOnly ? 'icon-sm' : 'sm'}
+									disabled={blocked}
+									focusableWhenDisabled
+									aria-label={iconsOnly ? downloadLabel : undefined}
+									aria-description={grabHint ?? downloadHint}
+									onClick={onDownload}
+									className={cn('shrink', !iconsOnly && 'min-w-8')}
+									data-testid="explore-download"
+									data-list-kind={listKind ?? undefined}
+								>
+									<DownloadIcon data-icon={iconsOnly ? undefined : 'inline-start'} aria-hidden />
+									{iconsOnly ? null : <span className="min-w-0 truncate">{downloadLabel}</span>}
 								</Button>
 							</Hint>
 							<Hint label={grabHint ?? t('wizard.url.profile.switchTitle')}>
