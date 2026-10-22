@@ -41,6 +41,10 @@ export async function startAgentControl(deps: AgentControlDeps): Promise<AgentCo
 	if (!isReleaseFlagOn('agentControl')) return null
 	const {userDataDir, appVersion, platform, env, autoAllowClients, log, compose = createControlService, startSocket = startControlSocket, socketCheckIntervalMs = SOCKET_CHECK_INTERVAL_MS, ...wiring} = deps
 	const approvals = new MemoryLocalClientApprovals({autoAllow: autoAllowClients})
+	// Composed before the socket, which needs the service and the registry's
+	// bootId to start. If the socket then fails, the composition stays: its
+	// queue listeners and the onIntakeAdmission cap, once per launch. Bounded,
+	// and inert, since without a socket no client adds an intake.
 	const {service, registry} = compose({...wiring, clientLabel: clientId => approvals.label(clientId)})
 	const listen = (): Promise<ControlSocket | null> => startSocket({userDataDir, appVersion, platform, env, service, approvals, bootId: registry.bootId, log})
 	let socket = await listen()
@@ -51,17 +55,23 @@ export async function startAgentControl(deps: AgentControlDeps): Promise<AgentCo
 		platform === 'win32'
 			? null
 			: setInterval(() => {
-					void relistenIfGone()
+					void relistenIfGone().catch((error: unknown) => log.error('the control socket could not listen again', {code: errnoCode(error) ?? 'unknown'}))
 				}, socketCheckIntervalMs)
 	check?.unref()
 	let checking = false
+	// Listens afresh when the path is gone, and again at each check after a
+	// failed attempt left no socket.
 	const relistenIfGone = async (): Promise<void> => {
-		const current = socket
-		if (checking || stopping !== null || current === null || (await pathExists(current.socketPath))) return
+		if (checking || stopping !== null) return
 		checking = true
 		try {
-			log.warn('the control socket was deleted; listening again', {socketPath: current.socketPath})
-			await current.stop()
+			const current = socket
+			if (current !== null) {
+				if (await pathExists(current.socketPath)) return
+				log.warn('the control socket was deleted; listening again', {socketPath: current.socketPath})
+				socket = null
+				await current.stop()
+			}
 			const next = await listen()
 			if (stopping === null) socket = next
 			else await next?.stop()
@@ -105,15 +115,17 @@ export interface QuitHooks {
 // the socket is closed and control.json deleted (or the budget runs out). A
 // quit that ends in app.exit (downloads still running) skips will-quit; the
 // next launch removes what is left.
-export function stopAgentControlOnQuit(app: QuitHooks, starting: Promise<AgentControl | null>): void {
+export function stopAgentControlOnQuit(app: QuitHooks, starting: Promise<AgentControl | null>, log: ControlSocketLog): void {
 	let control: AgentControl | null = null
 	let quitting = false
 	let stopped: Promise<void> | null = null
 	const stop = (running: AgentControl): Promise<void> => (stopped ??= running.stop())
-	void starting.then(started => {
-		control = started
-		if (quitting && started !== null) void stop(started)
-	})
+	void starting
+		.then(started => {
+			control = started
+			if (quitting && started !== null) void stop(started)
+		})
+		.catch((error: unknown) => log.error('agent control could not start', {code: errnoCode(error) ?? 'unknown'}))
 	app.on('before-quit', () => {
 		quitting = true
 		if (control !== null) void stop(control)

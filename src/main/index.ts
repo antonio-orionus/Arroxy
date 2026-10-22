@@ -651,10 +651,10 @@ if (hasSingleInstanceLock) {
 			appVersion: app.getVersion(),
 			platform: process.platform,
 			env: process.env,
-			autoAllowClients: e2eMode.enabled,
+			autoAllowClients: e2eMode.enabled && !app.isPackaged,
 			log: log.scope('control')
 		})
-		stopAgentControlOnQuit(app, agentControl)
+		stopAgentControlOnQuit(app, agentControl, log.scope('control'))
 
 		app.on('render-process-gone', (_event, webContents, details) => {
 			// An Explore page crash is the open web's, not the app's: the view shows

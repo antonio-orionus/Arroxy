@@ -41,6 +41,8 @@ function answer<M extends ControlMethod>(method: M, result: ProcessResult): Cont
 test('an agent adds a link over the control socket, then pauses and resumes its download', async () => {
 	test.setTimeout(240_000)
 	const configDir = fs.mkdtempSync(path.join(os.tmpdir(), 'arroxy-fixture-agent-mcp-'))
+	// The socket's launch folder, removed below if a failed run left it.
+	let socketDir: string | null = null
 	try {
 		await withFixtureProductApp({behavior: {mediaSlowIds: [VIDEO_ID]}, userDataPrefix: 'arroxy-fixture-agent-user-', outputPrefix: 'arroxy-fixture-agent-out-'}, async ({app, page, fixtureServer, userDataDir, urls, queue, files}) => {
 			const cli = arroxyMcp(cliEnvironment(userDataDir, path.join(configDir, 'arroxy-mcp')))
@@ -49,6 +51,7 @@ test('an agent adds a link over the control socket, then pauses and resumes its 
 			const discoveryFile = path.join(userDataDir, CONTROL_DISCOVERY_FILE_NAME)
 			await expect.poll(() => fs.existsSync(discoveryFile), {timeout: 30_000}).toBe(true)
 			const discovery = controlDiscoverySchema.parse(JSON.parse(fs.readFileSync(discoveryFile, 'utf8')))
+			if (process.platform !== 'win32') socketDir = path.dirname(discovery.socketPath)
 
 			// First contact asks to be allowed; the next call collects the secret.
 			const asked = await cli('status')
@@ -87,9 +90,10 @@ test('an agent adds a link over the control socket, then pauses and resumes its 
 			// A clean quit deletes control.json and the socket's launch folder.
 			await app.close()
 			expect(fs.existsSync(discoveryFile)).toBe(false)
-			if (process.platform !== 'win32') expect(fs.existsSync(path.dirname(discovery.socketPath))).toBe(false)
+			if (socketDir !== null) expect(fs.existsSync(socketDir)).toBe(false)
 		})
 	} finally {
 		fs.rmSync(configDir, {recursive: true, force: true})
+		if (socketDir !== null) fs.rmSync(socketDir, {recursive: true, force: true})
 	}
 })
