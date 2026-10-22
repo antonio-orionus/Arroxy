@@ -40,7 +40,11 @@ export interface MediaSelection {
 	audioSelection: AudioSelection
 }
 
-export type FitNotice = {kind: 'video-tier-fallback'; wanted: Exclude<PlaylistVideoTier, 'best'>; picked: number} | {kind: 'mp4-unavailable'} | {kind: 'webm-unavailable'; blocker: string} | {kind: 'no-video'} | {kind: 'subtitle-languages-missing'; languages: string[]}
+export type TierPassedOver = 'h264' | 'ai-upscaled'
+
+// `passedOver`: the video has the wanted tier, but only in streams the
+// profile leaves for others (not H.264 for Smart TV, or AI-upscaled).
+export type FitNotice = {kind: 'video-tier-fallback'; wanted: Exclude<PlaylistVideoTier, 'best'>; picked: number; passedOver?: TierPassedOver} | {kind: 'mp4-unavailable'} | {kind: 'webm-unavailable'; blocker: string} | {kind: 'no-video'} | {kind: 'subtitle-languages-missing'; languages: string[]}
 
 export interface ProfileSelection {
 	media: MediaSelection
@@ -105,6 +109,15 @@ function forThisVideo(order: SelectionOrder, sortFields: readonly string[]): Sel
 	return {...order, video: order.video.filter(rank => (rank.kind !== 'source' || named('source')) && (rank.kind !== 'protocol' || named('proto')))}
 }
 
+// Why a pick left the profile's tier when the video has streams there.
+function tierPassedOver(formats: readonly FormatOption[], tier: number, order: SelectionOrder): TierPassedOver | undefined {
+	const atTier = formats.filter(format => !format.isAudioOnly && videoHeight(format.resolution) === tier)
+	if (atTier.length === 0) return undefined
+	if (order.skipAiUpscaled && atTier.every(format => format.markers?.includes('ai-upscaled') === true)) return 'ai-upscaled'
+	if (order.goal === 'smart-tv' && !atTier.some(isH264)) return 'h264'
+	return undefined
+}
+
 function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): {media: MediaSelection; order: SelectionOrder | null} {
 	const {profile, formats, nativeAudioPreference} = input
 	const media = profile.media
@@ -126,7 +139,10 @@ function resolveMedia(input: ProfileSelectionInput, notices: FitNotice[]): {medi
 	// reads 720p, an ultra-wide 2560x1080 1440p. A stream whose site gives no
 	// size (0) says nothing.
 	const pickedHeight = videoHeight(video.resolution)
-	if (order.tier !== 'best' && pickedHeight !== 0 && pickedHeight !== Number(order.tier)) notices.push({kind: 'video-tier-fallback', wanted: order.tier, picked: pickedHeight})
+	if (order.tier !== 'best' && pickedHeight !== 0 && pickedHeight !== Number(order.tier)) {
+		const passedOver = tierPassedOver(formats, Number(order.tier), order)
+		notices.push({kind: 'video-tier-fallback', wanted: order.tier, picked: pickedHeight, ...(passedOver ? {passedOver} : {})})
+	}
 	return {media: {kind: 'video', videoFormatId: video.formatId, audioSelection: audio ? {kind: 'native', formatId: audio.formatId} : NO_AUDIO}, order}
 }
 

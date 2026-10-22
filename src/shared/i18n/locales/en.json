@@ -935,6 +935,8 @@
 				"subtitlesMissing": "Your profile asks for subtitles in {{languages}}. This video doesn't have them.",
 				"tierAbove": "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected.",
 				"tierBelowClosest": "Your profile asks for {{wanted}}p. This video has no {{wanted}}p, so {{picked}}p, the closest below, is selected.",
+				"tierPassedOverAiUpscaled": "Your profile asks for {{wanted}}p. This video's {{wanted}}p is AI-upscaled, so the original {{picked}}p is selected.",
+				"tierPassedOverH264": "Your profile asks for {{wanted}}p in H.264. This video has {{wanted}}p only in other codecs, so {{picked}}p in H.264 is selected.",
 				"webmUnavailable": "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
 			},
 			"footer": {

@@ -19,7 +19,7 @@ hd-1080: bytevc1_720p_336791-1 (720x1280, mp4) + audio none (notices: {"kind":"v
 balanced: bytevc1_720p_336791-1 (720x1280, mp4) + audio none
 small-file: bytevc1_540p_309336-1 (576x1024, mp4) + audio none
 mp4-1080: h264_540p_344464-1 (576x1024, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":480})
-mp4-720: h264_540p_344464-1 (576x1024, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"720","picked":480})
+mp4-720: h264_540p_344464-1 (576x1024, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"720","picked":480,"passedOver":"h264"})
 mp4-480: h264_540p_344464-1 (576x1024, mp4) + audio none
 audio-only: audio audio (audio only, m4a)
 low-240: bytevc1_540p_309336-1 (576x1024, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"240","picked":480})

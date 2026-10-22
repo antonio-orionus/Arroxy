@@ -42,4 +42,12 @@ describe('the tier rule', () => {
 		const raw = probe.formats.filter(format => !format.isAudioOnly).map(format => ({format_id: format.formatId, vcodec: format.videoCodec ?? 'avc1', acodec: format.isVideoOnly ? 'none' : 'mp4a', width: 2560, height: 1080}))
 		expect(rule(probe, raw)).toContain('hd-1080 picks 1440p and says nothing')
 	})
+	// A notice is a claim about the video, so the rule checks it too.
+	it('flags a notice that says the video has no stream at the tier when it has one', () => {
+		const probe = probeSourceResult('youtube-2014')
+		const rule = RULES['a tiered profile picks its tier, or says what it picked instead']
+		if (!rule) throw new Error('tier rule missing')
+		const raw = [...probe.formats.filter(format => !format.isAudioOnly).map(format => ({format_id: format.formatId, vcodec: 'avc1', acodec: format.isVideoOnly ? 'none' : 'mp4a', width: 640, height: 360})), {format_id: 'extra-480', vcodec: 'vp9', acodec: 'none', width: 854, height: 480}]
+		expect(rule(probe, raw).some(line => line.startsWith('small-file ') && line.includes('480p'))).toBe(true)
+	})
 })

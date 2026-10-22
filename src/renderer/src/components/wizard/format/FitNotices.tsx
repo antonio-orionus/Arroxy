@@ -17,6 +17,8 @@ export function FitNotices(): ReactNode {
 	function message(notice: FitNotice): string {
 		switch (notice.kind) {
 			case 'video-tier-fallback':
+				if (notice.passedOver === 'h264') return t('wizard.formats.fit.tierPassedOverH264', {wanted: notice.wanted, picked: notice.picked})
+				if (notice.passedOver === 'ai-upscaled') return t('wizard.formats.fit.tierPassedOverAiUpscaled', {wanted: notice.wanted, picked: notice.picked})
 				return t(notice.picked < Number(notice.wanted) ? 'wizard.formats.fit.tierBelowClosest' : 'wizard.formats.fit.tierAbove', {wanted: notice.wanted, picked: notice.picked})
 			case 'mp4-unavailable':
 				return t('wizard.formats.fit.mp4Unavailable')

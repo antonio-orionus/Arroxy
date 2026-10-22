@@ -378,7 +378,16 @@ describe('resolveProfileSelection: selection order and file type', () => {
 		const raw = [rawVideo('vp9', 480, {width: 854, resolution: '854x480', vcodec: 'vp9', ext: 'webm'}), rawVideo('h264', 720), rawAudio('140')]
 		const {media, notices} = resolveRaw(builtin('mp4-480'), raw)
 		expect(media.videoFormatId).toBe('h264')
-		expect(notices).toEqual([{kind: 'video-tier-fallback', wanted: '480', picked: 720}])
+		expect(notices).toEqual([{kind: 'video-tier-fallback', wanted: '480', picked: 720, passedOver: 'h264'}])
+	})
+
+	// The notice says why a stream at the profile's tier was left: not H.264,
+	// or AI-upscaled, rather than that the video has none.
+	it('says the tier was passed over when the video has it AI-upscaled only', () => {
+		const raw = [rawVideo('136-sr', 720, {format_note: '720p, AI-upscaled'}), rawVideo('397', 480, {width: 640, resolution: '640x480'}), rawAudio('140')]
+		const {media, notices} = resolveRaw(builtin('balanced'), raw)
+		expect(media.videoFormatId).toBe('397')
+		expect(notices).toEqual([{kind: 'video-tier-fallback', wanted: '720', picked: 480, passedOver: 'ai-upscaled'}])
 	})
 
 	// A profile takes every stream its tier names on the Format screen (#657):

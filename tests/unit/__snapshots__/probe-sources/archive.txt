@@ -20,7 +20,7 @@ hd-1080: 2 (1280x720, avi) + audio none (notices: {"kind":"video-tier-fallback",
 balanced: 2 (1280x720, avi) + audio none
 small-file: 1 (640x360, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"480","picked":360})
 mp4-1080: 1 (640x360, mp4) + audio none (notices: {"kind":"mp4-unavailable"}, {"kind":"video-tier-fallback","wanted":"1080","picked":360})
-mp4-720: 1 (640x360, mp4) + audio none (notices: {"kind":"mp4-unavailable"}, {"kind":"video-tier-fallback","wanted":"720","picked":360})
+mp4-720: 1 (640x360, mp4) + audio none (notices: {"kind":"mp4-unavailable"}, {"kind":"video-tier-fallback","wanted":"720","picked":360,"passedOver":"h264"})
 mp4-480: 1 (640x360, mp4) + audio none (notices: {"kind":"mp4-unavailable"}, {"kind":"video-tier-fallback","wanted":"480","picked":360})
 audio-only: audio extract
 low-240: 0 (533x300, ogv) + audio none
