@@ -58,6 +58,10 @@ function hasMediaTags(video: (typeof catalog.videos)[number]): boolean {
 	return (video as {mediaTags?: unknown}).mediaTags !== undefined
 }
 
+function namedSubtitleTrack(video: (typeof catalog.videos)[number]): string | undefined {
+	return (video as {namedSubtitleTrack?: string}).namedSubtitleTrack
+}
+
 function isSessionLimited(video: (typeof catalog.videos)[number]): boolean {
 	const limits = sessionLimits(video)
 	return limits.withheldFormatIds.length > 0 || limits.warnings.length > 0
@@ -66,7 +70,7 @@ function isSessionLimited(video: (typeof catalog.videos)[number]): boolean {
 export const FIXTURE_MEDIA_CATALOG_PATH = path.join(process.cwd(), 'tests', 'e2e', 'fixture-media-catalog.json')
 // Ordinary fixture videos only. A video carrying an awkward title is addressed
 // through its own export, so tests that just need "some video" never draw one.
-export const FIXTURE_VIDEO_IDS = catalog.videos.filter(video => video.formatSet === 'muxed' && titleOverride(video) === undefined && !isSessionLimited(video) && !requiresSignIn(video) && !hasChapters(video) && !hasMediaTags(video)).map(video => video.id)
+export const FIXTURE_VIDEO_IDS = catalog.videos.filter(video => video.formatSet === 'muxed' && titleOverride(video) === undefined && !isSessionLimited(video) && !requiresSignIn(video) && !hasChapters(video) && !hasMediaTags(video) && namedSubtitleTrack(video) === undefined).map(video => video.id)
 const splitMediaVideo = catalog.videos.find(video => video.formatSet === 'split')
 if (!splitMediaVideo) throw new Error('fixture-media-catalog.json must define a split fixture video')
 export const SPLIT_MEDIA_VIDEO_ID = splitMediaVideo.id
@@ -111,6 +115,13 @@ export const CHAPTERED_VIDEO_ID = chapteredVideo.id
 const taggedVideo = catalog.videos.find(hasMediaTags)
 if (!taggedVideo) throw new Error('fixture-media-catalog.json must define a video with media tags')
 export const MEDIA_TAGGED_VIDEO_ID = taggedVideo.id
+
+// Its English subtitles are a track uploaded with a name, which yt-dlp keys by
+// YouTube's vssId: `en-<id>` rather than `en`.
+const namedSubtitleTrackVideo = catalog.videos.find(video => namedSubtitleTrack(video) !== undefined)
+if (!namedSubtitleTrackVideo) throw new Error('fixture-media-catalog.json must define a video with a named subtitle track')
+export const NAMED_SUBTITLE_TRACK_VIDEO_ID = namedSubtitleTrackVideo.id
+export const NAMED_SUBTITLE_TRACK_KEY = `en-${namedSubtitleTrack(namedSubtitleTrackVideo) ?? ''}`
 
 export const FIXTURE_PLAYLIST_ID = catalog.playlist.id
 export const FIXTURE_PLAYLIST_VIDEO_IDS = catalog.playlist.videoIds

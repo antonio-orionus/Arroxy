@@ -42,6 +42,11 @@ def _fixture_video(catalog, video_id):
     raise ExtractorError(f'Unknown Arroxy fixture video id: {video_id}')
 
 
+def _english_track_key(video):
+    named = video.get('namedSubtitleTrack')
+    return f'en-{named}' if named else 'en'
+
+
 def _fixture_title(catalog, video_id):
     # A catalog entry may override its title to exercise names the filesystem
     # makes hard: characters yt-dlp's sanitizer rewrites, multibyte text whose
@@ -178,7 +183,10 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
                 },
             ],
             'subtitles': {
-                'en': [
+                # yt-dlp keys an uploaded track by YouTube's vssId, so one
+                # uploaded with a name of its own carries an id after its
+                # language (`en-nP7-2PuUl7o`).
+                _english_track_key(video): [
                     {
                         'url': f'{base_url}/subtitles/{video_id}/en.vtt',
                         'ext': 'vtt',

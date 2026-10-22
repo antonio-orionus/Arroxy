@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {matchesSubtitleLanguage, pickedTrack, planSubtitleTracks, type SubtitleMaps, type SubtitlePlan} from '@shared/subtitleTracks.js'
+import {baseLanguage, matchesSubtitleLanguage, pickedTrack, planSubtitleTracks, type SubtitleMaps, type SubtitlePlan} from '@shared/subtitleTracks.js'
 
 // Track keys observed on a real YouTube video (`yt-dlp --list-subs`), plus
 // regional variants uploaders commonly set. `de-en` is German auto-translated
@@ -134,5 +134,28 @@ describe('language codes with two spellings', () => {
 		expect(matchesSubtitleLanguage('iw', 'id')).toBe(false)
 		expect(matchesSubtitleLanguage('no', 'nl')).toBe(false)
 		expect(matchesSubtitleLanguage('he', 'iw-en')).toBe(false)
+	})
+})
+
+// yt-dlp keys YouTube's uploaded tracks by their vssId: a track uploaded with a
+// name of its own gets an id after its language (`.en.nP7-2PuUl7o` → `en-nP7-2PuUl7o`).
+describe('named uploaded tracks', () => {
+	const named: SubtitleMaps = {subtitles: {'en-nP7-2PuUl7o': [{ext: 'vtt'}]}, automaticCaptions: {'en-orig': [{ext: 'vtt'}]}}
+
+	it('have the language before the id as their base language', () => {
+		expect(baseLanguage('en-nP7-2PuUl7o')).toBe('en')
+		expect(baseLanguage('pt-BR-nP7_2PuUl7o')).toBe('pt-BR')
+		expect(baseLanguage('de-en')).toBe('de-en')
+		expect(baseLanguage('de-es-419')).toBe('de-es-419')
+	})
+
+	it('are picked for their language, the plain request key kept', () => {
+		const plan = planSubtitleTracks({kind: 'languages', languages: ['en'], source: 'manual-first'}, named)
+		expect(plan).toEqual({tracks: [{key: 'en-nP7-2PuUl7o', requestKey: 'en-nP7-2PuUl7o', auto: false, language: 'en'}], missing: []})
+	})
+
+	it('count as the manual track of their language', () => {
+		expect(picked(planSubtitleTracks({kind: 'languages', languages: ['en'], source: 'manual-and-auto'}, named))).toEqual({tracks: ['en-nP7-2PuUl7o', 'en-orig'], missing: []})
+		expect(picked(planSubtitleTracks({kind: 'languages', languages: ['de'], source: 'manual-first'}, named))).toEqual({tracks: [], missing: ['de']})
 	})
 })

@@ -33,6 +33,9 @@ export const CONSTRUCTED_SUBTITLES: Readonly<Record<string, ConstructedSubtitles
 	// A caption language YouTube cannot translate into (Cantonese): no uploaded
 	// track, the caption under `yue-orig` and `yue` alone.
 	'youtube-untranslatable': {...youtube, url: 'https://www.youtube.com/watch?v=parity-yue', subtitles: {}, automaticCaptions: {'yue-orig': tracks('Cantonese (Original)'), yue: tracks('Cantonese')}},
+	// An English track uploaded with a name of its own, which yt-dlp keys by
+	// YouTube's vssId (`.en.nP7-2PuUl7o`), beside the English caption.
+	'youtube-named-track': {...youtube, url: 'https://www.youtube.com/watch?v=parity-named', subtitles: {'en-nP7-2PuUl7o': tracks('English - en')}, automaticCaptions: {'en-orig': tracks('English (Original)'), en: tracks('English'), de: tracks('German')}},
 	// A site that lists automatic captions under bare codes, one of them the
 	// key of an uploaded track too.
 	'generic-bare-captions': {

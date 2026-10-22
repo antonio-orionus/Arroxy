@@ -1,7 +1,21 @@
 import {readFileSync} from 'node:fs'
 import {describe, expect, it} from 'vite-plus/test'
 import catalog from '../e2e/fixture-media-catalog.json' with {type: 'json'}
-import {AWKWARD_TITLE, AWKWARD_TITLE_VIDEO_ID, FIXTURE_PLAYLIST_ID, FIXTURE_PLAYLIST_VIDEO_IDS, COOKIE_LIMITED_VIDEO_ID, FIXTURE_VIDEO_IDS, SABR_LIMITED_VIDEO_ID, SIGN_IN_VIDEO_ID, SPLIT_MEDIA_VIDEO_ID, fixtureMediaContentType, fixtureMediaPathExtension} from '../e2e/fixtureMediaCatalog.js'
+import {
+	AWKWARD_TITLE,
+	AWKWARD_TITLE_VIDEO_ID,
+	FIXTURE_PLAYLIST_ID,
+	FIXTURE_PLAYLIST_VIDEO_IDS,
+	COOKIE_LIMITED_VIDEO_ID,
+	FIXTURE_VIDEO_IDS,
+	NAMED_SUBTITLE_TRACK_KEY,
+	NAMED_SUBTITLE_TRACK_VIDEO_ID,
+	SABR_LIMITED_VIDEO_ID,
+	SIGN_IN_VIDEO_ID,
+	SPLIT_MEDIA_VIDEO_ID,
+	fixtureMediaContentType,
+	fixtureMediaPathExtension
+} from '../e2e/fixtureMediaCatalog.js'
 
 describe('fixture media catalog', () => {
 	it('owns fixture ids, playlist membership, titles, and format facts', () => {
@@ -20,6 +34,9 @@ describe('fixture media catalog', () => {
 		expect(FIXTURE_VIDEO_IDS).not.toContain(COOKIE_LIMITED_VIDEO_ID)
 		expect(SIGN_IN_VIDEO_ID).toBe('ARX00000015')
 		expect(FIXTURE_VIDEO_IDS).not.toContain(SIGN_IN_VIDEO_ID)
+		expect(NAMED_SUBTITLE_TRACK_VIDEO_ID).toBe('ARX00000020')
+		expect(NAMED_SUBTITLE_TRACK_KEY).toBe('en-nP7-2PuUl7o')
+		expect(FIXTURE_VIDEO_IDS).not.toContain(NAMED_SUBTITLE_TRACK_VIDEO_ID)
 		expect(catalog.formatSets.muxed.map(format => format.id)).toEqual(['18', '22'])
 		expect(catalog.formatSets.split.map(format => format.id)).toEqual(['137', '140'])
 		expect(fixtureMediaPathExtension('140')).toBe('m4a')
