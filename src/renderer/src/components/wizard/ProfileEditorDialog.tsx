@@ -17,6 +17,7 @@ export function ProfileEditorDialog({editor, view}: ProfileEditorDialogProps): R
 	const nativeAudioPreference = useAppStore(state => state.settings?.common?.nativeAudioPreference)
 	const hdrPreference = useAppStore(state => state.settings?.common?.hdrPreference)
 	if (!editor.editorOpen) return null
+	const sessionId = editor.editorSessionId
 	return (
 		<Suspense
 			fallback={
@@ -26,7 +27,7 @@ export function ProfileEditorDialog({editor, view}: ProfileEditorDialogProps): R
 			}
 		>
 			<DownloadProfileEditor
-				key={editor.editorSessionId}
+				key={sessionId}
 				commonPaths={view.commonPaths}
 				globalDestination={view.globalDestinationRoot}
 				globalNativeAudioPreference={nativeAudioPreference}
@@ -34,7 +35,7 @@ export function ProfileEditorDialog({editor, view}: ProfileEditorDialogProps): R
 				initialProfile={editor.editingProfile}
 				onChangeGlobalDestination={() => view.chooseWizardFolder()}
 				open={editor.editorOpen}
-				onOpenChange={editor.setEditorOpen}
+				onOpenChange={open => editor.setSessionOpen(sessionId, open)}
 				onSave={async profile => {
 					// A failed write resolves false, already rolled back: rejecting keeps
 					// the editor open with its draft and its save error.

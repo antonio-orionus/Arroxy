@@ -6,6 +6,7 @@ import type {SubtitleRequest} from '@shared/subtitleTracks.js'
 import {queueArraySchema, queueItemSchema} from '@shared/queueItemSchema.js'
 import {fail, ok, type Result} from '@shared/result.js'
 import {DEFAULT_FILENAME_TEMPLATE} from '@shared/filenameTemplate.js'
+import {DEFAULT_PLAYLIST_PROBE_LIMIT} from '@shared/constants.js'
 import {QueueResumeLifecycle} from '@main/services/download/QueueResumeLifecycle.js'
 
 const logger = log.scope('queue')
@@ -126,32 +127,42 @@ function migrateLegacySubtitleOptions(row: Record<string, unknown>): Record<stri
 // Up to 0.7.3 a needs-choice row asked one of two things: how many of a
 // playlist past the load limit (`playlist-cap`), or whether to review a link
 // that turned out to be a list (`playlist-review`). Both are the one size
-// question now; anything else is left for validation to judge.
-function migrateLegacyChoice(row: Record<string, unknown>): Record<string, unknown> {
+// question now; anything else is left for validation to judge. A review row
+// never stored whether its load hit the limit, so one whose count reached
+// today's load limit is taken as cut there.
+function migrateLegacyChoice(row: Record<string, unknown>, loadLimit: number): Record<string, unknown> {
 	const {choice} = row
 	if (typeof choice !== 'object' || choice === null) return row
 	const legacy = choice as {kind?: unknown; loaded?: unknown; count?: unknown}
 	if (legacy.kind === 'playlist-cap') return {...row, choice: {kind: 'list-size', loaded: legacy.loaded, capped: true}}
-	if (legacy.kind === 'playlist-review') return {...row, choice: {kind: 'list-size', loaded: legacy.count, capped: false}}
+	if (legacy.kind === 'playlist-review') return {...row, choice: {kind: 'list-size', loaded: legacy.count, capped: typeof legacy.count === 'number' && legacy.count >= loadLimit}}
 	return row
 }
 
-function migrateRow(raw: unknown): unknown {
+function migrateRow(raw: unknown, loadLimit: number): unknown {
 	if (typeof raw !== 'object' || raw === null) return raw
 	let out = raw as Record<string, unknown>
 	out = migrateLegacyError(out)
 	out = migrateLegacyStatus(out)
 	out = migrateLegacyOutputTemplate(out)
 	out = migrateLegacySubtitleOptions(out)
-	out = migrateLegacyChoice(out)
+	out = migrateLegacyChoice(out, loadLimit)
 	return out
+}
+
+export interface QueueStoreOptions {
+	// The playlist load limit the settings hold now, for rows saved before
+	// they stored whether their load hit it.
+	playlistLoadLimit?: () => number
 }
 
 export class QueueStore {
 	private readonly store: Store<QueueData>
+	private readonly playlistLoadLimit: () => number
 
-	constructor(userDataPath: string) {
+	constructor(userDataPath: string, options: QueueStoreOptions = {}) {
 		this.store = new Store<QueueData>({name: 'queue', cwd: userDataPath, defaults: {items: []}, clearInvalidConfig: true})
+		this.playlistLoadLimit = options.playlistLoadLimit ?? (() => DEFAULT_PLAYLIST_PROBE_LIMIT)
 	}
 
 	// QueueService is the queue-of-record; QueueStore is pure persistence
@@ -183,8 +194,9 @@ export class QueueStore {
 		if (!Array.isArray(raw)) return fail({code: 'validation', message: 'Queue file is corrupted: the queue is not a list'})
 		const items: QueueItem[] = []
 		const issues: string[] = []
+		const loadLimit = this.playlistLoadLimit()
 		for (const row of raw) {
-			const validated = queueItemSchema.safeParse(migrateRow(row))
+			const validated = queueItemSchema.safeParse(migrateRow(row, loadLimit))
 			if (validated.success) items.push(validated.data)
 			else issues.push(validated.error.issues[0]?.message ?? 'schema mismatch')
 		}

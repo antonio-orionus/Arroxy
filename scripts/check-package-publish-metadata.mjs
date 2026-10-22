@@ -145,6 +145,22 @@ function sortPublishablePackages(records) {
 	return sorted
 }
 
+// A top-level `types` beside `import` and `require` serves the ESM declarations to CommonJS consumers too
+// ("masquerading as ESM"); each condition needs its own `types` (`.d.ts` for import, `.d.cts` for require).
+function checkExportTypes(dir, packageJson) {
+	for (const [subpath, target] of Object.entries(stringMap(packageJson.exports))) {
+		if (!isObject(target) || !('require' in target)) continue
+		assert(!('types' in target), `${dir} exports["${subpath}"] has a top-level types beside require; give import and require their own types.`)
+		for (const condition of ['import', 'require']) {
+			if (!(condition in target)) continue
+			const entry = target[condition]
+			const types = isObject(entry) ? entry.types : undefined
+			const expected = condition === 'require' ? '.d.cts' : '.d.ts'
+			assert(typeof types === 'string' && types.endsWith(expected), `${dir} exports["${subpath}"].${condition} needs its own types ending in ${expected}; got ${types ?? '<missing>'}.`)
+		}
+	}
+}
+
 const failures = []
 const rootPackage = readJson('package.json')
 const packageDirs = packageDirsFromWorkspaces(Array.isArray(rootPackage.workspaces) ? rootPackage.workspaces : [])
@@ -155,6 +171,7 @@ const tempRoot = mkdtempSync(join(tmpdir(), 'arroxy-package-metadata-'))
 
 try {
 	for (const {dir, packageJson} of publishablePackages) {
+		checkExportTypes(dir, packageJson)
 		const packedPackage = readPackedPackageJson(packPackage(dir, tempRoot))
 
 		for (const section of RUNTIME_DEPENDENCY_SECTIONS) {

@@ -46,6 +46,7 @@ Sibling repos (site, runtime binaries, private notes, package-manager manifests)
 
 - **Read `.agents/memory/MEMORY.md` before working;** save lessons by the routing in [`dev-docs/agent-setup.md`](dev-docs/agent-setup.md#memory), never in a tool's own memory.
 - **`.internal/`** (gitignored link to the private `arroxy-internal` repo, when you have access): read its `README.md`; edits ship with `bun run internal:save`, never in a PR, and tracked files never link into it.
+- **Issues** are public GitHub issues: what gets one and how, in [`docs/agents/issue-tracker.md`](docs/agents/issue-tracker.md); kind and state labels, mapped to the `triage` skill's roles, in [`docs/agents/triage-labels.md`](docs/agents/triage-labels.md).
 - **Agent config** is edited only in `AGENTS.md`, `GLOSSARY.md`, `.agents/` and `skills-lock.json`, then `bun run agents:sync`. Third-party skills come through the Skills CLI, never committed; tracked files never depend on a harness plugin. [`dev-docs/agent-setup.md`](dev-docs/agent-setup.md).
 
 ## Commands and checks

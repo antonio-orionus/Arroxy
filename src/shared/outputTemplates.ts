@@ -1,5 +1,5 @@
 import {resolveFilenameTemplate, type ResolvedDownloadProfile} from '@shared/downloadProfiles.js'
-import {bindFilenameTemplate, DEFAULT_FILENAME_TEMPLATE, templateDirsVaryPerEntry, templateHasDirs, templateHasId, templateSite, type TemplateMetadata} from '@shared/filenameTemplate.js'
+import {bindFilenameTemplate, DEFAULT_FILENAME_TEMPLATE, templateDirsVaryPerEntry, templateHasDirs, templateEndsWithBracketedId, templateSite, type TemplateMetadata} from '@shared/filenameTemplate.js'
 import {requestedFormats, type BudgetFailure, type InFlightFiles, type InFlightFormat} from '@shared/nameBudget.js'
 import type {DownloadProfile, MediaTags, PlaylistEntry, PlaylistSelection, VideoProbeResult} from '@shared/types.js'
 import {requestedSubtitles} from '@shared/subtitleTracks.js'
@@ -18,12 +18,13 @@ export function resolveJobFilenameTemplate(profile: DownloadProfile | undefined,
 
 /**
  * Playlist dedupe (`findPlayableFileName`) and M3U writing locate downloaded
- * files by matching `[videoId]` before the extension. When the effective
- * template omits `{id}` both features would silently mismatch, so callers must
- * degrade instead: skip the folder scan, and don't write a playlist file.
+ * files by matching `[videoId]` right before the extension. When the effective
+ * template's filename does not end in `[{id}]` both features would silently
+ * mismatch, so callers must degrade instead: skip the folder scan, and don't
+ * write a playlist file.
  */
 export function canMatchDownloadsById(profile: DownloadProfile | undefined, globalTemplate: string | undefined): boolean {
-	return templateHasId(resolveFilenameTemplate(profile, globalTemplate))
+	return templateEndsWithBracketedId(resolveFilenameTemplate(profile, globalTemplate))
 }
 
 /**
@@ -41,17 +42,17 @@ export function templateOwnsDirs(profile: DownloadProfile | undefined, globalTem
  * A template that names directories after per-entry fields ({uploader}, {date})
  * puts items in different folders, so scanning one directory would report
  * nothing downloaded and invite a full re-download. Degrade instead — the same
- * response as a template with no `{id}` to match on.
+ * response as a template with no `[{id}]` to match on.
  */
 export function canScanPlaylistFolder(profile: DownloadProfile | undefined, globalTemplate: string | undefined): boolean {
 	const template = resolveFilenameTemplate(profile, globalTemplate)
-	return templateHasId(template) && !templateDirsVaryPerEntry(template)
+	return templateEndsWithBracketedId(template) && !templateDirsVaryPerEntry(template)
 }
 
 /**
  * A playlist file lists its entries relative to one directory. A nesting
  * template can scatter entries across per-uploader or per-date folders, leaving
- * no such directory — so M3U degrades exactly as it already does when `{id}` is
+ * no such directory — so M3U degrades exactly as it already does when `[{id}]` is
  * missing.
  */
 export function canWriteM3u(profile: DownloadProfile | undefined, globalTemplate: string | undefined): boolean {

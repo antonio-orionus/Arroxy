@@ -160,8 +160,6 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 						)}
 					</div>
 
-					{!preview.canConfirm ? <p className="text-xs text-muted-foreground">{t('wizard.bulk.needsAtLeastOne')}</p> : null}
-
 					{renderActions ? null : (
 						<QuickProfileControl
 							disabled={!preview.canConfirm || quickPreparing}

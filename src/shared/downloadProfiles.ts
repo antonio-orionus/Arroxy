@@ -1,7 +1,7 @@
 import {DEFAULTS} from './constants.js'
 import {DEFAULT_HDR_PREFERENCE} from './hdrSetting.js'
 import {builtinDownloadProfileIdSchema} from './schemas.js'
-import type {BuiltinDownloadProfileId, DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, HdrPreference, MediaIntent, NativeAudioPreference, PlaylistVideoTier, VideoGoal} from './schemas.js'
+import type {BuiltinDownloadProfileId, DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, HdrPreference, MediaIntent, NativeAudioPreference, PlaylistVideoTier, SubtitleMode, VideoGoal} from './schemas.js'
 import {mediaIntentFromProfileMedia, mediaIntentSpec, type MediaIntentSpec} from './mediaIntent.js'
 import type {EmbedOptions, SponsorBlockOptions, SubtitleOptions} from './preparedJob.js'
 import {effectiveOutputDir, safeFolderName} from './subfolder.js'
@@ -226,13 +226,20 @@ export function setDownloadProfileEnabled(prefs: DownloadProfilesPrefs, id: stri
 	return {...next, active: resolved.ref}
 }
 
+// The subtitle mode a profile's job runs with. Audio and subtitles-only media
+// have no video to embed into, so a saved Embed writes sidecar files, in the
+// profile's subtitle format.
+export function profileSubtitleMode(profile: DownloadProfile): SubtitleMode {
+	const hasVideo = profile.media.kind === 'video-audio' || profile.media.kind === 'video-only'
+	return profile.subtitles.mode === 'embed' && !hasVideo ? 'sidecar' : profile.subtitles.mode
+}
+
 export function resolveDownloadProfile(profile: DownloadProfile, ref: DownloadProfileRef = downloadProfileRefFor(profile, undefined), nativeAudioPreference: NativeAudioPreference = DEFAULTS.nativeAudioPreference, hdrPreference: HdrPreference = DEFAULT_HDR_PREFERENCE): ResolvedDownloadProfile {
 	const intent = mediaIntentFromProfileMedia(profile.media)
 	const spec = intent ? mediaIntentSpec(intent, nativeAudioPreference, hdrPreference) : null
 	const isSubtitleOnly = profile.media.kind === 'subtitles-only'
 	const subtitleLanguages = profile.subtitles.enabled || isSubtitleOnly ? profile.subtitles.languages : []
-	const subtitleMode = profile.subtitles.mode === 'embed' && spec?.producesVideo !== true ? 'sidecar' : profile.subtitles.mode
-	const subtitles: SubtitleOptions | undefined = subtitleLanguages.length > 0 ? {request: {kind: 'languages', languages: [...subtitleLanguages], source: profile.subtitles.source}, mode: subtitleMode, format: profile.subtitles.format} : undefined
+	const subtitles: SubtitleOptions | undefined = subtitleLanguages.length > 0 ? {request: {kind: 'languages', languages: [...subtitleLanguages], source: profile.subtitles.source}, mode: profileSubtitleMode(profile), format: profile.subtitles.format} : undefined
 	const sponsorBlock: SponsorBlockOptions = !spec?.producesVideo || profile.sponsorBlock.mode === 'off' || profile.sponsorBlock.categories.length === 0 ? {mode: 'off'} : {mode: profile.sponsorBlock.mode, categories: [...profile.sponsorBlock.categories]}
 	const embed: EmbedOptions = isSubtitleOnly
 		? {chapters: false, metadata: false, thumbnail: false, description: false, thumbnailSidecar: false}

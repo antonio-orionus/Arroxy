@@ -32,6 +32,14 @@ describe('canWriteM3u', () => {
 		expect(canMatchDownloadsById(undefined, '{uploader} - {title}')).toBe(false)
 	})
 
+	// Files named `<id> - Title.mp4` never match `[<id>]` before the extension.
+	it('disables M3U and the folder scan when {id} is not the [{id}] ending the matcher reads', () => {
+		expect(canWriteM3u(undefined, '{id} - {title}')).toBe(false)
+		expect(canMatchDownloadsById(undefined, '{id}')).toBe(false)
+		expect(canScanPlaylistFolder(undefined, '{id} - {title}')).toBe(false)
+		expect(canScanPlaylistFolder(undefined, '{title} [{id}]')).toBe(true)
+	})
+
 	it('disables M3U when the template nests, because entries no longer share one folder', () => {
 		// A playlist whose items land in per-uploader folders has no single
 		// directory for a relative playlist file to point at.

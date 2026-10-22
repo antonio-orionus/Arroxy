@@ -12,7 +12,8 @@ interface RectSnapshot {
 	y: number
 }
 
-const PROFILE_LAYOUT_PARTS = ['card', 'picker', 'summary', 'title-row', 'description', 'detail', 'actions', 'check'] as const
+// A card shows a profile's name only; what it downloads is in a hint beside the card.
+const PROFILE_LAYOUT_PARTS = ['card', 'picker', 'summary', 'title-row', 'title', 'actions', 'check'] as const
 type ProfileLayoutPart = (typeof PROFILE_LAYOUT_PARTS)[number]
 type ProfileLayoutSnapshot = Record<ProfileLayoutPart, RectSnapshot>
 
@@ -73,4 +74,14 @@ test('profile selection does not move card content or resize the grid row', asyn
 
 	expect(await profileLayout(page, 'hd-1080')).toEqual(before.hd1080)
 	expect(await profileLayout(page, 'balanced')).toEqual(before.balanced)
+
+	// The summary opens in a hint beside the card, without moving the card's content.
+	// The click closed the hint, so the pointer leaves and comes back.
+	await page.mouse.move(0, 0)
+	await page.getByTestId('profiles-manage-card-hd-1080-picker').hover()
+	const summary = page.getByTestId('profile-summary-hd-1080')
+	await expect(summary).toBeVisible()
+	await expect(summary).toContainText(await page.getByTestId('profiles-manage-card-hd-1080-title').innerText())
+	await expect(summary.locator('dd').first()).not.toBeEmpty()
+	expect(await profileLayout(page, 'hd-1080')).toEqual(before.hd1080)
 })

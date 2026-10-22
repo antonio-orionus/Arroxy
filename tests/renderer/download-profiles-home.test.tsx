@@ -350,6 +350,63 @@ describe('DownloadProfilesHome profiles tab visibility', () => {
 		}
 	})
 
+	// The settings write failed and was rolled back (#561): Reset keeps the
+	// editor open and says so, and the built-in stays modified.
+	it('keeps the Profiles tab editor open with its error when resetting a built-in fails', async () => {
+		vi.mocked(window.appApi.settings.update).mockResolvedValue(fail({code: 'unknown', message: 'disk full'}))
+		const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined)
+		const defaults = defaultAppSettings('/tmp')
+		const override = {...BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!, name: 'Lectures'}
+		const settings = {...defaults, profiles: {...defaults.profiles, overrides: [override]}}
+		// The rollback re-reads what main holds: the built-in still modified.
+		vi.mocked(window.appApi.settings.get).mockResolvedValue(ok(settings))
+		useAppStore.setState({settings})
+		try {
+			render(<DownloadProfilesHome />)
+
+			fireEvent.click(within(screen.getByTestId('profiles-manage-card-balanced')).getByRole('button', {name: 'Edit'}))
+			// Lazy editor: see the hidden-profile test above for the wide timeout.
+			fireEvent.click(await screen.findByRole('button', {name: 'Reset profile'}, {timeout: 15_000}))
+
+			expect(await screen.findByText('Could not reset profile settings.')).toBeInTheDocument()
+			expect(screen.getByTestId('profiles-editor-dialog')).toBeInTheDocument()
+			expect(useAppStore.getState().settings?.profiles.overrides).toEqual([override])
+		} finally {
+			consoleError.mockRestore()
+		}
+	})
+
+	// A save still in flight belongs to the editor that started it (#560): once
+	// that editor is cancelled, its late finish must not close the next one.
+	it('keeps an editor opened after a cancelled slow save open when that save finishes', async () => {
+		let finishSave: (() => void) | undefined
+		vi.mocked(window.appApi.settings.update).mockImplementation(
+			patch =>
+				new Promise(resolve => {
+					finishSave = () => {
+						const current = useAppStore.getState().settings
+						resolve(ok({...current, profiles: {...current?.profiles, ...patch.profiles}} as AppSettings))
+					}
+				})
+		)
+		render(<DownloadProfilesHome />)
+
+		fireEvent.click(within(screen.getByTestId('profiles-manage-card-balanced')).getByRole('button', {name: 'Edit'}))
+		// Lazy editor: see the hidden-profile test above for the wide timeout.
+		fireEvent.click(await screen.findByRole('button', {name: 'Save profile'}, {timeout: 15_000}))
+		await waitFor(() => expect(window.appApi.settings.update).toHaveBeenCalledTimes(1))
+		fireEvent.click(screen.getByRole('button', {name: 'Cancel'}))
+		expect(screen.queryByTestId('profiles-editor-dialog')).not.toBeInTheDocument()
+
+		fireEvent.click(within(screen.getByTestId('profiles-manage-card-hd-1080')).getByRole('button', {name: 'Edit'}))
+		const name = await screen.findByTestId('profiles-editor-name', undefined, {timeout: 15_000})
+		fireEvent.change(name, {target: {value: 'Lectures'}})
+		await act(async () => finishSave?.())
+
+		expect(screen.getByTestId('profiles-editor-dialog')).toBeInTheDocument()
+		expect(screen.getByTestId('profiles-editor-name')).toHaveValue('Lectures')
+	})
+
 	it('toggling off the active profile switches active and persists once', async () => {
 		vi.mocked(window.appApi.settings.update).mockImplementation(async patch => {
 			const current = useAppStore.getState().settings

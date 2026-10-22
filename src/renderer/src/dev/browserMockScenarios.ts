@@ -529,6 +529,8 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 	}
 	if (scenario.kind === 'profile') {
 		store.reset()
+		// The hotkey section lives on the Settings tab, as openAdvancedSettings opens it.
+		if (scenario.id === 'hotkey-conflict') replaceHash('settings')
 		store.setState(profileScenarioPatch(scenario))
 		return
 	}

@@ -5,11 +5,17 @@ import {creditsAnAssistantFinding} from './aiAttribution.js'
 // of prose. Community issues come through the issue forms, which hold their
 // own required fields, so this leaves them alone.
 
-export const ISSUE_RULES = ['kind-label', 'location', 'private-docs', 'ai-attribution'] as const
+export const ISSUE_RULES = ['kind-label', 'state-label', 'location', 'private-docs', 'ai-attribution'] as const
 export type IssueRule = (typeof ISSUE_RULES)[number]
 
 /** Exactly one of these says what an issue is. */
 export const ISSUE_KINDS = ['bug', 'enhancement', 'tests', 'tech-debt', 'i18n', 'documentation'] as const
+/**
+ * Exactly one of these says what happens next to an open issue
+ * (docs/agents/triage-labels.md). needs-triage isn't one: the policy sets and
+ * clears it, so it stays until a real state replaces it.
+ */
+export const ISSUE_STATES = ['ready-for-agent', 'ready-for-human', 'parked', 'question'] as const
 /** The kinds that point at code, so they name a `file:line`. */
 const LOCATED_KINDS: ReadonlySet<string> = new Set(['bug', 'tests', 'tech-debt'])
 /** The GitHub author associations of people who maintain the repo. */
@@ -21,6 +27,8 @@ export interface IssueFacts {
 	labels: readonly string[]
 	/** `github.event.issue.author_association`. */
 	authorAssociation: string
+	/** A closed issue needs no state. */
+	open: boolean
 }
 
 export interface IssueFailure {
@@ -35,9 +43,10 @@ export interface IssueResult {
 }
 
 // A file and a line (or range), in code formatting: a path with a folder
-// (`.github/CODEOWNERS:1`) or a name with an extension (`package.json:12`),
-// so a host and port like `localhost:8080` doesn't count.
-const LOCATION = /`(?:[\w.@-]+(?:\/[\w.@-]+)+|[\w.@-]+\.[A-Za-z0-9]+):\d+(?:-\d+)?`/
+// (`.github/CODEOWNERS:1`), a name with an extension (`package.json:12`), a
+// dotfile (`.gitignore:3`) or a root file known to have no extension
+// (`Makefile:3`), so a host and port like `localhost:8080` doesn't count.
+const LOCATION = /`(?:[\w.@-]+(?:\/[\w.@-]+)+|[\w.@-]+\.[A-Za-z0-9]+|\.[\w@-][\w.@-]*|Makefile|Dockerfile|Justfile|Procfile|Brewfile|Gemfile|Rakefile):\d+(?:-\d+)?`/
 // The private maintainer docs: the `.internal/` folder or the repo behind it.
 const PRIVATE_DOCS = /(?:^|[\s`(/])\.internal\b|arroxy-internal/i
 
@@ -45,6 +54,13 @@ function kindLabel(kinds: string[]): string | null {
 	if (kinds.length === 1) return null
 	const found = kinds.length === 0 ? 'none' : kinds.join(', ')
 	return `Give the issue exactly one kind label (${ISSUE_KINDS.join(', ')}); it has ${found}.`
+}
+
+function stateLabel(open: boolean, labels: readonly string[]): string | null {
+	const states = labels.filter(label => (ISSUE_STATES as readonly string[]).includes(label))
+	if (!open || states.length === 1) return null
+	const found = states.length === 0 ? 'none' : states.join(', ')
+	return `Give the issue exactly one state label (${ISSUE_STATES.join(', ')}); it has ${found}.`
 }
 
 function location(kinds: string[], body: string): string | null {
@@ -73,6 +89,7 @@ export function checkIssue(input: IssueFacts): IssueResult {
 		if (message !== null) failures.push({rule, message})
 	}
 	report('kind-label', kindLabel(kinds))
+	report('state-label', stateLabel(input.open, input.labels))
 	report('location', location(kinds, input.body))
 	report('private-docs', privateDocs(text))
 	report('ai-attribution', aiAttribution(text))

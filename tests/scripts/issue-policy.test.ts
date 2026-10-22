@@ -3,8 +3,10 @@ import {checkIssue, type IssueFacts, type IssueRule} from '../../scripts/issuePo
 
 const BODY = '## Where\n\n`src/main/services/QueueService.ts:264`\n\n## What breaks\n\nPause All skips a starting download.\n'
 
-function facts(overrides: Partial<IssueFacts> = {}): IssueFacts {
-	return {title: 'Pause All misses a download that is still starting', body: BODY, labels: ['bug'], authorAssociation: 'OWNER', ...overrides}
+// A state label rides along unless a test sets the labels itself with `exact`.
+function facts(overrides: Partial<IssueFacts> = {}, exact = false): IssueFacts {
+	const labels = overrides.labels ?? ['bug']
+	return {title: 'Pause All misses a download that is still starting', body: BODY, authorAssociation: 'OWNER', open: true, ...overrides, labels: exact ? labels : [...labels, 'ready-for-agent']}
 }
 
 const failedRules = (input: IssueFacts): IssueRule[] => checkIssue(input).failures.map(failure => failure.rule)
@@ -26,14 +28,36 @@ describe('who the policy applies to', () => {
 
 describe('kind-label', () => {
 	it('passes with exactly one kind label next to other labels', () => {
-		expect(failedRules(facts({labels: ['bug', 'parked', 'needs-triage']}))).toEqual([])
+		expect(failedRules(facts({labels: ['bug', 'parked', 'needs-triage']}, true))).toEqual([])
 		expect(failedRules(facts({labels: ['i18n', 'help wanted'], body: 'Native check wanted for the codec strings.'}))).toEqual([])
 	})
 
 	it('fails with no kind label, or with two', () => {
 		expect(failedRules(facts({labels: []}))).toEqual(['kind-label'])
-		expect(failedRules(facts({labels: ['parked']}))).toEqual(['kind-label'])
+		expect(failedRules(facts({labels: ['parked']}, true))).toEqual(['kind-label'])
 		expect(failedRules(facts({labels: ['bug', 'tech-debt']}))).toEqual(['kind-label'])
+	})
+})
+
+describe('state-label', () => {
+	it('passes with exactly one state label', () => {
+		for (const state of ['ready-for-agent', 'ready-for-human', 'parked', 'question']) {
+			expect(failedRules(facts({labels: ['bug', state]}, true))).toEqual([])
+		}
+	})
+
+	it('does not count needs-triage as a state, so the flag stays until a real one is set', () => {
+		expect(failedRules(facts({labels: ['bug']}, true))).toEqual(['state-label'])
+		expect(failedRules(facts({labels: ['bug', 'needs-triage']}, true))).toEqual(['state-label'])
+		expect(failedRules(facts({labels: ['bug', 'needs-triage', 'ready-for-agent']}, true))).toEqual([])
+	})
+
+	it('fails with two states', () => {
+		expect(failedRules(facts({labels: ['bug', 'ready-for-agent', 'parked']}, true))).toEqual(['state-label'])
+	})
+
+	it('needs no state on a closed issue', () => {
+		expect(failedRules(facts({labels: ['bug', 'wontfix'], open: false}, true))).toEqual([])
 	})
 })
 
@@ -53,6 +77,12 @@ describe('location', () => {
 
 	it('accepts a tracked file without an extension when it has a folder', () => {
 		for (const body of ['See `.github/CODEOWNERS:1`.', 'In `.vite-hooks/pre-push:4`.']) {
+			expect(failedRules(facts({body}))).toEqual([])
+		}
+	})
+
+	it('accepts a root dotfile or a known root file without an extension', () => {
+		for (const body of ['See `.gitignore:1`.', 'See `.node-version:1`.', 'See `.npmrc:2`.', 'See `.env:1`.', 'See `Makefile:3`.', 'See `Dockerfile:7`.']) {
 			expect(failedRules(facts({body}))).toEqual([])
 		}
 	})

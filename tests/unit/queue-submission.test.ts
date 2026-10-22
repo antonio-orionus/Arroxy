@@ -266,6 +266,16 @@ describe('QueueSubmission', () => {
 		expect(prepared?.items[0]).toMatchObject({outputDir: '/downloads/Subs', job: {kind: 'subtitle-only', subtitles: {request: {kind: 'languages', languages: ['en'], source: 'manual-only'}, mode: 'sidecar', format: 'vtt'}}})
 	})
 
+	// An .m3u lists media files: a subtitles-only playlist (Quick Download, Bulk) has none to list.
+	it('writes no .m3u for a playlist queued with a subtitles-only profile', () => {
+		const settings = defaultAppSettings('/downloads')
+		settings.profiles = {active: {kind: 'custom', id: 'subs'}, custom: [subtitleProfile()], overrides: [], enabledOverrides: {}}
+		const prepared = prepareActiveProfileQueueSubmission(PLAYLIST_PROBE, state({settings}), 'normal', NO_SOURCE)
+
+		expect(prepared?.items.length).toBeGreaterThan(0)
+		expect(prepared?.items.every(item => item.writeM3u === false)).toBe(true)
+	})
+
 	// Queue time no longer resolves codes to tracks: the subtitle phase plans them from the video's own lists.
 	it('queues a subtitles-only profile job with the languages request when the video has none of its languages', () => {
 		const settings = defaultAppSettings('/downloads')

@@ -1,7 +1,7 @@
 name: Issue policy
 
 # What an issue a maintainer files must carry (scripts/issuePolicy.ts): one kind
-# label, a `file:line` for a bug, test gap or tech debt, no pointers to the
+# label, one state label while open, a `file:line` for a bug, test gap or tech debt, no pointers to the
 # private maintainer docs, and no AI credited with finding it. Community issues
 # come through the issue forms and are skipped.
 #
@@ -51,7 +51,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
-        run: gh issue view "$NUMBER" --json title,body,labels > "$RUNNER_TEMP/issue.json"
+        run: gh issue view "$NUMBER" --json title,body,labels,state > "$RUNNER_TEMP/issue.json"
 
       # The checker has no dependencies, so no install.
       - name: Check the issue
@@ -62,6 +62,10 @@ jobs:
           ISSUE_REPORT: ${{ runner.temp }}/issue-policy.md
         run: bun scripts/check-issue-policy.ts
 
+      # The comment goes first: a run whose comment fails leaves the issue
+      # unflagged, so the next run tries both again. The other order left a
+      # flagged issue with no comment that every later run skipped. A label
+      # that fails after the comment posted means a repeated comment next run.
       - name: Flag the issue
         if: ${{ steps.check.outputs.verdict == 'fail' && steps.check.outputs.flagged == 'false' }}
         env:
@@ -69,8 +73,8 @@ jobs:
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
         run: |
-          gh issue edit "$NUMBER" --add-label needs-triage
           gh issue comment "$NUMBER" --body-file "$RUNNER_TEMP/issue-policy.md"
+          gh issue edit "$NUMBER" --add-label needs-triage
 
       - name: Clear the flag
         if: ${{ steps.check.outputs.verdict == 'pass' && steps.check.outputs.flagged == 'true' }}

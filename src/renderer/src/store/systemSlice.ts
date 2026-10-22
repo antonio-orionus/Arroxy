@@ -654,7 +654,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
 		removeDownloadProfile: async (id: string) => {
 			const profiles = removeDownloadProfileFromPrefs(currentProfiles(get().settings), id)
-			await applyProfilesPatchAsync(get, set, 'downloadProfile.remove', profiles)
+			return applyProfilesPatchAsync(get, set, 'downloadProfile.remove', profiles)
 		},
 
 		setDownloadProfileEnabled: async (id: string, enabled: boolean) => {

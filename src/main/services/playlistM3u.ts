@@ -20,8 +20,10 @@ import type {PlaylistManifest} from '@shared/playlistManifest.js'
  *   effectively appended, in playlist order, overwriting the prior `.m3u`.
  * - A skipped/failed item simply isn't on disk, so it's omitted until a later
  *   run downloads it, at which point the next rebuild includes it.
+ *
+ * Null when no entry has a file yet: an empty playlist is not worth writing.
  */
-export function buildM3u(manifest: PlaylistManifest, files: string[]): string {
+export function buildM3u(manifest: PlaylistManifest, files: string[]): string | null {
 	const lines = ['#EXTM3U']
 	for (const item of manifest.items) {
 		if (!item.videoId) continue
@@ -31,6 +33,7 @@ export function buildM3u(manifest: PlaylistManifest, files: string[]): string {
 		lines.push(`#EXTINF:${item.duration ?? -1},${title}`)
 		lines.push(match)
 	}
+	if (lines.length === 1) return null
 	return lines.join('\n') + '\n'
 }
 
@@ -45,6 +48,7 @@ export async function writePlaylistM3u(manifest: PlaylistManifest): Promise<void
 		return
 	}
 	const body = buildM3u(manifest, files)
+	if (body === null) return
 	const fileName = `${safeFolderName(manifest.playlistTitle || 'Playlist')}.m3u`
 	try {
 		await fsPromises.writeFile(path.join(manifest.outputDir, fileName), body, 'utf8')

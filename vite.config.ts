@@ -77,7 +77,11 @@ export default defineConfig({
 		objectWrap: 'collapse',
 		// Locale JSON keeps one key per line, sorted (`bun run i18n:format`), so two copy changes
 		// conflict only when they touch the same or adjacent keys.
-		overrides: [{files: ['src/shared/i18n/locales/**'], options: {objectWrap: 'preserve', printWidth: 100}}],
+		overrides: [
+			{files: ['src/shared/i18n/locales/**'], options: {objectWrap: 'preserve', printWidth: 100}},
+			// Lists that parallel PRs each add to keep one entry per line, so two additions touch separate lines (#595).
+			{files: ['src/shared/releaseFlags.ts', 'src/main/index.ts'], options: {objectWrap: 'preserve'}}
+		],
 		// Same scope Biome formatted: source, tests, scripts, packages and root configs.
 		ignorePatterns: [
 			'**/*.md',

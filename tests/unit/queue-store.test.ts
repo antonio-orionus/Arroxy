@@ -421,6 +421,24 @@ describe('QueueStore — needs-choice rows from 0.7.3', () => {
 		expect(await loadOk(store)).toEqual([expect.objectContaining({id: 'review', status: 'needs-choice', choice: {kind: 'list-size', loaded: 12, capped: false}})])
 	})
 
+	// The old row never stored whether its load hit the limit (#590): one whose
+	// count reached the load limit was cut there.
+	it('loads a playlist-review row that reached the load limit as capped', async () => {
+		const [store, dir] = await tempStore()
+		await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify({items: [waitingRow('full', {kind: 'playlist-review', count: 100})]}), 'utf-8')
+		expect((await loadOk(store))[0]?.choice).toEqual({kind: 'list-size', loaded: 100, capped: true})
+	})
+
+	it('reads the load limit the settings hold now', async () => {
+		const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'queue-store-'))
+		const store = new QueueStore(dir, {playlistLoadLimit: () => 50})
+		await fs.writeFile(path.join(dir, 'queue.json'), JSON.stringify({items: [waitingRow('fifty', {kind: 'playlist-review', count: 50}), waitingRow('short', {kind: 'playlist-review', count: 49})]}), 'utf-8')
+		expect((await loadOk(store)).map(item => item.choice)).toEqual([
+			{kind: 'list-size', loaded: 50, capped: true},
+			{kind: 'list-size', loaded: 49, capped: false}
+		])
+	})
+
 	it('round-trips a size question unchanged', async () => {
 		const [store] = await tempStore()
 		const row = waitingRow('new', {kind: 'list-size', loaded: 40, capped: true}) as unknown as QueueItem

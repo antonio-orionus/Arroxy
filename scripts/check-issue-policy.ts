@@ -1,7 +1,7 @@
 // Checks an issue against the issue policy in issuePolicy.ts. Runs in the issue
 // policy workflow, on the issue as it is when the job runs:
 //
-//   gh issue view <N> --json title,body,labels > issue.json
+//   gh issue view <N> --json title,body,labels,state > issue.json
 //   ISSUE_FILE=issue.json ISSUE_AUTHOR_ASSOCIATION=OWNER bun scripts/check-issue-policy.ts
 //
 // Not the event payload: a queued run's payload can predate a later edit or a
@@ -20,6 +20,7 @@ interface IssueSnapshot {
 	title: string
 	body: string
 	labels: string[]
+	open: boolean
 }
 
 const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null && !Array.isArray(value)
@@ -27,9 +28,9 @@ const isRecord = (value: unknown): value is Record<string, unknown> => typeof va
 function readSnapshot(path: string | undefined): IssueSnapshot {
 	if (path === undefined) throw new Error('ISSUE_FILE is not set')
 	const parsed: unknown = JSON.parse(readFileSync(path, 'utf8'))
-	if (!isRecord(parsed) || typeof parsed.title !== 'string' || !Array.isArray(parsed.labels)) throw new Error(`${path} is not a \`gh issue view --json title,body,labels\` result`)
+	if (!isRecord(parsed) || typeof parsed.title !== 'string' || !Array.isArray(parsed.labels) || (parsed.state !== 'OPEN' && parsed.state !== 'CLOSED')) throw new Error(`${path} is not a \`gh issue view --json title,body,labels,state\` result`)
 	const labels = parsed.labels.flatMap(label => (isRecord(label) && typeof label.name === 'string' ? [label.name] : []))
-	return {title: parsed.title, body: typeof parsed.body === 'string' ? parsed.body : '', labels}
+	return {title: parsed.title, body: typeof parsed.body === 'string' ? parsed.body : '', labels, open: parsed.state === 'OPEN'}
 }
 
 const issue = readSnapshot(process.env.ISSUE_FILE)

@@ -213,7 +213,8 @@ export function preparePinnedProfileQueueSubmission(probe: ProbeResult, inputs: 
 	// When the template owns layout the auto-folder steps aside, otherwise a
 	// `{playlist_title}/…` template would nest the playlist title twice.
 	const playlistRoot = ownsDirs ? resolveDownloadProfileOutputDir(profile, outputContext) : playlistBaseDir(baseDir, profile.subfolder.enabled, profile.subfolder.name, probe.playlistTitle)
-	const writeM3u = (settings?.common?.writeM3u ?? DEFAULTS.writeM3u) && canWriteM3u(profile, settings?.common?.filenameTemplate)
+	// An .m3u lists media files; a subtitles-only profile writes none.
+	const writeM3u = !resolved.isSubtitleOnly && (settings?.common?.writeM3u ?? DEFAULTS.writeM3u) && canWriteM3u(profile, settings?.common?.filenameTemplate)
 	// Quick Download queues a probe result directly, with no picker in between,
 	// so this is the seam where container entries have to be dropped. Probe
 	// order is kept verbatim: with no picker the user never chose a sort for

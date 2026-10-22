@@ -519,13 +519,16 @@ export function templateHasDirs(template: string): boolean {
 
 /**
  * Playlist dedupe (`findPlayableFileName`) and M3U writing locate downloaded
- * files by matching `[videoId]` before the extension, so only `{id}` in the
- * filename segment counts. Without it both must degrade rather than silently
+ * files by matching `[videoId]` right before the extension, so only a filename
+ * ending in `[{id}]` counts: `{id}` elsewhere, or in a folder, names files the
+ * matcher never finds. Without it both must degrade rather than silently
  * mismatch.
  */
-export function templateHasId(template: string): boolean {
+export function templateEndsWithBracketedId(template: string): boolean {
 	const parsed = parse(template)
-	return parsed.ok && hasToken(parsed.file, 'id')
+	if (!parsed.ok) return false
+	const [open, id, close] = parsed.file.slice(-3)
+	return open?.kind === 'literal' && open.text.endsWith('[') && id?.kind === 'token' && id.token === 'id' && close?.kind === 'literal' && close.text === ']'
 }
 
 /**

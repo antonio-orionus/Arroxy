@@ -62,7 +62,15 @@ export function OutputFields(): ReactNode {
 				<>
 					<Separator className="my-1.5" />
 					<div className="flex flex-col gap-3 py-1">
-						<SettingSwitch id="output-write-m3u" label={t('wizard.output.writeM3u.label')} description={canMatchById ? t('wizard.output.writeM3u.description') : t('filenameTemplate.m3uDisabled')} checked={wizardWriteM3u && canMatchById} disabled={!canMatchById} onCheckedChange={setWriteM3u} testId="write-m3u-toggle" />
+						<SettingSwitch
+							id="output-write-m3u"
+							label={t('wizard.output.writeM3u.label')}
+							description={canMatchById ? t('wizard.output.writeM3u.description') : t('filenameTemplate.m3uDisabledIdEnding')}
+							checked={wizardWriteM3u && canMatchById}
+							disabled={!canMatchById}
+							onCheckedChange={setWriteM3u}
+							testId="write-m3u-toggle"
+						/>
 					</div>
 				</>
 			)}

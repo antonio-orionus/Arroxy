@@ -45,9 +45,9 @@ describe('issue policy workflow', () => {
 		expect(record(steps[0]?.with, 'checkout.with')['persist-credentials']).toBe(false)
 	})
 
-	it('reads the current title, body and labels in one lookup that fails the job when it fails', () => {
+	it('reads the current title, body, labels and state in one lookup that fails the job when it fails', () => {
 		const read = step('Read the issue as it is now')
-		expect(read.run).toBe('gh issue view "$NUMBER" --json title,body,labels > "$RUNNER_TEMP/issue.json"')
+		expect(read.run).toBe('gh issue view "$NUMBER" --json title,body,labels,state > "$RUNNER_TEMP/issue.json"')
 		expect(read.shell).toBeUndefined()
 	})
 
@@ -67,6 +67,11 @@ describe('issue policy workflow', () => {
 		expect(flag.if).toBe("${{ steps.check.outputs.verdict == 'fail' && steps.check.outputs.flagged == 'false' }}")
 		expect(String(flag.run)).toContain('--add-label needs-triage')
 		expect(String(flag.run)).toContain('gh issue comment')
+	})
+
+	it('posts the report before adding the label, so a failed comment leaves the issue unflagged for the next run', () => {
+		const run = String(step('Flag the issue').run)
+		expect(run.indexOf('gh issue comment')).toBeLessThan(run.indexOf('--add-label needs-triage'))
 	})
 
 	it('removes needs-triage once the issue passes', () => {

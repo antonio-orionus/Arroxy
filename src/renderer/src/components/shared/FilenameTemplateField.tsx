@@ -1,7 +1,7 @@
 import {useCallback, useId, useRef, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {AlertTriangle} from 'lucide-react'
-import {previewFilenameTemplate, templateHasId, type FilenameTemplateFailure} from '@shared/filenameTemplate.js'
+import {previewFilenameTemplate, templateEndsWithBracketedId, type FilenameTemplateFailure} from '@shared/filenameTemplate.js'
 import {FILENAME_TOKENS, PLAYLIST_FILENAME_TOKENS, type FilenameToken} from '@shared/schemas.js'
 import {Button} from '../ui/button.js'
 import {Field, FieldContent, FieldDescription, FieldLabel} from '../ui/field.js'
@@ -113,7 +113,7 @@ export function FilenameTemplateField({value, onChange, error, label, descriptio
 
 	// Only warn once the template is otherwise valid — an error message plus a
 	// warning about the same input is noise.
-	const showIdWarning = !singleVideo && !error && value.trim() !== '' && !templateHasId(value)
+	const showIdWarning = !singleVideo && !error && value.trim() !== '' && !templateEndsWithBracketedId(value)
 	const tokens = singleVideo ? SINGLE_VIDEO_TOKENS : FILENAME_TOKENS
 
 	return (
@@ -138,7 +138,7 @@ export function FilenameTemplateField({value, onChange, error, label, descriptio
 			{showIdWarning ? (
 				<p className="flex items-start gap-1.5 text-caption text-subtle-foreground" data-testid="filename-template-id-warning">
 					<AlertTriangle className="mt-0.5 size-3 shrink-0" aria-hidden />
-					{t('filenameTemplate.idWarning')}
+					{t('filenameTemplate.idEndingWarning')}
 				</p>
 			) : null}
 		</Field>

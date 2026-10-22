@@ -22,6 +22,12 @@ describe('BulkUrlDialog', () => {
 		expect(screen.getByTestId('bulk-url-preview-omitted')).toHaveTextContent('+5')
 	})
 
+	it('says once that a supported URL is needed', () => {
+		render(<BulkUrlDialog open onOpenChange={vi.fn()} initialRaw="not a link at all" />)
+
+		expect(screen.getAllByText('Add at least one supported URL to continue.')).toHaveLength(1)
+	})
+
 	it('submits the current textarea value rather than the deferred preview', () => {
 		const startBulkUrls = vi.fn()
 		useAppStore.setState({startBulkUrls})

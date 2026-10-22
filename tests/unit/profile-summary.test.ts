@@ -44,6 +44,18 @@ describe('profile format label', () => {
 		expect(en({...builtin('subtitles-only'), subtitles})).toBe('Subtitles only · English · SRT · Auto-generated only')
 	})
 
+	// Media without video has nothing to embed into: the job writes the subtitle
+	// files in their format, so the label names it whatever mode is saved.
+	it('names the subtitle format when Embed is saved but there is no video to embed into', () => {
+		const subtitlesOnly = {...builtin('subtitles-only'), subtitles: {...builtin('subtitles-only').subtitles, mode: 'embed' as const, format: 'ass' as const}}
+		expect(en(subtitlesOnly)).toBe('Subtitles only · English · ASS')
+		expect(profileSummaryRows(subtitlesOnly, i18next.t, 'en')[0]).toEqual({label: 'Subtitles', value: 'English · ASS'})
+
+		const subtitles = {enabled: true, languages: ['en'], source: 'manual-first' as const, mode: 'embed' as const, format: 'vtt' as const}
+		expect(profileSummaryRows({...builtin('audio-only'), subtitles}, i18next.t, 'en')[1]).toEqual({label: 'Subtitles', value: 'English · VTT'})
+		expect(profileSummaryRows({...builtin('hd-1080'), subtitles}, i18next.t, 'en')[1]).toEqual({label: 'Subtitles', value: 'English'})
+	})
+
 	it('uses the default bitrate for a lossy audio profile with none set', () => {
 		expect(en({...builtin('audio-only'), media: {kind: 'audio-only', audio: {format: 'mp3'}}})).toBe('Audio only · MP3 192 kbps')
 	})

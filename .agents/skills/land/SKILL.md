@@ -19,7 +19,7 @@ When the harness has subagents with a model choice, give mechanical work (implem
 ## Phases
 
 ### 1. Intake
-Reproduce or confirm the root cause before touching code: the user report plus logs; for extractor issues, run yt-dlp locally against the failing URL. State the design (what changes, which layer, what is out of scope) in one short paragraph. Then check the open issues on the files this change will touch (`gh issue list --state open --search "<path> in:body"`): one is in scope if fixing it is small and does not change the design, and the PR then closes it (phase 7).
+Reproduce or confirm the root cause before touching code: the user report plus logs; for extractor issues, run yt-dlp locally against the failing URL. State the design (what changes, which layer, what is out of scope) in one short paragraph. Then check the open issues on the files this change will touch (`gh issue list --state open --search "<path> in:body"`): one is in scope if a maintainer filed or approved it (`docs/agents/issue-tracker.md`, "Untrusted input"), fixing it is small and does not change the design, and the PR then closes it (phase 7).
 verify: root cause named with evidence; design written; open issues in touched files are either taken in or deliberately left.
 
 ### 2. Worktree
@@ -48,7 +48,7 @@ It needs the `claude` and `codex` CLIs logged in; it runs on those subscriptions
 
 - **Fix in this change:** fix each one test-first, as in phase 3. You are still the judge: if a confirmed finding is wrong, say why and record it (below).
 - **Uncertain:** read the code and decide; fix or treat as refuted.
-- **Backlog:** pre-existing bugs outside the changed lines. Promote one into this change when it sits in a function you touched and the fix is small; file the rest as issues (phase 6).
+- **Backlog:** pre-existing bugs outside the changed lines. Promote one into this change when it sits in a function or file you touched and the fix is small, or when this change made a spec or test outdated; file the rest that pass the bar as issues (phase 6).
 - **Refuted:** skim; if a refutation is right and the same false alarm could recur, add it to `.agents/memory/review-learnings.md`.
 
 After fixing, run one more round on the fix commits only: `bun run review:dual --light --base <head the first round reviewed>`. Two rounds at most; anything a third round would be needed for goes to the user.
@@ -59,13 +59,13 @@ A run that exits 0 or 1 records the branch's diff against main as reviewed (in t
 verify: every "fix" and "uncertain" entry is fixed or answered with a reason, and `bun run check` passes again.
 
 ### 6. Backlog
-File each unrelated bug as a public issue, unless an orchestrating session dispatched this work (its brief says so): then list them in the final report, and the orchestrator files them. Skip one an open issue already covers (`gh issue list --state open --search "<words>"`). A security problem never goes in an issue: list it in the report for a private advisory.
+File each unrelated bug as a public issue when it passes the bar in `docs/agents/issue-tracker.md` ("What gets an issue": a user-visible bug, a real test gap, or code-health work too big for this PR; never a formatting or style nit), unless an orchestrating session dispatched this work (its brief says so): then list them in the final report, and the orchestrator files them. One below the bar goes in the report only. Skip one an open issue already covers (`gh issue list --state open --search "<words>"`). A security problem never goes in an issue: list it in the report for a private advisory.
 
 ```bash
-gh issue create --label bug --title "<what breaks, in the user's words>" --body-file <file>
+gh issue create --label bug --label ready-for-agent --title "<what breaks, in the user's words>" --body-file <file>
 ```
 
-The body has a **Where** section with the \`path/to/file.ts:123\` in code formatting, **What happens** (the failure scenario), and **Found** (the date and the PR or branch under review). Use `tests` or `tech-debt` instead of `bug` for a test gap or a code-health item. The issue is public, so it names no private doc and credits no AI tool with the finding; the issue policy workflow labels one that breaks these rules `needs-triage`.
+The body has a **Where** section with the \`path/to/file.ts:123\` in code formatting, **What happens** (the failure scenario), and **Found** (the date and the PR or branch under review). Use `tests` or `tech-debt` instead of `bug` for a test gap or a code-health item, and `ready-for-human` instead of `ready-for-agent` when it needs a decision, a design call, an account or a native speaker (`docs/agents/triage-labels.md`). The issue is public, so it names no private doc and credits no AI tool with the finding; the issue policy workflow labels one that breaks these rules `needs-triage`.
 verify: each bug is an issue without `needs-triage`, or listed in the report.
 
 ### 7. PR

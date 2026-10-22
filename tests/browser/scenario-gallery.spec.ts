@@ -121,13 +121,13 @@ test('audio track quality scenarios render quality bars, languages and channel l
 
 	await openScenario(page, 'probe-audio-multilingual')
 	await expect(page.getByTestId('step-formats')).toBeVisible({timeout: 6_000})
-	// One language at a time, picked from a list that says how many there are.
-	await expect(page.getByTestId('audio-language')).toContainText('English original (default)')
+	// One language at a time, named in the UI language and picked from a list that says how many there are.
+	await expect(page.getByTestId('audio-language')).toContainText('English · Original')
 	await expect(page.getByText(/^\d+ languages$/)).toBeVisible()
 	await expect(chipWith('medium')).toHaveAttribute('aria-label', /Medium quality/)
 	await expect(page.getByRole('radio', {name: /^Spanish/})).toHaveCount(0)
 	await page.getByTestId('audio-language').click()
-	await page.getByRole('option', {name: 'Spanish (Latin America)'}).click()
+	await page.getByRole('option', {name: 'Spanish', exact: true}).click()
 	await expect(page.getByTestId('audio-quality-low').first()).toBeVisible()
 	await expect(page.getByRole('radio', {name: /^English/})).toHaveCount(0)
 
@@ -178,6 +178,10 @@ test('profile scenarios render their seeded browser-mock states', async ({page})
 
 	await openScenario(page, 'profiles-bulk')
 	await expect(page.getByTestId('bulk-url-dialog')).toBeVisible()
+
+	// Settings opens at the global hotkey, which another app owns.
+	await openScenario(page, 'hotkey-conflict')
+	await expect(page.getByTestId('profiles-settings-hotkey-conflict')).toBeVisible()
 
 	// A quick download's failure lands on its row in Downloads, with the guidance.
 	await openWithParams(page, 'probeError=botBlock&probeErrorTarget=quick-download')

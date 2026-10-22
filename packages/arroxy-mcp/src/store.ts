@@ -1,4 +1,4 @@
-import {randomBytes} from 'node:crypto'
+import {createHash, randomBytes} from 'node:crypto'
 import {constants as fsConstants} from 'node:fs'
 import fs from 'node:fs/promises'
 import path from 'node:path'
@@ -20,6 +20,13 @@ const LOCK_STALE_MS = 10_000
 const LOCK_WAIT_MS = 5_000
 const LOCK_RETRY_MS = 15
 const BUSY_LOCK_CODES = new Set(['EPERM', 'EACCES', 'EBUSY'])
+// How many claims deep a takeover breaks claims left by dead processes.
+const CLAIM_DEPTH = 2
+// Windows can answer a busy code for a file for a moment (an antivirus or the
+// indexer scanning it, a delete still pending); removing the write probe and
+// claiming the lock for release are retried meanwhile.
+const BUSY_RETRY_ATTEMPTS = 5
+const BUSY_RETRY_MS = 25
 
 // Another arroxy-mcp held the lock for the whole wait.
 export class LockBusyError extends Error {
@@ -29,30 +36,17 @@ export class LockBusyError extends Error {
 	}
 }
 
-// The file operations the lock is built from; tests wrap them to force a race
-// or to stand in for Windows.
+// The file operations the lock and the Windows write probe are built from;
+// tests wrap them to force a race or to stand in for Windows.
 export interface LockFiles {
 	// Creates `file` holding `token` (O_EXCL); false when it already exists.
 	create(file: string, token: string): Promise<boolean>
 	// The token in `file` and its age, or null when there is no such file.
 	read(file: string): Promise<{readonly token: string; readonly ageMs: number} | null>
 	remove(file: string): Promise<void>
-	// Whether this user can create a file in `dir`, found by creating and
-	// removing one. Used on Windows, where fs.access ignores folder ACLs.
-	probeWritable(dir: string): Promise<boolean>
 }
 
 export const nodeLockFiles: LockFiles = {
-	async probeWritable(dir) {
-		const probe = path.join(dir, `.write-probe-${randomBytes(6).toString('hex')}`)
-		try {
-			await fs.writeFile(probe, '', {flag: 'wx', mode: 0o600})
-		} catch {
-			return false
-		}
-		await fs.rm(probe, {force: true}).catch(() => undefined)
-		return true
-	},
 	async create(file, token) {
 		try {
 			await fs.writeFile(file, token, {flag: 'wx', mode: 0o600})
@@ -62,10 +56,17 @@ export const nodeLockFiles: LockFiles = {
 			throw error
 		}
 	},
+	// Token and age come from one handle, so they describe the same file even
+	// while another process replaces it.
 	async read(file) {
 		try {
-			const [token, stat] = await Promise.all([fs.readFile(file, 'utf8'), fs.stat(file)])
-			return {token, ageMs: Date.now() - stat.mtimeMs}
+			const handle = await fs.open(file, 'r')
+			try {
+				const stat = await handle.stat()
+				return {token: await handle.readFile('utf8'), ageMs: Date.now() - stat.mtimeMs}
+			} finally {
+				await handle.close()
+			}
 		} catch {
 			return null
 		}
@@ -99,6 +100,12 @@ function reasonOf(error: unknown): string {
 	return error instanceof Error ? error.message : String(error)
 }
 
+// The claim that lets its holder remove `file` while it holds `token`. Named
+// from a hash: the token is read from disk and need not be a safe file name.
+export function claimFile(file: string, token: string): string {
+	return `${file}.takeover-${createHash('sha256').update(token).digest('hex').slice(0, 16)}`
+}
+
 function sameClient(a: StoredClient | null, b: StoredClient | null): boolean {
 	return JSON.stringify(a) === JSON.stringify(b)
 }
@@ -112,6 +119,19 @@ export interface SecretStoreTransaction {
 	update(userDataDir: string, change: (current: StoredClient | null) => StoredClient | null): Promise<void>
 	// Removes the entry only while it still equals `expected`, the one the caller used.
 	deleteIf(userDataDir: string, expected: StoredClient): Promise<boolean>
+}
+
+// Runs `operation`, again while it fails with a busy code, at most
+// BUSY_RETRY_ATTEMPTS times; the last failure is thrown.
+async function retryBusy<T>(operation: () => Promise<T>): Promise<T> {
+	for (let attempt = 1; ; attempt++) {
+		try {
+			return await operation()
+		} catch (error) {
+			if (attempt >= BUSY_RETRY_ATTEMPTS || !BUSY_LOCK_CODES.has(errorCode(error) ?? '')) throw error
+			await delay(BUSY_RETRY_MS * attempt)
+		}
+	}
 }
 
 // Resolves after `ms`, or at once when `signal` aborts.
@@ -236,7 +256,7 @@ export class FileSecretStore {
 		try {
 			await fs.mkdir(this.dir, {recursive: true, mode: 0o700})
 			// fs.access ignores folder ACLs on Windows; only a real write tells.
-			if (this.platform === 'win32') return await this.lockFiles.probeWritable(this.dir)
+			if (this.platform === 'win32') return await this.probeWritable()
 			// An existing folder may be open to others; close it without touching
 			// the owner's own bits.
 			const {mode} = await fs.stat(this.dir)
@@ -248,8 +268,34 @@ export class FileSecretStore {
 		}
 	}
 
+	// Whether this user can create and remove a file in the folder, found by
+	// doing it. A probe that cannot be removed fails it too: a lock file there
+	// could never be released. Only in that case is a probe left behind, and
+	// said so.
+	private async probeWritable(): Promise<boolean> {
+		const probe = path.join(this.dir, `.write-probe-${randomBytes(6).toString('hex')}`)
+		try {
+			if (!(await this.lockFiles.create(probe, ''))) return false
+		} catch {
+			return false
+		}
+		try {
+			await retryBusy(() => this.lockFiles.remove(probe))
+			return true
+		} catch (error) {
+			this.log(`arroxy-mcp: could not remove ${probe}: ${reasonOf(error)}; the work runs unlocked, as a lock there could not be released.`)
+			return false
+		}
+	}
+
 	// A lock file created with O_EXCL that holds this holder's random token. A
-	// folder that cannot hold a lock file cannot hold a write either: the work
+	// file holding token T is removed only under the claim on it,
+	// `<file>.takeover-<hash of T>`, also created with O_EXCL, and only after
+	// reading T back (for a takeover, still stale): tokens never recur, so
+	// neither a holder releasing late nor a taker arriving late can remove a
+	// successor's lock. The one gap left is a process paused for over
+	// LOCK_STALE_MS while it holds a claim.
+	// A folder that cannot hold a lock file cannot hold a write either: the work
 	// then runs unlocked, so a call that needs no write still goes through and
 	// one that does reports why.
 	private async withLock<T>(work: () => Promise<T>, signal?: AbortSignal): Promise<T> {
@@ -260,24 +306,33 @@ export class FileSecretStore {
 			signal?.throwIfAborted()
 			if (await this.tryCreate(this.lockFile, token)) break
 			const held = await this.lockFiles.read(this.lockFile)
-			if (held !== null && held.ageMs > LOCK_STALE_MS && (await this.takeOverStale(held.token, token))) continue
+			if (held !== null && held.ageMs > LOCK_STALE_MS && (await this.takeOverStale(this.lockFile, held.token, token))) continue
 			if (Date.now() > deadline) throw new LockBusyError(this.lockFile, this.lockWaitMs)
 			await delay(LOCK_RETRY_MS, signal)
 		}
 		try {
 			return await work()
 		} finally {
-			// Only while it still holds this holder's token: a lock this holder
-			// kept past LOCK_STALE_MS may already belong to someone else.
-			const held = await this.lockFiles.read(this.lockFile)
-			if (held?.token === token) await this.lockFiles.remove(this.lockFile)
+			await this.release(token)
 		}
 	}
 
-	// Creates the lock (or the takeover guard): true once this holder has it,
-	// false while someone else does. On Windows a lock file another holder is
-	// still deleting answers EPERM, EACCES or EBUSY instead of EEXIST: that is
-	// busy too, retried until the wait runs out, never a reason to run unlocked
+	// A lock this holder kept past LOCK_STALE_MS may already belong to someone
+	// else; while a taker holds the claim on it, it is theirs to remove. Never
+	// throws, so a failed release never replaces the outcome of the work: the
+	// lock left behind goes stale and is taken over.
+	private async release(token: string): Promise<void> {
+		try {
+			await this.removeUnderClaim(this.lockFile, token, claim => retryBusy(() => this.lockFiles.create(claim, token)))
+		} catch (error) {
+			this.log(`arroxy-mcp: could not release ${this.lockFile}: ${reasonOf(error)}; it is taken over once stale.`)
+		}
+	}
+
+	// Creates the lock (or a claim): true once this holder has it, false while
+	// someone else does. On Windows a lock file another holder is still
+	// deleting answers EPERM, EACCES or EBUSY instead of EEXIST: that is busy
+	// too, retried until the wait runs out, never a reason to run unlocked
 	// (prepareDir has already ruled out a folder this user cannot write to).
 	// Anything else is a real failure of the folder.
 	private async tryCreate(file: string, token: string): Promise<boolean> {
@@ -289,28 +344,34 @@ export class FileSecretStore {
 		}
 	}
 
-	// Removes a lock left by a process that died holding it. Several processes
-	// can see the same stale lock; removing it unguarded, a late one would
-	// remove the fresh lock another has just created in its place. So only the
-	// holder of a second lock, `.takeover`, may remove it, and only after reading
-	// it again and finding the same stale token. True when the stale lock is gone.
-	private async takeOverStale(staleToken: string, token: string): Promise<boolean> {
-		const guard = `${this.lockFile}.takeover`
-		if (!(await this.tryCreate(guard, token))) {
-			// A takeover in progress holds the guard for milliseconds; one that
-			// died midway left it behind.
-			const stuck = await this.lockFiles.read(guard)
-			if (stuck !== null && stuck.ageMs > LOCK_STALE_MS) await this.lockFiles.remove(guard)
-			return false
-		}
+	// Removes a stale `file`, the lock or a claim, left by a process that died
+	// holding it. Several processes can see the same stale file; only the one
+	// holding its claim acts on it. A claim is held for milliseconds, so one
+	// older than LOCK_STALE_MS was left by a claimer that died midway: it is
+	// broken the same way, one level down, at most CLAIM_DEPTH levels. Under the
+	// claim the file must read stale again: a read racing a replacement can pair
+	// a live token with the age of the file it replaced. True when this process
+	// held the claim.
+	private async takeOverStale(file: string, staleToken: string, token: string, depth = 0): Promise<boolean> {
+		if (await this.removeUnderClaim(file, staleToken, claim => this.tryCreate(claim, token), LOCK_STALE_MS)) return true
+		const claim = claimFile(file, staleToken)
+		const stuck = await this.lockFiles.read(claim)
+		if (stuck !== null && stuck.ageMs > LOCK_STALE_MS && depth < CLAIM_DEPTH) await this.takeOverStale(claim, stuck.token, token, depth + 1)
+		return false
+	}
+
+	// Removes `file` if it still holds `heldToken` (and is older than
+	// `minAgeMs`, when given), under the claim on that token, which `claim`
+	// creates. False, removing nothing, while someone else holds the claim.
+	private async removeUnderClaim(file: string, heldToken: string, claim: (claimFile: string) => Promise<boolean>, minAgeMs?: number): Promise<boolean> {
+		const claimed = claimFile(file, heldToken)
+		if (!(await claim(claimed))) return false
 		try {
-			const held = await this.lockFiles.read(this.lockFile)
-			if (held === null) return true
-			if (held.token !== staleToken || held.ageMs <= LOCK_STALE_MS) return false
-			await this.lockFiles.remove(this.lockFile)
-			return true
+			const held = await this.lockFiles.read(file)
+			if (held?.token === heldToken && (minAgeMs === undefined || held.ageMs > minAgeMs)) await this.lockFiles.remove(file)
 		} finally {
-			await this.lockFiles.remove(guard)
+			await this.lockFiles.remove(claimed)
 		}
+		return true
 	}
 }

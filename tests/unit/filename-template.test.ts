@@ -1,5 +1,19 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {DEFAULT_FILENAME_TEMPLATE, compileFilenameTemplate, previewFilenameTemplate, renderTemplateDirs, templateHasDirs, templateDirsVaryPerEntry, templateHasId, templateOutputDir, templateSite, validateFilenameTemplate, bindFilenameTemplate, type BindContext, type TemplateMetadata} from '@shared/filenameTemplate.js'
+import {
+	DEFAULT_FILENAME_TEMPLATE,
+	compileFilenameTemplate,
+	previewFilenameTemplate,
+	renderTemplateDirs,
+	templateHasDirs,
+	templateDirsVaryPerEntry,
+	templateEndsWithBracketedId,
+	templateOutputDir,
+	templateSite,
+	validateFilenameTemplate,
+	bindFilenameTemplate,
+	type BindContext,
+	type TemplateMetadata
+} from '@shared/filenameTemplate.js'
 import type {InFlightFiles} from '@shared/nameBudget.js'
 import {FILENAME_TEMPLATE_MAX, FILENAME_TOKENS} from '@shared/schemas.js'
 
@@ -635,15 +649,25 @@ describe('render parity between directory and filename position', () => {
 	})
 })
 
-describe('templateHasId', () => {
+describe('templateEndsWithBracketedId', () => {
 	it('drives the playlist dedupe and M3U degrade', () => {
-		expect(templateHasId('{title} [{id}]')).toBe(true)
-		expect(templateHasId('{uploader} - {title}')).toBe(false)
+		expect(templateEndsWithBracketedId('{title} [{id}]')).toBe(true)
+		expect(templateEndsWithBracketedId('[{id}]')).toBe(true)
+		expect(templateEndsWithBracketedId('{uploader} - {title}')).toBe(false)
 	})
 
 	it('only counts {id} in the filename, since dedupe matches the filename', () => {
-		expect(templateHasId('{id}/{title}')).toBe(false)
-		expect(templateHasId('{uploader}/{title} [{id}]')).toBe(true)
+		expect(templateEndsWithBracketedId('{id}/{title}')).toBe(false)
+		expect(templateEndsWithBracketedId('{uploader}/{title} [{id}]')).toBe(true)
+	})
+
+	// The matcher (findPlayableFileName) reads `[<id>]` right before the extension.
+	it('needs the [{id}] shape at the end of the name, where the matcher looks', () => {
+		expect(templateEndsWithBracketedId('{id} - {title}')).toBe(false)
+		expect(templateEndsWithBracketedId('{id}')).toBe(false)
+		expect(templateEndsWithBracketedId('{title} ({id})')).toBe(false)
+		expect(templateEndsWithBracketedId('{title} [{id}] {resolution}')).toBe(false)
+		expect(templateEndsWithBracketedId('{title} [x{id}]')).toBe(false)
 	})
 })
 

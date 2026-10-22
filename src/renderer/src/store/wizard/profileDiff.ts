@@ -1,7 +1,7 @@
 // What updating a profile changes: one row per Review area whose value differs
 // between the saved profile and its updated version, in Review's order.
 
-import {resolveFilenameTemplate} from '@shared/downloadProfiles.js'
+import {profileSubtitleMode, resolveFilenameTemplate} from '@shared/downloadProfiles.js'
 import type {CommonSettings, DownloadProfile} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
@@ -44,7 +44,7 @@ function areaValues(profile: DownloadProfile, ctx: ProfileDiffContext): Record<C
 						ctx.language,
 						'conjunction'
 					),
-					subtitles.mode === 'embed' ? null : subtitles.format.toUpperCase(),
+					profileSubtitleMode(profile) === 'embed' ? null : subtitles.format.toUpperCase(),
 					t(SUBTITLE_MODE_I18N_KEYS[subtitles.mode]),
 					subtitles.source === 'manual-first' ? null : t(SUBTITLE_SOURCE_LABEL_KEYS[subtitles.source])
 				]

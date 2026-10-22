@@ -220,9 +220,9 @@
 			"too-long": "Template is too long.",
 			"unknown-token": "Unknown token {{token}}."
 		},
-		"idWarning": "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists.",
+		"idEndingWarning": "End the name with [{id}] so Arroxy can detect already-downloaded playlist items and generate .m3u playlists.",
 		"label": "Filename template",
-		"m3uDisabled": "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders.",
+		"m3uDisabledIdEnding": "Unavailable because your filename template either doesn't end with [{id}] or sorts downloads into folders.",
 		"previewPlaylist": "In a playlist",
 		"previewSingle": "Single video",
 		"profileOverrideDescription": "Leave empty to inherit the global template.",

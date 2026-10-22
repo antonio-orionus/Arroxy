@@ -8,7 +8,7 @@ import {describe, expect, it} from 'vite-plus/test'
 const SCRIPT = fileURLToPath(new URL('../../scripts/check-issue-policy.ts', import.meta.url))
 
 // Runs the checker the way the workflow does: the issue as `gh issue view
-// --json title,body,labels` wrote it, the author association in the env.
+// --json title,body,labels,state` wrote it, the author association in the env.
 function run(issue: unknown, authorAssociation = 'OWNER'): {status: number | null; output: string; report: string} {
 	const dir = mkdtempSync(join(tmpdir(), 'issue-policy-'))
 	const file = join(dir, 'issue.json')
@@ -26,19 +26,29 @@ function run(issue: unknown, authorAssociation = 'OWNER'): {status: number | nul
 
 describe('check-issue-policy', () => {
 	it('passes a well-formed issue and reports whether it is flagged now', () => {
-		const result = run({title: 'Links lose an apostrophe', body: 'See `src/shared/bulkUrls.ts:28`.', labels: [{name: 'bug'}, {name: 'needs-triage'}]})
+		const result = run({title: 'Links lose an apostrophe', body: 'See `src/shared/bulkUrls.ts:28`.', labels: [{name: 'bug'}, {name: 'ready-for-agent'}, {name: 'needs-triage'}], state: 'OPEN'})
 		expect(result.status).toBe(0)
 		expect(result.output).toBe('verdict=pass\nflagged=true\n')
 	})
 
 	it('fails a bug without a location and writes the comment', () => {
-		const result = run({title: 'Something broke', body: 'It broke.', labels: [{name: 'bug'}]})
+		const result = run({title: 'Something broke', body: 'It broke.', labels: [{name: 'bug'}, {name: 'ready-for-agent'}], state: 'OPEN'})
 		expect(result.output).toBe('verdict=fail\nflagged=false\n')
 		expect(result.report).toContain('**location:**')
 	})
 
 	it('skips a community issue', () => {
-		expect(run({title: 'x', body: '', labels: []}, 'NONE').output).toBe('verdict=skip\nflagged=false\n')
+		expect(run({title: 'x', body: '', labels: [], state: 'OPEN'}, 'NONE').output).toBe('verdict=skip\nflagged=false\n')
+	})
+
+	it('asks a closed issue for no state label', () => {
+		expect(run({title: 'Not planned', body: 'Words only.', labels: [{name: 'enhancement'}, {name: 'wontfix'}], state: 'CLOSED'}).output).toBe('verdict=pass\nflagged=false\n')
+	})
+
+	it('exits non-zero on a snapshot without the issue state', () => {
+		const result = run({title: 'x', body: '', labels: []})
+		expect(result.status).not.toBe(0)
+		expect(result.output).toBe('')
 	})
 
 	it('exits non-zero on an unreadable snapshot instead of judging an empty issue', () => {

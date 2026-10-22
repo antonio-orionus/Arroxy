@@ -46,7 +46,7 @@ Use the [issue templates](https://github.com/antonio-orionus/Arroxy/issues/new/c
 - Arroxy version (visible in the title bar / Settings)
 - A URL or scenario that reproduces it, plus the failure mode (error text, log line, screenshot)
 
-Maintainers file the bugs, test gaps and code-health items they find as issues too. The `issue-policy` workflow (`scripts/issuePolicy.ts`) asks each of those for one kind label (`bug`, `enhancement`, `tests`, `tech-debt`, `i18n` or `documentation`) and, for the first three, a `path/to/file.ts:123` reference; an issue that misses one gets the `needs-triage` label until it's fixed. A PR that fixes an issue closes it with a `Fixes #N` line.
+Maintainers file the bugs, test gaps and code-health items they find as issues too. The `issue-policy` workflow (`scripts/issuePolicy.ts`) asks each of those for one kind label (`bug`, `enhancement`, `tests`, `tech-debt`, `i18n` or `documentation`), one state label while it's open (`ready-for-agent`, `ready-for-human`, `parked` or `question`) and, for the first three kinds, a `path/to/file.ts:123` reference; an issue that misses one gets the `needs-triage` label until it's fixed. Labels and what gets an issue: [`docs/agents/`](docs/agents/issue-tracker.md). A PR that fixes an issue closes it with a `Fixes #N` line.
 
 ## Local development
 

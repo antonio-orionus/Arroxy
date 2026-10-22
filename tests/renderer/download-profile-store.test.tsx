@@ -3,7 +3,7 @@ import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
-import {ok} from '@shared/result.js'
+import {fail, ok} from '@shared/result.js'
 import type {AppSettings, DownloadProfile} from '@shared/types.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 
@@ -80,5 +80,27 @@ describe('download profile store actions', () => {
 		await useAppStore.getState().removeDownloadProfile(profile.id)
 
 		expect(useAppStore.getState().settings?.profiles).toEqual({active: {kind: 'builtin', id: 'balanced'}, custom: [], overrides: [], enabledOverrides: {}})
+	})
+
+	// Like saving: a failed write resolves false after the rollback, so the
+	// profile editor's Reset can keep the editor open with its error (#561).
+	it('resolves false and keeps the profile when removing it fails to save', async () => {
+		const override = {...BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!, name: 'Balanced for lectures'}
+		const settings = {...defaultAppSettings('/tmp'), profiles: {...defaultAppSettings('/tmp').profiles, overrides: [override]}}
+		const api = installSettingsApi(settings)
+		vi.mocked(api.settings.update).mockResolvedValue(fail({code: 'unknown', message: 'disk full'}))
+		useAppStore.setState({settings})
+
+		await expect(useAppStore.getState().removeDownloadProfile('balanced')).resolves.toBe(false)
+		expect(useAppStore.getState().settings?.profiles.overrides).toEqual([override])
+	})
+
+	it('resolves true when removing a profile saves', async () => {
+		const profile = customProfile()
+		const settings = {...defaultAppSettings('/tmp'), profiles: {...defaultAppSettings('/tmp').profiles, custom: [profile]}}
+		installSettingsApi(settings)
+		useAppStore.setState({settings})
+
+		await expect(useAppStore.getState().removeDownloadProfile(profile.id)).resolves.toBe(true)
 	})
 })

@@ -557,7 +557,8 @@ export interface SystemSlice {
 	setActiveDownloadProfile: (ref: DownloadProfileRef) => Promise<boolean>
 	// False when the settings write failed: it is rolled back, and the user already told.
 	saveDownloadProfile: (profile: DownloadProfile, activate?: boolean) => Promise<boolean>
-	removeDownloadProfile: (id: string) => Promise<void>
+	// False when the settings write failed: it is rolled back, and the user already told.
+	removeDownloadProfile: (id: string) => Promise<boolean>
 	setDownloadProfileEnabled: (id: string, enabled: boolean) => Promise<void>
 	moveDownloadProfile: (id: string, targetId: string) => Promise<void>
 	openShareDialog: () => void
