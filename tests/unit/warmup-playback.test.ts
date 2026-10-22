@@ -1,7 +1,7 @@
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {playSetupScript, simulateFirstLaunchDownloads} from '@renderer/dev/warmupPlayback.js'
 import {buildSetupScript, SETUP_SCENARIOS} from '@renderer/dev/scenarios/setupScenarios.js'
-import {EMPTY_WARMUP_DOWNLOADS, summarizeSetup, trackWarmupDownloads} from '@renderer/store/warmupDownloads.js'
+import {EMPTY_WARMUP_DOWNLOADS, estimateSecondsLeft, summarizeSetup, trackWarmupDownloads} from '@renderer/store/warmupDownloads.js'
 import type {DependencyId, WarmupProgressEvent} from '@shared/types.js'
 
 describe('dev-mock warmup playback', () => {
@@ -61,5 +61,9 @@ describe('setup scenario matrix', () => {
 
 		expect(setup?.stage).toBe(STAGE_OF[scenario.moment])
 		expect(setup?.groups).toEqual(scenario.tools === 'both' ? ['engine', 'media'] : [scenario.tools])
+		const secondsLeft = setup ? estimateSecondsLeft(downloads.samples, setup.total - setup.downloaded) : null
+		if (scenario.moment === 'started') expect(secondsLeft).toBeNull()
+		if (scenario.moment === 'minutes') expect(secondsLeft).toBeGreaterThanOrEqual(60)
+		if (scenario.moment === 'under-minute') expect(secondsLeft).toBeLessThan(60)
 	})
 })

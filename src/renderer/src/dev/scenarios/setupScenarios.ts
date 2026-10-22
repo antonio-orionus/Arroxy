@@ -83,10 +83,13 @@ function momentSteps(moment: SetupMoment, binaries: DependencyId[]): SetupScript
 		// Two steps span under the 3 s a time estimate needs.
 		case 'started':
 			return progress(binaries, 0.02, 0.06, 2)
+		// The first step jumps from nothing to mid-way, one download at a time;
+		// 24 steps (9.6 s) carry that jump out of the 8 s rate window, so the
+		// estimate rests on the steady pace alone.
 		case 'minutes':
-			return progress(binaries, 0.25, 0.3, 20)
+			return progress(binaries, 0.25, 0.3, 24)
 		case 'under-minute':
-			return progress(binaries, 0.7, 0.85, 20)
+			return progress(binaries, 0.7, 0.85, 24)
 		case 'unpacking':
 			return [...finished(binaries), {delayMs: 0, event: {binary: 'ffmpeg', phase: 'extracting'}}]
 		case 'checking': {
