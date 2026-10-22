@@ -64,15 +64,17 @@
         min-height: 100vh;
       }
 
+      /* Laid out as the app's splash is (.splash-overlay): the mascot, the name
+         and a line held for the setup heading sit in the middle row, and the
+         status hangs below, so nothing moves when the app's splash takes over. */
       #boot-splash {
         position: fixed;
         inset: 0;
         z-index: 2147483647;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
+        display: grid;
+        grid-template-rows: 1fr auto 1fr;
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
         padding: 24px;
         overflow: hidden;
         background: var(--boot-splash-bg);
@@ -87,21 +89,37 @@
       }
 
       html[data-app-mode='browser-mock'][data-boot-splash-preview='true'] #boot-splash {
+        display: grid;
+      }
+
+      .boot-splash__anchor {
+        grid-row: 2;
         display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
       }
 
       .boot-splash__mascot {
         width: 132px;
         height: 132px;
+        margin-bottom: 6px;
         object-fit: contain;
       }
 
+      .boot-splash__heading {
+        height: 21px;
+      }
+
       .boot-splash__text {
+        grid-row: 3;
+        align-self: start;
         display: flex;
         width: min(300px, 100%);
         flex-direction: column;
         align-items: center;
         gap: 4px;
+        margin-top: 16px;
         text-align: center;
       }
 
@@ -109,7 +127,7 @@
         margin: 0;
         font-size: 20px;
         font-weight: 700;
-        line-height: 1.2;
+        line-height: 1.4;
         letter-spacing: 0;
       }
 
@@ -164,9 +182,12 @@
   <body>
     <div id="root">
       <div id="boot-splash" role="status" aria-live="polite" aria-label="Starting Arroxy">
-        <img src="/mascot-main.png" alt="" class="boot-splash__mascot" />
-        <div class="boot-splash__text">
+        <div class="boot-splash__anchor">
+          <img src="/mascot-main.png" alt="" class="boot-splash__mascot" />
           <p class="boot-splash__brand">Arroxy</p>
+          <div class="boot-splash__heading"></div>
+        </div>
+        <div class="boot-splash__text">
           <p class="boot-splash__status">Starting Arroxy</p>
           <div class="boot-splash__bar" aria-hidden="true"></div>
         </div>
