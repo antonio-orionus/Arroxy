@@ -169,6 +169,24 @@ describe('createQuitGate', () => {
 		expect(deps.quit).toHaveBeenCalledOnce()
 	})
 
+	it('still quits, and lets the next quit through, when a disposer throws', async () => {
+		const deps = makeDeps()
+		deps.dispose.mockImplementation(() => {
+			throw new Error('tray already gone')
+		})
+		const gate = createQuitGate(deps)
+
+		gate.onBeforeQuit(quitEvent())
+		await settle()
+
+		expect(deps.log.warn).toHaveBeenCalledWith('Releasing app services before quitting failed', {error: 'tray already gone'})
+		expect(deps.quit).toHaveBeenCalledOnce()
+		expect(gate.approved).toBe(true)
+		const next = quitEvent()
+		gate.onBeforeQuit(next)
+		expect(next.preventDefault).not.toHaveBeenCalled()
+	})
+
 	it('quits once its budget runs out when saving the queue hangs', async () => {
 		vi.useFakeTimers()
 		try {

@@ -66,7 +66,12 @@ export function createQuitGate(deps: QuitGateDeps): QuitGate {
 			const outcome = await Promise.race([saved, budget])
 			clearTimeout(timer)
 			if (outcome === 'late') deps.log.warn('Saving the queue before quitting took too long; quitting anyway', {budgetMs})
-			deps.dispose()
+			// A disposer that throws must not hold every later quit in `stopping`.
+			try {
+				deps.dispose()
+			} catch (error) {
+				deps.log.warn('Releasing app services before quitting failed', {error: errorMessage(error)})
+			}
 			phase = 'approved'
 			deps.log.info('App shutting down')
 		})()
