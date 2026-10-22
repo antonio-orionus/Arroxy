@@ -1,0 +1,1 @@
+Arroxy now also sends an anonymous setup report whenever it downloads or updates its download engine or media tools: whether that worked and roughly how long it took. **Send anonymous heartbeat and setup reports** in Settings turns both off.
