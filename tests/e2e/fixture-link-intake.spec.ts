@@ -108,22 +108,27 @@ test('Just this video in the list dialog downloads the video and never loads its
 	})
 })
 
-// Actions: paste a video-in-a-playlist link, Interactive Download…, Just this video.
-// Milestones: Interactive's prompt; the format step opens.
-// Oracles: the playlist was never loaded.
-test("Interactive's Just this video sets up the video alone and never loads its playlist", async () => {
+// Fixtures: the video's first probe fails.
+// Actions: paste a video-in-a-playlist link, Interactive Download…, Just this video, Retry.
+// Milestones: Interactive's prompt; the error step; the format step after Retry.
+// Oracles: Retry asks nothing again; the playlist was never loaded.
+test("Interactive's Just this video sets up the video alone, and Retry neither asks again nor loads its playlist", async () => {
 	test.setTimeout(120_000)
 	const videoId = FIXTURE_PLAYLIST_VIDEO_IDS[0]
 	if (!videoId) throw new Error('fixture playlist needs a first video')
 
-	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-intake-pick-video-user-', outputPrefix: 'arroxy-fixture-intake-pick-video-out-'}, async ({page, fixtureServer, urls}) => {
+	await withFixtureProductApp({behavior: {metadataFailureIds: [videoId]}, userDataPrefix: 'arroxy-fixture-intake-pick-video-user-', outputPrefix: 'arroxy-fixture-intake-pick-video-out-'}, async ({page, fixtureServer, urls}) => {
 		await paste(page, urls.videoInPlaylist(videoId))
 		await page.getByTestId('profiles-interactive-download').click()
 		await expect(page.getByTestId('mixed-prompt-title')).toHaveText('Pick from this playlist', {timeout: 10_000})
 		await page.getByTestId('mixed-video-choice').click()
 		await expect(page.getByTestId('mixed-prompt-title')).toHaveCount(0)
+		await expect(page.getByTestId('step-error')).toBeVisible({timeout: 60_000})
 
+		fixtureServer.setBehavior({})
+		await page.getByTestId('btn-retry').click()
 		await expect(page.getByTestId('step-formats')).toBeVisible({timeout: 60_000})
+		await expect(page.getByTestId('mixed-prompt-title')).toHaveCount(0)
 		expect(listLoads(fixtureServer, FIXTURE_PLAYLIST_ID)).toBe(0)
 	})
 })
