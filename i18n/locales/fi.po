@@ -107,10 +107,6 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "Jatka"
 
-msgctxt "common.dismiss"
-msgid "Dismiss"
-msgstr "Hylkää"
-
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "Ladataan"
@@ -143,13 +139,9 @@ msgctxt "dialogs.closeToTray.remember"
 msgid "Don't ask again"
 msgstr "Älä kysy uudelleen"
 
-msgctxt "dialogs.quitWithActiveDownloads.confirm"
-msgid "Cancel Downloads & Quit"
-msgstr "Peruuta lataukset ja lopeta"
-
-msgctxt "dialogs.quitWithActiveDownloads.detail"
-msgid "Pause to resume later, or cancel to discard progress."
-msgstr "Keskeytä jatkaaksesi myöhemmin tai peruuta hylätäksesi edistymisen."
+msgctxt "dialogs.quitWithActiveDownloads.continueDetail"
+msgid "Your queue is kept, and downloads pick up where they stopped the next time you open Arroxy."
+msgstr "Jonosi säilyy, ja lataukset jatkuvat siitä, mihin ne jäivät, kun avaat Arroxyn seuraavan kerran."
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -165,9 +157,9 @@ msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "{{count}} latausta käynnissä"
 
-msgctxt "dialogs.quitWithActiveDownloads.pause"
-msgid "Pause Downloads & Quit"
-msgstr "Keskeytä lataukset ja lopeta"
+msgctxt "dialogs.quitWithActiveDownloads.quit"
+msgid "Quit"
+msgstr "Lopeta"
 
 msgctxt "dialogs.rendererCrashed.detail"
 msgid "The renderer process crashed ({{reason}}). Reload to try again."
@@ -226,8 +218,8 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "Tämä video on ikärajoitettu, eikä sitä voi ladata ilman sisäänkirjautunutta tiliä."
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
-msgstr "Bottisuojaus lauennut. IP-osoitteesi on todennäköisesti merkitty epäilyttäväksi (palvelinkeskuksen osoitealue tai ruuhkainen VPN-poistumispiste). Vaihda IP-osoitetta tai valitse eri VPN-päätepiste ja yritä uudelleen. Jos virhe toistuu, kyseessä voi olla sivuston tilapäinen muutos – Arroxy päivittää latausmoottorinsa käynnistyessään, joten korjaus tulee automaattisesti, kun se julkaistaan."
+msgid "The site's bot protection stopped this download. Wait a while and try again, or download fewer videos at once. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Sivuston bottisuojaus pysäytti tämän latauksen. Odota hetki ja yritä uudelleen tai lataa kerralla vähemmän videoita. Jos se epäonnistuu edelleen, kyseessä voi olla sivuston tilapäinen muutos – Arroxy päivittää latausmoottorin käynnistyessään, joten korjaus tulee automaattisesti heti, kun se julkaistaan."
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
 msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
@@ -246,8 +238,8 @@ msgid "This video is not available in your region."
 msgstr "Tämä video ei ole saatavilla alueellasi."
 
 msgctxt "errors.ytdlp.ipBlock"
-msgid "Your IP address appears to be blocked. Try again later or use a VPN."
-msgstr "IP-osoitteesi näyttää olevan estetty. Yritä myöhemmin uudelleen tai käytä VPN:ää."
+msgid "The site is blocking requests from this connection. Try again later."
+msgstr "Sivusto estää tämän yhteyden pyynnöt. Yritä myöhemmin uudelleen."
 
 msgctxt "errors.ytdlp.loginRequired"
 msgid "This video needs a signed-in account."
@@ -329,13 +321,77 @@ msgctxt "explore.linkCallout.title"
 msgid "Right-click a link to download it"
 msgstr "Lataa napsauttamalla linkkiä hiiren kakkospainikkeella"
 
+msgctxt "explore.linkMenu.background.album"
+msgid "Download the album in the background"
+msgstr "Lataa albumi taustalla"
+
+msgctxt "explore.linkMenu.background.liked"
+msgid "Download your liked videos in the background"
+msgstr "Lataa tykkäämäsi videot taustalla"
+
+msgctxt "explore.linkMenu.background.mix"
+msgid "Download the Mix in the background"
+msgstr "Lataa Mix taustalla"
+
+msgctxt "explore.linkMenu.background.playlist"
+msgid "Download the playlist in the background"
+msgstr "Lataa soittolista taustalla"
+
+msgctxt "explore.linkMenu.background.uploads"
+msgid "Download the uploads in the background"
+msgstr "Lataa kanavan videot taustalla"
+
+msgctxt "explore.linkMenu.background.watchLater"
+msgid "Download Watch later in the background"
+msgstr "Lataa Katso myöhemmin -lista taustalla"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "Kopioi linkki"
 
+msgctxt "explore.linkMenu.downloadFirst"
+msgid "Download the first {{count}}"
+msgstr "Lataa ensimmäiset {{count}}"
+
+msgctxt "explore.linkMenu.downloadThisVideo"
+msgid "Download this video · {{profileName}}"
+msgstr "Lataa tämä video · {{profileName}}"
+
 msgctxt "explore.linkMenu.downloadWith"
 msgid "Download with"
 msgstr "Lataa profiililla"
+
+msgctxt "explore.linkMenu.fromList.album"
+msgid "From this album"
+msgstr "Tästä albumista"
+
+msgctxt "explore.linkMenu.fromList.liked"
+msgid "From your liked videos"
+msgstr "Tykkäämistäsi videoista"
+
+msgctxt "explore.linkMenu.fromList.mix"
+msgid "From this Mix"
+msgstr "Tästä Mixistä"
+
+msgctxt "explore.linkMenu.fromList.playlist"
+msgid "From this playlist"
+msgstr "Tästä soittolistasta"
+
+msgctxt "explore.linkMenu.fromList.uploads"
+msgid "From this channel’s uploads"
+msgstr "Tämän kanavan videoista"
+
+msgctxt "explore.linkMenu.fromList.watchLater"
+msgid "From Watch later"
+msgstr "Katso myöhemmin -listasta"
+
+msgctxt "explore.linkMenu.interactive"
+msgid "Interactive Download…"
+msgstr "Ohjattu lataus…"
+
+msgctxt "explore.linkMenu.thisVideoWith"
+msgid "This video with"
+msgstr "Tämä video profiililla"
 
 msgctxt "explore.newBadge"
 msgid "New"
@@ -481,6 +537,10 @@ msgctxt "explore.toolbar.compactLayout"
 msgid "Compact layout"
 msgstr "Tiivis asettelu"
 
+msgctxt "explore.toolbar.download"
+msgid "Download"
+msgstr "Lataa"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "Lataa · {{profileName}}"
@@ -516,6 +576,14 @@ msgstr "Lataa uudelleen"
 msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "Haku on liian pitkä."
+
+msgctxt "explore.toolbar.thisVideo"
+msgid "This video"
+msgstr "Tämä video"
+
+msgctxt "explore.toolbar.thisVideoHint"
+msgid "Download just this video with {{profileName}}"
+msgstr "Lataa vain tämä video profiililla {{profileName}}"
 
 msgctxt "explore.toolbar.zoom.hint"
 msgid "Page zoom: {{percent}}%"
@@ -581,17 +649,17 @@ msgctxt "filenameTemplate.error.unknown-token"
 msgid "Unknown token {{token}}."
 msgstr "Tuntematon tunniste {{token}}."
 
-msgctxt "filenameTemplate.idWarning"
-msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
-msgstr "Ilman {id}-tunnistetta Arroxy ei voi havaita jo ladattuja soittolistan kohteita eikä luoda .m3u-soittolistoja."
+msgctxt "filenameTemplate.idEndingWarning"
+msgid "End the name with [{id}] so Arroxy can detect already-downloaded playlist items and generate .m3u playlists."
+msgstr "Lopeta nimi merkkijonoon [{id}], jotta Arroxy voi tunnistaa jo ladatut soittolistan kohteet ja luoda .m3u-soittolistoja."
 
 msgctxt "filenameTemplate.label"
 msgid "Filename template"
 msgstr "Tiedostonimen malli"
 
-msgctxt "filenameTemplate.m3uDisabled"
-msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
-msgstr "Ei käytettävissä, koska tiedostonimen mallissa ei ole {id}-tunnistetta tai se lajittelee lataukset kansioihin."
+msgctxt "filenameTemplate.m3uDisabledIdEnding"
+msgid "Unavailable because your filename template either doesn't end with [{id}] or sorts downloads into folders."
+msgstr "Ei käytettävissä, koska tiedostonimimallisi ei joko pääty merkkijonoon [{id}] tai lajittelee lataukset kansioihin."
 
 msgctxt "filenameTemplate.previewPlaylist"
 msgid "In a playlist"
@@ -778,6 +846,56 @@ msgid "Already in the queue"
 msgstr "On jo jonossa"
 
 #. Plural form "one" for fi: used for counts like 1.
+msgctxt "notifications.quickDownload.batchAdded_one"
+msgid "Added {{count}} link to Downloads"
+msgstr "{{count}} linkki lisätty Latauksiin"
+
+#. Plural form "other" for fi: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchAdded_other"
+msgid "Added {{count}} links to Downloads"
+msgstr "{{count}} linkkiä lisätty Latauksiin"
+
+#. Plural form "one" for fi: used for counts like 1.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_one"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} on jo jonossa"
+
+#. Plural form "other" for fi: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_other"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} on jo jonossa"
+
+#. Plural form "one" for fi: used for counts like 1.
+msgctxt "notifications.quickDownload.batchNoneAdded_one"
+msgid "{{count}} link couldn't be added"
+msgstr "{{count}} linkkiä ei voitu lisätä"
+
+#. Plural form "other" for fi: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchNoneAdded_other"
+msgid "{{count}} links couldn't be added"
+msgstr "{{count}} linkkiä ei voitu lisätä"
+
+#. Plural form "one" for fi: used for counts like 1.
+msgctxt "notifications.quickDownload.batchNotAdded_one"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} ei voitu lisätä"
+
+#. Plural form "other" for fi: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchNotAdded_other"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} ei voitu lisätä"
+
+#. Plural form "one" for fi: used for counts like 1.
+msgctxt "notifications.quickDownload.chooseFromList_one"
+msgid "{{count}} video in this list — choose what to download"
+msgstr "{{count}} video tässä listassa – valitse, mitä ladataan"
+
+#. Plural form "other" for fi: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.chooseFromList_other"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "{{count}} videota tässä listassa – valitse, mitä ladataan"
+
+#. Plural form "one" for fi: used for counts like 1.
 msgctxt "notifications.quickDownload.chooseHowMany_one"
 msgid "{{count}}+ video — choose how many"
 msgstr "{{count}}+ video – valitse kuinka monta"
@@ -794,26 +912,6 @@ msgstr "Valmistelu epäonnistui: {{title}}"
 msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "Linkkiä ei voitu lisätä – yritä uudelleen"
-
-#. Plural form "one" for fi: used for counts like 1.
-msgctxt "notifications.quickDownload.review_one"
-msgid "{{count}} video in this list — review to pick"
-msgstr "{{count}} video tässä luettelossa – valitse tarkistamalla"
-
-#. Plural form "other" for fi: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "notifications.quickDownload.review_other"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "{{count}} videota tässä luettelossa – valitse tarkistamalla"
-
-#. Plural form "one" for fi: used for counts like 1.
-msgctxt "notifications.quickDownload.reviewCapped_one"
-msgid "{{count}}+ video in this list — review to pick"
-msgstr "{{count}}+ video tässä luettelossa – valitse tarkistamalla"
-
-#. Plural form "other" for fi: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "notifications.quickDownload.reviewCapped_other"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "{{count}}+ videota tässä luettelossa – valitse tarkistamalla"
 
 msgctxt "notifications.quickDownload.view"
 msgid "View"
@@ -1063,19 +1161,75 @@ msgctxt "queue.choice.first"
 msgid "First {{count}}"
 msgstr "Ensimmäiset {{count}}"
 
+msgctxt "queue.choice.list.album"
+msgid "The album"
+msgstr "Albumi"
+
+msgctxt "queue.choice.list.liked"
+msgid "Liked videos"
+msgstr "Tykätyt videot"
+
+msgctxt "queue.choice.list.mix"
+msgid "The Mix"
+msgstr "Mix"
+
+msgctxt "queue.choice.list.playlist"
+msgid "The playlist"
+msgstr "Soittolista"
+
+msgctxt "queue.choice.list.uploads"
+msgid "All the uploads"
+msgstr "Kaikki kanavan videot"
+
+msgctxt "queue.choice.list.watchLater"
+msgid "Watch later"
+msgstr "Katso myöhemmin"
+
+msgctxt "queue.choice.pick"
+msgid "Pick from it…"
+msgstr "Valitse listasta…"
+
 msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "Tarkista"
 
 #. Plural form "one" for fi: used for counts like 1.
-msgctxt "queue.choice.reviewBody_one"
-msgid "This link is a list of {{count}} video. Review it to pick what to download."
-msgstr "Tämä linkki on {{count}} videon luettelo. Tarkista se valitaksesi ladattavat."
+msgctxt "queue.choice.uncappedBody_one"
+msgid "This link is a list of {{count}} video. Download it, or pick in a review."
+msgstr "Tämä linkki on lista, jossa on {{count}} video. Lataa se tai valitse tarkistamalla."
 
 #. Plural form "other" for fi: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "queue.choice.reviewBody_other"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "Tämä linkki on {{count}} videon luettelo. Tarkista se valitaksesi ladattavat."
+msgctxt "queue.choice.uncappedBody_other"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "Tämä linkki on lista, jossa on {{count}} videota. Lataa kaikki tai valitse tarkistamalla."
+
+msgctxt "queue.choice.video"
+msgid "This video"
+msgstr "Tämä video"
+
+msgctxt "queue.choice.videoOrList.album"
+msgid "This link is a video in an album. Download just the video, or the album?"
+msgstr "Tämä linkki on albumin video. Ladataanko vain video vai koko albumi?"
+
+msgctxt "queue.choice.videoOrList.liked"
+msgid "This link is a video in your liked videos. Download just the video, or all your liked videos?"
+msgstr "Tämä linkki on yksi tykkäämistäsi videoista. Ladataanko vain video vai kaikki tykkäämäsi videot?"
+
+msgctxt "queue.choice.videoOrList.mix"
+msgid "This link is a video in a Mix. Download just the video, or the Mix?"
+msgstr "Tämä linkki on Mixin video. Ladataanko vain video vai koko Mix?"
+
+msgctxt "queue.choice.videoOrList.playlist"
+msgid "This link is a video in a playlist. Download just the video, or the playlist?"
+msgstr "Tämä linkki on soittolistan video. Ladataanko vain video vai koko soittolista?"
+
+msgctxt "queue.choice.videoOrList.uploads"
+msgid "This link is a video in a channel's uploads. Download just the video, or all the uploads?"
+msgstr "Tämä linkki on kanavan video. Ladataanko vain video vai kaikki kanavan videot?"
+
+msgctxt "queue.choice.videoOrList.watchLater"
+msgid "This link is a video in your Watch later list. Download just the video, or the whole list?"
+msgstr "Tämä linkki on Katso myöhemmin -listasi video. Ladataanko vain video vai koko lista?"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -1204,6 +1358,70 @@ msgstr "Ladataan"
 msgctxt "queue.item.subtitleLanguagesMissing"
 msgid "No subtitles in {{languages}}"
 msgstr "Ei tekstityksiä kielillä: {{languages}}"
+
+msgctxt "queue.item.waitingForSite"
+msgid "Waits for {{site}} until {{time}}"
+msgstr "Odottaa sivustoa {{site}} kello {{time}} asti"
+
+msgctxt "queue.item.waitingHint"
+msgid "{{site}} is rate-limiting this connection. Arroxy fetches this link's details after {{time}}, so the limit can clear."
+msgstr "Sivusto {{site}} rajoittaa tämän yhteyden pyyntöjä. Arroxy hakee tämän linkin tiedot kello {{time}} jälkeen, jotta rajoitus ehtii purkautua."
+
+msgctxt "queue.listOffer.dismiss"
+msgid "Dismiss"
+msgstr "Hylkää"
+
+msgctxt "queue.listOffer.from.album"
+msgid "From an album"
+msgstr "Albumista"
+
+msgctxt "queue.listOffer.from.liked"
+msgid "From your liked videos"
+msgstr "Tykkäämistäsi videoista"
+
+msgctxt "queue.listOffer.from.mix"
+msgid "From a Mix"
+msgstr "Mixistä"
+
+msgctxt "queue.listOffer.from.playlist"
+msgid "From a playlist"
+msgstr "Soittolistasta"
+
+msgctxt "queue.listOffer.from.uploads"
+msgid "From a channel's uploads"
+msgstr "Kanavan videoista"
+
+msgctxt "queue.listOffer.from.watchLater"
+msgid "From Watch later"
+msgstr "Katso myöhemmin -listasta"
+
+msgctxt "queue.listOffer.get.album"
+msgid "Get the whole album"
+msgstr "Hae koko albumi"
+
+msgctxt "queue.listOffer.get.liked"
+msgid "Get all liked videos"
+msgstr "Hae kaikki tykätyt videot"
+
+msgctxt "queue.listOffer.get.mix"
+msgid "Get the whole Mix"
+msgstr "Hae koko Mix"
+
+msgctxt "queue.listOffer.get.playlist"
+msgid "Get the whole playlist"
+msgstr "Hae koko soittolista"
+
+msgctxt "queue.listOffer.get.uploads"
+msgid "Get all uploads"
+msgstr "Hae kaikki kanavan videot"
+
+msgctxt "queue.listOffer.get.watchLater"
+msgid "Get all of Watch later"
+msgstr "Hae koko Katso myöhemmin -lista"
+
+msgctxt "queue.listOffer.hint"
+msgid "Adds the list as its own row. This video is left out."
+msgstr "Lisää listan omana rivinään. Tämä video jätetään pois."
 
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
@@ -1745,10 +1963,6 @@ msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Hei, tervetuloa takaisin!"
 
-msgctxt "splash.setup.bytes"
-msgid "{{done}} of {{total}}"
-msgstr "{{done}} / {{total}}"
-
 #. Plural form "one" for fi: used for counts like 1.
 msgctxt "splash.setup.left.minutes_one"
 msgid "about {{count}} min left"
@@ -1763,18 +1977,6 @@ msgctxt "splash.setup.left.underMinute"
 msgid "less than a minute left"
 msgstr "alle minuutti jäljellä"
 
-msgctxt "splash.setup.note.engine"
-msgid "Keeps downloads working when sites change."
-msgstr "Pitää lataukset toimivina, kun sivustot muuttuvat."
-
-msgctxt "splash.setup.note.firstRun"
-msgid "This happens once. Arroxy keeps these tools and updates them itself."
-msgstr "Tämä tapahtuu vain kerran. Arroxy säilyttää nämä työkalut ja päivittää ne itse."
-
-msgctxt "splash.setup.note.media"
-msgid "This happens once. Arroxy keeps them for future updates."
-msgstr "Tämä tapahtuu vain kerran. Arroxy säilyttää ne tulevia päivityksiä varten."
-
 msgctxt "splash.setup.stage.checking"
 msgid "Checking everything works"
 msgstr "Tarkistetaan, että kaikki toimii"
@@ -1783,21 +1985,17 @@ msgctxt "splash.setup.stage.connecting"
 msgid "Connecting…"
 msgstr "Yhdistetään…"
 
-msgctxt "splash.setup.stage.downloadingBoth"
-msgid "Downloading the download engine and media tools"
-msgstr "Ladataan latausmoottoria ja mediatyökaluja"
-
-msgctxt "splash.setup.stage.downloadingEngine"
-msgid "Downloading the download engine"
-msgstr "Ladataan latausmoottoria"
-
-msgctxt "splash.setup.stage.downloadingMedia"
-msgid "Downloading the media tools"
-msgstr "Ladataan mediatyökaluja"
-
 msgctxt "splash.setup.stage.unpacking"
 msgid "Unpacking the media tools"
 msgstr "Puretaan mediatyökaluja"
+
+msgctxt "splash.setup.stage.unpackingEngine"
+msgid "Unpacking the download engine"
+msgstr "Puretaan latausmoottoria"
+
+msgctxt "splash.setup.title.both"
+msgid "Updating Arroxy's tools"
+msgstr "Päivitetään Arroxyn työkaluja"
 
 msgctxt "splash.setup.title.engine"
 msgid "Updating the download engine"
@@ -1884,8 +2082,8 @@ msgid "Merging audio and video…"
 msgstr "Yhdistetään ääntä ja kuvaa…"
 
 msgctxt "status.mintingToken"
-msgid "Minting YouTube token…"
-msgstr "Luodaan YouTube-tunnusta…"
+msgid "Preparing YouTube download…"
+msgstr "Valmistellaan YouTube-latausta…"
 
 msgctxt "status.movingFiles"
 msgid "Moving files…"
@@ -1904,16 +2102,16 @@ msgid "Preparing binaries…"
 msgstr "Valmistellaan binäärejä…"
 
 msgctxt "status.qualityLimited"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
-msgstr "Tallennettu {{height}}p-tarkkuudella – YouTube pidätti korkeammat laadut tältä lataukselta. Yrittäminen myöhemmin tai toisesta verkosta voi auttaa."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later may help."
+msgstr "Tallennettu tarkkuudella {{height}}p – YouTube pidätti korkeampia laatuja tältä lataukselta. Uusi yritys myöhemmin voi auttaa."
 
 msgctxt "status.qualityLimitedSubtitlesFailed"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
-msgstr "Tallennettu {{height}}p-tarkkuudella – YouTube pidätti korkeammat laadut tältä lataukselta, eikä joitakin tekstityksiä voitu ladata. Yrittäminen myöhemmin tai toisesta verkosta voi auttaa."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later may help."
+msgstr "Tallennettu tarkkuudella {{height}}p – YouTube pidätti korkeampia laatuja tältä lataukselta, eikä joitakin tekstityksiä voitu ladata. Uusi yritys myöhemmin voi auttaa."
 
 msgctxt "status.remintingToken"
-msgid "Re-minting token…"
-msgstr "Luodaan tunnusta uudelleen…"
+msgid "Preparing YouTube download again…"
+msgstr "Valmistellaan YouTube-latausta uudelleen…"
 
 msgctxt "status.retryingSponsorBlock"
 msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
@@ -2340,8 +2538,8 @@ msgid "Folder name has invalid characters"
 msgstr "Kansion nimessä on virheellisiä merkkejä"
 
 msgctxt "wizard.folder.subfolder.placeholder"
-msgid "e.g. lo-fi rips"
-msgstr "esim. lo-fi-tallenteet"
+msgid "e.g. lectures"
+msgstr "esim. luennot"
 
 msgctxt "wizard.folder.subfolder.toggle"
 msgid "Save inside subfolder"
@@ -2613,9 +2811,25 @@ msgctxt "wizard.formats.fit.tierAbove"
 msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
 msgstr "Profiilisi pyytää {{wanted}}p-tarkkuutta. Tässä videossa ei ole niin pientä, joten valittuna on {{picked}}p."
 
-msgctxt "wizard.formats.fit.tierBelow"
-msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
-msgstr "Profiilisi pyytää {{wanted}}p-tarkkuutta. Tämä video yltää vain {{picked}}p:hen, joten valittuna on {{picked}}p."
+msgctxt "wizard.formats.fit.tierAbovePassedOver"
+msgid "Your profile asks for {{wanted}}p. The smaller streams this video has don't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "Profiilisi pyytää {{wanted}}p-tarkkuutta. Tämän videon pienemmät virrat eivät sovi muuhun profiiliisi, joten valittuna on {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierBelowTakeable"
+msgid "Your profile asks for {{wanted}}p. This video has no {{wanted}}p it can take, so {{picked}}p is selected."
+msgstr "Profiilisi pyytää {{wanted}}p-tarkkuutta. Tässä videossa ei ole {{wanted}}p-versiota, jonka voi ottaa, joten valittuna on {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierPassedOverAiUpscaled"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p is AI-upscaled, so the original {{picked}}p is selected."
+msgstr "Profiilisi pyytää {{wanted}}p-tarkkuutta. Tämän videon {{wanted}}p on tekoälyllä skaalattu ylöspäin, joten valittuna on alkuperäinen {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierPassedOverH264"
+msgid "Your profile asks for {{wanted}}p in H.264. This video has {{wanted}}p only in other codecs, so {{picked}}p in H.264 is selected."
+msgstr "Profiilisi pyytää {{wanted}}p-tarkkuutta H.264-koodekilla. Tässä videossa {{wanted}}p on vain muilla koodekeilla, joten valittuna on {{picked}}p H.264:llä."
+
+msgctxt "wizard.formats.fit.tierPassedOverProfile"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p doesn't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "Profiilisi pyytää {{wanted}}p-tarkkuutta. Tämän videon {{wanted}}p ei sovi muuhun profiiliisi, joten valittuna on {{picked}}p."
 
 msgctxt "wizard.formats.fit.webmUnavailable"
 msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
@@ -2853,85 +3067,81 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "äänellä"
 
-msgctxt "wizard.listPrompt.escHint"
-msgid "Esc cancels. Nothing loads until you choose."
-msgstr "Esc peruuttaa. Mitään ei haeta, ennen kuin valitset."
+msgctxt "wizard.listPrompt.backgroundHint"
+msgid "With {{profileName}}. If it has more than {{count}} videos, Downloads asks how many."
+msgstr "Profiililla {{profileName}}. Jos videoita on yli {{count}}, Lataukset kysyy, kuinka monta ladataan."
 
-msgctxt "wizard.listPrompt.interactiveSubtitle"
-msgid "Choose formats yourself"
-msgstr "Valitse muodot itse"
+msgctxt "wizard.listPrompt.backgroundLabel"
+msgid "Download in the background"
+msgstr "Lataa taustalla"
 
-msgctxt "wizard.listPrompt.justThisVideo"
-msgid "Just this video"
-msgstr "Vain tämä video"
+msgctxt "wizard.listPrompt.escOnly"
+msgid "Esc cancels."
+msgstr "Esc peruuttaa."
 
-msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
-msgid "Opens its formats"
-msgstr "Avaa videon muodot"
+msgctxt "wizard.listPrompt.firstHint"
+msgid "Exactly the first {{count}}, with {{profileName}}."
+msgstr "Täsmälleen ensimmäiset {{count}} profiililla {{profileName}}."
 
-msgctxt "wizard.listPrompt.justThisVideoQuickHint"
-msgid "Loads one video"
-msgstr "Hakee yhden videon"
+msgctxt "wizard.listPrompt.firstLabel"
+msgid "Download the first"
+msgstr "Lataa ensimmäiset"
 
-msgctxt "wizard.listPrompt.listInteractiveHint"
-msgid "Loads up to {{count}} to choose from"
-msgstr "Hakee enintään {{count}}, joista valita"
+msgctxt "wizard.listPrompt.interactiveHint"
+msgid "Pick from the first {{count}} videos (or change the count on the next step), then set up the download."
+msgstr "Valitse ensimmäisistä {{count}} videosta (tai muuta määrää seuraavassa vaiheessa) ja määritä sitten lataus."
 
-msgctxt "wizard.listPrompt.listOption.album"
-msgid "The album, first"
-msgstr "Albumi, ensimmäiset"
+msgctxt "wizard.listPrompt.interactiveLabel"
+msgid "Interactive download…"
+msgstr "Ohjattu lataus…"
 
-msgctxt "wizard.listPrompt.listOption.liked"
-msgid "Your liked videos, first"
-msgstr "Tykkäämäsi videot, ensimmäiset"
+msgctxt "wizard.listPrompt.limitHint"
+msgid "How many videos to take from the list: the first option asks past it, the second takes exactly that many. The same as Settings › Playlist items to scan."
+msgstr "Kuinka monta videota listasta otetaan: ensimmäinen vaihtoehto kysyy rajan yli, toinen ottaa täsmälleen niin monta. Sama kuin Asetukset › Tarkistettavat soittolistan kohteet."
 
-msgctxt "wizard.listPrompt.listOption.mix"
-msgid "The Mix, first"
-msgstr "Mix, ensimmäiset"
-
-msgctxt "wizard.listPrompt.listOption.playlist"
-msgid "The playlist, first"
-msgstr "Soittolista, ensimmäiset"
-
-msgctxt "wizard.listPrompt.listOption.uploads"
-msgid "The uploads, first"
-msgstr "Kanavan videot, ensimmäiset"
-
-msgctxt "wizard.listPrompt.listOption.watchLater"
-msgid "Watch later, first"
-msgstr "Katso myöhemmin -lista, ensimmäiset"
-
-msgctxt "wizard.listPrompt.listQuickHint"
-msgid "Loads up to {{count}}, then downloads them"
-msgstr "Hakee enintään {{count}} ja lataa ne sitten"
+msgctxt "wizard.listPrompt.limitLabel"
+msgid "Limit"
+msgstr "Raja"
 
 msgctxt "wizard.listPrompt.mixNote"
 msgid "A Mix changes every time you open it."
 msgstr "Mix muuttuu joka kerta, kun avaat sen."
 
-msgctxt "wizard.listPrompt.pickOption.album"
-msgid "Pick from the album, first"
-msgstr "Valitse albumista, ensimmäiset"
+msgctxt "wizard.listPrompt.pickLoadAfter"
+msgid "to pick from."
+msgstr "videota, joista valita."
 
-msgctxt "wizard.listPrompt.pickOption.liked"
-msgid "Pick from your liked videos, first"
-msgstr "Valitse tykkäämistäsi videoista, ensimmäiset"
+msgctxt "wizard.listPrompt.pickLoadBefore"
+msgid "Load the first"
+msgstr "Lataa ensimmäiset"
 
-msgctxt "wizard.listPrompt.pickOption.mix"
-msgid "Pick from the Mix, first"
-msgstr "Valitse Mixistä, ensimmäiset"
+msgctxt "wizard.listPrompt.pickLoadNote"
+msgid "You can change it on the next step."
+msgstr "Voit muuttaa tätä seuraavassa vaiheessa."
 
-msgctxt "wizard.listPrompt.pickOption.playlist"
-msgid "Pick from the playlist, first"
-msgstr "Valitse soittolistasta, ensimmäiset"
+msgctxt "wizard.listPrompt.pickTitle.album"
+msgid "Pick from this album"
+msgstr "Valitse tästä albumista"
 
-msgctxt "wizard.listPrompt.pickOption.uploads"
-msgid "Pick from the uploads, first"
-msgstr "Valitse kanavan videoista, ensimmäiset"
+msgctxt "wizard.listPrompt.pickTitle.liked"
+msgid "Pick from your liked videos"
+msgstr "Valitse tykkäämistäsi videoista"
 
-msgctxt "wizard.listPrompt.pickOption.watchLater"
-msgid "Pick from Watch later, first"
-msgstr "Valitse Katso myöhemmin -listasta, ensimmäiset"
+msgctxt "wizard.listPrompt.pickTitle.mix"
+msgid "Pick from this Mix"
+msgstr "Valitse tästä Mixistä"
+
+msgctxt "wizard.listPrompt.pickTitle.playlist"
+msgid "Pick from this playlist"
+msgstr "Valitse tästä soittolistasta"
+
+msgctxt "wizard.listPrompt.pickTitle.uploads"
+msgid "Pick from this channel’s uploads"
+msgstr "Valitse tämän kanavan videoista"
+
+msgctxt "wizard.listPrompt.pickTitle.watchLater"
+msgid "Pick from Watch later"
+msgstr "Valitse Katso myöhemmin -listasta"
 
 msgctxt "wizard.listPrompt.title.album"
 msgid "Download from this album"
@@ -2956,6 +3166,18 @@ msgstr "Lataa kanavan videoista"
 msgctxt "wizard.listPrompt.title.watchLater"
 msgid "Download from Watch later"
 msgstr "Lataa Katso myöhemmin -listasta"
+
+msgctxt "wizard.listPrompt.videoHint"
+msgid "Only the video you opened, with {{profileName}}. The list isn't loaded."
+msgstr "Vain avaamasi video profiililla {{profileName}}. Listaa ei ladata."
+
+msgctxt "wizard.listPrompt.videoLabel"
+msgid "Just this video"
+msgstr "Vain tämä video"
+
+msgctxt "wizard.listPrompt.videoPickHint"
+msgid "Set up only the video you opened. The list isn't loaded."
+msgstr "Määritä vain avaamasi video. Listaa ei ladata."
 
 msgctxt "wizard.listPrompt.withProfile"
 msgid "With {{profileName}}"
@@ -3152,6 +3374,26 @@ msgstr "Kaikki kohteet poistettiin"
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Jo ladattu"
+
+#. Plural form "one" for fi: used for counts like 1.
+msgctxt "wizard.playlist.bulkCappedDesc_one"
+msgid "It has more. To choose how many, paste its link on its own."
+msgstr "Siinä on enemmän. Jos haluat valita määrän, liitä sen linkki yksinään."
+
+#. Plural form "other" for fi: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.bulkCappedDesc_other"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "Niissä on enemmän. Jos haluat valita määrän, liitä jokainen linkki yksinään."
+
+#. Plural form "one" for fi: used for counts like 1.
+msgctxt "wizard.playlist.bulkCappedTitle_one"
+msgid "“{{title}}” is cut at {{limit}} videos"
+msgstr "”{{title}}” katkaistaan {{limit}} videon kohdalta"
+
+#. Plural form "other" for fi: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.bulkCappedTitle_other"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "{{count}} listaa katkaistaan {{limit}} videon kohdalta"
 
 msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
@@ -3396,38 +3638,6 @@ msgstr "Tarkistetaan kansiota…"
 msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Videon pikkukuva"
-
-msgctxt "wizard.playlistCap.changeLimit"
-msgid "Change load limit"
-msgstr "Muuta latausrajaa"
-
-#. Plural form "one" for fi: used for counts like 1.
-msgctxt "wizard.playlistCap.description_one"
-msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "Arroxy haki {{count}} kohteen nykyisellä rajalla {{limit}}. Lisää haettu kohde jonoon nyt tai suurenna rajaa ja tarkista uudelleen."
-
-#. Plural form "other" for fi: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.playlistCap.description_other"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy haki {{count}} kohdetta nykyisellä rajalla {{limit}}. Lisää haetut kohteet jonoon nyt tai suurenna rajaa ja tarkista uudelleen."
-
-#. Plural form "one" for fi: used for counts like 1.
-msgctxt "wizard.playlistCap.descriptionWithTitle_one"
-msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy haki {{count}} kohteen nykyisellä rajalla {{limit}}. Lisää haettu kohde jonoon nyt tai suurenna rajaa ja tarkista uudelleen."
-
-#. Plural form "other" for fi: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.playlistCap.descriptionWithTitle_other"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy haki {{count}} kohdetta nykyisellä rajalla {{limit}}. Lisää haetut kohteet jonoon nyt tai suurenna rajaa ja tarkista uudelleen."
-
-msgctxt "wizard.playlistCap.queueLoaded"
-msgid "Queue loaded items"
-msgstr "Lisää haetut kohteet jonoon"
-
-msgctxt "wizard.playlistCap.title"
-msgid "Playlist scan is capped"
-msgstr "Soittolistan tarkistus on rajattu"
 
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
@@ -3925,44 +4135,6 @@ msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
 msgstr "Ohje: {{label}}"
 
-msgctxt "wizard.quickProgress.cancel"
-msgid "Cancel preparation"
-msgstr "Peruuta valmistelu"
-
-msgctxt "wizard.quickProgress.currentFallback"
-msgid "Current link"
-msgstr "Nykyinen linkki"
-
-msgctxt "wizard.quickProgress.description"
-msgid "Arroxy is reading the link and applying {{profileName}}."
-msgstr "Arroxy lukee linkkiä ja käyttää profiilia {{profileName}}."
-
-#. Plural form "one" for fi: used for counts like 1.
-msgctxt "wizard.quickProgress.failedCount_one"
-msgid "{{count}} failed"
-msgstr "{{count}} epäonnistui"
-
-#. Plural form "other" for fi: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.quickProgress.failedCount_other"
-msgid "{{count}} failed"
-msgstr "{{count}} epäonnistui"
-
-msgctxt "wizard.quickProgress.phase.probing"
-msgid "Fetching details"
-msgstr "Haetaan tietoja"
-
-msgctxt "wizard.quickProgress.phase.queueing"
-msgid "Adding to queue"
-msgstr "Lisätään jonoon"
-
-msgctxt "wizard.quickProgress.title"
-msgid "Preparing Quick Download"
-msgstr "Valmistellaan Pikalatausta"
-
-msgctxt "wizard.quickProgress.waitHint"
-msgid "Keep this open while Arroxy prepares the queue."
-msgstr "Pidä tämä auki, kunnes Arroxy valmistelee jonon."
-
 msgctxt "wizard.review.areas.extras"
 msgid "extras"
 msgstr "lisäosat"
@@ -4271,6 +4443,10 @@ msgctxt "wizard.subtitles.saveMode.sidecar"
 msgid "Next to video"
 msgstr "Videon viereen"
 
+msgctxt "wizard.subtitles.saveMode.sidecarNoVideo"
+msgid "In the download folder"
+msgstr "Latauskansioon"
+
 msgctxt "wizard.subtitles.saveMode.subfolder"
 msgid "subtitles/ subfolder"
 msgstr "subtitles/-alikansio"
@@ -4294,14 +4470,6 @@ msgstr "Latausprofiilin navigointi"
 msgctxt "wizard.url.advanced"
 msgid "Advanced"
 msgstr "Lisäasetukset"
-
-msgctxt "wizard.url.analytics.toggle"
-msgid "Send daily heartbeat"
-msgstr "Lähetä päivittäinen elonmerkki"
-
-msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
-msgstr "Ei telemetriaa. Kerran päivässä nimetön elonmerkki lähettää sovelluksen version, asennuskanavan, käyttöjärjestelmän, kielen, maan ja suunnilleen sen, kuinka kauan Arroxy on ollut asennettuna, jotta voimme laskea aktiiviset ja uudet käyttäjät. Ei tunnisteita, URL-osoitteita, videoiden nimiä eikä tiedostonimiä."
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
@@ -4390,6 +4558,18 @@ msgstr "Lataukset kerralla"
 msgctxt "wizard.url.concurrentDownloads.unit"
 msgid "downloads"
 msgstr "latausta"
+
+msgctxt "wizard.url.concurrentProbes.description"
+msgid "How many links Arroxy fetches details for at the same time, before they download. Fewer is gentler on sites that block busy connections. A link you open in Interactive Download always goes first."
+msgstr "Kuinka monen linkin tiedot Arroxy hakee samaan aikaan ennen lataamista. Pienempi määrä on hellävaraisempi sivustoille, jotka estävät kuormitetut yhteydet. Ohjatussa latauksessa avaamasi linkki menee aina ensimmäisenä."
+
+msgctxt "wizard.url.concurrentProbes.label"
+msgid "Links checked at once"
+msgstr "Samanaikaisesti tarkistettavat linkit"
+
+msgctxt "wizard.url.concurrentProbes.unit"
+msgid "links"
+msgstr "linkkiä"
 
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
@@ -4484,8 +4664,8 @@ msgid "Off"
 msgstr "Pois"
 
 msgctxt "wizard.url.cookies.toggleDescription"
-msgid "Helps with age-restricted, members-only, and account-private videos."
-msgstr "Auttaa ikärajoitettujen, vain jäsenille tarkoitettujen ja tiliin sidottujen yksityisten videoiden kanssa."
+msgid "Helps with videos your own account can watch, like your private videos."
+msgstr "Auttaa videoissa, jotka oma tilisi voi katsoa, kuten yksityisissä videoissasi."
 
 msgctxt "wizard.url.downloadConnections.description"
 msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
@@ -4498,6 +4678,30 @@ msgstr "Latausyhteydet"
 msgctxt "wizard.url.downloadConnections.unit"
 msgid "connections"
 msgstr "yhteyttä"
+
+msgctxt "wizard.url.downloadList.album"
+msgid "Download album…"
+msgstr "Lataa albumi…"
+
+msgctxt "wizard.url.downloadList.liked"
+msgid "Download liked videos…"
+msgstr "Lataa tykätyt videot…"
+
+msgctxt "wizard.url.downloadList.mix"
+msgid "Download Mix…"
+msgstr "Lataa Mix…"
+
+msgctxt "wizard.url.downloadList.playlist"
+msgid "Download playlist…"
+msgstr "Lataa soittolista…"
+
+msgctxt "wizard.url.downloadList.uploads"
+msgid "Download uploads…"
+msgstr "Lataa kanavan videot…"
+
+msgctxt "wizard.url.downloadList.watchLater"
+msgid "Download Watch later…"
+msgstr "Lataa Katso myöhemmin…"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -4571,17 +4775,9 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "Toinen sovellus käyttää tätä pikanäppäintä – valitse toinen."
 
-msgctxt "wizard.url.hotkey.hintLabel"
-msgid "Or press"
-msgstr "Tai paina"
-
-msgctxt "wizard.url.hotkey.hintTooltip"
-msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
-msgstr "Kopioi videolinkki mistä tahansa, paina tätä pikanäppäintä, ja Arroxy lisää sen jonoon aktiivisella profiilillasi – ikkunaa ei tarvitse vaihtaa."
-
-msgctxt "wizard.url.hotkey.hintTooltipSettings"
-msgid "Change or turn it off in Settings."
-msgstr "Muuta tai poista käytöstä Asetuksissa."
+msgctxt "wizard.url.hotkey.globalLabel"
+msgid "Global shortcut"
+msgstr "Yleinen pikanäppäin"
 
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
@@ -4607,13 +4803,17 @@ msgctxt "wizard.url.hotkey.toggle"
 msgid "Enable global hotkey"
 msgstr "Ota yleinen pikanäppäin käyttöön"
 
-msgctxt "wizard.url.hotkey.toggleDescription"
-msgid "Press the shortcut with a video link on your clipboard."
-msgstr "Paina pikanäppäintä, kun leikepöydällä on videolinkki."
+msgctxt "wizard.url.hotkey.toggleDescriptionDetail"
+msgid "Copy a video link in any app and press the shortcut: Arroxy queues it with your active profile, without switching windows. A link to a video in a playlist downloads the video."
+msgstr "Kopioi videolinkki missä tahansa sovelluksessa ja paina pikanäppäintä: Arroxy lisää sen jonoon aktiivisella profiililla ilman ikkunan vaihtamista. Soittolistan videoon osoittava linkki lataa videon."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
 msgstr "Ohjattu lataus"
+
+msgctxt "wizard.url.interactiveDownloadAsks"
+msgid "Interactive Download…"
+msgstr "Ohjattu lataus…"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
@@ -4655,21 +4855,13 @@ msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Pudota linkki ja anna Arroxyn hoitaa loput ✨"
 
-msgctxt "wizard.url.mascotMixed"
-msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
-msgstr "Tämä linkki osoittaa yhteen videoon kokoelman sisällä. Arroxy kysyy, minkä haluat, ennen tietojen hakua."
-
-msgctxt "wizard.url.mascotPreparing"
-msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
-msgstr "{{quickDownload}} lukee tätä linkkiä ja käyttää profiilia {{profileName}}."
-
-msgctxt "wizard.url.mascotQueued"
-msgid "The queue is handling this download. You can paste another link while it works."
-msgstr "Jono käsittelee tätä latausta. Voit liittää toisen linkin sen ollessa käynnissä."
-
 msgctxt "wizard.url.mascotSingle"
 msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
 msgstr "Pikalataus aloittaa yhden latauksen profiililla {{profileName}}. Käytä Ohjattua kertaluonteisiin muutoksiin."
+
+msgctxt "wizard.url.mascotVideoInList"
+msgid "This link names a video and the list it’s in: download just the video, or the list."
+msgstr "Tämä linkki osoittaa videoon ja listaan, jossa se on: lataa vain video tai lista."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4991,6 +5183,10 @@ msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
 msgid "Using profile override + profile subfolder"
 msgstr "Käytössä profiilin ohitus + profiilin alikansio"
 
+msgctxt "wizard.url.profile.destinationEditHint"
+msgid "To change where it saves, edit the profile."
+msgstr "Voit muuttaa tallennuspaikkaa muokkaamalla profiilia."
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Kohde"
@@ -5083,6 +5279,10 @@ msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Palauta"
 
+msgctxt "wizard.url.profile.savesTo"
+msgid "Saves to"
+msgstr "Tallentaa kohteeseen"
+
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
 msgstr "Vaihda latausprofiilia: {{profileName}}"
@@ -5096,8 +5296,8 @@ msgid "Clear"
 msgstr "Tyhjennä"
 
 msgctxt "wizard.url.proxy.description"
-msgid "Route traffic through a proxy — useful for geo-restricted content."
-msgstr "Reititä liikenne välityspalvelimen kautta – hyödyllinen alueelle rajatulle sisällölle."
+msgid "Route traffic through a proxy server."
+msgstr "Ohjaa liikenne välityspalvelimen kautta."
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
@@ -5106,10 +5306,6 @@ msgstr "Välityspalvelimen URL"
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
-
-msgctxt "wizard.url.quickBulkAllFailed"
-msgid "None of those URLs could be prepared"
-msgstr "Mitään näistä URL-osoitteista ei voitu valmistella"
 
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
@@ -5122,16 +5318,6 @@ msgstr "Lataa profiililla: {{profileName}}"
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "Tätä ei voitu lisätä: {{error}}"
-
-#. Plural form "one" for fi: used for counts like 1.
-msgctxt "wizard.url.quickPartialFailed_one"
-msgid "Queued what worked. {{count}} URL could not be prepared."
-msgstr "Toimivat lisättiin jonoon. Yhtä URL-osoitetta ei voitu valmistella."
-
-#. Plural form "other" for fi: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.url.quickPartialFailed_other"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "Toimivat lisättiin jonoon. {{count}} URL-osoitetta ei voitu valmistella."
 
 msgctxt "wizard.url.quickPrepareFailed"
 msgid "Queue item could not be prepared"
@@ -5148,6 +5334,14 @@ msgstr "Tietojen haku epäonnistui"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "Aloita liittämällä video-, soittolista-, kanava- tai haku-URL."
+
+msgctxt "wizard.url.reports.toggle"
+msgid "Send anonymous heartbeat and setup reports"
+msgstr "Lähetä nimettömiä sykeraportteja ja asennusraportteja"
+
+msgctxt "wizard.url.reports.toggleDescription"
+msgid "No tracking. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. When Arroxy sets up or updates its download engine or media tools, it also reports whether that worked and roughly how long it took. No IDs, URLs, video titles or filenames."
+msgstr "Ei seurantaa. Kerran päivässä nimetön syke lähettää sovellusversion, asennuskanavan, käyttöjärjestelmän, kielen, maan ja suunnilleen sen, kuinka kauan sitten Arroxy asennettiin, jotta voimme laskea aktiiviset ja uudet käyttäjät. Kun Arroxy asentaa tai päivittää latausmoottorin tai mediatyökalut, se raportoi myös, onnistuiko se ja suunnilleen kuinka kauan se kesti. Ei tunnuksia, URL-osoitteita, videoiden nimiä eikä tiedostonimiä."
 
 msgctxt "wizard.url.settings.behaviorDescription"
 msgid "Global behavior that affects profile-driven downloads too."
@@ -5204,3 +5398,11 @@ msgstr "Profiilit"
 msgctxt "wizard.url.tabs.settings"
 msgid "Settings"
 msgstr "Asetukset"
+
+msgctxt "wizard.url.thisVideo"
+msgid "This video"
+msgstr "Tämä video"
+
+msgctxt "wizard.url.thisVideoTooltip"
+msgid "Downloads just this video with {{profileName}}"
+msgstr "Lataa vain tämän videon profiililla {{profileName}}"

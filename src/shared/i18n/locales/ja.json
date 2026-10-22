@@ -31,7 +31,6 @@
 		"cancel": "キャンセル",
 		"close": "閉じる",
 		"continue": "続行",
-		"dismiss": "閉じる",
 		"loading": "読み込み中…",
 		"retry": "再試行",
 		"startOver": "最初からやり直す"
@@ -45,11 +44,10 @@
 			"remember": "次回から表示しない"
 		},
 		"quitWithActiveDownloads": {
-			"confirm": "ダウンロードをキャンセルして終了",
-			"detail": "後で再開するには一時停止し、進行状況を破棄するにはキャンセルします。",
+			"continueDetail": "キューは保持され、次回 Arroxy を開いたときに、ダウンロードは中断した位置から再開されます。",
 			"keep": "ダウンロードを続ける",
 			"message_other": "ダウンロード{{count}}件を実行中",
-			"pause": "ダウンロードを一時停止して終了"
+			"quit": "終了"
 		},
 		"rendererCrashed": {
 			"detail": "レンダラープロセスがクラッシュしました ({{reason}})。再読み込みしてもう一度お試しください。",
@@ -72,12 +70,12 @@
 		"noSubtitlesIn": "この動画には、{{languages}}の字幕がありません。",
 		"ytdlp": {
 			"ageRestricted": "この動画は年齢制限があり、ログインアカウントなしではダウンロードできません。",
-			"botBlock": "ボット対策が発動しました。使用中のIPはデータセンター範囲またはVPN出口として検出されている可能性があります。IPを変更するか別のVPNエンドポイントを選択して再試行してください。それでも失敗する場合はサイト側の一時的な変更の可能性があります。Arroxyは起動時にダウンロードエンジンを自動更新するため、修正がリリースされれば自動的に適用されます。",
+			"botBlock": "サイトのボット対策により、このダウンロードが停止されました。しばらく待ってからもう一度お試しいただくか、一度にダウンロードする動画の数を減らしてください。それでも失敗する場合は、サイト側の一時的な変更の可能性があります。Arroxy は起動時にダウンロードエンジンを更新するため、修正がリリースされれば自動的に適用されます。",
 			"chunkTransferFailure": "サーバーがストリームの途中で接続を何度も切断し、Arroxyは再試行を繰り返した末に断念しました。最も大きなビデオフォーマット（4K HDR / 高ビットレート VP9）で起こりやすい問題です。再試行するか、ネットワークまたは VPN を切り替えるか、解像度の低いフォーマットを選択してください。",
 			"drmProtected": "この動画はDRM保護されています。ArroxyはDRMを解除できないため、ファイルをダウンロードできません。",
 			"formatUnavailable": "この動画では、選択したフォーマットが利用できなくなりました。リンクをもう一度貼り付けて、現在利用できるフォーマットから選択してください。",
 			"geoBlocked": "この動画はあなたの地域では視聴できません。",
-			"ipBlock": "IPアドレスがYouTubeにブロックされているようです。あとで試すか、VPNを使用してください。",
+			"ipBlock": "サイトがこの接続からのリクエストをブロックしています。しばらくしてからもう一度お試しください。",
 			"loginRequired": "この動画にはサインイン済みのアカウントが必要です。",
 			"missingDependency": "ArroxyがFFmpegまたはFFprobeを見つけられませんでした。セットアップをもう一度実行するか、FFmpegの場所を指定してから、ダウンロードをやり直してください。",
 			"network": "ネットワークエラーです。接続を確認して再試行してください。",
@@ -106,8 +104,28 @@
 			"title": "リンクを右クリックしてダウンロード"
 		},
 		"linkMenu": {
+			"background": {
+				"album": "アルバムをバックグラウンドでダウンロード",
+				"liked": "高く評価した動画をバックグラウンドでダウンロード",
+				"mix": "ミックスをバックグラウンドでダウンロード",
+				"playlist": "プレイリストをバックグラウンドでダウンロード",
+				"uploads": "アップロード動画をバックグラウンドでダウンロード",
+				"watchLater": "「後で見る」をバックグラウンドでダウンロード"
+			},
 			"copyLink": "リンクをコピー",
-			"downloadWith": "プロフィールでダウンロード"
+			"downloadFirst": "最初の{{count}}件をダウンロード",
+			"downloadThisVideo": "この動画をダウンロード · {{profileName}}",
+			"downloadWith": "プロフィールでダウンロード",
+			"fromList": {
+				"album": "このアルバムから",
+				"liked": "高く評価した動画から",
+				"mix": "このミックスから",
+				"playlist": "このプレイリストから",
+				"uploads": "このチャンネルのアップロード動画から",
+				"watchLater": "「後で見る」から"
+			},
+			"interactive": "インタラクティブダウンロード…",
+			"thisVideoWith": "この動画を次のプロフィールで"
 		},
 		"newBadge": "新着",
 		"notice": {
@@ -154,6 +172,7 @@
 			"aria": "現在のページ",
 			"back": "戻る",
 			"compactLayout": "コンパクト表示",
+			"download": "ダウンロード",
 			"downloadWithProfile": "ダウンロード · {{profileName}}",
 			"forward": "進む",
 			"fullLayout": "通常の表示に戻す",
@@ -163,6 +182,8 @@
 			"refusedHint": "「探索」ではそのアドレスを開けません。",
 			"reload": "再読み込み",
 			"searchTooLong": "検索語が長すぎます。",
+			"thisVideo": "この動画だけ",
+			"thisVideoHint": "この動画だけを {{profileName}} でダウンロード",
 			"zoom": {
 				"hint": "ページのズーム: {{percent}}%",
 				"in": "拡大",
@@ -204,9 +225,9 @@
 			"too-long": "テンプレートが長すぎます。",
 			"unknown-token": "不明なトークン {{token}} です。"
 		},
-		"idWarning": "{id} がないと、Arroxy はダウンロード済みのプレイリスト項目を検出できず、.m3u プレイリストも作成できません。",
+		"idEndingWarning": "名前の末尾を [{id}] にすると、Arroxy がダウンロード済みのプレイリスト項目を検出し、.m3u プレイリストを作成できます。",
 		"label": "ファイル名テンプレート",
-		"m3uDisabled": "ファイル名テンプレートに {id} が含まれていないか、ダウンロードをフォルダーに振り分けているため使えません。",
+		"m3uDisabledIdEnding": "ファイル名テンプレートが [{id}] で終わっていないか、ダウンロードをフォルダーに振り分けているため使えません。",
 		"previewPlaylist": "プレイリスト内",
 		"previewSingle": "単体の動画",
 		"profileOverrideDescription": "空欄のままにすると全体のテンプレートを引き継ぎます。",
@@ -249,11 +270,14 @@
 		"quickDownload": {
 			"added": "追加しました: {{title}}",
 			"alreadyQueued": "すでにキューにあります",
+			"batchAdded_other": "{{count}} 件のリンクをダウンロードに追加しました",
+			"batchAlreadyQueued_other": "{{count}} 件はすでにキューにあります",
+			"batchNoneAdded_other": "{{count}} 件のリンクを追加できませんでした",
+			"batchNotAdded_other": "{{count}} 件を追加できませんでした",
+			"chooseFromList_other": "このリストに動画が {{count}} 本 — ダウンロードするものを選択してください",
 			"chooseHowMany_other": "動画が {{count}} 本以上 — 本数を選択",
 			"failed": "{{title}} を準備できませんでした",
 			"notAdded": "リンクを追加できませんでした — もう一度お試しください",
-			"reviewCapped_other": "このリストに動画が {{count}} 本以上 — 確認して選択",
-			"review_other": "このリストに動画が {{count}} 本 — 確認して選択",
 			"view": "表示"
 		},
 		"settingsSaveFailed": "設定を保存できませんでした。",
@@ -339,8 +363,26 @@
 			"all": "すべての動画",
 			"cappedBody_other": "このプレイリストには動画が {{count}} 本を超えています。すべてダウンロードするか、最初の {{count}} 本だけにするか、確認して選べます。",
 			"first": "最初の {{count}} 本",
+			"list": {
+				"album": "アルバム",
+				"liked": "高く評価した動画",
+				"mix": "ミックス",
+				"playlist": "プレイリスト",
+				"uploads": "アップロード動画すべて",
+				"watchLater": "「後で見る」"
+			},
+			"pick": "その中から選ぶ…",
 			"review": "確認",
-			"reviewBody_other": "このリンクは動画 {{count}} 本のリストです。確認して、ダウンロードするものを選べます。"
+			"uncappedBody_other": "このリンクは動画 {{count}} 本のリストです。すべてダウンロードするか、確認して選べます。",
+			"video": "この動画",
+			"videoOrList": {
+				"album": "このリンクはアルバム内の動画です。動画だけをダウンロードしますか？ それともアルバムをダウンロードしますか？",
+				"liked": "このリンクは高く評価した動画に含まれる動画です。動画だけをダウンロードしますか？ それとも高く評価した動画すべてをダウンロードしますか？",
+				"mix": "このリンクはミックス内の動画です。動画だけをダウンロードしますか？ それともミックスをダウンロードしますか？",
+				"playlist": "このリンクはプレイリスト内の動画です。動画だけをダウンロードしますか？ それともプレイリストをダウンロードしますか？",
+				"uploads": "このリンクはチャンネルのアップロード動画に含まれる動画です。動画だけをダウンロードしますか？ それともアップロード動画すべてをダウンロードしますか？",
+				"watchLater": "このリンクは「後で見る」リスト内の動画です。動画だけをダウンロードしますか？ それともリスト全体をダウンロードしますか？"
+			}
 		},
 		"clearTitle": "完了したダウンロードをクリア",
 		"empty": "キューに入れたダウンロードがここに表示されます",
@@ -374,7 +416,29 @@
 			"statusPending": "待機中",
 			"statusProbing": "詳細を取得中",
 			"statusRunning": "ダウンロード中",
-			"subtitleLanguagesMissing": "{{languages}}の字幕がありません"
+			"subtitleLanguagesMissing": "{{languages}}の字幕がありません",
+			"waitingForSite": "{{site}} のため {{time}} まで待機",
+			"waitingHint": "{{site}} がこの接続のリクエストを制限しています。制限が解除されるよう、Arroxy は {{time}} 以降にこのリンクの詳細を取得します。"
+		},
+		"listOffer": {
+			"dismiss": "閉じる",
+			"from": {
+				"album": "アルバムから",
+				"liked": "高く評価した動画から",
+				"mix": "ミックスから",
+				"playlist": "プレイリストから",
+				"uploads": "チャンネルのアップロード動画から",
+				"watchLater": "「後で見る」から"
+			},
+			"get": {
+				"album": "アルバム全体を取得",
+				"liked": "高く評価した動画をすべて取得",
+				"mix": "ミックス全体を取得",
+				"playlist": "プレイリスト全体を取得",
+				"uploads": "アップロード動画をすべて取得",
+				"watchLater": "「後で見る」をすべて取得"
+			},
+			"hint": "リストを独立した行として追加します。この動画は含まれません。"
 		},
 		"pauseAllTitle": "すべてのアクティブなダウンロードを一時停止",
 		"pausedBanner": "キューは一時停止中です — 待機中の項目は再開するまで開始されません",
@@ -607,25 +671,18 @@
 		"cancel": "うまくいきませんか？手動で設定する",
 		"greeting": "やあ、おかえり!",
 		"setup": {
-			"bytes": "{{done}} / {{total}}",
 			"left": {
 				"minutes_other": "残り約 {{count}} 分",
 				"underMinute": "残り1分未満"
 			},
-			"note": {
-				"engine": "サイトが変わってもダウンロードが動き続けるようにします。",
-				"firstRun": "これは初回だけです。Arroxy がこれらのツールを保持し、自動で更新します。",
-				"media": "これは初回だけです。Arroxy が今後のアップデートのために保持します。"
-			},
 			"stage": {
 				"checking": "すべて動作するか確認中",
 				"connecting": "接続中…",
-				"downloadingBoth": "ダウンロードエンジンとメディアツールをダウンロード中",
-				"downloadingEngine": "ダウンロードエンジンをダウンロード中",
-				"downloadingMedia": "メディアツールをダウンロード中",
-				"unpacking": "メディアツールを展開中"
+				"unpacking": "メディアツールを展開中",
+				"unpackingEngine": "ダウンロードエンジンを展開中"
 			},
 			"title": {
+				"both": "Arroxy のツールを更新中",
 				"engine": "ダウンロードエンジンを更新中",
 				"firstRun": "初回セットアップ",
 				"media": "メディアツールを更新中"
@@ -651,14 +708,14 @@
 		"fetchingSponsorBlock": "SponsorBlock に接続中…",
 		"fetchingSubtitles": "字幕を取得中…",
 		"mergingFormats": "音声とビデオを結合中…",
-		"mintingToken": "YouTubeトークンを生成中…",
+		"mintingToken": "YouTube のダウンロードを準備中…",
 		"movingFiles": "ファイルを移動中…",
 		"noSubtitles": "{{languages}}の字幕がありません",
 		"outputNotWritable": "{{dir}} に保存できません — Arroxy にはそこへの書き込みが許可されていません",
 		"preparingBinaries": "バイナリを準備中…",
-		"qualityLimited": "{{height}}pで保存しました — YouTubeがこのダウンロードで高画質を提供しませんでした。時間をおくか、別のネットワークから再試行すると改善する場合があります。",
-		"qualityLimitedSubtitlesFailed": "{{height}}pで保存しました — YouTubeがこのダウンロードで高画質を提供せず、一部の字幕もダウンロードできませんでした。時間をおくか、別のネットワークから再試行すると改善する場合があります。",
-		"remintingToken": "トークンを再生成中…",
+		"qualityLimited": "{{height}}pで保存しました — YouTubeがこのダウンロードで高画質を提供しませんでした。時間をおいて再試行すると改善する場合があります。",
+		"qualityLimitedSubtitlesFailed": "{{height}}pで保存しました — YouTubeがこのダウンロードで高画質を提供せず、一部の字幕もダウンロードできませんでした。時間をおいて再試行すると改善する場合があります。",
+		"remintingToken": "YouTube のダウンロードを再度準備中…",
 		"retryingSponsorBlock": "SponsorBlock が利用できません、再試行中 ({{attempt}}/{{total}})…",
 		"retryingTransfer": "接続が停滞、再試行中 ({{attempt}}/{{total}})…",
 		"signingInWithExplore": "「探索」のアカウントでログインしています…",
@@ -779,7 +836,7 @@
 			"pictures": "ピクチャ",
 			"subfolder": {
 				"invalid": "フォルダ名に無効な文字が含まれています",
-				"placeholder": "例: lo-fi rips",
+				"placeholder": "例: 講義",
 				"toggle": "サブフォルダーに保存"
 			},
 			"videos": "ムービー"
@@ -874,7 +931,11 @@
 				"noVideo": "このリンクには映像がないため、音声を選択しました。",
 				"subtitlesMissing": "プロフィールでは {{languages}} の字幕が指定されていますが、この動画にはありません。",
 				"tierAbove": "プロフィールでは {{wanted}}p が指定されていますが、この動画にはそれより小さいものがないため、{{picked}}p を選択しました。",
-				"tierBelow": "プロフィールでは {{wanted}}p が指定されていますが、この動画は最大 {{picked}}p のため、{{picked}}p を選択しました。",
+				"tierAbovePassedOver": "プロフィールでは {{wanted}}p が指定されていますが、この動画にあるそれより小さいストリームはプロフィールのほかの設定に合わないため、{{picked}}p を選択しました。",
+				"tierBelowTakeable": "プロフィールでは {{wanted}}p が指定されていますが、この動画には使用できる {{wanted}}p がないため、{{picked}}p を選択しました。",
+				"tierPassedOverAiUpscaled": "プロフィールでは {{wanted}}p が指定されていますが、この動画の {{wanted}}p は AI でアップスケールされたものなので、元の {{picked}}p を選択しました。",
+				"tierPassedOverH264": "プロフィールでは H.264 の {{wanted}}p が指定されていますが、この動画の {{wanted}}p はほかのコーデックのみのため、H.264 の {{picked}}p を選択しました。",
+				"tierPassedOverProfile": "プロフィールでは {{wanted}}p が指定されていますが、この動画の {{wanted}}p はプロフィールのほかの設定に合わないため、{{picked}}p を選択しました。",
 				"webmUnavailable": "プロフィールは WebM を指定しています。この動画で選ばれたストリームには WebM に格納できない {{codec}} が含まれるため、ファイル形式は自動になります。"
 			},
 			"footer": {
@@ -951,29 +1012,26 @@
 			"withAudio": "音声付き"
 		},
 		"listPrompt": {
-			"escHint": "Esc でキャンセルします。選ぶまで何も読み込まれません。",
-			"interactiveSubtitle": "形式を自分で選びます",
-			"justThisVideo": "この動画だけ",
-			"justThisVideoInteractiveHint": "形式の選択画面を開きます",
-			"justThisVideoQuickHint": "動画を 1 本読み込みます",
-			"listInteractiveHint": "最大 {{count}} 件を読み込んで選びます",
-			"listOption": {
-				"album": "アルバムの先頭",
-				"liked": "高く評価した動画の先頭",
-				"mix": "ミックスの先頭",
-				"playlist": "プレイリストの先頭",
-				"uploads": "アップロード動画の先頭",
-				"watchLater": "「後で見る」の先頭"
-			},
-			"listQuickHint": "最大 {{count}} 件を読み込んで、ダウンロードします",
+			"backgroundHint": "{{profileName}} を使用します。動画が {{count}} 本を超える場合は、ダウンロードで本数を確認します。",
+			"backgroundLabel": "バックグラウンドでダウンロード",
+			"escOnly": "Esc でキャンセルします。",
+			"firstHint": "先頭の {{count}} 本だけを {{profileName}} で。",
+			"firstLabel": "先頭からダウンロード：",
+			"interactiveHint": "先頭の {{count}} 本から選び（本数は次のステップで変更できます）、そのあとダウンロードを設定します。",
+			"interactiveLabel": "インタラクティブダウンロード…",
+			"limitHint": "リストから取得する動画の本数です。1つ目の選択肢はこの本数を超えると確認し、2つ目はちょうどこの本数を取得します。設定の「スキャンするプレイリストの項目数」と同じです。",
+			"limitLabel": "上限",
 			"mixNote": "ミックスは開くたびに内容が変わります。",
-			"pickOption": {
-				"album": "アルバムの先頭から選ぶ",
-				"liked": "高く評価した動画の先頭から選ぶ",
-				"mix": "ミックスの先頭から選ぶ",
-				"playlist": "プレイリストの先頭から選ぶ",
-				"uploads": "アップロード動画の先頭から選ぶ",
-				"watchLater": "「後で見る」の先頭から選ぶ"
+			"pickLoadAfter": "本の動画から選びます。",
+			"pickLoadBefore": "最初の",
+			"pickLoadNote": "次のステップで変更できます。",
+			"pickTitle": {
+				"album": "このアルバムから選ぶ",
+				"liked": "高く評価した動画から選ぶ",
+				"mix": "このミックスから選ぶ",
+				"playlist": "このプレイリストから選ぶ",
+				"uploads": "このチャンネルのアップロード動画から選ぶ",
+				"watchLater": "「後で見る」から選ぶ"
 			},
 			"title": {
 				"album": "このアルバムからダウンロード",
@@ -983,6 +1041,9 @@
 				"uploads": "このチャンネルのアップロード動画からダウンロード",
 				"watchLater": "「後で見る」からダウンロード"
 			},
+			"videoHint": "開いた動画だけを {{profileName}} で。リストは読み込みません。",
+			"videoLabel": "この動画だけ",
+			"videoPickHint": "開いた動画だけを設定します。リストは読み込みません。",
 			"withProfile": "{{profileName}} を使用"
 		},
 		"output": {
@@ -1054,6 +1115,8 @@
 			"allRemovedDescription": "続行するには復元してください。",
 			"allRemovedTitle": "すべてのアイテムが削除されました",
 			"alreadyDownloaded": "ダウンロード済み",
+			"bulkCappedDesc_other": "これらにはまだ動画があります。本数を選ぶには、リンクを 1 件ずつ貼り付けてください。",
+			"bulkCappedTitle_other": "{{count}} 件のリストは各 {{limit}} 本で打ち切られます",
 			"bulkHeading": "一括 URL",
 			"bulkMetadataOptional": "待つ必要はありません — 今キューに追加したファイルも、ダウンロード時には正式な名前になります。",
 			"bulkMetadataResolving": "動画の詳細を取得中… {{done}}/{{total}}",
@@ -1103,13 +1166,6 @@
 			"syncNoneTitle": "まだダウンロードされていません",
 			"syncScanning": "フォルダーを確認中…",
 			"thumbnailAlt": "動画サムネイル"
-		},
-		"playlistCap": {
-			"changeLimit": "読み込み上限を変更",
-			"descriptionWithTitle_other": "<title/>: 現在の上限 {{limit}} 件で、Arroxy は {{count}} 件を読み込みました。読み込んだ項目を今すぐキューに追加するか、上限を引き上げて再度スキャンしてください。",
-			"description_other": "現在の上限 {{limit}} 件で、Arroxy は {{count}} 件を読み込みました。読み込んだ項目を今すぐキューに追加するか、上限を引き上げて再度スキャンしてください。",
-			"queueLoaded": "読み込んだ項目をキューに追加",
-			"title": "プレイリストのスキャンが上限に達しました"
 		},
 		"playlistPresets": {
 			"heading": "バッチの画質を選択",
@@ -1289,18 +1345,6 @@
 		"profileSwitchRow": {
 			"helpAria": "{{label}}のヘルプ"
 		},
-		"quickProgress": {
-			"cancel": "準備をキャンセル",
-			"currentFallback": "現在のリンク",
-			"description": "Arroxy がリンクを読み取り、{{profileName}} を適用しています。",
-			"failedCount_other": "{{count}} 件失敗",
-			"phase": {
-				"probing": "詳細を取得中",
-				"queueing": "キューに追加中"
-			},
-			"title": "クイックダウンロードを準備中",
-			"waitHint": "Arroxy がキューを準備している間、この画面を開いたままにしてください。"
-		},
 		"review": {
 			"areas": {
 				"extras": "追加項目",
@@ -1410,6 +1454,7 @@
 				"embed": "動画に埋め込む",
 				"heading": "保存方法",
 				"sidecar": "動画と同じ場所",
+				"sidecarNoVideo": "ダウンロードフォルダー内",
 				"subfolder": "subtitles/ サブフォルダー"
 			},
 			"searchPlaceholder": "言語を検索…",
@@ -1419,10 +1464,6 @@
 		"tabsNavAria": "ダウンロードプロフィールナビゲーション",
 		"url": {
 			"advanced": "詳細設定",
-			"analytics": {
-				"toggle": "毎日のハートビートを送信",
-				"toggleDescription": "テレメトリはありません。1日1回、匿名のハートビートでアプリのバージョン、インストール方法、OS、言語、国、Arroxyをインストールしてからのおおよその期間を送信し、アクティブユーザーと新規ユーザーの数を数えます。ID、URL、動画タイトル、ファイル名は含まれません。"
-			},
 			"autoRemoveCompleted": {
 				"description": "ダウンロードが完了して数秒後に、「ダウンロード」の一覧から外します。ファイルはフォルダーに残ります。失敗または取り消されたダウンロードは一覧に残ります。",
 				"label": "完了したダウンロードを自動で削除"
@@ -1457,6 +1498,11 @@
 				"label": "同時ダウンロード数",
 				"unit": "件"
 			},
+			"concurrentProbes": {
+				"description": "ダウンロード前に、Arroxy が同時に詳細を取得するリンクの数です。少ないほど、混み合った接続をブロックするサイトに優しくなります。インタラクティブダウンロードで開いたリンクは、常に最優先で処理されます。",
+				"label": "同時に確認するリンク数",
+				"unit": "件"
+			},
 			"cookies": {
 				"banWarning": "注意: YouTubeなどのサイトでは、ArroxyのようなダウンロードツールがCookieを使ったアカウントにフラグが立てられたり、稀にBANされることがあります。可能なら使い捨てアカウントを使ってください。",
 				"browserHelp": "ブラウザから直接Cookieを読み込みます。Chromiumベースのブラウザはブラウザを閉じた状態で使用してください。",
@@ -1481,12 +1527,20 @@
 				"sourceFile": "ファイル",
 				"sourceLabel": "Cookieのソース",
 				"sourceOff": "オフ",
-				"toggleDescription": "年齢制限・メンバー限定・アカウント非公開の動画で役立ちます。"
+				"toggleDescription": "非公開動画など、ご自分のアカウントで視聴できる動画で役立ちます。"
 			},
 			"downloadConnections": {
 				"description": "動画の複数の部分を同時に取得して、大きなダウンロードを高速化します。値を大きくすると、サイトから制限される可能性が高まります。",
 				"label": "ダウンロード接続数",
 				"unit": "接続"
+			},
+			"downloadList": {
+				"album": "アルバムをダウンロード…",
+				"liked": "高く評価した動画をダウンロード…",
+				"mix": "ミックスをダウンロード…",
+				"playlist": "プレイリストをダウンロード…",
+				"uploads": "アップロード動画をダウンロード…",
+				"watchLater": "「後で見る」をダウンロード…"
 			},
 			"features": {
 				"always": {
@@ -1515,18 +1569,17 @@
 			"hotkey": {
 				"changeShortcut": "ショートカットを変更",
 				"conflict": "このショートカットは別のアプリで使用中です — 別のものを選んでください。",
-				"hintLabel": "または押す",
-				"hintTooltip": "どこででも動画リンクをコピーしてこのショートカットを押すと、Arroxyがアクティブなプロフィールでキューに追加します — ウィンドウを切り替える必要はありません。",
-				"hintTooltipSettings": "設定で変更または無効にできます。",
+				"globalLabel": "グローバルショートカット",
 				"recording": "キーを押してください…",
 				"reset": "デフォルトにリセット",
 				"sectionDescription": "コピーしたリンクを、Arroxy を開かずにどのアプリからでもダウンロードします。",
 				"sectionTitle": "グローバルホットキー",
 				"test": "テスト",
 				"toggle": "グローバルホットキーを有効にする",
-				"toggleDescription": "クリップボードに動画リンクがある状態でショートカットを押してください。"
+				"toggleDescriptionDetail": "どのアプリでも動画リンクをコピーしてこのショートカットを押すと、ウィンドウを切り替えずに、Arroxy が現在のプロフィールでキューに追加します。プレイリスト内の動画へのリンクは、その動画だけをダウンロードします。"
 			},
 			"interactiveDownload": "インタラクティブダウンロード",
+			"interactiveDownloadAsks": "インタラクティブダウンロード…",
 			"limitRate": {
 				"activeWarning": "進行中のダウンロードは現在の制限を保持します。適用するには一時停止して再開してください。",
 				"custom": "カスタム…",
@@ -1539,10 +1592,8 @@
 			"mascotBusy": "バックグラウンドでダウンロード中… マルチタスクは得意なんだ 😎",
 			"mascotCollection": "クイックダウンロードは読み込んだ項目を{{profileName}}でキューに追加します。インタラクティブダウンロードなら、先に項目を確認・選択できます。",
 			"mascotIdle": "リンクを入れて、あとは Arroxy に引っぱってもらおう ✨",
-			"mascotMixed": "このリンクはコレクション内の1本の動画を指しています。解析する前に、どの動画にするか Arroxy が確認します。",
-			"mascotPreparing": "{{quickDownload}}がこのリンクを読み込み、{{profileName}}を適用しています。",
-			"mascotQueued": "キューがこのダウンロードを処理しています。処理中でも別のリンクを貼り付けられます。",
 			"mascotSingle": "クイックダウンロードは{{profileName}}で1件のダウンロードを開始します。その場限りの変更にはインタラクティブダウンロードを使ってください。",
+			"mascotVideoInList": "このリンクは動画と、それが含まれるリストを指しています。動画だけをダウンロードするか、リストをダウンロードするか選んでください。",
 			"nativeAudioPreference": {
 				"compatible": "互換性重視のステレオ",
 				"description": "プロフィールがネイティブ音声を選ぶときのステレオまたはサラウンドです。プロフィールごとに上書きできます。",
@@ -1646,6 +1697,7 @@
 					"override": "プロフィール個別設定を使用",
 					"overrideSubfolder": "プロフィール個別設定 + プロフィールのサブフォルダーを使用"
 				},
+				"destinationEditHint": "保存先を変更するには、プロフィールを編集してください。",
 				"destinationFallback": "保存先",
 				"edit": "編集",
 				"editActive": "アクティブなプロフィールを編集",
@@ -1669,24 +1721,27 @@
 				"remove": "削除",
 				"reorderHint": "プロフィールをドラッグして移動します。すべてのピッカーがこの順序に従います。",
 				"reset": "リセット",
+				"savesTo": "保存先",
 				"switchAria": "ダウンロードプロフィールを切り替え: {{profileName}}",
 				"switchTitle": "ダウンロードプロフィールを切り替え"
 			},
 			"proxy": {
 				"clear": "クリア",
-				"description": "プロキシ経由でトラフィックを転送 — 地域制限コンテンツに有効。",
+				"description": "プロキシサーバー経由でトラフィックを転送します。",
 				"label": "プロキシ URL",
 				"placeholder": "http://host:port"
 			},
-			"quickBulkAllFailed": "これらの URL はどれも準備できませんでした",
 			"quickDownload": "クイックダウンロード",
 			"quickDownloadTooltip": "{{profileName}} を使用してダウンロードします",
 			"quickFailed": "追加できませんでした: {{error}}",
-			"quickPartialFailed_other": "成功したものをキューに追加しました。{{count}} 件の URL は準備できませんでした。",
 			"quickPrepareFailed": "キュー項目を準備できませんでした",
 			"quickPreparing": "準備中",
 			"quickProbeFailed": "解析に失敗しました",
 			"quickSingleOnly": "開始するには、動画、プレイリスト、チャンネル、検索の URL を貼り付けてください。",
+			"reports": {
+				"toggle": "匿名のハートビートとセットアップレポートを送信",
+				"toggleDescription": "トラッキングはありません。1日1回、匿名のハートビートでアプリのバージョン、インストール方法、OS、言語、国、Arroxyをインストールしてからのおおよその期間を送信し、アクティブユーザーと新規ユーザーの数を数えます。Arroxy がダウンロードエンジンやメディアツールをセットアップまたは更新したときは、成功したかどうかとおおよその所要時間も報告します。ID、URL、動画タイトル、ファイル名は含まれません。"
+			},
 			"settings": {
 				"behaviorDescription": "プロフィールによるダウンロードにも影響する全体の動作です。",
 				"behaviorHeading": "ダウンロードの動作",
@@ -1710,7 +1765,9 @@
 			"tabs": {
 				"profiles": "プロフィール",
 				"settings": "設定"
-			}
+			},
+			"thisVideo": "この動画だけ",
+			"thisVideoTooltip": "この動画だけを {{profileName}} でダウンロードします"
 		}
 	}
 }

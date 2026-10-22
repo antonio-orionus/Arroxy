@@ -31,7 +31,6 @@
 		"cancel": "Atšaukti",
 		"close": "Uždaryti",
 		"continue": "Tęsti",
-		"dismiss": "Atmesti",
 		"loading": "Įkeliama",
 		"retry": "Bandyti dar kartą",
 		"startOver": "Pradėti iš naujo"
@@ -45,14 +44,13 @@
 			"remember": "Daugiau neklausti"
 		},
 		"quitWithActiveDownloads": {
-			"confirm": "Atšaukti atsisiuntimus ir išeiti",
-			"detail": "Pristabdykite, kad galėtumėte tęsti vėliau, arba atšaukite, kad atmestumėte eigą.",
+			"continueDetail": "Jūsų eilė išsaugoma, o atsisiuntimai bus tęsiami nuo tos vietos, kur sustojo, kitą kartą atidarius Arroxy.",
 			"keep": "Tęsti atsisiuntimą",
 			"message_few": "Vykdomi {{count}} atsisiuntimai",
 			"message_many": "Vykdoma {{count}} atsisiuntimo",
 			"message_one": "Vykdomas {{count}} atsisiuntimas",
 			"message_other": "Vykdoma {{count}} atsisiuntimų",
-			"pause": "Pristabdyti atsisiuntimus ir išeiti"
+			"quit": "Išeiti"
 		},
 		"rendererCrashed": {
 			"detail": "Atvaizdavimo procesas sugedo ({{reason}}). Įkelkite iš naujo ir bandykite dar kartą.",
@@ -75,12 +73,12 @@
 		"noSubtitlesIn": "Šiame vaizdo įraše nėra subtitrų šiomis kalbomis: {{languages}}.",
 		"ytdlp": {
 			"ageRestricted": "Šis vaizdo įrašas turi amžiaus apribojimą, todėl jo negalima atsisiųsti be prisijungusios paskyros.",
-			"botBlock": "Suveikė apsauga nuo robotų. Greičiausiai jūsų naudojamas IP pažymėtas (duomenų centro diapazonas arba apkrautas VPN išėjimo taškas). Pakeiskite IP arba pasirinkite kitą VPN prieigos tašką ir bandykite dar kartą. Jei nepavyksta, tai gali būti laikinas svetainės pakeitimas – Arroxy atnaujina atsisiuntimo variklį paleidžiant, todėl pataisa pasirodys automatiškai, kai tik bus išleista.",
+			"botBlock": "Svetainės apsauga nuo robotų sustabdė šį atsisiuntimą. Šiek tiek palaukite ir bandykite dar kartą arba atsisiųskite vienu metu mažiau vaizdo įrašų. Jei vis tiek nepavyksta, tai gali būti laikinas svetainės pusės pakeitimas – Arroxy atnaujina atsisiuntimo variklį paleidžiant, todėl pataisa atsiras automatiškai, vos tik bus išleista.",
 			"chunkTransferFailure": "Serveris nuolat nutraukdavo atsisiuntimą pusiaukelėje, o Arroxy pasidavė po pakartotinių bandymų. Dažniausiai taip nutinka su didžiausiais vaizdo formatais (4K HDR / didelės bitų spartos VP9). Bandykite dar kartą, pakeiskite tinklą ar VPN arba pasirinkite mažesnės skiriamosios gebos formatą.",
 			"drmProtected": "Šis vaizdo įrašas apsaugotas DRM. Arroxy negali pašalinti DRM, todėl failo atsisiųsti neįmanoma.",
 			"formatUnavailable": "Šis vaizdo įrašas nebeturi jūsų pasirinkto formato. Dar kartą įklijuokite nuorodą ir pasirinkite iš formatų, kurie siūlomi dabar.",
 			"geoBlocked": "Šis vaizdo įrašas jūsų regione nepasiekiamas.",
-			"ipBlock": "Atrodo, jūsų IP adresas užblokuotas. Bandykite vėliau arba naudokite VPN.",
+			"ipBlock": "Svetainė blokuoja šio ryšio užklausas. Bandykite dar kartą vėliau.",
 			"loginRequired": "Šiam vaizdo įrašui reikia prisijungusios paskyros.",
 			"missingDependency": "Arroxy nepavyko rasti FFmpeg arba FFprobe. Paleiskite sąranką dar kartą arba nurodykite FFmpeg vietą, tada bandykite atsisiųsti iš naujo.",
 			"network": "Tinklo klaida. Patikrinkite ryšį ir bandykite dar kartą.",
@@ -109,8 +107,28 @@
 			"title": "Spustelėkite nuorodą dešiniuoju mygtuku, kad ją atsisiųstumėte"
 		},
 		"linkMenu": {
+			"background": {
+				"album": "Atsisiųsti albumą fone",
+				"liked": "Atsisiųsti patikusius vaizdo įrašus fone",
+				"mix": "Atsisiųsti Mix fone",
+				"playlist": "Atsisiųsti grojaraštį fone",
+				"uploads": "Atsisiųsti įkėlimus fone",
+				"watchLater": "Atsisiųsti „Žiūrėti vėliau“ fone"
+			},
 			"copyLink": "Kopijuoti nuorodą",
-			"downloadWith": "Atsisiųsti naudojant"
+			"downloadFirst": "Atsisiųsti pirmuosius {{count}}",
+			"downloadThisVideo": "Atsisiųsti šį vaizdo įrašą · {{profileName}}",
+			"downloadWith": "Atsisiųsti naudojant",
+			"fromList": {
+				"album": "Iš šio albumo",
+				"liked": "Iš patikusių vaizdo įrašų",
+				"mix": "Iš šio Mix",
+				"playlist": "Iš šio grojaraščio",
+				"uploads": "Iš šio kanalo įkėlimų",
+				"watchLater": "Iš „Žiūrėti vėliau“"
+			},
+			"interactive": "Interaktyvus atsisiuntimas…",
+			"thisVideoWith": "Šis vaizdo įrašas su"
 		},
 		"newBadge": "Nauja",
 		"notice": {
@@ -157,6 +175,7 @@
 			"aria": "Naršymo valdikliai",
 			"back": "Atgal",
 			"compactLayout": "Kompaktiškas išdėstymas",
+			"download": "Atsisiųsti",
 			"downloadWithProfile": "Atsisiųsti · {{profileName}}",
 			"forward": "Pirmyn",
 			"fullLayout": "Rodyti visą išdėstymą",
@@ -166,6 +185,8 @@
 			"refusedHint": "Naršymas negali atverti to adreso.",
 			"reload": "Įkelti iš naujo",
 			"searchTooLong": "Ši paieška per ilga.",
+			"thisVideo": "Šis vaizdo įrašas",
+			"thisVideoHint": "Atsisiųsti tik šį vaizdo įrašą su {{profileName}}",
 			"zoom": {
 				"hint": "Puslapio mastelis: {{percent}} %",
 				"in": "Padidinti",
@@ -207,9 +228,9 @@
 			"too-long": "Šablonas per ilgas.",
 			"unknown-token": "Nežinoma žymė {{token}}."
 		},
-		"idWarning": "Be {id} Arroxy negali aptikti jau atsisiųstų grojaraščio elementų ar kurti .m3u grojaraščių.",
+		"idEndingWarning": "Pabaigoje pridėkite [{id}], kad Arroxy galėtų aptikti jau atsisiųstus grojaraščio elementus ir kurti .m3u grojaraščius.",
 		"label": "Failo pavadinimo šablonas",
-		"m3uDisabled": "Nepasiekiama, nes jūsų failo pavadinimo šablone nėra {id} arba atsisiuntimai rikiuojami į aplankus.",
+		"m3uDisabledIdEnding": "Nepasiekiama, nes jūsų failo pavadinimo šablonas arba nesibaigia [{id}], arba rūšiuoja atsisiuntimus į aplankus.",
 		"previewPlaylist": "Grojaraštyje",
 		"previewSingle": "Vienas vaizdo įrašas",
 		"profileOverrideDescription": "Palikite tuščią, kad būtų paveldėtas bendrasis šablonas.",
@@ -258,20 +279,32 @@
 		"quickDownload": {
 			"added": "Pridėta: {{title}}",
 			"alreadyQueued": "Jau eilėje",
+			"batchAdded_few": "Į Atsisiuntimus įtrauktos {{count}} nuorodos",
+			"batchAdded_many": "Į Atsisiuntimus įtraukta {{count}} nuorodos",
+			"batchAdded_one": "Į Atsisiuntimus įtraukta {{count}} nuoroda",
+			"batchAdded_other": "Į Atsisiuntimus įtraukta {{count}} nuorodų",
+			"batchAlreadyQueued_few": "{{count}} jau eilėje",
+			"batchAlreadyQueued_many": "{{count}} jau eilėje",
+			"batchAlreadyQueued_one": "{{count}} jau eilėje",
+			"batchAlreadyQueued_other": "{{count}} jau eilėje",
+			"batchNoneAdded_few": "Nepavyko įtraukti {{count}} nuorodų",
+			"batchNoneAdded_many": "Nepavyko įtraukti {{count}} nuorodos",
+			"batchNoneAdded_one": "Nepavyko įtraukti {{count}} nuorodos",
+			"batchNoneAdded_other": "Nepavyko įtraukti {{count}} nuorodų",
+			"batchNotAdded_few": "Nepavyko įtraukti: {{count}}",
+			"batchNotAdded_many": "Nepavyko įtraukti: {{count}}",
+			"batchNotAdded_one": "Nepavyko įtraukti: {{count}}",
+			"batchNotAdded_other": "Nepavyko įtraukti: {{count}}",
+			"chooseFromList_few": "Šiame sąraše yra {{count}} vaizdo įrašai – pasirinkite, ką atsisiųsti",
+			"chooseFromList_many": "Šiame sąraše yra {{count}} vaizdo įrašo – pasirinkite, ką atsisiųsti",
+			"chooseFromList_one": "Šiame sąraše yra {{count}} vaizdo įrašas – pasirinkite, ką atsisiųsti",
+			"chooseFromList_other": "Šiame sąraše yra {{count}} vaizdo įrašų – pasirinkite, ką atsisiųsti",
 			"chooseHowMany_few": "{{count}}+ vaizdo įrašai – pasirinkite, kiek",
 			"chooseHowMany_many": "{{count}}+ vaizdo įrašo – pasirinkite, kiek",
 			"chooseHowMany_one": "{{count}}+ vaizdo įrašas – pasirinkite, kiek",
 			"chooseHowMany_other": "{{count}}+ vaizdo įrašų – pasirinkite, kiek",
 			"failed": "Nepavyko paruošti: {{title}}",
 			"notAdded": "Nepavyko pridėti tos nuorodos – bandykite dar kartą",
-			"reviewCapped_few": "Šiame sąraše {{count}}+ vaizdo įrašai – peržiūrėkite ir pasirinkite",
-			"reviewCapped_many": "Šiame sąraše {{count}}+ vaizdo įrašo – peržiūrėkite ir pasirinkite",
-			"reviewCapped_one": "Šiame sąraše {{count}}+ vaizdo įrašas – peržiūrėkite ir pasirinkite",
-			"reviewCapped_other": "Šiame sąraše {{count}}+ vaizdo įrašų – peržiūrėkite ir pasirinkite",
-			"review_few": "Šiame sąraše {{count}} vaizdo įrašai – peržiūrėkite ir pasirinkite",
-			"review_many": "Šiame sąraše {{count}} vaizdo įrašo – peržiūrėkite ir pasirinkite",
-			"review_one": "Šiame sąraše {{count}} vaizdo įrašas – peržiūrėkite ir pasirinkite",
-			"review_other": "Šiame sąraše {{count}} vaizdo įrašų – peržiūrėkite ir pasirinkite",
 			"view": "Rodyti"
 		},
 		"settingsSaveFailed": "Nepavyko įrašyti jūsų parametrų.",
@@ -363,11 +396,29 @@
 			"cappedBody_one": "Šiame grojaraštyje daugiau nei {{count}} vaizdo įrašas. Atsisiųskite visus, pirmuosius {{count}} arba pasirinkite peržiūroje.",
 			"cappedBody_other": "Šiame grojaraštyje daugiau nei {{count}} vaizdo įrašų. Atsisiųskite visus, pirmuosius {{count}} arba pasirinkite peržiūroje.",
 			"first": "Pirmieji {{count}}",
+			"list": {
+				"album": "Albumas",
+				"liked": "Patikę vaizdo įrašai",
+				"mix": "Mix",
+				"playlist": "Grojaraštis",
+				"uploads": "Visi įkėlimai",
+				"watchLater": "Žiūrėti vėliau"
+			},
+			"pick": "Pasirinkti iš jo…",
 			"review": "Peržiūrėti",
-			"reviewBody_few": "Ši nuoroda yra {{count}} vaizdo įrašų sąrašas. Peržiūrėkite jį ir pasirinkite, ką atsisiųsti.",
-			"reviewBody_many": "Ši nuoroda yra {{count}} vaizdo įrašo sąrašas. Peržiūrėkite jį ir pasirinkite, ką atsisiųsti.",
-			"reviewBody_one": "Ši nuoroda yra {{count}} vaizdo įrašo sąrašas. Peržiūrėkite jį ir pasirinkite, ką atsisiųsti.",
-			"reviewBody_other": "Ši nuoroda yra {{count}} vaizdo įrašų sąrašas. Peržiūrėkite jį ir pasirinkite, ką atsisiųsti."
+			"uncappedBody_few": "Ši nuoroda yra sąrašas, kuriame yra {{count}} vaizdo įrašai. Atsisiųskite visus arba pasirinkite peržiūroje.",
+			"uncappedBody_many": "Ši nuoroda yra sąrašas, kuriame yra {{count}} vaizdo įrašo. Atsisiųskite visus arba pasirinkite peržiūroje.",
+			"uncappedBody_one": "Ši nuoroda yra sąrašas, kuriame yra {{count}} vaizdo įrašas. Atsisiųskite jį arba pasirinkite peržiūroje.",
+			"uncappedBody_other": "Ši nuoroda yra sąrašas, kuriame yra {{count}} vaizdo įrašų. Atsisiųskite visus arba pasirinkite peržiūroje.",
+			"video": "Šis vaizdo įrašas",
+			"videoOrList": {
+				"album": "Ši nuoroda yra albumo vaizdo įrašas. Atsisiųsti tik vaizdo įrašą ar albumą?",
+				"liked": "Ši nuoroda yra vaizdo įrašas iš jūsų patikusių vaizdo įrašų. Atsisiųsti tik vaizdo įrašą ar visus jūsų patikusius vaizdo įrašus?",
+				"mix": "Ši nuoroda yra Mix vaizdo įrašas. Atsisiųsti tik vaizdo įrašą ar Mix?",
+				"playlist": "Ši nuoroda yra grojaraščio vaizdo įrašas. Atsisiųsti tik vaizdo įrašą ar grojaraštį?",
+				"uploads": "Ši nuoroda yra vaizdo įrašas iš kanalo įkėlimų. Atsisiųsti tik vaizdo įrašą ar visus įkėlimus?",
+				"watchLater": "Ši nuoroda yra vaizdo įrašas iš jūsų „Žiūrėti vėliau“ sąrašo. Atsisiųsti tik vaizdo įrašą ar visą sąrašą?"
+			}
 		},
 		"clearTitle": "Išvalyti baigtus atsisiuntimus",
 		"empty": "Eilėje esantys atsisiuntimai bus rodomi čia",
@@ -401,7 +452,29 @@
 			"statusPending": "Laukiama",
 			"statusProbing": "Gaunama išsami informacija",
 			"statusRunning": "Atsisiunčiama",
-			"subtitleLanguagesMissing": "Nėra subtitrų šiomis kalbomis: {{languages}}"
+			"subtitleLanguagesMissing": "Nėra subtitrų šiomis kalbomis: {{languages}}",
+			"waitingForSite": "Laukia {{site}} iki {{time}}",
+			"waitingHint": "{{site}} riboja šio ryšio užklausų skaičių. Arroxy gaus šios nuorodos informaciją po {{time}}, kad apribojimas galėtų išnykti."
+		},
+		"listOffer": {
+			"dismiss": "Atmesti",
+			"from": {
+				"album": "Iš albumo",
+				"liked": "Iš patikusių vaizdo įrašų",
+				"mix": "Iš Mix",
+				"playlist": "Iš grojaraščio",
+				"uploads": "Iš kanalo įkėlimų",
+				"watchLater": "Iš „Žiūrėti vėliau“"
+			},
+			"get": {
+				"album": "Gauti visą albumą",
+				"liked": "Gauti visus patikusius vaizdo įrašus",
+				"mix": "Gauti visą Mix",
+				"playlist": "Gauti visą grojaraštį",
+				"uploads": "Gauti visus įkėlimus",
+				"watchLater": "Gauti visą „Žiūrėti vėliau“"
+			},
+			"hint": "Sąrašas įtraukiamas kaip atskira eilutė. Šis vaizdo įrašas praleidžiamas."
 		},
 		"pauseAllTitle": "Pristabdyti kiekvieną aktyvų atsisiuntimą ir neleisti pradėti naujų",
 		"pausedBanner": "Eilė pristabdyta – laukiantys elementai neprasidės, kol jos neatnaujinsite",
@@ -634,7 +707,6 @@
 		"cancel": "Kyla problemų? Nustatykite rankiniu būdu",
 		"greeting": "Sveiki sugrįžę!",
 		"setup": {
-			"bytes": "{{done}} iš {{total}}",
 			"left": {
 				"minutes_few": "liko apie {{count}} min.",
 				"minutes_many": "liko apie {{count}} min.",
@@ -642,20 +714,14 @@
 				"minutes_other": "liko apie {{count}} min.",
 				"underMinute": "liko mažiau nei minutė"
 			},
-			"note": {
-				"engine": "Užtikrina, kad atsisiuntimai veiktų, kai svetainės keičiasi.",
-				"firstRun": "Tai įvyksta tik vieną kartą. Arroxy pasilieka šiuos įrankius ir pati juos atnaujina.",
-				"media": "Tai įvyksta tik vieną kartą. Arroxy pasilieka juos būsimiems atnaujinimams."
-			},
 			"stage": {
 				"checking": "Tikrinama, ar viskas veikia",
 				"connecting": "Jungiamasi…",
-				"downloadingBoth": "Atsisiunčiamas atsisiuntimo variklis ir medijos įrankiai",
-				"downloadingEngine": "Atsisiunčiamas atsisiuntimo variklis",
-				"downloadingMedia": "Atsisiunčiami medijos įrankiai",
-				"unpacking": "Išpakuojami medijos įrankiai"
+				"unpacking": "Išpakuojami medijos įrankiai",
+				"unpackingEngine": "Išpakuojamas atsisiuntimo variklis"
 			},
 			"title": {
+				"both": "Atnaujinami Arroxy įrankiai",
 				"engine": "Atnaujinamas atsisiuntimo variklis",
 				"firstRun": "Pirmojo karto sąranka",
 				"media": "Atnaujinami medijos įrankiai"
@@ -681,14 +747,14 @@
 		"fetchingSponsorBlock": "Jungiamasi prie SponsorBlock…",
 		"fetchingSubtitles": "Gaunami subtitrai…",
 		"mergingFormats": "Sujungiamas garsas ir vaizdas…",
-		"mintingToken": "Kuriamas YouTube žetonas…",
+		"mintingToken": "Ruošiamas YouTube atsisiuntimas…",
 		"movingFiles": "Perkeliami failai…",
 		"noSubtitles": "Nėra subtitrų šiomis kalbomis: {{languages}}",
 		"outputNotWritable": "Nepavyksta įrašyti į {{dir}} – Arroxy neleidžiama ten rašyti",
 		"preparingBinaries": "Ruošiami vykdomieji failai…",
-		"qualityLimited": "Įrašyta {{height}}p – YouTube šiam atsisiuntimui nepateikė aukštesnės kokybės. Gali padėti bandymas vėliau arba iš kito tinklo.",
-		"qualityLimitedSubtitlesFailed": "Įrašyta {{height}}p – YouTube šiam atsisiuntimui nepateikė aukštesnės kokybės, o kai kurių subtitrų atsisiųsti nepavyko. Gali padėti bandymas vėliau arba iš kito tinklo.",
-		"remintingToken": "Kuriamas naujas žetonas…",
+		"qualityLimited": "Išsaugota {{height}}p – YouTube šiam atsisiuntimui nepateikė aukštesnių kokybių. Gali padėti bandymas dar kartą vėliau.",
+		"qualityLimitedSubtitlesFailed": "Išsaugota {{height}}p – YouTube šiam atsisiuntimui nepateikė aukštesnių kokybių, be to, kai kurių subtitrų atsisiųsti nepavyko. Gali padėti bandymas dar kartą vėliau.",
+		"remintingToken": "Dar kartą ruošiamas YouTube atsisiuntimas…",
 		"retryingSponsorBlock": "SponsorBlock nepasiekiamas, bandoma dar kartą ({{attempt}}/{{total}})…",
 		"retryingTransfer": "Ryšys užstrigo, bandoma dar kartą ({{attempt}}/{{total}})…",
 		"signingInWithExplore": "Prisijungiama naudojant jūsų Naršymo paskyrą…",
@@ -830,7 +896,7 @@
 			"pictures": "Paveikslėliai",
 			"subfolder": {
 				"invalid": "Aplanko pavadinime yra netinkamų simbolių",
-				"placeholder": "pvz., lo-fi įrašai",
+				"placeholder": "pvz., paskaitos",
 				"toggle": "Įrašyti į poaplankį"
 			},
 			"videos": "Filmai"
@@ -928,7 +994,11 @@
 				"noVideo": "Šioje nuorodoje nėra vaizdo, todėl pasirinktas garsas.",
 				"subtitlesMissing": "Jūsų profilis prašo subtitrų šiomis kalbomis: {{languages}}. Šiame vaizdo įraše jų nėra.",
 				"tierAbove": "Jūsų profilis prašo {{wanted}}p. Šiame vaizdo įraše tokios mažos raiškos nėra, todėl pasirinkta {{picked}}p.",
-				"tierBelow": "Jūsų profilis prašo {{wanted}}p. Šis vaizdo įrašas siekia tik iki {{picked}}p, todėl pasirinkta {{picked}}p.",
+				"tierAbovePassedOver": "Jūsų profilis prašo {{wanted}}p. Mažesni šio vaizdo įrašo srautai netinka likusiai jūsų profilio daliai, todėl pasirinkta {{picked}}p.",
+				"tierBelowTakeable": "Jūsų profilis prašo {{wanted}}p. Šis vaizdo įrašas neturi tinkamos {{wanted}}p versijos, todėl pasirinkta {{picked}}p.",
+				"tierPassedOverAiUpscaled": "Jūsų profilis prašo {{wanted}}p. Šio vaizdo įrašo {{wanted}}p padidinta dirbtinio intelekto pagalba, todėl pasirinkta originali {{picked}}p.",
+				"tierPassedOverH264": "Jūsų profilis prašo {{wanted}}p su H.264. Šis vaizdo įrašas turi {{wanted}}p tik su kitais kodekais, todėl pasirinkta {{picked}}p su H.264.",
+				"tierPassedOverProfile": "Jūsų profilis prašo {{wanted}}p. Šio vaizdo įrašo {{wanted}}p netinka likusiai jūsų profilio daliai, todėl pasirinkta {{picked}}p.",
 				"webmUnavailable": "Jūsų profilis prašo WebM. Šio vaizdo įrašo pasirinktuose srautuose yra {{codec}}, kurio WebM negali talpinti, todėl failo tipas yra „Automatinis“."
 			},
 			"footer": {
@@ -1005,29 +1075,26 @@
 			"withAudio": "su garsu"
 		},
 		"listPrompt": {
-			"escHint": "Esc atšaukia. Niekas neįkeliama, kol nepasirinksite.",
-			"interactiveSubtitle": "Formatus pasirinkite patys",
-			"justThisVideo": "Tik šis vaizdo įrašas",
-			"justThisVideoInteractiveHint": "Atveria jo formatus",
-			"justThisVideoQuickHint": "Įkelia vieną vaizdo įrašą",
-			"listInteractiveHint": "Įkelia iki {{count}}, kad galėtumėte rinktis",
-			"listOption": {
-				"album": "Albumas, pirmieji",
-				"liked": "Patikę vaizdo įrašai, pirmieji",
-				"mix": "Mix, pirmieji",
-				"playlist": "Grojaraštis, pirmieji",
-				"uploads": "Kanalo įkėlimai, pirmieji",
-				"watchLater": "„Žiūrėti vėliau“, pirmieji"
-			},
-			"listQuickHint": "Įkelia iki {{count}}, tada juos atsisiunčia",
+			"backgroundHint": "Su {{profileName}}. Jei joje yra daugiau nei {{count}} vaizdo įrašų, Atsisiuntimai paklaus, kiek jų atsisiųsti.",
+			"backgroundLabel": "Atsisiųsti fone",
+			"escOnly": "Esc atšaukia.",
+			"firstHint": "Tiksliai pirmieji {{count}}, su {{profileName}}.",
+			"firstLabel": "Atsisiųsti pirmuosius",
+			"interactiveHint": "Pasirinkite iš pirmųjų {{count}} vaizdo įrašų (arba pakeiskite skaičių kitame žingsnyje), tada nustatykite atsisiuntimą.",
+			"interactiveLabel": "Interaktyvus atsisiuntimas…",
+			"limitHint": "Kiek vaizdo įrašų imti iš sąrašo: pirmasis variantas klausia viršijus ribą, antrasis ima tiksliai tiek. Tas pats kaip Parametrai › Nuskaitomi grojaraščio elementai.",
+			"limitLabel": "Riba",
 			"mixNote": "Mix pasikeičia kaskart, kai jį atidarote.",
-			"pickOption": {
-				"album": "Rinktis iš albumo, iš pirmųjų",
-				"liked": "Rinktis iš patikusių vaizdo įrašų, iš pirmųjų",
-				"mix": "Rinktis iš Mix, iš pirmųjų",
-				"playlist": "Rinktis iš grojaraščio, iš pirmųjų",
-				"uploads": "Rinktis iš kanalo įkėlimų, iš pirmųjų",
-				"watchLater": "Rinktis iš „Žiūrėti vėliau“, iš pirmųjų"
+			"pickLoadAfter": "vaizdo įrašų, iš kurių pasirinkti.",
+			"pickLoadBefore": "Įkelti pirmuosius",
+			"pickLoadNote": "Tai galite pakeisti kitame žingsnyje.",
+			"pickTitle": {
+				"album": "Pasirinkti iš šio albumo",
+				"liked": "Pasirinkti iš patikusių vaizdo įrašų",
+				"mix": "Pasirinkti iš šio Mix",
+				"playlist": "Pasirinkti iš šio grojaraščio",
+				"uploads": "Pasirinkti iš šio kanalo įkėlimų",
+				"watchLater": "Pasirinkti iš „Žiūrėti vėliau“"
 			},
 			"title": {
 				"album": "Atsisiuntimas iš šio albumo",
@@ -1037,6 +1104,9 @@
 				"uploads": "Atsisiuntimas iš šio kanalo įkėlimų",
 				"watchLater": "Atsisiuntimas iš „Žiūrėti vėliau“"
 			},
+			"videoHint": "Tik atidarytas vaizdo įrašas, su {{profileName}}. Sąrašas neįkeliamas.",
+			"videoLabel": "Tik šį vaizdo įrašą",
+			"videoPickHint": "Nustatykite tik atidarytą vaizdo įrašą. Sąrašas neįkeliamas.",
 			"withProfile": "Profilis: {{profileName}}"
 		},
 		"output": {
@@ -1108,6 +1178,14 @@
 			"allRemovedDescription": "Atkurkite juos, kad galėtumėte tęsti.",
 			"allRemovedTitle": "Pašalinti visi elementai",
 			"alreadyDownloaded": "Jau atsisiųsta",
+			"bulkCappedDesc_few": "Juose yra daugiau. Norėdami pasirinkti, kiek jų imti, įklijuokite kiekvieną nuorodą atskirai.",
+			"bulkCappedDesc_many": "Juose yra daugiau. Norėdami pasirinkti, kiek jų imti, įklijuokite kiekvieną nuorodą atskirai.",
+			"bulkCappedDesc_one": "Jame yra daugiau. Norėdami pasirinkti, kiek jų imti, įklijuokite jo nuorodą atskirai.",
+			"bulkCappedDesc_other": "Juose yra daugiau. Norėdami pasirinkti, kiek jų imti, įklijuokite kiekvieną nuorodą atskirai.",
+			"bulkCappedTitle_few": "Apkarpyti {{count}} sąrašai (iki {{limit}} vaizdo įrašų kiekvienas)",
+			"bulkCappedTitle_many": "Apkarpyta {{count}} sąrašo (iki {{limit}} vaizdo įrašų kiekvienas)",
+			"bulkCappedTitle_one": "„{{title}}“ apkarpytas iki {{limit}} vaizdo įrašų",
+			"bulkCappedTitle_other": "Apkarpyta {{count}} sąrašų (iki {{limit}} vaizdo įrašų kiekvienas)",
 			"bulkHeading": "Kelios nuorodos",
 			"bulkMetadataOptional": "Laukti nebūtina – dabar į eilę įtraukti failai vis tiek gaus tikruosius pavadinimus atsisiunčiant.",
 			"bulkMetadataResolving": "Gaunama vaizdo įrašų informacija… {{done}}/{{total}}",
@@ -1181,19 +1259,6 @@
 			"syncNoneTitle": "Dar nieko neatsisiųsta",
 			"syncScanning": "Tikrinamas aplankas…",
 			"thumbnailAlt": "Vaizdo įrašo miniatiūra"
-		},
-		"playlistCap": {
-			"changeLimit": "Keisti įkėlimo ribą",
-			"descriptionWithTitle_few": "<title/>: Arroxy įkėlė {{count}} elementus pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo.",
-			"descriptionWithTitle_many": "<title/>: Arroxy įkėlė {{count}} elemento pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo.",
-			"descriptionWithTitle_one": "<title/>: Arroxy įkėlė {{count}} elementą pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltą elementą į eilę arba padidinkite ribą ir nuskaitykite iš naujo.",
-			"descriptionWithTitle_other": "<title/>: Arroxy įkėlė {{count}} elementų pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo.",
-			"description_few": "Arroxy įkėlė {{count}} elementus pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo.",
-			"description_many": "Arroxy įkėlė {{count}} elemento pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo.",
-			"description_one": "Arroxy įkėlė {{count}} elementą pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltą elementą į eilę arba padidinkite ribą ir nuskaitykite iš naujo.",
-			"description_other": "Arroxy įkėlė {{count}} elementų pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo.",
-			"queueLoaded": "Įtraukti įkeltus elementus į eilę",
-			"title": "Grojaraščio nuskaitymas apribotas"
 		},
 		"playlistPresets": {
 			"heading": "Pasirinkite paketo kokybę",
@@ -1385,21 +1450,6 @@
 		"profileSwitchRow": {
 			"helpAria": "{{label}} žinynas"
 		},
-		"quickProgress": {
-			"cancel": "Atšaukti paruošimą",
-			"currentFallback": "Dabartinė nuoroda",
-			"description": "Arroxy skaito nuorodą ir taiko profilį {{profileName}}.",
-			"failedCount_few": "Nepavyko: {{count}}",
-			"failedCount_many": "Nepavyko: {{count}}",
-			"failedCount_one": "Nepavyko: {{count}}",
-			"failedCount_other": "Nepavyko: {{count}}",
-			"phase": {
-				"probing": "Gaunama išsami informacija",
-				"queueing": "Įtraukiama į eilę"
-			},
-			"title": "Ruošiamas greitasis atsisiuntimas",
-			"waitHint": "Palikite šį langą atidarytą, kol Arroxy ruošia eilę."
-		},
 		"review": {
 			"areas": {
 				"extras": "papildai",
@@ -1509,6 +1559,7 @@
 				"embed": "Įterpti į vaizdo įrašą",
 				"heading": "Įrašyti kaip",
 				"sidecar": "Šalia vaizdo įrašo",
+				"sidecarNoVideo": "Atsisiuntimų aplanke",
 				"subfolder": "poaplankis subtitles/"
 			},
 			"searchPlaceholder": "Ieškoti kalbų…",
@@ -1518,10 +1569,6 @@
 		"tabsNavAria": "Atsisiuntimo profilių naršymas",
 		"url": {
 			"advanced": "Išplėstiniai",
-			"analytics": {
-				"toggle": "Siųsti kasdienį aktyvumo signalą",
-				"toggleDescription": "Jokios telemetrijos. Kartą per dieną anoniminis aktyvumo signalas išsiunčia programos versiją, diegimo kanalą, OS, kalbą, šalį ir apytikslį laiką nuo Arroxy įdiegimo, kad galėtume suskaičiuoti aktyvius ir naujus naudotojus. Jokių ID, URL, vaizdo įrašų pavadinimų ar failų pavadinimų."
-			},
 			"autoRemoveCompleted": {
 				"description": "Praėjus kelioms sekundėms po pabaigos pašalina atsisiuntimą iš sąrašo „Atsisiuntimai“. Failai lieka jūsų aplanke; nepavykę ir atšaukti atsisiuntimai sąraše lieka.",
 				"label": "Šalinti baigtus atsisiuntimus"
@@ -1556,6 +1603,11 @@
 				"label": "Atsisiuntimų vienu metu",
 				"unit": "atsisiuntimų"
 			},
+			"concurrentProbes": {
+				"description": "Kiek nuorodų informaciją Arroxy gauna vienu metu, prieš jas atsisiunčiant. Mažiau – švelniau svetainėms, kurios blokuoja užimtus ryšius. Nuoroda, kurią atidarote per Interaktyvų atsisiuntimą, visada vykdoma pirma.",
+				"label": "Vienu metu tikrinama nuorodų",
+				"unit": "nuorodų"
+			},
 			"cookies": {
 				"banWarning": "Tokios svetainės kaip YouTube gali pažymėti – o kartais ir užblokuoti – paskyras, kurių slapukus naudoja atsisiuntimo įrankiai, tokie kaip Arroxy. Jei įmanoma, naudokite vienkartinę paskyrą.",
 				"browserHelp": "Slapukus skaito tiesiai iš naršyklės. „Chromium“ šeimos naršyklės turi būti uždarytos.",
@@ -1580,12 +1632,20 @@
 				"sourceFile": "Failas",
 				"sourceLabel": "Slapukų šaltinis",
 				"sourceOff": "Išjungta",
-				"toggleDescription": "Padeda su vaizdo įrašais, turinčiais amžiaus apribojimą, skirtais tik nariams ir privačiais paskyros vaizdo įrašais."
+				"toggleDescription": "Padeda su vaizdo įrašais, kuriuos gali žiūrėti jūsų paskyra, pavyzdžiui, su jūsų privačiais vaizdo įrašais."
 			},
 			"downloadConnections": {
 				"description": "Pagreitina didelius atsisiuntimus gaudama kelias vaizdo įrašo dalis vienu metu. Didesnės reikšmės padidina riziką, kad svetainė jus apribos.",
 				"label": "Atsisiuntimo ryšiai",
 				"unit": "ryšių"
+			},
+			"downloadList": {
+				"album": "Atsisiųsti albumą…",
+				"liked": "Atsisiųsti patikusius vaizdo įrašus…",
+				"mix": "Atsisiųsti Mix…",
+				"playlist": "Atsisiųsti grojaraštį…",
+				"uploads": "Atsisiųsti įkėlimus…",
+				"watchLater": "Atsisiųsti „Žiūrėti vėliau“…"
 			},
 			"features": {
 				"always": {
@@ -1614,18 +1674,17 @@
 			"hotkey": {
 				"changeShortcut": "Keisti spartųjį klavišą",
 				"conflict": "Šį spartųjį klavišą naudoja kita programa – pasirinkite kitą.",
-				"hintLabel": "Arba paspauskite",
-				"hintTooltip": "Nukopijuokite vaizdo įrašo nuorodą bet kur, paspauskite šį spartųjį klavišą ir Arroxy įtrauks ją į eilę su jūsų aktyviu profiliu – nereikia keisti langų.",
-				"hintTooltipSettings": "Pakeiskite arba išjunkite parametruose.",
+				"globalLabel": "Visuotinis spartusis klavišas",
 				"recording": "Paspauskite klavišus…",
 				"reset": "Atkurti numatytąjį",
 				"sectionDescription": "Atsisiųskite bet kokią nukopijuotą nuorodą iš bet kurios programos neatidarę Arroxy.",
 				"sectionTitle": "Visuotinis spartusis klavišas",
 				"test": "Išbandyti",
 				"toggle": "Įjungti visuotinį spartųjį klavišą",
-				"toggleDescription": "Paspauskite spartųjį klavišą, kai iškarpinėje yra vaizdo įrašo nuoroda."
+				"toggleDescriptionDetail": "Nukopijuokite vaizdo įrašo nuorodą bet kurioje programoje ir paspauskite spartųjį klavišą: Arroxy įtrauks ją į eilę su jūsų aktyviu profiliu, nekeisdama lango. Nuoroda į grojaraščio vaizdo įrašą atsisiunčia tą vaizdo įrašą."
 			},
 			"interactiveDownload": "Interaktyvus atsisiuntimas",
+			"interactiveDownloadAsks": "Interaktyvus atsisiuntimas…",
 			"limitRate": {
 				"activeWarning": "Aktyvūs atsisiuntimai išlaiko dabartinę ribą. Pristabdykite ir tęskite, kad pakeitimai įsigaliotų.",
 				"custom": "Kita…",
@@ -1638,10 +1697,8 @@
 			"mascotBusy": "Atsisiunčiu fone… moku daryti kelis darbus 😎",
 			"mascotCollection": "Greitasis režimas į eilę įtraukia įkeltus elementus su profiliu {{profileName}}. Interaktyvus leidžia pirmiausia peržiūrėti ar pasirinkti elementus.",
 			"mascotIdle": "Įmeskite nuorodą ir leiskite Arroxy ją atsisiųsti ✨",
-			"mascotMixed": "Ši nuoroda rodo į vieną vaizdo įrašą kolekcijoje. Arroxy paklaus, kurį norite, prieš nuskaitydama.",
-			"mascotPreparing": "{{quickDownload}} skaito šią nuorodą ir taiko profilį {{profileName}}.",
-			"mascotQueued": "Eilė tvarko šį atsisiuntimą. Kol jis vyksta, galite įklijuoti kitą nuorodą.",
 			"mascotSingle": "Greitasis režimas pradeda vieną atsisiuntimą su profiliu {{profileName}}. Vienkartiniams pakeitimams naudokite interaktyvų.",
+			"mascotVideoInList": "Ši nuoroda nurodo vaizdo įrašą ir sąrašą, kuriame jis yra: atsisiųskite tik vaizdo įrašą arba sąrašą.",
 			"nativeAudioPreference": {
 				"compatible": "Suderinamas stereo",
 				"description": "Stereo ar erdvinis garsas, kai profilis renkasi originalų garsą. Profilis gali tai pakeisti.",
@@ -1745,6 +1802,7 @@
 					"override": "Naudojamas profilio pakeitimas",
 					"overrideSubfolder": "Naudojamas profilio pakeitimas + profilio poaplankis"
 				},
+				"destinationEditHint": "Norėdami pakeisti, kur išsaugoma, redaguokite profilį.",
 				"destinationFallback": "Paskirtis",
 				"edit": "Redaguoti",
 				"editActive": "Redaguoti aktyvų profilį",
@@ -1768,27 +1826,27 @@
 				"remove": "Pašalinti",
 				"reorderHint": "Vilkite profilį, kad jį perkeltumėte. Visi profilių parinkikliai laikosi šios tvarkos.",
 				"reset": "Atkurti",
+				"savesTo": "Išsaugoma į",
 				"switchAria": "Perjungti atsisiuntimo profilį: {{profileName}}",
 				"switchTitle": "Perjungti atsisiuntimo profilį"
 			},
 			"proxy": {
 				"clear": "Išvalyti",
-				"description": "Nukreipia srautą per tarpinį serverį – naudinga turiniui, apribotam pagal regioną.",
+				"description": "Nukreipti srautą per tarpinį serverį.",
 				"label": "Tarpinio serverio URL",
 				"placeholder": "http://host:port"
 			},
-			"quickBulkAllFailed": "Nepavyko paruošti nė vieno iš tų URL",
 			"quickDownload": "Greitasis atsisiuntimas",
 			"quickDownloadTooltip": "Atsisiųs naudodama: {{profileName}}",
 			"quickFailed": "Nepavyko pridėti šio: {{error}}",
-			"quickPartialFailed_few": "Į eilę įtraukta tai, kas pavyko. Nepavyko paruošti {{count}} URL.",
-			"quickPartialFailed_many": "Į eilę įtraukta tai, kas pavyko. Nepavyko paruošti {{count}} URL.",
-			"quickPartialFailed_one": "Į eilę įtraukta tai, kas pavyko. Nepavyko paruošti {{count}} URL.",
-			"quickPartialFailed_other": "Į eilę įtraukta tai, kas pavyko. Nepavyko paruošti {{count}} URL.",
 			"quickPrepareFailed": "Nepavyko paruošti eilės elemento",
 			"quickPreparing": "Ruošiama",
 			"quickProbeFailed": "Nuskaitymas nepavyko",
 			"quickSingleOnly": "Norėdami pradėti, įklijuokite vaizdo įrašo, grojaraščio, kanalo ar paieškos URL.",
+			"reports": {
+				"toggle": "Siųsti anonimines veikimo ir sąrankos ataskaitas",
+				"toggleDescription": "Jokio sekimo. Kartą per dieną anoniminis veikimo signalas išsiunčia programos versiją, diegimo kanalą, OS, kalbą, šalį ir apytiksliai, prieš kiek laiko Arroxy buvo įdiegta, kad galėtume suskaičiuoti aktyvius ir naujus naudotojus. Kai Arroxy nustato arba atnaujina atsisiuntimo variklį ar medijos įrankius, ji taip pat praneša, ar tai pavyko ir apytiksliai kiek laiko užtruko. Jokių ID, URL, vaizdo įrašų pavadinimų ar failų pavadinimų."
+			},
 			"settings": {
 				"behaviorDescription": "Bendrasis elgesys, turintis įtakos ir pagal profilį vykdomiems atsisiuntimams.",
 				"behaviorHeading": "Atsisiuntimo elgesys",
@@ -1812,7 +1870,9 @@
 			"tabs": {
 				"profiles": "Profiliai",
 				"settings": "Parametrai"
-			}
+			},
+			"thisVideo": "Šis vaizdo įrašas",
+			"thisVideoTooltip": "Atsisiunčia tik šį vaizdo įrašą su {{profileName}}"
 		}
 	}
 }

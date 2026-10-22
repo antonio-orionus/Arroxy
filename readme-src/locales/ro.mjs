@@ -96,7 +96,7 @@ export const ro = {
   discord_badge_text: "Alăturați-vă comunității Discord",
   discord_badge_encoded: "Al%C4%83tura%C8%9Bi-v%C4%83%20comunit%C4%83%C8%9Bii%20Discord",
   hero_desc:
-    "Descărcați videoclipuri, Shorts, muzică, canale, podcasturi sau piese audio de pe **YouTube și de pe peste 2000 de site-uri acceptate** — până la 8K HDR la 60 fps, ca MP3 / AAC / Opus sau doar porțiunea de care aveți nevoie. **Navigați pe YouTube sau pe orice alt site direct în Arroxy**, în fila Explorare, și descărcați videoclipul, lista de redare sau canalul pe care le vizitați; conectați-vă acolo pentru a descărca videoclipuri private, doar pentru membri și cu restricție de vârstă pe care contul dvs. le poate viziona. Rulează local pe Windows, macOS și Linux. **Fără reclame, fără balast, fără upsell-uri.**",
+    "Descărcați videoclipuri, Shorts, canale, podcasturi sau piese audio de pe **YouTube și de pe peste 2000 de site-uri acceptate** — până la 8K HDR la 60 fps, ca MP3 / AAC / Opus sau doar porțiunea de care aveți nevoie. **Navigați pe YouTube sau pe orice alt site direct în Arroxy**, în fila Explorare, și descărcați videoclipul, lista de redare sau canalul pe care le vizitați; conectați-vă acolo pentru a descărca videoclipuri pe care contul dvs. le poate deja viziona. Rulează local pe Windows, macOS și Linux. **Fără reclame, fără balast, fără upsell-uri.**",
   cta_latest: "↓ Instalați ultima versiune",
   cta_website: "Site web",
   website_url: "https://arroxy.com/",
@@ -105,7 +105,7 @@ export const ro = {
   intro_what_is:
     "**Ce este Arroxy?** Arroxy este o interfață grafică desktop gratuită și open source care descarcă videoclipuri, audio, liste de redare și subtitrări de pe YouTube și de pe peste 2000 de alte site-uri compatibile cu [yt-dlp](https://github.com/yt-dlp/yt-dlp). Rulează pe Windows 10/11, macOS 13+ (Intel + Apple Silicon) și Linux (AppImage, Flatpak, tar.gz). Licență GPLv3. Fără reclame, fără limite de utilizare. Distribuit prin [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage și descărcare directă.",
   intro_key_difference:
-    "**Diferența cheie: un browser încorporat.** Majoritatea descărcătoarelor gratuite pentru YouTube sunt simple învelișuri peste yt-dlp: o casetă de URL și un meniu de formate, fără browser propriu. Arroxy are unul, **fila Explorare**. Navigați pe YouTube sau pe orice alt site direct în aplicație și descărcați videoclipul, lista de redare sau canalul pe care vă aflați, ori faceți clic dreapta pe orice link. Vă conectați o singură dată în Explorare, iar Arroxy descarcă videoclipurile private, doar pentru membri și cu restricție de vârstă pe care contul dvs. le poate viziona, plus listele Vizionează mai târziu și Apreciate, fără export de cookie-uri. Conectați-vă acolo și la alte site-uri, iar descărcările lor folosesc acea conectare când au nevoie. Reîncearcă cu acea conectare când YouTube vă cere să confirmați că nu sunteți un robot. Browserul său încorporat obține și tokenul pe care YouTube îl așteaptă înainte de o descărcare, astfel încât YouTube nu reduce descărcarea la mai puține formate. Un înveliș cu simplă casetă de URL se lovește de toate aceste limite. Detalii: [De ce Arroxy](#why-explore).",
+    "**Diferența cheie: un browser încorporat.** Majoritatea descărcătoarelor gratuite pentru YouTube sunt simple învelișuri peste yt-dlp: o casetă de URL și un meniu de formate, fără browser propriu. Arroxy are unul, **fila Explorare**. Navigați pe YouTube sau pe orice alt site direct în aplicație și descărcați videoclipul, lista de redare sau canalul pe care vă aflați, ori faceți clic dreapta pe orice link. Dacă vă conectați o singură dată în Explorare, descărcările care necesită un cont folosesc acea conectare: videoclipurile private, listele Vizionează mai târziu și Apreciate și alte videoclipuri pe care contul dvs. le poate deja viziona, fără export de cookie-uri. Conectați-vă acolo și la alte site-uri, iar descărcările lor folosesc acea conectare când au nevoie. Detalii: [De ce Arroxy](#why-explore).",
   last_updated: "Ultima actualizare: {{LAST_UPDATED}}.",
   toc_heading: "Cuprins",
   why_h2: "De ce Arroxy",
@@ -123,20 +123,16 @@ export const ro = {
   why_r6: "Aplicație desktop multiplatformă",
   why_r7: "Subtitrări + SponsorBlock",
   why_r8: "Browser încorporat (navigare, conectare, descărcare)",
-  why_r9: "Videoclipuri private, doar pentru membri și cu restricție de vârstă, fără export de cookie-uri",
+  why_r9: "Videoclipuri pe care propriul dvs. cont le poate viziona, fără export de cookie-uri",
   why_table_note:
     "⚠️ = parțial sau doar în nivelul plătit. Conectarea din aplicație a 4K Video Downloader pentru videoclipuri private este o funcție plătită; majoritatea interfețelor grafice gratuite pentru yt-dlp acceptă doar un fișier de cookie-uri sau citesc cookie-urile browserului dvs.",
   why_summary:
     "Arroxy este construit pentru un singur lucru: un fișier local curat, fie că lipiți un URL, fie că găsiți videoclipul în Explorare. Fără upsell-uri, fără colectare de date.",
   why_explore_h3: "Ce nu poate face un simplu înveliș pentru yt-dlp: fila Explorare",
   why_explore_intro:
-    "Majoritatea descărcătoarelor gratuite pentru YouTube sunt o casetă de URL deasupra yt-dlp. Arroxy folosește și el yt-dlp, dar are și **Explorare**, un browser încorporat în aplicație care deschide YouTube sau orice alt site. Explorare depășește limite pe care o casetă de URL nu le poate depăși:",
+    "Majoritatea descărcătoarelor gratuite pentru YouTube sunt o casetă de URL deasupra yt-dlp. Arroxy folosește și el yt-dlp, dar are și **Explorare**, un browser încorporat în aplicație care deschide YouTube sau orice alt site. Explorare adaugă ceea ce o casetă de URL nu poate oferi:",
   why_explore_1:
-    "**Videoclipuri care necesită un cont, fără export de cookie-uri** — videoclipuri private, doar pentru membri și cu restricție de vârstă (pe un cont cu vârsta verificată), plus listele Vizionează mai târziu și Apreciate, și videoclipuri aflate în spatele unei conectări pe alte site-uri. Un înveliș simplu are nevoie de un export cookies.txt sau trebuie să citească cookie-urile browserului dvs., pe care Chrome în Windows le blochează acum. În Arroxy vă conectați o singură dată în Explorare, iar restul se face singur",
-  why_explore_2:
-    "**„Conectați-vă pentru a confirma că nu sunteți un robot”** — când YouTube cere asta, Arroxy reîncearcă descărcarea cu conectarea dvs. din Explorare, în loc să eșueze",
-  why_explore_3:
-    "**Jetonul de descărcare YouTube** — browserul încorporat al Arroxy obține jetonul pe care YouTube îl așteaptă înaintea unei descărcări. Fără el, YouTube poate oferi mai puține formate și o calitate mai mică decât ați cerut",
+    "**Videoclipuri pe care contul dvs. le poate viziona, fără export de cookie-uri** — videoclipurile private, listele Vizionează mai târziu și Apreciate, videoclipurile cu restricție de vârstă pe un cont cu vârsta verificată și paginile de pe alte site-uri care necesită conectarea dvs. Un înveliș simplu are nevoie de un export cookies.txt sau citește cookie-urile browserului dvs. În Arroxy vă conectați o singură dată în Explorare, iar restul se face singur",
   why_explore_4:
     "**Fără copiat linkuri** — găsiți un videoclip, o listă de redare sau un canal în Explorare și descărcați-l cu un clic, sau faceți clic dreapta pe orice link din pagină",
   why_explore_5:
@@ -151,7 +147,7 @@ export const ro = {
   feat_explore_2:
     "**Bara de adrese** — tastați pentru a căuta pe YouTube sau introduceți orice adresă web pentru a deschide acel site",
   feat_explore_3:
-    "**Descărcări care necesită un cont** — conectați-vă o singură dată în Explorare, iar Arroxy poate descărca videoclipuri private și doar pentru membri pe care contul dvs. le poate viziona, videoclipuri cu restricție de vârstă dacă vârsta contului este verificată, plus listele Vizionează mai târziu și Apreciate. Conectați-vă acolo și la alte site-uri, iar descărcările lor folosesc acea conectare când au nevoie. Arroxy descarcă totuși mai întâi fără conectare și folosește conectarea din Explorare doar când o descărcare eșuează într-un mod pe care un cont îl poate remedia. Când YouTube vă cere să confirmați că nu sunteți un robot, Arroxy încearcă tot conectarea dvs. din Explorare",
+    "**Descărcări care necesită un cont** — conectați-vă o singură dată în Explorare, iar Arroxy poate descărca videoclipuri pe care contul dvs. le poate viziona: videoclipurile private, videoclipurile cu restricție de vârstă dacă vârsta contului este verificată, plus listele Vizionează mai târziu și Apreciate. Conectați-vă acolo și la alte site-uri, iar descărcările lor folosesc acea conectare când au nevoie. Arroxy descarcă totuși mai întâi fără conectare și folosește conectarea din Explorare doar când o descărcare eșuează într-un mod pe care un cont îl poate remedia",
   feat_explore_4:
     "**Folosiți un cont secundar** — primul ecran din Explorare explică de ce: descărcarea cu un cont implică un anumit risc ca acel cont să fie restricționat. Deconectați-vă din Explorare din Setări oricând doriți să uitați conectările",
   feat_explore_5:
@@ -196,7 +192,7 @@ export const ro = {
   feat_workflow_10:
     "**Descărcări simultane și reîncercare automată** — alegeți câte descărcări din coadă rulează în același timp și lăsați Arroxy să reîncerce o descărcare care a întâmpinat o problemă de rețea sau de server, așteptând mai mult înainte de fiecare încercare",
   feat_workflow_11:
-    "**Profiluri pe element în listele de redare** — atribuiți fiecărui videoclip dintr-o listă propriul profil de descărcare, în loc de o singură setare pentru întreaga listă, astfel încât într-o singură trecere să arhivați unele la calitate maximă și să le luați pe restul ca MP3",
+    "**Profiluri pe element în listele de redare** — atribuiți fiecărui videoclip dintr-o listă propriul profil de descărcare, în loc de o singură setare pentru întreaga listă, astfel încât într-o singură trecere să arhivați unele la calitate maximă și să le salvați pe restul doar ca audio",
   feat_workflow_13:
     "**Descărcarea rapidă lucrează în fundal** — linkul apare imediat în Descărcări și se pregătește acolo, o notă cu **Vizualizare** confirmă, iar câmpul URL se golește pentru următorul link. Porniți câte doriți cât timp cele anterioare se pregătesc",
   feat_workflow_14:
@@ -228,7 +224,7 @@ export const ro = {
   feat_sites_1:
     "**YouTube, în întregime** — Videoclipuri, Shorts, Canale, Liste de redare, YouTube Music și Podcasturi tratate ca surse de prim rang",
   feat_sites_2:
-    "**Peste 2000 de alte site-uri** prin yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable și multe altele",
+    "**Peste 2000 de alte site-uri** prin yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable și multe altele",
   feat_sites_3:
     "**Doar audio și subtitrări** funcționează pe fiecare site acceptat, nu doar pe YouTube",
   feat_sites_4:
@@ -249,7 +245,7 @@ export const ro = {
     "Comanda rapidă globală de descărcare Arroxy — Ctrl+Shift+D în Windows și Linux, Cmd+Shift+D în macOS, trimițând linkul copiat direct în coada de descărcare",
   hotkey_fig_cap:
     "<b>Comandă rapidă globală de descărcare</b><br/>Copiați un link oriunde, apăsați o dată — ajunge în coadă și începe să se descarce",
-  shot7_cap: "<b>Profiluri pe element în listele de redare</b><br/>Dați fiecărui videoclip propriul profil — arhivați unele în 4K, luați restul ca MP3",
+  shot7_cap: "<b>Profiluri pe element în listele de redare</b><br/>Dați fiecărui videoclip propriul profil — arhivați unele în 4K, salvați restul doar ca audio",
   shot8_cap:
     "<b>Explorare</b><br/>Navigați pe YouTube sau pe orice alt site direct în Arroxy și descărcați pagina pe care o vizitați cu profilul activ",
   shot9_cap:
@@ -389,15 +385,15 @@ export const ro = {
 
   privacy_p1:
     "Descărcările sunt preluate direct prin [yt-dlp](https://github.com/yt-dlp/yt-dlp) de pe YouTube în folderul ales de dvs. — nimic nu trece printr-un server terț. Istoricul de vizionare, istoricul descărcărilor, URL-urile și conținutul fișierelor rămân pe dispozitivul dvs.",
-  privacy_p2:
-    "Fără telemetrie — doar un semnal anonim pe zi: versiunea aplicației, sistemul de operare, limba, canalul de instalare, țara și aproximativ cât timp a trecut de la instalarea Arroxy, ca să putem număra utilizatorii activi și noi. Fără ID-uri, URL-uri, titluri de videoclipuri, căi de fișiere sau informații despre cont. Îl puteți dezactiva în Setări.",
+  privacy_reports:
+    "Fără urmărire — un semnal anonim pe zi (versiunea aplicației, sistemul de operare, limba, canalul de instalare, țara și aproximativ cât timp a trecut de la instalarea Arroxy), ca să putem număra utilizatorii activi și noi, iar atunci când Arroxy descarcă sau actualizează yt-dlp și FFmpeg, o notă anonimă despre dacă a reușit și aproximativ cât a durat. Fără ID-uri, URL-uri, titluri de videoclipuri, căi de fișiere sau informații despre cont. Le puteți dezactiva pe ambele în Setări.",
   privacy_p3:
     "Explorare își păstrează propriile conectări, separate de browserul dvs., iar Arroxy nu citește și nu completează niciodată un formular de conectare — tastați în pagina site-ului însuși. Descărcările rulează fără conectare; doar când una eșuează într-un mod pe care un cont îl poate remedia, Arroxy citește conectarea la momentul respectiv, o păstrează într-un fișier temporar pentru acea descărcare și șterge fișierul după aceea. Deconectarea din Explorare, în Setări, le uită.",
   faq_q1: "Este într-adevăr gratuit?",
   faq_a1: "Da — licență GPLv3, fără nivel premium, fără funcții blocate.",
   faq_q11: "Cu ce se deosebește Arroxy de alte interfețe grafice pentru yt-dlp?",
   faq_a11:
-    "Majoritatea interfețelor grafice gratuite pentru yt-dlp sunt învelișuri care acceptă doar un link. Arroxy adaugă **Explorare**, un browser încorporat în aplicație care deschide YouTube sau orice alt site: navigați și descărcați fără a copia linkuri, iar vă conectați acolo o singură dată pentru a descărca videoclipuri private, doar pentru membri și cu restricție de vârstă, plus listele Vizionează mai târziu și Apreciate, fără export de cookie-uri. Arroxy folosește acea conectare când YouTube vă cere să confirmați că nu sunteți un robot, iar browserul său încorporat obține jetonul de descărcare YouTube, astfel încât descărcările să nu revină la mai puține formate. Vedeți [De ce Arroxy](#why).",
+    "Majoritatea interfețelor grafice gratuite pentru yt-dlp sunt învelișuri care acceptă doar un link. Arroxy adaugă **Explorare**, un browser încorporat în aplicație care deschide YouTube sau orice alt site: navigați și descărcați fără a copia linkuri, și vă conectați acolo o singură dată pentru a descărca videoclipuri pe care contul dvs. le poate viziona, precum videoclipurile private și listele Vizionează mai târziu și Apreciate, fără export de cookie-uri. Vedeți [De ce Arroxy](#why).",
   faq_q2: "Ce calități video pot descărca?",
   faq_a2:
     "Tot ce oferă YouTube: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plus doar audio. Fluxurile de 60 fps și HDR se păstrează ca atare, iar descărcarea pas cu pas vă lasă să alegeți AV1, VP9 sau H.264 la fiecare rezoluție.",
@@ -406,10 +402,10 @@ export const ro = {
     "Da. Alegeți *doar audio* în meniul de formate și selectați MP3, M4A/AAC, Opus sau WAV.",
   faq_q4: "Cum descarc videoclipuri care necesită un cont YouTube?",
   faq_a4:
-    "Conectați-vă o singură dată în fila Explorare. Arroxy poate apoi descărca videoclipuri private și doar pentru membri pe care contul dvs. le poate viziona, videoclipuri cu restricție de vârstă dacă vârsta contului este verificată, plus listele Vizionează mai târziu și Apreciate. Folosește conectarea doar când o descărcare eșuează într-un mod pe care un cont îl poate remedia; restul se descarcă ca înainte. Aceasta este opțiunea **Conectare Explorare**, listată prima și marcată Recomandat în setările cookie-urilor, iar Arroxy o alege pentru dvs. prima dată când deschideți Explorare. Wiki-ul yt-dlp notează că [automatizarea cu conectare poate semnala un cont Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), deci un cont secundar este alegerea mai sigură.",
+    "Conectați-vă o singură dată în fila Explorare. Arroxy poate apoi descărca videoclipuri pe care contul dvs. le poate viziona: videoclipurile private, videoclipurile cu restricție de vârstă dacă vârsta contului este verificată, plus listele Vizionează mai târziu și Apreciate. Folosește conectarea doar când o descărcare eșuează într-un mod pe care un cont îl poate remedia; restul se descarcă ca înainte. Aceasta este opțiunea **Conectare Explorare**, listată prima și marcată Recomandat în setările cookie-urilor, iar Arroxy o alege pentru dvs. prima dată când deschideți Explorare. Wiki-ul yt-dlp notează că [automatizarea cu conectare poate semnala un cont Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), deci un cont secundar este alegerea mai sigură.",
   faq_q5: "Va continua să funcționeze când YouTube schimbă ceva?",
   faq_a5:
-    "yt-dlp este actualizat automat la pornire, iar Arroxy livrează prompt remedieri când YouTube schimbă ceva. Când YouTube vă cere să confirmați că nu sunteți un robot, Arroxy încearcă și conectarea dvs. din Explorare, dacă v-ați conectat acolo, iar cookie-urile dintr-un fișier sau din browser sunt disponibile în setările cookie-urilor.",
+    "yt-dlp este actualizat automat la pornire, iar Arroxy livrează prompt remedieri când YouTube schimbă ceva. Când o descărcare necesită conectare, Arroxy folosește conectarea dvs. din Explorare, dacă v-ați conectat acolo, iar cookie-urile dintr-un fișier sau din browser sunt disponibile în setările cookie-urilor.",
   faq_q6: "În ce limbi este disponibil Arroxy?",
   faq_a6:
     "{{LANG_COUNT}} limbi, din start: {{LANG_NAME_LIST}}. Arroxy detectează automat limba sistemului de operare la prima pornire și puteți comuta oricând din selectorul de limbă din bara de instrumente. JSON-urile de limbă folosite la rulare se află în src/shared/i18n/locales/, iar cataloagele PO destinate traducătorilor se află în i18n/locales/ — deschideți un PR pe GitHub pentru a contribui.",
@@ -424,7 +420,7 @@ export const ro = {
     "Este macOS Gatekeeper care blochează o aplicație nesemnată, nu o deteriorare reală. Vedeți [Prima pornire în macOS](#macos-first-launch) pentru comenzile Terminal care elimină carantina și pornesc Arroxy.",
   faq_q10: "Este legală descărcarea videoclipurilor YouTube?",
   faq_a10:
-    "Pentru uz personal, privat, este în general acceptată în majoritatea jurisdicțiilor. Sunteți responsabil să respectați [Termenii și condițiile](https://www.youtube.com/t/terms) YouTube și legile locale privind drepturile de autor.",
+    "Depinde de țara dvs. și de ceea ce descărcați. Descărcați doar conținut pe care îl dețineți, conținut cu licență care permite descărcarea sau conținut pe care legea din țara dvs. vă permite să îl copiați. Sunteți responsabil să respectați [Termenii și condițiile](https://www.youtube.com/t/terms) YouTube și legile locale privind drepturile de autor. Vedeți [Termeni de utilizare](#terms).",
   plan_intro: "Încă planificate — aproximativ în ordinea priorității:",
   plan_col1: "Funcționalitate",
   plan_col2: "Descriere",
@@ -447,7 +443,7 @@ export const ro = {
     "Aveți în minte o funcționalitate? [Deschideți o cerere](../../issues) — contribuțiile comunității modelează prioritatea.",
   tech_content: TECH_CONTENT,
   support_h2: "Susțineți Arroxy",
-  support_note: "Arroxy este gratuit și are licență GPLv3 — fără reclame, fără telemetrie, fără nivel plătit. Dacă vă economisește timp, puteți susține dezvoltarea cu Bitcoin, Tron sau Ethereum: adresele se găsesc în [DONATE.md](DONATE.md), singura sursă oficială pentru ele. Arroxy nu vă va trimite niciodată o adresă prin e-mail sau mesaj direct. Marcarea depozitului cu stea, raportarea erorilor și îmbunătățirea traducerilor ajută la fel de mult.",
+  support_line: "Arroxy este gratuit și are licență GPLv3 — fără reclame, fără urmărire, fără nivel plătit. Dacă vă economisește timp, puteți susține dezvoltarea cu Bitcoin, Tron sau Ethereum: adresele se găsesc în [DONATE.md](DONATE.md), singura sursă oficială pentru ele. Arroxy nu vă va trimite niciodată o adresă prin e-mail sau mesaj direct. Marcarea depozitului cu stea, raportarea erorilor și îmbunătățirea traducerilor ajută la fel de mult.",
   tos_h2: "Termeni de utilizare",
   tos_note:
     "Arroxy este un instrument destinat exclusiv uzului personal, privat. Sunteți singurul responsabil pentru a vă asigura că descărcările dvs. respectă [Termenii și condițiile](https://www.youtube.com/t/terms) YouTube și legile privind drepturile de autor din jurisdicția dvs. Nu folosiți Arroxy pentru a descărca, reproduce sau distribui conținut pe care nu aveți dreptul să-l folosiți. Dezvoltatorii nu răspund pentru nicio utilizare abuzivă.",

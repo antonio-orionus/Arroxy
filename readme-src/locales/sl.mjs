@@ -96,7 +96,7 @@ export const sl = {
   discord_badge_text: "Pridružite se skupnosti Discord",
   discord_badge_encoded: "Pridru%C5%BEite%20se%20skupnosti%20Discord",
   hero_desc:
-    "Prenesite videoposnetke, Shorts, glasbo, kanale, podkaste ali zvočne posnetke z **YouTuba in več kot 2000 podprtih spletnih mest** — do 8K HDR pri 60 sličicah/s, kot MP3 / AAC / Opus ali samo del, ki ga potrebujete. **Brskajte po YouTubu ali katerem koli drugem spletnem mestu kar v programu Arroxy** na zavihku Razišči in prenesite videoposnetek, seznam predvajanja ali kanal, na katerem ste; tam se prijavite, da prenesete zasebne videoposnetke, videoposnetke samo za člane in starostno omejene videoposnetke, ki jih lahko gleda vaš račun. Deluje lokalno v sistemih Windows, macOS in Linux. **Brez oglasov, brez nepotrebnega balasta, brez vsiljevanja plačljivih različic.**",
+    "Prenesite videoposnetke, Shorts, kanale, podkaste ali zvočne posnetke z **YouTuba in več kot 2000 podprtih spletnih mest** — do 8K HDR pri 60 sličicah/s, kot MP3 / AAC / Opus ali samo del, ki ga potrebujete. **Brskajte po YouTubu ali katerem koli drugem spletnem mestu kar v programu Arroxy** na zavihku Razišči in prenesite videoposnetek, seznam predvajanja ali kanal, na katerem ste; tam se prijavite, da prenesete videoposnetke, ki jih že lahko gleda vaš račun. Deluje lokalno v sistemih Windows, macOS in Linux. **Brez oglasov, brez nepotrebnega balasta, brez vsiljevanja plačljivih različic.**",
   cta_latest: "↓ Namestite najnovejšo izdajo",
   cta_website: "Spletno mesto",
   website_url: "https://arroxy.com/",
@@ -105,7 +105,7 @@ export const sl = {
   intro_what_is:
     "**Kaj je Arroxy?** Arroxy je brezplačen namizni grafični vmesnik z odprto kodo, ki prenaša videoposnetke, zvok, sezname predvajanja in podnapise iz YouTuba ter več kot 2000 drugih spletnih mest, ki jih podpira [yt-dlp](https://github.com/yt-dlp/yt-dlp). Deluje v sistemih Windows 10/11, macOS 13+ (Intel + Apple Silicon) in Linux (AppImage, Flatpak, tar.gz). Licenca GPLv3. Brez oglasov, brez omejitev uporabe. Distribuira se prek [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage in neposrednega prenosa.",
   intro_key_difference:
-    "**Ključna razlika: vgrajen brskalnik.** Večina brezplačnih prenosnikov za YouTube so tanki ovoji okoli yt-dlp: polje za URL in meni formatov, brez lastnega brskalnika. Arroxy ga ima, to je zavihek **Razišči**. Po YouTubu ali katerem koli drugem spletnem mestu brskate v aplikaciji in prenesete videoposnetek, seznam predvajanja ali kanal, na katerem ste, ali pa z desnim klikom na katero koli povezavo. V Razišči se prijavite enkrat, Arroxy pa prenese zasebne videoposnetke, videoposnetke samo za člane in starostno omejene videoposnetke, ki jih lahko gleda vaš račun, ter vaša seznama Ogled pozneje in Všečkano, brez izvoza piškotkov. Tam se prijavite tudi v druga spletna mesta, njihovi prenosi pa to prijavo uporabijo, kadar jo potrebujejo. Ko YouTube zahteva potrditev, da niste bot, poskusi znova s to prijavo. Vgrajen brskalnik pridobi tudi žeton, ki ga YouTube pričakuje pred prenosom, zato YouTube prenosa ne zmanjša na manj formatov. Ovoj s poljem za URL naleti na vse te omejitve. Podrobnosti: [Zakaj Arroxy](#why-explore).",
+    "**Ključna razlika: vgrajen brskalnik.** Večina brezplačnih prenosnikov za YouTube so tanki ovoji okoli yt-dlp: polje za URL in meni formatov, brez lastnega brskalnika. Arroxy ga ima, to je zavihek **Razišči**. Po YouTubu ali katerem koli drugem spletnem mestu brskate v aplikaciji in prenesete videoposnetek, seznam predvajanja ali kanal, na katerem ste, ali pa z desnim klikom na katero koli povezavo. Če se v Razišči prijavite enkrat, prenosi, ki zahtevajo račun, uporabijo to prijavo: vaše zasebne videoposnetke, vaša seznama Ogled pozneje in Všečkano ter druge videoposnetke, ki jih že lahko gleda vaš račun, brez izvoza piškotkov. Tam se prijavite tudi v druga spletna mesta, njihovi prenosi pa to prijavo uporabijo, kadar jo potrebujejo. Podrobnosti: [Zakaj Arroxy](#why-explore).",
   last_updated: "Zadnja posodobitev: {{LAST_UPDATED}}.",
   toc_heading: "Kazalo",
   why_h2: "Zakaj Arroxy",
@@ -123,20 +123,16 @@ export const sl = {
   why_r6: "Medplatformska namizna aplikacija",
   why_r7: "Podnapisi + SponsorBlock",
   why_r8: "Vgrajen brskalnik (brskanje, prijava, prenos)",
-  why_r9: "Zasebni videoposnetki, videoposnetki samo za člane in starostno omejeni videoposnetki brez izvoza piškotkov",
+  why_r9: "Videoposnetki, ki jih lahko gleda vaš račun, brez izvoza piškotkov",
   why_table_note:
     "⚠️ = delno ali samo v plačljivi različici. Prijava v aplikaciji za zasebne videoposnetke v programu 4K Video Downloader je plačljiva funkcija; večina brezplačnih grafičnih vmesnikov za yt-dlp sprejme samo datoteko s piškotki ali prebere piškotke vašega spletnega brskalnika.",
   why_summary:
     "Arroxy je narejen za eno stvar: čisto lokalno datoteko, ne glede na to, ali prilepite URL ali videoposnetek najdete v Razišči. Brez vsiljevanja plačljivih različic, brez zbiranja podatkov.",
   why_explore_h3: "Česar navaden ovoj za yt-dlp ne zmore: zavihek Razišči",
   why_explore_intro:
-    "Večina brezplačnih prenosnikov za YouTube je polje za URL nad yt-dlp. Tudi Arroxy uporablja yt-dlp, vendar ima tudi **Razišči**, v aplikacijo vgrajen brskalnik, ki odpre YouTube ali katero koli drugo spletno mesto. Razišči preseže omejitve, ki jih polje za URL ne more:",
+    "Večina brezplačnih prenosnikov za YouTube je polje za URL nad yt-dlp. Tudi Arroxy uporablja yt-dlp, vendar ima tudi **Razišči**, v aplikacijo vgrajen brskalnik, ki odpre YouTube ali katero koli drugo spletno mesto. Razišči doda, česar polje za URL ne zmore:",
   why_explore_1:
-    "**Videoposnetki, ki zahtevajo račun, brez izvoza piškotkov** — zasebni videoposnetki, videoposnetki samo za člane in starostno omejeni videoposnetki (pri računu s preverjeno starostjo) ter vaši seznami Ogled pozneje in Všečkano, pa tudi videoposnetki za prijavo na drugih spletnih mestih. Navaden ovoj potrebuje izvoz cookies.txt ali mora prebrati piškotke vašega spletnega brskalnika, kar Chrome v sistemu Windows zdaj blokira. V Arroxy se enkrat prijavite v Razišči, ostalo opravi program",
-  why_explore_2:
-    "**„Prijavite se, da potrdite, da niste bot“** — ko YouTube to zahteva, Arroxy namesto neuspeha ponovno poskusi prenos z vašo prijavo v Razišči",
-  why_explore_3:
-    "**Žeton za prenos YouTuba** — Arroxyjev vgrajeni brskalnik pridobi žeton, ki ga YouTube pričakuje pred prenosom. Brez njega lahko YouTube ponudi manj formatov in nižjo kakovost, kot ste jo zahtevali",
+    "**Videoposnetki, ki jih lahko gleda vaš račun, brez izvoza piškotkov** — vaši zasebni videoposnetki, vaša seznama Ogled pozneje in Všečkano, starostno omejeni videoposnetki v računu s preverjeno starostjo ter strani na drugih spletnih mestih, ki zahtevajo vašo prijavo. Navaden ovoj potrebuje izvoz cookies.txt ali prebere piškotke vašega spletnega brskalnika. V Arroxy se enkrat prijavite v Razišči, ostalo opravi program",
   why_explore_4:
     "**Brez kopiranja povezav** — v Razišči poiščite videoposnetek, seznam predvajanja ali kanal in ga prenesite z enim klikom ali pa z desnim klikom na katero koli povezavo na strani",
   why_explore_5:
@@ -151,7 +147,7 @@ export const sl = {
   feat_explore_2:
     "**Naslovna vrstica** — vpišite iskanje po YouTubu ali pa vnesite katerikoli spletni naslov in odprite to spletno mesto",
   feat_explore_3:
-    "**Prenosi, ki zahtevajo račun** — enkrat se prijavite v Razišči in Arroxy lahko prenese zasebne videoposnetke in videoposnetke samo za člane, ki jih lahko gleda vaš račun, starostno omejene videoposnetke, če je račun starostno preverjen, ter vaša seznama Ogled pozneje in Všečkano. Tam se prijavite tudi v druga spletna mesta, njihovi prenosi pa to prijavo uporabijo, kadar jo potrebujejo. Arroxy še vedno najprej prenaša odjavljen in vašo prijavo v Razišči uporabi samo, kadar prenos spodleti na način, ki ga lahko odpravi račun. Ko YouTube zahteva potrditev, da niste bot, Arroxy poskusi tudi z vašo prijavo v Razišči",
+    "**Prenosi, ki zahtevajo račun** — enkrat se prijavite v Razišči in Arroxy lahko prenese videoposnetke, ki jih lahko gleda vaš račun: vaše zasebne videoposnetke, starostno omejene videoposnetke, če je račun starostno preverjen, ter vaša seznama Ogled pozneje in Všečkano. Tam se prijavite tudi v druga spletna mesta, njihovi prenosi pa to prijavo uporabijo, kadar jo potrebujejo. Arroxy še vedno najprej prenaša brez prijave in vašo prijavo v Razišči uporabi samo, kadar prenos spodleti na način, ki ga lahko odpravi račun",
   feat_explore_4:
     "**Uporabite sekundarni račun** — prvi zaslon Razišči razloži zakaj: prenos z računom prinaša nekaj tveganja, da bo ta račun omejen. Iz Razišči se odjavite v nastavitvah, kadar koli želite pozabiti svoje prijave",
   feat_explore_5:
@@ -196,7 +192,7 @@ export const sl = {
   feat_workflow_10:
     "**Hkratni prenosi in samodejni ponovni poskus** — izberite, koliko prenosov v vrsti teče hkrati, in pustite, da Arroxy ponovi prenos, ki je naletel na težavo z omrežjem ali strežnikom, pri čemer pred vsakim poskusom čaka dlje",
   feat_workflow_11:
-    "**Profili po elementih seznama predvajanja** — vsakemu videoposnetku na seznamu predvajanja dodelite lasten profil prenosa namesto ene nastavitve za cel seznam, tako da lahko v enem prehodu nekatere arhivirate v polni kakovosti, preostale pa prenesete kot MP3",
+    "**Profili po elementih seznama predvajanja** — vsakemu videoposnetku na seznamu predvajanja dodelite lasten profil prenosa namesto ene nastavitve za cel seznam, tako da lahko v enem prehodu nekatere arhivirate v polni kakovosti, preostale pa shranite samo kot zvok",
   feat_workflow_13:
     "**Hitri prenos deluje v ozadju** — povezava se takoj pokaže v Prenosih in se tam pripravi, obvestilo z gumbom **Pokaži** to potrdi, polje URL pa se izprazni za naslednjo povezavo. Začnite, kolikor jih želite, medtem ko se prejšnji pripravljajo",
   feat_workflow_14:
@@ -228,7 +224,7 @@ export const sl = {
   feat_sites_1:
     "**YouTube v celoti** — Videoposnetki, Shorts, Kanali, Seznami predvajanja, YouTube Music in Podkasti so obravnavani kot prvovrstni viri",
   feat_sites_2:
-    "**Več kot 2000 drugih spletnih mest** prek yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable in še mnogo drugih",
+    "**Več kot 2000 drugih spletnih mest** prek yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable in še mnogo drugih",
   feat_sites_3:
     "**Samo zvok in podnapisi** delujejo na vseh podprtih spletnih mestih, ne le na YouTubu",
   feat_sites_4:
@@ -249,7 +245,7 @@ export const sl = {
     "Splošna bližnjica za prenos v Arroxy — Ctrl+Shift+D v sistemih Windows in Linux, Cmd+Shift+D v macOS, ki kopirano povezavo pošlje neposredno v vrsto prenosov",
   hotkey_fig_cap:
     "<b>Splošna bližnjica za prenos</b><br/>Kjer koli kopirajte povezavo, enkrat pritisnite — pristane v vrsti in se začne prenašati",
-  shot7_cap: "<b>Profili po elementih seznama predvajanja</b><br/>Vsakemu videoposnetku dajte lasten profil — nekatere arhivirajte v 4K, preostale prenesite kot MP3",
+  shot7_cap: "<b>Profili po elementih seznama predvajanja</b><br/>Vsakemu videoposnetku dajte lasten profil — nekatere arhivirajte v 4K, preostale shranite samo kot zvok",
   shot8_cap:
     "<b>Razišči</b><br/>Brskajte po YouTubu ali katerem koli drugem spletnem mestu v programu Arroxy in prenesite stran, na kateri ste, z aktivnim profilom",
   shot9_cap:
@@ -389,15 +385,15 @@ export const sl = {
 
   privacy_p1:
     "Prenosi se pridobijo neposredno prek [yt-dlp](https://github.com/yt-dlp/yt-dlp) z YouTuba v mapo, ki jo izberete — nič ne gre prek strežnika tretje osebe. Zgodovina ogledov, zgodovina prenosov, naslovi URL in vsebina datotek ostanejo na vaši napravi.",
-  privacy_p2:
-    "Brez telemetrije — samo en anonimen signal delovanja na dan: različica aplikacije, OS, jezik, kanal namestitve, država in približno, kako dolgo nazaj je bil Arroxy nameščen, da lahko štejemo aktivne in nove uporabnike. Brez ID-jev, naslovov URL, naslovov videoposnetkov, poti do datotek ali podatkov o računu. Izklopite ga lahko v nastavitvah.",
+  privacy_reports:
+    "Brez sledenja — en anonimen signal delovanja na dan (različica aplikacije, OS, jezik, kanal namestitve, država in približno, kako dolgo nazaj je bil Arroxy nameščen), da lahko štejemo aktivne in nove uporabnike, ter, ko Arroxy prenese ali posodobi yt-dlp in FFmpeg, anonimno sporočilo o tem, ali je uspelo, in približno, koliko časa je trajalo. Brez ID-jev, naslovov URL, naslovov videoposnetkov, poti do datotek ali podatkov o računu. Oboje lahko izklopite v nastavitvah.",
   privacy_p3:
     "Razišči hrani lastne prijave, ločene od vašega brskalnika, Arroxy pa nikoli ne prebere ali izpolni obrazca za prijavo — vpisujete na strani spletnega mesta samega. Prenosi tečejo odjavljeni; samo kadar kateri spodleti na način, ki ga lahko odpravi račun, Arroxy sveže prebere prijavo, jo za ta prenos shrani v začasno datoteko in datoteko nato izbriše. Z odjavo iz Razišči v nastavitvah se pozabijo.",
   faq_q1: "Je res brezplačen?",
   faq_a1: "Da — licenca GPLv3, brez plačljive različice, brez zaklepanja funkcij.",
   faq_q11: "Po čem se Arroxy razlikuje od drugih grafičnih vmesnikov za yt-dlp?",
   faq_a11:
-    "Večina brezplačnih grafičnih vmesnikov za yt-dlp so ovoji, ki sprejmejo samo povezavo. Arroxy doda **Razišči**, v aplikacijo vgrajen brskalnik, ki odpre YouTube ali katero koli drugo spletno mesto: brskate in prenašate brez kopiranja povezav, tam pa se enkrat prijavite, da prenesete zasebne videoposnetke, videoposnetke samo za člane in starostno omejene videoposnetke ter svoja seznama Ogled pozneje in Všečkano, brez izvoza piškotkov. Arroxy to prijavo uporabi, ko YouTube zahteva potrditev, da niste bot, njegov vgrajeni brskalnik pa pridobi žeton za prenos YouTuba, da prenosi ne padejo na manj formatov. Glejte [Zakaj Arroxy](#why).",
+    "Večina brezplačnih grafičnih vmesnikov za yt-dlp so ovoji, ki sprejmejo samo povezavo. Arroxy doda **Razišči**, v aplikacijo vgrajen brskalnik, ki odpre YouTube ali katero koli drugo spletno mesto: brskate in prenašate brez kopiranja povezav, tam pa se enkrat prijavite, da prenesete videoposnetke, ki jih lahko gleda vaš račun, na primer zasebne videoposnetke ter seznama Ogled pozneje in Všečkano, brez izvoza piškotkov. Glejte [Zakaj Arroxy](#why).",
   faq_q2: "Kakšne kakovosti videoposnetkov lahko prenesem?",
   faq_a2:
     "Vse, kar ponuja YouTube: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, poleg tega samo zvok. Toki 60 sličic/s in HDR so ohranjeni nespremenjeni, postopni prenos pa omogoča izbiro AV1, VP9 ali H.264 pri vsaki ločljivosti.",
@@ -406,10 +402,10 @@ export const sl = {
     "Da. V meniju formatov izberite *samo zvok* in izberite MP3, M4A/AAC, Opus ali WAV.",
   faq_q4: "Kako prenesem videoposnetke, ki zahtevajo račun YouTube?",
   faq_a4:
-    "Enkrat se prijavite na zavihku Razišči. Arroxy nato lahko prenese zasebne videoposnetke in videoposnetke samo za člane, ki jih lahko gleda vaš račun, starostno omejene videoposnetke, če je račun starostno preverjen, ter vaša seznama Ogled pozneje in Všečkano. Prijavo uporabi samo, kadar prenos spodleti na način, ki ga lahko odpravi račun; vse ostalo se prenaša kot prej. To je izbira **Prijava v Razišči**, navedena prva in označena kot Priporočeno v nastavitvah piškotkov, Arroxy pa jo izbere namesto vas, ko prvič odprete Razišči. Wiki za yt-dlp navaja, da [avtomatizacija s prijavo lahko označi račun Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), zato je sekundarni račun varnejša izbira.",
+    "Enkrat se prijavite na zavihku Razišči. Arroxy nato lahko prenese videoposnetke, ki jih lahko gleda vaš račun: vaše zasebne videoposnetke, starostno omejene videoposnetke, če je račun starostno preverjen, ter vaša seznama Ogled pozneje in Všečkano. Prijavo uporabi samo, kadar prenos spodleti na način, ki ga lahko odpravi račun; vse ostalo se prenaša kot prej. To je izbira **Prijava v Razišči**, navedena prva in označena kot Priporočeno v nastavitvah piškotkov, Arroxy pa jo izbere namesto vas, ko prvič odprete Razišči. Wiki za yt-dlp navaja, da [avtomatizacija s prijavo lahko označi račun Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), zato je sekundarni račun varnejša izbira.",
   faq_q5: "Ali bo še vedno deloval, ko YouTube kaj spremeni?",
   faq_a5:
-    "yt-dlp se ob zagonu samodejno posodobi, Arroxy pa ob spremembah na YouTubu hitro izda popravke. Ko YouTube zahteva potrditev, da niste bot, Arroxy poskusi tudi z vašo prijavo v Razišči, če ste se tam prijavili, v nastavitvah piškotkov pa so na voljo tudi piškotki iz datoteke ali brskalnika.",
+    "yt-dlp se ob zagonu samodejno posodobi, Arroxy pa ob spremembah na YouTubu hitro izda popravke. Kadar prenos zahteva prijavo, Arroxy uporabi vašo prijavo v Razišči, če ste se tam prijavili, v nastavitvah piškotkov pa so na voljo tudi piškotki iz datoteke ali brskalnika.",
   faq_q6: "V katerih jezikih je na voljo Arroxy?",
   faq_a6:
     "{{LANG_COUNT}} jezikov, takoj po namestitvi: {{LANG_NAME_LIST}}. Arroxy ob prvem zagonu samodejno zazna jezik vašega operacijskega sistema, preklopite pa lahko kadar koli z izbirnika jezika v orodni vrstici. JSON jezikov za izvajanje je v src/shared/i18n/locales/, katalogi PO za prevajalce pa v i18n/locales/ — odprite PR na GitHubu in prispevajte.",
@@ -424,7 +420,7 @@ export const sl = {
     'To je macOS Gatekeeper, ki blokira nepodpisano aplikacijo, ne dejanska poškodba. Glejte [Prvi zagon v macOS](#macos-first-launch) za ukaze v terminalu, ki odstranijo karanteno in zaženejo Arroxy.',
   faq_q10: "Je prenašanje videoposnetkov z YouTuba zakonito?",
   faq_a10:
-    "Za osebno, zasebno uporabo je v večini jurisdikcij na splošno sprejeto. Odgovorni ste za skladnost z YouTubovimi [Pogoji uporabe](https://www.youtube.com/t/terms) in lokalno zakonodajo o avtorskih pravicah.",
+    "Odvisno je od vaše države in od tega, kaj prenašate. Prenašajte samo vsebino, ki je vaša, vsebino z dovoljenjem za prenos ali vsebino, ki jo zakon v vaši državi dovoljuje kopirati. Odgovorni ste za skladnost z YouTubovimi [Pogoji uporabe](https://www.youtube.com/t/terms) in lokalno zakonodajo o avtorskih pravicah. Glejte [Pogoji uporabe](#terms).",
   plan_intro: "Še vedno načrtovano — približno po vrstnem redu prednosti:",
   plan_col1: "Funkcija",
   plan_col2: "Opis",
@@ -447,7 +443,7 @@ export const sl = {
     "Imate v mislih funkcijo? [Odprite zahtevo](../../issues) — prednosti oblikuje mnenje skupnosti.",
   tech_content: TECH_CONTENT,
   support_h2: "Podprite Arroxy",
-  support_note: "Arroxy je brezplačen in ima licenco GPLv3 — brez oglasov, brez telemetrije, brez plačljive različice. Če vam prihrani čas, lahko razvoj podprete z Bitcoinom, Tronom ali Ethereumom: naslovi so v [DONATE.md](DONATE.md), ki je edini uradni vir zanje. Arroxy vam naslova nikoli ne bo poslal po e-pošti ali neposrednem sporočilu. Zvezdica repozitoriju, prijava napak in izboljšanje prevodov pomagajo prav toliko.",
+  support_line: "Arroxy je brezplačen in ima licenco GPLv3 — brez oglasov, brez sledenja, brez plačljive različice. Če vam prihrani čas, lahko razvoj podprete z Bitcoinom, Tronom ali Ethereumom: naslovi so v [DONATE.md](DONATE.md), ki je edini uradni vir zanje. Arroxy vam naslova nikoli ne bo poslal po e-pošti ali neposrednem sporočilu. Zvezdica repozitoriju, prijava napak in izboljšanje prevodov pomagajo prav toliko.",
   tos_h2: "Pogoji uporabe",
   tos_note:
     "Arroxy je orodje samo za osebno, zasebno uporabo. Izključno vi ste odgovorni, da so vaši prenosi skladni z YouTubovimi [Pogoji uporabe](https://www.youtube.com/t/terms) in zakoni o avtorskih pravicah vaše jurisdikcije. Arroxy ne uporabljajte za prenos, razmnoževanje ali razširjanje vsebine, ki je nimate pravice uporabljati. Razvijalci ne odgovarjajo za nobeno zlorabo.",

@@ -96,7 +96,7 @@ export const sw = {
   discord_badge_text: "Jiunge na jumuiya ya Discord",
   discord_badge_encoded: "Jiunge%20na%20jumuiya%20ya%20Discord",
   hero_desc:
-    "Pakua video, Shorts, muziki, vituo, podikasti, au nyimbo za sauti kutoka **YouTube na tovuti 2000+ zinazotumika** — hadi 8K HDR kwa fps 60, kama MP3 / AAC / Opus, au sehemu tu unayohitaji. **Vinjari YouTube au tovuti nyingine yoyote ndani ya Arroxy** kwenye kichupo cha Explore na upakue video, playlist, au channel unayotazama; ingia humo ili kupakua video za faragha, za wanachama pekee, na zenye kikomo cha umri ambazo akaunti yako inaweza kutazama. Inafanya kazi mahali hapo kwenye Windows, macOS, na Linux. **Hakuna matangazo, hakuna mzigo wa ziada, hakuna mauzo ya ziada.**",
+    "Pakua video, Shorts, vituo, podikasti, au nyimbo za sauti kutoka **YouTube na tovuti 2000+ zinazotumika** — hadi 8K HDR kwa fps 60, kama MP3 / AAC / Opus, au sehemu tu unayohitaji. **Vinjari YouTube au tovuti nyingine yoyote ndani ya Arroxy** kwenye kichupo cha Gundua na upakue video, orodha ya kucheza, au kituo ulichopo; ingia humo ili kupakua video ambazo akaunti yako tayari inaweza kutazama. Inafanya kazi mahali hapo kwenye Windows, macOS, na Linux. **Hakuna matangazo, hakuna mzigo wa ziada, hakuna mauzo ya ziada.**",
   cta_latest: "↓ Pakua Toleo la Hivi Karibuni",
   cta_website: "Tovuti",
   website_url: "https://arroxy.com/",
@@ -105,7 +105,7 @@ export const sw = {
   intro_what_is:
     "**Arroxy ni nini?** Arroxy ni programu huria ya bure ya eneo-kazi yenye kiolesura cha picha (GUI) inayopakua video, sauti, orodha za kucheza, na manukuu kutoka YouTube na tovuti nyingine zaidi ya 2000 zinazoungwa mkono na [yt-dlp](https://github.com/yt-dlp/yt-dlp). Inafanya kazi kwenye Windows 10/11, macOS 13+ (Intel + Apple Silicon), na Linux (AppImage, Flatpak, tar.gz). Ina leseni ya GPLv3. Hakuna matangazo, hakuna kikomo cha matumizi. Inasambazwa kupitia [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, na upakuaji wa moja kwa moja.",
   intro_key_difference:
-    "**Tofauti kuu: kivinjari kilichojengewa ndani.** Vipakuzi vingi vya bure vya YouTube ni vifuniko vyembamba vya yt-dlp: kisanduku cha URL na menyu ya miundo, bila kivinjari chao wenyewe. Arroxy ina kimoja, **kichupo cha Explore**. Unavinjari YouTube au tovuti nyingine yoyote ndani ya programu na kupakua video, orodha ya kucheza, au kituo ulichopo, au kubofya kulia kiungo chochote. Unaingia mara moja katika Explore, na Arroxy hupakua video za faragha, za wanachama pekee, na zenye kikomo cha umri ambazo akaunti yako inaweza kutazama, pamoja na orodha zako za Tazama Baadaye na Zilizopendwa, bila kuhamisha vidakuzi. Ingia pia kwenye tovuti nyingine humo, na upakuaji wao hutumia kuingia huko pale unapohitajika. Hujaribu tena kwa kuingia huko YouTube inapokuomba uthibitishe kuwa wewe si roboti. Kivinjari chake kilichojengewa ndani pia hupata tokeni ambayo YouTube inatarajia kabla ya upakuaji, ili YouTube isipunguze upakuaji hadi miundo michache zaidi. Kifuniko cha kisanduku cha URL hukumbwa na vikwazo hivi vyote. Maelezo: [Kwa Nini Arroxy](#why-explore).",
+    "**Tofauti kuu: kivinjari kilichojengewa ndani.** Vipakuzi vingi vya bure vya YouTube ni vifuniko vyembamba vya yt-dlp: kisanduku cha URL na menyu ya miundo, bila kivinjari chao wenyewe. Arroxy ina kimoja, **kichupo cha Gundua**. Unavinjari YouTube au tovuti nyingine yoyote ndani ya programu na kupakua video, orodha ya kucheza, au kituo ulichopo, au kubofya kulia kiungo chochote. Ukiingia mara moja katika Gundua, upakuaji unaohitaji akaunti hutumia kuingia huko: video zako za faragha, orodha zako za Tazama Baadaye na Zilizopendwa, na video nyingine ambazo akaunti yako tayari inaweza kutazama, bila kuhamisha vidakuzi. Ingia pia kwenye tovuti nyingine humo, na upakuaji wao hutumia kuingia huko pale unapohitajika. Maelezo: [Kwa Nini Arroxy](#why-explore).",
   last_updated: "Imesasishwa mara ya mwisho: {{LAST_UPDATED}}.",
   toc_heading: "Yaliyomo",
   why_h2: "Kwa Nini Arroxy",
@@ -124,7 +124,7 @@ export const sw = {
   why_r7: "Manukuu + SponsorBlock",
   why_r8: "Kivinjari kilichojengewa ndani (vinjari, ingia, pakua)",
   why_r9:
-    "Video za faragha, za wanachama pekee na zenye kikomo cha umri bila kuhamisha vidakuzi",
+    "Video ambazo akaunti yako inaweza kutazama, bila kuhamisha vidakuzi",
   why_table_note:
     "⚠️ = kwa sehemu, au kwenye kiwango cha kulipia pekee. Kuingia ndani ya programu kwa video za faragha katika 4K Video Downloader ni kipengele cha kulipia; GUI nyingi za bure za yt-dlp hukubali faili ya vidakuzi pekee au husoma vidakuzi vya kivinjari chako cha wavuti.",
   why_summary:
@@ -132,13 +132,9 @@ export const sw = {
   why_explore_h3:
     "Kile ambacho kifuniko cha kawaida cha yt-dlp hakiwezi: kichupo cha Explore",
   why_explore_intro:
-    "Vipakuzi vingi vya bure vya YouTube ni kisanduku cha URL juu ya yt-dlp tu. Arroxy pia hutumia yt-dlp, lakini ina **Explore** pia, kivinjari kilichojengwa ndani ya programu kinachofungua YouTube au tovuti nyingine yoyote. Explore hupita vikwazo ambavyo kisanduku cha URL hakiwezi kupita:",
+    "Vipakuzi vingi vya bure vya YouTube ni kisanduku cha URL juu ya yt-dlp tu. Arroxy pia hutumia yt-dlp, lakini ina **Gundua** pia, kivinjari kilichojengwa ndani ya programu kinachofungua YouTube au tovuti nyingine yoyote. Gundua huongeza kile ambacho kisanduku cha URL hakiwezi:",
   why_explore_1:
-    "**Video zinazohitaji akaunti, bila kuhamisha vidakuzi** — video za faragha, za wanachama pekee, na zenye kikomo cha umri (kwenye akaunti iliyothibitishwa umri), pamoja na orodha zako za Tazama Baadaye na Zilizopendwa, na video zilizo nyuma ya kuingia kwenye tovuti nyingine. Kifuniko cha kawaida kinahitaji faili ya cookies.txt iliyohamishwa au lazima kisome vidakuzi vya kivinjari chako cha wavuti, jambo ambalo Chrome kwenye Windows sasa huzuia. Katika Arroxy unaingia mara moja katika Explore na inashughulikia mengine yote",
-  why_explore_2:
-    "**\"Ingia ili uthibitishe kuwa wewe si roboti\"** — YouTube inapouliza hivi, Arroxy hujaribu upakuaji tena kwa kuingia kwako kwa Explore badala ya kushindwa",
-  why_explore_3:
-    "**Tokeni ya upakuaji ya YouTube** — kivinjari kilichojengewa ndani cha Arroxy hupata tokeni ambayo YouTube inatarajia kabla ya upakuaji. Bila tokeni hiyo, YouTube inaweza kutoa fomati chache na ubora wa chini kuliko ulioomba",
+    "**Video ambazo akaunti yako inaweza kutazama, bila kuhamisha vidakuzi** — video zako za faragha, orodha zako za Tazama Baadaye na Zilizopendwa, video zenye kikomo cha umri kwenye akaunti iliyothibitishwa umri, na kurasa za tovuti nyingine zinazohitaji kuingia kwako. Kifuniko cha kawaida kinahitaji faili ya cookies.txt iliyohamishwa au husoma vidakuzi vya kivinjari chako cha wavuti. Katika Arroxy unaingia mara moja katika Gundua na inashughulikia mengine yote",
   why_explore_4:
     "**Hakuna kunakili viungo** — tafuta video, playlist, au channel katika Explore na uipakue kwa kubofya mara moja, au bofya kulia kiungo chochote kwenye ukurasa",
   why_explore_5:
@@ -149,7 +145,7 @@ export const sw = {
   feat_explore_7:
     "**Mpangilio mshikamano** — kubofya mara moja kwenye upau wa zana wa Explore huhamishia vichupo vya Arroxy ndani yake na kuipa ukurasa nafasi zaidi",
   feat_explore_2: "**Upau wa anwani** — andika kutafuta YouTube au andika anwani yoyote ya wavuti kufungua tovuti hiyo",
-  feat_explore_3: "**Upakuaji unaohitaji akaunti** — ingia mara moja katika Explore na Arroxy inaweza kupakua video za faragha na za wanachama pekee ambazo akaunti yako inaweza kutazama, video zenye kikomo cha umri ikiwa umri wa akaunti umethibitishwa, na orodha zako za Tazama Baadaye na Zilizopendwa. Ingia pia kwenye tovuti nyingine humo, na upakuaji wao hutumia kuingia huko pale unapohitajika. Arroxy bado hupakua kwanza bila kuingia na hutumia kuingia kwako kwa Explore tu pale upakuaji unaposhindwa kwa njia ambayo akaunti inaweza kurekebisha. YouTube inapokuomba uthibitishe kuwa wewe si roboti, Arroxy pia hujaribu kuingia kwako kwa Explore",
+  feat_explore_3: "**Upakuaji unaohitaji akaunti** — ingia mara moja katika Gundua na Arroxy inaweza kupakua video ambazo akaunti yako inaweza kutazama: video zako za faragha, video zenye kikomo cha umri ikiwa umri wa akaunti umethibitishwa, na orodha zako za Tazama Baadaye na Zilizopendwa. Ingia pia kwenye tovuti nyingine humo, na upakuaji wao hutumia kuingia huko pale unapohitajika. Arroxy bado hupakua kwanza bila kuingia na hutumia kuingia kwako kwa Gundua tu pale upakuaji unaposhindwa kwa njia ambayo akaunti inaweza kurekebisha",
   feat_explore_4: "**Tumia akaunti ya pili** — skrini ya kwanza ya Explore inaeleza sababu: kupakua kwa akaunti kuna hatari fulani ya akaunti hiyo kuwekewa vikwazo. Toka kwenye Explore kupitia Mipangilio wakati wowote unapotaka kusahau kuingia kwako kote",
   feat_explore_5: "**Kizuia matangazo** — kimezimwa kwa chaguomsingi. Kubofya ngao mara moja kwenye upau wa zana wa Explore huzuia matangazo na vifuatiliaji kwenye kurasa zake, bila kuathiri upakuaji. YouTube inaweza kupinga vizuia matangazo kwa akaunti zilizoingia",
   feat_quality_h3: "Ubora na fomati",
@@ -192,7 +188,7 @@ export const sw = {
   feat_workflow_10:
     "**Upakuaji kwa wakati mmoja na kujaribu tena kiotomatiki** — chagua upakuaji mangapi wa foleni unaendelea kwa wakati mmoja, na acha Arroxy ajaribu tena upakuaji uliokumbwa na hitilafu ya mtandao au seva, akisubiri muda mrefu zaidi kabla ya kila jaribio",
   feat_workflow_11:
-    "**Wasifu kwa kila kipengele cha orodha ya kucheza** — mpe kila video katika orodha ya kucheza wasifu wake wa upakuaji badala ya mpangilio mmoja kwa orodha nzima, ili pasi moja iweze kuhifadhi baadhi kwa ubora kamili na kupata zilizobaki kama MP3",
+    "**Wasifu kwa kila kipengele cha orodha ya kucheza** — mpe kila video katika orodha ya kucheza wasifu wake wa upakuaji badala ya mpangilio mmoja kwa orodha nzima, ili pasi moja iweze kuhifadhi baadhi kwa ubora kamili na kuhifadhi zilizobaki kama sauti pekee",
   feat_workflow_13: "**Quick Download hufanya kazi chinichini** — kiungo huonekana mara moja katika Vipakuliwa na kuandaliwa huko, ujumbe wenye **Tazama** unathibitisha, na sehemu ya URL husafishwa kwa kiungo kinachofuata. Anzisha nyingi upendavyo huku zile za awali zikiandaliwa",
   feat_workflow_14: "**Vipakuliwa hukuambia kinachokuhitaji** — ikiwa Arroxy haiwezi kusoma kiungo, safu yake inaeleza sababu na kutoa suluhisho: Jaribu tena, washa vidakuzi, au ingia katika Explore. Vidakuzi vikiwa vimezimwa, **Ingia kwa Explore** hujaribu tena kwa ajili yako ukishaingia. Playlist ndefu kuliko kikomo chako cha kupakia husubiri kwenye safu yake ili uchague yote, za kwanza, au ukaguzi. Kichupo cha Vipakuliwa kinahesabu safu zinazokusubiri",
   feat_workflow_15:
@@ -222,7 +218,7 @@ export const sw = {
   feat_sites_1:
     "**YouTube kamili** — Video, Shorts, Vituo, Orodha za Kucheza, YouTube Music na Podikasti zinashughulikiwa kama vyanzo vya daraja la kwanza",
   feat_sites_2:
-    "**Tovuti 2000+ nyingine** kupitia yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable na nyingi zaidi",
+    "**Tovuti 2000+ nyingine** kupitia yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable na nyingi zaidi",
   feat_sites_3:
     "**Sauti pekee na manukuu** yanafanya kazi kwenye kila tovuti inayoungwa mkono, si YouTube peke yake",
   feat_sites_4:
@@ -241,7 +237,7 @@ export const sw = {
     "<b>Foleni ya upakuaji sambamba</b><br/>Upakuaji kadhaa kwa wakati mmoja na maendeleo ya moja kwa moja",
   hotkey_fig_alt: "Njia ya mkato ya kupakua kwa mfumo mzima ya Arroxy — Ctrl+Shift+D kwenye Windows na Linux, Cmd+Shift+D kwenye macOS, hupeleka kiungo kilichonakiliwa moja kwa moja kwenye foleni ya upakuaji",
   hotkey_fig_cap: "<b>Njia ya mkato ya kupakua kwa mfumo mzima</b><br/>Nakili kiungo popote, bonyeza mara moja — huingia kwenye foleni na upakuaji huanza",
-  shot7_cap: "<b>Wasifu kwa kila kipengele cha orodha ya kucheza</b><br/>Mpe kila video wasifu wake — hifadhi baadhi kwa 4K, chukua zilizobaki kama MP3",
+  shot7_cap: "<b>Wasifu kwa kila kipengele cha orodha ya kucheza</b><br/>Mpe kila video wasifu wake — hifadhi baadhi kwa 4K, hifadhi zilizobaki kama sauti pekee",
   shot8_cap: "<b>Explore</b><br/>Vinjari YouTube au tovuti nyingine yoyote ndani ya Arroxy na upakue ukurasa ulioko kwa wasifu wako unaotumika",
   shot9_cap: "<b>Skrini ya kwanza ya Explore</b><br/>Mtazamo wa haraka wa Explore, na kwa nini akaunti ya pili ndiyo njia salama zaidi ya kuingia",
   shot10_cap: "<b>Vipakuliwa hukuambia kinachokuhitaji</b><br/>Viungo huandaliwa chinichini; kilichoshindwa hutoa suluhisho lake, playlist ndefu husubiri chaguo lako",
@@ -375,15 +371,15 @@ export const sw = {
 
   privacy_p1:
     "Maudhui hupakuliwa moja kwa moja kupitia [yt-dlp](https://github.com/yt-dlp/yt-dlp) kutoka YouTube hadi kwenye folda unayochagua — hakuna kitu kinachopita kwenye seva ya mtu wa tatu. Historia ya kutazama, historia ya kupakua, URL, na maudhui ya faili yanabaki kwenye kifaa chako.",
-  privacy_p2:
-    "Hakuna telemetry — ishara moja tu isiyo na jina kwa siku: toleo la programu, OS, lugha, njia ya usakinishaji, nchi na takriban muda uliopita tangu Arroxy iliposakinishwa, ili tuweze kuhesabu watumiaji hai na wapya. Hakuna vitambulisho, URLs, vichwa vya video, njia za faili wala taarifa za akaunti. Unaweza kuizima katika Mipangilio.",
+  privacy_reports:
+    "Hakuna ufuatiliaji — ishara moja tu isiyo na jina kwa siku (toleo la programu, OS, lugha, njia ya usakinishaji, nchi na takriban muda uliopita tangu Arroxy iliposakinishwa) ili tuweze kuhesabu watumiaji hai na wapya, na, Arroxy inapopakua au kusasisha yt-dlp na FFmpeg, taarifa isiyo na jina kuhusu kama ilifanikiwa na takriban ilichukua muda gani. Hakuna vitambulisho, URLs, vichwa vya video, njia za faili wala taarifa za akaunti. Unaweza kuzima zote mbili katika Mipangilio.",
   privacy_p3: "Explore ina njia zake za kuingia, tofauti na kivinjari chako, na Arroxy haisomi wala kujaza fomu ya kuingia kamwe — unaandika kwenye ukurasa wa tovuti wenyewe. Upakuaji hufanyika bila kuingia; ni pale tu upakuaji unaposhindwa kwa njia ambayo akaunti inaweza kurekebisha ndipo Arroxy husoma kuingia upya, kuliweka kwenye faili ya muda kwa upakuaji huo, na kufuta faili baadaye. Kutoka kwenye Explore katika Mipangilio huzifanya zisahaulike.",
   faq_q1: "Je, ni bure kweli kweli?",
   faq_a1:
     "Ndiyo — leseni ya GPLv3, hakuna ngazi ya malipo, hakuna kizuizi cha vipengele.",
   faq_q11: "Arroxy ina tofauti gani na GUI nyingine za yt-dlp?",
   faq_a11:
-    "GUI nyingi za bure za yt-dlp ni vifuniko vinavyopokea kiungo tu. Arroxy inaongeza **Explore**, kivinjari kilichojengwa ndani ya programu kinachofungua YouTube au tovuti nyingine yoyote: unavinjari na kupakua bila kunakili viungo, na unaingia humo mara moja ili kupakua video za faragha, za wanachama pekee, na zenye kikomo cha umri pamoja na orodha zako za Tazama Baadaye na Zilizopendwa, bila kuhamisha vidakuzi. Arroxy hutumia kuingia huko YouTube inapokuomba uthibitishe kuwa wewe si roboti, na kivinjari chake kilichojengewa ndani hupata tokeni ya upakuaji ya YouTube ili upakuaji usirudi kwenye fomati chache. Angalia [Kwa Nini Arroxy](#why).",
+    "GUI nyingi za bure za yt-dlp ni vifuniko vinavyopokea kiungo tu. Arroxy inaongeza **Gundua**, kivinjari kilichojengwa ndani ya programu kinachofungua YouTube au tovuti nyingine yoyote: unavinjari na kupakua bila kunakili viungo, na unaingia humo mara moja ili kupakua video ambazo akaunti yako inaweza kutazama, kama video zako za faragha na orodha zako za Tazama Baadaye na Zilizopendwa, bila kuhamisha vidakuzi. Angalia [Kwa Nini Arroxy](#why).",
   faq_q2: "Ninaweza kupakua ubora gani wa video?",
   faq_a2:
     "Chochote YouTube kinatoa: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, pamoja na sauti pekee. Mtiririko wa fps 60 na HDR huhifadhiwa kama ulivyo, na upakuaji wa hatua kwa hatua hukuruhusu kuchagua AV1, VP9 au H.264 katika kila azimio.",
@@ -391,9 +387,9 @@ export const sw = {
   faq_a3:
     "Ndiyo. Chagua *sauti pekee* kwenye menyu ya fomati kisha uchague MP3, M4A/AAC, Opus au WAV.",
   faq_q4: "Ninawezaje kupakua video zinazohitaji akaunti ya YouTube?",
-  faq_a4: "Ingia mara moja kwenye kichupo cha Explore. Kisha Arroxy inaweza kupakua video za faragha na za wanachama pekee ambazo akaunti yako inaweza kutazama, video zenye kikomo cha umri ikiwa umri wa akaunti umethibitishwa, na orodha zako za Tazama Baadaye na Zilizopendwa. Hutumia kuingia huko tu pale upakuaji unaposhindwa kwa njia ambayo akaunti inaweza kurekebisha; kila kitu kingine hupakuliwa kama kawaida. Hili ni chaguo la **Kuingia kwa Explore**, lililoorodheshwa kwanza na kuwekewa alama ya Inapendekezwa katika mipangilio ya vidakuzi, na Arroxy huliteua kwa ajili yako mara ya kwanza unapofungua Explore. Wiki ya yt-dlp inaeleza kwamba [otomatiki ya akaunti iliyoingia inaweza kuweka alama kwenye akaunti ya Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); kwa hiyo akaunti ya pili ndiyo chaguo salama zaidi.",
+  faq_a4: "Ingia mara moja kwenye kichupo cha Gundua. Kisha Arroxy inaweza kupakua video ambazo akaunti yako inaweza kutazama: video zako za faragha, video zenye kikomo cha umri ikiwa umri wa akaunti umethibitishwa, na orodha zako za Tazama Baadaye na Zilizopendwa. Hutumia kuingia huko tu pale upakuaji unaposhindwa kwa njia ambayo akaunti inaweza kurekebisha; kila kitu kingine hupakuliwa kama kawaida. Hili ni chaguo la **Kuingia kwa Gundua**, lililoorodheshwa kwanza na kuwekewa alama ya Inapendekezwa katika mipangilio ya vidakuzi, na Arroxy hulichagua kwa ajili yako mara ya kwanza unapofungua Gundua. Wiki ya yt-dlp inaeleza kwamba [otomatiki ya akaunti iliyoingia inaweza kuweka alama kwenye akaunti ya Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies); kwa hiyo akaunti ya pili ndiyo chaguo salama zaidi.",
   faq_q5: "Je, itaendelea kufanya kazi YouTube ikibadilisha kitu?",
-  faq_a5: "yt-dlp husasishwa kiotomatiki wakati wa uzinduzi, na Arroxy hutuma marekebisho haraka YouTube inapobadilisha kitu. YouTube inapokuomba uthibitishe kuwa wewe si roboti, Arroxy pia hujaribu kuingia kwako kwa Explore ikiwa umeingia huko, na vidakuzi kutoka kwenye faili au kivinjari chako vinapatikana katika mipangilio ya vidakuzi.",
+  faq_a5: "yt-dlp husasishwa kiotomatiki wakati wa uzinduzi, na Arroxy hutuma marekebisho haraka YouTube inapobadilisha kitu. Upakuaji unapohitaji kuingia, Arroxy hutumia kuingia kwako kwa Gundua ikiwa umeingia huko, na vidakuzi kutoka kwenye faili au kivinjari chako vinapatikana katika mipangilio ya vidakuzi.",
   faq_q6: "Arroxy inapatikana katika lugha zipi?",
   faq_a6:
     "Lugha {{LANG_COUNT}} zipo tayari: {{LANG_NAME_LIST}}. Arroxy hutambua lugha ya mfumo wako wa uendeshaji kiotomatiki inapofunguliwa mara ya kwanza, na unaweza kubadilisha wakati wowote kupitia kiteuzi cha lugha kwenye upau wa zana. Runtime locale JSON ziko src/shared/i18n/locales/, na catalog za PO kwa watafsiri ziko i18n/locales/ — fungua PR kwenye GitHub ili kuchangia.",
@@ -408,7 +404,7 @@ export const sw = {
     "Hiyo ni macOS Gatekeeper inayozuia programu isiyosainiwa, si uharibifu wa kweli. Tazama [macOS first launch](#macos-first-launch) kwa amri za Terminal zinazoondoa quarantine na kuzindua Arroxy.",
   faq_q10: "Je, ni halali kupakua video za YouTube?",
   faq_a10:
-    "Kwa matumizi ya kibinafsi na ya faragha, kwa ujumla inakubaliwa katika mamlaka nyingi. Unawajibika kufuata [Masharti ya Huduma](https://www.youtube.com/t/terms) ya YouTube na sheria za haki miliki za mamlaka yako.",
+    "Inategemea nchi yako na unachopakua. Pakua tu maudhui unayomiliki, maudhui yenye leseni ya kupakuliwa, au maudhui ambayo sheria ya nchi yako inakuruhusu kunakili. Unawajibika kufuata [Masharti ya Huduma](https://www.youtube.com/t/terms) ya YouTube na sheria za haki miliki za mamlaka yako. Angalia [Masharti ya matumizi](#terms).",
   plan_intro: "Bado imepangwa — takriban kwa mpangilio wa kipaumbele:",
   plan_col1: "Kipengele",
   plan_col2: "Maelezo",
@@ -432,7 +428,7 @@ export const sw = {
     "Una kipengele unachofikiria? [Fungua ombi](../../issues) — maoni ya jamii huathiri kipaumbele.",
   tech_content: TECH_CONTENT,
   support_h2: "Saidia Arroxy",
-  support_note: "Arroxy ni bure na ina leseni ya GPLv3 — hakuna matangazo, hakuna telemetria, hakuna toleo la kulipia. Ikiwa inakuokolea muda, unaweza kusaidia maendeleo yake kwa Bitcoin, Tron au Ethereum: anwani zipo katika [DONATE.md](DONATE.md), ambacho ndicho chanzo rasmi pekee cha anwani hizo. Arroxy hatakutumia kamwe anwani kwa barua pepe au ujumbe wa moja kwa moja. Kuipa repo nyota, kuripoti hitilafu, na kuboresha tafsiri kunasaidia vivyo hivyo.",
+  support_line: "Arroxy ni bure na ina leseni ya GPLv3 — hakuna matangazo, hakuna ufuatiliaji, hakuna toleo la kulipia. Ikiwa inakuokolea muda, unaweza kusaidia maendeleo yake kwa Bitcoin, Tron au Ethereum: anwani zipo katika [DONATE.md](DONATE.md), ambacho ndicho chanzo rasmi pekee cha anwani hizo. Arroxy haitakutumia kamwe anwani kwa barua pepe au ujumbe wa moja kwa moja. Kuipa repo nyota, kuripoti hitilafu, na kuboresha tafsiri kunasaidia vivyo hivyo.",
   tos_h2: "Masharti ya matumizi",
   tos_note:
     "Arroxy ni zana ya matumizi ya kibinafsi na ya faragha tu. Unawajibika peke yako kuhakikisha maudhui unayopakua yanafuata [Masharti ya Huduma](https://www.youtube.com/t/terms) ya YouTube na sheria za haki miliki za mamlaka yako. Usitumie Arroxy kupakua, kunakili, au kusambaza maudhui ambayo huna haki ya kuyatumia. Waendelezaji hawana jukumu lolote kwa matumizi mabaya.",

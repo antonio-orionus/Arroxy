@@ -31,7 +31,6 @@
 		"cancel": "Zrušiť",
 		"close": "Zavrieť",
 		"continue": "Pokračovať",
-		"dismiss": "Zavrieť",
 		"loading": "Načítava sa",
 		"retry": "Skúsiť znova",
 		"startOver": "Začať odznova"
@@ -45,14 +44,13 @@
 			"remember": "Už sa nepýtať"
 		},
 		"quitWithActiveDownloads": {
-			"confirm": "Zrušiť sťahovania a ukončiť",
-			"detail": "Pozastavte, aby ste mohli neskôr pokračovať, alebo zrušte a zahoďte priebeh.",
+			"continueDetail": "Rad zostane zachovaný a sťahovanie nadviaže tam, kde skončilo, pri ďalšom otvorení Arroxy.",
 			"keep": "Pokračovať v sťahovaní",
 			"message_few": "Prebiehajú {{count}} sťahovania",
 			"message_many": "Prebieha {{count}} sťahovania",
 			"message_one": "Prebieha {{count}} sťahovanie",
 			"message_other": "Prebieha {{count}} sťahovaní",
-			"pause": "Pozastaviť sťahovania a ukončiť"
+			"quit": "Ukončiť"
 		},
 		"rendererCrashed": {
 			"detail": "Proces vykresľovania zlyhal ({{reason}}). Načítajte aplikáciu znova a skúste to ešte raz.",
@@ -75,12 +73,12 @@
 		"noSubtitlesIn": "Toto video nemá titulky v jazykoch: {{languages}}.",
 		"ytdlp": {
 			"ageRestricted": "Toto video je vekovo obmedzené a nedá sa stiahnuť bez prihláseného účtu.",
-			"botBlock": "Spustila sa ochrana pred robotmi. Vaša IP adresa je s najväčšou pravdepodobnosťou označená (rozsah dátového centra alebo vyťažený výstup VPN). Zmeňte IP adresu alebo vyberte iný koncový bod VPN a skúste to znova. Ak to stále zlyháva, môže ísť o dočasnú zmenu na strane webu – Arroxy pri spustení aktualizuje svoj sťahovací nástroj, takže oprava sa nainštaluje automaticky po jej vydaní.",
+			"botBlock": "Ochrana webu proti robotom toto sťahovanie zastavila. Chvíľu počkajte a skúste to znova, alebo sťahujte naraz menej videí. Ak to naďalej zlyháva, môže ísť o dočasnú zmenu na strane webu – Arroxy pri spustení aktualizuje svoj sťahovací nástroj, takže oprava sa objaví automaticky, hneď ako bude vydaná.",
 			"chunkTransferFailure": "Server opakovane prerušoval sťahovanie uprostred prenosu a Arroxy to po opakovaných pokusoch vzdal. Najčastejšie sa to stáva pri najväčších formátoch videa (4K HDR / VP9 s vysokou bitovou rýchlosťou). Skúste to znova, zmeňte sieť alebo VPN, alebo vyberte formát s nižším rozlíšením.",
 			"drmProtected": "Toto video je chránené pomocou DRM. Arroxy nedokáže odstrániť DRM, preto sa súbor nedá stiahnuť.",
 			"formatUnavailable": "Toto video už neponúka formát, ktorý ste vybrali. Vložte odkaz znova a vyberte z formátov, ktoré ponúka teraz.",
 			"geoBlocked": "Toto video nie je dostupné vo vašom regióne.",
-			"ipBlock": "Vaša IP adresa je zrejme zablokovaná. Skúste to neskôr alebo použite VPN.",
+			"ipBlock": "Web blokuje požiadavky z tohto pripojenia. Skúste to neskôr.",
 			"loginRequired": "Toto video vyžaduje prihlásený účet.",
 			"missingDependency": "Arroxy nenašiel FFmpeg ani FFprobe. Spustite nastavenie znova alebo nastavte umiestnenie FFmpeg a potom skúste sťahovanie zopakovať.",
 			"network": "Chyba siete. Skontrolujte pripojenie a skúste to znova.",
@@ -109,8 +107,28 @@
 			"title": "Odkaz stiahnete pravým kliknutím"
 		},
 		"linkMenu": {
+			"background": {
+				"album": "Stiahnuť album na pozadí",
+				"liked": "Stiahnuť obľúbené videá na pozadí",
+				"mix": "Stiahnuť Mix na pozadí",
+				"playlist": "Stiahnuť zoznam skladieb na pozadí",
+				"uploads": "Stiahnuť nahrané videá na pozadí",
+				"watchLater": "Stiahnuť „Pozrieť neskôr“ na pozadí"
+			},
 			"copyLink": "Kopírovať odkaz",
-			"downloadWith": "Stiahnuť s profilom"
+			"downloadFirst": "Stiahnuť prvých {{count}}",
+			"downloadThisVideo": "Stiahnuť toto video · {{profileName}}",
+			"downloadWith": "Stiahnuť s profilom",
+			"fromList": {
+				"album": "Z tohto albumu",
+				"liked": "Z vašich obľúbených videí",
+				"mix": "Z tohto Mixu",
+				"playlist": "Z tohto zoznamu skladieb",
+				"uploads": "Z nahraných videí tohto kanála",
+				"watchLater": "Z „Pozrieť neskôr“"
+			},
+			"interactive": "Interaktívne sťahovanie…",
+			"thisVideoWith": "Toto video s"
 		},
 		"newBadge": "Nové",
 		"notice": {
@@ -157,6 +175,7 @@
 			"aria": "Ovládacie prvky prehliadača Preskúmať",
 			"back": "Späť",
 			"compactLayout": "Kompaktné rozloženie",
+			"download": "Stiahnuť",
 			"downloadWithProfile": "Stiahnuť · {{profileName}}",
 			"forward": "Dopredu",
 			"fullLayout": "Zobraziť úplné rozloženie",
@@ -166,6 +185,8 @@
 			"refusedHint": "Preskúmať túto adresu nemôže otvoriť.",
 			"reload": "Načítať znova",
 			"searchTooLong": "Toto vyhľadávanie je príliš dlhé.",
+			"thisVideo": "Toto video",
+			"thisVideoHint": "Stiahnuť iba toto video s profilom {{profileName}}",
 			"zoom": {
 				"hint": "Priblíženie stránky: {{percent}} %",
 				"in": "Priblížiť",
@@ -207,9 +228,9 @@
 			"too-long": "Šablóna je príliš dlhá.",
 			"unknown-token": "Neznámy token {{token}}."
 		},
-		"idWarning": "Bez {id} Arroxy nedokáže rozpoznať už stiahnuté položky zoznamu skladieb ani vytvárať zoznamy .m3u.",
+		"idEndingWarning": "Ukončite názov reťazcom [{id}], aby Arroxy mohol rozpoznať už stiahnuté položky zoznamu skladieb a vytvárať zoznamy skladieb .m3u.",
 		"label": "Šablóna názvu súboru",
-		"m3uDisabled": "Nedostupné, pretože vaša šablóna názvu súboru neobsahuje {id} alebo zoraďuje stiahnuté súbory do priečinkov.",
+		"m3uDisabledIdEnding": "Nedostupné, pretože šablóna názvu súboru nekončí na [{id}] alebo triedi sťahovania do priečinkov.",
 		"previewPlaylist": "V zozname skladieb",
 		"previewSingle": "Jedno video",
 		"profileOverrideDescription": "Ak necháte prázdne, použije sa globálna šablóna.",
@@ -258,20 +279,32 @@
 		"quickDownload": {
 			"added": "Pridané: {{title}}",
 			"alreadyQueued": "Už je v rade",
+			"batchAdded_few": "Na kartu Sťahovania boli pridané {{count}} odkazy",
+			"batchAdded_many": "Na kartu Sťahovania bolo pridaných {{count}} odkazu",
+			"batchAdded_one": "Na kartu Sťahovania bol pridaný {{count}} odkaz",
+			"batchAdded_other": "Na kartu Sťahovania bolo pridaných {{count}} odkazov",
+			"batchAlreadyQueued_few": "{{count}} už sú v rade",
+			"batchAlreadyQueued_many": "{{count}} už sú v rade",
+			"batchAlreadyQueued_one": "{{count}} už je v rade",
+			"batchAlreadyQueued_other": "{{count}} už sú v rade",
+			"batchNoneAdded_few": "{{count}} odkazy sa nepodarilo pridať",
+			"batchNoneAdded_many": "{{count}} odkazu sa nepodarilo pridať",
+			"batchNoneAdded_one": "{{count}} odkaz sa nepodarilo pridať",
+			"batchNoneAdded_other": "{{count}} odkazov sa nepodarilo pridať",
+			"batchNotAdded_few": "{{count}} sa nepodarilo pridať",
+			"batchNotAdded_many": "{{count}} sa nepodarilo pridať",
+			"batchNotAdded_one": "{{count}} sa nepodarilo pridať",
+			"batchNotAdded_other": "{{count}} sa nepodarilo pridať",
+			"chooseFromList_few": "{{count}} videá v tomto zozname – vyberte, čo stiahnuť",
+			"chooseFromList_many": "{{count}} videa v tomto zozname – vyberte, čo stiahnuť",
+			"chooseFromList_one": "{{count}} video v tomto zozname – vyberte, čo stiahnuť",
+			"chooseFromList_other": "{{count}} videí v tomto zozname – vyberte, čo stiahnuť",
 			"chooseHowMany_few": "{{count}}+ videá – vyberte, koľko",
 			"chooseHowMany_many": "{{count}}+ videa – vyberte, koľko",
 			"chooseHowMany_one": "{{count}}+ video – vyberte, koľko",
 			"chooseHowMany_other": "{{count}}+ videí – vyberte, koľko",
 			"failed": "Nepodarilo sa pripraviť {{title}}",
 			"notAdded": "Odkaz sa nepodarilo pridať – skúste to znova",
-			"reviewCapped_few": "{{count}}+ videá v tomto zozname – vyberte ich na kontrole",
-			"reviewCapped_many": "{{count}}+ videa v tomto zozname – vyberte ich na kontrole",
-			"reviewCapped_one": "{{count}}+ video v tomto zozname – vyberte ho na kontrole",
-			"reviewCapped_other": "{{count}}+ videí v tomto zozname – vyberte ich na kontrole",
-			"review_few": "{{count}} videá v tomto zozname – vyberte ich na kontrole",
-			"review_many": "{{count}} videa v tomto zozname – vyberte ich na kontrole",
-			"review_one": "{{count}} video v tomto zozname – vyberte ho na kontrole",
-			"review_other": "{{count}} videí v tomto zozname – vyberte ich na kontrole",
 			"view": "Zobraziť"
 		},
 		"settingsSaveFailed": "Nastavenia sa nepodarilo uložiť.",
@@ -363,11 +396,29 @@
 			"cappedBody_one": "V tomto zozname skladieb je viac ako {{count}} video. Stiahnite všetky, prvé {{count}} alebo vyberte na kontrole.",
 			"cappedBody_other": "V tomto zozname skladieb je viac ako {{count}} videí. Stiahnite všetky, prvých {{count}} alebo vyberte na kontrole.",
 			"first": "Prvé {{count}}",
+			"list": {
+				"album": "Album",
+				"liked": "Obľúbené videá",
+				"mix": "Mix",
+				"playlist": "Zoznam skladieb",
+				"uploads": "Všetky nahrané videá",
+				"watchLater": "„Pozrieť neskôr“"
+			},
+			"pick": "Vybrať z neho…",
 			"review": "Skontrolovať",
-			"reviewBody_few": "Tento odkaz je zoznam so {{count}} videami. Skontrolujte ho a vyberte, čo sa má stiahnuť.",
-			"reviewBody_many": "Tento odkaz je zoznam s {{count}} videa. Skontrolujte ho a vyberte, čo sa má stiahnuť.",
-			"reviewBody_one": "Tento odkaz je zoznam s {{count}} videom. Skontrolujte ho a vyberte, čo sa má stiahnuť.",
-			"reviewBody_other": "Tento odkaz je zoznam s {{count}} videami. Skontrolujte ho a vyberte, čo sa má stiahnuť."
+			"uncappedBody_few": "Tento odkaz je zoznam so {{count}} videami. Stiahnite všetky alebo vyberte na kontrole.",
+			"uncappedBody_many": "Tento odkaz je zoznam s {{count}} videami. Stiahnite všetky alebo vyberte na kontrole.",
+			"uncappedBody_one": "Tento odkaz je zoznam s {{count}} videom. Stiahnite ho alebo vyberte na kontrole.",
+			"uncappedBody_other": "Tento odkaz je zoznam s {{count}} videami. Stiahnite všetky alebo vyberte na kontrole.",
+			"video": "Toto video",
+			"videoOrList": {
+				"album": "Tento odkaz ukazuje na video v albume. Stiahnuť iba video, alebo album?",
+				"liked": "Tento odkaz ukazuje na video z vašich obľúbených videí. Stiahnuť iba video, alebo všetky obľúbené videá?",
+				"mix": "Tento odkaz ukazuje na video v Mixe. Stiahnuť iba video, alebo Mix?",
+				"playlist": "Tento odkaz ukazuje na video v zozname skladieb. Stiahnuť iba video, alebo zoznam skladieb?",
+				"uploads": "Tento odkaz ukazuje na video z nahraných videí kanála. Stiahnuť iba video, alebo všetky nahrané videá?",
+				"watchLater": "Tento odkaz ukazuje na video vo vašom zozname „Pozrieť neskôr“. Stiahnuť iba video, alebo celý zoznam?"
+			}
 		},
 		"clearTitle": "Vymazať dokončené sťahovania",
 		"empty": "Tu sa zobrazia sťahovania zaradené do radu",
@@ -401,7 +452,29 @@
 			"statusPending": "Čaká",
 			"statusProbing": "Zisťujú sa podrobnosti",
 			"statusRunning": "Sťahuje sa",
-			"subtitleLanguagesMissing": "Žiadne titulky v jazykoch: {{languages}}"
+			"subtitleLanguagesMissing": "Žiadne titulky v jazykoch: {{languages}}",
+			"waitingForSite": "Čaká na {{site}} do {{time}}",
+			"waitingHint": "{{site}} obmedzuje počet požiadaviek z tohto pripojenia. Arroxy načíta podrobnosti tohto odkazu po {{time}}, aby sa limit mohol uvoľniť."
+		},
+		"listOffer": {
+			"dismiss": "Zavrieť",
+			"from": {
+				"album": "Z albumu",
+				"liked": "Z vašich obľúbených videí",
+				"mix": "Z Mixu",
+				"playlist": "Zo zoznamu skladieb",
+				"uploads": "Z nahraných videí kanála",
+				"watchLater": "Z „Pozrieť neskôr“"
+			},
+			"get": {
+				"album": "Stiahnuť celý album",
+				"liked": "Stiahnuť všetky obľúbené videá",
+				"mix": "Stiahnuť celý Mix",
+				"playlist": "Stiahnuť celý zoznam skladieb",
+				"uploads": "Stiahnuť všetky nahrané videá",
+				"watchLater": "Stiahnuť celý zoznam „Pozrieť neskôr“"
+			},
+			"hint": "Pridá zoznam ako samostatný riadok. Toto video sa vynechá."
 		},
 		"pauseAllTitle": "Pozastaviť všetky aktívne sťahovania a zabrániť spusteniu nových",
 		"pausedBanner": "Rad je pozastavený – čakajúce položky sa nespustia, kým ho neobnovíte",
@@ -634,7 +707,6 @@
 		"cancel": "Máte problémy? Nastavte to ručne",
 		"greeting": "Vitajte späť!",
 		"setup": {
-			"bytes": "{{done}} z {{total}}",
 			"left": {
 				"minutes_few": "zostáva približne {{count}} min",
 				"minutes_many": "zostáva približne {{count}} min",
@@ -642,20 +714,14 @@
 				"minutes_other": "zostáva približne {{count}} min",
 				"underMinute": "zostáva menej ako minúta"
 			},
-			"note": {
-				"engine": "Vďaka tomu sťahovanie funguje aj po zmenách na weboch.",
-				"firstRun": "Stane sa to iba raz. Arroxy si tieto nástroje ponechá a sám ich aktualizuje.",
-				"media": "Stane sa to iba raz. Arroxy si ich ponechá pre budúce aktualizácie."
-			},
 			"stage": {
 				"checking": "Kontroluje sa, či všetko funguje",
 				"connecting": "Pripája sa…",
-				"downloadingBoth": "Sťahuje sa sťahovací nástroj a mediálne nástroje",
-				"downloadingEngine": "Sťahuje sa sťahovací nástroj",
-				"downloadingMedia": "Sťahujú sa mediálne nástroje",
-				"unpacking": "Rozbaľujú sa mediálne nástroje"
+				"unpacking": "Rozbaľujú sa mediálne nástroje",
+				"unpackingEngine": "Rozbaľuje sa sťahovací nástroj"
 			},
 			"title": {
+				"both": "Aktualizujú sa nástroje Arroxy",
 				"engine": "Aktualizuje sa sťahovací nástroj",
 				"firstRun": "Nastavenie pri prvom spustení",
 				"media": "Aktualizujú sa mediálne nástroje"
@@ -681,14 +747,14 @@
 		"fetchingSponsorBlock": "Kontaktuje sa SponsorBlock…",
 		"fetchingSubtitles": "Sťahujú sa titulky…",
 		"mergingFormats": "Zlučuje sa zvuk a video…",
-		"mintingToken": "Vytvára sa token YouTube…",
+		"mintingToken": "Pripravuje sa sťahovanie z YouTube…",
 		"movingFiles": "Presúvajú sa súbory…",
 		"noSubtitles": "Žiadne titulky v jazykoch: {{languages}}",
 		"outputNotWritable": "Do priečinka {{dir}} sa nedá ukladať – Arroxy tam nemá povolený zápis",
 		"preparingBinaries": "Pripravujú sa binárne súbory…",
-		"qualityLimited": "Uložené v kvalite {{height}}p – YouTube pre toto sťahovanie zadržal vyššie kvality. Môže pomôcť skúsiť to neskôr alebo z inej siete.",
-		"qualityLimitedSubtitlesFailed": "Uložené v kvalite {{height}}p – YouTube pre toto sťahovanie zadržal vyššie kvality a niektoré titulky sa nepodarilo stiahnuť. Môže pomôcť skúsiť to neskôr alebo z inej siete.",
-		"remintingToken": "Token sa vytvára znova…",
+		"qualityLimited": "Uložené v {{height}}p – YouTube pre toto sťahovanie zadržal vyššie kvality. Môže pomôcť opakovanie neskôr.",
+		"qualityLimitedSubtitlesFailed": "Uložené v {{height}}p – YouTube pre toto sťahovanie zadržal vyššie kvality a niektoré titulky sa nepodarilo stiahnuť. Môže pomôcť opakovanie neskôr.",
+		"remintingToken": "Sťahovanie z YouTube sa pripravuje znova…",
 		"retryingSponsorBlock": "SponsorBlock nie je dostupný, opakuje sa ({{attempt}}/{{total}})…",
 		"retryingTransfer": "Pripojenie sa zaseklo, opakuje sa ({{attempt}}/{{total}})…",
 		"signingInWithExplore": "Prihlasuje sa pomocou vášho účtu z Preskúmať…",
@@ -830,7 +896,7 @@
 			"pictures": "Obrázky",
 			"subfolder": {
 				"invalid": "Názov priečinka obsahuje neplatné znaky",
-				"placeholder": "napr. lo-fi nahrávky",
+				"placeholder": "napr. prednášky",
 				"toggle": "Uložiť do podpriečinka"
 			},
 			"videos": "Filmy"
@@ -928,7 +994,11 @@
 				"noVideo": "Tento odkaz neobsahuje video, preto sa vybral zvuk.",
 				"subtitlesMissing": "Váš profil vyžaduje titulky v jazykoch: {{languages}}. Toto video ich nemá.",
 				"tierAbove": "Váš profil vyžaduje {{wanted}}p. Toto video nemá nič také malé, preto sa vybralo {{picked}}p.",
-				"tierBelow": "Váš profil vyžaduje {{wanted}}p. Toto video siaha iba po {{picked}}p, preto sa vybralo {{picked}}p.",
+				"tierAbovePassedOver": "Váš profil vyžaduje {{wanted}}p. Menšie streamy tohto videa nepasujú k zvyšku vášho profilu, preto sa vybralo {{picked}}p.",
+				"tierBelowTakeable": "Váš profil vyžaduje {{wanted}}p. Toto video nemá použiteľné {{wanted}}p, preto sa vybralo {{picked}}p.",
+				"tierPassedOverAiUpscaled": "Váš profil vyžaduje {{wanted}}p. {{wanted}}p tohto videa je umelo zväčšené pomocou AI, preto sa vybralo pôvodné {{picked}}p.",
+				"tierPassedOverH264": "Váš profil vyžaduje {{wanted}}p v H.264. Toto video má {{wanted}}p len v iných kodekoch, preto sa vybralo {{picked}}p v H.264.",
+				"tierPassedOverProfile": "Váš profil vyžaduje {{wanted}}p. {{wanted}}p tohto videa nepasuje k zvyšku vášho profilu, preto sa vybralo {{picked}}p.",
 				"webmUnavailable": "Váš profil vyžaduje WebM. Vybrané streamy tohto videa obsahujú {{codec}}, ktorý WebM nepojme, preto je typ súboru Auto."
 			},
 			"footer": {
@@ -1005,29 +1075,26 @@
 			"withAudio": "so zvukom"
 		},
 		"listPrompt": {
-			"escHint": "Esc akciu zruší. Kým nevyberiete, nič sa nenačíta.",
-			"interactiveSubtitle": "Formáty zvolíte sami",
-			"justThisVideo": "Iba toto video",
-			"justThisVideoInteractiveHint": "Otvorí jeho formáty",
-			"justThisVideoQuickHint": "Načíta jedno video",
-			"listInteractiveHint": "Načíta až {{count}} na výber",
-			"listOption": {
-				"album": "Album, prvých",
-				"liked": "Vaše obľúbené videá, prvých",
-				"mix": "Mix, prvých",
-				"playlist": "Zoznam skladieb, prvých",
-				"uploads": "Nahrané videá, prvých",
-				"watchLater": "„Pozrieť neskôr“, prvých"
-			},
-			"listQuickHint": "Načíta až {{count}} a potom ich stiahne",
+			"backgroundHint": "S profilom {{profileName}}. Ak má viac ako {{count}} videí, karta Sťahovania sa opýta, koľko ich stiahnuť.",
+			"backgroundLabel": "Stiahnuť na pozadí",
+			"escOnly": "Esc zruší.",
+			"firstHint": "Presne prvých {{count}} s profilom {{profileName}}.",
+			"firstLabel": "Stiahnuť prvých",
+			"interactiveHint": "Vyberte spomedzi prvých {{count}} videí (alebo zmeňte počet v ďalšom kroku) a potom nastavte sťahovanie.",
+			"interactiveLabel": "Interaktívne sťahovanie…",
+			"limitHint": "Koľko videí zo zoznamu vziať: prvá možnosť sa opýta, keď ich je viac, druhá vezme presne toľko. Rovnaké ako Nastavenia › Položky zoznamu skladieb na prehľadanie.",
+			"limitLabel": "Limit",
 			"mixNote": "Mix sa mení pri každom otvorení.",
-			"pickOption": {
-				"album": "Vybrať z albumu, prvých",
-				"liked": "Vybrať z obľúbených videí, prvých",
-				"mix": "Vybrať z Mixu, prvých",
-				"playlist": "Vybrať zo zoznamu skladieb, prvých",
-				"uploads": "Vybrať z nahraných videí, prvých",
-				"watchLater": "Vybrať z „Pozrieť neskôr“, prvých"
+			"pickLoadAfter": "videí na výber.",
+			"pickLoadBefore": "Načítať prvých",
+			"pickLoadNote": "Môžete to zmeniť v ďalšom kroku.",
+			"pickTitle": {
+				"album": "Vybrať z tohto albumu",
+				"liked": "Vybrať z vašich obľúbených videí",
+				"mix": "Vybrať z tohto Mixu",
+				"playlist": "Vybrať z tohto zoznamu skladieb",
+				"uploads": "Vybrať z nahraných videí tohto kanála",
+				"watchLater": "Vybrať z „Pozrieť neskôr“"
 			},
 			"title": {
 				"album": "Stiahnuť z tohto albumu",
@@ -1037,6 +1104,9 @@
 				"uploads": "Stiahnuť nahrané videá tohto kanála",
 				"watchLater": "Stiahnuť z „Pozrieť neskôr“"
 			},
+			"videoHint": "Iba otvorené video, s profilom {{profileName}}. Zoznam sa nenačíta.",
+			"videoLabel": "Iba toto video",
+			"videoPickHint": "Nastavte iba otvorené video. Zoznam sa nenačíta.",
 			"withProfile": "S profilom {{profileName}}"
 		},
 		"output": {
@@ -1108,6 +1178,14 @@
 			"allRemovedDescription": "Obnovte ich a pokračujte.",
 			"allRemovedTitle": "Všetky položky boli odstránené",
 			"alreadyDownloaded": "Už stiahnuté",
+			"bulkCappedDesc_few": "Majú ich viac. Ak chcete vybrať, koľko ich stiahnuť, vložte každý odkaz samostatne.",
+			"bulkCappedDesc_many": "Majú ich viac. Ak chcete vybrať, koľko ich stiahnuť, vložte každý odkaz samostatne.",
+			"bulkCappedDesc_one": "Má ich viac. Ak chcete vybrať, koľko ich stiahnuť, vložte jeho odkaz samostatne.",
+			"bulkCappedDesc_other": "Majú ich viac. Ak chcete vybrať, koľko ich stiahnuť, vložte každý odkaz samostatne.",
+			"bulkCappedTitle_few": "{{count}} zoznamy sú obmedzené na {{limit}} videí každý",
+			"bulkCappedTitle_many": "{{count}} zoznamu je obmedzených na {{limit}} videí každý",
+			"bulkCappedTitle_one": "„{{title}}“ je obmedzený na {{limit}} videí",
+			"bulkCappedTitle_other": "{{count}} zoznamov je obmedzených na {{limit}} videí každý",
 			"bulkHeading": "Hromadné adresy URL",
 			"bulkMetadataOptional": "Nemusíte čakať – súbory zaradené do radu teraz dostanú svoje skutočné názvy pri sťahovaní.",
 			"bulkMetadataResolving": "Zisťujú sa podrobnosti o videách… {{done}}/{{total}}",
@@ -1181,19 +1259,6 @@
 			"syncNoneTitle": "Zatiaľ nič nestiahnuté",
 			"syncScanning": "Kontroluje sa priečinok…",
 			"thumbnailAlt": "Miniatúra videa"
-		},
-		"playlistCap": {
-			"changeLimit": "Zmeniť limit načítania",
-			"descriptionWithTitle_few": "<title/>: Arroxy načítal {{count}} položky pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova.",
-			"descriptionWithTitle_many": "<title/>: Arroxy načítal {{count}} položky pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova.",
-			"descriptionWithTitle_one": "<title/>: Arroxy načítal {{count}} položku pri aktuálnom limite {{limit}}. Zaraďte načítanú položku do radu teraz, alebo limit zvýšte a prehľadajte znova.",
-			"descriptionWithTitle_other": "<title/>: Arroxy načítal {{count}} položiek pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova.",
-			"description_few": "Arroxy načítal {{count}} položky pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova.",
-			"description_many": "Arroxy načítal {{count}} položky pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova.",
-			"description_one": "Arroxy načítal {{count}} položku pri aktuálnom limite {{limit}}. Zaraďte načítanú položku do radu teraz, alebo limit zvýšte a prehľadajte znova.",
-			"description_other": "Arroxy načítal {{count}} položiek pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova.",
-			"queueLoaded": "Zaradiť načítané do radu",
-			"title": "Prehľadávanie zoznamu skladieb je obmedzené"
 		},
 		"playlistPresets": {
 			"heading": "Vyberte kvalitu pre dávku",
@@ -1385,21 +1450,6 @@
 		"profileSwitchRow": {
 			"helpAria": "Pomocník: {{label}}"
 		},
-		"quickProgress": {
-			"cancel": "Zrušiť prípravu",
-			"currentFallback": "Aktuálny odkaz",
-			"description": "Arroxy číta odkaz a používa profil {{profileName}}.",
-			"failedCount_few": "Zlyhali: {{count}}",
-			"failedCount_many": "Zlyhali: {{count}}",
-			"failedCount_one": "Zlyhalo: {{count}}",
-			"failedCount_other": "Zlyhalo: {{count}}",
-			"phase": {
-				"probing": "Zisťujú sa podrobnosti",
-				"queueing": "Pridáva sa do radu"
-			},
-			"title": "Pripravuje sa rýchle sťahovanie",
-			"waitHint": "Nechajte toto okno otvorené, kým Arroxy pripravuje rad."
-		},
 		"review": {
 			"areas": {
 				"extras": "doplnky",
@@ -1509,6 +1559,7 @@
 				"embed": "Vložiť do videa",
 				"heading": "Uložiť ako",
 				"sidecar": "Vedľa videa",
+				"sidecarNoVideo": "V priečinku sťahovania",
 				"subfolder": "podpriečinok subtitles/"
 			},
 			"searchPlaceholder": "Hľadať jazyky…",
@@ -1518,10 +1569,6 @@
 		"tabsNavAria": "Navigácia profilov sťahovania",
 		"url": {
 			"advanced": "Rozšírené",
-			"analytics": {
-				"toggle": "Odosielať denný signál o aktivite",
-				"toggleDescription": "Žiadna telemetria. Raz denne sa odošle anonymný signál o aktivite s verziou aplikácie, kanálom inštalácie, operačným systémom, jazykom, krajinou a približne tým, ako dávno bol Arroxy nainštalovaný, aby sme mohli počítať aktívnych a nových používateľov. Žiadne identifikátory, adresy URL, názvy videí ani názvy súborov."
-			},
 			"autoRemoveCompleted": {
 				"description": "Odstráni sťahovanie zo zoznamu Sťahovania niekoľko sekúnd po jeho dokončení. Súbory zostanú vo vašom priečinku; zlyhané a zrušené sťahovania zostanú v zozname.",
 				"label": "Odstraňovať dokončené sťahovania"
@@ -1556,6 +1603,11 @@
 				"label": "Súčasné sťahovania",
 				"unit": "sťahovania"
 			},
+			"concurrentProbes": {
+				"description": "Pre koľko odkazov Arroxy zisťuje podrobnosti naraz, ešte pred stiahnutím. Menej je šetrnejšie k webom, ktoré blokujú vyťažené pripojenia. Odkaz otvorený v Interaktívnom sťahovaní ide vždy prvý.",
+				"label": "Naraz kontrolované odkazy",
+				"unit": "odkazov"
+			},
 			"cookies": {
 				"banWarning": "Weby ako YouTube môžu označiť – a niekedy aj zablokovať – účty, ktorých súbory cookie používajú sťahovacie nástroje ako Arroxy. Ak je to možné, použite účet na jedno použitie.",
 				"browserHelp": "Číta súbory cookie priamo z prehliadača. Prehliadače založené na Chromium musia byť zatvorené.",
@@ -1580,12 +1632,20 @@
 				"sourceFile": "Súbor",
 				"sourceLabel": "Zdroj súborov cookie",
 				"sourceOff": "Vypnuté",
-				"toggleDescription": "Pomáha pri videách s vekovým obmedzením, iba pre členov a súkromných videách viazaných na účet."
+				"toggleDescription": "Pomáha pri videách, ktoré môže sledovať váš vlastný účet, napríklad pri súkromných videách."
 			},
 			"downloadConnections": {
 				"description": "Zrýchli veľké sťahovania tým, že načíta niekoľko častí videa naraz. Vyššie hodnoty zvyšujú šancu, že vás web obmedzí.",
 				"label": "Pripojenia na sťahovanie",
 				"unit": "pripojenia"
+			},
+			"downloadList": {
+				"album": "Stiahnuť album…",
+				"liked": "Stiahnuť obľúbené videá…",
+				"mix": "Stiahnuť Mix…",
+				"playlist": "Stiahnuť zoznam skladieb…",
+				"uploads": "Stiahnuť nahrané videá…",
+				"watchLater": "Stiahnuť „Pozrieť neskôr“…"
 			},
 			"features": {
 				"always": {
@@ -1614,18 +1674,17 @@
 			"hotkey": {
 				"changeShortcut": "Zmeniť skratku",
 				"conflict": "Túto skratku používa iná aplikácia – vyberte inú.",
-				"hintLabel": "Alebo stlačte",
-				"hintTooltip": "Skopírujte odkaz na video kdekoľvek, stlačte túto skratku a Arroxy ho zaradí do radu s vaším aktívnym profilom – bez prepínania okien.",
-				"hintTooltipSettings": "Zmeníte ju alebo vypnete v nastaveniach.",
+				"globalLabel": "Globálna skratka",
 				"recording": "Stlačte klávesy…",
 				"reset": "Obnoviť predvolené",
 				"sectionDescription": "Stiahnite akýkoľvek skopírovaný odkaz z ľubovoľnej aplikácie bez otvorenia Arroxy.",
 				"sectionTitle": "Globálna klávesová skratka",
 				"test": "Otestovať",
 				"toggle": "Povoliť globálnu klávesovú skratku",
-				"toggleDescription": "Stlačte skratku, keď máte v schránke odkaz na video."
+				"toggleDescriptionDetail": "Skopírujte odkaz na video v ľubovoľnej aplikácii a stlačte skratku: Arroxy ho zaradí do radu s vaším aktívnym profilom, bez prepínania okien. Odkaz na video v zozname skladieb stiahne iba toto video."
 			},
 			"interactiveDownload": "Interaktívne sťahovanie",
+			"interactiveDownloadAsks": "Interaktívne sťahovanie…",
 			"limitRate": {
 				"activeWarning": "Aktívne sťahovania si ponechajú svoj aktuálny limit. Zmeny použijete pozastavením a obnovením.",
 				"custom": "Vlastné…",
@@ -1638,10 +1697,8 @@
 			"mascotBusy": "Sťahujem na pozadí… Zvládam viac vecí naraz 😎",
 			"mascotCollection": "Rýchle sťahovanie zaradí načítané položky do radu s profilom {{profileName}}. Interaktívne vám umožní položky najprv skontrolovať alebo vybrať.",
 			"mascotIdle": "Vložte odkaz a nechajte Arroxy, nech ho stiahne ✨",
-			"mascotMixed": "Tento odkaz ukazuje na jedno video v kolekcii. Arroxy sa pred zisťovaním podrobností opýta, ktoré chcete.",
-			"mascotPreparing": "{{quickDownload}} číta tento odkaz a používa profil {{profileName}}.",
-			"mascotQueued": "Toto sťahovanie spracúva rad. Kým pracuje, môžete vložiť ďalší odkaz.",
 			"mascotSingle": "Rýchle sťahovanie spustí jedno sťahovanie s profilom {{profileName}}. Pre jednorazové zmeny použite Interaktívne.",
+			"mascotVideoInList": "Tento odkaz označuje video aj zoznam, v ktorom sa nachádza: stiahnite iba video, alebo zoznam.",
 			"nativeAudioPreference": {
 				"compatible": "Kompatibilné stereo",
 				"description": "Stereo alebo priestorový zvuk, keď profil vyberie pôvodný zvuk. Profil to môže prepísať.",
@@ -1745,6 +1802,7 @@
 					"override": "Používa sa prepísanie profilu",
 					"overrideSubfolder": "Používa sa prepísanie profilu + podpriečinok profilu"
 				},
+				"destinationEditHint": "Ak chcete zmeniť, kam sa ukladá, upravte profil.",
 				"destinationFallback": "Cieľ",
 				"edit": "Upraviť",
 				"editActive": "Upraviť aktívny profil",
@@ -1768,27 +1826,27 @@
 				"remove": "Odstrániť",
 				"reorderHint": "Presuňte profil potiahnutím. Všetky výbery profilov dodržiavajú toto poradie.",
 				"reset": "Obnoviť",
+				"savesTo": "Ukladá do",
 				"switchAria": "Prepnúť profil sťahovania: {{profileName}}",
 				"switchTitle": "Prepnúť profil sťahovania"
 			},
 			"proxy": {
 				"clear": "Vymazať",
-				"description": "Presmeruje prenos cez server proxy – užitočné pre obsah s regionálnym obmedzením.",
+				"description": "Presmeruje prenos cez server proxy.",
 				"label": "Adresa URL servera proxy",
 				"placeholder": "http://host:port"
 			},
-			"quickBulkAllFailed": "Žiadnu z týchto adries URL sa nepodarilo pripraviť",
 			"quickDownload": "Rýchle sťahovanie",
 			"quickDownloadTooltip": "Stiahne sa pomocou profilu: {{profileName}}",
 			"quickFailed": "Túto položku sa nepodarilo pridať: {{error}}",
-			"quickPartialFailed_few": "Do radu sa zaradilo, čo fungovalo. Nepodarilo sa pripraviť {{count}} adresy URL.",
-			"quickPartialFailed_many": "Do radu sa zaradilo, čo fungovalo. Nepodarilo sa pripraviť {{count}} adresy URL.",
-			"quickPartialFailed_one": "Do radu sa zaradilo, čo fungovalo. Nepodarilo sa pripraviť {{count}} adresu URL.",
-			"quickPartialFailed_other": "Do radu sa zaradilo, čo fungovalo. Nepodarilo sa pripraviť {{count}} adries URL.",
 			"quickPrepareFailed": "Položku radu sa nepodarilo pripraviť",
 			"quickPreparing": "Pripravuje sa",
 			"quickProbeFailed": "Zisťovanie podrobností zlyhalo",
 			"quickSingleOnly": "Ak chcete začať, vložte adresu URL videa, zoznamu skladieb, kanála alebo vyhľadávania.",
+			"reports": {
+				"toggle": "Odosielať anonymné signály o aktivite a správy o nastavení",
+				"toggleDescription": "Žiadne sledovanie. Raz denne anonymný signál o aktivite odošle verziu aplikácie, inštalačný kanál, operačný systém, jazyk, krajinu a približne ako dávno bol Arroxy nainštalovaný, aby sme mohli spočítať aktívnych a nových používateľov. Keď Arroxy nastavuje alebo aktualizuje sťahovací nástroj či mediálne nástroje, odošle aj informáciu, či sa to podarilo a približne ako dlho to trvalo. Žiadne ID, adresy URL, názvy videí ani názvy súborov."
+			},
 			"settings": {
 				"behaviorDescription": "Globálne správanie, ktoré ovplyvňuje aj sťahovania riadené profilmi.",
 				"behaviorHeading": "Správanie sťahovania",
@@ -1812,7 +1870,9 @@
 			"tabs": {
 				"profiles": "Profily",
 				"settings": "Nastavenia"
-			}
+			},
+			"thisVideo": "Toto video",
+			"thisVideoTooltip": "Stiahne iba toto video s profilom {{profileName}}"
 		}
 	}
 }

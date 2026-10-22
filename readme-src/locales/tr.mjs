@@ -96,7 +96,7 @@ export const tr = {
   discord_badge_text: "Discord Topluluğuna Katıl",
   discord_badge_encoded: "Discord%20Toplulu%C4%9Funa%20Kat%C4%B1l",
   hero_desc:
-    "**YouTube ve 2000+ desteklenen siteden** video, Shorts, müzik, kanal, podcast veya ses parçaları indir — 60 fps'de 8K HDR'a kadar, MP3 / AAC / Opus olarak ya da yalnızca ihtiyacın olan kısmı. Explore sekmesinde **YouTube'a ya da başka herhangi bir siteye Arroxy içinden göz at** ve baktığın videoyu, oynatma listesini veya kanalı indir; hesabının izleyebildiği özel, üyelere özel ve yaş kısıtlamalı videoları indirmek için orada giriş yap. Windows, macOS ve Linux'ta yerel çalışır. **Reklam yok, şişkinlik yok, ek satış yok.**",
+    "**YouTube ve 2000+ desteklenen siteden** video, Shorts, kanal, podcast veya ses parçaları indir — 60 fps'de 8K HDR'a kadar, MP3 / AAC / Opus olarak ya da yalnızca ihtiyacın olan kısmı. Explore sekmesinde **YouTube'a ya da başka herhangi bir siteye Arroxy içinden göz at** ve baktığın videoyu, oynatma listesini veya kanalı indir; kendi hesabının zaten izleyebildiği videoları indirmek için orada giriş yap. Windows, macOS ve Linux'ta yerel çalışır. **Reklam yok, şişkinlik yok, ek satış yok.**",
   cta_latest: "↓ En son sürümü kur",
   cta_website: "Web sitesi",
   website_url: "https://arroxy.com/",
@@ -107,7 +107,7 @@ export const tr = {
   intro_what_is:
     "**Arroxy nedir?** Arroxy; YouTube'dan ve [yt-dlp](https://github.com/yt-dlp/yt-dlp) tarafından desteklenen 2000'den fazla başka siteden video, ses, oynatma listesi ve altyazı indiren, ücretsiz ve açık kaynaklı bir masaüstü arayüzüdür. Windows 10/11, macOS 13+ (Intel + Apple Silicon) ve Linux (AppImage, Flatpak, tar.gz) üzerinde çalışır. GPLv3 lisanslıdır. Reklam yok, kullanım sınırı yok. [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage ve doğrudan indirme yoluyla dağıtılır.",
   intro_key_difference:
-    "**Temel fark: yerleşik tarayıcı.** Ücretsiz YouTube indiricilerinin çoğu ince yt-dlp sarmalayıcılarıdır: bir URL kutusu ve bir biçim menüsü, kendi tarayıcıları yok. Arroxy'de var: **Explore sekmesi**. YouTube'da ya da başka herhangi bir sitede uygulamanın içinde gezinirsin; açık olan videoyu, oynatma listesini veya kanalı indirirsin ya da herhangi bir bağlantıya sağ tıklarsın. Explore'da bir kez giriş yaparsın; Arroxy çerez dışa aktarmadan hesabının izleyebildiği özel, üyelere özel ve yaş kısıtlamalı videoları, ayrıca Daha Sonra İzle ve Beğenilenler listelerini indirir. Başka sitelerde de orada giriş yap; onların indirmeleri gerektiğinde bu girişi kullanır. YouTube robot olmadığını doğrulamanı istediğinde de bu girişle yeniden dener. Yerleşik tarayıcısı ayrıca YouTube'un indirmeden önce beklediği belirteci de alır, böylece YouTube indirmeyi daha az biçime indirgemez. Yalnızca URL kutusu olan bir sarmalayıcı bu sınırların hepsine takılır. Ayrıntılar: [Neden Arroxy](#why-explore).",
+    "**Temel fark: yerleşik tarayıcı.** Ücretsiz YouTube indiricilerinin çoğu ince yt-dlp sarmalayıcılarıdır: bir URL kutusu ve bir biçim menüsü, kendi tarayıcıları yok. Arroxy'de var: **Explore sekmesi**. YouTube'da ya da başka herhangi bir sitede uygulamanın içinde gezinirsin; açık olan videoyu, oynatma listesini veya kanalı indirirsin ya da herhangi bir bağlantıya sağ tıklarsın. Explore'da bir kez giriş yaparsan, hesap gerektiren indirmeler bu girişi kullanır: özel videoların, Daha Sonra İzle ve Beğenilenler listelerin ve hesabının zaten izleyebildiği diğer videolar, çerez dışa aktarmadan. Başka sitelerde de orada giriş yap; onların indirmeleri gerektiğinde bu girişi kullanır. Ayrıntılar: [Neden Arroxy](#why-explore).",
   last_updated: "Son güncelleme: {{LAST_UPDATED}}.",
   toc_heading: "İçindekiler",
   why_h2: "Neden Arroxy",
@@ -126,7 +126,7 @@ export const tr = {
   why_r7: "Altyazılar + SponsorBlock",
   why_r8: "Yerleşik tarayıcı (göz at, giriş yap, indir)",
   why_r9:
-    "Çerez dışa aktarmadan özel, üyelere özel ve yaş kısıtlamalı videolar",
+    "Çerez dışa aktarmadan hesabının izleyebildiği videolar",
   why_table_note:
     "⚠️ = kısmen veya yalnızca ücretli sürümde. 4K Video Downloader'da özel videolar için uygulama içi giriş ücretli bir özelliktir; ücretsiz yt-dlp arayüzlerinin çoğu yalnızca bir çerez dosyası kabul eder ya da web tarayıcının çerezlerini okur.",
   why_summary:
@@ -134,13 +134,9 @@ export const tr = {
   why_explore_h3:
     "Sıradan bir yt-dlp sarmalayıcısının yapamadığı: Explore sekmesi",
   why_explore_intro:
-    "Ücretsiz YouTube indiricilerinin çoğu, yt-dlp'nin üstüne konmuş bir URL kutusundan ibarettir. Arroxy de yt-dlp kullanır, ama bir de **Explore**'u vardır: YouTube'u ya da başka herhangi bir siteyi açan, uygulamaya yerleşik bir tarayıcı. Explore, bir URL kutusunun aşamadığı sınırları aşar:",
+    "Ücretsiz YouTube indiricilerinin çoğu, yt-dlp'nin üstüne konmuş bir URL kutusundan ibarettir. Arroxy de yt-dlp kullanır, ama bir de **Explore**'u vardır: YouTube'u ya da başka herhangi bir siteyi açan, uygulamaya yerleşik bir tarayıcı. Explore, bir URL kutusunun yapamadıklarını ekler:",
   why_explore_1:
-    "**Çerez dışa aktarmadan hesap gerektiren videolar** — özel, üyelere özel ve yaş kısıtlamalı videolar (yaşı doğrulanmış bir hesapta), ayrıca Daha Sonra İzle ve Beğenilenler listelerin ve diğer sitelerde girişin arkasındaki videolar. Sıradan bir sarmalayıcı, dışa aktarılmış bir cookies.txt ister ya da web tarayıcının çerezlerini okumak zorundadır; Windows'taki Chrome ise artık bunu engelliyor. Arroxy'de Explore'da bir kez giriş yaparsın, gerisini o halleder",
-  why_explore_2:
-    "**“Robot olmadığını doğrulamak için giriş yap”** — YouTube bunu istediğinde Arroxy başarısız olmak yerine indirmeyi Explore girişinle yeniden dener",
-  why_explore_3:
-    "**YouTube'un indirme token'ı** — Arroxy'nin yerleşik tarayıcısı, YouTube'un bir indirmeden önce beklediği token'ı alır. Bu olmadan YouTube istediğinden daha az biçim ve daha düşük kalite sunabilir",
+    "**Çerez dışa aktarmadan, hesabının izleyebildiği videolar** — özel videoların, Daha Sonra İzle ve Beğenilenler listelerin, yaşı doğrulanmış hesapta yaş kısıtlamalı videolar ve girişini gerektiren diğer sitelerdeki sayfalar. Sıradan bir sarmalayıcı, dışa aktarılmış bir cookies.txt ister ya da web tarayıcının çerezlerini okur. Arroxy'de Explore'da bir kez giriş yaparsın, gerisini o halleder",
   why_explore_4:
     "**Bağlantı kopyalamak yok** — Explore'da bir video, oynatma listesi veya kanal bul ve tek tıkla indir ya da sayfadaki herhangi bir bağlantıya sağ tıkla",
   why_explore_5:
@@ -151,7 +147,7 @@ export const tr = {
   feat_explore_7:
     "**Kompakt düzen** — Explore araç çubuğundaki tek bir tıklama Arroxy'nin sekmelerini oraya taşır ve sayfaya daha fazla yer açar",
   feat_explore_2: "**Adres çubuğu** — YouTube'da aramak için yaz ya da herhangi bir web adresi gir, o site açılsın",
-  feat_explore_3: "**Hesap gerektiren indirmeler** — Explore'da bir kez giriş yap; Arroxy hesabının izleyebildiği özel ve üyelere özel videoları, hesabın yaşı doğrulanmışsa yaş kısıtlamalı videoları, ayrıca Daha Sonra İzle ve Beğenilenler listelerini indirebilir. Başka sitelerde de orada giriş yap; onların indirmeleri gerektiğinde bu girişi kullanır. Arroxy yine de önce oturum açmadan indirir ve Explore girişini yalnızca bir indirme, hesabın düzeltebileceği bir şekilde başarısız olduğunda kullanır. YouTube robot olmadığını doğrulamanı istediğinde Arroxy Explore girişini de dener",
+  feat_explore_3: "**Hesap gerektiren indirmeler** — Explore'da bir kez giriş yap; Arroxy hesabının izleyebildiği videoları indirebilir: özel videoların, hesabın yaşı doğrulanmışsa yaş kısıtlamalı videolar, ayrıca Daha Sonra İzle ve Beğenilenler listelerin. Başka sitelerde de orada giriş yap; onların indirmeleri gerektiğinde bu girişi kullanır. Arroxy yine de önce oturum açmadan indirir ve Explore girişini yalnızca bir indirme, hesabın düzeltebileceği bir şekilde başarısız olduğunda kullanır",
   feat_explore_4: "**İkincil hesap kullan** — Explore'un ilk ekranı nedenini açıklar: bir hesapla indirmek, o hesabın kısıtlanması riskini bir ölçüde taşır. Girişlerini unutmak istediğinde Ayarlar'dan Explore'dan çıkış yap",
   feat_explore_5: "**Reklam engelleyici** — varsayılan olarak kapalı. Explore araç çubuğundaki kalkana tek tıklama, sayfalarındaki reklamları ve izleyicileri indirmeleri etkilemeden engeller. YouTube, giriş yapılmış hesaplarda reklam engelleyicilere karşı önlem alabilir",
   feat_quality_h3: "Kalite ve biçimler",
@@ -193,7 +189,7 @@ export const tr = {
   feat_workflow_10:
     "**Aynı anda indirme ve otomatik yeniden deneme** — kuyruktaki kaç indirmenin aynı anda çalışacağını seç ve ağ ya da sunucu kaynaklı sorun yaşayan bir indirmeyi Arroxy'nin, her denemeden önce daha uzun bekleyerek yeniden denemesine izin ver",
   feat_workflow_11:
-    "**Oynatma listesinde öğe başına profil** — bir oynatma listesindeki her videoya, tüm liste için tek bir ayar yerine kendi indirme profilini atayın; böylece tek geçişte bazılarını tam kalitede arşivleyip kalanını MP3 olarak alabilirsiniz",
+    "**Oynatma listesinde öğe başına profil** — bir oynatma listesindeki her videoya, tüm liste için tek bir ayar yerine kendi indirme profilini ata; böylece tek geçişte bazılarını tam kalitede arşivleyip kalanını yalnızca ses olarak kaydedebilirsin",
   feat_workflow_13: "**Hızlı İndirme arka planda çalışır** — bağlantı hemen İndirmeler'de görünür ve orada hazırlanır, **Görüntüle** içeren bir not bunu doğrular ve URL alanı bir sonraki bağlantı için temizlenir. Öncekiler hazırlanırken istediğin kadar başlat",
   feat_workflow_14: "**İndirmeler sana neye ihtiyaç olduğunu söyler** — Arroxy bir bağlantıyı okuyamazsa satırı nedenini söyler ve çözümü sunar: Tekrar dene, çerezleri aç veya Explore'da giriş yap. Çerezler kapalıyken **Explore ile giriş yap**, giriş yaptıktan sonra bunu senin için yeniden dener. Yükleme sınırından uzun bir oynatma listesi satırında bekler; tamamını, ilk birkaç videoyu veya bir incelemeyi seçmeni bekler. İndirmeler sekmesi sende bekleyen satırları sayar",
   feat_workflow_15:
@@ -223,7 +219,7 @@ export const tr = {
   feat_sites_1:
     "**YouTube, tam kapsamlı** — Videolar, Shorts, Kanallar, Oynatma Listeleri, YouTube Music ve Podcast'ler birinci sınıf kaynak olarak ele alınır",
   feat_sites_2:
-    "**yt-dlp aracılığıyla 2000+ diğer site** — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable ve daha fazlası",
+    "**yt-dlp aracılığıyla 2000+ diğer site** — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable ve daha fazlası",
   feat_sites_3:
     "**Yalnızca ses ve altyazılar** yalnızca YouTube'da değil, desteklenen her sitede çalışır",
   feat_sites_4:
@@ -242,7 +238,7 @@ export const tr = {
     "<b>Paralel indirme kuyruğu</b><br/>Canlı ilerlemeyle aynı anda birden fazla indirme",
   hotkey_fig_alt: "Arroxy genel indirme kısayolu — Windows ve Linux'ta Ctrl+Shift+D, macOS'ta Cmd+Shift+D, kopyalanan bağlantıyı doğrudan indirme kuyruğuna gönderir",
   hotkey_fig_cap: "<b>Genel indirme kısayolu</b><br/>Bağlantıyı nerede olursan ol kopyala, bir kez bas — kuyruğa girer ve inmeye başlar",
-  shot7_cap: "<b>Oynatma listesinde öğe başına profil</b><br/>Her videoya kendi profilini ver — bazılarını 4K arşivle, kalanını MP3 olarak al",
+  shot7_cap: "<b>Oynatma listesinde öğe başına profil</b><br/>Her videoya kendi profilini ver — bazılarını 4K arşivle, kalanını yalnızca ses olarak kaydet",
   shot8_cap: "<b>Explore</b><br/>YouTube'a ya da başka herhangi bir siteye Arroxy içinden göz at ve bulunduğun sayfayı aktif profilinle indir",
   shot9_cap: "<b>Explore'un ilk ekranı</b><br/>Explore'a kısa bir bakış ve ikincil hesabın neden daha güvenli giriş olduğu",
   shot10_cap: "<b>İndirmeler sana neye ihtiyaç olduğunu söyler</b><br/>Bağlantılar arka planda hazırlanır; başarısız olan çözümünü sunar, uzun bir oynatma listesi seçimini bekler",
@@ -375,14 +371,14 @@ export const tr = {
 
   privacy_p1:
     "İndirmeler [yt-dlp](https://github.com/yt-dlp/yt-dlp) ile doğrudan YouTube'dan seçtiğin klasöre alınır — hiçbir şey üçüncü taraf sunucu üzerinden yönlendirilmez. İzleme geçmişi, indirme geçmişi, URL'ler ve dosya içerikleri cihazında kalır.",
-  privacy_p2:
-    "Telemetri yok — günde yalnızca bir anonim sinyal: uygulama sürümü, işletim sistemi, dil, kurulum kanalı, ülke ve Arroxy'nin yaklaşık ne kadar önce kurulduğu; böylece etkin ve yeni kullanıcıları sayabiliriz. Kimlik, URL, video başlığı, dosya yolu veya hesap bilgisi yok. Ayarlar'dan kapatabilirsin.",
+  privacy_reports:
+    "Takip yok — günde bir anonim sinyal (uygulama sürümü, işletim sistemi, dil, kurulum kanalı, ülke ve Arroxy'nin yaklaşık ne kadar önce kurulduğu); böylece etkin ve yeni kullanıcıları sayabiliriz. Arroxy yt-dlp ve FFmpeg'i indirdiğinde veya güncellediğinde bunun işe yarayıp yaramadığına ve yaklaşık ne kadar sürdüğüne dair anonim bir not da gönderilir. Kimlik, URL, video başlığı, dosya yolu veya hesap bilgisi yok. İkisini de Ayarlar'dan kapatabilirsin.",
   privacy_p3: "Explore, tarayıcından ayrı kendi girişlerini tutar ve Arroxy bir giriş formunu asla okumaz ya da doldurmaz — sitenin kendi sayfasına yazarsın. İndirmeler oturum açmadan çalışır; yalnızca biri hesabın düzeltebileceği bir şekilde başarısız olduğunda Arroxy girişi o an okur, o indirme için geçici bir dosyada tutar ve dosyayı sonra siler. Ayarlar'dan Explore'dan çıkış yapmak girişleri unutturur.",
   faq_q1: "Gerçekten ücretsiz mi?",
   faq_a1: "Evet — GPLv3 lisanslı, premium katman yok, özellik kilidi yok.",
   faq_q11: "Arroxy'yi diğer yt-dlp arayüzlerinden ayıran ne?",
   faq_a11:
-    "Ücretsiz yt-dlp arayüzlerinin çoğu yalnızca bağlantı alan sarmalayıcılardır. Arroxy buna **Explore**'u ekler: uygulamaya yerleşik, YouTube'u ya da başka herhangi bir siteyi açan bir tarayıcı. Bağlantı kopyalamadan göz atıp indirirsin; orada bir kez giriş yaparak özel, üyelere özel ve yaş kısıtlamalı videoları, ayrıca Daha Sonra İzle ve Beğenilenler listelerini çerez dışa aktarmadan indirebilirsin. YouTube robot olmadığını doğrulamanı istediğinde Arroxy bu girişi kullanır; yerleşik tarayıcısı da YouTube'un indirme token'ını alır, böylece indirmeler daha az biçime düşmez. Bkz. [Neden Arroxy](#why).",
+    "Ücretsiz yt-dlp arayüzlerinin çoğu yalnızca bağlantı alan sarmalayıcılardır. Arroxy buna **Explore**'u ekler: uygulamaya yerleşik, YouTube'u ya da başka herhangi bir siteyi açan bir tarayıcı. Bağlantı kopyalamadan göz atıp indirirsin; orada bir kez giriş yaparak hesabının izleyebildiği videoları, örneğin özel videolarını ve Daha Sonra İzle ile Beğenilenler listelerini, çerez dışa aktarmadan indirebilirsin. Bkz. [Neden Arroxy](#why).",
   faq_q2: "Hangi video kalitelerini indirebilirim?",
   faq_a2:
     "YouTube ne sunuyorsa: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p ve yalnızca ses. 60 fps ve HDR akışlar olduğu gibi korunur; adım adım indirme ise her çözünürlükte AV1, VP9 veya H.264 seçmeni sağlar.",
@@ -390,9 +386,9 @@ export const tr = {
   faq_a3:
     "Evet. Biçim menüsünde *yalnızca ses* seç ve MP3, M4A/AAC, Opus veya WAV tercih et.",
   faq_q4: "Hesap gerektiren YouTube videolarını nasıl indiririm?",
-  faq_a4: "Explore sekmesinde bir kez giriş yap. Arroxy bunun ardından hesabının izleyebildiği özel ve üyelere özel videoları, hesabın yaşı doğrulanmışsa yaş kısıtlamalı videoları, ayrıca Daha Sonra İzle ve Beğenilenler listelerini indirebilir. Girişi yalnızca bir indirme, hesabın düzeltebileceği bir şekilde başarısız olduğunda kullanır; geri kalan her şey eskisi gibi iner. Bu, çerez ayarlarında en başta listelenen ve Önerilen olarak işaretlenen **Explore girişi** seçeneğidir ve Explore'u ilk açtığında Arroxy bunu senin için seçer. yt-dlp wiki'si [oturum açılmış otomasyonun bir Google hesabını işaretleyebileceğini](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) belirtir, bu yüzden ikincil hesap daha güvenli bir seçimdir.",
+  faq_a4: "Explore sekmesinde bir kez giriş yap. Arroxy bunun ardından hesabının izleyebildiği videoları indirebilir: özel videoların, hesabın yaşı doğrulanmışsa yaş kısıtlamalı videolar, ayrıca Daha Sonra İzle ve Beğenilenler listelerin. Girişi yalnızca bir indirme, hesabın düzeltebileceği bir şekilde başarısız olduğunda kullanır; geri kalan her şey eskisi gibi iner. Bu, çerez ayarlarında en başta listelenen ve Önerilen olarak işaretlenen **Explore girişi** seçeneğidir ve Explore'u ilk açtığında Arroxy bunu senin için seçer. yt-dlp wiki'si [oturum açılmış otomasyonun bir Google hesabını işaretleyebileceğini](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) belirtir, bu yüzden ikincil hesap daha güvenli bir seçimdir.",
   faq_q5: "YouTube bir şey değiştirdiğinde çalışmaya devam eder mi?",
-  faq_a5: "yt-dlp açılışta otomatik güncellenir ve YouTube bir şey değiştirdiğinde Arroxy hızlıca düzeltme yayımlar. YouTube robot olmadığını doğrulamanı istediğinde, Explore'da giriş yaptıysan Arroxy Explore girişini de dener; bir dosyadaki veya tarayıcındaki çerezler de çerez ayarlarında kullanılabilir.",
+  faq_a5: "yt-dlp açılışta otomatik güncellenir ve YouTube bir şey değiştirdiğinde Arroxy hızlıca düzeltme yayımlar. Bir indirme için giriş gerektiğinde, Explore'da giriş yaptıysan Arroxy Explore girişini kullanır; bir dosyadaki veya tarayıcındaki çerezler de çerez ayarlarında kullanılabilir.",
   faq_q6: "Arroxy hangi dillerde mevcut?",
   faq_a6:
     "Kutudan çıktığı gibi {{LANG_COUNT}} dil: {{LANG_NAME_LIST}}. Arroxy ilk açılışta işletim sisteminin dilini otomatik algılar ve araç çubuğundaki dil seçiciden istediğin zaman değiştirebilirsin. Çalışma zamanı locale JSON dosyaları src/shared/i18n/locales/ içinde, çevirmenlere yönelik PO katalogları i18n/locales/ içinde bulunur — katkı için GitHub'da PR aç.",
@@ -407,7 +403,7 @@ export const tr = {
     'Bu, macOS Gatekeeper’ın imzasız uygulamayı engellemesidir; gerçek hasar değildir. Karantinayı kaldırıp Arroxy’yi başlatan Terminal komutları için [macOS ilk başlatma](#macos-first-launch) bölümüne bak.',
   faq_q10: "YouTube videoları indirmek yasal mı?",
   faq_a10:
-    "Kişisel, özel kullanım için çoğu yargı alanında genellikle kabul edilir. YouTube'un [Hizmet Şartları](https://www.youtube.com/t/terms) ve yerel telif hakkı yasalarına uymaktan sen sorumlusun.",
+    "Bu, ülkene ve ne indirdiğine bağlıdır. Yalnızca sana ait içerikleri, indirilmesine lisansla izin verilen içerikleri veya ülkendeki yasaların kopyalamana izin verdiği içerikleri indir. YouTube'un [Hizmet Şartları](https://www.youtube.com/t/terms)'na ve yerel telif hakkı yasalarına uymaktan sen sorumlusun. Bkz. [Kullanım şartları](#terms).",
   plan_intro: "Hâlâ planlananlar — yaklaşık öncelik sırasıyla:",
   plan_col1: "Özellik",
   plan_col2: "Açıklama",
@@ -430,7 +426,7 @@ export const tr = {
     "Aklında bir özellik mi var? [İstek aç](../../issues) — topluluk girdisi önceliği şekillendirir.",
   tech_content: TECH_CONTENT,
   support_h2: "Arroxy'yi destekle",
-  support_note: "Arroxy ücretsizdir ve GPLv3 lisanslıdır — reklam yok, telemetri yok, ücretli sürüm yok. Sana zaman kazandırıyorsa geliştirmeyi Bitcoin, Tron veya Ethereum ile destekleyebilirsin: adresler, tek resmi kaynak olan [DONATE.md](DONATE.md) dosyasında. Arroxy sana asla e-posta veya özel mesajla adres göndermez. Depoya yıldız vermek, hata bildirmek ve çevirileri iyileştirmek de en az o kadar yardımcı olur.",
+  support_line: "Arroxy ücretsizdir ve GPLv3 lisanslıdır — reklam yok, takip yok, ücretli sürüm yok. Sana zaman kazandırıyorsa geliştirmeyi Bitcoin, Tron veya Ethereum ile destekleyebilirsin: adresler, tek resmi kaynak olan [DONATE.md](DONATE.md) dosyasında. Arroxy sana asla e-posta veya özel mesajla adres göndermez. Depoya yıldız vermek, hata bildirmek ve çevirileri iyileştirmek de en az o kadar yardımcı olur.",
   tos_h2: "Kullanım şartları",
   tos_note:
     "Arroxy yalnızca kişisel, özel kullanım için bir araçtır. İndirmelerinin YouTube [Hizmet Şartları](https://www.youtube.com/t/terms) ve bulunduğun yargı alanındaki telif hakkı yasalarına uygun olduğundan yalnızca sen sorumlusun. Kullanma hakkına sahip olmadığın içerikleri indirmek, çoğaltmak veya dağıtmak için Arroxy'yi kullanma. Geliştiriciler kötüye kullanımdan sorumlu değildir.",

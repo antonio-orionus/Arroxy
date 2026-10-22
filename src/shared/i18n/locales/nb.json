@@ -31,7 +31,6 @@
 		"cancel": "Avbryt",
 		"close": "Lukk",
 		"continue": "Fortsett",
-		"dismiss": "Avvis",
 		"loading": "Laster inn",
 		"retry": "Prøv på nytt",
 		"startOver": "Start på nytt"
@@ -45,12 +44,11 @@
 			"remember": "Ikke spør igjen"
 		},
 		"quitWithActiveDownloads": {
-			"confirm": "Avbryt nedlastinger og avslutt",
-			"detail": "Sett på pause for å fortsette senere, eller avbryt for å forkaste fremdriften.",
+			"continueDetail": "Køen din beholdes, og nedlastingene fortsetter der de stoppet neste gang du åpner Arroxy.",
 			"keep": "Fortsett nedlasting",
 			"message_one": "{{count}} nedlasting pågår",
 			"message_other": "{{count}} nedlastinger pågår",
-			"pause": "Sett nedlastinger på pause og avslutt"
+			"quit": "Avslutt"
 		},
 		"rendererCrashed": {
 			"detail": "Gjengivelsesprosessen krasjet ({{reason}}). Last inn på nytt for å prøve igjen.",
@@ -73,12 +71,12 @@
 		"noSubtitlesIn": "Denne videoen har ingen undertekster på {{languages}}.",
 		"ytdlp": {
 			"ageRestricted": "Denne videoen har aldersgrense og kan ikke lastes ned uten en pålogget konto.",
-			"botBlock": "Botbeskyttelsen ble utløst. IP-adressen du bruker er mest sannsynlig flagget (datasenterområde eller travelt VPN-utgangspunkt). Bytt IP-adresse eller velg et annet VPN-endepunkt, og prøv på nytt. Hvis det fortsatt feiler, kan det være en midlertidig endring hos nettstedet – Arroxy oppdaterer nedlastingsmotoren ved oppstart, så rettelsen kommer automatisk så snart den er utgitt.",
+			"botBlock": "Nettstedets botbeskyttelse stoppet denne nedlastingen. Vent en stund og prøv på nytt, eller last ned færre videoer om gangen. Hvis det fortsatt feiler, kan det være en midlertidig endring hos nettstedet – Arroxy oppdaterer nedlastingsmotoren ved oppstart, så rettelsen kommer automatisk så snart den er utgitt.",
 			"chunkTransferFailure": "Serveren avbrøt nedlastingen gang på gang underveis, og Arroxy ga opp etter flere forsøk. Dette rammer som regel de største videoformatene (4K HDR / VP9 med høy bitrate). Prøv på nytt, bytt nettverk/VPN, eller velg et format med lavere oppløsning.",
 			"drmProtected": "Denne videoen er DRM-beskyttet. Arroxy kan ikke fjerne DRM, så filen kan ikke lastes ned.",
 			"formatUnavailable": "Denne videoen tilbyr ikke lenger formatet du valgte. Lim inn lenken på nytt og velg blant formatene den tilbyr nå.",
 			"geoBlocked": "Denne videoen er ikke tilgjengelig i regionen din.",
-			"ipBlock": "IP-adressen din ser ut til å være blokkert. Prøv igjen senere eller bruk en VPN.",
+			"ipBlock": "Nettstedet blokkerer forespørsler fra denne tilkoblingen. Prøv igjen senere.",
 			"loginRequired": "Denne videoen krever en pålogget konto.",
 			"missingDependency": "Arroxy fant ikke FFmpeg eller FFprobe. Kjør oppsettet på nytt eller angi en FFmpeg-plassering, og prøv nedlastingen på nytt.",
 			"network": "Nettverksfeil. Sjekk tilkoblingen og prøv på nytt.",
@@ -107,8 +105,28 @@
 			"title": "Høyreklikk på en lenke for å laste den ned"
 		},
 		"linkMenu": {
+			"background": {
+				"album": "Last ned albumet i bakgrunnen",
+				"liked": "Last ned de likte videoene dine i bakgrunnen",
+				"mix": "Last ned Mixen i bakgrunnen",
+				"playlist": "Last ned spillelisten i bakgrunnen",
+				"uploads": "Last ned opplastingene i bakgrunnen",
+				"watchLater": "Last ned Se senere i bakgrunnen"
+			},
 			"copyLink": "Kopier lenke",
-			"downloadWith": "Last ned med"
+			"downloadFirst": "Last ned de første {{count}}",
+			"downloadThisVideo": "Last ned denne videoen · {{profileName}}",
+			"downloadWith": "Last ned med",
+			"fromList": {
+				"album": "Fra dette albumet",
+				"liked": "Fra de likte videoene dine",
+				"mix": "Fra denne Mixen",
+				"playlist": "Fra denne spillelisten",
+				"uploads": "Fra denne kanalens opplastinger",
+				"watchLater": "Fra Se senere"
+			},
+			"interactive": "Interaktiv nedlasting …",
+			"thisVideoWith": "Denne videoen med"
 		},
 		"newBadge": "Ny",
 		"notice": {
@@ -155,6 +173,7 @@
 			"aria": "Nettleserkontroller for Utforsk",
 			"back": "Tilbake",
 			"compactLayout": "Kompakt oppsett",
+			"download": "Last ned",
 			"downloadWithProfile": "Last ned · {{profileName}}",
 			"forward": "Frem",
 			"fullLayout": "Vis fullt oppsett",
@@ -164,6 +183,8 @@
 			"refusedHint": "Utforsk kan ikke åpne den adressen.",
 			"reload": "Last inn på nytt",
 			"searchTooLong": "Søket er for langt.",
+			"thisVideo": "Denne videoen",
+			"thisVideoHint": "Last ned bare denne videoen med {{profileName}}",
 			"zoom": {
 				"hint": "Sidezoom: {{percent}} %",
 				"in": "Zoom inn",
@@ -205,9 +226,9 @@
 			"too-long": "Malen er for lang.",
 			"unknown-token": "Ukjent token {{token}}."
 		},
-		"idWarning": "Uten {id} kan ikke Arroxy oppdage allerede nedlastede spillelisteelementer eller lage .m3u-spillelister.",
+		"idEndingWarning": "La navnet ende med [{id}], slik at Arroxy kan oppdage allerede nedlastede spillelisteelementer og lage .m3u-spillelister.",
 		"label": "Filnavnmal",
-		"m3uDisabled": "Utilgjengelig fordi filnavnmalen din enten ikke inneholder {id} eller sorterer nedlastinger i mapper.",
+		"m3uDisabledIdEnding": "Utilgjengelig fordi filnavnmalen din enten ikke slutter med [{id}] eller sorterer nedlastinger i mapper.",
 		"previewPlaylist": "I en spilleliste",
 		"previewSingle": "Enkeltvideo",
 		"profileOverrideDescription": "La stå tom for å arve den globale malen.",
@@ -252,14 +273,20 @@
 		"quickDownload": {
 			"added": "Lagt til: {{title}}",
 			"alreadyQueued": "Allerede i køen",
+			"batchAdded_one": "La til {{count}} lenke i Nedlastinger",
+			"batchAdded_other": "La til {{count}} lenker i Nedlastinger",
+			"batchAlreadyQueued_one": "{{count}} er allerede i køen",
+			"batchAlreadyQueued_other": "{{count}} er allerede i køen",
+			"batchNoneAdded_one": "{{count}} lenke kunne ikke legges til",
+			"batchNoneAdded_other": "{{count}} lenker kunne ikke legges til",
+			"batchNotAdded_one": "{{count}} kunne ikke legges til",
+			"batchNotAdded_other": "{{count}} kunne ikke legges til",
+			"chooseFromList_one": "{{count}} video i denne listen – velg hva som skal lastes ned",
+			"chooseFromList_other": "{{count}} videoer i denne listen – velg hva som skal lastes ned",
 			"chooseHowMany_one": "{{count}}+ video – velg hvor mange",
 			"chooseHowMany_other": "{{count}}+ videoer – velg hvor mange",
 			"failed": "Kunne ikke klargjøre {{title}}",
 			"notAdded": "Kunne ikke legge til den lenken – prøv igjen",
-			"reviewCapped_one": "{{count}}+ video i denne listen – gå gjennom for å velge",
-			"reviewCapped_other": "{{count}}+ videoer i denne listen – gå gjennom for å velge",
-			"review_one": "{{count}} video i denne listen – gå gjennom for å velge",
-			"review_other": "{{count}} videoer i denne listen – gå gjennom for å velge",
 			"view": "Vis"
 		},
 		"settingsSaveFailed": "Kunne ikke lagre innstillingene dine.",
@@ -347,9 +374,27 @@
 			"cappedBody_one": "Mer enn {{count}} video i denne spillelisten. Last ned alle, de første {{count}}, eller velg i en gjennomgang.",
 			"cappedBody_other": "Mer enn {{count}} videoer i denne spillelisten. Last ned alle, de første {{count}}, eller velg i en gjennomgang.",
 			"first": "De første {{count}}",
+			"list": {
+				"album": "Albumet",
+				"liked": "Likte videoer",
+				"mix": "Mixen",
+				"playlist": "Spillelisten",
+				"uploads": "Alle opplastingene",
+				"watchLater": "Se senere"
+			},
+			"pick": "Velg fra den …",
 			"review": "Gå gjennom",
-			"reviewBody_one": "Denne lenken er en liste med {{count}} video. Gå gjennom den for å velge hva som skal lastes ned.",
-			"reviewBody_other": "Denne lenken er en liste med {{count}} videoer. Gå gjennom den for å velge hva som skal lastes ned."
+			"uncappedBody_one": "Denne lenken er en liste med {{count}} video. Last den ned, eller velg i en gjennomgang.",
+			"uncappedBody_other": "Denne lenken er en liste med {{count}} videoer. Last ned alle, eller velg i en gjennomgang.",
+			"video": "Denne videoen",
+			"videoOrList": {
+				"album": "Denne lenken er en video i et album. Vil du laste ned bare videoen, eller albumet?",
+				"liked": "Denne lenken er en video blant de likte videoene dine. Vil du laste ned bare videoen, eller alle de likte videoene dine?",
+				"mix": "Denne lenken er en video i en Mix. Vil du laste ned bare videoen, eller Mixen?",
+				"playlist": "Denne lenken er en video i en spilleliste. Vil du laste ned bare videoen, eller spillelisten?",
+				"uploads": "Denne lenken er en video blant en kanals opplastinger. Vil du laste ned bare videoen, eller alle opplastingene?",
+				"watchLater": "Denne lenken er en video i Se senere-listen din. Vil du laste ned bare videoen, eller hele listen?"
+			}
 		},
 		"clearTitle": "Fjern fullførte nedlastinger",
 		"empty": "Nedlastinger i køen vises her",
@@ -383,7 +428,29 @@
 			"statusPending": "Venter",
 			"statusProbing": "Henter detaljer",
 			"statusRunning": "Laster ned",
-			"subtitleLanguagesMissing": "Ingen undertekster på {{languages}}"
+			"subtitleLanguagesMissing": "Ingen undertekster på {{languages}}",
+			"waitingForSite": "Venter på {{site}} til {{time}}",
+			"waitingHint": "{{site}} begrenser antall forespørsler fra denne tilkoblingen. Arroxy henter detaljene om denne lenken etter {{time}}, slik at begrensningen kan oppheves."
+		},
+		"listOffer": {
+			"dismiss": "Avvis",
+			"from": {
+				"album": "Fra et album",
+				"liked": "Fra de likte videoene dine",
+				"mix": "Fra en Mix",
+				"playlist": "Fra en spilleliste",
+				"uploads": "Fra en kanals opplastinger",
+				"watchLater": "Fra Se senere"
+			},
+			"get": {
+				"album": "Hent hele albumet",
+				"liked": "Hent alle likte videoer",
+				"mix": "Hent hele Mixen",
+				"playlist": "Hent hele spillelisten",
+				"uploads": "Hent alle opplastinger",
+				"watchLater": "Hent hele Se senere"
+			},
+			"hint": "Legger listen til som en egen rad. Denne videoen utelates."
 		},
 		"pauseAllTitle": "Sett alle aktive nedlastinger på pause og hindre at nye starter",
 		"pausedBanner": "Køen er satt på pause – ventende elementer starter ikke før du fortsetter den",
@@ -616,26 +683,19 @@
 		"cancel": "Problemer? Sett det opp manuelt",
 		"greeting": "Hei, velkommen tilbake!",
 		"setup": {
-			"bytes": "{{done}} av {{total}}",
 			"left": {
 				"minutes_one": "omtrent {{count}} min igjen",
 				"minutes_other": "omtrent {{count}} min igjen",
 				"underMinute": "under ett minutt igjen"
 			},
-			"note": {
-				"engine": "Holder nedlastingene i gang når nettsteder endrer seg.",
-				"firstRun": "Dette skjer bare én gang. Arroxy beholder disse verktøyene og oppdaterer dem selv.",
-				"media": "Dette skjer bare én gang. Arroxy beholder dem for fremtidige oppdateringer."
-			},
 			"stage": {
 				"checking": "Kontrollerer at alt fungerer",
 				"connecting": "Kobler til …",
-				"downloadingBoth": "Laster ned nedlastingsmotoren og medieverktøyene",
-				"downloadingEngine": "Laster ned nedlastingsmotoren",
-				"downloadingMedia": "Laster ned medieverktøyene",
-				"unpacking": "Pakker ut medieverktøyene"
+				"unpacking": "Pakker ut medieverktøyene",
+				"unpackingEngine": "Pakker ut nedlastingsmotoren"
 			},
 			"title": {
+				"both": "Oppdaterer Arroxys verktøy",
 				"engine": "Oppdaterer nedlastingsmotoren",
 				"firstRun": "Førstegangsoppsett",
 				"media": "Oppdaterer medieverktøyene"
@@ -661,14 +721,14 @@
 		"fetchingSponsorBlock": "Kontakter SponsorBlock …",
 		"fetchingSubtitles": "Henter undertekster …",
 		"mergingFormats": "Slår sammen lyd og video …",
-		"mintingToken": "Genererer YouTube-token …",
+		"mintingToken": "Forbereder YouTube-nedlasting …",
 		"movingFiles": "Flytter filer …",
 		"noSubtitles": "Ingen undertekster på {{languages}}",
 		"outputNotWritable": "Kan ikke lagre i {{dir}} – Arroxy har ikke lov til å skrive der",
 		"preparingBinaries": "Klargjør binærfiler …",
-		"qualityLimited": "Lagret i {{height}}p – YouTube holdt tilbake høyere kvaliteter for denne nedlastingen. Det kan hjelpe å prøve igjen senere eller fra et annet nettverk.",
-		"qualityLimitedSubtitlesFailed": "Lagret i {{height}}p – YouTube holdt tilbake høyere kvaliteter for denne nedlastingen, og noen undertekster kunne ikke lastes ned. Det kan hjelpe å prøve igjen senere eller fra et annet nettverk.",
-		"remintingToken": "Genererer token på nytt …",
+		"qualityLimited": "Lagret i {{height}}p – YouTube holdt tilbake høyere kvaliteter for denne nedlastingen. Det kan hjelpe å prøve igjen senere.",
+		"qualityLimitedSubtitlesFailed": "Lagret i {{height}}p – YouTube holdt tilbake høyere kvaliteter for denne nedlastingen, og noen undertekster kunne ikke lastes ned. Det kan hjelpe å prøve igjen senere.",
+		"remintingToken": "Forbereder YouTube-nedlastingen på nytt …",
 		"retryingSponsorBlock": "SponsorBlock er utilgjengelig, prøver på nytt ({{attempt}}/{{total}}) …",
 		"retryingTransfer": "Tilkoblingen stoppet opp, prøver på nytt ({{attempt}}/{{total}}) …",
 		"signingInWithExplore": "Logger på med Utforsk-kontoen din …",
@@ -796,7 +856,7 @@
 			"pictures": "Bilder",
 			"subfolder": {
 				"invalid": "Mappenavnet har ugyldige tegn",
-				"placeholder": "f.eks. lo-fi-opptak",
+				"placeholder": "f.eks. forelesninger",
 				"toggle": "Lagre i undermappe"
 			},
 			"videos": "Filmer"
@@ -892,7 +952,11 @@
 				"noVideo": "Denne lenken har ingen video, så lyd er valgt.",
 				"subtitlesMissing": "Profilen din ber om undertekster på {{languages}}. Denne videoen har dem ikke.",
 				"tierAbove": "Profilen din ber om {{wanted}}p. Denne videoen har ikke noe så lavt, så {{picked}}p er valgt.",
-				"tierBelow": "Profilen din ber om {{wanted}}p. Denne videoen går bare opp til {{picked}}p, så {{picked}}p er valgt.",
+				"tierAbovePassedOver": "Profilen din ber om {{wanted}}p. De mindre strømmene denne videoen har, passer ikke med resten av profilen din, så {{picked}}p er valgt.",
+				"tierBelowTakeable": "Profilen din ber om {{wanted}}p. Denne videoen har ingen {{wanted}}p som kan brukes, så {{picked}}p er valgt.",
+				"tierPassedOverAiUpscaled": "Profilen din ber om {{wanted}}p. Denne videoens {{wanted}}p er oppskalert med KI, så originale {{picked}}p er valgt.",
+				"tierPassedOverH264": "Profilen din ber om {{wanted}}p i H.264. Denne videoen har {{wanted}}p bare i andre kodeker, så {{picked}}p i H.264 er valgt.",
+				"tierPassedOverProfile": "Profilen din ber om {{wanted}}p. Denne videoens {{wanted}}p passer ikke med resten av profilen din, så {{picked}}p er valgt.",
 				"webmUnavailable": "Profilen din ber om WebM. Strømmene som er valgt for denne videoen inneholder {{codec}}, som WebM ikke kan inneholde, så filtypen er Auto."
 			},
 			"footer": {
@@ -969,29 +1033,26 @@
 			"withAudio": "med lyd"
 		},
 		"listPrompt": {
-			"escHint": "Esc avbryter. Ingenting lastes inn før du velger.",
-			"interactiveSubtitle": "Velg formater selv",
-			"justThisVideo": "Bare denne videoen",
-			"justThisVideoInteractiveHint": "Åpner videoens formater",
-			"justThisVideoQuickHint": "Laster inn én video",
-			"listInteractiveHint": "Laster inn opptil {{count}} du kan velge blant",
-			"listOption": {
-				"album": "Albumet, de første",
-				"liked": "Dine likte videoer, de første",
-				"mix": "Mixen, de første",
-				"playlist": "Spillelisten, de første",
-				"uploads": "Opplastingene, de første",
-				"watchLater": "Se senere, de første"
-			},
-			"listQuickHint": "Laster inn opptil {{count}} og laster dem deretter ned",
+			"backgroundHint": "Med {{profileName}}. Hvis den har mer enn {{count}} videoer, spør Nedlastinger hvor mange.",
+			"backgroundLabel": "Last ned i bakgrunnen",
+			"escOnly": "Esc avbryter.",
+			"firstHint": "Nøyaktig de første {{count}}, med {{profileName}}.",
+			"firstLabel": "Last ned de første",
+			"interactiveHint": "Velg blant de første {{count}} videoene (eller endre antallet i neste trinn), og sett deretter opp nedlastingen.",
+			"interactiveLabel": "Interaktiv nedlasting …",
+			"limitHint": "Hvor mange videoer som skal tas fra listen: det første alternativet spør utover grensen, det andre tar nøyaktig så mange. Det samme som Innstillinger › Spilleliste-elementer som skal skannes.",
+			"limitLabel": "Grense",
 			"mixNote": "En Mix endrer seg hver gang du åpner den.",
-			"pickOption": {
-				"album": "Velg fra albumet, de første",
-				"liked": "Velg blant dine likte videoer, de første",
-				"mix": "Velg fra Mixen, de første",
-				"playlist": "Velg fra spillelisten, de første",
-				"uploads": "Velg blant opplastingene, de første",
-				"watchLater": "Velg fra Se senere, de første"
+			"pickLoadAfter": "å velge blant.",
+			"pickLoadBefore": "Last inn de første",
+			"pickLoadNote": "Du kan endre det i neste trinn.",
+			"pickTitle": {
+				"album": "Velg fra dette albumet",
+				"liked": "Velg blant de likte videoene dine",
+				"mix": "Velg fra denne Mixen",
+				"playlist": "Velg fra denne spillelisten",
+				"uploads": "Velg fra denne kanalens opplastinger",
+				"watchLater": "Velg fra Se senere"
 			},
 			"title": {
 				"album": "Last ned fra dette albumet",
@@ -1001,6 +1062,9 @@
 				"uploads": "Last ned fra denne kanalens opplastinger",
 				"watchLater": "Last ned fra Se senere"
 			},
+			"videoHint": "Bare videoen du åpnet, med {{profileName}}. Listen lastes ikke inn.",
+			"videoLabel": "Bare denne videoen",
+			"videoPickHint": "Sett opp bare videoen du åpnet. Listen lastes ikke inn.",
 			"withProfile": "Med {{profileName}}"
 		},
 		"output": {
@@ -1072,6 +1136,10 @@
 			"allRemovedDescription": "Gjenopprett dem for å fortsette.",
 			"allRemovedTitle": "Alle elementer ble fjernet",
 			"alreadyDownloaded": "Allerede lastet ned",
+			"bulkCappedDesc_one": "Den har flere. Lim inn lenken alene for å velge hvor mange.",
+			"bulkCappedDesc_other": "De har flere. Lim inn hver lenke alene for å velge hvor mange.",
+			"bulkCappedTitle_one": "«{{title}}» er kuttet ved {{limit}} videoer",
+			"bulkCappedTitle_other": "{{count}} lister er kuttet ved {{limit}} videoer hver",
 			"bulkHeading": "Flere nettadresser",
 			"bulkMetadataOptional": "Du trenger ikke vente – filer som legges i køen nå, får fortsatt sine virkelige navn når de lastes ned.",
 			"bulkMetadataResolving": "Henter videodetaljer … {{done}}/{{total}}",
@@ -1129,15 +1197,6 @@
 			"syncNoneTitle": "Ingenting lastet ned ennå",
 			"syncScanning": "Kontrollerer mappen …",
 			"thumbnailAlt": "Miniatyrbilde av videoen"
-		},
-		"playlistCap": {
-			"changeLimit": "Endre innlastingsgrense",
-			"descriptionWithTitle_one": "<title/>: Arroxy lastet inn {{count}} element med den gjeldende grensen på {{limit}}. Legg det innlastede elementet i køen nå, eller øk grensen og skann på nytt.",
-			"descriptionWithTitle_other": "<title/>: Arroxy lastet inn {{count}} elementer med den gjeldende grensen på {{limit}}. Legg de innlastede elementene i køen nå, eller øk grensen og skann på nytt.",
-			"description_one": "Arroxy lastet inn {{count}} element med den gjeldende grensen på {{limit}}. Legg det innlastede elementet i køen nå, eller øk grensen og skann på nytt.",
-			"description_other": "Arroxy lastet inn {{count}} elementer med den gjeldende grensen på {{limit}}. Legg de innlastede elementene i køen nå, eller øk grensen og skann på nytt.",
-			"queueLoaded": "Legg innlastede elementer i køen",
-			"title": "Spillelisteskanningen er begrenset"
 		},
 		"playlistPresets": {
 			"heading": "Velg kvalitet for gruppen",
@@ -1321,19 +1380,6 @@
 		"profileSwitchRow": {
 			"helpAria": "Hjelp for {{label}}"
 		},
-		"quickProgress": {
-			"cancel": "Avbryt klargjøringen",
-			"currentFallback": "Gjeldende lenke",
-			"description": "Arroxy leser lenken og bruker {{profileName}}.",
-			"failedCount_one": "{{count}} feilet",
-			"failedCount_other": "{{count}} feilet",
-			"phase": {
-				"probing": "Henter detaljer",
-				"queueing": "Legger i køen"
-			},
-			"title": "Klargjør Hurtignedlasting",
-			"waitHint": "La dette stå åpent mens Arroxy klargjør køen."
-		},
 		"review": {
 			"areas": {
 				"extras": "ekstra",
@@ -1443,6 +1489,7 @@
 				"embed": "Bygg inn i videoen",
 				"heading": "Lagre som",
 				"sidecar": "Ved siden av videoen",
+				"sidecarNoVideo": "I nedlastingsmappen",
 				"subfolder": "undermappen subtitles/"
 			},
 			"searchPlaceholder": "Søk etter språk …",
@@ -1452,10 +1499,6 @@
 		"tabsNavAria": "Navigasjon for nedlastingsprofiler",
 		"url": {
 			"advanced": "Avansert",
-			"analytics": {
-				"toggle": "Send daglig hjerteslag",
-				"toggleDescription": "Ingen telemetri. Én gang om dagen sender et anonymt hjerteslag appversjonen, installasjonskanalen, operativsystemet, språket, landet og omtrent hvor lenge siden Arroxy ble installert, slik at vi kan telle aktive og nye brukere. Ingen ID-er, nettadresser, videotitler eller filnavn."
-			},
 			"autoRemoveCompleted": {
 				"description": "Tar en nedlasting av Nedlastinger-listen noen sekunder etter at den er ferdig. Filene blir liggende i mappen din; mislykkede og avbrutte nedlastinger blir stående i listen.",
 				"label": "Fjern fullførte nedlastinger"
@@ -1490,6 +1533,11 @@
 				"label": "Samtidige nedlastinger",
 				"unit": "nedlastinger"
 			},
+			"concurrentProbes": {
+				"description": "Hvor mange lenker Arroxy henter detaljer for samtidig, før de lastes ned. Færre er skånsommere mot nettsteder som blokkerer travle tilkoblinger. En lenke du åpner i Interaktiv nedlasting, går alltid først.",
+				"label": "Lenker sjekket samtidig",
+				"unit": "lenker"
+			},
 			"cookies": {
 				"banWarning": "Nettsteder som YouTube kan flagge – og noen ganger utestenge – kontoer hvis informasjonskapsler brukes av nedlastingsverktøy som Arroxy. Bruk helst en engangskonto.",
 				"browserHelp": "Leser informasjonskapsler direkte fra nettleseren. Nettleseren må være lukket for nettlesere i Chromium-familien.",
@@ -1514,12 +1562,20 @@
 				"sourceFile": "Fil",
 				"sourceLabel": "Kilde for informasjonskapsler",
 				"sourceOff": "Av",
-				"toggleDescription": "Hjelper med videoer med aldersgrense, bare for medlemmer og private kontovideoer."
+				"toggleDescription": "Hjelper med videoer din egen konto kan se, som de private videoene dine."
 			},
 			"downloadConnections": {
 				"description": "Øker hastigheten på store nedlastinger ved å hente flere deler av en video samtidig. Høyere verdier øker risikoen for at et nettsted begrenser deg.",
 				"label": "Nedlastingstilkoblinger",
 				"unit": "tilkoblinger"
+			},
+			"downloadList": {
+				"album": "Last ned album …",
+				"liked": "Last ned likte videoer …",
+				"mix": "Last ned Mix …",
+				"playlist": "Last ned spilleliste …",
+				"uploads": "Last ned opplastinger …",
+				"watchLater": "Last ned Se senere …"
 			},
 			"features": {
 				"always": {
@@ -1548,18 +1604,17 @@
 			"hotkey": {
 				"changeShortcut": "Endre snarvei",
 				"conflict": "Denne snarveien er tatt av en annen app – velg en annen.",
-				"hintLabel": "Eller trykk",
-				"hintTooltip": "Kopier en videolenke hvor som helst, trykk på denne snarveien, så legger Arroxy den i køen med den aktive profilen din – uten å bytte vindu.",
-				"hintTooltipSettings": "Endre eller slå av i innstillingene.",
+				"globalLabel": "Global snarvei",
 				"recording": "Trykk på tastene …",
 				"reset": "Tilbakestill til standard",
 				"sectionDescription": "Last ned den lenken du kopierer, fra en hvilken som helst app, uten å åpne Arroxy.",
 				"sectionTitle": "Global hurtigtast",
 				"test": "Test",
 				"toggle": "Slå på global hurtigtast",
-				"toggleDescription": "Trykk på snarveien når en videolenke ligger på utklippstavlen."
+				"toggleDescriptionDetail": "Kopier en videolenke i hvilken som helst app og trykk på snarveien: Arroxy legger den i køen med den aktive profilen din, uten å bytte vindu. En lenke til en video i en spilleliste laster ned videoen."
 			},
 			"interactiveDownload": "Interaktiv nedlasting",
+			"interactiveDownloadAsks": "Interaktiv nedlasting …",
 			"limitRate": {
 				"activeWarning": "Aktive nedlastinger beholder gjeldende grense. Sett på pause og fortsett for å ta i bruk endringer.",
 				"custom": "Egendefinert …",
@@ -1572,10 +1627,8 @@
 			"mascotBusy": "Laster ned i bakgrunnen … Jeg kan gjøre flere ting samtidig 😎",
 			"mascotCollection": "Hurtig legger innlastede elementer i køen med {{profileName}}. Interaktiv lar deg først undersøke eller velge elementer.",
 			"mascotIdle": "Slipp en lenke, så henter Arroxy den ✨",
-			"mascotMixed": "Denne lenken peker på én video inne i en samling. Arroxy spør hvilken du vil ha før undersøkelsen.",
-			"mascotPreparing": "{{quickDownload}} leser denne lenken og bruker {{profileName}}.",
-			"mascotQueued": "Køen tar seg av denne nedlastingen. Du kan lime inn en ny lenke mens den jobber.",
 			"mascotSingle": "Hurtig starter én nedlasting med {{profileName}}. Bruk Interaktiv for engangsendringer.",
+			"mascotVideoInList": "Denne lenken peker til en video og listen den er i: last ned bare videoen, eller listen.",
 			"nativeAudioPreference": {
 				"compatible": "Kompatibel stereo",
 				"description": "Stereo eller surround når en profil velger opprinnelig lyd. En profil kan overstyre det.",
@@ -1679,6 +1732,7 @@
 					"override": "Bruker profiloverstyring",
 					"overrideSubfolder": "Bruker profiloverstyring + profilens undermappe"
 				},
+				"destinationEditHint": "Rediger profilen for å endre hvor den lagres.",
 				"destinationFallback": "Målmappe",
 				"edit": "Rediger",
 				"editActive": "Rediger aktiv profil",
@@ -1702,25 +1756,27 @@
 				"remove": "Fjern",
 				"reorderHint": "Dra en profil for å flytte den. Alle profilvelgere følger denne rekkefølgen.",
 				"reset": "Tilbakestill",
+				"savesTo": "Lagres i",
 				"switchAria": "Bytt nedlastingsprofil: {{profileName}}",
 				"switchTitle": "Bytt nedlastingsprofil"
 			},
 			"proxy": {
 				"clear": "Tøm",
-				"description": "Send trafikken via en proxy – nyttig for geobegrenset innhold.",
+				"description": "Send trafikken via en proxy-server.",
 				"label": "Proxy-adresse",
 				"placeholder": "http://vert:port"
 			},
-			"quickBulkAllFailed": "Ingen av disse nettadressene kunne klargjøres",
 			"quickDownload": "Hurtignedlasting",
 			"quickDownloadTooltip": "Laster ned med: {{profileName}}",
 			"quickFailed": "Kunne ikke legge til denne: {{error}}",
-			"quickPartialFailed_one": "La i køen det som fungerte. {{count}} nettadresse kunne ikke klargjøres.",
-			"quickPartialFailed_other": "La i køen det som fungerte. {{count}} nettadresser kunne ikke klargjøres.",
 			"quickPrepareFailed": "Elementet i køen kunne ikke klargjøres",
 			"quickPreparing": "Klargjør",
 			"quickProbeFailed": "Undersøkelsen feilet",
 			"quickSingleOnly": "Lim inn en nettadresse til en video, spilleliste, kanal eller et søk for å komme i gang.",
+			"reports": {
+				"toggle": "Send anonyme hjerteslag- og oppsettsrapporter",
+				"toggleDescription": "Ingen sporing. Én gang om dagen sender et anonymt hjerteslag appversjonen, installasjonskanalen, operativsystemet, språket, landet og omtrent hvor lenge siden Arroxy ble installert, slik at vi kan telle aktive og nye brukere. Når Arroxy setter opp eller oppdaterer nedlastingsmotoren eller medieverktøyene, rapporterer den også om det gikk bra og omtrent hvor lang tid det tok. Ingen ID-er, nettadresser, videotitler eller filnavn."
+			},
 			"settings": {
 				"behaviorDescription": "Global oppførsel som også påvirker profilstyrte nedlastinger.",
 				"behaviorHeading": "Nedlastingsatferd",
@@ -1744,7 +1800,9 @@
 			"tabs": {
 				"profiles": "Profiler",
 				"settings": "Innstillinger"
-			}
+			},
+			"thisVideo": "Denne videoen",
+			"thisVideoTooltip": "Laster ned bare denne videoen med {{profileName}}"
 		}
 	}
 }

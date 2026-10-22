@@ -96,7 +96,7 @@ export const nl = {
   discord_badge_text: "Word lid van de Discord-community",
   discord_badge_encoded: "Word%20lid%20van%20de%20Discord%2Dcommunity",
   hero_desc:
-    "Download video’s, Shorts, muziek, kanalen, podcasts of audiotracks van **YouTube en 2000+ ondersteunde sites** — tot 8K HDR met 60 fps, als MP3 / AAC / Opus, of alleen het deel dat je nodig hebt. **Surf op YouTube of een andere site direct in Arroxy** op het tabblad Verkennen en download de video, afspeellijst of het kanaal waar je bent; meld je daar aan om privé-, ledenvideo’s en video’s met leeftijdsbeperking te downloaden die je account kan bekijken. Draait lokaal op Windows, macOS en Linux. **Geen advertenties, geen overbodige software, geen upsells.**",
+    "Download video’s, Shorts, kanalen, podcasts of audiotracks van **YouTube en 2000+ ondersteunde sites** — tot 8K HDR met 60 fps, als MP3 / AAC / Opus, of alleen het deel dat je nodig hebt. **Surf op YouTube of een andere site direct in Arroxy** op het tabblad Verkennen en download de video, afspeellijst of het kanaal waar je bent; meld je daar aan om video’s te downloaden die je eigen account al kan bekijken. Draait lokaal op Windows, macOS en Linux. **Geen advertenties, geen overbodige software, geen upsells.**",
   cta_latest: "↓ Nieuwste release installeren",
   cta_website: "Website",
   website_url: "https://arroxy.com/",
@@ -105,7 +105,7 @@ export const nl = {
   intro_what_is:
     "**Wat is Arroxy?** Arroxy is een gratis, opensource desktop-GUI die video’s, audio, afspeellijsten en ondertitels downloadt van YouTube en 2000+ andere sites die [yt-dlp](https://github.com/yt-dlp/yt-dlp) ondersteunt. Het draait op Windows 10/11, macOS 13+ (Intel + Apple Silicon) en Linux (AppImage, Flatpak, tar.gz). Onder GPLv3-licentie. Geen advertenties, geen gebruikslimieten. Verspreid via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage en directe download.",
   intro_key_difference:
-    "**Het belangrijkste verschil: een ingebouwde browser.** De meeste gratis YouTube-downloaders zijn dunne yt-dlp-wrappers: een URL-vak en een formatmenu, zonder eigen browser. Arroxy heeft er een, het **tabblad Verkennen**. Je surft op YouTube of een andere site binnen de app en downloadt de video, afspeellijst of het kanaal waar je bent, of klikt met de rechtermuisknop op een willekeurige link. Je meldt je één keer aan in Verkennen en Arroxy downloadt privé-, ledenvideo’s en video’s met leeftijdsbeperking die je account kan bekijken, plus je lijsten Later bekijken en Leuk gevonden, zonder cookies te exporteren. Meld je daar ook aan op andere sites, dan gebruiken hun downloads die aanmelding als dat nodig is. Arroxy probeert het opnieuw met die aanmelding wanneer YouTube vraagt te bevestigen dat je geen bot bent. De ingebouwde browser haalt ook het token op dat YouTube vóór een download verwacht, zodat YouTube een download niet terugbrengt tot minder formaten. Een wrapper met alleen een URL-vak loopt tegen al deze beperkingen aan. Details: [Waarom Arroxy](#why-explore).",
+    "**Het belangrijkste verschil: een ingebouwde browser.** De meeste gratis YouTube-downloaders zijn dunne yt-dlp-wrappers: een URL-vak en een formatmenu, zonder eigen browser. Arroxy heeft er een, het **tabblad Verkennen**. Je surft op YouTube of een andere site binnen de app en downloadt de video, afspeellijst of het kanaal waar je bent, of klikt met de rechtermuisknop op een willekeurige link. Meld je één keer aan in Verkennen, dan gebruiken downloads waarvoor een account nodig is die aanmelding: je privévideo’s, je lijsten Later bekijken en Leuk gevonden en andere video’s die je account al kan bekijken, zonder cookies te exporteren. Meld je daar ook aan op andere sites, dan gebruiken hun downloads die aanmelding als dat nodig is. Details: [Waarom Arroxy](#why-explore).",
   last_updated: "Laatst bijgewerkt: {{LAST_UPDATED}}.",
   toc_heading: "Inhoud",
   why_h2: "Waarom Arroxy",
@@ -123,20 +123,17 @@ export const nl = {
   why_r6: "Platformonafhankelijke desktop-app",
   why_r7: "Ondertitels + SponsorBlock",
   why_r8: "Ingebouwde browser (surfen, aanmelden, downloaden)",
-  why_r9: "Privé-, ledenvideo’s en video’s met leeftijdsbeperking zonder cookies te exporteren",
+  why_r9:
+    "Video’s die je eigen account kan bekijken, zonder cookies te exporteren",
   why_table_note:
     "⚠️ = gedeeltelijk, of alleen in een betaald abonnement. De aanmelding in de app voor privévideo’s van 4K Video Downloader is een betaalde functie; de meeste gratis yt-dlp-GUI’s accepteren alleen een cookiebestand of lezen de cookies van je webbrowser.",
   why_summary:
     "Arroxy is gebouwd voor één ding: een schoon lokaal bestand, of je nu een URL plakt of de video in Verkennen vindt. Geen upsells, geen gegevensverzameling.",
   why_explore_h3: "Wat een gewone yt-dlp-wrapper niet kan: het tabblad Verkennen",
   why_explore_intro:
-    "De meeste gratis YouTube-downloaders zijn een URL-vak bovenop yt-dlp. Arroxy gebruikt ook yt-dlp, maar heeft daarnaast **Verkennen**, een in de app ingebouwde browser die YouTube of elke andere site opent. Verkennen komt voorbij beperkingen waar een URL-vak niet doorheen komt:",
+    "De meeste gratis YouTube-downloaders zijn een URL-vak bovenop yt-dlp. Arroxy gebruikt ook yt-dlp, maar heeft daarnaast **Verkennen**, een in de app ingebouwde browser die YouTube of elke andere site opent. Verkennen voegt toe wat een URL-vak niet kan:",
   why_explore_1:
-    "**Video’s waarvoor een account nodig is, zonder cookies te exporteren** — privé-, ledenvideo’s en video’s met leeftijdsbeperking (op een leeftijdsgeverifieerd account), plus je lijsten Later bekijken en Leuk gevonden, en video’s achter een aanmelding op andere sites. Een gewone wrapper heeft een export van cookies.txt nodig of moet de cookies van je webbrowser lezen, wat Chrome op Windows inmiddels blokkeert. In Arroxy meld je je één keer aan in Verkennen en de rest gaat vanzelf",
-  why_explore_2:
-    "**„Meld je aan om te bevestigen dat je geen bot bent”** — wanneer YouTube dit vraagt, probeert Arroxy de download opnieuw met je aanmelding in Verkennen in plaats van te mislukken",
-  why_explore_3:
-    "**Het downloadtoken van YouTube** — de ingebouwde browser van Arroxy haalt het token op dat YouTube vóór een download verwacht. Zonder dat kan YouTube minder formaten en een lagere kwaliteit aanbieden dan je vroeg",
+    "**Video’s die je account kan bekijken, zonder cookies te exporteren** — je privévideo’s, je lijsten Later bekijken en Leuk gevonden, video’s met leeftijdsbeperking op een leeftijdsgeverifieerd account en pagina’s op andere sites waarvoor je moet zijn aangemeld. Een gewone wrapper heeft een export van cookies.txt nodig of leest de cookies van je webbrowser. In Arroxy meld je je één keer aan in Verkennen en de rest gaat vanzelf",
   why_explore_4:
     "**Geen links kopiëren** — vind een video, afspeellijst of kanaal in Verkennen en download met één klik, of klik met rechts op een link op de pagina",
   why_explore_5:
@@ -151,7 +148,7 @@ export const nl = {
   feat_explore_2:
     "**Adresbalk** — typ om op YouTube te zoeken, of voer een willekeurig webadres in om die site te openen",
   feat_explore_3:
-    "**Downloads waarvoor een account nodig is** — meld je één keer aan in Verkennen en Arroxy kan privé- en ledenvideo’s downloaden die je account kan bekijken, video’s met leeftijdsbeperking als het account leeftijdsgeverifieerd is, en je lijsten Later bekijken en Leuk gevonden. Meld je daar ook aan bij andere sites, dan gebruiken hun downloads die aanmelding wanneer dat nodig is. Arroxy downloadt eerst nog steeds afgemeld en gebruikt je aanmelding in Verkennen alleen wanneer een download mislukt op een manier die een account kan oplossen. Wanneer YouTube vraagt te bevestigen dat je geen bot bent, probeert Arroxy ook je aanmelding in Verkennen",
+    "**Downloads waarvoor een account nodig is** — meld je één keer aan in Verkennen en Arroxy kan video’s downloaden die je account kan bekijken: je privévideo’s, video’s met leeftijdsbeperking als het account leeftijdsgeverifieerd is, en je lijsten Later bekijken en Leuk gevonden. Meld je daar ook aan bij andere sites, dan gebruiken hun downloads die aanmelding wanneer dat nodig is. Arroxy downloadt eerst nog steeds afgemeld en gebruikt je aanmelding in Verkennen alleen wanneer een download mislukt op een manier die een account kan oplossen",
   feat_explore_4:
     "**Gebruik een tweede account** — het eerste scherm van Verkennen legt uit waarom: downloaden met een account brengt enig risico mee dat dat account wordt beperkt. Meld je wanneer je wilt af bij Verkennen via Instellingen om je aanmeldingen te vergeten",
   feat_explore_5:
@@ -196,7 +193,7 @@ export const nl = {
   feat_workflow_10:
     "**Downloads tegelijk en automatisch opnieuw proberen** — kies hoeveel downloads uit de wachtrij tegelijk lopen en laat Arroxy een download opnieuw proberen die een netwerk- of serverprobleem had, met steeds langere wachttijd voor elke poging",
   feat_workflow_11:
-    "**Profielen per afspeellijstitem** — wijs elke video in een afspeellijst een eigen downloadprofiel toe in plaats van één instelling voor de hele lijst, zodat je in één keer sommige in volle kwaliteit kunt archiveren en de rest als MP3 kunt binnenhalen",
+    "**Profielen per afspeellijstitem** — wijs elke video in een afspeellijst een eigen downloadprofiel toe in plaats van één instelling voor de hele lijst, zodat je in één keer sommige in volle kwaliteit kunt archiveren en de rest alleen als audio kunt opslaan",
   feat_workflow_13:
     "**Snel downloaden werkt op de achtergrond** — de link verschijnt meteen in Downloads en wordt daar voorbereid, een melding met **Bekijken** bevestigt dit en het URL-veld wordt leeggemaakt voor de volgende link. Start er zoveel als je wilt terwijl eerdere worden voorbereid",
   feat_workflow_14:
@@ -228,7 +225,7 @@ export const nl = {
   feat_sites_1:
     "**YouTube, volledig** — Video’s, Shorts, kanalen, afspeellijsten, YouTube Music en podcasts worden als volwaardige bronnen behandeld",
   feat_sites_2:
-    "**2000+ andere sites** via yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable en nog veel meer",
+    "**2000+ andere sites** via yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable en nog veel meer",
   feat_sites_3:
     "**Alleen audio en ondertitels** werken op elke ondersteunde site, niet alleen op YouTube",
   feat_sites_4:
@@ -249,7 +246,8 @@ export const nl = {
     "Algemene downloadsneltoets van Arroxy — Ctrl+Shift+D op Windows en Linux, Cmd+Shift+D op macOS, die de gekopieerde link direct in de downloadwachtrij zet",
   hotkey_fig_cap:
     "<b>Algemene downloadsneltoets</b><br/>Kopieer overal een link, druk één keer — hij komt in de wachtrij en begint met downloaden",
-  shot7_cap: "<b>Profielen per afspeellijstitem</b><br/>Geef elke video een eigen profiel — archiveer sommige in 4K, haal de rest binnen als MP3",
+  shot7_cap:
+    "<b>Profielen per afspeellijstitem</b><br/>Geef elke video een eigen profiel — archiveer sommige in 4K, bewaar de rest alleen als audio",
   shot8_cap:
     "<b>Verkennen</b><br/>Surf op YouTube of een andere site in Arroxy en download de pagina waar je bent met je actieve profiel",
   shot9_cap:
@@ -389,15 +387,15 @@ export const nl = {
 
   privacy_p1:
     "Downloads worden rechtstreeks via [yt-dlp](https://github.com/yt-dlp/yt-dlp) van YouTube naar de map van je keuze opgehaald — niets loopt via een server van een derde partij. Kijkgeschiedenis, downloadgeschiedenis, URL’s en bestandsinhoud blijven op je apparaat.",
-  privacy_p2:
-    "Geen telemetrie — slechts één anonieme heartbeat per dag: app-versie, besturingssysteem, taal, installatiekanaal, land en ongeveer hoe lang geleden Arroxy is geïnstalleerd, zodat we actieve en nieuwe gebruikers kunnen tellen. Geen ID’s, URL’s, videotitels, bestandspaden of accountgegevens. Je kunt dit uitschakelen in Instellingen.",
+  privacy_reports:
+    "Geen tracking — één anonieme heartbeat per dag (app-versie, besturingssysteem, taal, installatiekanaal, land en ongeveer hoe lang geleden Arroxy is geïnstalleerd), zodat we actieve en nieuwe gebruikers kunnen tellen, en wanneer Arroxy yt-dlp en FFmpeg downloadt of bijwerkt, een anonieme melding of dat is gelukt en ongeveer hoe lang het duurde. Geen ID’s, URL’s, videotitels, bestandspaden of accountgegevens. Je kunt beide uitschakelen in Instellingen.",
   privacy_p3:
     "Verkennen bewaart zijn eigen aanmeldingen, los van je browser, en Arroxy leest of vult nooit een aanmeldformulier in — je typt op de eigen pagina van de site. Downloads draaien afgemeld; alleen wanneer er een mislukt op een manier die een account kan oplossen, leest Arroxy de aanmelding vers uit, bewaart die voor die download in een tijdelijk bestand en verwijdert het bestand daarna. Afmelden bij Verkennen in Instellingen vergeet ze.",
   faq_q1: "Is het echt gratis?",
   faq_a1: "Ja — GPLv3-licentie, geen premiumabonnement, geen beperking van functies.",
   faq_q11: "Waarin verschilt Arroxy van andere yt-dlp-GUI’s?",
   faq_a11:
-    "De meeste gratis yt-dlp-GUI’s zijn wrappers die alleen een link accepteren. Arroxy voegt **Verkennen** toe, een in de app ingebouwde browser die YouTube of elke andere site opent: je surft en downloadt zonder links te kopiëren, en je meldt je daar één keer aan om privé-, ledenvideo’s en video’s met leeftijdsbeperking en je lijsten Later bekijken en Leuk gevonden te downloaden, zonder cookie-export. Arroxy gebruikt die aanmelding wanneer YouTube vraagt te bevestigen dat je geen bot bent, en de ingebouwde browser haalt het downloadtoken van YouTube op, zodat downloads niet terugvallen op minder formaten. Zie [Waarom Arroxy](#why).",
+    "De meeste gratis yt-dlp-GUI’s zijn wrappers die alleen een link accepteren. Arroxy voegt **Verkennen** toe, een in de app ingebouwde browser die YouTube of elke andere site opent: je surft en downloadt zonder links te kopiëren, en je meldt je daar één keer aan om video’s te downloaden die je account kan bekijken, zoals je privévideo’s en je lijsten Later bekijken en Leuk gevonden, zonder cookie-export. Zie [Waarom Arroxy](#why).",
   faq_q2: "Welke videokwaliteiten kan ik downloaden?",
   faq_a2:
     "Alles wat YouTube aanbiedt: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plus alleen audio. 60 fps- en HDR-streams blijven ongewijzigd behouden, en met de stapsgewijze download kies je AV1, VP9 of H.264 bij elke resolutie.",
@@ -406,10 +404,10 @@ export const nl = {
     "Ja. Kies *alleen audio* in het formaatmenu en kies MP3, M4A/AAC, Opus of WAV.",
   faq_q4: "Hoe download ik video’s waarvoor een YouTube-account nodig is?",
   faq_a4:
-    "Meld je één keer aan op het tabblad Verkennen. Arroxy kan dan privé- en ledenvideo’s downloaden die je account kan bekijken, video’s met leeftijdsbeperking als het account leeftijdsgeverifieerd is, en je lijsten Later bekijken en Leuk gevonden. Het gebruikt de aanmelding alleen wanneer een download mislukt op een manier die een account kan oplossen; al het andere downloadt zoals voorheen. Dit is de keuze **Aanmelding in Verkennen**, die in de cookie-instellingen als eerste staat en als Aanbevolen is gemarkeerd, en Arroxy kiest die voor je wanneer je Verkennen voor het eerst opent. De wiki van yt-dlp merkt op dat [geautomatiseerd aanmelden een Google-account kan markeren](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), dus een tweede account is de veiligere keuze.",
+    "Meld je één keer aan op het tabblad Verkennen. Arroxy kan dan video’s downloaden die je account kan bekijken: je privévideo’s, video’s met leeftijdsbeperking als het account leeftijdsgeverifieerd is, en je lijsten Later bekijken en Leuk gevonden. Het gebruikt de aanmelding alleen wanneer een download mislukt op een manier die een account kan oplossen; al het andere downloadt zoals voorheen. Dit is de keuze **Aanmelding in Verkennen**, die in de cookie-instellingen als eerste staat en als Aanbevolen is gemarkeerd, en Arroxy kiest die voor je wanneer je Verkennen voor het eerst opent. De wiki van yt-dlp merkt op dat [geautomatiseerd aanmelden een Google-account kan markeren](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), dus een tweede account is de veiligere keuze.",
   faq_q5: "Blijft het werken als YouTube iets verandert?",
   faq_a5:
-    "yt-dlp wordt bij het opstarten automatisch bijgewerkt en Arroxy brengt snel oplossingen uit als YouTube iets verandert. Wanneer YouTube vraagt te bevestigen dat je geen bot bent, probeert Arroxy ook je aanmelding in Verkennen als je daar bent aangemeld, en cookies uit een bestand of je browser zijn beschikbaar in de cookie-instellingen.",
+    "yt-dlp wordt bij het opstarten automatisch bijgewerkt en Arroxy brengt snel oplossingen uit als YouTube iets verandert. Wanneer een download een aanmelding nodig heeft, gebruikt Arroxy je aanmelding in Verkennen als je daar bent aangemeld, en cookies uit een bestand of je browser zijn beschikbaar in de cookie-instellingen.",
   faq_q6: "In welke talen is Arroxy beschikbaar?",
   faq_a6:
     "{{LANG_COUNT}} talen, kant-en-klaar: {{LANG_NAME_LIST}}. Arroxy detecteert bij de eerste start automatisch de taal van je besturingssysteem en je kunt op elk moment wisselen via de taalkiezer in de werkbalk. De JSON-bestanden voor de runtime-taal staan in src/shared/i18n/locales/ en de PO-catalogi voor vertalers staan in i18n/locales/ — open een PR op GitHub om bij te dragen.",
@@ -424,7 +422,7 @@ export const nl = {
     'Dat is macOS Gatekeeper die een niet-ondertekende app blokkeert, geen echte schade. Zie [Eerste start op macOS](#macos-first-launch) voor de Terminal-opdrachten die de quarantaine opheffen en Arroxy starten.',
   faq_q10: "Is het downloaden van YouTube-video’s legaal?",
   faq_a10:
-    "Voor persoonlijk, privégebruik wordt het in de meeste rechtsgebieden over het algemeen geaccepteerd. Jij bent verantwoordelijk voor het naleven van de [Servicevoorwaarden](https://www.youtube.com/t/terms) van YouTube en de auteursrechtwetgeving in jouw land.",
+    "Dat hangt af van je land en van wat je downloadt. Download alleen inhoud die van jou is, inhoud waarvoor een downloadlicentie bestaat of inhoud die je volgens de wet in jouw land mag kopiëren. Jij bent verantwoordelijk voor het naleven van de [Servicevoorwaarden](https://www.youtube.com/t/terms) van YouTube en de auteursrechtwetgeving in jouw land. Zie [Gebruiksvoorwaarden](#terms).",
   plan_intro: "Nog gepland — grofweg in volgorde van prioriteit:",
   plan_col1: "Functie",
   plan_col2: "Beschrijving",
@@ -447,7 +445,8 @@ export const nl = {
     "Een functie in gedachten? [Dien een verzoek in](../../issues) — input uit de community bepaalt de prioriteit.",
   tech_content: TECH_CONTENT,
   support_h2: "Steun Arroxy",
-  support_note: "Arroxy is gratis en heeft een GPLv3-licentie — geen advertenties, geen telemetrie, geen betaald abonnement. Bespaart het je tijd, dan kun je de ontwikkeling steunen met Bitcoin, Tron of Ethereum: de adressen staan in [DONATE.md](DONATE.md), de enige officiële bron ervoor. Arroxy stuurt je nooit een adres per e-mail of direct bericht. Een ster geven aan de repo, bugs melden en vertalingen verbeteren helpen net zo goed.",
+  support_line:
+    "Arroxy is gratis en heeft een GPLv3-licentie — geen advertenties, geen tracking, geen betaald abonnement. Bespaart het je tijd, dan kun je de ontwikkeling steunen met Bitcoin, Tron of Ethereum: de adressen staan in [DONATE.md](DONATE.md), de enige officiële bron ervoor. Arroxy stuurt je nooit een adres per e-mail of direct bericht. Een ster geven aan de repo, bugs melden en vertalingen verbeteren helpen net zo goed.",
   tos_h2: "Gebruiksvoorwaarden",
   tos_note:
     "Arroxy is een hulpmiddel voor uitsluitend persoonlijk, privégebruik. Je bent zelf volledig verantwoordelijk voor ervoor te zorgen dat je downloads voldoen aan de [Servicevoorwaarden](https://www.youtube.com/t/terms) van YouTube en de auteursrechtwetten van jouw rechtsgebied. Gebruik Arroxy niet om content te downloaden, te reproduceren of te verspreiden waarvoor je geen gebruiksrecht hebt. De ontwikkelaars zijn niet aansprakelijk voor misbruik.",

@@ -107,10 +107,6 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "Tiếp tục"
 
-msgctxt "common.dismiss"
-msgid "Dismiss"
-msgstr "Đóng"
-
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "Đang tải…"
@@ -143,13 +139,9 @@ msgctxt "dialogs.closeToTray.remember"
 msgid "Don't ask again"
 msgstr "Không hỏi lại"
 
-msgctxt "dialogs.quitWithActiveDownloads.confirm"
-msgid "Cancel Downloads & Quit"
-msgstr "Hủy tải xuống & Thoát"
-
-msgctxt "dialogs.quitWithActiveDownloads.detail"
-msgid "Pause to resume later, or cancel to discard progress."
-msgstr "Tạm dừng để tiếp tục sau, hoặc hủy để bỏ tiến trình."
+msgctxt "dialogs.quitWithActiveDownloads.continueDetail"
+msgid "Your queue is kept, and downloads pick up where they stopped the next time you open Arroxy."
+msgstr "Hàng đợi của bạn được giữ nguyên, và các lượt tải sẽ tiếp tục từ chỗ đã dừng vào lần tới bạn mở Arroxy."
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -160,9 +152,9 @@ msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "{{count}} tải xuống đang tiến hành"
 
-msgctxt "dialogs.quitWithActiveDownloads.pause"
-msgid "Pause Downloads & Quit"
-msgstr "Tạm dừng tải và thoát"
+msgctxt "dialogs.quitWithActiveDownloads.quit"
+msgid "Quit"
+msgstr "Thoát"
 
 msgctxt "dialogs.rendererCrashed.detail"
 msgid "The renderer process crashed ({{reason}}). Reload to try again."
@@ -221,8 +213,8 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "Video này bị giới hạn độ tuổi và không thể tải xuống nếu không có tài khoản đã đăng nhập."
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
-msgstr "Đã kích hoạt bảo vệ bot. Địa chỉ IP bạn đang dùng rất có thể đã bị gắn cờ (dải địa chỉ trung tâm dữ liệu hoặc điểm thoát VPN bận). Hãy đổi IP hoặc chọn điểm kết nối VPN khác rồi thử lại. Nếu vẫn thất bại, đây có thể là thay đổi tạm thời từ phía trang web — Arroxy cập nhật bộ máy tải xuống khi khởi động, vì vậy bản sửa lỗi sẽ tự động áp dụng ngay khi được phát hành."
+msgid "The site's bot protection stopped this download. Wait a while and try again, or download fewer videos at once. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Cơ chế chống bot của trang web đã chặn lượt tải này. Hãy chờ một lúc rồi thử lại, hoặc tải ít video cùng lúc hơn. Nếu vẫn thất bại, đây có thể là thay đổi tạm thời từ phía trang web — Arroxy cập nhật bộ máy tải xuống khi khởi động, vì vậy bản sửa lỗi sẽ tự động áp dụng ngay khi được phát hành."
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
 msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
@@ -241,8 +233,8 @@ msgid "This video is not available in your region."
 msgstr "Video này không có sẵn ở khu vực của bạn."
 
 msgctxt "errors.ytdlp.ipBlock"
-msgid "Your IP address appears to be blocked. Try again later or use a VPN."
-msgstr "Địa chỉ IP của bạn dường như bị YouTube chặn. Hãy thử lại sau hoặc dùng VPN."
+msgid "The site is blocking requests from this connection. Try again later."
+msgstr "Trang web đang chặn các yêu cầu từ kết nối này. Hãy thử lại sau."
 
 msgctxt "errors.ytdlp.loginRequired"
 msgid "This video needs a signed-in account."
@@ -324,13 +316,77 @@ msgctxt "explore.linkCallout.title"
 msgid "Right-click a link to download it"
 msgstr "Nhấp chuột phải vào liên kết để tải xuống"
 
+msgctxt "explore.linkMenu.background.album"
+msgid "Download the album in the background"
+msgstr "Tải album ở chế độ nền"
+
+msgctxt "explore.linkMenu.background.liked"
+msgid "Download your liked videos in the background"
+msgstr "Tải video đã thích của bạn ở chế độ nền"
+
+msgctxt "explore.linkMenu.background.mix"
+msgid "Download the Mix in the background"
+msgstr "Tải Mix ở chế độ nền"
+
+msgctxt "explore.linkMenu.background.playlist"
+msgid "Download the playlist in the background"
+msgstr "Tải danh sách phát ở chế độ nền"
+
+msgctxt "explore.linkMenu.background.uploads"
+msgid "Download the uploads in the background"
+msgstr "Tải các video đã tải lên ở chế độ nền"
+
+msgctxt "explore.linkMenu.background.watchLater"
+msgid "Download Watch later in the background"
+msgstr "Tải Xem sau ở chế độ nền"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "Sao chép liên kết"
 
+msgctxt "explore.linkMenu.downloadFirst"
+msgid "Download the first {{count}}"
+msgstr "Tải {{count}} video đầu"
+
+msgctxt "explore.linkMenu.downloadThisVideo"
+msgid "Download this video · {{profileName}}"
+msgstr "Tải video này · {{profileName}}"
+
 msgctxt "explore.linkMenu.downloadWith"
 msgid "Download with"
 msgstr "Tải xuống với"
+
+msgctxt "explore.linkMenu.fromList.album"
+msgid "From this album"
+msgstr "Từ album này"
+
+msgctxt "explore.linkMenu.fromList.liked"
+msgid "From your liked videos"
+msgstr "Từ video đã thích của bạn"
+
+msgctxt "explore.linkMenu.fromList.mix"
+msgid "From this Mix"
+msgstr "Từ Mix này"
+
+msgctxt "explore.linkMenu.fromList.playlist"
+msgid "From this playlist"
+msgstr "Từ danh sách phát này"
+
+msgctxt "explore.linkMenu.fromList.uploads"
+msgid "From this channel’s uploads"
+msgstr "Từ video đã tải lên của kênh này"
+
+msgctxt "explore.linkMenu.fromList.watchLater"
+msgid "From Watch later"
+msgstr "Từ Xem sau"
+
+msgctxt "explore.linkMenu.interactive"
+msgid "Interactive Download…"
+msgstr "Tải tương tác…"
+
+msgctxt "explore.linkMenu.thisVideoWith"
+msgid "This video with"
+msgstr "Tải video này với"
 
 msgctxt "explore.newBadge"
 msgid "New"
@@ -476,6 +532,10 @@ msgctxt "explore.toolbar.compactLayout"
 msgid "Compact layout"
 msgstr "Bố cục thu gọn"
 
+msgctxt "explore.toolbar.download"
+msgid "Download"
+msgstr "Tải xuống"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "Tải xuống · {{profileName}}"
@@ -511,6 +571,14 @@ msgstr "Tải lại"
 msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "Cụm tìm kiếm quá dài."
+
+msgctxt "explore.toolbar.thisVideo"
+msgid "This video"
+msgstr "Video này"
+
+msgctxt "explore.toolbar.thisVideoHint"
+msgid "Download just this video with {{profileName}}"
+msgstr "Chỉ tải video này với {{profileName}}"
 
 msgctxt "explore.toolbar.zoom.hint"
 msgid "Page zoom: {{percent}}%"
@@ -576,17 +644,17 @@ msgctxt "filenameTemplate.error.unknown-token"
 msgid "Unknown token {{token}}."
 msgstr "Thẻ không xác định {{token}}."
 
-msgctxt "filenameTemplate.idWarning"
-msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
-msgstr "Nếu không có {id}, Arroxy không thể phát hiện mục danh sách phát đã tải hoặc tạo danh sách phát .m3u."
+msgctxt "filenameTemplate.idEndingWarning"
+msgid "End the name with [{id}] so Arroxy can detect already-downloaded playlist items and generate .m3u playlists."
+msgstr "Hãy kết thúc tên bằng [{id}] để Arroxy nhận biết các mục danh sách phát đã tải và tạo danh sách phát .m3u."
 
 msgctxt "filenameTemplate.label"
 msgid "Filename template"
 msgstr "Mẫu tên tệp"
 
-msgctxt "filenameTemplate.m3uDisabled"
-msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
-msgstr "Không khả dụng vì mẫu tên tệp của bạn không có {id} hoặc sắp xếp tệp tải về vào thư mục."
+msgctxt "filenameTemplate.m3uDisabledIdEnding"
+msgid "Unavailable because your filename template either doesn't end with [{id}] or sorts downloads into folders."
+msgstr "Không khả dụng vì mẫu tên tệp của bạn không kết thúc bằng [{id}] hoặc phân loại các lượt tải vào thư mục."
 
 msgctxt "filenameTemplate.previewPlaylist"
 msgid "In a playlist"
@@ -763,6 +831,31 @@ msgid "Already in the queue"
 msgstr "Đã có trong hàng đợi"
 
 #. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "notifications.quickDownload.batchAdded_other"
+msgid "Added {{count}} links to Downloads"
+msgstr "Đã thêm {{count}} liên kết vào Tải xuống"
+
+#. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_other"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} đã có trong hàng đợi"
+
+#. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "notifications.quickDownload.batchNoneAdded_other"
+msgid "{{count}} links couldn't be added"
+msgstr "Không thể thêm {{count}} liên kết"
+
+#. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "notifications.quickDownload.batchNotAdded_other"
+msgid "{{count}} couldn't be added"
+msgstr "Không thể thêm {{count}}"
+
+#. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "notifications.quickDownload.chooseFromList_other"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "Danh sách này có {{count}} video — hãy chọn video cần tải"
+
+#. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "notifications.quickDownload.chooseHowMany_other"
 msgid "{{count}}+ videos — choose how many"
 msgstr "{{count}}+ video — chọn số lượng"
@@ -774,16 +867,6 @@ msgstr "Không thể chuẩn bị {{title}}"
 msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "Không thể thêm liên kết này — hãy thử lại"
-
-#. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "notifications.quickDownload.review_other"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "{{count}} video trong danh sách này — xem lại để chọn"
-
-#. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "notifications.quickDownload.reviewCapped_other"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "{{count}}+ video trong danh sách này — xem lại để chọn"
 
 msgctxt "notifications.quickDownload.view"
 msgid "View"
@@ -1023,14 +1106,70 @@ msgctxt "queue.choice.first"
 msgid "First {{count}}"
 msgstr "{{count}} video đầu"
 
+msgctxt "queue.choice.list.album"
+msgid "The album"
+msgstr "Album"
+
+msgctxt "queue.choice.list.liked"
+msgid "Liked videos"
+msgstr "Video đã thích"
+
+msgctxt "queue.choice.list.mix"
+msgid "The Mix"
+msgstr "Mix"
+
+msgctxt "queue.choice.list.playlist"
+msgid "The playlist"
+msgstr "Danh sách phát"
+
+msgctxt "queue.choice.list.uploads"
+msgid "All the uploads"
+msgstr "Tất cả video đã tải lên"
+
+msgctxt "queue.choice.list.watchLater"
+msgid "Watch later"
+msgstr "Xem sau"
+
+msgctxt "queue.choice.pick"
+msgid "Pick from it…"
+msgstr "Chọn từ đó…"
+
 msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "Xem lại"
 
 #. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "queue.choice.reviewBody_other"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "Liên kết này là danh sách {{count}} video. Hãy xem lại để chọn nội dung cần tải."
+msgctxt "queue.choice.uncappedBody_other"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "Liên kết này là một danh sách {{count}} video. Hãy tải tất cả, hoặc xem lại để tự chọn."
+
+msgctxt "queue.choice.video"
+msgid "This video"
+msgstr "Video này"
+
+msgctxt "queue.choice.videoOrList.album"
+msgid "This link is a video in an album. Download just the video, or the album?"
+msgstr "Liên kết này là một video trong album. Chỉ tải video, hay tải cả album?"
+
+msgctxt "queue.choice.videoOrList.liked"
+msgid "This link is a video in your liked videos. Download just the video, or all your liked videos?"
+msgstr "Liên kết này là một video trong danh sách video đã thích của bạn. Chỉ tải video, hay tải tất cả video đã thích?"
+
+msgctxt "queue.choice.videoOrList.mix"
+msgid "This link is a video in a Mix. Download just the video, or the Mix?"
+msgstr "Liên kết này là một video trong Mix. Chỉ tải video, hay tải cả Mix?"
+
+msgctxt "queue.choice.videoOrList.playlist"
+msgid "This link is a video in a playlist. Download just the video, or the playlist?"
+msgstr "Liên kết này là một video trong danh sách phát. Chỉ tải video, hay tải cả danh sách phát?"
+
+msgctxt "queue.choice.videoOrList.uploads"
+msgid "This link is a video in a channel's uploads. Download just the video, or all the uploads?"
+msgstr "Liên kết này là một video trong các video đã tải lên của một kênh. Chỉ tải video, hay tải tất cả video đã tải lên?"
+
+msgctxt "queue.choice.videoOrList.watchLater"
+msgid "This link is a video in your Watch later list. Download just the video, or the whole list?"
+msgstr "Liên kết này là một video trong danh sách Xem sau của bạn. Chỉ tải video, hay tải cả danh sách?"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -1159,6 +1298,70 @@ msgstr "Đang tải"
 msgctxt "queue.item.subtitleLanguagesMissing"
 msgid "No subtitles in {{languages}}"
 msgstr "Không có phụ đề bằng {{languages}}"
+
+msgctxt "queue.item.waitingForSite"
+msgid "Waits for {{site}} until {{time}}"
+msgstr "Chờ {{site}} đến {{time}}"
+
+msgctxt "queue.item.waitingHint"
+msgid "{{site}} is rate-limiting this connection. Arroxy fetches this link's details after {{time}}, so the limit can clear."
+msgstr "{{site}} đang giới hạn tốc độ yêu cầu của kết nối này. Arroxy sẽ lấy chi tiết của liên kết này sau {{time}}, để giới hạn có thể được gỡ."
+
+msgctxt "queue.listOffer.dismiss"
+msgid "Dismiss"
+msgstr "Đóng"
+
+msgctxt "queue.listOffer.from.album"
+msgid "From an album"
+msgstr "Từ một album"
+
+msgctxt "queue.listOffer.from.liked"
+msgid "From your liked videos"
+msgstr "Từ video đã thích của bạn"
+
+msgctxt "queue.listOffer.from.mix"
+msgid "From a Mix"
+msgstr "Từ một Mix"
+
+msgctxt "queue.listOffer.from.playlist"
+msgid "From a playlist"
+msgstr "Từ một danh sách phát"
+
+msgctxt "queue.listOffer.from.uploads"
+msgid "From a channel's uploads"
+msgstr "Từ video đã tải lên của một kênh"
+
+msgctxt "queue.listOffer.from.watchLater"
+msgid "From Watch later"
+msgstr "Từ Xem sau"
+
+msgctxt "queue.listOffer.get.album"
+msgid "Get the whole album"
+msgstr "Lấy cả album"
+
+msgctxt "queue.listOffer.get.liked"
+msgid "Get all liked videos"
+msgstr "Lấy tất cả video đã thích"
+
+msgctxt "queue.listOffer.get.mix"
+msgid "Get the whole Mix"
+msgstr "Lấy cả Mix"
+
+msgctxt "queue.listOffer.get.playlist"
+msgid "Get the whole playlist"
+msgstr "Lấy cả danh sách phát"
+
+msgctxt "queue.listOffer.get.uploads"
+msgid "Get all uploads"
+msgstr "Lấy tất cả video đã tải lên"
+
+msgctxt "queue.listOffer.get.watchLater"
+msgid "Get all of Watch later"
+msgstr "Lấy toàn bộ Xem sau"
+
+msgctxt "queue.listOffer.hint"
+msgid "Adds the list as its own row. This video is left out."
+msgstr "Thêm danh sách thành một hàng riêng. Video này được bỏ ra ngoài."
 
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
@@ -1700,10 +1903,6 @@ msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Xin chào, chào mừng bạn quay lại!"
 
-msgctxt "splash.setup.bytes"
-msgid "{{done}} of {{total}}"
-msgstr "{{done}} / {{total}}"
-
 #. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "splash.setup.left.minutes_other"
 msgid "about {{count}} min left"
@@ -1713,18 +1912,6 @@ msgctxt "splash.setup.left.underMinute"
 msgid "less than a minute left"
 msgstr "còn chưa đến một phút"
 
-msgctxt "splash.setup.note.engine"
-msgid "Keeps downloads working when sites change."
-msgstr "Giúp việc tải xuống luôn hoạt động khi các trang web thay đổi."
-
-msgctxt "splash.setup.note.firstRun"
-msgid "This happens once. Arroxy keeps these tools and updates them itself."
-msgstr "Việc này chỉ diễn ra một lần. Arroxy sẽ giữ các công cụ này và tự cập nhật chúng."
-
-msgctxt "splash.setup.note.media"
-msgid "This happens once. Arroxy keeps them for future updates."
-msgstr "Việc này chỉ diễn ra một lần. Arroxy sẽ giữ chúng cho các lần cập nhật sau."
-
 msgctxt "splash.setup.stage.checking"
 msgid "Checking everything works"
 msgstr "Đang kiểm tra mọi thứ hoạt động"
@@ -1733,21 +1920,17 @@ msgctxt "splash.setup.stage.connecting"
 msgid "Connecting…"
 msgstr "Đang kết nối…"
 
-msgctxt "splash.setup.stage.downloadingBoth"
-msgid "Downloading the download engine and media tools"
-msgstr "Đang tải bộ máy tải xuống và công cụ đa phương tiện"
-
-msgctxt "splash.setup.stage.downloadingEngine"
-msgid "Downloading the download engine"
-msgstr "Đang tải bộ máy tải xuống"
-
-msgctxt "splash.setup.stage.downloadingMedia"
-msgid "Downloading the media tools"
-msgstr "Đang tải công cụ đa phương tiện"
-
 msgctxt "splash.setup.stage.unpacking"
 msgid "Unpacking the media tools"
 msgstr "Đang giải nén công cụ đa phương tiện"
+
+msgctxt "splash.setup.stage.unpackingEngine"
+msgid "Unpacking the download engine"
+msgstr "Đang giải nén bộ máy tải xuống"
+
+msgctxt "splash.setup.title.both"
+msgid "Updating Arroxy's tools"
+msgstr "Đang cập nhật công cụ của Arroxy"
 
 msgctxt "splash.setup.title.engine"
 msgid "Updating the download engine"
@@ -1834,8 +2017,8 @@ msgid "Merging audio and video…"
 msgstr "Đang ghép âm thanh và video…"
 
 msgctxt "status.mintingToken"
-msgid "Minting YouTube token…"
-msgstr "Đang tạo token YouTube…"
+msgid "Preparing YouTube download…"
+msgstr "Đang chuẩn bị tải xuống từ YouTube…"
 
 msgctxt "status.movingFiles"
 msgid "Moving files…"
@@ -1854,16 +2037,16 @@ msgid "Preparing binaries…"
 msgstr "Đang chuẩn bị các tệp nhị phân…"
 
 msgctxt "status.qualityLimited"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
-msgstr "Đã lưu ở {{height}}p — YouTube đã giữ lại các chất lượng cao hơn cho lượt tải này. Thử lại sau hoặc từ mạng khác có thể giúp ích."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later may help."
+msgstr "Đã lưu ở {{height}}p — YouTube đã giữ lại các chất lượng cao hơn cho lượt tải này. Thử lại sau có thể sẽ hiệu quả."
 
 msgctxt "status.qualityLimitedSubtitlesFailed"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
-msgstr "Đã lưu ở {{height}}p — YouTube đã giữ lại các chất lượng cao hơn cho lượt tải này và một số phụ đề không thể tải xuống. Thử lại sau hoặc từ mạng khác có thể giúp ích."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later may help."
+msgstr "Đã lưu ở {{height}}p — YouTube đã giữ lại các chất lượng cao hơn cho lượt tải này, và không thể tải một số phụ đề. Thử lại sau có thể sẽ hiệu quả."
 
 msgctxt "status.remintingToken"
-msgid "Re-minting token…"
-msgstr "Đang tạo lại token…"
+msgid "Preparing YouTube download again…"
+msgstr "Đang chuẩn bị lại tải xuống từ YouTube…"
 
 msgctxt "status.retryingSponsorBlock"
 msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
@@ -2255,8 +2438,8 @@ msgid "Folder name has invalid characters"
 msgstr "Tên thư mục chứa ký tự không hợp lệ"
 
 msgctxt "wizard.folder.subfolder.placeholder"
-msgid "e.g. lo-fi rips"
-msgstr "vd. lo-fi rips"
+msgid "e.g. lectures"
+msgstr "vd: bài giảng"
 
 msgctxt "wizard.folder.subfolder.toggle"
 msgid "Save inside subfolder"
@@ -2523,9 +2706,25 @@ msgctxt "wizard.formats.fit.tierAbove"
 msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
 msgstr "Hồ sơ của bạn yêu cầu {{wanted}}p. Video này không có độ phân giải thấp như vậy nên {{picked}}p được chọn."
 
-msgctxt "wizard.formats.fit.tierBelow"
-msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
-msgstr "Hồ sơ của bạn yêu cầu {{wanted}}p. Video này chỉ có tối đa {{picked}}p nên {{picked}}p được chọn."
+msgctxt "wizard.formats.fit.tierAbovePassedOver"
+msgid "Your profile asks for {{wanted}}p. The smaller streams this video has don't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "Hồ sơ của bạn yêu cầu {{wanted}}p. Các luồng nhỏ hơn của video này không khớp với phần còn lại của hồ sơ, nên {{picked}}p được chọn."
+
+msgctxt "wizard.formats.fit.tierBelowTakeable"
+msgid "Your profile asks for {{wanted}}p. This video has no {{wanted}}p it can take, so {{picked}}p is selected."
+msgstr "Hồ sơ của bạn yêu cầu {{wanted}}p. Video này không có bản {{wanted}}p nào dùng được, nên {{picked}}p được chọn."
+
+msgctxt "wizard.formats.fit.tierPassedOverAiUpscaled"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p is AI-upscaled, so the original {{picked}}p is selected."
+msgstr "Hồ sơ của bạn yêu cầu {{wanted}}p. Bản {{wanted}}p của video này được nâng cấp bằng AI, nên bản gốc {{picked}}p được chọn."
+
+msgctxt "wizard.formats.fit.tierPassedOverH264"
+msgid "Your profile asks for {{wanted}}p in H.264. This video has {{wanted}}p only in other codecs, so {{picked}}p in H.264 is selected."
+msgstr "Hồ sơ của bạn yêu cầu {{wanted}}p ở H.264. Video này chỉ có {{wanted}}p ở các codec khác, nên {{picked}}p ở H.264 được chọn."
+
+msgctxt "wizard.formats.fit.tierPassedOverProfile"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p doesn't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "Hồ sơ của bạn yêu cầu {{wanted}}p. Bản {{wanted}}p của video này không khớp với phần còn lại của hồ sơ, nên {{picked}}p được chọn."
 
 msgctxt "wizard.formats.fit.webmUnavailable"
 msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
@@ -2763,85 +2962,81 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "có âm thanh"
 
-msgctxt "wizard.listPrompt.escHint"
-msgid "Esc cancels. Nothing loads until you choose."
-msgstr "Nhấn Esc để hủy. Sẽ không tải gì cho đến khi bạn chọn."
+msgctxt "wizard.listPrompt.backgroundHint"
+msgid "With {{profileName}}. If it has more than {{count}} videos, Downloads asks how many."
+msgstr "Dùng {{profileName}}. Nếu có hơn {{count}} video, mục Tải xuống sẽ hỏi lấy bao nhiêu."
 
-msgctxt "wizard.listPrompt.interactiveSubtitle"
-msgid "Choose formats yourself"
-msgstr "Tự chọn định dạng"
+msgctxt "wizard.listPrompt.backgroundLabel"
+msgid "Download in the background"
+msgstr "Tải ở chế độ nền"
 
-msgctxt "wizard.listPrompt.justThisVideo"
-msgid "Just this video"
-msgstr "Chỉ video này"
+msgctxt "wizard.listPrompt.escOnly"
+msgid "Esc cancels."
+msgstr "Esc để hủy."
 
-msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
-msgid "Opens its formats"
-msgstr "Mở các định dạng của video"
+msgctxt "wizard.listPrompt.firstHint"
+msgid "Exactly the first {{count}}, with {{profileName}}."
+msgstr "Đúng {{count}} video đầu, dùng {{profileName}}."
 
-msgctxt "wizard.listPrompt.justThisVideoQuickHint"
-msgid "Loads one video"
-msgstr "Tải một video"
+msgctxt "wizard.listPrompt.firstLabel"
+msgid "Download the first"
+msgstr "Tải các video đầu tiên:"
 
-msgctxt "wizard.listPrompt.listInteractiveHint"
-msgid "Loads up to {{count}} to choose from"
-msgstr "Tải tối đa {{count}} mục để bạn chọn"
+msgctxt "wizard.listPrompt.interactiveHint"
+msgid "Pick from the first {{count}} videos (or change the count on the next step), then set up the download."
+msgstr "Chọn từ {{count}} video đầu (hoặc đổi số lượng ở bước tiếp theo), rồi thiết lập lượt tải."
 
-msgctxt "wizard.listPrompt.listOption.album"
-msgid "The album, first"
-msgstr "Phần đầu của album"
+msgctxt "wizard.listPrompt.interactiveLabel"
+msgid "Interactive download…"
+msgstr "Tải tương tác…"
 
-msgctxt "wizard.listPrompt.listOption.liked"
-msgid "Your liked videos, first"
-msgstr "Phần đầu của video đã thích"
+msgctxt "wizard.listPrompt.limitHint"
+msgid "How many videos to take from the list: the first option asks past it, the second takes exactly that many. The same as Settings › Playlist items to scan."
+msgstr "Lấy bao nhiêu video từ danh sách: tùy chọn đầu hỏi khi vượt quá số này, tùy chọn thứ hai lấy đúng số đó. Giống Cài đặt › Số mục playlist cần quét."
 
-msgctxt "wizard.listPrompt.listOption.mix"
-msgid "The Mix, first"
-msgstr "Phần đầu của Mix"
-
-msgctxt "wizard.listPrompt.listOption.playlist"
-msgid "The playlist, first"
-msgstr "Phần đầu của danh sách phát"
-
-msgctxt "wizard.listPrompt.listOption.uploads"
-msgid "The uploads, first"
-msgstr "Phần đầu của video đã tải lên"
-
-msgctxt "wizard.listPrompt.listOption.watchLater"
-msgid "Watch later, first"
-msgstr "Phần đầu của Xem sau"
-
-msgctxt "wizard.listPrompt.listQuickHint"
-msgid "Loads up to {{count}}, then downloads them"
-msgstr "Tải tối đa {{count}} mục rồi tải xuống"
+msgctxt "wizard.listPrompt.limitLabel"
+msgid "Limit"
+msgstr "Giới hạn"
 
 msgctxt "wizard.listPrompt.mixNote"
 msgid "A Mix changes every time you open it."
 msgstr "Mix thay đổi mỗi lần bạn mở."
 
-msgctxt "wizard.listPrompt.pickOption.album"
-msgid "Pick from the album, first"
-msgstr "Chọn từ phần đầu của album"
+msgctxt "wizard.listPrompt.pickLoadAfter"
+msgid "to pick from."
+msgstr "video đầu để chọn."
 
-msgctxt "wizard.listPrompt.pickOption.liked"
-msgid "Pick from your liked videos, first"
-msgstr "Chọn từ phần đầu của video đã thích"
+msgctxt "wizard.listPrompt.pickLoadBefore"
+msgid "Load the first"
+msgstr "Tải"
 
-msgctxt "wizard.listPrompt.pickOption.mix"
-msgid "Pick from the Mix, first"
-msgstr "Chọn từ phần đầu của Mix"
+msgctxt "wizard.listPrompt.pickLoadNote"
+msgid "You can change it on the next step."
+msgstr "Bạn có thể đổi số này ở bước tiếp theo."
 
-msgctxt "wizard.listPrompt.pickOption.playlist"
-msgid "Pick from the playlist, first"
-msgstr "Chọn từ phần đầu của danh sách phát"
+msgctxt "wizard.listPrompt.pickTitle.album"
+msgid "Pick from this album"
+msgstr "Chọn từ album này"
 
-msgctxt "wizard.listPrompt.pickOption.uploads"
-msgid "Pick from the uploads, first"
-msgstr "Chọn từ phần đầu của video đã tải lên"
+msgctxt "wizard.listPrompt.pickTitle.liked"
+msgid "Pick from your liked videos"
+msgstr "Chọn từ video đã thích của bạn"
 
-msgctxt "wizard.listPrompt.pickOption.watchLater"
-msgid "Pick from Watch later, first"
-msgstr "Chọn từ phần đầu của Xem sau"
+msgctxt "wizard.listPrompt.pickTitle.mix"
+msgid "Pick from this Mix"
+msgstr "Chọn từ Mix này"
+
+msgctxt "wizard.listPrompt.pickTitle.playlist"
+msgid "Pick from this playlist"
+msgstr "Chọn từ danh sách phát này"
+
+msgctxt "wizard.listPrompt.pickTitle.uploads"
+msgid "Pick from this channel’s uploads"
+msgstr "Chọn từ video đã tải lên của kênh này"
+
+msgctxt "wizard.listPrompt.pickTitle.watchLater"
+msgid "Pick from Watch later"
+msgstr "Chọn từ Xem sau"
 
 msgctxt "wizard.listPrompt.title.album"
 msgid "Download from this album"
@@ -2866,6 +3061,18 @@ msgstr "Tải xuống từ video đã tải lên của kênh này"
 msgctxt "wizard.listPrompt.title.watchLater"
 msgid "Download from Watch later"
 msgstr "Tải xuống từ Xem sau"
+
+msgctxt "wizard.listPrompt.videoHint"
+msgid "Only the video you opened, with {{profileName}}. The list isn't loaded."
+msgstr "Chỉ video bạn đã mở, dùng {{profileName}}. Danh sách không được tải."
+
+msgctxt "wizard.listPrompt.videoLabel"
+msgid "Just this video"
+msgstr "Chỉ video này"
+
+msgctxt "wizard.listPrompt.videoPickHint"
+msgid "Set up only the video you opened. The list isn't loaded."
+msgstr "Chỉ thiết lập video bạn đã mở. Danh sách không được tải."
 
 msgctxt "wizard.listPrompt.withProfile"
 msgid "With {{profileName}}"
@@ -3062,6 +3269,16 @@ msgstr "Tất cả mục đã bị xóa"
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Đã tải xuống"
+
+#. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlist.bulkCappedDesc_other"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "Vẫn còn nhiều hơn. Để chọn số lượng, hãy dán riêng từng liên kết."
+
+#. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlist.bulkCappedTitle_other"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "{{count}} danh sách bị cắt ở {{limit}} video mỗi danh sách"
 
 msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
@@ -3266,28 +3483,6 @@ msgstr "Đang kiểm tra thư mục…"
 msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Hình thu nhỏ video"
-
-msgctxt "wizard.playlistCap.changeLimit"
-msgid "Change load limit"
-msgstr "Đổi giới hạn tải"
-
-#. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.playlistCap.description_other"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy đã tải {{count}} mục theo giới hạn hiện tại là {{limit}}. Bạn có thể thêm các mục đã tải vào hàng đợi ngay, hoặc tăng giới hạn rồi quét lại."
-
-#. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.playlistCap.descriptionWithTitle_other"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy đã tải {{count}} mục theo giới hạn hiện tại là {{limit}}. Bạn có thể thêm các mục đã tải vào hàng đợi ngay, hoặc tăng giới hạn rồi quét lại."
-
-msgctxt "wizard.playlistCap.queueLoaded"
-msgid "Queue loaded items"
-msgstr "Thêm các mục đã tải vào hàng đợi"
-
-msgctxt "wizard.playlistCap.title"
-msgid "Playlist scan is capped"
-msgstr "Quét danh sách phát đã bị giới hạn"
 
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
@@ -3765,39 +3960,6 @@ msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
 msgstr "Trợ giúp {{label}}"
 
-msgctxt "wizard.quickProgress.cancel"
-msgid "Cancel preparation"
-msgstr "Hủy chuẩn bị"
-
-msgctxt "wizard.quickProgress.currentFallback"
-msgid "Current link"
-msgstr "Liên kết hiện tại"
-
-msgctxt "wizard.quickProgress.description"
-msgid "Arroxy is reading the link and applying {{profileName}}."
-msgstr "Arroxy đang đọc liên kết và áp dụng {{profileName}}."
-
-#. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.quickProgress.failedCount_other"
-msgid "{{count}} failed"
-msgstr "{{count}} thất bại"
-
-msgctxt "wizard.quickProgress.phase.probing"
-msgid "Fetching details"
-msgstr "Đang lấy chi tiết"
-
-msgctxt "wizard.quickProgress.phase.queueing"
-msgid "Adding to queue"
-msgstr "Đang thêm vào hàng đợi"
-
-msgctxt "wizard.quickProgress.title"
-msgid "Preparing Quick Download"
-msgstr "Đang chuẩn bị Tải nhanh"
-
-msgctxt "wizard.quickProgress.waitHint"
-msgid "Keep this open while Arroxy prepares the queue."
-msgstr "Giữ cửa sổ này mở trong khi Arroxy chuẩn bị hàng đợi."
-
 msgctxt "wizard.review.areas.extras"
 msgid "extras"
 msgstr "bổ sung"
@@ -4106,6 +4268,10 @@ msgctxt "wizard.subtitles.saveMode.sidecar"
 msgid "Next to video"
 msgstr "Cạnh video"
 
+msgctxt "wizard.subtitles.saveMode.sidecarNoVideo"
+msgid "In the download folder"
+msgstr "Trong thư mục tải xuống"
+
 msgctxt "wizard.subtitles.saveMode.subfolder"
 msgid "subtitles/ subfolder"
 msgstr "Thư mục con subtitles/"
@@ -4129,14 +4295,6 @@ msgstr "Điều hướng hồ sơ tải xuống"
 msgctxt "wizard.url.advanced"
 msgid "Advanced"
 msgstr "Nâng cao"
-
-msgctxt "wizard.url.analytics.toggle"
-msgid "Send daily heartbeat"
-msgstr "Gửi tín hiệu hằng ngày"
-
-msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
-msgstr "Không có telemetry. Mỗi ngày một lần, một tín hiệu ẩn danh gửi phiên bản ứng dụng, kênh cài đặt, hệ điều hành, ngôn ngữ, quốc gia và khoảng thời gian đã trôi qua kể từ khi cài đặt Arroxy để chúng tôi đếm số người dùng đang hoạt động và người dùng mới. Không có ID, URL, tiêu đề video hay tên tệp."
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
@@ -4225,6 +4383,18 @@ msgstr "Tải cùng lúc"
 msgctxt "wizard.url.concurrentDownloads.unit"
 msgid "downloads"
 msgstr "mục"
+
+msgctxt "wizard.url.concurrentProbes.description"
+msgid "How many links Arroxy fetches details for at the same time, before they download. Fewer is gentler on sites that block busy connections. A link you open in Interactive Download always goes first."
+msgstr "Số liên kết mà Arroxy lấy chi tiết cùng lúc, trước khi tải. Ít hơn sẽ nhẹ nhàng hơn với các trang chặn kết nối bận. Liên kết bạn mở trong Tải tương tác luôn được ưu tiên."
+
+msgctxt "wizard.url.concurrentProbes.label"
+msgid "Links checked at once"
+msgstr "Số liên kết kiểm tra cùng lúc"
+
+msgctxt "wizard.url.concurrentProbes.unit"
+msgid "links"
+msgstr "liên kết"
 
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
@@ -4319,8 +4489,8 @@ msgid "Off"
 msgstr "Tắt"
 
 msgctxt "wizard.url.cookies.toggleDescription"
-msgid "Helps with age-restricted, members-only, and account-private videos."
-msgstr "Hỗ trợ tải video giới hạn độ tuổi, dành riêng cho thành viên và video riêng tư của tài khoản."
+msgid "Helps with videos your own account can watch, like your private videos."
+msgstr "Hữu ích với các video mà chính tài khoản của bạn xem được, như video riêng tư của bạn."
 
 msgctxt "wizard.url.downloadConnections.description"
 msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
@@ -4333,6 +4503,30 @@ msgstr "Kết nối tải xuống"
 msgctxt "wizard.url.downloadConnections.unit"
 msgid "connections"
 msgstr "kết nối"
+
+msgctxt "wizard.url.downloadList.album"
+msgid "Download album…"
+msgstr "Tải album…"
+
+msgctxt "wizard.url.downloadList.liked"
+msgid "Download liked videos…"
+msgstr "Tải video đã thích…"
+
+msgctxt "wizard.url.downloadList.mix"
+msgid "Download Mix…"
+msgstr "Tải Mix…"
+
+msgctxt "wizard.url.downloadList.playlist"
+msgid "Download playlist…"
+msgstr "Tải danh sách phát…"
+
+msgctxt "wizard.url.downloadList.uploads"
+msgid "Download uploads…"
+msgstr "Tải video đã tải lên…"
+
+msgctxt "wizard.url.downloadList.watchLater"
+msgid "Download Watch later…"
+msgstr "Tải Xem sau…"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -4406,17 +4600,9 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "Tổ hợp phím này đã bị ứng dụng khác dùng — hãy chọn tổ hợp khác."
 
-msgctxt "wizard.url.hotkey.hintLabel"
-msgid "Or press"
-msgstr "Hoặc nhấn"
-
-msgctxt "wizard.url.hotkey.hintTooltip"
-msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
-msgstr "Sao chép liên kết video ở bất cứ đâu, nhấn phím tắt này và Arroxy sẽ xếp liên kết vào hàng đợi bằng hồ sơ đang hoạt động — không cần chuyển cửa sổ."
-
-msgctxt "wizard.url.hotkey.hintTooltipSettings"
-msgid "Change or turn it off in Settings."
-msgstr "Thay đổi hoặc tắt tính năng này trong Cài đặt."
+msgctxt "wizard.url.hotkey.globalLabel"
+msgid "Global shortcut"
+msgstr "Phím tắt toàn cục"
 
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
@@ -4442,13 +4628,17 @@ msgctxt "wizard.url.hotkey.toggle"
 msgid "Enable global hotkey"
 msgstr "Bật phím tắt toàn cục"
 
-msgctxt "wizard.url.hotkey.toggleDescription"
-msgid "Press the shortcut with a video link on your clipboard."
-msgstr "Nhấn tổ hợp phím khi có liên kết video trong bộ nhớ tạm."
+msgctxt "wizard.url.hotkey.toggleDescriptionDetail"
+msgid "Copy a video link in any app and press the shortcut: Arroxy queues it with your active profile, without switching windows. A link to a video in a playlist downloads the video."
+msgstr "Sao chép liên kết video ở bất kỳ ứng dụng nào rồi nhấn phím tắt: Arroxy sẽ xếp nó vào hàng đợi bằng hồ sơ đang dùng của bạn, không cần chuyển cửa sổ. Liên kết tới một video trong danh sách phát sẽ tải video đó."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
 msgstr "Tải tương tác"
+
+msgctxt "wizard.url.interactiveDownloadAsks"
+msgid "Interactive Download…"
+msgstr "Tải tương tác…"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
@@ -4490,21 +4680,13 @@ msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Thả một liên kết và để Arroxy kéo về ✨"
 
-msgctxt "wizard.url.mascotMixed"
-msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
-msgstr "Liên kết này trỏ tới một video trong một bộ sưu tập. Arroxy sẽ hỏi bạn muốn video nào trước khi kiểm tra."
-
-msgctxt "wizard.url.mascotPreparing"
-msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
-msgstr "{{quickDownload}} đang đọc liên kết này và áp dụng {{profileName}}."
-
-msgctxt "wizard.url.mascotQueued"
-msgid "The queue is handling this download. You can paste another link while it works."
-msgstr "Hàng đợi đang xử lý bản tải này. Bạn có thể dán một liên kết khác trong lúc chờ."
-
 msgctxt "wizard.url.mascotSingle"
 msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
 msgstr "Tải nhanh bắt đầu một lượt tải với {{profileName}}. Dùng Tải tương tác để thay đổi một lần."
+
+msgctxt "wizard.url.mascotVideoInList"
+msgid "This link names a video and the list it’s in: download just the video, or the list."
+msgstr "Liên kết này nêu cả một video lẫn danh sách chứa nó: chỉ tải video, hoặc tải danh sách."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4826,6 +5008,10 @@ msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
 msgid "Using profile override + profile subfolder"
 msgstr "Đang dùng ghi đè hồ sơ + thư mục con của hồ sơ"
 
+msgctxt "wizard.url.profile.destinationEditHint"
+msgid "To change where it saves, edit the profile."
+msgstr "Để đổi nơi lưu, hãy chỉnh sửa hồ sơ."
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Đích lưu"
@@ -4918,6 +5104,10 @@ msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Đặt lại"
 
+msgctxt "wizard.url.profile.savesTo"
+msgid "Saves to"
+msgstr "Lưu vào"
+
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
 msgstr "Đổi hồ sơ tải xuống: {{profileName}}"
@@ -4931,8 +5121,8 @@ msgid "Clear"
 msgstr "Xóa"
 
 msgctxt "wizard.url.proxy.description"
-msgid "Route traffic through a proxy — useful for geo-restricted content."
-msgstr "Chuyển lưu lượng qua proxy — hữu ích cho nội dung bị chặn theo khu vực."
+msgid "Route traffic through a proxy server."
+msgstr "Định tuyến lưu lượng qua một máy chủ proxy."
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
@@ -4941,10 +5131,6 @@ msgstr "URL Proxy"
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
-
-msgctxt "wizard.url.quickBulkAllFailed"
-msgid "None of those URLs could be prepared"
-msgstr "Không thể chuẩn bị URL nào trong số này"
 
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
@@ -4957,11 +5143,6 @@ msgstr "Sẽ tải xuống bằng: {{profileName}}"
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "Không thể thêm mục này: {{error}}"
-
-#. Plural form "other" for vi: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.url.quickPartialFailed_other"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "Đã đưa các mục hoạt động vào hàng đợi. Không thể chuẩn bị {{count}} URL."
 
 msgctxt "wizard.url.quickPrepareFailed"
 msgid "Queue item could not be prepared"
@@ -4978,6 +5159,14 @@ msgstr "Thăm dò thất bại"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "Dán URL video, danh sách phát, kênh hoặc tìm kiếm để bắt đầu."
+
+msgctxt "wizard.url.reports.toggle"
+msgid "Send anonymous heartbeat and setup reports"
+msgstr "Gửi tín hiệu ẩn danh và báo cáo thiết lập"
+
+msgctxt "wizard.url.reports.toggleDescription"
+msgid "No tracking. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. When Arroxy sets up or updates its download engine or media tools, it also reports whether that worked and roughly how long it took. No IDs, URLs, video titles or filenames."
+msgstr "Không theo dõi. Mỗi ngày một lần, một tín hiệu ẩn danh gửi phiên bản ứng dụng, kênh cài đặt, hệ điều hành, ngôn ngữ, quốc gia và khoảng thời gian đã trôi qua kể từ khi cài đặt Arroxy để chúng tôi đếm số người dùng đang hoạt động và người dùng mới. Khi Arroxy thiết lập hoặc cập nhật bộ máy tải xuống hoặc công cụ đa phương tiện, nó cũng báo cáo việc đó có thành công hay không và mất khoảng bao lâu. Không có ID, URL, tiêu đề video hay tên tệp."
 
 msgctxt "wizard.url.settings.behaviorDescription"
 msgid "Global behavior that affects profile-driven downloads too."
@@ -5034,3 +5223,11 @@ msgstr "Hồ sơ"
 msgctxt "wizard.url.tabs.settings"
 msgid "Settings"
 msgstr "Cài đặt"
+
+msgctxt "wizard.url.thisVideo"
+msgid "This video"
+msgstr "Video này"
+
+msgctxt "wizard.url.thisVideoTooltip"
+msgid "Downloads just this video with {{profileName}}"
+msgstr "Chỉ tải video này với {{profileName}}"

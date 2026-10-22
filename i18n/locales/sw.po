@@ -107,10 +107,6 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "Endelea"
 
-msgctxt "common.dismiss"
-msgid "Dismiss"
-msgstr "Funga"
-
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "Inapakia…"
@@ -143,13 +139,9 @@ msgctxt "dialogs.closeToTray.remember"
 msgid "Don't ask again"
 msgstr "Usiulize tena"
 
-msgctxt "dialogs.quitWithActiveDownloads.confirm"
-msgid "Cancel Downloads & Quit"
-msgstr "Ghairi Vipakuzi na Toka"
-
-msgctxt "dialogs.quitWithActiveDownloads.detail"
-msgid "Pause to resume later, or cancel to discard progress."
-msgstr "Sitisha ili uendelee baadaye, au ghairi ili kutupa maendeleo."
+msgctxt "dialogs.quitWithActiveDownloads.continueDetail"
+msgid "Your queue is kept, and downloads pick up where they stopped the next time you open Arroxy."
+msgstr "Foleni yako huhifadhiwa, na vipakuliwa huendelea ulipoishia utakapofungua Arroxy tena."
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -165,9 +157,9 @@ msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "Vipakuzi {{count}} vinavyoendelea"
 
-msgctxt "dialogs.quitWithActiveDownloads.pause"
-msgid "Pause Downloads & Quit"
-msgstr "Sitisha vipakuliwa na uondoke"
+msgctxt "dialogs.quitWithActiveDownloads.quit"
+msgid "Quit"
+msgstr "Toka"
 
 msgctxt "dialogs.rendererCrashed.detail"
 msgid "The renderer process crashed ({{reason}}). Reload to try again."
@@ -226,8 +218,8 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "Video hii ina kikwazo cha umri na haiwezi kupakuliwa bila akaunti iliyoingia."
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
-msgstr "Ulinzi wa boti umeanzishwa. IP unayotumia ina uwezekano mkubwa wa kuwa imepigwa alama (anuwai ya kituo cha data au mlango wa VPN wenye msongamano). Badilisha IP yako au chagua seva nyingine ya VPN na ujaribu tena. Ikiwa itaendelea kushindwa, hii inaweza kuwa mabadiliko ya muda ya upande wa tovuti — Arroxy husasisha injini yake ya upakuaji wakati wa uzinduzi, kwa hivyo marekebisho yatafika kiotomatiki mara yakitolewa."
+msgid "The site's bot protection stopped this download. Wait a while and try again, or download fewer videos at once. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Ulinzi wa boti wa tovuti umesimamisha upakuaji huu. Subiri kidogo kisha ujaribu tena, au pakua video chache kwa wakati mmoja. Ikiwa itaendelea kushindwa, hii inaweza kuwa mabadiliko ya muda upande wa tovuti — Arroxy husasisha injini yake ya upakuaji wakati wa uzinduzi, kwa hivyo marekebisho yatafika kiotomatiki mara yakitolewa."
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
 msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
@@ -246,8 +238,8 @@ msgid "This video is not available in your region."
 msgstr "Video hii haipatikani katika eneo lako."
 
 msgctxt "errors.ytdlp.ipBlock"
-msgid "Your IP address appears to be blocked. Try again later or use a VPN."
-msgstr "Anwani yako ya IP inaonekana kuzuiwa na YouTube. Jaribu tena baadaye au tumia VPN."
+msgid "The site is blocking requests from this connection. Try again later."
+msgstr "Tovuti inazuia maombi kutoka kwa muunganisho huu. Jaribu tena baadaye."
 
 msgctxt "errors.ytdlp.loginRequired"
 msgid "This video needs a signed-in account."
@@ -329,13 +321,77 @@ msgctxt "explore.linkCallout.title"
 msgid "Right-click a link to download it"
 msgstr "Bofya kulia kiungo ili kukipakua"
 
+msgctxt "explore.linkMenu.background.album"
+msgid "Download the album in the background"
+msgstr "Pakua albamu nyuma ya pazia"
+
+msgctxt "explore.linkMenu.background.liked"
+msgid "Download your liked videos in the background"
+msgstr "Pakua video ulizopenda nyuma ya pazia"
+
+msgctxt "explore.linkMenu.background.mix"
+msgid "Download the Mix in the background"
+msgstr "Pakua Mix nyuma ya pazia"
+
+msgctxt "explore.linkMenu.background.playlist"
+msgid "Download the playlist in the background"
+msgstr "Pakua playlist nyuma ya pazia"
+
+msgctxt "explore.linkMenu.background.uploads"
+msgid "Download the uploads in the background"
+msgstr "Pakua video zilizopakiwa nyuma ya pazia"
+
+msgctxt "explore.linkMenu.background.watchLater"
+msgid "Download Watch later in the background"
+msgstr "Pakua Tazama baadaye nyuma ya pazia"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "Nakili kiungo"
 
+msgctxt "explore.linkMenu.downloadFirst"
+msgid "Download the first {{count}}"
+msgstr "Pakua {{count}} za kwanza"
+
+msgctxt "explore.linkMenu.downloadThisVideo"
+msgid "Download this video · {{profileName}}"
+msgstr "Pakua video hii · {{profileName}}"
+
 msgctxt "explore.linkMenu.downloadWith"
 msgid "Download with"
 msgstr "Pakua kwa"
+
+msgctxt "explore.linkMenu.fromList.album"
+msgid "From this album"
+msgstr "Kutoka albamu hii"
+
+msgctxt "explore.linkMenu.fromList.liked"
+msgid "From your liked videos"
+msgstr "Kutoka video ulizopenda"
+
+msgctxt "explore.linkMenu.fromList.mix"
+msgid "From this Mix"
+msgstr "Kutoka Mix hii"
+
+msgctxt "explore.linkMenu.fromList.playlist"
+msgid "From this playlist"
+msgstr "Kutoka playlist hii"
+
+msgctxt "explore.linkMenu.fromList.uploads"
+msgid "From this channel’s uploads"
+msgstr "Kutoka video zilizopakiwa kwenye kituo hiki"
+
+msgctxt "explore.linkMenu.fromList.watchLater"
+msgid "From Watch later"
+msgstr "Kutoka Tazama baadaye"
+
+msgctxt "explore.linkMenu.interactive"
+msgid "Interactive Download…"
+msgstr "Upakuaji shirikishi…"
+
+msgctxt "explore.linkMenu.thisVideoWith"
+msgid "This video with"
+msgstr "Video hii kwa"
 
 msgctxt "explore.newBadge"
 msgid "New"
@@ -481,6 +537,10 @@ msgctxt "explore.toolbar.compactLayout"
 msgid "Compact layout"
 msgstr "Mpangilio mshikamano"
 
+msgctxt "explore.toolbar.download"
+msgid "Download"
+msgstr "Pakua"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "Pakua · {{profileName}}"
@@ -516,6 +576,14 @@ msgstr "Pakia upya"
 msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "Utafutaji huo ni mrefu mno."
+
+msgctxt "explore.toolbar.thisVideo"
+msgid "This video"
+msgstr "Video hii"
+
+msgctxt "explore.toolbar.thisVideoHint"
+msgid "Download just this video with {{profileName}}"
+msgstr "Pakua video hii pekee kwa {{profileName}}"
 
 msgctxt "explore.toolbar.zoom.hint"
 msgid "Page zoom: {{percent}}%"
@@ -581,17 +649,17 @@ msgctxt "filenameTemplate.error.unknown-token"
 msgid "Unknown token {{token}}."
 msgstr "Tokeni isiyojulikana {{token}}."
 
-msgctxt "filenameTemplate.idWarning"
-msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
-msgstr "Bila {id}, Arroxy haiwezi kutambua vipengee vya orodha vilivyopakuliwa tayari wala kutengeneza orodha za .m3u."
+msgctxt "filenameTemplate.idEndingWarning"
+msgid "End the name with [{id}] so Arroxy can detect already-downloaded playlist items and generate .m3u playlists."
+msgstr "Malizia jina kwa [{id}] ili Arroxy iweze kutambua vipengee vya playlist vilivyopakuliwa tayari na kutengeneza orodha za .m3u."
 
 msgctxt "filenameTemplate.label"
 msgid "Filename template"
 msgstr "Kiolezo cha jina la faili"
 
-msgctxt "filenameTemplate.m3uDisabled"
-msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
-msgstr "Haipatikani kwa sababu kiolezo chako cha jina la faili hakina {id} au kinapanga vipakuliwa katika folda."
+msgctxt "filenameTemplate.m3uDisabledIdEnding"
+msgid "Unavailable because your filename template either doesn't end with [{id}] or sorts downloads into folders."
+msgstr "Haipatikani kwa sababu kiolezo chako cha jina la faili hakiishii kwa [{id}] au kinapanga vipakuliwa katika folda."
 
 msgctxt "filenameTemplate.previewPlaylist"
 msgid "In a playlist"
@@ -778,6 +846,56 @@ msgid "Already in the queue"
 msgstr "Tayari kwenye foleni"
 
 #. Plural form "one" for sw: used for counts like 1.
+msgctxt "notifications.quickDownload.batchAdded_one"
+msgid "Added {{count}} link to Downloads"
+msgstr "Kiungo {{count}} kimeongezwa kwenye Vipakuliwa"
+
+#. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchAdded_other"
+msgid "Added {{count}} links to Downloads"
+msgstr "Viungo {{count}} vimeongezwa kwenye Vipakuliwa"
+
+#. Plural form "one" for sw: used for counts like 1.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_one"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} tayari kwenye foleni"
+
+#. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_other"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} tayari kwenye foleni"
+
+#. Plural form "one" for sw: used for counts like 1.
+msgctxt "notifications.quickDownload.batchNoneAdded_one"
+msgid "{{count}} link couldn't be added"
+msgstr "Kiungo {{count}} hakikuweza kuongezwa"
+
+#. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchNoneAdded_other"
+msgid "{{count}} links couldn't be added"
+msgstr "Viungo {{count}} havikuweza kuongezwa"
+
+#. Plural form "one" for sw: used for counts like 1.
+msgctxt "notifications.quickDownload.batchNotAdded_one"
+msgid "{{count}} couldn't be added"
+msgstr "Imeshindwa kuongeza {{count}}"
+
+#. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchNotAdded_other"
+msgid "{{count}} couldn't be added"
+msgstr "Imeshindwa kuongeza {{count}}"
+
+#. Plural form "one" for sw: used for counts like 1.
+msgctxt "notifications.quickDownload.chooseFromList_one"
+msgid "{{count}} video in this list — choose what to download"
+msgstr "Video {{count}} kwenye orodha hii — chagua cha kupakua"
+
+#. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.chooseFromList_other"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "Video {{count}} kwenye orodha hii — chagua za kupakua"
+
+#. Plural form "one" for sw: used for counts like 1.
 msgctxt "notifications.quickDownload.chooseHowMany_one"
 msgid "{{count}}+ video — choose how many"
 msgstr "Video {{count}}+ — chagua ngapi"
@@ -794,26 +912,6 @@ msgstr "Imeshindwa kuandaa {{title}}"
 msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "Kiungo hicho hakikuweza kuongezwa — jaribu tena"
-
-#. Plural form "one" for sw: used for counts like 1.
-msgctxt "notifications.quickDownload.review_one"
-msgid "{{count}} video in this list — review to pick"
-msgstr "Video {{count}} kwenye orodha hii — kagua ili kuchagua"
-
-#. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "notifications.quickDownload.review_other"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "Video {{count}} kwenye orodha hii — kagua ili kuchagua"
-
-#. Plural form "one" for sw: used for counts like 1.
-msgctxt "notifications.quickDownload.reviewCapped_one"
-msgid "{{count}}+ video in this list — review to pick"
-msgstr "Video {{count}}+ kwenye orodha hii — kagua ili kuchagua"
-
-#. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "notifications.quickDownload.reviewCapped_other"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "Video {{count}}+ kwenye orodha hii — kagua ili kuchagua"
 
 msgctxt "notifications.quickDownload.view"
 msgid "View"
@@ -1063,19 +1161,75 @@ msgctxt "queue.choice.first"
 msgid "First {{count}}"
 msgstr "{{count}} za kwanza"
 
+msgctxt "queue.choice.list.album"
+msgid "The album"
+msgstr "Albamu"
+
+msgctxt "queue.choice.list.liked"
+msgid "Liked videos"
+msgstr "Video ulizopenda"
+
+msgctxt "queue.choice.list.mix"
+msgid "The Mix"
+msgstr "Mix"
+
+msgctxt "queue.choice.list.playlist"
+msgid "The playlist"
+msgstr "Playlist"
+
+msgctxt "queue.choice.list.uploads"
+msgid "All the uploads"
+msgstr "Video zote zilizopakiwa"
+
+msgctxt "queue.choice.list.watchLater"
+msgid "Watch later"
+msgstr "Tazama baadaye"
+
+msgctxt "queue.choice.pick"
+msgid "Pick from it…"
+msgstr "Chagua kutoka humo…"
+
 msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "Kagua"
 
 #. Plural form "one" for sw: used for counts like 1.
-msgctxt "queue.choice.reviewBody_one"
-msgid "This link is a list of {{count}} video. Review it to pick what to download."
-msgstr "Kiungo hiki ni orodha ya video {{count}}. Kikague ili uchague cha kupakua."
+msgctxt "queue.choice.uncappedBody_one"
+msgid "This link is a list of {{count}} video. Download it, or pick in a review."
+msgstr "Kiungo hiki ni orodha ya video {{count}}. Ipakue, au chagua kupitia ukaguzi."
 
 #. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "queue.choice.reviewBody_other"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "Kiungo hiki ni orodha ya video {{count}}. Kikague ili uchague cha kupakua."
+msgctxt "queue.choice.uncappedBody_other"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "Kiungo hiki ni orodha ya video {{count}}. Zipakue zote, au chagua kupitia ukaguzi."
+
+msgctxt "queue.choice.video"
+msgid "This video"
+msgstr "Video hii"
+
+msgctxt "queue.choice.videoOrList.album"
+msgid "This link is a video in an album. Download just the video, or the album?"
+msgstr "Kiungo hiki ni video iliyo kwenye albamu. Pakua video pekee, au albamu?"
+
+msgctxt "queue.choice.videoOrList.liked"
+msgid "This link is a video in your liked videos. Download just the video, or all your liked videos?"
+msgstr "Kiungo hiki ni video iliyo kwenye video ulizopenda. Pakua video pekee, au video zote ulizopenda?"
+
+msgctxt "queue.choice.videoOrList.mix"
+msgid "This link is a video in a Mix. Download just the video, or the Mix?"
+msgstr "Kiungo hiki ni video iliyo kwenye Mix. Pakua video pekee, au Mix?"
+
+msgctxt "queue.choice.videoOrList.playlist"
+msgid "This link is a video in a playlist. Download just the video, or the playlist?"
+msgstr "Kiungo hiki ni video iliyo kwenye playlist. Pakua video pekee, au playlist?"
+
+msgctxt "queue.choice.videoOrList.uploads"
+msgid "This link is a video in a channel's uploads. Download just the video, or all the uploads?"
+msgstr "Kiungo hiki ni video iliyopakiwa kwenye kituo. Pakua video pekee, au video zote zilizopakiwa?"
+
+msgctxt "queue.choice.videoOrList.watchLater"
+msgid "This link is a video in your Watch later list. Download just the video, or the whole list?"
+msgstr "Kiungo hiki ni video iliyo kwenye orodha yako ya Tazama baadaye. Pakua video pekee, au orodha nzima?"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -1204,6 +1358,70 @@ msgstr "Inapakua"
 msgctxt "queue.item.subtitleLanguagesMissing"
 msgid "No subtitles in {{languages}}"
 msgstr "Hakuna manukuu katika lugha: {{languages}}"
+
+msgctxt "queue.item.waitingForSite"
+msgid "Waits for {{site}} until {{time}}"
+msgstr "Inasubiri {{site}} hadi {{time}}"
+
+msgctxt "queue.item.waitingHint"
+msgid "{{site}} is rate-limiting this connection. Arroxy fetches this link's details after {{time}}, so the limit can clear."
+msgstr "{{site}} inabana maombi kutoka kwa muunganisho huu. Arroxy itapata maelezo ya kiungo hiki baada ya {{time}}, ili kikomo kiondoke."
+
+msgctxt "queue.listOffer.dismiss"
+msgid "Dismiss"
+msgstr "Funga"
+
+msgctxt "queue.listOffer.from.album"
+msgid "From an album"
+msgstr "Kutoka albamu"
+
+msgctxt "queue.listOffer.from.liked"
+msgid "From your liked videos"
+msgstr "Kutoka video ulizopenda"
+
+msgctxt "queue.listOffer.from.mix"
+msgid "From a Mix"
+msgstr "Kutoka Mix"
+
+msgctxt "queue.listOffer.from.playlist"
+msgid "From a playlist"
+msgstr "Kutoka playlist"
+
+msgctxt "queue.listOffer.from.uploads"
+msgid "From a channel's uploads"
+msgstr "Kutoka video zilizopakiwa za kituo"
+
+msgctxt "queue.listOffer.from.watchLater"
+msgid "From Watch later"
+msgstr "Kutoka Tazama baadaye"
+
+msgctxt "queue.listOffer.get.album"
+msgid "Get the whole album"
+msgstr "Pata albamu nzima"
+
+msgctxt "queue.listOffer.get.liked"
+msgid "Get all liked videos"
+msgstr "Pata video zote ulizopenda"
+
+msgctxt "queue.listOffer.get.mix"
+msgid "Get the whole Mix"
+msgstr "Pata Mix nzima"
+
+msgctxt "queue.listOffer.get.playlist"
+msgid "Get the whole playlist"
+msgstr "Pata playlist nzima"
+
+msgctxt "queue.listOffer.get.uploads"
+msgid "Get all uploads"
+msgstr "Pata video zote zilizopakiwa"
+
+msgctxt "queue.listOffer.get.watchLater"
+msgid "Get all of Watch later"
+msgstr "Pata Tazama baadaye yote"
+
+msgctxt "queue.listOffer.hint"
+msgid "Adds the list as its own row. This video is left out."
+msgstr "Inaongeza orodha kama safu yake yenyewe. Video hii haijajumuishwa."
 
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
@@ -1745,10 +1963,6 @@ msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Hujambo, karibu tena!"
 
-msgctxt "splash.setup.bytes"
-msgid "{{done}} of {{total}}"
-msgstr "{{done}} kati ya {{total}}"
-
 #. Plural form "one" for sw: used for counts like 1.
 msgctxt "splash.setup.left.minutes_one"
 msgid "about {{count}} min left"
@@ -1763,18 +1977,6 @@ msgctxt "splash.setup.left.underMinute"
 msgid "less than a minute left"
 msgstr "imesalia chini ya dakika moja"
 
-msgctxt "splash.setup.note.engine"
-msgid "Keeps downloads working when sites change."
-msgstr "Huweka upakuaji ukifanya kazi tovuti zinapobadilika."
-
-msgctxt "splash.setup.note.firstRun"
-msgid "This happens once. Arroxy keeps these tools and updates them itself."
-msgstr "Hii hutokea mara moja tu. Arroxy huhifadhi zana hizi na kuzisasisha yenyewe."
-
-msgctxt "splash.setup.note.media"
-msgid "This happens once. Arroxy keeps them for future updates."
-msgstr "Hii hutokea mara moja tu. Arroxy huzihifadhi kwa masasisho yajayo."
-
 msgctxt "splash.setup.stage.checking"
 msgid "Checking everything works"
 msgstr "Inakagua kama kila kitu kinafanya kazi"
@@ -1783,21 +1985,17 @@ msgctxt "splash.setup.stage.connecting"
 msgid "Connecting…"
 msgstr "Inaunganisha…"
 
-msgctxt "splash.setup.stage.downloadingBoth"
-msgid "Downloading the download engine and media tools"
-msgstr "Inapakua injini ya upakuaji na zana za midia"
-
-msgctxt "splash.setup.stage.downloadingEngine"
-msgid "Downloading the download engine"
-msgstr "Inapakua injini ya upakuaji"
-
-msgctxt "splash.setup.stage.downloadingMedia"
-msgid "Downloading the media tools"
-msgstr "Inapakua zana za midia"
-
 msgctxt "splash.setup.stage.unpacking"
 msgid "Unpacking the media tools"
 msgstr "Inafungua zana za midia"
+
+msgctxt "splash.setup.stage.unpackingEngine"
+msgid "Unpacking the download engine"
+msgstr "Inafungua injini ya upakuaji"
+
+msgctxt "splash.setup.title.both"
+msgid "Updating Arroxy's tools"
+msgstr "Inasasisha zana za Arroxy"
 
 msgctxt "splash.setup.title.engine"
 msgid "Updating the download engine"
@@ -1884,8 +2082,8 @@ msgid "Merging audio and video…"
 msgstr "Inachanganya sauti na video…"
 
 msgctxt "status.mintingToken"
-msgid "Minting YouTube token…"
-msgstr "Inatengeneza tokeni ya YouTube…"
+msgid "Preparing YouTube download…"
+msgstr "Inaandaa upakuaji wa YouTube…"
 
 msgctxt "status.movingFiles"
 msgid "Moving files…"
@@ -1904,16 +2102,16 @@ msgid "Preparing binaries…"
 msgstr "Inaandaa faili za binary…"
 
 msgctxt "status.qualityLimited"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
-msgstr "Imehifadhiwa kwa {{height}}p — YouTube ilizuia ubora wa juu zaidi kwa upakuaji huu. Kujaribu tena baadaye au kutoka mtandao mwingine kunaweza kusaidia."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later may help."
+msgstr "Imehifadhiwa kwa {{height}}p — YouTube ilizuia ubora wa juu zaidi kwa upakuaji huu. Kujaribu tena baadaye kunaweza kusaidia."
 
 msgctxt "status.qualityLimitedSubtitlesFailed"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
-msgstr "Imehifadhiwa kwa {{height}}p — YouTube ilizuia ubora wa juu zaidi kwa upakuaji huu, na baadhi ya manukuu hayakuweza kupakuliwa. Kujaribu tena baadaye au kutoka mtandao mwingine kunaweza kusaidia."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later may help."
+msgstr "Imehifadhiwa kwa {{height}}p — YouTube ilizuia ubora wa juu zaidi kwa upakuaji huu, na baadhi ya manukuu hayakuweza kupakuliwa. Kujaribu tena baadaye kunaweza kusaidia."
 
 msgctxt "status.remintingToken"
-msgid "Re-minting token…"
-msgstr "Inatengeneza upya tokeni…"
+msgid "Preparing YouTube download again…"
+msgstr "Inaandaa upakuaji wa YouTube tena…"
 
 msgctxt "status.retryingSponsorBlock"
 msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
@@ -2340,8 +2538,8 @@ msgid "Folder name has invalid characters"
 msgstr "Jina la saraka lina herufi batili"
 
 msgctxt "wizard.folder.subfolder.placeholder"
-msgid "e.g. lo-fi rips"
-msgstr "mfano lo-fi rips"
+msgid "e.g. lectures"
+msgstr "mf. mihadhara"
 
 msgctxt "wizard.folder.subfolder.toggle"
 msgid "Save inside subfolder"
@@ -2613,9 +2811,25 @@ msgctxt "wizard.formats.fit.tierAbove"
 msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
 msgstr "Wasifu wako unaomba {{wanted}}p. Video hii haina kitu kidogo hivyo, kwa hivyo {{picked}}p imechaguliwa."
 
-msgctxt "wizard.formats.fit.tierBelow"
-msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
-msgstr "Wasifu wako unaomba {{wanted}}p. Video hii inafika {{picked}}p tu, kwa hivyo {{picked}}p imechaguliwa."
+msgctxt "wizard.formats.fit.tierAbovePassedOver"
+msgid "Your profile asks for {{wanted}}p. The smaller streams this video has don't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "Wasifu wako unaomba {{wanted}}p. Mikondo midogo ambayo video hii ina haiendani na sehemu nyingine ya wasifu wako, kwa hivyo {{picked}}p imechaguliwa."
+
+msgctxt "wizard.formats.fit.tierBelowTakeable"
+msgid "Your profile asks for {{wanted}}p. This video has no {{wanted}}p it can take, so {{picked}}p is selected."
+msgstr "Wasifu wako unaomba {{wanted}}p. Video hii haina {{wanted}}p inayoweza kuchukuliwa, kwa hivyo {{picked}}p imechaguliwa."
+
+msgctxt "wizard.formats.fit.tierPassedOverAiUpscaled"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p is AI-upscaled, so the original {{picked}}p is selected."
+msgstr "Wasifu wako unaomba {{wanted}}p. {{wanted}}p ya video hii imeboreshwa kwa AI, kwa hivyo {{picked}}p halisi imechaguliwa."
+
+msgctxt "wizard.formats.fit.tierPassedOverH264"
+msgid "Your profile asks for {{wanted}}p in H.264. This video has {{wanted}}p only in other codecs, so {{picked}}p in H.264 is selected."
+msgstr "Wasifu wako unaomba {{wanted}}p katika H.264. Video hii ina {{wanted}}p katika kodeki nyingine pekee, kwa hivyo {{picked}}p katika H.264 imechaguliwa."
+
+msgctxt "wizard.formats.fit.tierPassedOverProfile"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p doesn't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "Wasifu wako unaomba {{wanted}}p. {{wanted}}p ya video hii haiendani na sehemu nyingine ya wasifu wako, kwa hivyo {{picked}}p imechaguliwa."
 
 msgctxt "wizard.formats.fit.webmUnavailable"
 msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
@@ -2853,85 +3067,81 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "yenye sauti"
 
-msgctxt "wizard.listPrompt.escHint"
-msgid "Esc cancels. Nothing loads until you choose."
-msgstr "Esc hughairi. Hakuna kinachopakiwa hadi uchague."
+msgctxt "wizard.listPrompt.backgroundHint"
+msgid "With {{profileName}}. If it has more than {{count}} videos, Downloads asks how many."
+msgstr "Kwa {{profileName}}. Ikiwa ina video zaidi ya {{count}}, Vipakuliwa huuliza ngapi."
 
-msgctxt "wizard.listPrompt.interactiveSubtitle"
-msgid "Choose formats yourself"
-msgstr "Chagua miundo mwenyewe"
+msgctxt "wizard.listPrompt.backgroundLabel"
+msgid "Download in the background"
+msgstr "Pakua nyuma ya pazia"
 
-msgctxt "wizard.listPrompt.justThisVideo"
-msgid "Just this video"
-msgstr "Video hii tu"
+msgctxt "wizard.listPrompt.escOnly"
+msgid "Esc cancels."
+msgstr "Esc inaghairi."
 
-msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
-msgid "Opens its formats"
-msgstr "Hufungua miundo yake"
+msgctxt "wizard.listPrompt.firstHint"
+msgid "Exactly the first {{count}}, with {{profileName}}."
+msgstr "Hasa {{count}} za kwanza, kwa {{profileName}}."
 
-msgctxt "wizard.listPrompt.justThisVideoQuickHint"
-msgid "Loads one video"
-msgstr "Hupakia video moja"
+msgctxt "wizard.listPrompt.firstLabel"
+msgid "Download the first"
+msgstr "Pakua za kwanza"
 
-msgctxt "wizard.listPrompt.listInteractiveHint"
-msgid "Loads up to {{count}} to choose from"
-msgstr "Hupakia hadi {{count}} za kuchagua"
+msgctxt "wizard.listPrompt.interactiveHint"
+msgid "Pick from the first {{count}} videos (or change the count on the next step), then set up the download."
+msgstr "Chagua kutoka video {{count}} za kwanza (au badilisha idadi katika hatua inayofuata), kisha sanidi upakuaji."
 
-msgctxt "wizard.listPrompt.listOption.album"
-msgid "The album, first"
-msgstr "Mwanzo wa albamu"
+msgctxt "wizard.listPrompt.interactiveLabel"
+msgid "Interactive download…"
+msgstr "Upakuaji shirikishi…"
 
-msgctxt "wizard.listPrompt.listOption.liked"
-msgid "Your liked videos, first"
-msgstr "Mwanzo wa video ulizopenda"
+msgctxt "wizard.listPrompt.limitHint"
+msgid "How many videos to take from the list: the first option asks past it, the second takes exactly that many. The same as Settings › Playlist items to scan."
+msgstr "Video ngapi za kuchukua kutoka kwenye orodha: chaguo la kwanza linauliza baada ya kikomo, la pili linachukua hasa idadi hiyo. Sawa na Mipangilio › Vipande vya playlist vya kuskanisha."
 
-msgctxt "wizard.listPrompt.listOption.mix"
-msgid "The Mix, first"
-msgstr "Mwanzo wa Mix"
-
-msgctxt "wizard.listPrompt.listOption.playlist"
-msgid "The playlist, first"
-msgstr "Mwanzo wa playlist"
-
-msgctxt "wizard.listPrompt.listOption.uploads"
-msgid "The uploads, first"
-msgstr "Mwanzo wa video zilizopakiwa"
-
-msgctxt "wizard.listPrompt.listOption.watchLater"
-msgid "Watch later, first"
-msgstr "Mwanzo wa Tazama baadaye"
-
-msgctxt "wizard.listPrompt.listQuickHint"
-msgid "Loads up to {{count}}, then downloads them"
-msgstr "Hupakia hadi {{count}}, kisha huzipakua"
+msgctxt "wizard.listPrompt.limitLabel"
+msgid "Limit"
+msgstr "Kikomo"
 
 msgctxt "wizard.listPrompt.mixNote"
 msgid "A Mix changes every time you open it."
 msgstr "Mix hubadilika kila unapoifungua."
 
-msgctxt "wizard.listPrompt.pickOption.album"
-msgid "Pick from the album, first"
-msgstr "Chagua kutoka mwanzo wa albamu"
+msgctxt "wizard.listPrompt.pickLoadAfter"
+msgid "to pick from."
+msgstr "ili kuchagua."
 
-msgctxt "wizard.listPrompt.pickOption.liked"
-msgid "Pick from your liked videos, first"
-msgstr "Chagua kutoka mwanzo wa video ulizopenda"
+msgctxt "wizard.listPrompt.pickLoadBefore"
+msgid "Load the first"
+msgstr "Pakia za kwanza"
 
-msgctxt "wizard.listPrompt.pickOption.mix"
-msgid "Pick from the Mix, first"
-msgstr "Chagua kutoka mwanzo wa Mix"
+msgctxt "wizard.listPrompt.pickLoadNote"
+msgid "You can change it on the next step."
+msgstr "Unaweza kuibadilisha katika hatua inayofuata."
 
-msgctxt "wizard.listPrompt.pickOption.playlist"
-msgid "Pick from the playlist, first"
-msgstr "Chagua kutoka mwanzo wa playlist"
+msgctxt "wizard.listPrompt.pickTitle.album"
+msgid "Pick from this album"
+msgstr "Chagua kutoka albamu hii"
 
-msgctxt "wizard.listPrompt.pickOption.uploads"
-msgid "Pick from the uploads, first"
-msgstr "Chagua kutoka mwanzo wa video zilizopakiwa"
+msgctxt "wizard.listPrompt.pickTitle.liked"
+msgid "Pick from your liked videos"
+msgstr "Chagua kutoka video ulizopenda"
 
-msgctxt "wizard.listPrompt.pickOption.watchLater"
-msgid "Pick from Watch later, first"
-msgstr "Chagua kutoka mwanzo wa Tazama baadaye"
+msgctxt "wizard.listPrompt.pickTitle.mix"
+msgid "Pick from this Mix"
+msgstr "Chagua kutoka Mix hii"
+
+msgctxt "wizard.listPrompt.pickTitle.playlist"
+msgid "Pick from this playlist"
+msgstr "Chagua kutoka playlist hii"
+
+msgctxt "wizard.listPrompt.pickTitle.uploads"
+msgid "Pick from this channel’s uploads"
+msgstr "Chagua kutoka video zilizopakiwa kwenye kituo hiki"
+
+msgctxt "wizard.listPrompt.pickTitle.watchLater"
+msgid "Pick from Watch later"
+msgstr "Chagua kutoka Tazama baadaye"
 
 msgctxt "wizard.listPrompt.title.album"
 msgid "Download from this album"
@@ -2956,6 +3166,18 @@ msgstr "Pakua kutoka video zilizopakiwa kwenye kituo hiki"
 msgctxt "wizard.listPrompt.title.watchLater"
 msgid "Download from Watch later"
 msgstr "Pakua kutoka Tazama baadaye"
+
+msgctxt "wizard.listPrompt.videoHint"
+msgid "Only the video you opened, with {{profileName}}. The list isn't loaded."
+msgstr "Video uliyofungua pekee, kwa {{profileName}}. Orodha haijapakiwa."
+
+msgctxt "wizard.listPrompt.videoLabel"
+msgid "Just this video"
+msgstr "Video hii tu"
+
+msgctxt "wizard.listPrompt.videoPickHint"
+msgid "Set up only the video you opened. The list isn't loaded."
+msgstr "Sanidi video uliyofungua pekee. Orodha haijapakiwa."
 
 msgctxt "wizard.listPrompt.withProfile"
 msgid "With {{profileName}}"
@@ -3152,6 +3374,26 @@ msgstr "Vipengee vyote vimeondolewa"
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Tayari imepakuliwa"
+
+#. Plural form "one" for sw: used for counts like 1.
+msgctxt "wizard.playlist.bulkCappedDesc_one"
+msgid "It has more. To choose how many, paste its link on its own."
+msgstr "Ina zaidi. Ili kuchagua ngapi, bandika kiungo chake peke yake."
+
+#. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.bulkCappedDesc_other"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "Zina zaidi. Ili kuchagua ngapi, bandika kila kiungo peke yake."
+
+#. Plural form "one" for sw: used for counts like 1.
+msgctxt "wizard.playlist.bulkCappedTitle_one"
+msgid "“{{title}}” is cut at {{limit}} videos"
+msgstr "“{{title}}” imekatwa kwa video {{limit}}"
+
+#. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.bulkCappedTitle_other"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "Orodha {{count}} zimekatwa kwa video {{limit}} kila moja"
 
 msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
@@ -3396,38 +3638,6 @@ msgstr "Inakagua folda…"
 msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Picha ndogo ya video"
-
-msgctxt "wizard.playlistCap.changeLimit"
-msgid "Change load limit"
-msgstr "Badilisha kikomo cha upakiaji"
-
-#. Plural form "one" for sw: used for counts like 1.
-msgctxt "wizard.playlistCap.description_one"
-msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "Arroxy imepakia kipande {{count}} kwa kikomo cha sasa cha {{limit}}. Weka kipande kilichopakiwa kwenye foleni sasa, au ongeza kikomo kisha skani tena."
-
-#. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.playlistCap.description_other"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy imepakia vipande {{count}} kwa kikomo cha sasa cha {{limit}}. Weka vipande vilivyopakiwa kwenye foleni sasa, au ongeza kikomo kisha skani tena."
-
-#. Plural form "one" for sw: used for counts like 1.
-msgctxt "wizard.playlistCap.descriptionWithTitle_one"
-msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy imepakia kipande {{count}} kwa kikomo cha sasa cha {{limit}}. Weka kipande kilichopakiwa kwenye foleni sasa, au ongeza kikomo kisha skani tena."
-
-#. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.playlistCap.descriptionWithTitle_other"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy imepakia vipande {{count}} kwa kikomo cha sasa cha {{limit}}. Weka vipande vilivyopakiwa kwenye foleni sasa, au ongeza kikomo kisha skani tena."
-
-msgctxt "wizard.playlistCap.queueLoaded"
-msgid "Queue loaded items"
-msgstr "Weka vilivyopakiwa kwenye foleni"
-
-msgctxt "wizard.playlistCap.title"
-msgid "Playlist scan is capped"
-msgstr "Skani ya playlist imefikia kikomo"
 
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
@@ -3925,44 +4135,6 @@ msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
 msgstr "Msaada wa {{label}}"
 
-msgctxt "wizard.quickProgress.cancel"
-msgid "Cancel preparation"
-msgstr "Ghairi maandalizi"
-
-msgctxt "wizard.quickProgress.currentFallback"
-msgid "Current link"
-msgstr "Kiungo cha sasa"
-
-msgctxt "wizard.quickProgress.description"
-msgid "Arroxy is reading the link and applying {{profileName}}."
-msgstr "Arroxy inasoma kiungo na kutumia {{profileName}}."
-
-#. Plural form "one" for sw: used for counts like 1.
-msgctxt "wizard.quickProgress.failedCount_one"
-msgid "{{count}} failed"
-msgstr "{{count}} imeshindwa"
-
-#. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.quickProgress.failedCount_other"
-msgid "{{count}} failed"
-msgstr "{{count}} zimeshindwa"
-
-msgctxt "wizard.quickProgress.phase.probing"
-msgid "Fetching details"
-msgstr "Inaleta maelezo"
-
-msgctxt "wizard.quickProgress.phase.queueing"
-msgid "Adding to queue"
-msgstr "Inaongeza kwenye foleni"
-
-msgctxt "wizard.quickProgress.title"
-msgid "Preparing Quick Download"
-msgstr "Inaandaa Upakuaji wa haraka"
-
-msgctxt "wizard.quickProgress.waitHint"
-msgid "Keep this open while Arroxy prepares the queue."
-msgstr "Acha hii ikiwa wazi wakati Arroxy inaandaa foleni."
-
 msgctxt "wizard.review.areas.extras"
 msgid "extras"
 msgstr "vya ziada"
@@ -4271,6 +4443,10 @@ msgctxt "wizard.subtitles.saveMode.sidecar"
 msgid "Next to video"
 msgstr "Karibu na video"
 
+msgctxt "wizard.subtitles.saveMode.sidecarNoVideo"
+msgid "In the download folder"
+msgstr "Katika folda ya vipakuliwa"
+
 msgctxt "wizard.subtitles.saveMode.subfolder"
 msgid "subtitles/ subfolder"
 msgstr "subtitles/ saraka ndogo"
@@ -4294,14 +4470,6 @@ msgstr "Urambazaji wa wasifu wa upakuaji"
 msgctxt "wizard.url.advanced"
 msgid "Advanced"
 msgstr "Hali ya juu"
-
-msgctxt "wizard.url.analytics.toggle"
-msgid "Send daily heartbeat"
-msgstr "Tuma ishara ya kila siku"
-
-msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
-msgstr "Hakuna telemetry. Mara moja kwa siku, ishara isiyo na jina hutuma toleo la programu, njia ya usakinishaji, mfumo wa uendeshaji, lugha, nchi na takriban muda uliopita tangu Arroxy iliposakinishwa, ili tuweze kuhesabu watumiaji hai na wapya. Hakuna vitambulisho, URL, majina ya video wala majina ya faili."
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
@@ -4390,6 +4558,18 @@ msgstr "Upakuaji kwa wakati mmoja"
 msgctxt "wizard.url.concurrentDownloads.unit"
 msgid "downloads"
 msgstr "upakuaji"
+
+msgctxt "wizard.url.concurrentProbes.description"
+msgid "How many links Arroxy fetches details for at the same time, before they download. Fewer is gentler on sites that block busy connections. A link you open in Interactive Download always goes first."
+msgstr "Viungo vingapi ambavyo Arroxy hupata maelezo yake kwa wakati mmoja, kabla ya kupakuliwa. Vichache ni laini zaidi kwa tovuti zinazozuia miunganisho yenye shughuli nyingi. Kiungo unachofungua kwenye Upakuaji shirikishi huenda kwanza kila wakati."
+
+msgctxt "wizard.url.concurrentProbes.label"
+msgid "Links checked at once"
+msgstr "Viungo vinavyokaguliwa kwa wakati mmoja"
+
+msgctxt "wizard.url.concurrentProbes.unit"
+msgid "links"
+msgstr "viungo"
 
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
@@ -4484,8 +4664,8 @@ msgid "Off"
 msgstr "Zima"
 
 msgctxt "wizard.url.cookies.toggleDescription"
-msgid "Helps with age-restricted, members-only, and account-private videos."
-msgstr "Husaidia na video zilizozuiwa kwa umri, za wanachama peke yao, na za akaunti ya kibinafsi."
+msgid "Helps with videos your own account can watch, like your private videos."
+msgstr "Husaidia kwa video ambazo akaunti yako mwenyewe inaweza kutazama, kama video zako za faragha."
 
 msgctxt "wizard.url.downloadConnections.description"
 msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
@@ -4498,6 +4678,30 @@ msgstr "Miunganisho ya upakuaji"
 msgctxt "wizard.url.downloadConnections.unit"
 msgid "connections"
 msgstr "miunganisho"
+
+msgctxt "wizard.url.downloadList.album"
+msgid "Download album…"
+msgstr "Pakua albamu…"
+
+msgctxt "wizard.url.downloadList.liked"
+msgid "Download liked videos…"
+msgstr "Pakua video ulizopenda…"
+
+msgctxt "wizard.url.downloadList.mix"
+msgid "Download Mix…"
+msgstr "Pakua Mix…"
+
+msgctxt "wizard.url.downloadList.playlist"
+msgid "Download playlist…"
+msgstr "Pakua playlist…"
+
+msgctxt "wizard.url.downloadList.uploads"
+msgid "Download uploads…"
+msgstr "Pakua video zilizopakiwa…"
+
+msgctxt "wizard.url.downloadList.watchLater"
+msgid "Download Watch later…"
+msgstr "Pakua Tazama baadaye…"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -4571,17 +4775,9 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "Njia hii ya mkato inatumika na programu nyingine — chagua nyingine."
 
-msgctxt "wizard.url.hotkey.hintLabel"
-msgid "Or press"
-msgstr "Au bonyeza"
-
-msgctxt "wizard.url.hotkey.hintTooltip"
-msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
-msgstr "Nakili kiungo cha video popote, bonyeza njia hii ya mkato, na Arroxy itakiweka kwenye foleni kwa kutumia wasifu wako unaotumika — huhitaji kubadilisha madirisha."
-
-msgctxt "wizard.url.hotkey.hintTooltipSettings"
-msgid "Change or turn it off in Settings."
-msgstr "Badilisha au izime katika Mipangilio."
+msgctxt "wizard.url.hotkey.globalLabel"
+msgid "Global shortcut"
+msgstr "Njia ya mkato ya kimataifa"
 
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
@@ -4607,13 +4803,17 @@ msgctxt "wizard.url.hotkey.toggle"
 msgid "Enable global hotkey"
 msgstr "Washa njia ya mkato ya kimataifa"
 
-msgctxt "wizard.url.hotkey.toggleDescription"
-msgid "Press the shortcut with a video link on your clipboard."
-msgstr "Bonyeza njia ya mkato ukiwa na kiungo cha video kwenye ubao wa kunakili."
+msgctxt "wizard.url.hotkey.toggleDescriptionDetail"
+msgid "Copy a video link in any app and press the shortcut: Arroxy queues it with your active profile, without switching windows. A link to a video in a playlist downloads the video."
+msgstr "Nakili kiungo cha video katika programu yoyote kisha bonyeza njia ya mkato: Arroxy huiweka kwenye foleni kwa wasifu wako unaotumika, bila kubadilisha madirisha. Kiungo cha video iliyo kwenye playlist hupakua video hiyo."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
 msgstr "Upakuaji shirikishi"
+
+msgctxt "wizard.url.interactiveDownloadAsks"
+msgid "Interactive Download…"
+msgstr "Upakuaji shirikishi…"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
@@ -4655,21 +4855,13 @@ msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Weka kiungo, Arroxy aipakue ✨"
 
-msgctxt "wizard.url.mascotMixed"
-msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
-msgstr "Kiungo hiki kinaelekeza kwenye video moja ndani ya mkusanyiko. Arroxy itakuuliza ni ipi unayotaka kabla ya kuchunguza."
-
-msgctxt "wizard.url.mascotPreparing"
-msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
-msgstr "{{quickDownload}} inasoma kiungo hiki na kutumia {{profileName}}."
-
-msgctxt "wizard.url.mascotQueued"
-msgid "The queue is handling this download. You can paste another link while it works."
-msgstr "Foleni inashughulikia upakuaji huu. Unaweza kubandika kiungo kingine wakati inafanya kazi."
-
 msgctxt "wizard.url.mascotSingle"
 msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
 msgstr "Upakuaji wa haraka huanzisha upakuaji mmoja kwa kutumia {{profileName}}. Tumia upakuaji shirikishi kwa mabadiliko ya mara moja."
+
+msgctxt "wizard.url.mascotVideoInList"
+msgid "This link names a video and the list it’s in: download just the video, or the list."
+msgstr "Kiungo hiki kinataja video na orodha iliyomo: pakua video pekee, au orodha."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4991,6 +5183,10 @@ msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
 msgid "Using profile override + profile subfolder"
 msgstr "Inatumia ubatilishaji wa wasifu + saraka ndogo ya wasifu"
 
+msgctxt "wizard.url.profile.destinationEditHint"
+msgid "To change where it saves, edit the profile."
+msgstr "Ili kubadilisha mahali inapohifadhiwa, hariri wasifu."
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Mahali pa kuhifadhi"
@@ -5083,6 +5279,10 @@ msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Weka upya"
 
+msgctxt "wizard.url.profile.savesTo"
+msgid "Saves to"
+msgstr "Huhifadhi kwenye"
+
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
 msgstr "Badilisha wasifu wa kupakua: {{profileName}}"
@@ -5096,8 +5296,8 @@ msgid "Clear"
 msgstr "Futa"
 
 msgctxt "wizard.url.proxy.description"
-msgid "Route traffic through a proxy — useful for geo-restricted content."
-msgstr "Peleka trafiki kupitia proksi — muhimu kwa maudhui yenye vizuizi vya kijiografia."
+msgid "Route traffic through a proxy server."
+msgstr "Elekeza trafiki kupitia seva ya proksi."
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
@@ -5106,10 +5306,6 @@ msgstr "Proxy URL"
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
-
-msgctxt "wizard.url.quickBulkAllFailed"
-msgid "None of those URLs could be prepared"
-msgstr "Hakuna URL kati ya hizi iliyoweza kuandaliwa"
 
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
@@ -5122,16 +5318,6 @@ msgstr "Itapakua kwa kutumia: {{profileName}}"
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "Haikuweza kuongeza hii: {{error}}"
-
-#. Plural form "one" for sw: used for counts like 1.
-msgctxt "wizard.url.quickPartialFailed_one"
-msgid "Queued what worked. {{count}} URL could not be prepared."
-msgstr "Kilichofanya kazi kimeongezwa kwenye foleni. URL {{count}} haikuweza kuandaliwa."
-
-#. Plural form "other" for sw: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.url.quickPartialFailed_other"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "Vilivyofanya kazi vimeongezwa kwenye foleni. URL {{count}} hazikuweza kuandaliwa."
 
 msgctxt "wizard.url.quickPrepareFailed"
 msgid "Queue item could not be prepared"
@@ -5148,6 +5334,14 @@ msgstr "Uchunguzi umeshindikana"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "Bandika URL ya video, orodha ya kucheza, kituo au utafutaji ili kuanza."
+
+msgctxt "wizard.url.reports.toggle"
+msgid "Send anonymous heartbeat and setup reports"
+msgstr "Tuma ishara isiyo na jina na ripoti za usanidi"
+
+msgctxt "wizard.url.reports.toggleDescription"
+msgid "No tracking. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. When Arroxy sets up or updates its download engine or media tools, it also reports whether that worked and roughly how long it took. No IDs, URLs, video titles or filenames."
+msgstr "Hakuna ufuatiliaji. Mara moja kwa siku, ishara isiyo na jina hutuma toleo la programu, njia ya usakinishaji, mfumo wa uendeshaji, lugha, nchi na takriban muda uliopita tangu Arroxy iliposakinishwa, ili tuweze kuhesabu watumiaji hai na wapya. Arroxy inaposanidi au kusasisha injini yake ya upakuaji au zana za midia, pia huripoti kama ilifanikiwa na takriban ilichukua muda gani. Hakuna vitambulisho, URL, majina ya video wala majina ya faili."
 
 msgctxt "wizard.url.settings.behaviorDescription"
 msgid "Global behavior that affects profile-driven downloads too."
@@ -5204,3 +5398,11 @@ msgstr "Wasifu"
 msgctxt "wizard.url.tabs.settings"
 msgid "Settings"
 msgstr "Mipangilio"
+
+msgctxt "wizard.url.thisVideo"
+msgid "This video"
+msgstr "Video hii"
+
+msgctxt "wizard.url.thisVideoTooltip"
+msgid "Downloads just this video with {{profileName}}"
+msgstr "Hupakua video hii pekee kwa {{profileName}}"

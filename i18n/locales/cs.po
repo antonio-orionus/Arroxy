@@ -107,10 +107,6 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "Pokračovat"
 
-msgctxt "common.dismiss"
-msgid "Dismiss"
-msgstr "Zavřít"
-
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "Načítání"
@@ -143,13 +139,9 @@ msgctxt "dialogs.closeToTray.remember"
 msgid "Don't ask again"
 msgstr "Už se neptat"
 
-msgctxt "dialogs.quitWithActiveDownloads.confirm"
-msgid "Cancel Downloads & Quit"
-msgstr "Zrušit stahování a ukončit"
-
-msgctxt "dialogs.quitWithActiveDownloads.detail"
-msgid "Pause to resume later, or cancel to discard progress."
-msgstr "Pozastavte stahování a pokračujte později, nebo je zrušte a zahoďte průběh."
+msgctxt "dialogs.quitWithActiveDownloads.continueDetail"
+msgid "Your queue is kept, and downloads pick up where they stopped the next time you open Arroxy."
+msgstr "Fronta zůstane zachována a stahování naváže tam, kde skončilo, při příštím otevření Arroxy."
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -175,9 +167,9 @@ msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "Probíhá {{count}} stahování"
 
-msgctxt "dialogs.quitWithActiveDownloads.pause"
-msgid "Pause Downloads & Quit"
-msgstr "Pozastavit stahování a ukončit"
+msgctxt "dialogs.quitWithActiveDownloads.quit"
+msgid "Quit"
+msgstr "Ukončit"
 
 msgctxt "dialogs.rendererCrashed.detail"
 msgid "The renderer process crashed ({{reason}}). Reload to try again."
@@ -236,8 +228,8 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "Toto video je omezeno věkem a nelze jej stáhnout bez přihlášeného účtu."
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
-msgstr "Zasáhla ochrana proti robotům. Vaše IP adresa je pravděpodobně označena (rozsah datacentra nebo vytížený výstup VPN). Změňte IP adresu nebo zvolte jiný koncový bod VPN a zkuste to znovu. Pokud to stále selhává, může jít o dočasnou změnu na straně webu – Arroxy při spuštění aktualizuje stahovací modul, takže oprava dorazí automaticky, jakmile bude vydána."
+msgid "The site's bot protection stopped this download. Wait a while and try again, or download fewer videos at once. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Ochrana webu proti botům toto stahování zastavila. Chvíli počkejte a zkuste to znovu, nebo stahujte najednou méně videí. Pokud to stále selhává, může jít o dočasnou změnu na straně webu – Arroxy aktualizuje svůj stahovací modul při spuštění, takže oprava se objeví automaticky, jakmile bude vydána."
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
 msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
@@ -256,8 +248,8 @@ msgid "This video is not available in your region."
 msgstr "Toto video není ve vaší oblasti dostupné."
 
 msgctxt "errors.ytdlp.ipBlock"
-msgid "Your IP address appears to be blocked. Try again later or use a VPN."
-msgstr "Vaše IP adresa je zřejmě zablokována. Zkuste to později nebo použijte VPN."
+msgid "The site is blocking requests from this connection. Try again later."
+msgstr "Web blokuje požadavky z tohoto připojení. Zkuste to později."
 
 msgctxt "errors.ytdlp.loginRequired"
 msgid "This video needs a signed-in account."
@@ -339,13 +331,77 @@ msgctxt "explore.linkCallout.title"
 msgid "Right-click a link to download it"
 msgstr "Odkaz stáhnete pravým tlačítkem"
 
+msgctxt "explore.linkMenu.background.album"
+msgid "Download the album in the background"
+msgstr "Stáhnout album na pozadí"
+
+msgctxt "explore.linkMenu.background.liked"
+msgid "Download your liked videos in the background"
+msgstr "Stáhnout oblíbená videa na pozadí"
+
+msgctxt "explore.linkMenu.background.mix"
+msgid "Download the Mix in the background"
+msgstr "Stáhnout Mix na pozadí"
+
+msgctxt "explore.linkMenu.background.playlist"
+msgid "Download the playlist in the background"
+msgstr "Stáhnout playlist na pozadí"
+
+msgctxt "explore.linkMenu.background.uploads"
+msgid "Download the uploads in the background"
+msgstr "Stáhnout nahraná videa na pozadí"
+
+msgctxt "explore.linkMenu.background.watchLater"
+msgid "Download Watch later in the background"
+msgstr "Stáhnout „Přehrát později“ na pozadí"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "Kopírovat odkaz"
 
+msgctxt "explore.linkMenu.downloadFirst"
+msgid "Download the first {{count}}"
+msgstr "Stáhnout prvních {{count}}"
+
+msgctxt "explore.linkMenu.downloadThisVideo"
+msgid "Download this video · {{profileName}}"
+msgstr "Stáhnout toto video · {{profileName}}"
+
 msgctxt "explore.linkMenu.downloadWith"
 msgid "Download with"
 msgstr "Stáhnout s profilem"
+
+msgctxt "explore.linkMenu.fromList.album"
+msgid "From this album"
+msgstr "Z tohoto alba"
+
+msgctxt "explore.linkMenu.fromList.liked"
+msgid "From your liked videos"
+msgstr "Z vašich oblíbených videí"
+
+msgctxt "explore.linkMenu.fromList.mix"
+msgid "From this Mix"
+msgstr "Z tohoto Mixu"
+
+msgctxt "explore.linkMenu.fromList.playlist"
+msgid "From this playlist"
+msgstr "Z tohoto playlistu"
+
+msgctxt "explore.linkMenu.fromList.uploads"
+msgid "From this channel’s uploads"
+msgstr "Z nahraných videí tohoto kanálu"
+
+msgctxt "explore.linkMenu.fromList.watchLater"
+msgid "From Watch later"
+msgstr "Z „Přehrát později“"
+
+msgctxt "explore.linkMenu.interactive"
+msgid "Interactive Download…"
+msgstr "Interaktivní stahování…"
+
+msgctxt "explore.linkMenu.thisVideoWith"
+msgid "This video with"
+msgstr "Toto video s"
 
 msgctxt "explore.newBadge"
 msgid "New"
@@ -491,6 +547,10 @@ msgctxt "explore.toolbar.compactLayout"
 msgid "Compact layout"
 msgstr "Kompaktní rozložení"
 
+msgctxt "explore.toolbar.download"
+msgid "Download"
+msgstr "Stáhnout"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "Stáhnout · {{profileName}}"
@@ -526,6 +586,14 @@ msgstr "Načíst znovu"
 msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "Hledaný výraz je příliš dlouhý."
+
+msgctxt "explore.toolbar.thisVideo"
+msgid "This video"
+msgstr "Toto video"
+
+msgctxt "explore.toolbar.thisVideoHint"
+msgid "Download just this video with {{profileName}}"
+msgstr "Stáhnout jen toto video s profilem {{profileName}}"
 
 msgctxt "explore.toolbar.zoom.hint"
 msgid "Page zoom: {{percent}}%"
@@ -591,17 +659,17 @@ msgctxt "filenameTemplate.error.unknown-token"
 msgid "Unknown token {{token}}."
 msgstr "Neznámý token {{token}}."
 
-msgctxt "filenameTemplate.idWarning"
-msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
-msgstr "Bez {id} Arroxy nepozná již stažené položky playlistu a nemůže vytvářet playlisty .m3u."
+msgctxt "filenameTemplate.idEndingWarning"
+msgid "End the name with [{id}] so Arroxy can detect already-downloaded playlist items and generate .m3u playlists."
+msgstr "Ukončete název řetězcem [{id}], aby Arroxy mohl rozpoznat již stažené položky playlistu a vytvářet playlisty .m3u."
 
 msgctxt "filenameTemplate.label"
 msgid "Filename template"
 msgstr "Šablona názvu souboru"
 
-msgctxt "filenameTemplate.m3uDisabled"
-msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
-msgstr "Nedostupné, protože vaše šablona názvu souboru neobsahuje {id} nebo třídí stahování do složek."
+msgctxt "filenameTemplate.m3uDisabledIdEnding"
+msgid "Unavailable because your filename template either doesn't end with [{id}] or sorts downloads into folders."
+msgstr "Nedostupné, protože šablona názvu souboru nekončí na [{id}] nebo třídí stahování do složek."
 
 msgctxt "filenameTemplate.previewPlaylist"
 msgid "In a playlist"
@@ -808,6 +876,106 @@ msgid "Already in the queue"
 msgstr "Už je ve frontě"
 
 #. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "notifications.quickDownload.batchAdded_few"
+msgid "Added {{count}} links to Downloads"
+msgstr "Na kartu Stahování byly přidány {{count}} odkazy"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.batchAdded_many"
+msgid "Added {{count}} links to Downloads"
+msgstr "Na kartu Stahování bylo přidáno {{count}} odkazu"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "notifications.quickDownload.batchAdded_one"
+msgid "Added {{count}} link to Downloads"
+msgstr "Na kartu Stahování byl přidán {{count}} odkaz"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.batchAdded_other"
+msgid "Added {{count}} links to Downloads"
+msgstr "Na kartu Stahování bylo přidáno {{count}} odkazů"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_few"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} už jsou ve frontě"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_many"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} už jsou ve frontě"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_one"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} už je ve frontě"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_other"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} už jsou ve frontě"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "notifications.quickDownload.batchNoneAdded_few"
+msgid "{{count}} links couldn't be added"
+msgstr "{{count}} odkazy se nepodařilo přidat"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.batchNoneAdded_many"
+msgid "{{count}} links couldn't be added"
+msgstr "{{count}} odkazu se nepodařilo přidat"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "notifications.quickDownload.batchNoneAdded_one"
+msgid "{{count}} link couldn't be added"
+msgstr "{{count}} odkaz se nepodařilo přidat"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.batchNoneAdded_other"
+msgid "{{count}} links couldn't be added"
+msgstr "{{count}} odkazů se nepodařilo přidat"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "notifications.quickDownload.batchNotAdded_few"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} se nepodařilo přidat"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.batchNotAdded_many"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} se nepodařilo přidat"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "notifications.quickDownload.batchNotAdded_one"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} se nepodařilo přidat"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.batchNotAdded_other"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} se nepodařilo přidat"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "notifications.quickDownload.chooseFromList_few"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "{{count}} videa v tomto seznamu – vyberte, co stáhnout"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.chooseFromList_many"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "{{count}} videa v tomto seznamu – vyberte, co stáhnout"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "notifications.quickDownload.chooseFromList_one"
+msgid "{{count}} video in this list — choose what to download"
+msgstr "{{count}} video v tomto seznamu – vyberte, co stáhnout"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.chooseFromList_other"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "{{count}} videí v tomto seznamu – vyberte, co stáhnout"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
 msgctxt "notifications.quickDownload.chooseHowMany_few"
 msgid "{{count}}+ videos — choose how many"
 msgstr "{{count}}+ videa – vyberte, kolik jich stáhnout"
@@ -834,46 +1002,6 @@ msgstr "Nepodařilo se připravit {{title}}"
 msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "Odkaz se nepodařilo přidat – zkuste to znovu"
-
-#. Plural form "few" for cs: used for counts like 2, 3, 4.
-msgctxt "notifications.quickDownload.review_few"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "{{count}} videa v tomto seznamu – vyberte je v přehledu"
-
-#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
-msgctxt "notifications.quickDownload.review_many"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "{{count}} videa v tomto seznamu – vyberte je v přehledu"
-
-#. Plural form "one" for cs: used for counts like 1.
-msgctxt "notifications.quickDownload.review_one"
-msgid "{{count}} video in this list — review to pick"
-msgstr "{{count}} video v tomto seznamu – vyberte je v přehledu"
-
-#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
-msgctxt "notifications.quickDownload.review_other"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "{{count}} videí v tomto seznamu – vyberte je v přehledu"
-
-#. Plural form "few" for cs: used for counts like 2, 3, 4.
-msgctxt "notifications.quickDownload.reviewCapped_few"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "{{count}}+ videa v tomto seznamu – vyberte je v přehledu"
-
-#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
-msgctxt "notifications.quickDownload.reviewCapped_many"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "{{count}}+ videa v tomto seznamu – vyberte je v přehledu"
-
-#. Plural form "one" for cs: used for counts like 1.
-msgctxt "notifications.quickDownload.reviewCapped_one"
-msgid "{{count}}+ video in this list — review to pick"
-msgstr "{{count}}+ video v tomto seznamu – vyberte je v přehledu"
-
-#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
-msgctxt "notifications.quickDownload.reviewCapped_other"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "{{count}}+ videí v tomto seznamu – vyberte je v přehledu"
 
 msgctxt "notifications.quickDownload.view"
 msgid "View"
@@ -1143,29 +1271,85 @@ msgctxt "queue.choice.first"
 msgid "First {{count}}"
 msgstr "Prvních {{count}}"
 
+msgctxt "queue.choice.list.album"
+msgid "The album"
+msgstr "Album"
+
+msgctxt "queue.choice.list.liked"
+msgid "Liked videos"
+msgstr "Oblíbená videa"
+
+msgctxt "queue.choice.list.mix"
+msgid "The Mix"
+msgstr "Mix"
+
+msgctxt "queue.choice.list.playlist"
+msgid "The playlist"
+msgstr "Playlist"
+
+msgctxt "queue.choice.list.uploads"
+msgid "All the uploads"
+msgstr "Všechna nahraná videa"
+
+msgctxt "queue.choice.list.watchLater"
+msgid "Watch later"
+msgstr "„Přehrát později“"
+
+msgctxt "queue.choice.pick"
+msgid "Pick from it…"
+msgstr "Vybrat z něj…"
+
 msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "Přehled"
 
 #. Plural form "few" for cs: used for counts like 2, 3, 4.
-msgctxt "queue.choice.reviewBody_few"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "Tento odkaz je seznam {{count}} videí. Otevřete přehled a vyberte, co stáhnout."
+msgctxt "queue.choice.uncappedBody_few"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "Tento odkaz je seznam {{count}} videí. Stáhněte všechna, nebo vyberte v přehledu."
 
 #. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
-msgctxt "queue.choice.reviewBody_many"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "Tento odkaz je seznam {{count}} videa. Otevřete přehled a vyberte, co stáhnout."
+msgctxt "queue.choice.uncappedBody_many"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "Tento odkaz je seznam {{count}} videa. Stáhněte všechna, nebo vyberte v přehledu."
 
 #. Plural form "one" for cs: used for counts like 1.
-msgctxt "queue.choice.reviewBody_one"
-msgid "This link is a list of {{count}} video. Review it to pick what to download."
-msgstr "Tento odkaz je seznam {{count}} videa. Otevřete přehled a vyberte, co stáhnout."
+msgctxt "queue.choice.uncappedBody_one"
+msgid "This link is a list of {{count}} video. Download it, or pick in a review."
+msgstr "Tento odkaz je seznam {{count}} videa. Stáhněte ho, nebo vyberte v přehledu."
 
 #. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
-msgctxt "queue.choice.reviewBody_other"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "Tento odkaz je seznam {{count}} videí. Otevřete přehled a vyberte, co stáhnout."
+msgctxt "queue.choice.uncappedBody_other"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "Tento odkaz je seznam {{count}} videí. Stáhněte všechna, nebo vyberte v přehledu."
+
+msgctxt "queue.choice.video"
+msgid "This video"
+msgstr "Toto video"
+
+msgctxt "queue.choice.videoOrList.album"
+msgid "This link is a video in an album. Download just the video, or the album?"
+msgstr "Tento odkaz ukazuje na video v albu. Stáhnout jen video, nebo album?"
+
+msgctxt "queue.choice.videoOrList.liked"
+msgid "This link is a video in your liked videos. Download just the video, or all your liked videos?"
+msgstr "Tento odkaz ukazuje na video z vašich oblíbených videí. Stáhnout jen video, nebo všechna oblíbená videa?"
+
+msgctxt "queue.choice.videoOrList.mix"
+msgid "This link is a video in a Mix. Download just the video, or the Mix?"
+msgstr "Tento odkaz ukazuje na video v Mixu. Stáhnout jen video, nebo Mix?"
+
+msgctxt "queue.choice.videoOrList.playlist"
+msgid "This link is a video in a playlist. Download just the video, or the playlist?"
+msgstr "Tento odkaz ukazuje na video v playlistu. Stáhnout jen video, nebo playlist?"
+
+msgctxt "queue.choice.videoOrList.uploads"
+msgid "This link is a video in a channel's uploads. Download just the video, or all the uploads?"
+msgstr "Tento odkaz ukazuje na video z nahraných videí kanálu. Stáhnout jen video, nebo všechna nahraná videa?"
+
+msgctxt "queue.choice.videoOrList.watchLater"
+msgid "This link is a video in your Watch later list. Download just the video, or the whole list?"
+msgstr "Tento odkaz ukazuje na video ve vašem seznamu „Přehrát později“. Stáhnout jen video, nebo celý seznam?"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -1294,6 +1478,70 @@ msgstr "Stahování"
 msgctxt "queue.item.subtitleLanguagesMissing"
 msgid "No subtitles in {{languages}}"
 msgstr "Žádné titulky v jazycích: {{languages}}"
+
+msgctxt "queue.item.waitingForSite"
+msgid "Waits for {{site}} until {{time}}"
+msgstr "Čeká na {{site}} do {{time}}"
+
+msgctxt "queue.item.waitingHint"
+msgid "{{site}} is rate-limiting this connection. Arroxy fetches this link's details after {{time}}, so the limit can clear."
+msgstr "{{site}} omezuje počet požadavků z tohoto připojení. Arroxy načte podrobnosti tohoto odkazu po {{time}}, aby se limit mohl uvolnit."
+
+msgctxt "queue.listOffer.dismiss"
+msgid "Dismiss"
+msgstr "Zavřít"
+
+msgctxt "queue.listOffer.from.album"
+msgid "From an album"
+msgstr "Z alba"
+
+msgctxt "queue.listOffer.from.liked"
+msgid "From your liked videos"
+msgstr "Z vašich oblíbených videí"
+
+msgctxt "queue.listOffer.from.mix"
+msgid "From a Mix"
+msgstr "Z Mixu"
+
+msgctxt "queue.listOffer.from.playlist"
+msgid "From a playlist"
+msgstr "Z playlistu"
+
+msgctxt "queue.listOffer.from.uploads"
+msgid "From a channel's uploads"
+msgstr "Z nahraných videí kanálu"
+
+msgctxt "queue.listOffer.from.watchLater"
+msgid "From Watch later"
+msgstr "Z „Přehrát později“"
+
+msgctxt "queue.listOffer.get.album"
+msgid "Get the whole album"
+msgstr "Stáhnout celé album"
+
+msgctxt "queue.listOffer.get.liked"
+msgid "Get all liked videos"
+msgstr "Stáhnout všechna oblíbená videa"
+
+msgctxt "queue.listOffer.get.mix"
+msgid "Get the whole Mix"
+msgstr "Stáhnout celý Mix"
+
+msgctxt "queue.listOffer.get.playlist"
+msgid "Get the whole playlist"
+msgstr "Stáhnout celý playlist"
+
+msgctxt "queue.listOffer.get.uploads"
+msgid "Get all uploads"
+msgstr "Stáhnout všechna nahraná videa"
+
+msgctxt "queue.listOffer.get.watchLater"
+msgid "Get all of Watch later"
+msgstr "Stáhnout celý seznam „Přehrát později“"
+
+msgctxt "queue.listOffer.hint"
+msgid "Adds the list as its own row. This video is left out."
+msgstr "Přidá seznam jako samostatný řádek. Toto video se vynechá."
 
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
@@ -1835,10 +2083,6 @@ msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Ahoj, vítejte zpět!"
 
-msgctxt "splash.setup.bytes"
-msgid "{{done}} of {{total}}"
-msgstr "{{done}} z {{total}}"
-
 #. Plural form "few" for cs: used for counts like 2, 3, 4.
 msgctxt "splash.setup.left.minutes_few"
 msgid "about {{count}} min left"
@@ -1863,18 +2107,6 @@ msgctxt "splash.setup.left.underMinute"
 msgid "less than a minute left"
 msgstr "zbývá méně než minuta"
 
-msgctxt "splash.setup.note.engine"
-msgid "Keeps downloads working when sites change."
-msgstr "Zajišťuje, aby stahování fungovalo i po změnách na webech."
-
-msgctxt "splash.setup.note.firstRun"
-msgid "This happens once. Arroxy keeps these tools and updates them itself."
-msgstr "Stane se to jen jednou. Arroxy tyto nástroje uchová a samo je aktualizuje."
-
-msgctxt "splash.setup.note.media"
-msgid "This happens once. Arroxy keeps them for future updates."
-msgstr "Stane se to jen jednou. Arroxy je uchová pro budoucí aktualizace."
-
 msgctxt "splash.setup.stage.checking"
 msgid "Checking everything works"
 msgstr "Kontrola, zda vše funguje"
@@ -1883,21 +2115,17 @@ msgctxt "splash.setup.stage.connecting"
 msgid "Connecting…"
 msgstr "Připojování…"
 
-msgctxt "splash.setup.stage.downloadingBoth"
-msgid "Downloading the download engine and media tools"
-msgstr "Stahování stahovacího modulu a mediálních nástrojů"
-
-msgctxt "splash.setup.stage.downloadingEngine"
-msgid "Downloading the download engine"
-msgstr "Stahování stahovacího modulu"
-
-msgctxt "splash.setup.stage.downloadingMedia"
-msgid "Downloading the media tools"
-msgstr "Stahování mediálních nástrojů"
-
 msgctxt "splash.setup.stage.unpacking"
 msgid "Unpacking the media tools"
 msgstr "Rozbalování mediálních nástrojů"
+
+msgctxt "splash.setup.stage.unpackingEngine"
+msgid "Unpacking the download engine"
+msgstr "Rozbalování stahovacího modulu"
+
+msgctxt "splash.setup.title.both"
+msgid "Updating Arroxy's tools"
+msgstr "Aktualizace nástrojů Arroxy"
 
 msgctxt "splash.setup.title.engine"
 msgid "Updating the download engine"
@@ -1984,8 +2212,8 @@ msgid "Merging audio and video…"
 msgstr "Slučování zvuku a videa…"
 
 msgctxt "status.mintingToken"
-msgid "Minting YouTube token…"
-msgstr "Vytváření tokenu YouTube…"
+msgid "Preparing YouTube download…"
+msgstr "Příprava stahování z YouTube…"
 
 msgctxt "status.movingFiles"
 msgid "Moving files…"
@@ -2004,16 +2232,16 @@ msgid "Preparing binaries…"
 msgstr "Příprava binárních souborů…"
 
 msgctxt "status.qualityLimited"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
-msgstr "Uloženo v {{height}}p – YouTube pro toto stahování zadržel vyšší kvality. Může pomoci zkusit to později nebo z jiné sítě."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later may help."
+msgstr "Uloženo v {{height}}p – YouTube pro toto stahování zadržel vyšší kvality. Může pomoci opakování později."
 
 msgctxt "status.qualityLimitedSubtitlesFailed"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
-msgstr "Uloženo v {{height}}p – YouTube pro toto stahování zadržel vyšší kvality a některé titulky se nepodařilo stáhnout. Může pomoci zkusit to později nebo z jiné sítě."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later may help."
+msgstr "Uloženo v {{height}}p – YouTube pro toto stahování zadržel vyšší kvality a některé titulky se nepodařilo stáhnout. Může pomoci opakování později."
 
 msgctxt "status.remintingToken"
-msgid "Re-minting token…"
-msgstr "Opětovné vytváření tokenu…"
+msgid "Preparing YouTube download again…"
+msgstr "Opětovná příprava stahování z YouTube…"
 
 msgctxt "status.retryingSponsorBlock"
 msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
@@ -2510,8 +2738,8 @@ msgid "Folder name has invalid characters"
 msgstr "Název složky obsahuje neplatné znaky"
 
 msgctxt "wizard.folder.subfolder.placeholder"
-msgid "e.g. lo-fi rips"
-msgstr "např. lo-fi nahrávky"
+msgid "e.g. lectures"
+msgstr "např. přednášky"
 
 msgctxt "wizard.folder.subfolder.toggle"
 msgid "Save inside subfolder"
@@ -2793,9 +3021,25 @@ msgctxt "wizard.formats.fit.tierAbove"
 msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
 msgstr "Váš profil požaduje {{wanted}}p. Toto video nemá nic tak malého, proto je vybráno {{picked}}p."
 
-msgctxt "wizard.formats.fit.tierBelow"
-msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
-msgstr "Váš profil požaduje {{wanted}}p. Toto video sahá nejvýše do {{picked}}p, proto je vybráno {{picked}}p."
+msgctxt "wizard.formats.fit.tierAbovePassedOver"
+msgid "Your profile asks for {{wanted}}p. The smaller streams this video has don't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "Váš profil požaduje {{wanted}}p. Menší streamy tohoto videa nepasují k zbytku vašeho profilu, proto je vybráno {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierBelowTakeable"
+msgid "Your profile asks for {{wanted}}p. This video has no {{wanted}}p it can take, so {{picked}}p is selected."
+msgstr "Váš profil požaduje {{wanted}}p. Toto video nemá použitelné {{wanted}}p, proto je vybráno {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierPassedOverAiUpscaled"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p is AI-upscaled, so the original {{picked}}p is selected."
+msgstr "Váš profil požaduje {{wanted}}p. {{wanted}}p tohoto videa je uměle zvětšené pomocí AI, proto je vybráno původní {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierPassedOverH264"
+msgid "Your profile asks for {{wanted}}p in H.264. This video has {{wanted}}p only in other codecs, so {{picked}}p in H.264 is selected."
+msgstr "Váš profil požaduje {{wanted}}p v H.264. Toto video má {{wanted}}p jen v jiných kodecích, proto je vybráno {{picked}}p v H.264."
+
+msgctxt "wizard.formats.fit.tierPassedOverProfile"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p doesn't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "Váš profil požaduje {{wanted}}p. {{wanted}}p tohoto videa nepasuje k zbytku vašeho profilu, proto je vybráno {{picked}}p."
 
 msgctxt "wizard.formats.fit.webmUnavailable"
 msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
@@ -3033,85 +3277,81 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "se zvukem"
 
-msgctxt "wizard.listPrompt.escHint"
-msgid "Esc cancels. Nothing loads until you choose."
-msgstr "Esc akci zruší. Dokud nevyberete, nic se nenačte."
+msgctxt "wizard.listPrompt.backgroundHint"
+msgid "With {{profileName}}. If it has more than {{count}} videos, Downloads asks how many."
+msgstr "S profilem {{profileName}}. Pokud má víc než {{count}} videí, karta Stahování se zeptá, kolik jich stáhnout."
 
-msgctxt "wizard.listPrompt.interactiveSubtitle"
-msgid "Choose formats yourself"
-msgstr "Formáty zvolíte sami"
+msgctxt "wizard.listPrompt.backgroundLabel"
+msgid "Download in the background"
+msgstr "Stáhnout na pozadí"
 
-msgctxt "wizard.listPrompt.justThisVideo"
-msgid "Just this video"
-msgstr "Jen toto video"
+msgctxt "wizard.listPrompt.escOnly"
+msgid "Esc cancels."
+msgstr "Esc zruší."
 
-msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
-msgid "Opens its formats"
-msgstr "Otevře jeho formáty"
+msgctxt "wizard.listPrompt.firstHint"
+msgid "Exactly the first {{count}}, with {{profileName}}."
+msgstr "Přesně prvních {{count}} s profilem {{profileName}}."
 
-msgctxt "wizard.listPrompt.justThisVideoQuickHint"
-msgid "Loads one video"
-msgstr "Načte jedno video"
+msgctxt "wizard.listPrompt.firstLabel"
+msgid "Download the first"
+msgstr "Stáhnout prvních"
 
-msgctxt "wizard.listPrompt.listInteractiveHint"
-msgid "Loads up to {{count}} to choose from"
-msgstr "Načte až {{count}} k výběru"
+msgctxt "wizard.listPrompt.interactiveHint"
+msgid "Pick from the first {{count}} videos (or change the count on the next step), then set up the download."
+msgstr "Vyberte z prvních {{count}} videí (nebo změňte počet v dalším kroku) a poté nastavte stahování."
 
-msgctxt "wizard.listPrompt.listOption.album"
-msgid "The album, first"
-msgstr "Album, prvních"
+msgctxt "wizard.listPrompt.interactiveLabel"
+msgid "Interactive download…"
+msgstr "Interaktivní stahování…"
 
-msgctxt "wizard.listPrompt.listOption.liked"
-msgid "Your liked videos, first"
-msgstr "Vaše oblíbená videa, prvních"
+msgctxt "wizard.listPrompt.limitHint"
+msgid "How many videos to take from the list: the first option asks past it, the second takes exactly that many. The same as Settings › Playlist items to scan."
+msgstr "Kolik videí ze seznamu vzít: první možnost se zeptá, když jich je víc, druhá vezme přesně tolik. Stejné jako Nastavení › Položky playlistu ke zjištění."
 
-msgctxt "wizard.listPrompt.listOption.mix"
-msgid "The Mix, first"
-msgstr "Mix, prvních"
-
-msgctxt "wizard.listPrompt.listOption.playlist"
-msgid "The playlist, first"
-msgstr "Playlist, prvních"
-
-msgctxt "wizard.listPrompt.listOption.uploads"
-msgid "The uploads, first"
-msgstr "Nahraná videa, prvních"
-
-msgctxt "wizard.listPrompt.listOption.watchLater"
-msgid "Watch later, first"
-msgstr "„Přehrát později“, prvních"
-
-msgctxt "wizard.listPrompt.listQuickHint"
-msgid "Loads up to {{count}}, then downloads them"
-msgstr "Načte až {{count}} a pak je stáhne"
+msgctxt "wizard.listPrompt.limitLabel"
+msgid "Limit"
+msgstr "Limit"
 
 msgctxt "wizard.listPrompt.mixNote"
 msgid "A Mix changes every time you open it."
 msgstr "Mix se mění při každém otevření."
 
-msgctxt "wizard.listPrompt.pickOption.album"
-msgid "Pick from the album, first"
-msgstr "Vybrat z alba, prvních"
+msgctxt "wizard.listPrompt.pickLoadAfter"
+msgid "to pick from."
+msgstr "videí k výběru."
 
-msgctxt "wizard.listPrompt.pickOption.liked"
-msgid "Pick from your liked videos, first"
-msgstr "Vybrat z oblíbených videí, prvních"
+msgctxt "wizard.listPrompt.pickLoadBefore"
+msgid "Load the first"
+msgstr "Načíst prvních"
 
-msgctxt "wizard.listPrompt.pickOption.mix"
-msgid "Pick from the Mix, first"
-msgstr "Vybrat z Mixu, prvních"
+msgctxt "wizard.listPrompt.pickLoadNote"
+msgid "You can change it on the next step."
+msgstr "Můžete to změnit v dalším kroku."
 
-msgctxt "wizard.listPrompt.pickOption.playlist"
-msgid "Pick from the playlist, first"
-msgstr "Vybrat z playlistu, prvních"
+msgctxt "wizard.listPrompt.pickTitle.album"
+msgid "Pick from this album"
+msgstr "Vybrat z tohoto alba"
 
-msgctxt "wizard.listPrompt.pickOption.uploads"
-msgid "Pick from the uploads, first"
-msgstr "Vybrat z nahraných videí, prvních"
+msgctxt "wizard.listPrompt.pickTitle.liked"
+msgid "Pick from your liked videos"
+msgstr "Vybrat z vašich oblíbených videí"
 
-msgctxt "wizard.listPrompt.pickOption.watchLater"
-msgid "Pick from Watch later, first"
-msgstr "Vybrat z „Přehrát později“, prvních"
+msgctxt "wizard.listPrompt.pickTitle.mix"
+msgid "Pick from this Mix"
+msgstr "Vybrat z tohoto Mixu"
+
+msgctxt "wizard.listPrompt.pickTitle.playlist"
+msgid "Pick from this playlist"
+msgstr "Vybrat z tohoto playlistu"
+
+msgctxt "wizard.listPrompt.pickTitle.uploads"
+msgid "Pick from this channel’s uploads"
+msgstr "Vybrat z nahraných videí tohoto kanálu"
+
+msgctxt "wizard.listPrompt.pickTitle.watchLater"
+msgid "Pick from Watch later"
+msgstr "Vybrat z „Přehrát později“"
 
 msgctxt "wizard.listPrompt.title.album"
 msgid "Download from this album"
@@ -3136,6 +3376,18 @@ msgstr "Stáhnout nahraná videa tohoto kanálu"
 msgctxt "wizard.listPrompt.title.watchLater"
 msgid "Download from Watch later"
 msgstr "Stáhnout z „Přehrát později“"
+
+msgctxt "wizard.listPrompt.videoHint"
+msgid "Only the video you opened, with {{profileName}}. The list isn't loaded."
+msgstr "Jen otevřené video, s profilem {{profileName}}. Seznam se nenačítá."
+
+msgctxt "wizard.listPrompt.videoLabel"
+msgid "Just this video"
+msgstr "Jen toto video"
+
+msgctxt "wizard.listPrompt.videoPickHint"
+msgid "Set up only the video you opened. The list isn't loaded."
+msgstr "Nastavte jen otevřené video. Seznam se nenačítá."
 
 msgctxt "wizard.listPrompt.withProfile"
 msgid "With {{profileName}}"
@@ -3332,6 +3584,46 @@ msgstr "Všechny položky byly odebrány"
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Již staženo"
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.playlist.bulkCappedDesc_few"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "Mají jich víc. Chcete-li vybrat, kolik jich stáhnout, vložte každý odkaz samostatně."
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.bulkCappedDesc_many"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "Mají jich víc. Chcete-li vybrat, kolik jich stáhnout, vložte každý odkaz samostatně."
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.playlist.bulkCappedDesc_one"
+msgid "It has more. To choose how many, paste its link on its own."
+msgstr "Má jich víc. Chcete-li vybrat, kolik jich stáhnout, vložte jeho odkaz samostatně."
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.bulkCappedDesc_other"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "Mají jich víc. Chcete-li vybrat, kolik jich stáhnout, vložte každý odkaz samostatně."
+
+#. Plural form "few" for cs: used for counts like 2, 3, 4.
+msgctxt "wizard.playlist.bulkCappedTitle_few"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "{{count}} seznamy jsou omezeny na {{limit}} videí každý"
+
+#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.bulkCappedTitle_many"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "{{count}} seznamu je omezeno na {{limit}} videí každý"
+
+#. Plural form "one" for cs: used for counts like 1.
+msgctxt "wizard.playlist.bulkCappedTitle_one"
+msgid "“{{title}}” is cut at {{limit}} videos"
+msgstr "„{{title}}“ je omezen na {{limit}} videí"
+
+#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.bulkCappedTitle_other"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "{{count}} seznamů je omezeno na {{limit}} videí každý"
 
 msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
@@ -3656,58 +3948,6 @@ msgstr "Kontrola složky…"
 msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Miniatura videa"
-
-msgctxt "wizard.playlistCap.changeLimit"
-msgid "Change load limit"
-msgstr "Změnit limit načítání"
-
-#. Plural form "few" for cs: used for counts like 2, 3, 4.
-msgctxt "wizard.playlistCap.description_few"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy načetl {{count}} položky při aktuálním limitu {{limit}}. Zařaďte načtené položky do fronty hned, nebo limit zvyšte a načtěte znovu."
-
-#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
-msgctxt "wizard.playlistCap.description_many"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy načetl {{count}} položky při aktuálním limitu {{limit}}. Zařaďte načtené položky do fronty hned, nebo limit zvyšte a načtěte znovu."
-
-#. Plural form "one" for cs: used for counts like 1.
-msgctxt "wizard.playlistCap.description_one"
-msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "Arroxy načetl {{count}} položku při aktuálním limitu {{limit}}. Zařaďte načtenou položku do fronty hned, nebo limit zvyšte a načtěte znovu."
-
-#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
-msgctxt "wizard.playlistCap.description_other"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy načetl {{count}} položek při aktuálním limitu {{limit}}. Zařaďte načtené položky do fronty hned, nebo limit zvyšte a načtěte znovu."
-
-#. Plural form "few" for cs: used for counts like 2, 3, 4.
-msgctxt "wizard.playlistCap.descriptionWithTitle_few"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy načetl {{count}} položky při aktuálním limitu {{limit}}. Zařaďte načtené položky do fronty hned, nebo limit zvyšte a načtěte znovu."
-
-#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
-msgctxt "wizard.playlistCap.descriptionWithTitle_many"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy načetl {{count}} položky při aktuálním limitu {{limit}}. Zařaďte načtené položky do fronty hned, nebo limit zvyšte a načtěte znovu."
-
-#. Plural form "one" for cs: used for counts like 1.
-msgctxt "wizard.playlistCap.descriptionWithTitle_one"
-msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy načetl {{count}} položku při aktuálním limitu {{limit}}. Zařaďte načtenou položku do fronty hned, nebo limit zvyšte a načtěte znovu."
-
-#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
-msgctxt "wizard.playlistCap.descriptionWithTitle_other"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy načetl {{count}} položek při aktuálním limitu {{limit}}. Zařaďte načtené položky do fronty hned, nebo limit zvyšte a načtěte znovu."
-
-msgctxt "wizard.playlistCap.queueLoaded"
-msgid "Queue loaded items"
-msgstr "Zařadit načtené do fronty"
-
-msgctxt "wizard.playlistCap.title"
-msgid "Playlist scan is capped"
-msgstr "Načítání playlistu je omezeno"
 
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
@@ -4245,54 +4485,6 @@ msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
 msgstr "Nápověda: {{label}}"
 
-msgctxt "wizard.quickProgress.cancel"
-msgid "Cancel preparation"
-msgstr "Zrušit přípravu"
-
-msgctxt "wizard.quickProgress.currentFallback"
-msgid "Current link"
-msgstr "Aktuální odkaz"
-
-msgctxt "wizard.quickProgress.description"
-msgid "Arroxy is reading the link and applying {{profileName}}."
-msgstr "Arroxy čte odkaz a používá profil {{profileName}}."
-
-#. Plural form "few" for cs: used for counts like 2, 3, 4.
-msgctxt "wizard.quickProgress.failedCount_few"
-msgid "{{count}} failed"
-msgstr "Nezdařilo se: {{count}}"
-
-#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
-msgctxt "wizard.quickProgress.failedCount_many"
-msgid "{{count}} failed"
-msgstr "Nezdařilo se: {{count}}"
-
-#. Plural form "one" for cs: used for counts like 1.
-msgctxt "wizard.quickProgress.failedCount_one"
-msgid "{{count}} failed"
-msgstr "Nezdařilo se: {{count}}"
-
-#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
-msgctxt "wizard.quickProgress.failedCount_other"
-msgid "{{count}} failed"
-msgstr "Nezdařilo se: {{count}}"
-
-msgctxt "wizard.quickProgress.phase.probing"
-msgid "Fetching details"
-msgstr "Načítání podrobností"
-
-msgctxt "wizard.quickProgress.phase.queueing"
-msgid "Adding to queue"
-msgstr "Přidávání do fronty"
-
-msgctxt "wizard.quickProgress.title"
-msgid "Preparing Quick Download"
-msgstr "Příprava Rychlého stahování"
-
-msgctxt "wizard.quickProgress.waitHint"
-msgid "Keep this open while Arroxy prepares the queue."
-msgstr "Nechte toto okno otevřené, dokud Arroxy připravuje frontu."
-
 msgctxt "wizard.review.areas.extras"
 msgid "extras"
 msgstr "doplňky"
@@ -4601,6 +4793,10 @@ msgctxt "wizard.subtitles.saveMode.sidecar"
 msgid "Next to video"
 msgstr "Vedle videa"
 
+msgctxt "wizard.subtitles.saveMode.sidecarNoVideo"
+msgid "In the download folder"
+msgstr "Ve složce stahování"
+
 msgctxt "wizard.subtitles.saveMode.subfolder"
 msgid "subtitles/ subfolder"
 msgstr "Podsložka subtitles/"
@@ -4624,14 +4820,6 @@ msgstr "Navigace profilů stahování"
 msgctxt "wizard.url.advanced"
 msgid "Advanced"
 msgstr "Upřesnit"
-
-msgctxt "wizard.url.analytics.toggle"
-msgid "Send daily heartbeat"
-msgstr "Odesílat denní signál o aktivitě"
-
-msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
-msgstr "Žádná telemetrie. Jednou denně se odešle anonymní signál s verzí aplikace, kanálem instalace, operačním systémem, jazykem, zemí a přibližnou dobou od instalace Arroxy, abychom mohli počítat aktivní a nové uživatele. Žádná ID, adresy URL, názvy videí ani názvy souborů."
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
@@ -4720,6 +4908,18 @@ msgstr "Současná stahování"
 msgctxt "wizard.url.concurrentDownloads.unit"
 msgid "downloads"
 msgstr "stahování"
+
+msgctxt "wizard.url.concurrentProbes.description"
+msgid "How many links Arroxy fetches details for at the same time, before they download. Fewer is gentler on sites that block busy connections. A link you open in Interactive Download always goes first."
+msgstr "Pro kolik odkazů Arroxy zjišťuje podrobnosti současně, ještě před stažením. Méně je šetrnější k webům, které blokují vytížená připojení. Odkaz otevřený v Interaktivním stahování jde vždy první."
+
+msgctxt "wizard.url.concurrentProbes.label"
+msgid "Links checked at once"
+msgstr "Současně kontrolované odkazy"
+
+msgctxt "wizard.url.concurrentProbes.unit"
+msgid "links"
+msgstr "odkazů"
 
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
@@ -4814,8 +5014,8 @@ msgid "Off"
 msgstr "Vypnuto"
 
 msgctxt "wizard.url.cookies.toggleDescription"
-msgid "Helps with age-restricted, members-only, and account-private videos."
-msgstr "Pomáhá u videí s věkovým omezením, pouze pro členy a soukromých videí vázaných na účet."
+msgid "Helps with videos your own account can watch, like your private videos."
+msgstr "Pomáhá u videí, která může sledovat váš vlastní účet, například u soukromých videí."
 
 msgctxt "wizard.url.downloadConnections.description"
 msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
@@ -4828,6 +5028,30 @@ msgstr "Připojení ke stahování"
 msgctxt "wizard.url.downloadConnections.unit"
 msgid "connections"
 msgstr "připojení"
+
+msgctxt "wizard.url.downloadList.album"
+msgid "Download album…"
+msgstr "Stáhnout album…"
+
+msgctxt "wizard.url.downloadList.liked"
+msgid "Download liked videos…"
+msgstr "Stáhnout oblíbená videa…"
+
+msgctxt "wizard.url.downloadList.mix"
+msgid "Download Mix…"
+msgstr "Stáhnout Mix…"
+
+msgctxt "wizard.url.downloadList.playlist"
+msgid "Download playlist…"
+msgstr "Stáhnout playlist…"
+
+msgctxt "wizard.url.downloadList.uploads"
+msgid "Download uploads…"
+msgstr "Stáhnout nahraná videa…"
+
+msgctxt "wizard.url.downloadList.watchLater"
+msgid "Download Watch later…"
+msgstr "Stáhnout „Přehrát později“…"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -4901,17 +5125,9 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "Tuto zkratku používá jiná aplikace – vyberte jinou."
 
-msgctxt "wizard.url.hotkey.hintLabel"
-msgid "Or press"
-msgstr "Nebo stiskněte"
-
-msgctxt "wizard.url.hotkey.hintTooltip"
-msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
-msgstr "Zkopírujte odkaz na video kdekoli, stiskněte tuto zkratku a Arroxy jej zařadí do fronty s vaším aktivním profilem – bez přepínání oken."
-
-msgctxt "wizard.url.hotkey.hintTooltipSettings"
-msgid "Change or turn it off in Settings."
-msgstr "Změníte nebo vypnete v Nastavení."
+msgctxt "wizard.url.hotkey.globalLabel"
+msgid "Global shortcut"
+msgstr "Globální zkratka"
 
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
@@ -4937,13 +5153,17 @@ msgctxt "wizard.url.hotkey.toggle"
 msgid "Enable global hotkey"
 msgstr "Povolit globální klávesovou zkratku"
 
-msgctxt "wizard.url.hotkey.toggleDescription"
-msgid "Press the shortcut with a video link on your clipboard."
-msgstr "Stiskněte zkratku, když máte ve schránce odkaz na video."
+msgctxt "wizard.url.hotkey.toggleDescriptionDetail"
+msgid "Copy a video link in any app and press the shortcut: Arroxy queues it with your active profile, without switching windows. A link to a video in a playlist downloads the video."
+msgstr "Zkopírujte odkaz na video v libovolné aplikaci a stiskněte zkratku: Arroxy ho zařadí do fronty s vaším aktivním profilem, bez přepínání oken. Odkaz na video v playlistu stáhne jen toto video."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
 msgstr "Interaktivní stahování"
+
+msgctxt "wizard.url.interactiveDownloadAsks"
+msgid "Interactive Download…"
+msgstr "Interaktivní stahování…"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
@@ -4985,21 +5205,13 @@ msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Vložte odkaz a nechte Arroxy, ať ho stáhne ✨"
 
-msgctxt "wizard.url.mascotMixed"
-msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
-msgstr "Tento odkaz ukazuje na jedno video uvnitř kolekce. Arroxy se před zjišťováním zeptá, které chcete."
-
-msgctxt "wizard.url.mascotPreparing"
-msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
-msgstr "{{quickDownload}} čte tento odkaz a používá profil {{profileName}}."
-
-msgctxt "wizard.url.mascotQueued"
-msgid "The queue is handling this download. You can paste another link while it works."
-msgstr "Toto stahování zpracovává fronta. Během práce můžete vložit další odkaz."
-
 msgctxt "wizard.url.mascotSingle"
 msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
 msgstr "Rychlé stahování spustí jedno stahování s profilem {{profileName}}. Pro jednorázové změny použijte Interaktivní."
+
+msgctxt "wizard.url.mascotVideoInList"
+msgid "This link names a video and the list it’s in: download just the video, or the list."
+msgstr "Tento odkaz označuje video i seznam, ve kterém je: stáhněte jen video, nebo seznam."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -5321,6 +5533,10 @@ msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
 msgid "Using profile override + profile subfolder"
 msgstr "Používá přepsání profilu + podsložku profilu"
 
+msgctxt "wizard.url.profile.destinationEditHint"
+msgid "To change where it saves, edit the profile."
+msgstr "Chcete-li změnit, kam se ukládá, upravte profil."
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Cíl"
@@ -5413,6 +5629,10 @@ msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Obnovit"
 
+msgctxt "wizard.url.profile.savesTo"
+msgid "Saves to"
+msgstr "Ukládá do"
+
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
 msgstr "Přepnout profil stahování: {{profileName}}"
@@ -5426,8 +5646,8 @@ msgid "Clear"
 msgstr "Vymazat"
 
 msgctxt "wizard.url.proxy.description"
-msgid "Route traffic through a proxy — useful for geo-restricted content."
-msgstr "Směruje provoz přes proxy server – užitečné u obsahu omezeného podle oblasti."
+msgid "Route traffic through a proxy server."
+msgstr "Směruje provoz přes proxy server."
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
@@ -5436,10 +5656,6 @@ msgstr "URL proxy serveru"
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
-
-msgctxt "wizard.url.quickBulkAllFailed"
-msgid "None of those URLs could be prepared"
-msgstr "Žádnou z těchto adres URL se nepodařilo připravit"
 
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
@@ -5452,26 +5668,6 @@ msgstr "Stáhne se pomocí profilu: {{profileName}}"
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "Tuto položku se nepodařilo přidat: {{error}}"
-
-#. Plural form "few" for cs: used for counts like 2, 3, 4.
-msgctxt "wizard.url.quickPartialFailed_few"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "Do fronty bylo zařazeno vše, co se povedlo. Nepodařilo se připravit URL: {{count}}."
-
-#. Plural form "many" for cs: used for fractional counts and other values not covered by the other forms.
-msgctxt "wizard.url.quickPartialFailed_many"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "Do fronty bylo zařazeno vše, co se povedlo. Nepodařilo se připravit URL: {{count}}."
-
-#. Plural form "one" for cs: used for counts like 1.
-msgctxt "wizard.url.quickPartialFailed_one"
-msgid "Queued what worked. {{count}} URL could not be prepared."
-msgstr "Do fronty bylo zařazeno vše, co se povedlo. Nepodařilo se připravit URL: {{count}}."
-
-#. Plural form "other" for cs: used for counts like 0, 5, 6, 7, 8, 9.
-msgctxt "wizard.url.quickPartialFailed_other"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "Do fronty bylo zařazeno vše, co se povedlo. Nepodařilo se připravit URL: {{count}}."
 
 msgctxt "wizard.url.quickPrepareFailed"
 msgid "Queue item could not be prepared"
@@ -5488,6 +5684,14 @@ msgstr "Zjišťování se nezdařilo"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "Chcete-li začít, vložte adresu URL videa, playlistu, kanálu nebo hledání."
+
+msgctxt "wizard.url.reports.toggle"
+msgid "Send anonymous heartbeat and setup reports"
+msgstr "Odesílat anonymní signály o aktivitě a zprávy o nastavení"
+
+msgctxt "wizard.url.reports.toggleDescription"
+msgid "No tracking. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. When Arroxy sets up or updates its download engine or media tools, it also reports whether that worked and roughly how long it took. No IDs, URLs, video titles or filenames."
+msgstr "Žádné sledování. Jednou denně anonymní signál o aktivitě odešle verzi aplikace, instalační kanál, operační systém, jazyk, zemi a přibližně jak dávno byl Arroxy nainstalován, abychom mohli spočítat aktivní a nové uživatele. Když Arroxy nastavuje nebo aktualizuje stahovací modul či mediální nástroje, odešle také informaci, zda se to podařilo a přibližně jak dlouho to trvalo. Žádná ID, adresy URL, názvy videí ani názvy souborů."
 
 msgctxt "wizard.url.settings.behaviorDescription"
 msgid "Global behavior that affects profile-driven downloads too."
@@ -5544,3 +5748,11 @@ msgstr "Profily"
 msgctxt "wizard.url.tabs.settings"
 msgid "Settings"
 msgstr "Nastavení"
+
+msgctxt "wizard.url.thisVideo"
+msgid "This video"
+msgstr "Toto video"
+
+msgctxt "wizard.url.thisVideoTooltip"
+msgid "Downloads just this video with {{profileName}}"
+msgstr "Stáhne jen toto video s profilem {{profileName}}"

@@ -96,7 +96,7 @@ export const lt = {
   discord_badge_text: "Prisijunkite prie Discord bendruomenės",
   discord_badge_encoded: "Prisijunkite%20prie%20Discord%20bendruomen%C4%97s",
   hero_desc:
-    "Atsisiųskite vaizdo įrašus, Shorts, muziką, kanalus, tinklalaides ar garso takelius iš **YouTube ir daugiau nei 2000 palaikomų svetainių** — iki 8K HDR esant 60 kadrų/s, kaip MP3 / AAC / Opus arba tik reikiamą dalį. **Naršykite YouTube ar bet kurią kitą svetainę Arroxy viduje** skirtuke „Naršymas“ ir atsisiųskite vaizdo įrašą, grojaraštį ar kanalą, kuriame esate; prisijunkite ten, kad atsisiųstumėte privačius, tik nariams skirtus ir amžiaus apribojimą turinčius vaizdo įrašus, kuriuos gali žiūrėti jūsų paskyra. Veikia vietoje Windows, macOS ir Linux sistemose. **Be reklamų, be nereikalingų priedų, be priverstinio pardavimo.**",
+    "Atsisiųskite vaizdo įrašus, Shorts, kanalus, tinklalaides ar garso takelius iš **YouTube ir daugiau nei 2000 palaikomų svetainių** — iki 8K HDR esant 60 kadrų/s, kaip MP3 / AAC / Opus arba tik reikiamą dalį. **Naršykite YouTube ar bet kurią kitą svetainę Arroxy viduje** skirtuke „Naršymas“ ir atsisiųskite vaizdo įrašą, grojaraštį ar kanalą, kuriame esate; prisijunkite ten, kad atsisiųstumėte vaizdo įrašus, kuriuos jūsų paskyra jau gali žiūrėti. Veikia vietoje Windows, macOS ir Linux sistemose. **Be reklamų, be nereikalingų priedų, be priverstinio pardavimo.**",
   cta_latest: "↓ Įdiegti naujausią laidą",
   cta_website: "Svetainė",
   website_url: "https://arroxy.com/",
@@ -106,7 +106,7 @@ export const lt = {
   intro_what_is:
     "**Kas yra Arroxy?** Arroxy yra nemokama atvirojo kodo darbalaukio sąsaja, atsisiunčianti vaizdo įrašus, garso įrašus, grojaraščius ir subtitrus iš YouTube ir daugiau nei 2000 kitų [yt-dlp](https://github.com/yt-dlp/yt-dlp) palaikomų svetainių. Veikia Windows 10/11, macOS 13+ (Intel + Apple Silicon) ir Linux (AppImage, Flatpak, tar.gz) sistemose. Licencija GPLv3. Be reklamų, be naudojimo apribojimų. Platinama per [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage ir tiesioginį atsisiuntimą.",
   intro_key_difference:
-    "**Pagrindinis skirtumas: integruota naršyklė.** Dauguma nemokamų YouTube atsisiuntimo programų yra plonos yt-dlp apvalkalo programos: URL laukelis ir formatų meniu, be savo naršyklės. Arroxy ją turi – tai **skirtukas „Naršymas“**. Naršote YouTube ar bet kurią kitą svetainę programoje ir atsisiunčiate vaizdo įrašą, grojaraštį ar kanalą, kuriame esate, arba spustelite bet kurią nuorodą dešiniuoju pelės klavišu. Naršyme prisijungiate vieną kartą, o Arroxy atsisiunčia privačius, tik nariams skirtus ir amžiaus apribojimą turinčius vaizdo įrašus, kuriuos gali žiūrėti jūsų paskyra, taip pat jūsų „Žiūrėti vėliau“ ir „Patikę“ sąrašus, be slapukų eksportavimo. Taip pat ten prisijunkite prie kitų svetainių, ir jų atsisiuntimai prireikus naudos tą prisijungimą. Kai YouTube prašo patvirtinti, kad nesate robotas, Arroxy bando dar kartą su tuo prisijungimu. Integruota naršyklė taip pat gauna žetoną, kurio YouTube tikisi prieš atsisiuntimą, todėl YouTube neapkarpo atsisiuntimo iki mažesnio formatų skaičiaus. Apvalkalo programa su vien URL laukeliu susiduria su visais šiais apribojimais. Išsamiau: [Kodėl Arroxy](#why-explore).",
+    "**Pagrindinis skirtumas: integruota naršyklė.** Dauguma nemokamų YouTube atsisiuntimo programų yra plonos yt-dlp apvalkalo programos: URL laukelis ir formatų meniu, be savo naršyklės. Arroxy ją turi – tai **skirtukas „Naršymas“**. Naršote YouTube ar bet kurią kitą svetainę programoje ir atsisiunčiate vaizdo įrašą, grojaraštį ar kanalą, kuriame esate, arba spustelite bet kurią nuorodą dešiniuoju pelės klavišu. Jei Naršyme prisijungiate vieną kartą, atsisiuntimai, kuriems reikia paskyros, naudoja tą prisijungimą: jūsų privatūs vaizdo įrašai, jūsų „Žiūrėti vėliau“ ir „Patikę“ sąrašai bei kiti vaizdo įrašai, kuriuos jūsų paskyra jau gali žiūrėti, be slapukų eksportavimo. Taip pat ten prisijunkite prie kitų svetainių, ir jų atsisiuntimai prireikus naudos tą prisijungimą. Išsamiau: [Kodėl Arroxy](#why-explore).",
   last_updated: "Paskutinį kartą atnaujinta: {{LAST_UPDATED}}.",
   toc_heading: "Turinys",
   why_h2: "Kodėl Arroxy",
@@ -124,21 +124,16 @@ export const lt = {
   why_r6: "Daugiaplatformė darbalaukio programa",
   why_r7: "Subtitrai + SponsorBlock",
   why_r8: "Integruota naršyklė (naršymas, prisijungimas, atsisiuntimas)",
-  why_r9:
-    "Privatūs, tik nariams skirti ir amžiaus apribojimą turintys vaizdo įrašai be slapukų eksportavimo",
+  why_r9: "Vaizdo įrašai, kuriuos gali žiūrėti jūsų pačių paskyra, be slapukų eksportavimo",
   why_table_note:
     "⚠️ = iš dalies arba tik mokamame plane. 4K Video Downloader prisijungimas programoje privatiems vaizdo įrašams yra mokama funkcija; dauguma nemokamų yt-dlp sąsajų priima tik slapukų failą arba skaito jūsų naršyklės slapukus.",
   why_summary:
     "Arroxy sukurta vienam dalykui: švariam vietiniam failui — nesvarbu, ar įklijuojate URL, ar vaizdo įrašą randate Naršyme. Jokio priverstinio pardavimo, jokio duomenų rinkimo.",
   why_explore_h3: "Ko paprasta yt-dlp apvalkalo programa negali: skirtukas „Naršymas“",
   why_explore_intro:
-    "Dauguma nemokamų YouTube atsisiuntimo programų yra tiesiog URL laukelis virš yt-dlp. Arroxy taip pat naudoja yt-dlp, bet turi ir **Naršymą** — programoje integruotą naršyklę, atverančią YouTube ar bet kurią kitą svetainę. Naršymas įveikia apribojimus, kurių URL laukelis įveikti negali:",
+    "Dauguma nemokamų YouTube atsisiuntimo programų yra tiesiog URL laukelis virš yt-dlp. Arroxy taip pat naudoja yt-dlp, bet turi ir **Naršymą** — programoje integruotą naršyklę, atverančią YouTube ar bet kurią kitą svetainę. Naršymas prideda tai, ko URL laukelis negali:",
   why_explore_1:
-    "**Vaizdo įrašai, kuriems reikia paskyros, be slapukų eksportavimo** — privatūs, tik nariams skirti ir amžiaus apribojimą turintys vaizdo įrašai (su amžių patvirtinusia paskyra), taip pat jūsų „Žiūrėti vėliau“ ir „Patikę“ sąrašai bei vaizdo įrašai už prisijungimo kitose svetainėse. Paprastam apvalkalui reikia cookies.txt eksporto arba jis turi skaityti jūsų žiniatinklio naršyklės slapukus, kuriuos Chrome sistemoje Windows dabar blokuoja. Arroxy prisijungiate vieną kartą Naršyme, o visa kita ji padaro pati",
-  why_explore_2:
-    "**„Prisijunkite, kad patvirtintumėte, jog nesate robotas“** — kai YouTube to paprašo, Arroxy bando atsisiųsti iš naujo su jūsų prisijungimu per Naršymą, užuot nepavykusi",
-  why_explore_3:
-    "**YouTube atsisiuntimo žetonas** — Arroxy integruota naršyklė gauna žetoną, kurio YouTube tikisi prieš atsisiuntimą. Be jo YouTube gali pateikti mažiau formatų ir žemesnę kokybę, nei prašėte",
+    "**Vaizdo įrašai, kuriuos gali žiūrėti jūsų paskyra, be slapukų eksportavimo** — jūsų privatūs vaizdo įrašai, jūsų „Žiūrėti vėliau“ ir „Patikę“ sąrašai, amžiaus apribojimą turintys vaizdo įrašai su amžių patvirtinusia paskyra ir kitų svetainių puslapiai, kuriems reikia jūsų prisijungimo. Paprastam apvalkalui reikia cookies.txt eksporto arba jis skaito jūsų žiniatinklio naršyklės slapukus. Arroxy prisijungiate vieną kartą Naršyme, o visa kita ji padaro pati",
   why_explore_4:
     "**Nereikia kopijuoti nuorodų** — raskite vaizdo įrašą, grojaraštį ar kanalą Naršyme ir atsisiųskite vienu spustelėjimu arba spustelėję dešiniuoju pelės mygtuku bet kurią puslapio nuorodą",
   why_explore_5:
@@ -153,7 +148,7 @@ export const lt = {
   feat_explore_2:
     "**Adreso juosta** — rašykite, kad ieškotumėte YouTube, arba įveskite bet kurį interneto adresą, kad atvertumėte tą svetainę",
   feat_explore_3:
-    "**Atsisiuntimai, kuriems reikia paskyros** — prisijunkite vieną kartą Naršyme, ir Arroxy galės atsisiųsti privačius ir tik nariams skirtus vaizdo įrašus, kuriuos gali žiūrėti jūsų paskyra, amžiaus apribojimą turinčius vaizdo įrašus, jei paskyra patvirtinta pagal amžių, bei jūsų „Žiūrėti vėliau“ ir „Patikę“ sąrašus. Ten taip pat galite prisijungti prie kitų svetainių, ir jų atsisiuntimai naudos tą prisijungimą, kai reikės. Arroxy vis tiek pirmiausia atsisiunčia neprisijungusi ir jūsų prisijungimą per Naršymą naudoja tik tada, kai atsisiuntimas nepavyksta dėl priežasties, kurią gali ištaisyti paskyra. Kai YouTube prašo patvirtinti, kad nesate robotas, Arroxy taip pat išbando jūsų prisijungimą per Naršymą",
+    "**Atsisiuntimai, kuriems reikia paskyros** — prisijunkite vieną kartą Naršyme, ir Arroxy galės atsisiųsti vaizdo įrašus, kuriuos gali žiūrėti jūsų paskyra: jūsų privačius vaizdo įrašus, amžiaus apribojimą turinčius vaizdo įrašus, jei paskyra patvirtinta pagal amžių, bei jūsų „Žiūrėti vėliau“ ir „Patikę“ sąrašus. Ten taip pat galite prisijungti prie kitų svetainių, ir jų atsisiuntimai naudos tą prisijungimą, kai reikės. Arroxy vis tiek pirmiausia atsisiunčia neprisijungusi ir jūsų prisijungimą per Naršymą naudoja tik tada, kai atsisiuntimas nepavyksta dėl priežasties, kurią gali ištaisyti paskyra",
   feat_explore_4:
     "**Naudokite antrinę paskyrą** — pirmasis Naršymo ekranas paaiškina kodėl: atsisiuntimas su paskyra kelia tam tikrą riziką, kad ta paskyra bus apribota. Kai tik norite pamiršti savo prisijungimus, atsijunkite nuo Naršymo parametruose",
   feat_explore_5:
@@ -198,7 +193,7 @@ export const lt = {
   feat_workflow_10:
     "**Atsisiuntimai vienu metu ir automatinis kartojimas** — pasirinkite, kiek eilės atsisiuntimų vykdoma tuo pačiu metu, ir leiskite Arroxy kartoti atsisiuntimą, kuris susidūrė su tinklo ar serverio problema, prieš kiekvieną bandymą laukiant ilgiau",
   feat_workflow_11:
-    "**Kiekvieno grojaraščio elemento profiliai** — priskirkite kiekvienam grojaraščio vaizdo įrašui savo atsisiuntimo profilį, užuot taikę vieną parametrą visam sąrašui, kad per vieną praėjimą kai kuriuos užarchyvuotumėte aukščiausia kokybe, o likusius atsisiųstumėte kaip MP3",
+    "**Kiekvieno grojaraščio elemento profiliai** — priskirkite kiekvienam grojaraščio vaizdo įrašui savo atsisiuntimo profilį, užuot taikę vieną parametrą visam sąrašui, kad per vieną praėjimą kai kuriuos užarchyvuotumėte aukščiausia kokybe, o likusius išsaugotumėte tik kaip garsą",
   feat_workflow_13:
     "**Greitasis atsisiuntimas veikia fone** — nuoroda iškart atsiranda sąraše „Atsisiuntimai“ ir ten ruošiama, pranešimas su **Rodyti** tai patvirtina, o URL laukas išvalomas kitai nuorodai. Pradėkite kiek norite, kol ankstesnės ruošiamos",
   feat_workflow_14:
@@ -230,7 +225,7 @@ export const lt = {
   feat_sites_1:
     "**YouTube visa apimtimi** — vaizdo įrašai, Shorts, kanalai, grojaraščiai, YouTube Music ir tinklalaidės traktuojami kaip pilnaverčiai šaltiniai",
   feat_sites_2:
-    "**2000+ kitų svetainių** per yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable ir daugybė kitų",
+    "**2000+ kitų svetainių** per yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable ir daugybė kitų",
   feat_sites_3:
     "**Tik garsas ir subtitrai** veikia visose palaikomose svetainėse, ne tik YouTube",
   feat_sites_4:
@@ -251,7 +246,7 @@ export const lt = {
     "Arroxy visuotinis atsisiuntimo spartusis klavišas — Ctrl+Shift+D Windows ir Linux, Cmd+Shift+D macOS sistemoje, nukopijuotą nuorodą siunčia tiesiai į atsisiuntimų eilę",
   hotkey_fig_cap:
     "<b>Visuotinis atsisiuntimo spartusis klavišas</b><br/>Nukopijuokite nuorodą bet kur, paspauskite vieną kartą — ji patenka į eilę ir pradedama atsisiųsti",
-  shot7_cap: "<b>Kiekvieno grojaraščio elemento profiliai</b><br/>Suteikite kiekvienam vaizdo įrašui savo profilį — kai kuriuos užarchyvuokite 4K, likusius atsisiųskite kaip MP3",
+  shot7_cap: "<b>Kiekvieno grojaraščio elemento profiliai</b><br/>Suteikite kiekvienam vaizdo įrašui savo profilį — kai kuriuos užarchyvuokite 4K, likusius išsaugokite tik kaip garsą",
   shot8_cap:
     "<b>Naršymas</b><br/>Naršykite YouTube ar bet kurią kitą svetainę Arroxy viduje ir atsisiųskite puslapį, kuriame esate, su savo aktyviu profiliu",
   shot9_cap:
@@ -391,15 +386,15 @@ export const lt = {
 
   privacy_p1:
     "Atsisiuntimai gaunami tiesiogiai per [yt-dlp](https://github.com/yt-dlp/yt-dlp) iš YouTube į jūsų pasirinktą aplanką — nieko nenukreipiant per trečiosios šalies serverį. Žiūrėjimo istorija, atsisiuntimų istorija, URL ir failų turinys lieka jūsų įrenginyje.",
-  privacy_p2:
-    "Jokios telemetrijos — tik vienas anoniminis aktyvumo signalas per dieną: programos versija, OS, kalba, diegimo kanalas, šalis ir apytikslis laikas nuo Arroxy įdiegimo, kad galėtume suskaičiuoti aktyvius ir naujus naudotojus. Jokių ID, URL, vaizdo įrašų pavadinimų, failų kelių ar paskyros informacijos. Galite tai išjungti parametruose.",
+  privacy_reports:
+    "Jokio sekimo — vienas anoniminis aktyvumo signalas per dieną (programos versija, OS, kalba, diegimo kanalas, šalis ir apytikslis laikas nuo Arroxy įdiegimo), kad galėtume suskaičiuoti aktyvius ir naujus naudotojus, o kai Arroxy atsisiunčia ar atnaujina yt-dlp ir FFmpeg, – anoniminis pranešimas, ar tai pavyko ir apytiksliai kiek laiko užtruko. Jokių ID, URL, vaizdo įrašų pavadinimų, failų kelių ar paskyros informacijos. Abu galite išjungti parametruose.",
   privacy_p3:
     "Naršymas laiko savo prisijungimus atskirai nuo jūsų naršyklės, o Arroxy niekada neskaito ir neužpildo prisijungimo formos — rašote svetainės puslapyje. Atsisiuntimai vyksta neprisijungus; tik kai vienas nepavyksta dėl priežasties, kurią gali ištaisyti paskyra, Arroxy iš naujo nuskaito prisijungimą, laiko jį laikinajame faile to atsisiuntimo metu ir vėliau tą failą ištrina. Atsijungus nuo Naršymo parametruose, jie pamirštami.",
   faq_q1: "Ar tikrai nemokama?",
   faq_a1: "Taip — licencija GPLv3, jokio mokamo plano, jokių funkcijų apribojimų.",
   faq_q11: "Kuo Arroxy skiriasi nuo kitų yt-dlp sąsajų?",
   faq_a11:
-    "Dauguma nemokamų yt-dlp sąsajų yra apvalkalai, priimantys tik nuorodą. Arroxy prideda **Naršymą** — programoje integruotą naršyklę, atverančią YouTube ar bet kurią kitą svetainę: naršote ir atsisiunčiate nekopijuodami nuorodų, o prisijungiate ten vieną kartą, kad atsisiųstumėte privačius, tik nariams skirtus ir amžiaus apribojimą turinčius vaizdo įrašus bei savo „Žiūrėti vėliau“ ir „Patikę“ sąrašus, be slapukų eksportavimo. Arroxy naudoja tą prisijungimą, kai YouTube prašo patvirtinti, kad nesate robotas, o jos integruota naršyklė gauna YouTube atsisiuntimo žetoną, kad atsisiuntimai nenukristų iki mažesnio formatų skaičiaus. Žr. [Kodėl Arroxy](#why).",
+    "Dauguma nemokamų yt-dlp sąsajų yra apvalkalai, priimantys tik nuorodą. Arroxy prideda **Naršymą** — programoje integruotą naršyklę, atverančią YouTube ar bet kurią kitą svetainę: naršote ir atsisiunčiate nekopijuodami nuorodų, o prisijungiate ten vieną kartą, kad atsisiųstumėte vaizdo įrašus, kuriuos gali žiūrėti jūsų paskyra, pavyzdžiui, savo privačius vaizdo įrašus bei „Žiūrėti vėliau“ ir „Patikę“ sąrašus, be slapukų eksportavimo. Žr. [Kodėl Arroxy](#why).",
   faq_q2: "Kokios kokybės vaizdo įrašus galiu atsisiųsti?",
   faq_a2:
     "Bet ką, ką pateikia YouTube: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, taip pat tik garsą. 60 kadrų/s ir HDR srautai išsaugomi tokie, kokie yra, o žingsnis po žingsnio atsisiuntimas leidžia pasirinkti AV1, VP9 arba H.264 kiekvienoje skiriamojoje gebos.",
@@ -408,10 +403,10 @@ export const lt = {
     "Taip. Formatų meniu pasirinkite *tik garsas* ir rinkitės MP3, M4A/AAC, Opus arba WAV.",
   faq_q4: "Kaip atsisiųsti vaizdo įrašus, kuriems reikia YouTube paskyros?",
   faq_a4:
-    "Vieną kartą prisijunkite skirtuke Naršymas. Tada Arroxy galės atsisiųsti privačius ir tik nariams skirtus vaizdo įrašus, kuriuos gali žiūrėti jūsų paskyra, amžiaus apribojimą turinčius vaizdo įrašus, jei paskyra patvirtinta pagal amžių, ir jūsų „Žiūrėti vėliau“ bei „Patikę“ sąrašus. Prisijungimas naudojamas tik tada, kai atsisiuntimas nepavyksta dėl priežasties, kurią gali ištaisyti paskyra; viskas kita atsisiunčiama kaip anksčiau. Tai yra pasirinkimas **Prisijungimas per Naršymą**, slapukų parametruose išvardytas pirmas ir pažymėtas Rekomenduojama, o Arroxy jį pasirenka už jus, kai pirmą kartą atveriate Naršymą. yt-dlp wiki pažymi, kad [automatizavimas su prisijungimu gali pažymėti Google paskyrą](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), todėl antrinė paskyra yra saugesnis pasirinkimas.",
+    "Vieną kartą prisijunkite skirtuke Naršymas. Tada Arroxy galės atsisiųsti vaizdo įrašus, kuriuos gali žiūrėti jūsų paskyra: jūsų privačius vaizdo įrašus, amžiaus apribojimą turinčius vaizdo įrašus, jei paskyra patvirtinta pagal amžių, ir jūsų „Žiūrėti vėliau“ bei „Patikę“ sąrašus. Prisijungimas naudojamas tik tada, kai atsisiuntimas nepavyksta dėl priežasties, kurią gali ištaisyti paskyra; viskas kita atsisiunčiama kaip anksčiau. Tai yra pasirinkimas **Prisijungimas per Naršymą**, slapukų parametruose išvardytas pirmas ir pažymėtas Rekomenduojama, o Arroxy jį pasirenka už jus, kai pirmą kartą atveriate Naršymą. yt-dlp wiki pažymi, kad [automatizavimas su prisijungimu gali pažymėti Google paskyrą](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), todėl antrinė paskyra yra saugesnis pasirinkimas.",
   faq_q5: "Ar ji toliau veiks, kai YouTube kažką pakeis?",
   faq_a5:
-    "yt-dlp atnaujinamas automatiškai paleidžiant, o Arroxy greitai išleidžia pataisas, kai YouTube kažką pakeičia. Kai YouTube prašo patvirtinti, kad nesate robotas, Arroxy taip pat išbando jūsų prisijungimą per Naršymą, jei ten prisijungėte, o slapukai iš failo ar jūsų naršyklės yra pasiekiami slapukų parametruose.",
+    "yt-dlp atnaujinamas automatiškai paleidžiant, o Arroxy greitai išleidžia pataisas, kai YouTube kažką pakeičia. Kai atsisiuntimui reikia prisijungimo, Arroxy naudoja jūsų prisijungimą per Naršymą, jei ten prisijungėte, o slapukai iš failo ar jūsų naršyklės yra pasiekiami slapukų parametruose.",
   faq_q6: "Kuriomis kalbomis prieinama Arroxy?",
   faq_a6:
     "{{LANG_COUNT}} kalbų iškart po diegimo: {{LANG_NAME_LIST}}. Arroxy pirmą kartą paleidus automatiškai aptinka jūsų operacinės sistemos kalbą, o perjungti galite bet kada kalbos parinkikliu įrankių juostoje. Vykdymo metu naudojami lokalės JSON failai yra src/shared/i18n/locales/, o vertėjams skirti PO katalogai — i18n/locales/ — atverkite PR GitHub, kad prisidėtumėte.",
@@ -426,7 +421,7 @@ export const lt = {
     "Tai macOS Gatekeeper blokuoja nepasirašytą programą, o ne tikras pažeidimas. Terminalo komandas, kurios pašalina karantiną ir paleidžia Arroxy, rasite skyriuje [Pirmasis paleidimas macOS sistemoje](#macos-first-launch).",
   faq_q10: "Ar legalu atsisiųsti YouTube vaizdo įrašus?",
   faq_a10:
-    "Asmeniniam, privačiam naudojimui tai paprastai priimtina daugumoje jurisdikcijų. Esate atsakingi už YouTube [paslaugų teikimo sąlygų](https://www.youtube.com/t/terms) ir vietinių autorių teisių įstatymų laikymąsi.",
+    "Tai priklauso nuo jūsų šalies ir nuo to, ką atsisiunčiate. Atsisiųskite tik turinį, kurį valdote, kurį licencija leidžia atsisiųsti arba kurį jūsų šalies įstatymai leidžia kopijuoti. Esate atsakingi už YouTube [paslaugų teikimo sąlygų](https://www.youtube.com/t/terms) ir vietinių autorių teisių įstatymų laikymąsi. Žr. [Naudojimo sąlygos](#terms).",
   plan_intro: "Dar planuojama — maždaug pagal prioritetą:",
   plan_col1: "Funkcija",
   plan_col2: "Aprašas",
@@ -449,7 +444,7 @@ export const lt = {
     "Turite funkcijos idėją? [Pateikite prašymą](../../issues) — bendruomenės nuomonė lemia prioritetą.",
   tech_content: TECH_CONTENT,
   support_h2: "Paremkite Arroxy",
-  support_note: "Arroxy yra nemokama ir licencijuota pagal GPLv3 — be reklamų, be telemetrijos, be mokamo plano. Jei ji taupo jūsų laiką, kūrimą galite paremti Bitcoin, Tron ar Ethereum: adresai yra [DONATE.md](DONATE.md), kuris yra vienintelis oficialus jų šaltinis. Arroxy niekada nesiųs jums adreso el. paštu ar tiesioginiu pranešimu. Saugyklos pažymėjimas žvaigždute, klaidų pranešimas ir vertimų gerinimas padeda ne mažiau.",
+  support_line: "Arroxy yra nemokama ir licencijuota pagal GPLv3 — be reklamų, be sekimo, be mokamo plano. Jei ji taupo jūsų laiką, kūrimą galite paremti Bitcoin, Tron ar Ethereum: adresai yra [DONATE.md](DONATE.md), kuris yra vienintelis oficialus jų šaltinis. Arroxy niekada nesiųs jums adreso el. paštu ar tiesioginiu pranešimu. Saugyklos pažymėjimas žvaigždute, klaidų pranešimas ir vertimų gerinimas padeda ne mažiau.",
   tos_h2: "Naudojimo sąlygos",
   tos_note:
     "Arroxy yra įrankis tik asmeniniam, privačiam naudojimui. Esate vienintelis atsakingas už tai, kad jūsų atsisiuntimai atitiktų YouTube [paslaugų teikimo sąlygas](https://www.youtube.com/t/terms) ir jūsų jurisdikcijos autorių teisių įstatymus. Nenaudokite Arroxy atsisiųsti, atkurti ar platinti turinio, kurio neturite teisės naudoti. Kūrėjai neprisiima atsakomybės už netinkamą naudojimą.",

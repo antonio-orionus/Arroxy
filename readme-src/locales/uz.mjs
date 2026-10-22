@@ -96,7 +96,7 @@ export const uz = {
   discord_badge_text: "Discord hamjamiyatiga qo'shiling",
   discord_badge_encoded: "Discord%20hamjamiyatiga%20qo%27shiling",
   hero_desc:
-    "**YouTube va 2000+ qo'llab-quvvatlanadigan saytlardan** videolar, Shorts, musiqa, kanallar, podkastlar yoki audio treklarni yuklab oling — 60 fps da 8K HDR gacha, MP3 / AAC / Opus sifatida yoki faqat kerakli qismini. Explore bo'limida **YouTube yoki boshqa istalgan saytni Arroxy ichida ko'rib chiqing** va ochiq turgan video, pleylist yoki kanalni yuklab oling; hisobingiz ko'ra oladigan yopiq, faqat a'zolar uchun va yosh chegarasi bor videolarni yuklab olish uchun u yerda tizimga kiring. Windows, macOS va Linuxda mahalliy ishlaydi. **Reklamalar yo'q, keraksiz narsalar yo'q, qo'shimcha taklif yo'q.**",
+    "**YouTube va 2000+ qo'llab-quvvatlanadigan saytlardan** videolar, Shorts, kanallar, podkastlar yoki audio treklarni yuklab oling — 60 fps da 8K HDR gacha, MP3 / AAC / Opus sifatida yoki faqat kerakli qismini. Explore bo'limida **YouTube yoki boshqa istalgan saytni Arroxy ichida ko'rib chiqing** va ochiq turgan video, pleylist yoki kanalni yuklab oling; hisobingiz allaqachon ko'ra oladigan videolarni yuklab olish uchun u yerda tizimga kiring. Windows, macOS va Linuxda mahalliy ishlaydi. **Reklamalar yo'q, keraksiz narsalar yo'q, qo'shimcha taklif yo'q.**",
   cta_latest: "↓ Oxirgi Relizni Yuklab Olish",
   cta_website: "Veb-sayt",
   website_url: "https://arroxy.com/",
@@ -106,7 +106,7 @@ export const uz = {
   intro_what_is:
     "**Arroxy nima?** Arroxy — YouTube hamda [yt-dlp](https://github.com/yt-dlp/yt-dlp) qo'llab-quvvatlaydigan 2000 dan ortiq boshqa saytlardan video, audio, pleylist va subtitrlarni yuklab oladigan bepul, ochiq manbali desktop ilovasi (GUI). U Windows 10/11, macOS 13+ (Intel + Apple Silicon) va Linux (AppImage, Flatpak, tar.gz) da ishlaydi. GPLv3 litsenziyasi ostida. Reklama yo'q, foydalanish cheklovlari yo'q. [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage va to'g'ridan-to'g'ri yuklab olish orqali tarqatiladi.",
   intro_key_difference:
-    "**Asosiy farq: o'rnatilgan brauzer.** Ko'pchilik bepul YouTube yuklovchilari yupqa yt-dlp qobiqlaridir: URL maydoni va format menyusi, o'z brauzeri yo'q. Arroxy'da u bor — **Explore bo'limi**. Siz YouTube yoki boshqa istalgan saytni ilova ichida ko'rib chiqasiz va turgan videongiz, pleylistingiz yoki kanalingizni yuklab olasiz, yoki istalgan havolani o'ng tugma bilan bosasiz. Explore'da bir marta tizimga kirasiz, shunda Arroxy hisobingiz ko'ra oladigan yopiq, faqat a'zolar uchun va yosh chegarali videolarni, shuningdek “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringizni kukilarni eksport qilmasdan yuklab oladi. Boshqa saytlarga ham shu yerda kiring — ularning yuklamalari kerak bo'lganda shu kirishdan foydalanadi. YouTube robot emasligingizni tasdiqlashni so'rasa, Arroxy shu kirish bilan qayta urinib ko'radi. Uning o'rnatilgan brauzeri yuklab olishdan oldin YouTube kutadigan tokenni ham oladi, shuning uchun YouTube yuklab olishni kamroq formatgacha qisqartirmaydi. Faqat URL maydonidan iborat qobiq bu cheklovlarning barchasiga duch keladi. Batafsil: [Nima uchun Arroxy](#why-explore).",
+    "**Asosiy farq: o'rnatilgan brauzer.** Ko'pchilik bepul YouTube yuklovchilari yupqa yt-dlp qobiqlaridir: URL maydoni va format menyusi, o'z brauzeri yo'q. Arroxy'da u bor — **Explore bo'limi**. Siz YouTube yoki boshqa istalgan saytni ilova ichida ko'rib chiqasiz va turgan videongiz, pleylistingiz yoki kanalingizni yuklab olasiz, yoki istalgan havolani o'ng tugma bilan bosasiz. Explore'da bir marta tizimga kirsangiz, hisob talab qiladigan yuklamalar shu kirishdan foydalanadi: yopiq videolaringiz, “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringiz hamda hisobingiz allaqachon ko'ra oladigan boshqa videolar, kukilarni eksport qilmasdan. Boshqa saytlarga ham shu yerda kiring — ularning yuklamalari kerak bo'lganda shu kirishdan foydalanadi. Batafsil: [Nima uchun Arroxy](#why-explore).",
   last_updated: "Oxirgi yangilanish: {{LAST_UPDATED}}.",
   toc_heading: "Mundarija",
   why_h2: "Nima uchun Arroxy",
@@ -126,20 +126,16 @@ export const uz = {
   why_r8:
     "O'rnatilgan brauzer (ko'rib chiqish, tizimga kirish, yuklab olish)",
   why_r9:
-    "Kukilarni eksport qilmasdan yopiq, faqat a'zolar uchun va yosh chegarali videolar",
+    "Kukilarni eksport qilmasdan hisobingiz ko'ra oladigan videolar",
   why_table_note:
     "⚠️ = qisman yoki faqat pullik tarifda. 4K Video Downloader'da yopiq videolar uchun ilova ichida tizimga kirish pullik funksiya; ko'pchilik bepul yt-dlp GUI'lari faqat kuki faylini qabul qiladi yoki veb-brauzeringizdagi kukilarni o'qiydi.",
   why_summary:
     "Arroxy bir narsa uchun yaratilgan: URL'ni joylaysizmi yoki videoni Explore'da topasizmi — natijada toza mahalliy fayl. Qo'shimcha takliflar yo'q, ma'lumot to'plash yo'q.",
   why_explore_h3: "Oddiy yt-dlp qobig'i qila olmaydigan narsa: Explore bo'limi",
   why_explore_intro:
-    "Ko'pchilik bepul YouTube yuklovchilari yt-dlp ustidagi URL maydonidan iborat. Arroxy ham yt-dlp'dan foydalanadi, lekin unda **Explore** ham bor — ilovaga o'rnatilgan, YouTube yoki boshqa istalgan saytni ochadigan brauzer. Explore URL maydoni yengib o'ta olmaydigan cheklovlarni chetlab o'tadi:",
+    "Ko'pchilik bepul YouTube yuklovchilari yt-dlp ustidagi URL maydonidan iborat. Arroxy ham yt-dlp'dan foydalanadi, lekin unda **Explore** ham bor — ilovaga o'rnatilgan, YouTube yoki boshqa istalgan saytni ochadigan brauzer. Explore URL maydoni qila olmaydigan imkoniyatlarni qo'shadi:",
   why_explore_1:
-    "**Hisob talab qiladigan videolar, kukilarni eksport qilmasdan** — yopiq, faqat a'zolar uchun va yosh chegarali videolar (yoshi tasdiqlangan hisobda), shuningdek “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringiz hamda boshqa saytlarda tizimga kirishni talab qiladigan videolar. Oddiy qobiqqa eksport qilingan cookies.txt kerak yoki u veb-brauzeringizdagi kukilarni o'qishi shart, Windows'dagi Chrome esa endi buni bloklaydi. Arroxy'da Explore'da bir marta tizimga kirasiz, qolganini u o'zi bajaradi",
-  why_explore_2:
-    "**“Robot emasligingizni tasdiqlash uchun tizimga kiring”** — YouTube buni so'raganda Arroxy xato bilan to'xtamaydi, balki Explore orqali kirishingiz bilan yuklab olishni qayta urinadi",
-  why_explore_3:
-    "**YouTube yuklab olish tokeni** — Arroxy'ning o'rnatilgan brauzeri YouTube yuklab olishdan oldin kutadigan tokenni oladi. Usiz YouTube siz so'raganingizdan kamroq format va pastroq sifat berishi mumkin",
+    "**Kukilarni eksport qilmasdan, hisobingiz ko'ra oladigan videolar** — yopiq videolaringiz, “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringiz, yoshi tasdiqlangan hisobda yosh chegarali videolar hamda tizimga kirishni talab qiladigan boshqa saytlardagi sahifalar. Oddiy qobiqqa eksport qilingan cookies.txt kerak yoki u veb-brauzeringizdagi kukilarni o'qiydi. Arroxy'da Explore'da bir marta tizimga kirasiz, qolganini u o'zi bajaradi",
   why_explore_4:
     "**Havola nusxalash shart emas** — Explore'da video, pleylist yoki kanalni toping va bir bosishda yuklab oling yoki sahifadagi istalgan havolani o'ng tugma bilan bosing",
   why_explore_5:
@@ -150,7 +146,7 @@ export const uz = {
   feat_explore_7:
     "**Ixcham ko'rinish** — Explore asboblar panelidagi bir bosish Arroxy'ning yorliqlarini unga ko'chiradi va sahifaga ko'proq joy beradi",
   feat_explore_2: "**Manzil satri** — YouTube'da qidirish uchun yozing yoki istalgan veb-manzilni kiriting, shu sayt ochiladi",
-  feat_explore_3: "**Hisob talab qiladigan yuklamalar** — Explore'da bir marta tizimga kiring, shunda Arroxy hisobingiz ko'ra oladigan yopiq va faqat a'zolar uchun videolarni, hisob yoshi tasdiqlangan bo'lsa yosh chegarali videolarni hamda “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringizni yuklab oladi. Boshqa saytlarga ham shu yerda kiring — ularning yuklamalari kerak bo'lganda shu kirishdan foydalanadi. Arroxy baribir avval tizimga kirmasdan yuklaydi va Explore orqali kirishingizdan faqat yuklab olish hisob tuzata oladigan tarzda muvaffaqiyatsiz bo'lganda foydalanadi. YouTube robot emasligingizni tasdiqlashni so'rasa, Arroxy Explore orqali kirishingizni ham sinab ko'radi",
+  feat_explore_3: "**Hisob talab qiladigan yuklamalar** — Explore'da bir marta tizimga kiring, shunda Arroxy hisobingiz ko'ra oladigan videolarni yuklab oladi: yopiq videolaringizni, hisob yoshi tasdiqlangan bo'lsa yosh chegarali videolarni hamda “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringizni. Boshqa saytlarga ham shu yerda kiring — ularning yuklamalari kerak bo'lganda shu kirishdan foydalanadi. Arroxy baribir avval tizimga kirmasdan yuklaydi va Explore orqali kirishingizdan faqat yuklab olish hisob tuzata oladigan tarzda muvaffaqiyatsiz bo'lganda foydalanadi",
   feat_explore_4: "**Qo'shimcha hisobdan foydalaning** — Explore'ning birinchi ekrani sababini tushuntiradi: hisob bilan yuklab olish o'sha hisob cheklanishi xavfini keltiradi. Kirishlaringizni unutmoqchi bo'lsangiz, istalgan payt Sozlamalardan Explore'dan chiqing",
   feat_explore_5: "**Reklama blokeri** — sukut bo'yicha o'chiq. Explore asboblar panelidagi qalqonni bir bossangiz, uning sahifalarida reklama va kuzatuvchilar bloklanadi, yuklab olishlarga ta'sir qilmaydi. YouTube tizimga kirgan hisoblar uchun reklama blokerlariga qarshilik qilishi mumkin",
   feat_quality_h3: "Sifat va formatlar",
@@ -192,7 +188,7 @@ export const uz = {
   feat_workflow_10:
     "**Bir vaqtda yuklamalar va avtomatik qayta urinish** — navbatdagi nechta yuklama bir vaqtda ishlashini tanlang va tarmoq yoki server nosozligiga uchragan yuklamani Arroxy har urinishdan oldin uzoqroq kutib qayta urinib ko'rsin",
   feat_workflow_11:
-    "**Har bir video uchun pleylist profillari** — pleylistdagi har bir videoga butun ro'yxat uchun bitta sozlama o'rniga o'z yuklash profilini bering, shunda bitta bosqichda ba'zilarini to'liq sifatda saqlab, qolganlarini MP3 sifatida olish mumkin",
+    "**Har bir video uchun pleylist profillari** — pleylistdagi har bir videoga butun ro'yxat uchun bitta sozlama o'rniga o'z yuklash profilini bering, shunda bitta bosqichda ba'zilarini to'liq sifatda arxivlab, qolganlarini faqat audio sifatida saqlash mumkin",
   feat_workflow_13: "**Quick Download fonda ishlaydi** — havola darhol Yuklamalarda paydo bo'lib, o'sha yerda tayyorlanadi, **Ko'rish** tugmali xabar buni tasdiqlaydi va URL maydoni keyingi havola uchun tozalanadi. Oldingilari tayyorlanayotganda xohlagancha boshlang",
   feat_workflow_14: "**Yuklamalar nimaga e'tibor kerakligini aytadi** — Arroxy havolani o'qiy olmasa, uning qatori sababini aytadi va yechimni taklif qiladi: Qayta urinish, kukilarni yoqish yoki Explore'da kirish. Kukilar o'chiq bo'lsa, **Explore orqali kirish** tizimga kirganingizdan keyin buni siz uchun qayta urinadi. Yuklash limitingizdan uzun pleylist o'z qatorida kutadi, siz hammasini, birinchilarini yoki ko'rib chiqishni tanlaysiz. Yuklamalar bo'limi sizni kutayotgan qatorlarni sanaydi",
   feat_workflow_15:
@@ -222,7 +218,7 @@ export const uz = {
   feat_sites_1:
     "**YouTube to'liq** — Videolar, Shorts, Kanallar, Pleylistlar, YouTube Music va Podkastlar birinchi darajali manbalar sifatida ishlaydi",
   feat_sites_2:
-    "**2000+ boshqa saytlar** yt-dlp orqali — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable va boshqalar",
+    "**2000+ boshqa saytlar** yt-dlp orqali — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable va boshqalar",
   feat_sites_3:
     "**Faqat audio va subtitrlar** har qanday qo'llab-quvvatlanadigan saytda ishlaydi, nafaqat YouTube'da",
   feat_sites_4:
@@ -241,7 +237,7 @@ export const uz = {
     "<b>Parallel yuklash navbati</b><br/>Bir vaqtning o'zida bir nechta yuklash, jonli jarayon bilan",
   hotkey_fig_alt: "Arroxy global yuklab olish tezkor tugmasi — Windows va Linux'da Ctrl+Shift+D, macOS'da Cmd+Shift+D, nusxalangan havolani to'g'ridan-to'g'ri yuklab olish navbatiga yuboradi",
   hotkey_fig_cap: "<b>Global yuklab olish tezkor tugmasi</b><br/>Istalgan joyda havolani nusxalang, bir marta bosing — u navbatga tushadi va yuklab olina boshlaydi",
-  shot7_cap: "<b>Har bir video uchun pleylist profillari</b><br/>Har bir videoga o'z profilini bering — ba'zilarini 4K'da saqlang, qolganini MP3 sifatida oling",
+  shot7_cap: "<b>Har bir video uchun pleylist profillari</b><br/>Har bir videoga o'z profilini bering — ba'zilarini 4K'da arxivlang, qolganini faqat audio sifatida saqlang",
   shot8_cap: "<b>Explore</b><br/>YouTube yoki boshqa istalgan saytni Arroxy ichida ko'ring va turgan sahifangizni faol profilingiz bilan yuklab oling",
   shot9_cap: "<b>Explore'ning birinchi ekrani</b><br/>Explore'ga qisqa nazar va nega qo'shimcha hisob xavfsizroq kirish ekani",
   shot10_cap: "<b>Yuklamalar nimaga e'tibor kerakligini aytadi</b><br/>Havolalar fonda tayyorlanadi; muvaffaqiyatsizi yechimini taklif qiladi, uzun pleylist esa tanlovingizni kutadi",
@@ -375,15 +371,15 @@ export const uz = {
 
   privacy_p1:
     "Yuklamalar YouTube'dan siz tanlagan papkaga to'g'ridan-to'g'ri [yt-dlp](https://github.com/yt-dlp/yt-dlp) orqali olinadi — hech narsa uchinchi tomon server orqali yo'naltirilmaydi. Ko'rish tarixi, yuklab olish tarixi, URL'lar va fayl mazmunlari qurilmangizda qoladi.",
-  privacy_p2:
-    "Telemetriya yo‘q — kuniga faqat bitta anonim signal: ilova versiyasi, OS, til, o‘rnatish kanali, mamlakat va Arroxy taxminan qachon o‘rnatilgani, faol va yangi foydalanuvchilarni sanash uchun. ID, URL, video sarlavhasi, fayl yo‘li yoki hisob ma’lumoti yo‘q. Sozlamalarda o‘chirib qo‘yishingiz mumkin.",
+  privacy_reports:
+    "Kuzatuv yo'q — kuniga bitta anonim signal (ilova versiyasi, OS, til, o'rnatish kanali, mamlakat va Arroxy taxminan qachon o'rnatilgani), shunda faol va yangi foydalanuvchilarni sanay olamiz, hamda Arroxy yt-dlp va FFmpeg'ni yuklab olganda yoki yangilaganda, bu ishlagani va taxminan qancha vaqt olgani haqida anonim xabar. ID, URL, video sarlavhasi, fayl yo'li yoki hisob ma'lumoti yo'q. Ikkalasini ham Sozlamalarda o'chirib qo'yishingiz mumkin.",
   privacy_p3: "Explore o'z kirishlarini saqlaydi, brauzeringizdan alohida, va Arroxy kirish shaklini hech qachon o'qimaydi yoki to'ldirmaydi — siz saytning o'z sahifasiga yozasiz. Yuklab olishlar tizimga kirmasdan bajariladi; faqat biri hisob tuzata oladigan tarzda muvaffaqiyatsiz bo'lganda Arroxy kirishni o'sha payt o'qiydi, o'sha yuklab olish uchun vaqtinchalik faylda saqlaydi va keyin faylni o'chiradi. Sozlamalarda Explore'dan chiqish ularni unutadi.",
   faq_q1: "Bu haqiqatan ham bepulmi?",
   faq_a1:
     "Ha — GPLv3 litsenziyalangan, premium daraja yo'q, xususiyat cheklash yo'q.",
   faq_q11: "Arroxy boshqa yt-dlp GUI'laridan nimasi bilan farq qiladi?",
   faq_a11:
-    "Ko'pchilik bepul yt-dlp GUI'lari faqat havola qabul qiladigan qobiqlardir. Arroxy bunga **Explore**'ni qo'shadi — ilovaga o'rnatilgan, YouTube yoki boshqa istalgan saytni ochadigan brauzer: havola nusxalamasdan ko'rib chiqasiz va yuklab olasiz, u yerda bir marta tizimga kirib, yopiq, faqat a'zolar uchun va yosh chegarali videolarni hamda “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringizni kukilarni eksport qilmasdan yuklab olasiz. YouTube robot emasligingizni tasdiqlashni so'raganda Arroxy shu kirishdan foydalanadi, o'rnatilgan brauzeri esa YouTube yuklab olish tokenini oladi, shuning uchun yuklab olishlar kamroq formatlarga tushib qolmaydi. [Nima uchun Arroxy](#why) bo'limiga qarang.",
+    "Ko'pchilik bepul yt-dlp GUI'lari faqat havola qabul qiladigan qobiqlardir. Arroxy bunga **Explore**'ni qo'shadi — ilovaga o'rnatilgan, YouTube yoki boshqa istalgan saytni ochadigan brauzer: havola nusxalamasdan ko'rib chiqasiz va yuklab olasiz, u yerda bir marta tizimga kirib, hisobingiz ko'ra oladigan videolarni, masalan, yopiq videolaringizni hamda “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringizni kukilarni eksport qilmasdan yuklab olasiz. [Nima uchun Arroxy](#why) bo'limiga qarang.",
   faq_q2: "Qanday video sifatlarini yuklab olishim mumkin?",
   faq_a2:
     "YouTube uzatadigan har qanday narsa: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p va faqat audio. 60 fps va HDR oqimlari o'zgarmagan holda saqlanadi, bosqichma-bosqich yuklab olish esa har bir ruxsatda AV1, VP9 yoki H.264 ni tanlash imkonini beradi.",
@@ -391,9 +387,9 @@ export const uz = {
   faq_a3:
     "Ha. Format menyusidan *faqat audio* ni tanlang va MP3, M4A/AAC, Opus yoki WAV ni belgilang.",
   faq_q4: "Hisob talab qiladigan YouTube videolarini qanday yuklab olaman?",
-  faq_a4: "Explore bo'limida bir marta tizimga kiring. Shunda Arroxy hisobingiz ko'ra oladigan yopiq va faqat a'zolar uchun videolarni, hisob yoshi tasdiqlangan bo'lsa yosh chegarali videolarni hamda “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringizni yuklab oladi. U tizimga kirishdan faqat yuklab olish hisob tuzata oladigan tarzda muvaffaqiyatsiz bo'lganda foydalanadi; qolgan hamma narsa avvalgidek yuklanadi. Bu kuki sozlamalarida birinchi turadigan va Tavsiya etiladi deb belgilangan **Explore orqali kirish** variantidir, Arroxy uni Explore'ni birinchi ochganingizda siz uchun tanlaydi. yt-dlp wiki sahifasida [tizimga kirilgan holatdagi avtomatlashtirish Google hisobini belgilashi mumkinligi haqida ogohlantirish berilgan](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), shuning uchun qo'shimcha hisob xavfsizroq tanlovdir.",
+  faq_a4: "Explore bo'limida bir marta tizimga kiring. Shunda Arroxy hisobingiz ko'ra oladigan videolarni yuklab oladi: yopiq videolaringizni, hisob yoshi tasdiqlangan bo'lsa yosh chegarali videolarni hamda “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringizni. U tizimga kirishdan faqat yuklab olish hisob tuzata oladigan tarzda muvaffaqiyatsiz bo'lganda foydalanadi; qolgan hamma narsa avvalgidek yuklanadi. Bu kuki sozlamalarida birinchi turadigan va Tavsiya etiladi deb belgilangan **Explore orqali kirish** variantidir, Arroxy uni Explore'ni birinchi ochganingizda siz uchun tanlaydi. yt-dlp wiki sahifasida [tizimga kirilgan holatdagi avtomatlashtirish Google hisobini belgilashi mumkinligi haqida ogohlantirish berilgan](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), shuning uchun qo'shimcha hisob xavfsizroq tanlovdir.",
   faq_q5: "YouTube nimadir o'zgartirsa ham ishlashda davom etadimi?",
-  faq_a5: "yt-dlp ishga tushirishda avtomatik yangilanadi, va YouTube biror narsani o'zgartirganda Arroxy tezlik bilan tuzatishlarni chiqaradi. YouTube robot emasligingizni tasdiqlashni so'raganda, Explore'da tizimga kirgan bo'lsangiz Arroxy Explore orqali kirishingizni ham sinab ko'radi, fayldagi yoki brauzeringizdagi kukilar esa kuki sozlamalarida mavjud.",
+  faq_a5: "yt-dlp ishga tushirishda avtomatik yangilanadi, va YouTube biror narsani o'zgartirganda Arroxy tezlik bilan tuzatishlarni chiqaradi. Yuklab olish uchun tizimga kirish kerak bo'lganda, Explore'da tizimga kirgan bo'lsangiz Arroxy Explore orqali kirishingizdan foydalanadi, fayldagi yoki brauzeringizdagi kukilar esa kuki sozlamalarida mavjud.",
   faq_q6: "Arroxy qanday tillarda mavjud?",
   faq_a6:
     "{{LANG_COUNT}} til darhol mavjud: {{LANG_NAME_LIST}}. Arroxy birinchi ishga tushirilganda operatsion tizimingiz tilini avtomatik aniqlaydi, va tilni asboblar panelidagi tanlagichdan istalgan vaqtda almashtirishingiz mumkin. Runtime locale JSON src/shared/i18n/locales/ ichida, tarjimonlar uchun PO catalog esa i18n/locales/ ichida — hissa qo‘shish uchun GitHub’da PR oching.",
@@ -408,7 +404,7 @@ export const uz = {
     "Bu macOS Gatekeeper imzolanmagan appni bloklayotgani, haqiqiy shikastlanish emas. Quarantine ni olib tashlash va Arroxy ni ishga tushirish uchun Terminal buyruqlari [macOS first launch](#macos-first-launch) bo'limida.",
   faq_q10: "YouTube videolarini yuklab olish qonuniyimi?",
   faq_a10:
-    "Shaxsiy, xususiy foydalanish uchun bu ko'pchilik yurisdiktsiyalarda umumiy qabul qilingan. Siz YouTube ning [Foydalanish Shartlari](https://www.youtube.com/t/terms) va mahalliy mualliflik huquqi qonunlariga rioya qilish uchun javobgarsiz.",
+    "Bu mamlakatingizga va nimani yuklab olishingizga bog'liq. Faqat o'zingizga tegishli kontentni, yuklab olish uchun litsenziyalangan kontentni yoki mamlakatingiz qonunlari nusxalashga ruxsat beradigan kontentni yuklab oling. YouTube ning [Foydalanish Shartlari](https://www.youtube.com/t/terms) va mahalliy mualliflik huquqi qonunlariga rioya qilish uchun o'zingiz javobgarsiz. [Foydalanish shartlari](#terms) bo'limiga qarang.",
   plan_intro: "Hali rejalashtirilgan — taxminan ustuvorlik tartibida:",
   plan_col1: "Xususiyat",
   plan_col2: "Tavsif",
@@ -431,7 +427,7 @@ export const uz = {
     "Xayyolizda xususiyat bormi? [So'rov yuboring](../../issues) — jamiyat ishtiroki ustuvorlikni belgilaydi.",
   tech_content: TECH_CONTENT,
   support_h2: "Arroxy'ni qo'llab-quvvatlash",
-  support_note: "Arroxy bepul va GPLv3 litsenziyasi ostida tarqatiladi — reklama yo'q, telemetriya yo'q, pullik versiya yo'q. Agar u vaqtingizni tejasa, ishlanmani Bitcoin, Tron yoki Ethereum orqali qo'llab-quvvatlashingiz mumkin: manzillar [DONATE.md](DONATE.md) faylida keltirilgan va bu ular uchun yagona rasmiy manbadir. Arroxy hech qachon sizga manzilni elektron pochta yoki shaxsiy xabar orqali yubormaydi. Repozitoriyga yulduzcha qo'yish, xatolar haqida xabar berish va tarjimalarni yaxshilash ham xuddi shunday yordam beradi.",
+  support_line: "Arroxy bepul va GPLv3 litsenziyasi ostida tarqatiladi — reklama yo'q, kuzatuv yo'q, pullik versiya yo'q. Agar u vaqtingizni tejasa, ishlanmani Bitcoin, Tron yoki Ethereum orqali qo'llab-quvvatlashingiz mumkin: manzillar [DONATE.md](DONATE.md) faylida keltirilgan va bu ular uchun yagona rasmiy manbadir. Arroxy hech qachon sizga manzilni elektron pochta yoki shaxsiy xabar orqali yubormaydi. Repozitoriyga yulduzcha qo'yish, xatolar haqida xabar berish va tarjimalarni yaxshilash ham xuddi shunday yordam beradi.",
   tos_h2: "Foydalanish shartlari",
   tos_note:
     "Arroxy faqat shaxsiy, xususiy foydalanish uchun mo'ljallangan vosita. Siz yuklab olishlaringiz YouTube ning [Foydalanish Shartlari](https://www.youtube.com/t/terms) va yurisdiktsiyangizning mualliflik huquqi qonunlariga muvofiqligini ta'minlash uchun yagona javobgarsiz. Arroxy ni foydalanish huquqingiz bo'lmagan kontentni yuklab olish, ko'paytirish yoki tarqatish uchun ishlatmang. Ishlab chiquvchilar har qanday suiiste'mollik uchun javobgar emas.",

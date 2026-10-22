@@ -9,7 +9,7 @@
 
 [![Phiên bản](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Trang web](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Giấy phép](https://img.shields.io/badge/license-GPLv3-blue) ![Nền tảng](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Ngôn ngữ](https://img.shields.io/badge/i18n-50_languages-blue)
 
-Tải xuống video, Shorts, nhạc, kênh, podcast hoặc bản nhạc từ **YouTube và hơn 2000 trang được hỗ trợ** — lên tới 8K HDR ở 60 fps, dưới dạng MP3 / AAC / Opus, hoặc chỉ đoạn bạn cần. **Duyệt YouTube hoặc bất kỳ trang nào khác ngay trong Arroxy** ở tab Explore và tải video, danh sách phát hoặc kênh bạn đang xem; đăng nhập tại đó để tải video riêng tư, dành cho thành viên và giới hạn độ tuổi mà tài khoản của bạn xem được. Chạy hoàn toàn cục bộ trên Windows, macOS và Linux. **Không quảng cáo, không phồng to, không bán thêm.**
+Tải xuống video, Shorts, kênh, podcast hoặc bản nhạc từ **YouTube và hơn 2000 trang được hỗ trợ** — lên tới 8K HDR ở 60 fps, dưới dạng MP3 / AAC / Opus, hoặc chỉ đoạn bạn cần. **Duyệt YouTube hoặc bất kỳ trang nào khác ngay trong Arroxy** ở tab Explore và tải video, danh sách phát hoặc kênh bạn đang xem; đăng nhập tại đó để tải các video mà chính tài khoản của bạn đã xem được. Chạy hoàn toàn cục bộ trên Windows, macOS và Linux. **Không quảng cáo, không phồng to, không bán thêm.**
 
 [**↓ Tải phiên bản mới nhất**](#install) &nbsp;·&nbsp; [**Trang web**](https://arroxy.com/) &nbsp;·&nbsp; [Lần đầu khởi động trên Windows](#windows-first-launch) · [Lần đầu khởi động trên macOS](#macos-first-launch) · [Lần đầu khởi động trên Linux](#linux-first-launch)
 
@@ -28,7 +28,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 
 > **Arroxy là gì?** Arroxy là ứng dụng desktop (GUI) miễn phí, mã nguồn mở, dùng để tải video, âm thanh, danh sách phát và phụ đề từ YouTube cùng hơn 2000 trang khác được [yt-dlp](https://github.com/yt-dlp/yt-dlp) hỗ trợ. Ứng dụng chạy trên Windows 10/11, macOS 13+ (Intel + Apple Silicon) và Linux (AppImage, Flatpak, tar.gz). Giấy phép GPLv3. Không quảng cáo, không giới hạn sử dụng. Phân phối qua [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage và tải trực tiếp.
 >
-> **Điểm khác biệt chính: trình duyệt tích hợp.** Hầu hết trình tải YouTube miễn phí chỉ là lớp bao mỏng quanh yt-dlp: một ô nhập URL và một menu định dạng, không có trình duyệt riêng. Arroxy thì có, đó là **tab Explore**. Bạn duyệt YouTube hoặc bất kỳ trang nào khác ngay trong ứng dụng và tải video, danh sách phát hoặc kênh đang mở, hoặc nhấp chuột phải vào bất kỳ liên kết nào. Bạn đăng nhập một lần trong Explore, và Arroxy tải video riêng tư, video dành cho thành viên và video giới hạn độ tuổi mà tài khoản của bạn xem được, cùng danh sách Xem sau và Video đã thích của bạn, mà không cần xuất cookie. Bạn cũng có thể đăng nhập các trang khác tại đó, và các lượt tải từ những trang này sẽ dùng đăng nhập đó khi cần. Arroxy thử lại bằng đăng nhập đó khi YouTube yêu cầu xác nhận bạn không phải robot. Trình duyệt tích hợp cũng lấy token mà YouTube mong đợi trước khi tải, nên YouTube không cắt bớt số định dạng của lượt tải. Một lớp bao chỉ có ô nhập URL sẽ vướng tất cả những giới hạn này. Chi tiết: [Tại sao chọn Arroxy](#why-explore).
+> **Điểm khác biệt chính: trình duyệt tích hợp.** Hầu hết trình tải YouTube miễn phí chỉ là lớp bao mỏng quanh yt-dlp: một ô nhập URL và một menu định dạng, không có trình duyệt riêng. Arroxy thì có, đó là **tab Explore**. Bạn duyệt YouTube hoặc bất kỳ trang nào khác ngay trong ứng dụng và tải video, danh sách phát hoặc kênh đang mở, hoặc nhấp chuột phải vào bất kỳ liên kết nào. Nếu bạn đăng nhập một lần trong Explore, các lượt tải cần tài khoản sẽ dùng đăng nhập đó: video riêng tư của bạn, danh sách Xem sau và Video đã thích của bạn, cùng các video khác mà tài khoản của bạn đã xem được, mà không cần xuất cookie. Bạn cũng có thể đăng nhập các trang khác tại đó, và các lượt tải từ những trang này sẽ dùng đăng nhập đó khi cần. Chi tiết: [Tại sao chọn Arroxy](#why-explore).
 >
 > _Cập nhật lần cuối: 2026-10-22._
 
@@ -79,7 +79,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Phím tắt tải xuống toàn cục của Arroxy — Ctrl+Shift+D trên Windows và Linux, Cmd+Shift+D trên macOS, đưa liên kết đã sao chép thẳng vào hàng đợi tải xuống" width="760" /></picture><br/><sub><b>Phím tắt tải xuống toàn cục</b><br/>Sao chép liên kết ở bất cứ đâu, nhấn một lần — nó vào hàng đợi và bắt đầu tải</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/vi/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Hồ sơ theo từng video trong danh sách phát</b><br/>Cho mỗi video một hồ sơ riêng — lưu một số ở 4K, lấy phần còn lại dạng MP3</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/vi/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Hồ sơ theo từng video trong danh sách phát</b><br/>Cho mỗi video một hồ sơ riêng — lưu trữ một số ở 4K, lưu phần còn lại chỉ dưới dạng âm thanh</sub></td>
   </tr>
   <tr>
     <td width="50%" valign="top" align="center"><img src="../../build/screenshots/vi/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>Trang Tải nhanh</b><br/>Dán URL và tải ngay với hồ sơ đang dùng</sub></td>
@@ -102,7 +102,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 - **Nhấp chuột phải để tải** — nhấp chuột phải vào bất kỳ liên kết video, danh sách phát hoặc kênh nào trong Explore để tải bằng hồ sơ của bạn, chọn hồ sơ khác trong **Tải xuống với**, mở trình tải từng bước hoặc sao chép liên kết. Không cần mở từng video trước
 - **Bố cục thu gọn** — một cú nhấp trên thanh công cụ của Explore chuyển các tab của Arroxy vào đó và cho trang thêm không gian
 - **Thanh địa chỉ** — gõ để tìm kiếm trên YouTube, hoặc nhập bất kỳ địa chỉ web nào để mở trang đó
-- **Tải video cần tài khoản** — đăng nhập một lần trong Explore là Arroxy có thể tải video riêng tư và video dành cho thành viên mà tài khoản của bạn xem được, video giới hạn độ tuổi nếu tài khoản đã xác minh tuổi, cùng danh sách Xem sau và Video đã thích của bạn. Bạn cũng có thể đăng nhập các trang khác tại đó, và các lượt tải từ những trang này sẽ dùng đăng nhập đó khi cần. Arroxy vẫn tải trước tiên khi chưa đăng nhập và chỉ dùng đăng nhập Explore của bạn khi một lượt tải thất bại theo cách mà tài khoản có thể khắc phục. Khi YouTube yêu cầu xác nhận bạn không phải robot, Arroxy cũng thử dùng đăng nhập Explore của bạn
+- **Tải video cần tài khoản** — đăng nhập một lần trong Explore là Arroxy có thể tải các video mà tài khoản của bạn xem được: video riêng tư của bạn, video giới hạn độ tuổi nếu tài khoản đã xác minh tuổi, cùng danh sách Xem sau và Video đã thích của bạn. Bạn cũng có thể đăng nhập các trang khác tại đó, và các lượt tải từ những trang này sẽ dùng đăng nhập đó khi cần. Arroxy vẫn tải trước tiên khi chưa đăng nhập và chỉ dùng đăng nhập Explore của bạn khi một lượt tải thất bại theo cách mà tài khoản có thể khắc phục
 - **Dùng tài khoản phụ** — màn hình đầu tiên của Explore giải thích lý do: tải bằng tài khoản có một chút rủi ro tài khoản đó bị hạn chế. Hãy đăng xuất khỏi Explore trong Cài đặt bất cứ khi nào bạn muốn xóa các thông tin đăng nhập
 - **Trình chặn quảng cáo** — tắt theo mặc định. Một cú nhấp vào biểu tượng khiên trên thanh công cụ của Explore sẽ chặn quảng cáo và trình theo dõi trên các trang của nó mà không ảnh hưởng đến việc tải xuống. YouTube có thể phản ứng với trình chặn quảng cáo đối với tài khoản đã đăng nhập
 
@@ -143,7 +143,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 - **Điều khiển tốc độ và nhịp tải** — giới hạn băng thông tải xuống, đặt số phần của video được tải cùng lúc và thêm độ trễ giữa các yêu cầu với các thiết lập sẵn (*Tắt · Cân bằng · Thận trọng · Tùy chỉnh*)
 - **Mẫu tên tệp** — đặt tên tệp tải về theo ý bạn với `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` và `{playlist_index}`, áp dụng chung hoặc theo từng hồ sơ tải xuống
 - **Tải cùng lúc và tự động thử lại** — chọn bao nhiêu mục trong hàng đợi được tải cùng lúc, và để Arroxy thử lại một mục gặp sự cố mạng hoặc máy chủ, chờ lâu hơn trước mỗi lần thử
-- **Hồ sơ theo từng video trong danh sách phát** — gán cho mỗi video trong danh sách phát hồ sơ tải riêng thay vì một cài đặt chung cho cả danh sách, để một lượt tải có thể lưu trữ một số video ở chất lượng đầy đủ và lấy phần còn lại dưới dạng MP3
+- **Hồ sơ theo từng video trong danh sách phát** — gán cho mỗi video trong danh sách phát hồ sơ tải riêng thay vì một cài đặt chung cho cả danh sách, để một lượt tải có thể lưu trữ một số video ở chất lượng đầy đủ và lưu phần còn lại chỉ dưới dạng âm thanh
 - **Quick Download chạy nền** — liên kết hiện ngay trong Tải xuống và được chuẩn bị tại đó, một thông báo có nút **Xem** xác nhận, và ô URL được xóa để nhập liên kết tiếp theo. Bạn có thể bắt đầu bao nhiêu lượt tùy ý trong khi các lượt trước vẫn đang chuẩn bị
 - **Tải xuống cho bạn biết điều gì cần bạn xử lý** — nếu Arroxy không đọc được một liên kết, dòng của nó nêu lý do và đề xuất cách khắc phục: Thử lại, bật cookie hoặc đăng nhập trong Explore. Khi cookie tắt, **Đăng nhập bằng Explore** sẽ thử lại giúp bạn sau khi bạn đã đăng nhập. Danh sách phát dài hơn giới hạn tải sẽ chờ trên dòng của nó để bạn chọn toàn bộ, vài video đầu, hoặc xem lại. Tab Tải xuống đếm số dòng đang chờ bạn
 - **Chỉ tải một đoạn của video** — chọn điểm bắt đầu và kết thúc, hoặc một chương, trên màn hình Format và Arroxy chỉ lưu đoạn đó, tên tệp ghi khoảng thời gian sau ID video. Điểm cắt rơi vào keyframe gần nhất; bật cắt chính xác để mã hóa lại thay vào đó
@@ -170,7 +170,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 <summary><strong>🌐 YouTube + 2000 trang</strong></summary>
 
 - **YouTube đầy đủ** — Video, Shorts, Kênh, Playlist, YouTube Music và Podcast được hỗ trợ như nguồn hạng nhất
-- **Hơn 2000 trang khác** qua yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable và nhiều hơn nữa
+- **Hơn 2000 trang khác** qua yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable và nhiều hơn nữa
 - **Chỉ âm thanh và phụ đề** hoạt động trên mọi trang được hỗ trợ, không chỉ YouTube
 - Nếu một trang thay đổi, yt-dlp phát hành bản sửa lỗi hàng tuần và Arroxy tự động cập nhật nhị phân khi khởi động
 
@@ -364,7 +364,7 @@ So sánh trực tiếp với các lựa chọn thay thế phổ biến nhất:
 |            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Trình duyệt tích hợp (duyệt, đăng nhập, tải xuống) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
-| Video riêng tư, dành cho thành viên và giới hạn độ tuổi mà không cần xuất cookie |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
+| Video mà tài khoản của bạn xem được, không cần xuất cookie |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
 | Miễn phí, không có gói cao cấp |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Mã nguồn mở |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Chỉ xử lý cục bộ |   ✅   |           ✅            |         ✅          |     ✅      |             ❌             |         ✅         |
@@ -378,9 +378,9 @@ Arroxy được xây dựng cho một mục đích duy nhất: một file cục 
 
 ### <a id="why-explore"></a>🧭 Điều mà một trình bao yt-dlp đơn thuần không làm được: tab Explore
 
-Hầu hết các trình tải YouTube miễn phí chỉ là một ô nhập URL đặt trên yt-dlp. Arroxy cũng dùng yt-dlp, nhưng còn có **Explore**, một trình duyệt tích hợp sẵn trong ứng dụng, mở được YouTube hoặc bất kỳ trang nào khác. Explore vượt qua những giới hạn mà một ô nhập URL không làm được:
+Hầu hết các trình tải YouTube miễn phí chỉ là một ô nhập URL đặt trên yt-dlp. Arroxy cũng dùng yt-dlp, nhưng còn có **Explore**, một trình duyệt tích hợp sẵn trong ứng dụng, mở được YouTube hoặc bất kỳ trang nào khác. Explore bổ sung những gì một ô nhập URL không làm được:
 
-- **Video cần tài khoản, không cần xuất cookie** — video riêng tư, video dành cho thành viên và video giới hạn độ tuổi (với tài khoản đã xác minh tuổi), cùng danh sách Xem sau và Video đã thích của bạn, cùng video cần đăng nhập trên các trang khác. Một trình bao đơn thuần cần bạn xuất cookies.txt hoặc phải đọc cookie từ trình duyệt web của bạn, điều mà Chrome trên Windows hiện đã chặn. Với Arroxy, bạn chỉ cần đăng nhập một lần trong Explore và nó lo phần còn lại
+- **Video mà tài khoản của bạn xem được, không cần xuất cookie** — video riêng tư của bạn, danh sách Xem sau và Video đã thích của bạn, video giới hạn độ tuổi trên tài khoản đã xác minh tuổi, và các trang ở trang web khác cần đăng nhập của bạn. Một trình bao đơn thuần cần bạn xuất cookies.txt hoặc đọc cookie từ trình duyệt web của bạn. Với Arroxy, bạn chỉ cần đăng nhập một lần trong Explore và nó lo phần còn lại
 - **Không cần sao chép liên kết** — tìm video, danh sách phát hoặc kênh trong Explore rồi tải chỉ với một cú nhấp, hoặc nhấp chuột phải vào bất kỳ liên kết nào trên trang
 - **Trình chặn quảng cáo khi bạn cần** — chỉ một cú nhấp vào biểu tượng khiên là Explore chặn quảng cáo và trình theo dõi trên các trang của nó
 
@@ -390,7 +390,7 @@ Hầu hết các trình tải YouTube miễn phí chỉ là một ô nhập URL 
 
 Tải xuống được lấy trực tiếp qua [yt-dlp](https://github.com/yt-dlp/yt-dlp) từ YouTube đến thư mục bạn chọn — không có gì đi qua máy chủ bên thứ ba. Lịch sử xem, lịch sử tải xuống, URL và nội dung file vẫn ở trên thiết bị của bạn.
 
-No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
+Không theo dõi — mỗi ngày một tín hiệu ẩn danh (phiên bản ứng dụng, OS, ngôn ngữ, kênh cài đặt, quốc gia và khoảng thời gian đã trôi qua kể từ khi cài đặt Arroxy) để chúng tôi đếm số người dùng đang hoạt động và người dùng mới, và khi Arroxy tải hoặc cập nhật yt-dlp và FFmpeg, một ghi chú ẩn danh cho biết việc đó có thành công không và mất khoảng bao lâu. Không có ID, URL, tiêu đề video, đường dẫn tệp hay thông tin tài khoản. Bạn có thể tắt cả hai trong Cài đặt.
 
 Explore giữ các đăng nhập riêng, tách biệt với trình duyệt của bạn, và Arroxy không bao giờ đọc hay điền biểu mẫu đăng nhập — bạn nhập trực tiếp vào trang của chính trang web đó. Các lượt tải chạy khi chưa đăng nhập; chỉ khi một lượt tải thất bại theo cách mà tài khoản có thể khắc phục, Arroxy mới đọc lại thông tin đăng nhập, lưu vào một tệp tạm cho lượt tải đó và xóa tệp sau đó. Đăng xuất khỏi Explore trong Cài đặt sẽ xóa các thông tin này.
 
@@ -408,7 +408,7 @@ Có — giấy phép GPLv3, không có gói cao cấp, không khóa tính năng.
 <details>
 <summary><strong>Arroxy khác gì so với các GUI yt-dlp khác?</strong></summary>
 
-Hầu hết các GUI yt-dlp miễn phí chỉ là trình bao nhận liên kết. Arroxy bổ sung **Explore**, một trình duyệt tích hợp sẵn trong ứng dụng, mở được YouTube hoặc bất kỳ trang nào khác: bạn vừa duyệt vừa tải mà không cần sao chép liên kết, và chỉ cần đăng nhập ở đó một lần để tải video riêng tư, video dành cho thành viên, video giới hạn độ tuổi cùng danh sách Xem sau và Video đã thích của bạn, không cần xuất cookie. Arroxy dùng đăng nhập đó khi YouTube yêu cầu bạn xác nhận mình không phải robot, và trình duyệt tích hợp của nó lấy token tải xuống của YouTube để các lượt tải không bị giảm xuống còn ít định dạng hơn. Xem [Tại sao chọn Arroxy](#why).
+Hầu hết các GUI yt-dlp miễn phí chỉ là trình bao nhận liên kết. Arroxy bổ sung **Explore**, một trình duyệt tích hợp sẵn trong ứng dụng, mở được YouTube hoặc bất kỳ trang nào khác: bạn vừa duyệt vừa tải mà không cần sao chép liên kết, và chỉ cần đăng nhập ở đó một lần để tải các video mà tài khoản của bạn xem được, như video riêng tư cùng danh sách Xem sau và Video đã thích của bạn, không cần xuất cookie. Xem [Tại sao chọn Arroxy](#why).
 
 </details>
 
@@ -429,14 +429,14 @@ Có. Chọn *chỉ âm thanh* trong menu định dạng rồi chọn MP3, M4A/AA
 <details>
 <summary><strong>Làm sao để tải video cần tài khoản YouTube?</strong></summary>
 
-Hãy đăng nhập một lần trong tab Explore. Sau đó Arroxy có thể tải video riêng tư và video dành cho thành viên mà tài khoản của bạn xem được, video giới hạn độ tuổi nếu tài khoản đã xác minh tuổi, cùng danh sách Xem sau và Video đã thích của bạn. Arroxy chỉ dùng đăng nhập này khi một lượt tải thất bại theo cách mà tài khoản có thể khắc phục; mọi thứ khác vẫn tải như trước. Đây là lựa chọn **Đăng nhập Explore** trong cài đặt cookie, được xếp đầu tiên và gắn nhãn Khuyên dùng, và Arroxy tự chọn nó cho bạn lần đầu bạn mở Explore. Wiki của yt-dlp lưu ý rằng [tự động hóa khi đã đăng nhập có thể gắn cờ tài khoản Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), nên tài khoản phụ là lựa chọn an toàn hơn.
+Hãy đăng nhập một lần trong tab Explore. Sau đó Arroxy có thể tải các video mà tài khoản của bạn xem được: video riêng tư của bạn, video giới hạn độ tuổi nếu tài khoản đã xác minh tuổi, cùng danh sách Xem sau và Video đã thích của bạn. Arroxy chỉ dùng đăng nhập này khi một lượt tải thất bại theo cách mà tài khoản có thể khắc phục; mọi thứ khác vẫn tải như trước. Đây là lựa chọn **Đăng nhập Explore** trong cài đặt cookie, được xếp đầu tiên và gắn nhãn Khuyên dùng, và Arroxy tự chọn nó cho bạn lần đầu bạn mở Explore. Wiki của yt-dlp lưu ý rằng [tự động hóa khi đã đăng nhập có thể gắn cờ tài khoản Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), nên tài khoản phụ là lựa chọn an toàn hơn.
 
 </details>
 
 <details>
 <summary><strong>Ứng dụng có tiếp tục hoạt động khi YouTube thay đổi gì đó không?</strong></summary>
 
-yt-dlp được cập nhật tự động khi khởi động, và Arroxy nhanh chóng phát hành các bản sửa lỗi khi YouTube thay đổi điều gì đó. Khi YouTube yêu cầu xác nhận bạn không phải robot, Arroxy cũng thử dùng đăng nhập Explore nếu bạn đã đăng nhập ở đó, và cookie từ tệp hoặc trình duyệt có sẵn trong cài đặt cookie.
+yt-dlp được cập nhật tự động khi khởi động, và Arroxy nhanh chóng phát hành các bản sửa lỗi khi YouTube thay đổi điều gì đó. Khi một lượt tải cần đăng nhập, Arroxy dùng đăng nhập Explore của bạn nếu bạn đã đăng nhập ở đó, và cookie từ tệp hoặc trình duyệt có sẵn trong cài đặt cookie.
 
 </details>
 
@@ -471,7 +471,7 @@ Có — cả hai. Dán URL playlist hoặc kênh (ví dụ `youtube.com/@handle`
 <details>
 <summary><strong>Tải video YouTube có hợp pháp không?</strong></summary>
 
-Đối với mục đích sử dụng cá nhân, riêng tư thì nhìn chung được chấp nhận ở hầu hết các khu vực pháp lý. Bạn có trách nhiệm tuân thủ [Điều khoản dịch vụ](https://www.youtube.com/t/terms) của YouTube và luật bản quyền tại địa phương của bạn.
+Điều này tùy thuộc vào quốc gia của bạn và nội dung bạn tải. Chỉ tải nội dung thuộc sở hữu của bạn, nội dung được cấp phép cho phép tải xuống, hoặc nội dung mà luật pháp nước bạn cho phép sao chép. Bạn có trách nhiệm tuân thủ [Điều khoản dịch vụ](https://www.youtube.com/t/terms) của YouTube và luật bản quyền tại địa phương của bạn. Xem [Điều khoản sử dụng](#terms).
 
 </details>
 
@@ -496,7 +496,7 @@ Bạn có ý tưởng tính năng? [Mở yêu cầu](../../../../issues) — ý 
 
 ## <a id="support"></a>💖 Ủng hộ Arroxy
 
-Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
+Arroxy miễn phí và có giấy phép GPLv3 — không quảng cáo, không theo dõi, không bản trả phí. Nếu nó giúp bạn tiết kiệm thời gian, bạn có thể ủng hộ việc phát triển bằng Bitcoin, Tron hoặc Ethereum: địa chỉ nằm trong [DONATE.md](../../DONATE.md), nguồn chính thức duy nhất cho các địa chỉ này. Arroxy sẽ không bao giờ gửi cho bạn địa chỉ qua email hay tin nhắn riêng. Gắn sao cho kho mã, báo lỗi và cải thiện bản dịch cũng giúp ích không kém.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

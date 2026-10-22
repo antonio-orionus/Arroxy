@@ -31,7 +31,6 @@
 		"cancel": "Cancelar",
 		"close": "Pechar",
 		"continue": "Continuar",
-		"dismiss": "Ignorar",
 		"loading": "Cargando",
 		"retry": "Tentar de novo",
 		"startOver": "Comezar de novo"
@@ -45,12 +44,11 @@
 			"remember": "Non volver preguntar"
 		},
 		"quitWithActiveDownloads": {
-			"confirm": "Cancelar descargas e saír",
-			"detail": "Pausa para retomar máis tarde ou cancela para descartar o progreso.",
+			"continueDetail": "A túa cola consérvase e as descargas continúan onde se detiveron a próxima vez que abras Arroxy.",
 			"keep": "Seguir descargando",
 			"message_one": "{{count}} descarga en curso",
 			"message_other": "{{count}} descargas en curso",
-			"pause": "Pausar descargas e saír"
+			"quit": "Saír"
 		},
 		"rendererCrashed": {
 			"detail": "O proceso de renderizado fallou ({{reason}}). Recarga para tentalo de novo.",
@@ -73,12 +71,12 @@
 		"noSubtitlesIn": "Este vídeo non ten subtítulos en {{languages}}.",
 		"ytdlp": {
 			"ageRestricted": "Este vídeo ten restrición de idade e non se pode descargar sen unha conta con sesión iniciada.",
-			"botBlock": "Activouse a protección contra bots. O máis probable é que a IP que usas estea marcada (rango de centro de datos ou saída de VPN moi usada). Cambia de IP ou escolle outro punto final da VPN e tenta de novo. Se segue fallando, pode ser un cambio temporal no sitio: Arroxy actualiza o seu motor de descarga ao iniciarse, así que a corrección chegará soa en canto se publique.",
+			"botBlock": "A protección contra bots do sitio deteu esta descarga. Agarda un pouco e tenta de novo, ou descarga menos vídeos á vez. Se segue fallando, pode ser un cambio temporal no sitio: Arroxy actualiza o seu motor de descarga ao iniciarse, así que a corrección chegará soa en canto se publique.",
 			"chunkTransferFailure": "O servidor cortou a descarga a metade unha e outra vez, e Arroxy rendeuse tras reintentalo. Isto adoita pasar cos formatos de vídeo máis grandes (4K HDR / VP9 de taxa de bits alta). Tenta de novo, cambia de rede/VPN ou escolle un formato de resolución menor.",
 			"drmProtected": "Este vídeo está protexido por DRM. Arroxy non pode eliminar o DRM, polo que o ficheiro non se pode descargar.",
 			"formatUnavailable": "Este vídeo xa non ofrece o formato que escolliches. Pega de novo a ligazón e escolle entre os formatos que ofrece agora.",
 			"geoBlocked": "Este vídeo non está dispoñible na túa rexión.",
-			"ipBlock": "Parece que a túa dirección IP está bloqueada. Tenta de novo máis tarde ou usa unha VPN.",
+			"ipBlock": "O sitio está bloqueando as solicitudes desta conexión. Tenta de novo máis tarde.",
 			"loginRequired": "Este vídeo require unha conta con sesión iniciada.",
 			"missingDependency": "Arroxy non atopou FFmpeg nin FFprobe. Executa de novo a configuración ou define a ubicación de FFmpeg e tenta a descarga outra vez.",
 			"network": "Erro de rede. Comproba a conexión e tenta de novo.",
@@ -107,8 +105,28 @@
 			"title": "Fai clic co botón dereito nunha ligazón para descargala"
 		},
 		"linkMenu": {
+			"background": {
+				"album": "Descargar o álbum en segundo plano",
+				"liked": "Descargar os teus vídeos que che gustan en segundo plano",
+				"mix": "Descargar o Mix en segundo plano",
+				"playlist": "Descargar a lista en segundo plano",
+				"uploads": "Descargar os vídeos subidos en segundo plano",
+				"watchLater": "Descargar Ver máis tarde en segundo plano"
+			},
 			"copyLink": "Copiar ligazón",
-			"downloadWith": "Descargar con"
+			"downloadFirst": "Descargar os primeiros {{count}}",
+			"downloadThisVideo": "Descargar este vídeo · {{profileName}}",
+			"downloadWith": "Descargar con",
+			"fromList": {
+				"album": "Deste álbum",
+				"liked": "Dos teus vídeos que che gustan",
+				"mix": "Deste Mix",
+				"playlist": "Desta lista",
+				"uploads": "Dos vídeos subidos desta canle",
+				"watchLater": "De Ver máis tarde"
+			},
+			"interactive": "Descarga interactiva…",
+			"thisVideoWith": "Este vídeo con"
 		},
 		"newBadge": "Novo",
 		"notice": {
@@ -155,6 +173,7 @@
 			"aria": "Controis do navegador de Explorar",
 			"back": "Atrás",
 			"compactLayout": "Deseño compacto",
+			"download": "Descargar",
 			"downloadWithProfile": "Descargar · {{profileName}}",
 			"forward": "Adiante",
 			"fullLayout": "Amosar deseño completo",
@@ -164,6 +183,8 @@
 			"refusedHint": "Explorar non pode abrir ese enderezo.",
 			"reload": "Recargar",
 			"searchTooLong": "Esa busca é demasiado longa.",
+			"thisVideo": "Este vídeo",
+			"thisVideoHint": "Descargar só este vídeo con {{profileName}}",
 			"zoom": {
 				"hint": "Zoom da páxina: {{percent}}%",
 				"in": "Ampliar",
@@ -205,9 +226,9 @@
 			"too-long": "O modelo é demasiado longo.",
 			"unknown-token": "Token descoñecido {{token}}."
 		},
-		"idWarning": "Sen {id}, Arroxy non pode detectar os elementos de lista xa descargados nin xerar listas .m3u.",
+		"idEndingWarning": "Remata o nome con [{id}] para que Arroxy poida detectar os elementos de lista xa descargados e xerar listas .m3u.",
 		"label": "Modelo de nome de ficheiro",
-		"m3uDisabled": "Non dispoñible porque o teu modelo de nome de ficheiro non inclúe {id} ou ordena as descargas en cartafoles.",
+		"m3uDisabledIdEnding": "Non dispoñible porque o teu modelo de nome de ficheiro non remata en [{id}] ou ordena as descargas en cartafoles.",
 		"previewPlaylist": "Nunha lista de reprodución",
 		"previewSingle": "Un só vídeo",
 		"profileOverrideDescription": "Déixao baleiro para herdar o modelo global.",
@@ -252,14 +273,20 @@
 		"quickDownload": {
 			"added": "Engadido: {{title}}",
 			"alreadyQueued": "Xa está na cola",
+			"batchAdded_one": "{{count}} ligazón engadida a Descargas",
+			"batchAdded_other": "{{count}} ligazóns engadidas a Descargas",
+			"batchAlreadyQueued_one": "{{count}} xa na cola",
+			"batchAlreadyQueued_other": "{{count}} xa na cola",
+			"batchNoneAdded_one": "Non se puido engadir {{count}} ligazón",
+			"batchNoneAdded_other": "Non se puideron engadir {{count}} ligazóns",
+			"batchNotAdded_one": "Non se puido engadir {{count}}",
+			"batchNotAdded_other": "Non se puideron engadir {{count}}",
+			"chooseFromList_one": "{{count}} vídeo nesta lista: escolle que descargar",
+			"chooseFromList_other": "{{count}} vídeos nesta lista: escolle que descargar",
 			"chooseHowMany_one": "{{count}}+ vídeo: escolle cantos",
 			"chooseHowMany_other": "{{count}}+ vídeos: escolle cantos",
 			"failed": "Non se puido preparar {{title}}",
 			"notAdded": "Non se puido engadir esa ligazón: tenta de novo",
-			"reviewCapped_one": "{{count}}+ vídeo nesta lista: revisa para escoller",
-			"reviewCapped_other": "{{count}}+ vídeos nesta lista: revisa para escoller",
-			"review_one": "{{count}} vídeo nesta lista: revisa para escoller",
-			"review_other": "{{count}} vídeos nesta lista: revisa para escoller",
 			"view": "Ver"
 		},
 		"settingsSaveFailed": "Non se puido gardar a configuración.",
@@ -347,9 +374,27 @@
 			"cappedBody_one": "Hai máis de {{count}} vídeo nesta lista de reprodución. Descárgaos todos, os primeiros {{count}} ou escolle nunha revisión.",
 			"cappedBody_other": "Hai máis de {{count}} vídeos nesta lista de reprodución. Descárgaos todos, os primeiros {{count}} ou escolle nunha revisión.",
 			"first": "Os primeiros {{count}}",
+			"list": {
+				"album": "O álbum",
+				"liked": "Vídeos que che gustan",
+				"mix": "O Mix",
+				"playlist": "A lista",
+				"uploads": "Todos os vídeos subidos",
+				"watchLater": "Ver máis tarde"
+			},
+			"pick": "Escoller da lista…",
 			"review": "Revisar",
-			"reviewBody_one": "Esta ligazón é unha lista de {{count}} vídeo. Revísaa para escoller que descargar.",
-			"reviewBody_other": "Esta ligazón é unha lista de {{count}} vídeos. Revísaa para escoller que descargar."
+			"uncappedBody_one": "Esta ligazón é unha lista de {{count}} vídeo. Descárgaa ou escolle nunha revisión.",
+			"uncappedBody_other": "Esta ligazón é unha lista de {{count}} vídeos. Descárgaos todos ou escolle nunha revisión.",
+			"video": "Este vídeo",
+			"videoOrList": {
+				"album": "Esta ligazón é un vídeo dun álbum. Descargar só o vídeo ou o álbum?",
+				"liked": "Esta ligazón é un vídeo dos teus vídeos que che gustan. Descargar só o vídeo ou todos os vídeos que che gustan?",
+				"mix": "Esta ligazón é un vídeo dun Mix. Descargar só o vídeo ou o Mix?",
+				"playlist": "Esta ligazón é un vídeo dunha lista. Descargar só o vídeo ou a lista?",
+				"uploads": "Esta ligazón é un vídeo dos vídeos subidos dunha canle. Descargar só o vídeo ou todos os vídeos subidos?",
+				"watchLater": "Esta ligazón é un vídeo da túa lista Ver máis tarde. Descargar só o vídeo ou toda a lista?"
+			}
 		},
 		"clearTitle": "Limpar as descargas completadas",
 		"empty": "As descargas en cola aparecerán aquí",
@@ -383,7 +428,29 @@
 			"statusPending": "Agardando",
 			"statusProbing": "Obtendo detalles",
 			"statusRunning": "Descargando",
-			"subtitleLanguagesMissing": "Sen subtítulos en {{languages}}"
+			"subtitleLanguagesMissing": "Sen subtítulos en {{languages}}",
+			"waitingForSite": "Espera por {{site}} ata {{time}}",
+			"waitingHint": "{{site}} está limitando as solicitudes desta conexión. Arroxy obterá os datos desta ligazón despois de {{time}}, para que o límite se levante."
+		},
+		"listOffer": {
+			"dismiss": "Ignorar",
+			"from": {
+				"album": "Dun álbum",
+				"liked": "Dos teus vídeos que che gustan",
+				"mix": "Dun Mix",
+				"playlist": "Dunha lista",
+				"uploads": "Dos vídeos subidos dunha canle",
+				"watchLater": "De Ver máis tarde"
+			},
+			"get": {
+				"album": "Descargar todo o álbum",
+				"liked": "Descargar todos os vídeos que che gustan",
+				"mix": "Descargar todo o Mix",
+				"playlist": "Descargar toda a lista",
+				"uploads": "Descargar todos os vídeos subidos",
+				"watchLater": "Descargar todo Ver máis tarde"
+			},
+			"hint": "Engade a lista como unha fila propia. Este vídeo queda fóra."
 		},
 		"pauseAllTitle": "Pausar todas as descargas activas e impedir que comecen outras novas",
 		"pausedBanner": "A cola está en pausa: os elementos en espera non comezarán ata que a retomes",
@@ -616,26 +683,19 @@
 		"cancel": "Tes problemas? Configúrao manualmente",
 		"greeting": "Ola, benvido de novo!",
 		"setup": {
-			"bytes": "{{done}} de {{total}}",
 			"left": {
 				"minutes_one": "falta aproximadamente {{count}} min",
 				"minutes_other": "faltan aproximadamente {{count}} min",
 				"underMinute": "falta menos dun minuto"
 			},
-			"note": {
-				"engine": "Mantén as descargas funcionando cando os sitios cambian.",
-				"firstRun": "Isto só pasa unha vez. Arroxy garda estas ferramentas e actualízaas por si mesmo.",
-				"media": "Isto só pasa unha vez. Arroxy gárdaas para as próximas actualizacións."
-			},
 			"stage": {
 				"checking": "Comprobando que todo funciona",
 				"connecting": "Conectando…",
-				"downloadingBoth": "Descargando o motor de descarga e as ferramentas multimedia",
-				"downloadingEngine": "Descargando o motor de descarga",
-				"downloadingMedia": "Descargando as ferramentas multimedia",
-				"unpacking": "Descomprimindo as ferramentas multimedia"
+				"unpacking": "Descomprimindo as ferramentas multimedia",
+				"unpackingEngine": "Descomprimindo o motor de descarga"
 			},
 			"title": {
+				"both": "Actualizando as ferramentas de Arroxy",
 				"engine": "Actualizando o motor de descarga",
 				"firstRun": "Configuración inicial",
 				"media": "Actualizando as ferramentas multimedia"
@@ -661,14 +721,14 @@
 		"fetchingSponsorBlock": "Contactando con SponsorBlock…",
 		"fetchingSubtitles": "Obtendo subtítulos…",
 		"mergingFormats": "Combinando audio e vídeo…",
-		"mintingToken": "Xerando o token de YouTube…",
+		"mintingToken": "Preparando a descarga de YouTube…",
 		"movingFiles": "Movendo ficheiros…",
 		"noSubtitles": "Sen subtítulos en {{languages}}",
 		"outputNotWritable": "Non se pode gardar en {{dir}}: Arroxy non ten permiso para escribir alí",
 		"preparingBinaries": "Preparando binarios…",
-		"qualityLimited": "Gardado a {{height}}p: YouTube reservou as calidades superiores para esta descarga. Tentalo máis tarde ou desde outra rede pode axudar.",
-		"qualityLimitedSubtitlesFailed": "Gardado a {{height}}p: YouTube reservou as calidades superiores para esta descarga e non se puideron descargar algúns subtítulos. Tentalo máis tarde ou desde outra rede pode axudar.",
-		"remintingToken": "Xerando o token de novo…",
+		"qualityLimited": "Gardado a {{height}}p: YouTube reservou as calidades superiores para esta descarga. Tentar de novo máis tarde pode axudar.",
+		"qualityLimitedSubtitlesFailed": "Gardado a {{height}}p: YouTube reservou as calidades superiores para esta descarga e non se puideron descargar algúns subtítulos. Tentar de novo máis tarde pode axudar.",
+		"remintingToken": "Preparando de novo a descarga de YouTube…",
 		"retryingSponsorBlock": "SponsorBlock non dispoñible, tentando de novo ({{attempt}}/{{total}})…",
 		"retryingTransfer": "A conexión quedou parada, tentando de novo ({{attempt}}/{{total}})…",
 		"signingInWithExplore": "Iniciando sesión coa túa conta de Explorar…",
@@ -796,7 +856,7 @@
 			"pictures": "Imaxes",
 			"subfolder": {
 				"invalid": "O nome do cartafol ten caracteres non válidos",
-				"placeholder": "p. ex. lo-fi rips",
+				"placeholder": "p. ex., clases",
 				"toggle": "Gardar nun subcartafol"
 			},
 			"videos": "Películas"
@@ -892,7 +952,11 @@
 				"noVideo": "Esta ligazón non ten vídeo, así que se selecciona o audio.",
 				"subtitlesMissing": "O teu perfil pide subtítulos en {{languages}}. Este vídeo non os ten.",
 				"tierAbove": "O teu perfil pide {{wanted}}p. Este vídeo non ten nada tan pequeno, así que se selecciona {{picked}}p.",
-				"tierBelow": "O teu perfil pide {{wanted}}p. Este vídeo só chega a {{picked}}p, así que se selecciona {{picked}}p.",
+				"tierAbovePassedOver": "O teu perfil pide {{wanted}}p. Os fluxos máis pequenos deste vídeo non encaixan co resto do teu perfil, así que se selecciona {{picked}}p.",
+				"tierBelowTakeable": "O teu perfil pide {{wanted}}p. Este vídeo non ten ningún {{wanted}}p que se poida usar, así que se selecciona {{picked}}p.",
+				"tierPassedOverAiUpscaled": "O teu perfil pide {{wanted}}p. O {{wanted}}p deste vídeo está reescalado con IA, así que se selecciona o {{picked}}p orixinal.",
+				"tierPassedOverH264": "O teu perfil pide {{wanted}}p en H.264. Este vídeo só ten {{wanted}}p noutros códecs, así que se selecciona {{picked}}p en H.264.",
+				"tierPassedOverProfile": "O teu perfil pide {{wanted}}p. O {{wanted}}p deste vídeo non encaixa co resto do teu perfil, así que se selecciona {{picked}}p.",
 				"webmUnavailable": "O teu perfil pide WebM. Os fluxos escollidos para este vídeo inclúen {{codec}}, que WebM non pode conter, así que o tipo de ficheiro é Automático."
 			},
 			"footer": {
@@ -969,29 +1033,26 @@
 			"withAudio": "con audio"
 		},
 		"listPrompt": {
-			"escHint": "Esc cancela. Non se carga nada ata que escollas.",
-			"interactiveSubtitle": "Escolle ti os formatos",
-			"justThisVideo": "Só este vídeo",
-			"justThisVideoInteractiveHint": "Abre os seus formatos",
-			"justThisVideoQuickHint": "Carga un vídeo",
-			"listInteractiveHint": "Carga ata {{count}} para que escollas",
-			"listOption": {
-				"album": "O álbum, os primeiros",
-				"liked": "Os teus vídeos que che gustan, os primeiros",
-				"mix": "O Mix, os primeiros",
-				"playlist": "A lista, os primeiros",
-				"uploads": "Os vídeos subidos, os primeiros",
-				"watchLater": "Ver máis tarde, os primeiros"
-			},
-			"listQuickHint": "Carga ata {{count}} e despois descárgaos",
+			"backgroundHint": "Con {{profileName}}. Se ten máis de {{count}} vídeos, Descargas pregunta cantos.",
+			"backgroundLabel": "Descargar en segundo plano",
+			"escOnly": "Esc cancela.",
+			"firstHint": "Exactamente os primeiros {{count}}, con {{profileName}}.",
+			"firstLabel": "Descargar os primeiros",
+			"interactiveHint": "Escolle entre os primeiros {{count}} vídeos (ou cambia a cantidade no seguinte paso) e despois configura a descarga.",
+			"interactiveLabel": "Descarga interactiva…",
+			"limitHint": "Cantos vídeos se collen da lista: a primeira opción pregunta se se supera ese número, a segunda colle exactamente esa cantidade. É o mesmo que Configuración › Elementos da lista a analizar.",
+			"limitLabel": "Límite",
 			"mixNote": "Un Mix cambia cada vez que o abres.",
-			"pickOption": {
-				"album": "Escoller do álbum, entre os primeiros",
-				"liked": "Escoller dos teus vídeos que che gustan, entre os primeiros",
-				"mix": "Escoller do Mix, entre os primeiros",
-				"playlist": "Escoller da lista, entre os primeiros",
-				"uploads": "Escoller dos vídeos subidos, entre os primeiros",
-				"watchLater": "Escoller de Ver máis tarde, entre os primeiros"
+			"pickLoadAfter": "para escoller.",
+			"pickLoadBefore": "Carga os primeiros",
+			"pickLoadNote": "Podes cambialo no seguinte paso.",
+			"pickTitle": {
+				"album": "Escoller deste álbum",
+				"liked": "Escoller dos teus vídeos que che gustan",
+				"mix": "Escoller deste Mix",
+				"playlist": "Escoller desta lista",
+				"uploads": "Escoller dos vídeos subidos desta canle",
+				"watchLater": "Escoller de Ver máis tarde"
 			},
 			"title": {
 				"album": "Descargar deste álbum",
@@ -1001,6 +1062,9 @@
 				"uploads": "Descargar dos vídeos subidos desta canle",
 				"watchLater": "Descargar de Ver máis tarde"
 			},
+			"videoHint": "Só o vídeo que abriches, con {{profileName}}. A lista non se carga.",
+			"videoLabel": "Só este vídeo",
+			"videoPickHint": "Configura só o vídeo que abriches. A lista non se carga.",
 			"withProfile": "Con {{profileName}}"
 		},
 		"output": {
@@ -1072,6 +1136,10 @@
 			"allRemovedDescription": "Restáurao para continuar.",
 			"allRemovedTitle": "Quitáronse todos os elementos",
 			"alreadyDownloaded": "Xa descargado",
+			"bulkCappedDesc_one": "Ten máis. Para escoller cantos, pega a súa ligazón por separado.",
+			"bulkCappedDesc_other": "Teñen máis. Para escoller cantos, pega cada ligazón por separado.",
+			"bulkCappedTitle_one": "A lista “{{title}}” está limitada a {{limit}} vídeos",
+			"bulkCappedTitle_other": "{{count}} listas están limitadas a {{limit}} vídeos cada unha",
 			"bulkHeading": "URLs en lote",
 			"bulkMetadataOptional": "Non fai falta esperar: os ficheiros postos en cola agora tamén reciben os seus nomes reais ao descargarse.",
 			"bulkMetadataResolving": "Obtendo detalles dos vídeos… {{done}}/{{total}}",
@@ -1129,15 +1197,6 @@
 			"syncNoneTitle": "Aínda non se descargou nada",
 			"syncScanning": "Comprobando o cartafol…",
 			"thumbnailAlt": "Miniatura do vídeo"
-		},
-		"playlistCap": {
-			"changeLimit": "Cambiar o límite de carga",
-			"descriptionWithTitle_one": "<title/>: Arroxy cargou {{count}} elemento co límite actual de {{limit}}. Pon en cola agora o elemento cargado, ou aumenta o límite e analiza de novo.",
-			"descriptionWithTitle_other": "<title/>: Arroxy cargou {{count}} elementos co límite actual de {{limit}}. Pon en cola agora os elementos cargados, ou aumenta o límite e analiza de novo.",
-			"description_one": "Arroxy cargou {{count}} elemento co límite actual de {{limit}}. Pon en cola agora o elemento cargado, ou aumenta o límite e analiza de novo.",
-			"description_other": "Arroxy cargou {{count}} elementos co límite actual de {{limit}}. Pon en cola agora os elementos cargados, ou aumenta o límite e analiza de novo.",
-			"queueLoaded": "Poñer en cola os elementos cargados",
-			"title": "A análise da lista de reprodución ten un límite"
 		},
 		"playlistPresets": {
 			"heading": "Escolle a calidade do lote",
@@ -1321,19 +1380,6 @@
 		"profileSwitchRow": {
 			"helpAria": "Axuda de {{label}}"
 		},
-		"quickProgress": {
-			"cancel": "Cancelar a preparación",
-			"currentFallback": "Ligazón actual",
-			"description": "Arroxy está lendo a ligazón e aplicando {{profileName}}.",
-			"failedCount_one": "{{count}} fallou",
-			"failedCount_other": "{{count}} fallaron",
-			"phase": {
-				"probing": "Obtendo detalles",
-				"queueing": "Engadindo á cola"
-			},
-			"title": "Preparando a Descarga rápida",
-			"waitHint": "Mantén isto aberto mentres Arroxy prepara a cola."
-		},
 		"review": {
 			"areas": {
 				"extras": "extras",
@@ -1443,6 +1489,7 @@
 				"embed": "Incorporar ao vídeo",
 				"heading": "Gardar como",
 				"sidecar": "Xunto ao vídeo",
+				"sidecarNoVideo": "No cartafol de descargas",
 				"subfolder": "Subcartafol subtitles/"
 			},
 			"searchPlaceholder": "Buscar idiomas…",
@@ -1452,10 +1499,6 @@
 		"tabsNavAria": "Navegación de perfís de descarga",
 		"url": {
 			"advanced": "Avanzado",
-			"analytics": {
-				"toggle": "Enviar sinal diaria",
-				"toggleDescription": "Sen telemetría. Unha vez ao día, unha sinal anónima envía a versión da aplicación, a canle de instalación, o SO, o idioma, o país e aproximadamente canto tempo hai que se instalou Arroxy, para poder contar os usuarios activos e novos. Sen IDs, URLs, títulos de vídeos nin nomes de ficheiros."
-			},
 			"autoRemoveCompleted": {
 				"description": "Quita unha descarga da lista de Descargas uns segundos despois de rematar. Os ficheiros quedan no teu cartafol; as descargas fallidas e canceladas quedan na lista.",
 				"label": "Quitar as descargas rematadas"
@@ -1490,6 +1533,11 @@
 				"label": "Descargas simultáneas",
 				"unit": "descargas"
 			},
+			"concurrentProbes": {
+				"description": "Cantas ligazóns consulta Arroxy á vez para obter os seus datos, antes de descargalas. Menos é máis amable cos sitios que bloquean conexións moi activas. Unha ligazón que abras en Descarga interactiva vai sempre primeiro.",
+				"label": "Ligazóns comprobadas á vez",
+				"unit": "ligazóns"
+			},
 			"cookies": {
 				"banWarning": "Sitios como YouTube poden marcar, e ás veces vetar, as contas cuxas cookies usan ferramentas de descarga como Arroxy. Usa unha conta desbotable se é posible.",
 				"browserHelp": "Le as cookies directamente do navegador. O navegador debe estar pechado nos da familia Chromium.",
@@ -1514,12 +1562,20 @@
 				"sourceFile": "Ficheiro",
 				"sourceLabel": "Orixe das cookies",
 				"sourceOff": "Desactivado",
-				"toggleDescription": "Axuda cos vídeos con restrición de idade, só para membros e privados dunha conta."
+				"toggleDescription": "Axuda cos vídeos que a túa propia conta pode ver, como os teus vídeos privados."
 			},
 			"downloadConnections": {
 				"description": "Acelera as descargas grandes obtendo varias partes dun vídeo á vez. Os valores máis altos aumentan o risco de que un sitio te limite.",
 				"label": "Conexións de descarga",
 				"unit": "conexións"
+			},
+			"downloadList": {
+				"album": "Descargar álbum…",
+				"liked": "Descargar vídeos que che gustan…",
+				"mix": "Descargar Mix…",
+				"playlist": "Descargar lista…",
+				"uploads": "Descargar vídeos subidos…",
+				"watchLater": "Descargar Ver máis tarde…"
 			},
 			"features": {
 				"always": {
@@ -1548,18 +1604,17 @@
 			"hotkey": {
 				"changeShortcut": "Cambiar atallo",
 				"conflict": "Este atallo xa o usa outra aplicación: escolle outro.",
-				"hintLabel": "Ou preme",
-				"hintTooltip": "Copia a ligazón dun vídeo en calquera lugar, preme este atallo e Arroxy ponna en cola co teu perfil activo, sen cambiar de xanela.",
-				"hintTooltipSettings": "Cámbiao ou desactívao na configuración.",
+				"globalLabel": "Atallo global",
 				"recording": "Preme as teclas…",
 				"reset": "Restablecer o valor predeterminado",
 				"sectionDescription": "Descarga calquera ligazón que copies, desde calquera aplicación, sen abrir Arroxy.",
 				"sectionTitle": "Atallo global",
 				"test": "Probar",
 				"toggle": "Activar o atallo global",
-				"toggleDescription": "Preme o atallo cunha ligazón de vídeo no portapapeis."
+				"toggleDescriptionDetail": "Copia a ligazón dun vídeo en calquera aplicación e preme o atallo: Arroxy ponna en cola co teu perfil activo, sen cambiar de xanela. Unha ligazón a un vídeo dunha lista descarga o vídeo."
 			},
 			"interactiveDownload": "Descarga interactiva",
+			"interactiveDownloadAsks": "Descarga interactiva…",
 			"limitRate": {
 				"activeWarning": "As descargas activas manteñen o seu límite actual. Pausa e retoma para aplicar os cambios.",
 				"custom": "Personalizado…",
@@ -1572,10 +1627,8 @@
 			"mascotBusy": "Descargando en segundo plano… Podo facer varias cousas á vez 😎",
 			"mascotCollection": "Rápida pon en cola os elementos cargados con {{profileName}}. Interactiva permite inspeccionar ou seleccionar elementos primeiro.",
 			"mascotIdle": "Solta unha ligazón e deixa que Arroxy a descargue ✨",
-			"mascotMixed": "Esta ligazón apunta a un vídeo dentro dunha colección. Arroxy preguntará cal queres antes de analizar.",
-			"mascotPreparing": "{{quickDownload}} está lendo esta ligazón e aplicando {{profileName}}.",
-			"mascotQueued": "A cola está xestionando esta descarga. Podes pegar outra ligazón mentres traballa.",
 			"mascotSingle": "Rápida inicia unha descarga con {{profileName}}. Usa Interactiva para cambios puntuais.",
+			"mascotVideoInList": "Esta ligazón indica un vídeo e a lista na que está: descarga só o vídeo ou a lista.",
 			"nativeAudioPreference": {
 				"compatible": "Estéreo compatible",
 				"description": "Estéreo ou envolvente cando un perfil escolle audio nativo. Un perfil pode cambialo.",
@@ -1679,6 +1732,7 @@
 					"override": "Usando a sobrescritura do perfil",
 					"overrideSubfolder": "Usando a sobrescritura do perfil + subcartafol do perfil"
 				},
+				"destinationEditHint": "Para cambiar onde se garda, edita o perfil.",
 				"destinationFallback": "Destino",
 				"edit": "Editar",
 				"editActive": "Editar o perfil activo",
@@ -1702,25 +1756,27 @@
 				"remove": "Quitar",
 				"reorderHint": "Arrastra un perfil para movelo. Todos os selectores de perfil seguen esta orde.",
 				"reset": "Restablecer",
+				"savesTo": "Gárdase en",
 				"switchAria": "Cambiar o perfil de descarga: {{profileName}}",
 				"switchTitle": "Cambiar o perfil de descarga"
 			},
 			"proxy": {
 				"clear": "Borrar",
-				"description": "Encamiña o tráfico a través dun proxy, útil para contido con restrición xeográfica.",
+				"description": "Encamiña o tráfico a través dun servidor proxy.",
 				"label": "URL do proxy",
 				"placeholder": "http://host:porto"
 			},
-			"quickBulkAllFailed": "Non se puido preparar ningunha desas URLs",
 			"quickDownload": "Descarga rápida",
 			"quickDownloadTooltip": "Descargarase con: {{profileName}}",
 			"quickFailed": "Non se puido engadir este: {{error}}",
-			"quickPartialFailed_one": "Puxéronse en cola os que funcionaron. Non se puido preparar {{count}} URL.",
-			"quickPartialFailed_other": "Puxéronse en cola os que funcionaron. Non se puideron preparar {{count}} URLs.",
 			"quickPrepareFailed": "Non se puido preparar o elemento da cola",
 			"quickPreparing": "Preparando",
 			"quickProbeFailed": "Fallou a análise",
 			"quickSingleOnly": "Pega a URL dun vídeo, lista de reprodución, canle ou busca para comezar.",
+			"reports": {
+				"toggle": "Enviar sinais anónimos de actividade e de configuración",
+				"toggleDescription": "Sen seguimento. Unha vez ao día, unha sinal anónima envía a versión da aplicación, a canle de instalación, o SO, o idioma, o país e aproximadamente canto tempo hai que se instalou Arroxy, para poder contar os usuarios activos e novos. Cando Arroxy configura ou actualiza o seu motor de descarga ou as ferramentas multimedia, tamén informa de se funcionou e aproximadamente canto tardou. Sen IDs, URLs, títulos de vídeos nin nomes de ficheiros."
+			},
 			"settings": {
 				"behaviorDescription": "Comportamento global que tamén afecta ás descargas guiadas por perfís.",
 				"behaviorHeading": "Comportamento das descargas",
@@ -1744,7 +1800,9 @@
 			"tabs": {
 				"profiles": "Perfís",
 				"settings": "Configuración"
-			}
+			},
+			"thisVideo": "Este vídeo",
+			"thisVideoTooltip": "Descarga só este vídeo con {{profileName}}"
 		}
 	}
 }

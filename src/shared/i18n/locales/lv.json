@@ -31,7 +31,6 @@
 		"cancel": "Atcelt",
 		"close": "Aizvērt",
 		"continue": "Turpināt",
-		"dismiss": "Noraidīt",
 		"loading": "Notiek ielāde",
 		"retry": "Mēģināt vēlreiz",
 		"startOver": "Sākt no jauna"
@@ -45,13 +44,12 @@
 			"remember": "Vairs nejautāt"
 		},
 		"quitWithActiveDownloads": {
-			"confirm": "Atcelt lejupielādes un iziet",
-			"detail": "Pauzējiet, lai vēlāk atsāktu, vai atceliet, lai atmestu progresu.",
+			"continueDetail": "Jūsu rinda tiek saglabāta, un lejupielādes turpināsies no vietas, kur apstājās, nākamreiz atverot Arroxy.",
 			"keep": "Turpināt lejupielādi",
 			"message_one": "Notiek {{count}} lejupielāde",
 			"message_other": "Notiek {{count}} lejupielādes",
 			"message_zero": "Notiek {{count}} lejupielāžu",
-			"pause": "Pauzēt lejupielādes un iziet"
+			"quit": "Iziet"
 		},
 		"rendererCrashed": {
 			"detail": "Renderēšanas process avarēja ({{reason}}). Pārlādējiet, lai mēģinātu vēlreiz.",
@@ -74,12 +72,12 @@
 		"noSubtitlesIn": "Šim video nav subtitru valodās: {{languages}}.",
 		"ytdlp": {
 			"ageRestricted": "Šim videoklipam ir vecuma ierobežojums, un to nevar lejupielādēt bez pierakstīta konta.",
-			"botBlock": "Aktivizēta aizsardzība pret robotiem. Visticamāk, jūsu izmantotā IP adrese ir atzīmēta (datu centra diapazons vai noslogots VPN izejas punkts). Nomainiet IP adresi vai izvēlieties citu VPN galapunktu un mēģiniet vēlreiz. Ja joprojām neizdodas, iespējams, tā ir īslaicīga izmaiņa vietnes pusē — Arroxy atjaunina savu lejupielādes dzinēju startēšanas brīdī, tāpēc labojums parādīsies automātiski, tiklīdz tas tiks izlaists.",
+			"botBlock": "Vietnes aizsardzība pret robotiem apturēja šo lejupielādi. Uzgaidiet kādu laiku un mēģiniet vēlreiz vai lejupielādējiet vienlaikus mazāk video. Ja joprojām neizdodas, iespējams, tā ir īslaicīga izmaiņa vietnes pusē — Arroxy atjaunina savu lejupielādes dzinēju startēšanas brīdī, tāpēc labojums parādīsies automātiski, tiklīdz tas tiks izlaists.",
 			"chunkTransferFailure": "Serveris pārtrauca lejupielādi pa vidu, un Arroxy pēc atkārtotiem mēģinājumiem padevās. Tas parasti skar vislielākos video formātus (4K HDR / VP9 ar augstu bitrati). Mēģiniet vēlreiz, nomainiet tīklu/VPN vai izvēlieties formātu ar zemāku izšķirtspēju.",
 			"drmProtected": "Šo videoklipu aizsargā DRM. Arroxy nevar noņemt DRM, tāpēc failu nevar lejupielādēt.",
 			"formatUnavailable": "Šim video vairs nav jūsu izvēlētā formāta. Vēlreiz ielīmējiet saiti un izvēlieties no formātiem, kas tiek piedāvāti tagad.",
 			"geoBlocked": "Šis videoklips jūsu reģionā nav pieejams.",
-			"ipBlock": "Šķiet, ka jūsu IP adrese ir bloķēta. Mēģiniet vēlāk vai izmantojiet VPN.",
+			"ipBlock": "Vietne bloķē pieprasījumus no šī savienojuma. Mēģiniet vēlreiz vēlāk.",
 			"loginRequired": "Šim videoklipam nepieciešams pierakstīts konts.",
 			"missingDependency": "Arroxy neatrada FFmpeg vai FFprobe. Palaidiet iestatīšanu vēlreiz vai norādiet FFmpeg atrašanās vietu, tad mēģiniet lejupielādi vēlreiz.",
 			"network": "Tīkla kļūda. Pārbaudiet savienojumu un mēģiniet vēlreiz.",
@@ -108,8 +106,28 @@
 			"title": "Ar peles labo pogu noklikšķiniet uz saites, lai to lejupielādētu"
 		},
 		"linkMenu": {
+			"background": {
+				"album": "Lejupielādēt albumu fonā",
+				"liked": "Lejupielādēt jums patikušos video fonā",
+				"mix": "Lejupielādēt Mix fonā",
+				"playlist": "Lejupielādēt atskaņošanas sarakstu fonā",
+				"uploads": "Lejupielādēt kanāla augšupielādētos video fonā",
+				"watchLater": "Lejupielādēt “Skatīties vēlāk” fonā"
+			},
 			"copyLink": "Kopēt saiti",
-			"downloadWith": "Lejupielādēt ar"
+			"downloadFirst": "Lejupielādēt pirmos {{count}}",
+			"downloadThisVideo": "Lejupielādēt šo video · {{profileName}}",
+			"downloadWith": "Lejupielādēt ar",
+			"fromList": {
+				"album": "No šī albuma",
+				"liked": "No jums patikušajiem video",
+				"mix": "No šī Mix",
+				"playlist": "No šī atskaņošanas saraksta",
+				"uploads": "No šī kanāla augšupielādētajiem video",
+				"watchLater": "No “Skatīties vēlāk”"
+			},
+			"interactive": "Interaktīvā lejupielāde…",
+			"thisVideoWith": "Šis video ar"
 		},
 		"newBadge": "Jauns",
 		"notice": {
@@ -156,6 +174,7 @@
 			"aria": "Izpētes pārlūka vadīklas",
 			"back": "Atpakaļ",
 			"compactLayout": "Kompakts izkārtojums",
+			"download": "Lejupielādēt",
 			"downloadWithProfile": "Lejupielādēt · {{profileName}}",
 			"forward": "Uz priekšu",
 			"fullLayout": "Rādīt pilnu izkārtojumu",
@@ -165,6 +184,8 @@
 			"refusedHint": "Sadaļa Izpēte nevar atvērt šo adresi.",
 			"reload": "Pārlādēt",
 			"searchTooLong": "Šis meklēšanas vaicājums ir pārāk garš.",
+			"thisVideo": "Šis video",
+			"thisVideoHint": "Lejupielādēt tikai šo video ar profilu {{profileName}}",
 			"zoom": {
 				"hint": "Lapas tālummaiņa: {{percent}}%",
 				"in": "Tuvināt",
@@ -206,9 +227,9 @@
 			"too-long": "Veidne ir pārāk gara.",
 			"unknown-token": "Nezināms marķieris {{token}}."
 		},
-		"idWarning": "Bez {id} Arroxy nevar noteikt jau lejupielādētus atskaņošanas saraksta vienumus vai izveidot .m3u atskaņošanas sarakstus.",
+		"idEndingWarning": "Beidziet nosaukumu ar [{id}], lai Arroxy varētu noteikt jau lejupielādētus atskaņošanas saraksta vienumus un izveidot .m3u atskaņošanas sarakstus.",
 		"label": "Faila nosaukuma veidne",
-		"m3uDisabled": "Nav pieejams, jo jūsu faila nosaukuma veidnē nav {id} vai tā šķiro lejupielādes mapēs.",
+		"m3uDisabledIdEnding": "Nav pieejams, jo jūsu faila nosaukuma veidne nebeidzas ar [{id}] vai šķiro lejupielādes mapēs.",
 		"previewPlaylist": "Atskaņošanas sarakstā",
 		"previewSingle": "Atsevišķs video",
 		"profileOverrideDescription": "Atstājiet tukšu, lai izmantotu globālo veidni.",
@@ -255,17 +276,26 @@
 		"quickDownload": {
 			"added": "Pievienots: {{title}}",
 			"alreadyQueued": "Jau rindā",
+			"batchAdded_one": "Cilnē Lejupielādes pievienota {{count}} saite",
+			"batchAdded_other": "Cilnē Lejupielādes pievienotas {{count}} saites",
+			"batchAdded_zero": "Cilnē Lejupielādes pievienotas {{count}} saišu",
+			"batchAlreadyQueued_one": "{{count}} jau rindā",
+			"batchAlreadyQueued_other": "{{count}} jau rindā",
+			"batchAlreadyQueued_zero": "{{count}} jau rindā",
+			"batchNoneAdded_one": "Neizdevās pievienot {{count}} saiti",
+			"batchNoneAdded_other": "Neizdevās pievienot {{count}} saites",
+			"batchNoneAdded_zero": "Neizdevās pievienot {{count}} saišu",
+			"batchNotAdded_one": "{{count}} neizdevās pievienot",
+			"batchNotAdded_other": "{{count}} neizdevās pievienot",
+			"batchNotAdded_zero": "{{count}} neizdevās pievienot",
+			"chooseFromList_one": "Šajā sarakstā ir {{count}} video — izvēlieties, ko lejupielādēt",
+			"chooseFromList_other": "Šajā sarakstā ir {{count}} video — izvēlieties, ko lejupielādēt",
+			"chooseFromList_zero": "Šajā sarakstā ir {{count}} video — izvēlieties, ko lejupielādēt",
 			"chooseHowMany_one": "{{count}}+ video — izvēlieties, cik lejupielādēt",
 			"chooseHowMany_other": "{{count}}+ video — izvēlieties, cik lejupielādēt",
 			"chooseHowMany_zero": "{{count}}+ video — izvēlieties, cik lejupielādēt",
 			"failed": "Neizdevās sagatavot: {{title}}",
 			"notAdded": "Neizdevās pievienot šo saiti — mēģiniet vēlreiz",
-			"reviewCapped_one": "Šajā sarakstā ir {{count}}+ video — pārskatiet, lai izvēlētos",
-			"reviewCapped_other": "Šajā sarakstā ir {{count}}+ video — pārskatiet, lai izvēlētos",
-			"reviewCapped_zero": "Šajā sarakstā ir {{count}}+ video — pārskatiet, lai izvēlētos",
-			"review_one": "Šajā sarakstā ir {{count}} video — pārskatiet, lai izvēlētos",
-			"review_other": "Šajā sarakstā ir {{count}} video — pārskatiet, lai izvēlētos",
-			"review_zero": "Šajā sarakstā ir {{count}} video — pārskatiet, lai izvēlētos",
 			"view": "Skatīt"
 		},
 		"settingsSaveFailed": "Neizdevās saglabāt iestatījumus.",
@@ -355,10 +385,28 @@
 			"cappedBody_other": "Šajā atskaņošanas sarakstā ir vairāk nekā {{count}} video. Lejupielādējiet visus, pirmos {{count}} vai izvēlieties pārskatā.",
 			"cappedBody_zero": "Šajā atskaņošanas sarakstā ir vairāk nekā {{count}} video. Lejupielādējiet visus, pirmos {{count}} vai izvēlieties pārskatā.",
 			"first": "Pirmie {{count}}",
+			"list": {
+				"album": "Albums",
+				"liked": "Jums patikušie video",
+				"mix": "Mix",
+				"playlist": "Atskaņošanas saraksts",
+				"uploads": "Visi kanāla augšupielādētie video",
+				"watchLater": "“Skatīties vēlāk”"
+			},
+			"pick": "Izvēlēties no tā…",
 			"review": "Pārskatīt",
-			"reviewBody_one": "Šī saite ir saraksts ar {{count}} video. Pārskatiet to, lai izvēlētos, ko lejupielādēt.",
-			"reviewBody_other": "Šī saite ir saraksts ar {{count}} video. Pārskatiet to, lai izvēlētos, ko lejupielādēt.",
-			"reviewBody_zero": "Šī saite ir saraksts ar {{count}} video. Pārskatiet to, lai izvēlētos, ko lejupielādēt."
+			"uncappedBody_one": "Šī saite ir saraksts ar {{count}} video. Lejupielādējiet to vai izvēlieties pārskatā.",
+			"uncappedBody_other": "Šī saite ir saraksts ar {{count}} video. Lejupielādējiet visus vai izvēlieties pārskatā.",
+			"uncappedBody_zero": "Šī saite ir saraksts ar {{count}} video. Lejupielādējiet visus vai izvēlieties pārskatā.",
+			"video": "Šis video",
+			"videoOrList": {
+				"album": "Šī saite ir video albumā. Lejupielādēt tikai video vai albumu?",
+				"liked": "Šī saite ir video no jums patikušajiem video. Lejupielādēt tikai video vai visus jums patikušos video?",
+				"mix": "Šī saite ir video Mix sarakstā. Lejupielādēt tikai video vai Mix?",
+				"playlist": "Šī saite ir video atskaņošanas sarakstā. Lejupielādēt tikai video vai atskaņošanas sarakstu?",
+				"uploads": "Šī saite ir video no kanāla augšupielādētajiem video. Lejupielādēt tikai video vai visus augšupielādētos video?",
+				"watchLater": "Šī saite ir video no saraksta “Skatīties vēlāk”. Lejupielādēt tikai video vai visu sarakstu?"
+			}
 		},
 		"clearTitle": "Notīrīt pabeigtās lejupielādes",
 		"empty": "Rindā pievienotās lejupielādes parādīsies šeit",
@@ -392,7 +440,29 @@
 			"statusPending": "Gaida",
 			"statusProbing": "Iegūst informāciju",
 			"statusRunning": "Lejupielādē",
-			"subtitleLanguagesMissing": "Nav subtitru valodās: {{languages}}"
+			"subtitleLanguagesMissing": "Nav subtitru valodās: {{languages}}",
+			"waitingForSite": "Gaida {{site}} līdz {{time}}",
+			"waitingHint": "{{site}} ierobežo pieprasījumu skaitu no šī savienojuma. Arroxy iegūs šīs saites informāciju pēc {{time}}, lai ierobežojums varētu beigties."
+		},
+		"listOffer": {
+			"dismiss": "Noraidīt",
+			"from": {
+				"album": "No albuma",
+				"liked": "No jums patikušajiem video",
+				"mix": "No Mix",
+				"playlist": "No atskaņošanas saraksta",
+				"uploads": "No kanāla augšupielādētajiem video",
+				"watchLater": "No “Skatīties vēlāk”"
+			},
+			"get": {
+				"album": "Lejupielādēt visu albumu",
+				"liked": "Lejupielādēt visus patikušos video",
+				"mix": "Lejupielādēt visu Mix",
+				"playlist": "Lejupielādēt visu atskaņošanas sarakstu",
+				"uploads": "Lejupielādēt visus augšupielādētos video",
+				"watchLater": "Lejupielādēt visu no “Skatīties vēlāk”"
+			},
+			"hint": "Pievieno sarakstu kā atsevišķu rindu. Šis video netiek iekļauts."
 		},
 		"pauseAllTitle": "Pauzēt visas aktīvās lejupielādes un neļaut sākties jaunām",
 		"pausedBanner": "Rinda ir pauzēta — gaidošie vienumi nesāksies, kamēr to neatsāksiet",
@@ -625,27 +695,20 @@
 		"cancel": "Rodas problēmas? Iestatiet manuāli",
 		"greeting": "Sveiki, laipni lūdzam atpakaļ!",
 		"setup": {
-			"bytes": "{{done}} no {{total}}",
 			"left": {
 				"minutes_one": "atlikusi apmēram {{count}} minūte",
 				"minutes_other": "atlikušas apmēram {{count}} minūtes",
 				"minutes_zero": "atlikušas apmēram {{count}} minūšu",
 				"underMinute": "atlikusi mazāk nekā minūte"
 			},
-			"note": {
-				"engine": "Nodrošina, ka lejupielādes turpina darboties, kad vietnes mainās.",
-				"firstRun": "Tas notiek vienu reizi. Arroxy saglabā šos rīkus un atjaunina tos pats.",
-				"media": "Tas notiek vienu reizi. Arroxy tos saglabā turpmākiem atjauninājumiem."
-			},
 			"stage": {
 				"checking": "Pārbauda, vai viss darbojas",
 				"connecting": "Notiek savienošana…",
-				"downloadingBoth": "Lejupielādē lejupielādes dzinēju un multivides rīkus",
-				"downloadingEngine": "Lejupielādē lejupielādes dzinēju",
-				"downloadingMedia": "Lejupielādē multivides rīkus",
-				"unpacking": "Izpako multivides rīkus"
+				"unpacking": "Izpako multivides rīkus",
+				"unpackingEngine": "Izpako lejupielādes dzinēju"
 			},
 			"title": {
+				"both": "Atjaunina Arroxy rīkus",
 				"engine": "Atjaunina lejupielādes dzinēju",
 				"firstRun": "Pirmreizējā iestatīšana",
 				"media": "Atjaunina multivides rīkus"
@@ -671,14 +734,14 @@
 		"fetchingSponsorBlock": "Sazinās ar SponsorBlock…",
 		"fetchingSubtitles": "Iegūst subtitrus…",
 		"mergingFormats": "Apvieno audio un video…",
-		"mintingToken": "Izveido YouTube pilnvaru…",
+		"mintingToken": "Sagatavo YouTube lejupielādi…",
 		"movingFiles": "Pārvieto failus…",
 		"noSubtitles": "Nav subtitru valodās: {{languages}}",
 		"outputNotWritable": "Nevar saglabāt mapē {{dir}} — Arroxy nav atļaujas tur rakstīt",
 		"preparingBinaries": "Sagatavo bināros failus…",
-		"qualityLimited": "Saglabāts {{height}}p kvalitātē — YouTube šai lejupielādei atteica augstāku kvalitāti. Var palīdzēt mēģinājums vēlāk vai no cita tīkla.",
-		"qualityLimitedSubtitlesFailed": "Saglabāts {{height}}p kvalitātē — YouTube šai lejupielādei atteica augstāku kvalitāti, un dažus subtitrus nevarēja lejupielādēt. Var palīdzēt mēģinājums vēlāk vai no cita tīkla.",
-		"remintingToken": "Atkārtoti izveido pilnvaru…",
+		"qualityLimited": "Saglabāts {{height}}p kvalitātē — YouTube šai lejupielādei atteica augstāku kvalitāti. Var palīdzēt mēģinājums vēlāk.",
+		"qualityLimitedSubtitlesFailed": "Saglabāts {{height}}p kvalitātē — YouTube šai lejupielādei atteica augstāku kvalitāti, un dažus subtitrus nevarēja lejupielādēt. Var palīdzēt mēģinājums vēlāk.",
+		"remintingToken": "Atkārtoti sagatavo YouTube lejupielādi…",
 		"retryingSponsorBlock": "SponsorBlock nav pieejams, mēģina vēlreiz ({{attempt}}/{{total}})…",
 		"retryingTransfer": "Savienojums iesprūdis, mēģina vēlreiz ({{attempt}}/{{total}})…",
 		"signingInWithExplore": "Piesakās ar jūsu Izpētes kontu…",
@@ -813,7 +876,7 @@
 			"pictures": "Attēli",
 			"subfolder": {
 				"invalid": "Mapes nosaukumā ir nederīgas rakstzīmes",
-				"placeholder": "piem., lo-fi ieraksti",
+				"placeholder": "piem., lekcijas",
 				"toggle": "Saglabāt apakšmapē"
 			},
 			"videos": "Filmas"
@@ -910,7 +973,11 @@
 				"noVideo": "Šajā saitē nav video, tāpēc izvēlēts audio.",
 				"subtitlesMissing": "Jūsu profils pieprasa subtitrus valodās: {{languages}}. Šim video to nav.",
 				"tierAbove": "Jūsu profils pieprasa {{wanted}}p. Šim video nav nekā tik mazā, tāpēc izvēlēts {{picked}}p.",
-				"tierBelow": "Jūsu profils pieprasa {{wanted}}p. Šis video sasniedz tikai {{picked}}p, tāpēc izvēlēts {{picked}}p.",
+				"tierAbovePassedOver": "Jūsu profils pieprasa {{wanted}}p. Šī video mazākās straumes neatbilst pārējam jūsu profilam, tāpēc izvēlēts {{picked}}p.",
+				"tierBelowTakeable": "Jūsu profils pieprasa {{wanted}}p. Šim video nav {{wanted}}p straumes, ko varētu izmantot, tāpēc izvēlēts {{picked}}p.",
+				"tierPassedOverAiUpscaled": "Jūsu profils pieprasa {{wanted}}p. Šī video {{wanted}}p ir palielināts ar MI, tāpēc izvēlēts oriģinālais {{picked}}p.",
+				"tierPassedOverH264": "Jūsu profils pieprasa {{wanted}}p formātā H.264. Šim video {{wanted}}p ir tikai citos kodekos, tāpēc izvēlēts {{picked}}p formātā H.264.",
+				"tierPassedOverProfile": "Jūsu profils pieprasa {{wanted}}p. Šī video {{wanted}}p neatbilst pārējam jūsu profilam, tāpēc izvēlēts {{picked}}p.",
 				"webmUnavailable": "Jūsu profils pieprasa WebM. Šī video izvēlētajās straumēs ir {{codec}}, ko WebM nevar saturēt, tāpēc faila tips ir Automātiski."
 			},
 			"footer": {
@@ -987,29 +1054,26 @@
 			"withAudio": "ar audio"
 		},
 		"listPrompt": {
-			"escHint": "Esc atceļ. Nekas netiek ielādēts, kamēr neizvēlaties.",
-			"interactiveSubtitle": "Formātus izvēlieties paši",
-			"justThisVideo": "Tikai šis video",
-			"justThisVideoInteractiveHint": "Atver tā formātus",
-			"justThisVideoQuickHint": "Ielādē vienu video",
-			"listInteractiveHint": "Ielādē līdz {{count}}, lai izvēlētos",
-			"listOption": {
-				"album": "Albums, pirmie",
-				"liked": "Jums patikušie video, pirmie",
-				"mix": "Mix, pirmie",
-				"playlist": "Atskaņošanas saraksts, pirmie",
-				"uploads": "Kanāla augšupielādētie video, pirmie",
-				"watchLater": "“Skatīties vēlāk”, pirmie"
-			},
-			"listQuickHint": "Ielādē līdz {{count}}, pēc tam tos lejupielādē",
+			"backgroundHint": "Ar profilu {{profileName}}. Ja tajā ir vairāk nekā {{count}} video, cilne Lejupielādes pajautās, cik lejupielādēt.",
+			"backgroundLabel": "Lejupielādēt fonā",
+			"escOnly": "Esc atceļ.",
+			"firstHint": "Tieši pirmie {{count}} ar profilu {{profileName}}.",
+			"firstLabel": "Lejupielādēt pirmos",
+			"interactiveHint": "Izvēlieties no pirmajiem {{count}} video (vai nomainiet skaitu nākamajā darbībā), pēc tam iestatiet lejupielādi.",
+			"interactiveLabel": "Interaktīvā lejupielāde…",
+			"limitHint": "Cik video ņemt no saraksta: pirmā iespēja pajautā, ja to ir vairāk, otrā ņem tieši tik. Tas pats, kas Iestatījumi › Pārbaudāmie atskaņošanas saraksta vienumi.",
+			"limitLabel": "Ierobežojums",
 			"mixNote": "Mix mainās katru reizi, kad to atverat.",
-			"pickOption": {
-				"album": "Izvēlēties no albuma, no pirmajiem",
-				"liked": "Izvēlēties no jums patikušajiem video, no pirmajiem",
-				"mix": "Izvēlēties no Mix, no pirmajiem",
-				"playlist": "Izvēlēties no atskaņošanas saraksta, no pirmajiem",
-				"uploads": "Izvēlēties no kanāla augšupielādētajiem video, no pirmajiem",
-				"watchLater": "Izvēlēties no “Skatīties vēlāk”, no pirmajiem"
+			"pickLoadAfter": "video, lai izvēlētos.",
+			"pickLoadBefore": "Ielādēt pirmos",
+			"pickLoadNote": "To varat mainīt nākamajā darbībā.",
+			"pickTitle": {
+				"album": "Izvēlēties no šī albuma",
+				"liked": "Izvēlēties no jums patikušajiem video",
+				"mix": "Izvēlēties no šī Mix",
+				"playlist": "Izvēlēties no šī atskaņošanas saraksta",
+				"uploads": "Izvēlēties no šī kanāla augšupielādētajiem video",
+				"watchLater": "Izvēlēties no “Skatīties vēlāk”"
 			},
 			"title": {
 				"album": "Lejupielādēt no šī albuma",
@@ -1019,6 +1083,9 @@
 				"uploads": "Lejupielādēt no šī kanāla augšupielādētajiem video",
 				"watchLater": "Lejupielādēt no “Skatīties vēlāk”"
 			},
+			"videoHint": "Tikai atvērtais video ar profilu {{profileName}}. Saraksts netiek ielādēts.",
+			"videoLabel": "Tikai šis video",
+			"videoPickHint": "Iestatiet tikai atvērto video. Saraksts netiek ielādēts.",
 			"withProfile": "Profils: {{profileName}}"
 		},
 		"output": {
@@ -1090,6 +1157,12 @@
 			"allRemovedDescription": "Atjaunojiet tos, lai turpinātu.",
 			"allRemovedTitle": "Visi vienumi tika noņemti",
 			"alreadyDownloaded": "Jau lejupielādēts",
+			"bulkCappedDesc_one": "Tajā ir vairāk. Lai izvēlētos, cik, ielīmējiet tā saiti atsevišķi.",
+			"bulkCappedDesc_other": "Tajos ir vairāk. Lai izvēlētos, cik, ielīmējiet katru saiti atsevišķi.",
+			"bulkCappedDesc_zero": "Tajos ir vairāk. Lai izvēlētos, cik, ielīmējiet katru saiti atsevišķi.",
+			"bulkCappedTitle_one": "“{{title}}” ir ierobežots līdz {{limit}} video",
+			"bulkCappedTitle_other": "{{count}} saraksti ir ierobežoti līdz {{limit}} video katrs",
+			"bulkCappedTitle_zero": "{{count}} sarakstu ir ierobežoti līdz {{limit}} video katrs",
 			"bulkHeading": "Vairāki URL",
 			"bulkMetadataOptional": "Nav jāgaida — tagad rindā pievienotie faili lejupielādes laikā joprojām saņem savus īstos nosaukumus.",
 			"bulkMetadataResolving": "Iegūst video informāciju… {{done}}/{{total}}",
@@ -1155,17 +1228,6 @@
 			"syncNoneTitle": "Vēl nekas nav lejupielādēts",
 			"syncScanning": "Pārbauda mapi…",
 			"thumbnailAlt": "Video sīktēls"
-		},
-		"playlistCap": {
-			"changeLimit": "Mainīt ielādes limitu",
-			"descriptionWithTitle_one": "<title/>: Arroxy ielādēja {{count}} vienumu ar pašreizējo limitu {{limit}}. Pievienojiet ielādēto vienumu rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz.",
-			"descriptionWithTitle_other": "<title/>: Arroxy ielādēja {{count}} vienumus ar pašreizējo limitu {{limit}}. Pievienojiet ielādētos vienumus rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz.",
-			"descriptionWithTitle_zero": "<title/>: Arroxy ielādēja {{count}} vienumu ar pašreizējo limitu {{limit}}. Pievienojiet ielādētos vienumus rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz.",
-			"description_one": "Arroxy ielādēja {{count}} vienumu ar pašreizējo limitu {{limit}}. Pievienojiet ielādēto vienumu rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz.",
-			"description_other": "Arroxy ielādēja {{count}} vienumus ar pašreizējo limitu {{limit}}. Pievienojiet ielādētos vienumus rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz.",
-			"description_zero": "Arroxy ielādēja {{count}} vienumu ar pašreizējo limitu {{limit}}. Pievienojiet ielādētos vienumus rindai tūlīt vai palieliniet limitu un pārbaudiet vēlreiz.",
-			"queueLoaded": "Pievienot ielādētos vienumus rindai",
-			"title": "Atskaņošanas saraksta pārbaude ir ierobežota"
 		},
 		"playlistPresets": {
 			"heading": "Izvēlieties pakotnes kvalitāti",
@@ -1353,20 +1415,6 @@
 		"profileSwitchRow": {
 			"helpAria": "{{label}} palīdzība"
 		},
-		"quickProgress": {
-			"cancel": "Atcelt sagatavošanu",
-			"currentFallback": "Pašreizējā saite",
-			"description": "Arroxy nolasa saiti un piemēro profilu {{profileName}}.",
-			"failedCount_one": "{{count}} neizdevās",
-			"failedCount_other": "{{count}} neizdevās",
-			"failedCount_zero": "{{count}} neizdevās",
-			"phase": {
-				"probing": "Iegūst informāciju",
-				"queueing": "Pievieno rindai"
-			},
-			"title": "Sagatavo ātro lejupielādi",
-			"waitHint": "Atstājiet šo atvērtu, kamēr Arroxy sagatavo rindu."
-		},
 		"review": {
 			"areas": {
 				"extras": "papildu opcijas",
@@ -1476,6 +1524,7 @@
 				"embed": "Iegult video",
 				"heading": "Saglabāt kā",
 				"sidecar": "Līdzās video",
+				"sidecarNoVideo": "Lejupielādes mapē",
 				"subfolder": "apakšmape subtitles/"
 			},
 			"searchPlaceholder": "Meklēt valodas…",
@@ -1485,10 +1534,6 @@
 		"tabsNavAria": "Lejupielādes profilu navigācija",
 		"url": {
 			"advanced": "Papildu",
-			"analytics": {
-				"toggle": "Sūtīt ikdienas pulsa signālu",
-				"toggleDescription": "Nekādas telemetrijas. Reizi dienā anonīms pulsa signāls nosūta lietotnes versiju, instalēšanas kanālu, OS, valodu, valsti un aptuveni cik sen Arroxy ir instalēts, lai mēs varētu saskaitīt aktīvos un jaunos lietotājus. Bez ID, URL, video nosaukumiem vai failu nosaukumiem."
-			},
 			"autoRemoveCompleted": {
 				"description": "Noņem lejupielādi no sadaļas Lejupielādes dažas sekundes pēc tās pabeigšanas. Faili paliek jūsu mapē; neizdevušās un atceltās lejupielādes paliek sarakstā.",
 				"label": "Noņemt pabeigtās lejupielādes"
@@ -1523,6 +1568,11 @@
 				"label": "Vienlaicīgas lejupielādes",
 				"unit": "lejupielādes"
 			},
+			"concurrentProbes": {
+				"description": "Cik saišu informāciju Arroxy iegūst vienlaikus, pirms tās tiek lejupielādētas. Mazāks skaits saudzīgāk izturas pret vietnēm, kas bloķē noslogotus savienojumus. Saite, ko atverat Interaktīvajā lejupielādē, vienmēr ir pirmā.",
+				"label": "Vienlaikus pārbaudītās saites",
+				"unit": "saites"
+			},
 			"cookies": {
 				"banWarning": "Tādas vietnes kā YouTube var atzīmēt — un dažkārt bloķēt — kontus, kuru sīkfailus izmanto lejupielādes rīki, piemēram, Arroxy. Ja iespējams, izmantojiet vienreizēju kontu.",
 				"browserHelp": "Nolasa sīkfailus tieši no pārlūka. Chromium saimes pārlūkiem pārlūkam jābūt aizvērtam.",
@@ -1547,12 +1597,20 @@
 				"sourceFile": "Fails",
 				"sourceLabel": "Sīkfailu avots",
 				"sourceOff": "Izslēgts",
-				"toggleDescription": "Palīdz ar videoklipiem, kuriem ir vecuma ierobežojums, kas paredzēti tikai dalībniekiem vai ir privāti kontam."
+				"toggleDescription": "Palīdz ar video, ko var skatīties jūsu pašu konts, piemēram, ar jūsu privātajiem video."
 			},
 			"downloadConnections": {
 				"description": "Paātrina lielas lejupielādes, vienlaikus iegūstot vairākas video daļas. Augstākas vērtības palielina iespēju, ka vietne jūs ierobežos.",
 				"label": "Lejupielādes savienojumi",
 				"unit": "savienojumi"
+			},
+			"downloadList": {
+				"album": "Lejupielādēt albumu…",
+				"liked": "Lejupielādēt patikušos video…",
+				"mix": "Lejupielādēt Mix…",
+				"playlist": "Lejupielādēt atskaņošanas sarakstu…",
+				"uploads": "Lejupielādēt augšupielādētos video…",
+				"watchLater": "Lejupielādēt “Skatīties vēlāk”…"
 			},
 			"features": {
 				"always": {
@@ -1581,18 +1639,17 @@
 			"hotkey": {
 				"changeShortcut": "Mainīt īsinājumtaustiņu",
 				"conflict": "Šo īsinājumtaustiņu izmanto cita lietotne — izvēlieties citu.",
-				"hintLabel": "Vai nospiediet",
-				"hintTooltip": "Nokopējiet video saiti jebkur, nospiediet šo īsinājumtaustiņu, un Arroxy to pievienos rindai ar jūsu aktīvo profilu — nav jāpārslēdz logi.",
-				"hintTooltipSettings": "Mainiet vai izslēdziet iestatījumos.",
+				"globalLabel": "Globālais īsinājumtaustiņš",
 				"recording": "Nospiediet taustiņus…",
 				"reset": "Atiestatīt uz noklusējumu",
 				"sectionDescription": "Lejupielādējiet jebkuru nokopēto saiti no jebkuras lietotnes, neatverot Arroxy.",
 				"sectionTitle": "Globālais īsinājumtaustiņš",
 				"test": "Pārbaudīt",
 				"toggle": "Ieslēgt globālo īsinājumtaustiņu",
-				"toggleDescription": "Nospiediet īsinājumtaustiņu, kad starpliktuvē ir video saite."
+				"toggleDescriptionDetail": "Nokopējiet video saiti jebkurā lietotnē un nospiediet īsinājumtaustiņu: Arroxy pievienos to rindai ar jūsu aktīvo profilu, nepārslēdzot logus. Saite uz video atskaņošanas sarakstā lejupielādē tikai šo video."
 			},
 			"interactiveDownload": "Interaktīvā lejupielāde",
+			"interactiveDownloadAsks": "Interaktīvā lejupielāde…",
 			"limitRate": {
 				"activeWarning": "Aktīvās lejupielādes saglabā savu pašreizējo ierobežojumu. Lai piemērotu izmaiņas, pauzējiet un atsāciet.",
 				"custom": "Pielāgot…",
@@ -1605,10 +1662,8 @@
 			"mascotBusy": "Lejupielādēju fonā… Es protu darīt vairākas lietas vienlaikus 😎",
 			"mascotCollection": "Ātrā lejupielāde pievieno rindai ielādētos vienumus ar profilu {{profileName}}. Interaktīvā ļauj vispirms apskatīt vai atlasīt vienumus.",
 			"mascotIdle": "Ievietojiet saiti, un Arroxy to lejupielādēs ✨",
-			"mascotMixed": "Šī saite norāda uz vienu video kolekcijā. Arroxy pirms pārbaudes pajautās, kuru vēlaties.",
-			"mascotPreparing": "{{quickDownload}} nolasa šo saiti un piemēro profilu {{profileName}}.",
-			"mascotQueued": "Rinda apstrādā šo lejupielādi. Kamēr tā darbojas, varat ielīmēt citu saiti.",
 			"mascotSingle": "Ātrā lejupielāde sāk vienu lejupielādi ar profilu {{profileName}}. Vienreizējām izmaiņām izmantojiet Interaktīvo.",
+			"mascotVideoInList": "Šī saite norāda uz video un sarakstu, kurā tas atrodas: lejupielādējiet tikai video vai sarakstu.",
 			"nativeAudioPreference": {
 				"compatible": "Saderīgs stereo",
 				"description": "Stereo vai telpiskais, kad profils izvēlas oriģinālo audio. Profils to var pārrakstīt.",
@@ -1712,6 +1767,7 @@
 					"override": "Izmanto profila nepārklājumu",
 					"overrideSubfolder": "Izmanto profila nepārklājumu + profila apakšmapi"
 				},
+				"destinationEditHint": "Lai mainītu saglabāšanas vietu, rediģējiet profilu.",
 				"destinationFallback": "Galamērķis",
 				"edit": "Rediģēt",
 				"editActive": "Rediģēt aktīvo profilu",
@@ -1735,26 +1791,27 @@
 				"remove": "Noņemt",
 				"reorderHint": "Velciet profilu, lai to pārvietotu. Visi profilu izvēles saraksti seko šai secībai.",
 				"reset": "Atiestatīt",
+				"savesTo": "Saglabā mapē",
 				"switchAria": "Pārslēgt lejupielādes profilu: {{profileName}}",
 				"switchTitle": "Pārslēgt lejupielādes profilu"
 			},
 			"proxy": {
 				"clear": "Notīrīt",
-				"description": "Novirza datplūsmu caur starpniekserveri — noder saturam, kas ierobežots pēc ģeogrāfiskās atrašanās vietas.",
+				"description": "Novirza datplūsmu caur starpniekserveri.",
 				"label": "Starpniekservera URL",
 				"placeholder": "http://host:port"
 			},
-			"quickBulkAllFailed": "Nevienu no šiem URL nevarēja sagatavot",
 			"quickDownload": "Ātrā lejupielāde",
 			"quickDownloadTooltip": "Lejupielādēs, izmantojot: {{profileName}}",
 			"quickFailed": "Neizdevās pievienot šo: {{error}}",
-			"quickPartialFailed_one": "Rindai pievienots viss, kas izdevās. {{count}} URL nevarēja sagatavot.",
-			"quickPartialFailed_other": "Rindai pievienots viss, kas izdevās. {{count}} URL nevarēja sagatavot.",
-			"quickPartialFailed_zero": "Rindai pievienots viss, kas izdevās. {{count}} URL nevarēja sagatavot.",
 			"quickPrepareFailed": "Rindas vienumu nevarēja sagatavot",
 			"quickPreparing": "Sagatavo",
 			"quickProbeFailed": "Pārbaude neizdevās",
 			"quickSingleOnly": "Lai sāktu, ielīmējiet video, atskaņošanas saraksta, kanāla vai meklēšanas URL.",
+			"reports": {
+				"toggle": "Sūtīt anonīmus pulsa un iestatīšanas ziņojumus",
+				"toggleDescription": "Nekādas izsekošanas. Reizi dienā anonīms pulsa signāls nosūta lietotnes versiju, instalēšanas kanālu, OS, valodu, valsti un aptuveni cik sen Arroxy ir instalēts, lai mēs varētu saskaitīt aktīvos un jaunos lietotājus. Kad Arroxy iestata vai atjaunina lejupielādes dzinēju vai multivides rīkus, tas arī ziņo, vai tas izdevās un cik aptuveni ilgi tas prasīja. Bez ID, URL, video nosaukumiem vai failu nosaukumiem."
+			},
 			"settings": {
 				"behaviorDescription": "Globāla darbība, kas ietekmē arī uz profiliem balstītās lejupielādes.",
 				"behaviorHeading": "Lejupielādes darbība",
@@ -1778,7 +1835,9 @@
 			"tabs": {
 				"profiles": "Profili",
 				"settings": "Iestatījumi"
-			}
+			},
+			"thisVideo": "Šis video",
+			"thisVideoTooltip": "Lejupielādē tikai šo video ar profilu {{profileName}}"
 		}
 	}
 }

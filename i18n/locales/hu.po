@@ -107,10 +107,6 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "Folytatás"
 
-msgctxt "common.dismiss"
-msgid "Dismiss"
-msgstr "Elvetés"
-
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "Betöltés"
@@ -143,13 +139,9 @@ msgctxt "dialogs.closeToTray.remember"
 msgid "Don't ask again"
 msgstr "Ne kérdezze újra"
 
-msgctxt "dialogs.quitWithActiveDownloads.confirm"
-msgid "Cancel Downloads & Quit"
-msgstr "Letöltések megszakítása és kilépés"
-
-msgctxt "dialogs.quitWithActiveDownloads.detail"
-msgid "Pause to resume later, or cancel to discard progress."
-msgstr "Szüneteltessen a későbbi folytatáshoz, vagy szakítson meg a haladás elvetéséhez."
+msgctxt "dialogs.quitWithActiveDownloads.continueDetail"
+msgid "Your queue is kept, and downloads pick up where they stopped the next time you open Arroxy."
+msgstr "A sor megmarad, a letöltések pedig ott folytatódnak, ahol abbamaradtak, amikor legközelebb megnyitja az Arroxyt."
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -165,9 +157,9 @@ msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "{{count}} letöltés folyamatban"
 
-msgctxt "dialogs.quitWithActiveDownloads.pause"
-msgid "Pause Downloads & Quit"
-msgstr "Letöltések szüneteltetése és kilépés"
+msgctxt "dialogs.quitWithActiveDownloads.quit"
+msgid "Quit"
+msgstr "Kilépés"
 
 msgctxt "dialogs.rendererCrashed.detail"
 msgid "The renderer process crashed ({{reason}}). Reload to try again."
@@ -226,8 +218,8 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "Ez a videó korhatáros, és bejelentkezett fiók nélkül nem tölthető le."
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
-msgstr "A botvédelem működésbe lépett. A használt IP-címet valószínűleg megjelölték (adatközponti tartomány vagy túlterhelt VPN-kilépő). Módosítsa az IP-címét, vagy válasszon másik VPN-végpontot, majd próbálja újra. Ha továbbra sem sikerül, az ideiglenes webhelyoldali változás lehet – az Arroxy induláskor frissíti a letöltőmotort, így a javítás a megjelenésekor automatikusan megérkezik."
+msgid "The site's bot protection stopped this download. Wait a while and try again, or download fewer videos at once. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "A webhely botvédelme megállította ezt a letöltést. Várjon egy kicsit, és próbálja újra, vagy töltsön le egyszerre kevesebb videót. Ha továbbra sem sikerül, az ideiglenes webhelyoldali változás lehet – az Arroxy induláskor frissíti a letöltőmotort, így a javítás a megjelenésekor automatikusan megérkezik."
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
 msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
@@ -246,8 +238,8 @@ msgid "This video is not available in your region."
 msgstr "Ez a videó az Ön régiójában nem érhető el."
 
 msgctxt "errors.ytdlp.ipBlock"
-msgid "Your IP address appears to be blocked. Try again later or use a VPN."
-msgstr "Úgy tűnik, az IP-címe le van tiltva. Próbálja újra később, vagy használjon VPN-t."
+msgid "The site is blocking requests from this connection. Try again later."
+msgstr "A webhely blokkolja az erről a kapcsolatról érkező kéréseket. Próbálja újra később."
 
 msgctxt "errors.ytdlp.loginRequired"
 msgid "This video needs a signed-in account."
@@ -329,13 +321,77 @@ msgctxt "explore.linkCallout.title"
 msgid "Right-click a link to download it"
 msgstr "Jobb kattintás egy hivatkozásra a letöltéshez"
 
+msgctxt "explore.linkMenu.background.album"
+msgid "Download the album in the background"
+msgstr "Az album letöltése a háttérben"
+
+msgctxt "explore.linkMenu.background.liked"
+msgid "Download your liked videos in the background"
+msgstr "A kedvelt videók letöltése a háttérben"
+
+msgctxt "explore.linkMenu.background.mix"
+msgid "Download the Mix in the background"
+msgstr "A Mix letöltése a háttérben"
+
+msgctxt "explore.linkMenu.background.playlist"
+msgid "Download the playlist in the background"
+msgstr "A lejátszási lista letöltése a háttérben"
+
+msgctxt "explore.linkMenu.background.uploads"
+msgid "Download the uploads in the background"
+msgstr "A feltöltések letöltése a háttérben"
+
+msgctxt "explore.linkMenu.background.watchLater"
+msgid "Download Watch later in the background"
+msgstr "A „Megtekintés később” lista letöltése a háttérben"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "Hivatkozás másolása"
 
+msgctxt "explore.linkMenu.downloadFirst"
+msgid "Download the first {{count}}"
+msgstr "Az első {{count}} letöltése"
+
+msgctxt "explore.linkMenu.downloadThisVideo"
+msgid "Download this video · {{profileName}}"
+msgstr "Ennek a videónak a letöltése · {{profileName}}"
+
 msgctxt "explore.linkMenu.downloadWith"
 msgid "Download with"
 msgstr "Letöltés ezzel:"
+
+msgctxt "explore.linkMenu.fromList.album"
+msgid "From this album"
+msgstr "Ebből az albumból"
+
+msgctxt "explore.linkMenu.fromList.liked"
+msgid "From your liked videos"
+msgstr "A kedvelt videókból"
+
+msgctxt "explore.linkMenu.fromList.mix"
+msgid "From this Mix"
+msgstr "Ebből a Mixből"
+
+msgctxt "explore.linkMenu.fromList.playlist"
+msgid "From this playlist"
+msgstr "Ebből a lejátszási listából"
+
+msgctxt "explore.linkMenu.fromList.uploads"
+msgid "From this channel’s uploads"
+msgstr "Ennek a csatornának a feltöltéseiből"
+
+msgctxt "explore.linkMenu.fromList.watchLater"
+msgid "From Watch later"
+msgstr "A „Megtekintés később” listából"
+
+msgctxt "explore.linkMenu.interactive"
+msgid "Interactive Download…"
+msgstr "Interaktív letöltés…"
+
+msgctxt "explore.linkMenu.thisVideoWith"
+msgid "This video with"
+msgstr "Ez a videó ezzel:"
 
 msgctxt "explore.newBadge"
 msgid "New"
@@ -481,6 +537,10 @@ msgctxt "explore.toolbar.compactLayout"
 msgid "Compact layout"
 msgstr "Kompakt elrendezés"
 
+msgctxt "explore.toolbar.download"
+msgid "Download"
+msgstr "Letöltés"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "Letöltés · {{profileName}}"
@@ -516,6 +576,14 @@ msgstr "Újratöltés"
 msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "Ez a keresés túl hosszú."
+
+msgctxt "explore.toolbar.thisVideo"
+msgid "This video"
+msgstr "Ez a videó"
+
+msgctxt "explore.toolbar.thisVideoHint"
+msgid "Download just this video with {{profileName}}"
+msgstr "Csak ennek a videónak a letöltése ezzel a profillal: {{profileName}}"
 
 msgctxt "explore.toolbar.zoom.hint"
 msgid "Page zoom: {{percent}}%"
@@ -581,17 +649,17 @@ msgctxt "filenameTemplate.error.unknown-token"
 msgid "Unknown token {{token}}."
 msgstr "Ismeretlen token: {{token}}."
 
-msgctxt "filenameTemplate.idWarning"
-msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
-msgstr "A {id} nélkül az Arroxy nem ismeri fel a már letöltött lejátszási listaelemeket, és nem tud .m3u lejátszási listákat létrehozni."
+msgctxt "filenameTemplate.idEndingWarning"
+msgid "End the name with [{id}] so Arroxy can detect already-downloaded playlist items and generate .m3u playlists."
+msgstr "A nevet [{id}] jelöléssel fejezze be, hogy az Arroxy felismerhesse a már letöltött lejátszásilista-elemeket, és .m3u lejátszási listákat hozhasson létre."
 
 msgctxt "filenameTemplate.label"
 msgid "Filename template"
 msgstr "Fájlnévsablon"
 
-msgctxt "filenameTemplate.m3uDisabled"
-msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
-msgstr "Nem érhető el, mert a fájlnévsablon nem tartalmazza a {id} tokent, vagy mappákba rendezi a letöltéseket."
+msgctxt "filenameTemplate.m3uDisabledIdEnding"
+msgid "Unavailable because your filename template either doesn't end with [{id}] or sorts downloads into folders."
+msgstr "Nem érhető el, mert a fájlnévsablon vagy nem [{id}] jelöléssel végződik, vagy mappákba rendezi a letöltéseket."
 
 msgctxt "filenameTemplate.previewPlaylist"
 msgid "In a playlist"
@@ -778,6 +846,56 @@ msgid "Already in the queue"
 msgstr "Már a sorban van"
 
 #. Plural form "one" for hu: used for counts like 1.
+msgctxt "notifications.quickDownload.batchAdded_one"
+msgid "Added {{count}} link to Downloads"
+msgstr "{{count}} hivatkozás hozzáadva a Letöltésekhez"
+
+#. Plural form "other" for hu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchAdded_other"
+msgid "Added {{count}} links to Downloads"
+msgstr "{{count}} hivatkozás hozzáadva a Letöltésekhez"
+
+#. Plural form "one" for hu: used for counts like 1.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_one"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} már a sorban van"
+
+#. Plural form "other" for hu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_other"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} már a sorban van"
+
+#. Plural form "one" for hu: used for counts like 1.
+msgctxt "notifications.quickDownload.batchNoneAdded_one"
+msgid "{{count}} link couldn't be added"
+msgstr "{{count}} hivatkozást nem sikerült hozzáadni"
+
+#. Plural form "other" for hu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchNoneAdded_other"
+msgid "{{count}} links couldn't be added"
+msgstr "{{count}} hivatkozást nem sikerült hozzáadni"
+
+#. Plural form "one" for hu: used for counts like 1.
+msgctxt "notifications.quickDownload.batchNotAdded_one"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} hozzáadása nem sikerült"
+
+#. Plural form "other" for hu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchNotAdded_other"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} hozzáadása nem sikerült"
+
+#. Plural form "one" for hu: used for counts like 1.
+msgctxt "notifications.quickDownload.chooseFromList_one"
+msgid "{{count}} video in this list — choose what to download"
+msgstr "{{count}} videó van ezen a listán – válassza ki, mit tölt le"
+
+#. Plural form "other" for hu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.chooseFromList_other"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "{{count}} videó van ezen a listán – válassza ki, mit tölt le"
+
+#. Plural form "one" for hu: used for counts like 1.
 msgctxt "notifications.quickDownload.chooseHowMany_one"
 msgid "{{count}}+ video — choose how many"
 msgstr "{{count}}+ videó – válassza ki, mennyit"
@@ -794,26 +912,6 @@ msgstr "Nem sikerült előkészíteni: {{title}}"
 msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "Nem sikerült hozzáadni a hivatkozást – próbálja újra"
-
-#. Plural form "one" for hu: used for counts like 1.
-msgctxt "notifications.quickDownload.review_one"
-msgid "{{count}} video in this list — review to pick"
-msgstr "{{count}} videó van ezen a listán – áttekintéssel választhat"
-
-#. Plural form "other" for hu: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "notifications.quickDownload.review_other"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "{{count}} videó van ezen a listán – áttekintéssel választhat"
-
-#. Plural form "one" for hu: used for counts like 1.
-msgctxt "notifications.quickDownload.reviewCapped_one"
-msgid "{{count}}+ video in this list — review to pick"
-msgstr "{{count}}+ videó van ezen a listán – áttekintéssel választhat"
-
-#. Plural form "other" for hu: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "notifications.quickDownload.reviewCapped_other"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "{{count}}+ videó van ezen a listán – áttekintéssel választhat"
 
 msgctxt "notifications.quickDownload.view"
 msgid "View"
@@ -1063,19 +1161,75 @@ msgctxt "queue.choice.first"
 msgid "First {{count}}"
 msgstr "Első {{count}}"
 
+msgctxt "queue.choice.list.album"
+msgid "The album"
+msgstr "Az album"
+
+msgctxt "queue.choice.list.liked"
+msgid "Liked videos"
+msgstr "Kedvelt videók"
+
+msgctxt "queue.choice.list.mix"
+msgid "The Mix"
+msgstr "A Mix"
+
+msgctxt "queue.choice.list.playlist"
+msgid "The playlist"
+msgstr "A lejátszási lista"
+
+msgctxt "queue.choice.list.uploads"
+msgid "All the uploads"
+msgstr "Az összes feltöltés"
+
+msgctxt "queue.choice.list.watchLater"
+msgid "Watch later"
+msgstr "„Megtekintés később”"
+
+msgctxt "queue.choice.pick"
+msgid "Pick from it…"
+msgstr "Válogatás belőle…"
+
 msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "Áttekintés"
 
 #. Plural form "one" for hu: used for counts like 1.
-msgctxt "queue.choice.reviewBody_one"
-msgid "This link is a list of {{count}} video. Review it to pick what to download."
-msgstr "Ez a hivatkozás {{count}} videót tartalmazó lista. Tekintse át, hogy kiválaszthassa, mit tölt le."
+msgctxt "queue.choice.uncappedBody_one"
+msgid "This link is a list of {{count}} video. Download it, or pick in a review."
+msgstr "Ez a hivatkozás egy {{count}} videót tartalmazó lista. Töltse le, vagy válasszon áttekintéssel."
 
 #. Plural form "other" for hu: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "queue.choice.reviewBody_other"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "Ez a hivatkozás {{count}} videót tartalmazó lista. Tekintse át, hogy kiválaszthassa, mit tölt le."
+msgctxt "queue.choice.uncappedBody_other"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "Ez a hivatkozás egy {{count}} videót tartalmazó lista. Töltse le mindet, vagy válasszon áttekintéssel."
+
+msgctxt "queue.choice.video"
+msgid "This video"
+msgstr "Ez a videó"
+
+msgctxt "queue.choice.videoOrList.album"
+msgid "This link is a video in an album. Download just the video, or the album?"
+msgstr "Ez a hivatkozás egy album egyik videója. Csak a videót szeretné letölteni, vagy az albumot?"
+
+msgctxt "queue.choice.videoOrList.liked"
+msgid "This link is a video in your liked videos. Download just the video, or all your liked videos?"
+msgstr "Ez a hivatkozás az Ön kedvelt videóinak egyike. Csak a videót szeretné letölteni, vagy az összes kedvelt videót?"
+
+msgctxt "queue.choice.videoOrList.mix"
+msgid "This link is a video in a Mix. Download just the video, or the Mix?"
+msgstr "Ez a hivatkozás egy Mix egyik videója. Csak a videót szeretné letölteni, vagy a Mixet?"
+
+msgctxt "queue.choice.videoOrList.playlist"
+msgid "This link is a video in a playlist. Download just the video, or the playlist?"
+msgstr "Ez a hivatkozás egy lejátszási lista egyik videója. Csak a videót szeretné letölteni, vagy a lejátszási listát?"
+
+msgctxt "queue.choice.videoOrList.uploads"
+msgid "This link is a video in a channel's uploads. Download just the video, or all the uploads?"
+msgstr "Ez a hivatkozás egy csatorna egyik feltöltött videója. Csak a videót szeretné letölteni, vagy az összes feltöltést?"
+
+msgctxt "queue.choice.videoOrList.watchLater"
+msgid "This link is a video in your Watch later list. Download just the video, or the whole list?"
+msgstr "Ez a hivatkozás az Ön „Megtekintés később” listájának egyik videója. Csak a videót szeretné letölteni, vagy az egész listát?"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -1204,6 +1358,70 @@ msgstr "Letöltés"
 msgctxt "queue.item.subtitleLanguagesMissing"
 msgid "No subtitles in {{languages}}"
 msgstr "Nincs felirat a következő nyelveken: {{languages}}"
+
+msgctxt "queue.item.waitingForSite"
+msgid "Waits for {{site}} until {{time}}"
+msgstr "Várakozás a(z) {{site}} miatt eddig: {{time}}"
+
+msgctxt "queue.item.waitingHint"
+msgid "{{site}} is rate-limiting this connection. Arroxy fetches this link's details after {{time}}, so the limit can clear."
+msgstr "A(z) {{site}} korlátozza a kérések számát erről a kapcsolatról. Az Arroxy {{time}} után kéri le a hivatkozás adatait, hogy a korlát feloldódhasson."
+
+msgctxt "queue.listOffer.dismiss"
+msgid "Dismiss"
+msgstr "Elvetés"
+
+msgctxt "queue.listOffer.from.album"
+msgid "From an album"
+msgstr "Albumból"
+
+msgctxt "queue.listOffer.from.liked"
+msgid "From your liked videos"
+msgstr "A kedvelt videókból"
+
+msgctxt "queue.listOffer.from.mix"
+msgid "From a Mix"
+msgstr "Mixből"
+
+msgctxt "queue.listOffer.from.playlist"
+msgid "From a playlist"
+msgstr "Lejátszási listából"
+
+msgctxt "queue.listOffer.from.uploads"
+msgid "From a channel's uploads"
+msgstr "Egy csatorna feltöltéseiből"
+
+msgctxt "queue.listOffer.from.watchLater"
+msgid "From Watch later"
+msgstr "A „Megtekintés később” listából"
+
+msgctxt "queue.listOffer.get.album"
+msgid "Get the whole album"
+msgstr "Az egész album letöltése"
+
+msgctxt "queue.listOffer.get.liked"
+msgid "Get all liked videos"
+msgstr "Az összes kedvelt videó letöltése"
+
+msgctxt "queue.listOffer.get.mix"
+msgid "Get the whole Mix"
+msgstr "Az egész Mix letöltése"
+
+msgctxt "queue.listOffer.get.playlist"
+msgid "Get the whole playlist"
+msgstr "Az egész lejátszási lista letöltése"
+
+msgctxt "queue.listOffer.get.uploads"
+msgid "Get all uploads"
+msgstr "Az összes feltöltés letöltése"
+
+msgctxt "queue.listOffer.get.watchLater"
+msgid "Get all of Watch later"
+msgstr "A teljes „Megtekintés később” lista letöltése"
+
+msgctxt "queue.listOffer.hint"
+msgid "Adds the list as its own row. This video is left out."
+msgstr "A listát külön sorként adja hozzá. Ez a videó kimarad."
 
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
@@ -1745,10 +1963,6 @@ msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Üdv újra!"
 
-msgctxt "splash.setup.bytes"
-msgid "{{done}} of {{total}}"
-msgstr "{{done}} / {{total}}"
-
 #. Plural form "one" for hu: used for counts like 1.
 msgctxt "splash.setup.left.minutes_one"
 msgid "about {{count}} min left"
@@ -1763,18 +1977,6 @@ msgctxt "splash.setup.left.underMinute"
 msgid "less than a minute left"
 msgstr "kevesebb mint egy perc van hátra"
 
-msgctxt "splash.setup.note.engine"
-msgid "Keeps downloads working when sites change."
-msgstr "Ettől működnek tovább a letöltések, ha a webhelyek változnak."
-
-msgctxt "splash.setup.note.firstRun"
-msgid "This happens once. Arroxy keeps these tools and updates them itself."
-msgstr "Ez egyszer történik meg. Az Arroxy megtartja ezeket az eszközöket, és maga frissíti őket."
-
-msgctxt "splash.setup.note.media"
-msgid "This happens once. Arroxy keeps them for future updates."
-msgstr "Ez egyszer történik meg. Az Arroxy megtartja őket a későbbi frissítésekhez."
-
 msgctxt "splash.setup.stage.checking"
 msgid "Checking everything works"
 msgstr "Annak ellenőrzése, hogy minden működik"
@@ -1783,21 +1985,17 @@ msgctxt "splash.setup.stage.connecting"
 msgid "Connecting…"
 msgstr "Kapcsolódás…"
 
-msgctxt "splash.setup.stage.downloadingBoth"
-msgid "Downloading the download engine and media tools"
-msgstr "A letöltőmotor és a médiaeszközök letöltése"
-
-msgctxt "splash.setup.stage.downloadingEngine"
-msgid "Downloading the download engine"
-msgstr "A letöltőmotor letöltése"
-
-msgctxt "splash.setup.stage.downloadingMedia"
-msgid "Downloading the media tools"
-msgstr "A médiaeszközök letöltése"
-
 msgctxt "splash.setup.stage.unpacking"
 msgid "Unpacking the media tools"
 msgstr "A médiaeszközök kicsomagolása"
+
+msgctxt "splash.setup.stage.unpackingEngine"
+msgid "Unpacking the download engine"
+msgstr "A letöltőmotor kicsomagolása"
+
+msgctxt "splash.setup.title.both"
+msgid "Updating Arroxy's tools"
+msgstr "Az Arroxy eszközeinek frissítése"
 
 msgctxt "splash.setup.title.engine"
 msgid "Updating the download engine"
@@ -1884,8 +2082,8 @@ msgid "Merging audio and video…"
 msgstr "Hang és videó egyesítése…"
 
 msgctxt "status.mintingToken"
-msgid "Minting YouTube token…"
-msgstr "YouTube-token előállítása…"
+msgid "Preparing YouTube download…"
+msgstr "YouTube-letöltés előkészítése…"
 
 msgctxt "status.movingFiles"
 msgid "Moving files…"
@@ -1904,16 +2102,16 @@ msgid "Preparing binaries…"
 msgstr "Binárisok előkészítése…"
 
 msgctxt "status.qualityLimited"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
-msgstr "Mentve {{height}}p felbontásban – a YouTube visszatartotta a magasabb minőségeket ennél a letöltésnél. Segíthet, ha később vagy másik hálózatról próbálja újra."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later may help."
+msgstr "Mentve {{height}}p felbontásban – a YouTube visszatartotta a magasabb minőségeket ennél a letöltésnél. Segíthet, ha később próbálja újra."
 
 msgctxt "status.qualityLimitedSubtitlesFailed"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
-msgstr "Mentve {{height}}p felbontásban – a YouTube visszatartotta a magasabb minőségeket ennél a letöltésnél, és egyes feliratokat nem sikerült letölteni. Segíthet, ha később vagy másik hálózatról próbálja újra."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later may help."
+msgstr "Mentve {{height}}p felbontásban – a YouTube visszatartotta a magasabb minőségeket ennél a letöltésnél, és egyes feliratokat nem sikerült letölteni. Segíthet, ha később próbálja újra."
 
 msgctxt "status.remintingToken"
-msgid "Re-minting token…"
-msgstr "Token újbóli előállítása…"
+msgid "Preparing YouTube download again…"
+msgstr "A YouTube-letöltés ismételt előkészítése…"
 
 msgctxt "status.retryingSponsorBlock"
 msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
@@ -2340,8 +2538,8 @@ msgid "Folder name has invalid characters"
 msgstr "A mappanév érvénytelen karaktereket tartalmaz"
 
 msgctxt "wizard.folder.subfolder.placeholder"
-msgid "e.g. lo-fi rips"
-msgstr "pl. lo-fi felvételek"
+msgid "e.g. lectures"
+msgstr "pl. előadások"
 
 msgctxt "wizard.folder.subfolder.toggle"
 msgid "Save inside subfolder"
@@ -2613,9 +2811,25 @@ msgctxt "wizard.formats.fit.tierAbove"
 msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
 msgstr "A profilja {{wanted}}p felbontást kér. Ennél kisebb nem érhető el ennél a videónál, ezért {{picked}}p van kiválasztva."
 
-msgctxt "wizard.formats.fit.tierBelow"
-msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
-msgstr "A profilja {{wanted}}p felbontást kér. Ez a videó csak {{picked}}p-ig terjed, ezért {{picked}}p van kiválasztva."
+msgctxt "wizard.formats.fit.tierAbovePassedOver"
+msgid "Your profile asks for {{wanted}}p. The smaller streams this video has don't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "A profilja {{wanted}}p felbontást kér. Az ennél kisebb adatfolyamok nem illenek a profil többi beállításához, ezért {{picked}}p van kiválasztva."
+
+msgctxt "wizard.formats.fit.tierBelowTakeable"
+msgid "Your profile asks for {{wanted}}p. This video has no {{wanted}}p it can take, so {{picked}}p is selected."
+msgstr "A profilja {{wanted}}p felbontást kér. Ebben a videóban nincs használható {{wanted}}p, ezért {{picked}}p van kiválasztva."
+
+msgctxt "wizard.formats.fit.tierPassedOverAiUpscaled"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p is AI-upscaled, so the original {{picked}}p is selected."
+msgstr "A profilja {{wanted}}p felbontást kér. A videó {{wanted}}p változata MI-vel felskálázott, ezért az eredeti {{picked}}p van kiválasztva."
+
+msgctxt "wizard.formats.fit.tierPassedOverH264"
+msgid "Your profile asks for {{wanted}}p in H.264. This video has {{wanted}}p only in other codecs, so {{picked}}p in H.264 is selected."
+msgstr "A profilja {{wanted}}p felbontást kér H.264-ben. Ez a videó {{wanted}}p felbontásban csak más kodekekkel érhető el, ezért {{picked}}p van kiválasztva H.264-ben."
+
+msgctxt "wizard.formats.fit.tierPassedOverProfile"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p doesn't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "A profilja {{wanted}}p felbontást kér. A videó {{wanted}}p változata nem illik a profil többi beállításához, ezért {{picked}}p van kiválasztva."
 
 msgctxt "wizard.formats.fit.webmUnavailable"
 msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
@@ -2853,85 +3067,81 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "hanggal"
 
-msgctxt "wizard.listPrompt.escHint"
-msgid "Esc cancels. Nothing loads until you choose."
-msgstr "Az Esc megszakítja. Semmi sem töltődik be, amíg nem választ."
+msgctxt "wizard.listPrompt.backgroundHint"
+msgid "With {{profileName}}. If it has more than {{count}} videos, Downloads asks how many."
+msgstr "Profil: {{profileName}}. Ha {{count}} videónál többet tartalmaz, a Letöltések megkérdezi, mennyit töltsön le."
 
-msgctxt "wizard.listPrompt.interactiveSubtitle"
-msgid "Choose formats yourself"
-msgstr "Válassza ki Ön a formátumokat"
+msgctxt "wizard.listPrompt.backgroundLabel"
+msgid "Download in the background"
+msgstr "Letöltés a háttérben"
 
-msgctxt "wizard.listPrompt.justThisVideo"
-msgid "Just this video"
-msgstr "Csak ez a videó"
+msgctxt "wizard.listPrompt.escOnly"
+msgid "Esc cancels."
+msgstr "Az Esc megszakítja."
 
-msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
-msgid "Opens its formats"
-msgstr "Megnyitja a formátumait"
+msgctxt "wizard.listPrompt.firstHint"
+msgid "Exactly the first {{count}}, with {{profileName}}."
+msgstr "Pontosan az első {{count}}, profil: {{profileName}}."
 
-msgctxt "wizard.listPrompt.justThisVideoQuickHint"
-msgid "Loads one video"
-msgstr "Egy videót tölt be"
+msgctxt "wizard.listPrompt.firstLabel"
+msgid "Download the first"
+msgstr "Letöltés: első"
 
-msgctxt "wizard.listPrompt.listInteractiveHint"
-msgid "Loads up to {{count}} to choose from"
-msgstr "Legfeljebb {{count}} betöltése a választáshoz"
+msgctxt "wizard.listPrompt.interactiveHint"
+msgid "Pick from the first {{count}} videos (or change the count on the next step), then set up the download."
+msgstr "Válasszon az első {{count}} videó közül (vagy módosítsa a számot a következő lépésben), majd állítsa be a letöltést."
 
-msgctxt "wizard.listPrompt.listOption.album"
-msgid "The album, first"
-msgstr "Az album, az első"
+msgctxt "wizard.listPrompt.interactiveLabel"
+msgid "Interactive download…"
+msgstr "Interaktív letöltés…"
 
-msgctxt "wizard.listPrompt.listOption.liked"
-msgid "Your liked videos, first"
-msgstr "A kedvelt videók, az első"
+msgctxt "wizard.listPrompt.limitHint"
+msgid "How many videos to take from the list: the first option asks past it, the second takes exactly that many. The same as Settings › Playlist items to scan."
+msgstr "Hány videót vegyen a listából: az első lehetőség ennél többnél rákérdez, a második pontosan ennyit vesz. Ugyanaz, mint a Beállítások › Vizsgálandó lejátszási listaelemek."
 
-msgctxt "wizard.listPrompt.listOption.mix"
-msgid "The Mix, first"
-msgstr "A Mix, az első"
-
-msgctxt "wizard.listPrompt.listOption.playlist"
-msgid "The playlist, first"
-msgstr "A lejátszási lista, az első"
-
-msgctxt "wizard.listPrompt.listOption.uploads"
-msgid "The uploads, first"
-msgstr "A feltöltések, az első"
-
-msgctxt "wizard.listPrompt.listOption.watchLater"
-msgid "Watch later, first"
-msgstr "A „Megtekintés később” lista, az első"
-
-msgctxt "wizard.listPrompt.listQuickHint"
-msgid "Loads up to {{count}}, then downloads them"
-msgstr "Legfeljebb {{count}} betöltése, majd letöltése"
+msgctxt "wizard.listPrompt.limitLabel"
+msgid "Limit"
+msgstr "Korlát"
 
 msgctxt "wizard.listPrompt.mixNote"
 msgid "A Mix changes every time you open it."
 msgstr "A Mix minden megnyitáskor megváltozik."
 
-msgctxt "wizard.listPrompt.pickOption.album"
-msgid "Pick from the album, first"
-msgstr "Választás az albumból, az első"
+msgctxt "wizard.listPrompt.pickLoadAfter"
+msgid "to pick from."
+msgstr "a válogatáshoz."
 
-msgctxt "wizard.listPrompt.pickOption.liked"
-msgid "Pick from your liked videos, first"
-msgstr "Választás a kedvelt videókból, az első"
+msgctxt "wizard.listPrompt.pickLoadBefore"
+msgid "Load the first"
+msgstr "Betöltés: első"
 
-msgctxt "wizard.listPrompt.pickOption.mix"
-msgid "Pick from the Mix, first"
-msgstr "Választás a Mixből, az első"
+msgctxt "wizard.listPrompt.pickLoadNote"
+msgid "You can change it on the next step."
+msgstr "A következő lépésben módosíthatja."
 
-msgctxt "wizard.listPrompt.pickOption.playlist"
-msgid "Pick from the playlist, first"
-msgstr "Választás a lejátszási listából, az első"
+msgctxt "wizard.listPrompt.pickTitle.album"
+msgid "Pick from this album"
+msgstr "Válogatás ebből az albumból"
 
-msgctxt "wizard.listPrompt.pickOption.uploads"
-msgid "Pick from the uploads, first"
-msgstr "Választás a feltöltésekből, az első"
+msgctxt "wizard.listPrompt.pickTitle.liked"
+msgid "Pick from your liked videos"
+msgstr "Válogatás a kedvelt videókból"
 
-msgctxt "wizard.listPrompt.pickOption.watchLater"
-msgid "Pick from Watch later, first"
-msgstr "Választás a „Megtekintés később” listából, az első"
+msgctxt "wizard.listPrompt.pickTitle.mix"
+msgid "Pick from this Mix"
+msgstr "Válogatás ebből a Mixből"
+
+msgctxt "wizard.listPrompt.pickTitle.playlist"
+msgid "Pick from this playlist"
+msgstr "Válogatás ebből a lejátszási listából"
+
+msgctxt "wizard.listPrompt.pickTitle.uploads"
+msgid "Pick from this channel’s uploads"
+msgstr "Válogatás ennek a csatornának a feltöltéseiből"
+
+msgctxt "wizard.listPrompt.pickTitle.watchLater"
+msgid "Pick from Watch later"
+msgstr "Válogatás a „Megtekintés később” listából"
 
 msgctxt "wizard.listPrompt.title.album"
 msgid "Download from this album"
@@ -2956,6 +3166,18 @@ msgstr "Letöltés ennek a csatornának a feltöltéseiből"
 msgctxt "wizard.listPrompt.title.watchLater"
 msgid "Download from Watch later"
 msgstr "Letöltés a „Megtekintés később” listából"
+
+msgctxt "wizard.listPrompt.videoHint"
+msgid "Only the video you opened, with {{profileName}}. The list isn't loaded."
+msgstr "Csak a megnyitott videó, profil: {{profileName}}. A lista nem töltődik be."
+
+msgctxt "wizard.listPrompt.videoLabel"
+msgid "Just this video"
+msgstr "Csak ez a videó"
+
+msgctxt "wizard.listPrompt.videoPickHint"
+msgid "Set up only the video you opened. The list isn't loaded."
+msgstr "Csak a megnyitott videó beállítása. A lista nem töltődik be."
 
 msgctxt "wizard.listPrompt.withProfile"
 msgid "With {{profileName}}"
@@ -3152,6 +3374,26 @@ msgstr "Minden elem el lett távolítva"
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Már letöltve"
+
+#. Plural form "one" for hu: used for counts like 1.
+msgctxt "wizard.playlist.bulkCappedDesc_one"
+msgid "It has more. To choose how many, paste its link on its own."
+msgstr "Több van benne. Ha meg szeretné adni, mennyit tölt le, illessze be külön a hivatkozását."
+
+#. Plural form "other" for hu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.bulkCappedDesc_other"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "Több van bennük. Ha meg szeretné adni, mennyit tölt le, illessze be külön az egyes hivatkozásokat."
+
+#. Plural form "one" for hu: used for counts like 1.
+msgctxt "wizard.playlist.bulkCappedTitle_one"
+msgid "“{{title}}” is cut at {{limit}} videos"
+msgstr "„{{title}}” {{limit}} videónál le van vágva"
+
+#. Plural form "other" for hu: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.bulkCappedTitle_other"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "{{count}} lista egyenként {{limit}} videónál le van vágva"
 
 msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
@@ -3396,38 +3638,6 @@ msgstr "Mappa ellenőrzése…"
 msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Videó miniatűrje"
-
-msgctxt "wizard.playlistCap.changeLimit"
-msgid "Change load limit"
-msgstr "Betöltési korlát módosítása"
-
-#. Plural form "one" for hu: used for counts like 1.
-msgctxt "wizard.playlistCap.description_one"
-msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "Az Arroxy {{count}} elemet töltött be a jelenlegi, {{limit}} elemes korláttal. Tegye sorba most a betöltött elemet, vagy emelje meg a korlátot, és olvassa be újra."
-
-#. Plural form "other" for hu: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.playlistCap.description_other"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Az Arroxy {{count}} elemet töltött be a jelenlegi, {{limit}} elemes korláttal. Tegye sorba most a betöltött elemeket, vagy emelje meg a korlátot, és olvassa be újra."
-
-#. Plural form "one" for hu: used for counts like 1.
-msgctxt "wizard.playlistCap.descriptionWithTitle_one"
-msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "<title/>: Az Arroxy {{count}} elemet töltött be a jelenlegi, {{limit}} elemes korláttal. Tegye sorba most a betöltött elemet, vagy emelje meg a korlátot, és olvassa be újra."
-
-#. Plural form "other" for hu: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.playlistCap.descriptionWithTitle_other"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Az Arroxy {{count}} elemet töltött be a jelenlegi, {{limit}} elemes korláttal. Tegye sorba most a betöltött elemeket, vagy emelje meg a korlátot, és olvassa be újra."
-
-msgctxt "wizard.playlistCap.queueLoaded"
-msgid "Queue loaded items"
-msgstr "Betöltött elemek sorba tétele"
-
-msgctxt "wizard.playlistCap.title"
-msgid "Playlist scan is capped"
-msgstr "A lejátszási lista beolvasása korlátozva van"
 
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
@@ -3925,44 +4135,6 @@ msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
 msgstr "{{label}} súgó"
 
-msgctxt "wizard.quickProgress.cancel"
-msgid "Cancel preparation"
-msgstr "Előkészítés megszakítása"
-
-msgctxt "wizard.quickProgress.currentFallback"
-msgid "Current link"
-msgstr "Aktuális hivatkozás"
-
-msgctxt "wizard.quickProgress.description"
-msgid "Arroxy is reading the link and applying {{profileName}}."
-msgstr "Az Arroxy beolvassa a hivatkozást, és alkalmazza a(z) {{profileName}} profilt."
-
-#. Plural form "one" for hu: used for counts like 1.
-msgctxt "wizard.quickProgress.failedCount_one"
-msgid "{{count}} failed"
-msgstr "{{count}} sikertelen"
-
-#. Plural form "other" for hu: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.quickProgress.failedCount_other"
-msgid "{{count}} failed"
-msgstr "{{count}} sikertelen"
-
-msgctxt "wizard.quickProgress.phase.probing"
-msgid "Fetching details"
-msgstr "Részletek lekérése"
-
-msgctxt "wizard.quickProgress.phase.queueing"
-msgid "Adding to queue"
-msgstr "Hozzáadás a sorhoz"
-
-msgctxt "wizard.quickProgress.title"
-msgid "Preparing Quick Download"
-msgstr "Gyorsletöltés előkészítése"
-
-msgctxt "wizard.quickProgress.waitHint"
-msgid "Keep this open while Arroxy prepares the queue."
-msgstr "Hagyja nyitva, amíg az Arroxy előkészíti a sort."
-
 msgctxt "wizard.review.areas.extras"
 msgid "extras"
 msgstr "extrák"
@@ -4271,6 +4443,10 @@ msgctxt "wizard.subtitles.saveMode.sidecar"
 msgid "Next to video"
 msgstr "A videó mellé"
 
+msgctxt "wizard.subtitles.saveMode.sidecarNoVideo"
+msgid "In the download folder"
+msgstr "A letöltési mappában"
+
 msgctxt "wizard.subtitles.saveMode.subfolder"
 msgid "subtitles/ subfolder"
 msgstr "subtitles/ almappába"
@@ -4294,14 +4470,6 @@ msgstr "Letöltési profil navigáció"
 msgctxt "wizard.url.advanced"
 msgid "Advanced"
 msgstr "Speciális"
-
-msgctxt "wizard.url.analytics.toggle"
-msgid "Send daily heartbeat"
-msgstr "Napi jelzés küldése"
-
-msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
-msgstr "Nincs telemetria. Naponta egyszer egy névtelen jelzés elküldi az alkalmazás verzióját, a telepítési csatornát, az operációs rendszert, a nyelvet, az országot és hozzávetőlegesen azt, mikor telepítették az Arroxyt, hogy megszámolhassuk az aktív és az új felhasználókat. Azonosítók, URL-ek, videócímek vagy fájlnevek nincsenek benne."
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
@@ -4390,6 +4558,18 @@ msgstr "Egyidejű letöltések"
 msgctxt "wizard.url.concurrentDownloads.unit"
 msgid "downloads"
 msgstr "letöltés"
+
+msgctxt "wizard.url.concurrentProbes.description"
+msgid "How many links Arroxy fetches details for at the same time, before they download. Fewer is gentler on sites that block busy connections. A link you open in Interactive Download always goes first."
+msgstr "Hány hivatkozás adatait kéri le egyszerre az Arroxy a letöltés előtt. A kevesebb kíméletesebb azokhoz a webhelyekhez, amelyek blokkolják a forgalmas kapcsolatokat. Az Interaktív letöltésben megnyitott hivatkozás mindig előre kerül."
+
+msgctxt "wizard.url.concurrentProbes.label"
+msgid "Links checked at once"
+msgstr "Egyszerre ellenőrzött hivatkozások"
+
+msgctxt "wizard.url.concurrentProbes.unit"
+msgid "links"
+msgstr "hivatkozás"
 
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
@@ -4484,8 +4664,8 @@ msgid "Off"
 msgstr "Ki"
 
 msgctxt "wizard.url.cookies.toggleDescription"
-msgid "Helps with age-restricted, members-only, and account-private videos."
-msgstr "Segít a korhatáros, csak tagoknak szóló és fiókhoz kötött privát videóknál."
+msgid "Helps with videos your own account can watch, like your private videos."
+msgstr "Olyan videóknál segít, amelyeket a saját fiókja megtekinthet, például a privát videóknál."
 
 msgctxt "wizard.url.downloadConnections.description"
 msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
@@ -4498,6 +4678,30 @@ msgstr "Letöltési kapcsolatok"
 msgctxt "wizard.url.downloadConnections.unit"
 msgid "connections"
 msgstr "kapcsolat"
+
+msgctxt "wizard.url.downloadList.album"
+msgid "Download album…"
+msgstr "Album letöltése…"
+
+msgctxt "wizard.url.downloadList.liked"
+msgid "Download liked videos…"
+msgstr "Kedvelt videók letöltése…"
+
+msgctxt "wizard.url.downloadList.mix"
+msgid "Download Mix…"
+msgstr "Mix letöltése…"
+
+msgctxt "wizard.url.downloadList.playlist"
+msgid "Download playlist…"
+msgstr "Lejátszási lista letöltése…"
+
+msgctxt "wizard.url.downloadList.uploads"
+msgid "Download uploads…"
+msgstr "Feltöltések letöltése…"
+
+msgctxt "wizard.url.downloadList.watchLater"
+msgid "Download Watch later…"
+msgstr "„Megtekintés később” letöltése…"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -4571,17 +4775,9 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "Ezt a billentyűparancsot egy másik alkalmazás használja – válasszon másikat."
 
-msgctxt "wizard.url.hotkey.hintLabel"
-msgid "Or press"
-msgstr "Vagy nyomja meg:"
-
-msgctxt "wizard.url.hotkey.hintTooltip"
-msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
-msgstr "Másoljon ki egy videóhivatkozást bárhol, nyomja meg ezt a billentyűparancsot, és az Arroxy az aktív profillal sorba állítja – ablakváltás nélkül."
-
-msgctxt "wizard.url.hotkey.hintTooltipSettings"
-msgid "Change or turn it off in Settings."
-msgstr "Módosíthatja vagy kikapcsolhatja a Beállításokban."
+msgctxt "wizard.url.hotkey.globalLabel"
+msgid "Global shortcut"
+msgstr "Globális billentyűparancs"
 
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
@@ -4607,13 +4803,17 @@ msgctxt "wizard.url.hotkey.toggle"
 msgid "Enable global hotkey"
 msgstr "Globális gyorsbillentyű engedélyezése"
 
-msgctxt "wizard.url.hotkey.toggleDescription"
-msgid "Press the shortcut with a video link on your clipboard."
-msgstr "Nyomja meg a billentyűparancsot, amikor a vágólapon videóhivatkozás van."
+msgctxt "wizard.url.hotkey.toggleDescriptionDetail"
+msgid "Copy a video link in any app and press the shortcut: Arroxy queues it with your active profile, without switching windows. A link to a video in a playlist downloads the video."
+msgstr "Másoljon ki egy videóhivatkozást bármelyik alkalmazásban, és nyomja meg a billentyűparancsot: az Arroxy az aktív profillal sorba állítja – ablakváltás nélkül. Egy lejátszási listában lévő videóra mutató hivatkozás a videót tölti le."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
 msgstr "Interaktív letöltés"
+
+msgctxt "wizard.url.interactiveDownloadAsks"
+msgid "Interactive Download…"
+msgstr "Interaktív letöltés…"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
@@ -4655,21 +4855,13 @@ msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Dobjon be egy hivatkozást, és az Arroxy letölti ✨"
 
-msgctxt "wizard.url.mascotMixed"
-msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
-msgstr "Ez a hivatkozás egy gyűjtemény egyik videójára mutat. Az Arroxy lekérdezés előtt megkérdezi, melyiket szeretné."
-
-msgctxt "wizard.url.mascotPreparing"
-msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
-msgstr "A(z) {{quickDownload}} beolvassa a hivatkozást, és alkalmazza a(z) {{profileName}} profilt."
-
-msgctxt "wizard.url.mascotQueued"
-msgid "The queue is handling this download. You can paste another link while it works."
-msgstr "A sor kezeli ezt a letöltést. Beilleszthet egy újabb hivatkozást, amíg dolgozik."
-
 msgctxt "wizard.url.mascotSingle"
 msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
 msgstr "A Gyors egy letöltést indít a(z) {{profileName}} profillal. Egyszeri módosításokhoz használja az Interaktívot."
+
+msgctxt "wizard.url.mascotVideoInList"
+msgid "This link names a video and the list it’s in: download just the video, or the list."
+msgstr "Ez a hivatkozás egy videót és a listát jelöli, amelyben van: csak a videót töltse le, vagy a listát."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4991,6 +5183,10 @@ msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
 msgid "Using profile override + profile subfolder"
 msgstr "A profilfelülbírálást + a profil almappáját használja"
 
+msgctxt "wizard.url.profile.destinationEditHint"
+msgid "To change where it saves, edit the profile."
+msgstr "A mentési hely módosításához szerkessze a profilt."
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Célmappa"
@@ -5083,6 +5279,10 @@ msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Visszaállítás"
 
+msgctxt "wizard.url.profile.savesTo"
+msgid "Saves to"
+msgstr "Mentés helye"
+
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
 msgstr "Letöltési profil váltása: {{profileName}}"
@@ -5096,8 +5296,8 @@ msgid "Clear"
 msgstr "Törlés"
 
 msgctxt "wizard.url.proxy.description"
-msgid "Route traffic through a proxy — useful for geo-restricted content."
-msgstr "A forgalmat proxyn keresztül irányítja – hasznos földrajzilag korlátozott tartalmakhoz."
+msgid "Route traffic through a proxy server."
+msgstr "A forgalmat proxykiszolgálón keresztül irányítja."
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
@@ -5106,10 +5306,6 @@ msgstr "Proxy URL"
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
-
-msgctxt "wizard.url.quickBulkAllFailed"
-msgid "None of those URLs could be prepared"
-msgstr "Egyik URL-t sem sikerült előkészíteni"
 
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
@@ -5122,16 +5318,6 @@ msgstr "Letöltés ezzel a profillal: {{profileName}}"
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "Ezt nem sikerült hozzáadni: {{error}}"
-
-#. Plural form "one" for hu: used for counts like 1.
-msgctxt "wizard.url.quickPartialFailed_one"
-msgid "Queued what worked. {{count}} URL could not be prepared."
-msgstr "A működő elemek sorba állítva. {{count}} URL-t nem sikerült előkészíteni."
-
-#. Plural form "other" for hu: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.url.quickPartialFailed_other"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "A működő elemek sorba állítva. {{count}} URL-t nem sikerült előkészíteni."
 
 msgctxt "wizard.url.quickPrepareFailed"
 msgid "Queue item could not be prepared"
@@ -5148,6 +5334,14 @@ msgstr "A lekérdezés sikertelen"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "A kezdéshez illesszen be egy videó-, lejátszási lista-, csatorna- vagy keresési URL-t."
+
+msgctxt "wizard.url.reports.toggle"
+msgid "Send anonymous heartbeat and setup reports"
+msgstr "Névtelen jelzés és beállítási jelentések küldése"
+
+msgctxt "wizard.url.reports.toggleDescription"
+msgid "No tracking. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. When Arroxy sets up or updates its download engine or media tools, it also reports whether that worked and roughly how long it took. No IDs, URLs, video titles or filenames."
+msgstr "Nincs követés. Naponta egyszer egy névtelen jelzés elküldi az alkalmazás verzióját, a telepítési csatornát, az operációs rendszert, a nyelvet, az országot és hozzávetőlegesen azt, mikor telepítették az Arroxyt, hogy megszámolhassuk az aktív és az új felhasználókat. Amikor az Arroxy beállítja vagy frissíti a letöltőmotort vagy a médiaeszközöket, azt is jelenti, hogy sikerült-e, és nagyjából mennyi ideig tartott. Azonosítók, URL-ek, videócímek vagy fájlnevek nincsenek benne."
 
 msgctxt "wizard.url.settings.behaviorDescription"
 msgid "Global behavior that affects profile-driven downloads too."
@@ -5204,3 +5398,11 @@ msgstr "Profilok"
 msgctxt "wizard.url.tabs.settings"
 msgid "Settings"
 msgstr "Beállítások"
+
+msgctxt "wizard.url.thisVideo"
+msgid "This video"
+msgstr "Ez a videó"
+
+msgctxt "wizard.url.thisVideoTooltip"
+msgid "Downloads just this video with {{profileName}}"
+msgstr "Csak ezt a videót tölti le ezzel a profillal: {{profileName}}"

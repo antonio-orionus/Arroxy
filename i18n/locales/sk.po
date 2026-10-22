@@ -107,10 +107,6 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "Pokračovať"
 
-msgctxt "common.dismiss"
-msgid "Dismiss"
-msgstr "Zavrieť"
-
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "Načítava sa"
@@ -143,13 +139,9 @@ msgctxt "dialogs.closeToTray.remember"
 msgid "Don't ask again"
 msgstr "Už sa nepýtať"
 
-msgctxt "dialogs.quitWithActiveDownloads.confirm"
-msgid "Cancel Downloads & Quit"
-msgstr "Zrušiť sťahovania a ukončiť"
-
-msgctxt "dialogs.quitWithActiveDownloads.detail"
-msgid "Pause to resume later, or cancel to discard progress."
-msgstr "Pozastavte, aby ste mohli neskôr pokračovať, alebo zrušte a zahoďte priebeh."
+msgctxt "dialogs.quitWithActiveDownloads.continueDetail"
+msgid "Your queue is kept, and downloads pick up where they stopped the next time you open Arroxy."
+msgstr "Rad zostane zachovaný a sťahovanie nadviaže tam, kde skončilo, pri ďalšom otvorení Arroxy."
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -175,9 +167,9 @@ msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "Prebieha {{count}} sťahovaní"
 
-msgctxt "dialogs.quitWithActiveDownloads.pause"
-msgid "Pause Downloads & Quit"
-msgstr "Pozastaviť sťahovania a ukončiť"
+msgctxt "dialogs.quitWithActiveDownloads.quit"
+msgid "Quit"
+msgstr "Ukončiť"
 
 msgctxt "dialogs.rendererCrashed.detail"
 msgid "The renderer process crashed ({{reason}}). Reload to try again."
@@ -236,8 +228,8 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "Toto video je vekovo obmedzené a nedá sa stiahnuť bez prihláseného účtu."
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
-msgstr "Spustila sa ochrana pred robotmi. Vaša IP adresa je s najväčšou pravdepodobnosťou označená (rozsah dátového centra alebo vyťažený výstup VPN). Zmeňte IP adresu alebo vyberte iný koncový bod VPN a skúste to znova. Ak to stále zlyháva, môže ísť o dočasnú zmenu na strane webu – Arroxy pri spustení aktualizuje svoj sťahovací nástroj, takže oprava sa nainštaluje automaticky po jej vydaní."
+msgid "The site's bot protection stopped this download. Wait a while and try again, or download fewer videos at once. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Ochrana webu proti robotom toto sťahovanie zastavila. Chvíľu počkajte a skúste to znova, alebo sťahujte naraz menej videí. Ak to naďalej zlyháva, môže ísť o dočasnú zmenu na strane webu – Arroxy pri spustení aktualizuje svoj sťahovací nástroj, takže oprava sa objaví automaticky, hneď ako bude vydaná."
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
 msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
@@ -256,8 +248,8 @@ msgid "This video is not available in your region."
 msgstr "Toto video nie je dostupné vo vašom regióne."
 
 msgctxt "errors.ytdlp.ipBlock"
-msgid "Your IP address appears to be blocked. Try again later or use a VPN."
-msgstr "Vaša IP adresa je zrejme zablokovaná. Skúste to neskôr alebo použite VPN."
+msgid "The site is blocking requests from this connection. Try again later."
+msgstr "Web blokuje požiadavky z tohto pripojenia. Skúste to neskôr."
 
 msgctxt "errors.ytdlp.loginRequired"
 msgid "This video needs a signed-in account."
@@ -339,13 +331,77 @@ msgctxt "explore.linkCallout.title"
 msgid "Right-click a link to download it"
 msgstr "Odkaz stiahnete pravým kliknutím"
 
+msgctxt "explore.linkMenu.background.album"
+msgid "Download the album in the background"
+msgstr "Stiahnuť album na pozadí"
+
+msgctxt "explore.linkMenu.background.liked"
+msgid "Download your liked videos in the background"
+msgstr "Stiahnuť obľúbené videá na pozadí"
+
+msgctxt "explore.linkMenu.background.mix"
+msgid "Download the Mix in the background"
+msgstr "Stiahnuť Mix na pozadí"
+
+msgctxt "explore.linkMenu.background.playlist"
+msgid "Download the playlist in the background"
+msgstr "Stiahnuť zoznam skladieb na pozadí"
+
+msgctxt "explore.linkMenu.background.uploads"
+msgid "Download the uploads in the background"
+msgstr "Stiahnuť nahrané videá na pozadí"
+
+msgctxt "explore.linkMenu.background.watchLater"
+msgid "Download Watch later in the background"
+msgstr "Stiahnuť „Pozrieť neskôr“ na pozadí"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "Kopírovať odkaz"
 
+msgctxt "explore.linkMenu.downloadFirst"
+msgid "Download the first {{count}}"
+msgstr "Stiahnuť prvých {{count}}"
+
+msgctxt "explore.linkMenu.downloadThisVideo"
+msgid "Download this video · {{profileName}}"
+msgstr "Stiahnuť toto video · {{profileName}}"
+
 msgctxt "explore.linkMenu.downloadWith"
 msgid "Download with"
 msgstr "Stiahnuť s profilom"
+
+msgctxt "explore.linkMenu.fromList.album"
+msgid "From this album"
+msgstr "Z tohto albumu"
+
+msgctxt "explore.linkMenu.fromList.liked"
+msgid "From your liked videos"
+msgstr "Z vašich obľúbených videí"
+
+msgctxt "explore.linkMenu.fromList.mix"
+msgid "From this Mix"
+msgstr "Z tohto Mixu"
+
+msgctxt "explore.linkMenu.fromList.playlist"
+msgid "From this playlist"
+msgstr "Z tohto zoznamu skladieb"
+
+msgctxt "explore.linkMenu.fromList.uploads"
+msgid "From this channel’s uploads"
+msgstr "Z nahraných videí tohto kanála"
+
+msgctxt "explore.linkMenu.fromList.watchLater"
+msgid "From Watch later"
+msgstr "Z „Pozrieť neskôr“"
+
+msgctxt "explore.linkMenu.interactive"
+msgid "Interactive Download…"
+msgstr "Interaktívne sťahovanie…"
+
+msgctxt "explore.linkMenu.thisVideoWith"
+msgid "This video with"
+msgstr "Toto video s"
 
 msgctxt "explore.newBadge"
 msgid "New"
@@ -491,6 +547,10 @@ msgctxt "explore.toolbar.compactLayout"
 msgid "Compact layout"
 msgstr "Kompaktné rozloženie"
 
+msgctxt "explore.toolbar.download"
+msgid "Download"
+msgstr "Stiahnuť"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "Stiahnuť · {{profileName}}"
@@ -526,6 +586,14 @@ msgstr "Načítať znova"
 msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "Toto vyhľadávanie je príliš dlhé."
+
+msgctxt "explore.toolbar.thisVideo"
+msgid "This video"
+msgstr "Toto video"
+
+msgctxt "explore.toolbar.thisVideoHint"
+msgid "Download just this video with {{profileName}}"
+msgstr "Stiahnuť iba toto video s profilom {{profileName}}"
 
 msgctxt "explore.toolbar.zoom.hint"
 msgid "Page zoom: {{percent}}%"
@@ -591,17 +659,17 @@ msgctxt "filenameTemplate.error.unknown-token"
 msgid "Unknown token {{token}}."
 msgstr "Neznámy token {{token}}."
 
-msgctxt "filenameTemplate.idWarning"
-msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
-msgstr "Bez {id} Arroxy nedokáže rozpoznať už stiahnuté položky zoznamu skladieb ani vytvárať zoznamy .m3u."
+msgctxt "filenameTemplate.idEndingWarning"
+msgid "End the name with [{id}] so Arroxy can detect already-downloaded playlist items and generate .m3u playlists."
+msgstr "Ukončite názov reťazcom [{id}], aby Arroxy mohol rozpoznať už stiahnuté položky zoznamu skladieb a vytvárať zoznamy skladieb .m3u."
 
 msgctxt "filenameTemplate.label"
 msgid "Filename template"
 msgstr "Šablóna názvu súboru"
 
-msgctxt "filenameTemplate.m3uDisabled"
-msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
-msgstr "Nedostupné, pretože vaša šablóna názvu súboru neobsahuje {id} alebo zoraďuje stiahnuté súbory do priečinkov."
+msgctxt "filenameTemplate.m3uDisabledIdEnding"
+msgid "Unavailable because your filename template either doesn't end with [{id}] or sorts downloads into folders."
+msgstr "Nedostupné, pretože šablóna názvu súboru nekončí na [{id}] alebo triedi sťahovania do priečinkov."
 
 msgctxt "filenameTemplate.previewPlaylist"
 msgid "In a playlist"
@@ -808,6 +876,106 @@ msgid "Already in the queue"
 msgstr "Už je v rade"
 
 #. Plural form "few" for sk: used for counts like 2, 3, 4.
+msgctxt "notifications.quickDownload.batchAdded_few"
+msgid "Added {{count}} links to Downloads"
+msgstr "Na kartu Sťahovania boli pridané {{count}} odkazy"
+
+#. Plural form "many" for sk: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.batchAdded_many"
+msgid "Added {{count}} links to Downloads"
+msgstr "Na kartu Sťahovania bolo pridaných {{count}} odkazu"
+
+#. Plural form "one" for sk: used for counts like 1.
+msgctxt "notifications.quickDownload.batchAdded_one"
+msgid "Added {{count}} link to Downloads"
+msgstr "Na kartu Sťahovania bol pridaný {{count}} odkaz"
+
+#. Plural form "other" for sk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.batchAdded_other"
+msgid "Added {{count}} links to Downloads"
+msgstr "Na kartu Sťahovania bolo pridaných {{count}} odkazov"
+
+#. Plural form "few" for sk: used for counts like 2, 3, 4.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_few"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} už sú v rade"
+
+#. Plural form "many" for sk: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_many"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} už sú v rade"
+
+#. Plural form "one" for sk: used for counts like 1.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_one"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} už je v rade"
+
+#. Plural form "other" for sk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_other"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} už sú v rade"
+
+#. Plural form "few" for sk: used for counts like 2, 3, 4.
+msgctxt "notifications.quickDownload.batchNoneAdded_few"
+msgid "{{count}} links couldn't be added"
+msgstr "{{count}} odkazy sa nepodarilo pridať"
+
+#. Plural form "many" for sk: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.batchNoneAdded_many"
+msgid "{{count}} links couldn't be added"
+msgstr "{{count}} odkazu sa nepodarilo pridať"
+
+#. Plural form "one" for sk: used for counts like 1.
+msgctxt "notifications.quickDownload.batchNoneAdded_one"
+msgid "{{count}} link couldn't be added"
+msgstr "{{count}} odkaz sa nepodarilo pridať"
+
+#. Plural form "other" for sk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.batchNoneAdded_other"
+msgid "{{count}} links couldn't be added"
+msgstr "{{count}} odkazov sa nepodarilo pridať"
+
+#. Plural form "few" for sk: used for counts like 2, 3, 4.
+msgctxt "notifications.quickDownload.batchNotAdded_few"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} sa nepodarilo pridať"
+
+#. Plural form "many" for sk: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.batchNotAdded_many"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} sa nepodarilo pridať"
+
+#. Plural form "one" for sk: used for counts like 1.
+msgctxt "notifications.quickDownload.batchNotAdded_one"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} sa nepodarilo pridať"
+
+#. Plural form "other" for sk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.batchNotAdded_other"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} sa nepodarilo pridať"
+
+#. Plural form "few" for sk: used for counts like 2, 3, 4.
+msgctxt "notifications.quickDownload.chooseFromList_few"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "{{count}} videá v tomto zozname – vyberte, čo stiahnuť"
+
+#. Plural form "many" for sk: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.chooseFromList_many"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "{{count}} videa v tomto zozname – vyberte, čo stiahnuť"
+
+#. Plural form "one" for sk: used for counts like 1.
+msgctxt "notifications.quickDownload.chooseFromList_one"
+msgid "{{count}} video in this list — choose what to download"
+msgstr "{{count}} video v tomto zozname – vyberte, čo stiahnuť"
+
+#. Plural form "other" for sk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "notifications.quickDownload.chooseFromList_other"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "{{count}} videí v tomto zozname – vyberte, čo stiahnuť"
+
+#. Plural form "few" for sk: used for counts like 2, 3, 4.
 msgctxt "notifications.quickDownload.chooseHowMany_few"
 msgid "{{count}}+ videos — choose how many"
 msgstr "{{count}}+ videá – vyberte, koľko"
@@ -834,46 +1002,6 @@ msgstr "Nepodarilo sa pripraviť {{title}}"
 msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "Odkaz sa nepodarilo pridať – skúste to znova"
-
-#. Plural form "few" for sk: used for counts like 2, 3, 4.
-msgctxt "notifications.quickDownload.review_few"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "{{count}} videá v tomto zozname – vyberte ich na kontrole"
-
-#. Plural form "many" for sk: used for fractional counts and other values not covered by the other forms.
-msgctxt "notifications.quickDownload.review_many"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "{{count}} videa v tomto zozname – vyberte ich na kontrole"
-
-#. Plural form "one" for sk: used for counts like 1.
-msgctxt "notifications.quickDownload.review_one"
-msgid "{{count}} video in this list — review to pick"
-msgstr "{{count}} video v tomto zozname – vyberte ho na kontrole"
-
-#. Plural form "other" for sk: used for counts like 0, 5, 6, 7, 8, 9.
-msgctxt "notifications.quickDownload.review_other"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "{{count}} videí v tomto zozname – vyberte ich na kontrole"
-
-#. Plural form "few" for sk: used for counts like 2, 3, 4.
-msgctxt "notifications.quickDownload.reviewCapped_few"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "{{count}}+ videá v tomto zozname – vyberte ich na kontrole"
-
-#. Plural form "many" for sk: used for fractional counts and other values not covered by the other forms.
-msgctxt "notifications.quickDownload.reviewCapped_many"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "{{count}}+ videa v tomto zozname – vyberte ich na kontrole"
-
-#. Plural form "one" for sk: used for counts like 1.
-msgctxt "notifications.quickDownload.reviewCapped_one"
-msgid "{{count}}+ video in this list — review to pick"
-msgstr "{{count}}+ video v tomto zozname – vyberte ho na kontrole"
-
-#. Plural form "other" for sk: used for counts like 0, 5, 6, 7, 8, 9.
-msgctxt "notifications.quickDownload.reviewCapped_other"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "{{count}}+ videí v tomto zozname – vyberte ich na kontrole"
 
 msgctxt "notifications.quickDownload.view"
 msgid "View"
@@ -1143,29 +1271,85 @@ msgctxt "queue.choice.first"
 msgid "First {{count}}"
 msgstr "Prvé {{count}}"
 
+msgctxt "queue.choice.list.album"
+msgid "The album"
+msgstr "Album"
+
+msgctxt "queue.choice.list.liked"
+msgid "Liked videos"
+msgstr "Obľúbené videá"
+
+msgctxt "queue.choice.list.mix"
+msgid "The Mix"
+msgstr "Mix"
+
+msgctxt "queue.choice.list.playlist"
+msgid "The playlist"
+msgstr "Zoznam skladieb"
+
+msgctxt "queue.choice.list.uploads"
+msgid "All the uploads"
+msgstr "Všetky nahrané videá"
+
+msgctxt "queue.choice.list.watchLater"
+msgid "Watch later"
+msgstr "„Pozrieť neskôr“"
+
+msgctxt "queue.choice.pick"
+msgid "Pick from it…"
+msgstr "Vybrať z neho…"
+
 msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "Skontrolovať"
 
 #. Plural form "few" for sk: used for counts like 2, 3, 4.
-msgctxt "queue.choice.reviewBody_few"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "Tento odkaz je zoznam so {{count}} videami. Skontrolujte ho a vyberte, čo sa má stiahnuť."
+msgctxt "queue.choice.uncappedBody_few"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "Tento odkaz je zoznam so {{count}} videami. Stiahnite všetky alebo vyberte na kontrole."
 
 #. Plural form "many" for sk: used for fractional counts and other values not covered by the other forms.
-msgctxt "queue.choice.reviewBody_many"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "Tento odkaz je zoznam s {{count}} videa. Skontrolujte ho a vyberte, čo sa má stiahnuť."
+msgctxt "queue.choice.uncappedBody_many"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "Tento odkaz je zoznam s {{count}} videami. Stiahnite všetky alebo vyberte na kontrole."
 
 #. Plural form "one" for sk: used for counts like 1.
-msgctxt "queue.choice.reviewBody_one"
-msgid "This link is a list of {{count}} video. Review it to pick what to download."
-msgstr "Tento odkaz je zoznam s {{count}} videom. Skontrolujte ho a vyberte, čo sa má stiahnuť."
+msgctxt "queue.choice.uncappedBody_one"
+msgid "This link is a list of {{count}} video. Download it, or pick in a review."
+msgstr "Tento odkaz je zoznam s {{count}} videom. Stiahnite ho alebo vyberte na kontrole."
 
 #. Plural form "other" for sk: used for counts like 0, 5, 6, 7, 8, 9.
-msgctxt "queue.choice.reviewBody_other"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "Tento odkaz je zoznam s {{count}} videami. Skontrolujte ho a vyberte, čo sa má stiahnuť."
+msgctxt "queue.choice.uncappedBody_other"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "Tento odkaz je zoznam s {{count}} videami. Stiahnite všetky alebo vyberte na kontrole."
+
+msgctxt "queue.choice.video"
+msgid "This video"
+msgstr "Toto video"
+
+msgctxt "queue.choice.videoOrList.album"
+msgid "This link is a video in an album. Download just the video, or the album?"
+msgstr "Tento odkaz ukazuje na video v albume. Stiahnuť iba video, alebo album?"
+
+msgctxt "queue.choice.videoOrList.liked"
+msgid "This link is a video in your liked videos. Download just the video, or all your liked videos?"
+msgstr "Tento odkaz ukazuje na video z vašich obľúbených videí. Stiahnuť iba video, alebo všetky obľúbené videá?"
+
+msgctxt "queue.choice.videoOrList.mix"
+msgid "This link is a video in a Mix. Download just the video, or the Mix?"
+msgstr "Tento odkaz ukazuje na video v Mixe. Stiahnuť iba video, alebo Mix?"
+
+msgctxt "queue.choice.videoOrList.playlist"
+msgid "This link is a video in a playlist. Download just the video, or the playlist?"
+msgstr "Tento odkaz ukazuje na video v zozname skladieb. Stiahnuť iba video, alebo zoznam skladieb?"
+
+msgctxt "queue.choice.videoOrList.uploads"
+msgid "This link is a video in a channel's uploads. Download just the video, or all the uploads?"
+msgstr "Tento odkaz ukazuje na video z nahraných videí kanála. Stiahnuť iba video, alebo všetky nahrané videá?"
+
+msgctxt "queue.choice.videoOrList.watchLater"
+msgid "This link is a video in your Watch later list. Download just the video, or the whole list?"
+msgstr "Tento odkaz ukazuje na video vo vašom zozname „Pozrieť neskôr“. Stiahnuť iba video, alebo celý zoznam?"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -1294,6 +1478,70 @@ msgstr "Sťahuje sa"
 msgctxt "queue.item.subtitleLanguagesMissing"
 msgid "No subtitles in {{languages}}"
 msgstr "Žiadne titulky v jazykoch: {{languages}}"
+
+msgctxt "queue.item.waitingForSite"
+msgid "Waits for {{site}} until {{time}}"
+msgstr "Čaká na {{site}} do {{time}}"
+
+msgctxt "queue.item.waitingHint"
+msgid "{{site}} is rate-limiting this connection. Arroxy fetches this link's details after {{time}}, so the limit can clear."
+msgstr "{{site}} obmedzuje počet požiadaviek z tohto pripojenia. Arroxy načíta podrobnosti tohto odkazu po {{time}}, aby sa limit mohol uvoľniť."
+
+msgctxt "queue.listOffer.dismiss"
+msgid "Dismiss"
+msgstr "Zavrieť"
+
+msgctxt "queue.listOffer.from.album"
+msgid "From an album"
+msgstr "Z albumu"
+
+msgctxt "queue.listOffer.from.liked"
+msgid "From your liked videos"
+msgstr "Z vašich obľúbených videí"
+
+msgctxt "queue.listOffer.from.mix"
+msgid "From a Mix"
+msgstr "Z Mixu"
+
+msgctxt "queue.listOffer.from.playlist"
+msgid "From a playlist"
+msgstr "Zo zoznamu skladieb"
+
+msgctxt "queue.listOffer.from.uploads"
+msgid "From a channel's uploads"
+msgstr "Z nahraných videí kanála"
+
+msgctxt "queue.listOffer.from.watchLater"
+msgid "From Watch later"
+msgstr "Z „Pozrieť neskôr“"
+
+msgctxt "queue.listOffer.get.album"
+msgid "Get the whole album"
+msgstr "Stiahnuť celý album"
+
+msgctxt "queue.listOffer.get.liked"
+msgid "Get all liked videos"
+msgstr "Stiahnuť všetky obľúbené videá"
+
+msgctxt "queue.listOffer.get.mix"
+msgid "Get the whole Mix"
+msgstr "Stiahnuť celý Mix"
+
+msgctxt "queue.listOffer.get.playlist"
+msgid "Get the whole playlist"
+msgstr "Stiahnuť celý zoznam skladieb"
+
+msgctxt "queue.listOffer.get.uploads"
+msgid "Get all uploads"
+msgstr "Stiahnuť všetky nahrané videá"
+
+msgctxt "queue.listOffer.get.watchLater"
+msgid "Get all of Watch later"
+msgstr "Stiahnuť celý zoznam „Pozrieť neskôr“"
+
+msgctxt "queue.listOffer.hint"
+msgid "Adds the list as its own row. This video is left out."
+msgstr "Pridá zoznam ako samostatný riadok. Toto video sa vynechá."
 
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
@@ -1835,10 +2083,6 @@ msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Vitajte späť!"
 
-msgctxt "splash.setup.bytes"
-msgid "{{done}} of {{total}}"
-msgstr "{{done}} z {{total}}"
-
 #. Plural form "few" for sk: used for counts like 2, 3, 4.
 msgctxt "splash.setup.left.minutes_few"
 msgid "about {{count}} min left"
@@ -1863,18 +2107,6 @@ msgctxt "splash.setup.left.underMinute"
 msgid "less than a minute left"
 msgstr "zostáva menej ako minúta"
 
-msgctxt "splash.setup.note.engine"
-msgid "Keeps downloads working when sites change."
-msgstr "Vďaka tomu sťahovanie funguje aj po zmenách na weboch."
-
-msgctxt "splash.setup.note.firstRun"
-msgid "This happens once. Arroxy keeps these tools and updates them itself."
-msgstr "Stane sa to iba raz. Arroxy si tieto nástroje ponechá a sám ich aktualizuje."
-
-msgctxt "splash.setup.note.media"
-msgid "This happens once. Arroxy keeps them for future updates."
-msgstr "Stane sa to iba raz. Arroxy si ich ponechá pre budúce aktualizácie."
-
 msgctxt "splash.setup.stage.checking"
 msgid "Checking everything works"
 msgstr "Kontroluje sa, či všetko funguje"
@@ -1883,21 +2115,17 @@ msgctxt "splash.setup.stage.connecting"
 msgid "Connecting…"
 msgstr "Pripája sa…"
 
-msgctxt "splash.setup.stage.downloadingBoth"
-msgid "Downloading the download engine and media tools"
-msgstr "Sťahuje sa sťahovací nástroj a mediálne nástroje"
-
-msgctxt "splash.setup.stage.downloadingEngine"
-msgid "Downloading the download engine"
-msgstr "Sťahuje sa sťahovací nástroj"
-
-msgctxt "splash.setup.stage.downloadingMedia"
-msgid "Downloading the media tools"
-msgstr "Sťahujú sa mediálne nástroje"
-
 msgctxt "splash.setup.stage.unpacking"
 msgid "Unpacking the media tools"
 msgstr "Rozbaľujú sa mediálne nástroje"
+
+msgctxt "splash.setup.stage.unpackingEngine"
+msgid "Unpacking the download engine"
+msgstr "Rozbaľuje sa sťahovací nástroj"
+
+msgctxt "splash.setup.title.both"
+msgid "Updating Arroxy's tools"
+msgstr "Aktualizujú sa nástroje Arroxy"
 
 msgctxt "splash.setup.title.engine"
 msgid "Updating the download engine"
@@ -1984,8 +2212,8 @@ msgid "Merging audio and video…"
 msgstr "Zlučuje sa zvuk a video…"
 
 msgctxt "status.mintingToken"
-msgid "Minting YouTube token…"
-msgstr "Vytvára sa token YouTube…"
+msgid "Preparing YouTube download…"
+msgstr "Pripravuje sa sťahovanie z YouTube…"
 
 msgctxt "status.movingFiles"
 msgid "Moving files…"
@@ -2004,16 +2232,16 @@ msgid "Preparing binaries…"
 msgstr "Pripravujú sa binárne súbory…"
 
 msgctxt "status.qualityLimited"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
-msgstr "Uložené v kvalite {{height}}p – YouTube pre toto sťahovanie zadržal vyššie kvality. Môže pomôcť skúsiť to neskôr alebo z inej siete."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later may help."
+msgstr "Uložené v {{height}}p – YouTube pre toto sťahovanie zadržal vyššie kvality. Môže pomôcť opakovanie neskôr."
 
 msgctxt "status.qualityLimitedSubtitlesFailed"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
-msgstr "Uložené v kvalite {{height}}p – YouTube pre toto sťahovanie zadržal vyššie kvality a niektoré titulky sa nepodarilo stiahnuť. Môže pomôcť skúsiť to neskôr alebo z inej siete."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later may help."
+msgstr "Uložené v {{height}}p – YouTube pre toto sťahovanie zadržal vyššie kvality a niektoré titulky sa nepodarilo stiahnuť. Môže pomôcť opakovanie neskôr."
 
 msgctxt "status.remintingToken"
-msgid "Re-minting token…"
-msgstr "Token sa vytvára znova…"
+msgid "Preparing YouTube download again…"
+msgstr "Sťahovanie z YouTube sa pripravuje znova…"
 
 msgctxt "status.retryingSponsorBlock"
 msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
@@ -2510,8 +2738,8 @@ msgid "Folder name has invalid characters"
 msgstr "Názov priečinka obsahuje neplatné znaky"
 
 msgctxt "wizard.folder.subfolder.placeholder"
-msgid "e.g. lo-fi rips"
-msgstr "napr. lo-fi nahrávky"
+msgid "e.g. lectures"
+msgstr "napr. prednášky"
 
 msgctxt "wizard.folder.subfolder.toggle"
 msgid "Save inside subfolder"
@@ -2793,9 +3021,25 @@ msgctxt "wizard.formats.fit.tierAbove"
 msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
 msgstr "Váš profil vyžaduje {{wanted}}p. Toto video nemá nič také malé, preto sa vybralo {{picked}}p."
 
-msgctxt "wizard.formats.fit.tierBelow"
-msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
-msgstr "Váš profil vyžaduje {{wanted}}p. Toto video siaha iba po {{picked}}p, preto sa vybralo {{picked}}p."
+msgctxt "wizard.formats.fit.tierAbovePassedOver"
+msgid "Your profile asks for {{wanted}}p. The smaller streams this video has don't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "Váš profil vyžaduje {{wanted}}p. Menšie streamy tohto videa nepasujú k zvyšku vášho profilu, preto sa vybralo {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierBelowTakeable"
+msgid "Your profile asks for {{wanted}}p. This video has no {{wanted}}p it can take, so {{picked}}p is selected."
+msgstr "Váš profil vyžaduje {{wanted}}p. Toto video nemá použiteľné {{wanted}}p, preto sa vybralo {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierPassedOverAiUpscaled"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p is AI-upscaled, so the original {{picked}}p is selected."
+msgstr "Váš profil vyžaduje {{wanted}}p. {{wanted}}p tohto videa je umelo zväčšené pomocou AI, preto sa vybralo pôvodné {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierPassedOverH264"
+msgid "Your profile asks for {{wanted}}p in H.264. This video has {{wanted}}p only in other codecs, so {{picked}}p in H.264 is selected."
+msgstr "Váš profil vyžaduje {{wanted}}p v H.264. Toto video má {{wanted}}p len v iných kodekoch, preto sa vybralo {{picked}}p v H.264."
+
+msgctxt "wizard.formats.fit.tierPassedOverProfile"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p doesn't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "Váš profil vyžaduje {{wanted}}p. {{wanted}}p tohto videa nepasuje k zvyšku vášho profilu, preto sa vybralo {{picked}}p."
 
 msgctxt "wizard.formats.fit.webmUnavailable"
 msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
@@ -3033,85 +3277,81 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "so zvukom"
 
-msgctxt "wizard.listPrompt.escHint"
-msgid "Esc cancels. Nothing loads until you choose."
-msgstr "Esc akciu zruší. Kým nevyberiete, nič sa nenačíta."
+msgctxt "wizard.listPrompt.backgroundHint"
+msgid "With {{profileName}}. If it has more than {{count}} videos, Downloads asks how many."
+msgstr "S profilom {{profileName}}. Ak má viac ako {{count}} videí, karta Sťahovania sa opýta, koľko ich stiahnuť."
 
-msgctxt "wizard.listPrompt.interactiveSubtitle"
-msgid "Choose formats yourself"
-msgstr "Formáty zvolíte sami"
+msgctxt "wizard.listPrompt.backgroundLabel"
+msgid "Download in the background"
+msgstr "Stiahnuť na pozadí"
 
-msgctxt "wizard.listPrompt.justThisVideo"
-msgid "Just this video"
-msgstr "Iba toto video"
+msgctxt "wizard.listPrompt.escOnly"
+msgid "Esc cancels."
+msgstr "Esc zruší."
 
-msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
-msgid "Opens its formats"
-msgstr "Otvorí jeho formáty"
+msgctxt "wizard.listPrompt.firstHint"
+msgid "Exactly the first {{count}}, with {{profileName}}."
+msgstr "Presne prvých {{count}} s profilom {{profileName}}."
 
-msgctxt "wizard.listPrompt.justThisVideoQuickHint"
-msgid "Loads one video"
-msgstr "Načíta jedno video"
+msgctxt "wizard.listPrompt.firstLabel"
+msgid "Download the first"
+msgstr "Stiahnuť prvých"
 
-msgctxt "wizard.listPrompt.listInteractiveHint"
-msgid "Loads up to {{count}} to choose from"
-msgstr "Načíta až {{count}} na výber"
+msgctxt "wizard.listPrompt.interactiveHint"
+msgid "Pick from the first {{count}} videos (or change the count on the next step), then set up the download."
+msgstr "Vyberte spomedzi prvých {{count}} videí (alebo zmeňte počet v ďalšom kroku) a potom nastavte sťahovanie."
 
-msgctxt "wizard.listPrompt.listOption.album"
-msgid "The album, first"
-msgstr "Album, prvých"
+msgctxt "wizard.listPrompt.interactiveLabel"
+msgid "Interactive download…"
+msgstr "Interaktívne sťahovanie…"
 
-msgctxt "wizard.listPrompt.listOption.liked"
-msgid "Your liked videos, first"
-msgstr "Vaše obľúbené videá, prvých"
+msgctxt "wizard.listPrompt.limitHint"
+msgid "How many videos to take from the list: the first option asks past it, the second takes exactly that many. The same as Settings › Playlist items to scan."
+msgstr "Koľko videí zo zoznamu vziať: prvá možnosť sa opýta, keď ich je viac, druhá vezme presne toľko. Rovnaké ako Nastavenia › Položky zoznamu skladieb na prehľadanie."
 
-msgctxt "wizard.listPrompt.listOption.mix"
-msgid "The Mix, first"
-msgstr "Mix, prvých"
-
-msgctxt "wizard.listPrompt.listOption.playlist"
-msgid "The playlist, first"
-msgstr "Zoznam skladieb, prvých"
-
-msgctxt "wizard.listPrompt.listOption.uploads"
-msgid "The uploads, first"
-msgstr "Nahrané videá, prvých"
-
-msgctxt "wizard.listPrompt.listOption.watchLater"
-msgid "Watch later, first"
-msgstr "„Pozrieť neskôr“, prvých"
-
-msgctxt "wizard.listPrompt.listQuickHint"
-msgid "Loads up to {{count}}, then downloads them"
-msgstr "Načíta až {{count}} a potom ich stiahne"
+msgctxt "wizard.listPrompt.limitLabel"
+msgid "Limit"
+msgstr "Limit"
 
 msgctxt "wizard.listPrompt.mixNote"
 msgid "A Mix changes every time you open it."
 msgstr "Mix sa mení pri každom otvorení."
 
-msgctxt "wizard.listPrompt.pickOption.album"
-msgid "Pick from the album, first"
-msgstr "Vybrať z albumu, prvých"
+msgctxt "wizard.listPrompt.pickLoadAfter"
+msgid "to pick from."
+msgstr "videí na výber."
 
-msgctxt "wizard.listPrompt.pickOption.liked"
-msgid "Pick from your liked videos, first"
-msgstr "Vybrať z obľúbených videí, prvých"
+msgctxt "wizard.listPrompt.pickLoadBefore"
+msgid "Load the first"
+msgstr "Načítať prvých"
 
-msgctxt "wizard.listPrompt.pickOption.mix"
-msgid "Pick from the Mix, first"
-msgstr "Vybrať z Mixu, prvých"
+msgctxt "wizard.listPrompt.pickLoadNote"
+msgid "You can change it on the next step."
+msgstr "Môžete to zmeniť v ďalšom kroku."
 
-msgctxt "wizard.listPrompt.pickOption.playlist"
-msgid "Pick from the playlist, first"
-msgstr "Vybrať zo zoznamu skladieb, prvých"
+msgctxt "wizard.listPrompt.pickTitle.album"
+msgid "Pick from this album"
+msgstr "Vybrať z tohto albumu"
 
-msgctxt "wizard.listPrompt.pickOption.uploads"
-msgid "Pick from the uploads, first"
-msgstr "Vybrať z nahraných videí, prvých"
+msgctxt "wizard.listPrompt.pickTitle.liked"
+msgid "Pick from your liked videos"
+msgstr "Vybrať z vašich obľúbených videí"
 
-msgctxt "wizard.listPrompt.pickOption.watchLater"
-msgid "Pick from Watch later, first"
-msgstr "Vybrať z „Pozrieť neskôr“, prvých"
+msgctxt "wizard.listPrompt.pickTitle.mix"
+msgid "Pick from this Mix"
+msgstr "Vybrať z tohto Mixu"
+
+msgctxt "wizard.listPrompt.pickTitle.playlist"
+msgid "Pick from this playlist"
+msgstr "Vybrať z tohto zoznamu skladieb"
+
+msgctxt "wizard.listPrompt.pickTitle.uploads"
+msgid "Pick from this channel’s uploads"
+msgstr "Vybrať z nahraných videí tohto kanála"
+
+msgctxt "wizard.listPrompt.pickTitle.watchLater"
+msgid "Pick from Watch later"
+msgstr "Vybrať z „Pozrieť neskôr“"
 
 msgctxt "wizard.listPrompt.title.album"
 msgid "Download from this album"
@@ -3136,6 +3376,18 @@ msgstr "Stiahnuť nahrané videá tohto kanála"
 msgctxt "wizard.listPrompt.title.watchLater"
 msgid "Download from Watch later"
 msgstr "Stiahnuť z „Pozrieť neskôr“"
+
+msgctxt "wizard.listPrompt.videoHint"
+msgid "Only the video you opened, with {{profileName}}. The list isn't loaded."
+msgstr "Iba otvorené video, s profilom {{profileName}}. Zoznam sa nenačíta."
+
+msgctxt "wizard.listPrompt.videoLabel"
+msgid "Just this video"
+msgstr "Iba toto video"
+
+msgctxt "wizard.listPrompt.videoPickHint"
+msgid "Set up only the video you opened. The list isn't loaded."
+msgstr "Nastavte iba otvorené video. Zoznam sa nenačíta."
 
 msgctxt "wizard.listPrompt.withProfile"
 msgid "With {{profileName}}"
@@ -3332,6 +3584,46 @@ msgstr "Všetky položky boli odstránené"
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Už stiahnuté"
+
+#. Plural form "few" for sk: used for counts like 2, 3, 4.
+msgctxt "wizard.playlist.bulkCappedDesc_few"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "Majú ich viac. Ak chcete vybrať, koľko ich stiahnuť, vložte každý odkaz samostatne."
+
+#. Plural form "many" for sk: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.bulkCappedDesc_many"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "Majú ich viac. Ak chcete vybrať, koľko ich stiahnuť, vložte každý odkaz samostatne."
+
+#. Plural form "one" for sk: used for counts like 1.
+msgctxt "wizard.playlist.bulkCappedDesc_one"
+msgid "It has more. To choose how many, paste its link on its own."
+msgstr "Má ich viac. Ak chcete vybrať, koľko ich stiahnuť, vložte jeho odkaz samostatne."
+
+#. Plural form "other" for sk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.bulkCappedDesc_other"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "Majú ich viac. Ak chcete vybrať, koľko ich stiahnuť, vložte každý odkaz samostatne."
+
+#. Plural form "few" for sk: used for counts like 2, 3, 4.
+msgctxt "wizard.playlist.bulkCappedTitle_few"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "{{count}} zoznamy sú obmedzené na {{limit}} videí každý"
+
+#. Plural form "many" for sk: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.bulkCappedTitle_many"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "{{count}} zoznamu je obmedzených na {{limit}} videí každý"
+
+#. Plural form "one" for sk: used for counts like 1.
+msgctxt "wizard.playlist.bulkCappedTitle_one"
+msgid "“{{title}}” is cut at {{limit}} videos"
+msgstr "„{{title}}“ je obmedzený na {{limit}} videí"
+
+#. Plural form "other" for sk: used for counts like 0, 5, 6, 7, 8, 9.
+msgctxt "wizard.playlist.bulkCappedTitle_other"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "{{count}} zoznamov je obmedzených na {{limit}} videí každý"
 
 msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
@@ -3656,58 +3948,6 @@ msgstr "Kontroluje sa priečinok…"
 msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Miniatúra videa"
-
-msgctxt "wizard.playlistCap.changeLimit"
-msgid "Change load limit"
-msgstr "Zmeniť limit načítania"
-
-#. Plural form "few" for sk: used for counts like 2, 3, 4.
-msgctxt "wizard.playlistCap.description_few"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy načítal {{count}} položky pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova."
-
-#. Plural form "many" for sk: used for fractional counts and other values not covered by the other forms.
-msgctxt "wizard.playlistCap.description_many"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy načítal {{count}} položky pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova."
-
-#. Plural form "one" for sk: used for counts like 1.
-msgctxt "wizard.playlistCap.description_one"
-msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "Arroxy načítal {{count}} položku pri aktuálnom limite {{limit}}. Zaraďte načítanú položku do radu teraz, alebo limit zvýšte a prehľadajte znova."
-
-#. Plural form "other" for sk: used for counts like 0, 5, 6, 7, 8, 9.
-msgctxt "wizard.playlistCap.description_other"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy načítal {{count}} položiek pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova."
-
-#. Plural form "few" for sk: used for counts like 2, 3, 4.
-msgctxt "wizard.playlistCap.descriptionWithTitle_few"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy načítal {{count}} položky pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova."
-
-#. Plural form "many" for sk: used for fractional counts and other values not covered by the other forms.
-msgctxt "wizard.playlistCap.descriptionWithTitle_many"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy načítal {{count}} položky pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova."
-
-#. Plural form "one" for sk: used for counts like 1.
-msgctxt "wizard.playlistCap.descriptionWithTitle_one"
-msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy načítal {{count}} položku pri aktuálnom limite {{limit}}. Zaraďte načítanú položku do radu teraz, alebo limit zvýšte a prehľadajte znova."
-
-#. Plural form "other" for sk: used for counts like 0, 5, 6, 7, 8, 9.
-msgctxt "wizard.playlistCap.descriptionWithTitle_other"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy načítal {{count}} položiek pri aktuálnom limite {{limit}}. Zaraďte načítané položky do radu teraz, alebo limit zvýšte a prehľadajte znova."
-
-msgctxt "wizard.playlistCap.queueLoaded"
-msgid "Queue loaded items"
-msgstr "Zaradiť načítané do radu"
-
-msgctxt "wizard.playlistCap.title"
-msgid "Playlist scan is capped"
-msgstr "Prehľadávanie zoznamu skladieb je obmedzené"
 
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
@@ -4245,54 +4485,6 @@ msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
 msgstr "Pomocník: {{label}}"
 
-msgctxt "wizard.quickProgress.cancel"
-msgid "Cancel preparation"
-msgstr "Zrušiť prípravu"
-
-msgctxt "wizard.quickProgress.currentFallback"
-msgid "Current link"
-msgstr "Aktuálny odkaz"
-
-msgctxt "wizard.quickProgress.description"
-msgid "Arroxy is reading the link and applying {{profileName}}."
-msgstr "Arroxy číta odkaz a používa profil {{profileName}}."
-
-#. Plural form "few" for sk: used for counts like 2, 3, 4.
-msgctxt "wizard.quickProgress.failedCount_few"
-msgid "{{count}} failed"
-msgstr "Zlyhali: {{count}}"
-
-#. Plural form "many" for sk: used for fractional counts and other values not covered by the other forms.
-msgctxt "wizard.quickProgress.failedCount_many"
-msgid "{{count}} failed"
-msgstr "Zlyhali: {{count}}"
-
-#. Plural form "one" for sk: used for counts like 1.
-msgctxt "wizard.quickProgress.failedCount_one"
-msgid "{{count}} failed"
-msgstr "Zlyhalo: {{count}}"
-
-#. Plural form "other" for sk: used for counts like 0, 5, 6, 7, 8, 9.
-msgctxt "wizard.quickProgress.failedCount_other"
-msgid "{{count}} failed"
-msgstr "Zlyhalo: {{count}}"
-
-msgctxt "wizard.quickProgress.phase.probing"
-msgid "Fetching details"
-msgstr "Zisťujú sa podrobnosti"
-
-msgctxt "wizard.quickProgress.phase.queueing"
-msgid "Adding to queue"
-msgstr "Pridáva sa do radu"
-
-msgctxt "wizard.quickProgress.title"
-msgid "Preparing Quick Download"
-msgstr "Pripravuje sa rýchle sťahovanie"
-
-msgctxt "wizard.quickProgress.waitHint"
-msgid "Keep this open while Arroxy prepares the queue."
-msgstr "Nechajte toto okno otvorené, kým Arroxy pripravuje rad."
-
 msgctxt "wizard.review.areas.extras"
 msgid "extras"
 msgstr "doplnky"
@@ -4601,6 +4793,10 @@ msgctxt "wizard.subtitles.saveMode.sidecar"
 msgid "Next to video"
 msgstr "Vedľa videa"
 
+msgctxt "wizard.subtitles.saveMode.sidecarNoVideo"
+msgid "In the download folder"
+msgstr "V priečinku sťahovania"
+
 msgctxt "wizard.subtitles.saveMode.subfolder"
 msgid "subtitles/ subfolder"
 msgstr "podpriečinok subtitles/"
@@ -4624,14 +4820,6 @@ msgstr "Navigácia profilov sťahovania"
 msgctxt "wizard.url.advanced"
 msgid "Advanced"
 msgstr "Rozšírené"
-
-msgctxt "wizard.url.analytics.toggle"
-msgid "Send daily heartbeat"
-msgstr "Odosielať denný signál o aktivite"
-
-msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
-msgstr "Žiadna telemetria. Raz denne sa odošle anonymný signál o aktivite s verziou aplikácie, kanálom inštalácie, operačným systémom, jazykom, krajinou a približne tým, ako dávno bol Arroxy nainštalovaný, aby sme mohli počítať aktívnych a nových používateľov. Žiadne identifikátory, adresy URL, názvy videí ani názvy súborov."
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
@@ -4720,6 +4908,18 @@ msgstr "Súčasné sťahovania"
 msgctxt "wizard.url.concurrentDownloads.unit"
 msgid "downloads"
 msgstr "sťahovania"
+
+msgctxt "wizard.url.concurrentProbes.description"
+msgid "How many links Arroxy fetches details for at the same time, before they download. Fewer is gentler on sites that block busy connections. A link you open in Interactive Download always goes first."
+msgstr "Pre koľko odkazov Arroxy zisťuje podrobnosti naraz, ešte pred stiahnutím. Menej je šetrnejšie k webom, ktoré blokujú vyťažené pripojenia. Odkaz otvorený v Interaktívnom sťahovaní ide vždy prvý."
+
+msgctxt "wizard.url.concurrentProbes.label"
+msgid "Links checked at once"
+msgstr "Naraz kontrolované odkazy"
+
+msgctxt "wizard.url.concurrentProbes.unit"
+msgid "links"
+msgstr "odkazov"
 
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
@@ -4814,8 +5014,8 @@ msgid "Off"
 msgstr "Vypnuté"
 
 msgctxt "wizard.url.cookies.toggleDescription"
-msgid "Helps with age-restricted, members-only, and account-private videos."
-msgstr "Pomáha pri videách s vekovým obmedzením, iba pre členov a súkromných videách viazaných na účet."
+msgid "Helps with videos your own account can watch, like your private videos."
+msgstr "Pomáha pri videách, ktoré môže sledovať váš vlastný účet, napríklad pri súkromných videách."
 
 msgctxt "wizard.url.downloadConnections.description"
 msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
@@ -4828,6 +5028,30 @@ msgstr "Pripojenia na sťahovanie"
 msgctxt "wizard.url.downloadConnections.unit"
 msgid "connections"
 msgstr "pripojenia"
+
+msgctxt "wizard.url.downloadList.album"
+msgid "Download album…"
+msgstr "Stiahnuť album…"
+
+msgctxt "wizard.url.downloadList.liked"
+msgid "Download liked videos…"
+msgstr "Stiahnuť obľúbené videá…"
+
+msgctxt "wizard.url.downloadList.mix"
+msgid "Download Mix…"
+msgstr "Stiahnuť Mix…"
+
+msgctxt "wizard.url.downloadList.playlist"
+msgid "Download playlist…"
+msgstr "Stiahnuť zoznam skladieb…"
+
+msgctxt "wizard.url.downloadList.uploads"
+msgid "Download uploads…"
+msgstr "Stiahnuť nahrané videá…"
+
+msgctxt "wizard.url.downloadList.watchLater"
+msgid "Download Watch later…"
+msgstr "Stiahnuť „Pozrieť neskôr“…"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -4901,17 +5125,9 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "Túto skratku používa iná aplikácia – vyberte inú."
 
-msgctxt "wizard.url.hotkey.hintLabel"
-msgid "Or press"
-msgstr "Alebo stlačte"
-
-msgctxt "wizard.url.hotkey.hintTooltip"
-msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
-msgstr "Skopírujte odkaz na video kdekoľvek, stlačte túto skratku a Arroxy ho zaradí do radu s vaším aktívnym profilom – bez prepínania okien."
-
-msgctxt "wizard.url.hotkey.hintTooltipSettings"
-msgid "Change or turn it off in Settings."
-msgstr "Zmeníte ju alebo vypnete v nastaveniach."
+msgctxt "wizard.url.hotkey.globalLabel"
+msgid "Global shortcut"
+msgstr "Globálna skratka"
 
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
@@ -4937,13 +5153,17 @@ msgctxt "wizard.url.hotkey.toggle"
 msgid "Enable global hotkey"
 msgstr "Povoliť globálnu klávesovú skratku"
 
-msgctxt "wizard.url.hotkey.toggleDescription"
-msgid "Press the shortcut with a video link on your clipboard."
-msgstr "Stlačte skratku, keď máte v schránke odkaz na video."
+msgctxt "wizard.url.hotkey.toggleDescriptionDetail"
+msgid "Copy a video link in any app and press the shortcut: Arroxy queues it with your active profile, without switching windows. A link to a video in a playlist downloads the video."
+msgstr "Skopírujte odkaz na video v ľubovoľnej aplikácii a stlačte skratku: Arroxy ho zaradí do radu s vaším aktívnym profilom, bez prepínania okien. Odkaz na video v zozname skladieb stiahne iba toto video."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
 msgstr "Interaktívne sťahovanie"
+
+msgctxt "wizard.url.interactiveDownloadAsks"
+msgid "Interactive Download…"
+msgstr "Interaktívne sťahovanie…"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
@@ -4985,21 +5205,13 @@ msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Vložte odkaz a nechajte Arroxy, nech ho stiahne ✨"
 
-msgctxt "wizard.url.mascotMixed"
-msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
-msgstr "Tento odkaz ukazuje na jedno video v kolekcii. Arroxy sa pred zisťovaním podrobností opýta, ktoré chcete."
-
-msgctxt "wizard.url.mascotPreparing"
-msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
-msgstr "{{quickDownload}} číta tento odkaz a používa profil {{profileName}}."
-
-msgctxt "wizard.url.mascotQueued"
-msgid "The queue is handling this download. You can paste another link while it works."
-msgstr "Toto sťahovanie spracúva rad. Kým pracuje, môžete vložiť ďalší odkaz."
-
 msgctxt "wizard.url.mascotSingle"
 msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
 msgstr "Rýchle sťahovanie spustí jedno sťahovanie s profilom {{profileName}}. Pre jednorazové zmeny použite Interaktívne."
+
+msgctxt "wizard.url.mascotVideoInList"
+msgid "This link names a video and the list it’s in: download just the video, or the list."
+msgstr "Tento odkaz označuje video aj zoznam, v ktorom sa nachádza: stiahnite iba video, alebo zoznam."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -5321,6 +5533,10 @@ msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
 msgid "Using profile override + profile subfolder"
 msgstr "Používa sa prepísanie profilu + podpriečinok profilu"
 
+msgctxt "wizard.url.profile.destinationEditHint"
+msgid "To change where it saves, edit the profile."
+msgstr "Ak chcete zmeniť, kam sa ukladá, upravte profil."
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Cieľ"
@@ -5413,6 +5629,10 @@ msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Obnoviť"
 
+msgctxt "wizard.url.profile.savesTo"
+msgid "Saves to"
+msgstr "Ukladá do"
+
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
 msgstr "Prepnúť profil sťahovania: {{profileName}}"
@@ -5426,8 +5646,8 @@ msgid "Clear"
 msgstr "Vymazať"
 
 msgctxt "wizard.url.proxy.description"
-msgid "Route traffic through a proxy — useful for geo-restricted content."
-msgstr "Presmeruje prenos cez server proxy – užitočné pre obsah s regionálnym obmedzením."
+msgid "Route traffic through a proxy server."
+msgstr "Presmeruje prenos cez server proxy."
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
@@ -5436,10 +5656,6 @@ msgstr "Adresa URL servera proxy"
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
-
-msgctxt "wizard.url.quickBulkAllFailed"
-msgid "None of those URLs could be prepared"
-msgstr "Žiadnu z týchto adries URL sa nepodarilo pripraviť"
 
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
@@ -5452,26 +5668,6 @@ msgstr "Stiahne sa pomocou profilu: {{profileName}}"
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "Túto položku sa nepodarilo pridať: {{error}}"
-
-#. Plural form "few" for sk: used for counts like 2, 3, 4.
-msgctxt "wizard.url.quickPartialFailed_few"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "Do radu sa zaradilo, čo fungovalo. Nepodarilo sa pripraviť {{count}} adresy URL."
-
-#. Plural form "many" for sk: used for fractional counts and other values not covered by the other forms.
-msgctxt "wizard.url.quickPartialFailed_many"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "Do radu sa zaradilo, čo fungovalo. Nepodarilo sa pripraviť {{count}} adresy URL."
-
-#. Plural form "one" for sk: used for counts like 1.
-msgctxt "wizard.url.quickPartialFailed_one"
-msgid "Queued what worked. {{count}} URL could not be prepared."
-msgstr "Do radu sa zaradilo, čo fungovalo. Nepodarilo sa pripraviť {{count}} adresu URL."
-
-#. Plural form "other" for sk: used for counts like 0, 5, 6, 7, 8, 9.
-msgctxt "wizard.url.quickPartialFailed_other"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "Do radu sa zaradilo, čo fungovalo. Nepodarilo sa pripraviť {{count}} adries URL."
 
 msgctxt "wizard.url.quickPrepareFailed"
 msgid "Queue item could not be prepared"
@@ -5488,6 +5684,14 @@ msgstr "Zisťovanie podrobností zlyhalo"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "Ak chcete začať, vložte adresu URL videa, zoznamu skladieb, kanála alebo vyhľadávania."
+
+msgctxt "wizard.url.reports.toggle"
+msgid "Send anonymous heartbeat and setup reports"
+msgstr "Odosielať anonymné signály o aktivite a správy o nastavení"
+
+msgctxt "wizard.url.reports.toggleDescription"
+msgid "No tracking. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. When Arroxy sets up or updates its download engine or media tools, it also reports whether that worked and roughly how long it took. No IDs, URLs, video titles or filenames."
+msgstr "Žiadne sledovanie. Raz denne anonymný signál o aktivite odošle verziu aplikácie, inštalačný kanál, operačný systém, jazyk, krajinu a približne ako dávno bol Arroxy nainštalovaný, aby sme mohli spočítať aktívnych a nových používateľov. Keď Arroxy nastavuje alebo aktualizuje sťahovací nástroj či mediálne nástroje, odošle aj informáciu, či sa to podarilo a približne ako dlho to trvalo. Žiadne ID, adresy URL, názvy videí ani názvy súborov."
 
 msgctxt "wizard.url.settings.behaviorDescription"
 msgid "Global behavior that affects profile-driven downloads too."
@@ -5544,3 +5748,11 @@ msgstr "Profily"
 msgctxt "wizard.url.tabs.settings"
 msgid "Settings"
 msgstr "Nastavenia"
+
+msgctxt "wizard.url.thisVideo"
+msgid "This video"
+msgstr "Toto video"
+
+msgctxt "wizard.url.thisVideoTooltip"
+msgid "Downloads just this video with {{profileName}}"
+msgstr "Stiahne iba toto video s profilom {{profileName}}"

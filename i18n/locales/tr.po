@@ -107,10 +107,6 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "Devam et"
 
-msgctxt "common.dismiss"
-msgid "Dismiss"
-msgstr "Kapat"
-
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "Yükleniyor…"
@@ -143,13 +139,9 @@ msgctxt "dialogs.closeToTray.remember"
 msgid "Don't ask again"
 msgstr "Bir daha sorma"
 
-msgctxt "dialogs.quitWithActiveDownloads.confirm"
-msgid "Cancel Downloads & Quit"
-msgstr "İndirmeleri İptal Et ve Çık"
-
-msgctxt "dialogs.quitWithActiveDownloads.detail"
-msgid "Pause to resume later, or cancel to discard progress."
-msgstr "Daha sonra sürdürmek için duraklat veya ilerlemeyi silmek için iptal et."
+msgctxt "dialogs.quitWithActiveDownloads.continueDetail"
+msgid "Your queue is kept, and downloads pick up where they stopped the next time you open Arroxy."
+msgstr "Kuyruğun korunur; indirmeler, Arroxy’yi bir sonraki açışında kaldıkları yerden devam eder."
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -165,9 +157,9 @@ msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "{{count}} indirme sürüyor"
 
-msgctxt "dialogs.quitWithActiveDownloads.pause"
-msgid "Pause Downloads & Quit"
-msgstr "İndirmeleri Duraklat ve Çık"
+msgctxt "dialogs.quitWithActiveDownloads.quit"
+msgid "Quit"
+msgstr "Çık"
 
 msgctxt "dialogs.rendererCrashed.detail"
 msgid "The renderer process crashed ({{reason}}). Reload to try again."
@@ -226,8 +218,8 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "Bu video yaş kısıtlamalı ve oturum açılmış hesap olmadan indirilemez."
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
-msgstr "Bot koruması tetiklendi. Kullandığın IP büyük olasılıkla işaretlenmiş (veri merkezi aralığı veya yoğun VPN çıkışı). IP’ni değiştir veya farklı bir VPN uç noktası seçip tekrar dene. Sorun sürerse bu geçici bir site tarafı değişikliği olabilir — Arroxy açılışta indirme motorunu günceller, bu yüzden düzeltme yayınlandığında çözüm otomatik gelir."
+msgid "The site's bot protection stopped this download. Wait a while and try again, or download fewer videos at once. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Sitenin bot koruması bu indirmeyi durdurdu. Bir süre bekleyip yeniden dene ya da aynı anda daha az video indir. Sorun sürerse bu geçici bir site tarafı değişikliği olabilir — Arroxy açılışta indirme motorunu günceller, bu yüzden düzeltme yayınlandığında çözüm otomatik gelir."
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
 msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
@@ -246,8 +238,8 @@ msgid "This video is not available in your region."
 msgstr "Bu video bölgenizde kullanılamıyor."
 
 msgctxt "errors.ytdlp.ipBlock"
-msgid "Your IP address appears to be blocked. Try again later or use a VPN."
-msgstr "IP adresin engellenmiş görünüyor. Daha sonra tekrar dene veya VPN kullan."
+msgid "The site is blocking requests from this connection. Try again later."
+msgstr "Site bu bağlantıdan gelen istekleri engelliyor. Daha sonra yeniden dene."
 
 msgctxt "errors.ytdlp.loginRequired"
 msgid "This video needs a signed-in account."
@@ -329,13 +321,77 @@ msgctxt "explore.linkCallout.title"
 msgid "Right-click a link to download it"
 msgstr "İndirmek için bir bağlantıya sağ tıkla"
 
+msgctxt "explore.linkMenu.background.album"
+msgid "Download the album in the background"
+msgstr "Albümü arka planda indir"
+
+msgctxt "explore.linkMenu.background.liked"
+msgid "Download your liked videos in the background"
+msgstr "Beğendiğin videoları arka planda indir"
+
+msgctxt "explore.linkMenu.background.mix"
+msgid "Download the Mix in the background"
+msgstr "Mix’i arka planda indir"
+
+msgctxt "explore.linkMenu.background.playlist"
+msgid "Download the playlist in the background"
+msgstr "Oynatma listesini arka planda indir"
+
+msgctxt "explore.linkMenu.background.uploads"
+msgid "Download the uploads in the background"
+msgstr "Yüklemeleri arka planda indir"
+
+msgctxt "explore.linkMenu.background.watchLater"
+msgid "Download Watch later in the background"
+msgstr "“Daha sonra izle”yi arka planda indir"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "Bağlantıyı kopyala"
 
+msgctxt "explore.linkMenu.downloadFirst"
+msgid "Download the first {{count}}"
+msgstr "İlk {{count}} öğeyi indir"
+
+msgctxt "explore.linkMenu.downloadThisVideo"
+msgid "Download this video · {{profileName}}"
+msgstr "Bu videoyu indir · {{profileName}}"
+
 msgctxt "explore.linkMenu.downloadWith"
 msgid "Download with"
 msgstr "Profille indir"
+
+msgctxt "explore.linkMenu.fromList.album"
+msgid "From this album"
+msgstr "Bu albümden"
+
+msgctxt "explore.linkMenu.fromList.liked"
+msgid "From your liked videos"
+msgstr "Beğendiğin videolardan"
+
+msgctxt "explore.linkMenu.fromList.mix"
+msgid "From this Mix"
+msgstr "Bu Mix’ten"
+
+msgctxt "explore.linkMenu.fromList.playlist"
+msgid "From this playlist"
+msgstr "Bu oynatma listesinden"
+
+msgctxt "explore.linkMenu.fromList.uploads"
+msgid "From this channel’s uploads"
+msgstr "Bu kanalın yüklemelerinden"
+
+msgctxt "explore.linkMenu.fromList.watchLater"
+msgid "From Watch later"
+msgstr "“Daha sonra izle”den"
+
+msgctxt "explore.linkMenu.interactive"
+msgid "Interactive Download…"
+msgstr "Etkileşimli İndirme…"
+
+msgctxt "explore.linkMenu.thisVideoWith"
+msgid "This video with"
+msgstr "Bu videoyu profille indir"
 
 msgctxt "explore.newBadge"
 msgid "New"
@@ -481,6 +537,10 @@ msgctxt "explore.toolbar.compactLayout"
 msgid "Compact layout"
 msgstr "Kompakt düzen"
 
+msgctxt "explore.toolbar.download"
+msgid "Download"
+msgstr "İndir"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "İndir · {{profileName}}"
@@ -516,6 +576,14 @@ msgstr "Yeniden yükle"
 msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "Bu arama çok uzun."
+
+msgctxt "explore.toolbar.thisVideo"
+msgid "This video"
+msgstr "Bu video"
+
+msgctxt "explore.toolbar.thisVideoHint"
+msgid "Download just this video with {{profileName}}"
+msgstr "Yalnızca bu videoyu {{profileName}} ile indir"
 
 msgctxt "explore.toolbar.zoom.hint"
 msgid "Page zoom: {{percent}}%"
@@ -581,17 +649,17 @@ msgctxt "filenameTemplate.error.unknown-token"
 msgid "Unknown token {{token}}."
 msgstr "Bilinmeyen belirteç {{token}}."
 
-msgctxt "filenameTemplate.idWarning"
-msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
-msgstr "{id} olmadan Arroxy, daha önce indirilmiş oynatma listesi öğelerini algılayamaz ve .m3u oynatma listeleri oluşturamaz."
+msgctxt "filenameTemplate.idEndingWarning"
+msgid "End the name with [{id}] so Arroxy can detect already-downloaded playlist items and generate .m3u playlists."
+msgstr "Arroxy’nin daha önce indirilmiş oynatma listesi öğelerini algılayıp .m3u oynatma listeleri oluşturabilmesi için adı [{id}] ile bitir."
 
 msgctxt "filenameTemplate.label"
 msgid "Filename template"
 msgstr "Dosya adı şablonu"
 
-msgctxt "filenameTemplate.m3uDisabled"
-msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
-msgstr "Kullanılamıyor çünkü dosya adı şablonun ya {id} içermiyor ya da indirmeleri klasörlere ayırıyor."
+msgctxt "filenameTemplate.m3uDisabledIdEnding"
+msgid "Unavailable because your filename template either doesn't end with [{id}] or sorts downloads into folders."
+msgstr "Kullanılamıyor çünkü dosya adı şablonun [{id}] ile bitmiyor ya da indirmeleri klasörlere ayırıyor."
 
 msgctxt "filenameTemplate.previewPlaylist"
 msgid "In a playlist"
@@ -778,6 +846,56 @@ msgid "Already in the queue"
 msgstr "Zaten kuyrukta"
 
 #. Plural form "one" for tr: used for counts like 1.
+msgctxt "notifications.quickDownload.batchAdded_one"
+msgid "Added {{count}} link to Downloads"
+msgstr "{{count}} bağlantı İndirmeler’e eklendi"
+
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchAdded_other"
+msgid "Added {{count}} links to Downloads"
+msgstr "{{count}} bağlantı İndirmeler’e eklendi"
+
+#. Plural form "one" for tr: used for counts like 1.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_one"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} zaten kuyrukta"
+
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_other"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} zaten kuyrukta"
+
+#. Plural form "one" for tr: used for counts like 1.
+msgctxt "notifications.quickDownload.batchNoneAdded_one"
+msgid "{{count}} link couldn't be added"
+msgstr "{{count}} bağlantı eklenemedi"
+
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchNoneAdded_other"
+msgid "{{count}} links couldn't be added"
+msgstr "{{count}} bağlantı eklenemedi"
+
+#. Plural form "one" for tr: used for counts like 1.
+msgctxt "notifications.quickDownload.batchNotAdded_one"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} eklenemedi"
+
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchNotAdded_other"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} eklenemedi"
+
+#. Plural form "one" for tr: used for counts like 1.
+msgctxt "notifications.quickDownload.chooseFromList_one"
+msgid "{{count}} video in this list — choose what to download"
+msgstr "Bu listede {{count}} video var — neyi indireceğini seç"
+
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.chooseFromList_other"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "Bu listede {{count}} video var — neyi indireceğini seç"
+
+#. Plural form "one" for tr: used for counts like 1.
 msgctxt "notifications.quickDownload.chooseHowMany_one"
 msgid "{{count}}+ video — choose how many"
 msgstr "{{count}}+ video — kaç tane olacağını seç"
@@ -794,26 +912,6 @@ msgstr "{{title}} hazırlanamadı"
 msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "Bu bağlantı eklenemedi — yeniden dene"
-
-#. Plural form "one" for tr: used for counts like 1.
-msgctxt "notifications.quickDownload.review_one"
-msgid "{{count}} video in this list — review to pick"
-msgstr "Bu listede {{count}} video var — seçmek için gözden geçir"
-
-#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "notifications.quickDownload.review_other"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "Bu listede {{count}} video var — seçmek için gözden geçir"
-
-#. Plural form "one" for tr: used for counts like 1.
-msgctxt "notifications.quickDownload.reviewCapped_one"
-msgid "{{count}}+ video in this list — review to pick"
-msgstr "Bu listede {{count}}+ video var — seçmek için gözden geçir"
-
-#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "notifications.quickDownload.reviewCapped_other"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "Bu listede {{count}}+ video var — seçmek için gözden geçir"
 
 msgctxt "notifications.quickDownload.view"
 msgid "View"
@@ -1063,19 +1161,75 @@ msgctxt "queue.choice.first"
 msgid "First {{count}}"
 msgstr "İlk {{count}}"
 
+msgctxt "queue.choice.list.album"
+msgid "The album"
+msgstr "Albüm"
+
+msgctxt "queue.choice.list.liked"
+msgid "Liked videos"
+msgstr "Beğenilen videolar"
+
+msgctxt "queue.choice.list.mix"
+msgid "The Mix"
+msgstr "Mix"
+
+msgctxt "queue.choice.list.playlist"
+msgid "The playlist"
+msgstr "Oynatma listesi"
+
+msgctxt "queue.choice.list.uploads"
+msgid "All the uploads"
+msgstr "Tüm yüklemeler"
+
+msgctxt "queue.choice.list.watchLater"
+msgid "Watch later"
+msgstr "“Daha sonra izle”"
+
+msgctxt "queue.choice.pick"
+msgid "Pick from it…"
+msgstr "Aralarından seç…"
+
 msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "Gözden geçir"
 
 #. Plural form "one" for tr: used for counts like 1.
-msgctxt "queue.choice.reviewBody_one"
-msgid "This link is a list of {{count}} video. Review it to pick what to download."
-msgstr "Bu bağlantı {{count}} videoluk bir liste. Neyi indireceğini seçmek için gözden geçir."
+msgctxt "queue.choice.uncappedBody_one"
+msgid "This link is a list of {{count}} video. Download it, or pick in a review."
+msgstr "Bu bağlantı {{count}} videoluk bir liste. İndir ya da bir inceleme ile seç."
 
 #. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "queue.choice.reviewBody_other"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "Bu bağlantı {{count}} videoluk bir liste. Neyi indireceğini seçmek için gözden geçir."
+msgctxt "queue.choice.uncappedBody_other"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "Bu bağlantı {{count}} videoluk bir liste. Hepsini indir ya da bir inceleme ile seç."
+
+msgctxt "queue.choice.video"
+msgid "This video"
+msgstr "Bu video"
+
+msgctxt "queue.choice.videoOrList.album"
+msgid "This link is a video in an album. Download just the video, or the album?"
+msgstr "Bu bağlantı bir albümdeki bir video. Yalnızca videoyu mu indirelim, albümü mü?"
+
+msgctxt "queue.choice.videoOrList.liked"
+msgid "This link is a video in your liked videos. Download just the video, or all your liked videos?"
+msgstr "Bu bağlantı, beğendiğin videolar arasındaki bir video. Yalnızca videoyu mu indirelim, beğendiğin tüm videoları mı?"
+
+msgctxt "queue.choice.videoOrList.mix"
+msgid "This link is a video in a Mix. Download just the video, or the Mix?"
+msgstr "Bu bağlantı bir Mix’teki bir video. Yalnızca videoyu mu indirelim, Mix’i mi?"
+
+msgctxt "queue.choice.videoOrList.playlist"
+msgid "This link is a video in a playlist. Download just the video, or the playlist?"
+msgstr "Bu bağlantı bir oynatma listesindeki bir video. Yalnızca videoyu mu indirelim, oynatma listesini mi?"
+
+msgctxt "queue.choice.videoOrList.uploads"
+msgid "This link is a video in a channel's uploads. Download just the video, or all the uploads?"
+msgstr "Bu bağlantı bir kanalın yüklemelerindeki bir video. Yalnızca videoyu mu indirelim, tüm yüklemeleri mi?"
+
+msgctxt "queue.choice.videoOrList.watchLater"
+msgid "This link is a video in your Watch later list. Download just the video, or the whole list?"
+msgstr "Bu bağlantı “Daha sonra izle” listendeki bir video. Yalnızca videoyu mu indirelim, listenin tamamını mı?"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -1204,6 +1358,70 @@ msgstr "İndiriliyor"
 msgctxt "queue.item.subtitleLanguagesMissing"
 msgid "No subtitles in {{languages}}"
 msgstr "{{languages}} altyazı yok"
+
+msgctxt "queue.item.waitingForSite"
+msgid "Waits for {{site}} until {{time}}"
+msgstr "{{site}} için {{time}} saatine kadar bekliyor"
+
+msgctxt "queue.item.waitingHint"
+msgid "{{site}} is rate-limiting this connection. Arroxy fetches this link's details after {{time}}, so the limit can clear."
+msgstr "{{site}} bu bağlantıdan gelen istekleri sınırlıyor. Sınırın kalkabilmesi için Arroxy bu bağlantının ayrıntılarını {{time}} sonrasında alır."
+
+msgctxt "queue.listOffer.dismiss"
+msgid "Dismiss"
+msgstr "Kapat"
+
+msgctxt "queue.listOffer.from.album"
+msgid "From an album"
+msgstr "Bir albümden"
+
+msgctxt "queue.listOffer.from.liked"
+msgid "From your liked videos"
+msgstr "Beğendiğin videolardan"
+
+msgctxt "queue.listOffer.from.mix"
+msgid "From a Mix"
+msgstr "Bir Mix’ten"
+
+msgctxt "queue.listOffer.from.playlist"
+msgid "From a playlist"
+msgstr "Bir oynatma listesinden"
+
+msgctxt "queue.listOffer.from.uploads"
+msgid "From a channel's uploads"
+msgstr "Bir kanalın yüklemelerinden"
+
+msgctxt "queue.listOffer.from.watchLater"
+msgid "From Watch later"
+msgstr "“Daha sonra izle”den"
+
+msgctxt "queue.listOffer.get.album"
+msgid "Get the whole album"
+msgstr "Albümün tamamını al"
+
+msgctxt "queue.listOffer.get.liked"
+msgid "Get all liked videos"
+msgstr "Beğenilen tüm videoları al"
+
+msgctxt "queue.listOffer.get.mix"
+msgid "Get the whole Mix"
+msgstr "Mix’in tamamını al"
+
+msgctxt "queue.listOffer.get.playlist"
+msgid "Get the whole playlist"
+msgstr "Oynatma listesinin tamamını al"
+
+msgctxt "queue.listOffer.get.uploads"
+msgid "Get all uploads"
+msgstr "Tüm yüklemeleri al"
+
+msgctxt "queue.listOffer.get.watchLater"
+msgid "Get all of Watch later"
+msgstr "“Daha sonra izle”nin tamamını al"
+
+msgctxt "queue.listOffer.hint"
+msgid "Adds the list as its own row. This video is left out."
+msgstr "Listeyi ayrı bir satır olarak ekler. Bu video dışarıda kalır."
 
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
@@ -1745,10 +1963,6 @@ msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Selam, tekrar hoş geldin!"
 
-msgctxt "splash.setup.bytes"
-msgid "{{done}} of {{total}}"
-msgstr "{{done}} / {{total}}"
-
 #. Plural form "one" for tr: used for counts like 1.
 msgctxt "splash.setup.left.minutes_one"
 msgid "about {{count}} min left"
@@ -1763,18 +1977,6 @@ msgctxt "splash.setup.left.underMinute"
 msgid "less than a minute left"
 msgstr "bir dakikadan az kaldı"
 
-msgctxt "splash.setup.note.engine"
-msgid "Keeps downloads working when sites change."
-msgstr "Siteler değiştiğinde indirmelerin çalışmaya devam etmesini sağlar."
-
-msgctxt "splash.setup.note.firstRun"
-msgid "This happens once. Arroxy keeps these tools and updates them itself."
-msgstr "Bu yalnızca bir kez olur. Arroxy bu araçları saklar ve kendisi günceller."
-
-msgctxt "splash.setup.note.media"
-msgid "This happens once. Arroxy keeps them for future updates."
-msgstr "Bu yalnızca bir kez olur. Arroxy bunları sonraki güncellemeler için saklar."
-
 msgctxt "splash.setup.stage.checking"
 msgid "Checking everything works"
 msgstr "Her şeyin çalıştığı kontrol ediliyor"
@@ -1783,21 +1985,17 @@ msgctxt "splash.setup.stage.connecting"
 msgid "Connecting…"
 msgstr "Bağlanılıyor…"
 
-msgctxt "splash.setup.stage.downloadingBoth"
-msgid "Downloading the download engine and media tools"
-msgstr "İndirme motoru ve medya araçları indiriliyor"
-
-msgctxt "splash.setup.stage.downloadingEngine"
-msgid "Downloading the download engine"
-msgstr "İndirme motoru indiriliyor"
-
-msgctxt "splash.setup.stage.downloadingMedia"
-msgid "Downloading the media tools"
-msgstr "Medya araçları indiriliyor"
-
 msgctxt "splash.setup.stage.unpacking"
 msgid "Unpacking the media tools"
 msgstr "Medya araçları açılıyor"
+
+msgctxt "splash.setup.stage.unpackingEngine"
+msgid "Unpacking the download engine"
+msgstr "İndirme motoru açılıyor"
+
+msgctxt "splash.setup.title.both"
+msgid "Updating Arroxy's tools"
+msgstr "Arroxy’nin araçları güncelleniyor"
 
 msgctxt "splash.setup.title.engine"
 msgid "Updating the download engine"
@@ -1884,8 +2082,8 @@ msgid "Merging audio and video…"
 msgstr "Ses ve video birleştiriliyor…"
 
 msgctxt "status.mintingToken"
-msgid "Minting YouTube token…"
-msgstr "YouTube jetonu oluşturuluyor…"
+msgid "Preparing YouTube download…"
+msgstr "YouTube indirmesi hazırlanıyor…"
 
 msgctxt "status.movingFiles"
 msgid "Moving files…"
@@ -1904,16 +2102,16 @@ msgid "Preparing binaries…"
 msgstr "İkili dosyalar hazırlanıyor…"
 
 msgctxt "status.qualityLimited"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
-msgstr "{{height}}p olarak kaydedildi — YouTube bu indirme için daha yüksek kaliteleri vermedi. Daha sonra ya da başka bir ağdan yeniden denemek işe yarayabilir."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later may help."
+msgstr "{{height}}p olarak kaydedildi — YouTube bu indirme için daha yüksek kaliteleri vermedi. Daha sonra yeniden denemek işe yarayabilir."
 
 msgctxt "status.qualityLimitedSubtitlesFailed"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
-msgstr "{{height}}p olarak kaydedildi — YouTube bu indirme için daha yüksek kaliteleri vermedi ve bazı altyazılar indirilemedi. Daha sonra ya da başka bir ağdan yeniden denemek işe yarayabilir."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later may help."
+msgstr "{{height}}p olarak kaydedildi — YouTube bu indirme için daha yüksek kaliteleri vermedi ve bazı altyazılar indirilemedi. Daha sonra yeniden denemek işe yarayabilir."
 
 msgctxt "status.remintingToken"
-msgid "Re-minting token…"
-msgstr "Jeton yeniden oluşturuluyor…"
+msgid "Preparing YouTube download again…"
+msgstr "YouTube indirmesi yeniden hazırlanıyor…"
 
 msgctxt "status.retryingSponsorBlock"
 msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
@@ -2340,8 +2538,8 @@ msgid "Folder name has invalid characters"
 msgstr "Klasör adında geçersiz karakterler var"
 
 msgctxt "wizard.folder.subfolder.placeholder"
-msgid "e.g. lo-fi rips"
-msgstr "örn. lo-fi kayıtları"
+msgid "e.g. lectures"
+msgstr "ör. dersler"
 
 msgctxt "wizard.folder.subfolder.toggle"
 msgid "Save inside subfolder"
@@ -2613,9 +2811,25 @@ msgctxt "wizard.formats.fit.tierAbove"
 msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
 msgstr "Profiliniz {{wanted}}p istiyor. Bu videoda bu kadar düşük çözünürlük yok, bu yüzden {{picked}}p seçildi."
 
-msgctxt "wizard.formats.fit.tierBelow"
-msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
-msgstr "Profiliniz {{wanted}}p istiyor. Bu video en fazla {{picked}}p sunuyor, bu yüzden {{picked}}p seçildi."
+msgctxt "wizard.formats.fit.tierAbovePassedOver"
+msgid "Your profile asks for {{wanted}}p. The smaller streams this video has don't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "Profiliniz {{wanted}}p istiyor. Bu videodaki daha küçük akışlar profilinizin geri kalanına uymuyor, bu yüzden {{picked}}p seçildi."
+
+msgctxt "wizard.formats.fit.tierBelowTakeable"
+msgid "Your profile asks for {{wanted}}p. This video has no {{wanted}}p it can take, so {{picked}}p is selected."
+msgstr "Profiliniz {{wanted}}p istiyor. Bu videoda alınabilecek bir {{wanted}}p yok, bu yüzden {{picked}}p seçildi."
+
+msgctxt "wizard.formats.fit.tierPassedOverAiUpscaled"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p is AI-upscaled, so the original {{picked}}p is selected."
+msgstr "Profiliniz {{wanted}}p istiyor. Bu videonun {{wanted}}p akışı yapay zekâyla yükseltilmiş, bu yüzden orijinal {{picked}}p seçildi."
+
+msgctxt "wizard.formats.fit.tierPassedOverH264"
+msgid "Your profile asks for {{wanted}}p in H.264. This video has {{wanted}}p only in other codecs, so {{picked}}p in H.264 is selected."
+msgstr "Profiliniz H.264 ile {{wanted}}p istiyor. Bu videoda {{wanted}}p yalnızca başka kodeklerde var, bu yüzden H.264 ile {{picked}}p seçildi."
+
+msgctxt "wizard.formats.fit.tierPassedOverProfile"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p doesn't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "Profiliniz {{wanted}}p istiyor. Bu videonun {{wanted}}p akışı profilinizin geri kalanına uymuyor, bu yüzden {{picked}}p seçildi."
 
 msgctxt "wizard.formats.fit.webmUnavailable"
 msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
@@ -2853,85 +3067,81 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "sesli"
 
-msgctxt "wizard.listPrompt.escHint"
-msgid "Esc cancels. Nothing loads until you choose."
-msgstr "Esc iptal eder. Seçim yapılana kadar hiçbir şey yüklenmez."
+msgctxt "wizard.listPrompt.backgroundHint"
+msgid "With {{profileName}}. If it has more than {{count}} videos, Downloads asks how many."
+msgstr "{{profileName}} ile. {{count}} videodan fazlası varsa İndirmeler kaç tanesini alacağını sorar."
 
-msgctxt "wizard.listPrompt.interactiveSubtitle"
-msgid "Choose formats yourself"
-msgstr "Biçimleri kendin seç"
+msgctxt "wizard.listPrompt.backgroundLabel"
+msgid "Download in the background"
+msgstr "Arka planda indir"
 
-msgctxt "wizard.listPrompt.justThisVideo"
-msgid "Just this video"
-msgstr "Yalnızca bu video"
+msgctxt "wizard.listPrompt.escOnly"
+msgid "Esc cancels."
+msgstr "Esc iptal eder."
 
-msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
-msgid "Opens its formats"
-msgstr "Biçimlerini açar"
+msgctxt "wizard.listPrompt.firstHint"
+msgid "Exactly the first {{count}}, with {{profileName}}."
+msgstr "Tam olarak ilk {{count}}, {{profileName}} ile."
 
-msgctxt "wizard.listPrompt.justThisVideoQuickHint"
-msgid "Loads one video"
-msgstr "Tek bir video yükler"
+msgctxt "wizard.listPrompt.firstLabel"
+msgid "Download the first"
+msgstr "İndir: ilk"
 
-msgctxt "wizard.listPrompt.listInteractiveHint"
-msgid "Loads up to {{count}} to choose from"
-msgstr "Seçmek için en fazla {{count}} yükler"
+msgctxt "wizard.listPrompt.interactiveHint"
+msgid "Pick from the first {{count}} videos (or change the count on the next step), then set up the download."
+msgstr "İlk {{count}} videodan seç (ya da sayıyı sonraki adımda değiştir), sonra indirmeyi ayarla."
 
-msgctxt "wizard.listPrompt.listOption.album"
-msgid "The album, first"
-msgstr "Albümün ilk"
+msgctxt "wizard.listPrompt.interactiveLabel"
+msgid "Interactive download…"
+msgstr "Etkileşimli İndirme…"
 
-msgctxt "wizard.listPrompt.listOption.liked"
-msgid "Your liked videos, first"
-msgstr "Beğendiğin videoların ilk"
+msgctxt "wizard.listPrompt.limitHint"
+msgid "How many videos to take from the list: the first option asks past it, the second takes exactly that many. The same as Settings › Playlist items to scan."
+msgstr "Listeden kaç video alınacağı: ilk seçenek bu sayıdan sonrasını sorar, ikincisi tam olarak o kadarını alır. Ayarlar’daki Taranacak oynatma listesi öğeleri ile aynıdır."
 
-msgctxt "wizard.listPrompt.listOption.mix"
-msgid "The Mix, first"
-msgstr "Mix’in ilk"
-
-msgctxt "wizard.listPrompt.listOption.playlist"
-msgid "The playlist, first"
-msgstr "Oynatma listesinin ilk"
-
-msgctxt "wizard.listPrompt.listOption.uploads"
-msgid "The uploads, first"
-msgstr "Yüklemelerin ilk"
-
-msgctxt "wizard.listPrompt.listOption.watchLater"
-msgid "Watch later, first"
-msgstr "“Daha sonra izle”nin ilk"
-
-msgctxt "wizard.listPrompt.listQuickHint"
-msgid "Loads up to {{count}}, then downloads them"
-msgstr "En fazla {{count}} yükler, sonra indirir"
+msgctxt "wizard.listPrompt.limitLabel"
+msgid "Limit"
+msgstr "Sınır"
 
 msgctxt "wizard.listPrompt.mixNote"
 msgid "A Mix changes every time you open it."
 msgstr "Mix her açıldığında değişir."
 
-msgctxt "wizard.listPrompt.pickOption.album"
-msgid "Pick from the album, first"
-msgstr "Seç: albümün ilk"
+msgctxt "wizard.listPrompt.pickLoadAfter"
+msgid "to pick from."
+msgstr "öğeyi seçim için yükle."
 
-msgctxt "wizard.listPrompt.pickOption.liked"
-msgid "Pick from your liked videos, first"
-msgstr "Seç: beğendiğin videoların ilk"
+msgctxt "wizard.listPrompt.pickLoadBefore"
+msgid "Load the first"
+msgstr "İlk"
 
-msgctxt "wizard.listPrompt.pickOption.mix"
-msgid "Pick from the Mix, first"
-msgstr "Seç: Mix’in ilk"
+msgctxt "wizard.listPrompt.pickLoadNote"
+msgid "You can change it on the next step."
+msgstr "Bunu sonraki adımda değiştirebilirsin."
 
-msgctxt "wizard.listPrompt.pickOption.playlist"
-msgid "Pick from the playlist, first"
-msgstr "Seç: oynatma listesinin ilk"
+msgctxt "wizard.listPrompt.pickTitle.album"
+msgid "Pick from this album"
+msgstr "Bu albümden seç"
 
-msgctxt "wizard.listPrompt.pickOption.uploads"
-msgid "Pick from the uploads, first"
-msgstr "Seç: yüklemelerin ilk"
+msgctxt "wizard.listPrompt.pickTitle.liked"
+msgid "Pick from your liked videos"
+msgstr "Beğendiğin videolardan seç"
 
-msgctxt "wizard.listPrompt.pickOption.watchLater"
-msgid "Pick from Watch later, first"
-msgstr "Seç: “Daha sonra izle”nin ilk"
+msgctxt "wizard.listPrompt.pickTitle.mix"
+msgid "Pick from this Mix"
+msgstr "Bu Mix’ten seç"
+
+msgctxt "wizard.listPrompt.pickTitle.playlist"
+msgid "Pick from this playlist"
+msgstr "Bu oynatma listesinden seç"
+
+msgctxt "wizard.listPrompt.pickTitle.uploads"
+msgid "Pick from this channel’s uploads"
+msgstr "Bu kanalın yüklemelerinden seç"
+
+msgctxt "wizard.listPrompt.pickTitle.watchLater"
+msgid "Pick from Watch later"
+msgstr "“Daha sonra izle”den seç"
 
 msgctxt "wizard.listPrompt.title.album"
 msgid "Download from this album"
@@ -2956,6 +3166,18 @@ msgstr "Bu kanalın yüklemelerinden indir"
 msgctxt "wizard.listPrompt.title.watchLater"
 msgid "Download from Watch later"
 msgstr "“Daha sonra izle”den indir"
+
+msgctxt "wizard.listPrompt.videoHint"
+msgid "Only the video you opened, with {{profileName}}. The list isn't loaded."
+msgstr "Yalnızca açtığın video, {{profileName}} ile. Liste yüklenmez."
+
+msgctxt "wizard.listPrompt.videoLabel"
+msgid "Just this video"
+msgstr "Yalnızca bu video"
+
+msgctxt "wizard.listPrompt.videoPickHint"
+msgid "Set up only the video you opened. The list isn't loaded."
+msgstr "Yalnızca açtığın videoyu ayarla. Liste yüklenmez."
 
 msgctxt "wizard.listPrompt.withProfile"
 msgid "With {{profileName}}"
@@ -3152,6 +3374,26 @@ msgstr "Tüm öğeler kaldırıldı"
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Zaten indirildi"
+
+#. Plural form "one" for tr: used for counts like 1.
+msgctxt "wizard.playlist.bulkCappedDesc_one"
+msgid "It has more. To choose how many, paste its link on its own."
+msgstr "Daha fazlası var. Kaç tane alacağını seçmek için bağlantısını tek başına yapıştır."
+
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.bulkCappedDesc_other"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "Bunların daha fazlası var. Kaç tane alacağını seçmek için her bağlantıyı tek başına yapıştır."
+
+#. Plural form "one" for tr: used for counts like 1.
+msgctxt "wizard.playlist.bulkCappedTitle_one"
+msgid "“{{title}}” is cut at {{limit}} videos"
+msgstr "“{{title}}” {{limit}} videoda kesildi"
+
+#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.bulkCappedTitle_other"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "{{count}} liste, her biri {{limit}} videoda kesildi"
 
 msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
@@ -3396,38 +3638,6 @@ msgstr "Klasör kontrol ediliyor…"
 msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Video küçük resmi"
-
-msgctxt "wizard.playlistCap.changeLimit"
-msgid "Change load limit"
-msgstr "Yükleme sınırını değiştir"
-
-#. Plural form "one" for tr: used for counts like 1.
-msgctxt "wizard.playlistCap.description_one"
-msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "Arroxy, geçerli {{limit}} sınırıyla {{count}} öğe yükledi. Yüklenen öğeyi şimdi kuyruğa ekle ya da sınırı artırıp yeniden tara."
-
-#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.playlistCap.description_other"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy, geçerli {{limit}} sınırıyla {{count}} öğe yükledi. Yüklenen öğeleri şimdi kuyruğa ekle ya da sınırı artırıp yeniden tara."
-
-#. Plural form "one" for tr: used for counts like 1.
-msgctxt "wizard.playlistCap.descriptionWithTitle_one"
-msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy, geçerli {{limit}} sınırıyla {{count}} öğe yükledi. Yüklenen öğeyi şimdi kuyruğa ekle ya da sınırı artırıp yeniden tara."
-
-#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.playlistCap.descriptionWithTitle_other"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy, geçerli {{limit}} sınırıyla {{count}} öğe yükledi. Yüklenen öğeleri şimdi kuyruğa ekle ya da sınırı artırıp yeniden tara."
-
-msgctxt "wizard.playlistCap.queueLoaded"
-msgid "Queue loaded items"
-msgstr "Yüklenenleri kuyruğa ekle"
-
-msgctxt "wizard.playlistCap.title"
-msgid "Playlist scan is capped"
-msgstr "Oynatma listesi taraması sınırlandı"
 
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
@@ -3925,44 +4135,6 @@ msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
 msgstr "{{label}} yardımı"
 
-msgctxt "wizard.quickProgress.cancel"
-msgid "Cancel preparation"
-msgstr "Hazırlığı iptal et"
-
-msgctxt "wizard.quickProgress.currentFallback"
-msgid "Current link"
-msgstr "Geçerli bağlantı"
-
-msgctxt "wizard.quickProgress.description"
-msgid "Arroxy is reading the link and applying {{profileName}}."
-msgstr "Arroxy bağlantıyı okuyor ve {{profileName}} profilini uyguluyor."
-
-#. Plural form "one" for tr: used for counts like 1.
-msgctxt "wizard.quickProgress.failedCount_one"
-msgid "{{count}} failed"
-msgstr "{{count}} başarısız"
-
-#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.quickProgress.failedCount_other"
-msgid "{{count}} failed"
-msgstr "{{count}} başarısız"
-
-msgctxt "wizard.quickProgress.phase.probing"
-msgid "Fetching details"
-msgstr "Ayrıntılar alınıyor"
-
-msgctxt "wizard.quickProgress.phase.queueing"
-msgid "Adding to queue"
-msgstr "Kuyruğa ekleniyor"
-
-msgctxt "wizard.quickProgress.title"
-msgid "Preparing Quick Download"
-msgstr "Hızlı İndirme hazırlanıyor"
-
-msgctxt "wizard.quickProgress.waitHint"
-msgid "Keep this open while Arroxy prepares the queue."
-msgstr "Arroxy kuyruğu hazırlarken bunu açık tut."
-
 msgctxt "wizard.review.areas.extras"
 msgid "extras"
 msgstr "ekstralar"
@@ -4271,6 +4443,10 @@ msgctxt "wizard.subtitles.saveMode.sidecar"
 msgid "Next to video"
 msgstr "Videonun yanına"
 
+msgctxt "wizard.subtitles.saveMode.sidecarNoVideo"
+msgid "In the download folder"
+msgstr "İndirme klasöründe"
+
 msgctxt "wizard.subtitles.saveMode.subfolder"
 msgid "subtitles/ subfolder"
 msgstr "subtitles/ alt klasörü"
@@ -4294,14 +4470,6 @@ msgstr "İndirme profili gezinmesi"
 msgctxt "wizard.url.advanced"
 msgid "Advanced"
 msgstr "Gelişmiş"
-
-msgctxt "wizard.url.analytics.toggle"
-msgid "Send daily heartbeat"
-msgstr "Günlük sinyal gönder"
-
-msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
-msgstr "Telemetri yok. Etkin ve yeni kullanıcıları sayabilmemiz için günde bir kez anonim bir sinyal uygulama sürümünü, kurulum kanalını, işletim sistemini, dili, ülkeyi ve Arroxy'nin yaklaşık ne kadar önce kurulduğunu gönderir. Kimlik, URL, video başlığı veya dosya adı gönderilmez."
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
@@ -4390,6 +4558,18 @@ msgstr "Aynı anda indirme"
 msgctxt "wizard.url.concurrentDownloads.unit"
 msgid "downloads"
 msgstr "indirme"
+
+msgctxt "wizard.url.concurrentProbes.description"
+msgid "How many links Arroxy fetches details for at the same time, before they download. Fewer is gentler on sites that block busy connections. A link you open in Interactive Download always goes first."
+msgstr "Arroxy’nin indirmeden önce aynı anda kaç bağlantının ayrıntılarını aldığı. Daha az olması, yoğun bağlantıları engelleyen sitelere karşı daha nazik. Etkileşimli İndirme’de açtığın bağlantı her zaman öne geçer."
+
+msgctxt "wizard.url.concurrentProbes.label"
+msgid "Links checked at once"
+msgstr "Aynı anda kontrol edilen bağlantı"
+
+msgctxt "wizard.url.concurrentProbes.unit"
+msgid "links"
+msgstr "bağlantı"
 
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
@@ -4484,8 +4664,8 @@ msgid "Off"
 msgstr "Kapalı"
 
 msgctxt "wizard.url.cookies.toggleDescription"
-msgid "Helps with age-restricted, members-only, and account-private videos."
-msgstr "Yaş kısıtlamalı, üyelere özel ve hesaba özel videolarda yardımcı olur."
+msgid "Helps with videos your own account can watch, like your private videos."
+msgstr "Hesabının izleyebildiği videolarda, örneğin özel videolarında işe yarar."
 
 msgctxt "wizard.url.downloadConnections.description"
 msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
@@ -4498,6 +4678,30 @@ msgstr "İndirme bağlantıları"
 msgctxt "wizard.url.downloadConnections.unit"
 msgid "connections"
 msgstr "bağlantı"
+
+msgctxt "wizard.url.downloadList.album"
+msgid "Download album…"
+msgstr "Albümü indir…"
+
+msgctxt "wizard.url.downloadList.liked"
+msgid "Download liked videos…"
+msgstr "Beğenilen videoları indir…"
+
+msgctxt "wizard.url.downloadList.mix"
+msgid "Download Mix…"
+msgstr "Mix’i indir…"
+
+msgctxt "wizard.url.downloadList.playlist"
+msgid "Download playlist…"
+msgstr "Oynatma listesini indir…"
+
+msgctxt "wizard.url.downloadList.uploads"
+msgid "Download uploads…"
+msgstr "Yüklemeleri indir…"
+
+msgctxt "wizard.url.downloadList.watchLater"
+msgid "Download Watch later…"
+msgstr "“Daha sonra izle”yi indir…"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -4571,17 +4775,9 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "Bu kısayol başka bir uygulamada kullanılıyor — başka bir tane seçin."
 
-msgctxt "wizard.url.hotkey.hintLabel"
-msgid "Or press"
-msgstr "Veya basın"
-
-msgctxt "wizard.url.hotkey.hintTooltip"
-msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
-msgstr "Bir video bağlantısını istediğiniz yerde kopyalayın, bu kısayola basın; Arroxy onu etkin profilinizle sıraya ekler — pencereler arasında geçiş yapmanız gerekmez."
-
-msgctxt "wizard.url.hotkey.hintTooltipSettings"
-msgid "Change or turn it off in Settings."
-msgstr "Ayarlar'dan değiştirin veya kapatın."
+msgctxt "wizard.url.hotkey.globalLabel"
+msgid "Global shortcut"
+msgstr "Genel kısayol"
 
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
@@ -4607,13 +4803,17 @@ msgctxt "wizard.url.hotkey.toggle"
 msgid "Enable global hotkey"
 msgstr "Genel kısayolu etkinleştir"
 
-msgctxt "wizard.url.hotkey.toggleDescription"
-msgid "Press the shortcut with a video link on your clipboard."
-msgstr "Panoda video bağlantısı varken kısayola basın."
+msgctxt "wizard.url.hotkey.toggleDescriptionDetail"
+msgid "Copy a video link in any app and press the shortcut: Arroxy queues it with your active profile, without switching windows. A link to a video in a playlist downloads the video."
+msgstr "Herhangi bir uygulamada bir video bağlantısı kopyalayın ve kısayola basın: Arroxy onu etkin profilinizle kuyruğa ekler, pencere değiştirmeniz gerekmez. Bir oynatma listesindeki videonun bağlantısı videoyu indirir."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
 msgstr "Etkileşimli İndirme"
+
+msgctxt "wizard.url.interactiveDownloadAsks"
+msgid "Interactive Download…"
+msgstr "Etkileşimli İndirme…"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
@@ -4655,21 +4855,13 @@ msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Bir bağlantı bırak, Arroxy onu çeksin ✨"
 
-msgctxt "wizard.url.mascotMixed"
-msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
-msgstr "Bu bağlantı bir koleksiyondaki tek bir videoyu işaret ediyor. Arroxy, inceleme öncesinde hangisini istediğini soracak."
-
-msgctxt "wizard.url.mascotPreparing"
-msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
-msgstr "{{quickDownload}} bu bağlantıyı okuyor ve {{profileName}} profilini uyguluyor."
-
-msgctxt "wizard.url.mascotQueued"
-msgid "The queue is handling this download. You can paste another link while it works."
-msgstr "Kuyruk bu indirmeyi işliyor. O sürerken başka bir bağlantı yapıştırabilirsin."
-
 msgctxt "wizard.url.mascotSingle"
 msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
 msgstr "Hızlı İndirme, {{profileName}} profiliyle tek bir indirme başlatır. Tek seferlik değişiklikler için Etkileşimli İndirme'yi kullan."
+
+msgctxt "wizard.url.mascotVideoInList"
+msgid "This link names a video and the list it’s in: download just the video, or the list."
+msgstr "Bu bağlantı hem bir videoyu hem de içinde olduğu listeyi belirtiyor: yalnızca videoyu indir ya da listeyi."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4991,6 +5183,10 @@ msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
 msgid "Using profile override + profile subfolder"
 msgstr "Profil geçersiz kılması + profil alt klasörü kullanılıyor"
 
+msgctxt "wizard.url.profile.destinationEditHint"
+msgid "To change where it saves, edit the profile."
+msgstr "Kaydedildiği yeri değiştirmek için profili düzenle."
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Hedef"
@@ -5083,6 +5279,10 @@ msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Sıfırla"
 
+msgctxt "wizard.url.profile.savesTo"
+msgid "Saves to"
+msgstr "Kaydedildiği yer"
+
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
 msgstr "İndirme profilini değiştir: {{profileName}}"
@@ -5096,8 +5296,8 @@ msgid "Clear"
 msgstr "Temizle"
 
 msgctxt "wizard.url.proxy.description"
-msgid "Route traffic through a proxy — useful for geo-restricted content."
-msgstr "Trafiği bir proxy üzerinden yönlendir — coğrafi kısıtlı içerikler için kullanışlıdır."
+msgid "Route traffic through a proxy server."
+msgstr "Trafiği bir proxy sunucusu üzerinden yönlendir."
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
@@ -5106,10 +5306,6 @@ msgstr "Proxy URL’si"
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
-
-msgctxt "wizard.url.quickBulkAllFailed"
-msgid "None of those URLs could be prepared"
-msgstr "Bu URL’lerin hiçbiri hazırlanamadı"
 
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
@@ -5122,16 +5318,6 @@ msgstr "Şununla indirilecek: {{profileName}}"
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "Bu öğe eklenemedi: {{error}}"
-
-#. Plural form "one" for tr: used for counts like 1.
-msgctxt "wizard.url.quickPartialFailed_one"
-msgid "Queued what worked. {{count}} URL could not be prepared."
-msgstr "Çalışanlar kuyruğa alındı. {{count}} URL hazırlanamadı."
-
-#. Plural form "other" for tr: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.url.quickPartialFailed_other"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "Çalışanlar kuyruğa alındı. {{count}} URL hazırlanamadı."
 
 msgctxt "wizard.url.quickPrepareFailed"
 msgid "Queue item could not be prepared"
@@ -5148,6 +5334,14 @@ msgstr "Denetim başarısız oldu"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "Başlamak için bir video, oynatma listesi, kanal veya arama URL’si yapıştır."
+
+msgctxt "wizard.url.reports.toggle"
+msgid "Send anonymous heartbeat and setup reports"
+msgstr "Anonim sinyal ve kurulum raporları gönder"
+
+msgctxt "wizard.url.reports.toggleDescription"
+msgid "No tracking. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. When Arroxy sets up or updates its download engine or media tools, it also reports whether that worked and roughly how long it took. No IDs, URLs, video titles or filenames."
+msgstr "Takip yok. Günde bir kez anonim bir sinyal, uygulama sürümünü, kurulum kanalını, işletim sistemini, dili, ülkeyi ve Arroxy’nin yaklaşık ne kadar önce kurulduğunu gönderir; böylece etkin ve yeni kullanıcıları sayabiliriz. Arroxy indirme motorunu veya medya araçlarını kurduğunda ya da güncellediğinde bunun işe yarayıp yaramadığını ve yaklaşık ne kadar sürdüğünü de bildirir. Kimlik, URL, video başlığı veya dosya adı gönderilmez."
 
 msgctxt "wizard.url.settings.behaviorDescription"
 msgid "Global behavior that affects profile-driven downloads too."
@@ -5204,3 +5398,11 @@ msgstr "Profiller"
 msgctxt "wizard.url.tabs.settings"
 msgid "Settings"
 msgstr "Ayarlar"
+
+msgctxt "wizard.url.thisVideo"
+msgid "This video"
+msgstr "Bu video"
+
+msgctxt "wizard.url.thisVideoTooltip"
+msgid "Downloads just this video with {{profileName}}"
+msgstr "Yalnızca bu videoyu {{profileName}} ile indirir"

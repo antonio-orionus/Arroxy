@@ -9,7 +9,7 @@
 
 [![Väljalase](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Ehitus](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Veebisait](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Litsents](https://img.shields.io/badge/license-GPLv3-blue) ![Platvormid](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Keeled](https://img.shields.io/badge/i18n-50_languages-blue)
 
-Laadige alla videoid, Shortse, muusikat, kanaleid, taskuhäälinguid või helilugusid **YouTube’ist ja 2000+ toetatud saidilt** — kuni 8K HDR 60 kaadrit sekundis, MP3 / AAC / Opus vormingus või ainult vajalik lõik. **Sirvige YouTube’i või mis tahes muud saiti otse Arroxys** vahekaardil Avasta ja laadige alla video, esitusloend või kanal, mille juures olete; logige seal sisse, et alla laadida privaatseid, ainult liikmetele mõeldud ja vanusepiiranguga videoid, mida teie konto saab vaadata. Töötab kohalikult Windowsis, macOS-is ja Linuxis. **Ei mingeid reklaame, ballasti ega müügitrikke.**
+Laadige alla videoid, Shortse, kanaleid, taskuhäälinguid või helilugusid **YouTube’ist ja 2000+ toetatud saidilt** — kuni 8K HDR 60 kaadrit sekundis, MP3 / AAC / Opus vormingus või ainult vajalik lõik. **Sirvige YouTube’i või mis tahes muud saiti otse Arroxys** vahekaardil Avasta ja laadige alla video, esitusloend või kanal, mille juures olete; logige seal sisse, et alla laadida videoid, mida Teie enda konto juba saab vaadata. Töötab kohalikult Windowsis, macOS-is ja Linuxis. **Ei mingeid reklaame, ballasti ega müügitrikke.**
 
 [**↓ Installi uusim väljalase**](#install) &nbsp;·&nbsp; [**Veebisait**](https://arroxy.com/) &nbsp;·&nbsp; [Windowsi esmakäivitus](#windows-first-launch) · [macOS-i esmakäivitus](#macos-first-launch) · [Linuxi esmakäivitus](#linux-first-launch)
 
@@ -28,7 +28,7 @@ Kui Arroxy säästab teie aega, aitab ⭐ teistel seda leida.
 
 > **Mis on Arroxy?** Arroxy on tasuta avatud lähtekoodiga töölaua graafiline kasutajaliides, mis laadib alla videoid, heli, esitusloendeid ja subtiitreid YouTube’ist ja 2000+ muult [yt-dlp](https://github.com/yt-dlp/yt-dlp) toetatud saidilt. Töötab süsteemides Windows 10/11, macOS 13+ (Intel + Apple Silicon) ja Linux (AppImage, Flatpak, tar.gz). GPLv3 litsentsiga. Ei mingeid reklaame ega kasutuspiiranguid. Levitatakse: [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage ja otseallalaadimine.
 >
-> **Peamine erinevus: sisseehitatud brauser.** Enamik tasuta YouTube’i allalaadijaid on õhukesed yt-dlp ümbrised: URL-i kast ja vormingumenüü, ilma oma brauserita. Arroxyl on see olemas – vahekaart **Avasta**. Sirvite YouTube’i või mis tahes muud saiti rakenduse sees ning laadite alla video, esitusloendi või kanali, mille juures olete, või paremklõpsate mis tahes lingil. Logite Avastas korra sisse ja Arroxy laadib alla privaatsed, ainult liikmetele mõeldud ja vanusepiiranguga videod, mida teie konto saab vaadata, samuti teie loendid Vaata hiljem ja Meeldinud videod, ilma küpsiseid eksportimata. Logige seal sisse ka teistele saitidele ning nende allalaadimised kasutavad seda sisselogimist, kui vaja. Kui YouTube palub kinnitada, et te pole robot, proovib Arroxy uuesti selle sisselogimisega. Sisseehitatud brauser hangib ka tunnuse, mida YouTube enne allalaadimist ootab, nii et YouTube ei kärbi allalaadimist vähemate vormingute peale. URL-i kasti ümbris jookseb kõigi nende piirangute otsa. Üksikasjad: [Miks Arroxy](#why-explore).
+> **Peamine erinevus: sisseehitatud brauser.** Enamik tasuta YouTube’i allalaadijaid on õhukesed yt-dlp ümbrised: URL-i kast ja vormingumenüü, ilma oma brauserita. Arroxyl on see olemas – vahekaart **Avasta**. Sirvite YouTube’i või mis tahes muud saiti rakenduse sees ning laadite alla video, esitusloendi või kanali, mille juures olete, või paremklõpsate mis tahes lingil. Kui logite Avastas korra sisse, kasutavad kontot nõudvad allalaadimised seda sisselogimist: Teie privaatsed videod, Teie loendid Vaata hiljem ja Meeldinud videod ning muud videod, mida Teie konto juba saab vaadata, ilma küpsiseid eksportimata. Logige seal sisse ka teistele saitidele ning nende allalaadimised kasutavad seda sisselogimist, kui vaja. Üksikasjad: [Miks Arroxy](#why-explore).
 >
 > _Viimati uuendatud: 2026-10-22._
 
@@ -81,7 +81,7 @@ Kui Arroxy säästab teie aega, aitab ⭐ teistel seda leida.
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxy globaalne allalaadimise kiirklahv — Ctrl+Shift+D Windowsis ja Linuxis, Cmd+Shift+D macOS-is, saadab kopeeritud lingi otse allalaadimisjärjekorda" width="760" /></picture><br/><sub><b>Globaalne allalaadimise kiirklahv</b><br/>Kopeerige link kus tahes, vajutage üks kord — see jõuab järjekorda ja allalaadimine algab</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/et/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Esitusloendi üksuste profiilid</b><br/>Andke igale videole oma profiil — arhiveerige mõned 4K-s, ülejäänud tõmmake MP3-na</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/et/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Esitusloendi üksuste profiilid</b><br/>Andke igale videole oma profiil — arhiveerige mõned 4K-s, ülejäänud salvestage ainult helina</sub></td>
   </tr>
   <tr>
     <td width="50%" valign="top" align="center"><img src="../../build/screenshots/et/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>Kiirallalaadimise avaleht</b><br/>Kleepige URL ja tõmmake see kohe alla oma aktiivse profiiliga</sub></td>
@@ -104,7 +104,7 @@ Kui Arroxy säästab teie aega, aitab ⭐ teistel seda leida.
 - **Allalaadimine paremklõpsuga** — paremklõpsake Avastas mis tahes video-, esitusloendi- või kanalilinki, et see oma profiiliga alla laadida, valida **Laadi alla profiiliga** alt teine profiil, avada samm-sammuline allalaadimine või kopeerida link. Iga videot pole vaja kõigepealt avada
 - **Kompaktne paigutus** — üks klõps Avasta tööriistaribal liigutab Arroxy vahekaardid sinna ja annab lehele rohkem ruumi
 - **Aadressiriba** — YouTube’is otsimiseks tippige otsing või sisestage mis tahes veebiaadress selle saidi avamiseks
-- **Kontot nõudvad allalaadimised** — logige Avastas korra sisse ja Arroxy saab alla laadida privaatseid ja ainult liikmetele mõeldud videoid, mida teie konto saab vaadata, vanusepiiranguga videoid, kui konto on vanuse kinnitanud, ning teie loendid Vaata hiljem ja Meeldinud videod. Logige seal sisse ka teistele saitidele ning nende allalaadimised kasutavad seda sisselogimist, kui vaja. Arroxy laadib siiski kõigepealt alla sisse logimata ja kasutab teie Avasta sisselogimist ainult siis, kui allalaadimine ebaõnnestub viisil, mida konto saab parandada. Kui YouTube palub kinnitada, et te pole robot, proovib Arroxy samuti teie Avasta sisselogimist
+- **Kontot nõudvad allalaadimised** — logige Avastas korra sisse ja Arroxy saab alla laadida videoid, mida Teie konto saab vaadata: Teie privaatseid videoid, vanusepiiranguga videoid, kui konto on vanuse kinnitanud, ning Teie loendeid Vaata hiljem ja Meeldinud videod. Logige seal sisse ka teistele saitidele ning nende allalaadimised kasutavad seda sisselogimist, kui vaja. Arroxy laadib siiski kõigepealt alla sisse logimata ja kasutab Teie Avasta sisselogimist ainult siis, kui allalaadimine ebaõnnestub viisil, mida konto saab parandada
 - **Kasutage teisest kontot** — Avasta esimene ekraan selgitab, miks: kontoga allalaadimisel on teatav risk, et konto piiratakse. Logige Avastast sätetes välja, millal tahes soovite oma sisselogimised unustada
 - **Reklaamiblokeerija** — vaikimisi väljas. Üks klõps kilbil Avasta tööriistaribal blokeerib selle lehtedel reklaamid ja jälgijad, mõjutamata allalaadimisi. YouTube võib sisselogitud kontode puhul reklaamiblokeerijatele vastu töötada
 
@@ -145,7 +145,7 @@ Kui Arroxy säästab teie aega, aitab ⭐ teistel seda leida.
 - **Kiiruse ja tempo juhtimine** — piirake allalaadimise ribalaiust, määrake, mitu video osa laaditakse korraga, ning lisage päringutele viiteid eelseadistustega (*Väljas · Tasakaalustatud · Ettevaatlik · Kohandatud*)
 - **Failinime mallid** — nimetage allalaadimised oma viisil sümbolitega `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` ja `{playlist_index}`, globaalselt või allalaadimisprofiili kohta
 - **Allalaadimisi korraga ja automaatne uuesti proovimine** — valige, mitu järjekorras allalaadimist töötab samal ajal, ning laske Arroxyl proovida uuesti allalaadimist, mis sattus võrgu- või serveriprobleemi otsa, oodates enne iga katset kauem
-- **Esitusloendi üksuste profiilid** — määrake iga esitusloendi videole oma allalaadimisprofiil kogu loendi ühe sätte asemel, et ühe läbimisega saaks mõne arhiveerida täiskvaliteediga ja ülejäänud MP3-na kätte saada
+- **Esitusloendi üksuste profiilid** — määrake iga esitusloendi videole oma allalaadimisprofiil kogu loendi ühe sätte asemel, et ühe läbimisega saaks mõne arhiveerida täiskvaliteediga ja ülejäänud salvestada ainult helina
 - **Kiirallalaadimine töötab taustal** — link ilmub kohe Allalaadimistesse ja valmistatakse seal ette, märge nupuga **Kuva** kinnitab seda ja URL-väli tühjeneb järgmise lingi jaoks. Alustage nii palju, kui soovite, kuni varasemaid ette valmistatakse
 - **Allalaadimised ütlevad, mis vajab teid** — kui Arroxy ei suuda linki lugeda, ütleb selle rida põhjuse ja pakub lahendust: proovi uuesti, lülita küpsised sisse või logi Avastas sisse. Kui küpsised on väljas, proovib **Logi Avastas sisse** selle teie eest uuesti, kui olete sisse loginud. Teie laadimispiirist pikem esitusloend ootab oma real, et valiksite kõik, esimesed või ülevaatuse. Vahekaart Allalaadimised loendab teid ootavad read
 - **Laadige alla ainult osa videost** — valige vormingu ekraanil algus ja lõpp või peatükk ning Arroxy salvestab ainult selle vahemiku, nimetades selle video ID järel vahemikuga. Lõiked langevad lähimale võtmekaadrile; lülitage sisse täpne lõige, et selle asemel ümber kodeerida
@@ -172,7 +172,7 @@ Kui Arroxy säästab teie aega, aitab ⭐ teistel seda leida.
 <summary><strong>🌐 YouTube + 2000 saiti</strong></summary>
 
 - **YouTube täies mahus** — videod, Shorts, kanalid, esitusloendid, YouTube Music ja taskuhäälingud on esmaklassilised allikad
-- **2000+ muud saiti** yt-dlp kaudu — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable ja palju muud
+- **2000+ muud saiti** yt-dlp kaudu — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable ja palju muud
 - **Ainult heli ja subtiitrid** töötavad igal toetatud saidil, mitte ainult YouTube’is
 - Kui sait muutub, avaldab yt-dlp parandusi iga nädal ja Arroxy uuendab binaarfaili käivitamisel automaatselt
 
@@ -366,7 +366,7 @@ Võrdlus levinumate alternatiividega:
 |            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Sisseehitatud brauser (sirvimine, sisselogimine, allalaadimine) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
-| Privaatsed, ainult liikmetele mõeldud ja vanusepiiranguga videod ilma küpsiseid eksportimata |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
+| Videod, mida Teie enda konto saab vaadata, ilma küpsiseid eksportimata |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
 | Tasuta, ilma tasulise versioonita |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Avatud lähtekood |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Ainult kohalik töötlus |   ✅   |           ✅            |         ✅          |     ✅      |             ❌             |         ✅         |
@@ -380,9 +380,9 @@ Arroxy on loodud ühe asja jaoks: puhas kohalik fail, olgu siis URL-i kleepimise
 
 ### <a id="why-explore"></a>🧭 Mida tavaline yt-dlp ümbris ei oska: vahekaart Avasta
 
-Enamik tasuta YouTube’i allalaadijaid on lihtsalt URL-i kast yt-dlp peal. Arroxy kasutab samuti yt-dlp-d, kuid sellel on ka **Avasta** — rakendusse sisseehitatud brauser, mis avab YouTube’i või mis tahes muu saidi. Avasta ületab piirangud, mida URL-i kast ei suuda:
+Enamik tasuta YouTube’i allalaadijaid on lihtsalt URL-i kast yt-dlp peal. Arroxy kasutab samuti yt-dlp-d, kuid sellel on ka **Avasta** — rakendusse sisseehitatud brauser, mis avab YouTube’i või mis tahes muu saidi. Avasta lisab selle, mida URL-i kast ei suuda:
 
-- **Kontot nõudvad videod ilma küpsiseid eksportimata** — privaatsed, ainult liikmetele mõeldud ja vanusepiiranguga videod (vanuse kinnitanud kontol), samuti teie loend Vaata hiljem ja Meeldinud videod ning videod, mis on teistel saitidel sisselogimise taga. Tavaline ümbris vajab cookies.txt eksporti või peab lugema teie veebibrauseri küpsiseid, mida Chrome Windowsis nüüd blokeerib. Arroxys logite Avastas korra sisse ja ülejäänu teeb rakendus
+- **Videod, mida Teie konto saab vaadata, ilma küpsiseid eksportimata** — Teie privaatsed videod, Teie loendid Vaata hiljem ja Meeldinud videod, vanusepiiranguga videod vanuse kinnitanud kontol ning teiste saitide lehed, mis nõuavad sisselogimist. Tavaline ümbris vajab cookies.txt eksporti või loeb Teie veebibrauseri küpsiseid. Arroxys logite Avastas korra sisse ja ülejäänu teeb rakendus
 - **Linke pole vaja kopeerida** — leidke video, esitusloend või kanal Avastas ja laadige see alla ühe klõpsuga või paremklõpsake mis tahes linki lehel
 - **Reklaamiblokeerija, kui seda soovite** — üks klõps kilbil blokeerib reklaamid ja jälgijad Avasta lehtedel
 
@@ -392,7 +392,7 @@ Enamik tasuta YouTube’i allalaadijaid on lihtsalt URL-i kast yt-dlp peal. Arro
 
 Allalaadimised tuuakse otse [yt-dlp](https://github.com/yt-dlp/yt-dlp) abil YouTube’ist teie valitud kausta — midagi ei suunata läbi kolmanda osapoole serveri. Vaatamisajalugu, allalaadimisajalugu, URL-id ja failide sisu jäävad teie seadmesse.
 
-No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
+Jälgimist pole — üks anonüümne elumärk päevas (rakenduse versioon, OS, keel, installikanal, riik ja ligikaudu see, kui ammu Arroxy installiti), et saaksime lugeda aktiivseid ja uusi kasutajaid, ning kui Arroxy laadib alla või uuendab yt-dlp-d ja FFmpegi, anonüümne teade selle kohta, kas see õnnestus ja ligikaudu kui kaua see aega võttis. Ei mingeid ID-sid, URL-e, videopealkirju, failiteid ega konto teavet. Saate mõlemad sätetes välja lülitada.
 
 Avasta hoiab oma sisselogimisi eraldi teie brauserist ja Arroxy ei loe ega täida kunagi sisselogimisvormi — tippite saidi enda lehel. Allalaadimised toimuvad sisse logimata; ainult kui üks ebaõnnestub viisil, mida konto saab parandada, loeb Arroxy sisselogimise värskelt, hoiab seda selle allalaadimise ajaks ajutises failis ja kustutab faili pärast. Avastast väljalogimine sätetes unustab need.
 
@@ -410,7 +410,7 @@ Jah — GPLv3 litsents, ei mingit tasulist versiooni, ei mingeid funktsioonipiir
 <details>
 <summary><strong>Mille poolest erineb Arroxy teistest yt-dlp graafilistest kasutajaliidestest?</strong></summary>
 
-Enamik tasuta yt-dlp graafilisi kasutajaliideseid on ümbrised, mis võtavad vastu ainult lingi. Arroxy lisab **Avasta** — rakendusse sisseehitatud brauseri, mis avab YouTube’i või mis tahes muu saidi: sirvite ja laadite alla linke kopeerimata ning logite seal korra sisse, et alla laadida privaatseid, ainult liikmetele mõeldud ja vanusepiiranguga videoid ning oma loendeid Vaata hiljem ja Meeldinud videod, ilma küpsiseid eksportimata. Arroxy kasutab seda sisselogimist, kui YouTube palub kinnitada, et te pole robot, ja selle sisseehitatud brauser hangib YouTube’i allalaadimistunnuse, et allalaadimised ei langeks tagasi vähemate vormingute peale. Vt [Miks Arroxy](#why).
+Enamik tasuta yt-dlp graafilisi kasutajaliideseid on ümbrised, mis võtavad vastu ainult lingi. Arroxy lisab **Avasta** — rakendusse sisseehitatud brauseri, mis avab YouTube’i või mis tahes muu saidi: sirvite ja laadite alla linke kopeerimata ning logite seal korra sisse, et alla laadida videoid, mida Teie konto saab vaadata, näiteks Teie privaatseid videoid ning loendeid Vaata hiljem ja Meeldinud videod, ilma küpsiseid eksportimata. Vt [Miks Arroxy](#why).
 
 </details>
 
@@ -431,14 +431,14 @@ Jah. Valige vormingumenüüs *ainult heli* ja valige MP3, M4A/AAC, Opus või WAV
 <details>
 <summary><strong>Kuidas laadida alla videoid, mis nõuavad YouTube’i kontot?</strong></summary>
 
-Logige vahekaardil Avasta korra sisse. Arroxy saab siis alla laadida privaatseid ja ainult liikmetele mõeldud videoid, mida teie konto saab vaadata, vanusepiiranguga videoid, kui konto on vanuse kinnitanud, ning teie loendid Vaata hiljem ja Meeldinud videod. See kasutab sisselogimist ainult siis, kui allalaadimine ebaõnnestub viisil, mida konto saab parandada; kõik muu laaditakse alla nagu varem. See on valik **Avasta sisselogimine**, mis on küpsiste sätetes esimesena loetletud ja märgitud kui Soovitatav ning mille Arroxy valib teie eest, kui Avasta esimest korda avate. yt-dlp wiki märgib, et [sisselogitud automatiseerimine võib Google’i konto märgistada](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), seega on teisene konto turvalisem valik.
+Logige vahekaardil Avasta korra sisse. Arroxy saab siis alla laadida videoid, mida Teie konto saab vaadata: Teie privaatseid videoid, vanusepiiranguga videoid, kui konto on vanuse kinnitanud, ning Teie loendeid Vaata hiljem ja Meeldinud videod. See kasutab sisselogimist ainult siis, kui allalaadimine ebaõnnestub viisil, mida konto saab parandada; kõik muu laaditakse alla nagu varem. See on valik **Avasta sisselogimine**, mis on küpsiste sätetes esimesena loetletud ja märgitud kui Soovitatav ning mille Arroxy valib Teie eest, kui Avasta esimest korda avate. yt-dlp wiki märgib, et [sisselogitud automatiseerimine võib Google’i konto märgistada](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), seega on teisene konto turvalisem valik.
 
 </details>
 
 <details>
 <summary><strong>Kas see töötab edasi, kui YouTube midagi muudab?</strong></summary>
 
-yt-dlp uuendatakse käivitamisel automaatselt ja Arroxy avaldab parandusi kiiresti, kui YouTube midagi muudab. Kui YouTube palub kinnitada, et te pole robot, proovib Arroxy ka teie Avasta sisselogimist, kui olete seal sisse loginud, ning küpsiste sätetes on saadaval küpsised failist või teie brauserist.
+yt-dlp uuendatakse käivitamisel automaatselt ja Arroxy avaldab parandusi kiiresti, kui YouTube midagi muudab. Kui allalaadimine nõuab sisselogimist, kasutab Arroxy Teie Avasta sisselogimist, kui olete seal sisse loginud, ning küpsiste sätetes on saadaval küpsised failist või Teie brauserist.
 
 </details>
 
@@ -473,7 +473,7 @@ See on macOS Gatekeeper, mis blokeerib allkirjastamata rakenduse, mitte tegelik 
 <details>
 <summary><strong>Kas YouTube’i videote allalaadimine on seaduslik?</strong></summary>
 
-Isiklikuks, privaatseks kasutamiseks on see enamikus jurisdiktsioonides üldiselt aktsepteeritud. Vastutate YouTube’i [teenusetingimuste](https://www.youtube.com/t/terms) ja kohaliku autoriõiguse seaduste järgimise eest.
+See sõltub Teie riigist ja sellest, mida alla laadite. Laadige alla ainult sisu, mis kuulub Teile, mis on allalaadimiseks litsentsitud või mida Teie riigi seadus lubab kopeerida. Vastutate YouTube’i [teenusetingimuste](https://www.youtube.com/t/terms) ja kohaliku autoriõiguse seaduste järgimise eest. Vt [Kasutustingimused](#terms).
 
 </details>
 
@@ -498,7 +498,7 @@ On teil funktsioon meeles? [Avage taotlus](../../../../issues) — kogukonna sis
 
 ## <a id="support"></a>💖 Toeta Arroxyt
 
-Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
+Arroxy on tasuta ja GPLv3 litsentsiga — ei mingeid reklaame, jälgimist ega tasulist versiooni. Kui see säästab Teie aega, saate arendust toetada Bitcoini, Trony või Ethereumiga: aadressid on failis [DONATE.md](../../DONATE.md), mis on nende ainus ametlik allikas. Arroxy ei saada Teile kunagi aadressi e-posti ega otsesõnumiga. Hoidla tähistamine tärniga, vigadest teatamine ja tõlgete parandamine aitavad sama palju.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

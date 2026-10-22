@@ -31,7 +31,6 @@
 		"cancel": "Prekliči",
 		"close": "Zapri",
 		"continue": "Naprej",
-		"dismiss": "Opusti",
 		"loading": "Nalaganje",
 		"retry": "Poskusi znova",
 		"startOver": "Začni znova"
@@ -45,14 +44,13 @@
 			"remember": "Ne sprašuj več"
 		},
 		"quitWithActiveDownloads": {
-			"confirm": "Prekliči prenose in zapri",
-			"detail": "Začasno ustavite, da nadaljujete pozneje, ali prekličite in zavrzite napredek.",
+			"continueDetail": "Vaša vrsta se ohrani, prenosi pa se ob naslednjem odprtju Arroxy nadaljujejo tam, kjer so se ustavili.",
 			"keep": "Nadaljuj s prenosom",
 			"message_few": "{{count}} prenosi potekajo",
 			"message_one": "{{count}} prenos poteka",
 			"message_other": "{{count}} prenosov poteka",
 			"message_two": "{{count}} prenosa potekata",
-			"pause": "Začasno ustavi prenose in zapri"
+			"quit": "Zapri program"
 		},
 		"rendererCrashed": {
 			"detail": "Proces upodabljanja se je zrušil ({{reason}}). Znova naložite in poskusite znova.",
@@ -75,12 +73,12 @@
 		"noSubtitlesIn": "Ta videoposnetek nima podnapisov v jezikih: {{languages}}.",
 		"ytdlp": {
 			"ageRestricted": "Ta videoposnetek je starostno omejen in ga ni mogoče prenesti brez prijavljenega računa.",
-			"botBlock": "Sprožena je bila zaščita pred boti. Vaš naslov IP je najverjetneje označen (razpon podatkovnega centra ali obremenjen izhod VPN). Zamenjajte naslov IP ali izberite drugo končno točko VPN in poskusite znova. Če še vedno ne deluje, gre morda za začasno spremembo na strani spletnega mesta — Arroxy ob zagonu posodobi svoj mehanizem za prenos, zato bo popravek samodejno prispel, ko bo izdan.",
+			"botBlock": "Zaščita spletnega mesta pred boti je ustavila ta prenos. Počakajte nekaj časa in poskusite znova ali prenesite manj videoposnetkov hkrati. Če še vedno ne deluje, gre morda za začasno spremembo na strani spletnega mesta — Arroxy ob zagonu posodobi svoj mehanizem za prenos, zato bo popravek samodejno prispel, ko bo izdan.",
 			"chunkTransferFailure": "Strežnik je med prenosom večkrat prekinil povezavo, Arroxy pa je po ponovnih poskusih obupal. To se najpogosteje zgodi pri največjih video formatih (4K HDR / VP9 z visoko bitno hitrostjo). Poskusite znova, zamenjajte omrežje ali VPN oziroma izberite format z nižjo ločljivostjo.",
 			"drmProtected": "Ta videoposnetek je zaščiten z DRM. Arroxy ne more odstraniti DRM, zato datoteke ni mogoče prenesti.",
 			"formatUnavailable": "Ta videoposnetek ne ponuja več formata, ki ste ga izbrali. Znova prilepite povezavo in izberite med formati, ki jih ponuja zdaj.",
 			"geoBlocked": "Ta videoposnetek v vaši regiji ni na voljo.",
-			"ipBlock": "Videti je, da je vaš naslov IP blokiran. Poskusite znova pozneje ali uporabite VPN.",
+			"ipBlock": "Spletno mesto blokira zahteve s te povezave. Poskusite znova pozneje.",
 			"loginRequired": "Ta videoposnetek zahteva prijavljen račun.",
 			"missingDependency": "Arroxy ni našel programa FFmpeg ali FFprobe. Znova zaženite namestitev ali nastavite mesto programa FFmpeg, nato znova poskusite prenos.",
 			"network": "Omrežna napaka. Preverite povezavo in poskusite znova.",
@@ -109,8 +107,28 @@
 			"title": "Z desnim klikom na povezavo jo prenesite"
 		},
 		"linkMenu": {
+			"background": {
+				"album": "Prenesi album v ozadju",
+				"liked": "Prenesi videoposnetke, ki so vam všeč, v ozadju",
+				"mix": "Prenesi Mix v ozadju",
+				"playlist": "Prenesi seznam predvajanja v ozadju",
+				"uploads": "Prenesi objave kanala v ozadju",
+				"watchLater": "Prenesi „Ogled pozneje“ v ozadju"
+			},
 			"copyLink": "Kopiraj povezavo",
-			"downloadWith": "Prenesi z"
+			"downloadFirst": "Prenesi prvih {{count}}",
+			"downloadThisVideo": "Prenesi ta videoposnetek · {{profileName}}",
+			"downloadWith": "Prenesi z",
+			"fromList": {
+				"album": "Iz tega albuma",
+				"liked": "Iz videoposnetkov, ki so vam všeč",
+				"mix": "Iz tega Mixa",
+				"playlist": "S tega seznama predvajanja",
+				"uploads": "Iz objav tega kanala",
+				"watchLater": "Iz „Ogled pozneje“"
+			},
+			"interactive": "Interaktivni prenos …",
+			"thisVideoWith": "Ta videoposnetek z"
 		},
 		"newBadge": "Novo",
 		"notice": {
@@ -157,6 +175,7 @@
 			"aria": "Kontrolniki brskalnika Razišči",
 			"back": "Nazaj",
 			"compactLayout": "Strnjena postavitev",
+			"download": "Prenesi",
 			"downloadWithProfile": "Prenesi · {{profileName}}",
 			"forward": "Naprej",
 			"fullLayout": "Pokaži polno postavitev",
@@ -166,6 +185,8 @@
 			"refusedHint": "Razišči ne more odpreti tega naslova.",
 			"reload": "Znova naloži",
 			"searchTooLong": "To iskanje je predolgo.",
+			"thisVideo": "Ta videoposnetek",
+			"thisVideoHint": "Prenesi samo ta videoposnetek s profilom {{profileName}}",
 			"zoom": {
 				"hint": "Povečava strani: {{percent}} %",
 				"in": "Povečaj",
@@ -207,9 +228,9 @@
 			"too-long": "Predloga je predolga.",
 			"unknown-token": "Neznani žeton {{token}}."
 		},
-		"idWarning": "Brez {id} Arroxy ne more prepoznati že prenesenih elementov seznama predvajanja ali ustvariti seznamov predvajanja .m3u.",
+		"idEndingWarning": "Ime naj se konča z [{id}], da lahko Arroxy prepozna že prenesene elemente seznama predvajanja in ustvari sezname predvajanja .m3u.",
 		"label": "Predloga imena datoteke",
-		"m3uDisabled": "Ni na voljo, ker vaša predloga imena datoteke ne vključuje {id} ali razvršča prenose v mape.",
+		"m3uDisabledIdEnding": "Ni na voljo, ker se vaša predloga imena datoteke ne konča z [{id}] ali razvršča prenose v mape.",
 		"previewPlaylist": "V seznamu predvajanja",
 		"previewSingle": "Posamezen videoposnetek",
 		"profileOverrideDescription": "Pustite prazno, če želite podedovati splošno predlogo.",
@@ -258,20 +279,32 @@
 		"quickDownload": {
 			"added": "Dodano: {{title}}",
 			"alreadyQueued": "Že v vrsti",
+			"batchAdded_few": "Dodane {{count}} povezave v Prenose",
+			"batchAdded_one": "Dodana {{count}} povezava v Prenose",
+			"batchAdded_other": "Dodanih {{count}} povezav v Prenose",
+			"batchAdded_two": "Dodani {{count}} povezavi v Prenose",
+			"batchAlreadyQueued_few": "{{count}} že v vrsti",
+			"batchAlreadyQueued_one": "{{count}} že v vrsti",
+			"batchAlreadyQueued_other": "{{count}} že v vrsti",
+			"batchAlreadyQueued_two": "{{count}} že v vrsti",
+			"batchNoneAdded_few": "{{count}} povezav ni bilo mogoče dodati",
+			"batchNoneAdded_one": "{{count}} povezave ni bilo mogoče dodati",
+			"batchNoneAdded_other": "{{count}} povezav ni bilo mogoče dodati",
+			"batchNoneAdded_two": "{{count}} povezav ni bilo mogoče dodati",
+			"batchNotAdded_few": "{{count}} ni bilo mogoče dodati",
+			"batchNotAdded_one": "{{count}} ni bilo mogoče dodati",
+			"batchNotAdded_other": "{{count}} ni bilo mogoče dodati",
+			"batchNotAdded_two": "{{count}} ni bilo mogoče dodati",
+			"chooseFromList_few": "{{count}} videoposnetki na tem seznamu — izberite, kaj prenesti",
+			"chooseFromList_one": "{{count}} videoposnetek na tem seznamu — izberite, kaj prenesti",
+			"chooseFromList_other": "{{count}} videoposnetkov na tem seznamu — izberite, kaj prenesti",
+			"chooseFromList_two": "{{count}} videoposnetka na tem seznamu — izberite, kaj prenesti",
 			"chooseHowMany_few": "{{count}}+ videoposnetki — izberite, koliko",
 			"chooseHowMany_one": "{{count}}+ videoposnetek — izberite, koliko",
 			"chooseHowMany_other": "{{count}}+ videoposnetkov — izberite, koliko",
 			"chooseHowMany_two": "{{count}}+ videoposnetka — izberite, koliko",
 			"failed": "Priprava {{title}} ni uspela",
 			"notAdded": "Povezave ni bilo mogoče dodati — poskusite znova",
-			"reviewCapped_few": "{{count}}+ videoposnetki na tem seznamu — preglejte in izberite",
-			"reviewCapped_one": "{{count}}+ videoposnetek na tem seznamu — preglejte in izberite",
-			"reviewCapped_other": "{{count}}+ videoposnetkov na tem seznamu — preglejte in izberite",
-			"reviewCapped_two": "{{count}}+ videoposnetka na tem seznamu — preglejte in izberite",
-			"review_few": "{{count}} videoposnetki na tem seznamu — preglejte in izberite",
-			"review_one": "{{count}} videoposnetek na tem seznamu — preglejte in izberite",
-			"review_other": "{{count}} videoposnetkov na tem seznamu — preglejte in izberite",
-			"review_two": "{{count}} videoposnetka na tem seznamu — preglejte in izberite",
 			"view": "Pokaži"
 		},
 		"settingsSaveFailed": "Nastavitev ni bilo mogoče shraniti.",
@@ -363,11 +396,29 @@
 			"cappedBody_other": "V tem seznamu predvajanja je več kot {{count}} videoposnetkov. Prenesite vse, prvih {{count}} ali izberite v pregledu.",
 			"cappedBody_two": "V tem seznamu predvajanja sta več kot {{count}} videoposnetka. Prenesite vse, prvih {{count}} ali izberite v pregledu.",
 			"first": "Prvih {{count}}",
+			"list": {
+				"album": "Album",
+				"liked": "Videoposnetki, ki so vam všeč",
+				"mix": "Mix",
+				"playlist": "Seznam predvajanja",
+				"uploads": "Vse objave",
+				"watchLater": "„Ogled pozneje“"
+			},
+			"pick": "Izberite iz njega …",
 			"review": "Pregled",
-			"reviewBody_few": "Ta povezava je seznam {{count}} videoposnetkov. Preglejte ga in izberite, kaj želite prenesti.",
-			"reviewBody_one": "Ta povezava je seznam {{count}} videoposnetka. Preglejte ga in izberite, kaj želite prenesti.",
-			"reviewBody_other": "Ta povezava je seznam {{count}} videoposnetkov. Preglejte ga in izberite, kaj želite prenesti.",
-			"reviewBody_two": "Ta povezava je seznam {{count}} videoposnetkov. Preglejte ga in izberite, kaj želite prenesti."
+			"uncappedBody_few": "Ta povezava je seznam {{count}} videoposnetkov. Prenesite vse ali izberite v pregledu.",
+			"uncappedBody_one": "Ta povezava je seznam {{count}} videoposnetka. Prenesite ga ali izberite v pregledu.",
+			"uncappedBody_other": "Ta povezava je seznam {{count}} videoposnetkov. Prenesite vse ali izberite v pregledu.",
+			"uncappedBody_two": "Ta povezava je seznam {{count}} videoposnetkov. Prenesite vse ali izberite v pregledu.",
+			"video": "Ta videoposnetek",
+			"videoOrList": {
+				"album": "Ta povezava vodi do videoposnetka v albumu. Želite prenesti samo videoposnetek ali album?",
+				"liked": "Ta povezava vodi do videoposnetka med videoposnetki, ki so vam všeč. Želite prenesti samo videoposnetek ali vse videoposnetke, ki so vam všeč?",
+				"mix": "Ta povezava vodi do videoposnetka v Mixu. Želite prenesti samo videoposnetek ali Mix?",
+				"playlist": "Ta povezava vodi do videoposnetka na seznamu predvajanja. Želite prenesti samo videoposnetek ali seznam predvajanja?",
+				"uploads": "Ta povezava vodi do videoposnetka med objavami kanala. Želite prenesti samo videoposnetek ali vse objave?",
+				"watchLater": "Ta povezava vodi do videoposnetka na vašem seznamu „Ogled pozneje“. Želite prenesti samo videoposnetek ali celoten seznam?"
+			}
 		},
 		"clearTitle": "Počisti končane prenose",
 		"empty": "Prenosi v vrsti bodo prikazani tukaj",
@@ -401,7 +452,29 @@
 			"statusPending": "Čaka",
 			"statusProbing": "Pridobivanje podrobnosti",
 			"statusRunning": "Prenos poteka",
-			"subtitleLanguagesMissing": "Ni podnapisov v jezikih: {{languages}}"
+			"subtitleLanguagesMissing": "Ni podnapisov v jezikih: {{languages}}",
+			"waitingForSite": "Čaka na {{site}} do {{time}}",
+			"waitingHint": "{{site}} omejuje število zahtev s te povezave. Arroxy pridobi podrobnosti te povezave po {{time}}, da se lahko omejitev sprosti."
+		},
+		"listOffer": {
+			"dismiss": "Opusti",
+			"from": {
+				"album": "Iz albuma",
+				"liked": "Iz videoposnetkov, ki so vam všeč",
+				"mix": "Iz Mixa",
+				"playlist": "S seznama predvajanja",
+				"uploads": "Iz objav kanala",
+				"watchLater": "Iz „Ogled pozneje“"
+			},
+			"get": {
+				"album": "Pridobi celoten album",
+				"liked": "Pridobi vse videoposnetke, ki so vam všeč",
+				"mix": "Pridobi celoten Mix",
+				"playlist": "Pridobi celoten seznam predvajanja",
+				"uploads": "Pridobi vse objave",
+				"watchLater": "Pridobi vse iz „Ogled pozneje“"
+			},
+			"hint": "Doda seznam kot ločeno vrstico. Ta videoposnetek je izpuščen."
 		},
 		"pauseAllTitle": "Začasno ustavi vse aktivne prenose in prepreči začetek novih",
 		"pausedBanner": "Vrsta je začasno ustavljena — čakajoči elementi se ne bodo začeli, dokler je ne nadaljujete",
@@ -634,7 +707,6 @@
 		"cancel": "Težave? Nastavite ročno",
 		"greeting": "Pozdravljeni nazaj!",
 		"setup": {
-			"bytes": "{{done}} od {{total}}",
 			"left": {
 				"minutes_few": "še približno {{count}} minute",
 				"minutes_one": "še približno {{count}} minuta",
@@ -642,20 +714,14 @@
 				"minutes_two": "še približno {{count}} minuti",
 				"underMinute": "še manj kot minuta"
 			},
-			"note": {
-				"engine": "Prenosi še naprej delujejo, ko se spletna mesta spremenijo.",
-				"firstRun": "To se zgodi enkrat. Arroxy ta orodja hrani in jih posodablja sam.",
-				"media": "To se zgodi enkrat. Arroxy jih hrani za prihodnje posodobitve."
-			},
 			"stage": {
 				"checking": "Preverjanje, ali vse deluje",
 				"connecting": "Povezovanje …",
-				"downloadingBoth": "Prenašanje mehanizma za prenos in medijskih orodij",
-				"downloadingEngine": "Prenašanje mehanizma za prenos",
-				"downloadingMedia": "Prenašanje medijskih orodij",
-				"unpacking": "Razpakiranje medijskih orodij"
+				"unpacking": "Razpakiranje medijskih orodij",
+				"unpackingEngine": "Razpakiranje mehanizma za prenos"
 			},
 			"title": {
+				"both": "Posodabljanje orodij Arroxy",
 				"engine": "Posodabljanje mehanizma za prenos",
 				"firstRun": "Prva nastavitev",
 				"media": "Posodabljanje medijskih orodij"
@@ -681,14 +747,14 @@
 		"fetchingSponsorBlock": "Povezovanje s SponsorBlock …",
 		"fetchingSubtitles": "Pridobivanje podnapisov …",
 		"mergingFormats": "Združevanje zvoka in videa …",
-		"mintingToken": "Ustvarjanje žetona YouTuba …",
+		"mintingToken": "Priprava prenosa z YouTuba …",
 		"movingFiles": "Premikanje datotek …",
 		"noSubtitles": "Ni podnapisov v jezikih: {{languages}}",
 		"outputNotWritable": "Shranjevanje v {{dir}} ni mogoče — Arroxy tam ne sme pisati",
 		"preparingBinaries": "Priprava izvedljivih datotek …",
-		"qualityLimited": "Shranjeno pri {{height}}p — YouTube je za ta prenos zadržal višje kakovosti. Pomagati utegne ponovni poskus pozneje ali iz drugega omrežja.",
-		"qualityLimitedSubtitlesFailed": "Shranjeno pri {{height}}p — YouTube je za ta prenos zadržal višje kakovosti, nekaterih podnapisov pa ni bilo mogoče prenesti. Pomagati utegne ponovni poskus pozneje ali iz drugega omrežja.",
-		"remintingToken": "Ponovno ustvarjanje žetona …",
+		"qualityLimited": "Shranjeno pri {{height}}p — YouTube je za ta prenos zadržal višje kakovosti. Pomagati utegne ponovni poskus pozneje.",
+		"qualityLimitedSubtitlesFailed": "Shranjeno pri {{height}}p — YouTube je za ta prenos zadržal višje kakovosti, nekaterih podnapisov pa ni bilo mogoče prenesti. Pomagati utegne ponovni poskus pozneje.",
+		"remintingToken": "Ponovna priprava prenosa z YouTuba …",
 		"retryingSponsorBlock": "SponsorBlock ni na voljo, ponovni poskus ({{attempt}}/{{total}}) …",
 		"retryingTransfer": "Povezava je obstala, ponovni poskus ({{attempt}}/{{total}}) …",
 		"signingInWithExplore": "Prijava z vašim računom v Razišči …",
@@ -830,7 +896,7 @@
 			"pictures": "Slike",
 			"subfolder": {
 				"invalid": "Ime mape vsebuje neveljavne znake",
-				"placeholder": "npr. lo-fi izvlečki",
+				"placeholder": "npr. predavanja",
 				"toggle": "Shrani v podmapo"
 			},
 			"videos": "Filmi"
@@ -928,7 +994,11 @@
 				"noVideo": "Ta povezava nima videa, zato je izbran zvok.",
 				"subtitlesMissing": "Vaš profil zahteva podnapise v jezikih: {{languages}}. Ta videoposnetek jih nima.",
 				"tierAbove": "Vaš profil zahteva {{wanted}}p. Ta videoposnetek nima nič tako majhnega, zato je izbran {{picked}}p.",
-				"tierBelow": "Vaš profil zahteva {{wanted}}p. Ta videoposnetek sega le do {{picked}}p, zato je izbran {{picked}}p.",
+				"tierAbovePassedOver": "Vaš profil zahteva {{wanted}}p. Manjši pretoki tega videoposnetka se ne ujemajo z ostalim delom vašega profila, zato je izbran {{picked}}p.",
+				"tierBelowTakeable": "Vaš profil zahteva {{wanted}}p. Ta videoposnetek nima uporabne različice {{wanted}}p, zato je izbran {{picked}}p.",
+				"tierPassedOverAiUpscaled": "Vaš profil zahteva {{wanted}}p. {{wanted}}p tega videoposnetka je z umetno inteligenco povečan, zato je izbran izvirni {{picked}}p.",
+				"tierPassedOverH264": "Vaš profil zahteva {{wanted}}p v H.264. Ta videoposnetek ima {{wanted}}p samo v drugih kodekih, zato je izbran {{picked}}p v H.264.",
+				"tierPassedOverProfile": "Vaš profil zahteva {{wanted}}p. {{wanted}}p tega videoposnetka se ne ujema z ostalim delom vašega profila, zato je izbran {{picked}}p.",
 				"webmUnavailable": "Vaš profil zahteva WebM. Izbrani toki tega videoposnetka vključujejo {{codec}}, ki ga WebM ne podpira, zato je vrsta datoteke Samodejno."
 			},
 			"footer": {
@@ -1005,29 +1075,26 @@
 			"withAudio": "z zvokom"
 		},
 		"listPrompt": {
-			"escHint": "Esc prekliče. Nič se ne naloži, dokler ne izberete.",
-			"interactiveSubtitle": "Formate izberite sami",
-			"justThisVideo": "Samo ta videoposnetek",
-			"justThisVideoInteractiveHint": "Odpre njegove formate",
-			"justThisVideoQuickHint": "Naloži en videoposnetek",
-			"listInteractiveHint": "Naloži do {{count}} za izbiro",
-			"listOption": {
-				"album": "Album, prvih",
-				"liked": "Videoposnetki, ki so vam všeč, prvih",
-				"mix": "Mix, prvih",
-				"playlist": "Seznam predvajanja, prvih",
-				"uploads": "Objave kanala, prvih",
-				"watchLater": "„Ogled pozneje“, prvih"
-			},
-			"listQuickHint": "Naloži do {{count}}, nato jih prenese",
+			"backgroundHint": "S profilom {{profileName}}. Če ima več kot {{count}} videoposnetkov, vas Prenosi vprašajo, koliko jih prenesti.",
+			"backgroundLabel": "Prenesi v ozadju",
+			"escOnly": "Esc prekliče.",
+			"firstHint": "Natanko prvih {{count}}, s profilom {{profileName}}.",
+			"firstLabel": "Prenesi prvih",
+			"interactiveHint": "Izberite med prvimi {{count}} videoposnetki (ali spremenite število v naslednjem koraku), nato nastavite prenos.",
+			"interactiveLabel": "Interaktivni prenos …",
+			"limitHint": "Koliko videoposnetkov vzeti s seznama: prva možnost vpraša po tej meji, druga vzame natanko toliko. Enako kot Nastavitve › Elementi seznama predvajanja za pregled.",
+			"limitLabel": "Omejitev",
 			"mixNote": "Mix se spremeni ob vsakem odprtju.",
-			"pickOption": {
-				"album": "Izbira iz albuma, od prvih",
-				"liked": "Izbira med videoposnetki, ki so vam všeč, od prvih",
-				"mix": "Izbira iz Mixa, od prvih",
-				"playlist": "Izbira iz seznama predvajanja, od prvih",
-				"uploads": "Izbira iz objav kanala, od prvih",
-				"watchLater": "Izbira iz „Ogled pozneje“, od prvih"
+			"pickLoadAfter": "za izbiro.",
+			"pickLoadBefore": "Naloži prvih",
+			"pickLoadNote": "Spremenite ga lahko v naslednjem koraku.",
+			"pickTitle": {
+				"album": "Izbira iz tega albuma",
+				"liked": "Izbira med videoposnetki, ki so vam všeč",
+				"mix": "Izbira iz tega Mixa",
+				"playlist": "Izbira iz tega seznama predvajanja",
+				"uploads": "Izbira iz objav tega kanala",
+				"watchLater": "Izbira iz „Ogled pozneje“"
 			},
 			"title": {
 				"album": "Prenos iz tega albuma",
@@ -1037,6 +1104,9 @@
 				"uploads": "Prenos iz objav tega kanala",
 				"watchLater": "Prenos iz „Ogled pozneje“"
 			},
+			"videoHint": "Samo videoposnetek, ki ste ga odprli, s profilom {{profileName}}. Seznam se ne naloži.",
+			"videoLabel": "Samo ta videoposnetek",
+			"videoPickHint": "Nastavite samo videoposnetek, ki ste ga odprli. Seznam se ne naloži.",
 			"withProfile": "Profil: {{profileName}}"
 		},
 		"output": {
@@ -1108,6 +1178,14 @@
 			"allRemovedDescription": "Obnovite jih, da nadaljujete.",
 			"allRemovedTitle": "Vsi elementi so bili odstranjeni",
 			"alreadyDownloaded": "Že preneseno",
+			"bulkCappedDesc_few": "Imajo več. Če želite izbrati, koliko, prilepite vsako povezavo posebej.",
+			"bulkCappedDesc_one": "Ima več. Če želite izbrati, koliko, prilepite njegovo povezavo posebej.",
+			"bulkCappedDesc_other": "Imajo več. Če želite izbrati, koliko, prilepite vsako povezavo posebej.",
+			"bulkCappedDesc_two": "Imata več. Če želite izbrati, koliko, prilepite vsako povezavo posebej.",
+			"bulkCappedTitle_few": "{{count}} seznami so omejeni na {{limit}} videoposnetkov na seznam",
+			"bulkCappedTitle_one": "„{{title}}“ je omejen na {{limit}} videoposnetkov",
+			"bulkCappedTitle_other": "{{count}} seznamov je omejenih na {{limit}} videoposnetkov na seznam",
+			"bulkCappedTitle_two": "{{count}} seznama sta omejena na {{limit}} videoposnetkov na seznam",
 			"bulkHeading": "Več naslovov URL",
 			"bulkMetadataOptional": "Ni vam treba čakati — datoteke, dodane v vrsto zdaj, ob prenosu še vedno dobijo prava imena.",
 			"bulkMetadataResolving": "Pridobivanje podrobnosti videoposnetkov … {{done}}/{{total}}",
@@ -1181,19 +1259,6 @@
 			"syncNoneTitle": "Še nič preneseno",
 			"syncScanning": "Preverjanje mape …",
 			"thumbnailAlt": "Sličica videoposnetka"
-		},
-		"playlistCap": {
-			"changeLimit": "Spremeni omejitev nalaganja",
-			"descriptionWithTitle_few": "<title/>: Arroxy je naložil {{count}} elemente z trenutno omejitvijo {{limit}}. Naložene elemente zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte.",
-			"descriptionWithTitle_one": "<title/>: Arroxy je naložil {{count}} element z trenutno omejitvijo {{limit}}. Naloženi element zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte.",
-			"descriptionWithTitle_other": "<title/>: Arroxy je naložil {{count}} elementov z trenutno omejitvijo {{limit}}. Naložene elemente zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte.",
-			"descriptionWithTitle_two": "<title/>: Arroxy je naložil {{count}} elementa z trenutno omejitvijo {{limit}}. Naložena elementa zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte.",
-			"description_few": "Arroxy je naložil {{count}} elemente z trenutno omejitvijo {{limit}}. Naložene elemente zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte.",
-			"description_one": "Arroxy je naložil {{count}} element z trenutno omejitvijo {{limit}}. Naloženi element zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte.",
-			"description_other": "Arroxy je naložil {{count}} elementov z trenutno omejitvijo {{limit}}. Naložene elemente zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte.",
-			"description_two": "Arroxy je naložil {{count}} elementa z trenutno omejitvijo {{limit}}. Naložena elementa zdaj dodajte v vrsto ali povečajte omejitev in znova preglejte.",
-			"queueLoaded": "Dodaj naložene elemente v vrsto",
-			"title": "Pregled seznama predvajanja je omejen"
 		},
 		"playlistPresets": {
 			"heading": "Izberite kakovost za paket",
@@ -1385,21 +1450,6 @@
 		"profileSwitchRow": {
 			"helpAria": "Pomoč: {{label}}"
 		},
-		"quickProgress": {
-			"cancel": "Prekliči pripravo",
-			"currentFallback": "Trenutna povezava",
-			"description": "Arroxy bere povezavo in uporablja profil {{profileName}}.",
-			"failedCount_few": "Neuspešnih: {{count}}",
-			"failedCount_one": "Neuspešnih: {{count}}",
-			"failedCount_other": "Neuspešnih: {{count}}",
-			"failedCount_two": "Neuspešnih: {{count}}",
-			"phase": {
-				"probing": "Pridobivanje podrobnosti",
-				"queueing": "Dodajanje v vrsto"
-			},
-			"title": "Priprava hitrega prenosa",
-			"waitHint": "Pustite to odprto, medtem ko Arroxy pripravlja vrsto."
-		},
 		"review": {
 			"areas": {
 				"extras": "dodatki",
@@ -1509,6 +1559,7 @@
 				"embed": "Vdelaj v videoposnetek",
 				"heading": "Shrani kot",
 				"sidecar": "Poleg videoposnetka",
+				"sidecarNoVideo": "V mapi za prenose",
 				"subfolder": "podmapa subtitles/"
 			},
 			"searchPlaceholder": "Iskanje jezikov …",
@@ -1518,10 +1569,6 @@
 		"tabsNavAria": "Krmarjenje po profilih prenosa",
 		"url": {
 			"advanced": "Napredno",
-			"analytics": {
-				"toggle": "Pošlji dnevni signal delovanja",
-				"toggleDescription": "Brez telemetrije. Enkrat na dan anonimni signal delovanja pošlje različico aplikacije, kanal namestitve, OS, jezik, državo in približno, kako dolgo nazaj je bil Arroxy nameščen, da lahko štejemo aktivne in nove uporabnike. Brez ID-jev, naslovov URL, naslovov videoposnetkov ali imen datotek."
-			},
 			"autoRemoveCompleted": {
 				"description": "Prenos odstrani s seznama Prenosi nekaj sekund po zaključku. Datoteke ostanejo v vaši mapi; neuspeli in preklicani prenosi ostanejo na seznamu.",
 				"label": "Odstrani končane prenose"
@@ -1556,6 +1603,11 @@
 				"label": "Hkratni prenosi",
 				"unit": "prenosov"
 			},
+			"concurrentProbes": {
+				"description": "Za koliko povezav hkrati Arroxy pridobiva podrobnosti, preden se začnejo prenašati. Manj je prizanesljivejše do spletnih mest, ki blokirajo zasedene povezave. Povezava, ki jo odprete v Interaktivnem prenosu, je vedno prva.",
+				"label": "Hkrati preverjene povezave",
+				"unit": "povezav"
+			},
 			"cookies": {
 				"banWarning": "Spletna mesta, kot je YouTube, lahko račune, katerih piškotke uporabljajo orodja za prenos, kot je Arroxy, označijo in jih včasih tudi prepovejo. Če je mogoče, uporabite začasni račun.",
 				"browserHelp": "Piškotke bere neposredno iz brskalnika. Pri brskalnikih družine Chromium mora biti brskalnik zaprt.",
@@ -1580,12 +1632,20 @@
 				"sourceFile": "Datoteka",
 				"sourceLabel": "Vir piškotkov",
 				"sourceOff": "Izklopljeno",
-				"toggleDescription": "Pomaga pri starostno omejenih videoposnetkih, videoposnetkih samo za člane in zasebnih videoposnetkih računa."
+				"toggleDescription": "Pomaga pri videoposnetkih, ki si jih lahko ogleda vaš račun, na primer pri zasebnih videoposnetkih."
 			},
 			"downloadConnections": {
 				"description": "Pospeši velike prenose, tako da hkrati pridobiva več delov videoposnetka. Višje vrednosti povečajo verjetnost, da vas spletno mesto omeji.",
 				"label": "Povezave za prenos",
 				"unit": "povezav"
+			},
+			"downloadList": {
+				"album": "Prenesi album …",
+				"liked": "Prenesi videoposnetke, ki so vam všeč …",
+				"mix": "Prenesi Mix …",
+				"playlist": "Prenesi seznam predvajanja …",
+				"uploads": "Prenesi objave kanala …",
+				"watchLater": "Prenesi „Ogled pozneje“ …"
 			},
 			"features": {
 				"always": {
@@ -1614,18 +1674,17 @@
 			"hotkey": {
 				"changeShortcut": "Spremeni bližnjico",
 				"conflict": "To bližnjico uporablja druga aplikacija — izberite drugo.",
-				"hintLabel": "Ali pritisnite",
-				"hintTooltip": "Kjer koli kopirajte povezavo do videoposnetka, pritisnite to bližnjico in Arroxy jo doda v vrsto z vašim aktivnim profilom — brez preklapljanja med okni.",
-				"hintTooltipSettings": "Spremenite ali izklopite v nastavitvah.",
+				"globalLabel": "Splošna bližnjica",
 				"recording": "Pritisnite tipke …",
 				"reset": "Ponastavi na privzeto",
 				"sectionDescription": "Prenesite katero koli kopirano povezavo iz katere koli aplikacije, ne da bi odprli Arroxy.",
 				"sectionTitle": "Splošna bližnjica",
 				"test": "Preizkusi",
 				"toggle": "Omogoči splošno bližnjico",
-				"toggleDescription": "Pritisnite bližnjico, ko je v odložišču povezava do videoposnetka."
+				"toggleDescriptionDetail": "Kopirajte povezavo do videoposnetka v kateri koli aplikaciji in pritisnite bližnjico: Arroxy jo doda v vrsto z vašim aktivnim profilom, ne da bi preklopili okno. Povezava do videoposnetka na seznamu predvajanja prenese videoposnetek."
 			},
 			"interactiveDownload": "Interaktivni prenos",
+			"interactiveDownloadAsks": "Interaktivni prenos …",
 			"limitRate": {
 				"activeWarning": "Aktivni prenosi obdržijo trenutno omejitev. Za uveljavitev sprememb jih začasno ustavite in nadaljujte.",
 				"custom": "Po meri …",
@@ -1638,10 +1697,8 @@
 			"mascotBusy": "Prenašam v ozadju … Zmorem več opravil hkrati 😎",
 			"mascotCollection": "Hitri prenos doda v vrsto naložene elemente s profilom {{profileName}}. Interaktivni vam omogoča, da elemente najprej pregledate ali izberete.",
 			"mascotIdle": "Spustite povezavo in pustite, da jo Arroxy prenese ✨",
-			"mascotMixed": "Ta povezava kaže na en videoposnetek znotraj zbirke. Arroxy bo pred sondiranjem vprašal, katerega želite.",
-			"mascotPreparing": "{{quickDownload}} bere to povezavo in uporablja profil {{profileName}}.",
-			"mascotQueued": "Vrsta obravnava ta prenos. Medtem ko deluje, lahko prilepite še eno povezavo.",
 			"mascotSingle": "Hitri prenos začne en prenos s profilom {{profileName}}. Za enkratne spremembe uporabite Interaktivni.",
+			"mascotVideoInList": "Ta povezava navaja videoposnetek in seznam, v katerem je: prenesite samo videoposnetek ali seznam.",
 			"nativeAudioPreference": {
 				"compatible": "Združljivi stereo",
 				"description": "Stereo ali prostorski zvok, kadar profil izbere izvirni zvok. Profil ga lahko preglasi.",
@@ -1745,6 +1802,7 @@
 					"override": "Uporablja preglasitev profila",
 					"overrideSubfolder": "Uporablja preglasitev profila + podmapo profila"
 				},
+				"destinationEditHint": "Če želite spremeniti, kam se shrani, uredite profil.",
 				"destinationFallback": "Cilj",
 				"edit": "Uredi",
 				"editActive": "Uredi aktivni profil",
@@ -1768,27 +1826,27 @@
 				"remove": "Odstrani",
 				"reorderHint": "Povlecite profil, da ga premaknete. Vsi izbirniki profilov sledijo temu vrstnemu redu.",
 				"reset": "Ponastavi",
+				"savesTo": "Shrani v",
 				"switchAria": "Zamenjaj profil prenosa: {{profileName}}",
 				"switchTitle": "Zamenjaj profil prenosa"
 			},
 			"proxy": {
 				"clear": "Počisti",
-				"description": "Promet usmeri prek proxyja — uporabno za vsebino z geografskimi omejitvami.",
+				"description": "Promet usmeri prek strežnika proxy.",
 				"label": "URL proxyja",
 				"placeholder": "http://gostitelj:vrata"
 			},
-			"quickBulkAllFailed": "Nobenega od teh naslovov URL ni bilo mogoče pripraviti",
 			"quickDownload": "Hitri prenos",
 			"quickDownloadTooltip": "Prenos bo uporabil profil: {{profileName}}",
 			"quickFailed": "Tega ni bilo mogoče dodati: {{error}}",
-			"quickPartialFailed_few": "V vrsto je dodano, kar je uspelo. Naslovov URL, ki jih ni bilo mogoče pripraviti: {{count}}.",
-			"quickPartialFailed_one": "V vrsto je dodano, kar je uspelo. Naslovov URL, ki jih ni bilo mogoče pripraviti: {{count}}.",
-			"quickPartialFailed_other": "V vrsto je dodano, kar je uspelo. Naslovov URL, ki jih ni bilo mogoče pripraviti: {{count}}.",
-			"quickPartialFailed_two": "V vrsto je dodano, kar je uspelo. Naslovov URL, ki jih ni bilo mogoče pripraviti: {{count}}.",
 			"quickPrepareFailed": "Elementa vrste ni bilo mogoče pripraviti",
 			"quickPreparing": "Priprava",
 			"quickProbeFailed": "Sondiranje ni uspelo",
 			"quickSingleOnly": "Za začetek prilepite URL videoposnetka, seznama predvajanja, kanala ali iskanja.",
+			"reports": {
+				"toggle": "Pošiljaj anonimne signale delovanja in poročila o nastavitvi",
+				"toggleDescription": "Brez sledenja. Enkrat na dan anonimni signal delovanja pošlje različico aplikacije, kanal namestitve, OS, jezik, državo in približno, kako dolgo nazaj je bil Arroxy nameščen, da lahko štejemo aktivne in nove uporabnike. Ko Arroxy nastavi ali posodobi svoj mehanizem za prenos ali medijska orodja, sporoči tudi, ali je uspelo, in približno, koliko časa je trajalo. Brez ID-jev, naslovov URL, naslovov videoposnetkov ali imen datotek."
+			},
 			"settings": {
 				"behaviorDescription": "Splošno vedenje, ki vpliva tudi na prenose, vodene s profili.",
 				"behaviorHeading": "Vedenje prenosa",
@@ -1812,7 +1870,9 @@
 			"tabs": {
 				"profiles": "Profili",
 				"settings": "Nastavitve"
-			}
+			},
+			"thisVideo": "Ta videoposnetek",
+			"thisVideoTooltip": "Prenese samo ta videoposnetek s profilom {{profileName}}"
 		}
 	}
 }

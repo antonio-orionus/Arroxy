@@ -107,10 +107,6 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "دوام ورکړه"
 
-msgctxt "common.dismiss"
-msgid "Dismiss"
-msgstr "پټول"
-
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "بارول…"
@@ -143,13 +139,9 @@ msgctxt "dialogs.closeToTray.remember"
 msgid "Don't ask again"
 msgstr "بیا مه پوښتئ"
 
-msgctxt "dialogs.quitWithActiveDownloads.confirm"
-msgid "Cancel Downloads & Quit"
-msgstr "ډاونلوډونه لغوه کړه او وتلو"
-
-msgctxt "dialogs.quitWithActiveDownloads.detail"
-msgid "Pause to resume later, or cancel to discard progress."
-msgstr "وروسته د بیا پیل لپاره یې وځنډوئ، یا د پرمختګ له منځه وړلو لپاره یې لغوه کړئ."
+msgctxt "dialogs.quitWithActiveDownloads.continueDetail"
+msgid "Your queue is kept, and downloads pick up where they stopped the next time you open Arroxy."
+msgstr "ستاسو قطار ساتل کیږي، او ډاونلوډونه بله ځل چې Arroxy پرانیزئ هلته له سره پیلیږي چېرته چې ودرېدل."
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -165,9 +157,9 @@ msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "{{count}} ډاونلوډونه روان دي"
 
-msgctxt "dialogs.quitWithActiveDownloads.pause"
-msgid "Pause Downloads & Quit"
-msgstr "ډاونلوډونه ودرول او وتل"
+msgctxt "dialogs.quitWithActiveDownloads.quit"
+msgid "Quit"
+msgstr "وتل"
 
 msgctxt "dialogs.rendererCrashed.detail"
 msgid "The renderer process crashed ({{reason}}). Reload to try again."
@@ -226,8 +218,8 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "دا ویډیو د عمر محدودیت لري او پرته د ننوتلي حساب نه شي ډاونلوډ کیدی."
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
-msgstr "د بوټ محافظت فعال شو. ستاسو IP پته ډیره احتمال نښه شوې (د ډیټاسینټر رینج یا ګڼ کارونکي VPN وتلو ټکی). خپل IP بدل کړئ یا بل VPN پای ټکی غوره کړئ او بیا هڅه وکړئ. که چیرې لا هم ناکامه وي، دا ممکن د سایټ خوا لنډمهاله بدلون وي — Arroxy د پیل پر وخت خپل د ډاونلوډ انجن تازه کوي، نو سمون به اتوماتیک راشي کله چې خپور شي."
+msgid "The site's bot protection stopped this download. Wait a while and try again, or download fewer videos at once. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "د سایټ د bot ساتنې دا ډاونلوډ ودراوه. یو څه انتظار وکړئ او بیا هڅه وکړئ، یا په یو وخت کې لږ ویډیوګانې ډاونلوډ کړئ. که بیا هم ناکام شو، ښایي د سایټ له لوري موقتي بدلون وي — Arroxy د پیل پر مهال خپل د ډاونلوډ انجن تازه کوي، نو اصلاح چې خپره شي په اتوماتیک ډول رارسیږي."
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
 msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
@@ -246,8 +238,8 @@ msgid "This video is not available in your region."
 msgstr "دا ویډیو ستاسو سیمه کې شتون نلري."
 
 msgctxt "errors.ytdlp.ipBlock"
-msgid "Your IP address appears to be blocked. Try again later or use a VPN."
-msgstr "ستاسو IP پته ممکن د YouTube لخوا بنده شوې وي. وروسته بیا هڅه وکړئ یا VPN وکاروئ."
+msgid "The site is blocking requests from this connection. Try again later."
+msgstr "سایټ د دې اتصال غوښتنې بندوي. وروسته بیا هڅه وکړئ."
 
 msgctxt "errors.ytdlp.loginRequired"
 msgid "This video needs a signed-in account."
@@ -329,13 +321,77 @@ msgctxt "explore.linkCallout.title"
 msgid "Right-click a link to download it"
 msgstr "د ډاونلوډ لپاره پر لینک ښي کلیک وکړئ"
 
+msgctxt "explore.linkMenu.background.album"
+msgid "Download the album in the background"
+msgstr "البم په شاتهپرده کې ډاونلوډ کړئ"
+
+msgctxt "explore.linkMenu.background.liked"
+msgid "Download your liked videos in the background"
+msgstr "ستاسو د خوښې ویډیوګانې په شاتهپرده کې ډاونلوډ کړئ"
+
+msgctxt "explore.linkMenu.background.mix"
+msgid "Download the Mix in the background"
+msgstr "Mix په شاتهپرده کې ډاونلوډ کړئ"
+
+msgctxt "explore.linkMenu.background.playlist"
+msgid "Download the playlist in the background"
+msgstr "پلې‌لېست په شاتهپرده کې ډاونلوډ کړئ"
+
+msgctxt "explore.linkMenu.background.uploads"
+msgid "Download the uploads in the background"
+msgstr "پورته شوې ویډیوګانې په شاتهپرده کې ډاونلوډ کړئ"
+
+msgctxt "explore.linkMenu.background.watchLater"
+msgid "Download Watch later in the background"
+msgstr "“وروسته کتل” په شاتهپرده کې ډاونلوډ کړئ"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "لینک کاپي کړئ"
 
+msgctxt "explore.linkMenu.downloadFirst"
+msgid "Download the first {{count}}"
+msgstr "لومړني {{count}} ډاونلوډ کړئ"
+
+msgctxt "explore.linkMenu.downloadThisVideo"
+msgid "Download this video · {{profileName}}"
+msgstr "دا ویډیو ډاونلوډ کړئ · {{profileName}}"
+
 msgctxt "explore.linkMenu.downloadWith"
 msgid "Download with"
 msgstr "په پروفایل ډاونلوډ"
+
+msgctxt "explore.linkMenu.fromList.album"
+msgid "From this album"
+msgstr "له دې البم څخه"
+
+msgctxt "explore.linkMenu.fromList.liked"
+msgid "From your liked videos"
+msgstr "ستاسو د خوښې ویډیوګانو څخه"
+
+msgctxt "explore.linkMenu.fromList.mix"
+msgid "From this Mix"
+msgstr "له دې Mix څخه"
+
+msgctxt "explore.linkMenu.fromList.playlist"
+msgid "From this playlist"
+msgstr "له دې پلې‌لېست څخه"
+
+msgctxt "explore.linkMenu.fromList.uploads"
+msgid "From this channel’s uploads"
+msgstr "د دې چینل له پورته شویو ویډیوګانو څخه"
+
+msgctxt "explore.linkMenu.fromList.watchLater"
+msgid "From Watch later"
+msgstr "له “وروسته کتل” څخه"
+
+msgctxt "explore.linkMenu.interactive"
+msgid "Interactive Download…"
+msgstr "تعاملي ډاونلوډ…"
+
+msgctxt "explore.linkMenu.thisVideoWith"
+msgid "This video with"
+msgstr "دا ویډیو له پروفایل سره"
 
 msgctxt "explore.newBadge"
 msgid "New"
@@ -481,6 +537,10 @@ msgctxt "explore.toolbar.compactLayout"
 msgid "Compact layout"
 msgstr "کمپیکټ ترتیب"
 
+msgctxt "explore.toolbar.download"
+msgid "Download"
+msgstr "ډاونلوډ"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "ډاونلوډ · {{profileName}}"
@@ -516,6 +576,14 @@ msgstr "بیا بار کړئ"
 msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "دا لټون ډېر اوږد دی."
+
+msgctxt "explore.toolbar.thisVideo"
+msgid "This video"
+msgstr "یوازې دا ویډیو"
+
+msgctxt "explore.toolbar.thisVideoHint"
+msgid "Download just this video with {{profileName}}"
+msgstr "یوازې دا ویډیو د {{profileName}} سره ډاونلوډ کړئ"
 
 msgctxt "explore.toolbar.zoom.hint"
 msgid "Page zoom: {{percent}}%"
@@ -581,17 +649,17 @@ msgctxt "filenameTemplate.error.unknown-token"
 msgid "Unknown token {{token}}."
 msgstr "ناڅرګنده نښه {{token}}."
 
-msgctxt "filenameTemplate.idWarning"
-msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
-msgstr "پرته له {id} څخه، Arroxy نشي کولی مخکې ښکته شوي د لړ توکي وپېژني یا د .m3u لړونه جوړ کړي."
+msgctxt "filenameTemplate.idEndingWarning"
+msgid "End the name with [{id}] so Arroxy can detect already-downloaded playlist items and generate .m3u playlists."
+msgstr "نوم په [{id}] پای ته ورسوئ ترڅو Arroxy مخکې ډاونلوډ شوي د پلې‌لېست توکي وپیژني او .m3u پلې‌لېستونه جوړ کړي."
 
 msgctxt "filenameTemplate.label"
 msgid "Filename template"
 msgstr "د دوتنې نوم بېلګه"
 
-msgctxt "filenameTemplate.m3uDisabled"
-msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
-msgstr "شتون نلري ځکه ستاسو د فایل نوم کينډۍ یا {id} نلري یا ډاونلوډونه پوښیو ته ترتیبوي."
+msgctxt "filenameTemplate.m3uDisabledIdEnding"
+msgid "Unavailable because your filename template either doesn't end with [{id}] or sorts downloads into folders."
+msgstr "شتون نلري ځکه ستاسو د فایل نوم بېلګه په [{id}] نه پای ته رسیږي یا ډاونلوډونه په پوښو کې ترتیبوي."
 
 msgctxt "filenameTemplate.previewPlaylist"
 msgid "In a playlist"
@@ -778,6 +846,56 @@ msgid "Already in the queue"
 msgstr "لا دمخې په قطار کې دی"
 
 #. Plural form "one" for ps: used for counts like 1.
+msgctxt "notifications.quickDownload.batchAdded_one"
+msgid "Added {{count}} link to Downloads"
+msgstr "{{count}} لینک ډاونلوډونو ته اضافه شو"
+
+#. Plural form "other" for ps: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchAdded_other"
+msgid "Added {{count}} links to Downloads"
+msgstr "{{count}} لینکونه ډاونلوډونو ته اضافه شول"
+
+#. Plural form "one" for ps: used for counts like 1.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_one"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} لا دمخې په قطار کې دی"
+
+#. Plural form "other" for ps: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_other"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} لا دمخې په قطار کې دي"
+
+#. Plural form "one" for ps: used for counts like 1.
+msgctxt "notifications.quickDownload.batchNoneAdded_one"
+msgid "{{count}} link couldn't be added"
+msgstr "{{count}} لینک اضافه نشو کیدی"
+
+#. Plural form "other" for ps: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchNoneAdded_other"
+msgid "{{count}} links couldn't be added"
+msgstr "{{count}} لینکونه اضافه نشول کیدی"
+
+#. Plural form "one" for ps: used for counts like 1.
+msgctxt "notifications.quickDownload.batchNotAdded_one"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} اضافه نشو کیدی"
+
+#. Plural form "other" for ps: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchNotAdded_other"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} اضافه نشول کیدی"
+
+#. Plural form "one" for ps: used for counts like 1.
+msgctxt "notifications.quickDownload.chooseFromList_one"
+msgid "{{count}} video in this list — choose what to download"
+msgstr "په دې لیست کې {{count}} ویډیو — وټاکئ څه ډاونلوډ کړئ"
+
+#. Plural form "other" for ps: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.chooseFromList_other"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "په دې لیست کې {{count}} ویډیوګانې — وټاکئ څه ډاونلوډ کړئ"
+
+#. Plural form "one" for ps: used for counts like 1.
 msgctxt "notifications.quickDownload.chooseHowMany_one"
 msgid "{{count}}+ video — choose how many"
 msgstr "{{count}}+ ویډیو — وټاکئ څومره"
@@ -794,26 +912,6 @@ msgstr "د {{title}} چمتو کول ناکام شول"
 msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "دا لینک اضافه نشو کیدی — بیا هڅه وکړئ"
-
-#. Plural form "one" for ps: used for counts like 1.
-msgctxt "notifications.quickDownload.review_one"
-msgid "{{count}} video in this list — review to pick"
-msgstr "په دې لیست کې {{count}} ویډیو — د ټاکلو لپاره بیاکتنه وکړئ"
-
-#. Plural form "other" for ps: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "notifications.quickDownload.review_other"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "په دې لیست کې {{count}} ویډیوګانې — د ټاکلو لپاره بیاکتنه وکړئ"
-
-#. Plural form "one" for ps: used for counts like 1.
-msgctxt "notifications.quickDownload.reviewCapped_one"
-msgid "{{count}}+ video in this list — review to pick"
-msgstr "په دې لیست کې {{count}}+ ویډیو — د ټاکلو لپاره بیاکتنه وکړئ"
-
-#. Plural form "other" for ps: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "notifications.quickDownload.reviewCapped_other"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "په دې لیست کې {{count}}+ ویډیوګانې — د ټاکلو لپاره بیاکتنه وکړئ"
 
 msgctxt "notifications.quickDownload.view"
 msgid "View"
@@ -1063,19 +1161,75 @@ msgctxt "queue.choice.first"
 msgid "First {{count}}"
 msgstr "لومړي {{count}}"
 
+msgctxt "queue.choice.list.album"
+msgid "The album"
+msgstr "البم"
+
+msgctxt "queue.choice.list.liked"
+msgid "Liked videos"
+msgstr "خوښې ویډیوګانې"
+
+msgctxt "queue.choice.list.mix"
+msgid "The Mix"
+msgstr "دا Mix"
+
+msgctxt "queue.choice.list.playlist"
+msgid "The playlist"
+msgstr "پلې‌لېست"
+
+msgctxt "queue.choice.list.uploads"
+msgid "All the uploads"
+msgstr "ټولې پورته شوې ویډیوګانې"
+
+msgctxt "queue.choice.list.watchLater"
+msgid "Watch later"
+msgstr "وروسته کتل"
+
+msgctxt "queue.choice.pick"
+msgid "Pick from it…"
+msgstr "له هغې غوره کړئ…"
+
 msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "بیاکتنه"
 
 #. Plural form "one" for ps: used for counts like 1.
-msgctxt "queue.choice.reviewBody_one"
-msgid "This link is a list of {{count}} video. Review it to pick what to download."
-msgstr "دا لینک د {{count}} ویډیو لیست دی. د ټاکلو لپاره چې څه ډاونلوډ شي، ورته بیاکتنه وکړئ."
+msgctxt "queue.choice.uncappedBody_one"
+msgid "This link is a list of {{count}} video. Download it, or pick in a review."
+msgstr "دا لینک د {{count}} ویډیو لیست دی. ډاونلوډ یې کړئ، یا په بیاکتنه کې غوره کړئ."
 
 #. Plural form "other" for ps: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "queue.choice.reviewBody_other"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "دا لینک د {{count}} ویډیوګانو لیست دی. د ټاکلو لپاره چې څه ډاونلوډ شي، ورته بیاکتنه وکړئ."
+msgctxt "queue.choice.uncappedBody_other"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "دا لینک د {{count}} ویډیوګانو لیست دی. ټولې ډاونلوډ کړئ، یا په بیاکتنه کې غوره کړئ."
+
+msgctxt "queue.choice.video"
+msgid "This video"
+msgstr "دا ویډیو"
+
+msgctxt "queue.choice.videoOrList.album"
+msgid "This link is a video in an album. Download just the video, or the album?"
+msgstr "دا لینک د یو البم یوه ویډیو ده. یوازې ویډیو ډاونلوډ کړئ، که البم؟"
+
+msgctxt "queue.choice.videoOrList.liked"
+msgid "This link is a video in your liked videos. Download just the video, or all your liked videos?"
+msgstr "دا لینک ستاسو د خوښې ویډیوګانو یوه ویډیو ده. یوازې ویډیو ډاونلوډ کړئ، که ستاسو ټولې خوښې ویډیوګانې؟"
+
+msgctxt "queue.choice.videoOrList.mix"
+msgid "This link is a video in a Mix. Download just the video, or the Mix?"
+msgstr "دا لینک د Mix یوه ویډیو ده. یوازې ویډیو ډاونلوډ کړئ، که Mix؟"
+
+msgctxt "queue.choice.videoOrList.playlist"
+msgid "This link is a video in a playlist. Download just the video, or the playlist?"
+msgstr "دا لینک د پلې‌لېست یوه ویډیو ده. یوازې ویډیو ډاونلوډ کړئ، که پلې‌لېست؟"
+
+msgctxt "queue.choice.videoOrList.uploads"
+msgid "This link is a video in a channel's uploads. Download just the video, or all the uploads?"
+msgstr "دا لینک د یو چینل د پورته شویو ویډیوګانو یوه ویډیو ده. یوازې ویډیو ډاونلوډ کړئ، که ټولې پورته شوې ویډیوګانې؟"
+
+msgctxt "queue.choice.videoOrList.watchLater"
+msgid "This link is a video in your Watch later list. Download just the video, or the whole list?"
+msgstr "دا لینک ستاسو د “وروسته کتل” لیست یوه ویډیو ده. یوازې ویډیو ډاونلوډ کړئ، که ټول لیست؟"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -1204,6 +1358,70 @@ msgstr "ډاونلوډ کېږي"
 msgctxt "queue.item.subtitleLanguagesMissing"
 msgid "No subtitles in {{languages}}"
 msgstr "په {{languages}} ژبو کې ژباړلیکونه نشته"
+
+msgctxt "queue.item.waitingForSite"
+msgid "Waits for {{site}} until {{time}}"
+msgstr "د {{site}} انتظار تر {{time}} پورې"
+
+msgctxt "queue.item.waitingHint"
+msgid "{{site}} is rate-limiting this connection. Arroxy fetches this link's details after {{time}}, so the limit can clear."
+msgstr "{{site}} د دې اتصال سرعت محدودوي. Arroxy د دې لینک جزییات د {{time}} وروسته راوړي ترڅو محدودیت لرې شي."
+
+msgctxt "queue.listOffer.dismiss"
+msgid "Dismiss"
+msgstr "بندول"
+
+msgctxt "queue.listOffer.from.album"
+msgid "From an album"
+msgstr "له یو البم څخه"
+
+msgctxt "queue.listOffer.from.liked"
+msgid "From your liked videos"
+msgstr "ستاسو د خوښې ویډیوګانو څخه"
+
+msgctxt "queue.listOffer.from.mix"
+msgid "From a Mix"
+msgstr "له یو Mix څخه"
+
+msgctxt "queue.listOffer.from.playlist"
+msgid "From a playlist"
+msgstr "له یو پلې‌لېست څخه"
+
+msgctxt "queue.listOffer.from.uploads"
+msgid "From a channel's uploads"
+msgstr "د یو چینل له پورته شویو ویډیوګانو څخه"
+
+msgctxt "queue.listOffer.from.watchLater"
+msgid "From Watch later"
+msgstr "له “وروسته کتل” څخه"
+
+msgctxt "queue.listOffer.get.album"
+msgid "Get the whole album"
+msgstr "ټول البم ترلاسه کړئ"
+
+msgctxt "queue.listOffer.get.liked"
+msgid "Get all liked videos"
+msgstr "ټولې خوښې ویډیوګانې ترلاسه کړئ"
+
+msgctxt "queue.listOffer.get.mix"
+msgid "Get the whole Mix"
+msgstr "ټول Mix ترلاسه کړئ"
+
+msgctxt "queue.listOffer.get.playlist"
+msgid "Get the whole playlist"
+msgstr "ټول پلې‌لېست ترلاسه کړئ"
+
+msgctxt "queue.listOffer.get.uploads"
+msgid "Get all uploads"
+msgstr "ټولې پورته شوې ویډیوګانې ترلاسه کړئ"
+
+msgctxt "queue.listOffer.get.watchLater"
+msgid "Get all of Watch later"
+msgstr "د “وروسته کتل” ټول ترلاسه کړئ"
+
+msgctxt "queue.listOffer.hint"
+msgid "Adds the list as its own row. This video is left out."
+msgstr "لیست د جلا ننوتنې په توګه زیاتوي. دا ویډیو پرېښودل کیږي."
 
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
@@ -1745,10 +1963,6 @@ msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "سلام، ښه راغلاست!"
 
-msgctxt "splash.setup.bytes"
-msgid "{{done}} of {{total}}"
-msgstr "{{done}} له {{total}} څخه"
-
 #. Plural form "one" for ps: used for counts like 1.
 msgctxt "splash.setup.left.minutes_one"
 msgid "about {{count}} min left"
@@ -1763,18 +1977,6 @@ msgctxt "splash.setup.left.underMinute"
 msgid "less than a minute left"
 msgstr "له یوې دقیقې کم پاتې دي"
 
-msgctxt "splash.setup.note.engine"
-msgid "Keeps downloads working when sites change."
-msgstr "ډاونلوډونه هغه مهال هم فعال ساتي چې سایټونه بدلیږي."
-
-msgctxt "splash.setup.note.firstRun"
-msgid "This happens once. Arroxy keeps these tools and updates them itself."
-msgstr "دا یوازې یو ځل کیږي. Arroxy دا وسیلې ساتي او پخپله یې تازه کوي."
-
-msgctxt "splash.setup.note.media"
-msgid "This happens once. Arroxy keeps them for future updates."
-msgstr "دا یوازې یو ځل کیږي. Arroxy یې د راتلونکو تازه معلوماتو لپاره ساتي."
-
 msgctxt "splash.setup.stage.checking"
 msgid "Checking everything works"
 msgstr "کتل کیږي چې هرڅه کار کوي"
@@ -1783,21 +1985,17 @@ msgctxt "splash.setup.stage.connecting"
 msgid "Connecting…"
 msgstr "نښلول کیږي…"
 
-msgctxt "splash.setup.stage.downloadingBoth"
-msgid "Downloading the download engine and media tools"
-msgstr "د ډاونلوډ انجن او د رسنۍ وسیلې ډاونلوډ کیږي"
-
-msgctxt "splash.setup.stage.downloadingEngine"
-msgid "Downloading the download engine"
-msgstr "د ډاونلوډ انجن ډاونلوډ کیږي"
-
-msgctxt "splash.setup.stage.downloadingMedia"
-msgid "Downloading the media tools"
-msgstr "د رسنۍ وسیلې ډاونلوډ کیږي"
-
 msgctxt "splash.setup.stage.unpacking"
 msgid "Unpacking the media tools"
 msgstr "د رسنۍ وسیلې خلاصیږي"
+
+msgctxt "splash.setup.stage.unpackingEngine"
+msgid "Unpacking the download engine"
+msgstr "د ډاونلوډ انجن خلاصیږي"
+
+msgctxt "splash.setup.title.both"
+msgid "Updating Arroxy's tools"
+msgstr "د Arroxy وسایل تازه کیږي"
 
 msgctxt "splash.setup.title.engine"
 msgid "Updating the download engine"
@@ -1884,8 +2082,8 @@ msgid "Merging audio and video…"
 msgstr "غږ او ویډیو یوځای کیږي…"
 
 msgctxt "status.mintingToken"
-msgid "Minting YouTube token…"
-msgstr "YouTube ټوکن جوړیږي…"
+msgid "Preparing YouTube download…"
+msgstr "د YouTube ډاونلوډ چمتو کېږي…"
 
 msgctxt "status.movingFiles"
 msgid "Moving files…"
@@ -1904,16 +2102,16 @@ msgid "Preparing binaries…"
 msgstr "بائنري فایلونه چمتو کیږي…"
 
 msgctxt "status.qualityLimited"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
-msgstr "په {{height}}p کې خوندي شوه — YouTube د دې ډاونلوډ لپاره لوړ کیفیتونه ودرول. وروسته یا له بلې شبکې بیا هڅه کول ښايي مرسته وکړي."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later may help."
+msgstr "په {{height}}p خوندي شو — YouTube د دې ډاونلوډ لپاره لوړې کیفیتونه ودرول. وروسته بیا هڅه کولی شي مرسته وکړي."
 
 msgctxt "status.qualityLimitedSubtitlesFailed"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
-msgstr "په {{height}}p کې خوندي شوه — YouTube د دې ډاونلوډ لپاره لوړ کیفیتونه ودرول، او ځینې ژباړلیکونه ډاونلوډ نه شول. وروسته یا له بلې شبکې بیا هڅه کول ښايي مرسته وکړي."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later may help."
+msgstr "په {{height}}p خوندي شو — YouTube د دې ډاونلوډ لپاره لوړې کیفیتونه ودرول، او ځینې ژباړلیکونه ډاونلوډ نشول. وروسته بیا هڅه کولی شي مرسته وکړي."
 
 msgctxt "status.remintingToken"
-msgid "Re-minting token…"
-msgstr "ټوکن بیا جوړیږي…"
+msgid "Preparing YouTube download again…"
+msgstr "د YouTube ډاونلوډ بیا چمتو کېږي…"
 
 msgctxt "status.retryingSponsorBlock"
 msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
@@ -2340,8 +2538,8 @@ msgid "Folder name has invalid characters"
 msgstr "د فولډر نوم کې غلط حروف شتون لري"
 
 msgctxt "wizard.folder.subfolder.placeholder"
-msgid "e.g. lo-fi rips"
-msgstr "مثلاً lo-fi rips"
+msgid "e.g. lectures"
+msgstr "د بېلګې په توګه لیکچرونه"
 
 msgctxt "wizard.folder.subfolder.toggle"
 msgid "Save inside subfolder"
@@ -2613,9 +2811,25 @@ msgctxt "wizard.formats.fit.tierAbove"
 msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
 msgstr "ستاسو پروفایل {{wanted}}p غواړي. دا ویډیو دومره کوچنی څه نلري، نو {{picked}}p غوره شو."
 
-msgctxt "wizard.formats.fit.tierBelow"
-msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
-msgstr "ستاسو پروفایل {{wanted}}p غواړي. دا ویډیو یوازې تر {{picked}}p پورې ځي، نو {{picked}}p غوره شو."
+msgctxt "wizard.formats.fit.tierAbovePassedOver"
+msgid "Your profile asks for {{wanted}}p. The smaller streams this video has don't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "ستاسو پروفایل {{wanted}}p غواړي. هغه کوچني سټریمونه چې دا ویډیو یې لري ستاسو د پروفایل له پاتې برخې سره نه ښه کیږي، نو {{picked}}p غوره شو."
+
+msgctxt "wizard.formats.fit.tierBelowTakeable"
+msgid "Your profile asks for {{wanted}}p. This video has no {{wanted}}p it can take, so {{picked}}p is selected."
+msgstr "ستاسو پروفایل {{wanted}}p غواړي. دا ویډیو هیڅ {{wanted}}p نلري چې واخیستل شي، نو {{picked}}p غوره شو."
+
+msgctxt "wizard.formats.fit.tierPassedOverAiUpscaled"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p is AI-upscaled, so the original {{picked}}p is selected."
+msgstr "ستاسو پروفایل {{wanted}}p غواړي. د دې ویډیو {{wanted}}p د AI له لارې لوړ شوی دی، نو اصلي {{picked}}p غوره شو."
+
+msgctxt "wizard.formats.fit.tierPassedOverH264"
+msgid "Your profile asks for {{wanted}}p in H.264. This video has {{wanted}}p only in other codecs, so {{picked}}p in H.264 is selected."
+msgstr "ستاسو پروفایل په H.264 کې {{wanted}}p غواړي. دا ویډیو {{wanted}}p یوازې په نورو کوډیکونو کې لري، نو په H.264 کې {{picked}}p غوره شو."
+
+msgctxt "wizard.formats.fit.tierPassedOverProfile"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p doesn't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "ستاسو پروفایل {{wanted}}p غواړي. د دې ویډیو {{wanted}}p ستاسو د پروفایل له پاتې برخې سره نه ښه کیږي، نو {{picked}}p غوره شو."
 
 msgctxt "wizard.formats.fit.webmUnavailable"
 msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
@@ -2853,85 +3067,81 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "له غږ سره"
 
-msgctxt "wizard.listPrompt.escHint"
-msgid "Esc cancels. Nothing loads until you choose."
-msgstr "Esc لغوه کوي. تر هغه چې تاسو غوره نه کړئ، هېڅ نه بارېږي."
+msgctxt "wizard.listPrompt.backgroundHint"
+msgid "With {{profileName}}. If it has more than {{count}} videos, Downloads asks how many."
+msgstr "د {{profileName}} سره. که له {{count}} ډېر ویډیوګانې ولري، ډاونلوډونه پوښتي څومره."
 
-msgctxt "wizard.listPrompt.interactiveSubtitle"
-msgid "Choose formats yourself"
-msgstr "بڼې پخپله غوره کړئ"
+msgctxt "wizard.listPrompt.backgroundLabel"
+msgid "Download in the background"
+msgstr "په شاتهپرده کې ډاونلوډ"
 
-msgctxt "wizard.listPrompt.justThisVideo"
-msgid "Just this video"
-msgstr "یوازې دا ویډیو"
+msgctxt "wizard.listPrompt.escOnly"
+msgid "Esc cancels."
+msgstr "Esc لغوه کوي."
 
-msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
-msgid "Opens its formats"
-msgstr "د دې بڼې پرانیزي"
+msgctxt "wizard.listPrompt.firstHint"
+msgid "Exactly the first {{count}}, with {{profileName}}."
+msgstr "دقیقاً لومړني {{count}}، د {{profileName}} سره."
 
-msgctxt "wizard.listPrompt.justThisVideoQuickHint"
-msgid "Loads one video"
-msgstr "یوه ویډیو باروي"
+msgctxt "wizard.listPrompt.firstLabel"
+msgid "Download the first"
+msgstr "لومړني ډاونلوډ کړئ"
 
-msgctxt "wizard.listPrompt.listInteractiveHint"
-msgid "Loads up to {{count}} to choose from"
-msgstr "د غوره کولو لپاره تر {{count}} پورې باروي"
+msgctxt "wizard.listPrompt.interactiveHint"
+msgid "Pick from the first {{count}} videos (or change the count on the next step), then set up the download."
+msgstr "له لومړنیو {{count}} ویډیوګانو غوره کړئ (یا په راتلونکي ګام کې شمېر بدل کړئ)، بیا ډاونلوډ تنظیم کړئ."
 
-msgctxt "wizard.listPrompt.listOption.album"
-msgid "The album, first"
-msgstr "د البم لومړني توکي"
+msgctxt "wizard.listPrompt.interactiveLabel"
+msgid "Interactive download…"
+msgstr "تعاملي ډاونلوډ…"
 
-msgctxt "wizard.listPrompt.listOption.liked"
-msgid "Your liked videos, first"
-msgstr "ستاسو د خوښې ویډیوګانو لومړني توکي"
+msgctxt "wizard.listPrompt.limitHint"
+msgid "How many videos to take from the list: the first option asks past it, the second takes exactly that many. The same as Settings › Playlist items to scan."
+msgstr "له لیست څخه څومره ویډیوګانې واخیستل شي: لومړی انتخاب له هغه وروسته پوښتي، دوهم دقیقاً همدومره اخلي. دا د تنظیماتو «د سکین لپاره د Playlist توکي» په څېر دی."
 
-msgctxt "wizard.listPrompt.listOption.mix"
-msgid "The Mix, first"
-msgstr "د Mix لومړني توکي"
-
-msgctxt "wizard.listPrompt.listOption.playlist"
-msgid "The playlist, first"
-msgstr "د غږولو لړليک لومړني توکي"
-
-msgctxt "wizard.listPrompt.listOption.uploads"
-msgid "The uploads, first"
-msgstr "د پورته شویو ویډیوګانو لومړني توکي"
-
-msgctxt "wizard.listPrompt.listOption.watchLater"
-msgid "Watch later, first"
-msgstr "د “وروسته کتل” لومړني توکي"
-
-msgctxt "wizard.listPrompt.listQuickHint"
-msgid "Loads up to {{count}}, then downloads them"
-msgstr "تر {{count}} پورې باروي، بیا یې ډاونلوډوي"
+msgctxt "wizard.listPrompt.limitLabel"
+msgid "Limit"
+msgstr "حد"
 
 msgctxt "wizard.listPrompt.mixNote"
 msgid "A Mix changes every time you open it."
 msgstr "Mix هر ځل چې یې پرانیزئ بدلیږي."
 
-msgctxt "wizard.listPrompt.pickOption.album"
-msgid "Pick from the album, first"
-msgstr "د البم له لومړنیو توکو غوره کړئ"
+msgctxt "wizard.listPrompt.pickLoadAfter"
+msgid "to pick from."
+msgstr "توکي د غوره کولو لپاره بار کړئ."
 
-msgctxt "wizard.listPrompt.pickOption.liked"
-msgid "Pick from your liked videos, first"
-msgstr "ستاسو د خوښې ویډیوګانو له لومړنیو توکو غوره کړئ"
+msgctxt "wizard.listPrompt.pickLoadBefore"
+msgid "Load the first"
+msgstr "لومړني"
 
-msgctxt "wizard.listPrompt.pickOption.mix"
-msgid "Pick from the Mix, first"
-msgstr "د Mix له لومړنیو توکو غوره کړئ"
+msgctxt "wizard.listPrompt.pickLoadNote"
+msgid "You can change it on the next step."
+msgstr "تاسو یې په راتلونکي ګام کې بدلولی شئ."
 
-msgctxt "wizard.listPrompt.pickOption.playlist"
-msgid "Pick from the playlist, first"
-msgstr "د غږولو لړليک له لومړنیو توکو غوره کړئ"
+msgctxt "wizard.listPrompt.pickTitle.album"
+msgid "Pick from this album"
+msgstr "له دې البم څخه غوره کړئ"
 
-msgctxt "wizard.listPrompt.pickOption.uploads"
-msgid "Pick from the uploads, first"
-msgstr "د پورته شویو ویډیوګانو له لومړنیو توکو غوره کړئ"
+msgctxt "wizard.listPrompt.pickTitle.liked"
+msgid "Pick from your liked videos"
+msgstr "ستاسو له خوښې ویډیوګانو غوره کړئ"
 
-msgctxt "wizard.listPrompt.pickOption.watchLater"
-msgid "Pick from Watch later, first"
-msgstr "د “وروسته کتل” له لومړنیو توکو غوره کړئ"
+msgctxt "wizard.listPrompt.pickTitle.mix"
+msgid "Pick from this Mix"
+msgstr "له دې Mix څخه غوره کړئ"
+
+msgctxt "wizard.listPrompt.pickTitle.playlist"
+msgid "Pick from this playlist"
+msgstr "له دې پلې‌لېست څخه غوره کړئ"
+
+msgctxt "wizard.listPrompt.pickTitle.uploads"
+msgid "Pick from this channel’s uploads"
+msgstr "د دې چینل له پورته شویو ویډیوګانو غوره کړئ"
+
+msgctxt "wizard.listPrompt.pickTitle.watchLater"
+msgid "Pick from Watch later"
+msgstr "له “وروسته کتل” غوره کړئ"
 
 msgctxt "wizard.listPrompt.title.album"
 msgid "Download from this album"
@@ -2956,6 +3166,18 @@ msgstr "د دې چینل له پورته شویو ویډیوګانو څخه ډا
 msgctxt "wizard.listPrompt.title.watchLater"
 msgid "Download from Watch later"
 msgstr "له “وروسته کتل” څخه ډاونلوډ"
+
+msgctxt "wizard.listPrompt.videoHint"
+msgid "Only the video you opened, with {{profileName}}. The list isn't loaded."
+msgstr "یوازې هغه ویډیو چې تاسو پرانیسته، د {{profileName}} سره. لیست نه بارېږي."
+
+msgctxt "wizard.listPrompt.videoLabel"
+msgid "Just this video"
+msgstr "یوازې دا ویډیو"
+
+msgctxt "wizard.listPrompt.videoPickHint"
+msgid "Set up only the video you opened. The list isn't loaded."
+msgstr "یوازې هغه ویډیو تنظیم کړئ چې تاسو پرانیسته. لیست نه بارېږي."
 
 msgctxt "wizard.listPrompt.withProfile"
 msgid "With {{profileName}}"
@@ -3152,6 +3374,26 @@ msgstr "ټول توکي لرې شوي"
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "مخکې ډاونلوډ شوی"
+
+#. Plural form "one" for ps: used for counts like 1.
+msgctxt "wizard.playlist.bulkCappedDesc_one"
+msgid "It has more. To choose how many, paste its link on its own."
+msgstr "نور هم لري. د شمېر ټاکلو لپاره یې لینک جلا پیسټ کړئ."
+
+#. Plural form "other" for ps: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.bulkCappedDesc_other"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "نور هم لري. د شمېر ټاکلو لپاره د هر یو لینک جلا پیسټ کړئ."
+
+#. Plural form "one" for ps: used for counts like 1.
+msgctxt "wizard.playlist.bulkCappedTitle_one"
+msgid "“{{title}}” is cut at {{limit}} videos"
+msgstr "“{{title}}” په {{limit}} ویډیوګانو پرې شوی"
+
+#. Plural form "other" for ps: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.bulkCappedTitle_other"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "{{count}} لیستونه هر یو په {{limit}} ویډیوګانو پرې شوي"
 
 msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
@@ -3396,38 +3638,6 @@ msgstr "فولډر کتل کېږي…"
 msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "د ویډیو تھمبنیل"
-
-msgctxt "wizard.playlistCap.changeLimit"
-msgid "Change load limit"
-msgstr "د بارولو حد بدل کړئ"
-
-#. Plural form "one" for ps: used for counts like 1.
-msgctxt "wizard.playlistCap.description_one"
-msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "Arroxy د اوسني حد {{limit}} په کارولو {{count}} توکی بار کړ. بار شوی توکی همدا اوس قطار ته اضافه کړئ، یا حد زیات کړئ او بیا سکین کړئ."
-
-#. Plural form "other" for ps: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.playlistCap.description_other"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy د اوسني حد {{limit}} په کارولو {{count}} توکي بار کړ. بار شوي توکي همدا اوس قطار ته اضافه کړئ، یا حد زیات کړئ او بیا سکین کړئ."
-
-#. Plural form "one" for ps: used for counts like 1.
-msgctxt "wizard.playlistCap.descriptionWithTitle_one"
-msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy د اوسني حد {{limit}} په کارولو {{count}} توکی بار کړ. بار شوی توکی همدا اوس قطار ته اضافه کړئ، یا حد زیات کړئ او بیا سکین کړئ."
-
-#. Plural form "other" for ps: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.playlistCap.descriptionWithTitle_other"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy د اوسني حد {{limit}} په کارولو {{count}} توکي بار کړ. بار شوي توکي همدا اوس قطار ته اضافه کړئ، یا حد زیات کړئ او بیا سکین کړئ."
-
-msgctxt "wizard.playlistCap.queueLoaded"
-msgid "Queue loaded items"
-msgstr "بار شوي توکي قطار ته اضافه کړئ"
-
-msgctxt "wizard.playlistCap.title"
-msgid "Playlist scan is capped"
-msgstr "د غږولو لړليک سکین محدود دی"
 
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
@@ -3925,44 +4135,6 @@ msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
 msgstr "{{label}} مرسته"
 
-msgctxt "wizard.quickProgress.cancel"
-msgid "Cancel preparation"
-msgstr "چمتووالی لغوه کړئ"
-
-msgctxt "wizard.quickProgress.currentFallback"
-msgid "Current link"
-msgstr "اوسنی لینک"
-
-msgctxt "wizard.quickProgress.description"
-msgid "Arroxy is reading the link and applying {{profileName}}."
-msgstr "Arroxy لینک لولي او {{profileName}} پلي کوي."
-
-#. Plural form "one" for ps: used for counts like 1.
-msgctxt "wizard.quickProgress.failedCount_one"
-msgid "{{count}} failed"
-msgstr "{{count}} ناکام شو"
-
-#. Plural form "other" for ps: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.quickProgress.failedCount_other"
-msgid "{{count}} failed"
-msgstr "{{count}} ناکام شول"
-
-msgctxt "wizard.quickProgress.phase.probing"
-msgid "Fetching details"
-msgstr "جزییات راوړل کېږي"
-
-msgctxt "wizard.quickProgress.phase.queueing"
-msgid "Adding to queue"
-msgstr "قطار ته زیاتېږي"
-
-msgctxt "wizard.quickProgress.title"
-msgid "Preparing Quick Download"
-msgstr "چټک ډاونلوډ چمتو کېږي"
-
-msgctxt "wizard.quickProgress.waitHint"
-msgid "Keep this open while Arroxy prepares the queue."
-msgstr "دا پرانیستی وساتئ تر څو Arroxy قطار چمتو کړي."
-
 msgctxt "wizard.review.areas.extras"
 msgid "extras"
 msgstr "اضافي"
@@ -4271,6 +4443,10 @@ msgctxt "wizard.subtitles.saveMode.sidecar"
 msgid "Next to video"
 msgstr "د ویډیو سره یوځای"
 
+msgctxt "wizard.subtitles.saveMode.sidecarNoVideo"
+msgid "In the download folder"
+msgstr "د ډاونلوډ په پوښۍ کې"
+
 msgctxt "wizard.subtitles.saveMode.subfolder"
 msgid "subtitles/ subfolder"
 msgstr "subtitles/ فرعي فولډر"
@@ -4294,14 +4470,6 @@ msgstr "د ښکته کولو پروفایل ناوېګیشن"
 msgctxt "wizard.url.advanced"
 msgid "Advanced"
 msgstr "پرمختللي"
-
-msgctxt "wizard.url.analytics.toggle"
-msgid "Send daily heartbeat"
-msgstr "ورځنی سیګنال واستوئ"
-
-msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
-msgstr "هیڅ ټیلي‌میټري نشته. په ورځ کې یو ځل یو ناپیژندل شوی سیګنال د اپ نسخه، د نصب چینل، OS، ژبه، هېواد او تقریباً دا چې Arroxy څومره وخت مخکې نصب شوی لېږي، ترڅو موږ فعال او نوي کاروونکي وشمېرو. هیڅ ID، URL، د ویډیو سرلیکونه یا د فایل نومونه نشته."
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
@@ -4390,6 +4558,18 @@ msgstr "یو ځای ډاونلوډونه"
 msgctxt "wizard.url.concurrentDownloads.unit"
 msgid "downloads"
 msgstr "ډاونلوډونه"
+
+msgctxt "wizard.url.concurrentProbes.description"
+msgid "How many links Arroxy fetches details for at the same time, before they download. Fewer is gentler on sites that block busy connections. A link you open in Interactive Download always goes first."
+msgstr "Arroxy له ډاونلوډ مخکې په یو وخت څو لینکونو جزییات راوړي. لږ شمېر د هغو سایټونو لپاره نرم دی چې بوخت اتصالونه بندوي. هغه لینک چې په تعاملي ډاونلوډ کې یې پرانیزئ تل لومړی ځي."
+
+msgctxt "wizard.url.concurrentProbes.label"
+msgid "Links checked at once"
+msgstr "په یو وخت کې چک شوي لینکونه"
+
+msgctxt "wizard.url.concurrentProbes.unit"
+msgid "links"
+msgstr "لینکونه"
 
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
@@ -4484,8 +4664,8 @@ msgid "Off"
 msgstr "بند"
 
 msgctxt "wizard.url.cookies.toggleDescription"
-msgid "Helps with age-restricted, members-only, and account-private videos."
-msgstr "د عمر محدودیت لرونکو، یوازې غړو، او شخصي ویډیوګانو سره مرسته کوي."
+msgid "Helps with videos your own account can watch, like your private videos."
+msgstr "د هغو ویډیوګانو سره مرسته کوي چې ستاسو خپل اکاونټ یې لیدلی شي، لکه ستاسو شخصي ویډیوګانې."
 
 msgctxt "wizard.url.downloadConnections.description"
 msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
@@ -4498,6 +4678,30 @@ msgstr "د ډاونلوډ اتصالونه"
 msgctxt "wizard.url.downloadConnections.unit"
 msgid "connections"
 msgstr "اتصالونه"
+
+msgctxt "wizard.url.downloadList.album"
+msgid "Download album…"
+msgstr "البم ډاونلوډ کړئ…"
+
+msgctxt "wizard.url.downloadList.liked"
+msgid "Download liked videos…"
+msgstr "خوښې ویډیوګانې ډاونلوډ کړئ…"
+
+msgctxt "wizard.url.downloadList.mix"
+msgid "Download Mix…"
+msgstr "Mix ډاونلوډ کړئ…"
+
+msgctxt "wizard.url.downloadList.playlist"
+msgid "Download playlist…"
+msgstr "پلې‌لېست ډاونلوډ کړئ…"
+
+msgctxt "wizard.url.downloadList.uploads"
+msgid "Download uploads…"
+msgstr "پورته شوې ویډیوګانې ډاونلوډ کړئ…"
+
+msgctxt "wizard.url.downloadList.watchLater"
+msgid "Download Watch later…"
+msgstr "“وروسته کتل” ډاونلوډ کړئ…"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -4571,17 +4775,9 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "دا شارټکټ بلې اپلیکیشن نیولی — بل یې وټاکه."
 
-msgctxt "wizard.url.hotkey.hintLabel"
-msgid "Or press"
-msgstr "یا فشار ورکړئ"
-
-msgctxt "wizard.url.hotkey.hintTooltip"
-msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
-msgstr "له هر ځایه د ویډیو لینک کاپي کړئ، دا شارټ‌کټ فشار ورکړئ، او Arroxy به یې ستاسو د فعال پروفایل په کارولو کتار ته واچوي — د کړکیو بدلولو ته اړتیا نشته."
-
-msgctxt "wizard.url.hotkey.hintTooltipSettings"
-msgid "Change or turn it off in Settings."
-msgstr "په ترتیباتو کې یې بدل یا بند کړئ."
+msgctxt "wizard.url.hotkey.globalLabel"
+msgid "Global shortcut"
+msgstr "نړیوال هاټ کی"
 
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
@@ -4607,13 +4803,17 @@ msgctxt "wizard.url.hotkey.toggle"
 msgid "Enable global hotkey"
 msgstr "نړیوال هاټ کي فعاله کړئ"
 
-msgctxt "wizard.url.hotkey.toggleDescription"
-msgid "Press the shortcut with a video link on your clipboard."
-msgstr "کله چې په کاپي بورد کې د ویډیو لینک وي، شارټکټ کېکاږئ."
+msgctxt "wizard.url.hotkey.toggleDescriptionDetail"
+msgid "Copy a video link in any app and press the shortcut: Arroxy queues it with your active profile, without switching windows. A link to a video in a playlist downloads the video."
+msgstr "په هر اپ کې د ویډیو لینک کاپي کړئ او شارټ کټ ټک کړئ: Arroxy یې ستاسو له فعال پروفایل سره، پرته له دې چې کړکۍ بدلې شي، قطار ته اچوي. په پلې‌لېست کې د ویډیو لینک یوازې همدا ویډیو ډاونلوډوي."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
 msgstr "تعاملي ډاونلوډ"
+
+msgctxt "wizard.url.interactiveDownloadAsks"
+msgid "Interactive Download…"
+msgstr "تعاملي ډاونلوډ…"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
@@ -4655,21 +4855,13 @@ msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "لینک واچوئ او Arroxy پرېږدئ چې یې راکښته کړي ✨"
 
-msgctxt "wizard.url.mascotMixed"
-msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
-msgstr "دا لینک په ټولګه کې یو ویډیو ته اشاره کوي. Arroxy به د تحلیل دمخه وپوښتي چې کوم یو غواړئ."
-
-msgctxt "wizard.url.mascotPreparing"
-msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
-msgstr "{{quickDownload}} دا لینک لولي او {{profileName}} پلي کوي."
-
-msgctxt "wizard.url.mascotQueued"
-msgid "The queue is handling this download. You can paste another link while it works."
-msgstr "کتار دا ډاونلوډ پروسس کوي. کله چې کار کوي، تاسو کولی شئ بل لینک پیسټ کړئ."
-
 msgctxt "wizard.url.mascotSingle"
 msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
 msgstr "چټک ډاونلوډ د {{profileName}} سره یو ډاونلوډ پیلوي. د یو ځل بدلونونو لپاره تعاملي ډاونلوډ وکاروئ."
+
+msgctxt "wizard.url.mascotVideoInList"
+msgid "This link names a video and the list it’s in: download just the video, or the list."
+msgstr "دا لینک یوه ویډیو او هغه لیست چې پکې ده نوموي: یوازې ویډیو ډاونلوډ کړئ، که لیست."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4991,6 +5183,10 @@ msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
 msgid "Using profile override + profile subfolder"
 msgstr "د پروفایل بدیل + د پروفایل فرعي فولډر کاروي"
 
+msgctxt "wizard.url.profile.destinationEditHint"
+msgid "To change where it saves, edit the profile."
+msgstr "د خوندي کولو ځای بدلولو لپاره، پروفایل سم کړئ."
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "موخه"
@@ -5083,6 +5279,10 @@ msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "بیا تنظیمول"
 
+msgctxt "wizard.url.profile.savesTo"
+msgid "Saves to"
+msgstr "خوندي کیږي په"
+
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
 msgstr "د ډاونلوډ پروفایل بدل کړئ: {{profileName}}"
@@ -5096,8 +5296,8 @@ msgid "Clear"
 msgstr "پاکول"
 
 msgctxt "wizard.url.proxy.description"
-msgid "Route traffic through a proxy — useful for geo-restricted content."
-msgstr "د پراکسي له لارې ترافیک لیږدول — د جغرافیایي محدودیتونو لرونکي مینځپانګې لپاره ګټور."
+msgid "Route traffic through a proxy server."
+msgstr "ټرافیک د پراکسي سرور له لارې لیږي."
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
@@ -5106,10 +5306,6 @@ msgstr "د پراکسي پته"
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
-
-msgctxt "wizard.url.quickBulkAllFailed"
-msgid "None of those URLs could be prepared"
-msgstr "له دې URLونو څخه هېڅ یو چمتو نه شو"
 
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
@@ -5122,16 +5318,6 @@ msgstr "د {{profileName}} په کارولو سره به ډاونلوډ شي"
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "دا ونه زیاتېدل: {{error}}"
-
-#. Plural form "one" for ps: used for counts like 1.
-msgctxt "wizard.url.quickPartialFailed_one"
-msgid "Queued what worked. {{count}} URL could not be prepared."
-msgstr "هغه څه چې کار یې وکړ قطار ته زیات شول. {{count}} URL چمتو نه شو."
-
-#. Plural form "other" for ps: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.url.quickPartialFailed_other"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "هغه څه چې کار یې وکړ قطار ته زیات شول. {{count}} URLونه چمتو نه شول."
 
 msgctxt "wizard.url.quickPrepareFailed"
 msgid "Queue item could not be prepared"
@@ -5148,6 +5334,14 @@ msgstr "کتنه ناکامه شوه"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "د پیل لپاره د ویډیو، پلې‌لېست، چینل یا لټون URL ونښلوئ."
+
+msgctxt "wizard.url.reports.toggle"
+msgid "Send anonymous heartbeat and setup reports"
+msgstr "ناپیژندلی هارټ بیټ او د تنظیم راپورونه واستوئ"
+
+msgctxt "wizard.url.reports.toggleDescription"
+msgid "No tracking. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. When Arroxy sets up or updates its download engine or media tools, it also reports whether that worked and roughly how long it took. No IDs, URLs, video titles or filenames."
+msgstr "هیڅ تعقیب نشته. په ورځ کې یو ځل، یو ناپیژندلی هارټ بیټ د اپ نسخه، د نصب چینل، OS، ژبه، هېواد او تقریباً دا چې Arroxy څومره وخت مخکې نصب شوی لیږي، ترڅو موږ فعال او نوي کاروونکي وشمېرو. کله چې Arroxy خپل د ډاونلوډ انجن یا د رسنۍ وسایل تنظیموي یا تازه کوي، دا هم راپور ورکوي چې ایا بریالی شو او تقریباً څومره وخت یې ونیو. هیڅ ID، URL، د ویډیو سرلیک یا د فایل نوم نشته."
 
 msgctxt "wizard.url.settings.behaviorDescription"
 msgid "Global behavior that affects profile-driven downloads too."
@@ -5204,3 +5398,11 @@ msgstr "پروفایلونه"
 msgctxt "wizard.url.tabs.settings"
 msgid "Settings"
 msgstr "امستنې"
+
+msgctxt "wizard.url.thisVideo"
+msgid "This video"
+msgstr "دا ویډیو"
+
+msgctxt "wizard.url.thisVideoTooltip"
+msgid "Downloads just this video with {{profileName}}"
+msgstr "یوازې دا ویډیو د {{profileName}} سره ډاونلوډوي"

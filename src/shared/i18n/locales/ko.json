@@ -31,7 +31,6 @@
 		"cancel": "취소",
 		"close": "닫기",
 		"continue": "계속",
-		"dismiss": "닫기",
 		"loading": "불러오는 중",
 		"retry": "다시 시도",
 		"startOver": "처음부터"
@@ -45,11 +44,10 @@
 			"remember": "다시 묻지 않기"
 		},
 		"quitWithActiveDownloads": {
-			"confirm": "다운로드 취소 후 종료",
-			"detail": "나중에 다시 시작하려면 일시 중지하고, 진행 상황을 버리려면 취소하세요.",
+			"continueDetail": "대기열은 그대로 유지되며, 다음에 Arroxy를 열면 다운로드가 중단된 지점부터 이어집니다.",
 			"keep": "계속 다운로드",
 			"message_other": "{{count}}개 다운로드 진행 중",
-			"pause": "다운로드 일시 중지 후 종료"
+			"quit": "종료"
 		},
 		"rendererCrashed": {
 			"detail": "렌더러 프로세스가 중단되었습니다({{reason}}). 다시 시도하려면 새로고침하세요.",
@@ -72,12 +70,12 @@
 		"noSubtitlesIn": "이 동영상에는 {{languages}} 자막이 없습니다.",
 		"ytdlp": {
 			"ageRestricted": "이 동영상은 연령 제한이 있어 로그인한 계정 없이는 다운로드할 수 없습니다.",
-			"botBlock": "봇 보호가 작동했습니다. 사용 중인 IP가 데이터센터 대역이거나 사용자가 많은 VPN 출구라 차단되었을 가능성이 큽니다. IP를 바꾸거나 다른 VPN 엔드포인트를 선택한 뒤 다시 시도하세요. 계속 실패한다면 사이트의 일시적인 변경 때문일 수 있습니다. Arroxy는 시작할 때 다운로드 엔진을 업데이트하므로 수정본이 배포되면 자동으로 적용됩니다.",
+			"botBlock": "사이트의 봇 방지 기능이 이 다운로드를 막았습니다. 잠시 기다렸다가 다시 시도하거나 한 번에 다운로드하는 동영상 수를 줄이세요. 계속 실패한다면 사이트의 일시적인 변경 때문일 수 있습니다. Arroxy는 시작할 때 다운로드 엔진을 업데이트하므로 수정본이 배포되면 자동으로 적용됩니다.",
 			"chunkTransferFailure": "서버가 다운로드 도중 연결을 계속 끊어 Arroxy가 재시도 후 포기했습니다. 주로 가장 큰 동영상 형식(4K HDR/고비트레이트 VP9)에서 발생합니다. 다시 시도하거나 네트워크/VPN을 바꾸거나 더 낮은 해상도의 형식을 선택하세요.",
 			"drmProtected": "이 동영상은 DRM으로 보호됩니다. Arroxy는 DRM을 제거할 수 없으므로 파일을 다운로드할 수 없습니다.",
 			"formatUnavailable": "이 동영상은 더 이상 선택하신 형식을 제공하지 않습니다. 링크를 다시 붙여넣고 현재 제공되는 형식 중에서 선택하세요.",
 			"geoBlocked": "이 동영상은 현재 지역에서 볼 수 없습니다.",
-			"ipBlock": "IP 주소가 차단된 것 같습니다. 나중에 다시 시도하거나 VPN을 사용하세요.",
+			"ipBlock": "사이트에서 이 연결의 요청을 차단하고 있습니다. 나중에 다시 시도하세요.",
 			"loginRequired": "이 동영상은 로그인한 계정이 필요합니다.",
 			"missingDependency": "Arroxy가 FFmpeg 또는 FFprobe를 찾지 못했습니다. 설정을 다시 실행하거나 FFmpeg 위치를 지정한 다음 다운로드를 다시 시도하세요.",
 			"network": "네트워크 오류입니다. 연결을 확인하고 다시 시도하세요.",
@@ -106,8 +104,28 @@
 			"title": "링크를 오른쪽 클릭해 다운로드하세요"
 		},
 		"linkMenu": {
+			"background": {
+				"album": "앨범을 백그라운드에서 다운로드",
+				"liked": "좋아요 표시한 동영상을 백그라운드에서 다운로드",
+				"mix": "믹스를 백그라운드에서 다운로드",
+				"playlist": "재생목록을 백그라운드에서 다운로드",
+				"uploads": "업로드한 동영상을 백그라운드에서 다운로드",
+				"watchLater": "나중에 볼 동영상을 백그라운드에서 다운로드"
+			},
 			"copyLink": "링크 복사",
-			"downloadWith": "프로필로 다운로드"
+			"downloadFirst": "처음 {{count}}개 다운로드",
+			"downloadThisVideo": "이 동영상 다운로드 · {{profileName}}",
+			"downloadWith": "프로필로 다운로드",
+			"fromList": {
+				"album": "이 앨범에서",
+				"liked": "좋아요 표시한 동영상에서",
+				"mix": "이 믹스에서",
+				"playlist": "이 재생목록에서",
+				"uploads": "이 채널의 업로드에서",
+				"watchLater": "나중에 볼 동영상에서"
+			},
+			"interactive": "대화형 다운로드…",
+			"thisVideoWith": "이 동영상을 다음 프로필로"
 		},
 		"newBadge": "새 기능",
 		"notice": {
@@ -154,6 +172,7 @@
 			"aria": "현재 페이지",
 			"back": "뒤로",
 			"compactLayout": "컴팩트 레이아웃",
+			"download": "다운로드",
 			"downloadWithProfile": "다운로드 · {{profileName}}",
 			"forward": "앞으로",
 			"fullLayout": "전체 레이아웃 표시",
@@ -163,6 +182,8 @@
 			"refusedHint": "탐색에서 해당 주소를 열 수 없습니다.",
 			"reload": "새로고침",
 			"searchTooLong": "검색어가 너무 깁니다.",
+			"thisVideo": "이 동영상만",
+			"thisVideoHint": "{{profileName}} 프로필로 이 동영상만 다운로드",
 			"zoom": {
 				"hint": "페이지 확대/축소: {{percent}}%",
 				"in": "확대",
@@ -204,9 +225,9 @@
 			"too-long": "템플릿이 너무 깁니다.",
 			"unknown-token": "알 수 없는 토큰 {{token}}입니다."
 		},
-		"idWarning": "{id}가 없으면 Arroxy는 이미 다운로드한 재생목록 항목을 감지하거나 .m3u 재생목록을 만들 수 없습니다.",
+		"idEndingWarning": "이름을 [{id}]로 끝내면 Arroxy가 이미 다운로드한 재생목록 항목을 감지하고 .m3u 재생목록을 만들 수 있습니다.",
 		"label": "파일 이름 템플릿",
-		"m3uDisabled": "파일 이름 템플릿에 {id}가 없거나 다운로드를 폴더로 분류하므로 사용할 수 없습니다.",
+		"m3uDisabledIdEnding": "파일 이름 템플릿이 [{id}]로 끝나지 않거나 다운로드를 폴더로 분류하므로 사용할 수 없습니다.",
 		"previewPlaylist": "재생목록에서",
 		"previewSingle": "단일 동영상",
 		"profileOverrideDescription": "전역 템플릿을 사용하려면 비워 두세요.",
@@ -249,11 +270,14 @@
 		"quickDownload": {
 			"added": "추가됨: {{title}}",
 			"alreadyQueued": "이미 대기열에 있습니다",
+			"batchAdded_other": "링크 {{count}}개를 다운로드에 추가했습니다",
+			"batchAlreadyQueued_other": "{{count}}개는 이미 대기열에 있습니다",
+			"batchNoneAdded_other": "링크 {{count}}개를 추가하지 못했습니다",
+			"batchNotAdded_other": "{{count}}개를 추가하지 못했습니다",
+			"chooseFromList_other": "이 목록에 동영상 {{count}}개 — 다운로드할 항목을 선택하세요",
 			"chooseHowMany_other": "동영상 {{count}}개 이상 — 개수 선택",
 			"failed": "{{title}}을(를) 준비하지 못했습니다",
 			"notAdded": "링크를 추가하지 못했습니다 — 다시 시도하세요",
-			"reviewCapped_other": "이 목록에 동영상 {{count}}개 이상 — 검토하여 선택",
-			"review_other": "이 목록에 동영상 {{count}}개 — 검토하여 선택",
 			"view": "보기"
 		},
 		"settingsSaveFailed": "설정을 저장할 수 없습니다.",
@@ -339,8 +363,26 @@
 			"all": "모든 동영상",
 			"cappedBody_other": "이 재생목록에 동영상이 {{count}}개를 넘습니다. 모두 다운로드하거나, 처음 {{count}}개만 받거나, 검토해서 직접 고를 수 있습니다.",
 			"first": "처음 {{count}}개",
+			"list": {
+				"album": "앨범",
+				"liked": "좋아요 표시한 동영상",
+				"mix": "믹스",
+				"playlist": "재생목록",
+				"uploads": "업로드한 동영상 전체",
+				"watchLater": "나중에 볼 동영상"
+			},
+			"pick": "그 안에서 선택…",
 			"review": "검토",
-			"reviewBody_other": "이 링크는 동영상 {{count}}개짜리 목록입니다. 검토하여 다운로드할 항목을 선택하세요."
+			"uncappedBody_other": "이 링크는 동영상 {{count}}개짜리 목록입니다. 모두 다운로드하거나, 검토해서 직접 고를 수 있습니다.",
+			"video": "이 동영상",
+			"videoOrList": {
+				"album": "이 링크는 앨범에 있는 동영상입니다. 동영상만 다운로드할까요, 앨범 전체를 다운로드할까요?",
+				"liked": "이 링크는 좋아요 표시한 동영상에 있는 동영상입니다. 동영상만 다운로드할까요, 좋아요 표시한 동영상 전체를 다운로드할까요?",
+				"mix": "이 링크는 믹스에 있는 동영상입니다. 동영상만 다운로드할까요, 믹스 전체를 다운로드할까요?",
+				"playlist": "이 링크는 재생목록에 있는 동영상입니다. 동영상만 다운로드할까요, 재생목록 전체를 다운로드할까요?",
+				"uploads": "이 링크는 채널의 업로드에 있는 동영상입니다. 동영상만 다운로드할까요, 업로드한 동영상 전체를 다운로드할까요?",
+				"watchLater": "이 링크는 나중에 볼 동영상 목록에 있는 동영상입니다. 동영상만 다운로드할까요, 목록 전체를 다운로드할까요?"
+			}
 		},
 		"clearTitle": "완료된 다운로드 지우기",
 		"empty": "대기열에 추가한 다운로드가 여기에 표시됩니다",
@@ -374,7 +416,29 @@
 			"statusPending": "대기 중",
 			"statusProbing": "세부 정보 가져오는 중",
 			"statusRunning": "다운로드 중",
-			"subtitleLanguagesMissing": "{{languages}} 자막 없음"
+			"subtitleLanguagesMissing": "{{languages}} 자막 없음",
+			"waitingForSite": "{{site}} 때문에 {{time}}까지 대기",
+			"waitingHint": "{{site}}에서 이 연결의 요청을 제한하고 있습니다. 제한이 풀릴 수 있도록 Arroxy가 {{time}} 이후에 이 링크의 세부 정보를 가져옵니다."
+		},
+		"listOffer": {
+			"dismiss": "닫기",
+			"from": {
+				"album": "앨범에서",
+				"liked": "좋아요 표시한 동영상에서",
+				"mix": "믹스에서",
+				"playlist": "재생목록에서",
+				"uploads": "채널의 업로드에서",
+				"watchLater": "나중에 볼 동영상에서"
+			},
+			"get": {
+				"album": "앨범 전체 가져오기",
+				"liked": "좋아요 표시한 동영상 모두 가져오기",
+				"mix": "믹스 전체 가져오기",
+				"playlist": "재생목록 전체 가져오기",
+				"uploads": "업로드한 동영상 모두 가져오기",
+				"watchLater": "나중에 볼 동영상 모두 가져오기"
+			},
+			"hint": "목록을 별도의 행으로 추가합니다. 이 동영상은 제외됩니다."
 		},
 		"pauseAllTitle": "모든 진행 중인 다운로드를 일시 중지하고 새 다운로드가 시작되지 않게 합니다",
 		"pausedBanner": "대기열이 일시 중지되었습니다. 다시 시작할 때까지 대기 항목은 시작되지 않습니다",
@@ -607,25 +671,18 @@
 		"cancel": "문제가 있나요? 수동으로 설정하세요",
 		"greeting": "다시 오신 것을 환영합니다!",
 		"setup": {
-			"bytes": "{{done}} / {{total}}",
 			"left": {
 				"minutes_other": "약 {{count}}분 남음",
 				"underMinute": "1분 미만 남음"
 			},
-			"note": {
-				"engine": "사이트가 바뀌어도 다운로드가 계속 작동하도록 합니다.",
-				"firstRun": "처음 한 번만 진행됩니다. Arroxy가 이 도구들을 보관하고 직접 업데이트합니다.",
-				"media": "처음 한 번만 진행됩니다. Arroxy가 이후 업데이트를 위해 보관합니다."
-			},
 			"stage": {
 				"checking": "모든 것이 작동하는지 확인하는 중",
 				"connecting": "연결하는 중…",
-				"downloadingBoth": "다운로드 엔진과 미디어 도구를 다운로드하는 중",
-				"downloadingEngine": "다운로드 엔진을 다운로드하는 중",
-				"downloadingMedia": "미디어 도구를 다운로드하는 중",
-				"unpacking": "미디어 도구 압축을 푸는 중"
+				"unpacking": "미디어 도구 압축을 푸는 중",
+				"unpackingEngine": "다운로드 엔진 압축을 푸는 중"
 			},
 			"title": {
+				"both": "Arroxy 도구 업데이트 중",
 				"engine": "다운로드 엔진 업데이트 중",
 				"firstRun": "처음 설정",
 				"media": "미디어 도구 업데이트 중"
@@ -651,14 +708,14 @@
 		"fetchingSponsorBlock": "SponsorBlock에 연결 중…",
 		"fetchingSubtitles": "자막 가져오는 중…",
 		"mergingFormats": "오디오와 동영상 병합 중…",
-		"mintingToken": "YouTube 토큰 생성 중…",
+		"mintingToken": "YouTube 다운로드 준비 중…",
 		"movingFiles": "파일 이동 중…",
 		"noSubtitles": "{{languages}} 자막 없음",
 		"outputNotWritable": "{{dir}}에 저장할 수 없습니다 — Arroxy에 그곳에 쓸 권한이 없습니다",
 		"preparingBinaries": "바이너리 준비 중…",
-		"qualityLimited": "{{height}}p로 저장됨 — YouTube가 이 다운로드에 더 높은 화질을 제공하지 않았습니다. 나중에 다시 시도하거나 다른 네트워크에서 시도하면 도움이 될 수 있습니다.",
-		"qualityLimitedSubtitlesFailed": "{{height}}p로 저장됨 — YouTube가 이 다운로드에 더 높은 화질을 제공하지 않았고 일부 자막을 다운로드하지 못했습니다. 나중에 다시 시도하거나 다른 네트워크에서 시도하면 도움이 될 수 있습니다.",
-		"remintingToken": "토큰 다시 생성 중…",
+		"qualityLimited": "{{height}}p로 저장됨 — YouTube가 이 다운로드에 더 높은 화질을 제공하지 않았습니다. 나중에 다시 시도하면 도움이 될 수 있습니다.",
+		"qualityLimitedSubtitlesFailed": "{{height}}p로 저장됨 — YouTube가 이 다운로드에 더 높은 화질을 제공하지 않았고 일부 자막을 다운로드하지 못했습니다. 나중에 다시 시도하면 도움이 될 수 있습니다.",
+		"remintingToken": "YouTube 다운로드 다시 준비 중…",
 		"retryingSponsorBlock": "SponsorBlock을 사용할 수 없어 재시도 중({{attempt}}/{{total}})…",
 		"retryingTransfer": "연결이 멈춰 재시도 중({{attempt}}/{{total}})…",
 		"signingInWithExplore": "탐색 계정으로 로그인하는 중…",
@@ -779,7 +836,7 @@
 			"pictures": "사진",
 			"subfolder": {
 				"invalid": "폴더 이름에 잘못된 문자가 있습니다",
-				"placeholder": "예: lo-fi 추출본",
+				"placeholder": "예: 강의",
 				"toggle": "하위 폴더에 저장"
 			},
 			"videos": "동영상"
@@ -874,7 +931,11 @@
 				"noVideo": "이 링크에는 영상이 없어 오디오를 선택했습니다.",
 				"subtitlesMissing": "프로필에서 {{languages}} 자막을 요청했지만 이 동영상에는 없습니다.",
 				"tierAbove": "프로필에서 {{wanted}}p를 요청했지만 이 동영상에는 그보다 낮은 화질이 없어 {{picked}}p를 선택했습니다.",
-				"tierBelow": "프로필에서 {{wanted}}p를 요청했지만 이 동영상은 최대 {{picked}}p까지만 제공되어 {{picked}}p를 선택했습니다.",
+				"tierAbovePassedOver": "프로필에서 {{wanted}}p를 요청했지만, 이 동영상의 더 작은 스트림은 프로필의 나머지 설정과 맞지 않아 {{picked}}p를 선택했습니다.",
+				"tierBelowTakeable": "프로필에서 {{wanted}}p를 요청했지만 이 동영상에는 사용할 수 있는 {{wanted}}p가 없어 {{picked}}p를 선택했습니다.",
+				"tierPassedOverAiUpscaled": "프로필에서 {{wanted}}p를 요청했지만 이 동영상의 {{wanted}}p는 AI로 업스케일된 것이라 원본 {{picked}}p를 선택했습니다.",
+				"tierPassedOverH264": "프로필에서 H.264 {{wanted}}p를 요청했지만 이 동영상의 {{wanted}}p는 다른 코덱만 있어 H.264 {{picked}}p를 선택했습니다.",
+				"tierPassedOverProfile": "프로필에서 {{wanted}}p를 요청했지만 이 동영상의 {{wanted}}p는 프로필의 나머지 설정과 맞지 않아 {{picked}}p를 선택했습니다.",
 				"webmUnavailable": "프로필이 WebM을 요청합니다. 이 영상에서 선택된 스트림에 WebM에 담을 수 없는 {{codec}}이(가) 포함되어 있어 파일 형식은 자동으로 설정됩니다."
 			},
 			"footer": {
@@ -951,29 +1012,26 @@
 			"withAudio": "오디오 포함"
 		},
 		"listPrompt": {
-			"escHint": "Esc를 누르면 취소됩니다. 선택하기 전에는 아무것도 불러오지 않습니다.",
-			"interactiveSubtitle": "형식을 직접 선택합니다",
-			"justThisVideo": "이 동영상만",
-			"justThisVideoInteractiveHint": "형식 선택 화면을 엽니다",
-			"justThisVideoQuickHint": "동영상 1개를 불러옵니다",
-			"listInteractiveHint": "최대 {{count}}개를 불러와 선택합니다",
-			"listOption": {
-				"album": "앨범의 앞부분",
-				"liked": "좋아요 표시한 동영상의 앞부분",
-				"mix": "믹스의 앞부분",
-				"playlist": "재생목록의 앞부분",
-				"uploads": "업로드한 동영상의 앞부분",
-				"watchLater": "나중에 볼 동영상의 앞부분"
-			},
-			"listQuickHint": "최대 {{count}}개를 불러온 뒤 다운로드합니다",
+			"backgroundHint": "{{profileName}} 프로필 사용. 동영상이 {{count}}개를 넘으면 다운로드에서 개수를 묻습니다.",
+			"backgroundLabel": "백그라운드에서 다운로드",
+			"escOnly": "Esc로 취소합니다.",
+			"firstHint": "정확히 처음 {{count}}개를 {{profileName}} 프로필로.",
+			"firstLabel": "처음부터 다운로드:",
+			"interactiveHint": "처음 {{count}}개 동영상에서 고른 다음(개수는 다음 단계에서 바꿀 수 있음) 다운로드를 설정합니다.",
+			"interactiveLabel": "대화형 다운로드…",
+			"limitHint": "목록에서 가져올 동영상 수입니다. 첫 번째 옵션은 이 수를 넘으면 묻고, 두 번째 옵션은 정확히 이 수만큼 가져옵니다. 설정의 '분석할 재생목록 항목'과 같습니다.",
+			"limitLabel": "제한",
 			"mixNote": "믹스는 열 때마다 내용이 바뀝니다.",
-			"pickOption": {
-				"album": "앨범의 앞부분에서 선택",
-				"liked": "좋아요 표시한 동영상의 앞부분에서 선택",
-				"mix": "믹스의 앞부분에서 선택",
-				"playlist": "재생목록의 앞부분에서 선택",
-				"uploads": "업로드한 동영상의 앞부분에서 선택",
-				"watchLater": "나중에 볼 동영상의 앞부분에서 선택"
+			"pickLoadAfter": "개 동영상에서 선택합니다.",
+			"pickLoadBefore": "처음",
+			"pickLoadNote": "다음 단계에서 바꿀 수 있습니다.",
+			"pickTitle": {
+				"album": "이 앨범에서 선택",
+				"liked": "좋아요 표시한 동영상에서 선택",
+				"mix": "이 믹스에서 선택",
+				"playlist": "이 재생목록에서 선택",
+				"uploads": "이 채널의 업로드에서 선택",
+				"watchLater": "나중에 볼 동영상에서 선택"
 			},
 			"title": {
 				"album": "이 앨범에서 다운로드",
@@ -983,6 +1041,9 @@
 				"uploads": "이 채널의 업로드에서 다운로드",
 				"watchLater": "나중에 볼 동영상에서 다운로드"
 			},
+			"videoHint": "연 동영상만 {{profileName}} 프로필로. 목록은 불러오지 않습니다.",
+			"videoLabel": "이 동영상만",
+			"videoPickHint": "연 동영상만 설정합니다. 목록은 불러오지 않습니다.",
 			"withProfile": "{{profileName}} 사용"
 		},
 		"output": {
@@ -1054,6 +1115,8 @@
 			"allRemovedDescription": "계속하려면 복원하세요.",
 			"allRemovedTitle": "모든 항목이 제거되었습니다",
 			"alreadyDownloaded": "이미 다운로드됨",
+			"bulkCappedDesc_other": "더 많은 동영상이 있습니다. 개수를 직접 고르려면 링크를 하나씩 붙여넣으세요.",
+			"bulkCappedTitle_other": "목록 {{count}}개가 각각 동영상 {{limit}}개에서 잘립니다",
 			"bulkHeading": "URL 일괄 추가",
 			"bulkMetadataOptional": "기다릴 필요가 없습니다. 지금 대기열에 추가한 파일도 다운로드할 때 실제 이름을 받습니다.",
 			"bulkMetadataResolving": "동영상 세부 정보 가져오는 중… {{done}}/{{total}}",
@@ -1103,13 +1166,6 @@
 			"syncNoneTitle": "아직 다운로드 없음",
 			"syncScanning": "폴더 확인 중…",
 			"thumbnailAlt": "동영상 미리보기 이미지"
-		},
-		"playlistCap": {
-			"changeLimit": "불러오기 제한 변경",
-			"descriptionWithTitle_other": "<title/>: 현재 제한인 {{limit}}개로 Arroxy가 {{count}}개 항목을 불러왔습니다. 불러온 항목을 지금 대기열에 추가하거나, 제한을 늘린 뒤 다시 분석하세요.",
-			"description_other": "현재 제한인 {{limit}}개로 Arroxy가 {{count}}개 항목을 불러왔습니다. 불러온 항목을 지금 대기열에 추가하거나, 제한을 늘린 뒤 다시 분석하세요.",
-			"queueLoaded": "불러온 항목 대기열에 추가",
-			"title": "재생목록 분석 제한됨"
 		},
 		"playlistPresets": {
 			"heading": "일괄 작업의 화질 선택",
@@ -1289,18 +1345,6 @@
 		"profileSwitchRow": {
 			"helpAria": "{{label}} 도움말"
 		},
-		"quickProgress": {
-			"cancel": "준비 취소",
-			"currentFallback": "현재 링크",
-			"description": "Arroxy가 링크를 읽고 {{profileName}}을(를) 적용하고 있습니다.",
-			"failedCount_other": "{{count}}개 실패",
-			"phase": {
-				"probing": "세부 정보 가져오는 중",
-				"queueing": "대기열에 추가 중"
-			},
-			"title": "빠른 다운로드 준비 중",
-			"waitHint": "Arroxy가 대기열을 준비하는 동안 이 창을 열어 두세요."
-		},
 		"review": {
 			"areas": {
 				"extras": "추가 항목",
@@ -1410,6 +1454,7 @@
 				"embed": "동영상에 포함",
 				"heading": "저장 형식",
 				"sidecar": "동영상 옆",
+				"sidecarNoVideo": "다운로드 폴더에",
 				"subfolder": "subtitles/ 하위 폴더"
 			},
 			"searchPlaceholder": "언어 검색…",
@@ -1419,10 +1464,6 @@
 		"tabsNavAria": "다운로드 프로필 탐색",
 		"url": {
 			"advanced": "고급",
-			"analytics": {
-				"toggle": "일일 하트비트 보내기",
-				"toggleDescription": "원격 분석은 없습니다. 하루에 한 번 익명 하트비트로 앱 버전, 설치 방식, OS, 언어, 국가, Arroxy를 설치한 지 대략 얼마나 되었는지를 보내 활성 사용자와 신규 사용자 수를 셉니다. ID, URL, 동영상 제목, 파일 이름은 포함하지 않습니다."
-			},
 			"autoRemoveCompleted": {
 				"description": "다운로드가 끝나고 몇 초 뒤에 다운로드 목록에서 제거합니다. 파일은 폴더에 그대로 남으며, 실패하거나 취소된 다운로드는 목록에 남습니다.",
 				"label": "완료된 다운로드 자동 제거"
@@ -1457,6 +1498,11 @@
 				"label": "동시 다운로드",
 				"unit": "다운로드"
 			},
+			"concurrentProbes": {
+				"description": "다운로드 전에 Arroxy가 동시에 세부 정보를 가져오는 링크 수입니다. 적을수록 붐비는 연결을 차단하는 사이트에 부담을 덜 줍니다. 대화형 다운로드에서 연 링크는 항상 가장 먼저 처리됩니다.",
+				"label": "동시에 확인하는 링크",
+				"unit": "개"
+			},
 			"cookies": {
 				"banWarning": "YouTube 같은 사이트는 Arroxy 같은 다운로드 도구에서 쿠키를 사용하는 계정을 표시하거나 때로는 정지할 수 있습니다. 가능하면 일회용 계정을 사용하세요.",
 				"browserHelp": "브라우저에서 쿠키를 직접 읽습니다. Chromium 계열 브라우저는 닫혀 있어야 합니다.",
@@ -1481,12 +1527,20 @@
 				"sourceFile": "파일",
 				"sourceLabel": "쿠키 소스",
 				"sourceOff": "끄기",
-				"toggleDescription": "연령 제한, 회원 전용 및 계정 비공개 동영상에 도움이 됩니다."
+				"toggleDescription": "비공개 동영상처럼 내 계정으로 볼 수 있는 동영상에 도움이 됩니다."
 			},
 			"downloadConnections": {
 				"description": "동영상의 여러 부분을 동시에 받아 대용량 다운로드 속도를 높입니다. 값이 높을수록 사이트에서 제한할 가능성이 커집니다.",
 				"label": "다운로드 연결",
 				"unit": "연결"
+			},
+			"downloadList": {
+				"album": "앨범 다운로드…",
+				"liked": "좋아요 표시한 동영상 다운로드…",
+				"mix": "믹스 다운로드…",
+				"playlist": "재생목록 다운로드…",
+				"uploads": "업로드한 동영상 다운로드…",
+				"watchLater": "나중에 볼 동영상 다운로드…"
 			},
 			"features": {
 				"always": {
@@ -1515,18 +1569,17 @@
 			"hotkey": {
 				"changeShortcut": "단축키 변경",
 				"conflict": "이 단축키는 다른 앱에서 사용 중입니다. 다른 단축키를 선택하세요.",
-				"hintLabel": "또는 다음 키 누르기",
-				"hintTooltip": "어디서든 동영상 링크를 복사하고 이 단축키를 누르면 창을 전환하지 않아도 Arroxy가 활성 프로필로 대기열에 추가합니다.",
-				"hintTooltipSettings": "설정에서 변경하거나 끌 수 있습니다.",
+				"globalLabel": "전역 단축키",
 				"recording": "키를 누르세요…",
 				"reset": "기본값으로 재설정",
 				"sectionDescription": "Arroxy를 열지 않고 어떤 앱에서든 복사한 링크를 다운로드합니다.",
 				"sectionTitle": "전역 단축키",
 				"test": "테스트",
 				"toggle": "전역 단축키 사용",
-				"toggleDescription": "클립보드에 동영상 링크를 복사한 상태에서 단축키를 누르세요."
+				"toggleDescriptionDetail": "어떤 앱에서든 동영상 링크를 복사하고 이 단축키를 누르면 창을 전환하지 않아도 Arroxy가 활성 프로필로 대기열에 추가합니다. 재생목록에 있는 동영상의 링크는 그 동영상만 다운로드합니다."
 			},
 			"interactiveDownload": "대화형 다운로드",
+			"interactiveDownloadAsks": "대화형 다운로드…",
 			"limitRate": {
 				"activeWarning": "진행 중인 다운로드는 현재 제한을 유지합니다. 변경 사항을 적용하려면 일시 중지 후 다시 시작하세요.",
 				"custom": "사용자 지정…",
@@ -1539,10 +1592,8 @@
 			"mascotBusy": "백그라운드에서 다운로드 중… 멀티태스킹도 문제없어요 😎",
 			"mascotCollection": "빠른 다운로드는 불러온 항목을 {{profileName}}(으)로 대기열에 추가합니다. 대화형 다운로드에서는 먼저 항목을 확인하거나 선택할 수 있습니다.",
 			"mascotIdle": "링크를 넣고 Arroxy에 맡기세요 ✨",
-			"mascotMixed": "이 링크는 컬렉션에 속한 동영상 하나를 가리킵니다. 분석하기 전에 Arroxy가 원하는 동영상을 물어봅니다.",
-			"mascotPreparing": "{{quickDownload}}이(가) 이 링크를 읽고 {{profileName}}을(를) 적용하고 있습니다.",
-			"mascotQueued": "대기열에서 이 다운로드를 처리하고 있습니다. 처리하는 동안 다른 링크를 붙여 넣을 수 있습니다.",
 			"mascotSingle": "빠른 다운로드는 {{profileName}}(으)로 다운로드 하나를 시작합니다. 한 번만 바꾸려면 대화형 다운로드를 사용하세요.",
+			"mascotVideoInList": "이 링크는 동영상과 그 동영상이 속한 목록을 가리킵니다. 동영상만 다운로드할지, 목록을 다운로드할지 선택하세요.",
 			"nativeAudioPreference": {
 				"compatible": "호환 스테레오",
 				"description": "프로필이 원본 오디오를 고를 때의 스테레오 또는 서라운드 설정입니다. 프로필에서 따로 지정할 수 있습니다.",
@@ -1646,6 +1697,7 @@
 					"override": "프로필 재정의 사용 중",
 					"overrideSubfolder": "프로필 재정의 + 프로필 하위 폴더 사용 중"
 				},
+				"destinationEditHint": "저장 위치를 바꾸려면 프로필을 편집하세요.",
 				"destinationFallback": "대상",
 				"edit": "편집",
 				"editActive": "활성 프로필 편집",
@@ -1669,24 +1721,27 @@
 				"remove": "제거",
 				"reorderHint": "프로필을 드래그하여 이동하세요. 모든 프로필 선택기가 이 순서를 따릅니다.",
 				"reset": "재설정",
+				"savesTo": "저장 위치",
 				"switchAria": "다운로드 프로필 전환: {{profileName}}",
 				"switchTitle": "다운로드 프로필 전환"
 			},
 			"proxy": {
 				"clear": "지우기",
-				"description": "프록시를 통해 트래픽을 라우팅합니다. 지역 제한 콘텐츠에 유용합니다.",
+				"description": "프록시 서버를 통해 트래픽을 라우팅합니다.",
 				"label": "프록시 URL",
 				"placeholder": "http://host:port"
 			},
-			"quickBulkAllFailed": "어떤 URL도 준비할 수 없습니다",
 			"quickDownload": "빠른 다운로드",
 			"quickDownloadTooltip": "다음 프로필로 다운로드: {{profileName}}",
 			"quickFailed": "이 항목을 추가할 수 없습니다: {{error}}",
-			"quickPartialFailed_other": "처리된 항목은 대기열에 추가했습니다. URL {{count}}개를 준비하지 못했습니다.",
 			"quickPrepareFailed": "대기열 항목을 준비할 수 없습니다",
 			"quickPreparing": "준비 중",
 			"quickProbeFailed": "분석 실패",
 			"quickSingleOnly": "시작하려면 동영상, 재생목록, 채널 또는 검색 URL을 붙여넣으세요.",
+			"reports": {
+				"toggle": "익명 하트비트와 설정 보고서 보내기",
+				"toggleDescription": "추적은 없습니다. 하루에 한 번 익명 하트비트로 앱 버전, 설치 방식, OS, 언어, 국가, Arroxy를 설치한 지 대략 얼마나 되었는지를 보내 활성 사용자와 신규 사용자 수를 셉니다. Arroxy가 다운로드 엔진이나 미디어 도구를 설정하거나 업데이트할 때도 성공 여부와 대략적인 소요 시간을 보고합니다. ID, URL, 동영상 제목, 파일 이름은 포함하지 않습니다."
+			},
 			"settings": {
 				"behaviorDescription": "프로필 기반 다운로드에도 영향을 주는 전역 동작입니다.",
 				"behaviorHeading": "다운로드 동작",
@@ -1710,7 +1765,9 @@
 			"tabs": {
 				"profiles": "프로필",
 				"settings": "설정"
-			}
+			},
+			"thisVideo": "이 동영상만",
+			"thisVideoTooltip": "{{profileName}} 프로필로 이 동영상만 다운로드합니다"
 		}
 	}
 }

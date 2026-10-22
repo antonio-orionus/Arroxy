@@ -107,10 +107,6 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "ቀጥል"
 
-msgctxt "common.dismiss"
-msgid "Dismiss"
-msgstr "ዝጋ"
-
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "በመጫን ላይ…"
@@ -143,13 +139,9 @@ msgctxt "dialogs.closeToTray.remember"
 msgid "Don't ask again"
 msgstr "እንደገና አትጠይቅ"
 
-msgctxt "dialogs.quitWithActiveDownloads.confirm"
-msgid "Cancel Downloads & Quit"
-msgstr "ዳውንሎዶችን ሰርዝ እና ዝጋ"
-
-msgctxt "dialogs.quitWithActiveDownloads.detail"
-msgid "Pause to resume later, or cancel to discard progress."
-msgstr "በኋላ ለመቀጠል ለአፍታ አቁም፣ ወይም እድገቱን ለመጣል ሰርዝ።"
+msgctxt "dialogs.quitWithActiveDownloads.continueDetail"
+msgid "Your queue is kept, and downloads pick up where they stopped the next time you open Arroxy."
+msgstr "ወረፋዎ ተጠብቆ ይቆያል፤ Arroxyን በሚቀጥለው ጊዜ ሲከፍቱ ውርዶች ካቆሙበት ይቀጥላሉ።"
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -165,9 +157,9 @@ msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "{{count}} ዳውንሎዶች እየሄዱ ናቸው"
 
-msgctxt "dialogs.quitWithActiveDownloads.pause"
-msgid "Pause Downloads & Quit"
-msgstr "ማውረዶችን አቁም እና ውጣ"
+msgctxt "dialogs.quitWithActiveDownloads.quit"
+msgid "Quit"
+msgstr "ዝጋ"
 
 msgctxt "dialogs.rendererCrashed.detail"
 msgid "The renderer process crashed ({{reason}}). Reload to try again."
@@ -226,8 +218,8 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "ይህ ቪዲዮ ዕድሜ-ተገደቧል ያለ የገቡ መለያ ሊዳውንሎድ አይችልም።"
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
-msgstr "የቦት መከላከያ ተነሳ። የሚጠቀሙበት IP አድራሻ (የዳታ ሴንተር ክልል ወይም ተጨናንቆ VPN መውጫ) ምናልባት ምልክት ተደርጎበት ሊሆን ይችላል። IP አድራሻዎን ይቀይሩ ወይም ሌላ VPN ነጥብ ይምረጡ ከዚያ እንደገና ሞክሩ። አሁንም ካልሰራ፣ ይህ ጊዜያዊ የጣቢያ ወገን ለውጥ ሊሆን ይችላል — Arroxy በጅምር የማውረጃ ሞተሩን ያዘምናል፣ ስለዚህ ማስተካከያው ሲወጣ ራሱ ይደርሳል።"
+msgid "The site's bot protection stopped this download. Wait a while and try again, or download fewer videos at once. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "የጣቢያው የቦት መከላከያ ይህን ውርድ አቆመው። ትንሽ ቆይተው እንደገና ይሞክሩ፣ ወይም በአንድ ጊዜ ጥቂት ቪዲዮዎችን ያውርዱ። አሁንም ካልሰራ፣ ይህ ጊዜያዊ የጣቢያ ወገን ለውጥ ሊሆን ይችላል — Arroxy በጅምር የማውረጃ ሞተሩን ያዘምናል፣ ስለዚህ ማስተካከያው ሲወጣ ራሱ ይደርሳል።"
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
 msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
@@ -246,8 +238,8 @@ msgid "This video is not available in your region."
 msgstr "ይህ ቪዲዮ በክልልዎ አይገኝም።"
 
 msgctxt "errors.ytdlp.ipBlock"
-msgid "Your IP address appears to be blocked. Try again later or use a VPN."
-msgstr "IP አድራሻዎ YouTube ያገደ ይመስላል። ቆየት ብሎ እንደገና ሞክሩ ወይም VPN ጠቀሙ።"
+msgid "The site is blocking requests from this connection. Try again later."
+msgstr "ጣቢያው ከዚህ ግንኙነት የሚመጡ ጥያቄዎችን እየከለከለ ነው። ቆይተው እንደገና ይሞክሩ።"
 
 msgctxt "errors.ytdlp.loginRequired"
 msgid "This video needs a signed-in account."
@@ -329,13 +321,77 @@ msgctxt "explore.linkCallout.title"
 msgid "Right-click a link to download it"
 msgstr "ለማውረድ አገናኝ ላይ በቀኝ ጠቅ ያድርጉ"
 
+msgctxt "explore.linkMenu.background.album"
+msgid "Download the album in the background"
+msgstr "አልበሙን በዳራ ያውርዱ"
+
+msgctxt "explore.linkMenu.background.liked"
+msgid "Download your liked videos in the background"
+msgstr "የወደዷቸውን ቪዲዮዎች በዳራ ያውርዱ"
+
+msgctxt "explore.linkMenu.background.mix"
+msgid "Download the Mix in the background"
+msgstr "Mixን በዳራ ያውርዱ"
+
+msgctxt "explore.linkMenu.background.playlist"
+msgid "Download the playlist in the background"
+msgstr "የቪዲዮ ዝርዝሩን በዳራ ያውርዱ"
+
+msgctxt "explore.linkMenu.background.uploads"
+msgid "Download the uploads in the background"
+msgstr "ሰቀላዎቹን በዳራ ያውርዱ"
+
+msgctxt "explore.linkMenu.background.watchLater"
+msgid "Download Watch later in the background"
+msgstr "“በኋላ ይመልከቱ”ን በዳራ ያውርዱ"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "ሊንክ ቅዳ"
 
+msgctxt "explore.linkMenu.downloadFirst"
+msgid "Download the first {{count}}"
+msgstr "የመጀመሪያዎቹን {{count}} ያውርዱ"
+
+msgctxt "explore.linkMenu.downloadThisVideo"
+msgid "Download this video · {{profileName}}"
+msgstr "ይህን ቪዲዮ ያውርዱ · {{profileName}}"
+
 msgctxt "explore.linkMenu.downloadWith"
 msgid "Download with"
 msgstr "በመገለጫ አውርድ"
+
+msgctxt "explore.linkMenu.fromList.album"
+msgid "From this album"
+msgstr "ከዚህ አልበም"
+
+msgctxt "explore.linkMenu.fromList.liked"
+msgid "From your liked videos"
+msgstr "ከወደዷቸው ቪዲዮዎች"
+
+msgctxt "explore.linkMenu.fromList.mix"
+msgid "From this Mix"
+msgstr "ከዚህ Mix"
+
+msgctxt "explore.linkMenu.fromList.playlist"
+msgid "From this playlist"
+msgstr "ከዚህ የቪዲዮ ዝርዝር"
+
+msgctxt "explore.linkMenu.fromList.uploads"
+msgid "From this channel’s uploads"
+msgstr "ከዚህ ቻናል ሰቀላዎች"
+
+msgctxt "explore.linkMenu.fromList.watchLater"
+msgid "From Watch later"
+msgstr "ከ“በኋላ ይመልከቱ”"
+
+msgctxt "explore.linkMenu.interactive"
+msgid "Interactive Download…"
+msgstr "በይነተገናኝ ማውረድ…"
+
+msgctxt "explore.linkMenu.thisVideoWith"
+msgid "This video with"
+msgstr "ይህ ቪዲዮ በ"
 
 msgctxt "explore.newBadge"
 msgid "New"
@@ -481,6 +537,10 @@ msgctxt "explore.toolbar.compactLayout"
 msgid "Compact layout"
 msgstr "የታመቀ አቀማመጥ"
 
+msgctxt "explore.toolbar.download"
+msgid "Download"
+msgstr "ማውረድ"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "አውርድ · {{profileName}}"
@@ -516,6 +576,14 @@ msgstr "ዳግም ጫን"
 msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "ያ ፍለጋ በጣም ረጅም ነው።"
+
+msgctxt "explore.toolbar.thisVideo"
+msgid "This video"
+msgstr "ይህ ቪዲዮ"
+
+msgctxt "explore.toolbar.thisVideoHint"
+msgid "Download just this video with {{profileName}}"
+msgstr "ይህን ቪዲዮ ብቻ በ{{profileName}} ያውርዱ"
 
 msgctxt "explore.toolbar.zoom.hint"
 msgid "Page zoom: {{percent}}%"
@@ -581,17 +649,17 @@ msgctxt "filenameTemplate.error.unknown-token"
 msgid "Unknown token {{token}}."
 msgstr "ያልታወቀ ምልክት {{token}}።"
 
-msgctxt "filenameTemplate.idWarning"
-msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
-msgstr "{id} ከሌለ Arroxy አስቀድሞ የወረዱ የዝርዝር ንጥሎችን መለየት ወይም .m3u ዝርዝሮችን መፍጠር አይችልም።"
+msgctxt "filenameTemplate.idEndingWarning"
+msgid "End the name with [{id}] so Arroxy can detect already-downloaded playlist items and generate .m3u playlists."
+msgstr "Arroxy አስቀድመው የወረዱ የዝርዝር ንጥሎችን እንዲለይና .m3u ዝርዝሮችን እንዲፈጥር ስሙን በ[{id}] ያጠናቅቁ።"
 
 msgctxt "filenameTemplate.label"
 msgid "Filename template"
 msgstr "የፋይል ስም አብነት"
 
-msgctxt "filenameTemplate.m3uDisabled"
-msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
-msgstr "አይገኝም ምክንያቱም የፋይል ስም አብነትዎ {id} አልያዘም ወይም ውርዶችን በአቃፊዎች ይደረድራል።"
+msgctxt "filenameTemplate.m3uDisabledIdEnding"
+msgid "Unavailable because your filename template either doesn't end with [{id}] or sorts downloads into folders."
+msgstr "አይገኝም ምክንያቱም የፋይል ስም አብነትዎ በ[{id}] አያልቅም ወይም ውርዶችን በአቃፊዎች ይደረድራል።"
 
 msgctxt "filenameTemplate.previewPlaylist"
 msgid "In a playlist"
@@ -778,6 +846,56 @@ msgid "Already in the queue"
 msgstr "ቀድሞ በወረፋ ውስጥ ነው"
 
 #. Plural form "one" for am: used for counts like 0, 1.
+msgctxt "notifications.quickDownload.batchAdded_one"
+msgid "Added {{count}} link to Downloads"
+msgstr "{{count}} አገናኝ ወደ ዳውንሎዶች ታክሏል"
+
+#. Plural form "other" for am: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.batchAdded_other"
+msgid "Added {{count}} links to Downloads"
+msgstr "{{count}} አገናኞች ወደ ዳውንሎዶች ታክለዋል"
+
+#. Plural form "one" for am: used for counts like 0, 1.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_one"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} ቀድሞ በወረፋ ውስጥ ነው"
+
+#. Plural form "other" for am: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_other"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} ቀድሞ በወረፋ ውስጥ ናቸው"
+
+#. Plural form "one" for am: used for counts like 0, 1.
+msgctxt "notifications.quickDownload.batchNoneAdded_one"
+msgid "{{count}} link couldn't be added"
+msgstr "{{count}} አገናኝ ሊታከል አልቻለም"
+
+#. Plural form "other" for am: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.batchNoneAdded_other"
+msgid "{{count}} links couldn't be added"
+msgstr "{{count}} አገናኞች ሊታከሉ አልቻሉም"
+
+#. Plural form "one" for am: used for counts like 0, 1.
+msgctxt "notifications.quickDownload.batchNotAdded_one"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} ሊታከል አልቻለም"
+
+#. Plural form "other" for am: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.batchNotAdded_other"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} ሊታከሉ አልቻሉም"
+
+#. Plural form "one" for am: used for counts like 0, 1.
+msgctxt "notifications.quickDownload.chooseFromList_one"
+msgid "{{count}} video in this list — choose what to download"
+msgstr "በዚህ ዝርዝር ውስጥ {{count}} ቪዲዮ — የሚወርደውን ይምረጡ"
+
+#. Plural form "other" for am: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.chooseFromList_other"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "በዚህ ዝርዝር ውስጥ {{count}} ቪዲዮዎች — የሚወርዱትን ይምረጡ"
+
+#. Plural form "one" for am: used for counts like 0, 1.
 msgctxt "notifications.quickDownload.chooseHowMany_one"
 msgid "{{count}}+ video — choose how many"
 msgstr "{{count}}+ ቪዲዮ — ምን ያህል እንደሚወርድ ይምረጡ"
@@ -794,26 +912,6 @@ msgstr "{{title}}ን ማዘጋጀት አልተቻለም"
 msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "ያን አገናኝ ማከል አልተቻለም — እንደገና ይሞክሩ"
-
-#. Plural form "one" for am: used for counts like 0, 1.
-msgctxt "notifications.quickDownload.review_one"
-msgid "{{count}} video in this list — review to pick"
-msgstr "በዚህ ዝርዝር ውስጥ {{count}} ቪዲዮ — ለመምረጥ ይገምግሙ"
-
-#. Plural form "other" for am: used for counts like 2, 3, 4, 5, 6, 7.
-msgctxt "notifications.quickDownload.review_other"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "በዚህ ዝርዝር ውስጥ {{count}} ቪዲዮዎች — ለመምረጥ ይገምግሙ"
-
-#. Plural form "one" for am: used for counts like 0, 1.
-msgctxt "notifications.quickDownload.reviewCapped_one"
-msgid "{{count}}+ video in this list — review to pick"
-msgstr "በዚህ ዝርዝር ውስጥ {{count}}+ ቪዲዮ — ለመምረጥ ይገምግሙ"
-
-#. Plural form "other" for am: used for counts like 2, 3, 4, 5, 6, 7.
-msgctxt "notifications.quickDownload.reviewCapped_other"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "በዚህ ዝርዝር ውስጥ {{count}}+ ቪዲዮዎች — ለመምረጥ ይገምግሙ"
 
 msgctxt "notifications.quickDownload.view"
 msgid "View"
@@ -1063,19 +1161,75 @@ msgctxt "queue.choice.first"
 msgid "First {{count}}"
 msgstr "የመጀመሪያዎቹ {{count}}"
 
+msgctxt "queue.choice.list.album"
+msgid "The album"
+msgstr "አልበሙ"
+
+msgctxt "queue.choice.list.liked"
+msgid "Liked videos"
+msgstr "የወደዷቸው ቪዲዮዎች"
+
+msgctxt "queue.choice.list.mix"
+msgid "The Mix"
+msgstr "ይህ Mix"
+
+msgctxt "queue.choice.list.playlist"
+msgid "The playlist"
+msgstr "የቪዲዮ ዝርዝሩ"
+
+msgctxt "queue.choice.list.uploads"
+msgid "All the uploads"
+msgstr "ሁሉም ሰቀላዎች"
+
+msgctxt "queue.choice.list.watchLater"
+msgid "Watch later"
+msgstr "“በኋላ ይመልከቱ”"
+
+msgctxt "queue.choice.pick"
+msgid "Pick from it…"
+msgstr "ከእሱ ይምረጡ…"
+
 msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "ግምገማ"
 
 #. Plural form "one" for am: used for counts like 0, 1.
-msgctxt "queue.choice.reviewBody_one"
-msgid "This link is a list of {{count}} video. Review it to pick what to download."
-msgstr "ይህ አገናኝ የ{{count}} ቪዲዮ ዝርዝር ነው። ምን እንደሚወርድ ለመምረጥ ይገምግሙት።"
+msgctxt "queue.choice.uncappedBody_one"
+msgid "This link is a list of {{count}} video. Download it, or pick in a review."
+msgstr "ይህ አገናኝ የ{{count}} ቪዲዮ ዝርዝር ነው። ያውርዱት፣ ወይም በግምገማ ይምረጡ።"
 
 #. Plural form "other" for am: used for counts like 2, 3, 4, 5, 6, 7.
-msgctxt "queue.choice.reviewBody_other"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "ይህ አገናኝ የ{{count}} ቪዲዮዎች ዝርዝር ነው። ምን እንደሚወርድ ለመምረጥ ይገምግሙት።"
+msgctxt "queue.choice.uncappedBody_other"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "ይህ አገናኝ የ{{count}} ቪዲዮዎች ዝርዝር ነው። ሁሉንም ያውርዱ፣ ወይም በግምገማ ይምረጡ።"
+
+msgctxt "queue.choice.video"
+msgid "This video"
+msgstr "ይህ ቪዲዮ"
+
+msgctxt "queue.choice.videoOrList.album"
+msgid "This link is a video in an album. Download just the video, or the album?"
+msgstr "ይህ አገናኝ በአንድ አልበም ውስጥ ያለ ቪዲዮ ነው። ቪዲዮውን ብቻ ወይስ አልበሙን ያውርዱ?"
+
+msgctxt "queue.choice.videoOrList.liked"
+msgid "This link is a video in your liked videos. Download just the video, or all your liked videos?"
+msgstr "ይህ አገናኝ ከወደዷቸው ቪዲዮዎች ውስጥ አንዱ ነው። ቪዲዮውን ብቻ ወይስ የወደዷቸውን ሁሉንም ቪዲዮዎች ያውርዱ?"
+
+msgctxt "queue.choice.videoOrList.mix"
+msgid "This link is a video in a Mix. Download just the video, or the Mix?"
+msgstr "ይህ አገናኝ በአንድ Mix ውስጥ ያለ ቪዲዮ ነው። ቪዲዮውን ብቻ ወይስ Mixን ያውርዱ?"
+
+msgctxt "queue.choice.videoOrList.playlist"
+msgid "This link is a video in a playlist. Download just the video, or the playlist?"
+msgstr "ይህ አገናኝ በአንድ የቪዲዮ ዝርዝር ውስጥ ያለ ቪዲዮ ነው። ቪዲዮውን ብቻ ወይስ የቪዲዮ ዝርዝሩን ያውርዱ?"
+
+msgctxt "queue.choice.videoOrList.uploads"
+msgid "This link is a video in a channel's uploads. Download just the video, or all the uploads?"
+msgstr "ይህ አገናኝ በአንድ ቻናል ሰቀላዎች ውስጥ ያለ ቪዲዮ ነው። ቪዲዮውን ብቻ ወይስ ሁሉንም ሰቀላዎች ያውርዱ?"
+
+msgctxt "queue.choice.videoOrList.watchLater"
+msgid "This link is a video in your Watch later list. Download just the video, or the whole list?"
+msgstr "ይህ አገናኝ በ“በኋላ ይመልከቱ” ዝርዝርዎ ውስጥ ያለ ቪዲዮ ነው። ቪዲዮውን ብቻ ወይስ ሙሉውን ዝርዝር ያውርዱ?"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -1204,6 +1358,70 @@ msgstr "በማውረድ ላይ"
 msgctxt "queue.item.subtitleLanguagesMissing"
 msgid "No subtitles in {{languages}}"
 msgstr "ንዑስ ርዕሶች የሉም፦ {{languages}}"
+
+msgctxt "queue.item.waitingForSite"
+msgid "Waits for {{site}} until {{time}}"
+msgstr "{{site}}ን እስከ {{time}} ይጠብቃል"
+
+msgctxt "queue.item.waitingHint"
+msgid "{{site}} is rate-limiting this connection. Arroxy fetches this link's details after {{time}}, so the limit can clear."
+msgstr "{{site}} የዚህን ግንኙነት ጥያቄዎች እየገደበ ነው። ገደቡ እንዲነሳ Arroxy የዚህን አገናኝ ዝርዝሮች ከ{{time}} በኋላ ያመጣል።"
+
+msgctxt "queue.listOffer.dismiss"
+msgid "Dismiss"
+msgstr "ዝጋ"
+
+msgctxt "queue.listOffer.from.album"
+msgid "From an album"
+msgstr "ከአንድ አልበም"
+
+msgctxt "queue.listOffer.from.liked"
+msgid "From your liked videos"
+msgstr "ከወደዷቸው ቪዲዮዎች"
+
+msgctxt "queue.listOffer.from.mix"
+msgid "From a Mix"
+msgstr "ከአንድ Mix"
+
+msgctxt "queue.listOffer.from.playlist"
+msgid "From a playlist"
+msgstr "ከአንድ የቪዲዮ ዝርዝር"
+
+msgctxt "queue.listOffer.from.uploads"
+msgid "From a channel's uploads"
+msgstr "ከአንድ ቻናል ሰቀላዎች"
+
+msgctxt "queue.listOffer.from.watchLater"
+msgid "From Watch later"
+msgstr "ከ“በኋላ ይመልከቱ”"
+
+msgctxt "queue.listOffer.get.album"
+msgid "Get the whole album"
+msgstr "ሙሉውን አልበም ያግኙ"
+
+msgctxt "queue.listOffer.get.liked"
+msgid "Get all liked videos"
+msgstr "ሁሉንም የወደዷቸውን ቪዲዮዎች ያግኙ"
+
+msgctxt "queue.listOffer.get.mix"
+msgid "Get the whole Mix"
+msgstr "ሙሉውን Mix ያግኙ"
+
+msgctxt "queue.listOffer.get.playlist"
+msgid "Get the whole playlist"
+msgstr "ሙሉውን የቪዲዮ ዝርዝር ያግኙ"
+
+msgctxt "queue.listOffer.get.uploads"
+msgid "Get all uploads"
+msgstr "ሁሉንም ሰቀላዎች ያግኙ"
+
+msgctxt "queue.listOffer.get.watchLater"
+msgid "Get all of Watch later"
+msgstr "ሁሉንም የ“በኋላ ይመልከቱ” ያግኙ"
+
+msgctxt "queue.listOffer.hint"
+msgid "Adds the list as its own row. This video is left out."
+msgstr "ዝርዝሩን እንደ የራሱ ረድፍ ያክላል። ይህ ቪዲዮ አይካተትም።"
 
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
@@ -1745,10 +1963,6 @@ msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "እንኳን ደህና መጡ!"
 
-msgctxt "splash.setup.bytes"
-msgid "{{done}} of {{total}}"
-msgstr "{{done}} ከ{{total}}"
-
 #. Plural form "one" for am: used for counts like 0, 1.
 msgctxt "splash.setup.left.minutes_one"
 msgid "about {{count}} min left"
@@ -1763,18 +1977,6 @@ msgctxt "splash.setup.left.underMinute"
 msgid "less than a minute left"
 msgstr "ከአንድ ደቂቃ በታች ይቀራል"
 
-msgctxt "splash.setup.note.engine"
-msgid "Keeps downloads working when sites change."
-msgstr "ጣቢያዎች ሲለወጡ ውርዶች መስራታቸውን እንዲቀጥሉ ያደርጋል።"
-
-msgctxt "splash.setup.note.firstRun"
-msgid "This happens once. Arroxy keeps these tools and updates them itself."
-msgstr "ይህ የሚሆነው አንድ ጊዜ ብቻ ነው። Arroxy እነዚህን መሣሪያዎች ያቆያል እና ራሱ ያዘምናቸዋል።"
-
-msgctxt "splash.setup.note.media"
-msgid "This happens once. Arroxy keeps them for future updates."
-msgstr "ይህ የሚሆነው አንድ ጊዜ ብቻ ነው። Arroxy ለወደፊት ዝማኔዎች ያቆያቸዋል።"
-
 msgctxt "splash.setup.stage.checking"
 msgid "Checking everything works"
 msgstr "ሁሉም ነገር እየሰራ መሆኑን በማረጋገጥ ላይ"
@@ -1783,21 +1985,17 @@ msgctxt "splash.setup.stage.connecting"
 msgid "Connecting…"
 msgstr "በመገናኘት ላይ…"
 
-msgctxt "splash.setup.stage.downloadingBoth"
-msgid "Downloading the download engine and media tools"
-msgstr "የማውረጃ ሞተሩንና የሚዲያ መሣሪያዎችን በማውረድ ላይ"
-
-msgctxt "splash.setup.stage.downloadingEngine"
-msgid "Downloading the download engine"
-msgstr "የማውረጃ ሞተሩን በማውረድ ላይ"
-
-msgctxt "splash.setup.stage.downloadingMedia"
-msgid "Downloading the media tools"
-msgstr "የሚዲያ መሣሪያዎችን በማውረድ ላይ"
-
 msgctxt "splash.setup.stage.unpacking"
 msgid "Unpacking the media tools"
 msgstr "የሚዲያ መሣሪያዎችን በመክፈት ላይ"
+
+msgctxt "splash.setup.stage.unpackingEngine"
+msgid "Unpacking the download engine"
+msgstr "የማውረጃ ሞተሩን በመክፈት ላይ"
+
+msgctxt "splash.setup.title.both"
+msgid "Updating Arroxy's tools"
+msgstr "የ Arroxy መሣሪያዎችን በማዘመን ላይ"
 
 msgctxt "splash.setup.title.engine"
 msgid "Updating the download engine"
@@ -1884,8 +2082,8 @@ msgid "Merging audio and video…"
 msgstr "ድምጽ እና ቪዲዮ እያዋሃዱ…"
 
 msgctxt "status.mintingToken"
-msgid "Minting YouTube token…"
-msgstr "YouTube ቶከን እያመረቱ…"
+msgid "Preparing YouTube download…"
+msgstr "የYouTube ውርድን በማዘጋጀት ላይ…"
 
 msgctxt "status.movingFiles"
 msgid "Moving files…"
@@ -1904,16 +2102,16 @@ msgid "Preparing binaries…"
 msgstr "ሁለዮሽ ፋይሎችን እያዘጋጁ…"
 
 msgctxt "status.qualityLimited"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
-msgstr "በ{{height}}p ተቀምጧል — YouTube ለዚህ ማውረድ ከፍተኛ ጥራቶችን ከልክሏል። ቆይተው ወይም ከሌላ አውታረ መረብ እንደገና መሞከር ሊረዳ ይችላል።"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later may help."
+msgstr "በ{{height}}p ተቀምጧል — YouTube ለዚህ ማውረድ ከፍተኛ ጥራቶችን ከልክሏል። ቆይተው እንደገና መሞከር ሊረዳ ይችላል።"
 
 msgctxt "status.qualityLimitedSubtitlesFailed"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
-msgstr "በ{{height}}p ተቀምጧል — YouTube ለዚህ ማውረድ ከፍተኛ ጥራቶችን ከልክሏል፣ እና አንዳንድ ንዑስ ርዕሶች ሊዳውንሎድ አልቻሉም። ቆይተው ወይም ከሌላ አውታረ መረብ እንደገና መሞከር ሊረዳ ይችላል።"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later may help."
+msgstr "በ{{height}}p ተቀምጧል — YouTube ለዚህ ማውረድ ከፍተኛ ጥራቶችን ከልክሏል፣ እና አንዳንድ ንዑስ ርዕሶች ሊወርዱ አልቻሉም። ቆይተው እንደገና መሞከር ሊረዳ ይችላል።"
 
 msgctxt "status.remintingToken"
-msgid "Re-minting token…"
-msgstr "ቶከን እንደገና እያመረቱ…"
+msgid "Preparing YouTube download again…"
+msgstr "የYouTube ውርድን እንደገና በማዘጋጀት ላይ…"
 
 msgctxt "status.retryingSponsorBlock"
 msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
@@ -2340,8 +2538,8 @@ msgid "Folder name has invalid characters"
 msgstr "የአቃፊ ስም ልቅ ቁምፊዎች አሉ"
 
 msgctxt "wizard.folder.subfolder.placeholder"
-msgid "e.g. lo-fi rips"
-msgstr "ለምሳሌ lo-fi ቅጂዎች"
+msgid "e.g. lectures"
+msgstr "ለምሳሌ፦ ትምህርቶች"
 
 msgctxt "wizard.folder.subfolder.toggle"
 msgid "Save inside subfolder"
@@ -2613,9 +2811,25 @@ msgctxt "wizard.formats.fit.tierAbove"
 msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
 msgstr "መገለጫዎ {{wanted}}p ይጠይቃል። ይህ ቪዲዮ ይህን ያህል ትንሽ ነገር የለውም፣ ስለዚህ {{picked}}p ተመርጧል።"
 
-msgctxt "wizard.formats.fit.tierBelow"
-msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
-msgstr "መገለጫዎ {{wanted}}p ይጠይቃል። ይህ ቪዲዮ እስከ {{picked}}p ብቻ ነው የሚደርሰው፣ ስለዚህ {{picked}}p ተመርጧል።"
+msgctxt "wizard.formats.fit.tierAbovePassedOver"
+msgid "Your profile asks for {{wanted}}p. The smaller streams this video has don't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "መገለጫዎ {{wanted}}p ይጠይቃል። ይህ ቪዲዮ ያሉት ያነሱ ዥረቶች ከቀረው የመገለጫዎ ጋር አይስማሙም፣ ስለዚህ {{picked}}p ተመርጧል።"
+
+msgctxt "wizard.formats.fit.tierBelowTakeable"
+msgid "Your profile asks for {{wanted}}p. This video has no {{wanted}}p it can take, so {{picked}}p is selected."
+msgstr "መገለጫዎ {{wanted}}p ይጠይቃል። ይህ ቪዲዮ ሊወሰድ የሚችል {{wanted}}p የለውም፣ ስለዚህ {{picked}}p ተመርጧል።"
+
+msgctxt "wizard.formats.fit.tierPassedOverAiUpscaled"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p is AI-upscaled, so the original {{picked}}p is selected."
+msgstr "መገለጫዎ {{wanted}}p ይጠይቃል። የዚህ ቪዲዮ {{wanted}}p በAI የተሰፋ ነው፣ ስለዚህ የመጀመሪያው {{picked}}p ተመርጧል።"
+
+msgctxt "wizard.formats.fit.tierPassedOverH264"
+msgid "Your profile asks for {{wanted}}p in H.264. This video has {{wanted}}p only in other codecs, so {{picked}}p in H.264 is selected."
+msgstr "መገለጫዎ በH.264 {{wanted}}p ይጠይቃል። ይህ ቪዲዮ {{wanted}}p ያለው በሌሎች ኮዴኮች ብቻ ነው፣ ስለዚህ በH.264 {{picked}}p ተመርጧል።"
+
+msgctxt "wizard.formats.fit.tierPassedOverProfile"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p doesn't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "መገለጫዎ {{wanted}}p ይጠይቃል። የዚህ ቪዲዮ {{wanted}}p ከቀረው የመገለጫዎ ጋር አይስማማም፣ ስለዚህ {{picked}}p ተመርጧል።"
 
 msgctxt "wizard.formats.fit.webmUnavailable"
 msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
@@ -2853,85 +3067,81 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "ከድምፅ ጋር"
 
-msgctxt "wizard.listPrompt.escHint"
-msgid "Esc cancels. Nothing loads until you choose."
-msgstr "Esc ይሰርዛል። እስኪመርጡ ድረስ ምንም አይጫንም።"
+msgctxt "wizard.listPrompt.backgroundHint"
+msgid "With {{profileName}}. If it has more than {{count}} videos, Downloads asks how many."
+msgstr "ከ{{profileName}} ጋር። ከ{{count}} ቪዲዮዎች በላይ ካለው ዳውንሎዶች ስንት እንደሚወርድ ይጠይቃል።"
 
-msgctxt "wizard.listPrompt.interactiveSubtitle"
-msgid "Choose formats yourself"
-msgstr "ቅርጸቶችን ራስዎ ይምረጡ"
+msgctxt "wizard.listPrompt.backgroundLabel"
+msgid "Download in the background"
+msgstr "በዳራ ያውርዱ"
 
-msgctxt "wizard.listPrompt.justThisVideo"
-msgid "Just this video"
-msgstr "ይህን ቪዲዮ ብቻ"
+msgctxt "wizard.listPrompt.escOnly"
+msgid "Esc cancels."
+msgstr "Esc ይሰርዛል።"
 
-msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
-msgid "Opens its formats"
-msgstr "ቅርጸቶቹን ይከፍታል"
+msgctxt "wizard.listPrompt.firstHint"
+msgid "Exactly the first {{count}}, with {{profileName}}."
+msgstr "በትክክል የመጀመሪያዎቹ {{count}}፣ ከ{{profileName}} ጋር።"
 
-msgctxt "wizard.listPrompt.justThisVideoQuickHint"
-msgid "Loads one video"
-msgstr "አንድ ቪዲዮ ይጭናል"
+msgctxt "wizard.listPrompt.firstLabel"
+msgid "Download the first"
+msgstr "የመጀመሪያዎቹን ያውርዱ"
 
-msgctxt "wizard.listPrompt.listInteractiveHint"
-msgid "Loads up to {{count}} to choose from"
-msgstr "ለመምረጥ እስከ {{count}} ድረስ ይጭናል"
+msgctxt "wizard.listPrompt.interactiveHint"
+msgid "Pick from the first {{count}} videos (or change the count on the next step), then set up the download."
+msgstr "ከመጀመሪያዎቹ {{count}} ቪዲዮዎች ይምረጡ (ወይም ቁጥሩን በሚቀጥለው ደረጃ ይቀይሩ)፣ ከዚያ ውርዱን ያዋቅሩ።"
 
-msgctxt "wizard.listPrompt.listOption.album"
-msgid "The album, first"
-msgstr "የአልበሙ የመጀመሪያ ንጥሎች"
+msgctxt "wizard.listPrompt.interactiveLabel"
+msgid "Interactive download…"
+msgstr "በይነተገናኝ ማውረድ…"
 
-msgctxt "wizard.listPrompt.listOption.liked"
-msgid "Your liked videos, first"
-msgstr "የወደዷቸው ቪዲዮዎች የመጀመሪያ ንጥሎች"
+msgctxt "wizard.listPrompt.limitHint"
+msgid "How many videos to take from the list: the first option asks past it, the second takes exactly that many. The same as Settings › Playlist items to scan."
+msgstr "ከዝርዝሩ ስንት ቪዲዮዎች እንደሚወሰዱ፦ የመጀመሪያው አማራጭ ከዚያ በላይ ይጠይቃል፣ ሁለተኛው በትክክል ያን ያህል ይወስዳል። ከቅንብሮች › ሊቃኙ የ Playlist ንጥሎች ጋር ተመሳሳይ ነው።"
 
-msgctxt "wizard.listPrompt.listOption.mix"
-msgid "The Mix, first"
-msgstr "የMix የመጀመሪያ ንጥሎች"
-
-msgctxt "wizard.listPrompt.listOption.playlist"
-msgid "The playlist, first"
-msgstr "የቪዲዮ ዝርዝሩ የመጀመሪያ ንጥሎች"
-
-msgctxt "wizard.listPrompt.listOption.uploads"
-msgid "The uploads, first"
-msgstr "የሰቀላዎቹ የመጀመሪያ ንጥሎች"
-
-msgctxt "wizard.listPrompt.listOption.watchLater"
-msgid "Watch later, first"
-msgstr "የ“በኋላ ይመልከቱ” የመጀመሪያ ንጥሎች"
-
-msgctxt "wizard.listPrompt.listQuickHint"
-msgid "Loads up to {{count}}, then downloads them"
-msgstr "እስከ {{count}} ድረስ ይጭናል፣ ከዚያ ያወርዳቸዋል"
+msgctxt "wizard.listPrompt.limitLabel"
+msgid "Limit"
+msgstr "ገደብ"
 
 msgctxt "wizard.listPrompt.mixNote"
 msgid "A Mix changes every time you open it."
 msgstr "Mix በከፈቱት ቁጥር ይለወጣል።"
 
-msgctxt "wizard.listPrompt.pickOption.album"
-msgid "Pick from the album, first"
-msgstr "ከአልበሙ የመጀመሪያ ንጥሎች ይምረጡ"
+msgctxt "wizard.listPrompt.pickLoadAfter"
+msgid "to pick from."
+msgstr "ለመምረጥ ይጫኑ።"
 
-msgctxt "wizard.listPrompt.pickOption.liked"
-msgid "Pick from your liked videos, first"
-msgstr "ከወደዷቸው ቪዲዮዎች የመጀመሪያ ንጥሎች ይምረጡ"
+msgctxt "wizard.listPrompt.pickLoadBefore"
+msgid "Load the first"
+msgstr "የመጀመሪያዎቹን"
 
-msgctxt "wizard.listPrompt.pickOption.mix"
-msgid "Pick from the Mix, first"
-msgstr "ከMix የመጀመሪያ ንጥሎች ይምረጡ"
+msgctxt "wizard.listPrompt.pickLoadNote"
+msgid "You can change it on the next step."
+msgstr "በሚቀጥለው ደረጃ መቀየር ይችላሉ።"
 
-msgctxt "wizard.listPrompt.pickOption.playlist"
-msgid "Pick from the playlist, first"
-msgstr "ከቪዲዮ ዝርዝሩ የመጀመሪያ ንጥሎች ይምረጡ"
+msgctxt "wizard.listPrompt.pickTitle.album"
+msgid "Pick from this album"
+msgstr "ከዚህ አልበም ይምረጡ"
 
-msgctxt "wizard.listPrompt.pickOption.uploads"
-msgid "Pick from the uploads, first"
-msgstr "ከሰቀላዎቹ የመጀመሪያ ንጥሎች ይምረጡ"
+msgctxt "wizard.listPrompt.pickTitle.liked"
+msgid "Pick from your liked videos"
+msgstr "ከወደዷቸው ቪዲዮዎች ይምረጡ"
 
-msgctxt "wizard.listPrompt.pickOption.watchLater"
-msgid "Pick from Watch later, first"
-msgstr "ከ“በኋላ ይመልከቱ” የመጀመሪያ ንጥሎች ይምረጡ"
+msgctxt "wizard.listPrompt.pickTitle.mix"
+msgid "Pick from this Mix"
+msgstr "ከዚህ Mix ይምረጡ"
+
+msgctxt "wizard.listPrompt.pickTitle.playlist"
+msgid "Pick from this playlist"
+msgstr "ከዚህ የቪዲዮ ዝርዝር ይምረጡ"
+
+msgctxt "wizard.listPrompt.pickTitle.uploads"
+msgid "Pick from this channel’s uploads"
+msgstr "ከዚህ ቻናል ሰቀላዎች ይምረጡ"
+
+msgctxt "wizard.listPrompt.pickTitle.watchLater"
+msgid "Pick from Watch later"
+msgstr "ከ“በኋላ ይመልከቱ” ይምረጡ"
 
 msgctxt "wizard.listPrompt.title.album"
 msgid "Download from this album"
@@ -2956,6 +3166,18 @@ msgstr "ከዚህ ቻናል ሰቀላዎች ያውርዱ"
 msgctxt "wizard.listPrompt.title.watchLater"
 msgid "Download from Watch later"
 msgstr "ከ“በኋላ ይመልከቱ” ያውርዱ"
+
+msgctxt "wizard.listPrompt.videoHint"
+msgid "Only the video you opened, with {{profileName}}. The list isn't loaded."
+msgstr "የከፈቱት ቪዲዮ ብቻ፣ ከ{{profileName}} ጋር። ዝርዝሩ አልተጫነም።"
+
+msgctxt "wizard.listPrompt.videoLabel"
+msgid "Just this video"
+msgstr "ይህን ቪዲዮ ብቻ"
+
+msgctxt "wizard.listPrompt.videoPickHint"
+msgid "Set up only the video you opened. The list isn't loaded."
+msgstr "የከፈቱትን ቪዲዮ ብቻ ያዋቅሩ። ዝርዝሩ አልተጫነም።"
 
 msgctxt "wizard.listPrompt.withProfile"
 msgid "With {{profileName}}"
@@ -3152,6 +3374,26 @@ msgstr "ሁሉም ንጥሎች ተወግደዋል"
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "ቀድሞ ወርዷል"
+
+#. Plural form "one" for am: used for counts like 0, 1.
+msgctxt "wizard.playlist.bulkCappedDesc_one"
+msgid "It has more. To choose how many, paste its link on its own."
+msgstr "ተጨማሪ አለው። ስንት እንደሚወርድ ለመምረጥ አገናኙን ለብቻው ይለጥፉ።"
+
+#. Plural form "other" for am: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.bulkCappedDesc_other"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "ተጨማሪ አላቸው። ስንት እንደሚወርድ ለመምረጥ እያንዳንዱን አገናኝ ለብቻው ይለጥፉ።"
+
+#. Plural form "one" for am: used for counts like 0, 1.
+msgctxt "wizard.playlist.bulkCappedTitle_one"
+msgid "“{{title}}” is cut at {{limit}} videos"
+msgstr "“{{title}}” በ{{limit}} ቪዲዮዎች ተቆርጧል"
+
+#. Plural form "other" for am: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.bulkCappedTitle_other"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "{{count}} ዝርዝሮች እያንዳንዳቸው በ{{limit}} ቪዲዮዎች ተቆርጠዋል"
 
 msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
@@ -3396,38 +3638,6 @@ msgstr "ፎልደር በመፈተሽ ላይ…"
 msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "የቪዲዮ ድንክ ምስል"
-
-msgctxt "wizard.playlistCap.changeLimit"
-msgid "Change load limit"
-msgstr "የመጫን ገደብ ቀይር"
-
-#. Plural form "one" for am: used for counts like 0, 1.
-msgctxt "wizard.playlistCap.description_one"
-msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "Arroxy አሁን ባለው የ{{limit}} ገደብ {{count}} ንጥል ጭኗል። የተጫነውን ንጥል አሁን ወደ ወረፋ ያክሉ፣ ወይም ገደቡን ከፍ አድርገው እንደገና ይቃኙ።"
-
-#. Plural form "other" for am: used for counts like 2, 3, 4, 5, 6, 7.
-msgctxt "wizard.playlistCap.description_other"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy አሁን ባለው የ{{limit}} ገደብ {{count}} ንጥሎች ጭኗል። የተጫኑትን ንጥሎች አሁን ወደ ወረፋ ያክሉ፣ ወይም ገደቡን ከፍ አድርገው እንደገና ይቃኙ።"
-
-#. Plural form "one" for am: used for counts like 0, 1.
-msgctxt "wizard.playlistCap.descriptionWithTitle_one"
-msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy አሁን ባለው የ{{limit}} ገደብ {{count}} ንጥል ጭኗል። የተጫነውን ንጥል አሁን ወደ ወረፋ ያክሉ፣ ወይም ገደቡን ከፍ አድርገው እንደገና ይቃኙ።"
-
-#. Plural form "other" for am: used for counts like 2, 3, 4, 5, 6, 7.
-msgctxt "wizard.playlistCap.descriptionWithTitle_other"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy አሁን ባለው የ{{limit}} ገደብ {{count}} ንጥሎች ጭኗል። የተጫኑትን ንጥሎች አሁን ወደ ወረፋ ያክሉ፣ ወይም ገደቡን ከፍ አድርገው እንደገና ይቃኙ።"
-
-msgctxt "wizard.playlistCap.queueLoaded"
-msgid "Queue loaded items"
-msgstr "የተጫኑ ንጥሎችን ወደ ወረፋ አክል"
-
-msgctxt "wizard.playlistCap.title"
-msgid "Playlist scan is capped"
-msgstr "የቪዲዮ ዝርዝር ቃኝት ተገድቧል"
 
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
@@ -3925,44 +4135,6 @@ msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
 msgstr "{{label}} እገዛ"
 
-msgctxt "wizard.quickProgress.cancel"
-msgid "Cancel preparation"
-msgstr "ዝግጅቱን ሰርዝ"
-
-msgctxt "wizard.quickProgress.currentFallback"
-msgid "Current link"
-msgstr "የአሁኑ አገናኝ"
-
-msgctxt "wizard.quickProgress.description"
-msgid "Arroxy is reading the link and applying {{profileName}}."
-msgstr "Arroxy አገናኙን እያነበበ እና {{profileName}} እየተጠቀመ ነው።"
-
-#. Plural form "one" for am: used for counts like 0, 1.
-msgctxt "wizard.quickProgress.failedCount_one"
-msgid "{{count}} failed"
-msgstr "{{count}} አልተሳካም"
-
-#. Plural form "other" for am: used for counts like 2, 3, 4, 5, 6, 7.
-msgctxt "wizard.quickProgress.failedCount_other"
-msgid "{{count}} failed"
-msgstr "{{count}} አልተሳኩም"
-
-msgctxt "wizard.quickProgress.phase.probing"
-msgid "Fetching details"
-msgstr "ዝርዝሮችን በማምጣት ላይ"
-
-msgctxt "wizard.quickProgress.phase.queueing"
-msgid "Adding to queue"
-msgstr "ወደ ወረፋ በመጨመር ላይ"
-
-msgctxt "wizard.quickProgress.title"
-msgid "Preparing Quick Download"
-msgstr "ፈጣን ማውረድን በማዘጋጀት ላይ"
-
-msgctxt "wizard.quickProgress.waitHint"
-msgid "Keep this open while Arroxy prepares the queue."
-msgstr "Arroxy ወረፋውን እያዘጋጀ ሳለ ይህን ክፍት ያቆዩ።"
-
 msgctxt "wizard.review.areas.extras"
 msgid "extras"
 msgstr "ተጨማሪዎች"
@@ -4271,6 +4443,10 @@ msgctxt "wizard.subtitles.saveMode.sidecar"
 msgid "Next to video"
 msgstr "ከቪዲዮው ጎን"
 
+msgctxt "wizard.subtitles.saveMode.sidecarNoVideo"
+msgid "In the download folder"
+msgstr "በውርዶች አቃፊ ውስጥ"
+
 msgctxt "wizard.subtitles.saveMode.subfolder"
 msgid "subtitles/ subfolder"
 msgstr "subtitles/ ንዑስ አቃፊ"
@@ -4294,14 +4470,6 @@ msgstr "የማውረድ መገለጫ አሰሳ"
 msgctxt "wizard.url.advanced"
 msgid "Advanced"
 msgstr "ከፍተኛ"
-
-msgctxt "wizard.url.analytics.toggle"
-msgid "Send daily heartbeat"
-msgstr "ዕለታዊ ምልክት ላክ"
-
-msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
-msgstr "ቴሌሜትሪ የለም። በቀን አንድ ጊዜ ስም-አልባ ምልክት የመተግበሪያውን ስሪት፣ የመጫኛ ቻናል፣ OS፣ ቋንቋ፣ ሀገር እና Arroxy ከተጫነ ወዲህ በግምት ምን ያህል ጊዜ እንደሆነ ይልካል፤ ንቁና አዲስ ተጠቃሚዎችን ለመቁጠር ብቻ። ምንም መታወቂያ፣ URL፣ የቪዲዮ ርዕሶች ወይም የፋይል ስሞች የሉም።"
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
@@ -4390,6 +4558,18 @@ msgstr "በአንድ ጊዜ ዳውንሎዶች"
 msgctxt "wizard.url.concurrentDownloads.unit"
 msgid "downloads"
 msgstr "ዳውንሎዶች"
+
+msgctxt "wizard.url.concurrentProbes.description"
+msgid "How many links Arroxy fetches details for at the same time, before they download. Fewer is gentler on sites that block busy connections. A link you open in Interactive Download always goes first."
+msgstr "Arroxy ከመውረዳቸው በፊት በአንድ ጊዜ ለስንት አገናኞች ዝርዝር እንደሚያመጣ። ያነሰ ቁጥር ስራ የበዛባቸውን ግንኙነቶች ለሚከለክሉ ጣቢያዎች የተሻለ ነው። በበይነተገናኝ ማውረድ የከፈቱት አገናኝ ሁልጊዜ ቀድሞ ይሄዳል።"
+
+msgctxt "wizard.url.concurrentProbes.label"
+msgid "Links checked at once"
+msgstr "በአንድ ጊዜ የሚፈተሹ አገናኞች"
+
+msgctxt "wizard.url.concurrentProbes.unit"
+msgid "links"
+msgstr "አገናኞች"
 
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
@@ -4484,8 +4664,8 @@ msgid "Off"
 msgstr "ጠፍ"
 
 msgctxt "wizard.url.cookies.toggleDescription"
-msgid "Helps with age-restricted, members-only, and account-private videos."
-msgstr "ዕድሜ-ተገደበ፣ አባላት-ብቻ እና የግል ቪዲዮዎችን ያግዛል።"
+msgid "Helps with videos your own account can watch, like your private videos."
+msgstr "የራስዎ መለያ ሊመለከታቸው ለሚችላቸው ቪዲዮዎች፣ ለምሳሌ የግል ቪዲዮዎችዎ ይረዳል።"
 
 msgctxt "wizard.url.downloadConnections.description"
 msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
@@ -4498,6 +4678,30 @@ msgstr "የዳውንሎድ ግንኙነቶች"
 msgctxt "wizard.url.downloadConnections.unit"
 msgid "connections"
 msgstr "ግንኙነቶች"
+
+msgctxt "wizard.url.downloadList.album"
+msgid "Download album…"
+msgstr "አልበሙን ያውርዱ…"
+
+msgctxt "wizard.url.downloadList.liked"
+msgid "Download liked videos…"
+msgstr "የወደዷቸውን ቪዲዮዎች ያውርዱ…"
+
+msgctxt "wizard.url.downloadList.mix"
+msgid "Download Mix…"
+msgstr "Mixን ያውርዱ…"
+
+msgctxt "wizard.url.downloadList.playlist"
+msgid "Download playlist…"
+msgstr "የቪዲዮ ዝርዝሩን ያውርዱ…"
+
+msgctxt "wizard.url.downloadList.uploads"
+msgid "Download uploads…"
+msgstr "ሰቀላዎቹን ያውርዱ…"
+
+msgctxt "wizard.url.downloadList.watchLater"
+msgid "Download Watch later…"
+msgstr "“በኋላ ይመልከቱ”ን ያውርዱ…"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -4571,17 +4775,9 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "ይህ አቋራጭ በሌላ መተግበሪያ ተይዟል — ሌላ ይምረጡ።"
 
-msgctxt "wizard.url.hotkey.hintLabel"
-msgid "Or press"
-msgstr "ወይም ይጫኑ"
-
-msgctxt "wizard.url.hotkey.hintTooltip"
-msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
-msgstr "የቪዲዮ አገናኝ በማንኛውም ቦታ ይቅዱ፣ ይህን አቋራጭ ይጫኑ፣ እና Arroxy ከነቃው መገለጫዎ ጋር ያስገባዋል — መስኮቶችን መቀየር አያስፈልግም።"
-
-msgctxt "wizard.url.hotkey.hintTooltipSettings"
-msgid "Change or turn it off in Settings."
-msgstr "በቅንብሮች ውስጥ ይቀይሩት ወይም ያጥፉት።"
+msgctxt "wizard.url.hotkey.globalLabel"
+msgid "Global shortcut"
+msgstr "አለም አቀፍ አቋራጭ"
 
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
@@ -4607,13 +4803,17 @@ msgctxt "wizard.url.hotkey.toggle"
 msgid "Enable global hotkey"
 msgstr "አለም አቀፍ ፈጣን ቁልፍ አንቃ"
 
-msgctxt "wizard.url.hotkey.toggleDescription"
-msgid "Press the shortcut with a video link on your clipboard."
-msgstr "በቅጂ ሰሌዳው ላይ የቪዲዮ አገናኝ ሲኖር አቋራጩን ይታጠፉ።"
+msgctxt "wizard.url.hotkey.toggleDescriptionDetail"
+msgid "Copy a video link in any app and press the shortcut: Arroxy queues it with your active profile, without switching windows. A link to a video in a playlist downloads the video."
+msgstr "በማንኛውም መተግበሪያ ውስጥ የቪዲዮ አገናኝ ይቅዱ እና አቋራጩን ይጫኑ፦ Arroxy መስኮቶችን ሳይቀይሩ ከነቃው መገለጫዎ ጋር ወደ ወረፋ ያስገባዋል። በቪዲዮ ዝርዝር ውስጥ ያለ ቪዲዮ አገናኝ ቪዲዮውን ያወርዳል።"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
 msgstr "በይነተገናኝ ማውረድ"
+
+msgctxt "wizard.url.interactiveDownloadAsks"
+msgid "Interactive Download…"
+msgstr "በይነተገናኝ ማውረድ…"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
@@ -4655,21 +4855,13 @@ msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "አገናኝ ጣል፣ Arroxy እንዲያወርደው ተወው ✨"
 
-msgctxt "wizard.url.mascotMixed"
-msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
-msgstr "ይህ አገናኝ በስብስብ ውስጥ ያለ አንድ ቪዲዮ ያመለክታል። Arroxy ከመመርመሩ በፊት የትኛውን እንደሚፈልጉ ይጠይቃል።"
-
-msgctxt "wizard.url.mascotPreparing"
-msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
-msgstr "{{quickDownload}} ይህን አገናኝ እያነበበ {{profileName}} እየተጠቀመ ነው።"
-
-msgctxt "wizard.url.mascotQueued"
-msgid "The queue is handling this download. You can paste another link while it works."
-msgstr "ወረፋው ይህን ማውረድ እያስተናገደ ነው። እስኪጨርስ ድረስ ሌላ አገናኝ መለጠፍ ይችላሉ።"
-
 msgctxt "wizard.url.mascotSingle"
 msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
 msgstr "ፈጣን ማውረድ {{profileName}} በመጠቀም አንድ ማውረድ ይጀምራል። ለአንድ ጊዜ ለውጦች በይነተገናኝ ማውረድ ይጠቀሙ።"
+
+msgctxt "wizard.url.mascotVideoInList"
+msgid "This link names a video and the list it’s in: download just the video, or the list."
+msgstr "ይህ አገናኝ ቪዲዮውንና የያዘውን ዝርዝር ይጠቅሳል፦ ቪዲዮውን ብቻ ያውርዱ፣ ወይም ዝርዝሩን።"
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4991,6 +5183,10 @@ msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
 msgid "Using profile override + profile subfolder"
 msgstr "የመገለጫ ተሻሪ + የመገለጫ ንዑስ አቃፊ በመጠቀም"
 
+msgctxt "wizard.url.profile.destinationEditHint"
+msgid "To change where it saves, edit the profile."
+msgstr "የሚቀመጥበትን ቦታ ለመቀየር መገለጫውን ያርትዑ።"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "መዳረሻ"
@@ -5083,6 +5279,10 @@ msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "ዳግም አስጀምር"
 
+msgctxt "wizard.url.profile.savesTo"
+msgid "Saves to"
+msgstr "የሚቀመጥበት"
+
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
 msgstr "የማውረጃ መገለጫ ቀይር፦ {{profileName}}"
@@ -5096,8 +5296,8 @@ msgid "Clear"
 msgstr "አጽዳ"
 
 msgctxt "wizard.url.proxy.description"
-msgid "Route traffic through a proxy — useful for geo-restricted content."
-msgstr "ትራፊክን በፕሮክሲ ለማስተላለፍ — በጂኦ-ተከልካይ ይዘት ለሚጠቀሙ ጠቃሚ።"
+msgid "Route traffic through a proxy server."
+msgstr "ትራፊክን በፕሮክሲ አገልጋይ ያስተላልፉ።"
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
@@ -5106,10 +5306,6 @@ msgstr "የፕሮክሲ አድራሻ"
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
-
-msgctxt "wizard.url.quickBulkAllFailed"
-msgid "None of those URLs could be prepared"
-msgstr "ከእነዚህ URL ምንም ማዘጋጀት አልተቻለም"
 
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
@@ -5122,16 +5318,6 @@ msgstr "{{profileName}} በመጠቀም ይወርዳል"
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "ይህን ማከል አልተቻለም፦ {{error}}"
-
-#. Plural form "one" for am: used for counts like 0, 1.
-msgctxt "wizard.url.quickPartialFailed_one"
-msgid "Queued what worked. {{count}} URL could not be prepared."
-msgstr "የሰራውን ወረፋ ላይ ጨምሯል። {{count}} URL ማዘጋጀት አልተቻለም።"
-
-#. Plural form "other" for am: used for counts like 2, 3, 4, 5, 6, 7.
-msgctxt "wizard.url.quickPartialFailed_other"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "የሰሩትን ወረፋ ላይ ጨምሯል። {{count}} URL ማዘጋጀት አልተቻለም።"
 
 msgctxt "wizard.url.quickPrepareFailed"
 msgid "Queue item could not be prepared"
@@ -5148,6 +5334,14 @@ msgstr "መፈተሹ አልተሳካም"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "ለመጀመር የቪዲዮ፣ playlist፣ channel ወይም ፍለጋ URL ይለጥፉ።"
+
+msgctxt "wizard.url.reports.toggle"
+msgid "Send anonymous heartbeat and setup reports"
+msgstr "ስም-አልባ ምልክትና የማዋቀር ሪፖርቶችን መላክ"
+
+msgctxt "wizard.url.reports.toggleDescription"
+msgid "No tracking. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. When Arroxy sets up or updates its download engine or media tools, it also reports whether that worked and roughly how long it took. No IDs, URLs, video titles or filenames."
+msgstr "ክትትል የለም። በቀን አንድ ጊዜ ስም-አልባ ምልክት የመተግበሪያውን ስሪት፣ የመጫኛ ቻናል፣ OS፣ ቋንቋ፣ ሀገር እና Arroxy ከተጫነ ወዲህ በግምት ምን ያህል ጊዜ እንደሆነ ይልካል፤ ንቁና አዲስ ተጠቃሚዎችን ለመቁጠር። Arroxy የማውረጃ ሞተሩን ወይም የሚዲያ መሣሪያዎችን ሲያዋቅር ወይም ሲያዘምን፣ ስኬታማ መሆን አለመሆኑንና በግምት ምን ያህል ጊዜ እንደወሰደ ያሳውቃል። ምንም መታወቂያ፣ URL፣ የቪዲዮ ርዕሶች ወይም የፋይል ስሞች የሉም።"
 
 msgctxt "wizard.url.settings.behaviorDescription"
 msgid "Global behavior that affects profile-driven downloads too."
@@ -5204,3 +5398,11 @@ msgstr "መገለጫዎች"
 msgctxt "wizard.url.tabs.settings"
 msgid "Settings"
 msgstr "ቅንብሮች"
+
+msgctxt "wizard.url.thisVideo"
+msgid "This video"
+msgstr "ይህ ቪዲዮ"
+
+msgctxt "wizard.url.thisVideoTooltip"
+msgid "Downloads just this video with {{profileName}}"
+msgstr "ይህን ቪዲዮ ብቻ በ{{profileName}} ያወርዳል"

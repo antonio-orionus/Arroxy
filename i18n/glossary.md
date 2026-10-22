@@ -11,6 +11,9 @@ The release translation sync hands this file to every translator (`translate-arr
 - **queue**: the list of downloads waiting or running.
 - **Original** (a tag on an audio track): the track in the video's own language, as opposed to a dub or an audio description. Translate the adjective as said of an audio track or language, never "original file" or "authentic".
 - Format and codec names (MP4, H.264, SponsorBlock, FFmpeg) stay as written.
+- **YouTube list names** (**Watch later**, **Mix**, **liked videos**, a channel's **uploads**): use the name YouTube itself shows in that language, the same in every key (`*.watchLater`, `*.mix`, `*.liked`, `*.uploads`).
+- **Interactive Download**: the action that opens the step-by-step setup for a link. One form for it everywhere it appears, title-like where the English capitalizes it.
+- **Downloads**: the tab that lists the queue. Where the English capitalizes it ("Added 3 links to Downloads"), it names that tab: use the tab's existing translation (`queue.tabLabel`).
 
 ### Profile settings
 

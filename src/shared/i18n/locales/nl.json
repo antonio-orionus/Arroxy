@@ -31,7 +31,6 @@
 		"cancel": "Annuleren",
 		"close": "Sluiten",
 		"continue": "Doorgaan",
-		"dismiss": "Sluiten",
 		"loading": "Laden",
 		"retry": "Opnieuw proberen",
 		"startOver": "Opnieuw beginnen"
@@ -45,12 +44,11 @@
 			"remember": "Niet meer vragen"
 		},
 		"quitWithActiveDownloads": {
-			"confirm": "Downloads annuleren en afsluiten",
-			"detail": "Pauzeer om later te hervatten, of annuleer om de voortgang te verwijderen.",
+			"continueDetail": "Je wachtrij blijft bewaard en downloads gaan verder waar ze waren gebleven zodra je Arroxy weer opent.",
 			"keep": "Doorgaan met downloaden",
 			"message_one": "{{count}} download bezig",
 			"message_other": "{{count}} downloads bezig",
-			"pause": "Downloads pauzeren en afsluiten"
+			"quit": "Afsluiten"
 		},
 		"rendererCrashed": {
 			"detail": "Het renderproces is gecrasht ({{reason}}). Laad opnieuw om het nogmaals te proberen.",
@@ -73,12 +71,12 @@
 		"noSubtitlesIn": "Deze video heeft geen ondertitels in {{languages}}.",
 		"ytdlp": {
 			"ageRestricted": "Deze video heeft een leeftijdsbeperking en kan niet worden gedownload zonder aangemeld account.",
-			"botBlock": "Botbeveiliging geactiveerd. Het IP-adres dat je gebruikt is waarschijnlijk gemarkeerd (datacenterbereik of drukbezet VPN-uitgangspunt). Wijzig je IP-adres of kies een ander VPN-eindpunt en probeer het opnieuw. Blijft het mislukken, dan gaat het mogelijk om een tijdelijke wijziging aan de kant van de site — Arroxy werkt de downloadengine bij het opstarten bij, dus de oplossing komt automatisch zodra die uitkomt.",
+			"botBlock": "De botbeveiliging van de site heeft deze download gestopt. Wacht even en probeer het opnieuw, of download minder video’s tegelijk. Blijft het mislukken, dan is er mogelijk een tijdelijke wijziging aan de kant van de site — Arroxy werkt zijn downloadengine bij het opstarten bij, dus de oplossing komt automatisch zodra die beschikbaar is.",
 			"chunkTransferFailure": "De server verbrak de download steeds halverwege en Arroxy gaf het op na meerdere pogingen. Dit gebeurt meestal bij de grootste videoformaten (4K HDR / VP9 met hoge bitrate). Probeer het opnieuw, wissel van netwerk/VPN of kies een formaat met lagere resolutie.",
 			"drmProtected": "Deze video is beveiligd met DRM. Arroxy kan DRM niet verwijderen, dus het bestand kan niet worden gedownload.",
 			"formatUnavailable": "Deze video biedt het formaat dat je koos niet meer aan. Plak de link opnieuw en kies uit de formaten die nu beschikbaar zijn.",
 			"geoBlocked": "Deze video is niet beschikbaar in jouw regio.",
-			"ipBlock": "Je IP-adres lijkt te zijn geblokkeerd. Probeer het later opnieuw of gebruik een VPN.",
+			"ipBlock": "De site blokkeert verzoeken van deze verbinding. Probeer het later opnieuw.",
 			"loginRequired": "Voor deze video is een aangemeld account nodig.",
 			"missingDependency": "Arroxy kon FFmpeg of FFprobe niet vinden. Voer de installatie opnieuw uit of stel een FFmpeg-locatie in en probeer de download daarna opnieuw.",
 			"network": "Netwerkfout. Controleer je verbinding en probeer het opnieuw.",
@@ -107,8 +105,28 @@
 			"title": "Klik met rechts op een link om te downloaden"
 		},
 		"linkMenu": {
+			"background": {
+				"album": "Het album op de achtergrond downloaden",
+				"liked": "Je video’s die je leuk vindt op de achtergrond downloaden",
+				"mix": "De Mix op de achtergrond downloaden",
+				"playlist": "De afspeellijst op de achtergrond downloaden",
+				"uploads": "De uploads op de achtergrond downloaden",
+				"watchLater": "Later bekijken op de achtergrond downloaden"
+			},
 			"copyLink": "Link kopiëren",
-			"downloadWith": "Downloaden met"
+			"downloadFirst": "De eerste {{count}} downloaden",
+			"downloadThisVideo": "Deze video downloaden · {{profileName}}",
+			"downloadWith": "Downloaden met",
+			"fromList": {
+				"album": "Uit dit album",
+				"liked": "Uit je video’s die je leuk vindt",
+				"mix": "Uit deze Mix",
+				"playlist": "Uit deze afspeellijst",
+				"uploads": "Uit de uploads van dit kanaal",
+				"watchLater": "Uit Later bekijken"
+			},
+			"interactive": "Interactief downloaden…",
+			"thisVideoWith": "Deze video met"
 		},
 		"newBadge": "Nieuw",
 		"notice": {
@@ -155,6 +173,7 @@
 			"aria": "Browserbediening van Verkennen",
 			"back": "Terug",
 			"compactLayout": "Compacte weergave",
+			"download": "Downloaden",
 			"downloadWithProfile": "Downloaden · {{profileName}}",
 			"forward": "Vooruit",
 			"fullLayout": "Volledige weergave tonen",
@@ -164,6 +183,8 @@
 			"refusedHint": "Verkennen kan dat adres niet openen.",
 			"reload": "Opnieuw laden",
 			"searchTooLong": "Die zoekopdracht is te lang.",
+			"thisVideo": "Deze video",
+			"thisVideoHint": "Alleen deze video downloaden met {{profileName}}",
 			"zoom": {
 				"hint": "Paginazoom: {{percent}}%",
 				"in": "Inzoomen",
@@ -205,9 +226,9 @@
 			"too-long": "Het sjabloon is te lang.",
 			"unknown-token": "Onbekend token {{token}}."
 		},
-		"idWarning": "Zonder {id} kan Arroxy reeds gedownloade afspeellijstitems niet herkennen en geen .m3u-afspeellijsten maken.",
+		"idEndingWarning": "Laat de naam eindigen op [{id}] zodat Arroxy al gedownloade afspeellijstitems kan herkennen en .m3u-afspeellijsten kan maken.",
 		"label": "Sjabloon voor bestandsnaam",
-		"m3uDisabled": "Niet beschikbaar omdat je sjabloon voor de bestandsnaam {id} niet bevat of downloads in mappen sorteert.",
+		"m3uDisabledIdEnding": "Niet beschikbaar omdat je bestandsnaamsjabloon niet eindigt op [{id}] of downloads in mappen sorteert.",
 		"previewPlaylist": "In een afspeellijst",
 		"previewSingle": "Enkele video",
 		"profileOverrideDescription": "Laat leeg om het algemene sjabloon over te nemen.",
@@ -252,14 +273,20 @@
 		"quickDownload": {
 			"added": "Toegevoegd: {{title}}",
 			"alreadyQueued": "Staat al in de wachtrij",
+			"batchAdded_one": "{{count}} link toegevoegd aan Downloads",
+			"batchAdded_other": "{{count}} links toegevoegd aan Downloads",
+			"batchAlreadyQueued_one": "{{count}} staat al in de wachtrij",
+			"batchAlreadyQueued_other": "{{count}} staan al in de wachtrij",
+			"batchNoneAdded_one": "{{count}} link kon niet worden toegevoegd",
+			"batchNoneAdded_other": "{{count}} links konden niet worden toegevoegd",
+			"batchNotAdded_one": "{{count}} kon niet worden toegevoegd",
+			"batchNotAdded_other": "{{count}} konden niet worden toegevoegd",
+			"chooseFromList_one": "{{count}} video in deze lijst — kies wat je wilt downloaden",
+			"chooseFromList_other": "{{count}} video’s in deze lijst — kies wat je wilt downloaden",
 			"chooseHowMany_one": "{{count}}+ video — kies hoeveel",
 			"chooseHowMany_other": "{{count}}+ video’s — kies hoeveel",
 			"failed": "{{title}} kon niet worden voorbereid",
 			"notAdded": "Die link kon niet worden toegevoegd — probeer het opnieuw",
-			"reviewCapped_one": "{{count}}+ video in deze lijst — bekijk om te kiezen",
-			"reviewCapped_other": "{{count}}+ video’s in deze lijst — bekijk om te kiezen",
-			"review_one": "{{count}} video in deze lijst — bekijk om te kiezen",
-			"review_other": "{{count}} video’s in deze lijst — bekijk om te kiezen",
 			"view": "Bekijken"
 		},
 		"settingsSaveFailed": "Je instellingen konden niet worden opgeslagen.",
@@ -347,9 +374,27 @@
 			"cappedBody_one": "Meer dan {{count}} video in deze afspeellijst. Download ze allemaal, de eerste {{count}}, of kies via Bekijken.",
 			"cappedBody_other": "Meer dan {{count}} video’s in deze afspeellijst. Download ze allemaal, de eerste {{count}}, of kies via Bekijken.",
 			"first": "Eerste {{count}}",
+			"list": {
+				"album": "Het album",
+				"liked": "Video’s die je leuk vindt",
+				"mix": "De Mix",
+				"playlist": "De afspeellijst",
+				"uploads": "Alle uploads",
+				"watchLater": "Later bekijken"
+			},
+			"pick": "Kies eruit…",
 			"review": "Bekijken",
-			"reviewBody_one": "Deze link is een lijst met {{count}} video. Bekijk hem om te kiezen wat je downloadt.",
-			"reviewBody_other": "Deze link is een lijst met {{count}} video’s. Bekijk hem om te kiezen wat je downloadt."
+			"uncappedBody_one": "Deze link is een lijst met {{count}} video. Download hem, of kies bij het bekijken.",
+			"uncappedBody_other": "Deze link is een lijst met {{count}} video’s. Download ze allemaal, of kies bij het bekijken.",
+			"video": "Deze video",
+			"videoOrList": {
+				"album": "Deze link is een video in een album. Alleen de video downloaden, of het album?",
+				"liked": "Deze link is een video uit je video’s die je leuk vindt. Alleen de video downloaden, of al je video’s die je leuk vindt?",
+				"mix": "Deze link is een video in een Mix. Alleen de video downloaden, of de Mix?",
+				"playlist": "Deze link is een video in een afspeellijst. Alleen de video downloaden, of de afspeellijst?",
+				"uploads": "Deze link is een video uit de uploads van een kanaal. Alleen de video downloaden, of alle uploads?",
+				"watchLater": "Deze link is een video uit je lijst Later bekijken. Alleen de video downloaden, of de hele lijst?"
+			}
 		},
 		"clearTitle": "Voltooide downloads wissen",
 		"empty": "Downloads in de wachtrij verschijnen hier",
@@ -383,7 +428,29 @@
 			"statusPending": "Wachten",
 			"statusProbing": "Details ophalen",
 			"statusRunning": "Downloaden",
-			"subtitleLanguagesMissing": "Geen ondertitels in {{languages}}"
+			"subtitleLanguagesMissing": "Geen ondertitels in {{languages}}",
+			"waitingForSite": "Wacht op {{site}} tot {{time}}",
+			"waitingHint": "{{site}} beperkt deze verbinding. Arroxy haalt de details van deze link op na {{time}}, zodat de limiet kan verdwijnen."
+		},
+		"listOffer": {
+			"dismiss": "Sluiten",
+			"from": {
+				"album": "Uit een album",
+				"liked": "Uit je video’s die je leuk vindt",
+				"mix": "Uit een Mix",
+				"playlist": "Uit een afspeellijst",
+				"uploads": "Uit de uploads van een kanaal",
+				"watchLater": "Uit Later bekijken"
+			},
+			"get": {
+				"album": "Het hele album downloaden",
+				"liked": "Alle video’s die je leuk vindt downloaden",
+				"mix": "De hele Mix downloaden",
+				"playlist": "De hele afspeellijst downloaden",
+				"uploads": "Alle uploads downloaden",
+				"watchLater": "Alles uit Later bekijken downloaden"
+			},
+			"hint": "Voegt de lijst toe als eigen rij. Deze video blijft erbuiten."
 		},
 		"pauseAllTitle": "Alle actieve downloads pauzeren en voorkomen dat nieuwe starten",
 		"pausedBanner": "De wachtrij is gepauzeerd — wachtende items starten pas als je hervat",
@@ -616,26 +683,19 @@
 		"cancel": "Problemen? Stel het handmatig in",
 		"greeting": "Hoi, welkom terug!",
 		"setup": {
-			"bytes": "{{done}} van {{total}}",
 			"left": {
 				"minutes_one": "nog ongeveer {{count}} min",
 				"minutes_other": "nog ongeveer {{count}} min",
 				"underMinute": "nog minder dan een minuut"
 			},
-			"note": {
-				"engine": "Houdt downloads werkend als sites veranderen.",
-				"firstRun": "Dit gebeurt eenmalig. Arroxy bewaart deze hulpprogramma’s en werkt ze zelf bij.",
-				"media": "Dit gebeurt eenmalig. Arroxy bewaart ze voor toekomstige updates."
-			},
 			"stage": {
 				"checking": "Controleren of alles werkt",
 				"connecting": "Verbinden…",
-				"downloadingBoth": "De downloadengine en mediatools downloaden",
-				"downloadingEngine": "De downloadengine downloaden",
-				"downloadingMedia": "De mediatools downloaden",
-				"unpacking": "De mediatools uitpakken"
+				"unpacking": "De mediatools uitpakken",
+				"unpackingEngine": "De downloadengine uitpakken"
 			},
 			"title": {
+				"both": "De tools van Arroxy bijwerken",
 				"engine": "De downloadengine bijwerken",
 				"firstRun": "Eerste installatie",
 				"media": "De mediatools bijwerken"
@@ -661,14 +721,14 @@
 		"fetchingSponsorBlock": "Contact maken met SponsorBlock…",
 		"fetchingSubtitles": "Ondertitels ophalen…",
 		"mergingFormats": "Audio en video samenvoegen…",
-		"mintingToken": "YouTube-token genereren…",
+		"mintingToken": "YouTube-download voorbereiden…",
 		"movingFiles": "Bestanden verplaatsen…",
 		"noSubtitles": "Geen ondertitels in {{languages}}",
 		"outputNotWritable": "Opslaan in {{dir}} is niet mogelijk — Arroxy mag daar niet schrijven",
 		"preparingBinaries": "Programma’s voorbereiden…",
-		"qualityLimited": "Opgeslagen in {{height}}p — YouTube hield hogere kwaliteiten voor deze download achter. Later opnieuw proberen of via een ander netwerk kan helpen.",
-		"qualityLimitedSubtitlesFailed": "Opgeslagen in {{height}}p — YouTube hield hogere kwaliteiten voor deze download achter en sommige ondertitels konden niet worden gedownload. Later opnieuw proberen of via een ander netwerk kan helpen.",
-		"remintingToken": "Token opnieuw genereren…",
+		"qualityLimited": "Opgeslagen in {{height}}p — YouTube hield hogere kwaliteiten voor deze download achter. Later opnieuw proberen kan helpen.",
+		"qualityLimitedSubtitlesFailed": "Opgeslagen in {{height}}p — YouTube hield hogere kwaliteiten voor deze download achter, en sommige ondertitels konden niet worden gedownload. Later opnieuw proberen kan helpen.",
+		"remintingToken": "YouTube-download opnieuw voorbereiden…",
 		"retryingSponsorBlock": "SponsorBlock niet beschikbaar, opnieuw proberen ({{attempt}}/{{total}})…",
 		"retryingTransfer": "Verbinding bleef hangen, opnieuw proberen ({{attempt}}/{{total}})…",
 		"signingInWithExplore": "Aanmelden met je Verkennen-account…",
@@ -796,7 +856,7 @@
 			"pictures": "Afbeeldingen",
 			"subfolder": {
 				"invalid": "Mapnaam bevat ongeldige tekens",
-				"placeholder": "bijv. lo-fi rips",
+				"placeholder": "bijv. colleges",
 				"toggle": "Opslaan in submap"
 			},
 			"videos": "Films"
@@ -892,7 +952,11 @@
 				"noVideo": "Deze link bevat geen video, dus audio is geselecteerd.",
 				"subtitlesMissing": "Je profiel vraagt om ondertitels in {{languages}}. Deze video heeft ze niet.",
 				"tierAbove": "Je profiel vraagt om {{wanted}}p. Deze video heeft niets zo kleins, dus {{picked}}p is geselecteerd.",
-				"tierBelow": "Je profiel vraagt om {{wanted}}p. Deze video gaat maar tot {{picked}}p, dus {{picked}}p is geselecteerd.",
+				"tierAbovePassedOver": "Je profiel vraagt om {{wanted}}p. De kleinere streams van deze video passen niet bij de rest van je profiel, dus {{picked}}p is geselecteerd.",
+				"tierBelowTakeable": "Je profiel vraagt om {{wanted}}p. Deze video heeft geen bruikbare {{wanted}}p, dus {{picked}}p is geselecteerd.",
+				"tierPassedOverAiUpscaled": "Je profiel vraagt om {{wanted}}p. De {{wanted}}p van deze video is met AI opgeschaald, dus het origineel in {{picked}}p is geselecteerd.",
+				"tierPassedOverH264": "Je profiel vraagt om {{wanted}}p in H.264. Deze video heeft {{wanted}}p alleen in andere codecs, dus {{picked}}p in H.264 is geselecteerd.",
+				"tierPassedOverProfile": "Je profiel vraagt om {{wanted}}p. De {{wanted}}p van deze video past niet bij de rest van je profiel, dus {{picked}}p is geselecteerd.",
 				"webmUnavailable": "Je profiel vraagt om WebM. De gekozen streams van deze video bevatten {{codec}}, wat WebM niet kan bevatten, dus het bestandstype is Automatisch."
 			},
 			"footer": {
@@ -969,29 +1033,26 @@
 			"withAudio": "met audio"
 		},
 		"listPrompt": {
-			"escHint": "Esc annuleert. Er wordt niets geladen totdat je kiest.",
-			"interactiveSubtitle": "Kies zelf de formaten",
-			"justThisVideo": "Alleen deze video",
-			"justThisVideoInteractiveHint": "Opent de formaten van de video",
-			"justThisVideoQuickHint": "Laadt één video",
-			"listInteractiveHint": "Laadt er maximaal {{count}} om uit te kiezen",
-			"listOption": {
-				"album": "Het album, de eerste",
-				"liked": "Je video’s die je leuk vindt, de eerste",
-				"mix": "De Mix, de eerste",
-				"playlist": "De afspeellijst, de eerste",
-				"uploads": "De uploads, de eerste",
-				"watchLater": "Later bekijken, de eerste"
-			},
-			"listQuickHint": "Laadt er maximaal {{count}} en downloadt ze daarna",
+			"backgroundHint": "Met {{profileName}}. Bevat de lijst meer dan {{count}} video’s, dan vraagt Downloads hoeveel.",
+			"backgroundLabel": "Op de achtergrond downloaden",
+			"escOnly": "Esc annuleert.",
+			"firstHint": "Precies de eerste {{count}}, met {{profileName}}.",
+			"firstLabel": "Download de eerste",
+			"interactiveHint": "Kies uit de eerste {{count}} video’s (of wijzig het aantal in de volgende stap) en stel dan de download in.",
+			"interactiveLabel": "Interactief downloaden…",
+			"limitHint": "Hoeveel video’s uit de lijst worden genomen: de eerste optie vraagt het als de lijst langer is, de tweede neemt precies dat aantal. Hetzelfde als Instellingen › Te scannen afspeellijstitems.",
+			"limitLabel": "Limiet",
 			"mixNote": "Een Mix verandert elke keer dat je hem opent.",
-			"pickOption": {
-				"album": "Kiezen uit het album, de eerste",
-				"liked": "Kiezen uit je video’s die je leuk vindt, de eerste",
-				"mix": "Kiezen uit de Mix, de eerste",
-				"playlist": "Kiezen uit de afspeellijst, de eerste",
-				"uploads": "Kiezen uit de uploads, de eerste",
-				"watchLater": "Kiezen uit Later bekijken, de eerste"
+			"pickLoadAfter": "om uit te kiezen.",
+			"pickLoadBefore": "Laad de eerste",
+			"pickLoadNote": "Je kunt dit in de volgende stap wijzigen.",
+			"pickTitle": {
+				"album": "Kies uit dit album",
+				"liked": "Kies uit je video’s die je leuk vindt",
+				"mix": "Kies uit deze Mix",
+				"playlist": "Kies uit deze afspeellijst",
+				"uploads": "Kies uit de uploads van dit kanaal",
+				"watchLater": "Kies uit Later bekijken"
 			},
 			"title": {
 				"album": "Downloaden uit dit album",
@@ -1001,6 +1062,9 @@
 				"uploads": "Downloaden uit de uploads van dit kanaal",
 				"watchLater": "Downloaden uit Later bekijken"
 			},
+			"videoHint": "Alleen de video die je hebt geopend, met {{profileName}}. De lijst wordt niet geladen.",
+			"videoLabel": "Alleen deze video",
+			"videoPickHint": "Stel alleen de video in die je hebt geopend. De lijst wordt niet geladen.",
 			"withProfile": "Met {{profileName}}"
 		},
 		"output": {
@@ -1072,6 +1136,10 @@
 			"allRemovedDescription": "Herstel ze om door te gaan.",
 			"allRemovedTitle": "Alle items zijn verwijderd",
 			"alreadyDownloaded": "Al gedownload",
+			"bulkCappedDesc_one": "Hij bevat er meer. Plak de link los om te kiezen hoeveel.",
+			"bulkCappedDesc_other": "Ze bevatten er meer. Plak elke link los om te kiezen hoeveel.",
+			"bulkCappedTitle_one": "„{{title}}” wordt afgekapt bij {{limit}} video’s",
+			"bulkCappedTitle_other": "{{count}} lijsten worden afgekapt bij {{limit}} video’s per lijst",
 			"bulkHeading": "Meerdere URL’s",
 			"bulkMetadataOptional": "Wachten hoeft niet — bestanden die je nu in de wachtrij zet, krijgen hun echte naam alsnog bij het downloaden.",
 			"bulkMetadataResolving": "Videodetails ophalen… {{done}}/{{total}}",
@@ -1129,15 +1197,6 @@
 			"syncNoneTitle": "Nog niets gedownload",
 			"syncScanning": "Map controleren…",
 			"thumbnailAlt": "Miniatuur van video"
-		},
-		"playlistCap": {
-			"changeLimit": "Laadlimiet wijzigen",
-			"descriptionWithTitle_one": "<title/>: Arroxy heeft {{count}} item geladen met de huidige limiet van {{limit}}. Zet het geladen item nu in de wachtrij of verhoog de limiet en scan opnieuw.",
-			"descriptionWithTitle_other": "<title/>: Arroxy heeft {{count}} items geladen met de huidige limiet van {{limit}}. Zet de geladen items nu in de wachtrij of verhoog de limiet en scan opnieuw.",
-			"description_one": "Arroxy heeft {{count}} item geladen met de huidige limiet van {{limit}}. Zet het geladen item nu in de wachtrij of verhoog de limiet en scan opnieuw.",
-			"description_other": "Arroxy heeft {{count}} items geladen met de huidige limiet van {{limit}}. Zet de geladen items nu in de wachtrij of verhoog de limiet en scan opnieuw.",
-			"queueLoaded": "Geladen items in wachtrij zetten",
-			"title": "Scan van afspeellijst is beperkt"
 		},
 		"playlistPresets": {
 			"heading": "Kies de kwaliteit voor de batch",
@@ -1321,19 +1380,6 @@
 		"profileSwitchRow": {
 			"helpAria": "Help bij {{label}}"
 		},
-		"quickProgress": {
-			"cancel": "Voorbereiding annuleren",
-			"currentFallback": "Huidige link",
-			"description": "Arroxy leest de link en past {{profileName}} toe.",
-			"failedCount_one": "{{count}} mislukt",
-			"failedCount_other": "{{count}} mislukt",
-			"phase": {
-				"probing": "Details ophalen",
-				"queueing": "Toevoegen aan wachtrij"
-			},
-			"title": "Snel downloaden voorbereiden",
-			"waitHint": "Houd dit open terwijl Arroxy de wachtrij voorbereidt."
-		},
 		"review": {
 			"areas": {
 				"extras": "extra’s",
@@ -1443,6 +1489,7 @@
 				"embed": "In video insluiten",
 				"heading": "Opslaan als",
 				"sidecar": "Naast de video",
+				"sidecarNoVideo": "In de downloadmap",
 				"subfolder": "Submap subtitles/"
 			},
 			"searchPlaceholder": "Talen zoeken…",
@@ -1452,10 +1499,6 @@
 		"tabsNavAria": "Navigatie van downloadprofielen",
 		"url": {
 			"advanced": "Geavanceerd",
-			"analytics": {
-				"toggle": "Dagelijkse heartbeat verzenden",
-				"toggleDescription": "Geen telemetrie. Eén keer per dag verstuurt een anonieme heartbeat de app-versie, het installatiekanaal, het besturingssysteem, de taal, het land en ongeveer hoe lang geleden Arroxy is geïnstalleerd, zodat we actieve en nieuwe gebruikers kunnen tellen. Geen ID’s, URL’s, videotitels of bestandsnamen."
-			},
 			"autoRemoveCompleted": {
 				"description": "Haalt een download enkele seconden na voltooiing uit de lijst Downloads. De bestanden blijven in je map; mislukte en geannuleerde downloads blijven in de lijst.",
 				"label": "Voltooide downloads verwijderen"
@@ -1490,6 +1533,11 @@
 				"label": "Downloads tegelijk",
 				"unit": "downloads"
 			},
+			"concurrentProbes": {
+				"description": "Voor hoeveel links Arroxy tegelijk de details ophaalt, voordat ze worden gedownload. Minder is vriendelijker voor sites die drukke verbindingen blokkeren. Een link die je opent in Interactief downloaden gaat altijd voor.",
+				"label": "Links tegelijk gecontroleerd",
+				"unit": "links"
+			},
 			"cookies": {
 				"banWarning": "Sites zoals YouTube kunnen accounts waarvan de cookies door downloadtools als Arroxy worden gebruikt markeren — en soms blokkeren. Gebruik indien mogelijk een wegwerpaccount.",
 				"browserHelp": "Leest cookies rechtstreeks uit de browser. Bij browsers uit de Chromium-familie moet de browser gesloten zijn.",
@@ -1514,12 +1562,20 @@
 				"sourceFile": "Bestand",
 				"sourceLabel": "Cookiebron",
 				"sourceOff": "Uit",
-				"toggleDescription": "Helpt bij video’s met leeftijdsbeperking, alleen voor leden of privé voor een account."
+				"toggleDescription": "Helpt bij video’s die je eigen account kan bekijken, zoals je privévideo’s."
 			},
 			"downloadConnections": {
 				"description": "Versnelt grote downloads door meerdere delen van een video tegelijk op te halen. Hogere waarden vergroten de kans dat een site je beperkt.",
 				"label": "Downloadverbindingen",
 				"unit": "verbindingen"
+			},
+			"downloadList": {
+				"album": "Album downloaden…",
+				"liked": "Video’s die je leuk vindt downloaden…",
+				"mix": "Mix downloaden…",
+				"playlist": "Afspeellijst downloaden…",
+				"uploads": "Uploads downloaden…",
+				"watchLater": "Later bekijken downloaden…"
 			},
 			"features": {
 				"always": {
@@ -1548,18 +1604,17 @@
 			"hotkey": {
 				"changeShortcut": "Sneltoets wijzigen",
 				"conflict": "Deze sneltoets wordt al door een andere app gebruikt — kies een andere.",
-				"hintLabel": "Of druk op",
-				"hintTooltip": "Kopieer overal een videolink, druk op deze sneltoets en Arroxy zet hem met je actieve profiel in de wachtrij — zonder van venster te wisselen.",
-				"hintTooltipSettings": "Wijzig of schakel uit in Instellingen.",
+				"globalLabel": "Algemene sneltoets",
 				"recording": "Druk op toetsen…",
 				"reset": "Standaard herstellen",
 				"sectionDescription": "Download elke link die je kopieert, vanuit elke app, zonder Arroxy te openen.",
 				"sectionTitle": "Algemene sneltoets",
 				"test": "Testen",
 				"toggle": "Algemene sneltoets inschakelen",
-				"toggleDescription": "Druk op de sneltoets met een videolink op je klembord."
+				"toggleDescriptionDetail": "Kopieer in een willekeurige app een videolink en druk op de sneltoets: Arroxy zet hem met je actieve profiel in de wachtrij, zonder van venster te wisselen. Bij een link naar een video in een afspeellijst wordt de video gedownload."
 			},
 			"interactiveDownload": "Interactief downloaden",
+			"interactiveDownloadAsks": "Interactief downloaden…",
 			"limitRate": {
 				"activeWarning": "Actieve downloads behouden hun huidige limiet. Pauzeer en hervat om wijzigingen toe te passen.",
 				"custom": "Aangepast…",
@@ -1572,10 +1627,8 @@
 			"mascotBusy": "Bezig met downloaden op de achtergrond… ik kan multitasken 😎",
 			"mascotCollection": "Snel zet geladen items in de wachtrij met {{profileName}}. Met Interactief kun je items eerst bekijken of selecteren.",
 			"mascotIdle": "Plak een link en laat Arroxy hem binnenhalen ✨",
-			"mascotMixed": "Deze link verwijst naar één video in een verzameling. Arroxy vraagt welke je wilt voordat de analyse start.",
-			"mascotPreparing": "{{quickDownload}} leest deze link en past {{profileName}} toe.",
-			"mascotQueued": "De wachtrij verwerkt deze download. Je kunt een andere link plakken terwijl dit bezig is.",
 			"mascotSingle": "Snel start één download met {{profileName}}. Gebruik Interactief voor eenmalige wijzigingen.",
+			"mascotVideoInList": "Deze link noemt een video en de lijst waarin hij staat: download alleen de video, of de lijst.",
 			"nativeAudioPreference": {
 				"compatible": "Compatibele stereo",
 				"description": "Stereo of surround wanneer een profiel oorspronkelijke audio kiest. Een profiel kan dit overschrijven.",
@@ -1679,6 +1732,7 @@
 					"override": "Profielvervanging wordt gebruikt",
 					"overrideSubfolder": "Profielvervanging + profielsubmap wordt gebruikt"
 				},
+				"destinationEditHint": "Bewerk het profiel om te wijzigen waar het opslaat.",
 				"destinationFallback": "Bestemming",
 				"edit": "Bewerken",
 				"editActive": "Actief profiel bewerken",
@@ -1702,25 +1756,27 @@
 				"remove": "Verwijderen",
 				"reorderHint": "Sleep een profiel om het te verplaatsen. Elke profielkeuzelijst volgt deze volgorde.",
 				"reset": "Herstellen",
+				"savesTo": "Slaat op in",
 				"switchAria": "Van downloadprofiel wisselen: {{profileName}}",
 				"switchTitle": "Van downloadprofiel wisselen"
 			},
 			"proxy": {
 				"clear": "Wissen",
-				"description": "Leid verkeer via een proxy — handig voor content met regiobeperking.",
+				"description": "Leid verkeer via een proxyserver.",
 				"label": "Proxy-URL",
 				"placeholder": "http://host:poort"
 			},
-			"quickBulkAllFailed": "Geen van die URL’s kon worden voorbereid",
 			"quickDownload": "Snel downloaden",
 			"quickDownloadTooltip": "Downloadt met: {{profileName}}",
 			"quickFailed": "Deze kon niet worden toegevoegd: {{error}}",
-			"quickPartialFailed_one": "Wat lukte staat in de wachtrij. {{count}} URL kon niet worden voorbereid.",
-			"quickPartialFailed_other": "Wat lukte staat in de wachtrij. {{count}} URL’s konden niet worden voorbereid.",
 			"quickPrepareFailed": "Wachtrij-item kon niet worden voorbereid",
 			"quickPreparing": "Voorbereiden",
 			"quickProbeFailed": "Analyse mislukt",
 			"quickSingleOnly": "Plak een video-, afspeellijst-, kanaal- of zoek-URL om te beginnen.",
+			"reports": {
+				"toggle": "Anonieme heartbeat- en installatierapporten verzenden",
+				"toggleDescription": "Geen tracking. Eén keer per dag stuurt een anonieme heartbeat de appversie, het installatiekanaal, het besturingssysteem, de taal, het land en ongeveer hoe lang geleden Arroxy is geïnstalleerd, zodat we actieve en nieuwe gebruikers kunnen tellen. Wanneer Arroxy zijn downloadengine of mediatools installeert of bijwerkt, meldt het ook of dat is gelukt en ongeveer hoe lang het duurde. Geen ID’s, URL’s, videotitels of bestandsnamen."
+			},
 			"settings": {
 				"behaviorDescription": "Algemeen gedrag dat ook van invloed is op downloads via profielen.",
 				"behaviorHeading": "Downloadgedrag",
@@ -1744,7 +1800,9 @@
 			"tabs": {
 				"profiles": "Profielen",
 				"settings": "Instellingen"
-			}
+			},
+			"thisVideo": "Deze video",
+			"thisVideoTooltip": "Downloadt alleen deze video met {{profileName}}"
 		}
 	}
 }

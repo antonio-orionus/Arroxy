@@ -96,7 +96,7 @@ export const cs = {
   discord_badge_text: "Připojte se na Discord",
   discord_badge_encoded: "P%C5%99ipojte%20se%20na%20Discord",
   hero_desc:
-    "Stahujte videa, Shorts, hudbu, kanály, podcasty nebo zvukové stopy z **YouTube a více než 2000 podporovaných webů** — až do 8K HDR při 60 fps, jako MP3 / AAC / Opus, nebo jen tu část, kterou potřebujete. **Procházejte YouTube i jakýkoli jiný web přímo v Arroxy** na kartě Procházení a stáhněte video, playlist nebo kanál, na kterém právě jste; přihlaste se tam a stáhněte soukromá videa, videa pro členy a videa s věkovým omezením, která váš účet smí přehrát. Běží lokálně ve Windows, macOS a Linuxu. **Bez reklam, bez zbytečností, bez vnucování placených verzí.**",
+    "Stahujte videa, Shorts, kanály, podcasty nebo zvukové stopy z **YouTube a více než 2000 podporovaných webů** — až do 8K HDR při 60 fps, jako MP3 / AAC / Opus, nebo jen tu část, kterou potřebujete. **Procházejte YouTube i jakýkoli jiný web přímo v Arroxy** na kartě Procházení a stáhněte video, playlist nebo kanál, na kterém právě jste; přihlaste se tam a stahujte videa, která váš účet už smí přehrát. Běží lokálně ve Windows, macOS a Linuxu. **Bez reklam, bez zbytečností, bez vnucování placených verzí.**",
   cta_latest: "↓ Nainstalovat nejnovější verzi",
   cta_website: "Web",
   website_url: "https://arroxy.com/",
@@ -105,7 +105,7 @@ export const cs = {
   intro_what_is:
     "**Co je Arroxy?** Arroxy je bezplatné open-source grafické rozhraní pro počítač, které stahuje videa, zvuk, playlisty a titulky z YouTube a z více než 2000 dalších webů podporovaných nástrojem [yt-dlp](https://github.com/yt-dlp/yt-dlp). Funguje na platformách Windows 10/11, macOS 13+ (Intel + Apple Silicon) a Linux (AppImage, Flatpak, tar.gz). Licence GPLv3. Bez reklam a bez limitů používání. Distribuuje se přes [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage a přímé stažení.",
   intro_key_difference:
-    "**Hlavní rozdíl: vestavěný prohlížeč.** Většina bezplatných stahovačů z YouTube jsou tenké obaly na yt-dlp: políčko pro URL a nabídka formátů, bez vlastního prohlížeče. Arroxy ho má, a to **kartu Procházení**. Procházíte YouTube nebo jakýkoli jiný web přímo v aplikaci a stahujete video, playlist nebo kanál, na kterém právě jste, nebo kliknete pravým tlačítkem na libovolný odkaz. V Procházení se jednou přihlásíte a Arroxy stáhne soukromá videa, videa pro členy a videa s věkovým omezením, která váš účet smí přehrát, plus vaše seznamy Podívat se později a Označeno „To se mi líbí“, bez exportu cookies. Přihlaste se tam i k dalším webům a jejich stahování pak toto přihlášení použije, když ho bude potřebovat. S tímto přihlášením to Arroxy zkusí znovu, když vás YouTube požádá o potvrzení, že nejste robot. Jeho vestavěný prohlížeč také získá token, který YouTube před stažením očekává, takže YouTube stahování neomezí na méně formátů. Obal s políčkem pro URL narazí na všechna tato omezení. Podrobnosti: [Proč Arroxy](#why-explore).",
+    "**Hlavní rozdíl: vestavěný prohlížeč.** Většina bezplatných stahovačů z YouTube jsou tenké obaly na yt-dlp: políčko pro URL a nabídka formátů, bez vlastního prohlížeče. Arroxy ho má, a to **kartu Procházení**. Procházíte YouTube nebo jakýkoli jiný web přímo v aplikaci a stahujete video, playlist nebo kanál, na kterém právě jste, nebo kliknete pravým tlačítkem na libovolný odkaz. Když se jednou přihlásíte v Procházení, stahování, která vyžadují účet, toto přihlášení použijí: vaše soukromá videa, seznamy Podívat se později a Označeno „To se mi líbí“ a další videa, která váš účet už smí přehrát, bez exportu cookies. Přihlaste se tam i k dalším webům a jejich stahování pak toto přihlášení použije, když ho bude potřebovat. Podrobnosti: [Proč Arroxy](#why-explore).",
   last_updated: "Poslední aktualizace: {{LAST_UPDATED}}.",
   toc_heading: "Obsah",
   why_h2: "Proč Arroxy",
@@ -123,20 +123,16 @@ export const cs = {
   why_r6: "Multiplatformní desktopová aplikace",
   why_r7: "Titulky + SponsorBlock",
   why_r8: "Vestavěný prohlížeč (procházení, přihlášení, stahování)",
-  why_r9: "Soukromá videa, videa pro členy a videa s věkovým omezením bez exportu cookies",
+  why_r9: "Videa, která váš vlastní účet smí přehrát, bez exportu cookies",
   why_table_note:
     "⚠️ = částečně, nebo jen v placené verzi. Přihlášení v aplikaci pro soukromá videa je u 4K Video Downloaderu placená funkce; většina bezplatných grafických rozhraní pro yt-dlp přijímá jen soubor cookies nebo čte cookies vašeho webového prohlížeče.",
   why_summary:
     "Arroxy je stvořeno pro jedno: čistý lokální soubor, ať vložíte URL, nebo najdete video v Procházení. Bez vnucování placených verzí, bez sběru dat.",
   why_explore_h3: "Co obyčejný obal yt-dlp neumí: karta Procházení",
   why_explore_intro:
-    "Většina bezplatných stahovačů z YouTube je jen políčko pro URL nad yt-dlp. Arroxy také používá yt-dlp, ale má navíc **Procházení**, prohlížeč zabudovaný v aplikaci, který otevře YouTube i jakýkoli jiný web. Procházení překoná omezení, na která políčko pro URL nestačí:",
+    "Většina bezplatných stahovačů z YouTube je jen políčko pro URL nad yt-dlp. Arroxy také používá yt-dlp, ale má navíc **Procházení**, prohlížeč zabudovaný v aplikaci, který otevře YouTube i jakýkoli jiný web. Procházení přidává to, co políčko pro URL nezvládne:",
   why_explore_1:
-    "**Videa, která vyžadují účet, bez exportu cookies** — soukromá videa, videa pro členy a videa s věkovým omezením (na účtu s ověřeným věkem), a také vaše seznamy Podívat se později a Označeno „To se mi líbí“ a videa za přihlášením na jiných webech. Běžný obal potřebuje export souboru cookies.txt nebo musí číst cookies vašeho webového prohlížeče, což Chrome ve Windows nyní blokuje. V Arroxy se jednou přihlásíte v Procházení a zbytek obstará aplikace",
-  why_explore_2:
-    "**„Přihlaste se a potvrďte, že nejste robot“** — když se YouTube zeptá, Arroxy zkusí stahování znovu s vaším přihlášením z Procházení, místo aby selhalo",
-  why_explore_3:
-    "**Stahovací token YouTube** — vestavěný prohlížeč Arroxy získá token, který YouTube před stažením očekává. Bez něj může YouTube nabídnout méně formátů a nižší kvalitu, než jste chtěli",
+    "**Videa, která váš účet smí přehrát, bez exportu cookies** — vaše soukromá videa, seznamy Podívat se později a Označeno „To se mi líbí“, videa s věkovým omezením na účtu s ověřeným věkem a stránky na jiných webech, které vyžadují vaše přihlášení. Běžný obal potřebuje export souboru cookies.txt nebo čte cookies vašeho webového prohlížeče. V Arroxy se jednou přihlásíte v Procházení a zbytek obstará aplikace",
   why_explore_4:
     "**Bez kopírování odkazů** — najděte video, playlist nebo kanál v Procházení a stáhněte je jedním kliknutím, nebo klikněte pravým tlačítkem na libovolný odkaz na stránce",
   why_explore_5:
@@ -151,7 +147,7 @@ export const cs = {
   feat_explore_2:
     "**Adresní řádek** — zadáním textu hledejte na YouTube, nebo zadejte libovolnou webovou adresu a otevřete daný web",
   feat_explore_3:
-    "**Stahování, která vyžadují účet** — jednou se přihlaste v Procházení a Arroxy může stahovat soukromá videa a videa pro členy, která váš účet smí přehrát, videa s věkovým omezením, pokud má účet ověřený věk, a vaše seznamy Podívat se později a Označeno „To se mi líbí“. Přihlaste se tam i k dalším webům a jejich stahování pak toto přihlášení použije, když ho bude potřebovat. Arroxy stále nejdřív stahuje nepřihlášené a vaše přihlášení z Procházení použije, jen když stahování selže způsobem, který účet vyřeší. Když vás YouTube požádá o potvrzení, že nejste robot, Arroxy zkusí také vaše přihlášení z Procházení",
+    "**Stahování, která vyžadují účet** — jednou se přihlaste v Procházení a Arroxy může stahovat videa, která váš účet smí přehrát: soukromá videa, videa s věkovým omezením, pokud má účet ověřený věk, a vaše seznamy Podívat se později a Označeno „To se mi líbí“. Přihlaste se tam i k dalším webům a jejich stahování pak toto přihlášení použije, když ho bude potřebovat. Arroxy stále nejdřív stahuje nepřihlášené a vaše přihlášení z Procházení použije, jen když stahování selže způsobem, který účet vyřeší",
   feat_explore_4:
     "**Použijte vedlejší účet** — první obrazovka Procházení vysvětluje proč: stahování s účtem s sebou nese určité riziko, že bude účet omezen. Z Procházení se můžete kdykoli odhlásit v Nastavení a zapomenout tak svá přihlášení",
   feat_explore_5:
@@ -196,7 +192,7 @@ export const cs = {
   feat_workflow_10:
     "**Současná stahování a automatické opakování** — zvolte, kolik stahování z fronty běží současně, a nechte Arroxy zopakovat stahování, které narazilo na problém se sítí nebo serverem, s delším čekáním před každým pokusem",
   feat_workflow_11:
-    "**Profily playlistu pro jednotlivé položky** — přiřaďte každému videu v playlistu vlastní profil stahování místo jednoho nastavení pro celý seznam, takže jedním během některá videa archivujete v plné kvalitě a zbytek stáhnete jako MP3",
+    "**Profily playlistu pro jednotlivé položky** — přiřaďte každému videu v playlistu vlastní profil stahování místo jednoho nastavení pro celý seznam, takže jedním během některá videa archivujete v plné kvalitě a zbytek uložíte jen jako zvuk",
   feat_workflow_13:
     "**Rychlé stahování funguje na pozadí** — odkaz se hned objeví ve Stahování a připravuje se tam, poznámka s tlačítkem **Zobrazit** to potvrdí a pole URL se vyčistí pro další odkaz. Spusťte, kolik chcete, zatímco se předchozí připravují",
   feat_workflow_14:
@@ -228,7 +224,7 @@ export const cs = {
   feat_sites_1:
     "**YouTube v plném rozsahu** — Videa, Shorts, kanály, playlisty, YouTube Music a podcasty jsou plnohodnotné zdroje",
   feat_sites_2:
-    "**Více než 2000 dalších webů** přes yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable a mnoho dalších",
+    "**Více než 2000 dalších webů** přes yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable a mnoho dalších",
   feat_sites_3:
     "**Pouze zvuk a titulky** fungují na všech podporovaných webech, nejen na YouTube",
   feat_sites_4:
@@ -249,7 +245,7 @@ export const cs = {
     "Globální klávesová zkratka pro stahování v Arroxy — Ctrl+Shift+D ve Windows a Linuxu, Cmd+Shift+D v macOS, zařadí zkopírovaný odkaz přímo do fronty stahování",
   hotkey_fig_cap:
     "<b>Globální klávesová zkratka pro stahování</b><br/>Zkopírujte odkaz kdekoli, stiskněte jednou — skončí ve frontě a začne se stahovat",
-  shot7_cap: "<b>Profily playlistu pro jednotlivé položky</b><br/>Dejte každému videu vlastní profil — některá archivujte ve 4K, zbytek stáhněte jako MP3",
+  shot7_cap: "<b>Profily playlistu pro jednotlivé položky</b><br/>Dejte každému videu vlastní profil — některá archivujte ve 4K, zbytek uložte jen jako zvuk",
   shot8_cap:
     "<b>Procházení</b><br/>Procházejte YouTube i jakýkoli jiný web přímo v Arroxy a stáhněte stránku, na které jste, se svým aktivním profilem",
   shot9_cap:
@@ -389,15 +385,15 @@ export const cs = {
 
   privacy_p1:
     "Stahování probíhá přímo přes [yt-dlp](https://github.com/yt-dlp/yt-dlp) z YouTube do složky, kterou zvolíte — nic nejde přes server třetí strany. Historie sledování, historie stahování, URL a obsah souborů zůstávají na vašem zařízení.",
-  privacy_p2:
-    "Žádná telemetrie — jen jeden anonymní signál denně: verze aplikace, operační systém, jazyk, kanál instalace, země a přibližná doba od instalace Arroxy, abychom mohli počítat aktivní a nové uživatele. Žádná ID, URL, názvy videí, cesty k souborům ani údaje o účtu. Můžete jej vypnout v Nastavení.",
+  privacy_reports:
+    "Žádné sledování — jeden anonymní signál denně (verze aplikace, operační systém, jazyk, kanál instalace, země a přibližná doba od instalace Arroxy), abychom mohli počítat aktivní a nové uživatele, a když Arroxy stahuje nebo aktualizuje yt-dlp a FFmpeg, anonymní informace o tom, zda se to podařilo a přibližně jak dlouho to trvalo. Žádná ID, URL, názvy videí, cesty k souborům ani údaje o účtu. Obojí můžete vypnout v Nastavení.",
   privacy_p3:
     "Procházení uchovává vlastní přihlášení, oddělená od vašeho prohlížeče, a Arroxy nikdy nečte ani nevyplňuje přihlašovací formulář — píšete přímo na stránku webu. Stahování běží nepřihlášené; teprve když některé selže způsobem, který účet vyřeší, Arroxy přihlášení načte znovu, uchová je v dočasném souboru pro dané stahování a soubor poté smaže. Odhlášením z Procházení v Nastavení se přihlášení zapomenou.",
   faq_q1: "Je to opravdu zdarma?",
   faq_a1: "Ano — licence GPLv3, bez prémiové verze, bez uzamčených funkcí.",
   faq_q11: "Čím se Arroxy liší od jiných grafických rozhraní pro yt-dlp?",
   faq_a11:
-    "Většina bezplatných grafických rozhraní pro yt-dlp jsou obaly, které berou jen odkaz. Arroxy přidává **Procházení**, prohlížeč zabudovaný v aplikaci, který otevře YouTube i jakýkoli jiný web: procházíte a stahujete bez kopírování odkazů a jednou se tam přihlásíte, abyste mohli stahovat soukromá videa, videa pro členy a videa s věkovým omezením a také seznamy Podívat se později a Označeno „To se mi líbí“, bez exportu cookies. Arroxy toto přihlášení použije, když vás YouTube požádá o potvrzení, že nejste robot, a jeho vestavěný prohlížeč získá stahovací token YouTube, aby stahování nepřešlo na méně formátů. Viz [Proč Arroxy](#why).",
+    "Většina bezplatných grafických rozhraní pro yt-dlp jsou obaly, které berou jen odkaz. Arroxy přidává **Procházení**, prohlížeč zabudovaný v aplikaci, který otevře YouTube i jakýkoli jiný web: procházíte a stahujete bez kopírování odkazů a jednou se tam přihlásíte, abyste mohli stahovat videa, která váš účet smí přehrát, například soukromá videa a seznamy Podívat se později a Označeno „To se mi líbí“, bez exportu cookies. Viz [Proč Arroxy](#why).",
   faq_q2: "Jaké kvality videa mohu stáhnout?",
   faq_a2:
     "Cokoli, co YouTube nabízí: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, a také samotný zvuk. Streamy 60 fps a HDR se zachovají beze změny a stahování krok za krokem umožňuje vybrat AV1, VP9 nebo H.264 v každém rozlišení.",
@@ -406,10 +402,10 @@ export const cs = {
     "Ano. V nabídce formátu vyberte *pouze zvuk* a zvolte MP3, M4A/AAC, Opus nebo WAV.",
   faq_q4: "Jak stáhnu videa, která vyžadují účet YouTube?",
   faq_a4:
-    "Jednou se přihlaste na kartě Procházení. Arroxy pak může stahovat soukromá videa a videa pro členy, která váš účet smí přehrát, videa s věkovým omezením, pokud má účet ověřený věk, a vaše seznamy Podívat se později a Označeno „To se mi líbí“. Přihlášení použije, jen když stahování selže způsobem, který účet vyřeší; vše ostatní se stahuje jako dřív. Jde o volbu **Přihlášení v Procházení**, která je v nastavení cookies uvedena první a označena jako Doporučeno, a Arroxy ji pro vás zvolí při prvním otevření Procházení. Wiki yt-dlp uvádí, že [automatizace s přihlášením může vést k označení účtu Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), takže bezpečnější volbou je vedlejší účet.",
+    "Jednou se přihlaste na kartě Procházení. Arroxy pak může stahovat videa, která váš účet smí přehrát: soukromá videa, videa s věkovým omezením, pokud má účet ověřený věk, a vaše seznamy Podívat se později a Označeno „To se mi líbí“. Přihlášení použije, jen když stahování selže způsobem, který účet vyřeší; vše ostatní se stahuje jako dřív. Jde o volbu **Přihlášení v Procházení**, která je v nastavení cookies uvedena první a označena jako Doporučeno, a Arroxy ji pro vás zvolí při prvním otevření Procházení. Wiki yt-dlp uvádí, že [automatizace s přihlášením může vést k označení účtu Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), takže bezpečnější volbou je vedlejší účet.",
   faq_q5: "Bude to fungovat, i když YouTube něco změní?",
   faq_a5:
-    "yt-dlp se při spuštění aktualizuje automaticky a Arroxy rychle vydává opravy, když YouTube něco změní. Když vás YouTube požádá o potvrzení, že nejste robot, Arroxy zkusí také vaše přihlášení z Procházení, pokud jste se tam přihlásili, a v nastavení cookies jsou k dispozici cookies ze souboru nebo z vašeho prohlížeče.",
+    "yt-dlp se při spuštění aktualizuje automaticky a Arroxy rychle vydává opravy, když YouTube něco změní. Když stahování vyžaduje přihlášení, Arroxy použije vaše přihlášení z Procházení, pokud jste se tam přihlásili, a v nastavení cookies jsou k dispozici cookies ze souboru nebo z vašeho prohlížeče.",
   faq_q6: "V jakých jazycích je Arroxy dostupné?",
   faq_a6:
     "{{LANG_COUNT}} jazyků hned po instalaci: {{LANG_NAME_LIST}}. Arroxy při prvním spuštění automaticky zjistí jazyk vašeho operačního systému a kdykoli jej můžete přepnout ve výběru jazyka na panelu nástrojů. Soubory JSON s jazykovými verzemi pro běh aplikace jsou v src/shared/i18n/locales/ a katalogy PO pro překladatele v i18n/locales/ — přispět můžete otevřením PR na GitHubu.",
@@ -424,7 +420,7 @@ export const cs = {
     "To macOS Gatekeeper blokuje nepodepsanou aplikaci, nejde o skutečné poškození. Příkazy pro Terminál, které odstraní karanténu a spustí Arroxy, najdete v části [První spuštění v macOS](#macos-first-launch).",
   faq_q10: "Je stahování videí z YouTube legální?",
   faq_a10:
-    "Pro osobní, soukromé použití je to ve většině jurisdikcí obecně přijímáno. Za dodržování [Smluvních podmínek](https://www.youtube.com/t/terms) YouTube a místních autorských zákonů odpovídáte vy.",
+    "Záleží na vaší zemi a na tom, co stahujete. Stahujte jen obsah, který vlastníte, obsah licencovaný ke stahování nebo obsah, který zákon ve vaší zemi dovoluje kopírovat. Za dodržování [Smluvních podmínek](https://www.youtube.com/t/terms) YouTube a místních autorských zákonů odpovídáte vy. Viz [Podmínky použití](#terms).",
   plan_intro: "Stále plánováno — zhruba v pořadí podle priority:",
   plan_col1: "Funkce",
   plan_col2: "Popis",
@@ -447,7 +443,7 @@ export const cs = {
     "Máte nápad na funkci? [Otevřete požadavek](../../issues) — názory komunity utvářejí prioritu.",
   tech_content: TECH_CONTENT,
   support_h2: "Podpořte Arroxy",
-  support_note: "Arroxy je zdarma a s licencí GPLv3 — bez reklam, bez telemetrie, bez placené verze. Pokud vám šetří čas, můžete vývoj podpořit Bitcoinem, Tronem nebo Ethereem: adresy jsou v [DONATE.md](DONATE.md), což je jediný oficiální zdroj. Arroxy vám adresu nikdy nepošle e-mailem ani přímou zprávou. Stejně tak pomáhá hvězdička u repozitáře, hlášení chyb a zlepšování překladů.",
+  support_line: "Arroxy je zdarma a s licencí GPLv3 — bez reklam, bez sledování, bez placené verze. Pokud vám šetří čas, můžete vývoj podpořit Bitcoinem, Tronem nebo Ethereem: adresy jsou v [DONATE.md](DONATE.md), což je jediný oficiální zdroj. Arroxy vám adresu nikdy nepošle e-mailem ani přímou zprávou. Stejně tak pomáhá hvězdička u repozitáře, hlášení chyb a zlepšování překladů.",
   tos_h2: "Podmínky použití",
   tos_note:
     "Arroxy je nástroj určený výhradně k osobnímu, soukromému použití. Sami odpovídáte za to, že vaše stahování je v souladu se [Smluvními podmínkami](https://www.youtube.com/t/terms) YouTube a autorskými zákony vaší jurisdikce. Nepoužívejte Arroxy ke stahování, reprodukci ani šíření obsahu, k jehož použití nemáte právo. Vývojáři neodpovídají za žádné zneužití.",

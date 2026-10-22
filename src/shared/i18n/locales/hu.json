@@ -31,7 +31,6 @@
 		"cancel": "Mégse",
 		"close": "Bezárás",
 		"continue": "Folytatás",
-		"dismiss": "Elvetés",
 		"loading": "Betöltés",
 		"retry": "Újra",
 		"startOver": "Újrakezdés"
@@ -45,12 +44,11 @@
 			"remember": "Ne kérdezze újra"
 		},
 		"quitWithActiveDownloads": {
-			"confirm": "Letöltések megszakítása és kilépés",
-			"detail": "Szüneteltessen a későbbi folytatáshoz, vagy szakítson meg a haladás elvetéséhez.",
+			"continueDetail": "A sor megmarad, a letöltések pedig ott folytatódnak, ahol abbamaradtak, amikor legközelebb megnyitja az Arroxyt.",
 			"keep": "Letöltés folytatása",
 			"message_one": "{{count}} letöltés folyamatban",
 			"message_other": "{{count}} letöltés folyamatban",
-			"pause": "Letöltések szüneteltetése és kilépés"
+			"quit": "Kilépés"
 		},
 		"rendererCrashed": {
 			"detail": "A megjelenítő folyamat összeomlott ({{reason}}). Az újrapróbáláshoz töltse be újra.",
@@ -73,12 +71,12 @@
 		"noSubtitlesIn": "Ehhez a videóhoz nem érhető el felirat a következő nyelveken: {{languages}}.",
 		"ytdlp": {
 			"ageRestricted": "Ez a videó korhatáros, és bejelentkezett fiók nélkül nem tölthető le.",
-			"botBlock": "A botvédelem működésbe lépett. A használt IP-címet valószínűleg megjelölték (adatközponti tartomány vagy túlterhelt VPN-kilépő). Módosítsa az IP-címét, vagy válasszon másik VPN-végpontot, majd próbálja újra. Ha továbbra sem sikerül, az ideiglenes webhelyoldali változás lehet – az Arroxy induláskor frissíti a letöltőmotort, így a javítás a megjelenésekor automatikusan megérkezik.",
+			"botBlock": "A webhely botvédelme megállította ezt a letöltést. Várjon egy kicsit, és próbálja újra, vagy töltsön le egyszerre kevesebb videót. Ha továbbra sem sikerül, az ideiglenes webhelyoldali változás lehet – az Arroxy induláskor frissíti a letöltőmotort, így a javítás a megjelenésekor automatikusan megérkezik.",
 			"chunkTransferFailure": "A kiszolgáló többször megszakította a letöltést közben, és az Arroxy az újrapróbálkozások után feladta. Ez általában a legnagyobb videóformátumoknál fordul elő (4K HDR / nagy bitrátájú VP9). Próbálja újra, váltson hálózatot/VPN-t, vagy válasszon kisebb felbontású formátumot.",
 			"drmProtected": "Ez a videó DRM-védelemmel rendelkezik. Az Arroxy nem tudja eltávolítani a DRM-et, így a fájl nem tölthető le.",
 			"formatUnavailable": "Ez a videó már nem kínálja az Ön által kiválasztott formátumot. Illessze be újra a hivatkozást, és válasszon a most elérhető formátumok közül.",
 			"geoBlocked": "Ez a videó az Ön régiójában nem érhető el.",
-			"ipBlock": "Úgy tűnik, az IP-címe le van tiltva. Próbálja újra később, vagy használjon VPN-t.",
+			"ipBlock": "A webhely blokkolja az erről a kapcsolatról érkező kéréseket. Próbálja újra később.",
 			"loginRequired": "Ehhez a videóhoz bejelentkezett fiók szükséges.",
 			"missingDependency": "Az Arroxy nem találja az FFmpeg vagy az FFprobe programot. Futtassa újra a telepítést, vagy adja meg az FFmpeg helyét, majd próbálja újra a letöltést.",
 			"network": "Hálózati hiba. Ellenőrizze a kapcsolatot, és próbálja újra.",
@@ -107,8 +105,28 @@
 			"title": "Jobb kattintás egy hivatkozásra a letöltéshez"
 		},
 		"linkMenu": {
+			"background": {
+				"album": "Az album letöltése a háttérben",
+				"liked": "A kedvelt videók letöltése a háttérben",
+				"mix": "A Mix letöltése a háttérben",
+				"playlist": "A lejátszási lista letöltése a háttérben",
+				"uploads": "A feltöltések letöltése a háttérben",
+				"watchLater": "A „Megtekintés később” lista letöltése a háttérben"
+			},
 			"copyLink": "Hivatkozás másolása",
-			"downloadWith": "Letöltés ezzel:"
+			"downloadFirst": "Az első {{count}} letöltése",
+			"downloadThisVideo": "Ennek a videónak a letöltése · {{profileName}}",
+			"downloadWith": "Letöltés ezzel:",
+			"fromList": {
+				"album": "Ebből az albumból",
+				"liked": "A kedvelt videókból",
+				"mix": "Ebből a Mixből",
+				"playlist": "Ebből a lejátszási listából",
+				"uploads": "Ennek a csatornának a feltöltéseiből",
+				"watchLater": "A „Megtekintés később” listából"
+			},
+			"interactive": "Interaktív letöltés…",
+			"thisVideoWith": "Ez a videó ezzel:"
 		},
 		"newBadge": "Új",
 		"notice": {
@@ -155,6 +173,7 @@
 			"aria": "A Felfedezés böngészővezérlői",
 			"back": "Vissza",
 			"compactLayout": "Kompakt elrendezés",
+			"download": "Letöltés",
 			"downloadWithProfile": "Letöltés · {{profileName}}",
 			"forward": "Előre",
 			"fullLayout": "Teljes elrendezés megjelenítése",
@@ -164,6 +183,8 @@
 			"refusedHint": "A Felfedezés nem tudja megnyitni ezt a címet.",
 			"reload": "Újratöltés",
 			"searchTooLong": "Ez a keresés túl hosszú.",
+			"thisVideo": "Ez a videó",
+			"thisVideoHint": "Csak ennek a videónak a letöltése ezzel a profillal: {{profileName}}",
 			"zoom": {
 				"hint": "Oldal nagyítása: {{percent}}%",
 				"in": "Nagyítás",
@@ -205,9 +226,9 @@
 			"too-long": "A sablon túl hosszú.",
 			"unknown-token": "Ismeretlen token: {{token}}."
 		},
-		"idWarning": "A {id} nélkül az Arroxy nem ismeri fel a már letöltött lejátszási listaelemeket, és nem tud .m3u lejátszási listákat létrehozni.",
+		"idEndingWarning": "A nevet [{id}] jelöléssel fejezze be, hogy az Arroxy felismerhesse a már letöltött lejátszásilista-elemeket, és .m3u lejátszási listákat hozhasson létre.",
 		"label": "Fájlnévsablon",
-		"m3uDisabled": "Nem érhető el, mert a fájlnévsablon nem tartalmazza a {id} tokent, vagy mappákba rendezi a letöltéseket.",
+		"m3uDisabledIdEnding": "Nem érhető el, mert a fájlnévsablon vagy nem [{id}] jelöléssel végződik, vagy mappákba rendezi a letöltéseket.",
 		"previewPlaylist": "Lejátszási listában",
 		"previewSingle": "Egyetlen videó",
 		"profileOverrideDescription": "Hagyja üresen a globális sablon öröklésához.",
@@ -252,14 +273,20 @@
 		"quickDownload": {
 			"added": "Hozzáadva: {{title}}",
 			"alreadyQueued": "Már a sorban van",
+			"batchAdded_one": "{{count}} hivatkozás hozzáadva a Letöltésekhez",
+			"batchAdded_other": "{{count}} hivatkozás hozzáadva a Letöltésekhez",
+			"batchAlreadyQueued_one": "{{count}} már a sorban van",
+			"batchAlreadyQueued_other": "{{count}} már a sorban van",
+			"batchNoneAdded_one": "{{count}} hivatkozást nem sikerült hozzáadni",
+			"batchNoneAdded_other": "{{count}} hivatkozást nem sikerült hozzáadni",
+			"batchNotAdded_one": "{{count}} hozzáadása nem sikerült",
+			"batchNotAdded_other": "{{count}} hozzáadása nem sikerült",
+			"chooseFromList_one": "{{count}} videó van ezen a listán – válassza ki, mit tölt le",
+			"chooseFromList_other": "{{count}} videó van ezen a listán – válassza ki, mit tölt le",
 			"chooseHowMany_one": "{{count}}+ videó – válassza ki, mennyit",
 			"chooseHowMany_other": "{{count}}+ videó – válassza ki, mennyit",
 			"failed": "Nem sikerült előkészíteni: {{title}}",
 			"notAdded": "Nem sikerült hozzáadni a hivatkozást – próbálja újra",
-			"reviewCapped_one": "{{count}}+ videó van ezen a listán – áttekintéssel választhat",
-			"reviewCapped_other": "{{count}}+ videó van ezen a listán – áttekintéssel választhat",
-			"review_one": "{{count}} videó van ezen a listán – áttekintéssel választhat",
-			"review_other": "{{count}} videó van ezen a listán – áttekintéssel választhat",
 			"view": "Megtekintés"
 		},
 		"settingsSaveFailed": "Nem sikerült menteni a beállításokat.",
@@ -347,9 +374,27 @@
 			"cappedBody_one": "Több mint {{count}} videó van ebben a lejátszási listában. Töltse le mindet, az első {{count}} videót, vagy válasszon áttekintéssel.",
 			"cappedBody_other": "Több mint {{count}} videó van ebben a lejátszási listában. Töltse le mindet, az első {{count}} videót, vagy válasszon áttekintéssel.",
 			"first": "Első {{count}}",
+			"list": {
+				"album": "Az album",
+				"liked": "Kedvelt videók",
+				"mix": "A Mix",
+				"playlist": "A lejátszási lista",
+				"uploads": "Az összes feltöltés",
+				"watchLater": "„Megtekintés később”"
+			},
+			"pick": "Válogatás belőle…",
 			"review": "Áttekintés",
-			"reviewBody_one": "Ez a hivatkozás {{count}} videót tartalmazó lista. Tekintse át, hogy kiválaszthassa, mit tölt le.",
-			"reviewBody_other": "Ez a hivatkozás {{count}} videót tartalmazó lista. Tekintse át, hogy kiválaszthassa, mit tölt le."
+			"uncappedBody_one": "Ez a hivatkozás egy {{count}} videót tartalmazó lista. Töltse le, vagy válasszon áttekintéssel.",
+			"uncappedBody_other": "Ez a hivatkozás egy {{count}} videót tartalmazó lista. Töltse le mindet, vagy válasszon áttekintéssel.",
+			"video": "Ez a videó",
+			"videoOrList": {
+				"album": "Ez a hivatkozás egy album egyik videója. Csak a videót szeretné letölteni, vagy az albumot?",
+				"liked": "Ez a hivatkozás az Ön kedvelt videóinak egyike. Csak a videót szeretné letölteni, vagy az összes kedvelt videót?",
+				"mix": "Ez a hivatkozás egy Mix egyik videója. Csak a videót szeretné letölteni, vagy a Mixet?",
+				"playlist": "Ez a hivatkozás egy lejátszási lista egyik videója. Csak a videót szeretné letölteni, vagy a lejátszási listát?",
+				"uploads": "Ez a hivatkozás egy csatorna egyik feltöltött videója. Csak a videót szeretné letölteni, vagy az összes feltöltést?",
+				"watchLater": "Ez a hivatkozás az Ön „Megtekintés később” listájának egyik videója. Csak a videót szeretné letölteni, vagy az egész listát?"
+			}
 		},
 		"clearTitle": "Befejezett letöltések törlése",
 		"empty": "A sorba állított letöltések itt jelennek meg",
@@ -383,7 +428,29 @@
 			"statusPending": "Várakozik",
 			"statusProbing": "Részletek lekérése",
 			"statusRunning": "Letöltés",
-			"subtitleLanguagesMissing": "Nincs felirat a következő nyelveken: {{languages}}"
+			"subtitleLanguagesMissing": "Nincs felirat a következő nyelveken: {{languages}}",
+			"waitingForSite": "Várakozás a(z) {{site}} miatt eddig: {{time}}",
+			"waitingHint": "A(z) {{site}} korlátozza a kérések számát erről a kapcsolatról. Az Arroxy {{time}} után kéri le a hivatkozás adatait, hogy a korlát feloldódhasson."
+		},
+		"listOffer": {
+			"dismiss": "Elvetés",
+			"from": {
+				"album": "Albumból",
+				"liked": "A kedvelt videókból",
+				"mix": "Mixből",
+				"playlist": "Lejátszási listából",
+				"uploads": "Egy csatorna feltöltéseiből",
+				"watchLater": "A „Megtekintés később” listából"
+			},
+			"get": {
+				"album": "Az egész album letöltése",
+				"liked": "Az összes kedvelt videó letöltése",
+				"mix": "Az egész Mix letöltése",
+				"playlist": "Az egész lejátszási lista letöltése",
+				"uploads": "Az összes feltöltés letöltése",
+				"watchLater": "A teljes „Megtekintés később” lista letöltése"
+			},
+			"hint": "A listát külön sorként adja hozzá. Ez a videó kimarad."
 		},
 		"pauseAllTitle": "Minden aktív letöltés szüneteltetése, és az újak indításának leállítása",
 		"pausedBanner": "A sor szünetel – a várakozó elemek nem indulnak el, amíg nem folytatja",
@@ -616,26 +683,19 @@
 		"cancel": "Gondja akadt? Kézi beállítás",
 		"greeting": "Üdv újra!",
 		"setup": {
-			"bytes": "{{done}} / {{total}}",
 			"left": {
 				"minutes_one": "kb. {{count}} perc van hátra",
 				"minutes_other": "kb. {{count}} perc van hátra",
 				"underMinute": "kevesebb mint egy perc van hátra"
 			},
-			"note": {
-				"engine": "Ettől működnek tovább a letöltések, ha a webhelyek változnak.",
-				"firstRun": "Ez egyszer történik meg. Az Arroxy megtartja ezeket az eszközöket, és maga frissíti őket.",
-				"media": "Ez egyszer történik meg. Az Arroxy megtartja őket a későbbi frissítésekhez."
-			},
 			"stage": {
 				"checking": "Annak ellenőrzése, hogy minden működik",
 				"connecting": "Kapcsolódás…",
-				"downloadingBoth": "A letöltőmotor és a médiaeszközök letöltése",
-				"downloadingEngine": "A letöltőmotor letöltése",
-				"downloadingMedia": "A médiaeszközök letöltése",
-				"unpacking": "A médiaeszközök kicsomagolása"
+				"unpacking": "A médiaeszközök kicsomagolása",
+				"unpackingEngine": "A letöltőmotor kicsomagolása"
 			},
 			"title": {
+				"both": "Az Arroxy eszközeinek frissítése",
 				"engine": "A letöltőmotor frissítése",
 				"firstRun": "Első beállítás",
 				"media": "A médiaeszközök frissítése"
@@ -661,14 +721,14 @@
 		"fetchingSponsorBlock": "Kapcsolódás a SponsorBlockhoz…",
 		"fetchingSubtitles": "Feliratok lekérése…",
 		"mergingFormats": "Hang és videó egyesítése…",
-		"mintingToken": "YouTube-token előállítása…",
+		"mintingToken": "YouTube-letöltés előkészítése…",
 		"movingFiles": "Fájlok áthelyezése…",
 		"noSubtitles": "Nincs felirat a következő nyelveken: {{languages}}",
 		"outputNotWritable": "Nem menthető ide: {{dir}} – az Arroxynak nincs írási engedélye",
 		"preparingBinaries": "Binárisok előkészítése…",
-		"qualityLimited": "Mentve {{height}}p felbontásban – a YouTube visszatartotta a magasabb minőségeket ennél a letöltésnél. Segíthet, ha később vagy másik hálózatról próbálja újra.",
-		"qualityLimitedSubtitlesFailed": "Mentve {{height}}p felbontásban – a YouTube visszatartotta a magasabb minőségeket ennél a letöltésnél, és egyes feliratokat nem sikerült letölteni. Segíthet, ha később vagy másik hálózatról próbálja újra.",
-		"remintingToken": "Token újbóli előállítása…",
+		"qualityLimited": "Mentve {{height}}p felbontásban – a YouTube visszatartotta a magasabb minőségeket ennél a letöltésnél. Segíthet, ha később próbálja újra.",
+		"qualityLimitedSubtitlesFailed": "Mentve {{height}}p felbontásban – a YouTube visszatartotta a magasabb minőségeket ennél a letöltésnél, és egyes feliratokat nem sikerült letölteni. Segíthet, ha később próbálja újra.",
+		"remintingToken": "A YouTube-letöltés ismételt előkészítése…",
 		"retryingSponsorBlock": "A SponsorBlock nem érhető el, újrapróbálás ({{attempt}}/{{total}})…",
 		"retryingTransfer": "A kapcsolat elakadt, újrapróbálás ({{attempt}}/{{total}})…",
 		"signingInWithExplore": "Bejelentkezés a Felfedezés-fiókjával…",
@@ -796,7 +856,7 @@
 			"pictures": "Képek",
 			"subfolder": {
 				"invalid": "A mappanév érvénytelen karaktereket tartalmaz",
-				"placeholder": "pl. lo-fi felvételek",
+				"placeholder": "pl. előadások",
 				"toggle": "Mentés almappába"
 			},
 			"videos": "Filmek"
@@ -892,7 +952,11 @@
 				"noVideo": "Ennek a hivatkozásnak nincs videója, ezért a hang van kiválasztva.",
 				"subtitlesMissing": "A profilja feliratot kér a következő nyelveken: {{languages}}. Ez a videó nem rendelkezik ilyennel.",
 				"tierAbove": "A profilja {{wanted}}p felbontást kér. Ennél kisebb nem érhető el ennél a videónál, ezért {{picked}}p van kiválasztva.",
-				"tierBelow": "A profilja {{wanted}}p felbontást kér. Ez a videó csak {{picked}}p-ig terjed, ezért {{picked}}p van kiválasztva.",
+				"tierAbovePassedOver": "A profilja {{wanted}}p felbontást kér. Az ennél kisebb adatfolyamok nem illenek a profil többi beállításához, ezért {{picked}}p van kiválasztva.",
+				"tierBelowTakeable": "A profilja {{wanted}}p felbontást kér. Ebben a videóban nincs használható {{wanted}}p, ezért {{picked}}p van kiválasztva.",
+				"tierPassedOverAiUpscaled": "A profilja {{wanted}}p felbontást kér. A videó {{wanted}}p változata MI-vel felskálázott, ezért az eredeti {{picked}}p van kiválasztva.",
+				"tierPassedOverH264": "A profilja {{wanted}}p felbontást kér H.264-ben. Ez a videó {{wanted}}p felbontásban csak más kodekekkel érhető el, ezért {{picked}}p van kiválasztva H.264-ben.",
+				"tierPassedOverProfile": "A profilja {{wanted}}p felbontást kér. A videó {{wanted}}p változata nem illik a profil többi beállításához, ezért {{picked}}p van kiválasztva.",
 				"webmUnavailable": "A profilja WebM-et kér. A videó kiválasztott adatfolyamai között {{codec}} is van, amelyet a WebM nem tud tárolni, ezért a fájltípus Automatikus."
 			},
 			"footer": {
@@ -969,29 +1033,26 @@
 			"withAudio": "hanggal"
 		},
 		"listPrompt": {
-			"escHint": "Az Esc megszakítja. Semmi sem töltődik be, amíg nem választ.",
-			"interactiveSubtitle": "Válassza ki Ön a formátumokat",
-			"justThisVideo": "Csak ez a videó",
-			"justThisVideoInteractiveHint": "Megnyitja a formátumait",
-			"justThisVideoQuickHint": "Egy videót tölt be",
-			"listInteractiveHint": "Legfeljebb {{count}} betöltése a választáshoz",
-			"listOption": {
-				"album": "Az album, az első",
-				"liked": "A kedvelt videók, az első",
-				"mix": "A Mix, az első",
-				"playlist": "A lejátszási lista, az első",
-				"uploads": "A feltöltések, az első",
-				"watchLater": "A „Megtekintés később” lista, az első"
-			},
-			"listQuickHint": "Legfeljebb {{count}} betöltése, majd letöltése",
+			"backgroundHint": "Profil: {{profileName}}. Ha {{count}} videónál többet tartalmaz, a Letöltések megkérdezi, mennyit töltsön le.",
+			"backgroundLabel": "Letöltés a háttérben",
+			"escOnly": "Az Esc megszakítja.",
+			"firstHint": "Pontosan az első {{count}}, profil: {{profileName}}.",
+			"firstLabel": "Letöltés: első",
+			"interactiveHint": "Válasszon az első {{count}} videó közül (vagy módosítsa a számot a következő lépésben), majd állítsa be a letöltést.",
+			"interactiveLabel": "Interaktív letöltés…",
+			"limitHint": "Hány videót vegyen a listából: az első lehetőség ennél többnél rákérdez, a második pontosan ennyit vesz. Ugyanaz, mint a Beállítások › Vizsgálandó lejátszási listaelemek.",
+			"limitLabel": "Korlát",
 			"mixNote": "A Mix minden megnyitáskor megváltozik.",
-			"pickOption": {
-				"album": "Választás az albumból, az első",
-				"liked": "Választás a kedvelt videókból, az első",
-				"mix": "Választás a Mixből, az első",
-				"playlist": "Választás a lejátszási listából, az első",
-				"uploads": "Választás a feltöltésekből, az első",
-				"watchLater": "Választás a „Megtekintés később” listából, az első"
+			"pickLoadAfter": "a válogatáshoz.",
+			"pickLoadBefore": "Betöltés: első",
+			"pickLoadNote": "A következő lépésben módosíthatja.",
+			"pickTitle": {
+				"album": "Válogatás ebből az albumból",
+				"liked": "Válogatás a kedvelt videókból",
+				"mix": "Válogatás ebből a Mixből",
+				"playlist": "Válogatás ebből a lejátszási listából",
+				"uploads": "Válogatás ennek a csatornának a feltöltéseiből",
+				"watchLater": "Válogatás a „Megtekintés később” listából"
 			},
 			"title": {
 				"album": "Letöltés ebből az albumból",
@@ -1001,6 +1062,9 @@
 				"uploads": "Letöltés ennek a csatornának a feltöltéseiből",
 				"watchLater": "Letöltés a „Megtekintés később” listából"
 			},
+			"videoHint": "Csak a megnyitott videó, profil: {{profileName}}. A lista nem töltődik be.",
+			"videoLabel": "Csak ez a videó",
+			"videoPickHint": "Csak a megnyitott videó beállítása. A lista nem töltődik be.",
 			"withProfile": "Profil: {{profileName}}"
 		},
 		"output": {
@@ -1072,6 +1136,10 @@
 			"allRemovedDescription": "A folytatáshoz állítsa vissza őket.",
 			"allRemovedTitle": "Minden elem el lett távolítva",
 			"alreadyDownloaded": "Már letöltve",
+			"bulkCappedDesc_one": "Több van benne. Ha meg szeretné adni, mennyit tölt le, illessze be külön a hivatkozását.",
+			"bulkCappedDesc_other": "Több van bennük. Ha meg szeretné adni, mennyit tölt le, illessze be külön az egyes hivatkozásokat.",
+			"bulkCappedTitle_one": "„{{title}}” {{limit}} videónál le van vágva",
+			"bulkCappedTitle_other": "{{count}} lista egyenként {{limit}} videónál le van vágva",
 			"bulkHeading": "Tömeges URL-ek",
 			"bulkMetadataOptional": "Nem kell várni – a most sorba állított fájlok letöltéskor így is megkapják valódi nevüket.",
 			"bulkMetadataResolving": "Videóadatok lekérése… {{done}}/{{total}}",
@@ -1129,15 +1197,6 @@
 			"syncNoneTitle": "Még nincs letöltve semmi",
 			"syncScanning": "Mappa ellenőrzése…",
 			"thumbnailAlt": "Videó miniatűrje"
-		},
-		"playlistCap": {
-			"changeLimit": "Betöltési korlát módosítása",
-			"descriptionWithTitle_one": "<title/>: Az Arroxy {{count}} elemet töltött be a jelenlegi, {{limit}} elemes korláttal. Tegye sorba most a betöltött elemet, vagy emelje meg a korlátot, és olvassa be újra.",
-			"descriptionWithTitle_other": "<title/>: Az Arroxy {{count}} elemet töltött be a jelenlegi, {{limit}} elemes korláttal. Tegye sorba most a betöltött elemeket, vagy emelje meg a korlátot, és olvassa be újra.",
-			"description_one": "Az Arroxy {{count}} elemet töltött be a jelenlegi, {{limit}} elemes korláttal. Tegye sorba most a betöltött elemet, vagy emelje meg a korlátot, és olvassa be újra.",
-			"description_other": "Az Arroxy {{count}} elemet töltött be a jelenlegi, {{limit}} elemes korláttal. Tegye sorba most a betöltött elemeket, vagy emelje meg a korlátot, és olvassa be újra.",
-			"queueLoaded": "Betöltött elemek sorba tétele",
-			"title": "A lejátszási lista beolvasása korlátozva van"
 		},
 		"playlistPresets": {
 			"heading": "Válasszon minőséget a köteghez",
@@ -1321,19 +1380,6 @@
 		"profileSwitchRow": {
 			"helpAria": "{{label}} súgó"
 		},
-		"quickProgress": {
-			"cancel": "Előkészítés megszakítása",
-			"currentFallback": "Aktuális hivatkozás",
-			"description": "Az Arroxy beolvassa a hivatkozást, és alkalmazza a(z) {{profileName}} profilt.",
-			"failedCount_one": "{{count}} sikertelen",
-			"failedCount_other": "{{count}} sikertelen",
-			"phase": {
-				"probing": "Részletek lekérése",
-				"queueing": "Hozzáadás a sorhoz"
-			},
-			"title": "Gyorsletöltés előkészítése",
-			"waitHint": "Hagyja nyitva, amíg az Arroxy előkészíti a sort."
-		},
 		"review": {
 			"areas": {
 				"extras": "extrák",
@@ -1443,6 +1489,7 @@
 				"embed": "Beágyazás a videóba",
 				"heading": "Mentés mint",
 				"sidecar": "A videó mellé",
+				"sidecarNoVideo": "A letöltési mappában",
 				"subfolder": "subtitles/ almappába"
 			},
 			"searchPlaceholder": "Nyelvek keresése…",
@@ -1452,10 +1499,6 @@
 		"tabsNavAria": "Letöltési profil navigáció",
 		"url": {
 			"advanced": "Speciális",
-			"analytics": {
-				"toggle": "Napi jelzés küldése",
-				"toggleDescription": "Nincs telemetria. Naponta egyszer egy névtelen jelzés elküldi az alkalmazás verzióját, a telepítési csatornát, az operációs rendszert, a nyelvet, az országot és hozzávetőlegesen azt, mikor telepítették az Arroxyt, hogy megszámolhassuk az aktív és az új felhasználókat. Azonosítók, URL-ek, videócímek vagy fájlnevek nincsenek benne."
-			},
 			"autoRemoveCompleted": {
 				"description": "A letöltést néhány másodperccel a befejezése után leveszi a Letöltések listáról. A fájlok a mappában maradnak; a sikertelen és megszakított letöltések a listán maradnak.",
 				"label": "Befejezett letöltések eltávolítása"
@@ -1490,6 +1533,11 @@
 				"label": "Egyidejű letöltések",
 				"unit": "letöltés"
 			},
+			"concurrentProbes": {
+				"description": "Hány hivatkozás adatait kéri le egyszerre az Arroxy a letöltés előtt. A kevesebb kíméletesebb azokhoz a webhelyekhez, amelyek blokkolják a forgalmas kapcsolatokat. Az Interaktív letöltésben megnyitott hivatkozás mindig előre kerül.",
+				"label": "Egyszerre ellenőrzött hivatkozások",
+				"unit": "hivatkozás"
+			},
 			"cookies": {
 				"banWarning": "Az olyan webhelyek, mint a YouTube, megjelölhetik – és olykor ki is tilthatják – azokat a fiókokat, amelyek sütijeit az Arroxyhoz hasonló letöltőeszközök használják. Ha lehet, használjon eldobható fiókot.",
 				"browserHelp": "A sütiket közvetlenül a böngészőből olvassa be. A Chromium-családú böngészőknek zárva kell lenniük.",
@@ -1514,12 +1562,20 @@
 				"sourceFile": "Fájl",
 				"sourceLabel": "Sütiforrás",
 				"sourceOff": "Ki",
-				"toggleDescription": "Segít a korhatáros, csak tagoknak szóló és fiókhoz kötött privát videóknál."
+				"toggleDescription": "Olyan videóknál segít, amelyeket a saját fiókja megtekinthet, például a privát videóknál."
 			},
 			"downloadConnections": {
 				"description": "Felgyorsítja a nagy letöltéseket azáltal, hogy a videó több részét egyszerre tölti le. A magasabb értékek növelik az esélyét, hogy a webhely korlátozza.",
 				"label": "Letöltési kapcsolatok",
 				"unit": "kapcsolat"
+			},
+			"downloadList": {
+				"album": "Album letöltése…",
+				"liked": "Kedvelt videók letöltése…",
+				"mix": "Mix letöltése…",
+				"playlist": "Lejátszási lista letöltése…",
+				"uploads": "Feltöltések letöltése…",
+				"watchLater": "„Megtekintés később” letöltése…"
 			},
 			"features": {
 				"always": {
@@ -1548,18 +1604,17 @@
 			"hotkey": {
 				"changeShortcut": "Billentyűparancs módosítása",
 				"conflict": "Ezt a billentyűparancsot egy másik alkalmazás használja – válasszon másikat.",
-				"hintLabel": "Vagy nyomja meg:",
-				"hintTooltip": "Másoljon ki egy videóhivatkozást bárhol, nyomja meg ezt a billentyűparancsot, és az Arroxy az aktív profillal sorba állítja – ablakváltás nélkül.",
-				"hintTooltipSettings": "Módosíthatja vagy kikapcsolhatja a Beállításokban.",
+				"globalLabel": "Globális billentyűparancs",
 				"recording": "Nyomja meg a billentyűket…",
 				"reset": "Alapértelmezés visszaállítása",
 				"sectionDescription": "Bármely alkalmazásból letölti a kimásolt hivatkozást, az Arroxy megnyitása nélkül.",
 				"sectionTitle": "Globális gyorsbillentyű",
 				"test": "Teszt",
 				"toggle": "Globális gyorsbillentyű engedélyezése",
-				"toggleDescription": "Nyomja meg a billentyűparancsot, amikor a vágólapon videóhivatkozás van."
+				"toggleDescriptionDetail": "Másoljon ki egy videóhivatkozást bármelyik alkalmazásban, és nyomja meg a billentyűparancsot: az Arroxy az aktív profillal sorba állítja – ablakváltás nélkül. Egy lejátszási listában lévő videóra mutató hivatkozás a videót tölti le."
 			},
 			"interactiveDownload": "Interaktív letöltés",
+			"interactiveDownloadAsks": "Interaktív letöltés…",
 			"limitRate": {
 				"activeWarning": "Az aktív letöltések megtartják a jelenlegi korlátjukat. A módosítás alkalmazásához szüneteltesse, majd folytassa őket.",
 				"custom": "Egyéni…",
@@ -1572,10 +1627,8 @@
 			"mascotBusy": "Letöltés a háttérben… többfeladatos vagyok 😎",
 			"mascotCollection": "A Gyors a betöltött elemeket a(z) {{profileName}} profillal állítja sorba. Az Interaktívval előbb megvizsgálhatja vagy kijelölheti az elemeket.",
 			"mascotIdle": "Dobjon be egy hivatkozást, és az Arroxy letölti ✨",
-			"mascotMixed": "Ez a hivatkozás egy gyűjtemény egyik videójára mutat. Az Arroxy lekérdezés előtt megkérdezi, melyiket szeretné.",
-			"mascotPreparing": "A(z) {{quickDownload}} beolvassa a hivatkozást, és alkalmazza a(z) {{profileName}} profilt.",
-			"mascotQueued": "A sor kezeli ezt a letöltést. Beilleszthet egy újabb hivatkozást, amíg dolgozik.",
 			"mascotSingle": "A Gyors egy letöltést indít a(z) {{profileName}} profillal. Egyszeri módosításokhoz használja az Interaktívot.",
+			"mascotVideoInList": "Ez a hivatkozás egy videót és a listát jelöli, amelyben van: csak a videót töltse le, vagy a listát.",
 			"nativeAudioPreference": {
 				"compatible": "Kompatibilis sztereó",
 				"description": "Sztereó vagy térhatású hang, amikor egy profil eredeti hangot választ. A profil felülbírálhatja.",
@@ -1679,6 +1732,7 @@
 					"override": "A profilfelülbírálást használja",
 					"overrideSubfolder": "A profilfelülbírálást + a profil almappáját használja"
 				},
+				"destinationEditHint": "A mentési hely módosításához szerkessze a profilt.",
 				"destinationFallback": "Célmappa",
 				"edit": "Szerkesztés",
 				"editActive": "Aktív profil szerkesztése",
@@ -1702,25 +1756,27 @@
 				"remove": "Eltávolítás",
 				"reorderHint": "Húzza a profilt az áthelyezéshez. Minden profilválasztó ezt a sorrendet követi.",
 				"reset": "Visszaállítás",
+				"savesTo": "Mentés helye",
 				"switchAria": "Letöltési profil váltása: {{profileName}}",
 				"switchTitle": "Letöltési profil váltása"
 			},
 			"proxy": {
 				"clear": "Törlés",
-				"description": "A forgalmat proxyn keresztül irányítja – hasznos földrajzilag korlátozott tartalmakhoz.",
+				"description": "A forgalmat proxykiszolgálón keresztül irányítja.",
 				"label": "Proxy URL",
 				"placeholder": "http://host:port"
 			},
-			"quickBulkAllFailed": "Egyik URL-t sem sikerült előkészíteni",
 			"quickDownload": "Gyorsletöltés",
 			"quickDownloadTooltip": "Letöltés ezzel a profillal: {{profileName}}",
 			"quickFailed": "Ezt nem sikerült hozzáadni: {{error}}",
-			"quickPartialFailed_one": "A működő elemek sorba állítva. {{count}} URL-t nem sikerült előkészíteni.",
-			"quickPartialFailed_other": "A működő elemek sorba állítva. {{count}} URL-t nem sikerült előkészíteni.",
 			"quickPrepareFailed": "A sorelemet nem sikerült előkészíteni",
 			"quickPreparing": "Előkészítés",
 			"quickProbeFailed": "A lekérdezés sikertelen",
 			"quickSingleOnly": "A kezdéshez illesszen be egy videó-, lejátszási lista-, csatorna- vagy keresési URL-t.",
+			"reports": {
+				"toggle": "Névtelen jelzés és beállítási jelentések küldése",
+				"toggleDescription": "Nincs követés. Naponta egyszer egy névtelen jelzés elküldi az alkalmazás verzióját, a telepítési csatornát, az operációs rendszert, a nyelvet, az országot és hozzávetőlegesen azt, mikor telepítették az Arroxyt, hogy megszámolhassuk az aktív és az új felhasználókat. Amikor az Arroxy beállítja vagy frissíti a letöltőmotort vagy a médiaeszközöket, azt is jelenti, hogy sikerült-e, és nagyjából mennyi ideig tartott. Azonosítók, URL-ek, videócímek vagy fájlnevek nincsenek benne."
+			},
 			"settings": {
 				"behaviorDescription": "Globális viselkedés, amely a profilvezérelt letöltéseket is érinti.",
 				"behaviorHeading": "Letöltési viselkedés",
@@ -1744,7 +1800,9 @@
 			"tabs": {
 				"profiles": "Profilok",
 				"settings": "Beállítások"
-			}
+			},
+			"thisVideo": "Ez a videó",
+			"thisVideoTooltip": "Csak ezt a videót tölti le ezzel a profillal: {{profileName}}"
 		}
 	}
 }

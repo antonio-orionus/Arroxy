@@ -107,10 +107,6 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "ดำเนินการต่อ"
 
-msgctxt "common.dismiss"
-msgid "Dismiss"
-msgstr "ปิด"
-
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "กำลังโหลด"
@@ -143,13 +139,9 @@ msgctxt "dialogs.closeToTray.remember"
 msgid "Don't ask again"
 msgstr "ไม่ต้องถามอีก"
 
-msgctxt "dialogs.quitWithActiveDownloads.confirm"
-msgid "Cancel Downloads & Quit"
-msgstr "ยกเลิกการดาวน์โหลดและออก"
-
-msgctxt "dialogs.quitWithActiveDownloads.detail"
-msgid "Pause to resume later, or cancel to discard progress."
-msgstr "หยุดชั่วคราวเพื่อทำต่อภายหลัง หรือยกเลิกเพื่อละทิ้งความคืบหน้า"
+msgctxt "dialogs.quitWithActiveDownloads.continueDetail"
+msgid "Your queue is kept, and downloads pick up where they stopped the next time you open Arroxy."
+msgstr "คิวของคุณจะยังอยู่ และการดาวน์โหลดจะเริ่มต่อจากจุดที่หยุดไว้เมื่อคุณเปิด Arroxy ครั้งถัดไป"
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -160,9 +152,9 @@ msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "กำลังดาวน์โหลด {{count}} รายการ"
 
-msgctxt "dialogs.quitWithActiveDownloads.pause"
-msgid "Pause Downloads & Quit"
-msgstr "หยุดการดาวน์โหลดชั่วคราวและออก"
+msgctxt "dialogs.quitWithActiveDownloads.quit"
+msgid "Quit"
+msgstr "ออก"
 
 msgctxt "dialogs.rendererCrashed.detail"
 msgid "The renderer process crashed ({{reason}}). Reload to try again."
@@ -221,8 +213,8 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "วิดีโอนี้จำกัดอายุและไม่สามารถดาวน์โหลดได้หากไม่ได้ลงชื่อเข้าใช้บัญชี"
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
-msgstr "ระบบป้องกันบอตทำงาน IP ที่คุณใช้น่าจะถูกทำเครื่องหมายไว้ (ช่วงที่อยู่ของศูนย์ข้อมูลหรือจุดออก VPN ที่มีผู้ใช้หนาแน่น) เปลี่ยน IP หรือเลือกปลายทาง VPN อื่นแล้วลองใหม่ หากยังล้มเหลว อาจเป็นการเปลี่ยนแปลงชั่วคราวจากฝั่งเว็บไซต์ — Arroxy อัปเดตตัวช่วยดาวน์โหลดเมื่อเปิด ดังนั้นการแก้ไขจะมาถึงโดยอัตโนมัติทันทีที่เผยแพร่"
+msgid "The site's bot protection stopped this download. Wait a while and try again, or download fewer videos at once. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "ระบบป้องกันบอตของเว็บไซต์หยุดการดาวน์โหลดนี้ไว้ รอสักครู่แล้วลองใหม่ หรือดาวน์โหลดครั้งละน้อยลง หากยังล้มเหลว อาจเป็นการเปลี่ยนแปลงชั่วคราวจากฝั่งเว็บไซต์ — Arroxy อัปเดตตัวช่วยดาวน์โหลดเมื่อเปิดแอป จึงได้รับการแก้ไขโดยอัตโนมัติเมื่อมีออกมา"
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
 msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
@@ -241,8 +233,8 @@ msgid "This video is not available in your region."
 msgstr "วิดีโอนี้ไม่พร้อมให้บริการในภูมิภาคของคุณ"
 
 msgctxt "errors.ytdlp.ipBlock"
-msgid "Your IP address appears to be blocked. Try again later or use a VPN."
-msgstr "ดูเหมือนว่าที่อยู่ IP ของคุณถูกบล็อก ลองใหม่ภายหลังหรือใช้ VPN"
+msgid "The site is blocking requests from this connection. Try again later."
+msgstr "เว็บไซต์กำลังบล็อกคำขอจากการเชื่อมต่อนี้ ลองใหม่ภายหลัง"
 
 msgctxt "errors.ytdlp.loginRequired"
 msgid "This video needs a signed-in account."
@@ -324,13 +316,77 @@ msgctxt "explore.linkCallout.title"
 msgid "Right-click a link to download it"
 msgstr "คลิกขวาที่ลิงก์เพื่อดาวน์โหลด"
 
+msgctxt "explore.linkMenu.background.album"
+msgid "Download the album in the background"
+msgstr "ดาวน์โหลดอัลบั้มในเบื้องหลัง"
+
+msgctxt "explore.linkMenu.background.liked"
+msgid "Download your liked videos in the background"
+msgstr "ดาวน์โหลดวิดีโอที่ถูกใจของคุณในเบื้องหลัง"
+
+msgctxt "explore.linkMenu.background.mix"
+msgid "Download the Mix in the background"
+msgstr "ดาวน์โหลดมิกซ์ในเบื้องหลัง"
+
+msgctxt "explore.linkMenu.background.playlist"
+msgid "Download the playlist in the background"
+msgstr "ดาวน์โหลดเพลย์ลิสต์ในเบื้องหลัง"
+
+msgctxt "explore.linkMenu.background.uploads"
+msgid "Download the uploads in the background"
+msgstr "ดาวน์โหลดวิดีโอที่อัปโหลดในเบื้องหลัง"
+
+msgctxt "explore.linkMenu.background.watchLater"
+msgid "Download Watch later in the background"
+msgstr "ดาวน์โหลด “ดูภายหลัง” ในเบื้องหลัง"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "คัดลอกลิงก์"
 
+msgctxt "explore.linkMenu.downloadFirst"
+msgid "Download the first {{count}}"
+msgstr "ดาวน์โหลด {{count}} รายการแรก"
+
+msgctxt "explore.linkMenu.downloadThisVideo"
+msgid "Download this video · {{profileName}}"
+msgstr "ดาวน์โหลดวิดีโอนี้ · {{profileName}}"
+
 msgctxt "explore.linkMenu.downloadWith"
 msgid "Download with"
 msgstr "ดาวน์โหลดด้วย"
+
+msgctxt "explore.linkMenu.fromList.album"
+msgid "From this album"
+msgstr "จากอัลบั้มนี้"
+
+msgctxt "explore.linkMenu.fromList.liked"
+msgid "From your liked videos"
+msgstr "จากวิดีโอที่ถูกใจของคุณ"
+
+msgctxt "explore.linkMenu.fromList.mix"
+msgid "From this Mix"
+msgstr "จากมิกซ์นี้"
+
+msgctxt "explore.linkMenu.fromList.playlist"
+msgid "From this playlist"
+msgstr "จากเพลย์ลิสต์นี้"
+
+msgctxt "explore.linkMenu.fromList.uploads"
+msgid "From this channel’s uploads"
+msgstr "จากวิดีโอที่อัปโหลดของช่องนี้"
+
+msgctxt "explore.linkMenu.fromList.watchLater"
+msgid "From Watch later"
+msgstr "จาก “ดูภายหลัง”"
+
+msgctxt "explore.linkMenu.interactive"
+msgid "Interactive Download…"
+msgstr "ดาวน์โหลดแบบโต้ตอบ…"
+
+msgctxt "explore.linkMenu.thisVideoWith"
+msgid "This video with"
+msgstr "วิดีโอนี้ด้วยโปรไฟล์"
 
 msgctxt "explore.newBadge"
 msgid "New"
@@ -476,6 +532,10 @@ msgctxt "explore.toolbar.compactLayout"
 msgid "Compact layout"
 msgstr "เลย์เอาต์แบบกะทัดรัด"
 
+msgctxt "explore.toolbar.download"
+msgid "Download"
+msgstr "ดาวน์โหลด"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "ดาวน์โหลด · {{profileName}}"
@@ -511,6 +571,14 @@ msgstr "โหลดใหม่"
 msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "คำค้นหายาวเกินไป"
+
+msgctxt "explore.toolbar.thisVideo"
+msgid "This video"
+msgstr "วิดีโอนี้"
+
+msgctxt "explore.toolbar.thisVideoHint"
+msgid "Download just this video with {{profileName}}"
+msgstr "ดาวน์โหลดเฉพาะวิดีโอนี้ด้วย {{profileName}}"
 
 msgctxt "explore.toolbar.zoom.hint"
 msgid "Page zoom: {{percent}}%"
@@ -576,17 +644,17 @@ msgctxt "filenameTemplate.error.unknown-token"
 msgid "Unknown token {{token}}."
 msgstr "โทเค็น {{token}} ที่ไม่รู้จัก"
 
-msgctxt "filenameTemplate.idWarning"
-msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
-msgstr "หากไม่มี {id} Arroxy จะตรวจหารายการในเพลย์ลิสต์ที่ดาวน์โหลดไว้แล้วหรือสร้างเพลย์ลิสต์ .m3u ไม่ได้"
+msgctxt "filenameTemplate.idEndingWarning"
+msgid "End the name with [{id}] so Arroxy can detect already-downloaded playlist items and generate .m3u playlists."
+msgstr "ลงท้ายชื่อด้วย [{id}] เพื่อให้ Arroxy ตรวจหารายการในเพลย์ลิสต์ที่ดาวน์โหลดไว้แล้วและสร้างเพลย์ลิสต์ .m3u ได้"
 
 msgctxt "filenameTemplate.label"
 msgid "Filename template"
 msgstr "แม่แบบชื่อไฟล์"
 
-msgctxt "filenameTemplate.m3uDisabled"
-msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
-msgstr "ใช้ไม่ได้เนื่องจากแม่แบบชื่อไฟล์ไม่มี {id} หรือจัดเรียงไฟล์ดาวน์โหลดลงในโฟลเดอร์"
+msgctxt "filenameTemplate.m3uDisabledIdEnding"
+msgid "Unavailable because your filename template either doesn't end with [{id}] or sorts downloads into folders."
+msgstr "ใช้ไม่ได้ เนื่องจากแม่แบบชื่อไฟล์ของคุณไม่ได้ลงท้ายด้วย [{id}] หรือจัดเรียงไฟล์ดาวน์โหลดลงในโฟลเดอร์"
 
 msgctxt "filenameTemplate.previewPlaylist"
 msgid "In a playlist"
@@ -763,6 +831,31 @@ msgid "Already in the queue"
 msgstr "อยู่ในคิวแล้ว"
 
 #. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "notifications.quickDownload.batchAdded_other"
+msgid "Added {{count}} links to Downloads"
+msgstr "เพิ่ม {{count}} ลิงก์ไปยังดาวน์โหลดแล้ว"
+
+#. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_other"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} รายการอยู่ในคิวแล้ว"
+
+#. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "notifications.quickDownload.batchNoneAdded_other"
+msgid "{{count}} links couldn't be added"
+msgstr "เพิ่ม {{count}} ลิงก์ไม่ได้"
+
+#. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "notifications.quickDownload.batchNotAdded_other"
+msgid "{{count}} couldn't be added"
+msgstr "เพิ่ม {{count}} รายการไม่ได้"
+
+#. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "notifications.quickDownload.chooseFromList_other"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "รายการนี้มี {{count}} วิดีโอ — เลือกสิ่งที่จะดาวน์โหลด"
+
+#. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "notifications.quickDownload.chooseHowMany_other"
 msgid "{{count}}+ videos — choose how many"
 msgstr "{{count}}+ วิดีโอ — เลือกจำนวน"
@@ -774,16 +867,6 @@ msgstr "เตรียม {{title}} ไม่สำเร็จ"
 msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "เพิ่มลิงก์นั้นไม่สำเร็จ — ลองอีกครั้ง"
-
-#. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "notifications.quickDownload.review_other"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "รายการนี้มี {{count}} วิดีโอ — ตรวจดูเพื่อเลือก"
-
-#. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "notifications.quickDownload.reviewCapped_other"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "รายการนี้มี {{count}}+ วิดีโอ — ตรวจดูเพื่อเลือก"
 
 msgctxt "notifications.quickDownload.view"
 msgid "View"
@@ -1023,14 +1106,70 @@ msgctxt "queue.choice.first"
 msgid "First {{count}}"
 msgstr "{{count}} รายการแรก"
 
+msgctxt "queue.choice.list.album"
+msgid "The album"
+msgstr "อัลบั้ม"
+
+msgctxt "queue.choice.list.liked"
+msgid "Liked videos"
+msgstr "วิดีโอที่ถูกใจ"
+
+msgctxt "queue.choice.list.mix"
+msgid "The Mix"
+msgstr "มิกซ์"
+
+msgctxt "queue.choice.list.playlist"
+msgid "The playlist"
+msgstr "เพลย์ลิสต์"
+
+msgctxt "queue.choice.list.uploads"
+msgid "All the uploads"
+msgstr "วิดีโอที่อัปโหลดทั้งหมด"
+
+msgctxt "queue.choice.list.watchLater"
+msgid "Watch later"
+msgstr "“ดูภายหลัง”"
+
+msgctxt "queue.choice.pick"
+msgid "Pick from it…"
+msgstr "เลือกจากรายการนั้น…"
+
 msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "ตรวจดู"
 
 #. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "queue.choice.reviewBody_other"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "ลิงก์นี้เป็นรายการวิดีโอ {{count}} รายการ ตรวจดูเพื่อเลือกสิ่งที่จะดาวน์โหลด"
+msgctxt "queue.choice.uncappedBody_other"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "ลิงก์นี้เป็นรายการวิดีโอ {{count}} รายการ ดาวน์โหลดทั้งหมด หรือตรวจดูเพื่อเลือกก็ได้"
+
+msgctxt "queue.choice.video"
+msgid "This video"
+msgstr "วิดีโอนี้"
+
+msgctxt "queue.choice.videoOrList.album"
+msgid "This link is a video in an album. Download just the video, or the album?"
+msgstr "ลิงก์นี้เป็นวิดีโอในอัลบั้ม ดาวน์โหลดเฉพาะวิดีโอ หรือทั้งอัลบั้ม"
+
+msgctxt "queue.choice.videoOrList.liked"
+msgid "This link is a video in your liked videos. Download just the video, or all your liked videos?"
+msgstr "ลิงก์นี้เป็นวิดีโอในวิดีโอที่ถูกใจของคุณ ดาวน์โหลดเฉพาะวิดีโอ หรือวิดีโอที่ถูกใจทั้งหมด"
+
+msgctxt "queue.choice.videoOrList.mix"
+msgid "This link is a video in a Mix. Download just the video, or the Mix?"
+msgstr "ลิงก์นี้เป็นวิดีโอในมิกซ์ ดาวน์โหลดเฉพาะวิดีโอ หรือทั้งมิกซ์"
+
+msgctxt "queue.choice.videoOrList.playlist"
+msgid "This link is a video in a playlist. Download just the video, or the playlist?"
+msgstr "ลิงก์นี้เป็นวิดีโอในเพลย์ลิสต์ ดาวน์โหลดเฉพาะวิดีโอ หรือทั้งเพลย์ลิสต์"
+
+msgctxt "queue.choice.videoOrList.uploads"
+msgid "This link is a video in a channel's uploads. Download just the video, or all the uploads?"
+msgstr "ลิงก์นี้เป็นวิดีโอที่อัปโหลดของช่อง ดาวน์โหลดเฉพาะวิดีโอ หรือวิดีโอที่อัปโหลดทั้งหมด"
+
+msgctxt "queue.choice.videoOrList.watchLater"
+msgid "This link is a video in your Watch later list. Download just the video, or the whole list?"
+msgstr "ลิงก์นี้เป็นวิดีโอในรายการ “ดูภายหลัง” ของคุณ ดาวน์โหลดเฉพาะวิดีโอ หรือทั้งรายการ"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -1159,6 +1298,70 @@ msgstr "กำลังดาวน์โหลด"
 msgctxt "queue.item.subtitleLanguagesMissing"
 msgid "No subtitles in {{languages}}"
 msgstr "ไม่มีคำบรรยายในภาษา {{languages}}"
+
+msgctxt "queue.item.waitingForSite"
+msgid "Waits for {{site}} until {{time}}"
+msgstr "รอ {{site}} จนถึง {{time}}"
+
+msgctxt "queue.item.waitingHint"
+msgid "{{site}} is rate-limiting this connection. Arroxy fetches this link's details after {{time}}, so the limit can clear."
+msgstr "{{site}} กำลังจำกัดคำขอจากการเชื่อมต่อนี้ Arroxy จะดึงรายละเอียดของลิงก์นี้หลัง {{time}} เพื่อให้ข้อจำกัดหมดไปก่อน"
+
+msgctxt "queue.listOffer.dismiss"
+msgid "Dismiss"
+msgstr "ปิด"
+
+msgctxt "queue.listOffer.from.album"
+msgid "From an album"
+msgstr "จากอัลบั้ม"
+
+msgctxt "queue.listOffer.from.liked"
+msgid "From your liked videos"
+msgstr "จากวิดีโอที่ถูกใจของคุณ"
+
+msgctxt "queue.listOffer.from.mix"
+msgid "From a Mix"
+msgstr "จากมิกซ์"
+
+msgctxt "queue.listOffer.from.playlist"
+msgid "From a playlist"
+msgstr "จากเพลย์ลิสต์"
+
+msgctxt "queue.listOffer.from.uploads"
+msgid "From a channel's uploads"
+msgstr "จากวิดีโอที่อัปโหลดของช่อง"
+
+msgctxt "queue.listOffer.from.watchLater"
+msgid "From Watch later"
+msgstr "จาก “ดูภายหลัง”"
+
+msgctxt "queue.listOffer.get.album"
+msgid "Get the whole album"
+msgstr "รับทั้งอัลบั้ม"
+
+msgctxt "queue.listOffer.get.liked"
+msgid "Get all liked videos"
+msgstr "รับวิดีโอที่ถูกใจทั้งหมด"
+
+msgctxt "queue.listOffer.get.mix"
+msgid "Get the whole Mix"
+msgstr "รับทั้งมิกซ์"
+
+msgctxt "queue.listOffer.get.playlist"
+msgid "Get the whole playlist"
+msgstr "รับทั้งเพลย์ลิสต์"
+
+msgctxt "queue.listOffer.get.uploads"
+msgid "Get all uploads"
+msgstr "รับวิดีโอที่อัปโหลดทั้งหมด"
+
+msgctxt "queue.listOffer.get.watchLater"
+msgid "Get all of Watch later"
+msgstr "รับทุกอย่างใน “ดูภายหลัง”"
+
+msgctxt "queue.listOffer.hint"
+msgid "Adds the list as its own row. This video is left out."
+msgstr "เพิ่มรายการนี้เป็นแถวแยกต่างหาก ไม่รวมวิดีโอนี้"
 
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
@@ -1700,10 +1903,6 @@ msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "ยินดีต้อนรับกลับมา!"
 
-msgctxt "splash.setup.bytes"
-msgid "{{done}} of {{total}}"
-msgstr "{{done}} จาก {{total}}"
-
 #. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "splash.setup.left.minutes_other"
 msgid "about {{count}} min left"
@@ -1713,18 +1912,6 @@ msgctxt "splash.setup.left.underMinute"
 msgid "less than a minute left"
 msgstr "เหลือไม่ถึงหนึ่งนาที"
 
-msgctxt "splash.setup.note.engine"
-msgid "Keeps downloads working when sites change."
-msgstr "ช่วยให้การดาวน์โหลดใช้งานได้ต่อไปเมื่อเว็บไซต์เปลี่ยนแปลง"
-
-msgctxt "splash.setup.note.firstRun"
-msgid "This happens once. Arroxy keeps these tools and updates them itself."
-msgstr "ขั้นตอนนี้เกิดขึ้นครั้งเดียว Arroxy จะเก็บเครื่องมือเหล่านี้ไว้และอัปเดตให้เอง"
-
-msgctxt "splash.setup.note.media"
-msgid "This happens once. Arroxy keeps them for future updates."
-msgstr "ขั้นตอนนี้เกิดขึ้นครั้งเดียว Arroxy จะเก็บไว้สำหรับการอัปเดตครั้งต่อไป"
-
 msgctxt "splash.setup.stage.checking"
 msgid "Checking everything works"
 msgstr "กำลังตรวจสอบว่าทุกอย่างทำงานได้"
@@ -1733,21 +1920,17 @@ msgctxt "splash.setup.stage.connecting"
 msgid "Connecting…"
 msgstr "กำลังเชื่อมต่อ…"
 
-msgctxt "splash.setup.stage.downloadingBoth"
-msgid "Downloading the download engine and media tools"
-msgstr "กำลังดาวน์โหลดตัวช่วยดาวน์โหลดและเครื่องมือสื่อ"
-
-msgctxt "splash.setup.stage.downloadingEngine"
-msgid "Downloading the download engine"
-msgstr "กำลังดาวน์โหลดตัวช่วยดาวน์โหลด"
-
-msgctxt "splash.setup.stage.downloadingMedia"
-msgid "Downloading the media tools"
-msgstr "กำลังดาวน์โหลดเครื่องมือสื่อ"
-
 msgctxt "splash.setup.stage.unpacking"
 msgid "Unpacking the media tools"
 msgstr "กำลังแตกไฟล์เครื่องมือสื่อ"
+
+msgctxt "splash.setup.stage.unpackingEngine"
+msgid "Unpacking the download engine"
+msgstr "กำลังแตกไฟล์ตัวช่วยดาวน์โหลด"
+
+msgctxt "splash.setup.title.both"
+msgid "Updating Arroxy's tools"
+msgstr "กำลังอัปเดตเครื่องมือของ Arroxy"
 
 msgctxt "splash.setup.title.engine"
 msgid "Updating the download engine"
@@ -1834,8 +2017,8 @@ msgid "Merging audio and video…"
 msgstr "กำลังรวมเสียงและวิดีโอ…"
 
 msgctxt "status.mintingToken"
-msgid "Minting YouTube token…"
-msgstr "กำลังสร้างโทเค็น YouTube…"
+msgid "Preparing YouTube download…"
+msgstr "กำลังเตรียมการดาวน์โหลด YouTube…"
 
 msgctxt "status.movingFiles"
 msgid "Moving files…"
@@ -1854,16 +2037,16 @@ msgid "Preparing binaries…"
 msgstr "กำลังเตรียมไบนารี…"
 
 msgctxt "status.qualityLimited"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
-msgstr "บันทึกที่ {{height}}p — YouTube ระงับคุณภาพที่สูงกว่าสำหรับการดาวน์โหลดนี้ การลองใหม่ภายหลังหรือจากเครือข่ายอื่นอาจช่วยได้"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later may help."
+msgstr "บันทึกที่ {{height}}p — YouTube ระงับคุณภาพที่สูงกว่าสำหรับการดาวน์โหลดนี้ การลองใหม่ภายหลังอาจช่วยได้"
 
 msgctxt "status.qualityLimitedSubtitlesFailed"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
-msgstr "บันทึกที่ {{height}}p — YouTube ระงับคุณภาพที่สูงกว่าสำหรับการดาวน์โหลดนี้ และดาวน์โหลดคำบรรยายบางรายการไม่ได้ การลองใหม่ภายหลังหรือจากเครือข่ายอื่นอาจช่วยได้"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later may help."
+msgstr "บันทึกที่ {{height}}p — YouTube ระงับคุณภาพที่สูงกว่าสำหรับการดาวน์โหลดนี้ และดาวน์โหลดคำบรรยายบางรายการไม่ได้ การลองใหม่ภายหลังอาจช่วยได้"
 
 msgctxt "status.remintingToken"
-msgid "Re-minting token…"
-msgstr "กำลังสร้างโทเค็นใหม่…"
+msgid "Preparing YouTube download again…"
+msgstr "กำลังเตรียมการดาวน์โหลด YouTube อีกครั้ง…"
 
 msgctxt "status.retryingSponsorBlock"
 msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
@@ -2255,8 +2438,8 @@ msgid "Folder name has invalid characters"
 msgstr "ชื่อโฟลเดอร์มีอักขระที่ใช้ไม่ได้"
 
 msgctxt "wizard.folder.subfolder.placeholder"
-msgid "e.g. lo-fi rips"
-msgstr "เช่น lo-fi rips"
+msgid "e.g. lectures"
+msgstr "เช่น การบรรยาย"
 
 msgctxt "wizard.folder.subfolder.toggle"
 msgid "Save inside subfolder"
@@ -2523,9 +2706,25 @@ msgctxt "wizard.formats.fit.tierAbove"
 msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
 msgstr "โปรไฟล์ของคุณต้องการ {{wanted}}p แต่วิดีโอนี้ไม่มีความละเอียดที่ต่ำขนาดนั้น จึงเลือก {{picked}}p"
 
-msgctxt "wizard.formats.fit.tierBelow"
-msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
-msgstr "โปรไฟล์ของคุณต้องการ {{wanted}}p แต่วิดีโอนี้มีสูงสุดเพียง {{picked}}p จึงเลือก {{picked}}p"
+msgctxt "wizard.formats.fit.tierAbovePassedOver"
+msgid "Your profile asks for {{wanted}}p. The smaller streams this video has don't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "โปรไฟล์ของคุณต้องการ {{wanted}}p สตรีมที่เล็กกว่าของวิดีโอนี้ไม่เข้ากับการตั้งค่าอื่นในโปรไฟล์ จึงเลือก {{picked}}p"
+
+msgctxt "wizard.formats.fit.tierBelowTakeable"
+msgid "Your profile asks for {{wanted}}p. This video has no {{wanted}}p it can take, so {{picked}}p is selected."
+msgstr "โปรไฟล์ของคุณต้องการ {{wanted}}p วิดีโอนี้ไม่มี {{wanted}}p ที่ใช้ได้ จึงเลือก {{picked}}p"
+
+msgctxt "wizard.formats.fit.tierPassedOverAiUpscaled"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p is AI-upscaled, so the original {{picked}}p is selected."
+msgstr "โปรไฟล์ของคุณต้องการ {{wanted}}p {{wanted}}p ของวิดีโอนี้เป็นภาพที่ขยายด้วย AI จึงเลือก {{picked}}p ต้นฉบับ"
+
+msgctxt "wizard.formats.fit.tierPassedOverH264"
+msgid "Your profile asks for {{wanted}}p in H.264. This video has {{wanted}}p only in other codecs, so {{picked}}p in H.264 is selected."
+msgstr "โปรไฟล์ของคุณต้องการ {{wanted}}p แบบ H.264 วิดีโอนี้มี {{wanted}}p เฉพาะในโคเดกอื่น จึงเลือก {{picked}}p แบบ H.264"
+
+msgctxt "wizard.formats.fit.tierPassedOverProfile"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p doesn't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "โปรไฟล์ของคุณต้องการ {{wanted}}p {{wanted}}p ของวิดีโอนี้ไม่เข้ากับการตั้งค่าอื่นในโปรไฟล์ จึงเลือก {{picked}}p"
 
 msgctxt "wizard.formats.fit.webmUnavailable"
 msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
@@ -2763,85 +2962,81 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "มีเสียง"
 
-msgctxt "wizard.listPrompt.escHint"
-msgid "Esc cancels. Nothing loads until you choose."
-msgstr "กด Esc เพื่อยกเลิก จะยังไม่โหลดอะไรจนกว่าคุณจะเลือก"
+msgctxt "wizard.listPrompt.backgroundHint"
+msgid "With {{profileName}}. If it has more than {{count}} videos, Downloads asks how many."
+msgstr "ด้วย {{profileName}} หากมีวิดีโอมากกว่า {{count}} รายการ ดาวน์โหลดจะถามว่าจะเอากี่รายการ"
 
-msgctxt "wizard.listPrompt.interactiveSubtitle"
-msgid "Choose formats yourself"
-msgstr "เลือกรูปแบบเอง"
+msgctxt "wizard.listPrompt.backgroundLabel"
+msgid "Download in the background"
+msgstr "ดาวน์โหลดในเบื้องหลัง"
 
-msgctxt "wizard.listPrompt.justThisVideo"
-msgid "Just this video"
-msgstr "เฉพาะวิดีโอนี้"
+msgctxt "wizard.listPrompt.escOnly"
+msgid "Esc cancels."
+msgstr "กด Esc เพื่อยกเลิก"
 
-msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
-msgid "Opens its formats"
-msgstr "เปิดหน้ารูปแบบของวิดีโอ"
+msgctxt "wizard.listPrompt.firstHint"
+msgid "Exactly the first {{count}}, with {{profileName}}."
+msgstr "{{count}} รายการแรกพอดี ด้วย {{profileName}}"
 
-msgctxt "wizard.listPrompt.justThisVideoQuickHint"
-msgid "Loads one video"
-msgstr "โหลดวิดีโอเดียว"
+msgctxt "wizard.listPrompt.firstLabel"
+msgid "Download the first"
+msgstr "ดาวน์โหลดรายการแรก"
 
-msgctxt "wizard.listPrompt.listInteractiveHint"
-msgid "Loads up to {{count}} to choose from"
-msgstr "โหลดสูงสุด {{count}} รายการให้คุณเลือก"
+msgctxt "wizard.listPrompt.interactiveHint"
+msgid "Pick from the first {{count}} videos (or change the count on the next step), then set up the download."
+msgstr "เลือกจาก {{count}} วิดีโอแรก (หรือเปลี่ยนจำนวนในขั้นตอนถัดไป) แล้วตั้งค่าการดาวน์โหลด"
 
-msgctxt "wizard.listPrompt.listOption.album"
-msgid "The album, first"
-msgstr "ช่วงต้นของอัลบั้ม"
+msgctxt "wizard.listPrompt.interactiveLabel"
+msgid "Interactive download…"
+msgstr "ดาวน์โหลดแบบโต้ตอบ…"
 
-msgctxt "wizard.listPrompt.listOption.liked"
-msgid "Your liked videos, first"
-msgstr "ช่วงต้นของวิดีโอที่ถูกใจ"
+msgctxt "wizard.listPrompt.limitHint"
+msgid "How many videos to take from the list: the first option asks past it, the second takes exactly that many. The same as Settings › Playlist items to scan."
+msgstr "จำนวนวิดีโอที่จะนำมาจากรายการ ตัวเลือกแรกจะถามเมื่อเกินจำนวนนี้ ตัวเลือกที่สองจะเอาตามจำนวนนี้พอดี เป็นค่าเดียวกับการตั้งค่า › รายการเพลย์ลิสต์ที่จะตรวจสอบ"
 
-msgctxt "wizard.listPrompt.listOption.mix"
-msgid "The Mix, first"
-msgstr "ช่วงต้นของมิกซ์"
-
-msgctxt "wizard.listPrompt.listOption.playlist"
-msgid "The playlist, first"
-msgstr "ช่วงต้นของเพลย์ลิสต์"
-
-msgctxt "wizard.listPrompt.listOption.uploads"
-msgid "The uploads, first"
-msgstr "ช่วงต้นของวิดีโอที่อัปโหลด"
-
-msgctxt "wizard.listPrompt.listOption.watchLater"
-msgid "Watch later, first"
-msgstr "ช่วงต้นของ “ดูภายหลัง”"
-
-msgctxt "wizard.listPrompt.listQuickHint"
-msgid "Loads up to {{count}}, then downloads them"
-msgstr "โหลดสูงสุด {{count}} รายการ แล้วดาวน์โหลด"
+msgctxt "wizard.listPrompt.limitLabel"
+msgid "Limit"
+msgstr "จำนวนสูงสุด"
 
 msgctxt "wizard.listPrompt.mixNote"
 msgid "A Mix changes every time you open it."
 msgstr "มิกซ์จะเปลี่ยนไปทุกครั้งที่คุณเปิด"
 
-msgctxt "wizard.listPrompt.pickOption.album"
-msgid "Pick from the album, first"
-msgstr "เลือกจากช่วงต้นของอัลบั้ม"
+msgctxt "wizard.listPrompt.pickLoadAfter"
+msgid "to pick from."
+msgstr "รายการแรกเพื่อเลือก"
 
-msgctxt "wizard.listPrompt.pickOption.liked"
-msgid "Pick from your liked videos, first"
-msgstr "เลือกจากช่วงต้นของวิดีโอที่ถูกใจ"
+msgctxt "wizard.listPrompt.pickLoadBefore"
+msgid "Load the first"
+msgstr "โหลด"
 
-msgctxt "wizard.listPrompt.pickOption.mix"
-msgid "Pick from the Mix, first"
-msgstr "เลือกจากช่วงต้นของมิกซ์"
+msgctxt "wizard.listPrompt.pickLoadNote"
+msgid "You can change it on the next step."
+msgstr "คุณเปลี่ยนได้ในขั้นตอนถัดไป"
 
-msgctxt "wizard.listPrompt.pickOption.playlist"
-msgid "Pick from the playlist, first"
-msgstr "เลือกจากช่วงต้นของเพลย์ลิสต์"
+msgctxt "wizard.listPrompt.pickTitle.album"
+msgid "Pick from this album"
+msgstr "เลือกจากอัลบั้มนี้"
 
-msgctxt "wizard.listPrompt.pickOption.uploads"
-msgid "Pick from the uploads, first"
-msgstr "เลือกจากช่วงต้นของวิดีโอที่อัปโหลด"
+msgctxt "wizard.listPrompt.pickTitle.liked"
+msgid "Pick from your liked videos"
+msgstr "เลือกจากวิดีโอที่ถูกใจของคุณ"
 
-msgctxt "wizard.listPrompt.pickOption.watchLater"
-msgid "Pick from Watch later, first"
-msgstr "เลือกจากช่วงต้นของ “ดูภายหลัง”"
+msgctxt "wizard.listPrompt.pickTitle.mix"
+msgid "Pick from this Mix"
+msgstr "เลือกจากมิกซ์นี้"
+
+msgctxt "wizard.listPrompt.pickTitle.playlist"
+msgid "Pick from this playlist"
+msgstr "เลือกจากเพลย์ลิสต์นี้"
+
+msgctxt "wizard.listPrompt.pickTitle.uploads"
+msgid "Pick from this channel’s uploads"
+msgstr "เลือกจากวิดีโอที่อัปโหลดของช่องนี้"
+
+msgctxt "wizard.listPrompt.pickTitle.watchLater"
+msgid "Pick from Watch later"
+msgstr "เลือกจาก “ดูภายหลัง”"
 
 msgctxt "wizard.listPrompt.title.album"
 msgid "Download from this album"
@@ -2866,6 +3061,18 @@ msgstr "ดาวน์โหลดจากวิดีโอที่อัป
 msgctxt "wizard.listPrompt.title.watchLater"
 msgid "Download from Watch later"
 msgstr "ดาวน์โหลดจาก “ดูภายหลัง”"
+
+msgctxt "wizard.listPrompt.videoHint"
+msgid "Only the video you opened, with {{profileName}}. The list isn't loaded."
+msgstr "เฉพาะวิดีโอที่คุณเปิด ด้วย {{profileName}} จะไม่โหลดรายการ"
+
+msgctxt "wizard.listPrompt.videoLabel"
+msgid "Just this video"
+msgstr "เฉพาะวิดีโอนี้"
+
+msgctxt "wizard.listPrompt.videoPickHint"
+msgid "Set up only the video you opened. The list isn't loaded."
+msgstr "ตั้งค่าเฉพาะวิดีโอที่คุณเปิด จะไม่โหลดรายการ"
 
 msgctxt "wizard.listPrompt.withProfile"
 msgid "With {{profileName}}"
@@ -3062,6 +3269,16 @@ msgstr "นำทุกรายการออกแล้ว"
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "ดาวน์โหลดแล้ว"
+
+#. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlist.bulkCappedDesc_other"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "ยังมีมากกว่านี้ หากต้องการเลือกจำนวน ให้วางลิงก์ของแต่ละรายการแยกกัน"
+
+#. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlist.bulkCappedTitle_other"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "{{count}} รายการถูกตัดที่ {{limit}} วิดีโอต่อรายการ"
 
 msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
@@ -3266,28 +3483,6 @@ msgstr "กำลังตรวจสอบโฟลเดอร์…"
 msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "ภาพขนาดย่อของวิดีโอ"
-
-msgctxt "wizard.playlistCap.changeLimit"
-msgid "Change load limit"
-msgstr "เปลี่ยนขีดจำกัดการโหลด"
-
-#. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.playlistCap.description_other"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy โหลดไป {{count}} รายการตามขีดจำกัดปัจจุบันที่ {{limit}} คุณจะเพิ่มรายการที่โหลดแล้วลงในคิวตอนนี้ หรือเพิ่มขีดจำกัดแล้วตรวจสอบใหม่ก็ได้"
-
-#. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.playlistCap.descriptionWithTitle_other"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy โหลดไป {{count}} รายการตามขีดจำกัดปัจจุบันที่ {{limit}} คุณจะเพิ่มรายการที่โหลดแล้วลงในคิวตอนนี้ หรือเพิ่มขีดจำกัดแล้วตรวจสอบใหม่ก็ได้"
-
-msgctxt "wizard.playlistCap.queueLoaded"
-msgid "Queue loaded items"
-msgstr "เพิ่มรายการที่โหลดแล้วลงในคิว"
-
-msgctxt "wizard.playlistCap.title"
-msgid "Playlist scan is capped"
-msgstr "การตรวจสอบเพลย์ลิสต์มีขีดจำกัด"
 
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
@@ -3765,39 +3960,6 @@ msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
 msgstr "ความช่วยเหลือสำหรับ {{label}}"
 
-msgctxt "wizard.quickProgress.cancel"
-msgid "Cancel preparation"
-msgstr "ยกเลิกการเตรียม"
-
-msgctxt "wizard.quickProgress.currentFallback"
-msgid "Current link"
-msgstr "ลิงก์ปัจจุบัน"
-
-msgctxt "wizard.quickProgress.description"
-msgid "Arroxy is reading the link and applying {{profileName}}."
-msgstr "Arroxy กำลังอ่านลิงก์และใช้ {{profileName}}"
-
-#. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.quickProgress.failedCount_other"
-msgid "{{count}} failed"
-msgstr "ล้มเหลว {{count}} รายการ"
-
-msgctxt "wizard.quickProgress.phase.probing"
-msgid "Fetching details"
-msgstr "กำลังดึงรายละเอียด"
-
-msgctxt "wizard.quickProgress.phase.queueing"
-msgid "Adding to queue"
-msgstr "กำลังเพิ่มลงคิว"
-
-msgctxt "wizard.quickProgress.title"
-msgid "Preparing Quick Download"
-msgstr "กำลังเตรียมดาวน์โหลดด่วน"
-
-msgctxt "wizard.quickProgress.waitHint"
-msgid "Keep this open while Arroxy prepares the queue."
-msgstr "เปิดหน้าต่างนี้ไว้ขณะที่ Arroxy เตรียมคิว"
-
 msgctxt "wizard.review.areas.extras"
 msgid "extras"
 msgstr "ส่วนเสริม"
@@ -4106,6 +4268,10 @@ msgctxt "wizard.subtitles.saveMode.sidecar"
 msgid "Next to video"
 msgstr "ข้างวิดีโอ"
 
+msgctxt "wizard.subtitles.saveMode.sidecarNoVideo"
+msgid "In the download folder"
+msgstr "ในโฟลเดอร์ดาวน์โหลด"
+
 msgctxt "wizard.subtitles.saveMode.subfolder"
 msgid "subtitles/ subfolder"
 msgstr "โฟลเดอร์ย่อย subtitles/"
@@ -4129,14 +4295,6 @@ msgstr "การนำทางโปรไฟล์ดาวน์โหลด
 msgctxt "wizard.url.advanced"
 msgid "Advanced"
 msgstr "ขั้นสูง"
-
-msgctxt "wizard.url.analytics.toggle"
-msgid "Send daily heartbeat"
-msgstr "ส่งสัญญาณรายวัน"
-
-msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
-msgstr "ไม่มีการเก็บข้อมูลเทเลเมทรี วันละครั้ง สัญญาณแบบไม่ระบุตัวตนจะส่งเวอร์ชันแอป ช่องทางการติดตั้ง ระบบปฏิบัติการ ภาษา ประเทศ และระยะเวลาโดยประมาณนับตั้งแต่ติดตั้ง Arroxy เพื่อให้เรานับจำนวนผู้ใช้ที่ใช้งานอยู่และผู้ใช้ใหม่ได้ โดยไม่มี ID URL ชื่อวิดีโอ หรือชื่อไฟล์"
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
@@ -4225,6 +4383,18 @@ msgstr "ดาวน์โหลดพร้อมกัน"
 msgctxt "wizard.url.concurrentDownloads.unit"
 msgid "downloads"
 msgstr "ดาวน์โหลด"
+
+msgctxt "wizard.url.concurrentProbes.description"
+msgid "How many links Arroxy fetches details for at the same time, before they download. Fewer is gentler on sites that block busy connections. A link you open in Interactive Download always goes first."
+msgstr "จำนวนลิงก์ที่ Arroxy ดึงรายละเอียดพร้อมกันก่อนดาวน์โหลด ยิ่งน้อยยิ่งเบามือกับเว็บไซต์ที่บล็อกการเชื่อมต่อหนาแน่น ลิงก์ที่คุณเปิดในการดาวน์โหลดแบบโต้ตอบจะถูกทำก่อนเสมอ"
+
+msgctxt "wizard.url.concurrentProbes.label"
+msgid "Links checked at once"
+msgstr "ลิงก์ที่ตรวจสอบพร้อมกัน"
+
+msgctxt "wizard.url.concurrentProbes.unit"
+msgid "links"
+msgstr "ลิงก์"
 
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
@@ -4319,8 +4489,8 @@ msgid "Off"
 msgstr "ปิด"
 
 msgctxt "wizard.url.cookies.toggleDescription"
-msgid "Helps with age-restricted, members-only, and account-private videos."
-msgstr "ช่วยสำหรับวิดีโอจำกัดอายุ เฉพาะสมาชิก และวิดีโอส่วนตัวของบัญชี"
+msgid "Helps with videos your own account can watch, like your private videos."
+msgstr "ช่วยกับวิดีโอที่บัญชีของคุณเองดูได้ เช่น วิดีโอส่วนตัวของคุณ"
 
 msgctxt "wizard.url.downloadConnections.description"
 msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
@@ -4333,6 +4503,30 @@ msgstr "การเชื่อมต่อดาวน์โหลด"
 msgctxt "wizard.url.downloadConnections.unit"
 msgid "connections"
 msgstr "การเชื่อมต่อ"
+
+msgctxt "wizard.url.downloadList.album"
+msgid "Download album…"
+msgstr "ดาวน์โหลดอัลบั้ม…"
+
+msgctxt "wizard.url.downloadList.liked"
+msgid "Download liked videos…"
+msgstr "ดาวน์โหลดวิดีโอที่ถูกใจ…"
+
+msgctxt "wizard.url.downloadList.mix"
+msgid "Download Mix…"
+msgstr "ดาวน์โหลดมิกซ์…"
+
+msgctxt "wizard.url.downloadList.playlist"
+msgid "Download playlist…"
+msgstr "ดาวน์โหลดเพลย์ลิสต์…"
+
+msgctxt "wizard.url.downloadList.uploads"
+msgid "Download uploads…"
+msgstr "ดาวน์โหลดวิดีโอที่อัปโหลด…"
+
+msgctxt "wizard.url.downloadList.watchLater"
+msgid "Download Watch later…"
+msgstr "ดาวน์โหลด “ดูภายหลัง”…"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -4406,17 +4600,9 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "แป้นลัดนี้ถูกแอปอื่นใช้แล้ว — เลือกแป้นลัดอื่น"
 
-msgctxt "wizard.url.hotkey.hintLabel"
-msgid "Or press"
-msgstr "หรือกด"
-
-msgctxt "wizard.url.hotkey.hintTooltip"
-msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
-msgstr "คัดลอกลิงก์วิดีโอจากที่ใดก็ได้ กดแป้นลัดนี้ แล้ว Arroxy จะเพิ่มลงคิวด้วยโปรไฟล์ที่ใช้อยู่โดยไม่ต้องสลับหน้าต่าง"
-
-msgctxt "wizard.url.hotkey.hintTooltipSettings"
-msgid "Change or turn it off in Settings."
-msgstr "เปลี่ยนหรือปิดได้ในการตั้งค่า"
+msgctxt "wizard.url.hotkey.globalLabel"
+msgid "Global shortcut"
+msgstr "แป้นลัดส่วนกลาง"
 
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
@@ -4442,13 +4628,17 @@ msgctxt "wizard.url.hotkey.toggle"
 msgid "Enable global hotkey"
 msgstr "เปิดใช้แป้นลัดส่วนกลาง"
 
-msgctxt "wizard.url.hotkey.toggleDescription"
-msgid "Press the shortcut with a video link on your clipboard."
-msgstr "กดแป้นลัดขณะที่มีลิงก์วิดีโอในคลิปบอร์ด"
+msgctxt "wizard.url.hotkey.toggleDescriptionDetail"
+msgid "Copy a video link in any app and press the shortcut: Arroxy queues it with your active profile, without switching windows. A link to a video in a playlist downloads the video."
+msgstr "คัดลอกลิงก์วิดีโอในแอปใดก็ได้แล้วกดแป้นลัด Arroxy จะเพิ่มลงคิวด้วยโปรไฟล์ที่ใช้อยู่ โดยไม่ต้องสลับหน้าต่าง ลิงก์ของวิดีโอในเพลย์ลิสต์จะดาวน์โหลดเฉพาะวิดีโอนั้น"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
 msgstr "ดาวน์โหลดแบบโต้ตอบ"
+
+msgctxt "wizard.url.interactiveDownloadAsks"
+msgid "Interactive Download…"
+msgstr "ดาวน์โหลดแบบโต้ตอบ…"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
@@ -4490,21 +4680,13 @@ msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "ใส่ลิงก์แล้วปล่อยให้ Arroxy ดาวน์โหลด ✨"
 
-msgctxt "wizard.url.mascotMixed"
-msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
-msgstr "ลิงก์นี้ชี้ไปที่วิดีโอหนึ่งรายการในคอลเลกชัน Arroxy จะถามว่าคุณต้องการรายการไหนก่อนตรวจสอบ"
-
-msgctxt "wizard.url.mascotPreparing"
-msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
-msgstr "{{quickDownload}} กำลังอ่านลิงก์นี้และใช้ {{profileName}}"
-
-msgctxt "wizard.url.mascotQueued"
-msgid "The queue is handling this download. You can paste another link while it works."
-msgstr "คิวกำลังจัดการดาวน์โหลดนี้ คุณวางลิงก์อื่นได้ระหว่างที่รอ"
-
 msgctxt "wizard.url.mascotSingle"
 msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
 msgstr "ดาวน์โหลดด่วนจะเริ่มดาวน์โหลดหนึ่งรายการด้วย {{profileName}} ใช้ดาวน์โหลดแบบโต้ตอบหากต้องการปรับเฉพาะครั้ง"
+
+msgctxt "wizard.url.mascotVideoInList"
+msgid "This link names a video and the list it’s in: download just the video, or the list."
+msgstr "ลิงก์นี้ระบุทั้งวิดีโอและรายการที่วิดีโออยู่ ดาวน์โหลดเฉพาะวิดีโอ หรือทั้งรายการ"
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4826,6 +5008,10 @@ msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
 msgid "Using profile override + profile subfolder"
 msgstr "ใช้การแทนที่ของโปรไฟล์ + โฟลเดอร์ย่อยของโปรไฟล์"
 
+msgctxt "wizard.url.profile.destinationEditHint"
+msgid "To change where it saves, edit the profile."
+msgstr "หากต้องการเปลี่ยนที่บันทึก ให้แก้ไขโปรไฟล์"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "ปลายทาง"
@@ -4918,6 +5104,10 @@ msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "รีเซ็ต"
 
+msgctxt "wizard.url.profile.savesTo"
+msgid "Saves to"
+msgstr "บันทึกไปยัง"
+
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
 msgstr "สลับโปรไฟล์ดาวน์โหลด: {{profileName}}"
@@ -4931,8 +5121,8 @@ msgid "Clear"
 msgstr "ล้าง"
 
 msgctxt "wizard.url.proxy.description"
-msgid "Route traffic through a proxy — useful for geo-restricted content."
-msgstr "ส่งทราฟฟิกผ่านพร็อกซี — มีประโยชน์สำหรับเนื้อหาที่จำกัดภูมิภาค"
+msgid "Route traffic through a proxy server."
+msgstr "ส่งทราฟฟิกผ่านเซิร์ฟเวอร์พร็อกซี"
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
@@ -4941,10 +5131,6 @@ msgstr "URL พร็อกซี"
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
-
-msgctxt "wizard.url.quickBulkAllFailed"
-msgid "None of those URLs could be prepared"
-msgstr "เตรียม URL เหล่านั้นไม่ได้เลย"
 
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
@@ -4957,11 +5143,6 @@ msgstr "จะดาวน์โหลดโดยใช้: {{profileName}}"
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "เพิ่มรายการนี้ไม่ได้: {{error}}"
-
-#. Plural form "other" for th: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.url.quickPartialFailed_other"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "เพิ่มรายการที่ใช้ได้ลงคิวแล้ว เตรียม URL ไม่ได้ {{count}} รายการ"
 
 msgctxt "wizard.url.quickPrepareFailed"
 msgid "Queue item could not be prepared"
@@ -4978,6 +5159,14 @@ msgstr "ตรวจสอบไม่สำเร็จ"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "วาง URL ของวิดีโอ เพลย์ลิสต์ ช่อง หรือการค้นหาเพื่อเริ่มต้น"
+
+msgctxt "wizard.url.reports.toggle"
+msgid "Send anonymous heartbeat and setup reports"
+msgstr "ส่งสัญญาณแบบไม่ระบุตัวตนและรายงานการตั้งค่า"
+
+msgctxt "wizard.url.reports.toggleDescription"
+msgid "No tracking. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. When Arroxy sets up or updates its download engine or media tools, it also reports whether that worked and roughly how long it took. No IDs, URLs, video titles or filenames."
+msgstr "ไม่มีการติดตาม วันละครั้ง สัญญาณแบบไม่ระบุตัวตนจะส่งเวอร์ชันแอป ช่องทางการติดตั้ง ระบบปฏิบัติการ ภาษา ประเทศ และระยะเวลาโดยประมาณนับตั้งแต่ติดตั้ง Arroxy เพื่อให้เรานับจำนวนผู้ใช้ที่ใช้งานอยู่และผู้ใช้ใหม่ได้ เมื่อ Arroxy ตั้งค่าหรืออัปเดตตัวช่วยดาวน์โหลดหรือเครื่องมือสื่อ ก็จะรายงานด้วยว่าสำเร็จหรือไม่ และใช้เวลาโดยประมาณเท่าใด โดยไม่มี ID URL ชื่อวิดีโอ หรือชื่อไฟล์"
 
 msgctxt "wizard.url.settings.behaviorDescription"
 msgid "Global behavior that affects profile-driven downloads too."
@@ -5034,3 +5223,11 @@ msgstr "โปรไฟล์"
 msgctxt "wizard.url.tabs.settings"
 msgid "Settings"
 msgstr "การตั้งค่า"
+
+msgctxt "wizard.url.thisVideo"
+msgid "This video"
+msgstr "วิดีโอนี้"
+
+msgctxt "wizard.url.thisVideoTooltip"
+msgid "Downloads just this video with {{profileName}}"
+msgstr "ดาวน์โหลดเฉพาะวิดีโอนี้ด้วย {{profileName}}"

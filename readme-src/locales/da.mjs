@@ -96,7 +96,7 @@ export const da = {
   discord_badge_text: "Deltag i Discord-fællesskabet",
   discord_badge_encoded: "Deltag%20i%20Discord--f%C3%A6llesskabet",
   hero_desc:
-    "Download videoer, Shorts, musik, kanaler, podcasts eller lydspor fra **YouTube og over 2000 understøttede websteder** — op til 8K HDR ved 60 fps, som MP3 / AAC / Opus eller bare den del, du har brug for. **Surf på YouTube eller et hvilket som helst andet websted direkte i Arroxy** under fanen Udforsk, og download den video, afspilningsliste eller kanal, du er på; log ind der for at downloade private videoer, videoer kun for medlemmer og aldersbegrænsede videoer, som din konto kan se. Kører lokalt på Windows, macOS og Linux. **Ingen reklamer, ingen oppustet software, ingen mersalg.**",
+    "Download videoer, Shorts, kanaler, podcasts eller lydspor fra **YouTube og over 2000 understøttede websteder** — op til 8K HDR ved 60 fps, som MP3 / AAC / Opus eller bare den del, du har brug for. **Surf på YouTube eller et hvilket som helst andet websted direkte i Arroxy** under fanen Udforsk, og download den video, afspilningsliste eller kanal, du er på; log ind der for at downloade videoer, som din egen konto allerede kan se. Kører lokalt på Windows, macOS og Linux. **Ingen reklamer, ingen oppustet software, ingen mersalg.**",
   cta_latest: "↓ Installer seneste udgivelse",
   cta_website: "Websted",
   website_url: "https://arroxy.com/",
@@ -106,7 +106,7 @@ export const da = {
   intro_what_is:
     "**Hvad er Arroxy?** Arroxy er en gratis open source-grænseflade til computeren, der downloader videoer, lyd, afspilningslister og undertekster fra YouTube og over 2000 andre websteder, som [yt-dlp](https://github.com/yt-dlp/yt-dlp) understøtter. Den kører på Windows 10/11, macOS 13+ (Intel + Apple Silicon) og Linux (AppImage, Flatpak, tar.gz). Licenseret under GPLv3. Ingen reklamer, ingen brugsgrænser. Distribueres via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage og direkte download.",
   intro_key_difference:
-    "**Den afgørende forskel: en indbygget browser.** De fleste gratis YouTube-downloadere er tynde yt-dlp-indpakninger: et URL-felt og en formatmenu uden en browser af deres egen. Arroxy har en, **fanen Udforsk**. Du surfer på YouTube eller et hvilket som helst andet websted i appen og downloader den video, afspilningsliste eller kanal, du er på, eller højreklikker på et vilkårligt link. Du logger ind én gang i Udforsk, og Arroxy downloader private videoer, videoer kun for medlemmer og aldersbegrænsede videoer, som din konto kan se, plus dine lister Se senere og Synes godt om, uden cookie-eksport. Log også ind på andre websteder der, så bruger deres downloads det login, når de har brug for det. Arroxy prøver igen med det login, når YouTube beder dig bekræfte, at du ikke er en robot. Den indbyggede browser henter også det token, YouTube forventer før et download, så YouTube ikke skærer et download ned til færre formater. En indpakning med et URL-felt løber ind i alle disse grænser. Se [Hvorfor Arroxy](#why-explore).",
+    "**Den afgørende forskel: en indbygget browser.** De fleste gratis YouTube-downloadere er tynde yt-dlp-indpakninger: et URL-felt og en formatmenu uden en browser af deres egen. Arroxy har en, **fanen Udforsk**. Du surfer på YouTube eller et hvilket som helst andet websted i appen og downloader den video, afspilningsliste eller kanal, du er på, eller højreklikker på et vilkårligt link. Hvis du logger ind én gang i Udforsk, bruger downloads, der kræver en konto, det login: dine private videoer, dine lister Se senere og Synes godt om og andre videoer, som din konto allerede kan se, uden cookie-eksport. Log også ind på andre websteder der, så bruger deres downloads det login, når de har brug for det. Se [Hvorfor Arroxy](#why-explore).",
   last_updated: "Sidst opdateret: {{LAST_UPDATED}}.",
   toc_heading: "Indhold",
   why_h2: "Hvorfor Arroxy",
@@ -124,20 +124,16 @@ export const da = {
   why_r6: "Desktop-app på tværs af platforme",
   why_r7: "Undertekster + SponsorBlock",
   why_r8: "Indbygget browser (surf, log ind, download)",
-  why_r9: "Private videoer, videoer kun for medlemmer og aldersbegrænsede videoer uden at eksportere cookies",
+  why_r9: "Videoer, som din egen konto kan se, uden at eksportere cookies",
   why_table_note:
     "⚠️ = delvist eller kun på et betalt niveau. Indlogning i appen til private videoer i 4K Video Downloader er en betalt funktion; de fleste gratis yt-dlp-grænseflader accepterer kun en cookiefil eller læser din webbrowsers cookies.",
   why_summary:
     "Arroxy er bygget til én ting: en ren lokal fil, uanset om du indsætter en URL eller finder videoen i Udforsk. Intet mersalg, ingen dataindsamling.",
   why_explore_h3: "Det, en almindelig yt-dlp-indpakning ikke kan: fanen Udforsk",
   why_explore_intro:
-    "De fleste gratis YouTube-downloadere er et URL-felt oven på yt-dlp. Arroxy bruger også yt-dlp, men har desuden **Udforsk**, en browser indbygget i appen, der åbner YouTube eller et hvilket som helst andet websted. Udforsk kommer forbi begrænsninger, som et URL-felt ikke kan:",
+    "De fleste gratis YouTube-downloadere er et URL-felt oven på yt-dlp. Arroxy bruger også yt-dlp, men har desuden **Udforsk**, en browser indbygget i appen, der åbner YouTube eller et hvilket som helst andet websted. Udforsk tilføjer det, som et URL-felt ikke kan:",
   why_explore_1:
-    "**Videoer, der kræver en konto, uden at eksportere cookies** — private videoer, videoer kun for medlemmer og aldersbegrænsede videoer (på en aldersverificeret konto) samt dine lister Se senere og Synes godt om og videoer bag et login på andre websteder. En almindelig indpakning kræver en cookies.txt-eksport eller skal læse din webbrowsers cookies, hvilket Chrome på Windows nu blokerer. I Arroxy logger du ind én gang i Udforsk, og resten klarer den selv",
-  why_explore_2:
-    "**»Log ind for at bekræfte, at du ikke er en robot«** — når YouTube spørger om det, prøver Arroxy at downloade igen med dit login i Udforsk i stedet for at fejle",
-  why_explore_3:
-    "**YouTubes download-token** — Arroxys indbyggede browser henter det token, som YouTube forventer før et download. Uden det kan YouTube levere færre formater og lavere kvalitet, end du bad om",
+    "**Videoer, som din konto kan se, uden at eksportere cookies** — dine private videoer, dine lister Se senere og Synes godt om, aldersbegrænsede videoer på en aldersverificeret konto og sider på andre websteder, der kræver dit login. En almindelig indpakning kræver en cookies.txt-eksport eller læser din webbrowsers cookies. I Arroxy logger du ind én gang i Udforsk, og resten klarer den selv",
   why_explore_4:
     "**Ingen kopiering af links** — find en video, afspilningsliste eller kanal i Udforsk, og download den med ét klik, eller højreklik på et vilkårligt link på siden",
   why_explore_5:
@@ -152,7 +148,7 @@ export const da = {
   feat_explore_2:
     "**Adresselinje** — skriv for at søge på YouTube, eller indtast en vilkårlig webadresse for at åbne det websted",
   feat_explore_3:
-    "**Downloads, der kræver en konto** — log ind én gang i Udforsk, og Arroxy kan downloade private videoer og videoer kun for medlemmer, som din konto kan se, aldersbegrænsede videoer, hvis kontoen er aldersverificeret, og dine lister Se senere og Synes godt om. Log også ind på andre websteder der, så bruger deres downloads det login, når de har brug for det. Arroxy downloader stadig først uden at være logget ind og bruger kun dit login i Udforsk, når et download fejler på en måde, som en konto kan rette. Når YouTube beder dig om at bekræfte, at du ikke er en robot, prøver Arroxy også dit login i Udforsk",
+    "**Downloads, der kræver en konto** — log ind én gang i Udforsk, og Arroxy kan downloade videoer, som din konto kan se: dine private videoer, aldersbegrænsede videoer, hvis kontoen er aldersverificeret, og dine lister Se senere og Synes godt om. Log også ind på andre websteder der, så bruger deres downloads det login, når de har brug for det. Arroxy downloader stadig først uden at være logget ind og bruger kun dit login i Udforsk, når et download fejler på en måde, som en konto kan rette",
   feat_explore_4:
     "**Brug en sekundær konto** — Udforsks første skærmbillede forklarer hvorfor: at downloade med en konto indebærer en vis risiko for, at kontoen bliver begrænset. Log ud af Udforsk under Indstillinger, når du vil glemme dine logins",
   feat_explore_5:
@@ -197,7 +193,7 @@ export const da = {
   feat_workflow_10:
     "**Downloads ad gangen og automatisk nyt forsøg** — vælg, hvor mange downloads i køen der kører samtidig, og lad Arroxy prøve igen med et download, der ramte et netværks- eller serverproblem, med længere ventetid før hvert forsøg",
   feat_workflow_11:
-    "**Profiler pr. element i afspilningslister** — giv hver video i en afspilningsliste sin egen downloadprofil i stedet for én indstilling til hele listen, så du i én omgang kan arkivere nogle i fuld kvalitet og hente resten som MP3",
+    "**Profiler pr. element i afspilningslister** — giv hver video i en afspilningsliste sin egen downloadprofil i stedet for én indstilling til hele listen, så du i én omgang kan arkivere nogle i fuld kvalitet og gemme resten som kun lyd",
   feat_workflow_13:
     "**Hurtig download virker i baggrunden** — linket dukker straks op i Downloads og klargøres dér, en note med **Vis** bekræfter det, og URL-feltet ryddes til næste link. Start så mange, du vil, mens tidligere klargøres",
   feat_workflow_14:
@@ -229,7 +225,7 @@ export const da = {
   feat_sites_1:
     "**YouTube i sin helhed** — Videoer, Shorts, kanaler, afspilningslister, YouTube Music og podcasts håndteres som førsteklasses kilder",
   feat_sites_2:
-    "**Over 2000 andre websteder** via yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable og mange flere",
+    "**Over 2000 andre websteder** via yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable og mange flere",
   feat_sites_3:
     "**Kun lyd og undertekster** virker på alle understøttede websteder, ikke kun YouTube",
   feat_sites_4:
@@ -250,7 +246,8 @@ export const da = {
     "Arroxys globale genvejstast til download — Ctrl+Shift+D på Windows og Linux, Cmd+Shift+D på macOS, sender det kopierede link direkte ind i downloadkøen",
   hotkey_fig_cap:
     "<b>Global genvejstast til download</b><br/>Kopiér et link et vilkårligt sted, tryk én gang — det havner i køen og begynder at downloade",
-  shot7_cap: "<b>Profiler pr. element i afspilningslister</b><br/>Giv hver video sin egen profil — arkivér nogle i 4K, hent resten som MP3",
+  shot7_cap:
+    "<b>Profiler pr. element i afspilningslister</b><br/>Giv hver video sin egen profil — arkivér nogle i 4K, gem resten som kun lyd",
   shot8_cap:
     "<b>Udforsk</b><br/>Surf på YouTube eller et hvilket som helst andet websted i Arroxy, og download den side, du er på, med din aktive profil",
   shot9_cap:
@@ -390,15 +387,15 @@ export const da = {
 
   privacy_p1:
     "Downloads hentes direkte via [yt-dlp](https://github.com/yt-dlp/yt-dlp) fra YouTube til den mappe, du vælger — intet sendes via en tredjepartsserver. Visningshistorik, downloadhistorik, URL'er og filindhold bliver på din enhed.",
-  privacy_p2:
-    "Ingen telemetri — kun ét anonymt livstegn om dagen: appversion, operativsystem, sprog, installationskanal, land og omtrent hvor længe siden Arroxy blev installeret, så vi kan tælle aktive og nye brugere. Ingen id'er, URL'er, videotitler, filstier eller kontooplysninger. Du kan slå det fra under Indstillinger.",
+  privacy_reports:
+    "Ingen sporing — ét anonymt livstegn om dagen (appversion, operativsystem, sprog, installationskanal, land og omtrent hvor længe siden Arroxy blev installeret), så vi kan tælle aktive og nye brugere, og når Arroxy downloader eller opdaterer yt-dlp og FFmpeg, en anonym besked om, hvorvidt det lykkedes, og omtrent hvor lang tid det tog. Ingen id'er, URL'er, videotitler, filstier eller kontooplysninger. Du kan slå begge fra i Indstillinger.",
   privacy_p3:
     "Udforsk har sine egne logins, adskilt fra din browser, og Arroxy læser eller udfylder aldrig en loginformular — du skriver på webstedets egen side. Downloads kører uden at være logget ind; kun når et fejler på en måde, som en konto kan rette, læser Arroxy loginet på ny, beholder det i en midlertidig fil under det pågældende download og sletter filen bagefter. Når du logger ud af Udforsk under Indstillinger, glemmes de.",
   faq_q1: "Er det virkelig gratis?",
   faq_a1: "Ja — GPLv3-licenseret, intet premium-niveau, ingen låste funktioner.",
   faq_q11: "Hvordan adskiller Arroxy sig fra andre yt-dlp-grænseflader?",
   faq_a11:
-    "De fleste gratis yt-dlp-grænseflader er indpakninger, der kun tager et link. Arroxy tilføjer **Udforsk**, en browser indbygget i appen, der åbner YouTube eller et hvilket som helst andet websted: du surfer og downloader uden at kopiere links, og du logger ind der én gang for at downloade private videoer, videoer kun for medlemmer og aldersbegrænsede videoer samt dine lister Se senere og Synes godt om, uden cookie-eksport. Arroxy bruger det login, når YouTube beder dig bekræfte, at du ikke er en robot, og dens indbyggede browser henter YouTubes download-token, så downloads ikke falder tilbage til færre formater. Se [Hvorfor Arroxy](#why).",
+    "De fleste gratis yt-dlp-grænseflader er indpakninger, der kun tager et link. Arroxy tilføjer **Udforsk**, en browser indbygget i appen, der åbner YouTube eller et hvilket som helst andet websted: du surfer og downloader uden at kopiere links, og du logger ind der én gang for at downloade videoer, som din konto kan se, f.eks. dine private videoer og dine lister Se senere og Synes godt om, uden cookie-eksport. Se [Hvorfor Arroxy](#why).",
   faq_q2: "Hvilke videokvaliteter kan jeg downloade?",
   faq_a2:
     "Alt, hvad YouTube leverer: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p samt kun lyd. 60 fps- og HDR-streams bevares uændret, og trin-for-trin-downloadet lader dig vælge AV1, VP9 eller H.264 ved hver opløsning.",
@@ -407,10 +404,10 @@ export const da = {
     "Ja. Vælg *kun lyd* i formatmenuen, og vælg MP3, M4A/AAC, Opus eller WAV.",
   faq_q4: "Hvordan downloader jeg videoer, der kræver en YouTube-konto?",
   faq_a4:
-    "Log ind én gang under fanen Udforsk. Arroxy kan derefter downloade private videoer og videoer kun for medlemmer, som din konto kan se, aldersbegrænsede videoer, hvis kontoen er aldersverificeret, og dine lister Se senere og Synes godt om. Den bruger kun loginet, når et download fejler på en måde, som en konto kan rette; alt andet downloades som før. Det er valget **Login i Udforsk**, som står først og er markeret Anbefalet i cookieindstillingerne, og Arroxy vælger det for dig, første gang du åbner Udforsk. yt-dlp's wiki bemærker, at [automatisering med login kan få en Google-konto markeret](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), så en sekundær konto er det sikreste valg.",
+    "Log ind én gang under fanen Udforsk. Arroxy kan derefter downloade videoer, som din konto kan se: dine private videoer, aldersbegrænsede videoer, hvis kontoen er aldersverificeret, og dine lister Se senere og Synes godt om. Den bruger kun loginet, når et download fejler på en måde, som en konto kan rette; alt andet downloades som før. Det er valget **Login i Udforsk**, som står først og er markeret Anbefalet i cookieindstillingerne, og Arroxy vælger det for dig, første gang du åbner Udforsk. yt-dlp's wiki bemærker, at [automatisering med login kan få en Google-konto markeret](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), så en sekundær konto er det sikreste valg.",
   faq_q5: "Vil det blive ved med at virke, når YouTube ændrer noget?",
   faq_a5:
-    "yt-dlp opdateres automatisk ved start, og Arroxy udgiver hurtigt rettelser, når YouTube ændrer noget. Når YouTube beder dig om at bekræfte, at du ikke er en robot, prøver Arroxy også dit login i Udforsk, hvis du har logget ind der, og cookies fra en fil eller din browser findes i cookieindstillingerne.",
+    "yt-dlp opdateres automatisk ved start, og Arroxy udgiver hurtigt rettelser, når YouTube ændrer noget. Når et download kræver et login, bruger Arroxy dit login i Udforsk, hvis du har logget ind der, og cookies fra en fil eller din browser findes i cookieindstillingerne.",
   faq_q6: "Hvilke sprog findes Arroxy på?",
   faq_a6:
     "{{LANG_COUNT}} sprog, klar til brug: {{LANG_NAME_LIST}}. Arroxy registrerer automatisk dit operativsystems sprog ved første start, og du kan til enhver tid skifte i sprogvælgeren på værktøjslinjen. JSON-filerne med sprogene under kørsel ligger i src/shared/i18n/locales/, og PO-kataloger til oversættere ligger i i18n/locales/ — åbn en PR på GitHub for at bidrage.",
@@ -425,7 +422,7 @@ export const da = {
     "Det er macOS Gatekeeper, der blokerer en usigneret app, ikke en egentlig skade. Se [Første start på macOS](#macos-first-launch) for Terminal-kommandoerne, der fjerner karantænen og starter Arroxy.",
   faq_q10: "Er det lovligt at downloade YouTube-videoer?",
   faq_a10:
-    "Til personlig, privat brug accepteres det generelt i de fleste retssystemer. Du er ansvarlig for at overholde YouTubes [servicevilkår](https://www.youtube.com/t/terms) og din lokale ophavsretslovgivning.",
+    "Det afhænger af dit land og af, hvad du downloader. Download kun indhold, du ejer, indhold, der er licenseret til download, eller indhold, som loven i dit land lader dig kopiere. Du er ansvarlig for at overholde YouTubes [servicevilkår](https://www.youtube.com/t/terms) og din lokale ophavsretslovgivning. Se [Brugsvilkår](#terms).",
   plan_intro: "Stadig planlagt — nogenlunde i prioriteret rækkefølge:",
   plan_col1: "Funktion",
   plan_col2: "Beskrivelse",
@@ -448,7 +445,8 @@ export const da = {
     "Har du en funktion i tankerne? [Opret en anmodning](../../issues) — input fra fællesskabet er med til at afgøre prioriteten.",
   tech_content: TECH_CONTENT,
   support_h2: "Støt Arroxy",
-  support_note: "Arroxy er gratis og GPLv3-licenseret — ingen reklamer, ingen telemetri, intet betalt niveau. Hvis den sparer dig tid, kan du støtte udviklingen med Bitcoin, Tron eller Ethereum: adresserne står i [DONATE.md](DONATE.md), som er den eneste officielle kilde til dem. Arroxy vil aldrig sende dig en adresse via e-mail eller direkte besked. At give repoet en stjerne, rapportere fejl og forbedre oversættelser hjælper lige så meget.",
+  support_line:
+    "Arroxy er gratis og GPLv3-licenseret — ingen reklamer, ingen sporing, intet betalt niveau. Hvis den sparer dig tid, kan du støtte udviklingen med Bitcoin, Tron eller Ethereum: adresserne står i [DONATE.md](DONATE.md), som er den eneste officielle kilde til dem. Arroxy vil aldrig sende dig en adresse via e-mail eller direkte besked. At give repoet en stjerne, rapportere fejl og forbedre oversættelser hjælper lige så meget.",
   tos_h2: "Brugsvilkår",
   tos_note:
     "Arroxy er et værktøj udelukkende til personlig, privat brug. Du er alene ansvarlig for at sikre, at dine downloads overholder YouTubes [servicevilkår](https://www.youtube.com/t/terms) og ophavsretslovgivningen i dit retssystem. Brug ikke Arroxy til at downloade, gengive eller distribuere indhold, du ikke har ret til at bruge. Udviklerne er ikke ansvarlige for misbrug.",

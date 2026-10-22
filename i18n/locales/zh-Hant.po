@@ -107,10 +107,6 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "繼續"
 
-msgctxt "common.dismiss"
-msgid "Dismiss"
-msgstr "關閉"
-
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "載入中"
@@ -143,13 +139,9 @@ msgctxt "dialogs.closeToTray.remember"
 msgid "Don't ask again"
 msgstr "不要再詢問"
 
-msgctxt "dialogs.quitWithActiveDownloads.confirm"
-msgid "Cancel Downloads & Quit"
-msgstr "取消下載並結束"
-
-msgctxt "dialogs.quitWithActiveDownloads.detail"
-msgid "Pause to resume later, or cancel to discard progress."
-msgstr "暫停以便稍後繼續，或取消並捨棄目前進度。"
+msgctxt "dialogs.quitWithActiveDownloads.continueDetail"
+msgid "Your queue is kept, and downloads pick up where they stopped the next time you open Arroxy."
+msgstr "你的佇列會被保留，下次開啟 Arroxy 時，下載會從中斷處繼續。"
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -160,9 +152,9 @@ msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "有 {{count}} 個下載正在進行"
 
-msgctxt "dialogs.quitWithActiveDownloads.pause"
-msgid "Pause Downloads & Quit"
-msgstr "暫停下載並結束"
+msgctxt "dialogs.quitWithActiveDownloads.quit"
+msgid "Quit"
+msgstr "結束"
 
 msgctxt "dialogs.rendererCrashed.detail"
 msgid "The renderer process crashed ({{reason}}). Reload to try again."
@@ -221,8 +213,8 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "此影片有年齡限制，必須登入帳號才能下載。"
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
-msgstr "已觸發機器人防護。你使用的 IP 很可能已被標記（資料中心網段或繁忙的 VPN 出口）。請更換 IP 或選擇其他 VPN 節點後重試。如果問題持續，可能是網站端的暫時變更——Arroxy 啟動時會更新其下載引擎，因此修正發布後會自動套用。"
+msgid "The site's bot protection stopped this download. Wait a while and try again, or download fewer videos at once. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "該網站的機器人防護阻擋了此次下載。請稍等片刻後重試，或一次少下載幾部影片。如果持續失敗，這可能是網站端暫時性的變動——Arroxy 會在啟動時更新其下載引擎，一旦修正發布，就會自動生效。"
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
 msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
@@ -241,8 +233,8 @@ msgid "This video is not available in your region."
 msgstr "此影片在你的地區無法觀看。"
 
 msgctxt "errors.ytdlp.ipBlock"
-msgid "Your IP address appears to be blocked. Try again later or use a VPN."
-msgstr "你的 IP 位址似乎已被封鎖。請稍後再試或使用 VPN。"
+msgid "The site is blocking requests from this connection. Try again later."
+msgstr "該網站正在封鎖來自此連線的請求。請稍後再試。"
 
 msgctxt "errors.ytdlp.loginRequired"
 msgid "This video needs a signed-in account."
@@ -324,13 +316,77 @@ msgctxt "explore.linkCallout.title"
 msgid "Right-click a link to download it"
 msgstr "在連結上按右鍵即可下載"
 
+msgctxt "explore.linkMenu.background.album"
+msgid "Download the album in the background"
+msgstr "在背景下載專輯"
+
+msgctxt "explore.linkMenu.background.liked"
+msgid "Download your liked videos in the background"
+msgstr "在背景下載你喜歡的影片"
+
+msgctxt "explore.linkMenu.background.mix"
+msgid "Download the Mix in the background"
+msgstr "在背景下載合輯"
+
+msgctxt "explore.linkMenu.background.playlist"
+msgid "Download the playlist in the background"
+msgstr "在背景下載播放清單"
+
+msgctxt "explore.linkMenu.background.uploads"
+msgid "Download the uploads in the background"
+msgstr "在背景下載上傳內容"
+
+msgctxt "explore.linkMenu.background.watchLater"
+msgid "Download Watch later in the background"
+msgstr "在背景下載「稍後觀看」"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "複製連結"
 
+msgctxt "explore.linkMenu.downloadFirst"
+msgid "Download the first {{count}}"
+msgstr "下載前 {{count}} 部"
+
+msgctxt "explore.linkMenu.downloadThisVideo"
+msgid "Download this video · {{profileName}}"
+msgstr "下載此影片 · {{profileName}}"
+
 msgctxt "explore.linkMenu.downloadWith"
 msgid "Download with"
 msgstr "使用設定檔下載"
+
+msgctxt "explore.linkMenu.fromList.album"
+msgid "From this album"
+msgstr "來自此專輯"
+
+msgctxt "explore.linkMenu.fromList.liked"
+msgid "From your liked videos"
+msgstr "來自你喜歡的影片"
+
+msgctxt "explore.linkMenu.fromList.mix"
+msgid "From this Mix"
+msgstr "來自此合輯"
+
+msgctxt "explore.linkMenu.fromList.playlist"
+msgid "From this playlist"
+msgstr "來自此播放清單"
+
+msgctxt "explore.linkMenu.fromList.uploads"
+msgid "From this channel’s uploads"
+msgstr "來自此頻道的上傳內容"
+
+msgctxt "explore.linkMenu.fromList.watchLater"
+msgid "From Watch later"
+msgstr "來自「稍後觀看」"
+
+msgctxt "explore.linkMenu.interactive"
+msgid "Interactive Download…"
+msgstr "互動式下載…"
+
+msgctxt "explore.linkMenu.thisVideoWith"
+msgid "This video with"
+msgstr "此影片，使用"
 
 msgctxt "explore.newBadge"
 msgid "New"
@@ -476,6 +532,10 @@ msgctxt "explore.toolbar.compactLayout"
 msgid "Compact layout"
 msgstr "精簡版面"
 
+msgctxt "explore.toolbar.download"
+msgid "Download"
+msgstr "下載"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "下載 · {{profileName}}"
@@ -511,6 +571,14 @@ msgstr "重新載入"
 msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "搜尋內容太長。"
+
+msgctxt "explore.toolbar.thisVideo"
+msgid "This video"
+msgstr "此影片"
+
+msgctxt "explore.toolbar.thisVideoHint"
+msgid "Download just this video with {{profileName}}"
+msgstr "使用 {{profileName}} 僅下載此影片"
 
 msgctxt "explore.toolbar.zoom.hint"
 msgid "Page zoom: {{percent}}%"
@@ -576,17 +644,17 @@ msgctxt "filenameTemplate.error.unknown-token"
 msgid "Unknown token {{token}}."
 msgstr "未知的權杖 {{token}}。"
 
-msgctxt "filenameTemplate.idWarning"
-msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
-msgstr "若沒有 {id}，Arroxy 就無法偵測已下載的播放清單項目，也無法產生 .m3u 播放清單。"
+msgctxt "filenameTemplate.idEndingWarning"
+msgid "End the name with [{id}] so Arroxy can detect already-downloaded playlist items and generate .m3u playlists."
+msgstr "請讓檔名以 [{id}] 結尾，這樣 Arroxy 才能偵測已下載的播放清單項目，並產生 .m3u 播放清單。"
 
 msgctxt "filenameTemplate.label"
 msgid "Filename template"
 msgstr "檔名範本"
 
-msgctxt "filenameTemplate.m3uDisabled"
-msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
-msgstr "無法使用，因為檔名範本未包含 {id}，或會將下載內容分類到資料夾。"
+msgctxt "filenameTemplate.m3uDisabledIdEnding"
+msgid "Unavailable because your filename template either doesn't end with [{id}] or sorts downloads into folders."
+msgstr "無法使用，因為你的檔名範本沒有以 [{id}] 結尾，或會將下載內容分類到資料夾中。"
 
 msgctxt "filenameTemplate.previewPlaylist"
 msgid "In a playlist"
@@ -763,6 +831,31 @@ msgid "Already in the queue"
 msgstr "已在佇列中"
 
 #. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "notifications.quickDownload.batchAdded_other"
+msgid "Added {{count}} links to Downloads"
+msgstr "已將 {{count}} 個連結加入「下載」"
+
+#. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_other"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} 個已在佇列中"
+
+#. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "notifications.quickDownload.batchNoneAdded_other"
+msgid "{{count}} links couldn't be added"
+msgstr "{{count}} 個連結無法加入"
+
+#. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "notifications.quickDownload.batchNotAdded_other"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} 個無法加入"
+
+#. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "notifications.quickDownload.chooseFromList_other"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "此清單中有 {{count}} 部影片 — 請選擇要下載的內容"
+
+#. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "notifications.quickDownload.chooseHowMany_other"
 msgid "{{count}}+ videos — choose how many"
 msgstr "{{count}}+ 部影片 — 選擇數量"
@@ -774,16 +867,6 @@ msgstr "無法準備 {{title}}"
 msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "無法加入該連結 — 請重試"
-
-#. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "notifications.quickDownload.review_other"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "此清單中有 {{count}} 部影片 — 檢視後選擇"
-
-#. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "notifications.quickDownload.reviewCapped_other"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "此清單中有 {{count}}+ 部影片 — 檢視後選擇"
 
 msgctxt "notifications.quickDownload.view"
 msgid "View"
@@ -1023,14 +1106,70 @@ msgctxt "queue.choice.first"
 msgid "First {{count}}"
 msgstr "前 {{count}} 部"
 
+msgctxt "queue.choice.list.album"
+msgid "The album"
+msgstr "整張專輯"
+
+msgctxt "queue.choice.list.liked"
+msgid "Liked videos"
+msgstr "喜歡的影片"
+
+msgctxt "queue.choice.list.mix"
+msgid "The Mix"
+msgstr "整個合輯"
+
+msgctxt "queue.choice.list.playlist"
+msgid "The playlist"
+msgstr "整個播放清單"
+
+msgctxt "queue.choice.list.uploads"
+msgid "All the uploads"
+msgstr "全部上傳內容"
+
+msgctxt "queue.choice.list.watchLater"
+msgid "Watch later"
+msgstr "「稍後觀看」"
+
+msgctxt "queue.choice.pick"
+msgid "Pick from it…"
+msgstr "從中挑選…"
+
 msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "檢視"
 
 #. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "queue.choice.reviewBody_other"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "此連結是包含 {{count}} 部影片的清單。檢視後即可挑選要下載的內容。"
+msgctxt "queue.choice.uncappedBody_other"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "此連結是包含 {{count}} 部影片的清單。可以全部下載，或在檢視中自行挑選。"
+
+msgctxt "queue.choice.video"
+msgid "This video"
+msgstr "此影片"
+
+msgctxt "queue.choice.videoOrList.album"
+msgid "This link is a video in an album. Download just the video, or the album?"
+msgstr "此連結是專輯中的一部影片。只下載該影片，還是下載整張專輯？"
+
+msgctxt "queue.choice.videoOrList.liked"
+msgid "This link is a video in your liked videos. Download just the video, or all your liked videos?"
+msgstr "此連結是你喜歡的影片中的一部影片。只下載該影片，還是下載你喜歡的所有影片？"
+
+msgctxt "queue.choice.videoOrList.mix"
+msgid "This link is a video in a Mix. Download just the video, or the Mix?"
+msgstr "此連結是合輯中的一部影片。只下載該影片，還是下載整個合輯？"
+
+msgctxt "queue.choice.videoOrList.playlist"
+msgid "This link is a video in a playlist. Download just the video, or the playlist?"
+msgstr "此連結是播放清單中的一部影片。只下載該影片，還是下載整個播放清單？"
+
+msgctxt "queue.choice.videoOrList.uploads"
+msgid "This link is a video in a channel's uploads. Download just the video, or all the uploads?"
+msgstr "此連結是某個頻道上傳內容中的一部影片。只下載該影片，還是下載全部上傳內容？"
+
+msgctxt "queue.choice.videoOrList.watchLater"
+msgid "This link is a video in your Watch later list. Download just the video, or the whole list?"
+msgstr "此連結是你的「稍後觀看」清單中的一部影片。只下載該影片，還是下載整個清單？"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -1159,6 +1298,70 @@ msgstr "正在下載"
 msgctxt "queue.item.subtitleLanguagesMissing"
 msgid "No subtitles in {{languages}}"
 msgstr "沒有{{languages}}的字幕"
+
+msgctxt "queue.item.waitingForSite"
+msgid "Waits for {{site}} until {{time}}"
+msgstr "等待 {{site}}，直到 {{time}}"
+
+msgctxt "queue.item.waitingHint"
+msgid "{{site}} is rate-limiting this connection. Arroxy fetches this link's details after {{time}}, so the limit can clear."
+msgstr "{{site}} 正在限制此連線的請求頻率。Arroxy 會在 {{time}} 後擷取此連結的詳細資料，讓限制得以解除。"
+
+msgctxt "queue.listOffer.dismiss"
+msgid "Dismiss"
+msgstr "關閉"
+
+msgctxt "queue.listOffer.from.album"
+msgid "From an album"
+msgstr "來自專輯"
+
+msgctxt "queue.listOffer.from.liked"
+msgid "From your liked videos"
+msgstr "來自你喜歡的影片"
+
+msgctxt "queue.listOffer.from.mix"
+msgid "From a Mix"
+msgstr "來自合輯"
+
+msgctxt "queue.listOffer.from.playlist"
+msgid "From a playlist"
+msgstr "來自播放清單"
+
+msgctxt "queue.listOffer.from.uploads"
+msgid "From a channel's uploads"
+msgstr "來自頻道的上傳內容"
+
+msgctxt "queue.listOffer.from.watchLater"
+msgid "From Watch later"
+msgstr "來自「稍後觀看」"
+
+msgctxt "queue.listOffer.get.album"
+msgid "Get the whole album"
+msgstr "取得整張專輯"
+
+msgctxt "queue.listOffer.get.liked"
+msgid "Get all liked videos"
+msgstr "取得所有喜歡的影片"
+
+msgctxt "queue.listOffer.get.mix"
+msgid "Get the whole Mix"
+msgstr "取得整個合輯"
+
+msgctxt "queue.listOffer.get.playlist"
+msgid "Get the whole playlist"
+msgstr "取得整個播放清單"
+
+msgctxt "queue.listOffer.get.uploads"
+msgid "Get all uploads"
+msgstr "取得全部上傳內容"
+
+msgctxt "queue.listOffer.get.watchLater"
+msgid "Get all of Watch later"
+msgstr "取得「稍後觀看」的全部內容"
+
+msgctxt "queue.listOffer.hint"
+msgid "Adds the list as its own row. This video is left out."
+msgstr "將清單當作單獨一列加入。此影片不包含在內。"
 
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
@@ -1700,10 +1903,6 @@ msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "嘿，歡迎回來！"
 
-msgctxt "splash.setup.bytes"
-msgid "{{done}} of {{total}}"
-msgstr "{{done}} / {{total}}"
-
 #. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
 msgctxt "splash.setup.left.minutes_other"
 msgid "about {{count}} min left"
@@ -1713,18 +1912,6 @@ msgctxt "splash.setup.left.underMinute"
 msgid "less than a minute left"
 msgstr "不到 1 分鐘"
 
-msgctxt "splash.setup.note.engine"
-msgid "Keeps downloads working when sites change."
-msgstr "讓下載在網站變動時仍能正常運作。"
-
-msgctxt "splash.setup.note.firstRun"
-msgid "This happens once. Arroxy keeps these tools and updates them itself."
-msgstr "只需這一次。Arroxy 會保留這些工具並自行更新。"
-
-msgctxt "splash.setup.note.media"
-msgid "This happens once. Arroxy keeps them for future updates."
-msgstr "只需這一次。Arroxy 會保留它們以供日後更新。"
-
 msgctxt "splash.setup.stage.checking"
 msgid "Checking everything works"
 msgstr "正在檢查一切是否正常"
@@ -1733,21 +1920,17 @@ msgctxt "splash.setup.stage.connecting"
 msgid "Connecting…"
 msgstr "正在連線…"
 
-msgctxt "splash.setup.stage.downloadingBoth"
-msgid "Downloading the download engine and media tools"
-msgstr "正在下載下載引擎和媒體工具"
-
-msgctxt "splash.setup.stage.downloadingEngine"
-msgid "Downloading the download engine"
-msgstr "正在下載下載引擎"
-
-msgctxt "splash.setup.stage.downloadingMedia"
-msgid "Downloading the media tools"
-msgstr "正在下載媒體工具"
-
 msgctxt "splash.setup.stage.unpacking"
 msgid "Unpacking the media tools"
 msgstr "正在解壓縮媒體工具"
+
+msgctxt "splash.setup.stage.unpackingEngine"
+msgid "Unpacking the download engine"
+msgstr "正在解壓縮下載引擎"
+
+msgctxt "splash.setup.title.both"
+msgid "Updating Arroxy's tools"
+msgstr "正在更新 Arroxy 的工具"
 
 msgctxt "splash.setup.title.engine"
 msgid "Updating the download engine"
@@ -1834,8 +2017,8 @@ msgid "Merging audio and video…"
 msgstr "正在合併音訊與影片…"
 
 msgctxt "status.mintingToken"
-msgid "Minting YouTube token…"
-msgstr "正在產生 YouTube 權杖…"
+msgid "Preparing YouTube download…"
+msgstr "正在準備 YouTube 下載…"
 
 msgctxt "status.movingFiles"
 msgid "Moving files…"
@@ -1854,16 +2037,16 @@ msgid "Preparing binaries…"
 msgstr "正在準備執行檔…"
 
 msgctxt "status.qualityLimited"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
-msgstr "已以 {{height}}p 儲存——YouTube 未提供此次下載的較高畫質。稍後再試或改用其他網路可能會有幫助。"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later may help."
+msgstr "已以 {{height}}p 儲存 — YouTube 未提供本次下載的更高畫質。稍後再試可能會有幫助。"
 
 msgctxt "status.qualityLimitedSubtitlesFailed"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
-msgstr "已以 {{height}}p 儲存——YouTube 未提供此次下載的較高畫質，且部分字幕無法下載。稍後再試或改用其他網路可能會有幫助。"
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later may help."
+msgstr "已以 {{height}}p 儲存 — YouTube 未提供本次下載的更高畫質，且部分字幕未能下載。稍後再試可能會有幫助。"
 
 msgctxt "status.remintingToken"
-msgid "Re-minting token…"
-msgstr "正在重新產生權杖…"
+msgid "Preparing YouTube download again…"
+msgstr "正在重新準備 YouTube 下載…"
 
 msgctxt "status.retryingSponsorBlock"
 msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
@@ -2255,8 +2438,8 @@ msgid "Folder name has invalid characters"
 msgstr "資料夾名稱含有無效字元"
 
 msgctxt "wizard.folder.subfolder.placeholder"
-msgid "e.g. lo-fi rips"
-msgstr "例如 lo-fi 擷取"
+msgid "e.g. lectures"
+msgstr "例如：講座"
 
 msgctxt "wizard.folder.subfolder.toggle"
 msgid "Save inside subfolder"
@@ -2523,9 +2706,25 @@ msgctxt "wizard.formats.fit.tierAbove"
 msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
 msgstr "設定檔要求 {{wanted}}p，但此影片沒有這麼低的畫質，已選取 {{picked}}p。"
 
-msgctxt "wizard.formats.fit.tierBelow"
-msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
-msgstr "設定檔要求 {{wanted}}p，但此影片最高只有 {{picked}}p，已選取 {{picked}}p。"
+msgctxt "wizard.formats.fit.tierAbovePassedOver"
+msgid "Your profile asks for {{wanted}}p. The smaller streams this video has don't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "設定檔要求 {{wanted}}p。此影片中較小的串流與設定檔的其餘部分不相符，因此已選取 {{picked}}p。"
+
+msgctxt "wizard.formats.fit.tierBelowTakeable"
+msgid "Your profile asks for {{wanted}}p. This video has no {{wanted}}p it can take, so {{picked}}p is selected."
+msgstr "設定檔要求 {{wanted}}p。此影片沒有可用的 {{wanted}}p，因此已選取 {{picked}}p。"
+
+msgctxt "wizard.formats.fit.tierPassedOverAiUpscaled"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p is AI-upscaled, so the original {{picked}}p is selected."
+msgstr "設定檔要求 {{wanted}}p。此影片的 {{wanted}}p 是 AI 放大的，因此已選取原始的 {{picked}}p。"
+
+msgctxt "wizard.formats.fit.tierPassedOverH264"
+msgid "Your profile asks for {{wanted}}p in H.264. This video has {{wanted}}p only in other codecs, so {{picked}}p in H.264 is selected."
+msgstr "設定檔要求 H.264 的 {{wanted}}p。此影片只有其他編碼的 {{wanted}}p，因此已選取 H.264 的 {{picked}}p。"
+
+msgctxt "wizard.formats.fit.tierPassedOverProfile"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p doesn't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "設定檔要求 {{wanted}}p。此影片的 {{wanted}}p 與設定檔的其餘部分不相符，因此已選取 {{picked}}p。"
 
 msgctxt "wizard.formats.fit.webmUnavailable"
 msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
@@ -2763,85 +2962,81 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "含音訊"
 
-msgctxt "wizard.listPrompt.escHint"
-msgid "Esc cancels. Nothing loads until you choose."
-msgstr "按 Esc 取消。選擇之前不會載入任何內容。"
+msgctxt "wizard.listPrompt.backgroundHint"
+msgid "With {{profileName}}. If it has more than {{count}} videos, Downloads asks how many."
+msgstr "使用 {{profileName}}。如果超過 {{count}} 部影片，「下載」會詢問要下載多少部。"
 
-msgctxt "wizard.listPrompt.interactiveSubtitle"
-msgid "Choose formats yourself"
-msgstr "自行選擇格式"
+msgctxt "wizard.listPrompt.backgroundLabel"
+msgid "Download in the background"
+msgstr "在背景下載"
 
-msgctxt "wizard.listPrompt.justThisVideo"
-msgid "Just this video"
-msgstr "僅此影片"
+msgctxt "wizard.listPrompt.escOnly"
+msgid "Esc cancels."
+msgstr "按 Esc 取消。"
 
-msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
-msgid "Opens its formats"
-msgstr "開啟其格式選項"
+msgctxt "wizard.listPrompt.firstHint"
+msgid "Exactly the first {{count}}, with {{profileName}}."
+msgstr "恰好是前 {{count}} 部，使用 {{profileName}}。"
 
-msgctxt "wizard.listPrompt.justThisVideoQuickHint"
-msgid "Loads one video"
-msgstr "載入一部影片"
+msgctxt "wizard.listPrompt.firstLabel"
+msgid "Download the first"
+msgstr "下載前"
 
-msgctxt "wizard.listPrompt.listInteractiveHint"
-msgid "Loads up to {{count}} to choose from"
-msgstr "最多載入 {{count}} 個供你選擇"
+msgctxt "wizard.listPrompt.interactiveHint"
+msgid "Pick from the first {{count}} videos (or change the count on the next step), then set up the download."
+msgstr "從前 {{count}} 部影片中挑選（或在下一步變更數量），然後設定下載。"
 
-msgctxt "wizard.listPrompt.listOption.album"
-msgid "The album, first"
-msgstr "專輯的前幾項"
+msgctxt "wizard.listPrompt.interactiveLabel"
+msgid "Interactive download…"
+msgstr "互動式下載…"
 
-msgctxt "wizard.listPrompt.listOption.liked"
-msgid "Your liked videos, first"
-msgstr "喜歡的影片的前幾項"
+msgctxt "wizard.listPrompt.limitHint"
+msgid "How many videos to take from the list: the first option asks past it, the second takes exactly that many. The same as Settings › Playlist items to scan."
+msgstr "從清單中取多少部影片：第一個選項會在超出該數量時詢問，第二個則恰好取這麼多。與「設定 › 要掃描的播放清單項目」相同。"
 
-msgctxt "wizard.listPrompt.listOption.mix"
-msgid "The Mix, first"
-msgstr "合輯的前幾項"
-
-msgctxt "wizard.listPrompt.listOption.playlist"
-msgid "The playlist, first"
-msgstr "播放清單的前幾項"
-
-msgctxt "wizard.listPrompt.listOption.uploads"
-msgid "The uploads, first"
-msgstr "上傳內容的前幾項"
-
-msgctxt "wizard.listPrompt.listOption.watchLater"
-msgid "Watch later, first"
-msgstr "「稍後觀看」的前幾項"
-
-msgctxt "wizard.listPrompt.listQuickHint"
-msgid "Loads up to {{count}}, then downloads them"
-msgstr "最多載入 {{count}} 個，然後下載"
+msgctxt "wizard.listPrompt.limitLabel"
+msgid "Limit"
+msgstr "數量上限"
 
 msgctxt "wizard.listPrompt.mixNote"
 msgid "A Mix changes every time you open it."
 msgstr "合輯每次開啟時內容都會變動。"
 
-msgctxt "wizard.listPrompt.pickOption.album"
-msgid "Pick from the album, first"
-msgstr "從專輯的前幾項中選擇"
+msgctxt "wizard.listPrompt.pickLoadAfter"
+msgid "to pick from."
+msgstr "部影片供挑選。"
 
-msgctxt "wizard.listPrompt.pickOption.liked"
-msgid "Pick from your liked videos, first"
-msgstr "從喜歡的影片的前幾項中選擇"
+msgctxt "wizard.listPrompt.pickLoadBefore"
+msgid "Load the first"
+msgstr "載入前"
 
-msgctxt "wizard.listPrompt.pickOption.mix"
-msgid "Pick from the Mix, first"
-msgstr "從合輯的前幾項中選擇"
+msgctxt "wizard.listPrompt.pickLoadNote"
+msgid "You can change it on the next step."
+msgstr "你可以在下一步變更。"
 
-msgctxt "wizard.listPrompt.pickOption.playlist"
-msgid "Pick from the playlist, first"
-msgstr "從播放清單的前幾項中選擇"
+msgctxt "wizard.listPrompt.pickTitle.album"
+msgid "Pick from this album"
+msgstr "從此專輯中選擇"
 
-msgctxt "wizard.listPrompt.pickOption.uploads"
-msgid "Pick from the uploads, first"
-msgstr "從上傳內容的前幾項中選擇"
+msgctxt "wizard.listPrompt.pickTitle.liked"
+msgid "Pick from your liked videos"
+msgstr "從你喜歡的影片中選擇"
 
-msgctxt "wizard.listPrompt.pickOption.watchLater"
-msgid "Pick from Watch later, first"
-msgstr "從「稍後觀看」的前幾項中選擇"
+msgctxt "wizard.listPrompt.pickTitle.mix"
+msgid "Pick from this Mix"
+msgstr "從此合輯中選擇"
+
+msgctxt "wizard.listPrompt.pickTitle.playlist"
+msgid "Pick from this playlist"
+msgstr "從此播放清單中選擇"
+
+msgctxt "wizard.listPrompt.pickTitle.uploads"
+msgid "Pick from this channel’s uploads"
+msgstr "從此頻道的上傳內容中選擇"
+
+msgctxt "wizard.listPrompt.pickTitle.watchLater"
+msgid "Pick from Watch later"
+msgstr "從「稍後觀看」中選擇"
 
 msgctxt "wizard.listPrompt.title.album"
 msgid "Download from this album"
@@ -2866,6 +3061,18 @@ msgstr "從此頻道的上傳內容下載"
 msgctxt "wizard.listPrompt.title.watchLater"
 msgid "Download from Watch later"
 msgstr "從「稍後觀看」下載"
+
+msgctxt "wizard.listPrompt.videoHint"
+msgid "Only the video you opened, with {{profileName}}. The list isn't loaded."
+msgstr "僅限你開啟的影片，使用 {{profileName}}。不會載入清單。"
+
+msgctxt "wizard.listPrompt.videoLabel"
+msgid "Just this video"
+msgstr "僅此影片"
+
+msgctxt "wizard.listPrompt.videoPickHint"
+msgid "Set up only the video you opened. The list isn't loaded."
+msgstr "僅設定你開啟的影片。不會載入清單。"
 
 msgctxt "wizard.listPrompt.withProfile"
 msgid "With {{profileName}}"
@@ -3062,6 +3269,16 @@ msgstr "所有項目都已移除"
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "已下載"
+
+#. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlist.bulkCappedDesc_other"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "它們還有更多影片。要選擇數量，請分別貼上每個連結。"
+
+#. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
+msgctxt "wizard.playlist.bulkCappedTitle_other"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "{{count}} 個清單各只取前 {{limit}} 部影片"
 
 msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
@@ -3266,28 +3483,6 @@ msgstr "正在檢查資料夾…"
 msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "影片縮圖"
-
-msgctxt "wizard.playlistCap.changeLimit"
-msgid "Change load limit"
-msgstr "變更載入上限"
-
-#. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.playlistCap.description_other"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy 依目前 {{limit}} 的上限載入了 {{count}} 個項目。你可以現在將已載入的項目加入佇列，或提高上限後重新掃描。"
-
-#. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.playlistCap.descriptionWithTitle_other"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>：Arroxy 依目前 {{limit}} 的上限載入了 {{count}} 個項目。你可以現在將已載入的項目加入佇列，或提高上限後重新掃描。"
-
-msgctxt "wizard.playlistCap.queueLoaded"
-msgid "Queue loaded items"
-msgstr "將已載入的項目加入佇列"
-
-msgctxt "wizard.playlistCap.title"
-msgid "Playlist scan is capped"
-msgstr "播放清單掃描有上限"
 
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
@@ -3765,39 +3960,6 @@ msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
 msgstr "{{label}} 說明"
 
-msgctxt "wizard.quickProgress.cancel"
-msgid "Cancel preparation"
-msgstr "取消準備"
-
-msgctxt "wizard.quickProgress.currentFallback"
-msgid "Current link"
-msgstr "目前連結"
-
-msgctxt "wizard.quickProgress.description"
-msgid "Arroxy is reading the link and applying {{profileName}}."
-msgstr "Arroxy 正在讀取連結並套用 {{profileName}}。"
-
-#. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.quickProgress.failedCount_other"
-msgid "{{count}} failed"
-msgstr "{{count}} 個失敗"
-
-msgctxt "wizard.quickProgress.phase.probing"
-msgid "Fetching details"
-msgstr "正在擷取詳細資料"
-
-msgctxt "wizard.quickProgress.phase.queueing"
-msgid "Adding to queue"
-msgstr "正在加入佇列"
-
-msgctxt "wizard.quickProgress.title"
-msgid "Preparing Quick Download"
-msgstr "正在準備快速下載"
-
-msgctxt "wizard.quickProgress.waitHint"
-msgid "Keep this open while Arroxy prepares the queue."
-msgstr "Arroxy 準備佇列時，請保持此視窗開啟。"
-
 msgctxt "wizard.review.areas.extras"
 msgid "extras"
 msgstr "額外項目"
@@ -4106,6 +4268,10 @@ msgctxt "wizard.subtitles.saveMode.sidecar"
 msgid "Next to video"
 msgstr "影片旁"
 
+msgctxt "wizard.subtitles.saveMode.sidecarNoVideo"
+msgid "In the download folder"
+msgstr "在下載資料夾中"
+
 msgctxt "wizard.subtitles.saveMode.subfolder"
 msgid "subtitles/ subfolder"
 msgstr "Subtitles/ 子資料夾"
@@ -4129,14 +4295,6 @@ msgstr "下載設定檔導覽"
 msgctxt "wizard.url.advanced"
 msgid "Advanced"
 msgstr "進階"
-
-msgctxt "wizard.url.analytics.toggle"
-msgid "Send daily heartbeat"
-msgstr "傳送每日心跳訊號"
-
-msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
-msgstr "不收集遙測資料。每天一次，匿名心跳訊號會傳送應用程式版本、安裝管道、作業系統、語言、國家/地區，以及 Arroxy 大約是多久前安裝的，用來統計活躍使用者和新使用者。不包含 ID、URL、影片標題或檔名。"
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
@@ -4225,6 +4383,18 @@ msgstr "同時下載數"
 msgctxt "wizard.url.concurrentDownloads.unit"
 msgid "downloads"
 msgstr "個下載"
+
+msgctxt "wizard.url.concurrentProbes.description"
+msgid "How many links Arroxy fetches details for at the same time, before they download. Fewer is gentler on sites that block busy connections. A link you open in Interactive Download always goes first."
+msgstr "Arroxy 在下載前同時擷取詳細資料的連結數量。數量越少，對會封鎖繁忙連線的網站越溫和。你在「互動式下載」中開啟的連結一律優先。"
+
+msgctxt "wizard.url.concurrentProbes.label"
+msgid "Links checked at once"
+msgstr "同時檢查的連結數"
+
+msgctxt "wizard.url.concurrentProbes.unit"
+msgid "links"
+msgstr "個連結"
 
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
@@ -4319,8 +4489,8 @@ msgid "Off"
 msgstr "關閉"
 
 msgctxt "wizard.url.cookies.toggleDescription"
-msgid "Helps with age-restricted, members-only, and account-private videos."
-msgstr "有助於下載年齡限制、會員專屬及帳號私人影片。"
+msgid "Helps with videos your own account can watch, like your private videos."
+msgstr "有助於下載你的帳號可觀看的影片，例如你的私人影片。"
 
 msgctxt "wizard.url.downloadConnections.description"
 msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
@@ -4333,6 +4503,30 @@ msgstr "下載連線數"
 msgctxt "wizard.url.downloadConnections.unit"
 msgid "connections"
 msgstr "個連線"
+
+msgctxt "wizard.url.downloadList.album"
+msgid "Download album…"
+msgstr "下載專輯…"
+
+msgctxt "wizard.url.downloadList.liked"
+msgid "Download liked videos…"
+msgstr "下載喜歡的影片…"
+
+msgctxt "wizard.url.downloadList.mix"
+msgid "Download Mix…"
+msgstr "下載合輯…"
+
+msgctxt "wizard.url.downloadList.playlist"
+msgid "Download playlist…"
+msgstr "下載播放清單…"
+
+msgctxt "wizard.url.downloadList.uploads"
+msgid "Download uploads…"
+msgstr "下載上傳內容…"
+
+msgctxt "wizard.url.downloadList.watchLater"
+msgid "Download Watch later…"
+msgstr "下載「稍後觀看」…"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -4406,17 +4600,9 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "此快捷鍵已被其他應用程式使用——請選擇另一個。"
 
-msgctxt "wizard.url.hotkey.hintLabel"
-msgid "Or press"
-msgstr "或按下"
-
-msgctxt "wizard.url.hotkey.hintTooltip"
-msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
-msgstr "在任何地方複製影片連結並按下此快捷鍵，Arroxy 就會使用目前的設定檔將它加入佇列，無需切換視窗。"
-
-msgctxt "wizard.url.hotkey.hintTooltipSettings"
-msgid "Change or turn it off in Settings."
-msgstr "可在「設定」中變更或關閉。"
+msgctxt "wizard.url.hotkey.globalLabel"
+msgid "Global shortcut"
+msgstr "全域快捷鍵"
 
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
@@ -4442,13 +4628,17 @@ msgctxt "wizard.url.hotkey.toggle"
 msgid "Enable global hotkey"
 msgstr "啟用全域快捷鍵"
 
-msgctxt "wizard.url.hotkey.toggleDescription"
-msgid "Press the shortcut with a video link on your clipboard."
-msgstr "剪貼簿中有影片連結時按下快捷鍵。"
+msgctxt "wizard.url.hotkey.toggleDescriptionDetail"
+msgid "Copy a video link in any app and press the shortcut: Arroxy queues it with your active profile, without switching windows. A link to a video in a playlist downloads the video."
+msgstr "在任何應用程式中複製影片連結並按下快捷鍵：Arroxy 會使用目前的設定檔將它加入佇列，無需切換視窗。播放清單中的影片連結只會下載該影片。"
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
 msgstr "互動式下載"
+
+msgctxt "wizard.url.interactiveDownloadAsks"
+msgid "Interactive Download…"
+msgstr "互動式下載…"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
@@ -4490,21 +4680,13 @@ msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "貼上連結，讓 Arroxy 幫你下載 ✨"
 
-msgctxt "wizard.url.mascotMixed"
-msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
-msgstr "此連結指向合集中的某一部影片。分析之前，Arroxy 會詢問你想要哪一部。"
-
-msgctxt "wizard.url.mascotPreparing"
-msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
-msgstr "{{quickDownload}} 正在讀取此連結並套用 {{profileName}}。"
-
-msgctxt "wizard.url.mascotQueued"
-msgid "The queue is handling this download. You can paste another link while it works."
-msgstr "佇列正在處理此下載。處理期間你可以再貼上另一個連結。"
-
 msgctxt "wizard.url.mascotSingle"
 msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
 msgstr "快速下載會以 {{profileName}} 開始一次下載。需要一次性調整時，請使用互動式下載。"
+
+msgctxt "wizard.url.mascotVideoInList"
+msgid "This link names a video and the list it’s in: download just the video, or the list."
+msgstr "此連結同時指向一部影片及其所在的清單：請選擇只下載該影片，還是下載整個清單。"
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4826,6 +5008,10 @@ msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
 msgid "Using profile override + profile subfolder"
 msgstr "使用設定檔覆寫 + 設定檔子資料夾"
 
+msgctxt "wizard.url.profile.destinationEditHint"
+msgid "To change where it saves, edit the profile."
+msgstr "要變更儲存位置，請編輯設定檔。"
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "目的地"
@@ -4918,6 +5104,10 @@ msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "重設"
 
+msgctxt "wizard.url.profile.savesTo"
+msgid "Saves to"
+msgstr "儲存到"
+
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
 msgstr "切換下載設定檔：{{profileName}}"
@@ -4931,8 +5121,8 @@ msgid "Clear"
 msgstr "清除"
 
 msgctxt "wizard.url.proxy.description"
-msgid "Route traffic through a proxy — useful for geo-restricted content."
-msgstr "透過 Proxy 路由流量——適合有地區限制的內容。"
+msgid "Route traffic through a proxy server."
+msgstr "透過代理伺服器路由流量。"
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
@@ -4941,10 +5131,6 @@ msgstr "代理伺服器 URL"
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
-
-msgctxt "wizard.url.quickBulkAllFailed"
-msgid "None of those URLs could be prepared"
-msgstr "這些 URL 全都無法準備"
 
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
@@ -4957,11 +5143,6 @@ msgstr "將使用以下設定檔下載：{{profileName}}"
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "無法新增此項目：{{error}}"
-
-#. Plural form "other" for zh-Hant: used for counts like 0, 1, 2, 3, 4, 5.
-msgctxt "wizard.url.quickPartialFailed_other"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "已將成功的項目加入佇列。{{count}} 個 URL 無法準備。"
 
 msgctxt "wizard.url.quickPrepareFailed"
 msgid "Queue item could not be prepared"
@@ -4978,6 +5159,14 @@ msgstr "探查失敗"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "貼上影片、播放清單、頻道或搜尋 URL 以開始。"
+
+msgctxt "wizard.url.reports.toggle"
+msgid "Send anonymous heartbeat and setup reports"
+msgstr "傳送匿名心跳訊號和設定報告"
+
+msgctxt "wizard.url.reports.toggleDescription"
+msgid "No tracking. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. When Arroxy sets up or updates its download engine or media tools, it also reports whether that worked and roughly how long it took. No IDs, URLs, video titles or filenames."
+msgstr "不追蹤。每天一次，匿名心跳訊號會傳送應用程式版本、安裝管道、作業系統、語言、國家/地區，以及 Arroxy 大約是多久前安裝的，用來統計活躍使用者和新使用者。Arroxy 設定或更新其下載引擎或媒體工具時，也會回報是否成功以及大約耗時。不包含 ID、URL、影片標題或檔名。"
 
 msgctxt "wizard.url.settings.behaviorDescription"
 msgid "Global behavior that affects profile-driven downloads too."
@@ -5034,3 +5223,11 @@ msgstr "設定檔"
 msgctxt "wizard.url.tabs.settings"
 msgid "Settings"
 msgstr "設定"
+
+msgctxt "wizard.url.thisVideo"
+msgid "This video"
+msgstr "此影片"
+
+msgctxt "wizard.url.thisVideoTooltip"
+msgid "Downloads just this video with {{profileName}}"
+msgstr "使用 {{profileName}} 僅下載此影片"

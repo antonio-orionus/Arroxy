@@ -9,7 +9,7 @@
 
 [![Release](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![ဝဘ်ဆိုက်](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![လိုင်စင်](https://img.shields.io/badge/license-GPLv3-blue) ![Platforms](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![ဘာသာစကားများ](https://img.shields.io/badge/i18n-50_languages-blue)
 
-**YouTube နှင့် ၂၀၀၀+ ထောက်ပံ့သောဆိုဒ်များ** မှ ဗီဒီယိုများ၊ Shorts၊ သီချင်းများ၊ channel များ၊ podcast များ သို့မဟုတ် audio track များကို ဒေါင်းလုဒ်ဆွဲပါ — 60 fps တွင် 8K HDR အထိ၊ MP3 / AAC / Opus အဖြစ်၊ သို့မဟုတ် လိုအပ်သည့်အပိုင်းကိုသာ။ Explore tab တွင် **Arroxy အတွင်းမှာပင် YouTube သို့မဟုတ် အခြားဝဘ်ဆိုက်ကို ကြည့်ရှုပြီး** သင်ကြည့်နေသော ဗီဒီယို၊ playlist သို့မဟုတ် channel ကို ဒေါင်းလုဒ်လုပ်ပါ၊ သင့်အကောင့်ဖြင့် ကြည့်နိုင်သော private၊ member-only နှင့် အသက်ကန့်သတ်ထားသော ဗီဒီယိုများကို ဒေါင်းလုဒ်လုပ်ရန် ထိုနေရာတွင် sign in လုပ်ပါ။ Windows, macOS နှင့် Linux တွင် သင့်ကွန်ပျူတာပေါ်တွင်သာ run ပါသည်။ **ကြော်ငြာမပါ၊ bloat မပါ၊ upsell မပါ။**
+**YouTube နှင့် ၂၀၀၀+ ထောက်ပံ့သောဆိုဒ်များ** မှ ဗီဒီယိုများ၊ Shorts၊ channel များ၊ podcast များ သို့မဟုတ် audio track များကို ဒေါင်းလုဒ်ဆွဲပါ — 60 fps တွင် 8K HDR အထိ၊ MP3 / AAC / Opus အဖြစ်၊ သို့မဟုတ် လိုအပ်သည့်အပိုင်းကိုသာ။ Explore tab တွင် **Arroxy အတွင်းမှာပင် YouTube သို့မဟုတ် အခြားဝဘ်ဆိုက်ကို ကြည့်ရှုပြီး** သင်ကြည့်နေသော ဗီဒီယို၊ playlist သို့မဟုတ် channel ကို ဒေါင်းလုဒ်လုပ်ပါ၊ သင့်ကိုယ်ပိုင်အကောင့်ဖြင့် ကြည့်နိုင်ပြီးသား ဗီဒီယိုများကို ဒေါင်းလုဒ်လုပ်ရန် ထိုနေရာတွင် sign in လုပ်ပါ။ Windows, macOS နှင့် Linux တွင် သင့်ကွန်ပျူတာပေါ်တွင်သာ run ပါသည်။ **ကြော်ငြာမပါ၊ bloat မပါ၊ upsell မပါ။**
 
 [**↓ နောက်ဆုံး Release ကို ဒေါင်းလုဒ်ဆွဲပါ**](#install) &nbsp;·&nbsp; [**ဝဘ်ဆိုက်**](https://arroxy.com/) &nbsp;·&nbsp; [Windows ပထမဆုံး launch](#windows-first-launch) · [macOS ပထမဆုံး launch](#macos-first-launch) · [Linux ပထမဆုံး launch](#linux-first-launch)
 
@@ -28,7 +28,7 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 
 > **Arroxy ဆိုတာ ဘာလဲ။** Arroxy သည် YouTube နှင့် [yt-dlp](https://github.com/yt-dlp/yt-dlp) ပံ့ပိုးသော အခြားဆိုဒ် ၂၀၀၀+ မှ ဗီဒီယို၊ အသံ၊ playlist နှင့် subtitle များကို ဒေါင်းလုဒ်လုပ်ပေးသော အခမဲ့ open-source desktop GUI ဖြစ်သည်။ Windows 10/11, macOS 13+ (Intel + Apple Silicon) နှင့် Linux (AppImage, Flatpak, tar.gz) တွင် run သည်။ GPLv3 လိုင်စင်။ ကြော်ငြာမပါ၊ အသုံးပြုမှုကန့်သတ်ချက်မပါ။ [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage နှင့် တိုက်ရိုက်ဒေါင်းလုဒ်မှတစ်ဆင့် ဖြန့်ဝေသည်။
 >
-> **အဓိကကွာခြားချက်: built-in browser တစ်ခု။** အခမဲ့ YouTube downloader အများစုသည် URL box နှင့် format menu သာပါသော၊ ကိုယ်ပိုင် browser မရှိသည့် yt-dlp wrapper ပါးပါးများသာ ဖြစ်သည်။ Arroxy တွင် **Explore tab** ရှိသည်။ app အတွင်းမှာပင် YouTube သို့မဟုတ် အခြားဝဘ်ဆိုက်ကို ကြည့်ရှုပြီး သင်ကြည့်နေသော ဗီဒီယို၊ playlist သို့မဟုတ် channel ကို ဒေါင်းလုဒ်လုပ်နိုင်သည်၊ သို့မဟုတ် မည်သည့် လင့်ခ်ကိုမဆို right-click နှိပ်နိုင်သည်။ Exploreတွင် တစ်ကြိမ် sign in ဝင်လိုက်ရုံဖြင့် Arroxy သည် သင့်အကောင့်ဖြင့် ကြည့်နိုင်သော private၊ member-only နှင့် အသက်ကန့်သတ်ဗီဒီယိုများအပြင် သင်၏ Watch Later နှင့် Liked စာရင်းများကို cookie export မလုပ်ဘဲ ဒေါင်းလုဒ်လုပ်ပေးသည်။ အခြားဆိုဒ်များကိုလည်း ထိုနေရာတွင် sign in ဝင်နိုင်ပြီး လိုအပ်သည့်အခါ ၎င်းတို့၏ ဒေါင်းလုဒ်များက ထို sign-in ကို အသုံးပြုသည်။ သင်သည် bot မဟုတ်ကြောင်း အတည်ပြုရန် YouTube က တောင်းလာသောအခါ Arroxy သည် ထို sign-in ဖြင့် ထပ်မံကြိုးစားသည်။ built-in browser သည် ဒေါင်းလုဒ်မလုပ်မီ YouTube မျှော်လင့်ထားသော token ကိုလည်း ရယူသောကြောင့် YouTube က ဒေါင်းလုဒ်ကို format နည်းနည်းသာရအောင် ဖြတ်မချနိုင်ပါ။ URL box သာပါသော wrapper သည် ဤကန့်သတ်ချက်အားလုံးနှင့် ကြုံတွေ့ရသည်။ အသေးစိတ်: [Arroxy ဘာကြောင့်](#why-explore)။
+> **အဓိကကွာခြားချက်: built-in browser တစ်ခု။** အခမဲ့ YouTube downloader အများစုသည် URL box နှင့် format menu သာပါသော၊ ကိုယ်ပိုင် browser မရှိသည့် yt-dlp wrapper ပါးပါးများသာ ဖြစ်သည်။ Arroxy တွင် **Explore tab** ရှိသည်။ app အတွင်းမှာပင် YouTube သို့မဟုတ် အခြားဝဘ်ဆိုက်ကို ကြည့်ရှုပြီး သင်ကြည့်နေသော ဗီဒီယို၊ playlist သို့မဟုတ် channel ကို ဒေါင်းလုဒ်လုပ်နိုင်သည်၊ သို့မဟုတ် မည်သည့် လင့်ခ်ကိုမဆို right-click နှိပ်နိုင်သည်။ Explore တွင် တစ်ကြိမ် sign in ဝင်လိုက်လျှင် အကောင့်လိုသော ဒေါင်းလုဒ်များက ထို sign-in ကို အသုံးပြုသည်- သင်၏ private ဗီဒီယိုများ၊ Watch Later နှင့် Liked စာရင်းများ၊ သင့်အကောင့်ဖြင့် ကြည့်နိုင်ပြီးသား အခြားဗီဒီယိုများကို cookie export မလုပ်ဘဲ ဒေါင်းလုဒ်လုပ်ပေးသည်။ အခြားဆိုဒ်များကိုလည်း ထိုနေရာတွင် sign in ဝင်နိုင်ပြီး လိုအပ်သည့်အခါ ၎င်းတို့၏ ဒေါင်းလုဒ်များက ထို sign-in ကို အသုံးပြုသည်။ အသေးစိတ်: [Arroxy ဘာကြောင့်](#why-explore)။
 >
 > _နောက်ဆုံးအပ်ဒိတ်: 2026-10-22။_
 
@@ -79,7 +79,7 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxy ၏ စနစ်တစ်ခုလုံးအတွက် ဒေါင်းလုဒ် ဖြတ်လမ်းခလုတ် — Windows နှင့် Linux တွင် Ctrl+Shift+D၊ macOS တွင် Cmd+Shift+D ဖြင့် ကူးယူထားသောလင့်ခ်ကို ဒေါင်းလုဒ်စာရင်းသို့ တိုက်ရိုက်ပို့သည်" width="760" /></picture><br/><sub><b>စနစ်တစ်ခုလုံးအတွက် ဒေါင်းလုဒ် ဖြတ်လမ်းခလုတ်</b><br/>ဘယ်နေရာမှာမဆို လင့်ခ်ကူးပြီး တစ်ချက်နှိပ်လိုက်ရုံ — စာရင်းထဲရောက်ပြီး ဒေါင်းလုဒ်စတင်</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/my/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Playlist ရှိ item တစ်ခုချင်းအတွက် ပရိုဖိုင်</b><br/>ဗီဒီယိုတစ်ခုစီကို ကိုယ်ပိုင်ပရိုဖိုင် သတ်မှတ်ပါ — အချို့ကို 4K ဖြင့် သိမ်းပြီး ကျန်တာကို MP3 အဖြစ် ရယူပါ</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/my/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Playlist ရှိ item တစ်ခုချင်းအတွက် ပရိုဖိုင်</b><br/>ဗီဒီယိုတစ်ခုစီကို ကိုယ်ပိုင်ပရိုဖိုင် သတ်မှတ်ပါ — အချို့ကို 4K ဖြင့် သိမ်းပြီး ကျန်တာကို အသံသာ အဖြစ် သိမ်းပါ</sub></td>
   </tr>
   <tr>
     <td width="50%" valign="top" align="center"><img src="../../build/screenshots/my/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>အမြန်ဒေါင်းလုဒ် ပင်မ</b><br/>URL ကို ကူးထည့်ပြီး သင့်လက်ရှိ ပရိုဖိုင်ဖြင့် ချက်ချင်းဒေါင်းလုဒ်လုပ်ပါ</sub></td>
@@ -102,7 +102,7 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 - **Right-click ဖြင့် ဒေါင်းလုဒ်** — Explore ရှိ မည်သည့် ဗီဒီယို၊ playlist သို့မဟုတ် channel လင့်ခ်ကိုမဆို right-click နှိပ်ပြီး သင့်ပရိုဖိုင်ဖြင့် ဒေါင်းလုဒ်လုပ်ပါ၊ **ပရိုဖိုင်ဖြင့် ဒေါင်းလုဒ်** မှ အခြားပရိုဖိုင်ကို ရွေးပါ၊ အဆင့်ဆင့် ဒေါင်းလုဒ်ကို ဖွင့်ပါ သို့မဟုတ် လင့်ခ်ကို ကူးယူပါ။ ဗီဒီယိုတစ်ခုချင်းစီကို အရင်ဖွင့်ရန် မလိုပါ
 - **ကျစ်လစ်သော အပြင်အဆင်** — Explore ၏ toolbar ရှိ တစ်ချက်နှိပ်ရုံဖြင့် Arroxy ၏ tab များကို ၎င်းထဲသို့ ရွှေ့ပေးပြီး စာမျက်နှာကို နေရာပိုပေးသည်
 - **လိပ်စာဘား** — YouTube တွင် ရှာဖွေရန် ရိုက်ထည့်ပါ သို့မဟုတ် မည်သည့်ဝဘ်လိပ်စာကိုမဆို ရိုက်ထည့်ပြီး ထိုဆိုက်ကို ဖွင့်ပါ
-- **အကောင့်လိုသော ဒေါင်းလုဒ်များ** — Explore တွင် တစ်ကြိမ် sign in လုပ်ထားလျှင် Arroxy သည် သင့်အကောင့်ဖြင့် ကြည့်နိုင်သော private နှင့် member-only ဗီဒီယိုများ၊ အသက်အတည်ပြုထားသော အကောင့်ဖြစ်လျှင် အသက်ကန့်သတ်ဗီဒီယိုများ၊ သင်၏ Watch Later နှင့် Liked စာရင်းများကို ဒေါင်းလုဒ်လုပ်နိုင်သည်။ အခြားဝဘ်ဆိုက်များတွင်လည်း ထိုနေရာ၌ sign in လုပ်နိုင်ပြီး ၎င်းတို့၏ ဒေါင်းလုဒ်များသည် လိုအပ်သည့်အခါ ထို sign-in ကို အသုံးပြုသည်။ Arroxy သည် ဦးစွာ sign out အခြေအနေတွင် ဒေါင်းလုဒ်လုပ်ပြီး အကောင့်ဖြင့် ဖြေရှင်းနိုင်သော အကြောင်းရင်းကြောင့် ဒေါင်းလုဒ်မအောင်မြင်မှသာ သင်၏ Explore sign-in ကို အသုံးပြုသည်။ သင်သည် bot မဟုတ်ကြောင်း YouTube က အတည်ပြုခိုင်းသောအခါတွင်လည်း Arroxy က သင်၏ Explore sign-in ကို စမ်းကြည့်သည်
+- **အကောင့်လိုသော ဒေါင်းလုဒ်များ** — Explore တွင် တစ်ကြိမ် sign in လုပ်ထားလျှင် Arroxy သည် သင့်အကောင့်ဖြင့် ကြည့်နိုင်သော ဗီဒီယိုများကို ဒေါင်းလုဒ်လုပ်နိုင်သည်- သင်၏ private ဗီဒီယိုများ၊ အသက်အတည်ပြုထားသော အကောင့်ဖြစ်လျှင် အသက်ကန့်သတ်ဗီဒီယိုများ၊ သင်၏ Watch Later နှင့် Liked စာရင်းများ။ အခြားဝဘ်ဆိုက်များတွင်လည်း ထိုနေရာ၌ sign in လုပ်နိုင်ပြီး ၎င်းတို့၏ ဒေါင်းလုဒ်များသည် လိုအပ်သည့်အခါ ထို sign-in ကို အသုံးပြုသည်။ Arroxy သည် ဦးစွာ sign out အခြေအနေတွင် ဒေါင်းလုဒ်လုပ်ပြီး အကောင့်ဖြင့် ဖြေရှင်းနိုင်သော အကြောင်းရင်းကြောင့် ဒေါင်းလုဒ်မအောင်မြင်မှသာ သင်၏ Explore sign-in ကို အသုံးပြုသည်
 - **အရန်အကောင့် သုံးပါ** — Explore ၏ ပထမဆုံးမျက်နှာပြင်က အကြောင်းရင်းကို ရှင်းပြထားသည် - အကောင့်ဖြင့် ဒေါင်းလုဒ်လုပ်ခြင်းသည် ထိုအကောင့် ကန့်သတ်ခံရနိုင်သည့် အန္တရာယ် အနည်းငယ်ရှိသည်။ sign-in အားလုံးကို မေ့စေလိုသည့်အခါ ဆက်တင်များမှ Explore ကို အချိန်မရွေး sign out လုပ်ပါ
 - **ကြော်ငြာပိတ်ဆို့ကိရိယာ** — မူရင်းအတိုင်း ပိတ်ထားသည်။ Explore toolbar ရှိ ဒိုင်းလွှားကို တစ်ချက်နှိပ်ရုံဖြင့် Explore စာမျက်နှာများတွင် ကြော်ငြာနှင့် tracker များကို ပိတ်ဆို့ပေးပြီး ဒေါင်းလုဒ်များကို မထိခိုက်ပါ။ sign in ဝင်ထားသော အကောင့်များအတွက် YouTube က ကြော်ငြာပိတ်ဆို့ကိရိယာကို ပြန်လည်တားဆီးနိုင်သည်
 
@@ -143,7 +143,7 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 - **Speed နှင့် pacing controls** — download bandwidth ကိုကန့်သတ်ပါ၊ ဗီဒီယိုအပိုင်းမည်မျှကို တစ်ပြိုင်နက် download လုပ်မည်ကို သတ်မှတ်ပါ၊ presets (*Off · Balanced · Careful · Custom*) ဖြင့် request delays ထည့်ပါ
 - **ဖိုင်အမည် ပုံစံခွက်များ** — `{title}`၊ `{uploader}`၊ `{id}`၊ `{date}`၊ `{year}`၊ `{resolution}`၊ `{site}`၊ `{categories}`၊ `{artist}`၊ `{album}`၊ `{track}` နှင့် `{playlist_index}` တို့ဖြင့် ဒေါင်းလုဒ်များကို သင်နှစ်သက်သလို အမည်ပေးပါ။ အထွေထွေ သို့မဟုတ် ဒေါင်းလုဒ်ပရိုဖိုင်တစ်ခုစီအလိုက် သတ်မှတ်နိုင်သည်
 - **တစ်ပြိုင်နက် ဒေါင်းလုဒ်များ နှင့် အလိုအလျောက် ပြန်ကြိုးစားမှု** — တန်းစီထားသော ဒေါင်းလုဒ်မည်မျှကို တစ်ပြိုင်နက် လုပ်မည်ကို ရွေးပါ၊ ကွန်ရက် သို့မဟုတ် ဆာဗာ ပြဿနာ ကြုံရသော ဒေါင်းလုဒ်ကို Arroxy သည် ကြိုးစားမှုတိုင်းမတိုင်မီ ပိုကြာစွာ စောင့်ပြီး ပြန်ကြိုးစားပါမည်
-- **Playlist ရှိ item တစ်ခုချင်းအတွက် ပရိုဖိုင်** — list တစ်ခုလုံးအတွက် setting တစ်ခုတည်း အသုံးပြုမည့်အစား၊ playlist ထဲက ဗီဒီယိုတစ်ခုစီကို ၎င်းတို့ ကိုယ်ပိုင် ဒေါင်းလုဒ်ပရိုဖိုင် သတ်မှတ်ပေးနိုင်သဖြင့် တစ်ကြိမ်တည်းတွင် အချို့ကို အရည်အသွေးအပြည့်ဖြင့် သိမ်းဆည်းပြီး ကျန်တာကို MP3 အနေနှင့် ရယူနိုင်သည်
+- **Playlist ရှိ item တစ်ခုချင်းအတွက် ပရိုဖိုင်** — list တစ်ခုလုံးအတွက် setting တစ်ခုတည်း အသုံးပြုမည့်အစား၊ playlist ထဲက ဗီဒီယိုတစ်ခုစီကို ၎င်းတို့ ကိုယ်ပိုင် ဒေါင်းလုဒ်ပရိုဖိုင် သတ်မှတ်ပေးနိုင်သဖြင့် တစ်ကြိမ်တည်းတွင် အချို့ကို အရည်အသွေးအပြည့်ဖြင့် သိမ်းဆည်းပြီး ကျန်တာကို အသံသာ အဖြစ် သိမ်းနိုင်သည်
 - **Quick Download သည် နောက်ခံတွင် အလုပ်လုပ်သည်** — လင့်ခ်သည် ဒေါင်းလုဒ်များထဲတွင် ချက်ချင်းပေါ်လာပြီး ထိုနေရာတွင်ပင် ပြင်ဆင်ပေးကာ **ကြည့်ရန်** ပါသော မှတ်စုက အတည်ပြုပေးပြီး နောက်လင့်ခ်အတွက် URL အကွက်ကို ရှင်းပေးသည်။ ယခင်ဟာများ ပြင်ဆင်နေစဉ်မှာပင် လိုသလောက် စတင်နိုင်သည်
 - **ဒေါင်းလုဒ်များက သင့်အကူအညီလိုသည်ကို ပြောပြသည်** — Arroxy က လင့်ခ်ကို မဖတ်နိုင်ပါက ၎င်း၏အတန်းတွင် အကြောင်းရင်းကိုပြပြီး ဖြေရှင်းနည်းကို အကြံပြုသည် - ထပ်မံကြိုးစားမည်၊ cookie ဖွင့်ပါ သို့မဟုတ် Explore တွင် sign in ဝင်ပါ။ cookie ပိတ်ထားလျှင် သင် sign in ဝင်ပြီးနောက် **Explore ဖြင့် Sign in** က သင့်အတွက် ပြန်စမ်းပေးသည်။ load ကန့်သတ်ချက်ထက် ရှည်သော playlist သည် ၎င်း၏အတန်းပေါ်တွင် စောင့်နေပြီး အားလုံး၊ ပထမအနည်းငယ် သို့မဟုတ် ပြန်လည်စစ်ဆေးခြင်းကို သင်ရွေးရန် စောင့်သည်။ ဒေါင်းလုဒ်များ tab တွင် သင့်ကိုစောင့်နေသော အတန်းအရေအတွက်ကို ပြသည်
 - **ဗီဒီယိုတစ်ခု၏ အပိုင်းတစ်ခုကိုသာ ဒေါင်းလုဒ်လုပ်ပါ** — Format စခရင်တွင် စတင်ချိန်နှင့် ပြီးဆုံးချိန်၊ သို့မဟုတ် အခန်းကန့်တစ်ခုကို ရွေးပါက Arroxy သည် ထိုအပိုင်းကိုသာ သိမ်းပြီး ဗီဒီယို id နောက်တွင် အပိုင်းကို ထည့်၍ အမည်ပေးသည်။ ဖြတ်တောက်မှုများသည် အနီးဆုံး keyframe တွင် ကျသည်၊ တိကျစွာဖြတ်ခြင်းကို ဖွင့်ပါက ပြန်လည် encode လုပ်မည်
@@ -170,7 +170,7 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 <summary><strong>🌐 YouTube + ၂၀၀၀ ဆိုဒ်</strong></summary>
 
 - **YouTube၊ အပြည့်အဝ** — Videos, Shorts, Channels, Playlists, YouTube Music နှင့် Podcasts တို့ကို ပထမတန်းစား ရင်းမြစ်များအဖြစ် ကိုင်တွယ်သည်
-- **၂၀၀၀+ အခြားဆိုဒ်များ** yt-dlp မှတဆင့် — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable နှင့် အခြားအများကြီး
+- **၂၀၀၀+ အခြားဆိုဒ်များ** yt-dlp မှတဆင့် — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable နှင့် အခြားအများကြီး
 - **အသံသာနှင့် subtitle များ** ထောက်ပံ့သောဆိုဒ်တိုင်းတွင် အလုပ်လုပ်သည်၊ YouTube တွင်သာမဟုတ်
 - ဆိုဒ်တစ်ခု ပြောင်းလဲပါက yt-dlp သည် အပတ်တိုင်း fix များ ထုတ်ပြီး Arroxy သည် launch တွင် binary ကို auto-update လုပ်သည်
 
@@ -364,7 +364,7 @@ Third-party malware scan လိုချင်ပါသလား? [VirusTotal](h
 |            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Built-in browser (ကြည့်ရှု၊ sign in၊ ဒေါင်းလုဒ်) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
-| cookie များ export မလုပ်ဘဲ private၊ member-only နှင့် အသက်ကန့်သတ်ဗီဒီယိုများ |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
+| သင့်ကိုယ်ပိုင်အကောင့်ဖြင့် ကြည့်နိုင်သော ဗီဒီယိုများကို cookie export မလုပ်ဘဲ |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
 | အခမဲ့၊ premium tier မပါ |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Open source |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Local processing သာ |   ✅   |           ✅            |         ✅          |     ✅      |             ❌             |         ✅         |
@@ -378,9 +378,9 @@ Arroxy ကို ရည်ရွယ်ချက်တစ်ခုတည်းဖ
 
 ### <a id="why-explore"></a>🧭 ရိုးရိုး yt-dlp wrapper တစ်ခု မလုပ်နိုင်သည့်အရာ: Explore tab
 
-အခမဲ့ YouTube downloader အများစုသည် yt-dlp ပေါ်တွင် URL box တစ်ခု တင်ထားခြင်းသာ ဖြစ်သည်။ Arroxy သည်လည်း yt-dlp ကို အသုံးပြုသော်လည်း app ထဲတွင် တည်ဆောက်ထားပြီး YouTube သို့မဟုတ် အခြားဝဘ်ဆိုက်ကို ဖွင့်နိုင်သော browser ဖြစ်သည့် **Explore** ပါ ပါရှိသည်။ Explore သည် URL box တစ်ခု မကျော်နိုင်သော ကန့်သတ်ချက်များကို ကျော်လွှားပေးသည်:
+အခမဲ့ YouTube downloader အများစုသည် yt-dlp ပေါ်တွင် URL box တစ်ခု တင်ထားခြင်းသာ ဖြစ်သည်။ Arroxy သည်လည်း yt-dlp ကို အသုံးပြုသော်လည်း app ထဲတွင် တည်ဆောက်ထားပြီး YouTube သို့မဟုတ် အခြားဝဘ်ဆိုက်ကို ဖွင့်နိုင်သော browser ဖြစ်သည့် **Explore** ပါ ပါရှိသည်။ Explore သည် URL box တစ်ခု မလုပ်နိုင်သည်များကို ထပ်ထည့်ပေးသည်:
 
-- **အကောင့်လိုသော ဗီဒီယိုများကို cookie export မလုပ်ဘဲ** — private၊ member-only နှင့် အသက်ကန့်သတ်ဗီဒီယိုများ (အသက်အတည်ပြုထားသော အကောင့်ဖြင့်)၊ ထို့အပြင် သင်၏ Watch Later နှင့် Liked စာရင်းများ၊ အခြားဝဘ်ဆိုက်များတွင် sign in ဝင်ရသော ဗီဒီယိုများ။ ရိုးရိုး wrapper တစ်ခုသည် cookies.txt export လိုအပ်သည် သို့မဟုတ် သင့် web browser ၏ cookie များကို ဖတ်ရမည်ဖြစ်ပြီး ယခု Windows ပေါ်ရှိ Chrome က ၎င်းကို ပိတ်ဆို့ထားသည်။ Arroxy တွင်မူ Explore ၌ တစ်ကြိမ် sign in ဝင်ရုံဖြင့် ကျန်အရာများကို ၎င်းက လုပ်ဆောင်ပေးသည်
+- **သင့်အကောင့်ဖြင့် ကြည့်နိုင်သော ဗီဒီယိုများကို cookie export မလုပ်ဘဲ** — သင်၏ private ဗီဒီယိုများ၊ Watch Later နှင့် Liked စာရင်းများ၊ အသက်အတည်ပြုထားသော အကောင့်ရှိ အသက်ကန့်သတ်ဗီဒီယိုများ၊ အခြားဝဘ်ဆိုက်များတွင် သင်၏ sign-in လိုအပ်သော စာမျက်နှာများ။ ရိုးရိုး wrapper တစ်ခုသည် cookies.txt export လိုအပ်သည် သို့မဟုတ် သင့် web browser ၏ cookie များကို ဖတ်သည်။ Arroxy တွင်မူ Explore ၌ တစ်ကြိမ် sign in ဝင်ရုံဖြင့် ကျန်အရာများကို ၎င်းက လုပ်ဆောင်ပေးသည်
 - **လင့်ခ်ကူးစရာမလို** — Explore တွင် ဗီဒီယို၊ playlist သို့မဟုတ် channel ကို ရှာပြီး တစ်ချက်နှိပ်ရုံဖြင့် ဒေါင်းလုဒ်လုပ်ပါ၊ သို့မဟုတ် စာမျက်နှာပေါ်ရှိ မည်သည့်လင့်ခ်ကိုမဆို right-click နှိပ်ပါ
 - **လိုချင်သည့်အခါ ကြော်ငြာပိတ်ဆို့** — ဒိုင်းလွှားကို တစ်ချက်နှိပ်ရုံဖြင့် Explore စာမျက်နှာများတွင် ကြော်ငြာနှင့် tracker များကို ပိတ်ဆို့နိုင်သည်
 
@@ -390,7 +390,7 @@ Arroxy ကို ရည်ရွယ်ချက်တစ်ခုတည်းဖ
 
 Downloads များကို [yt-dlp](https://github.com/yt-dlp/yt-dlp) မှတဆင့် YouTube မှ တိုက်ရိုက် သင်ရွေးချယ်သောဖိုဒါသို့ fetch လုပ်သည် — third-party server မှတဆင့် routing မလုပ်ပါ။ ကြည့်ရှုမှတ်တမ်း၊ ဒေါင်းလုဒ်မှတ်တမ်း၊ URL များနှင့် ဖိုင်အကြောင်းအရာများသည် သင့်ကိရိယာပေါ်တွင်သာ ကျန်ရှိသည်။
 
-No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
+Tracking မလုပ်ပါ — တစ်နေ့တစ်ကြိမ် အမည်မဖော်သော heartbeat တစ်ခု (အက်ပ်ဗားရှင်း၊ OS၊ ဘာသာစကား၊ install channel၊ နိုင်ငံနှင့် Arroxy ကို install လုပ်ပြီးကတည်းက ခန့်မှန်းကြာချိန်) ကိုသာ ပေးပို့ပြီး အသုံးပြုနေသူနှင့် အသုံးပြုသူအသစ် အရေအတွက်ကို ရေတွက်နိုင်စေသည်၊ ထို့အပြင် Arroxy က yt-dlp နှင့် FFmpeg ကို ဒေါင်းလုဒ်လုပ်ခြင်း သို့မဟုတ် အပ်ဒိတ်လုပ်သောအခါ အောင်မြင်မှု ရှိမရှိနှင့် ခန့်မှန်းကြာချိန်ကို အမည်မဖော်သော မှတ်ချက်တစ်ခုအဖြစ် ပို့သည်။ ID၊ URL၊ ဗီဒီယိုခေါင်းစဉ်၊ ဖိုင်လမ်းကြောင်း သို့မဟုတ် အကောင့်အချက်အလက် မပါဝင်ပါ။ နှစ်မျိုးလုံးကို ဆက်တင်များတွင် ပိတ်နိုင်သည်။
 
 Explore သည် သင့် browser နှင့် သီးခြားဖြစ်သော ကိုယ်ပိုင် sign-in များကို ထားရှိပြီး Arroxy က မည်သည့် sign-in ဖောင်ကိုမျှ ဘယ်တော့မှ မဖတ်ပါ၊ မဖြည့်ပါ — ထိုဝဘ်ဆိုက်၏ ကိုယ်ပိုင်စာမျက်နှာတွင် သင်ကိုယ်တိုင် ရိုက်ထည့်ရသည်။ ဒေါင်းလုဒ်များသည် sign out အခြေအနေတွင် လုပ်ဆောင်သည်၊ အကောင့်ဖြင့် ဖြေရှင်းနိုင်သော အကြောင်းရင်းကြောင့် ဒေါင်းလုဒ်မအောင်မြင်မှသာ Arroxy က sign-in ကို အသစ်ပြန်ဖတ်ပြီး ထိုဒေါင်းလုဒ်အတွက် ယာယီဖိုင်တွင်ထားကာ နောက်မှ ထိုဖိုင်ကို ဖျက်သည်။ ဆက်တင်များတွင် Explore မှ sign out လုပ်ပါက sign-in များကို မေ့သွားသည်။
 
@@ -408,7 +408,7 @@ Explore သည် သင့် browser နှင့် သီးခြားဖ�
 <details>
 <summary><strong>Arroxy သည် အခြား yt-dlp GUI များနှင့် မည်သို့ကွာခြားသနည်း?</strong></summary>
 
-အခမဲ့ yt-dlp GUI အများစုသည် လင့်ခ်ကိုသာ လက်ခံသော wrapper များဖြစ်သည်။ Arroxy တွင် app ထဲ၌ တည်ဆောက်ထားပြီး YouTube သို့မဟုတ် အခြားဝဘ်ဆိုက်ကို ဖွင့်နိုင်သော browser ဖြစ်သည့် **Explore** ပါရှိသည်: လင့်ခ်မကူးဘဲ ကြည့်ရှုပြီး ဒေါင်းလုဒ်လုပ်နိုင်ကာ ထိုနေရာတွင် တစ်ကြိမ် sign in ဝင်ရုံဖြင့် private၊ member-only နှင့် အသက်ကန့်သတ်ဗီဒီယိုများနှင့် သင်၏ Watch Later နှင့် Liked စာရင်းများကို cookie export မလုပ်ဘဲ ဒေါင်းလုဒ်လုပ်နိုင်သည်။ သင်သည် bot မဟုတ်ကြောင်း YouTube က အတည်ပြုခိုင်းသောအခါ Arroxy က ထို sign-in ကို အသုံးပြုပြီး ၎င်း၏ built-in browser က YouTube ၏ ဒေါင်းလုဒ် token ကို ရယူပေးသဖြင့် ဒေါင်းလုဒ်များသည် format နည်းသွားခြင်း မရှိပါ။ [Arroxy ဘာကြောင့်](#why) ကို ကြည့်ပါ။
+အခမဲ့ yt-dlp GUI အများစုသည် လင့်ခ်ကိုသာ လက်ခံသော wrapper များဖြစ်သည်။ Arroxy တွင် app ထဲ၌ တည်ဆောက်ထားပြီး YouTube သို့မဟုတ် အခြားဝဘ်ဆိုက်ကို ဖွင့်နိုင်သော browser ဖြစ်သည့် **Explore** ပါရှိသည်: လင့်ခ်မကူးဘဲ ကြည့်ရှုပြီး ဒေါင်းလုဒ်လုပ်နိုင်ကာ ထိုနေရာတွင် တစ်ကြိမ် sign in ဝင်ရုံဖြင့် သင့်အကောင့်ဖြင့် ကြည့်နိုင်သော ဗီဒီယိုများ၊ ဥပမာ သင်၏ private ဗီဒီယိုများနှင့် Watch Later နှင့် Liked စာရင်းများကို cookie export မလုပ်ဘဲ ဒေါင်းလုဒ်လုပ်နိုင်သည်။ [Arroxy ဘာကြောင့်](#why) ကို ကြည့်ပါ။
 
 </details>
 
@@ -429,14 +429,14 @@ YouTube ပေးသောအရာများအားလုံး: 8K (4320p)
 <details>
 <summary><strong>YouTube account လိုအပ်သော ဗီဒီယိုများကို ဘယ်လို ဒေါင်းလုဒ်လုပ်ရမလဲ?</strong></summary>
 
-Explore tab တွင် တစ်ကြိမ် sign in ဝင်ပါ။ ထို့နောက် Arroxy သည် သင့်အကောင့်ဖြင့် ကြည့်နိုင်သော private နှင့် member-only ဗီဒီယိုများ၊ အသက်အတည်ပြုထားသော အကောင့်ဖြစ်လျှင် အသက်ကန့်သတ်ဗီဒီယိုများ၊ သင်၏ Watch Later နှင့် Liked စာရင်းများကို ဒေါင်းလုဒ်လုပ်နိုင်သည်။ အကောင့်ဖြင့် ဖြေရှင်းနိုင်သော အကြောင်းရင်းကြောင့် ဒေါင်းလုဒ်မအောင်မြင်မှသာ ထို sign-in ကို သုံးပြီး ကျန်အရာအားလုံးကို အရင်ကဲ့သို့ပင် ဒေါင်းလုဒ်လုပ်သည်။ ၎င်းမှာ cookie ဆက်တင်များတွင် ပထမဆုံးစာရင်းသွင်းထားပြီး "အကြံပြု" ဟု အမှတ်အသားပြထားသော **Explore sign-in** ရွေးချယ်မှုဖြစ်ပြီး Explore ကို ပထမဆုံးဖွင့်သောအခါ Arroxy က သင့်အတွက် ရွေးပေးသည်။ yt-dlp ၏ wiki က [sign in ဝင်ထားသော automation သည် Google account ကို flag လုပ်နိုင်ကြောင်း](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) သတိပေးထားသဖြင့် အရန် account တစ်ခုသည် ပိုပြီးဘေးကင်းသောရွေးချယ်မှုဖြစ်သည်။
+Explore tab တွင် တစ်ကြိမ် sign in ဝင်ပါ။ ထို့နောက် Arroxy သည် သင့်အကောင့်ဖြင့် ကြည့်နိုင်သော ဗီဒီယိုများကို ဒေါင်းလုဒ်လုပ်နိုင်သည်- သင်၏ private ဗီဒီယိုများ၊ အသက်အတည်ပြုထားသော အကောင့်ဖြစ်လျှင် အသက်ကန့်သတ်ဗီဒီယိုများ၊ သင်၏ Watch Later နှင့် Liked စာရင်းများ။ အကောင့်ဖြင့် ဖြေရှင်းနိုင်သော အကြောင်းရင်းကြောင့် ဒေါင်းလုဒ်မအောင်မြင်မှသာ ထို sign-in ကို သုံးပြီး ကျန်အရာအားလုံးကို အရင်ကဲ့သို့ပင် ဒေါင်းလုဒ်လုပ်သည်။ ၎င်းမှာ cookie ဆက်တင်များတွင် ပထမဆုံးစာရင်းသွင်းထားပြီး "အကြံပြု" ဟု အမှတ်အသားပြထားသော **Explore sign-in** ရွေးချယ်မှုဖြစ်ပြီး Explore ကို ပထမဆုံးဖွင့်သောအခါ Arroxy က သင့်အတွက် ရွေးပေးသည်။ yt-dlp ၏ wiki က [sign in ဝင်ထားသော automation သည် Google account ကို flag လုပ်နိုင်ကြောင်း](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) သတိပေးထားသဖြင့် အရန် account တစ်ခုသည် ပိုပြီးဘေးကင်းသောရွေးချယ်မှုဖြစ်သည်။
 
 </details>
 
 <details>
 <summary><strong>YouTube တွင် တစ်ခုခုပြောင်းသောအခါ ဆက်လက်အလုပ်လုပ်မည်လား?</strong></summary>
 
-yt-dlp ကို launch တိုင်း အလိုအလျောက် update လုပ်ပြီး YouTube က တစ်ခုခု ပြောင်းလဲသောအခါ Arroxy က fix များကို လျင်မြန်စွာ ထုတ်ပေးသည်။ သင်သည် bot မဟုတ်ကြောင်း YouTube က အတည်ပြုခိုင်းသောအခါ Explore တွင် sign in ဝင်ထားလျှင် Arroxy က သင်၏ Explore sign-in ကိုလည်း စမ်းကြည့်ပြီး cookie ဆက်တင်များတွင် ဖိုင် သို့မဟုတ် browser မှ cookie များကိုလည်း သုံးနိုင်သည်။
+yt-dlp ကို launch တိုင်း အလိုအလျောက် update လုပ်ပြီး YouTube က တစ်ခုခု ပြောင်းလဲသောအခါ Arroxy က fix များကို လျင်မြန်စွာ ထုတ်ပေးသည်။ ဒေါင်းလုဒ်တစ်ခုသည် sign in လိုအပ်သောအခါ Explore တွင် sign in ဝင်ထားလျှင် Arroxy က သင်၏ Explore sign-in ကို သုံးပြီး cookie ဆက်တင်များတွင် ဖိုင် သို့မဟုတ် browser မှ cookie များကိုလည်း သုံးနိုင်သည်။
 
 </details>
 
@@ -471,7 +471,7 @@ yt-dlp ကို launch တိုင်း အလိုအလျောက် upd
 <details>
 <summary><strong>YouTube ဗီဒီယိုများ ဒေါင်းလုဒ်ဆွဲခြင်း တရားဝင်ပါသလား?</strong></summary>
 
-ကိုယ်ရေးကိုယ်တာ သုံးစွဲမှုအတွက် ကိုယ်ရေးကိုယ်တာ purposes အတွက် နိုင်ငံအများစုတွင် ယေဘုယျအားဖြင့် လက်ခံသည်။ YouTube ၏ [Terms of Service](https://www.youtube.com/t/terms) နှင့် သင့်ဒေသခံ copyright ဥပဒေများနှင့် ကိုက်ညီသည်ကို သင်ကိုယ်တိုင် တာဝန်ယူရသည်။
+၎င်းသည် သင့်နိုင်ငံနှင့် သင်ဒေါင်းလုဒ်လုပ်သည့်အရာပေါ် မူတည်သည်။ သင်ပိုင်ဆိုင်သော အကြောင်းအရာ၊ ဒေါင်းလုဒ်လုပ်ရန် လိုင်စင်ရထားသော အကြောင်းအရာ သို့မဟုတ် သင့်နိုင်ငံ၏ ဥပဒေက ကူးယူခွင့်ပြုသော အကြောင်းအရာကိုသာ ဒေါင်းလုဒ်လုပ်ပါ။ YouTube ၏ [Terms of Service](https://www.youtube.com/t/terms) နှင့် သင့်ဒေသခံ copyright ဥပဒေများနှင့် ကိုက်ညီစေရန် သင်ကိုယ်တိုင် တာဝန်ယူရသည်။ [အသုံးပြုမှုသဘောတူညီချက်](#terms) ကို ကြည့်ပါ။
 
 </details>
 
@@ -496,7 +496,7 @@ yt-dlp ကို launch တိုင်း အလိုအလျောက် upd
 
 ## <a id="support"></a>💖 Arroxy ကို ပံ့ပိုးရန်
 
-Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
+Arroxy သည် အခမဲ့ဖြစ်ပြီး GPLv3 လိုင်စင်ဖြင့် ဖြန့်ဝေသည် — ကြော်ငြာမပါ၊ tracking မပါ၊ ငွေပေးရသည့် ဗားရှင်းလည်း မရှိပါ။ သင့်အချိန်ကို သက်သာစေပါက Bitcoin, Tron သို့မဟုတ် Ethereum ဖြင့် ဖွံ့ဖြိုးတိုးတက်မှုကို ပံ့ပိုးနိုင်ပါသည် — လိပ်စာများကို [DONATE.md](../../DONATE.md) တွင် ကြည့်ပါ၊ ၎င်းသည် လိပ်စာများ၏ တစ်ခုတည်းသော တရားဝင် အရင်းအမြစ် ဖြစ်ပါသည်။ Arroxy သည် သင့်ထံသို့ အီးမေးလ် သို့မဟုတ် တိုက်ရိုက်မက်ဆေ့ချ်ဖြင့် လိပ်စာ ဘယ်တော့မျှ ပို့မည်မဟုတ်ပါ။ repo ကို ကြယ်ပွင့်ပေးခြင်း၊ bug များ အစီရင်ခံခြင်းနှင့် ဘာသာပြန်များ တိုးတက်အောင် ကူညီခြင်းတို့သည်လည်း အလားတူ အထောက်အကူဖြစ်ပါသည်။
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

@@ -96,7 +96,7 @@ export const hu = {
   discord_badge_text: "Csatlakozzon a Discord--közösséghez",
   discord_badge_encoded: "Csatlakozzon%20a%20Discord--k%C3%B6z%C3%B6ss%C3%A9ghez",
   hero_desc:
-    "Töltsön le videókat, Shortsokat, zenét, csatornákat, podcastokat vagy hangsávokat a **YouTube-ról és 2000+ támogatott webhelyről** — akár 8K HDR-ben 60 fps-sel, MP3 / AAC / Opus formátumban, vagy csak a szükséges részt. **Böngésszen a YouTube-on vagy bármely más webhelyen közvetlenül az Arroxyban** a Felfedezés lapon, és töltse le az éppen nézett videót, lejátszási listát vagy csatornát; jelentkezzen be ott, hogy privát, csak tagoknak szóló és korhatáros videókat is letölthessen, amelyeket a fiókja megnézhet. Helyben fut Windowson, macOS-en és Linuxon. **Nincs reklám, nincs felesleges ballaszt, nincs kéretlen ajánlat.**",
+    "Töltsön le videókat, Shortsokat, csatornákat, podcastokat vagy hangsávokat a **YouTube-ról és 2000+ támogatott webhelyről** — akár 8K HDR-ben 60 fps-sel, MP3 / AAC / Opus formátumban, vagy csak a szükséges részt. **Böngésszen a YouTube-on vagy bármely más webhelyen közvetlenül az Arroxyban** a Felfedezés lapon, és töltse le az éppen nézett videót, lejátszási listát vagy csatornát; jelentkezzen be ott, hogy olyan videókat is letölthessen, amelyeket a fiókja már megnézhet. Helyben fut Windowson, macOS-en és Linuxon. **Nincs reklám, nincs felesleges ballaszt, nincs kéretlen ajánlat.**",
   cta_latest: "↓ A legújabb kiadás telepítése",
   cta_website: "Webhely",
   website_url: "https://arroxy.com/",
@@ -105,7 +105,7 @@ export const hu = {
   intro_what_is:
     "**Mi az Arroxy?** Az Arroxy egy ingyenes, nyílt forráskódú asztali grafikus felület, amely videókat, hangot, lejátszási listákat és feliratokat tölt le a YouTube-ról és 2000+ további, a [yt-dlp](https://github.com/yt-dlp/yt-dlp) által támogatott webhelyről. Windows 10/11, macOS 13+ (Intel + Apple Silicon) és Linux (AppImage, Flatpak, tar.gz) rendszeren fut. GPLv3 licenc alatt. Nincs reklám, nincs használati korlát. Terjesztés: [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage és közvetlen letöltés.",
   intro_key_difference:
-    "**Fő különbség: beépített böngésző.** A legtöbb ingyenes YouTube-letöltő a yt-dlp vékony burkolója: egy URL-mező és egy formátumválasztó menü, saját böngésző nélkül. Az Arroxyban van egy, a **Felfedezés lap**. Az alkalmazáson belül böngészik a YouTube-on vagy bármely más webhelyen, és letölti az éppen nézett videót, lejátszási listát vagy csatornát, vagy jobb gombbal kattint bármely hivatkozásra. Egyszer bejelentkezik a Felfedezésben, és az Arroxy letölti a privát, csak tagoknak szóló és korhatáros videókat, amelyeket a fiókja megnézhet, valamint a Megnézendő és a Kedvelt listáit, sütik exportálása nélkül. Más webhelyekre is bejelentkezhet ott, és azok letöltései ezt a bejelentkezést használják, ha szükséges. Az Arroxy ezzel a bejelentkezéssel próbálkozik újra, amikor a YouTube azt kéri, erősítse meg, hogy nem robot. A beépített böngészője azt a tokent is megszerzi, amelyet a YouTube a letöltés előtt elvár, így a YouTube nem szűkíti le a letöltést kevesebb formátumra. Az URL-mezős burkoló mindegyik korlátba beleütközik. Részletek: [Miért az Arroxy](#why-explore).",
+    "**Fő különbség: beépített böngésző.** A legtöbb ingyenes YouTube-letöltő a yt-dlp vékony burkolója: egy URL-mező és egy formátumválasztó menü, saját böngésző nélkül. Az Arroxyban van egy, a **Felfedezés lap**. Az alkalmazáson belül böngészik a YouTube-on vagy bármely más webhelyen, és letölti az éppen nézett videót, lejátszási listát vagy csatornát, vagy jobb gombbal kattint bármely hivatkozásra. Ha egyszer bejelentkezik a Felfedezésben, a fiókot igénylő letöltések ezt a bejelentkezést használják: a privát videói, a Megnézendő és a Kedvelt listái, valamint más videók, amelyeket a fiókja már megnézhet, sütik exportálása nélkül. Más webhelyekre is bejelentkezhet ott, és azok letöltései ezt a bejelentkezést használják, ha szükséges. Részletek: [Miért az Arroxy](#why-explore).",
   last_updated: "Utolsó frissítés: {{LAST_UPDATED}}.",
   toc_heading: "Tartalom",
   why_h2: "Miért az Arroxy",
@@ -123,20 +123,16 @@ export const hu = {
   why_r6: "Platformfüggetlen asztali alkalmazás",
   why_r7: "Feliratok + SponsorBlock",
   why_r8: "Beépített böngésző (böngészés, bejelentkezés, letöltés)",
-  why_r9: "Privát, csak tagoknak szóló és korhatáros videók sütik exportálása nélkül",
+  why_r9: "Olyan videók, amelyeket a fiókja megnézhet, sütik exportálása nélkül",
   why_table_note:
     "⚠️ = részben, vagy csak fizetős szinten. A 4K Video Downloader alkalmazáson belüli bejelentkezése a privát videókhoz fizetős funkció; a legtöbb ingyenes yt-dlp-grafikus felület csak sütifájlt fogad el, vagy a webböngészője sütijeit olvassa.",
   why_summary:
     "Az Arroxy egyetlen dologra készült: egy tiszta, helyi fájlra, akár URL-t illeszt be, akár a Felfedezésben találja meg a videót. Nincsenek kéretlen ajánlatok, nincs adatgyűjtés.",
   why_explore_h3: "Amire egy egyszerű yt-dlp-burkoló nem képes: a Felfedezés lap",
   why_explore_intro:
-    "A legtöbb ingyenes YouTube-letöltő egy URL-mező a yt-dlp tetején. Az Arroxy is a yt-dlp-t használja, de van egy **Felfedezése** is: egy az alkalmazásba épített böngésző, amely megnyitja a YouTube-ot vagy bármely más webhelyet. A Felfedezés áttöri azokat a korlátokat, amelyeket egy URL-mező nem tud:",
+    "A legtöbb ingyenes YouTube-letöltő egy URL-mező a yt-dlp tetején. Az Arroxy is a yt-dlp-t használja, de van egy **Felfedezése** is: egy az alkalmazásba épített böngésző, amely megnyitja a YouTube-ot vagy bármely más webhelyet. A Felfedezés azt adja hozzá, amit egy URL-mező nem tud:",
   why_explore_1:
-    "**Fiókot igénylő videók sütik exportálása nélkül** — privát, csak tagoknak szóló és korhatáros videók (korhatár-ellenőrzött fiókkal), valamint a Megnézendő és a Kedvelt listák, illetve más webhelyeken bejelentkezés mögötti videók. Egy egyszerű burkolónak cookies.txt-exportra van szüksége, vagy a webböngésző sütijeit kell olvasnia, amit a Chrome Windowson már blokkol. Az Arroxyban egyszer bejelentkezik a Felfedezésben, a többit az Arroxy elvégzi",
-  why_explore_2:
-    "**„Jelentkezzen be annak megerősítéséhez, hogy nem robot”** — amikor a YouTube ezt kéri, az Arroxy a Felfedezés-bejelentkezéssel újrapróbálja a letöltést a hibaüzenet helyett",
-  why_explore_3:
-    "**A YouTube letöltési tokenje** — az Arroxy beépített böngészője megszerzi azt a tokent, amelyet a YouTube a letöltés előtt elvár. Enélkül a YouTube kevesebb formátumot és alacsonyabb minőséget kínálhat, mint amit kért",
+    "**Olyan videók, amelyeket a fiókja megnézhet, sütik exportálása nélkül** — a privát videói, a Megnézendő és a Kedvelt listái, a korhatáros videók korhatár-ellenőrzött fiókkal, valamint más webhelyek bejelentkezést igénylő oldalai. Egy egyszerű burkolónak cookies.txt-exportra van szüksége, vagy a webböngésző sütijeit kell olvasnia. Az Arroxyban egyszer bejelentkezik a Felfedezésben, a többit az Arroxy elvégzi",
   why_explore_4:
     "**Nincs hivatkozásmásolás** — keressen meg egy videót, lejátszási listát vagy csatornát a Felfedezésben, és töltse le egy kattintással, vagy kattintson jobb gombbal bármely hivatkozásra az oldalon",
   why_explore_5:
@@ -151,7 +147,7 @@ export const hu = {
   feat_explore_2:
     "**Címsor** — írjon be keresést a YouTube-on, vagy adjon meg bármilyen webcímet az adott webhely megnyitásához",
   feat_explore_3:
-    "**Fiókot igénylő letöltések** — jelentkezzen be egyszer a Felfedezésben, és az Arroxy letöltheti a privát és csak tagoknak szóló videókat, amelyeket a fiókja megnézhet, a korhatáros videókat, ha a fiók korhatár-ellenőrzött, valamint a Megnézendő és a Kedvelt listáit. Más webhelyekre is bejelentkezhet ott, és azok letöltései ezt a bejelentkezést használják, ha szükséges. Az Arroxy továbbra is előbb kijelentkezve tölt le, és csak akkor használja a Felfedezés-bejelentkezést, ha a letöltés olyan módon hibásodik meg, amit egy fiók orvosolhat. Amikor a YouTube azt kéri, erősítse meg, hogy nem robot, az Arroxy a Felfedezés-bejelentkezést is megpróbálja",
+    "**Fiókot igénylő letöltések** — jelentkezzen be egyszer a Felfedezésben, és az Arroxy letöltheti azokat a videókat, amelyeket a fiókja megnézhet: a privát videóit, a korhatáros videókat, ha a fiók korhatár-ellenőrzött, valamint a Megnézendő és a Kedvelt listáit. Más webhelyekre is bejelentkezhet ott, és azok letöltései ezt a bejelentkezést használják, ha szükséges. Az Arroxy továbbra is előbb kijelentkezve tölt le, és csak akkor használja a Felfedezés-bejelentkezést, ha a letöltés olyan módon hibásodik meg, amit egy fiók orvosolhat",
   feat_explore_4:
     "**Használjon másodlagos fiókot** — a Felfedezés első képernyője elmagyarázza az okát: a fiókkal való letöltés kockázatot hordoz, hogy a fiókot korlátozzák. A Beállításokban bármikor kijelentkezhet a Felfedezésből, hogy elfelejtse a bejelentkezéseit",
   feat_explore_5:
@@ -196,7 +192,7 @@ export const hu = {
   feat_workflow_10:
     "**Egyidejű letöltések és automatikus újrapróbálás** — válassza ki, hány sorba állított letöltés fusson egyszerre, és hagyja, hogy az Arroxy újrapróbálja a hálózati vagy kiszolgálói problémába ütköző letöltést, minden kísérlet előtt egyre hosszabb ideig várva",
   feat_workflow_11:
-    "**Lejátszásilista-elemenkénti profilok** — rendeljen a lejátszási lista minden videójához saját letöltési profilt a teljes listára vonatkozó egyetlen beállítás helyett, így egyetlen menetben egyeseket teljes minőségben archiválhat, a többit pedig MP3-ként töltheti le",
+    "**Lejátszásilista-elemenkénti profilok** — rendeljen a lejátszási lista minden videójához saját letöltési profilt a teljes listára vonatkozó egyetlen beállítás helyett, így egyetlen menetben egyeseket teljes minőségben archiválhat, a többit pedig csak hangként mentheti",
   feat_workflow_13:
     "**A Gyorsletöltés a háttérben működik** — a hivatkozás azonnal megjelenik a Letöltésekben, és ott készül elő, a **Megtekintés** gombos értesítés jelzi, az URL-mező pedig kiürül a következő hivatkozásnak. Indítson el annyit, amennyit szeretne, amíg a korábbiak előkészülnek",
   feat_workflow_14:
@@ -228,7 +224,7 @@ export const hu = {
   feat_sites_1:
     "**A YouTube teljes körűen** — Videók, Shorts, Csatornák, Lejátszási listák, YouTube Music és Podcastok elsőrangú forrásként kezelve",
   feat_sites_2:
-    "**2000+ más webhely** a yt-dlp-n keresztül — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable és sok más",
+    "**2000+ más webhely** a yt-dlp-n keresztül — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable és sok más",
   feat_sites_3:
     "**Csak hang és feliratok** minden támogatott webhelyen működik, nem csak a YouTube-on",
   feat_sites_4:
@@ -249,7 +245,7 @@ export const hu = {
     "Az Arroxy globális letöltési gyorsbillentyűje — Ctrl+Shift+D Windowson és Linuxon, Cmd+Shift+D macOS-en, a kimásolt hivatkozást közvetlenül a letöltési sorba küldve",
   hotkey_fig_cap:
     "<b>Globális letöltési gyorsbillentyű</b><br/>Másoljon ki egy hivatkozást bárhol, nyomja meg egyszer — a sorba kerül, és elindul a letöltés",
-  shot7_cap: "<b>Lejátszásilista-elemenkénti profilok</b><br/>Adjon minden videónak saját profilt — egyeseket archiváljon 4K-ban, a többit töltse le MP3-ként",
+  shot7_cap: "<b>Lejátszásilista-elemenkénti profilok</b><br/>Adjon minden videónak saját profilt — egyeseket archiváljon 4K-ban, a többit mentse csak hangként",
   shot8_cap:
     "<b>Felfedezés</b><br/>Böngésszen a YouTube-on vagy bármely más webhelyen az Arroxyban, és töltse le az éppen nézett oldalt az aktív profillal",
   shot9_cap:
@@ -389,15 +385,15 @@ export const hu = {
 
   privacy_p1:
     "A letöltések közvetlenül a [yt-dlp](https://github.com/yt-dlp/yt-dlp) segítségével töltődnek le a YouTube-ról a kiválasztott mappába — semmi sem megy át külső kiszolgálón. A megtekintési előzmények, a letöltési előzmények, az URL-ek és a fájltartalom az eszközén marad.",
-  privacy_p2:
-    "Nincs telemetria — csak egy névtelen jelzés naponta: az alkalmazás verziója, az operációs rendszer, a nyelv, a telepítési csatorna, az ország és hozzávetőlegesen az, hogy mikor telepítették az Arroxyt, hogy megszámolhassuk az aktív és az új felhasználókat. Azonosítók, URL-ek, videócímek, fájlelérési utak vagy fiókadatok nincsenek benne. A Beállításokban kikapcsolható.",
+  privacy_reports:
+    "Nincs követés — naponta egy névtelen jelzés (az alkalmazás verziója, az operációs rendszer, a nyelv, a telepítési csatorna, az ország és hozzávetőlegesen az, mikor telepítették az Arroxyt), hogy megszámolhassuk az aktív és az új felhasználókat, valamint, amikor az Arroxy letölti vagy frissíti a yt-dlp-t és az FFmpeg-et, egy névtelen jelzés arról, hogy sikerült-e, és nagyjából mennyi ideig tartott. Azonosítók, URL-ek, videócímek, fájlelérési utak vagy fiókadatok nincsenek benne. Mindkettőt kikapcsolhatja a Beállításokban.",
   privacy_p3:
     "A Felfedezés saját bejelentkezéseket tart a böngészőjétől elkülönítve, és az Arroxy soha nem olvas vagy tölt ki bejelentkezési űrlapot — a webhely saját oldalán gépel. A letöltések kijelentkezve futnak; csak ha egy olyan módon hibásodik meg, amit egy fiók orvosolhat, olvassa be az Arroxy frissen a bejelentkezést, tartja egy ideiglenes fájlban az adott letöltés idejére, majd utána törli a fájlt. A Beállításokban a Felfedezésből való kijelentkezés elfelejti őket.",
   faq_q1: "Tényleg ingyenes?",
   faq_a1: "Igen — GPLv3 licenc alatt, prémium szint és funkciókorlátozás nélkül.",
   faq_q11: "Miben különbözik az Arroxy más yt-dlp grafikus felületektől?",
   faq_a11:
-    "A legtöbb ingyenes yt-dlp grafikus felület csak burkoló, amely egy hivatkozást fogad. Az Arroxy hozzáadja a **Felfedezést**, egy az alkalmazásba épített böngészőt, amely megnyitja a YouTube-ot vagy bármely más webhelyet: hivatkozásmásolás nélkül böngészhet és tölthet le, és ott egyszer bejelentkezve privát, csak tagoknak szóló és korhatáros videókat, valamint a Megnézendő és a Kedvelt listáit töltheti le, sütiexport nélkül. Az Arroxy ezt a bejelentkezést használja, amikor a YouTube azt kéri, erősítse meg, hogy nem robot, a beépített böngészője pedig megszerzi a YouTube letöltési tokenjét, hogy a letöltések ne essenek vissza kevesebb formátumra. Lásd: [Miért az Arroxy](#why).",
+    "A legtöbb ingyenes yt-dlp grafikus felület csak burkoló, amely egy hivatkozást fogad. Az Arroxy hozzáadja a **Felfedezést**, egy az alkalmazásba épített böngészőt, amely megnyitja a YouTube-ot vagy bármely más webhelyet: hivatkozásmásolás nélkül böngészhet és tölthet le, és ott egyszer bejelentkezve olyan videókat is letölthet, amelyeket a fiókja megnézhet, például a privát videóit, valamint a Megnézendő és a Kedvelt listáit, sütiexport nélkül. Lásd: [Miért az Arroxy](#why).",
   faq_q2: "Milyen videóminőségeket tölthetek le?",
   faq_a2:
     "Bármit, amit a YouTube kiszolgál: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, valamint csak hang. A 60 fps-es és HDR-adatfolyamok változatlanul megmaradnak, a lépésenkénti letöltés pedig lehetővé teszi az AV1, a VP9 vagy a H.264 kiválasztását minden felbontásnál.",
@@ -406,10 +402,10 @@ export const hu = {
     "Igen. Válassza a *csak hang* lehetőséget a formátummenüben, majd az MP3-at, M4A/AAC-t, Opust vagy WAV-ot.",
   faq_q4: "Hogyan tölthetek le YouTube-fiókot igénylő videókat?",
   faq_a4:
-    "Jelentkezzen be egyszer a Felfedezés lapon. Az Arroxy ezután letöltheti a privát és csak tagoknak szóló videókat, amelyeket a fiókja megnézhet, a korhatáros videókat, ha a fiók korhatár-ellenőrzött, valamint a Megnézendő és a Kedvelt listáit. A bejelentkezést csak akkor használja, ha a letöltés olyan módon hibásodik meg, amit egy fiók orvosolhat; minden más a korábbiak szerint töltődik le. Ez a **Felfedezés-bejelentkezés** lehetőség, amely a sütibeállításokban az első helyen áll és Ajánlottként van megjelölve, az Arroxy pedig a Felfedezés első megnyitásakor kiválasztja Önnek. A yt-dlp wikije megjegyzi, hogy [a bejelentkezett automatizálás megjelölheti a Google-fiókot](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), ezért a másodlagos fiók a biztonságosabb választás.",
+    "Jelentkezzen be egyszer a Felfedezés lapon. Az Arroxy ezután letöltheti azokat a videókat, amelyeket a fiókja megnézhet: a privát videóit, a korhatáros videókat, ha a fiók korhatár-ellenőrzött, valamint a Megnézendő és a Kedvelt listáit. A bejelentkezést csak akkor használja, ha a letöltés olyan módon hibásodik meg, amit egy fiók orvosolhat; minden más a korábbiak szerint töltődik le. Ez a **Felfedezés-bejelentkezés** lehetőség, amely a sütibeállításokban az első helyen áll és Ajánlottként van megjelölve, az Arroxy pedig a Felfedezés első megnyitásakor kiválasztja Önnek. A yt-dlp wikije megjegyzi, hogy [a bejelentkezett automatizálás megjelölheti a Google-fiókot](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), ezért a másodlagos fiók a biztonságosabb választás.",
   faq_q5: "Tovább fog működni, ha a YouTube módosít valamit?",
   faq_a5:
-    "A yt-dlp induláskor automatikusan frissül, az Arroxy pedig gyorsan ad ki javításokat, ha a YouTube módosít valamit. Amikor a YouTube azt kéri, erősítse meg, hogy nem robot, az Arroxy a Felfedezés-bejelentkezést is megpróbálja, ha ott bejelentkezett, a fájlból vagy a böngészőből származó sütik pedig elérhetők a sütibeállításokban.",
+    "A yt-dlp induláskor automatikusan frissül, az Arroxy pedig gyorsan ad ki javításokat, ha a YouTube módosít valamit. Ha a letöltéshez bejelentkezés kell, az Arroxy a Felfedezés-bejelentkezést használja, ha ott bejelentkezett, a fájlból vagy a böngészőből származó sütik pedig elérhetők a sütibeállításokban.",
   faq_q6: "Milyen nyelveken érhető el az Arroxy?",
   faq_a6:
     "{{LANG_COUNT}} nyelven, azonnal használhatóan: {{LANG_NAME_LIST}}. Az Arroxy az első indításkor automatikusan felismeri az operációs rendszer nyelvét, és bármikor válthat az eszköztár nyelvválasztójával. A futásidejű nyelvi JSON a src/shared/i18n/locales/ mappában található, a fordítóknak szánt PO-katalógusok pedig az i18n/locales/ mappában — a közreműködéshez nyisson egy PR-t a GitHubon.",
@@ -424,7 +420,7 @@ export const hu = {
     'Ez a macOS Gatekeeper, amely egy aláíratlan alkalmazást blokkol, nem tényleges sérülés. Lásd az [Első indítás macOS-en](#macos-first-launch) részt a karantént eltávolító és az Arroxyt elindító terminálparancsokért.',
   faq_q10: "Legális a YouTube-videók letöltése?",
   faq_a10:
-    "Személyes, privát használatra a legtöbb joghatóságban általában elfogadott. Önnek kell gondoskodnia a YouTube [Szolgáltatási feltételeinek](https://www.youtube.com/t/terms) és a helyi szerzői jogi törvényeknek való megfelelésről.",
+    "Ez az országától és attól függ, mit tölt le. Csak olyan tartalmat töltsön le, amely az Öné, amelyet letöltésre licenceltek, vagy amelynek másolását az országa törvényei megengedik. Önnek kell gondoskodnia a YouTube [Szolgáltatási feltételeinek](https://www.youtube.com/t/terms) és a helyi szerzői jogi törvényeknek való megfelelésről. Lásd: [Felhasználási feltételek](#terms).",
   plan_intro: "Még tervben van — nagyjából fontossági sorrendben:",
   plan_col1: "Funkció",
   plan_col2: "Leírás",
@@ -447,7 +443,7 @@ export const hu = {
     "Van egy ötlete egy funkcióhoz? [Nyisson egy kérést](../../issues) — a közösség véleménye alakítja a prioritást.",
   tech_content: TECH_CONTENT,
   support_h2: "Az Arroxy támogatása",
-  support_note: "Az Arroxy ingyenes és GPLv3 licenc alatt áll — nincs reklám, nincs telemetria, nincs fizetős szint. Ha időt spórol Önnek, támogathatja a fejlesztést Bitcoinnal, Tronnal vagy Ethereummal: a címek a [DONATE.md](DONATE.md) fájlban találhatók, amely az egyetlen hivatalos forrásuk. Az Arroxy soha nem küld Önnek címet e-mailben vagy közvetlen üzenetben. A tároló csillagozása, a hibák jelentése és a fordítások javítása ugyanilyen sokat segít.",
+  support_line: "Az Arroxy ingyenes és GPLv3 licenc alatt áll — nincs reklám, nincs követés, nincs fizetős szint. Ha időt spórol Önnek, támogathatja a fejlesztést Bitcoinnal, Tronnal vagy Ethereummal: a címek a [DONATE.md](DONATE.md) fájlban találhatók, amely az egyetlen hivatalos forrásuk. Az Arroxy soha nem küld Önnek címet e-mailben vagy közvetlen üzenetben. A tároló csillagozása, a hibák jelentése és a fordítások javítása ugyanilyen sokat segít.",
   tos_h2: "Felhasználási feltételek",
   tos_note:
     "Az Arroxy kizárólag személyes, privát használatra szánt eszköz. Kizárólag Ön felel azért, hogy a letöltései megfeleljenek a YouTube [Szolgáltatási feltételeinek](https://www.youtube.com/t/terms) és a joghatósága szerzői jogi törvényeinek. Ne használja az Arroxyt olyan tartalom letöltésére, sokszorosítására vagy terjesztésére, amelynek felhasználására nincs joga. A fejlesztők nem felelnek a visszaélésekért.",

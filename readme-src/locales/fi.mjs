@@ -96,7 +96,7 @@ export const fi = {
   discord_badge_text: "Liity Discordin yhteisöön",
   discord_badge_encoded: "Liity%20Discordin%20yhteis%C3%B6%C3%B6n",
   hero_desc:
-    "Lataa videoita, Shortseja, musiikkia, kanavia, podcasteja tai äänitiedostoja **YouTubesta ja yli 2000 tuetulta sivustolta** — jopa 8K HDR 60 kuvaa sekunnissa, MP3- / AAC- / Opus-muodossa tai vain tarvitsemasi osa. **Selaa YouTubea tai mitä tahansa muuta sivustoa Arroxyn sisällä** Tutki-välilehdellä ja lataa video, soittolista tai kanava, jolla olet; kirjaudu siellä sisään ladataksesi yksityisiä, vain jäsenille tarkoitettuja ja ikärajoitettuja videoita, joita tilisi voi katsoa. Toimii paikallisesti Windowsissa, macOS:ssä ja Linuxissa. **Ei mainoksia, ei turhaa painolastia, ei myyntipuheita.**",
+    "Lataa videoita, Shortseja, kanavia, podcasteja tai äänitiedostoja **YouTubesta ja yli 2000 tuetulta sivustolta** — jopa 8K HDR 60 kuvaa sekunnissa, MP3- / AAC- / Opus-muodossa tai vain tarvitsemasi osa. **Selaa YouTubea tai mitä tahansa muuta sivustoa Arroxyn sisällä** Tutki-välilehdellä ja lataa video, soittolista tai kanava, jolla olet; kirjaudu siellä sisään ladataksesi videoita, joita oma tilisi voi jo katsoa. Toimii paikallisesti Windowsissa, macOS:ssä ja Linuxissa. **Ei mainoksia, ei turhaa painolastia, ei myyntipuheita.**",
   cta_latest: "↓ Asenna uusin julkaisu",
   cta_website: "Verkkosivusto",
   website_url: "https://arroxy.com/",
@@ -105,7 +105,7 @@ export const fi = {
   intro_what_is:
     "**Mikä on Arroxy?** Arroxy on ilmainen, avoimen lähdekoodin työpöytäsovellus graafisella käyttöliittymällä, joka lataa videoita, ääntä, soittolistoja ja tekstityksiä YouTubesta ja yli 2000 muulta [yt-dlp](https://github.com/yt-dlp/yt-dlp):n tukemalta sivustolta. Se toimii järjestelmissä Windows 10/11, macOS 13+ (Intel + Apple Silicon) ja Linux (AppImage, Flatpak, tar.gz). GPLv3-lisenssi. Ei mainoksia, ei käyttörajoituksia. Jakelu: [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage ja suora lataus.",
   intro_key_difference:
-    "**Keskeinen ero: sisäänrakennettu selain.** Useimmat ilmaiset YouTube-lataajat ovat ohuita yt-dlp-kääreitä: URL-kenttä ja muotovalikko, ilman omaa selainta. Arroxyssa sellainen on, **Tutki-välilehti**. Selaat YouTubea tai mitä tahansa muuta sivustoa sovelluksen sisällä ja lataat videon, soittolistan tai kanavan, jolla olet, tai napsautat mitä tahansa linkkiä hiiren kakkospainikkeella. Kirjaudut kerran sisään Tutki-välilehdellä, ja Arroxy lataa yksityiset, vain jäsenille tarkoitetut ja ikärajoitetut videot, joita tilisi voi katsoa, sekä Katso myöhemmin- ja Tykätyt-luettelosi ilman evästeiden vientiä. Kirjaudu myös muille sivustoille siellä, ja niiden lataukset käyttävät kirjautumista tarvittaessa. Arroxy yrittää uudelleen tällä kirjautumisella, kun YouTube pyytää vahvistamaan, ettet ole botti. Sen sisäänrakennettu selain hakee myös merkin, jota YouTube odottaa ennen latausta, joten YouTube ei rajaa latausta vähempiin muotoihin. URL-kentällinen kääre törmää kaikkiin näihin rajoituksiin. Lisätietoja: [Miksi Arroxy](#why-explore).",
+    "**Keskeinen ero: sisäänrakennettu selain.** Useimmat ilmaiset YouTube-lataajat ovat ohuita yt-dlp-kääreitä: URL-kenttä ja muotovalikko, ilman omaa selainta. Arroxyssa sellainen on, **Tutki-välilehti**. Selaat YouTubea tai mitä tahansa muuta sivustoa sovelluksen sisällä ja lataat videon, soittolistan tai kanavan, jolla olet, tai napsautat mitä tahansa linkkiä hiiren kakkospainikkeella. Jos kirjaudut kerran sisään Tutki-välilehdellä, tilin vaativat lataukset käyttävät tuota kirjautumista: yksityiset videosi, Katso myöhemmin- ja Tykätyt-luettelosi sekä muut videot, joita tilisi voi jo katsoa, ilman evästeiden vientiä. Kirjaudu myös muille sivustoille siellä, ja niiden lataukset käyttävät kirjautumista tarvittaessa. Lisätietoja: [Miksi Arroxy](#why-explore).",
   last_updated: "Päivitetty viimeksi: {{LAST_UPDATED}}.",
   toc_heading: "Sisältö",
   why_h2: "Miksi Arroxy",
@@ -123,20 +123,16 @@ export const fi = {
   why_r6: "Alustariippumaton työpöytäsovellus",
   why_r7: "Tekstitykset + SponsorBlock",
   why_r8: "Sisäänrakennettu selain (selaa, kirjaudu, lataa)",
-  why_r9: "Yksityiset, vain jäsenille tarkoitetut ja ikärajoitetut videot ilman evästeiden vientiä",
+  why_r9: "Videot, joita oma tilisi voi katsoa, ilman evästeiden vientiä",
   why_table_note:
     "⚠️ = osittain tai vain maksullisella tasolla. 4K Video Downloaderin sovelluksen sisäinen kirjautuminen yksityisiin videoihin on maksullinen ominaisuus; useimmat ilmaiset yt-dlp-käyttöliittymät hyväksyvät vain evästetiedoston tai lukevat verkkoselaimesi evästeet.",
   why_summary:
     "Arroxy on tehty yhtä asiaa varten: siistiä paikallista tiedostoa varten, liitit URL-osoitteen tai löysit videon Tutki-välilehdeltä. Ei myyntipuheita, ei tietojen keruuta.",
   why_explore_h3: "Mitä pelkkä yt-dlp-kääre ei osaa: Tutki-välilehti",
   why_explore_intro:
-    "Useimmat ilmaiset YouTube-lataajat ovat yt-dlp:n päälle tehty URL-kenttä. Arroxykin käyttää yt-dlp:tä, mutta siinä on myös **Tutki**, sovellukseen rakennettu selain, joka avaa YouTuben tai minkä tahansa muun sivuston. Tutki ylittää rajoitukset, joihin URL-kenttä ei yllä:",
+    "Useimmat ilmaiset YouTube-lataajat ovat yt-dlp:n päälle tehty URL-kenttä. Arroxykin käyttää yt-dlp:tä, mutta siinä on myös **Tutki**, sovellukseen rakennettu selain, joka avaa YouTuben tai minkä tahansa muun sivuston. Tutki tuo sen, mitä URL-kenttä ei voi:",
   why_explore_1:
-    "**Tilin vaativat videot ilman evästeiden vientiä** — yksityiset, vain jäsenille tarkoitetut ja ikärajoitetut videot (ikävarmennetulla tilillä) sekä Katso myöhemmin- ja Tykätyt-luettelosi ja muiden sivustojen kirjautumisen takana olevat videot. Pelkkä kääre tarvitsee cookies.txt-viennin tai sen on luettava verkkoselaimesi evästeet, jotka Chrome Windowsissa nykyään estää. Arroxyssa kirjaudut kerran Tutki-välilehdellä, ja loput hoituu itsestään",
-  why_explore_2:
-    "**”Kirjaudu sisään vahvistaaksesi, ettet ole botti”** — kun YouTube kysyy tätä, Arroxy yrittää latausta uudelleen Tutki-kirjautumisellasi epäonnistumisen sijaan",
-  why_explore_3:
-    "**YouTuben latausmerkki** — Arroxyn sisäänrakennettu selain hakee merkin, jota YouTube odottaa ennen latausta. Ilman sitä YouTube voi tarjota vähemmän muotoja ja matalamman laadun kuin pyysit",
+    "**Videot, joita tilisi voi katsoa, ilman evästeiden vientiä** — yksityiset videosi, Katso myöhemmin- ja Tykätyt-luettelosi, ikärajoitetut videot ikävarmennetulla tilillä sekä muiden sivustojen kirjautumista vaativat sivut. Pelkkä kääre tarvitsee cookies.txt-viennin tai lukee verkkoselaimesi evästeet. Arroxyssa kirjaudut kerran Tutki-välilehdellä, ja loput hoituu itsestään",
   why_explore_4:
     "**Ei linkkien kopiointia** — etsi video, soittolista tai kanava Tutki-välilehdeltä ja lataa se yhdellä napsautuksella tai napsauta mitä tahansa sivun linkkiä hiiren kakkospainikkeella",
   why_explore_5:
@@ -151,7 +147,7 @@ export const fi = {
   feat_explore_2:
     "**Osoitepalkki** — kirjoita hakeaksesi YouTubesta tai anna mikä tahansa verkko-osoite avataksesi sivuston",
   feat_explore_3:
-    "**Tilin vaativat lataukset** — kirjaudu kerran Tutki-välilehdellä, ja Arroxy voi ladata yksityisiä ja vain jäsenille tarkoitettuja videoita, joita tilisi voi katsoa, ikärajoitettuja videoita, jos tili on ikävarmennettu, sekä Katso myöhemmin- ja Tykätyt-luettelosi. Kirjaudu myös muille sivustoille, ja niiden lataukset käyttävät kirjautumista tarvittaessa. Arroxy lataa edelleen ensin kirjautumattomana ja käyttää Tutki-kirjautumistasi vain, kun lataus epäonnistuu tavalla, jonka tili voi korjata. Kun YouTube pyytää vahvistamaan, ettet ole botti, Arroxy kokeilee myös Tutki-kirjautumistasi",
+    "**Tilin vaativat lataukset** — kirjaudu kerran Tutki-välilehdellä, ja Arroxy voi ladata videoita, joita tilisi voi katsoa: yksityiset videosi, ikärajoitettuja videoita, jos tili on ikävarmennettu, sekä Katso myöhemmin- ja Tykätyt-luettelosi. Kirjaudu myös muille sivustoille, ja niiden lataukset käyttävät kirjautumista tarvittaessa. Arroxy lataa edelleen ensin kirjautumattomana ja käyttää Tutki-kirjautumistasi vain, kun lataus epäonnistuu tavalla, jonka tili voi korjata",
   feat_explore_4:
     "**Käytä toissijaista tiliä** — Tutki-välilehden ensimmäinen näkymä selittää miksi: tilillä lataamiseen liittyy riski tilin rajoittamisesta. Kirjaudu ulos Tutki-välilehdeltä Asetuksista milloin tahansa, kun haluat unohtaa kirjautumisesi",
   feat_explore_5:
@@ -196,7 +192,7 @@ export const fi = {
   feat_workflow_10:
     "**Lataukset kerralla ja automaattinen uudelleenyritys** — valitse, kuinka monta jonossa olevaa latausta ajetaan samanaikaisesti, ja anna Arroxyn yrittää uudelleen latausta, joka kohtasi verkko- tai palvelinongelman, odottaen pidempään ennen jokaista yritystä",
   feat_workflow_11:
-    "**Soittolistan kohdekohtaiset profiilit** — anna jokaiselle soittolistan videolle oma latausprofiilinsa koko listan yhden asetuksen sijaan, jolloin yhdellä kerralla voi arkistoida osan täydellä laadulla ja ladata loput MP3:na",
+    "**Soittolistan kohdekohtaiset profiilit** — anna jokaiselle soittolistan videolle oma latausprofiilinsa koko listan yhden asetuksen sijaan, jolloin yhdellä kerralla voi arkistoida osan täydellä laadulla ja tallentaa loput pelkkänä äänenä",
   feat_workflow_13:
     "**Pikalataus toimii taustalla** — linkki ilmestyy heti Lataukset-näkymään ja valmistuu siellä, **Näytä**-ilmoitus vahvistaa sen ja URL-kenttä tyhjenee seuraavaa linkkiä varten. Aloita niin monta kuin haluat, kun aiemmat valmistuvat",
   feat_workflow_14:
@@ -228,7 +224,7 @@ export const fi = {
   feat_sites_1:
     "**YouTube kokonaisuudessaan** — Videot, Shortsit, Kanavat, Soittolistat, YouTube Music ja Podcastit käsitellään ensiluokkaisina lähteinä",
   feat_sites_2:
-    "**Yli 2000 muuta sivustoa** yt-dlp:n kautta — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable ja monet muut",
+    "**Yli 2000 muuta sivustoa** yt-dlp:n kautta — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable ja monet muut",
   feat_sites_3:
     "**Vain ääni ja tekstitykset** toimivat kaikilla tuetuilla sivustoilla, ei vain YouTubessa",
   feat_sites_4:
@@ -249,7 +245,7 @@ export const fi = {
     "Arroxyn yleinen lataus-pikanäppäin — Ctrl+Shift+D Windowsissa ja Linuxissa, Cmd+Shift+D macOS:ssä, lähettää kopioidun linkin suoraan latausjonoon",
   hotkey_fig_cap:
     "<b>Yleinen lataus-pikanäppäin</b><br/>Kopioi linkki mistä tahansa, paina kerran — se päätyy jonoon ja alkaa latautua",
-  shot7_cap: "<b>Soittolistan kohdekohtaiset profiilit</b><br/>Anna jokaiselle videolle oma profiili — arkistoi osa 4K:na, lataa loput MP3:na",
+  shot7_cap: "<b>Soittolistan kohdekohtaiset profiilit</b><br/>Anna jokaiselle videolle oma profiili — arkistoi osa 4K:na, tallenna loput pelkkänä äänenä",
   shot8_cap:
     "<b>Tutki</b><br/>Selaa YouTubea tai mitä tahansa muuta sivustoa Arroxyn sisällä ja lataa sivu, jolla olet, aktiivisella profiilillasi",
   shot9_cap:
@@ -389,15 +385,15 @@ export const fi = {
 
   privacy_p1:
     "Lataukset haetaan suoraan [yt-dlp:n](https://github.com/yt-dlp/yt-dlp) kautta YouTubesta valitsemaasi kansioon — mitään ei reititetä kolmannen osapuolen palvelimen kautta. Katseluhistoria, lataushistoria, URL-osoitteet ja tiedostojen sisältö pysyvät laitteellasi.",
-  privacy_p2:
-    "Ei telemetriaa — vain yksi nimetön elonmerkki päivässä: sovelluksen versio, käyttöjärjestelmä, kieli, asennuskanava, maa ja suunnilleen kuinka kauan Arroxy on ollut asennettuna, jotta voimme laskea aktiiviset ja uudet käyttäjät. Ei tunnisteita, URL-osoitteita, videoiden nimiä, tiedostopolkuja tai tilitietoja. Voit poistaa sen käytöstä Asetuksista.",
+  privacy_reports:
+    "Ei seurantaa — yksi nimetön elonmerkki päivässä (sovelluksen versio, käyttöjärjestelmä, kieli, asennuskanava, maa ja suunnilleen kuinka kauan Arroxy on ollut asennettuna), jotta voimme laskea aktiiviset ja uudet käyttäjät, sekä, kun Arroxy lataa tai päivittää yt-dlp:n ja FFmpegin, nimetön ilmoitus siitä, onnistuiko se ja suunnilleen kuinka kauan se kesti. Ei tunnisteita, URL-osoitteita, videoiden nimiä, tiedostopolkuja tai tilitietoja. Voit poistaa molemmat käytöstä Asetuksista.",
   privacy_p3:
     "Tutki säilyttää omat kirjautumisensa erillään selaimestasi, eikä Arroxy koskaan lue tai täytä kirjautumislomaketta — kirjoitat sivuston omalle sivulle. Lataukset ajetaan kirjautumattomana; vasta kun lataus epäonnistuu tavalla, jonka tili voi korjata, Arroxy lukee kirjautumisen uudelleen, säilyttää sen väliaikaisessa tiedostossa kyseistä latausta varten ja poistaa tiedoston sen jälkeen. Uloskirjautuminen Tutki-välilehdeltä Asetuksissa unohtaa ne.",
   faq_q1: "Onko se oikeasti ilmainen?",
   faq_a1: "Kyllä — GPLv3-lisenssi, ei maksullista tasoa, ei ominaisuuksien rajoitusta.",
   faq_q11: "Miten Arroxy eroaa muista yt-dlp-käyttöliittymistä?",
   faq_a11:
-    "Useimmat ilmaiset yt-dlp-käyttöliittymät ovat kääreitä, jotka ottavat vain linkin. Arroxy lisää **Tutki**-välilehden, sovellukseen rakennetun selaimen, joka avaa YouTuben tai minkä tahansa muun sivuston: selaat ja lataat ilman linkkien kopiointia, ja kirjaudut siellä kerran ladataksesi yksityisiä, vain jäsenille tarkoitettuja ja ikärajoitettuja videoita sekä Katso myöhemmin- ja Tykätyt-luettelosi ilman evästeiden vientiä. Arroxy käyttää tuota kirjautumista, kun YouTube pyytää vahvistamaan, ettet ole botti, ja sen sisäänrakennettu selain hakee YouTuben latausmerkin, jotta lataukset eivät palaa vähempiin muotoihin. Katso [Miksi Arroxy](#why).",
+    "Useimmat ilmaiset yt-dlp-käyttöliittymät ovat kääreitä, jotka ottavat vain linkin. Arroxy lisää **Tutki**-välilehden, sovellukseen rakennetun selaimen, joka avaa YouTuben tai minkä tahansa muun sivuston: selaat ja lataat ilman linkkien kopiointia, ja kirjaudut siellä kerran ladataksesi videoita, joita tilisi voi katsoa, kuten yksityiset videosi sekä Katso myöhemmin- ja Tykätyt-luettelosi, ilman evästeiden vientiä. Katso [Miksi Arroxy](#why).",
   faq_q2: "Minkä laatuisia videoita voin ladata?",
   faq_a2:
     "Kaikkea, mitä YouTube tarjoaa: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p sekä pelkkä ääni. 60 kuvan sekuntitaajuus ja HDR-virrat säilyvät sellaisenaan, ja vaiheittainen lataus antaa valita AV1:n, VP9:n tai H.264:n jokaisella tarkkuudella.",
@@ -406,10 +402,10 @@ export const fi = {
     "Kyllä. Valitse muotovalikosta *vain ääni* ja valitse MP3, M4A/AAC, Opus tai WAV.",
   faq_q4: "Miten lataan videoita, jotka vaativat YouTube-tilin?",
   faq_a4:
-    "Kirjaudu kerran Tutki-välilehdellä. Sen jälkeen Arroxy voi ladata yksityisiä ja vain jäsenille tarkoitettuja videoita, joita tilisi voi katsoa, ikärajoitettuja videoita, jos tili on ikävarmennettu, sekä Katso myöhemmin- ja Tykätyt-luettelosi. Se käyttää kirjautumista vain, kun lataus epäonnistuu tavalla, jonka tili voi korjata; kaikki muu latautuu kuten ennen. Tämä on **Tutki-kirjautuminen** -vaihtoehto, joka on evästeasetuksissa ensimmäisenä ja merkitty Suositelluksi, ja Arroxy valitsee sen puolestasi, kun avaat Tutki-välilehden ensimmäisen kerran. yt-dlp:n wikissä todetaan, että [kirjautuneena tehty automaatio voi johtaa Google-tilin merkitsemiseen](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), joten toissijainen tili on turvallisempi valinta.",
+    "Kirjaudu kerran Tutki-välilehdellä. Sen jälkeen Arroxy voi ladata videoita, joita tilisi voi katsoa: yksityiset videosi, ikärajoitettuja videoita, jos tili on ikävarmennettu, sekä Katso myöhemmin- ja Tykätyt-luettelosi. Se käyttää kirjautumista vain, kun lataus epäonnistuu tavalla, jonka tili voi korjata; kaikki muu latautuu kuten ennen. Tämä on **Tutki-kirjautuminen** -vaihtoehto, joka on evästeasetuksissa ensimmäisenä ja merkitty Suositelluksi, ja Arroxy valitsee sen puolestasi, kun avaat Tutki-välilehden ensimmäisen kerran. yt-dlp:n wikissä todetaan, että [kirjautuneena tehty automaatio voi johtaa Google-tilin merkitsemiseen](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), joten toissijainen tili on turvallisempi valinta.",
   faq_q5: "Toimiiko se edelleen, kun YouTube muuttaa jotain?",
   faq_a5:
-    "yt-dlp päivitetään automaattisesti käynnistyksen yhteydessä, ja Arroxy julkaisee korjauksia nopeasti, kun YouTube muuttaa jotain. Kun YouTube pyytää vahvistamaan, ettet ole botti, Arroxy kokeilee myös Tutki-kirjautumistasi, jos olet kirjautunut siellä, ja evästeet tiedostosta tai selaimestasi ovat käytettävissä evästeasetuksissa.",
+    "yt-dlp päivitetään automaattisesti käynnistyksen yhteydessä, ja Arroxy julkaisee korjauksia nopeasti, kun YouTube muuttaa jotain. Kun lataus vaatii kirjautumisen, Arroxy käyttää Tutki-kirjautumistasi, jos olet kirjautunut siellä, ja evästeet tiedostosta tai selaimestasi ovat käytettävissä evästeasetuksissa.",
   faq_q6: "Millä kielillä Arroxy on saatavilla?",
   faq_a6:
     "{{LANG_COUNT}} kieltä valmiina: {{LANG_NAME_LIST}}. Arroxy tunnistaa käyttöjärjestelmäsi kielen automaattisesti ensimmäisellä käynnistyksellä, ja voit vaihtaa sitä milloin tahansa työkalurivin kielivalitsimesta. Ajonaikaiset kielitiedostot (JSON) sijaitsevat kansiossa src/shared/i18n/locales/ ja kääntäjille tarkoitetut PO-luettelot kansiossa i18n/locales/ — osallistu avaamalla PR GitHubissa.",
@@ -424,7 +420,7 @@ export const fi = {
     "Se on macOS Gatekeeper, joka estää allekirjoittamattoman sovelluksen, ei todellinen vaurio. Katso [macOS:n ensimmäinen käynnistys](#macos-first-launch) Pääte-komennot, jotka poistavat karanteenin ja käynnistävät Arroxyn.",
   faq_q10: "Onko YouTube-videoiden lataaminen laillista?",
   faq_a10:
-    "Henkilökohtaiseen, yksityiseen käyttöön se on yleensä hyväksyttyä useimmissa lainkäyttöalueilla. Olet itse vastuussa YouTuben [käyttöehtojen](https://www.youtube.com/t/terms) ja paikallisen tekijänoikeuslainsäädännön noudattamisesta.",
+    "Se riippuu maastasi ja siitä, mitä lataat. Lataa vain sisältöä, jonka omistat, jonka lataaminen on lisensoitu tai jonka kopioiminen on maasi lain mukaan sallittua. Olet itse vastuussa YouTuben [käyttöehtojen](https://www.youtube.com/t/terms) ja paikallisen tekijänoikeuslainsäädännön noudattamisesta. Katso [Käyttöehdot](#terms).",
   plan_intro: "Vielä suunnitteilla — suunnilleen tärkeysjärjestyksessä:",
   plan_col1: "Ominaisuus",
   plan_col2: "Kuvaus",
@@ -447,7 +443,7 @@ export const fi = {
     "Onko sinulla ominaisuusideaa? [Avaa pyyntö](../../issues) — yhteisön palaute vaikuttaa prioriteetteihin.",
   tech_content: TECH_CONTENT,
   support_h2: "Tue Arroxya",
-  support_note: "Arroxy on ilmainen ja GPLv3-lisensoitu — ei mainoksia, ei telemetriaa, ei maksullista tasoa. Jos se säästää aikaasi, voit tukea kehitystä Bitcoinilla, Tronilla tai Ethereumilla: osoitteet ovat tiedostossa [DONATE.md](DONATE.md), joka on niiden ainoa virallinen lähde. Arroxy ei koskaan lähetä sinulle osoitetta sähköpostitse tai yksityisviestillä. Repositorion tähdittäminen, virheistä ilmoittaminen ja käännösten parantaminen auttavat yhtä paljon.",
+  support_line: "Arroxy on ilmainen ja GPLv3-lisensoitu — ei mainoksia, ei seurantaa, ei maksullista tasoa. Jos se säästää aikaasi, voit tukea kehitystä Bitcoinilla, Tronilla tai Ethereumilla: osoitteet ovat tiedostossa [DONATE.md](DONATE.md), joka on niiden ainoa virallinen lähde. Arroxy ei koskaan lähetä sinulle osoitetta sähköpostitse tai yksityisviestillä. Repositorion tähdittäminen, virheistä ilmoittaminen ja käännösten parantaminen auttavat yhtä paljon.",
   tos_h2: "Käyttöehdot",
   tos_note:
     "Arroxy on työkalu, joka on tarkoitettu vain henkilökohtaiseen, yksityiseen käyttöön. Olet yksin vastuussa siitä, että lataamasi sisältö noudattaa YouTuben [käyttöehtoja](https://www.youtube.com/t/terms) ja lainkäyttöalueesi tekijänoikeuslainsäädäntöä. Älä käytä Arroxya sisällön lataamiseen, jäljentämiseen tai levittämiseen, jota sinulla ei ole oikeutta käyttää. Kehittäjät eivät vastaa väärinkäytöstä.",

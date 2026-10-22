@@ -9,7 +9,7 @@
 
 [![Izdanje](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Izgradnja](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Web-mjesto](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Licencija](https://img.shields.io/badge/license-GPLv3-blue) ![Platforme](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Jezici](https://img.shields.io/badge/i18n-50_languages-blue)
 
-Preuzimajte videozapise, Shorts, glazbu, kanale, podcaste ili audiozapise s **YouTubea i više od 2000 podržanih web-mjesta** — do 8K HDR pri 60 sličica u sekundi, kao MP3 / AAC / Opus ili samo dio koji vam treba. **Pregledavajte YouTube ili bilo koje drugo web-mjesto unutar Arroxyja** na kartici Istraži i preuzmite videozapis, popis za reprodukciju ili kanal na kojem se nalazite; prijavite se tamo da biste preuzimali privatne videozapise, videozapise samo za članove i one s dobnim ograničenjem koje vaš račun može gledati. Radi lokalno na sustavima Windows, macOS i Linux. **Bez oglasa, suvišnog softvera i dodatnog plaćanja.**
+Preuzimajte videozapise, Shorts, kanale, podcaste ili audiozapise s **YouTubea i više od 2000 podržanih web-mjesta** — do 8K HDR pri 60 sličica u sekundi, kao MP3 / AAC / Opus ili samo dio koji vam treba. **Pregledavajte YouTube ili bilo koje drugo web-mjesto unutar Arroxyja** na kartici Istraži i preuzmite videozapis, popis za reprodukciju ili kanal na kojem se nalazite; prijavite se tamo da biste preuzimali videozapise koje vaš račun već može gledati. Radi lokalno na sustavima Windows, macOS i Linux. **Bez oglasa, suvišnog softvera i dodatnog plaćanja.**
 
 [**↓ Instaliraj najnovije izdanje**](#install) &nbsp;·&nbsp; [**Web-mjesto**](https://arroxy.com/) &nbsp;·&nbsp; [Prvo pokretanje u sustavu Windows](#windows-first-launch) · [Prvo pokretanje na macOS-u](#macos-first-launch) · [Prvo pokretanje na Linuxu](#linux-first-launch)
 
@@ -28,7 +28,7 @@ Ako vam Arroxy štedi vrijeme, ⭐ pomaže drugima da ga pronađu.
 
 > **Što je Arroxy?** Arroxy je besplatno grafičko sučelje otvorenog koda za stolna računala koje preuzima videozapise, audio, popise za reprodukciju i titlove s YouTubea i više od 2000 drugih web-mjesta koja podržava [yt-dlp](https://github.com/yt-dlp/yt-dlp). Radi na sustavima Windows 10/11, macOS 13+ (Intel + Apple Silicon) i Linux (AppImage, Flatpak, tar.gz). Licenca GPLv3. Bez oglasa i ograničenja korištenja. Distribucija: [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage i izravno preuzimanje.
 >
-> **Ključna razlika: ugrađeni preglednik.** Većina besplatnih programa za preuzimanje s YouTubea tanki su omotači oko yt-dlp-a: okvir za URL i izbornik formata, bez vlastitog preglednika. Arroxy ga ima, a to je kartica **Istraži**. Pregledavate YouTube ili bilo koje drugo web-mjesto unutar aplikacije i preuzimate videozapis, popis za reprodukciju ili kanal na kojem se nalazite, ili desnom tipkom miša kliknete bilo koju poveznicu. Jednom se prijavite u Istraži, a Arroxy preuzima privatne videozapise, videozapise samo za članove i one s dobnim ograničenjem koje vaš račun može gledati, uz vaše popise Za kasnije i Označeno sa sviđa mi se, bez izvoza kolačića. Prijavite se tamo i na druga web-mjesta pa će njihova preuzimanja koristiti tu prijavu kad im zatreba. Arroxy ponovno pokušava s tom prijavom kad YouTube zatraži potvrdu da niste bot. Njegov ugrađeni preglednik dobiva i token koji YouTube očekuje prije preuzimanja pa YouTube ne svodi preuzimanje na manje formata. Omotač s okvirom za URL nailazi na sva ta ograničenja. Pojedinosti: [Zašto Arroxy](#why-explore).
+> **Ključna razlika: ugrađeni preglednik.** Većina besplatnih programa za preuzimanje s YouTubea tanki su omotači oko yt-dlp-a: okvir za URL i izbornik formata, bez vlastitog preglednika. Arroxy ga ima, a to je kartica **Istraži**. Pregledavate YouTube ili bilo koje drugo web-mjesto unutar aplikacije i preuzimate videozapis, popis za reprodukciju ili kanal na kojem se nalazite, ili desnom tipkom miša kliknete bilo koju poveznicu. Ako se jednom prijavite u Istraži, preuzimanja koja zahtijevaju račun koriste tu prijavu: vaše privatne videozapise, vaše popise Za kasnije i Označeno sa sviđa mi se te druge videozapise koje vaš račun već može gledati, bez izvoza kolačića. Prijavite se tamo i na druga web-mjesta pa će njihova preuzimanja koristiti tu prijavu kad im zatreba. Pojedinosti: [Zašto Arroxy](#why-explore).
 >
 > _Zadnje ažuriranje: 2026-10-22._
 
@@ -81,7 +81,7 @@ Ako vam Arroxy štedi vrijeme, ⭐ pomaže drugima da ga pronađu.
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxyjev globalni prečac za preuzimanje — Ctrl+Shift+D u sustavima Windows i Linux, Cmd+Shift+D na macOS-u, šalje kopiranu poveznicu izravno u red za preuzimanje" width="760" /></picture><br/><sub><b>Globalni prečac za preuzimanje</b><br/>Kopirajte poveznicu bilo gdje, pritisnite jednom — završit će u redu i počet će se preuzimati</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/hr/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profili po stavci popisa za reprodukciju</b><br/>Dajte svakom videozapisu vlastiti profil — neke arhivirajte u 4K, ostale preuzmite kao MP3</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/hr/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profili po stavkama popisa za reprodukciju</b><br/>Dajte svakom videozapisu vlastiti profil — neke arhivirajte u 4K, a ostale spremite samo kao zvuk</sub></td>
   </tr>
   <tr>
     <td width="50%" valign="top" align="center"><img src="../../build/screenshots/hr/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>Početni zaslon brzog preuzimanja</b><br/>Zalijepite URL i odmah ga preuzmite s aktivnim profilom</sub></td>
@@ -104,7 +104,7 @@ Ako vam Arroxy štedi vrijeme, ⭐ pomaže drugima da ga pronađu.
 - **Preuzimanje desnom tipkom miša** — desnom tipkom kliknite bilo koju poveznicu na videozapis, popis za reprodukciju ili kanal u Istraži da ga preuzmete sa svojim profilom, odaberite drugi profil u izborniku **Preuzmi s profilom**, otvorite preuzimanje korak po korak ili kopirajte poveznicu. Nije potrebno prvo otvarati svaki videozapis
 - **Kompaktan raspored** — jedan klik na alatnoj traci Istraži premješta Arroxyjeve kartice u nju i daje stranici više prostora
 - **Adresna traka** — upišite pojam za pretraživanje YouTubea ili unesite bilo koju web-adresu da otvorite to web-mjesto
-- **Preuzimanja koja zahtijevaju račun** — jednom se prijavite u Istraži i Arroxy može preuzeti privatne videozapise i videozapise samo za članove koje vaš račun može gledati, videozapise s dobnim ograničenjem ako je dob računa potvrđena te vaše popise Za kasnije i Označeno sa sviđa mi se. Prijavite se tamo i na druga web-mjesta pa će njihova preuzimanja koristiti tu prijavu kad im zatreba. Arroxy i dalje prvo preuzima bez prijave i koristi vašu prijavu u Istraži samo kad preuzimanje propadne na način koji račun može popraviti. Kad YouTube zatraži potvrdu da niste bot, Arroxy također pokušava s vašom prijavom u Istraži
+- **Preuzimanja koja zahtijevaju račun** — jednom se prijavite u Istraži i Arroxy može preuzimati videozapise koje vaš račun može gledati: vaše privatne videozapise, videozapise s dobnim ograničenjem ako je dob računa potvrđena te vaše popise Za kasnije i Označeno sa sviđa mi se. Prijavite se tamo i na druga web-mjesta pa će njihova preuzimanja koristiti tu prijavu kad im zatreba. Arroxy i dalje prvo preuzima bez prijave i koristi vašu prijavu u Istraži samo kad preuzimanje propadne na način koji račun može popraviti
 - **Koristite sporedni račun** — prvi zaslon Istraži objašnjava zašto: preuzimanje s računom nosi određeni rizik da će taj račun biti ograničen. Odjavite se iz Istraži u postavkama kad god želite zaboraviti svoje prijave
 - **Blokator oglasa** — prema zadanim postavkama isključen. Jedan klik na štit na alatnoj traci Istraži blokira oglase i alate za praćenje na njegovim stranicama, bez utjecaja na preuzimanja. YouTube može praviti poteškoće blokatorima oglasa za prijavljene račune
 
@@ -145,7 +145,7 @@ Ako vam Arroxy štedi vrijeme, ⭐ pomaže drugima da ga pronađu.
 - **Kontrole brzine i tempa** — ograničite propusnost preuzimanja, postavite koliko se dijelova videozapisa preuzima odjednom i dodajte odgode zahtjeva s predlošcima (*Isključeno · Uravnoteženo · Oprezno · Prilagođeno*)
 - **Predlošci naziva datoteka** — imenujte preuzimanja po svome pomoću `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` i `{playlist_index}`, globalno ili po profilu preuzimanja
 - **Istodobna preuzimanja i automatski ponovni pokušaj** — odaberite koliko preuzimanja iz reda radi istodobno i pustite da Arroxy ponovno pokuša preuzimanje koje je naišlo na mrežni ili poslužiteljski problem, čekajući dulje prije svakog pokušaja
-- **Profili po stavci popisa za reprodukciju** — dodijelite svakom videozapisu na popisu vlastiti profil preuzimanja umjesto jedne postavke za cijeli popis, pa jednim prolazom neke možete arhivirati u punoj kvaliteti, a ostale preuzeti kao MP3
+- **Profili po stavkama popisa za reprodukciju** — svakom videozapisu na popisu za reprodukciju dodijelite vlastiti profil preuzimanja umjesto jedne postavke za cijeli popis, pa jednim prolazom neke možete arhivirati u punoj kvaliteti, a ostale spremiti samo kao zvuk
 - **Brzo preuzimanje radi u pozadini** — poveznica se odmah pojavljuje u Preuzimanjima i tamo se priprema, bilješka s gumbom **Prikaži** to potvrđuje, a polje URL-a se prazni za sljedeću poveznicu. Pokrenite koliko god želite dok se prethodne pripremaju
 - **Preuzimanja vam kažu što treba vašu pažnju** — ako Arroxy ne može pročitati poveznicu, njezin redak kaže zašto i nudi rješenje: Pokušaj ponovo, uključivanje kolačića ili prijava u Istraži. Kad su kolačići isključeni, **Prijavi se u Istraži** ponovno pokušava umjesto vas čim se prijavite. Popis za reprodukciju dulji od vašeg ograničenja učitavanja čeka u svom retku da odaberete cijeli popis, prvih nekoliko ili pregled. Kartica Preuzimanja broji retke koji čekaju vas
 - **Preuzmite samo dio videozapisa** — na zaslonu Format odaberite početak i kraj ili poglavlje i Arroxy sprema samo taj raspon, imenovan rasponom iza ID-a videozapisa. Rezovi padaju na najbliži ključni kadar; uključite točan rez da se umjesto toga ponovno kodira
@@ -172,7 +172,7 @@ Ako vam Arroxy štedi vrijeme, ⭐ pomaže drugima da ga pronađu.
 <summary><strong>🌐 YouTube + 2000 web-mjesta</strong></summary>
 
 - **YouTube u cijelosti** — videozapisi, Shorts, kanali, popisi za reprodukciju, YouTube Music i podcasti obrađuju se kao prvorazredni izvori
-- **Više od 2000 drugih web-mjesta** putem yt-dlp-a — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable i mnoga druga
+- **Više od 2000 drugih web-mjesta** putem yt-dlp-a — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable i mnoga druga
 - **Samo audio i titlovi** rade na svakom podržanom web-mjestu, ne samo na YouTubeu
 - Ako se web-mjesto promijeni, yt-dlp tjedno objavljuje ispravke, a Arroxy pri pokretanju automatski ažurira program
 
@@ -366,7 +366,7 @@ Usporedba s najčešćim alternativama:
 |            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Ugrađeni preglednik (pregledavanje, prijava, preuzimanje) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
-| Privatni videozapisi, videozapisi samo za članove i oni s dobnim ograničenjem bez izvoza kolačića |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
+| Videozapisi koje vaš račun može gledati, bez izvoza kolačića |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
 | Besplatno, bez plaćene razine |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Otvoreni kod |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Samo lokalna obrada |   ✅   |           ✅            |         ✅          |     ✅      |             ❌             |         ✅         |
@@ -380,9 +380,9 @@ Arroxy je izrađen za jedno: čistu lokalnu datoteku, bilo da zalijepite URL ili
 
 ### <a id="why-explore"></a>🧭 Što običan omotač oko yt-dlp-a ne može: kartica Istraži
 
-Većina besplatnih programa za preuzimanje s YouTubea samo je okvir za URL povrh yt-dlp-a. Arroxy također koristi yt-dlp, ali ima i **Istraži**, preglednik ugrađen u aplikaciju koji otvara YouTube ili bilo koje drugo web-mjesto. Istraži zaobilazi ograničenja koja okvir za URL ne može:
+Većina besplatnih programa za preuzimanje s YouTubea samo je okvir za URL povrh yt-dlp-a. Arroxy također koristi yt-dlp, ali ima i **Istraži**, preglednik ugrađen u aplikaciju koji otvara YouTube ili bilo koje drugo web-mjesto. Istraži dodaje ono što okvir za URL ne može:
 
-- **Videozapisi koji zahtijevaju račun, bez izvoza kolačića** — privatni videozapisi, videozapisi samo za članove i oni s dobnim ograničenjem (na računu s potvrđenom dobi), kao i vaši popisi Za kasnije i Označeno sa sviđa mi se te videozapisi iza prijave na drugim web-mjestima. Običan omotač treba izvezeni cookies.txt ili mora čitati kolačiće vašeg web-preglednika, što Chrome u sustavu Windows sada blokira. U Arroxyju se jednom prijavite u Istraži, a ostalo obavlja aplikacija
+- **Videozapisi koje može gledati vaš račun, bez izvoza kolačića** — vaši privatni videozapisi, vaši popisi Za kasnije i Označeno sa sviđa mi se, videozapisi s dobnim ograničenjem na računu s potvrđenom dobi te stranice na drugim web-mjestima koje zahtijevaju vašu prijavu. Običan omotač treba izvoz cookies.txt ili čita kolačiće vašeg web-preglednika. U Arroxyju se jednom prijavite u Istraži, a ostalo odrađuje on
 - **Bez kopiranja poveznica** — pronađite videozapis, popis za reprodukciju ili kanal u Istraži i preuzmite ga jednim klikom ili desnom tipkom miša kliknite bilo koju poveznicu na stranici
 - **Blokator oglasa kad ga želite** — jedan klik na štit blokira oglase i alate za praćenje na stranicama u Istraži
 
@@ -392,7 +392,7 @@ Većina besplatnih programa za preuzimanje s YouTubea samo je okvir za URL povrh
 
 Preuzimanja se dohvaćaju izravno putem [yt-dlp-a](https://github.com/yt-dlp/yt-dlp) s YouTubea u mapu koju odaberete — ništa ne prolazi kroz poslužitelj treće strane. Povijest gledanja, povijest preuzimanja, URL-ovi i sadržaj datoteka ostaju na vašem uređaju.
 
-No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
+Bez praćenja — jedan anonimni signal aktivnosti dnevno (verzija aplikacije, OS, jezik, kanal instalacije, država i otprilike koliko je prošlo od instalacije Arroxyja) kako bismo mogli brojati aktivne i nove korisnike te, kad Arroxy preuzima ili ažurira yt-dlp i FFmpeg, anonimna bilješka o tome je li uspjelo i otprilike koliko je trajalo. Bez ID-ova, URL-ova, naslova videozapisa, putanja datoteka ili podataka o računu. Oboje možete isključiti u postavkama.
 
 Istraži čuva vlastite prijave, odvojeno od vašeg preglednika, a Arroxy nikad ne čita niti ispunjava obrazac za prijavu — upisujete izravno na stranici web-mjesta. Preuzimanja se izvode odjavljena; tek kad jedno propadne na način koji račun može popraviti, Arroxy iznova pročita prijavu, zadrži je u privremenoj datoteci za to preuzimanje i nakon toga izbriše datoteku. Odjava iz Istraži u postavkama zaboravlja ih.
 
@@ -410,7 +410,7 @@ Da — licencija GPLv3, bez plaćene razine, bez zaključavanja značajki.
 <details>
 <summary><strong>Po čemu se Arroxy razlikuje od drugih yt-dlp sučelja?</strong></summary>
 
-Većina besplatnih yt-dlp sučelja samo su omotači koji primaju poveznicu. Arroxy dodaje **Istraži**, preglednik ugrađen u aplikaciju koji otvara YouTube ili bilo koje drugo web-mjesto: pregledavate i preuzimate bez kopiranja poveznica, a tamo se jednom prijavite da biste preuzimali privatne videozapise, videozapise samo za članove i one s dobnim ograničenjem te svoje popise Za kasnije i Označeno sa sviđa mi se, bez izvoza kolačića. Arroxy koristi tu prijavu kad YouTube zatraži potvrdu da niste bot, a njegov ugrađeni preglednik dobiva YouTubeov token za preuzimanje pa preuzimanja ne padaju na manje formata. Pogledajte [Zašto Arroxy](#why).
+Većina besplatnih yt-dlp sučelja samo su omotači koji primaju poveznicu. Arroxy dodaje **Istraži**, preglednik ugrađen u aplikaciju koji otvara YouTube ili bilo koje drugo web-mjesto: pregledavate i preuzimate bez kopiranja poveznica, a tamo se jednom prijavite da biste preuzimali videozapise koje može gledati vaš račun, poput privatnih videozapisa te svojih popisa Za kasnije i Označeno sa sviđa mi se, bez izvoza kolačića. Pogledajte [Zašto Arroxy](#why).
 
 </details>
 
@@ -431,14 +431,14 @@ Da. U izborniku formata odaberite *samo audio* i izaberite MP3, M4A/AAC, Opus il
 <details>
 <summary><strong>Kako preuzeti videozapise koji zahtijevaju YouTube račun?</strong></summary>
 
-Jednom se prijavite na kartici Istraži. Arroxy tada može preuzeti privatne videozapise i videozapise samo za članove koje vaš račun može gledati, videozapise s dobnim ograničenjem ako je dob računa potvrđena te vaše popise Za kasnije i Označeno sa sviđa mi se. Prijavu koristi samo kad preuzimanje propadne na način koji račun može popraviti; sve ostalo preuzima se kao i prije. To je izbor **Prijava u Istraži**, naveden prvi i označen kao Preporučeno u postavkama kolačića, a Arroxy ga bira umjesto vas kad prvi put otvorite Istraži. Wiki yt-dlp-a navodi da [automatizacija s prijavom može označiti Google račun](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), pa je sporedni račun sigurniji izbor.
+Jednom se prijavite na kartici Istraži. Arroxy tada može preuzimati videozapise koje vaš račun može gledati: vaše privatne videozapise, videozapise s dobnim ograničenjem ako je dob računa potvrđena te vaše popise Za kasnije i Označeno sa sviđa mi se. Prijavu koristi samo kad preuzimanje propadne na način koji račun može popraviti; sve ostalo preuzima se kao i prije. To je izbor **Prijava u Istraži**, naveden prvi i označen kao Preporučeno u postavkama kolačića, a Arroxy ga bira umjesto vas kad prvi put otvorite Istraži. Wiki yt-dlp-a navodi da [automatizacija s prijavom može označiti Google račun](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), pa je sporedni račun sigurniji izbor.
 
 </details>
 
 <details>
 <summary><strong>Hoće li nastaviti raditi kad YouTube nešto promijeni?</strong></summary>
 
-yt-dlp se automatski ažurira pri pokretanju, a Arroxy brzo objavljuje ispravke kad YouTube nešto promijeni. Kad YouTube zatraži potvrdu da niste bot, Arroxy također pokušava s vašom prijavom u Istraži ako ste se tamo prijavili, a kolačići iz datoteke ili vašeg preglednika dostupni su u postavkama kolačića.
+yt-dlp se pri pokretanju automatski ažurira, a Arroxy brzo objavljuje ispravke kad YouTube nešto promijeni. Kad preuzimanje zahtijeva prijavu, Arroxy koristi vašu prijavu u Istraži ako ste se tamo prijavili, a u postavkama kolačića dostupni su i kolačići iz datoteke ili vašeg preglednika.
 
 </details>
 
@@ -473,7 +473,7 @@ To macOS Gatekeeper blokira nepotpisanu aplikaciju, a ne stvarno oštećenje. Po
 <details>
 <summary><strong>Je li preuzimanje YouTube videozapisa legalno?</strong></summary>
 
-Za osobnu, privatnu upotrebu općenito je prihvaćeno u većini jurisdikcija. Odgovorni ste za poštovanje YouTubeovih [Uvjeta pružanja usluge](https://www.youtube.com/t/terms) i lokalnih zakona o autorskim pravima.
+Ovisi o vašoj državi i o tome što preuzimate. Preuzimajte samo sadržaj koji posjedujete, sadržaj čije je preuzimanje licencirano ili sadržaj koji zakon u vašoj državi dopušta kopirati. Odgovorni ste za pridržavanje YouTubeovih [Uvjeta pružanja usluge](https://www.youtube.com/t/terms) i lokalnih zakona o autorskim pravima. Pogledajte [Uvjete korištenja](#terms).
 
 </details>
 
@@ -498,7 +498,7 @@ Imate ideju za značajku? [Otvorite zahtjev](../../../../issues) — doprinos za
 
 ## <a id="support"></a>💖 Podržite Arroxy
 
-Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
+Arroxy je besplatan i pod licencijom GPLv3 — bez oglasa, bez praćenja, bez plaćene razine. Ako vam štedi vrijeme, razvoj možete podržati Bitcoinom, Tronom ili Ethereumom: adrese su u [DONATE.md](../../DONATE.md), što je jedini službeni izvor za njih. Arroxy vam nikad neće poslati adresu e-poštom ni izravnom porukom. Označavanje repozitorija zvjezdicom, prijava grešaka i poboljšanje prijevoda pomažu jednako toliko.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

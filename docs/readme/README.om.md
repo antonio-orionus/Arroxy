@@ -9,7 +9,7 @@
 
 [![Baasii](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Ijaarsaa](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Marsariitii](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Hayyama](https://img.shields.io/badge/license-GPLv3-blue) ![Platformoota](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Afaanonni](https://img.shields.io/badge/i18n-50_languages-blue)
 
-Viidiyoo, Shorts, muuziqaa, chaanaalota, podkaastota, ykn sagalee **YouTube fi saayitiiwwan 2000+** irraa buufi — hanga 8K HDR 60 fps, MP3 / AAC / Opus, ykn kutaa barbaaddu qofa. Tabii Explore keessatti **YouTube ykn marsariitii biraa Arroxy keessatti ilaali** fi viidiyoo, playlist, ykn channel ati ilaaltu buufadhu; achitti seenuun viidiyoowwan dhuunfaa, miseensoota qofaaf, fi umuriin daangeffaman kan akkaawuntiin kee ilaaluu danda'u buufadhu. Windows, macOS, fi Linux irratti naannoo kee keessatti hojeta. **Beeksisni hin jiru, wanti dabalataa hin jiru, gurguurtaan dabalaataa hin jiru.**
+Viidiyoo, Shorts, chaanaalota, podkaastota, ykn sagalee **YouTube fi saayitiiwwan 2000+** irraa buufi — hanga 8K HDR 60 fps, MP3 / AAC / Opus, ykn kutaa barbaaddu qofa. Tabii Daawwannaa keessatti **YouTube ykn marsariitii biraa Arroxy keessatti ilaali** fi viidiyoo, playlist, ykn channel ati ilaaltu buufadhu; viidiyoowwan akkaawuntiin kee mataa keetii duraanuu ilaaluu danda'u buufachuuf achitti seeni. Windows, macOS, fi Linux irratti naannoo kee keessatti hojeta. **Beeksisni hin jiru, wanti dabalataa hin jiru, gurguurtaan dabalaataa hin jiru.**
 
 [**↓ Baasii Haaraa Buusi**](#install) &nbsp;·&nbsp; [**Marsariitii**](https://arroxy.com/) &nbsp;·&nbsp; [Windows yeroo jalqabaa eegaluu](#windows-first-launch) · [macOS yeroo jalqabaa eegaluu](#macos-first-launch) · [Linux yeroo jalqabaa eegaluu](#linux-first-launch)
 
@@ -28,7 +28,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 
 > **Arroxy maali?** Arroxy GUI desktop bilisaa fi madda banaa kan viidiyoo, sagalee, playlist fi axxiinni YouTube fi marsariitiiwwan [yt-dlp](https://github.com/yt-dlp/yt-dlp)'n deeggaraman 2000+ biroo irraa buusudha. Windows 10/11, macOS 13+ (Intel + Apple Silicon), fi Linux (AppImage, Flatpak, tar.gz) irratti hojjeta. Hayyama GPLv3. Beeksisni hin jiru, daangaan fayyadamaa hin jiru. [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage fi buufannaa kallattiin ni raabsama.
 >
-> **Garaagarummaa ijoo: biraawzara keessa ijaarame.** Buufattoonni YouTube bilisaa baay'een wraapperii yt-dlp salphaa dha: saanduqa URL fi menu formaataa, biraawzara mataa isaanii malee. Arroxy tokko qaba, tabii **Daawwannaa**. YouTube ykn marsariitii biraa kamiyyuu app keessatti ilaaltu, viidiyoo, playlist ykn channel irra jirtu buufatta, ykn hidhaa kamiyyuu irratti right-click godhita. Daawwannaa keessatti altokko seenta, Arroxy immoo viidiyoowwan dhuunfaa, miseensoota qofaaf fi umuriin daangeffaman akkaawuntiin kee ilaaluu danda'u, akkasumas tarreewwan Booda Ilaali fi Jaallatamte kee, kuukkii baasuu malee ni buusa. Marsariitiiwwan biraatti illee achitti seeni, buufannaan isaanii yeroo barbaachisu seensa sana fayyadama. YouTube bot akka hin taane akka mirkaneessitu yeroo gaafatu, seensa sanaan irra deebi'ee yaala. Biraawzarri isaa keessa ijaarame tokenii YouTube buufannaa dura eegu illee ni argata, kanaaf YouTube buufannaa formaata xiqqaatti hin hir'isu. Wraapperiin saanduqa URL qofa qabu daangaa kana hundatti dhaqqaba. Bal'inaan: [Maaliif Arroxy](#why-explore).
+> **Garaagarummaa ijoo: biraawzara keessa ijaarame.** Buufattoonni YouTube bilisaa baay'een wraapperii yt-dlp salphaa dha: saanduqa URL fi menu formaataa, biraawzara mataa isaanii malee. Arroxy tokko qaba, tabii **Daawwannaa**. YouTube ykn marsariitii biraa kamiyyuu app keessatti ilaaltu, viidiyoo, playlist ykn channel irra jirtu buufatta, ykn hidhaa kamiyyuu irratti right-click godhita. Daawwannaa keessatti altokko yoo seente, buufannaan akkaawuntii barbaadu seensa sana fayyadama: viidiyoowwan dhuunfaa kee, tarreewwan Booda Ilaali fi Jaallatamte kee, fi viidiyoowwan biroo akkaawuntiin kee duraanuu ilaaluu danda'u, kuukkii baasuu malee. Marsariitiiwwan biraatti illee achitti seeni, buufannaan isaanii yeroo barbaachisu seensa sana fayyadama. Bal'inaan: [Maaliif Arroxy](#why-explore).
 >
 > _Yeroo dhumaa haaromfame: 2026-10-22._
 
@@ -79,7 +79,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Qabduu ariifachiisaa buufannaa waliigalaa Arroxy — Windows fi Linux irratti Ctrl+Shift+D, macOS irratti Cmd+Shift+D, hidhaa waraabame kallattiin tarree buufannaatti erga" width="760" /></picture><br/><sub><b>Qabduu ariifachiisaa buufannaa waliigalaa</b><br/>Bakka kamiyyuu hidhaa waraabi, altokko tuqi — tarree seenee buufamuu jalqaba</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/om/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profaayilii viidiyoo playlist tokkoon tokkoon</b><br/>Viidiyoo hundaaf profaayilii mataa isaa kenni — garii 4K'n kuusi, hafan MP3'n fudhu</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/om/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Profaayilii viidiyoo playlist tokkoon tokkoon</b><br/>Viidiyoo hundaaf profaayilii mataa isaa kenni — garii 4K'n kuusi, hafan sagalee qofaan kuusi</sub></td>
   </tr>
   <tr>
     <td width="50%" valign="top" align="center"><img src="../../build/screenshots/om/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>Fuula Buufata saffisaa</b><br/>URL maxxansiitii profaayilii kee kan socho'aadhaan battalumatti buufadhu</sub></td>
@@ -102,7 +102,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 - **Buusuuf mirgaan cuqaasi** — Explore keessatti hidhaa viidiyoo, playlist ykn channel kamiyyuu mirgaan cuqaasiitii piroofaayilii keetiin buusi, **Profaayiliin buusi** irraa piroofaayilii biraa filadhu, buufata tarkaanfii tarkaanfiin bani, ykn hidhaa garagalchi. Tokkoon tokkoon viidiyoo dursa banuun hin barbaachisu
 - **Qindaa'ina gabaabaa** — Explore keessatti baarii meeshaalee irratti tuqaa tokkoon sabbata Arroxy achitti geessee fuula sanaaf bakka dabalataa kenna
 - **Bar teessoo** — YouTube barbaaduuf barreessi, ykn teessoo weebii kamiyyuu galchiitii marsariitii sana bani
-- **Buufannaa akkaawuntii barbaadu** — Explore keessatti altokko seeni, Arroxyn viidiyoowwan dhuunfaa fi miseensoota qofaaf kan akkaawuntiin kee ilaaluu danda'u, viidiyoowwan umurii daangeffaman yoo umurii akkaawuntii mirkanaa'e, akkasumas tarreewwan Booda Ilaali fi Jaallatamte buufachuu danda'a. Marsariitiiwwan biraa irrattis achitti seenuu ni dandeessa, buufannaan isaanii yeroo barbaachisu seensa sana fayyadama. Arroxy ammas dura utuu hin seenin buufata; yeroo buufannaan karaa akkaawuntiin sirreessuu danda'uun hin milkoofnetti qofa seensa Explore kee fayyadama. YouTube bot akka hin taane akka mirkaneessitu yoo gaafate, Arroxy seensa Explore kee illee ni yaala
+- **Buufannaa akkaawuntii barbaadu** — Daawwannaa keessatti altokko seeni, Arroxyn immoo viidiyoowwan akkaawuntiin kee ilaaluu danda'u buufachuu danda'a: viidiyoowwan dhuunfaa kee, viidiyoowwan umuriin daangeffaman yoo akkaawuntiin umuriin isaa mirkanaa'e, akkasumas tarreewwan Booda Ilaali fi Jaallatamte kee. Marsariitiiwwan biraa irrattis achitti seenuu ni dandeessa, buufannaan isaanii yeroo barbaachisu seensa sana fayyadama. Arroxy ammas dura utuu hin seenin buufata; yeroo buufannaan karaa akkaawuntiin sirreessuu danda'uun hin milkoofnetti qofa seensa Daawwannaa kee fayyadama
 - **Akkaawuntii lammaffaa fayyadami** — fuula jalqabaa Explore sababa ibsa: akkaawuntiidhaan buufachuun balaa akkaawuntiin sun daangeffamuu tokko of keessaa qaba. Seensawwan hunda irraanfachuu yeroo barbaadde Qindoomina keessaa Explore irraa bahi
 - **Dhorkaa beeksisaa** — Durtiidhaan cufaadha. Explore kaaba meeshaa irratti gaachana tokko tuquun fuula isaa irratti beeksisaa fi hordoftoota ni dhorka; buufannaan hin tuqamu. YouTube akkaawuntiiwwan seenan irratti dhorkaa beeksisaa mormuu danda'a
 
@@ -143,7 +143,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 - **To'annoo saffisaa fi pacing** — bandwidth buusuu daangessi, kutaaleen viidiyoo meeqa yeroo tokkotti akka buufaman qindeessi, fi turtii gaaffii durtii (*Cufaa · Walsimaa · Of eeggannoo · Kan mataa*) waliin dabali
 - **Bocquuwwan maqaa faayilii** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` fi `{playlist_index}` fayyadamuun buufamawwan kee akka feetetti moggaasi, waliigalaan ykn tokkoon tokkoon piroofaayilii buufamaatiif
 - **Buufata yeroo tokkotti fi ofumaan irra deebi'uu** — buufanni tarree meeqa yeroo tokkotti akka deemu filadhu, buufata rakkoo networkii yookaan saarvarii qunname immoo Arroxy yaalii tokkoo dura dheeraa eegee irra deebi'ee haa yaalu
-- **Profaayiloota buufannaa viidiyoo playlist keessaa tokkoon tokkoon** — sirna tokko guutummaa tarreef fayyadamuu mannaa, viidiyoo playlist keessa jiru hundaaf piroofaayilii buufannaa addaa kennuu dandeessa; kanaanis dabarsa tokkoon garii qulqullina guutuun kuufamee, hafan immoo akka MP3tti fudhatamuu danda'a
+- **Profaayiloota buufannaa viidiyoo playlist keessaa tokkoon tokkoon** — sirna tokko guutummaa tarreef fayyadamuu mannaa, viidiyoo playlist keessa jiru hundaaf piroofaayilii buufannaa addaa kennuu dandeessa; kanaanis dabarsa tokkoon garii qulqullina guutuun kuufamee, hafan immoo sagalee qofaan kuufamuu danda'a
 - **Quick Download duubatti hojjeta** — hidhaan battaluma Buufata keessatti mul'ata achittis qophaa'a, ergaan **Ilaali** qabu ni mirkaneessa, bakki URL immoo hidhaa itti aanuuf qulqullaa'a. Kanneen duraa utuu qophaa'aa jiranii kan feete baay'ee jalqabi
 - **Buufata maal akka si barbaaduu sitti hima** — Arroxy hidhaa dubbisuu yoo hin dandeenye, sarara isaa sababa ibsee furmaata dhiyeessa: Irra deebi'i, kuukkii bani, ykn Explore keessatti seeni. Kuukkiin yeroo cufamu, **Explore'n seeni** erga seentee booda siif irra deebi'a. Playlist daangaa fe'uu kee caalu sarara isaa irratti eegaa jira, hunda, kan jalqabaa ykn ilaalcha akka filattu. Tabiin Buufata sarara si eegaa jiru lakkaa'a
 - **Kutaa viidiyoo tokko qofa buufadhu** — much'aa Foormaatii irratti jalqaba fi xumura, ykn boqonnaa filadhu, Arroxy ardii kana qofa olkaa'a; maqaan isaas id viidiyoo booda ardii kanaan moggaafama. Muruun keyframe isa dhiyoo irratti kufa; muruu sirrii banuun immoo deebisee koodii godha
@@ -170,7 +170,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 <summary><strong>🌐 YouTube + Saayitii 2000</strong></summary>
 
 - **YouTube guutummaatti** — Viidiyoowwan, Shorts, Chaanaalota, Playlistoota, YouTube Music fi Podkaastota madda sadarkaa jalqabaa ta'aniin hojjetamu
-- **Saayitiiwwan 2000+ biroo** yt-dlp fayyadamuudhaan — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable fi kanneen biroo heddu
+- **Saayitiiwwan 2000+ biroo** yt-dlp fayyadamuudhaan — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable fi kanneen biroo heddu
 - **Audio qofa fi subtitle** saayitii deeggara hunda irratti hojjeta, YouTube qofa irratti miti
 - Saayitiin yoo jijjiirames, yt-dlp torban hunda sirreessa erga, Arroxy immoo binary-n yeroo eegaluu ofumaan haaromsa
 
@@ -364,7 +364,7 @@ Waltajjii maayyii walitti bira qabuu filannoolee beekamoo wajjin:
 |            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Biraawzara app keessatti ijaarame (ilaali, seeni, buusi) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
-| Viidiyoowwan dhuunfaa, miseensoota qofaaf fi umuriin daangeffaman kuukkii utuu hin baasin |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
+| Viidiyoowwan akkaawuntiin kee mataa keetii ilaaluu danda'u, kuukkii utuu hin baasin |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
 | Bilisaa, sadarkaa kafaltii hin qabu |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Madda banaa |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Naannoo keessatti qofa hojeta |   ✅   |           ✅            |         ✅          |     ✅      |             ❌             |         ✅         |
@@ -378,9 +378,9 @@ Arroxy waan tokko qofaaf ijaarame: faayila naannoo qulqulluu, URL maxxansitees y
 
 ### <a id="why-explore"></a>🧭 Waan wraapperiin yt-dlp salphaan hin dandeenye: tabii Explore
 
-Buufattoota YouTube bilisaa baay'een saanduqa URL yt-dlp irratti kaa'ame qofa. Arroxy'n yt-dlp ni fayyadama, garuu **Explore** illee qaba, biraawzara app keessatti ijaarame kan YouTube ykn marsariitii biraa banu. Explore daangaa kan saanduqni URL darbuu hin dandeenye ni darba:
+Buufattoota YouTube bilisaa baay'een saanduqa URL yt-dlp irratti kaa'ame qofa. Arroxy'n yt-dlp ni fayyadama, garuu **Daawwannaa** illee qaba, biraawzara app keessatti ijaarame kan YouTube ykn marsariitii biraa banu. Daawwannaan waan saanduqni URL hin dandeenye ni dabala:
 
-- **Viidiyoowwan akkaawuntii barbaadan, kuukkii utuu hin baasin** — viidiyoowwan dhuunfaa, miseensoota qofaaf, fi umuriin daangeffaman (akkaawuntii umuriin isaa mirkanaa'e irratti), akkasumas tarreewwan Booda Ilaali fi Jaallatamte kee, fi viidiyoowwan marsariitiiwwan biraa irratti seensa duubatti jiran. Wraapperiin salphaan cookies.txt baasuu barbaada ykn kuukkii biraawzara weebii keetii dubbisuu qaba, kunis amma Windows irratti Chrome'n ni dhorka. Arroxy keessatti Explore keessatti altokko seenta, kan hafe isatu hojjeta
+- **Viidiyoowwan akkaawuntiin kee ilaaluu danda'u, kuukkii utuu hin baasin** — viidiyoowwan dhuunfaa kee, tarreewwan Booda Ilaali fi Jaallatamte kee, viidiyoowwan umuriin daangeffaman akkaawuntii umuriin isaa mirkanaa'e irratti, fi fuulli marsariitiiwwan biraa seensa kee barbaadan. Wraapperiin salphaan cookies.txt baasuu barbaada ykn kuukkii biraawzara weebii keetii dubbisa. Arroxy keessatti Daawwannaa keessatti altokko seenta, kan hafe isatu hojjeta
 - **Hidhaa garagalchuun hin barbaachisu** — Explore keessatti viidiyoo, playlist, ykn channel barbaadiitii tuqaa tokkoon buusi, ykn fuula irratti hidhaa kamiyyuu mirgaan cuqaasi
 - **Yeroo barbaaddu dhorkaa beeksisaa** — gaachana tuquun fuula Explore irratti beeksisaa fi hordoftoota ni dhorka
 
@@ -390,7 +390,7 @@ Buufattoota YouTube bilisaa baay'een saanduqa URL yt-dlp irratti kaa'ame qofa. A
 
 Buufannoonni kallattiin [yt-dlp](https://github.com/yt-dlp/yt-dlp) fayyadamuudhaan YouTube irraa foldera filatteetti darbamu — miila-seerri hunduu sarara servera sadarkaa-sadaffaa tokko keessa darbuu hin qabu. Seenaa ilaaluu, seenaa buufannoo, URLs, fi qabiyyee faayilaa meeshaa kee irratti hafu.
 
-No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
+Hordoffiin hin jiru — guyyaatti mallattoo maqaa-dhabduu tokko qofa (version app, OS, afaan, karaa itti install godhame, biyya fi Arroxy tilmaamaan yeroo hammamii dura install godhame) akka fayyadamtoota hojii irra jiran fi haaraa lakkoofnuuf, akkasumas Arroxy yt-dlp fi FFmpeg yeroo buufatu ykn haaromsu, kun milkaa'uu fi tilmaamaan yeroo hammam fudhate ilaalchisee yaadannoo maqaa-dhabduu. ID, URL, mata-duree viidiyoo, karaa faayilaa yookaan odeeffannoo account hin jiru. Lamaan isaanii Settings keessatti dhaabuu dandeessa.
 
 Explore seensawwan mataa isaa qaba, biraawzara keetii addaa, Arroxyn unka seensaa gonkumaa hin dubbisu hin guutus — ati fuula marsariitii mataa isaa irratti barreessita. Buufannaan utuu hin seenin deemu; yeroo tokko karaa akkaawuntiin sirreessuu danda'un hin milkoofnetti qofa Arroxy seensa yeroo sana haaraatti dubbisa, buufannaa sanaaf faayilii yeroo keessatti qaba, booda faayilicha haqa. Qindoomina keessatti Explore irraa bahuun isaan irraanfachiisa.
 
@@ -408,7 +408,7 @@ Eeyyee — hayyama GPLv3, sadarkaa kafaltii hin jiru, amaloota dhorkamuun hin ji
 <details>
 <summary><strong>Arroxy GUI yt-dlp biroo irraa akkamitti adda ta'a?</strong></summary>
 
-GUI yt-dlp bilisaa baay'een wraapperoota hidhaa qofa fudhatanii dha. Arroxy **Explore** dabala, biraawzara app keessatti ijaarame kan YouTube ykn marsariitii biraa banu: hidhaa utuu hin garagalchin ilaaltee buufatta, viidiyoowwan dhuunfaa, miseensoota qofaaf fi umuriin daangeffaman akkasumas tarreewwan Booda Ilaali fi Jaallatamte kee buufachuuf achitti altokko seenta, kuukkii utuu hin baasin. Arroxy seensa kana yeroo YouTube bot akka hin taane akka mirkaneessitu si gaafatu fayyadama, biraawzarri isaa inni ijaarames tokenii buufannaa YouTube ni argata, kanaaf buufannaan gara formaata xiqqaatti hin deebi'u. [Maaliif Arroxy](#why) ilaali.
+GUI yt-dlp bilisaa baay'een wraapperoota hidhaa qofa fudhatanii dha. Arroxy **Daawwannaa** dabala, biraawzara app keessatti ijaarame kan YouTube ykn marsariitii biraa banu: hidhaa utuu hin garagalchin ilaaltee buufatta, viidiyoowwan akkaawuntiin kee ilaaluu danda'u, akka viidiyoowwan dhuunfaa kee fi tarreewwan Booda Ilaali fi Jaallatamte kee, kuukkii utuu hin baasin buufachuuf achitti altokko seenta. [Maaliif Arroxy](#why) ilaali.
 
 </details>
 
@@ -429,14 +429,14 @@ Eeyyee. Menu format keessaa *audio qofa* filadhu, booda MP3, M4A/AAC, Opus yooka
 <details>
 <summary><strong>Viidiyoowwan akkaawuntii YouTube barbaadan akkamitti buufadha?</strong></summary>
 
-Tabii Explore keessatti altokko seeni. Yeroo sana Arroxyn viidiyoowwan dhuunfaa fi miseensoota qofaaf kan akkaawuntiin kee ilaaluu danda'u, viidiyoowwan umurii daangeffaman yoo umurii akkaawuntii mirkanaa'e, akkasumas tarreewwan Booda Ilaali fi Jaallatamte buufachuu danda'a. Seensa sana yeroo buufannaan karaa akkaawuntiin sirreessuu danda'uun hin milkoofnetti qofa fayyadama; kan hafe hundi akka duraan buufama. Kun filannoo **Seensa Explore** dha, qindoomina kuukkii keessatti jalqabaatti tarreeffamee Kan Gorfamu jedhamee mallatteeffame, Arroxyn immoo yeroo jalqabaaf Explore banattu siif filata. Wiki yt-dlp [automatic akkaawuntii seenaan irratti hundaa'e akkaawuntii Google mallatteessisuu danda'a](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) jedha; kanaaf akkaawuntiin lammaffaan filannoo nageenya caalu dha.
+Tabii Daawwannaa keessatti altokko seeni. Yeroo sana Arroxyn viidiyoowwan akkaawuntiin kee ilaaluu danda'u buufachuu danda'a: viidiyoowwan dhuunfaa kee, viidiyoowwan umuriin daangeffaman yoo akkaawuntiin umuriin isaa mirkanaa'e, akkasumas tarreewwan Booda Ilaali fi Jaallatamte kee. Seensa sana yeroo buufannaan karaa akkaawuntiin sirreessuu danda'uun hin milkoofnetti qofa fayyadama; kan hafe hundi akka duraan buufama. Kun filannoo **Seensa Daawwannaa** dha, qindoomina kuukkii keessatti jalqabaatti tarreeffamee Kan Gorfamu jedhamee mallatteeffame, Arroxyn immoo yeroo jalqabaaf Daawwannaa banattu siif filata. Wiki yt-dlp [automatic akkaawuntii seenaan irratti hundaa'e akkaawuntii Google mallatteessisuu danda'a](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies) jedha; kanaaf akkaawuntiin lammaffaan filannoo nageenya caalu dha.
 
 </details>
 
 <details>
 <summary><strong>YouTube waan tokko jijjiirte itti fufaa hojeta?</strong></summary>
 
-yt-dlp yeroo eegaluu irratti ofumaan haaromfama, fi Arroxy yeroo YouTube waan tokko jijjiirtu ariitiidhaan sirreessa erga. YouTube bot akka hin taane akka mirkaneessitu yoo gaafate, Arroxy yoo Explore keessatti seentee jirta seensa Explore kee illee ni yaala, kuukkiin faayila ykn biraawzara irraa immoo qindoomina kuukkii keessatti ni argama.
+yt-dlp yeroo eegaluu irratti ofumaan haaromfama, fi Arroxy yeroo YouTube waan tokko jijjiirtu ariitiidhaan sirreessa erga. Buufannaan seensa yoo barbaade, Arroxy yoo Daawwannaa keessatti seentee jirta seensa Daawwannaa kee fayyadama, kuukkiin faayila ykn biraawzara irraa immoo qindoomina kuukkii keessatti ni argama.
 
 </details>
 
@@ -471,7 +471,7 @@ Sun macOS Gatekeeper app mallattoo hin qabne dhorku, miidhaa dhugaa miti. Ajajoo
 <details>
 <summary><strong>Viidiyoo YouTube buusuu seeraa dha?</strong></summary>
 
-Fayyadama dhuunfaa, dhoksaa qofaaf yeroo hedduun mootummoota heddu keessatti fudhatama. [Dambii Tajaajilaaf](https://www.youtube.com/t/terms) YouTube fi seeraa mirga-qopheessaa naannoo keetti hordofuuf ati itti gaafatamtummaa qabda.
+Biyya keetiin fi waan ati buufattuun kan murtaa'u. Qabiyyee ati abbaa qabeenyaa itti taate, qabiyyee buufachuuf hayyama qabu, ykn qabiyyee seerri biyya keetii akka kooppii godhitu si eeyyamu qofa buufadhu. [Dambii Tajaajilaa](https://www.youtube.com/t/terms) YouTube fi seera mirga-qopheessaa naannoo keetii hordofuuf ati itti gaafatamtummaa qabda. [Haala fayyadamaa](#terms) ilaali.
 
 </details>
 
@@ -496,7 +496,7 @@ Amala yaaddetee jirtaa? [Gaaffii bani](../../../../issues) — galchiin hawaasaa
 
 ## <a id="support"></a>💖 Arroxy Deggeri
 
-Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
+Arroxy bilisa fi hayyama GPLv3 jala jira — beeksisni hin jiru, hordoffiin hin jiru, fooyya'iinsi kaffaltiin hin jiru. Yoo yeroo siif qusate, guddina isaa Bitcoin, Tron ykn Ethereum'iin deggeruu dandeessa: teessoowwan [DONATE.md](../../DONATE.md) keessa jiru, innis madda ofiisaa qofa. Arroxy gonkumaa teessoo iimeeliidhaan ykn ergaa kallattiitiin siif hin ergu. Repoo'f urjii kennuun, dogoggora gabaasuu fi hiikkaa fooyyessuun hammuma sana gargaara.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

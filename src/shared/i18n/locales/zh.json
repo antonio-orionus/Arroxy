@@ -31,7 +31,6 @@
 		"cancel": "取消",
 		"close": "关闭",
 		"continue": "继续",
-		"dismiss": "关闭",
 		"loading": "加载中…",
 		"retry": "重试",
 		"startOver": "重新开始"
@@ -45,11 +44,10 @@
 			"remember": "不再询问"
 		},
 		"quitWithActiveDownloads": {
-			"confirm": "取消下载并退出",
-			"detail": "暂停以便稍后继续，或取消以丢弃进度。",
+			"continueDetail": "你的队列会被保留，下次打开 Arroxy 时，下载会从中断处继续。",
 			"keep": "继续下载",
 			"message_other": "正在进行 {{count}} 个下载",
-			"pause": "暂停下载并退出"
+			"quit": "退出"
 		},
 		"rendererCrashed": {
 			"detail": "渲染进程崩溃（{{reason}}）。请重新加载以重试。",
@@ -72,12 +70,12 @@
 		"noSubtitlesIn": "此视频没有{{languages}}的字幕。",
 		"ytdlp": {
 			"ageRestricted": "该视频有年龄限制,未登录账号无法下载。",
-			"botBlock": "触发了机器人保护。你所使用的 IP 很可能已被标记（数据中心地址段或繁忙的 VPN 出口）。请更换 IP 或选择其他 VPN 节点后重试。如果持续失败，这可能是网站端临时性的变动——Arroxy 会在启动时更新其下载引擎，一旦修复发布，会自动生效。",
+			"botBlock": "该网站的机器人防护阻止了此次下载。请稍等片刻后重试，或一次少下载几个视频。如果持续失败，这可能是网站端临时性的变动——Arroxy 会在启动时更新其下载引擎，一旦修复发布，会自动生效。",
 			"chunkTransferFailure": "服务器在传输过程中反复中断下载，Arroxy 多次重试后放弃。此问题通常出现在最大的视频格式（4K HDR / 高码率 VP9）上。请重试、切换网络或 VPN，或选择分辨率较低的格式。",
 			"drmProtected": "该视频受 DRM 保护。Arroxy 无法去除 DRM，因此无法下载该文件。",
 			"formatUnavailable": "该视频已不再提供您所选的格式。请重新粘贴链接，并从当前提供的格式中选择。",
 			"geoBlocked": "该视频在你所在的地区不可用。",
-			"ipBlock": "你的 IP 地址似乎被 YouTube 屏蔽。请稍后再试或使用 VPN。",
+			"ipBlock": "该网站正在拦截来自此连接的请求。请稍后重试。",
 			"loginRequired": "此视频需要已登录的账号。",
 			"missingDependency": "Arroxy 找不到 FFmpeg 或 FFprobe。请重新运行设置，或指定 FFmpeg 位置，然后重试下载。",
 			"network": "网络错误。请检查你的连接并重试。",
@@ -106,8 +104,28 @@
 			"title": "右键点击链接即可下载"
 		},
 		"linkMenu": {
+			"background": {
+				"album": "在后台下载专辑",
+				"liked": "在后台下载你赞过的视频",
+				"mix": "在后台下载合辑",
+				"playlist": "在后台下载播放列表",
+				"uploads": "在后台下载上传内容",
+				"watchLater": "在后台下载“稍后观看”"
+			},
 			"copyLink": "复制链接",
-			"downloadWith": "使用配置下载"
+			"downloadFirst": "下载前 {{count}} 个",
+			"downloadThisVideo": "下载此视频 · {{profileName}}",
+			"downloadWith": "使用配置下载",
+			"fromList": {
+				"album": "来自此专辑",
+				"liked": "来自你赞过的视频",
+				"mix": "来自此合辑",
+				"playlist": "来自此播放列表",
+				"uploads": "来自此频道的上传内容",
+				"watchLater": "来自“稍后观看”"
+			},
+			"interactive": "交互式下载…",
+			"thisVideoWith": "此视频，使用"
 		},
 		"newBadge": "新",
 		"notice": {
@@ -154,6 +172,7 @@
 			"aria": "当前页面",
 			"back": "后退",
 			"compactLayout": "紧凑布局",
+			"download": "下载",
 			"downloadWithProfile": "下载 · {{profileName}}",
 			"forward": "前进",
 			"fullLayout": "显示完整布局",
@@ -163,6 +182,8 @@
 			"refusedHint": "“探索”无法打开该地址。",
 			"reload": "重新加载",
 			"searchTooLong": "搜索内容太长。",
+			"thisVideo": "此视频",
+			"thisVideoHint": "使用 {{profileName}} 仅下载此视频",
 			"zoom": {
 				"hint": "页面缩放：{{percent}}%",
 				"in": "放大",
@@ -204,9 +225,9 @@
 			"too-long": "模板过长。",
 			"unknown-token": "未知标记 {{token}}。"
 		},
-		"idWarning": "缺少 {id} 时，Arroxy 无法检测已下载的播放列表项，也无法生成 .m3u 播放列表。",
+		"idEndingWarning": "请让文件名以 [{id}] 结尾，这样 Arroxy 才能检测已下载的播放列表项，并生成 .m3u 播放列表。",
 		"label": "文件名模板",
-		"m3uDisabled": "不可用，因为你的文件名模板未包含 {id}，或将下载内容分类到了文件夹。",
+		"m3uDisabledIdEnding": "不可用，因为你的文件名模板没有以 [{id}] 结尾，或会将下载内容分类到文件夹中。",
 		"previewPlaylist": "在播放列表中",
 		"previewSingle": "单个视频",
 		"profileOverrideDescription": "留空则沿用全局模板。",
@@ -249,11 +270,14 @@
 		"quickDownload": {
 			"added": "已添加：{{title}}",
 			"alreadyQueued": "已在队列中",
+			"batchAdded_other": "已将 {{count}} 个链接添加到“下载”",
+			"batchAlreadyQueued_other": "{{count}} 个已在队列中",
+			"batchNoneAdded_other": "{{count}} 个链接无法添加",
+			"batchNotAdded_other": "{{count}} 个无法添加",
+			"chooseFromList_other": "此列表中有 {{count}} 个视频 — 请选择要下载的内容",
 			"chooseHowMany_other": "{{count}}+ 个视频 — 选择数量",
 			"failed": "无法准备 {{title}}",
 			"notAdded": "无法添加该链接 — 请重试",
-			"reviewCapped_other": "此列表中有 {{count}}+ 个视频 — 查看后选择",
-			"review_other": "此列表中有 {{count}} 个视频 — 查看后选择",
 			"view": "查看"
 		},
 		"settingsSaveFailed": "无法保存你的设置。",
@@ -339,8 +363,26 @@
 			"all": "所有视频",
 			"cappedBody_other": "此播放列表中的视频超过 {{count}} 个。可以全部下载、只下载前 {{count}} 个，或在查看中自行挑选。",
 			"first": "前 {{count}} 个",
+			"list": {
+				"album": "整张专辑",
+				"liked": "赞过的视频",
+				"mix": "整个合辑",
+				"playlist": "整个播放列表",
+				"uploads": "全部上传内容",
+				"watchLater": "“稍后观看”"
+			},
+			"pick": "从中挑选…",
 			"review": "查看",
-			"reviewBody_other": "此链接是包含 {{count}} 个视频的列表。查看后即可挑选要下载的内容。"
+			"uncappedBody_other": "此链接是包含 {{count}} 个视频的列表。可以全部下载，或在查看中自行挑选。",
+			"video": "此视频",
+			"videoOrList": {
+				"album": "此链接是专辑中的一个视频。只下载该视频，还是下载整张专辑？",
+				"liked": "此链接是你赞过的视频中的一个视频。只下载该视频，还是下载你赞过的所有视频？",
+				"mix": "此链接是合辑中的一个视频。只下载该视频，还是下载整个合辑？",
+				"playlist": "此链接是播放列表中的一个视频。只下载该视频，还是下载整个播放列表？",
+				"uploads": "此链接是某个频道上传内容中的一个视频。只下载该视频，还是下载全部上传内容？",
+				"watchLater": "此链接是你的“稍后观看”列表中的一个视频。只下载该视频，还是下载整个列表？"
+			}
 		},
 		"clearTitle": "清除已完成的下载",
 		"empty": "排队的下载会显示在这里",
@@ -374,7 +416,29 @@
 			"statusPending": "等待中",
 			"statusProbing": "正在获取详情",
 			"statusRunning": "下载中",
-			"subtitleLanguagesMissing": "没有{{languages}}的字幕"
+			"subtitleLanguagesMissing": "没有{{languages}}的字幕",
+			"waitingForSite": "等待 {{site}}，直到 {{time}}",
+			"waitingHint": "{{site}} 正在限制此连接的请求频率。Arroxy 会在 {{time}} 后获取此链接的详情，以便让限制解除。"
+		},
+		"listOffer": {
+			"dismiss": "关闭",
+			"from": {
+				"album": "来自专辑",
+				"liked": "来自你赞过的视频",
+				"mix": "来自合辑",
+				"playlist": "来自播放列表",
+				"uploads": "来自频道的上传内容",
+				"watchLater": "来自“稍后观看”"
+			},
+			"get": {
+				"album": "获取整张专辑",
+				"liked": "获取所有赞过的视频",
+				"mix": "获取整个合辑",
+				"playlist": "获取整个播放列表",
+				"uploads": "获取全部上传内容",
+				"watchLater": "获取“稍后观看”的全部内容"
+			},
+			"hint": "将列表作为单独一行添加。此视频不包含在内。"
 		},
 		"pauseAllTitle": "暂停所有正在进行的下载",
 		"pausedBanner": "队列已暂停 — 等待中的任务在恢复队列之前不会开始",
@@ -607,25 +671,18 @@
 		"cancel": "遇到问题？手动设置",
 		"greeting": "嘿,欢迎回来!",
 		"setup": {
-			"bytes": "{{done}} / {{total}}",
 			"left": {
 				"minutes_other": "约剩 {{count}} 分钟",
 				"underMinute": "不到 1 分钟"
 			},
-			"note": {
-				"engine": "让下载在网站变化时仍能正常工作。",
-				"firstRun": "只需这一次。Arroxy 会保留这些工具并自行更新。",
-				"media": "只需这一次。Arroxy 会保留它们以供日后更新。"
-			},
 			"stage": {
 				"checking": "正在检查一切是否正常",
 				"connecting": "正在连接…",
-				"downloadingBoth": "正在下载下载引擎和媒体工具",
-				"downloadingEngine": "正在下载下载引擎",
-				"downloadingMedia": "正在下载媒体工具",
-				"unpacking": "正在解压媒体工具"
+				"unpacking": "正在解压媒体工具",
+				"unpackingEngine": "正在解压下载引擎"
 			},
 			"title": {
+				"both": "正在更新 Arroxy 的工具",
 				"engine": "正在更新下载引擎",
 				"firstRun": "首次设置",
 				"media": "正在更新媒体工具"
@@ -651,14 +708,14 @@
 		"fetchingSponsorBlock": "正在连接 SponsorBlock…",
 		"fetchingSubtitles": "正在获取字幕…",
 		"mergingFormats": "正在合并音视频…",
-		"mintingToken": "正在生成 YouTube 令牌…",
+		"mintingToken": "正在准备 YouTube 下载…",
 		"movingFiles": "正在移动文件…",
 		"noSubtitles": "没有{{languages}}的字幕",
 		"outputNotWritable": "无法保存到 {{dir}} — Arroxy 没有在该处写入的权限",
 		"preparingBinaries": "正在准备二进制文件…",
-		"qualityLimited": "已以 {{height}}p 保存 — YouTube 未提供本次下载的更高画质。稍后重试或换用其他网络可能会有帮助。",
-		"qualityLimitedSubtitlesFailed": "已以 {{height}}p 保存 — YouTube 未提供本次下载的更高画质，且部分字幕未能下载。稍后重试或换用其他网络可能会有帮助。",
-		"remintingToken": "正在重新生成令牌…",
+		"qualityLimited": "已以 {{height}}p 保存 — YouTube 未提供本次下载的更高画质。稍后重试可能会有帮助。",
+		"qualityLimitedSubtitlesFailed": "已以 {{height}}p 保存 — YouTube 未提供本次下载的更高画质，且部分字幕未能下载。稍后重试可能会有帮助。",
+		"remintingToken": "正在重新准备 YouTube 下载…",
 		"retryingSponsorBlock": "SponsorBlock 暂时不可用，正在重试 ({{attempt}}/{{total}})…",
 		"retryingTransfer": "连接停滞，正在重试 ({{attempt}}/{{total}})…",
 		"signingInWithExplore": "正在使用你在“探索”中的账号登录…",
@@ -779,7 +836,7 @@
 			"pictures": "图片",
 			"subfolder": {
 				"invalid": "文件夹名包含无效字符",
-				"placeholder": "例如 lo-fi rips",
+				"placeholder": "例如：讲座",
 				"toggle": "保存到子文件夹"
 			},
 			"videos": "影片"
@@ -874,7 +931,11 @@
 				"noVideo": "此链接没有视频，已选择音频。",
 				"subtitlesMissing": "配置要求 {{languages}} 字幕，但此视频没有。",
 				"tierAbove": "配置要求 {{wanted}}p，但此视频没有这么低的画质，已选择 {{picked}}p。",
-				"tierBelow": "配置要求 {{wanted}}p，但此视频最高只有 {{picked}}p，已选择 {{picked}}p。",
+				"tierAbovePassedOver": "配置要求 {{wanted}}p。此视频中较小的流与配置的其余部分不匹配，因此已选择 {{picked}}p。",
+				"tierBelowTakeable": "配置要求 {{wanted}}p。此视频没有可用的 {{wanted}}p，因此已选择 {{picked}}p。",
+				"tierPassedOverAiUpscaled": "配置要求 {{wanted}}p。此视频的 {{wanted}}p 是 AI 放大的，因此已选择原始的 {{picked}}p。",
+				"tierPassedOverH264": "配置要求 H.264 的 {{wanted}}p。此视频只有其他编码的 {{wanted}}p，因此已选择 H.264 的 {{picked}}p。",
+				"tierPassedOverProfile": "配置要求 {{wanted}}p。此视频的 {{wanted}}p 与配置的其余部分不匹配，因此已选择 {{picked}}p。",
 				"webmUnavailable": "你的配置要求 WebM。此视频所选的流包含 WebM 无法容纳的 {{codec}}，因此文件类型为自动。"
 			},
 			"footer": {
@@ -951,29 +1012,26 @@
 			"withAudio": "含音频"
 		},
 		"listPrompt": {
-			"escHint": "按 Esc 取消。选择之前不会加载任何内容。",
-			"interactiveSubtitle": "自行选择格式",
-			"justThisVideo": "仅此视频",
-			"justThisVideoInteractiveHint": "打开其格式选项",
-			"justThisVideoQuickHint": "加载一个视频",
-			"listInteractiveHint": "加载最多 {{count}} 个供你选择",
-			"listOption": {
-				"album": "专辑的前几项",
-				"liked": "你赞过的视频的前几项",
-				"mix": "合辑的前几项",
-				"playlist": "播放列表的前几项",
-				"uploads": "上传内容的前几项",
-				"watchLater": "“稍后观看”的前几项"
-			},
-			"listQuickHint": "加载最多 {{count}} 个，然后下载",
+			"backgroundHint": "使用 {{profileName}}。如果超过 {{count}} 个视频，“下载”会询问下载多少个。",
+			"backgroundLabel": "在后台下载",
+			"escOnly": "按 Esc 取消。",
+			"firstHint": "恰好是前 {{count}} 个，使用 {{profileName}}。",
+			"firstLabel": "下载前",
+			"interactiveHint": "从前 {{count}} 个视频中挑选（或在下一步更改数量），然后设置下载。",
+			"interactiveLabel": "交互式下载…",
+			"limitHint": "从列表中取多少个视频：第一个选项会在超出该数量时询问，第二个则恰好取这么多。与“设置 › 要扫描的播放列表项目数”相同。",
+			"limitLabel": "数量上限",
 			"mixNote": "合辑每次打开时内容都会变化。",
-			"pickOption": {
-				"album": "从专辑的前几项中选择",
-				"liked": "从你赞过的视频的前几项中选择",
-				"mix": "从合辑的前几项中选择",
-				"playlist": "从播放列表的前几项中选择",
-				"uploads": "从上传内容的前几项中选择",
-				"watchLater": "从“稍后观看”的前几项中选择"
+			"pickLoadAfter": "个视频供挑选。",
+			"pickLoadBefore": "加载前",
+			"pickLoadNote": "你可以在下一步更改。",
+			"pickTitle": {
+				"album": "从此专辑中选择",
+				"liked": "从你赞过的视频中选择",
+				"mix": "从此合辑中选择",
+				"playlist": "从此播放列表中选择",
+				"uploads": "从此频道的上传内容中选择",
+				"watchLater": "从“稍后观看”中选择"
 			},
 			"title": {
 				"album": "从此专辑下载",
@@ -983,6 +1041,9 @@
 				"uploads": "从此频道的上传内容下载",
 				"watchLater": "从“稍后观看”下载"
 			},
+			"videoHint": "仅限你打开的视频，使用 {{profileName}}。不会加载列表。",
+			"videoLabel": "仅此视频",
+			"videoPickHint": "仅设置你打开的视频。不会加载列表。",
 			"withProfile": "使用 {{profileName}}"
 		},
 		"output": {
@@ -1054,6 +1115,8 @@
 			"allRemovedDescription": "恢复它们以继续。",
 			"allRemovedTitle": "所有项目均已移除",
 			"alreadyDownloaded": "已下载",
+			"bulkCappedDesc_other": "它们还有更多视频。要选择数量，请分别粘贴每个链接。",
+			"bulkCappedTitle_other": "{{count}} 个列表各只取前 {{limit}} 个视频",
 			"bulkHeading": "批量 URL",
 			"bulkMetadataOptional": "无需等待 — 现在加入队列的文件在下载时仍会使用真实文件名。",
 			"bulkMetadataResolving": "正在获取视频详情… {{done}}/{{total}}",
@@ -1103,13 +1166,6 @@
 			"syncNoneTitle": "尚未下载任何内容",
 			"syncScanning": "正在检查文件夹…",
 			"thumbnailAlt": "视频缩略图"
-		},
-		"playlistCap": {
-			"changeLimit": "更改加载上限",
-			"descriptionWithTitle_other": "<title/>：Arroxy 按当前 {{limit}} 的上限加载了 {{count}} 个项目。你可以现在将已加载的项目加入队列，或提高上限后重新扫描。",
-			"description_other": "Arroxy 按当前 {{limit}} 的上限加载了 {{count}} 个项目。你可以现在将已加载的项目加入队列，或提高上限后重新扫描。",
-			"queueLoaded": "将已加载的项目加入队列",
-			"title": "播放列表扫描已达上限"
 		},
 		"playlistPresets": {
 			"heading": "选择批量下载画质",
@@ -1289,18 +1345,6 @@
 		"profileSwitchRow": {
 			"helpAria": "{{label}}帮助"
 		},
-		"quickProgress": {
-			"cancel": "取消准备",
-			"currentFallback": "当前链接",
-			"description": "Arroxy 正在读取链接并应用 {{profileName}}。",
-			"failedCount_other": "{{count}} 个失败",
-			"phase": {
-				"probing": "正在获取详情",
-				"queueing": "正在添加到队列"
-			},
-			"title": "正在准备快速下载",
-			"waitHint": "Arroxy 准备队列时请保持此窗口打开。"
-		},
 		"review": {
 			"areas": {
 				"extras": "附加项",
@@ -1410,6 +1454,7 @@
 				"embed": "嵌入到视频",
 				"heading": "保存方式",
 				"sidecar": "与视频同位置",
+				"sidecarNoVideo": "在下载文件夹中",
 				"subfolder": "subtitles/ 子文件夹"
 			},
 			"searchPlaceholder": "搜索语言…",
@@ -1419,10 +1464,6 @@
 		"tabsNavAria": "下载配置导航",
 		"url": {
 			"advanced": "高级",
-			"analytics": {
-				"toggle": "发送每日心跳",
-				"toggleDescription": "不收集遥测数据。每天一次，匿名心跳会发送应用版本、安装渠道、操作系统、语言、国家/地区，以及 Arroxy 大约是多久前安装的，用于统计活跃用户和新用户。不包含 ID、URL、视频标题或文件名。"
-			},
 			"autoRemoveCompleted": {
 				"description": "下载完成几秒后，将其从“下载”列表中移除。文件仍保留在你的文件夹中；失败和已取消的下载会留在列表中。",
 				"label": "自动移除已完成的下载"
@@ -1457,6 +1498,11 @@
 				"label": "同时下载数",
 				"unit": "个"
 			},
+			"concurrentProbes": {
+				"description": "Arroxy 在下载前同时获取详情的链接数量。数量越少，对会拦截繁忙连接的网站越温和。你在“交互式下载”中打开的链接始终优先。",
+				"label": "同时检查的链接数",
+				"unit": "个链接"
+			},
 			"cookies": {
 				"banWarning": "YouTube 等网站可能会标记、有时甚至封禁 Cookie 被 Arroxy 等下载工具使用的账号。建议尽量使用临时小号。",
 				"browserHelp": "直接从浏览器读取 cookies。Chromium 系列浏览器使用时必须先关闭。",
@@ -1481,12 +1527,20 @@
 				"sourceFile": "文件",
 				"sourceLabel": "Cookies 来源",
 				"sourceOff": "关闭",
-				"toggleDescription": "可帮助下载年龄限制、会员专属和账户私享的视频。"
+				"toggleDescription": "有助于下载你的账号可观看的视频，例如你的私享视频。"
 			},
 			"downloadConnections": {
 				"description": "同时获取视频的多个部分，加快大文件下载。数值越高，被网站限制的可能性越大。",
 				"label": "下载连接数",
 				"unit": "个连接"
+			},
+			"downloadList": {
+				"album": "下载专辑…",
+				"liked": "下载赞过的视频…",
+				"mix": "下载合辑…",
+				"playlist": "下载播放列表…",
+				"uploads": "下载上传内容…",
+				"watchLater": "下载“稍后观看”…"
 			},
 			"features": {
 				"always": {
@@ -1515,18 +1569,17 @@
 			"hotkey": {
 				"changeShortcut": "更改快捷键",
 				"conflict": "此快捷键已被其他应用占用 — 请另选一个。",
-				"hintLabel": "或按",
-				"hintTooltip": "在任意位置复制视频链接，按下此快捷键，Arroxy 就会使用当前配置将其加入队列 — 无需切换窗口。",
-				"hintTooltipSettings": "在设置中更改或关闭它。",
+				"globalLabel": "全局快捷键",
 				"recording": "请按键…",
 				"reset": "恢复默认",
 				"sectionDescription": "在任意应用复制链接即可下载，无需打开 Arroxy。",
 				"sectionTitle": "全局快捷键",
 				"test": "测试",
 				"toggle": "启用全局快捷键",
-				"toggleDescription": "剪贴板中有视频链接时按下快捷键。"
+				"toggleDescriptionDetail": "在任意应用中复制视频链接并按下快捷键：Arroxy 会使用当前配置将其加入队列，无需切换窗口。播放列表中的视频链接只会下载该视频。"
 			},
 			"interactiveDownload": "交互式下载",
+			"interactiveDownloadAsks": "交互式下载…",
 			"limitRate": {
 				"activeWarning": "正在进行的下载会保留当前限制。暂停再继续即可应用更改。",
 				"custom": "自定义…",
@@ -1539,10 +1592,8 @@
 			"mascotBusy": "正在后台下载… 我可以同时处理多个任务 😎",
 			"mascotCollection": "快速下载会用 {{profileName}} 将已加载的项目加入队列。交互式下载可让你先查看或选择项目。",
 			"mascotIdle": "丢个链接，让 Arroxy 来拉取 ✨",
-			"mascotMixed": "此链接指向合集中的某一个视频。解析之前，Arroxy 会询问你想要哪一个。",
-			"mascotPreparing": "{{quickDownload}} 正在读取此链接并应用 {{profileName}}。",
-			"mascotQueued": "队列正在处理此下载。处理期间你可以再粘贴一个链接。",
 			"mascotSingle": "快速下载会用 {{profileName}} 开始一次下载。需要临时调整时，请使用交互式下载。",
+			"mascotVideoInList": "此链接同时指向一个视频及其所在的列表：请选择只下载该视频，还是下载整个列表。",
 			"nativeAudioPreference": {
 				"compatible": "兼容立体声",
 				"description": "配置选择原生音频时使用立体声还是环绕声。配置可单独覆盖。",
@@ -1646,6 +1697,7 @@
 					"override": "使用配置覆盖",
 					"overrideSubfolder": "使用配置覆盖 + 配置子文件夹"
 				},
+				"destinationEditHint": "要更改保存位置，请编辑配置。",
 				"destinationFallback": "保存位置",
 				"edit": "编辑",
 				"editActive": "编辑活动配置",
@@ -1669,24 +1721,27 @@
 				"remove": "移除",
 				"reorderHint": "拖动配置即可移动。所有配置选择器都会按此顺序排列。",
 				"reset": "重置",
+				"savesTo": "保存到",
 				"switchAria": "切换下载配置：{{profileName}}",
 				"switchTitle": "切换下载配置"
 			},
 			"proxy": {
 				"clear": "清除",
-				"description": "通过代理路由流量 — 适用于地区限制内容。",
+				"description": "通过代理服务器路由流量。",
 				"label": "代理 URL",
 				"placeholder": "http://host:port"
 			},
-			"quickBulkAllFailed": "这些 URL 都无法准备",
 			"quickDownload": "快速下载",
 			"quickDownloadTooltip": "将使用以下配置下载：{{profileName}}",
 			"quickFailed": "无法添加此项：{{error}}",
-			"quickPartialFailed_other": "已将可用项目加入队列。{{count}} 个 URL 无法准备。",
 			"quickPrepareFailed": "无法准备队列项目",
 			"quickPreparing": "正在准备",
 			"quickProbeFailed": "探测失败",
 			"quickSingleOnly": "粘贴视频、播放列表、频道或搜索 URL 以开始。",
+			"reports": {
+				"toggle": "发送匿名心跳和设置报告",
+				"toggleDescription": "不追踪。每天一次，匿名心跳会发送应用版本、安装渠道、操作系统、语言、国家/地区，以及 Arroxy 大约是多久前安装的，用于统计活跃用户和新用户。Arroxy 设置或更新其下载引擎或媒体工具时，还会报告是否成功以及大约耗时。不包含 ID、URL、视频标题或文件名。"
+			},
 			"settings": {
 				"behaviorDescription": "全局行为，同样影响由配置驱动的下载。",
 				"behaviorHeading": "下载行为",
@@ -1710,7 +1765,9 @@
 			"tabs": {
 				"profiles": "配置",
 				"settings": "设置"
-			}
+			},
+			"thisVideo": "此视频",
+			"thisVideoTooltip": "使用 {{profileName}} 仅下载此视频"
 		}
 	}
 }

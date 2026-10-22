@@ -96,7 +96,7 @@ export const eu = {
   discord_badge_text: "Sartu Discord komunitatean",
   discord_badge_encoded: "Sartu%20Discord%20komunitatean",
   hero_desc:
-    "Deskargatu bideoak, Shorts-ak, musika, kanalak, podcastak edo audio-pistak **YouTube-tik eta onartutako 2000+ guneetatik** — 8K HDR 60 fps-ra arte, MP3 / AAC / Opus formatuan, edo behar duzun zatia bakarrik. **Arakatu YouTube edo beste edozein gune Arroxy-ren barruan** Esploratu fitxan, eta deskargatu ikusten ari zaren bideoa, erreprodukzio-zerrenda edo kanala; hasi saioa hor zure kontuak ikus ditzakeen bideo pribatuak, bazkideentzakoak eta adin-murrizketadunak deskargatzeko. Zure ordenagailuan exekutatzen da, Windows, macOS eta Linux-en. **Iragarkirik gabe, zama alferrik gabe, ordainpeko eskaintzarik gabe.**",
+    "Deskargatu bideoak, Shorts-ak, kanalak, podcastak edo audio-pistak **YouTube-tik eta onartutako 2000+ guneetatik** — 8K HDR 60 fps-ra arte, MP3 / AAC / Opus formatuan, edo behar duzun zatia bakarrik. **Arakatu YouTube edo beste edozein gune Arroxy-ren barruan** Esploratu fitxan, eta deskargatu ikusten ari zaren bideoa, erreprodukzio-zerrenda edo kanala; hasi saioa hor zure kontuak dagoeneko ikus ditzakeen bideoak deskargatzeko. Zure ordenagailuan exekutatzen da, Windows, macOS eta Linux-en. **Iragarkirik gabe, zama alferrik gabe, ordainpeko eskaintzarik gabe.**",
   cta_latest: "↓ Instalatu azken bertsioa",
   cta_website: "Webgunea",
   website_url: "https://arroxy.com/",
@@ -105,7 +105,7 @@ export const eu = {
   intro_what_is:
     "**Zer da Arroxy?** Arroxy kode irekiko mahaigaineko GUI doakoa da, eta bideoak, audioa, erreprodukzio-zerrendak eta azpitituluak deskargatzen ditu YouTube-tik eta [yt-dlp](https://github.com/yt-dlp/yt-dlp) onartzen duten beste 2000+ gunetatik. Windows 10/11, macOS 13+ (Intel + Apple Silicon) eta Linux (AppImage, Flatpak, tar.gz) sistemetan exekutatzen da. GPLv3 lizentziapean. Iragarkirik gabe, erabilera-mugarik gabe. Hauen bidez banatzen da: [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage eta zuzeneko deskarga.",
   intro_key_difference:
-    "**Alde nagusia: nabigatzaile integratua.** YouTube-ren deskargatzaile libre gehienak yt-dlp-ren gaineko wrapper meheak dira: URL kutxa bat eta formatu-menu bat, nabigatzaile propiorik gabe. Arroxy-k bat du, **Esploratu fitxa**. YouTube edo beste edozein gune aplikazioaren barruan arakatzen duzu eta ikusten ari zaren bideoa, erreprodukzio-zerrenda edo kanala deskargatzen duzu, edo edozein estekatan eskuineko botoia sakatzen duzu. Esploratu fitxan behin hasten duzu saioa, eta Arroxy-k zure kontuak ikus ditzakeen bideo pribatuak, bazkideentzakoak eta adin-murrizketadunak deskargatzen ditu, baita zure Ikusteko geroago eta Gustuko zerrendak ere, cookie-ak esportatu gabe. Hasi saioa beste guneetan ere hor, eta haien deskargek saio hori erabiliko dute behar dutenean. YouTube-k bot ez zarela berresteko eskatzen duenean, Arroxy-k saio horrekin berriro saiatzen da. Nabigatzaile integratuak YouTube-k deskarga baino lehen espero duen tokena ere lortzen du, YouTube-k deskarga formatu gutxiagora mugatu ez dezan. URL kutxa bateko wrapper batek muga horiek guztiak jotzen ditu. Xehetasunak: [Zergatik Arroxy](#why-explore).",
+    "**Alde nagusia: nabigatzaile integratua.** YouTube-ren deskargatzaile libre gehienak yt-dlp-ren gaineko wrapper meheak dira: URL kutxa bat eta formatu-menu bat, nabigatzaile propiorik gabe. Arroxy-k bat du, **Esploratu fitxa**. YouTube edo beste edozein gune aplikazioaren barruan arakatzen duzu eta ikusten ari zaren bideoa, erreprodukzio-zerrenda edo kanala deskargatzen duzu, edo edozein estekatan eskuineko botoia sakatzen duzu. Esploratu fitxan behin saioa hasten baduzu, kontu bat behar duten deskargek saio hori erabiltzen dute: bideo pribatuak, Ikusteko geroago eta Gustuko zerrendak eta zure kontuak dagoeneko ikus ditzakeen beste bideo batzuk, cookie-ak esportatu gabe. Hasi saioa beste guneetan ere hor, eta haien deskargek saio hori erabiliko dute behar dutenean. Xehetasunak: [Zergatik Arroxy](#why-explore).",
   last_updated: "Azken eguneratzea: {{LAST_UPDATED}}.",
   toc_heading: "Edukia",
   why_h2: "Zergatik Arroxy",
@@ -123,20 +123,16 @@ export const eu = {
   why_r6: "Plataforma anitzeko mahaigaineko aplikazioa",
   why_r7: "Azpitituluak + SponsorBlock",
   why_r8: "Nabigatzaile integratua (arakatu, hasi saioa, deskargatu)",
-  why_r9: "Bideo pribatuak, bazkideentzakoak eta adin-murrizketadunak cookie-ak esportatu gabe",
+  why_r9: "Zure kontuak ikus ditzakeen bideoak, cookie-ak esportatu gabe",
   why_table_note:
     "⚠️ = zati batean, edo ordainpeko mailan bakarrik. 4K Video Downloader-en aplikazioko saio-hasiera bideo pribatuetarako ordainpeko eginbide bat da; yt-dlp-ren GUI libre gehienek cookie-fitxategi bat bakarrik onartzen dute, edo zure web-nabigatzailearen cookie-ak irakurtzen dituzte.",
   why_summary:
     "Arroxy gauza bakar baterako eraiki da: tokiko fitxategi garbi bat, URL bat itsatsi edo bideoa Esploratu fitxan aurkitu. Ordainpeko eskaintzarik gabe, daturik bildu gabe.",
   why_explore_h3: "yt-dlp-ren inguruko wrapper soil batek egin ezin duena: Esploratu fitxa",
   why_explore_intro:
-    "YouTube-ren deskargatzaile libre gehienak yt-dlp-ren gaineko URL kutxa bat dira. Arroxy-k ere yt-dlp erabiltzen du, baina **Esploratu** ere badu: aplikazioan integratutako nabigatzaile bat, YouTube edo beste edozein gune irekitzen duena. Esploratu fitxak URL kutxa batek gainditu ezin dituen mugak gainditzen ditu:",
+    "YouTube-ren deskargatzaile libre gehienak yt-dlp-ren gaineko URL kutxa bat dira. Arroxy-k ere yt-dlp erabiltzen du, baina **Esploratu** ere badu: aplikazioan integratutako nabigatzaile bat, YouTube edo beste edozein gune irekitzen duena. Esploratu fitxak URL kutxa batek eskaini ezin duena gehitzen du:",
   why_explore_1:
-    "**Kontu bat behar duten bideoak, cookie-ak esportatu gabe** — bideo pribatuak, bazkideentzakoak eta adin-murrizketadunak (adina egiaztatutako kontu batean), baita Ikusteko geroago eta Gustuko zerrendak ere, eta beste guneetan saio-hasiera baten atzean dauden bideoak. Wrapper soil batek cookies.txt esportazio bat behar du edo zure web-nabigatzailearen cookie-ak irakurri behar ditu, eta Windows-eko Chrome-k orain blokeatu egiten ditu. Arroxy-n behin hasten duzu saioa Esploratu fitxan eta gainerakoa berak egiten du",
-  why_explore_2:
-    "**«Sign in to confirm you're not a bot»** — YouTube-k hau eskatzen duenean, Arroxy-k deskarga berriro saiatzen du zure Esploratu fitxako saioarekin, huts egin beharrean",
-  why_explore_3:
-    "**YouTube-ren deskarga-tokena** — Arroxy-ren nabigatzaile integratuak YouTube-k deskarga baino lehen espero duen tokena lortzen du. Hori gabe, YouTube-k formatu gutxiago eta kalitate baxuagoa eskain ditzake eskatu duzuna baino",
+    "**Zure kontuak ikus ditzakeen bideoak, cookie-ak esportatu gabe** — bideo pribatuak, Ikusteko geroago eta Gustuko zerrendak, adin-murrizketadun bideoak adina egiaztatutako kontu batean, eta zure saio-hasiera behar duten beste guneetako orriak. Wrapper soil batek cookies.txt esportazio bat behar du edo zure web-nabigatzailearen cookie-ak irakurtzen ditu. Arroxy-n behin hasten duzu saioa Esploratu fitxan eta gainerakoa berak egiten du",
   why_explore_4:
     "**Estekak kopiatu gabe** — bilatu bideo, erreprodukzio-zerrenda edo kanal bat Esploratu fitxan eta deskargatu klik batekin, edo egin klik eskuineko botoiarekin orriko edozein estekatan",
   why_explore_5:
@@ -151,7 +147,7 @@ export const eu = {
   feat_explore_2:
     "**Helbide-barra** — idatzi YouTube-n bilatzeko, edo sartu edozein web-helbide gune hori irekitzeko",
   feat_explore_3:
-    "**Kontu bat behar duten deskargak** — hasi saioa behin Esploratu fitxan eta Arroxy-k zure kontuak ikus ditzakeen bideo pribatuak eta bazkideentzakoak deskargatu ahal izango ditu, adin-murrizketadunak kontuaren adina egiaztatuta badago, eta Ikusteko geroago eta Gustuko zerrendak. Hasi saioa beste guneetan ere hor, eta haien deskargek saio hori erabiliko dute behar dutenean. Arroxy-k saiorik gabe deskargatzen du lehenik, eta zure Esploratu fitxako saioa kontu batek konpon dezakeen moduan deskarga batek huts egiten duenean bakarrik erabiltzen du. YouTube-k bot ez zarela berresteko eskatzen duenean, Arroxy-k zure Esploratu fitxako saioa ere probatzen du",
+    "**Kontu bat behar duten deskargak** — hasi saioa behin Esploratu fitxan eta Arroxy-k zure kontuak ikus ditzakeen bideoak deskargatu ahal izango ditu: bideo pribatuak, adin-murrizketadunak kontuaren adina egiaztatuta badago, eta Ikusteko geroago eta Gustuko zerrendak. Hasi saioa beste guneetan ere hor, eta haien deskargek saio hori erabiliko dute behar dutenean. Arroxy-k saiorik gabe deskargatzen du lehenik, eta zure Esploratu fitxako saioa kontu batek konpon dezakeen moduan deskarga batek huts egiten duenean bakarrik erabiltzen du",
   feat_explore_4:
     "**Erabili bigarren mailako kontu bat** — Esploratu fitxaren lehen pantailak zergatik azaltzen du: kontu batekin deskargatzeak kontu hori mugatua izateko arrisku bat dakar. Amaitu Esploratu fitxako saioa Ezarpenetan zure saio-hasierak ahazteko nahi duzunean",
   feat_explore_5:
@@ -196,7 +192,7 @@ export const eu = {
   feat_workflow_10:
     "**Aldi berako deskargak eta berriro saiatze automatikoa** — aukeratu ilarako zenbat deskarga exekutatzen diren aldi berean, eta utzi Arroxy-ri sareko edo zerbitzariko arazo bat izan duen deskarga bat berriro saiatzen, saiakera bakoitzaren aurretik gero eta gehiago itxaroten",
   feat_workflow_11:
-    "**Erreprodukzio-zerrendako elementu bakoitzeko profilak** — esleitu erreprodukzio-zerrendako bideo bakoitzari bere deskarga-profila zerrenda osorako ezarpen bakarraren ordez, pasaldi bakarrean batzuk kalitate osoz artxibatu eta gainerakoak MP3 gisa hartzeko",
+    "**Erreprodukzio-zerrendako elementu bakoitzeko profilak** — esleitu erreprodukzio-zerrendako bideo bakoitzari bere deskarga-profila zerrenda osorako ezarpen bakarraren ordez, pasaldi bakarrean batzuk kalitate osoz artxibatu eta gainerakoak audio soilik gisa gordetzeko",
   feat_workflow_13:
     "**Deskarga bizkorra atzeko planoan dabil** — esteka Deskargak fitxan agertzen da berehala eta han prestatzen da, **Ikusi** duen ohar batek berresten du, eta URL eremua garbitzen da hurrengo estekarako. Hasi nahi adina lehenekoak prestatzen ari diren bitartean",
   feat_workflow_14:
@@ -228,7 +224,7 @@ export const eu = {
   feat_sites_1:
     "**YouTube, osorik** — Bideoak, Shorts, Kanalak, Erreprodukzio-zerrendak, YouTube Music eta Podcastak lehen mailako iturri gisa kudeatuta",
   feat_sites_2:
-    "**Beste 2000+ gune** yt-dlp bidez — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable eta askoz gehiago",
+    "**Beste 2000+ gune** yt-dlp bidez — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable eta askoz gehiago",
   feat_sites_3:
     "**Audioa soilik eta azpitituluak** onartutako gune guztietan dabiltza, ez YouTube-n bakarrik",
   feat_sites_4:
@@ -249,7 +245,7 @@ export const eu = {
     "Arroxy-ren deskarga-lasterbide globala — Ctrl+Shift+D Windows eta Linux-en, Cmd+Shift+D macOS-en, kopiatutako esteka zuzenean deskarga-ilarara bidaliz",
   hotkey_fig_cap:
     "<b>Deskarga-lasterbide globala</b><br/>Kopiatu esteka bat edonon, sakatu behin — ilaran sartzen da eta deskargatzen hasten da",
-  shot7_cap: "<b>Erreprodukzio-zerrendako elementu bakoitzeko profilak</b><br/>Eman bideo bakoitzari bere profila — artxibatu batzuk 4K-n, hartu gainerakoak MP3 gisa",
+  shot7_cap: "<b>Erreprodukzio-zerrendako elementu bakoitzeko profilak</b><br/>Eman bideo bakoitzari bere profila — artxibatu batzuk 4K-n, gorde gainerakoak audio soilik gisa",
   shot8_cap:
     "<b>Esploratu</b><br/>Arakatu YouTube edo beste edozein gune Arroxy-ren barruan eta deskargatu zauden orria zure profil aktiboarekin",
   shot9_cap:
@@ -389,15 +385,15 @@ export const eu = {
 
   privacy_p1:
     "Deskargak [yt-dlp](https://github.com/yt-dlp/yt-dlp)-ren bidez zuzenean eskuratzen dira YouTube-tik zuk aukeratutako karpetara — ezer ez da hirugarren baten zerbitzaritik igarotzen. Ikusitakoen historia, deskargen historia, URLak eta fitxategien edukia zure gailuan geratzen dira.",
-  privacy_p2:
-    "Telemetriarik ez — egunean behin seinale anonimo bakarra: aplikazioaren bertsioa, sistema eragilea, hizkuntza, instalazio-kanala, herrialdea eta Arroxy gutxi gorabehera noiz instalatu zen, erabiltzaile aktiboak eta berriak zenbatu ahal izateko. Ez da IDrik, URLrik, bideo-izenbururik, fitxategi-bide-izenik edo konturik bidaltzen. Ezarpenetan desaktiba dezakezu.",
+  privacy_reports:
+    "Jarraipenik ez — egunean behin seinale anonimo bat (aplikazioaren bertsioa, sistema eragilea, hizkuntza, instalazio-kanala, herrialdea eta Arroxy gutxi gorabehera noiz instalatu zen) erabiltzaile aktiboak eta berriak zenbatu ahal izateko, eta Arroxy-k yt-dlp eta FFmpeg deskargatzen edo eguneratzen dituenean, funtzionatu duen eta gutxi gorabehera zenbat denbora behar izan duen jakinarazten duen ohar anonimo bat. Ez da IDrik, URLrik, bideo-izenbururik, fitxategi-bide-izenik edo konturik bidaltzen. Biak desaktiba ditzakezu Ezarpenetan.",
   privacy_p3:
     "Esploratu fitxak bere saio-hasierak gordetzen ditu, zure nabigatzailetik bereiziak, eta Arroxy-k ez du inoiz saio-hasiera inprimakirik irakurtzen edo betetzen — gunearen orrian bertan idazten duzu. Deskargak saiorik gabe exekutatzen dira; kontu batek konpon dezakeen moduan batek huts egiten duenean bakarrik irakurtzen du Arroxy-k saioa berriro, aldi baterako fitxategi batean gordetzen du deskarga horretarako, eta fitxategia ezabatzen du ondoren. Ezarpenetan Esploratu fitxako saioa amaitzeak ahaztu egiten ditu.",
   faq_q1: "Benetan doakoa da?",
   faq_a1: "Bai — GPLv3 lizentziarekin, ordainpeko mailarik gabe, eginbideak blokeatu gabe.",
   faq_q11: "Zertan desberdintzen da Arroxy yt-dlp-ren beste GUI-etatik?",
   faq_a11:
-    "yt-dlp-ren GUI libre gehienak esteka bat bakarrik onartzen duten wrapper-ak dira. Arroxy-k **Esploratu** gehitzen du, aplikazioan integratutako nabigatzaile bat, YouTube edo beste edozein gune irekitzen duena: estekak kopiatu gabe arakatu eta deskargatzen duzu, eta behin hasten duzu saioa hor bideo pribatuak, bazkideentzakoak eta adin-murrizketadunak, eta Ikusteko geroago eta Gustuko zerrendak deskargatzeko, cookie-ak esportatu gabe. Arroxy-k saio hori erabiltzen du YouTube-k bot ez zarela berresteko eskatzen duenean, eta bere nabigatzaile integratuak YouTube-ren deskarga-tokena lortzen du, deskargak formatu gutxiagora ez erortzeko. Ikusi [Zergatik Arroxy](#why).",
+    "yt-dlp-ren GUI libre gehienak esteka bat bakarrik onartzen duten wrapper-ak dira. Arroxy-k **Esploratu** gehitzen du, aplikazioan integratutako nabigatzaile bat, YouTube edo beste edozein gune irekitzen duena: estekak kopiatu gabe arakatu eta deskargatzen duzu, eta behin hasten duzu saioa hor zure kontuak ikus ditzakeen bideoak deskargatzeko, hala nola bideo pribatuak eta Ikusteko geroago eta Gustuko zerrendak, cookie-ak esportatu gabe. Ikusi [Zergatik Arroxy](#why).",
   faq_q2: "Zer bideo-kalitate deskarga ditzaket?",
   faq_a2:
     "YouTube-k zerbitzatzen duen edozein: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, eta audioa soilik. 60 fps-ko eta HDR korronteak dauden bezala mantentzen dira, eta urratsez urratseko deskargak AV1, VP9 edo H.264 aukeratzen uzten du bereizmen bakoitzean.",
@@ -406,10 +402,10 @@ export const eu = {
     "Bai. Aukeratu *audioa soilik* formatu-menuan eta hautatu MP3, M4A/AAC, Opus edo WAV.",
   faq_q4: "Nola deskargatu YouTube kontu bat behar duten bideoak?",
   faq_a4:
-    "Hasi saioa behin Esploratu fitxan. Arroxy-k orduan zure kontuak ikus ditzakeen bideo pribatuak eta bazkideentzakoak deskargatu ditzake, adin-murrizketadunak kontuaren adina egiaztatuta badago, eta Ikusteko geroago eta Gustuko zerrendak. Saioa kontu batek konpon dezakeen moduan deskarga batek huts egiten duenean bakarrik erabiltzen du; gainerako guztia lehen bezala deskargatzen da. Hau da cookie-en ezarpenetan lehenik zerrendatutako eta Gomendatua markarekin dagoen **Esploratu fitxako saioa** aukera, eta Arroxy-k zuretzat aukeratzen du Esploratu fitxa lehen aldiz irekitzen duzunean. yt-dlp-ren wikiak dio [saioa hasita duen automatizazioak Google kontu bat markatu dezakeela](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), beraz bigarren mailako kontu bat aukera seguruagoa da.",
+    "Hasi saioa behin Esploratu fitxan. Arroxy-k orduan zure kontuak ikus ditzakeen bideoak deskargatu ditzake: bideo pribatuak, adin-murrizketadunak kontuaren adina egiaztatuta badago, eta Ikusteko geroago eta Gustuko zerrendak. Saioa kontu batek konpon dezakeen moduan deskarga batek huts egiten duenean bakarrik erabiltzen du; gainerako guztia lehen bezala deskargatzen da. Hau da cookie-en ezarpenetan lehenik zerrendatutako eta Gomendatua markarekin dagoen **Esploratu fitxako saioa** aukera, eta Arroxy-k zuretzat aukeratzen du Esploratu fitxa lehen aldiz irekitzen duzunean. yt-dlp-ren wikiak dio [saioa hasita duen automatizazioak Google kontu bat markatu dezakeela](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), beraz bigarren mailako kontu bat aukera seguruagoa da.",
   faq_q5: "Funtzionatzen jarraituko du YouTube-k zerbait aldatzen duenean?",
   faq_a5:
-    "yt-dlp automatikoki eguneratzen da abioan, eta Arroxy-k konponketak azkar kaleratzen ditu YouTube-k zerbait aldatzen duenean. YouTube-k bot ez zarela berresteko eskatzen duenean, Arroxy-k zure Esploratu fitxako saioa ere probatzen du hor saioa hasi baduzu, eta fitxategi bateko edo zure nabigatzaileko cookie-ak erabilgarri daude cookie-en ezarpenetan.",
+    "yt-dlp automatikoki eguneratzen da abioan, eta Arroxy-k konponketak azkar kaleratzen ditu YouTube-k zerbait aldatzen duenean. Deskarga batek saio-hasiera behar duenean, Arroxy-k zure Esploratu fitxako saioa erabiltzen du hor saioa hasi baduzu, eta fitxategi bateko edo zure nabigatzaileko cookie-ak erabilgarri daude cookie-en ezarpenetan.",
   faq_q6: "Zer hizkuntzatan dago eskuragarri Arroxy?",
   faq_a6:
     "{{LANG_COUNT}} hizkuntza, kutxatik atera bezala: {{LANG_NAME_LIST}}. Arroxy-k zure sistema eragilearen hizkuntza automatikoki detektatzen du lehen abioan eta edonoiz alda dezakezu tresna-barrako hizkuntza-hautatzailetik. Exekuzio-denborako hizkuntza JSON-a src/shared/i18n/locales/ karpetan dago, eta itzultzaileentzako PO katalogoak i18n/locales/ karpetan — ireki PR bat GitHub-en laguntzeko.",
@@ -424,7 +420,7 @@ export const eu = {
     "Hori macOS Gatekeeper-ek sinatu gabeko aplikazio bat blokeatzea da, ez benetako hondaketa. Ikusi [macOS-en lehen abioa](#macos-first-launch) koarentena garbitzen eta Arroxy abiarazten duten Terminaleko komandoetarako.",
   faq_q10: "Legezkoa al da YouTube bideoak deskargatzea?",
   faq_a10:
-    "Erabilera pertsonal eta pribaturako, jurisdikzio gehienetan orokorrean onartzen da. Zu zara YouTube-ren [Zerbitzu-baldintzak](https://www.youtube.com/t/terms) eta zure tokiko copyright-legeak betetzearen arduraduna.",
+    "Zure herrialdearen eta deskargatzen duzunaren araberakoa da. Deskargatu zureak diren edukiak, deskargatzeko lizentzia duten edukiak edo zure herrialdeko legeak kopiatzen uzten dizkizunak bakarrik. Zu zara YouTube-ren [Zerbitzu-baldintzak](https://www.youtube.com/t/terms) eta zure tokiko copyright-legeak betetzearen arduraduna. Ikusi [Erabilera-baldintzak](#terms).",
   plan_intro: "Oraindik planifikatuta — lehentasun-ordenaren arabera, gutxi gorabehera:",
   plan_col1: "Eginbidea",
   plan_col2: "Deskribapena",
@@ -447,7 +443,7 @@ export const eu = {
     "Eginbide baten ideia duzu? [Ireki eskaera bat](../../issues) — komunitatearen ekarpenek lehentasuna moldatzen dute.",
   tech_content: TECH_CONTENT,
   support_h2: "Lagundu Arroxy",
-  support_note: "Arroxy doakoa eta GPLv3 lizentziakoa da — iragarkirik, telemetriarik edo ordainpeko mailarik gabe. Denbora aurrezten badizu, garapena lagun dezakezu Bitcoin, Tron edo Ethereum bidez: helbideak [DONATE.md](DONATE.md) fitxategian daude, eta hori da horien iturri ofizial bakarra. Arroxy-k ez dizu inoiz helbiderik bidaliko posta elektronikoz edo mezu zuzenez. Biltegiari izarra ematea, akatsak jakinaraztea eta itzulpenak hobetzea berdin laguntzen dute.",
+  support_line: "Arroxy doakoa eta GPLv3 lizentziakoa da — iragarkirik, jarraipenik edo ordainpeko mailarik gabe. Denbora aurrezten badizu, garapena lagun dezakezu Bitcoin, Tron edo Ethereum bidez: helbideak [DONATE.md](DONATE.md) fitxategian daude, eta hori da horien iturri ofizial bakarra. Arroxy-k ez dizu inoiz helbiderik bidaliko posta elektronikoz edo mezu zuzenez. Biltegiari izarra ematea, akatsak jakinaraztea eta itzulpenak hobetzea berdin laguntzen dute.",
   tos_h2: "Erabilera-baldintzak",
   tos_note:
     "Arroxy erabilera pertsonal eta pribaturako tresna bat da soilik. Zu zara bakarrik zure deskargek YouTube-ren [Zerbitzu-baldintzak](https://www.youtube.com/t/terms) eta zure jurisdikzioko copyright-legeak betetzen dituztela ziurtatzeko erantzule. Ez erabili Arroxy erabiltzeko eskubiderik ez duzun edukia deskargatzeko, erreproduzitzeko edo banatzeko. Garatzaileak ez dira erantzule erabilera okerragatik.",

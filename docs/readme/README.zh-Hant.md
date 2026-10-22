@@ -9,7 +9,7 @@
 
 [![釋出](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![建置](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![官網](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![授權條款](https://img.shields.io/badge/license-GPLv3-blue) ![平台](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![語言](https://img.shields.io/badge/i18n-50_languages-blue)
 
-從 **YouTube 和 2000+ 個支援的網站**下載影片、Shorts、音樂、頻道、Podcast或音軌 — 最高 8K HDR 60 fps，可匯出為 MP3 / AAC / Opus，也可以只下載你需要的片段。在 Explore 分頁中**在 Arroxy 內瀏覽 YouTube 或任何其他網站**，下載你正在看的影片、播放清單或頻道；在那裡登入後，還能下載你的帳號可觀看的私人、會員專屬和年齡限制影片。在 Windows、macOS 和 Linux 本機執行。**無廣告、無臃腫、無付費推銷。**
+從 **YouTube 和 2000+ 個支援的網站**下載影片、Shorts、頻道、Podcast或音軌 — 最高 8K HDR 60 fps，可匯出為 MP3 / AAC / Opus，也可以只下載你需要的片段。在 Explore 分頁中**在 Arroxy 內瀏覽 YouTube 或任何其他網站**，下載你正在看的影片、播放清單或頻道；在那裡登入後，就能下載你的帳號本來就能觀看的影片。在 Windows、macOS 和 Linux 本機執行。**無廣告、無臃腫、無付費推銷。**
 
 [**↓ 下載最新版本**](#install) &nbsp;·&nbsp; [**官網**](https://arroxy.com/) &nbsp;·&nbsp; [Windows 首次啟動](#windows-first-launch) · [macOS 首次啟動](#macos-first-launch) · [Linux 首次啟動](#linux-first-launch)
 
@@ -28,7 +28,7 @@
 
 > **Arroxy 是什麼？** Arroxy 是一款免費、開源的桌面 GUI，可從 YouTube 以及 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 支援的 2000 多個其他網站下載影片、音訊、播放清單和字幕。支援 Windows 10/11、macOS 13+（Intel + Apple Silicon）與 Linux（AppImage、Flatpak、tar.gz）。採用 GPLv3 授權。無廣告，無使用限制。可透過 [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy)、[Scoop](https://github.com/antonio-orionus/scoop-bucket)、[Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy)、Flatpak、AppImage 及直接下載取得。
 >
-> **關鍵差異：內建瀏覽器。** 多數免費 YouTube 下載器只是單薄的 yt-dlp 包裝程式：一個網址輸入框加一個格式選單，沒有自己的瀏覽器。Arroxy 有，就是 **Explore 分頁**。你可以在應用程式內瀏覽 YouTube 或任何其他網站，直接下載目前所在的影片、播放清單或頻道，或對任何連結按右鍵。你只要在 Explore 登入一次，Arroxy 就能下載你的帳號可觀看的私人、會員專屬與年齡限制影片，以及你的「稍後觀看」和「喜歡的影片」清單，無需匯出 Cookie。你也可以在 Explore 登入其他網站，這些網站的下載在需要時會使用該登入。當 YouTube 要求確認你不是機器人時，Arroxy 會用該登入重試。其內建瀏覽器還會在下載前取得 YouTube 所期待的權杖，因此 YouTube 不會把下載縮減為較少的格式。只有網址輸入框的包裝程式會碰上這些所有限制。詳情：[為什麼選 Arroxy](#why-explore)。
+> **關鍵差異：內建瀏覽器。** 多數免費 YouTube 下載器只是單薄的 yt-dlp 包裝程式：一個網址輸入框加一個格式選單，沒有自己的瀏覽器。Arroxy 有，就是 **Explore 分頁**。你可以在應用程式內瀏覽 YouTube 或任何其他網站，直接下載目前所在的影片、播放清單或頻道，或對任何連結按右鍵。如果你在 Explore 登入一次，需要帳號的下載就會使用該登入：你的私人影片、你的「稍後觀看」和「喜歡的影片」清單，以及你的帳號本來就能觀看的其他影片，無需匯出 Cookie。你也可以在 Explore 登入其他網站，這些網站的下載在需要時會使用該登入。詳情：[為什麼選 Arroxy](#why-explore)。
 >
 > _最後更新：2026-10-22。_
 
@@ -81,7 +81,7 @@
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxy 全域下載快速鍵 — Windows 和 Linux 上按 Ctrl+Shift+D，macOS 上按 Cmd+Shift+D，把複製的連結直接送入下載佇列" width="760" /></picture><br/><sub><b>全域下載快速鍵</b><br/>隨處複製連結，按一次——立即進入佇列並開始下載</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/zh-Hant/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>播放清單逐項設定</b><br/>為每個影片指定各自的設定——部分存為 4K，其餘轉成 MP3</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/zh-Hant/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>播放清單逐項設定</b><br/>為每個影片指定各自的設定——部分存為 4K，其餘僅存為音訊</sub></td>
   </tr>
   <tr>
     <td width="50%" valign="top" align="center"><img src="../../build/screenshots/zh-Hant/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>快速下載首頁</b><br/>貼上網址，用目前設定一鍵下載</sub></td>
@@ -104,7 +104,7 @@
 - **按右鍵下載** — 在 Explore 中對任何影片、播放清單或頻道連結按右鍵，即可用你的設定下載、從 **使用設定檔下載** 選擇其他設定、開啟逐步下載，或複製連結。不必先逐一開啟影片
 - **精簡版面** — 在 Explore 工具列按一下，就會把 Arroxy 的分頁移進去，讓頁面有更多空間
 - **位址列** — 輸入文字即可搜尋 YouTube，或輸入任何網址開啟該網站
-- **需要帳號的下載** — 在 Explore 登入一次，Arroxy 就能下載你的帳號可觀看的私人與會員專屬影片、已通過年齡驗證帳號可看的年齡限制影片，以及你的「稍後觀看」和「喜歡的影片」清單。你也可以在 Explore 登入其他網站，這些網站的下載在需要時會使用該登入。Arroxy 仍會先以未登入狀態下載，只有在下載因帳號可解決的原因失敗時，才會使用你在 Explore 的登入。當 YouTube 要求確認你不是機器人時，Arroxy 也會嘗試使用你在 Explore 的登入
+- **需要帳號的下載** — 在 Explore 登入一次，Arroxy 就能下載你的帳號可觀看的影片：你的私人影片、已通過年齡驗證的帳號可看的年齡限制影片，以及你的「稍後觀看」和「喜歡的影片」清單。你也可以在 Explore 登入其他網站，這些網站的下載在需要時會使用該登入。Arroxy 仍預設先在未登入狀態下下載，只有當下載因帳號可解決的原因失敗時才會使用你在 Explore 的登入
 - **建議使用備用帳號** — Explore 的首屏會說明原因：使用帳號下載有一定風險，該帳號可能被限制。想清除所有登入時，隨時可在設定中登出 Explore
 - **廣告攔截** — 預設關閉。點一下 Explore 工具列上的盾牌，即可攔截其頁面上的廣告和追蹤器，不影響下載。對已登入的帳號，YouTube 可能會抵制廣告攔截
 
@@ -145,7 +145,7 @@
 - **速度和節奏控制** — 限制下載頻寬、設定同時取得影片的分段數量，並用預設新增請求延遲（*關閉 · 平衡 · 謹慎 · 自訂*）
 - **檔名模板** — 使用 `{title}`、`{uploader}`、`{id}`、`{date}`、`{year}`、`{resolution}`、`{site}`、`{categories}`、`{artist}`、`{album}`、`{track}` 和 `{playlist_index}` 依你的方式命名下載檔案，可全域設定或按下載設定分別設定
 - **同時下載數與自動重試** — 選擇佇列中同時進行的下載數量，讓遇到網路或伺服器問題的下載由 Arroxy 自動重試，每次嘗試前等待更久
-- **播放清單逐項設定** — 為播放清單中的每個影片分配各自的下載設定，而不是整份清單用同一套設定，一次即可將部分影片存為最高畫質、其餘轉成 MP3
+- **播放清單逐項設定** — 為播放清單中的每個影片分配各自的下載設定，而不是整份清單用同一套設定，一次即可將部分影片存為完整畫質、其餘僅存為音訊
 - **Quick Download 在背景執行** — 連結會立即出現在「下載」中並在那裡準備，附有 **檢視** 的提示加以確認，URL 輸入框隨即清空，方便貼上下一個連結。前面的還在準備時，可以繼續開始任意多個
 - **「下載」會告訴你哪些需要處理** — Arroxy 讀取不了某個連結時，該列會說明原因並提供解決辦法：重試、開啟 Cookie，或在 Explore 登入。Cookie 關閉時，登入後點選 **使用 Explore 登入** 會幫你重試。超過載入上限的播放清單會在其所在列等你選擇：全部、前幾個，或先檢閱。「下載」分頁會顯示等你處理的列數
 - **只下載影片的一部分** — 在「Format」畫面選擇開始與結束時間或某個章節，Arroxy 就只儲存該範圍，檔名會在影片 ID 後加上該範圍。剪輯點會落在最近的關鍵影格上；開啟精確剪輯則改為重新編碼
@@ -172,7 +172,7 @@
 <summary><strong>🌐 YouTube + 2000 個網站</strong></summary>
 
 - **YouTube，全面支援** — 影片、Shorts、頻道、播放清單、YouTube Music 和Podcast作為一等來源處理
-- **透過 yt-dlp 支援 2000+ 個其他網站** — Twitch、TikTok、Dailymotion、VK、SoundCloud、Bandcamp、Bilibili、archive.org、Streamable 等眾多網站
+- **透過 yt-dlp 支援 2000+ 個其他網站** — Twitch、TikTok、Dailymotion、VK、SoundCloud、Bandcamp、archive.org、Streamable 等眾多網站
 - **僅音訊和字幕**在所有支援的網站上均可使用，不限於 YouTube
 - 若某個網站發生變化，yt-dlp 每週釋出修復，Arroxy 在啟動時自動更新二進位檔
 
@@ -366,7 +366,7 @@ sha256sum Arroxy-linux-x64.AppImage
 |            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | 內建瀏覽器（瀏覽、登入、下載） |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
-| 不必匯出 Cookie 即可下載私人、會員專屬與年齡限制影片 |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
+| 不必匯出 Cookie，就能下載你的帳號可觀看的影片 |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
 | 免費，無付費版 |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | 開源 |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | 僅本機處理 |   ✅   |           ✅            |         ✅          |     ✅      |             ❌             |         ✅         |
@@ -380,9 +380,9 @@ Arroxy 只做一件事：無論你是貼上連結，還是在 Explore 中找到�
 
 ### <a id="why-explore"></a>🧭 單純的 yt-dlp 包裝程式做不到的事：Explore 分頁
 
-多數免費的 YouTube 下載器只是在 yt-dlp 之上加一個網址輸入框。Arroxy 同樣使用 yt-dlp，但它還有 **Explore**，一個內建於應用程式中的瀏覽器，可開啟 YouTube 或任何其他網站。Explore 能繞過單靠網址輸入框無法應付的限制：
+多數免費的 YouTube 下載器只是在 yt-dlp 之上加一個網址輸入框。Arroxy 同樣使用 yt-dlp，但它還有 **Explore**，一個內建於應用程式中的瀏覽器，可開啟 YouTube 或任何其他網站。Explore 補上了網址輸入框做不到的功能：
 
-- **需要帳號的影片，不必匯出 Cookie** — 私人、會員專屬與年齡限制影片（需使用已通過年齡驗證的帳號），以及你的「稍後觀看」和「喜歡的影片」清單，以及其他網站上需要登入才能觀看的影片。單純的包裝程式需要你匯出 cookies.txt，或讀取你網頁瀏覽器中的 Cookie，而 Windows 上的 Chrome 現在會封鎖這種讀取。在 Arroxy 中，你只要在 Explore 登入一次，其餘的都交給它處理
+- **不必匯出 Cookie，就能下載你的帳號可觀看的影片** — 你的私人影片、你的「稍後觀看」和「喜歡的影片」清單、已通過年齡驗證的帳號上的年齡限制影片，以及其他網站上需要你登入的頁面。單純的包裝程式需要你匯出 cookies.txt，或讀取你網頁瀏覽器中的 Cookie。在 Arroxy 中，你只要在 Explore 登入一次，其餘的都交給它處理
 - **不必複製連結** — 在 Explore 中找到影片、播放清單或頻道，一鍵即可下載，或對頁面上的任何連結按右鍵
 - **需要時再開啟廣告攔截** — 點一下盾牌，Explore 就會攔截其頁面上的廣告和追蹤器
 
@@ -392,7 +392,7 @@ Arroxy 只做一件事：無論你是貼上連結，還是在 Explore 中找到�
 
 下載透過 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 直接從 YouTube 取得到你選擇的資料夾 — 不經過任何第三方伺服器。觀看歷史、下載歷史、URL 和檔案內容均保留在你的裝置上。
 
-No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
+不追蹤 — 每天只傳送一次匿名心跳訊號（應用程式版本、OS、語言、安裝管道、國家/地區，以及 Arroxy 大約是多久前安裝的），用來統計活躍使用者和新使用者；Arroxy 下載或更新 yt-dlp 和 FFmpeg 時，也會傳送一則匿名記錄，說明是否成功以及大約耗時。不包含 ID、URL、影片標題、檔案路徑或帳號資訊。你可以在設定中關閉這兩項。
 
 Explore 有自己獨立的登入，與你的瀏覽器分開，Arroxy 不會讀取或填寫登入表單 — 你是在 該網站自己的頁面上輸入。下載在未登入狀態下進行；只有在下載因帳號可解決的原因失敗時，Arroxy 才會重新讀取該登入，把它放進僅供該次下載使用的暫存檔，並在之後刪除該檔案。在設定中登出 Explore 即可清除這些登入。
 
@@ -410,7 +410,7 @@ Explore 有自己獨立的登入，與你的瀏覽器分開，Arroxy 不會讀�
 <details>
 <summary><strong>Arroxy 和其他 yt-dlp 圖形介面有什麼不同？</strong></summary>
 
-多數免費的 yt-dlp 圖形介面只是接收連結的包裝程式。Arroxy 加入了 **Explore**，一個內建於應用程式中的瀏覽器，可開啟 YouTube 或任何其他網站：你可以邊瀏覽邊下載，不必複製連結；只要在其中登入一次，就能下載私人、會員專屬與年齡限制影片，以及你的「稍後觀看」和「喜歡的影片」清單，完全不必匯出 Cookie。當 YouTube 要求你確認自己不是機器人時，Arroxy 會使用這個登入；它的內建瀏覽器也會取得 YouTube 的下載權杖，讓下載不會退回到較少的格式。請參閱[為什麼選 Arroxy](#why)。
+多數免費的 yt-dlp 圖形介面只是接收連結的包裝程式。Arroxy 加入了 **Explore**，一個內建於應用程式中的瀏覽器，可開啟 YouTube 或任何其他網站：你可以邊瀏覽邊下載，無需複製連結；只要在其中登入一次，就能下載你的帳號可觀看的影片，例如你的私人影片，以及你的「稍後觀看」和「喜歡的影片」清單，無需匯出 Cookie。參見[為什麼選 Arroxy](#why)。
 
 </details>
 
@@ -431,14 +431,14 @@ YouTube 提供的都行：8K（4320p）、4K UHD（2160p）、1440p、1080p、72
 <details>
 <summary><strong>如何下載需要 YouTube 帳號的影片？</strong></summary>
 
-在 Explore 分頁中登入一次。之後 Arroxy 就能下載你的帳號可觀看的私人與會員專屬影片、已通過年齡驗證帳號可看的年齡限制影片，以及你的「稍後觀看」和「喜歡的影片」清單。只有在下載因帳號可解決的原因失敗時才會使用該登入，其他下載與之前一樣。這就是 Cookie 設定中的 **Explore 登入** 選項，排在第一位並標有「建議」，首次開啟 Explore 時 Arroxy 會為你選取它。yt-dlp 的 wiki 指出[已登入狀態下的自動化可能會標記 Google 帳號](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)，因此使用備用帳號是更安全的選擇。
+在 Explore 分頁中登入一次。之後 Arroxy 就能下載你的帳號可觀看的影片：你的私人影片、已通過年齡驗證的帳號可看的年齡限制影片，以及你的「稍後觀看」和「喜歡的影片」清單。只有當下載因帳號可解決的原因失敗時才會使用該登入，其他下載與之前一樣。這就是 Cookie 設定中的 **Explore 登入** 選項，排在第一位並標有「推薦」，首次開啟 Explore 時 Arroxy 會為你選取它。yt-dlp 的 wiki 指出[已登入狀態下的自動化可能會標記 Google 帳號](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)，因此使用備用帳號是更安全的選擇。
 
 </details>
 
 <details>
 <summary><strong>YouTube 更新後還能繼續使用嗎？</strong></summary>
 
-yt-dlp 在啟動時自動更新，YouTube 一旦發生變化，Arroxy 會及時釋出修復。YouTube 要求確認你不是機器人時，如果你已在 Explore 登入，Arroxy 也會嘗試使用該登入；Cookie 設定中還可使用來自檔案或瀏覽器的 Cookie。
+yt-dlp 在啟動時自動更新，YouTube 一旦發生變化，Arroxy 會及時釋出修復。當下載需要登入時，如果你已在 Explore 中登入，Arroxy 會使用該登入；Cookie 設定中還可使用來自檔案或瀏覽器的 Cookie。
 
 </details>
 
@@ -473,7 +473,7 @@ yt-dlp 在啟動時自動更新，YouTube 一旦發生變化，Arroxy 會及時�
 <details>
 <summary><strong>下載 YouTube 影片合法嗎？</strong></summary>
 
-在大多數地區，個人私人使用一般被接受。你需要自行負責遵守 YouTube 的[服務條款](https://www.youtube.com/t/terms)及當地版權法律。
+這取決於你所在的國家以及你下載的內容。只下載你自己擁有的內容、已獲授權下載的內容，或你所在國家的法律允許你複製的內容。你需要自行負責遵守 YouTube 的[服務條款](https://www.youtube.com/t/terms)及當地著作權法律。參見[使用條款](#terms)。
 
 </details>
 
@@ -498,7 +498,7 @@ yt-dlp 在啟動時自動更新，YouTube 一旦發生變化，Arroxy 會及時�
 
 ## <a id="support"></a>💖 支援 Arroxy
 
-Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
+Arroxy 完全免費並採用 GPLv3 授權條款 —— 沒有廣告、沒有追蹤、沒有付費版本。如果它為你節省了時間，你可以透過 Bitcoin、Tron 或 Ethereum 支持它的開發：位址見 [DONATE.md](../../DONATE.md)，這是唯一的官方來源。Arroxy 絕不會透過電子郵件或私訊向你傳送位址。為儲存庫加星、回報問題和改進翻譯同樣有幫助。
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

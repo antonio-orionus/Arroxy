@@ -9,7 +9,7 @@
 
 [![릴리스](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![빌드](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![웹사이트](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![라이선스](https://img.shields.io/badge/license-GPLv3-blue) ![플랫폼](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![언어](https://img.shields.io/badge/i18n-50_languages-blue)
 
-**YouTube 및 지원되는 2000개 이상의 사이트**에서 동영상, Shorts, 음악, 채널, 팟캐스트 또는 오디오 트랙을 다운로드하세요. 60 fps 8K HDR까지, MP3 / AAC / Opus로, 또는 필요한 부분만 저장할 수 있습니다. Explore 탭에서 **Arroxy 안에서 YouTube나 다른 사이트를 둘러보고** 보고 있는 동영상, 재생목록 또는 채널을 다운로드하세요. 그곳에서 로그인하면 계정으로 볼 수 있는 비공개, 멤버 전용, 연령 제한 동영상도 다운로드할 수 있습니다. Windows, macOS, Linux에서 로컬로 실행됩니다. **광고도, 불필요한 기능도, 유료 전환 유도도 없습니다.**
+**YouTube 및 지원되는 2000개 이상의 사이트**에서 동영상, Shorts, 채널, 팟캐스트 또는 오디오 트랙을 다운로드하세요. 60 fps 8K HDR까지, MP3 / AAC / Opus로, 또는 필요한 부분만 저장할 수 있습니다. 탐색 탭에서 **Arroxy 안에서 YouTube나 다른 사이트를 둘러보고** 보고 있는 동영상, 재생목록 또는 채널을 다운로드하세요. 그곳에서 로그인하면 내 계정으로 이미 볼 수 있는 동영상도 다운로드할 수 있습니다. Windows, macOS, Linux에서 로컬로 실행됩니다. **광고도, 불필요한 기능도, 유료 전환 유도도 없습니다.**
 
 [**↓ 최신 릴리스 설치**](#install) &nbsp;·&nbsp; [**웹사이트**](https://arroxy.com/) &nbsp;·&nbsp; [Windows 최초 실행](#windows-first-launch) · [macOS 최초 실행](#macos-first-launch) · [Linux 최초 실행](#linux-first-launch)
 
@@ -28,7 +28,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 
 > **Arroxy란?** Arroxy는 YouTube와 [yt-dlp](https://github.com/yt-dlp/yt-dlp)가 지원하는 2000개 이상의 다른 사이트에서 동영상, 오디오, 재생목록, 자막을 다운로드하는 무료 오픈 소스 데스크톱 GUI입니다. Windows 10/11, macOS 13+(Intel + Apple Silicon), Linux(AppImage, Flatpak, tar.gz)에서 실행됩니다. GPLv3 라이선스. 광고도, 사용 제한도 없습니다. [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage 및 직접 다운로드로 배포됩니다.
 >
-> **핵심 차이: 내장 브라우저.** 대부분의 무료 YouTube 다운로더는 URL 입력창과 형식 메뉴만 있고 자체 브라우저가 없는 얇은 yt-dlp 래퍼입니다. Arroxy에는 **Explore 탭**이 있습니다. 앱 안에서 YouTube나 다른 사이트를 둘러보며 보고 있는 동영상, 재생목록, 채널을 다운로드하거나 링크를 마우스 오른쪽 버튼으로 클릭해 다운로드할 수 있습니다. Explore에서 한 번 로그인하면 Arroxy는 계정으로 볼 수 있는 비공개, 멤버 전용, 연령 제한 동영상은 물론 나중에 볼 동영상과 좋아요 표시한 동영상 목록까지 쿠키 내보내기 없이 다운로드합니다. 다른 사이트에도 그곳에서 로그인하면, 필요할 때 해당 사이트의 다운로드가 그 로그인을 사용합니다. YouTube가 봇이 아님을 확인하라고 요구하면 Arroxy는 그 로그인으로 다시 시도합니다. 내장 브라우저는 다운로드 전에 YouTube가 요구하는 토큰도 받아 오므로, YouTube가 다운로드를 더 적은 형식으로 줄이지 못합니다. URL 입력창만 있는 래퍼는 이 모든 제한에 부딪힙니다. 자세한 내용: [Arroxy를 선택하는 이유](#why-explore).
+> **핵심 차이: 내장 브라우저.** 대부분의 무료 YouTube 다운로더는 URL 입력창과 형식 메뉴만 있고 자체 브라우저가 없는 얇은 yt-dlp 래퍼입니다. Arroxy에는 **탐색 탭**이 있습니다. 앱 안에서 YouTube나 다른 사이트를 둘러보며 보고 있는 동영상, 재생목록, 채널을 다운로드하거나 링크를 마우스 오른쪽 버튼으로 클릭해 다운로드할 수 있습니다. 탐색에서 한 번 로그인하면 계정이 필요한 다운로드에 그 로그인이 사용되어, 비공개 동영상, 나중에 볼 동영상과 좋아요 표시한 동영상 목록, 그 밖에 내 계정으로 이미 볼 수 있는 동영상을 쿠키 내보내기 없이 다운로드합니다. 다른 사이트에도 그곳에서 로그인하면, 필요할 때 해당 사이트의 다운로드가 그 로그인을 사용합니다. 자세한 내용: [Arroxy를 선택하는 이유](#why-explore).
 >
 > _최종 업데이트: 2026-10-22._
 
@@ -81,7 +81,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxy 전역 다운로드 단축키 — Windows와 Linux의 Ctrl+Shift+D, macOS의 Cmd+Shift+D로 복사한 링크를 다운로드 대기열에 바로 전송" width="760" /></picture><br/><sub><b>전역 다운로드 단축키</b><br/>어디서든 링크를 복사하고 한 번 누르면 대기열에 들어가 다운로드 시작</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/ko/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>재생목록 항목별 프로필</b><br/>각 동영상에 개별 프로필을 지정해 일부는 4K로, 나머지는 MP3로 저장</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/ko/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>재생목록 항목별 프로필</b><br/>각 동영상에 개별 프로필을 지정해 일부는 4K로, 나머지는 오디오만 저장</sub></td>
   </tr>
   <tr>
     <td width="50%" valign="top" align="center"><img src="../../build/screenshots/ko/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>빠른 다운로드 홈</b><br/>URL을 붙여 넣고 활성 프로필로 즉시 다운로드</sub></td>
@@ -104,7 +104,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 - **우클릭으로 다운로드** — Explore에서 동영상, 재생목록, 채널 링크를 우클릭하면 내 프로필로 다운로드하거나, **프로필로 다운로드**에서 다른 프로필을 고르거나, 단계별 다운로드를 열거나, 링크를 복사할 수 있습니다. 영상을 하나씩 열 필요가 없습니다
 - **컴팩트 레이아웃** — Explore 도구 모음에서 한 번 클릭하면 Arroxy의 탭이 그 안으로 옮겨져 페이지 공간이 넓어집니다
 - **주소창** — 입력해서 YouTube를 검색하거나, 웹 주소를 입력해 해당 사이트를 엽니다
-- **계정이 필요한 다운로드** — Explore에서 한 번 로그인하면 Arroxy가 계정으로 볼 수 있는 비공개·멤버 전용 동영상, 연령 인증을 마친 계정의 연령 제한 동영상, 나중에 볼 동영상과 좋아요 표시한 동영상 목록까지 다운로드할 수 있습니다. 다른 사이트도 그곳에서 로그인할 수 있으며, 해당 사이트의 다운로드는 필요할 때 그 로그인을 사용합니다. Arroxy는 먼저 로그아웃 상태로 다운로드하며, 계정으로 해결할 수 있는 이유로 다운로드가 실패할 때만 Explore 로그인을 사용합니다. YouTube가 봇이 아닌지 확인을 요구할 때도 Arroxy는 Explore 로그인을 시도합니다
+- **계정이 필요한 다운로드** — 탐색에서 한 번 로그인하면 Arroxy가 계정으로 볼 수 있는 비공개 동영상, 연령 인증을 마친 계정의 연령 제한 동영상, 나중에 볼 동영상과 좋아요 표시한 동영상 목록까지 다운로드할 수 있습니다. 다른 사이트도 그곳에서 로그인할 수 있으며, 해당 사이트의 다운로드는 필요할 때 그 로그인을 사용합니다. Arroxy는 먼저 로그아웃 상태로 다운로드하며, 계정으로 해결할 수 있는 이유로 다운로드가 실패할 때만 탐색 로그인을 사용합니다
 - **보조 계정을 사용하세요** — Explore 첫 화면에서 이유를 설명합니다. 계정으로 다운로드하면 해당 계정이 제한될 위험이 어느 정도 있습니다. 로그인 정보를 지우고 싶다면 언제든 설정에서 Explore 로그아웃을 하세요
 - **광고 차단** — 기본으로 꺼져 있습니다. Explore 도구 모음의 방패를 한 번 클릭하면 Explore 페이지의 광고와 트래커를 차단하며 다운로드에는 영향이 없습니다. 로그인한 계정에는 YouTube가 광고 차단에 대응할 수 있습니다
 
@@ -145,7 +145,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 - **속도 및 간격 제어** — 다운로드 대역폭과 동시에 받는 동영상 조각 수를 제한하고, 요청 지연을 프리셋(*끄기 · 균형 · 주의 · 사용자 지정*)으로 설정
 - **파일 이름 템플릿** — `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}`, `{playlist_index}`로 전역 또는 프로필별 이름 지정
 - **동시 다운로드 및 자동 재시도** — 동시에 실행할 대기열 작업 수를 정하고, 네트워크나 서버 문제를 만난 다운로드를 매번 더 오래 기다린 뒤 Arroxy가 다시 시도
-- **재생목록 항목별 프로필** — 목록 전체에 하나의 설정을 쓰는 대신 각 동영상에 개별 프로필을 지정하여, 한 번에 일부는 최고 화질로 보관하고 나머지는 MP3로 저장
+- **재생목록 항목별 프로필** — 목록 전체에 하나의 설정을 쓰는 대신 각 동영상에 개별 다운로드 프로필을 지정하여, 한 번에 일부는 최고 화질로 보관하고 나머지는 오디오만 저장
 - **빠른 다운로드는 백그라운드에서 동작** — 링크가 곧바로 다운로드 탭에 나타나 거기서 준비되고, **보기**가 있는 알림이 확인해 주며, URL 입력란은 다음 링크를 위해 비워집니다. 앞선 항목이 준비되는 동안에도 원하는 만큼 시작할 수 있습니다
 - **다운로드 탭이 도움이 필요한 항목을 알려 줍니다** — Arroxy가 링크를 읽을 수 없으면 해당 행에 이유와 해결 방법(다시 시도, 쿠키 켜기, Explore에서 로그인)이 표시됩니다. 쿠키가 꺼져 있다면 로그인한 뒤 **Explore로 로그인**이 대신 다시 시도합니다. 불러오기 한도를 넘는 재생목록은 행에서 전체, 처음 몇 개, 검토 중 선택을 기다립니다. 다운로드 탭에는 사용자를 기다리는 행의 수가 표시됩니다
 - **동영상의 일부만 다운로드** — 형식 화면에서 시작과 종료 또는 챕터를 고르면 Arroxy가 해당 구간만 저장하며, 파일 이름에는 동영상 ID 뒤에 구간이 붙습니다. 자르기는 가장 가까운 키프레임에서 이루어지며, 정확한 자르기를 켜면 대신 재인코딩합니다
@@ -172,7 +172,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 <summary><strong>🌐 YouTube + 2000개 사이트</strong></summary>
 
 - **완전한 YouTube 지원** — 동영상, Shorts, 채널, 재생목록, YouTube Music 및 팟캐스트를 최우선 소스로 처리
-- yt-dlp를 통한 **2000개 이상의 기타 사이트** — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable 등
+- yt-dlp를 통한 **2000개 이상의 기타 사이트** — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable 등
 - **오디오 전용 및 자막**은 YouTube뿐 아니라 지원되는 모든 사이트에서 작동
 - 사이트가 변경되면 yt-dlp가 매주 수정 사항을 제공하고 Arroxy가 시작할 때 바이너리를 자동 업데이트
 
@@ -366,7 +366,7 @@ sha256sum Arroxy-linux-x64.AppImage
 |            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | 내장 브라우저(탐색, 로그인, 다운로드) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
-| 쿠키를 내보내지 않고 비공개·멤버 전용·연령 제한 동영상 다운로드 |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
+| 쿠키를 내보내지 않고 내 계정으로 볼 수 있는 동영상 다운로드 |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
 | 무료, 프리미엄 등급 없음 |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | 오픈 소스 |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | 로컬 처리만 사용 |   ✅   |           ✅            |         ✅          |     ✅      |             ❌             |         ✅         |
@@ -380,9 +380,9 @@ Arroxy는 한 가지 목적을 위해 만들어졌습니다. URL을 붙여 넣�
 
 ### <a id="why-explore"></a>🧭 단순한 yt-dlp 래퍼로는 할 수 없는 것: Explore 탭
 
-대부분의 무료 YouTube 다운로더는 yt-dlp 위에 URL 입력창을 얹은 것입니다. Arroxy도 yt-dlp를 사용하지만, 앱에 내장된 브라우저인 **Explore**도 갖추고 있으며, YouTube든 다른 사이트든 열 수 있습니다. Explore는 URL 입력창만으로는 넘을 수 없는 제한을 넘어섭니다:
+대부분의 무료 YouTube 다운로더는 yt-dlp 위에 URL 입력창을 얹은 것입니다. Arroxy도 yt-dlp를 사용하지만, 앱에 내장된 브라우저인 **탐색**도 갖추고 있으며, YouTube든 다른 사이트든 열 수 있습니다. 탐색은 URL 입력창이 하지 못하는 일을 더해 줍니다:
 
-- **계정이 필요한 동영상을 쿠키 내보내기 없이** — 비공개·멤버 전용 동영상, 연령 제한 동영상(연령 인증을 마친 계정), 나중에 볼 동영상과 좋아요 표시한 동영상 목록, 다른 사이트의 로그인이 필요한 동영상까지. 단순한 래퍼는 cookies.txt를 내보내거나 웹 브라우저의 쿠키를 읽어야 하는데, Windows의 Chrome은 이제 이를 차단합니다. Arroxy에서는 Explore에서 한 번 로그인하면 나머지는 알아서 처리합니다
+- **쿠키 내보내기 없이, 내 계정으로 볼 수 있는 동영상을** — 비공개 동영상, 나중에 볼 동영상과 좋아요 표시한 동영상 목록, 연령 인증을 마친 계정의 연령 제한 동영상, 다른 사이트에서 로그인이 필요한 페이지까지. 단순한 래퍼는 cookies.txt를 내보내거나 웹 브라우저의 쿠키를 읽어야 합니다. Arroxy에서는 탐색에서 한 번 로그인하면 나머지는 알아서 처리합니다
 - **링크 복사 불필요** — Explore에서 동영상, 재생목록 또는 채널을 찾아 클릭 한 번으로 다운로드하거나, 페이지의 아무 링크나 우클릭하세요
 - **원할 때 켜는 광고 차단** — 방패를 한 번 클릭하면 Explore 페이지의 광고와 트래커를 차단합니다
 
@@ -392,7 +392,7 @@ Arroxy는 한 가지 목적을 위해 만들어졌습니다. URL을 붙여 넣�
 
 [yt-dlp](https://github.com/yt-dlp/yt-dlp)가 YouTube에서 선택한 폴더로 파일을 직접 가져오며 외부 서버를 거치지 않습니다. 시청 기록, 다운로드 기록, URL, 파일 내용은 장치에 남습니다.
 
-No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
+추적은 없습니다. 하루에 한 번 익명 하트비트(앱 버전, OS, 언어, 설치 방식, 국가, Arroxy를 설치한 지 대략 얼마나 되었는지)를 보내 활성 사용자와 신규 사용자 수를 세며, Arroxy가 yt-dlp와 FFmpeg를 다운로드하거나 업데이트할 때는 성공 여부와 대략적인 소요 시간을 익명으로 보고합니다. ID, URL, 동영상 제목, 파일 경로, 계정 정보는 포함하지 않습니다. 둘 다 설정에서 끌 수 있습니다.
 
 Explore는 브라우저와 별개로 자체 로그인을 유지하며, Arroxy는 어떤 로그인 양식도 읽거나 채우지 않습니다. 입력은 해당 사이트 자체 페이지에서 직접 합니다. 다운로드는 로그아웃 상태로 실행되고, 계정으로 해결할 수 있는 이유로 실패할 때만 Arroxy가 로그인 정보를 새로 읽어 해당 다운로드용 임시 파일에 두었다가 끝나면 파일을 삭제합니다. 설정에서 Explore를 로그아웃하면 로그인 정보가 지워집니다.
 
@@ -410,7 +410,7 @@ Explore는 브라우저와 별개로 자체 로그인을 유지하며, Arroxy는
 <details>
 <summary><strong>Arroxy는 다른 yt-dlp GUI와 무엇이 다른가요?</strong></summary>
 
-대부분의 무료 yt-dlp GUI는 링크만 받는 래퍼입니다. Arroxy는 YouTube든 다른 사이트든 열 수 있는, 앱에 내장된 브라우저인 **Explore**를 더했습니다. 링크를 복사하지 않고 둘러보며 다운로드할 수 있고, 그곳에서 한 번 로그인하면 쿠키를 내보내지 않고도 비공개·멤버 전용·연령 제한 동영상과 나중에 볼 동영상, 좋아요 표시한 동영상 목록을 다운로드할 수 있습니다. YouTube가 봇이 아닌지 확인을 요구하면 Arroxy가 이 로그인을 사용하며, 내장 브라우저가 YouTube의 다운로드 토큰을 받아 오므로 다운로드가 더 적은 형식으로 떨어지지 않습니다. [Arroxy를 선택하는 이유](#why)를 참고하세요.
+대부분의 무료 yt-dlp GUI는 링크만 받는 래퍼입니다. Arroxy는 YouTube든 다른 사이트든 열 수 있는, 앱에 내장된 브라우저인 **탐색**을 더했습니다. 링크를 복사하지 않고 둘러보며 다운로드할 수 있고, 그곳에서 한 번 로그인하면 쿠키를 내보내지 않고도 비공개 동영상처럼 내 계정으로 볼 수 있는 동영상과 나중에 볼 동영상, 좋아요 표시한 동영상 목록을 다운로드할 수 있습니다. [Arroxy를 선택하는 이유](#why)를 참고하세요.
 
 </details>
 
@@ -431,14 +431,14 @@ YouTube가 제공하는 모든 화질: 8K(4320p), 4K UHD(2160p), 1440p, 1080p, 7
 <details>
 <summary><strong>YouTube 계정이 필요한 동영상은 어떻게 다운로드하나요?</strong></summary>
 
-Explore 탭에서 한 번 로그인하세요. 그러면 Arroxy가 계정으로 볼 수 있는 비공개·멤버 전용 동영상, 연령 인증을 마친 계정의 연령 제한 동영상, 나중에 볼 동영상과 좋아요 표시한 동영상 목록까지 다운로드할 수 있습니다. 계정으로 해결할 수 있는 이유로 다운로드가 실패할 때만 이 로그인을 사용하며, 나머지는 이전과 같이 다운로드됩니다. 쿠키 설정에서 첫 번째로 표시되고 추천 표시가 붙은 **Explore 로그인** 옵션이 바로 이것이며, Explore를 처음 열 때 Arroxy가 대신 선택합니다. yt-dlp 위키가 [로그인 상태의 자동화로 Google 계정이 표시될 수 있음](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)을 안내하므로 보조 계정이 더 안전합니다.
+탐색 탭에서 한 번 로그인하세요. 그러면 Arroxy가 계정으로 볼 수 있는 비공개 동영상, 연령 인증을 마친 계정의 연령 제한 동영상, 나중에 볼 동영상과 좋아요 표시한 동영상 목록까지 다운로드할 수 있습니다. 계정으로 해결할 수 있는 이유로 다운로드가 실패할 때만 이 로그인을 사용하며, 나머지는 이전과 같이 다운로드됩니다. 쿠키 설정에서 첫 번째로 표시되고 추천 표시가 붙은 **탐색 로그인** 옵션이 바로 이것이며, 탐색을 처음 열 때 Arroxy가 대신 선택합니다. yt-dlp 위키가 [로그인 상태의 자동화로 Google 계정이 표시될 수 있음](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies)을 안내하므로 보조 계정이 더 안전합니다.
 
 </details>
 
 <details>
 <summary><strong>YouTube가 변경되어도 계속 작동하나요?</strong></summary>
 
-yt-dlp는 시작할 때 자동 업데이트되고 YouTube 변경 시 Arroxy가 신속하게 수정 사항을 배포합니다. YouTube가 봇이 아닌지 확인을 요구하면, Explore에 로그인해 둔 경우 Arroxy가 그 로그인도 시도하며, 쿠키 설정에서는 파일이나 브라우저의 쿠키도 사용할 수 있습니다.
+yt-dlp는 시작할 때 자동 업데이트되고 YouTube 변경 시 Arroxy가 신속하게 수정 사항을 배포합니다. 다운로드에 로그인이 필요하면, 탐색에 로그인해 둔 경우 Arroxy가 그 로그인을 사용하며, 쿠키 설정에서는 파일이나 브라우저의 쿠키도 사용할 수 있습니다.
 
 </details>
 
@@ -473,7 +473,7 @@ yt-dlp는 시작할 때 자동 업데이트되고 YouTube 변경 시 Arroxy가 �
 <details>
 <summary><strong>YouTube 동영상을 다운로드하는 것은 합법인가요?</strong></summary>
 
-개인적이고 비공개인 용도는 대부분의 관할권에서 일반적으로 허용됩니다. YouTube [서비스 약관](https://www.youtube.com/t/terms)과 현지 저작권법을 준수할 책임은 사용자에게 있습니다.
+거주 국가와 다운로드하는 콘텐츠에 따라 다릅니다. 본인이 소유한 콘텐츠, 다운로드가 허용된 라이선스 콘텐츠, 또는 거주 국가의 법률이 복제를 허용하는 콘텐츠만 다운로드하세요. YouTube [서비스 약관](https://www.youtube.com/t/terms)과 현지 저작권법을 준수할 책임은 사용자에게 있습니다. [이용 약관](#terms)을 참고하세요.
 
 </details>
 
@@ -498,7 +498,7 @@ yt-dlp는 시작할 때 자동 업데이트되고 YouTube 변경 시 Arroxy가 �
 
 ## <a id="support"></a>💖 Arroxy 후원
 
-Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
+Arroxy는 무료이며 GPLv3 라이선스를 사용합니다. 광고, 추적, 유료 등급이 없습니다. 시간을 절약해 주었다면 Bitcoin, Tron 또는 Ethereum으로 개발을 후원할 수 있습니다. 주소는 유일한 공식 출처인 [DONATE.md](../../DONATE.md)에 있습니다. Arroxy는 이메일이나 개인 메시지로 주소를 보내지 않습니다. 저장소에 별을 주고, 버그를 신고하고, 번역을 개선하는 것도 같은 만큼 도움이 됩니다.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

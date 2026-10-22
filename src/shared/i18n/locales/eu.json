@@ -31,7 +31,6 @@
 		"cancel": "Utzi",
 		"close": "Itxi",
 		"continue": "Jarraitu",
-		"dismiss": "Baztertu",
 		"loading": "Kargatzen",
 		"retry": "Saiatu berriro",
 		"startOver": "Hasi berriro"
@@ -45,12 +44,11 @@
 			"remember": "Ez galdetu berriro"
 		},
 		"quitWithActiveDownloads": {
-			"confirm": "Utzi deskargak eta irten",
-			"detail": "Eten geroago berrekiteko, edo utzi aurrerapena baztertzeko.",
+			"continueDetail": "Zure ilara gordetzen da, eta deskargek utzi zuten tokitik jarraitzen dute Arroxy berriro irekitzen duzunean.",
 			"keep": "Jarraitu deskargatzen",
 			"message_one": "{{count}} deskarga abian",
 			"message_other": "{{count}} deskarga abian",
-			"pause": "Eten deskargak eta irten"
+			"quit": "Irten"
 		},
 		"rendererCrashed": {
 			"detail": "Errendatze-prozesuak huts egin du ({{reason}}). Birkargatu berriro saiatzeko.",
@@ -73,12 +71,12 @@
 		"noSubtitlesIn": "Bideo honek ez du azpititulurik hizkuntza hauetan: {{languages}}.",
 		"ytdlp": {
 			"ageRestricted": "Bideo honek adin-murrizketa du eta ezin da deskargatu saioa hasita duen konturik gabe.",
-			"botBlock": "Bot-babesa aktibatu da. Ziurrenik erabiltzen ari zaren IPa markatuta dago (datu-zentro baten barrutia edo VPN irteera pilatua). Aldatu IPa edo aukeratu beste VPN amaiera-puntu bat eta saiatu berriro. Hala ere huts egiten badu, gunean aldi baterako aldaketa bat izan daiteke — Arroxy-k abioan eguneratzen du deskarga-motorra, beraz konponbidea automatikoki iritsiko da kaleratzen denean.",
+			"botBlock": "Gunearen bot-babesak deskarga hau geldiarazi du. Itxaron pixka bat eta saiatu berriro, edo deskargatu bideo gutxiago aldi berean. Huts egiten jarraitzen badu, gunearen aldetik aldi baterako aldaketa bat izan daiteke — Arroxy-k abioan eguneratzen du bere deskarga-motorra, beraz konponketa automatikoki iristen da argitaratu bezain laster.",
 			"chunkTransferFailure": "Zerbitzariak deskarga erdian eten du behin eta berriz, eta Arroxy-k berriro saiatu ondoren amore eman du. Normalean bideo-formaturik handienetan gertatzen da (4K HDR / bit-tasa altuko VP9). Saiatu berriro, aldatu sarea/VPNa edo aukeratu bereizmen txikiagoko formatu bat.",
 			"drmProtected": "Bideo hau DRM bidez babestuta dago. Arroxy-k ezin du DRMa kendu, beraz fitxategia ezin da deskargatu.",
 			"formatUnavailable": "Bideo honek jada ez du aukeratu duzun formatua eskaintzen. Itsatsi esteka berriro eta aukeratu orain eskaintzen dituen formatuen artean.",
 			"geoBlocked": "Bideo hau ez dago eskuragarri zure eskualdean.",
-			"ipBlock": "Badirudi zure IP helbidea blokeatuta dagoela. Saiatu berriro geroago edo erabili VPN bat.",
+			"ipBlock": "Gunea konexio honen eskaerak blokeatzen ari da. Saiatu berriro geroago.",
 			"loginRequired": "Bideo honek saioa hasita duen konturen bat behar du.",
 			"missingDependency": "Arroxy-k ezin izan du FFmpeg edo FFprobe aurkitu. Exekutatu konfigurazioa berriro edo ezarri FFmpeg kokalekua, eta saiatu deskarga berriro.",
 			"network": "Sare-errorea. Egiaztatu konexioa eta saiatu berriro.",
@@ -107,8 +105,28 @@
 			"title": "Egin klik eskuineko botoiarekin esteka batean deskargatzeko"
 		},
 		"linkMenu": {
+			"background": {
+				"album": "Deskargatu albuma atzeko planoan",
+				"liked": "Deskargatu gustatu zaizkizun bideoak atzeko planoan",
+				"mix": "Deskargatu Mix-a atzeko planoan",
+				"playlist": "Deskargatu erreprodukzio-zerrenda atzeko planoan",
+				"uploads": "Deskargatu igotako bideoak atzeko planoan",
+				"watchLater": "Deskargatu Ikusi geroago atzeko planoan"
+			},
 			"copyLink": "Kopiatu esteka",
-			"downloadWith": "Deskargatu honekin"
+			"downloadFirst": "Deskargatu lehenengo {{count}}",
+			"downloadThisVideo": "Deskargatu bideo hau · {{profileName}}",
+			"downloadWith": "Deskargatu honekin",
+			"fromList": {
+				"album": "Album honetatik",
+				"liked": "Gustatu zaizkizun bideoetatik",
+				"mix": "Mix honetatik",
+				"playlist": "Erreprodukzio-zerrenda honetatik",
+				"uploads": "Kanal honetan igotako bideoetatik",
+				"watchLater": "Ikusi geroago zerrendatik"
+			},
+			"interactive": "Deskarga interaktiboa…",
+			"thisVideoWith": "Bideo hau honekin"
 		},
 		"newBadge": "Berria",
 		"notice": {
@@ -155,6 +173,7 @@
 			"aria": "Esploratu fitxako nabigatzaile-kontrolak",
 			"back": "Atzera",
 			"compactLayout": "Diseinu trinkoa",
+			"download": "Deskargatu",
 			"downloadWithProfile": "Deskargatu · {{profileName}}",
 			"forward": "Aurrera",
 			"fullLayout": "Erakutsi diseinu osoa",
@@ -164,6 +183,8 @@
 			"refusedHint": "Esploratu fitxak ezin du helbide hori ireki.",
 			"reload": "Birkargatu",
 			"searchTooLong": "Bilaketa hori luzeegia da.",
+			"thisVideo": "Bideo hau",
+			"thisVideoHint": "Deskargatu bideo hau bakarrik honekin: {{profileName}}",
 			"zoom": {
 				"hint": "Orriaren zooma: {{percent}}%",
 				"in": "Handitu",
@@ -205,9 +226,9 @@
 			"too-long": "Txantiloia luzeegia da.",
 			"unknown-token": "Token ezezaguna: {{token}}."
 		},
-		"idWarning": "{id} gabe, Arroxy-k ezin ditu detektatu jada deskargatutako erreprodukzio-zerrendako elementuak ezta .m3u zerrendak sortu ere.",
+		"idEndingWarning": "Amaitu izena [{id}] jarrita, Arroxy-k dagoeneko deskargatutako erreprodukzio-zerrendako elementuak antzeman eta .m3u erreprodukzio-zerrendak sor ditzan.",
 		"label": "Fitxategi-izenaren txantiloia",
-		"m3uDisabled": "Ez dago erabilgarri, zure fitxategi-izenaren txantiloiak ez duelako {id} barne hartzen edo deskargak karpetetan sailkatzen dituelako.",
+		"m3uDisabledIdEnding": "Ez dago erabilgarri, zure fitxategi-izenaren txantiloiak ez duelako [{id}] amaieran edo deskargak karpetetan sailkatzen dituelako.",
 		"previewPlaylist": "Erreprodukzio-zerrenda batean",
 		"previewSingle": "Bideo bakarra",
 		"profileOverrideDescription": "Utzi hutsik txantiloi orokorra heredatzeko.",
@@ -252,14 +273,20 @@
 		"quickDownload": {
 			"added": "Gehitu da: {{title}}",
 			"alreadyQueued": "Jada ilaran dago",
+			"batchAdded_one": "Esteka {{count}} gehitu da Deskargak atalean",
+			"batchAdded_other": "{{count}} esteka gehitu dira Deskargak atalean",
+			"batchAlreadyQueued_one": "{{count}} jada ilaran",
+			"batchAlreadyQueued_other": "{{count}} jada ilaran",
+			"batchNoneAdded_one": "Ezin izan da {{count}} esteka gehitu",
+			"batchNoneAdded_other": "Ezin izan da {{count}} esteka gehitu",
+			"batchNotAdded_one": "{{count}} gehitu gabe",
+			"batchNotAdded_other": "{{count}} gehitu gabe",
+			"chooseFromList_one": "{{count}} bideo zerrenda honetan — aukeratu zer deskargatu",
+			"chooseFromList_other": "{{count}} bideo zerrenda honetan — aukeratu zer deskargatu",
 			"chooseHowMany_one": "{{count}}+ bideo — aukeratu zenbat",
 			"chooseHowMany_other": "{{count}}+ bideo — aukeratu zenbat",
 			"failed": "Ezin izan da prestatu: {{title}}",
 			"notAdded": "Ezin izan da esteka hori gehitu — saiatu berriro",
-			"reviewCapped_one": "{{count}}+ bideo zerrenda honetan — berrikusi aukeratzeko",
-			"reviewCapped_other": "{{count}}+ bideo zerrenda honetan — berrikusi aukeratzeko",
-			"review_one": "{{count}} bideo zerrenda honetan — berrikusi aukeratzeko",
-			"review_other": "{{count}} bideo zerrenda honetan — berrikusi aukeratzeko",
 			"view": "Ikusi"
 		},
 		"settingsSaveFailed": "Ezin izan dira zure ezarpenak gorde.",
@@ -347,9 +374,27 @@
 			"cappedBody_one": "{{count}} bideo baino gehiago erreprodukzio-zerrenda honetan. Deskargatu guztiak, lehenengo {{count}}, edo aukeratu berrikuspen batean.",
 			"cappedBody_other": "{{count}} bideo baino gehiago erreprodukzio-zerrenda honetan. Deskargatu guztiak, lehenengo {{count}}, edo aukeratu berrikuspen batean.",
 			"first": "Lehenengo {{count}}",
+			"list": {
+				"album": "Albuma",
+				"liked": "Gustatu zaizkizun bideoak",
+				"mix": "Mix-a",
+				"playlist": "Erreprodukzio-zerrenda",
+				"uploads": "Igotako bideo guztiak",
+				"watchLater": "Ikusi geroago"
+			},
+			"pick": "Aukeratu zerrendatik…",
 			"review": "Berrikusi",
-			"reviewBody_one": "Esteka hau {{count}} bideoko zerrenda bat da. Berrikusi zer deskargatu aukeratzeko.",
-			"reviewBody_other": "Esteka hau {{count}} bideoko zerrenda bat da. Berrikusi zer deskargatu aukeratzeko."
+			"uncappedBody_one": "Esteka hau {{count}} bideoko zerrenda bat da. Deskargatu dena edo aukeratu berrikuspen batean.",
+			"uncappedBody_other": "Esteka hau {{count}} bideoko zerrenda bat da. Deskargatu guztiak edo aukeratu berrikuspen batean.",
+			"video": "Bideo hau",
+			"videoOrList": {
+				"album": "Esteka hau album bateko bideo bat da. Bideoa bakarrik deskargatu nahi duzu, ala albuma?",
+				"liked": "Esteka hau gustatu zaizkizun bideoetako bat da. Bideoa bakarrik deskargatu nahi duzu, ala gustatu zaizkizun bideo guztiak?",
+				"mix": "Esteka hau Mix bateko bideo bat da. Bideoa bakarrik deskargatu nahi duzu, ala Mix-a?",
+				"playlist": "Esteka hau erreprodukzio-zerrenda bateko bideo bat da. Bideoa bakarrik deskargatu nahi duzu, ala erreprodukzio-zerrenda?",
+				"uploads": "Esteka hau kanal bateko igotako bideo bat da. Bideoa bakarrik deskargatu nahi duzu, ala igotako bideo guztiak?",
+				"watchLater": "Esteka hau zure Ikusi geroago zerrendako bideo bat da. Bideoa bakarrik deskargatu nahi duzu, ala zerrenda osoa?"
+			}
 		},
 		"clearTitle": "Garbitu amaitutako deskargak",
 		"empty": "Ilaran jarritako deskargak hemen agertuko dira",
@@ -383,7 +428,29 @@
 			"statusPending": "Zain",
 			"statusProbing": "Xehetasunak eskuratzen",
 			"statusRunning": "Deskargatzen",
-			"subtitleLanguagesMissing": "Azpititulurik ez hizkuntza hauetan: {{languages}}"
+			"subtitleLanguagesMissing": "Azpititulurik ez hizkuntza hauetan: {{languages}}",
+			"waitingForSite": "{{site}} gunearen zain, {{time}} arte",
+			"waitingHint": "{{site}} gunea konexio honen eskaerak mugatzen ari da. Arroxy-k esteka honen xehetasunak {{time}} ondoren eskuratzen ditu, muga garbitu dadin."
+		},
+		"listOffer": {
+			"dismiss": "Baztertu",
+			"from": {
+				"album": "Album batetik",
+				"liked": "Gustatu zaizkizun bideoetatik",
+				"mix": "Mix batetik",
+				"playlist": "Erreprodukzio-zerrenda batetik",
+				"uploads": "Kanal bateko igotako bideoetatik",
+				"watchLater": "Ikusi geroago zerrendatik"
+			},
+			"get": {
+				"album": "Hartu album osoa",
+				"liked": "Hartu gustatu zaizkizun bideo guztiak",
+				"mix": "Hartu Mix osoa",
+				"playlist": "Hartu erreprodukzio-zerrenda osoa",
+				"uploads": "Hartu igotako bideo guztiak",
+				"watchLater": "Hartu Ikusi geroago osoa"
+			},
+			"hint": "Zerrenda bere lerro gisa gehitzen du. Bideo hau kanpoan geratzen da."
 		},
 		"pauseAllTitle": "Eten deskarga aktibo guztiak eta eragotzi berriak hastea",
 		"pausedBanner": "Ilara etenda dago — zain dauden elementuak ez dira hasiko berrekin arte",
@@ -616,26 +683,19 @@
 		"cancel": "Arazoak dituzu? Konfiguratu eskuz",
 		"greeting": "Kaixo, ongi etorri berriro!",
 		"setup": {
-			"bytes": "{{done}} / {{total}}",
 			"left": {
 				"minutes_one": "gutxi gorabehera min {{count}} falta dira",
 				"minutes_other": "gutxi gorabehera {{count}} min falta dira",
 				"underMinute": "minutu bat baino gutxiago falta da"
 			},
-			"note": {
-				"engine": "Deskargek funtzionatzen jarraitzen dute guneak aldatzen direnean.",
-				"firstRun": "Hau behin bakarrik gertatzen da. Arroxy-k tresna hauek gordetzen ditu eta berak eguneratzen ditu.",
-				"media": "Hau behin bakarrik gertatzen da. Arroxy-k gordetzen ditu etorkizuneko eguneratzeetarako."
-			},
 			"stage": {
 				"checking": "Dena ondo dabilela egiaztatzen",
 				"connecting": "Konektatzen…",
-				"downloadingBoth": "Deskarga-motorra eta multimedia-tresnak deskargatzen",
-				"downloadingEngine": "Deskarga-motorra deskargatzen",
-				"downloadingMedia": "Multimedia-tresnak deskargatzen",
-				"unpacking": "Multimedia-tresnak deskonprimatzen"
+				"unpacking": "Multimedia-tresnak deskonprimatzen",
+				"unpackingEngine": "Deskarga-motorra deskonprimatzen"
 			},
 			"title": {
+				"both": "Arroxy-ren tresnak eguneratzen",
 				"engine": "Deskarga-motorra eguneratzen",
 				"firstRun": "Lehen aldiko konfigurazioa",
 				"media": "Multimedia-tresnak eguneratzen"
@@ -661,14 +721,14 @@
 		"fetchingSponsorBlock": "SponsorBlock-ekin kontaktatzen…",
 		"fetchingSubtitles": "Azpitituluak eskuratzen…",
 		"mergingFormats": "Audioa eta bideoa batzen…",
-		"mintingToken": "YouTube tokena sortzen…",
+		"mintingToken": "YouTube-ko deskarga prestatzen…",
 		"movingFiles": "Fitxategiak mugitzen…",
 		"noSubtitles": "Azpititulurik ez hizkuntza hauetan: {{languages}}",
 		"outputNotWritable": "Ezin da gorde hemen: {{dir}} — Arroxy-k ez du hor idazteko baimenik",
 		"preparingBinaries": "Bitarrak prestatzen…",
-		"qualityLimited": "{{height}}p kalitatean gorde da — YouTube-k kalitate handiagoak ukatu ditu deskarga honetarako. Geroago edo beste sare batetik berriro saiatzeak lagun dezake.",
-		"qualityLimitedSubtitlesFailed": "{{height}}p kalitatean gorde da — YouTube-k kalitate handiagoak ukatu ditu deskarga honetarako, eta azpititulu batzuk ezin izan dira deskargatu. Geroago edo beste sare batetik berriro saiatzeak lagun dezake.",
-		"remintingToken": "Tokena berriro sortzen…",
+		"qualityLimited": "{{height}}p-n gorde da — YouTube-k kalitate handiagoak atxiki ditu deskarga honetarako. Geroago berriro saiatzeak lagun dezake.",
+		"qualityLimitedSubtitlesFailed": "{{height}}p-n gorde da — YouTube-k kalitate handiagoak atxiki ditu deskarga honetarako, eta azpititulu batzuk ezin izan dira deskargatu. Geroago berriro saiatzeak lagun dezake.",
+		"remintingToken": "YouTube-ko deskarga berriro prestatzen…",
 		"retryingSponsorBlock": "SponsorBlock ez dago erabilgarri, berriro saiatzen ({{attempt}}/{{total}})…",
 		"retryingTransfer": "Konexioa gelditu da, berriro saiatzen ({{attempt}}/{{total}})…",
 		"signingInWithExplore": "Zure Esploratu fitxako kontuarekin saioa hasten…",
@@ -796,7 +856,7 @@
 			"pictures": "Irudiak",
 			"subfolder": {
 				"invalid": "Karpeta-izenak baliogabeko karaktereak ditu",
-				"placeholder": "adib. lo-fi rip-ak",
+				"placeholder": "adib. ikastaroak",
 				"toggle": "Gorde azpikarpeta baten barruan"
 			},
 			"videos": "Filmak"
@@ -892,7 +952,11 @@
 				"noVideo": "Esteka honek ez du bideorik, beraz audioa hautatu da.",
 				"subtitlesMissing": "Zure profilak azpitituluak eskatzen ditu hizkuntza hauetan: {{languages}}. Bideo honek ez ditu.",
 				"tierAbove": "Zure profilak {{wanted}}p eskatzen du. Bideo honek ez du hain txikirik, beraz {{picked}}p hautatu da.",
-				"tierBelow": "Zure profilak {{wanted}}p eskatzen du. Bideo honek {{picked}}p arte baino ez du, beraz {{picked}}p hautatu da.",
+				"tierAbovePassedOver": "Zure profilak {{wanted}}p eskatzen du. Bideo honen stream txikiagoak ez datoz zure profilaren gainerakoarekin, beraz {{picked}}p hautatu da.",
+				"tierBelowTakeable": "Zure profilak {{wanted}}p eskatzen du. Bideo honek ez du erabil daitekeen {{wanted}}prik, beraz {{picked}}p hautatu da.",
+				"tierPassedOverAiUpscaled": "Zure profilak {{wanted}}p eskatzen du. Bideo honen {{wanted}}p IAz handitua da, beraz jatorrizko {{picked}}p hautatu da.",
+				"tierPassedOverH264": "Zure profilak {{wanted}}p eskatzen du H.264-n. Bideo honek {{wanted}}p beste kodek batzuetan bakarrik du, beraz {{picked}}p hautatu da H.264-n.",
+				"tierPassedOverProfile": "Zure profilak {{wanted}}p eskatzen du. Bideo honen {{wanted}}p ez dator zure profilaren gainerakoarekin, beraz {{picked}}p hautatu da.",
 				"webmUnavailable": "Zure profilak WebM eskatzen du. Bideo honen hautatutako korronteen artean {{codec}} dago, eta WebM-k ezin du onartu; beraz fitxategi-mota Automatikoa da."
 			},
 			"footer": {
@@ -969,29 +1033,26 @@
 			"withAudio": "audioarekin"
 		},
 		"listPrompt": {
-			"escHint": "Esc sakatuta bertan behera geratzen da. Ez da ezer kargatzen aukeratu arte.",
-			"interactiveSubtitle": "Aukeratu formatuak zuk zeuk",
-			"justThisVideo": "Bideo hau bakarrik",
-			"justThisVideoInteractiveHint": "Bere formatuak irekitzen ditu",
-			"justThisVideoQuickHint": "Bideo bat kargatzen du",
-			"listInteractiveHint": "{{count}} arte kargatzen ditu, zuk aukera dezazun",
-			"listOption": {
-				"album": "Albuma, lehenengo",
-				"liked": "Gustatu zaizkizun bideoak, lehenengo",
-				"mix": "Mix-a, lehenengo",
-				"playlist": "Erreprodukzio-zerrenda, lehenengo",
-				"uploads": "Igotako bideoak, lehenengo",
-				"watchLater": "Ikusi geroago, lehenengo"
-			},
-			"listQuickHint": "{{count}} arte kargatzen ditu, eta gero deskargatzen ditu",
+			"backgroundHint": "Honekin: {{profileName}}. {{count}} bideo baino gehiago baditu, Deskargak atalak galdetuko du zenbat.",
+			"backgroundLabel": "Deskargatu atzeko planoan",
+			"escOnly": "Esc sakatuta bertan behera geratzen da.",
+			"firstHint": "Lehenengo {{count}} zehazki, honekin: {{profileName}}.",
+			"firstLabel": "Deskargatu lehenengo",
+			"interactiveHint": "Aukeratu lehenengo {{count}} bideoen artean (edo aldatu kopurua hurrengo urratsean), eta gero konfiguratu deskarga.",
+			"interactiveLabel": "Deskarga interaktiboa…",
+			"limitHint": "Zerrendatik zenbat bideo hartu: lehen aukerak muga horretatik aurrera galdetzen du, bigarrenak zehazki hainbeste hartzen ditu. Ezarpenak › Aztertzeko erreprodukzio-zerrendako elementuak aukeraren berdina da.",
+			"limitLabel": "Muga",
 			"mixNote": "Mix bat aldatu egiten da irekitzen duzun bakoitzean.",
-			"pickOption": {
-				"album": "Aukeratu albumetik, lehenengoen artean",
-				"liked": "Aukeratu gustatu zaizkizun bideoetatik, lehenengoen artean",
-				"mix": "Aukeratu Mix-etik, lehenengoen artean",
-				"playlist": "Aukeratu erreprodukzio-zerrendatik, lehenengoen artean",
-				"uploads": "Aukeratu igotako bideoetatik, lehenengoen artean",
-				"watchLater": "Aukeratu Ikusi geroago zerrendatik, lehenengoen artean"
+			"pickLoadAfter": "aukeratzeko.",
+			"pickLoadBefore": "Kargatu lehenengo",
+			"pickLoadNote": "Hurrengo urratsean alda dezakezu.",
+			"pickTitle": {
+				"album": "Aukeratu album honetatik",
+				"liked": "Aukeratu gustatu zaizkizun bideoetatik",
+				"mix": "Aukeratu Mix honetatik",
+				"playlist": "Aukeratu erreprodukzio-zerrenda honetatik",
+				"uploads": "Aukeratu kanal honetan igotako bideoetatik",
+				"watchLater": "Aukeratu Ikusi geroago zerrendatik"
 			},
 			"title": {
 				"album": "Deskargatu album honetatik",
@@ -1001,6 +1062,9 @@
 				"uploads": "Deskargatu kanal honetan igotako bideoetatik",
 				"watchLater": "Deskargatu Ikusi geroago zerrendatik"
 			},
+			"videoHint": "Ireki duzun bideoa bakarrik, honekin: {{profileName}}. Zerrenda ez da kargatzen.",
+			"videoLabel": "Bideo hau bakarrik",
+			"videoPickHint": "Konfiguratu ireki duzun bideoa bakarrik. Zerrenda ez da kargatzen.",
 			"withProfile": "Honekin: {{profileName}}"
 		},
 		"output": {
@@ -1072,6 +1136,10 @@
 			"allRemovedDescription": "Leheneratu itzazu jarraitzeko.",
 			"allRemovedTitle": "Elementu guztiak kendu dira",
 			"alreadyDownloaded": "Jada deskargatuta",
+			"bulkCappedDesc_one": "Gehiago ditu. Zenbat aukeratzeko, itsatsi bere esteka bere kabuz.",
+			"bulkCappedDesc_other": "Gehiago dituzte. Zenbat aukeratzeko, itsatsi esteka bakoitza bere kabuz.",
+			"bulkCappedTitle_one": "“{{title}}” {{limit}} bideotan mozten da",
+			"bulkCappedTitle_other": "{{count}} zerrenda {{limit}} bideotan mozten dira, bakoitza",
 			"bulkHeading": "URL masiboak",
 			"bulkMetadataOptional": "Ez da itxaron beharrik — orain ilaran jarritako fitxategiek benetako izenak izango dituzte deskargatzean.",
 			"bulkMetadataResolving": "Bideoen xehetasunak eskuratzen… {{done}}/{{total}}",
@@ -1129,15 +1197,6 @@
 			"syncNoneTitle": "Oraindik ez da ezer deskargatu",
 			"syncScanning": "Karpeta egiaztatzen…",
 			"thumbnailAlt": "Bideoaren miniatura"
-		},
-		"playlistCap": {
-			"changeLimit": "Aldatu kargatzeko muga",
-			"descriptionWithTitle_one": "<title/>: Arroxy-k {{count}} elementu kargatu du, oraingo {{limit}} mugarekin. Jarri ilaran kargatutako elementua orain, edo handitu muga eta aztertu berriro.",
-			"descriptionWithTitle_other": "<title/>: Arroxy-k {{count}} elementu kargatu ditu, oraingo {{limit}} mugarekin. Jarri ilaran kargatutako elementuak orain, edo handitu muga eta aztertu berriro.",
-			"description_one": "Arroxy-k {{count}} elementu kargatu du, oraingo {{limit}} mugarekin. Jarri ilaran kargatutako elementua orain, edo handitu muga eta aztertu berriro.",
-			"description_other": "Arroxy-k {{count}} elementu kargatu ditu, oraingo {{limit}} mugarekin. Jarri ilaran kargatutako elementuak orain, edo handitu muga eta aztertu berriro.",
-			"queueLoaded": "Jarri ilaran kargatutako elementuak",
-			"title": "Erreprodukzio-zerrendaren azterketa mugatuta dago"
 		},
 		"playlistPresets": {
 			"heading": "Aukeratu multzoaren kalitatea",
@@ -1321,19 +1380,6 @@
 		"profileSwitchRow": {
 			"helpAria": "Laguntza: {{label}}"
 		},
-		"quickProgress": {
-			"cancel": "Utzi prestaketa",
-			"currentFallback": "Uneko esteka",
-			"description": "Arroxy esteka irakurtzen ari da eta profil hau aplikatzen: {{profileName}}.",
-			"failedCount_one": "{{count}} huts egin du",
-			"failedCount_other": "{{count}} huts egin dute",
-			"phase": {
-				"probing": "Xehetasunak eskuratzen",
-				"queueing": "Ilarara gehitzen"
-			},
-			"title": "Deskarga bizkorra prestatzen",
-			"waitHint": "Mantendu hau irekita Arroxy ilara prestatzen ari den bitartean."
-		},
 		"review": {
 			"areas": {
 				"extras": "gehigarriak",
@@ -1443,6 +1489,7 @@
 				"embed": "Txertatu bideoan",
 				"heading": "Gorde honela",
 				"sidecar": "Bideoaren ondoan",
+				"sidecarNoVideo": "Deskargen karpetan",
 				"subfolder": "azpikarpeta: subtitles/"
 			},
 			"searchPlaceholder": "Bilatu hizkuntzak…",
@@ -1452,10 +1499,6 @@
 		"tabsNavAria": "Deskarga-profilen nabigazioa",
 		"url": {
 			"advanced": "Aurreratua",
-			"analytics": {
-				"toggle": "Bidali eguneroko seinalea",
-				"toggleDescription": "Telemetriarik ez. Egunean behin, seinale anonimo batek aplikazioaren bertsioa, instalazio-kanala, sistema eragilea, hizkuntza, herrialdea eta Arroxy gutxi gorabehera noiz instalatu zen bidaltzen ditu, erabiltzaile aktiboak eta berriak zenbatu ahal izateko. Ez da IDrik, URLrik, bideo-izenbururik edo fitxategi-izenik bidaltzen."
-			},
 			"autoRemoveCompleted": {
 				"description": "Deskarga bat Deskargak zerrendatik kentzen du amaitu eta segundo batzuetara. Fitxategiak zure karpetan geratzen dira; huts egindako eta utzitako deskargak zerrendan geratzen dira.",
 				"label": "Kendu amaitutako deskargak"
@@ -1490,6 +1533,11 @@
 				"label": "Aldi berako deskargak",
 				"unit": "deskarga"
 			},
+			"concurrentProbes": {
+				"description": "Arroxy-k aldi berean zenbat estekaren xehetasunak eskuratzen dituen, deskargatu aurretik. Gutxiagok leunago tratatzen ditu konexio okupatuak blokeatzen dituzten guneak. Deskarga interaktiboan irekitzen duzun esteka beti lehenengo doa.",
+				"label": "Aldi berean egiaztatutako estekak",
+				"unit": "esteka"
+			},
 			"cookies": {
 				"banWarning": "YouTube bezalako guneek Arroxy bezalako deskarga-tresnek cookie-ak erabiltzen dituzten kontuak markatu — eta batzuetan kanporatu — ditzakete. Ahal bada, erabili behin-behineko kontu bat.",
 				"browserHelp": "Cookie-ak zuzenean nabigatzailetik irakurtzen ditu. Chromium familiako nabigatzaileetan, nabigatzailea itxita egon behar da.",
@@ -1514,12 +1562,20 @@
 				"sourceFile": "Fitxategia",
 				"sourceLabel": "Cookie-en iturria",
 				"sourceOff": "Desaktibatuta",
-				"toggleDescription": "Lagungarria adin-murrizketa duten, bazkideentzako eta kontu pribatuko bideoetarako."
+				"toggleDescription": "Zure kontuak ikus ditzakeen bideoetan laguntzen du, adibidez zure bideo pribatuetan."
 			},
 			"downloadConnections": {
 				"description": "Deskarga handiak bizkortzen ditu bideo baten hainbat zati aldi berean eskuratuz. Balio altuagoek gune batek mugatzeko aukera handitzen dute.",
 				"label": "Deskarga-konexioak",
 				"unit": "konexio"
+			},
+			"downloadList": {
+				"album": "Deskargatu albuma…",
+				"liked": "Deskargatu gustatu zaizkizun bideoak…",
+				"mix": "Deskargatu Mix-a…",
+				"playlist": "Deskargatu erreprodukzio-zerrenda…",
+				"uploads": "Deskargatu igotako bideoak…",
+				"watchLater": "Deskargatu Ikusi geroago…"
 			},
 			"features": {
 				"always": {
@@ -1548,18 +1604,17 @@
 			"hotkey": {
 				"changeShortcut": "Aldatu lasterbidea",
 				"conflict": "Lasterbide hau beste aplikazio batek hartuta dauka — aukeratu beste bat.",
-				"hintLabel": "Edo sakatu",
-				"hintTooltip": "Kopiatu bideo-esteka bat edonon, sakatu lasterbide hau eta Arroxy-k zure profil aktiboarekin jarriko du ilaran — leihoz aldatu beharrik gabe.",
-				"hintTooltipSettings": "Aldatu edo desaktibatu Ezarpenetan.",
+				"globalLabel": "Tekla-lasterbide globala",
 				"recording": "Sakatu teklak…",
 				"reset": "Berrezarri lehenetsia",
 				"sectionDescription": "Deskargatu kopiatzen duzun edozein esteka, edozein aplikaziotatik, Arroxy ireki gabe.",
 				"sectionTitle": "Tekla-lasterbide globala",
 				"test": "Probatu",
 				"toggle": "Gaitu tekla-lasterbide globala",
-				"toggleDescription": "Sakatu lasterbidea bideo-esteka bat arbelean duzula."
+				"toggleDescriptionDetail": "Kopiatu bideo-esteka bat edozein aplikaziotan eta sakatu lasterbidea: Arroxy-k ilaran jartzen du zure profil aktiboarekin, leihoz aldatu gabe. Erreprodukzio-zerrenda bateko bideo baten esteka batek bideoa deskargatzen du."
 			},
 			"interactiveDownload": "Deskarga interaktiboa",
+			"interactiveDownloadAsks": "Deskarga interaktiboa…",
 			"limitRate": {
 				"activeWarning": "Deskarga aktiboek uneko muga mantentzen dute. Eten + Berrekin aldaketak aplikatzeko.",
 				"custom": "Pertsonalizatua…",
@@ -1572,10 +1627,8 @@
 			"mascotBusy": "Atzeko planoan deskargatzen… zeregin asko batera egin ditzaket 😎",
 			"mascotCollection": "Deskarga bizkorrak kargatutako elementuak ilaran jartzen ditu profil honekin: {{profileName}}. Interaktiboak elementuak aurretik aztertzen edo hautatzen uzten dizu.",
 			"mascotIdle": "Jaregin esteka bat eta utzi Arroxy-ri deskargatzen ✨",
-			"mascotMixed": "Esteka honek bilduma bateko bideo bat adierazten du. Arroxy-k galdetuko du zein nahi duzun aztertu aurretik.",
-			"mascotPreparing": "{{quickDownload}} esteka hau irakurtzen ari da eta profil hau aplikatzen: {{profileName}}.",
-			"mascotQueued": "Ilara deskarga hau kudeatzen ari da. Beste esteka bat itsats dezakezu lanean ari den bitartean.",
 			"mascotSingle": "Deskarga bizkorrak deskarga bat hasten du profil honekin: {{profileName}}. Erabili Interaktiboa behin-behineko aldaketetarako.",
+			"mascotVideoInList": "Esteka honek bideo bat eta hura duen zerrenda aipatzen ditu: deskargatu bideoa bakarrik edo zerrenda.",
 			"nativeAudioPreference": {
 				"compatible": "Estereo bateragarria",
 				"description": "Estereoa edo inguruko audioa, profil batek jatorrizko audioa aukeratzen duenean. Profil batek gainidatzi dezake.",
@@ -1679,6 +1732,7 @@
 					"override": "Profilaren gainidazketa erabiltzen",
 					"overrideSubfolder": "Profilaren gainidazketa + profilaren azpikarpeta erabiltzen"
 				},
+				"destinationEditHint": "Non gordetzen den aldatzeko, editatu profila.",
 				"destinationFallback": "Helburua",
 				"edit": "Editatu",
 				"editActive": "Editatu profil aktiboa",
@@ -1702,25 +1756,27 @@
 				"remove": "Kendu",
 				"reorderHint": "Arrastatu profil bat mugitzeko. Profil-hautatzaile guztiek ordena hau jarraitzen dute.",
 				"reset": "Berrezarri",
+				"savesTo": "Hemen gordetzen da",
 				"switchAria": "Aldatu deskarga-profila: {{profileName}}",
 				"switchTitle": "Aldatu deskarga-profila"
 			},
 			"proxy": {
 				"clear": "Garbitu",
-				"description": "Bideratu trafikoa proxy baten bidez — geoblokeatutako edukirako erabilgarria.",
+				"description": "Bideratu trafikoa proxy zerbitzari baten bidez.",
 				"label": "Proxy URLa",
 				"placeholder": "http://host:port"
 			},
-			"quickBulkAllFailed": "URL horietako bat ere ezin izan da prestatu",
 			"quickDownload": "Deskarga bizkorra",
 			"quickDownloadTooltip": "Honekin deskargatuko da: {{profileName}}",
 			"quickFailed": "Ezin izan da hau gehitu: {{error}}",
-			"quickPartialFailed_one": "Funtzionatu duena ilaran jarri da. {{count}} URL ezin izan da prestatu.",
-			"quickPartialFailed_other": "Funtzionatu duena ilaran jarri da. {{count}} URL ezin izan dira prestatu.",
 			"quickPrepareFailed": "Ilarako elementua ezin izan da prestatu",
 			"quickPreparing": "Prestatzen",
 			"quickProbeFailed": "Azterketak huts egin du",
 			"quickSingleOnly": "Itsatsi bideo-, erreprodukzio-zerrenda-, kanal- edo bilaketa-URL bat hasteko.",
+			"reports": {
+				"toggle": "Bidali seinale anonimoa eta konfigurazio-txostenak",
+				"toggleDescription": "Jarraipenik ez. Egunean behin, seinale anonimo batek aplikazioaren bertsioa, instalazio-kanala, sistema eragilea, hizkuntza, herrialdea eta Arroxy gutxi gorabehera noiz instalatu zen bidaltzen ditu, erabiltzaile aktiboak eta berriak zenbatu ahal izateko. Arroxy-k deskarga-motorra edo multimedia-tresnak konfiguratzen edo eguneratzen dituenean, funtzionatu duen eta gutxi gorabehera zenbat denbora behar izan duen ere jakinarazten du. Ez da IDrik, URLrik, bideo-izenbururik edo fitxategi-izenik bidaltzen."
+			},
 			"settings": {
 				"behaviorDescription": "Profiletan oinarritutako deskargei ere eragiten dien portaera orokorra.",
 				"behaviorHeading": "Deskargen portaera",
@@ -1744,7 +1800,9 @@
 			"tabs": {
 				"profiles": "Profilak",
 				"settings": "Ezarpenak"
-			}
+			},
+			"thisVideo": "Bideo hau",
+			"thisVideoTooltip": "Bideo hau bakarrik deskargatzen du honekin: {{profileName}}"
 		}
 	}
 }

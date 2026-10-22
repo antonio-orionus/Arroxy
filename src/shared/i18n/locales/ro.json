@@ -31,7 +31,6 @@
 		"cancel": "Anulare",
 		"close": "Închidere",
 		"continue": "Continuare",
-		"dismiss": "Respinge",
 		"loading": "Se încarcă",
 		"retry": "Reîncercați",
 		"startOver": "Reluați de la început"
@@ -45,13 +44,12 @@
 			"remember": "Nu mai întreba"
 		},
 		"quitWithActiveDownloads": {
-			"confirm": "Anulează descărcările și ieși",
-			"detail": "Întrerupeți pentru a relua mai târziu sau anulați pentru a renunța la progres.",
+			"continueDetail": "Coada dvs. este păstrată, iar descărcările reiau de unde s-au oprit la următoarea deschidere a Arroxy.",
 			"keep": "Continuă descărcarea",
 			"message_few": "{{count}} descărcări în curs",
 			"message_one": "{{count}} descărcare în curs",
 			"message_other": "{{count}} de descărcări în curs",
-			"pause": "Întrerupe descărcările și ieși"
+			"quit": "Ieșire"
 		},
 		"rendererCrashed": {
 			"detail": "Procesul de randare s-a oprit ({{reason}}). Reîncărcați pentru a încerca din nou.",
@@ -74,12 +72,12 @@
 		"noSubtitlesIn": "Acest videoclip nu are subtitrări în {{languages}}.",
 		"ytdlp": {
 			"ageRestricted": "Acest videoclip are restricție de vârstă și nu poate fi descărcat fără un cont conectat.",
-			"botBlock": "Protecția anti-bot s-a activat. Cel mai probabil IP-ul folosit este semnalat (interval de centru de date sau ieșire VPN aglomerată). Schimbați IP-ul sau alegeți alt punct de ieșire VPN și reîncercați. Dacă tot eșuează, poate fi o schimbare temporară pe partea site-ului — Arroxy își actualizează motorul de descărcare la pornire, deci remedierea ajunge automat după lansare.",
+			"botBlock": "Protecția anti-bot a site-ului a oprit această descărcare. Așteptați puțin și încercați din nou sau descărcați mai puține videoclipuri odată. Dacă tot eșuează, poate fi o schimbare temporară din partea site-ului — Arroxy își actualizează motorul de descărcare la pornire, deci remedierea ajunge automat imediat ce apare.",
 			"chunkTransferFailure": "Serverul a întrerupt descărcarea în mod repetat, iar Arroxy a renunțat după mai multe încercări. Se întâmplă de obicei la cele mai mari formate video (4K HDR / VP9 cu bitrate ridicat). Reîncercați, schimbați rețeaua/VPN-ul sau alegeți un format cu rezoluție mai mică.",
 			"drmProtected": "Acest videoclip este protejat prin DRM. Arroxy nu poate elimina DRM-ul, deci fișierul nu poate fi descărcat.",
 			"formatUnavailable": "Acest videoclip nu mai oferă formatul pe care l-ați ales. Lipiți din nou linkul și alegeți dintre formatele oferite acum.",
 			"geoBlocked": "Acest videoclip nu este disponibil în regiunea dvs.",
-			"ipBlock": "Adresa dvs. IP pare blocată. Încercați din nou mai târziu sau folosiți un VPN.",
+			"ipBlock": "Site-ul blochează cererile din această conexiune. Încercați din nou mai târziu.",
 			"loginRequired": "Acest videoclip necesită un cont conectat.",
 			"missingDependency": "Arroxy nu a găsit FFmpeg sau FFprobe. Rulați din nou configurarea sau setați o locație FFmpeg, apoi reîncercați descărcarea.",
 			"network": "Eroare de rețea. Verificați conexiunea și reîncercați.",
@@ -108,8 +106,28 @@
 			"title": "Faceți clic dreapta pe un link pentru a-l descărca"
 		},
 		"linkMenu": {
+			"background": {
+				"album": "Descarcă albumul în fundal",
+				"liked": "Descarcă videoclipurile apreciate în fundal",
+				"mix": "Descarcă Mixul în fundal",
+				"playlist": "Descarcă lista de redare în fundal",
+				"uploads": "Descarcă încărcările în fundal",
+				"watchLater": "Descarcă „Redă mai târziu” în fundal"
+			},
 			"copyLink": "Copiază linkul",
-			"downloadWith": "Descarcă cu"
+			"downloadFirst": "Descarcă primele {{count}}",
+			"downloadThisVideo": "Descarcă acest videoclip · {{profileName}}",
+			"downloadWith": "Descarcă cu",
+			"fromList": {
+				"album": "Din acest album",
+				"liked": "Din videoclipurile dvs. apreciate",
+				"mix": "Din acest Mix",
+				"playlist": "Din această listă de redare",
+				"uploads": "Din încărcările acestui canal",
+				"watchLater": "Din „Redă mai târziu”"
+			},
+			"interactive": "Descărcare interactivă…",
+			"thisVideoWith": "Acest videoclip cu"
 		},
 		"newBadge": "Nou",
 		"notice": {
@@ -156,6 +174,7 @@
 			"aria": "Comenzile browserului Explorare",
 			"back": "Înapoi",
 			"compactLayout": "Aspect compact",
+			"download": "Descarcă",
 			"downloadWithProfile": "Descarcă · {{profileName}}",
 			"forward": "Înainte",
 			"fullLayout": "Afișează aspectul complet",
@@ -165,6 +184,8 @@
 			"refusedHint": "Explorare nu poate deschide această adresă.",
 			"reload": "Reîncarcă",
 			"searchTooLong": "Căutarea este prea lungă.",
+			"thisVideo": "Acest videoclip",
+			"thisVideoHint": "Descarcă doar acest videoclip cu {{profileName}}",
 			"zoom": {
 				"hint": "Zoom pagină: {{percent}}%",
 				"in": "Mărire",
@@ -206,9 +227,9 @@
 			"too-long": "Șablonul este prea lung.",
 			"unknown-token": "Simbol necunoscut {{token}}."
 		},
-		"idWarning": "Fără {id}, Arroxy nu poate detecta elementele deja descărcate din listele de redare și nici nu poate genera liste .m3u.",
+		"idEndingWarning": "Încheiați numele cu [{id}] pentru ca Arroxy să poată detecta elementele din lista de redare deja descărcate și să genereze liste de redare .m3u.",
 		"label": "Șablon nume de fișier",
-		"m3uDisabled": "Indisponibil, deoarece șablonul de nume de fișier fie nu include {id}, fie sortează descărcările în foldere.",
+		"m3uDisabledIdEnding": "Indisponibil deoarece șablonul numelui de fișier nu se încheie cu [{id}] sau sortează descărcările în foldere.",
 		"previewPlaylist": "Într-o listă de redare",
 		"previewSingle": "Un singur videoclip",
 		"profileOverrideDescription": "Lăsați gol pentru a moșteni șablonul global.",
@@ -255,17 +276,26 @@
 		"quickDownload": {
 			"added": "Adăugat: {{title}}",
 			"alreadyQueued": "Este deja în coadă",
+			"batchAdded_few": "S-au adăugat {{count}} linkuri la Descărcări",
+			"batchAdded_one": "S-a adăugat {{count}} link la Descărcări",
+			"batchAdded_other": "S-au adăugat {{count}} de linkuri la Descărcări",
+			"batchAlreadyQueued_few": "{{count}} deja în coadă",
+			"batchAlreadyQueued_one": "{{count}} deja în coadă",
+			"batchAlreadyQueued_other": "{{count}} deja în coadă",
+			"batchNoneAdded_few": "{{count}} linkuri nu au putut fi adăugate",
+			"batchNoneAdded_one": "{{count}} link nu a putut fi adăugat",
+			"batchNoneAdded_other": "{{count}} de linkuri nu au putut fi adăugate",
+			"batchNotAdded_few": "{{count}} neadăugate",
+			"batchNotAdded_one": "{{count}} neadăugat",
+			"batchNotAdded_other": "{{count}} neadăugate",
+			"chooseFromList_few": "{{count}} videoclipuri în această listă — alegeți ce să descărcați",
+			"chooseFromList_one": "{{count}} videoclip în această listă — alegeți ce să descărcați",
+			"chooseFromList_other": "{{count}} de videoclipuri în această listă — alegeți ce să descărcați",
 			"chooseHowMany_few": "{{count}}+ videoclipuri — alegeți câte",
 			"chooseHowMany_one": "{{count}}+ videoclip — alegeți câte",
 			"chooseHowMany_other": "{{count}}+ de videoclipuri — alegeți câte",
 			"failed": "Nu s-a putut pregăti {{title}}",
 			"notAdded": "Nu s-a putut adăuga linkul — încercați din nou",
-			"reviewCapped_few": "{{count}}+ videoclipuri în această listă — examinați pentru a alege",
-			"reviewCapped_one": "{{count}}+ videoclip în această listă — examinați pentru a alege",
-			"reviewCapped_other": "{{count}}+ de videoclipuri în această listă — examinați pentru a alege",
-			"review_few": "{{count}} videoclipuri în această listă — examinați pentru a alege",
-			"review_one": "{{count}} videoclip în această listă — examinați pentru a alege",
-			"review_other": "{{count}} de videoclipuri în această listă — examinați pentru a alege",
 			"view": "Vizualizare"
 		},
 		"settingsSaveFailed": "Nu s-au putut salva setările.",
@@ -355,10 +385,28 @@
 			"cappedBody_one": "Peste {{count}} videoclip în această listă de redare. Descărcați-le pe toate, primul sau alegeți într-o examinare.",
 			"cappedBody_other": "Peste {{count}} de videoclipuri în această listă de redare. Descărcați-le pe toate, primele {{count}} sau alegeți într-o examinare.",
 			"first": "Primele {{count}}",
+			"list": {
+				"album": "Albumul",
+				"liked": "Videoclipurile apreciate",
+				"mix": "Mixul",
+				"playlist": "Lista de redare",
+				"uploads": "Toate încărcările",
+				"watchLater": "Redă mai târziu"
+			},
+			"pick": "Alegeți din listă…",
 			"review": "Examinare",
-			"reviewBody_few": "Acest link este o listă de {{count}} videoclipuri. Examinați-o pentru a alege ce descărcați.",
-			"reviewBody_one": "Acest link este o listă de {{count}} videoclip. Examinați-o pentru a alege ce descărcați.",
-			"reviewBody_other": "Acest link este o listă de {{count}} de videoclipuri. Examinați-o pentru a alege ce descărcați."
+			"uncappedBody_few": "Acest link este o listă cu {{count}} videoclipuri. Descărcați-le pe toate sau alegeți printr-o examinare.",
+			"uncappedBody_one": "Acest link este o listă cu {{count}} videoclip. Descărcați-l sau alegeți printr-o examinare.",
+			"uncappedBody_other": "Acest link este o listă cu {{count}} de videoclipuri. Descărcați-le pe toate sau alegeți printr-o examinare.",
+			"video": "Acest videoclip",
+			"videoOrList": {
+				"album": "Acest link este un videoclip dintr-un album. Descărcați doar videoclipul sau albumul?",
+				"liked": "Acest link este un videoclip din videoclipurile dvs. apreciate. Descărcați doar videoclipul sau toate videoclipurile dvs. apreciate?",
+				"mix": "Acest link este un videoclip dintr-un Mix. Descărcați doar videoclipul sau Mixul?",
+				"playlist": "Acest link este un videoclip dintr-o listă de redare. Descărcați doar videoclipul sau lista de redare?",
+				"uploads": "Acest link este un videoclip din încărcările unui canal. Descărcați doar videoclipul sau toate încărcările?",
+				"watchLater": "Acest link este un videoclip din lista dvs. „Redă mai târziu”. Descărcați doar videoclipul sau întreaga listă?"
+			}
 		},
 		"clearTitle": "Șterge descărcările finalizate",
 		"empty": "Descărcările din coadă vor apărea aici",
@@ -392,7 +440,29 @@
 			"statusPending": "În așteptare",
 			"statusProbing": "Se preiau detaliile",
 			"statusRunning": "Se descarcă",
-			"subtitleLanguagesMissing": "Fără subtitrări în {{languages}}"
+			"subtitleLanguagesMissing": "Fără subtitrări în {{languages}}",
+			"waitingForSite": "Se așteaptă {{site}} până la {{time}}",
+			"waitingHint": "{{site}} limitează cererile din această conexiune. Arroxy preia detaliile acestui link după {{time}}, astfel încât limita să poată dispărea."
+		},
+		"listOffer": {
+			"dismiss": "Respinge",
+			"from": {
+				"album": "Dintr-un album",
+				"liked": "Din videoclipurile dvs. apreciate",
+				"mix": "Dintr-un Mix",
+				"playlist": "Dintr-o listă de redare",
+				"uploads": "Din încărcările unui canal",
+				"watchLater": "Din „Redă mai târziu”"
+			},
+			"get": {
+				"album": "Preia tot albumul",
+				"liked": "Preia toate videoclipurile apreciate",
+				"mix": "Preia tot Mixul",
+				"playlist": "Preia toată lista de redare",
+				"uploads": "Preia toate încărcările",
+				"watchLater": "Preia tot din „Redă mai târziu”"
+			},
+			"hint": "Adaugă lista ca rând separat. Acest videoclip rămâne în afara ei."
 		},
 		"pauseAllTitle": "Întrerupe fiecare descărcare activă și împiedică pornirea altora noi",
 		"pausedBanner": "Coada este în pauză — elementele în așteptare nu vor porni până o reluați",
@@ -625,27 +695,20 @@
 		"cancel": "Aveți probleme? Configurați manual",
 		"greeting": "Bun venit înapoi!",
 		"setup": {
-			"bytes": "{{done}} din {{total}}",
 			"left": {
 				"minutes_few": "mai durează aproximativ {{count}} min",
 				"minutes_one": "mai durează aproximativ {{count}} min",
 				"minutes_other": "mai durează aproximativ {{count}} min",
 				"underMinute": "mai durează mai puțin de un minut"
 			},
-			"note": {
-				"engine": "Menține descărcările funcționale când site-urile se schimbă.",
-				"firstRun": "Se întâmplă o singură dată. Arroxy păstrează aceste instrumente și le actualizează singur.",
-				"media": "Se întâmplă o singură dată. Arroxy le păstrează pentru actualizările viitoare."
-			},
 			"stage": {
 				"checking": "Se verifică dacă totul funcționează",
 				"connecting": "Se conectează…",
-				"downloadingBoth": "Se descarcă motorul de descărcare și instrumentele media",
-				"downloadingEngine": "Se descarcă motorul de descărcare",
-				"downloadingMedia": "Se descarcă instrumentele media",
-				"unpacking": "Se despachetează instrumentele media"
+				"unpacking": "Se despachetează instrumentele media",
+				"unpackingEngine": "Se despachetează motorul de descărcare"
 			},
 			"title": {
+				"both": "Se actualizează instrumentele Arroxy",
 				"engine": "Se actualizează motorul de descărcare",
 				"firstRun": "Configurare inițială",
 				"media": "Se actualizează instrumentele media"
@@ -671,14 +734,14 @@
 		"fetchingSponsorBlock": "Se contactează SponsorBlock…",
 		"fetchingSubtitles": "Se preiau subtitrările…",
 		"mergingFormats": "Se îmbină audio și video…",
-		"mintingToken": "Se generează jetonul YouTube…",
+		"mintingToken": "Se pregătește descărcarea de pe YouTube…",
 		"movingFiles": "Se mută fișierele…",
 		"noSubtitles": "Fără subtitrări în {{languages}}",
 		"outputNotWritable": "Nu se poate salva în {{dir}} — Arroxy nu are permisiunea de a scrie acolo",
 		"preparingBinaries": "Se pregătesc fișierele binare…",
-		"qualityLimited": "Salvat la {{height}}p — YouTube a reținut calitățile mai mari pentru această descărcare. Poate ajuta o nouă încercare mai târziu sau dintr-o altă rețea.",
-		"qualityLimitedSubtitlesFailed": "Salvat la {{height}}p — YouTube a reținut calitățile mai mari pentru această descărcare, iar unele subtitrări nu au putut fi descărcate. Poate ajuta o nouă încercare mai târziu sau dintr-o altă rețea.",
-		"remintingToken": "Se regenerează jetonul…",
+		"qualityLimited": "Salvat la {{height}}p — YouTube a reținut calitățile superioare pentru această descărcare. Încercarea din nou mai târziu poate ajuta.",
+		"qualityLimitedSubtitlesFailed": "Salvat la {{height}}p — YouTube a reținut calitățile superioare pentru această descărcare, iar unele subtitrări nu au putut fi descărcate. Încercarea din nou mai târziu poate ajuta.",
+		"remintingToken": "Se pregătește din nou descărcarea de pe YouTube…",
 		"retryingSponsorBlock": "SponsorBlock indisponibil, se reîncearcă ({{attempt}}/{{total}})…",
 		"retryingTransfer": "Conexiune blocată, se reîncearcă ({{attempt}}/{{total}})…",
 		"signingInWithExplore": "Conectare cu contul dvs. din Explorare…",
@@ -813,7 +876,7 @@
 			"pictures": "Imagini",
 			"subfolder": {
 				"invalid": "Numele folderului conține caractere nevalide",
-				"placeholder": "ex. lo-fi",
+				"placeholder": "ex. cursuri",
 				"toggle": "Salvează într-un subfolder"
 			},
 			"videos": "Filme"
@@ -910,7 +973,11 @@
 				"noVideo": "Acest link nu conține video, așa că este selectat audio.",
 				"subtitlesMissing": "Profilul dvs. cere subtitrări în {{languages}}. Acest videoclip nu le are.",
 				"tierAbove": "Profilul dvs. cere {{wanted}}p. Acest videoclip nu are nimic atât de mic, așa că este selectat {{picked}}p.",
-				"tierBelow": "Profilul dvs. cere {{wanted}}p. Acest videoclip ajunge doar până la {{picked}}p, așa că este selectat {{picked}}p.",
+				"tierAbovePassedOver": "Profilul dvs. cere {{wanted}}p. Fluxurile mai mici ale acestui videoclip nu se potrivesc cu restul profilului dvs., așa că este selectat {{picked}}p.",
+				"tierBelowTakeable": "Profilul dvs. cere {{wanted}}p. Acest videoclip nu are un {{wanted}}p pe care să-l poată folosi, așa că este selectat {{picked}}p.",
+				"tierPassedOverAiUpscaled": "Profilul dvs. cere {{wanted}}p. {{wanted}}p al acestui videoclip este mărit cu IA, așa că este selectat originalul de {{picked}}p.",
+				"tierPassedOverH264": "Profilul dvs. cere {{wanted}}p în H.264. Acest videoclip are {{wanted}}p doar în alte codecuri, așa că este selectat {{picked}}p în H.264.",
+				"tierPassedOverProfile": "Profilul dvs. cere {{wanted}}p. {{wanted}}p al acestui videoclip nu se potrivește cu restul profilului dvs., așa că este selectat {{picked}}p.",
 				"webmUnavailable": "Profilul dvs. cere WebM. Fluxurile alese pentru acest videoclip includ {{codec}}, pe care WebM nu îl poate conține, așa că tipul fișierului este Auto."
 			},
 			"footer": {
@@ -987,29 +1054,26 @@
 			"withAudio": "cu audio"
 		},
 		"listPrompt": {
-			"escHint": "Esc anulează. Nu se încarcă nimic până nu alegeți.",
-			"interactiveSubtitle": "Alegeți singur formatele",
-			"justThisVideo": "Doar acest videoclip",
-			"justThisVideoInteractiveHint": "Deschide formatele sale",
-			"justThisVideoQuickHint": "Încarcă un videoclip",
-			"listInteractiveHint": "Încarcă până la {{count}}, dintre care să alegeți",
-			"listOption": {
-				"album": "Albumul, primele",
-				"liked": "Videoclipurile apreciate, primele",
-				"mix": "Mixul, primele",
-				"playlist": "Lista de redare, primele",
-				"uploads": "Încărcările, primele",
-				"watchLater": "„Redă mai târziu”, primele"
-			},
-			"listQuickHint": "Încarcă până la {{count}}, apoi le descarcă",
+			"backgroundHint": "Cu {{profileName}}. Dacă are mai multe videoclipuri decât {{count}}, Descărcări întreabă câte să descarce.",
+			"backgroundLabel": "Descarcă în fundal",
+			"escOnly": "Esc anulează.",
+			"firstHint": "Exact primele {{count}}, cu {{profileName}}.",
+			"firstLabel": "Descarcă primele",
+			"interactiveHint": "Alegeți dintre primele {{count}} videoclipuri (sau schimbați numărul la pasul următor), apoi configurați descărcarea.",
+			"interactiveLabel": "Descărcare interactivă…",
+			"limitHint": "Câte videoclipuri se iau din listă: prima opțiune întreabă dincolo de această valoare, a doua ia exact atâtea. Este la fel ca Setări › Elemente de scanat din listă.",
+			"limitLabel": "Limită",
 			"mixNote": "Un Mix se schimbă de fiecare dată când îl deschideți.",
-			"pickOption": {
-				"album": "Alegere din album, din primele",
-				"liked": "Alegere din videoclipurile apreciate, din primele",
-				"mix": "Alegere din Mix, din primele",
-				"playlist": "Alegere din lista de redare, din primele",
-				"uploads": "Alegere din încărcări, din primele",
-				"watchLater": "Alegere din „Redă mai târziu”, din primele"
+			"pickLoadAfter": "din care să alegeți.",
+			"pickLoadBefore": "Încarcă primele",
+			"pickLoadNote": "Îl puteți schimba la pasul următor.",
+			"pickTitle": {
+				"album": "Alegere din acest album",
+				"liked": "Alegere din videoclipurile dvs. apreciate",
+				"mix": "Alegere din acest Mix",
+				"playlist": "Alegere din această listă de redare",
+				"uploads": "Alegere din încărcările acestui canal",
+				"watchLater": "Alegere din „Redă mai târziu”"
 			},
 			"title": {
 				"album": "Descărcare din acest album",
@@ -1019,6 +1083,9 @@
 				"uploads": "Descărcare din încărcările acestui canal",
 				"watchLater": "Descărcare din „Redă mai târziu”"
 			},
+			"videoHint": "Doar videoclipul pe care l-ați deschis, cu {{profileName}}. Lista nu se încarcă.",
+			"videoLabel": "Doar acest videoclip",
+			"videoPickHint": "Configurați doar videoclipul pe care l-ați deschis. Lista nu se încarcă.",
 			"withProfile": "Profil: {{profileName}}"
 		},
 		"output": {
@@ -1090,6 +1157,12 @@
 			"allRemovedDescription": "Restaurați-le pentru a continua.",
 			"allRemovedTitle": "Toate elementele au fost eliminate",
 			"alreadyDownloaded": "Deja descărcat",
+			"bulkCappedDesc_few": "Au mai multe. Pentru a alege câte, lipiți fiecare link separat.",
+			"bulkCappedDesc_one": "Are mai multe. Pentru a alege câte, lipiți linkul ei separat.",
+			"bulkCappedDesc_other": "Au mai multe. Pentru a alege câte, lipiți fiecare link separat.",
+			"bulkCappedTitle_few": "{{count}} liste se opresc la videoclipul {{limit}} fiecare",
+			"bulkCappedTitle_one": "„{{title}}” se oprește la videoclipul {{limit}}",
+			"bulkCappedTitle_other": "{{count}} de liste se opresc la videoclipul {{limit}} fiecare",
 			"bulkHeading": "URL-uri în bloc",
 			"bulkMetadataOptional": "Nu trebuie să așteptați — fișierele puse acum în coadă își primesc numele real la descărcare.",
 			"bulkMetadataResolving": "Se preiau detaliile videoclipurilor… {{done}}/{{total}}",
@@ -1155,17 +1228,6 @@
 			"syncNoneTitle": "Nimic descărcat încă",
 			"syncScanning": "Se verifică folderul…",
 			"thumbnailAlt": "Miniatura videoclipului"
-		},
-		"playlistCap": {
-			"changeLimit": "Schimbă limita de încărcare",
-			"descriptionWithTitle_few": "<title/>: Arroxy a încărcat {{count}} elemente, cu limita actuală de {{limit}}. Adăugați acum în coadă elementele încărcate sau măriți limita și scanați din nou.",
-			"descriptionWithTitle_one": "<title/>: Arroxy a încărcat {{count}} element, cu limita actuală de {{limit}}. Adăugați acum în coadă elementul încărcat sau măriți limita și scanați din nou.",
-			"descriptionWithTitle_other": "<title/>: Arroxy a încărcat {{count}} de elemente, cu limita actuală de {{limit}}. Adăugați acum în coadă elementele încărcate sau măriți limita și scanați din nou.",
-			"description_few": "Arroxy a încărcat {{count}} elemente, cu limita actuală de {{limit}}. Adăugați acum în coadă elementele încărcate sau măriți limita și scanați din nou.",
-			"description_one": "Arroxy a încărcat {{count}} element, cu limita actuală de {{limit}}. Adăugați acum în coadă elementul încărcat sau măriți limita și scanați din nou.",
-			"description_other": "Arroxy a încărcat {{count}} de elemente, cu limita actuală de {{limit}}. Adăugați acum în coadă elementele încărcate sau măriți limita și scanați din nou.",
-			"queueLoaded": "Adaugă în coadă elementele încărcate",
-			"title": "Scanarea listei de redare este limitată"
 		},
 		"playlistPresets": {
 			"heading": "Alegeți calitatea pentru lot",
@@ -1353,20 +1415,6 @@
 		"profileSwitchRow": {
 			"helpAria": "Ajutor pentru {{label}}"
 		},
-		"quickProgress": {
-			"cancel": "Anulează pregătirea",
-			"currentFallback": "Linkul curent",
-			"description": "Arroxy citește linkul și aplică {{profileName}}.",
-			"failedCount_few": "{{count}} eșuate",
-			"failedCount_one": "{{count}} eșuată",
-			"failedCount_other": "{{count}} eșuate",
-			"phase": {
-				"probing": "Se preiau detaliile",
-				"queueing": "Se adaugă în coadă"
-			},
-			"title": "Se pregătește Descărcarea rapidă",
-			"waitHint": "Lăsați aceasta deschisă cât timp Arroxy pregătește coada."
-		},
 		"review": {
 			"areas": {
 				"extras": "extra",
@@ -1476,6 +1524,7 @@
 				"embed": "Încorporate în videoclip",
 				"heading": "Salvează ca",
 				"sidecar": "Lângă videoclip",
+				"sidecarNoVideo": "În folderul de descărcări",
 				"subfolder": "subfolderul subtitles/"
 			},
 			"searchPlaceholder": "Căutați limbi…",
@@ -1485,10 +1534,6 @@
 		"tabsNavAria": "Navigare între profilurile de descărcare",
 		"url": {
 			"advanced": "Avansat",
-			"analytics": {
-				"toggle": "Trimite semnalul zilnic de activitate",
-				"toggleDescription": "Fără telemetrie. O dată pe zi, un semnal anonim trimite versiunea aplicației, canalul de instalare, sistemul de operare, limba, țara și aproximativ cât timp a trecut de la instalarea Arroxy, ca să putem număra utilizatorii activi și noi. Fără ID-uri, URL-uri, titluri de videoclipuri sau nume de fișiere."
-			},
 			"autoRemoveCompleted": {
 				"description": "Scoate o descărcare din lista Descărcări la câteva secunde după ce se termină. Fișierele rămân în folder; descărcările eșuate și anulate rămân în listă.",
 				"label": "Elimină descărcările finalizate"
@@ -1523,6 +1568,11 @@
 				"label": "Descărcări simultane",
 				"unit": "descărcări"
 			},
+			"concurrentProbes": {
+				"description": "Pentru câte linkuri preia Arroxy detaliile în același timp, înainte de descărcare. Mai puține înseamnă mai blând cu site-urile care blochează conexiunile aglomerate. Un link deschis în Descărcare interactivă are întotdeauna prioritate.",
+				"label": "Linkuri verificate simultan",
+				"unit": "linkuri"
+			},
 			"cookies": {
 				"banWarning": "Site-uri precum YouTube pot semnala — și uneori pot bloca — conturile ale căror cookie-uri sunt folosite de instrumente de descărcare precum Arroxy. Folosiți un cont de unică folosință când este posibil.",
 				"browserHelp": "Citește cookie-urile direct din browser. Pentru browserele din familia Chromium, browserul trebuie să fie închis.",
@@ -1547,12 +1597,20 @@
 				"sourceFile": "Fișier",
 				"sourceLabel": "Sursa cookie-urilor",
 				"sourceOff": "Dezactivat",
-				"toggleDescription": "Ajută la videoclipurile cu restricție de vârstă, doar pentru membri sau private în cont."
+				"toggleDescription": "Ajută la videoclipurile pe care le poate viziona propriul dvs. cont, precum videoclipurile private."
 			},
 			"downloadConnections": {
 				"description": "Accelerează descărcările mari prin preluarea mai multor părți ale unui videoclip deodată. Valorile mai mari cresc șansa ca un site să vă limiteze.",
 				"label": "Conexiuni de descărcare",
 				"unit": "conexiuni"
+			},
+			"downloadList": {
+				"album": "Descarcă albumul…",
+				"liked": "Descarcă videoclipurile apreciate…",
+				"mix": "Descarcă Mixul…",
+				"playlist": "Descarcă lista de redare…",
+				"uploads": "Descarcă încărcările…",
+				"watchLater": "Descarcă „Redă mai târziu”…"
 			},
 			"features": {
 				"always": {
@@ -1581,18 +1639,17 @@
 			"hotkey": {
 				"changeShortcut": "Schimbă comanda rapidă",
 				"conflict": "Această comandă rapidă este folosită de altă aplicație — alegeți alta.",
-				"hintLabel": "Sau apăsați",
-				"hintTooltip": "Copiați un link de videoclip oriunde, apăsați această comandă rapidă, iar Arroxy îl pune în coadă cu profilul activ — fără a schimba ferestrele.",
-				"hintTooltipSettings": "Schimbați-o sau dezactivați-o în Setări.",
+				"globalLabel": "Comandă rapidă globală",
 				"recording": "Apăsați tastele…",
 				"reset": "Resetează la valoarea implicită",
 				"sectionDescription": "Descărcați orice link copiați, din orice aplicație, fără a deschide Arroxy.",
 				"sectionTitle": "Comandă rapidă globală",
 				"test": "Testează",
 				"toggle": "Activează comanda rapidă globală",
-				"toggleDescription": "Apăsați comanda rapidă având în clipboard un link de videoclip."
+				"toggleDescriptionDetail": "Copiați un link de videoclip în orice aplicație și apăsați comanda rapidă: Arroxy îl pune în coadă cu profilul activ, fără a schimba ferestrele. Un link către un videoclip dintr-o listă de redare descarcă videoclipul."
 			},
 			"interactiveDownload": "Descărcare interactivă",
+			"interactiveDownloadAsks": "Descărcare interactivă…",
 			"limitRate": {
 				"activeWarning": "Descărcările active își păstrează limita curentă. Întrerupeți și reluați pentru a aplica modificările.",
 				"custom": "Personalizat…",
@@ -1605,10 +1662,8 @@
 			"mascotBusy": "Descarc în fundal… pot face mai multe deodată 😎",
 			"mascotCollection": "Descărcarea rapidă pune în coadă elementele încărcate cu {{profileName}}. Descărcarea interactivă vă lasă să inspectați sau să selectați mai întâi elementele.",
 			"mascotIdle": "Lăsați un link și Arroxy îl descarcă ✨",
-			"mascotMixed": "Acest link duce la un videoclip dintr-o colecție. Arroxy vă va întreba pe care îl doriți înainte de sondare.",
-			"mascotPreparing": "{{quickDownload}} citește acest link și aplică {{profileName}}.",
-			"mascotQueued": "Coada se ocupă de această descărcare. Puteți lipi alt link cât timp lucrează.",
 			"mascotSingle": "Descărcarea rapidă pornește o descărcare cu {{profileName}}. Folosiți Interactiv pentru modificări punctuale.",
+			"mascotVideoInList": "Acest link indică un videoclip și lista în care se află: descărcați doar videoclipul sau lista.",
 			"nativeAudioPreference": {
 				"compatible": "Stereo compatibil",
 				"description": "Stereo sau surround când un profil alege audio nativ. Un profil îl poate suprascrie.",
@@ -1712,6 +1767,7 @@
 					"override": "Se folosește suprascrierea profilului",
 					"overrideSubfolder": "Se folosește suprascrierea profilului + subfolderul profilului"
 				},
+				"destinationEditHint": "Pentru a schimba locul de salvare, editați profilul.",
 				"destinationFallback": "Destinație",
 				"edit": "Editare",
 				"editActive": "Editează profilul activ",
@@ -1735,26 +1791,27 @@
 				"remove": "Elimină",
 				"reorderHint": "Trageți un profil pentru a-l muta. Toate selectoarele de profil urmează această ordine.",
 				"reset": "Resetează",
+				"savesTo": "Se salvează în",
 				"switchAria": "Schimbă profilul de descărcare: {{profileName}}",
 				"switchTitle": "Schimbă profilul de descărcare"
 			},
 			"proxy": {
 				"clear": "Șterge",
-				"description": "Direcționează traficul printr-un proxy — util pentru conținut restricționat geografic.",
+				"description": "Direcționează traficul printr-un server proxy.",
 				"label": "URL proxy",
 				"placeholder": "http://host:port"
 			},
-			"quickBulkAllFailed": "Niciunul dintre acele URL-uri nu a putut fi pregătit",
 			"quickDownload": "Descărcare rapidă",
 			"quickDownloadTooltip": "Va descărca folosind: {{profileName}}",
 			"quickFailed": "Nu s-a putut adăuga acesta: {{error}}",
-			"quickPartialFailed_few": "S-au pus în coadă cele reușite. {{count}} URL-uri nu au putut fi pregătite.",
-			"quickPartialFailed_one": "S-au pus în coadă cele reușite. {{count}} URL nu a putut fi pregătit.",
-			"quickPartialFailed_other": "S-au pus în coadă cele reușite. {{count}} de URL-uri nu au putut fi pregătite.",
 			"quickPrepareFailed": "Elementul din coadă nu a putut fi pregătit",
 			"quickPreparing": "Se pregătește",
 			"quickProbeFailed": "Sondarea a eșuat",
 			"quickSingleOnly": "Lipiți un URL de videoclip, listă de redare, canal sau căutare pentru a începe.",
+			"reports": {
+				"toggle": "Trimite semnal anonim și rapoarte de configurare",
+				"toggleDescription": "Fără urmărire. O dată pe zi, un semnal anonim trimite versiunea aplicației, canalul de instalare, sistemul de operare, limba, țara și aproximativ cât timp a trecut de la instalarea Arroxy, ca să putem număra utilizatorii activi și noi. Când Arroxy configurează sau actualizează motorul de descărcare ori instrumentele media, raportează și dacă a reușit și aproximativ cât a durat. Fără ID-uri, URL-uri, titluri de videoclipuri sau nume de fișiere."
+			},
 			"settings": {
 				"behaviorDescription": "Comportament global care afectează și descărcările conduse de profil.",
 				"behaviorHeading": "Comportamentul descărcărilor",
@@ -1778,7 +1835,9 @@
 			"tabs": {
 				"profiles": "Profiluri",
 				"settings": "Setări"
-			}
+			},
+			"thisVideo": "Acest videoclip",
+			"thisVideoTooltip": "Descarcă doar acest videoclip cu {{profileName}}"
 		}
 	}
 }

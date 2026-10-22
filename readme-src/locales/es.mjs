@@ -96,7 +96,7 @@ export const es = {
   discord_badge_text: "Únete a la comunidad de Discord",
   discord_badge_encoded: "%C3%9Anete%20a%20la%20comunidad%20de%20Discord",
   hero_desc:
-    "Descarga videos, Shorts, música, canales, podcasts o pistas de audio de **YouTube y más de 2000 sitios compatibles** — hasta 8K HDR a 60 fps, como MP3 / AAC / Opus, o solo la parte que necesites. **Navega por YouTube o cualquier otro sitio dentro de Arroxy** en la pestaña Explore y descarga el video, la playlist o el canal que estás viendo; inicia sesión ahí para descargar videos privados, solo para miembros y con restricción de edad que tu cuenta pueda ver. Se ejecuta localmente en Windows, macOS y Linux. **Sin anuncios, sin bloatware, sin ventas adicionales.**",
+    "Descarga videos, Shorts, canales, podcasts o pistas de audio de **YouTube y más de 2000 sitios compatibles** — hasta 8K HDR a 60 fps, como MP3 / AAC / Opus, o solo la parte que necesites. **Navega por YouTube o cualquier otro sitio dentro de Arroxy** en la pestaña Explore y descarga el video, la playlist o el canal que estás viendo; inicia sesión ahí para descargar los videos que tu propia cuenta ya puede ver. Se ejecuta localmente en Windows, macOS y Linux. **Sin anuncios, sin bloatware, sin ventas adicionales.**",
   cta_latest: "↓ Descargar la última versión",
   cta_website: "Sitio web",
   website_url: "https://arroxy.com/es/",
@@ -107,7 +107,7 @@ export const es = {
   intro_what_is:
     "**¿Qué es Arroxy?** Arroxy es una interfaz de escritorio gratuita y de código abierto que descarga videos, audio, listas de reproducción y subtítulos de YouTube y de más de 2000 sitios compatibles con [yt-dlp](https://github.com/yt-dlp/yt-dlp). Funciona en Windows 10/11, macOS 13+ (Intel + Apple Silicon) y Linux (AppImage, Flatpak, tar.gz). Licencia GPLv3. Sin anuncios ni límites de uso. Se distribuye mediante [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage y descarga directa.",
   intro_key_difference:
-    "**La diferencia clave: un navegador integrado.** La mayoría de los descargadores gratuitos de YouTube son wrappers finos de yt-dlp: un cuadro de URL y un menú de formatos, sin navegador propio. Arroxy tiene uno, la **pestaña Explore**. Navegas por YouTube o cualquier otro sitio dentro de la app y descargas el video, la lista o el canal en el que estás, o haces clic derecho en cualquier enlace. Inicias sesión una vez en Explore y Arroxy descarga los videos privados, solo para miembros y con restricción de edad que tu cuenta puede ver, además de tus listas Ver más tarde y Me gusta, sin exportar cookies. También inicias sesión allí en otros sitios, y sus descargas usan ese inicio de sesión cuando lo necesitan. Arroxy reintenta con ese inicio de sesión cuando YouTube te pide confirmar que no eres un bot. Su navegador integrado también obtiene el token que YouTube espera antes de una descarga, así YouTube no reduce una descarga a menos formatos. Un wrapper con cuadro de URL choca con todos estos límites. Detalles: [¿Por qué Arroxy?](#why-explore).",
+    "**La diferencia clave: un navegador integrado.** La mayoría de los descargadores gratuitos de YouTube son wrappers finos de yt-dlp: un cuadro de URL y un menú de formatos, sin navegador propio. Arroxy tiene uno, la **pestaña Explore**. Navegas por YouTube o cualquier otro sitio dentro de la app y descargas el video, la lista o el canal en el que estás, o haces clic derecho en cualquier enlace. Si inicias sesión una vez en Explore, las descargas que necesitan una cuenta usan ese inicio de sesión: tus vídeos privados, tus listas Ver más tarde y Me gusta, y otros vídeos que tu cuenta ya puede ver, sin exportar cookies. También inicias sesión allí en otros sitios, y sus descargas usan ese inicio de sesión cuando lo necesitan. Detalles: [¿Por qué Arroxy?](#why-explore).",
   last_updated: "Última actualización: {{LAST_UPDATED}}.",
   toc_heading: "Contenido",
   why_h2: "¿Por qué Arroxy?",
@@ -126,7 +126,7 @@ export const es = {
   why_r7: "Subtítulos + SponsorBlock",
   why_r8: "Navegador integrado (navegar, iniciar sesión, descargar)",
   why_r9:
-    "Vídeos privados, solo para miembros y con restricción de edad sin exportar cookies",
+    "Vídeos que tu propia cuenta puede ver, sin exportar cookies",
   why_table_note:
     "⚠️ = en parte, o solo en un plan de pago. En 4K Video Downloader, el inicio de sesión dentro de la app para vídeos privados es una función de pago; la mayoría de las GUI gratuitas de yt-dlp solo aceptan un archivo de cookies o leen las cookies de tu navegador web.",
   why_summary:
@@ -134,13 +134,9 @@ export const es = {
   why_explore_h3:
     "Lo que un simple wrapper de yt-dlp no puede hacer: la pestaña Explore",
   why_explore_intro:
-    "La mayoría de los descargadores gratuitos de YouTube son una casilla para la URL encima de yt-dlp. Arroxy también usa yt-dlp, pero además tiene **Explore**, un navegador integrado en la app que abre YouTube o cualquier otro sitio. Explore supera límites que una casilla de URL no puede superar:",
+    "La mayoría de los descargadores gratuitos de YouTube son una casilla para la URL encima de yt-dlp. Arroxy también usa yt-dlp, pero además tiene **Explore**, un navegador integrado en la app que abre YouTube o cualquier otro sitio. Explore añade lo que una casilla de URL no puede:",
   why_explore_1:
-    "**Vídeos que requieren una cuenta, sin exportar cookies** — vídeos privados, solo para miembros y con restricción de edad (con una cuenta con la edad verificada), además de tus listas Ver más tarde y Me gusta, y vídeos tras un inicio de sesión en otros sitios. Un simple wrapper necesita un cookies.txt exportado o tiene que leer las cookies de tu navegador web, algo que Chrome en Windows ahora bloquea. En Arroxy inicias sesión una vez en Explore y él se encarga del resto",
-  why_explore_2:
-    "**\"Inicia sesión para confirmar que no eres un bot\"** — cuando YouTube lo pide, Arroxy vuelve a intentar la descarga con tu inicio de sesión de Explore en lugar de fallar",
-  why_explore_3:
-    "**El token de descarga de YouTube** — el navegador integrado de Arroxy obtiene el token que YouTube espera antes de una descarga. Sin él, YouTube puede ofrecer menos formatos y menor calidad de la que pediste",
+    "**Vídeos que tu cuenta puede ver, sin exportar cookies** — tus vídeos privados, tus listas Ver más tarde y Me gusta, vídeos con restricción de edad en una cuenta con la edad verificada, y páginas de otros sitios que necesitan tu inicio de sesión. Un simple wrapper necesita un cookies.txt exportado o lee las cookies de tu navegador web. En Arroxy inicias sesión una vez en Explore y él se encarga del resto",
   why_explore_4:
     "**Sin copiar enlaces** — encuentra un vídeo, una playlist o un canal en Explore y descárgalo con un clic, o haz clic derecho en cualquier enlace de la página",
   why_explore_5:
@@ -150,7 +146,7 @@ export const es = {
   feat_explore_6: "**Clic derecho para descargar** — haz clic derecho en cualquier enlace de vídeo, playlist o canal en Explore para descargarlo con tu perfil, elegir otro perfil en **Descargar con**, abrir la descarga paso a paso o copiar el enlace. No hace falta abrir cada vídeo antes",
   feat_explore_7: "**Diseño compacto** — un clic en la barra de herramientas de Explore lleva allí las pestañas de Arroxy y da más espacio a la página",
   feat_explore_2: "**Barra de direcciones** — escribe para buscar en YouTube o introduce cualquier dirección web para abrir ese sitio",
-  feat_explore_3: "**Descargas que necesitan una cuenta** — inicia sesión una vez en Explore y Arroxy podrá descargar vídeos privados y solo para miembros que tu cuenta pueda ver, vídeos con restricción de edad si la cuenta tiene la edad verificada, y tus listas Ver más tarde y Me gusta. Inicia sesión también en otros sitios ahí, y sus descargas usan ese inicio de sesión cuando lo necesitan. Arroxy sigue descargando primero sin sesión y solo usa tu inicio de sesión de Explore cuando una descarga falla de una forma que una cuenta puede arreglar. Cuando YouTube te pide confirmar que no eres un bot, Arroxy también prueba tu inicio de sesión de Explore",
+  feat_explore_3: "**Descargas que necesitan una cuenta** — inicia sesión una vez en Explore y Arroxy podrá descargar vídeos que tu cuenta puede ver: tus vídeos privados, vídeos con restricción de edad si la cuenta tiene la edad verificada, y tus listas Ver más tarde y Me gusta. Inicia sesión también en otros sitios ahí, y sus descargas usan ese inicio de sesión cuando lo necesitan. Arroxy sigue descargando primero sin sesión y solo usa tu inicio de sesión de Explore cuando una descarga falla de una forma que una cuenta puede arreglar",
   feat_explore_4: "**Usa una cuenta secundaria** — la primera pantalla de Explore explica por qué: descargar con una cuenta conlleva cierto riesgo de que esa cuenta sea restringida. Cierra sesión en Explore desde Configuración cuando quieras olvidar tus inicios de sesión",
   feat_explore_5: "**Bloqueador de anuncios** — desactivado por defecto. Un clic en el escudo de la barra de herramientas de Explore bloquea anuncios y rastreadores en sus páginas, sin afectar a las descargas. YouTube puede oponerse a los bloqueadores de anuncios en cuentas con sesión iniciada",
   feat_quality_h3: "Calidad y formatos",
@@ -193,7 +189,7 @@ export const es = {
   feat_workflow_10:
     "**Descargas a la vez y reintento automático** — elige cuántas descargas de la cola se ejecutan al mismo tiempo y deja que Arroxy reintente una descarga que sufrió un problema de red o del servidor, esperando más antes de cada intento",
   feat_workflow_11:
-    "**Perfiles por elemento de playlist** — asigna a cada vídeo de una playlist su propio perfil de descarga en lugar de un único ajuste para toda la lista, para archivar algunos en calidad máxima y sacar el resto como MP3 en una sola pasada",
+    "**Perfiles por elemento de playlist** — asigna a cada vídeo de una playlist su propio perfil de descarga en lugar de un único ajuste para toda la lista, para archivar algunos en calidad máxima y guardar el resto solo como audio en una sola pasada",
   feat_workflow_13: "**Quick Download funciona en segundo plano** — el enlace aparece enseguida en Descargas y se prepara allí, una nota con **Ver** lo confirma, y el campo de URL se vacía para el siguiente enlace. Lanza tantos como quieras mientras los anteriores se preparan",
   feat_workflow_14: "**Descargas te avisa de lo que necesita tu atención** — si Arroxy no puede leer un enlace, su fila explica por qué y ofrece la solución: Reintentar, activar las cookies o iniciar sesión en Explore. Con las cookies desactivadas, **Iniciar sesión con Explore** lo reintenta por ti en cuanto hayas iniciado sesión. Una playlist más larga que tu límite de carga espera en su fila a que elijas toda, los primeros vídeos o una revisión. La pestaña Descargas cuenta las filas que esperan por ti",
   feat_workflow_15:
@@ -223,7 +219,7 @@ export const es = {
   feat_sites_1:
     "**YouTube, al completo** — Videos, Shorts, Canales, Playlists, YouTube Music y Podcasts tratados como fuentes de primera clase",
   feat_sites_2:
-    "**Más de 2000 sitios adicionales** via yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable y muchos más",
+    "**Más de 2000 sitios adicionales** via yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable y muchos más",
   feat_sites_3:
     "**Solo audio y subtítulos** funcionan en todos los sitios compatibles, no solo en YouTube",
   feat_sites_4:
@@ -242,7 +238,7 @@ export const es = {
     "<b>Cola de descargas en paralelo</b><br/>Varias descargas a la vez con progreso en vivo",
   hotkey_fig_alt: "Atajo de descarga global de Arroxy — Ctrl+Shift+D en Windows y Linux, Cmd+Shift+D en macOS, que envía el enlace copiado directamente a la cola de descargas",
   hotkey_fig_cap: "<b>Atajo de descarga global</b><br/>Copia un enlace donde sea y pulsa una vez — entra en la cola y empieza a descargarse",
-  shot7_cap: "<b>Perfiles por elemento de playlist</b><br/>Da a cada vídeo su propio perfil — archiva algunos en 4K y saca el resto como MP3",
+  shot7_cap: "<b>Perfiles por elemento de playlist</b><br/>Da a cada vídeo su propio perfil — archiva algunos en 4K y guarda el resto solo como audio",
   shot8_cap: "<b>Explore</b><br/>Navega por YouTube o cualquier otro sitio dentro de Arroxy y descarga la página en la que estás con tu perfil activo",
   shot9_cap: "<b>La primera pantalla de Explore</b><br/>Un vistazo rápido a Explore y por qué una cuenta secundaria es el inicio de sesión más seguro",
   shot10_cap: "<b>Descargas te avisa de lo que necesita tu atención</b><br/>Los enlaces se preparan en segundo plano; uno fallido ofrece su solución, una playlist larga espera tu decisión",
@@ -381,14 +377,14 @@ export const es = {
 
   privacy_p1:
     "Las descargas se obtienen directamente a través de [yt-dlp](https://github.com/yt-dlp/yt-dlp) desde YouTube hacia la carpeta que elijas — nada pasa por un servidor de terceros. El historial de visualización, el historial de descargas, las URLs y el contenido de los archivos permanecen en tu dispositivo.",
-  privacy_p2:
-    "Sin telemetría — solo una señal anónima al día: versión de la app, OS, idioma, canal de instalación, país y, aproximadamente, hace cuánto se instaló Arroxy, para poder contar los usuarios activos y nuevos. Sin IDs, URLs, títulos de video, rutas de archivo ni datos de cuenta. Puedes desactivarla en Configuración.",
+  privacy_reports:
+    "Sin seguimiento — una señal anónima al día (versión de la app, SO, idioma, canal de instalación, país y, aproximadamente, cuánto hace que se instaló Arroxy) para contar los usuarios activos y nuevos y, cuando Arroxy descarga o actualiza yt-dlp y FFmpeg, una nota anónima sobre si funcionó y, aproximadamente, cuánto tardó. Sin IDs, URLs, títulos de vídeo, rutas de archivo ni datos de cuenta. Puedes desactivar ambas en Ajustes.",
   privacy_p3: "Explore mantiene sus propios inicios de sesión, separados de tu navegador, y Arroxy nunca lee ni rellena un formulario de acceso: escribes en la propia página del sitio. Las descargas se hacen sin sesión; solo cuando una falla de una forma que una cuenta puede arreglar, Arroxy lee el inicio de sesión en ese momento, lo guarda en un archivo temporal para esa descarga y borra el archivo después. Cerrar sesión en Explore desde Configuración los olvida.",
   faq_q1: "¿Es realmente gratis?",
   faq_a1: "Sí — licencia GPLv3, sin nivel premium, sin funciones bloqueadas.",
   faq_q11: "¿En qué se diferencia Arroxy de otras GUI de yt-dlp?",
   faq_a11:
-    "La mayoría de las GUI gratuitas de yt-dlp son wrappers que solo aceptan un enlace. Arroxy añade **Explore**, un navegador integrado en la app que abre YouTube o cualquier otro sitio: navegas y descargas sin copiar enlaces, e inicias sesión allí una vez para descargar vídeos privados, solo para miembros y con restricción de edad, y tus listas Ver más tarde y Me gusta, sin exportar cookies. Arroxy usa ese inicio de sesión cuando YouTube te pide confirmar que no eres un bot, y su navegador integrado obtiene el token de descarga de YouTube para que las descargas no se queden con menos formatos. Consulta [¿Por qué Arroxy?](#why).",
+    "La mayoría de las GUI gratuitas de yt-dlp son wrappers que solo aceptan un enlace. Arroxy añade **Explore**, un navegador integrado en la app que abre YouTube o cualquier otro sitio: navegas y descargas sin copiar enlaces, e inicias sesión allí una vez para descargar los vídeos que tu cuenta puede ver, como tus vídeos privados y tus listas Ver más tarde y Me gusta, sin exportar cookies. Consulta [¿Por qué Arroxy?](#why).",
   faq_q2: "¿Qué calidades de video puedo descargar?",
   faq_a2:
     "Cualquiera que sirva YouTube: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, más solo audio. Los streams de 60 fps y HDR se conservan tal cual, y la descarga paso a paso te permite elegir AV1, VP9 o H.264 en cada resolución.",
@@ -396,9 +392,9 @@ export const es = {
   faq_a3:
     "Sí. Elige *solo audio* en el menú de formatos y luego MP3, M4A/AAC, Opus o WAV.",
   faq_q4: "¿Cómo descargo vídeos que necesitan una cuenta de YouTube?",
-  faq_a4: "Inicia sesión una vez en la pestaña Explore. Arroxy podrá entonces descargar vídeos privados y solo para miembros que tu cuenta pueda ver, vídeos con restricción de edad si la cuenta tiene la edad verificada, y tus listas Ver más tarde y Me gusta. Solo usa el inicio de sesión cuando una descarga falla de una forma que una cuenta puede arreglar; todo lo demás se descarga como antes. Es la opción **Inicio de sesión de Explore**, la primera de la lista y marcada como Recomendada en la configuración de cookies, y Arroxy la elige por ti la primera vez que abres Explore. La wiki de yt-dlp señala que [la automatización con sesión iniciada puede marcar una cuenta de Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), así que una cuenta secundaria es la opción más segura.",
+  faq_a4: "Inicia sesión una vez en la pestaña Explore. Arroxy podrá entonces descargar vídeos que tu cuenta puede ver: tus vídeos privados, vídeos con restricción de edad si la cuenta tiene la edad verificada, y tus listas Ver más tarde y Me gusta. Solo usa el inicio de sesión cuando una descarga falla de una forma que una cuenta puede arreglar; todo lo demás se descarga como antes. Es la opción **Inicio de sesión de Explore**, la primera de la lista y marcada como Recomendada en la configuración de cookies, y Arroxy la elige por ti la primera vez que abres Explore. La wiki de yt-dlp señala que [la automatización con sesión iniciada puede marcar una cuenta de Google](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), así que una cuenta secundaria es la opción más segura.",
   faq_q5: "¿Seguirá funcionando cuando YouTube cambie algo?",
-  faq_a5: "yt-dlp se actualiza automáticamente al iniciar, y Arroxy publica correcciones rápidamente cuando YouTube cambia algo. Cuando YouTube te pide confirmar que no eres un bot, Arroxy también prueba tu inicio de sesión de Explore si lo has iniciado ahí, y las cookies de un archivo o de tu navegador están disponibles en la configuración de cookies.",
+  faq_a5: "yt-dlp se actualiza automáticamente al iniciar, y Arroxy publica correcciones rápidamente cuando YouTube cambia algo. Cuando una descarga necesita iniciar sesión, Arroxy usa tu inicio de sesión de Explore si lo has iniciado ahí, y las cookies de un archivo o de tu navegador están disponibles en la configuración de cookies.",
   faq_q6: "¿En qué idiomas está disponible Arroxy?",
   faq_a6:
     "{{LANG_COUNT}} idiomas, listos para usar: {{LANG_NAME_LIST}}. Arroxy detecta automáticamente el idioma de tu sistema operativo en el primer inicio y puedes cambiarlo en cualquier momento desde el selector de idioma de la barra de herramientas. Los JSON de locale en runtime viven en src/shared/i18n/locales/, y los catálogos PO para traductores viven en i18n/locales/ — abre un PR en GitHub para contribuir.",
@@ -413,7 +409,7 @@ export const es = {
     "Es Gatekeeper de macOS bloqueando una app sin firmar, no un daño real. Consulta [macOS first launch](#macos-first-launch) para ver los comandos de Terminal que eliminan la cuarentena e inician Arroxy.",
   faq_q10: "¿Es legal descargar videos de YouTube?",
   faq_a10:
-    "Para uso personal y privado, generalmente se acepta en la mayoría de jurisdicciones. Eres responsable de cumplir con los [Términos de Servicio](https://www.youtube.com/t/terms) de YouTube y las leyes de propiedad intelectual de tu jurisdicción.",
+    "Depende de tu país y de lo que descargues. Descarga solo contenido que te pertenezca, contenido con licencia para descargarlo o contenido que la ley de tu país te permita copiar. Eres responsable de cumplir con los [Términos de Servicio](https://www.youtube.com/t/terms) de YouTube y las leyes de propiedad intelectual de tu país. Consulta [Términos de uso](#terms).",
   plan_intro: "Todavía planeado — aproximadamente por orden de prioridad:",
   plan_col1: "Función",
   plan_col2: "Descripción",
@@ -437,7 +433,7 @@ export const es = {
     "¿Tienes alguna función en mente? [Abre una solicitud](../../issues) — la opinión de la comunidad guía la prioridad.",
   tech_content: TECH_CONTENT,
   support_h2: "Apoyar a Arroxy",
-  support_note: "Arroxy es gratuito y con licencia GPLv3: sin anuncios, sin telemetría, sin versión de pago. Si te ahorra tiempo, puedes apoyar el desarrollo con Bitcoin, Tron o Ethereum: las direcciones están en [DONATE.md](DONATE.md), la única fuente oficial para ellas. Arroxy nunca te enviará una dirección por correo electrónico ni por mensaje directo. Dar una estrella al repositorio, informar de errores y mejorar las traducciones ayudan igual de mucho.",
+  support_line: "Arroxy es gratuito y con licencia GPLv3: sin anuncios, sin seguimiento, sin versión de pago. Si te ahorra tiempo, puedes apoyar el desarrollo con Bitcoin, Tron o Ethereum: las direcciones están en [DONATE.md](DONATE.md), la única fuente oficial para ellas. Arroxy nunca te enviará una dirección por correo electrónico ni por mensaje directo. Dar una estrella al repositorio, informar de errores y mejorar las traducciones ayudan igual de mucho.",
   tos_h2: "Términos de uso",
   tos_note:
     "Arroxy es una herramienta para uso personal y privado únicamente. Eres el único responsable de garantizar que tus descargas cumplan con los [Términos de Servicio](https://www.youtube.com/t/terms) de YouTube y las leyes de propiedad intelectual de tu jurisdicción. No uses Arroxy para descargar, reproducir o distribuir contenido sobre el que no tengas derechos. Los desarrolladores no se hacen responsables del mal uso.",

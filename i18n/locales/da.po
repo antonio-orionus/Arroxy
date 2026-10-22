@@ -107,10 +107,6 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "Fortsæt"
 
-msgctxt "common.dismiss"
-msgid "Dismiss"
-msgstr "Afvis"
-
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "Indlæser"
@@ -143,13 +139,9 @@ msgctxt "dialogs.closeToTray.remember"
 msgid "Don't ask again"
 msgstr "Spørg ikke igen"
 
-msgctxt "dialogs.quitWithActiveDownloads.confirm"
-msgid "Cancel Downloads & Quit"
-msgstr "Annuller downloads og afslut"
-
-msgctxt "dialogs.quitWithActiveDownloads.detail"
-msgid "Pause to resume later, or cancel to discard progress."
-msgstr "Sæt på pause for at fortsætte senere, eller annuller for at kassere fremskridtet."
+msgctxt "dialogs.quitWithActiveDownloads.continueDetail"
+msgid "Your queue is kept, and downloads pick up where they stopped the next time you open Arroxy."
+msgstr "Din kø bevares, og downloads fortsætter, hvor de slap, næste gang du åbner Arroxy."
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -165,9 +157,9 @@ msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "{{count}} downloads i gang"
 
-msgctxt "dialogs.quitWithActiveDownloads.pause"
-msgid "Pause Downloads & Quit"
-msgstr "Sæt downloads på pause og afslut"
+msgctxt "dialogs.quitWithActiveDownloads.quit"
+msgid "Quit"
+msgstr "Afslut"
 
 msgctxt "dialogs.rendererCrashed.detail"
 msgid "The renderer process crashed ({{reason}}). Reload to try again."
@@ -226,8 +218,8 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "Denne video er aldersbegrænset og kan ikke downloades uden en konto, du er logget ind på."
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
-msgstr "Botbeskyttelsen blev udløst. Den IP-adresse, du bruger, er højst sandsynligt markeret (datacenterområde eller travlt VPN-udgangspunkt). Skift din IP-adresse, eller vælg et andet VPN-slutpunkt, og prøv igen. Hvis det bliver ved med at fejle, kan det være en midlertidig ændring på webstedets side — Arroxy opdaterer sin download-motor ved start, så rettelsen kommer automatisk, så snart den er udgivet."
+msgid "The site's bot protection stopped this download. Wait a while and try again, or download fewer videos at once. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Webstedets botbeskyttelse stoppede dette download. Vent lidt og prøv igen, eller download færre videoer ad gangen. Hvis det bliver ved med at fejle, kan det være en midlertidig ændring på webstedets side — Arroxy opdaterer sin download-motor ved start, så rettelsen kommer automatisk, så snart den er udgivet."
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
 msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
@@ -246,8 +238,8 @@ msgid "This video is not available in your region."
 msgstr "Denne video er ikke tilgængelig i dit område."
 
 msgctxt "errors.ytdlp.ipBlock"
-msgid "Your IP address appears to be blocked. Try again later or use a VPN."
-msgstr "Din IP-adresse ser ud til at være blokeret. Prøv igen senere, eller brug en VPN."
+msgid "The site is blocking requests from this connection. Try again later."
+msgstr "Webstedet blokerer anmodninger fra denne forbindelse. Prøv igen senere."
 
 msgctxt "errors.ytdlp.loginRequired"
 msgid "This video needs a signed-in account."
@@ -329,13 +321,77 @@ msgctxt "explore.linkCallout.title"
 msgid "Right-click a link to download it"
 msgstr "Højreklik på et link for at downloade det"
 
+msgctxt "explore.linkMenu.background.album"
+msgid "Download the album in the background"
+msgstr "Download albummet i baggrunden"
+
+msgctxt "explore.linkMenu.background.liked"
+msgid "Download your liked videos in the background"
+msgstr "Download videoer, du synes godt om, i baggrunden"
+
+msgctxt "explore.linkMenu.background.mix"
+msgid "Download the Mix in the background"
+msgstr "Download Mixet i baggrunden"
+
+msgctxt "explore.linkMenu.background.playlist"
+msgid "Download the playlist in the background"
+msgstr "Download afspilningslisten i baggrunden"
+
+msgctxt "explore.linkMenu.background.uploads"
+msgid "Download the uploads in the background"
+msgstr "Download uploads i baggrunden"
+
+msgctxt "explore.linkMenu.background.watchLater"
+msgid "Download Watch later in the background"
+msgstr "Download Se senere i baggrunden"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "Kopiér link"
 
+msgctxt "explore.linkMenu.downloadFirst"
+msgid "Download the first {{count}}"
+msgstr "Download de første {{count}}"
+
+msgctxt "explore.linkMenu.downloadThisVideo"
+msgid "Download this video · {{profileName}}"
+msgstr "Download denne video · {{profileName}}"
+
 msgctxt "explore.linkMenu.downloadWith"
 msgid "Download with"
 msgstr "Download med"
+
+msgctxt "explore.linkMenu.fromList.album"
+msgid "From this album"
+msgstr "Fra dette album"
+
+msgctxt "explore.linkMenu.fromList.liked"
+msgid "From your liked videos"
+msgstr "Fra videoer, du synes godt om"
+
+msgctxt "explore.linkMenu.fromList.mix"
+msgid "From this Mix"
+msgstr "Fra dette Mix"
+
+msgctxt "explore.linkMenu.fromList.playlist"
+msgid "From this playlist"
+msgstr "Fra denne afspilningsliste"
+
+msgctxt "explore.linkMenu.fromList.uploads"
+msgid "From this channel’s uploads"
+msgstr "Fra denne kanals uploads"
+
+msgctxt "explore.linkMenu.fromList.watchLater"
+msgid "From Watch later"
+msgstr "Fra Se senere"
+
+msgctxt "explore.linkMenu.interactive"
+msgid "Interactive Download…"
+msgstr "Interaktiv download…"
+
+msgctxt "explore.linkMenu.thisVideoWith"
+msgid "This video with"
+msgstr "Denne video med"
 
 msgctxt "explore.newBadge"
 msgid "New"
@@ -481,6 +537,10 @@ msgctxt "explore.toolbar.compactLayout"
 msgid "Compact layout"
 msgstr "Kompakt layout"
 
+msgctxt "explore.toolbar.download"
+msgid "Download"
+msgstr "Download"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "Download · {{profileName}}"
@@ -516,6 +576,14 @@ msgstr "Genindlæs"
 msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "Den søgning er for lang."
+
+msgctxt "explore.toolbar.thisVideo"
+msgid "This video"
+msgstr "Denne video"
+
+msgctxt "explore.toolbar.thisVideoHint"
+msgid "Download just this video with {{profileName}}"
+msgstr "Download kun denne video med {{profileName}}"
 
 msgctxt "explore.toolbar.zoom.hint"
 msgid "Page zoom: {{percent}}%"
@@ -581,17 +649,17 @@ msgctxt "filenameTemplate.error.unknown-token"
 msgid "Unknown token {{token}}."
 msgstr "Ukendt mærke {{token}}."
 
-msgctxt "filenameTemplate.idWarning"
-msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
-msgstr "Uden {id} kan Arroxy ikke genkende allerede downloadede elementer i afspilningslister eller oprette .m3u-afspilningslister."
+msgctxt "filenameTemplate.idEndingWarning"
+msgid "End the name with [{id}] so Arroxy can detect already-downloaded playlist items and generate .m3u playlists."
+msgstr "Lad navnet ende på [{id}], så Arroxy kan genkende allerede downloadede elementer i afspilningslister og oprette .m3u-afspilningslister."
 
 msgctxt "filenameTemplate.label"
 msgid "Filename template"
 msgstr "Skabelon til filnavne"
 
-msgctxt "filenameTemplate.m3uDisabled"
-msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
-msgstr "Ikke tilgængelig, fordi din skabelon til filnavne enten ikke indeholder {id} eller sorterer downloads i mapper."
+msgctxt "filenameTemplate.m3uDisabledIdEnding"
+msgid "Unavailable because your filename template either doesn't end with [{id}] or sorts downloads into folders."
+msgstr "Ikke tilgængelig, fordi din filnavnsskabelon enten ikke ender på [{id}] eller sorterer downloads i mapper."
 
 msgctxt "filenameTemplate.previewPlaylist"
 msgid "In a playlist"
@@ -778,6 +846,56 @@ msgid "Already in the queue"
 msgstr "Allerede i køen"
 
 #. Plural form "one" for da: used for counts like 1.
+msgctxt "notifications.quickDownload.batchAdded_one"
+msgid "Added {{count}} link to Downloads"
+msgstr "{{count}} link føjet til Downloads"
+
+#. Plural form "other" for da: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchAdded_other"
+msgid "Added {{count}} links to Downloads"
+msgstr "{{count}} links føjet til Downloads"
+
+#. Plural form "one" for da: used for counts like 1.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_one"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} er allerede i køen"
+
+#. Plural form "other" for da: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_other"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} er allerede i køen"
+
+#. Plural form "one" for da: used for counts like 1.
+msgctxt "notifications.quickDownload.batchNoneAdded_one"
+msgid "{{count}} link couldn't be added"
+msgstr "{{count}} link kunne ikke tilføjes"
+
+#. Plural form "other" for da: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchNoneAdded_other"
+msgid "{{count}} links couldn't be added"
+msgstr "{{count}} links kunne ikke tilføjes"
+
+#. Plural form "one" for da: used for counts like 1.
+msgctxt "notifications.quickDownload.batchNotAdded_one"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} kunne ikke tilføjes"
+
+#. Plural form "other" for da: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.batchNotAdded_other"
+msgid "{{count}} couldn't be added"
+msgstr "{{count}} kunne ikke tilføjes"
+
+#. Plural form "one" for da: used for counts like 1.
+msgctxt "notifications.quickDownload.chooseFromList_one"
+msgid "{{count}} video in this list — choose what to download"
+msgstr "{{count}} video på denne liste — vælg, hvad der skal downloades"
+
+#. Plural form "other" for da: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "notifications.quickDownload.chooseFromList_other"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "{{count}} videoer på denne liste — vælg, hvad der skal downloades"
+
+#. Plural form "one" for da: used for counts like 1.
 msgctxt "notifications.quickDownload.chooseHowMany_one"
 msgid "{{count}}+ video — choose how many"
 msgstr "{{count}}+ video — vælg hvor mange"
@@ -794,26 +912,6 @@ msgstr "Kunne ikke klargøre {{title}}"
 msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "Kunne ikke tilføje det link — prøv igen"
-
-#. Plural form "one" for da: used for counts like 1.
-msgctxt "notifications.quickDownload.review_one"
-msgid "{{count}} video in this list — review to pick"
-msgstr "{{count}} video på denne liste — gennemgå for at vælge"
-
-#. Plural form "other" for da: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "notifications.quickDownload.review_other"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "{{count}} videoer på denne liste — gennemgå for at vælge"
-
-#. Plural form "one" for da: used for counts like 1.
-msgctxt "notifications.quickDownload.reviewCapped_one"
-msgid "{{count}}+ video in this list — review to pick"
-msgstr "{{count}}+ video på denne liste — gennemgå for at vælge"
-
-#. Plural form "other" for da: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "notifications.quickDownload.reviewCapped_other"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "{{count}}+ videoer på denne liste — gennemgå for at vælge"
 
 msgctxt "notifications.quickDownload.view"
 msgid "View"
@@ -1063,19 +1161,75 @@ msgctxt "queue.choice.first"
 msgid "First {{count}}"
 msgstr "Første {{count}}"
 
+msgctxt "queue.choice.list.album"
+msgid "The album"
+msgstr "Albummet"
+
+msgctxt "queue.choice.list.liked"
+msgid "Liked videos"
+msgstr "Videoer, du synes godt om"
+
+msgctxt "queue.choice.list.mix"
+msgid "The Mix"
+msgstr "Mixet"
+
+msgctxt "queue.choice.list.playlist"
+msgid "The playlist"
+msgstr "Afspilningslisten"
+
+msgctxt "queue.choice.list.uploads"
+msgid "All the uploads"
+msgstr "Alle uploads"
+
+msgctxt "queue.choice.list.watchLater"
+msgid "Watch later"
+msgstr "Se senere"
+
+msgctxt "queue.choice.pick"
+msgid "Pick from it…"
+msgstr "Vælg derfra…"
+
 msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "Gennemgå"
 
 #. Plural form "one" for da: used for counts like 1.
-msgctxt "queue.choice.reviewBody_one"
-msgid "This link is a list of {{count}} video. Review it to pick what to download."
-msgstr "Dette link er en liste med {{count}} video. Gennemgå den for at vælge, hvad der skal downloades."
+msgctxt "queue.choice.uncappedBody_one"
+msgid "This link is a list of {{count}} video. Download it, or pick in a review."
+msgstr "Dette link er en liste med {{count}} video. Download den, eller vælg i en gennemgang."
 
 #. Plural form "other" for da: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "queue.choice.reviewBody_other"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "Dette link er en liste med {{count}} videoer. Gennemgå den for at vælge, hvad der skal downloades."
+msgctxt "queue.choice.uncappedBody_other"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "Dette link er en liste med {{count}} videoer. Download dem alle, eller vælg i en gennemgang."
+
+msgctxt "queue.choice.video"
+msgid "This video"
+msgstr "Denne video"
+
+msgctxt "queue.choice.videoOrList.album"
+msgid "This link is a video in an album. Download just the video, or the album?"
+msgstr "Dette link er en video i et album. Download kun videoen eller albummet?"
+
+msgctxt "queue.choice.videoOrList.liked"
+msgid "This link is a video in your liked videos. Download just the video, or all your liked videos?"
+msgstr "Dette link er en video blandt videoer, du synes godt om. Download kun videoen eller alle videoer, du synes godt om?"
+
+msgctxt "queue.choice.videoOrList.mix"
+msgid "This link is a video in a Mix. Download just the video, or the Mix?"
+msgstr "Dette link er en video i et Mix. Download kun videoen eller Mixet?"
+
+msgctxt "queue.choice.videoOrList.playlist"
+msgid "This link is a video in a playlist. Download just the video, or the playlist?"
+msgstr "Dette link er en video i en afspilningsliste. Download kun videoen eller afspilningslisten?"
+
+msgctxt "queue.choice.videoOrList.uploads"
+msgid "This link is a video in a channel's uploads. Download just the video, or all the uploads?"
+msgstr "Dette link er en video blandt en kanals uploads. Download kun videoen eller alle uploads?"
+
+msgctxt "queue.choice.videoOrList.watchLater"
+msgid "This link is a video in your Watch later list. Download just the video, or the whole list?"
+msgstr "Dette link er en video på din liste Se senere. Download kun videoen eller hele listen?"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -1204,6 +1358,70 @@ msgstr "Downloader"
 msgctxt "queue.item.subtitleLanguagesMissing"
 msgid "No subtitles in {{languages}}"
 msgstr "Ingen undertekster på {{languages}}"
+
+msgctxt "queue.item.waitingForSite"
+msgid "Waits for {{site}} until {{time}}"
+msgstr "Venter på {{site}} til {{time}}"
+
+msgctxt "queue.item.waitingHint"
+msgid "{{site}} is rate-limiting this connection. Arroxy fetches this link's details after {{time}}, so the limit can clear."
+msgstr "{{site}} begrænser denne forbindelse. Arroxy henter oplysningerne om dette link efter {{time}}, så grænsen kan ophæves."
+
+msgctxt "queue.listOffer.dismiss"
+msgid "Dismiss"
+msgstr "Luk"
+
+msgctxt "queue.listOffer.from.album"
+msgid "From an album"
+msgstr "Fra et album"
+
+msgctxt "queue.listOffer.from.liked"
+msgid "From your liked videos"
+msgstr "Fra videoer, du synes godt om"
+
+msgctxt "queue.listOffer.from.mix"
+msgid "From a Mix"
+msgstr "Fra et Mix"
+
+msgctxt "queue.listOffer.from.playlist"
+msgid "From a playlist"
+msgstr "Fra en afspilningsliste"
+
+msgctxt "queue.listOffer.from.uploads"
+msgid "From a channel's uploads"
+msgstr "Fra en kanals uploads"
+
+msgctxt "queue.listOffer.from.watchLater"
+msgid "From Watch later"
+msgstr "Fra Se senere"
+
+msgctxt "queue.listOffer.get.album"
+msgid "Get the whole album"
+msgstr "Hent hele albummet"
+
+msgctxt "queue.listOffer.get.liked"
+msgid "Get all liked videos"
+msgstr "Hent alle videoer, du synes godt om"
+
+msgctxt "queue.listOffer.get.mix"
+msgid "Get the whole Mix"
+msgstr "Hent hele Mixet"
+
+msgctxt "queue.listOffer.get.playlist"
+msgid "Get the whole playlist"
+msgstr "Hent hele afspilningslisten"
+
+msgctxt "queue.listOffer.get.uploads"
+msgid "Get all uploads"
+msgstr "Hent alle uploads"
+
+msgctxt "queue.listOffer.get.watchLater"
+msgid "Get all of Watch later"
+msgstr "Hent alt fra Se senere"
+
+msgctxt "queue.listOffer.hint"
+msgid "Adds the list as its own row. This video is left out."
+msgstr "Tilføjer listen som sin egen række. Denne video udelades."
 
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
@@ -1745,10 +1963,6 @@ msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Hej, velkommen tilbage!"
 
-msgctxt "splash.setup.bytes"
-msgid "{{done}} of {{total}}"
-msgstr "{{done}} af {{total}}"
-
 #. Plural form "one" for da: used for counts like 1.
 msgctxt "splash.setup.left.minutes_one"
 msgid "about {{count}} min left"
@@ -1763,18 +1977,6 @@ msgctxt "splash.setup.left.underMinute"
 msgid "less than a minute left"
 msgstr "mindre end et minut tilbage"
 
-msgctxt "splash.setup.note.engine"
-msgid "Keeps downloads working when sites change."
-msgstr "Sørger for, at downloads bliver ved med at virke, når websteder ændrer sig."
-
-msgctxt "splash.setup.note.firstRun"
-msgid "This happens once. Arroxy keeps these tools and updates them itself."
-msgstr "Det sker kun én gang. Arroxy beholder disse værktøjer og opdaterer dem selv."
-
-msgctxt "splash.setup.note.media"
-msgid "This happens once. Arroxy keeps them for future updates."
-msgstr "Det sker kun én gang. Arroxy beholder dem til fremtidige opdateringer."
-
 msgctxt "splash.setup.stage.checking"
 msgid "Checking everything works"
 msgstr "Kontrollerer, at alt virker"
@@ -1783,21 +1985,17 @@ msgctxt "splash.setup.stage.connecting"
 msgid "Connecting…"
 msgstr "Opretter forbindelse…"
 
-msgctxt "splash.setup.stage.downloadingBoth"
-msgid "Downloading the download engine and media tools"
-msgstr "Downloader download-motoren og medieværktøjerne"
-
-msgctxt "splash.setup.stage.downloadingEngine"
-msgid "Downloading the download engine"
-msgstr "Downloader download-motoren"
-
-msgctxt "splash.setup.stage.downloadingMedia"
-msgid "Downloading the media tools"
-msgstr "Downloader medieværktøjerne"
-
 msgctxt "splash.setup.stage.unpacking"
 msgid "Unpacking the media tools"
 msgstr "Udpakker medieværktøjerne"
+
+msgctxt "splash.setup.stage.unpackingEngine"
+msgid "Unpacking the download engine"
+msgstr "Udpakker download-motoren"
+
+msgctxt "splash.setup.title.both"
+msgid "Updating Arroxy's tools"
+msgstr "Opdaterer Arroxys værktøjer"
 
 msgctxt "splash.setup.title.engine"
 msgid "Updating the download engine"
@@ -1884,8 +2082,8 @@ msgid "Merging audio and video…"
 msgstr "Fletter lyd og video sammen…"
 
 msgctxt "status.mintingToken"
-msgid "Minting YouTube token…"
-msgstr "Opretter YouTube-token…"
+msgid "Preparing YouTube download…"
+msgstr "Forbereder YouTube-download…"
 
 msgctxt "status.movingFiles"
 msgid "Moving files…"
@@ -1904,16 +2102,16 @@ msgid "Preparing binaries…"
 msgstr "Klargør binærfiler…"
 
 msgctxt "status.qualityLimited"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
-msgstr "Gemt i {{height}}p — YouTube tilbageholdt højere kvaliteter til dette download. Det kan hjælpe at prøve igen senere eller fra et andet netværk."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later may help."
+msgstr "Gemt i {{height}}p — YouTube tilbageholdt højere kvaliteter til dette download. Det kan hjælpe at prøve igen senere."
 
 msgctxt "status.qualityLimitedSubtitlesFailed"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
-msgstr "Gemt i {{height}}p — YouTube tilbageholdt højere kvaliteter til dette download, og nogle undertekster kunne ikke downloades. Det kan hjælpe at prøve igen senere eller fra et andet netværk."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later may help."
+msgstr "Gemt i {{height}}p — YouTube tilbageholdt højere kvaliteter til dette download, og nogle undertekster kunne ikke downloades. Det kan hjælpe at prøve igen senere."
 
 msgctxt "status.remintingToken"
-msgid "Re-minting token…"
-msgstr "Opretter token igen…"
+msgid "Preparing YouTube download again…"
+msgstr "Forbereder YouTube-download igen…"
 
 msgctxt "status.retryingSponsorBlock"
 msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
@@ -2340,8 +2538,8 @@ msgid "Folder name has invalid characters"
 msgstr "Mappenavnet indeholder ugyldige tegn"
 
 msgctxt "wizard.folder.subfolder.placeholder"
-msgid "e.g. lo-fi rips"
-msgstr "f.eks. lo-fi-rips"
+msgid "e.g. lectures"
+msgstr "f.eks. forelæsninger"
 
 msgctxt "wizard.folder.subfolder.toggle"
 msgid "Save inside subfolder"
@@ -2613,9 +2811,25 @@ msgctxt "wizard.formats.fit.tierAbove"
 msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
 msgstr "Din profil beder om {{wanted}}p. Denne video har intet så lille, så {{picked}}p er valgt."
 
-msgctxt "wizard.formats.fit.tierBelow"
-msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
-msgstr "Din profil beder om {{wanted}}p. Denne video går kun op til {{picked}}p, så {{picked}}p er valgt."
+msgctxt "wizard.formats.fit.tierAbovePassedOver"
+msgid "Your profile asks for {{wanted}}p. The smaller streams this video has don't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "Din profil beder om {{wanted}}p. De mindre streams i denne video passer ikke til resten af din profil, så {{picked}}p er valgt."
+
+msgctxt "wizard.formats.fit.tierBelowTakeable"
+msgid "Your profile asks for {{wanted}}p. This video has no {{wanted}}p it can take, so {{picked}}p is selected."
+msgstr "Din profil beder om {{wanted}}p. Denne video har ingen {{wanted}}p, der kan bruges, så {{picked}}p er valgt."
+
+msgctxt "wizard.formats.fit.tierPassedOverAiUpscaled"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p is AI-upscaled, so the original {{picked}}p is selected."
+msgstr "Din profil beder om {{wanted}}p. Denne videos {{wanted}}p er opskaleret med AI, så originalen i {{picked}}p er valgt."
+
+msgctxt "wizard.formats.fit.tierPassedOverH264"
+msgid "Your profile asks for {{wanted}}p in H.264. This video has {{wanted}}p only in other codecs, so {{picked}}p in H.264 is selected."
+msgstr "Din profil beder om {{wanted}}p i H.264. Denne video har kun {{wanted}}p i andre codecs, så {{picked}}p i H.264 er valgt."
+
+msgctxt "wizard.formats.fit.tierPassedOverProfile"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p doesn't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "Din profil beder om {{wanted}}p. Denne videos {{wanted}}p passer ikke til resten af din profil, så {{picked}}p er valgt."
 
 msgctxt "wizard.formats.fit.webmUnavailable"
 msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
@@ -2853,85 +3067,81 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "med lyd"
 
-msgctxt "wizard.listPrompt.escHint"
-msgid "Esc cancels. Nothing loads until you choose."
-msgstr "Esc annullerer. Intet indlæses, før du vælger."
+msgctxt "wizard.listPrompt.backgroundHint"
+msgid "With {{profileName}}. If it has more than {{count}} videos, Downloads asks how many."
+msgstr "Med {{profileName}}. Har den flere end {{count}} videoer, spørger Downloads, hvor mange."
 
-msgctxt "wizard.listPrompt.interactiveSubtitle"
-msgid "Choose formats yourself"
-msgstr "Vælg selv formaterne"
+msgctxt "wizard.listPrompt.backgroundLabel"
+msgid "Download in the background"
+msgstr "Download i baggrunden"
 
-msgctxt "wizard.listPrompt.justThisVideo"
-msgid "Just this video"
-msgstr "Kun denne video"
+msgctxt "wizard.listPrompt.escOnly"
+msgid "Esc cancels."
+msgstr "Esc annullerer."
 
-msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
-msgid "Opens its formats"
-msgstr "Åbner videoens formater"
+msgctxt "wizard.listPrompt.firstHint"
+msgid "Exactly the first {{count}}, with {{profileName}}."
+msgstr "Præcis de første {{count}}, med {{profileName}}."
 
-msgctxt "wizard.listPrompt.justThisVideoQuickHint"
-msgid "Loads one video"
-msgstr "Indlæser én video"
+msgctxt "wizard.listPrompt.firstLabel"
+msgid "Download the first"
+msgstr "Download de første"
 
-msgctxt "wizard.listPrompt.listInteractiveHint"
-msgid "Loads up to {{count}} to choose from"
-msgstr "Indlæser op til {{count}}, som du kan vælge imellem"
+msgctxt "wizard.listPrompt.interactiveHint"
+msgid "Pick from the first {{count}} videos (or change the count on the next step), then set up the download."
+msgstr "Vælg blandt de første {{count}} videoer (eller ændr antallet i næste trin), og opsæt derefter downloadet."
 
-msgctxt "wizard.listPrompt.listOption.album"
-msgid "The album, first"
-msgstr "Albummet, de første"
+msgctxt "wizard.listPrompt.interactiveLabel"
+msgid "Interactive download…"
+msgstr "Interaktiv download…"
 
-msgctxt "wizard.listPrompt.listOption.liked"
-msgid "Your liked videos, first"
-msgstr "Videoer, du synes godt om, de første"
+msgctxt "wizard.listPrompt.limitHint"
+msgid "How many videos to take from the list: the first option asks past it, the second takes exactly that many. The same as Settings › Playlist items to scan."
+msgstr "Hvor mange videoer der tages fra listen: den første mulighed spørger, hvis listen er længere, den anden tager præcis så mange. Samme som Indstillinger › Elementer i afspilningslister, der skal scannes."
 
-msgctxt "wizard.listPrompt.listOption.mix"
-msgid "The Mix, first"
-msgstr "Mixet, de første"
-
-msgctxt "wizard.listPrompt.listOption.playlist"
-msgid "The playlist, first"
-msgstr "Afspilningslisten, de første"
-
-msgctxt "wizard.listPrompt.listOption.uploads"
-msgid "The uploads, first"
-msgstr "Uploadene, de første"
-
-msgctxt "wizard.listPrompt.listOption.watchLater"
-msgid "Watch later, first"
-msgstr "Se senere, de første"
-
-msgctxt "wizard.listPrompt.listQuickHint"
-msgid "Loads up to {{count}}, then downloads them"
-msgstr "Indlæser op til {{count}} og downloader dem derefter"
+msgctxt "wizard.listPrompt.limitLabel"
+msgid "Limit"
+msgstr "Grænse"
 
 msgctxt "wizard.listPrompt.mixNote"
 msgid "A Mix changes every time you open it."
 msgstr "Et Mix ændrer sig, hver gang du åbner det."
 
-msgctxt "wizard.listPrompt.pickOption.album"
-msgid "Pick from the album, first"
-msgstr "Vælg fra albummet, de første"
+msgctxt "wizard.listPrompt.pickLoadAfter"
+msgid "to pick from."
+msgstr "at vælge imellem."
 
-msgctxt "wizard.listPrompt.pickOption.liked"
-msgid "Pick from your liked videos, first"
-msgstr "Vælg blandt videoer, du synes godt om, de første"
+msgctxt "wizard.listPrompt.pickLoadBefore"
+msgid "Load the first"
+msgstr "Indlæs de første"
 
-msgctxt "wizard.listPrompt.pickOption.mix"
-msgid "Pick from the Mix, first"
-msgstr "Vælg fra mixet, de første"
+msgctxt "wizard.listPrompt.pickLoadNote"
+msgid "You can change it on the next step."
+msgstr "Du kan ændre det i næste trin."
 
-msgctxt "wizard.listPrompt.pickOption.playlist"
-msgid "Pick from the playlist, first"
-msgstr "Vælg fra afspilningslisten, de første"
+msgctxt "wizard.listPrompt.pickTitle.album"
+msgid "Pick from this album"
+msgstr "Vælg fra dette album"
 
-msgctxt "wizard.listPrompt.pickOption.uploads"
-msgid "Pick from the uploads, first"
-msgstr "Vælg fra uploadene, de første"
+msgctxt "wizard.listPrompt.pickTitle.liked"
+msgid "Pick from your liked videos"
+msgstr "Vælg blandt videoer, du synes godt om"
 
-msgctxt "wizard.listPrompt.pickOption.watchLater"
-msgid "Pick from Watch later, first"
-msgstr "Vælg fra Se senere, de første"
+msgctxt "wizard.listPrompt.pickTitle.mix"
+msgid "Pick from this Mix"
+msgstr "Vælg fra dette Mix"
+
+msgctxt "wizard.listPrompt.pickTitle.playlist"
+msgid "Pick from this playlist"
+msgstr "Vælg fra denne afspilningsliste"
+
+msgctxt "wizard.listPrompt.pickTitle.uploads"
+msgid "Pick from this channel’s uploads"
+msgstr "Vælg fra denne kanals uploads"
+
+msgctxt "wizard.listPrompt.pickTitle.watchLater"
+msgid "Pick from Watch later"
+msgstr "Vælg fra Se senere"
 
 msgctxt "wizard.listPrompt.title.album"
 msgid "Download from this album"
@@ -2956,6 +3166,18 @@ msgstr "Download fra denne kanals uploads"
 msgctxt "wizard.listPrompt.title.watchLater"
 msgid "Download from Watch later"
 msgstr "Download fra Se senere"
+
+msgctxt "wizard.listPrompt.videoHint"
+msgid "Only the video you opened, with {{profileName}}. The list isn't loaded."
+msgstr "Kun den video, du åbnede, med {{profileName}}. Listen indlæses ikke."
+
+msgctxt "wizard.listPrompt.videoLabel"
+msgid "Just this video"
+msgstr "Kun denne video"
+
+msgctxt "wizard.listPrompt.videoPickHint"
+msgid "Set up only the video you opened. The list isn't loaded."
+msgstr "Opsæt kun den video, du åbnede. Listen indlæses ikke."
 
 msgctxt "wizard.listPrompt.withProfile"
 msgid "With {{profileName}}"
@@ -3152,6 +3374,26 @@ msgstr "Alle elementer blev fjernet"
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Allerede downloadet"
+
+#. Plural form "one" for da: used for counts like 1.
+msgctxt "wizard.playlist.bulkCappedDesc_one"
+msgid "It has more. To choose how many, paste its link on its own."
+msgstr "Den har flere. Indsæt dens link for sig for at vælge, hvor mange."
+
+#. Plural form "other" for da: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.bulkCappedDesc_other"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "De har flere. Indsæt hvert link for sig for at vælge, hvor mange."
+
+#. Plural form "one" for da: used for counts like 1.
+msgctxt "wizard.playlist.bulkCappedTitle_one"
+msgid "“{{title}}” is cut at {{limit}} videos"
+msgstr "»{{title}}« afkortes ved {{limit}} videoer"
+
+#. Plural form "other" for da: used for counts like 0, 2, 3, 4, 5, 6.
+msgctxt "wizard.playlist.bulkCappedTitle_other"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "{{count}} lister afkortes ved {{limit}} videoer hver"
 
 msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
@@ -3396,38 +3638,6 @@ msgstr "Kontrollerer mappe…"
 msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Miniature af video"
-
-msgctxt "wizard.playlistCap.changeLimit"
-msgid "Change load limit"
-msgstr "Skift indlæsningsgrænse"
-
-#. Plural form "one" for da: used for counts like 1.
-msgctxt "wizard.playlistCap.description_one"
-msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "Arroxy har indlæst {{count}} element med den nuværende grænse på {{limit}}. Sæt det indlæste element i kø nu, eller hæv grænsen, og scan igen."
-
-#. Plural form "other" for da: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.playlistCap.description_other"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy har indlæst {{count}} elementer med den nuværende grænse på {{limit}}. Sæt de indlæste elementer i kø nu, eller hæv grænsen, og scan igen."
-
-#. Plural form "one" for da: used for counts like 1.
-msgctxt "wizard.playlistCap.descriptionWithTitle_one"
-msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy har indlæst {{count}} element med den nuværende grænse på {{limit}}. Sæt det indlæste element i kø nu, eller hæv grænsen, og scan igen."
-
-#. Plural form "other" for da: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.playlistCap.descriptionWithTitle_other"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy har indlæst {{count}} elementer med den nuværende grænse på {{limit}}. Sæt de indlæste elementer i kø nu, eller hæv grænsen, og scan igen."
-
-msgctxt "wizard.playlistCap.queueLoaded"
-msgid "Queue loaded items"
-msgstr "Sæt indlæste elementer i kø"
-
-msgctxt "wizard.playlistCap.title"
-msgid "Playlist scan is capped"
-msgstr "Scanningen af afspilningslisten er begrænset"
 
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
@@ -3925,44 +4135,6 @@ msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
 msgstr "Hjælp til {{label}}"
 
-msgctxt "wizard.quickProgress.cancel"
-msgid "Cancel preparation"
-msgstr "Annuller klargøring"
-
-msgctxt "wizard.quickProgress.currentFallback"
-msgid "Current link"
-msgstr "Aktuelt link"
-
-msgctxt "wizard.quickProgress.description"
-msgid "Arroxy is reading the link and applying {{profileName}}."
-msgstr "Arroxy læser linket og anvender {{profileName}}."
-
-#. Plural form "one" for da: used for counts like 1.
-msgctxt "wizard.quickProgress.failedCount_one"
-msgid "{{count}} failed"
-msgstr "{{count}} mislykkedes"
-
-#. Plural form "other" for da: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.quickProgress.failedCount_other"
-msgid "{{count}} failed"
-msgstr "{{count}} mislykkedes"
-
-msgctxt "wizard.quickProgress.phase.probing"
-msgid "Fetching details"
-msgstr "Henter oplysninger"
-
-msgctxt "wizard.quickProgress.phase.queueing"
-msgid "Adding to queue"
-msgstr "Føjer til køen"
-
-msgctxt "wizard.quickProgress.title"
-msgid "Preparing Quick Download"
-msgstr "Klargør Hurtig download"
-
-msgctxt "wizard.quickProgress.waitHint"
-msgid "Keep this open while Arroxy prepares the queue."
-msgstr "Lad dette være åbent, mens Arroxy klargør køen."
-
 msgctxt "wizard.review.areas.extras"
 msgid "extras"
 msgstr "ekstra"
@@ -4271,6 +4443,10 @@ msgctxt "wizard.subtitles.saveMode.sidecar"
 msgid "Next to video"
 msgstr "Ved siden af videoen"
 
+msgctxt "wizard.subtitles.saveMode.sidecarNoVideo"
+msgid "In the download folder"
+msgstr "I downloadmappen"
+
 msgctxt "wizard.subtitles.saveMode.subfolder"
 msgid "subtitles/ subfolder"
 msgstr "Undermappen subtitles/"
@@ -4294,14 +4470,6 @@ msgstr "Navigation for downloadprofiler"
 msgctxt "wizard.url.advanced"
 msgid "Advanced"
 msgstr "Avanceret"
-
-msgctxt "wizard.url.analytics.toggle"
-msgid "Send daily heartbeat"
-msgstr "Send dagligt livstegn"
-
-msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
-msgstr "Ingen telemetri. Én gang om dagen sender et anonymt livstegn appversion, installationskanal, operativsystem, sprog, land og omtrent hvor længe siden Arroxy blev installeret, så vi kan tælle aktive og nye brugere. Ingen id'er, URL'er, videotitler eller filnavne."
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
@@ -4390,6 +4558,18 @@ msgstr "Downloads ad gangen"
 msgctxt "wizard.url.concurrentDownloads.unit"
 msgid "downloads"
 msgstr "downloads"
+
+msgctxt "wizard.url.concurrentProbes.description"
+msgid "How many links Arroxy fetches details for at the same time, before they download. Fewer is gentler on sites that block busy connections. A link you open in Interactive Download always goes first."
+msgstr "Hvor mange links Arroxy henter oplysninger om ad gangen, før de downloades. Færre er skånsommere over for websteder, der blokerer travle forbindelser. Et link, du åbner i Interaktiv download, kommer altid først."
+
+msgctxt "wizard.url.concurrentProbes.label"
+msgid "Links checked at once"
+msgstr "Links kontrolleret ad gangen"
+
+msgctxt "wizard.url.concurrentProbes.unit"
+msgid "links"
+msgstr "links"
 
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
@@ -4484,8 +4664,8 @@ msgid "Off"
 msgstr "Fra"
 
 msgctxt "wizard.url.cookies.toggleDescription"
-msgid "Helps with age-restricted, members-only, and account-private videos."
-msgstr "Hjælper med aldersbegrænsede videoer, videoer kun for medlemmer og videoer, der er private for kontoen."
+msgid "Helps with videos your own account can watch, like your private videos."
+msgstr "Hjælper med videoer, som din egen konto kan se, f.eks. dine private videoer."
 
 msgctxt "wizard.url.downloadConnections.description"
 msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
@@ -4498,6 +4678,30 @@ msgstr "Downloadforbindelser"
 msgctxt "wizard.url.downloadConnections.unit"
 msgid "connections"
 msgstr "forbindelser"
+
+msgctxt "wizard.url.downloadList.album"
+msgid "Download album…"
+msgstr "Download album…"
+
+msgctxt "wizard.url.downloadList.liked"
+msgid "Download liked videos…"
+msgstr "Download videoer, du synes godt om…"
+
+msgctxt "wizard.url.downloadList.mix"
+msgid "Download Mix…"
+msgstr "Download Mix…"
+
+msgctxt "wizard.url.downloadList.playlist"
+msgid "Download playlist…"
+msgstr "Download afspilningsliste…"
+
+msgctxt "wizard.url.downloadList.uploads"
+msgid "Download uploads…"
+msgstr "Download uploads…"
+
+msgctxt "wizard.url.downloadList.watchLater"
+msgid "Download Watch later…"
+msgstr "Download Se senere…"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -4571,17 +4775,9 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "Denne genvej bruges af en anden app — vælg en anden."
 
-msgctxt "wizard.url.hotkey.hintLabel"
-msgid "Or press"
-msgstr "Eller tryk"
-
-msgctxt "wizard.url.hotkey.hintTooltip"
-msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
-msgstr "Kopiér et videolink et vilkårligt sted, tryk på denne genvej, og Arroxy sætter det i kø med din aktive profil — du behøver ikke skifte vindue."
-
-msgctxt "wizard.url.hotkey.hintTooltipSettings"
-msgid "Change or turn it off in Settings."
-msgstr "Skift eller slå den fra under Indstillinger."
+msgctxt "wizard.url.hotkey.globalLabel"
+msgid "Global shortcut"
+msgstr "Global genvej"
 
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
@@ -4607,13 +4803,17 @@ msgctxt "wizard.url.hotkey.toggle"
 msgid "Enable global hotkey"
 msgstr "Aktivér global genvejstast"
 
-msgctxt "wizard.url.hotkey.toggleDescription"
-msgid "Press the shortcut with a video link on your clipboard."
-msgstr "Tryk på genvejen, mens et videolink ligger i udklipsholderen."
+msgctxt "wizard.url.hotkey.toggleDescriptionDetail"
+msgid "Copy a video link in any app and press the shortcut: Arroxy queues it with your active profile, without switching windows. A link to a video in a playlist downloads the video."
+msgstr "Kopiér et videolink i en vilkårlig app, og tryk på genvejen: Arroxy sætter det i kø med din aktive profil uden at skifte vindue. Et link til en video i en afspilningsliste downloader videoen."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
 msgstr "Interaktiv download"
+
+msgctxt "wizard.url.interactiveDownloadAsks"
+msgid "Interactive Download…"
+msgstr "Interaktiv download…"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
@@ -4655,21 +4855,13 @@ msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Smid et link, og lad Arroxy hente det ✨"
 
-msgctxt "wizard.url.mascotMixed"
-msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
-msgstr "Dette link peger på én video i en samling. Arroxy spørger, hvilken du vil have, før den analyserer."
-
-msgctxt "wizard.url.mascotPreparing"
-msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
-msgstr "{{quickDownload}} læser dette link og anvender {{profileName}}."
-
-msgctxt "wizard.url.mascotQueued"
-msgid "The queue is handling this download. You can paste another link while it works."
-msgstr "Køen håndterer dette download. Du kan indsætte et andet link, mens den arbejder."
-
 msgctxt "wizard.url.mascotSingle"
 msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
 msgstr "Hurtig starter ét download med {{profileName}}. Brug Interaktiv til engangsændringer."
+
+msgctxt "wizard.url.mascotVideoInList"
+msgid "This link names a video and the list it’s in: download just the video, or the list."
+msgstr "Dette link nævner en video og den liste, den ligger i: download kun videoen, eller listen."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -4991,6 +5183,10 @@ msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
 msgid "Using profile override + profile subfolder"
 msgstr "Bruger tilsidesættelse for profil + profilens undermappe"
 
+msgctxt "wizard.url.profile.destinationEditHint"
+msgid "To change where it saves, edit the profile."
+msgstr "Rediger profilen for at ændre, hvor der gemmes."
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Mål"
@@ -5083,6 +5279,10 @@ msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Nulstil"
 
+msgctxt "wizard.url.profile.savesTo"
+msgid "Saves to"
+msgstr "Gemmer i"
+
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
 msgstr "Skift downloadprofil: {{profileName}}"
@@ -5096,8 +5296,8 @@ msgid "Clear"
 msgstr "Ryd"
 
 msgctxt "wizard.url.proxy.description"
-msgid "Route traffic through a proxy — useful for geo-restricted content."
-msgstr "Dirigér trafik via en proxy — nyttigt til geobegrænset indhold."
+msgid "Route traffic through a proxy server."
+msgstr "Send trafik gennem en proxyserver."
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
@@ -5106,10 +5306,6 @@ msgstr "Proxy-URL"
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
-
-msgctxt "wizard.url.quickBulkAllFailed"
-msgid "None of those URLs could be prepared"
-msgstr "Ingen af disse URL'er kunne klargøres"
 
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
@@ -5122,16 +5318,6 @@ msgstr "Downloader med: {{profileName}}"
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "Kunne ikke tilføje denne: {{error}}"
-
-#. Plural form "one" for da: used for counts like 1.
-msgctxt "wizard.url.quickPartialFailed_one"
-msgid "Queued what worked. {{count}} URL could not be prepared."
-msgstr "Det, der virkede, er sat i kø. {{count}} URL kunne ikke klargøres."
-
-#. Plural form "other" for da: used for counts like 0, 2, 3, 4, 5, 6.
-msgctxt "wizard.url.quickPartialFailed_other"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "Det, der virkede, er sat i kø. {{count}} URL'er kunne ikke klargøres."
 
 msgctxt "wizard.url.quickPrepareFailed"
 msgid "Queue item could not be prepared"
@@ -5148,6 +5334,14 @@ msgstr "Analysen mislykkedes"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "Indsæt en URL til en video, afspilningsliste, kanal eller søgning for at komme i gang."
+
+msgctxt "wizard.url.reports.toggle"
+msgid "Send anonymous heartbeat and setup reports"
+msgstr "Send anonyme livstegn og opsætningsrapporter"
+
+msgctxt "wizard.url.reports.toggleDescription"
+msgid "No tracking. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. When Arroxy sets up or updates its download engine or media tools, it also reports whether that worked and roughly how long it took. No IDs, URLs, video titles or filenames."
+msgstr "Ingen sporing. Én gang om dagen sender et anonymt livstegn appversion, installationskanal, operativsystem, sprog, land og omtrent hvor længe siden Arroxy blev installeret, så vi kan tælle aktive og nye brugere. Når Arroxy opsætter eller opdaterer sin download-motor eller sine medieværktøjer, rapporterer den også, om det lykkedes, og omtrent hvor lang tid det tog. Ingen id'er, URL'er, videotitler eller filnavne."
 
 msgctxt "wizard.url.settings.behaviorDescription"
 msgid "Global behavior that affects profile-driven downloads too."
@@ -5204,3 +5398,11 @@ msgstr "Profiler"
 msgctxt "wizard.url.tabs.settings"
 msgid "Settings"
 msgstr "Indstillinger"
+
+msgctxt "wizard.url.thisVideo"
+msgid "This video"
+msgstr "Denne video"
+
+msgctxt "wizard.url.thisVideoTooltip"
+msgid "Downloads just this video with {{profileName}}"
+msgstr "Downloader kun denne video med {{profileName}}"

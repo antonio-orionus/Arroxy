@@ -107,10 +107,6 @@ msgctxt "common.continue"
 msgid "Continue"
 msgstr "Tęsti"
 
-msgctxt "common.dismiss"
-msgid "Dismiss"
-msgstr "Atmesti"
-
 msgctxt "common.loading"
 msgid "Loading"
 msgstr "Įkeliama"
@@ -143,13 +139,9 @@ msgctxt "dialogs.closeToTray.remember"
 msgid "Don't ask again"
 msgstr "Daugiau neklausti"
 
-msgctxt "dialogs.quitWithActiveDownloads.confirm"
-msgid "Cancel Downloads & Quit"
-msgstr "Atšaukti atsisiuntimus ir išeiti"
-
-msgctxt "dialogs.quitWithActiveDownloads.detail"
-msgid "Pause to resume later, or cancel to discard progress."
-msgstr "Pristabdykite, kad galėtumėte tęsti vėliau, arba atšaukite, kad atmestumėte eigą."
+msgctxt "dialogs.quitWithActiveDownloads.continueDetail"
+msgid "Your queue is kept, and downloads pick up where they stopped the next time you open Arroxy."
+msgstr "Jūsų eilė išsaugoma, o atsisiuntimai bus tęsiami nuo tos vietos, kur sustojo, kitą kartą atidarius Arroxy."
 
 msgctxt "dialogs.quitWithActiveDownloads.keep"
 msgid "Keep Downloading"
@@ -175,9 +167,9 @@ msgctxt "dialogs.quitWithActiveDownloads.message_other"
 msgid "{{count}} downloads in progress"
 msgstr "Vykdoma {{count}} atsisiuntimų"
 
-msgctxt "dialogs.quitWithActiveDownloads.pause"
-msgid "Pause Downloads & Quit"
-msgstr "Pristabdyti atsisiuntimus ir išeiti"
+msgctxt "dialogs.quitWithActiveDownloads.quit"
+msgid "Quit"
+msgstr "Išeiti"
 
 msgctxt "dialogs.rendererCrashed.detail"
 msgid "The renderer process crashed ({{reason}}). Reload to try again."
@@ -236,8 +228,8 @@ msgid "This video is age-restricted and cannot be downloaded without a signed-in
 msgstr "Šis vaizdo įrašas turi amžiaus apribojimą, todėl jo negalima atsisiųsti be prisijungusios paskyros."
 
 msgctxt "errors.ytdlp.botBlock"
-msgid "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
-msgstr "Suveikė apsauga nuo robotų. Greičiausiai jūsų naudojamas IP pažymėtas (duomenų centro diapazonas arba apkrautas VPN išėjimo taškas). Pakeiskite IP arba pasirinkite kitą VPN prieigos tašką ir bandykite dar kartą. Jei nepavyksta, tai gali būti laikinas svetainės pakeitimas – Arroxy atnaujina atsisiuntimo variklį paleidžiant, todėl pataisa pasirodys automatiškai, kai tik bus išleista."
+msgid "The site's bot protection stopped this download. Wait a while and try again, or download fewer videos at once. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships."
+msgstr "Svetainės apsauga nuo robotų sustabdė šį atsisiuntimą. Šiek tiek palaukite ir bandykite dar kartą arba atsisiųskite vienu metu mažiau vaizdo įrašų. Jei vis tiek nepavyksta, tai gali būti laikinas svetainės pusės pakeitimas – Arroxy atnaujina atsisiuntimo variklį paleidžiant, todėl pataisa atsiras automatiškai, vos tik bus išleista."
 
 msgctxt "errors.ytdlp.chunkTransferFailure"
 msgid "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format."
@@ -256,8 +248,8 @@ msgid "This video is not available in your region."
 msgstr "Šis vaizdo įrašas jūsų regione nepasiekiamas."
 
 msgctxt "errors.ytdlp.ipBlock"
-msgid "Your IP address appears to be blocked. Try again later or use a VPN."
-msgstr "Atrodo, jūsų IP adresas užblokuotas. Bandykite vėliau arba naudokite VPN."
+msgid "The site is blocking requests from this connection. Try again later."
+msgstr "Svetainė blokuoja šio ryšio užklausas. Bandykite dar kartą vėliau."
 
 msgctxt "errors.ytdlp.loginRequired"
 msgid "This video needs a signed-in account."
@@ -339,13 +331,77 @@ msgctxt "explore.linkCallout.title"
 msgid "Right-click a link to download it"
 msgstr "Spustelėkite nuorodą dešiniuoju mygtuku, kad ją atsisiųstumėte"
 
+msgctxt "explore.linkMenu.background.album"
+msgid "Download the album in the background"
+msgstr "Atsisiųsti albumą fone"
+
+msgctxt "explore.linkMenu.background.liked"
+msgid "Download your liked videos in the background"
+msgstr "Atsisiųsti patikusius vaizdo įrašus fone"
+
+msgctxt "explore.linkMenu.background.mix"
+msgid "Download the Mix in the background"
+msgstr "Atsisiųsti Mix fone"
+
+msgctxt "explore.linkMenu.background.playlist"
+msgid "Download the playlist in the background"
+msgstr "Atsisiųsti grojaraštį fone"
+
+msgctxt "explore.linkMenu.background.uploads"
+msgid "Download the uploads in the background"
+msgstr "Atsisiųsti įkėlimus fone"
+
+msgctxt "explore.linkMenu.background.watchLater"
+msgid "Download Watch later in the background"
+msgstr "Atsisiųsti „Žiūrėti vėliau“ fone"
+
 msgctxt "explore.linkMenu.copyLink"
 msgid "Copy link"
 msgstr "Kopijuoti nuorodą"
 
+msgctxt "explore.linkMenu.downloadFirst"
+msgid "Download the first {{count}}"
+msgstr "Atsisiųsti pirmuosius {{count}}"
+
+msgctxt "explore.linkMenu.downloadThisVideo"
+msgid "Download this video · {{profileName}}"
+msgstr "Atsisiųsti šį vaizdo įrašą · {{profileName}}"
+
 msgctxt "explore.linkMenu.downloadWith"
 msgid "Download with"
 msgstr "Atsisiųsti naudojant"
+
+msgctxt "explore.linkMenu.fromList.album"
+msgid "From this album"
+msgstr "Iš šio albumo"
+
+msgctxt "explore.linkMenu.fromList.liked"
+msgid "From your liked videos"
+msgstr "Iš patikusių vaizdo įrašų"
+
+msgctxt "explore.linkMenu.fromList.mix"
+msgid "From this Mix"
+msgstr "Iš šio Mix"
+
+msgctxt "explore.linkMenu.fromList.playlist"
+msgid "From this playlist"
+msgstr "Iš šio grojaraščio"
+
+msgctxt "explore.linkMenu.fromList.uploads"
+msgid "From this channel’s uploads"
+msgstr "Iš šio kanalo įkėlimų"
+
+msgctxt "explore.linkMenu.fromList.watchLater"
+msgid "From Watch later"
+msgstr "Iš „Žiūrėti vėliau“"
+
+msgctxt "explore.linkMenu.interactive"
+msgid "Interactive Download…"
+msgstr "Interaktyvus atsisiuntimas…"
+
+msgctxt "explore.linkMenu.thisVideoWith"
+msgid "This video with"
+msgstr "Šis vaizdo įrašas su"
 
 msgctxt "explore.newBadge"
 msgid "New"
@@ -491,6 +547,10 @@ msgctxt "explore.toolbar.compactLayout"
 msgid "Compact layout"
 msgstr "Kompaktiškas išdėstymas"
 
+msgctxt "explore.toolbar.download"
+msgid "Download"
+msgstr "Atsisiųsti"
+
 msgctxt "explore.toolbar.downloadWithProfile"
 msgid "Download · {{profileName}}"
 msgstr "Atsisiųsti · {{profileName}}"
@@ -526,6 +586,14 @@ msgstr "Įkelti iš naujo"
 msgctxt "explore.toolbar.searchTooLong"
 msgid "That search is too long."
 msgstr "Ši paieška per ilga."
+
+msgctxt "explore.toolbar.thisVideo"
+msgid "This video"
+msgstr "Šis vaizdo įrašas"
+
+msgctxt "explore.toolbar.thisVideoHint"
+msgid "Download just this video with {{profileName}}"
+msgstr "Atsisiųsti tik šį vaizdo įrašą su {{profileName}}"
 
 msgctxt "explore.toolbar.zoom.hint"
 msgid "Page zoom: {{percent}}%"
@@ -591,17 +659,17 @@ msgctxt "filenameTemplate.error.unknown-token"
 msgid "Unknown token {{token}}."
 msgstr "Nežinoma žymė {{token}}."
 
-msgctxt "filenameTemplate.idWarning"
-msgid "Without {id}, Arroxy can't detect already-downloaded playlist items or generate .m3u playlists."
-msgstr "Be {id} Arroxy negali aptikti jau atsisiųstų grojaraščio elementų ar kurti .m3u grojaraščių."
+msgctxt "filenameTemplate.idEndingWarning"
+msgid "End the name with [{id}] so Arroxy can detect already-downloaded playlist items and generate .m3u playlists."
+msgstr "Pabaigoje pridėkite [{id}], kad Arroxy galėtų aptikti jau atsisiųstus grojaraščio elementus ir kurti .m3u grojaraščius."
 
 msgctxt "filenameTemplate.label"
 msgid "Filename template"
 msgstr "Failo pavadinimo šablonas"
 
-msgctxt "filenameTemplate.m3uDisabled"
-msgid "Unavailable because your filename template either doesn't include {id} or sorts downloads into folders."
-msgstr "Nepasiekiama, nes jūsų failo pavadinimo šablone nėra {id} arba atsisiuntimai rikiuojami į aplankus."
+msgctxt "filenameTemplate.m3uDisabledIdEnding"
+msgid "Unavailable because your filename template either doesn't end with [{id}] or sorts downloads into folders."
+msgstr "Nepasiekiama, nes jūsų failo pavadinimo šablonas arba nesibaigia [{id}], arba rūšiuoja atsisiuntimus į aplankus."
 
 msgctxt "filenameTemplate.previewPlaylist"
 msgid "In a playlist"
@@ -808,6 +876,106 @@ msgid "Already in the queue"
 msgstr "Jau eilėje"
 
 #. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.batchAdded_few"
+msgid "Added {{count}} links to Downloads"
+msgstr "Į Atsisiuntimus įtrauktos {{count}} nuorodos"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.batchAdded_many"
+msgid "Added {{count}} links to Downloads"
+msgstr "Į Atsisiuntimus įtraukta {{count}} nuorodos"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.quickDownload.batchAdded_one"
+msgid "Added {{count}} link to Downloads"
+msgstr "Į Atsisiuntimus įtraukta {{count}} nuoroda"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "notifications.quickDownload.batchAdded_other"
+msgid "Added {{count}} links to Downloads"
+msgstr "Į Atsisiuntimus įtraukta {{count}} nuorodų"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_few"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} jau eilėje"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_many"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} jau eilėje"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_one"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} jau eilėje"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "notifications.quickDownload.batchAlreadyQueued_other"
+msgid "{{count}} already in the queue"
+msgstr "{{count}} jau eilėje"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.batchNoneAdded_few"
+msgid "{{count}} links couldn't be added"
+msgstr "Nepavyko įtraukti {{count}} nuorodų"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.batchNoneAdded_many"
+msgid "{{count}} links couldn't be added"
+msgstr "Nepavyko įtraukti {{count}} nuorodos"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.quickDownload.batchNoneAdded_one"
+msgid "{{count}} link couldn't be added"
+msgstr "Nepavyko įtraukti {{count}} nuorodos"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "notifications.quickDownload.batchNoneAdded_other"
+msgid "{{count}} links couldn't be added"
+msgstr "Nepavyko įtraukti {{count}} nuorodų"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.batchNotAdded_few"
+msgid "{{count}} couldn't be added"
+msgstr "Nepavyko įtraukti: {{count}}"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.batchNotAdded_many"
+msgid "{{count}} couldn't be added"
+msgstr "Nepavyko įtraukti: {{count}}"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.quickDownload.batchNotAdded_one"
+msgid "{{count}} couldn't be added"
+msgstr "Nepavyko įtraukti: {{count}}"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "notifications.quickDownload.batchNotAdded_other"
+msgid "{{count}} couldn't be added"
+msgstr "Nepavyko įtraukti: {{count}}"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "notifications.quickDownload.chooseFromList_few"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "Šiame sąraše yra {{count}} vaizdo įrašai – pasirinkite, ką atsisiųsti"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "notifications.quickDownload.chooseFromList_many"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "Šiame sąraše yra {{count}} vaizdo įrašo – pasirinkite, ką atsisiųsti"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "notifications.quickDownload.chooseFromList_one"
+msgid "{{count}} video in this list — choose what to download"
+msgstr "Šiame sąraše yra {{count}} vaizdo įrašas – pasirinkite, ką atsisiųsti"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "notifications.quickDownload.chooseFromList_other"
+msgid "{{count}} videos in this list — choose what to download"
+msgstr "Šiame sąraše yra {{count}} vaizdo įrašų – pasirinkite, ką atsisiųsti"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
 msgctxt "notifications.quickDownload.chooseHowMany_few"
 msgid "{{count}}+ videos — choose how many"
 msgstr "{{count}}+ vaizdo įrašai – pasirinkite, kiek"
@@ -834,46 +1002,6 @@ msgstr "Nepavyko paruošti: {{title}}"
 msgctxt "notifications.quickDownload.notAdded"
 msgid "Couldn't add that link — try again"
 msgstr "Nepavyko pridėti tos nuorodos – bandykite dar kartą"
-
-#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
-msgctxt "notifications.quickDownload.review_few"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "Šiame sąraše {{count}} vaizdo įrašai – peržiūrėkite ir pasirinkite"
-
-#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
-msgctxt "notifications.quickDownload.review_many"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "Šiame sąraše {{count}} vaizdo įrašo – peržiūrėkite ir pasirinkite"
-
-#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
-msgctxt "notifications.quickDownload.review_one"
-msgid "{{count}} video in this list — review to pick"
-msgstr "Šiame sąraše {{count}} vaizdo įrašas – peržiūrėkite ir pasirinkite"
-
-#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
-msgctxt "notifications.quickDownload.review_other"
-msgid "{{count}} videos in this list — review to pick"
-msgstr "Šiame sąraše {{count}} vaizdo įrašų – peržiūrėkite ir pasirinkite"
-
-#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
-msgctxt "notifications.quickDownload.reviewCapped_few"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "Šiame sąraše {{count}}+ vaizdo įrašai – peržiūrėkite ir pasirinkite"
-
-#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
-msgctxt "notifications.quickDownload.reviewCapped_many"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "Šiame sąraše {{count}}+ vaizdo įrašo – peržiūrėkite ir pasirinkite"
-
-#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
-msgctxt "notifications.quickDownload.reviewCapped_one"
-msgid "{{count}}+ video in this list — review to pick"
-msgstr "Šiame sąraše {{count}}+ vaizdo įrašas – peržiūrėkite ir pasirinkite"
-
-#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
-msgctxt "notifications.quickDownload.reviewCapped_other"
-msgid "{{count}}+ videos in this list — review to pick"
-msgstr "Šiame sąraše {{count}}+ vaizdo įrašų – peržiūrėkite ir pasirinkite"
 
 msgctxt "notifications.quickDownload.view"
 msgid "View"
@@ -1143,29 +1271,85 @@ msgctxt "queue.choice.first"
 msgid "First {{count}}"
 msgstr "Pirmieji {{count}}"
 
+msgctxt "queue.choice.list.album"
+msgid "The album"
+msgstr "Albumas"
+
+msgctxt "queue.choice.list.liked"
+msgid "Liked videos"
+msgstr "Patikę vaizdo įrašai"
+
+msgctxt "queue.choice.list.mix"
+msgid "The Mix"
+msgstr "Mix"
+
+msgctxt "queue.choice.list.playlist"
+msgid "The playlist"
+msgstr "Grojaraštis"
+
+msgctxt "queue.choice.list.uploads"
+msgid "All the uploads"
+msgstr "Visi įkėlimai"
+
+msgctxt "queue.choice.list.watchLater"
+msgid "Watch later"
+msgstr "Žiūrėti vėliau"
+
+msgctxt "queue.choice.pick"
+msgid "Pick from it…"
+msgstr "Pasirinkti iš jo…"
+
 msgctxt "queue.choice.review"
 msgid "Review"
 msgstr "Peržiūrėti"
 
 #. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
-msgctxt "queue.choice.reviewBody_few"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "Ši nuoroda yra {{count}} vaizdo įrašų sąrašas. Peržiūrėkite jį ir pasirinkite, ką atsisiųsti."
+msgctxt "queue.choice.uncappedBody_few"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "Ši nuoroda yra sąrašas, kuriame yra {{count}} vaizdo įrašai. Atsisiųskite visus arba pasirinkite peržiūroje."
 
 #. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
-msgctxt "queue.choice.reviewBody_many"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "Ši nuoroda yra {{count}} vaizdo įrašo sąrašas. Peržiūrėkite jį ir pasirinkite, ką atsisiųsti."
+msgctxt "queue.choice.uncappedBody_many"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "Ši nuoroda yra sąrašas, kuriame yra {{count}} vaizdo įrašo. Atsisiųskite visus arba pasirinkite peržiūroje."
 
 #. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
-msgctxt "queue.choice.reviewBody_one"
-msgid "This link is a list of {{count}} video. Review it to pick what to download."
-msgstr "Ši nuoroda yra {{count}} vaizdo įrašo sąrašas. Peržiūrėkite jį ir pasirinkite, ką atsisiųsti."
+msgctxt "queue.choice.uncappedBody_one"
+msgid "This link is a list of {{count}} video. Download it, or pick in a review."
+msgstr "Ši nuoroda yra sąrašas, kuriame yra {{count}} vaizdo įrašas. Atsisiųskite jį arba pasirinkite peržiūroje."
 
 #. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
-msgctxt "queue.choice.reviewBody_other"
-msgid "This link is a list of {{count}} videos. Review it to pick what to download."
-msgstr "Ši nuoroda yra {{count}} vaizdo įrašų sąrašas. Peržiūrėkite jį ir pasirinkite, ką atsisiųsti."
+msgctxt "queue.choice.uncappedBody_other"
+msgid "This link is a list of {{count}} videos. Download them all, or pick in a review."
+msgstr "Ši nuoroda yra sąrašas, kuriame yra {{count}} vaizdo įrašų. Atsisiųskite visus arba pasirinkite peržiūroje."
+
+msgctxt "queue.choice.video"
+msgid "This video"
+msgstr "Šis vaizdo įrašas"
+
+msgctxt "queue.choice.videoOrList.album"
+msgid "This link is a video in an album. Download just the video, or the album?"
+msgstr "Ši nuoroda yra albumo vaizdo įrašas. Atsisiųsti tik vaizdo įrašą ar albumą?"
+
+msgctxt "queue.choice.videoOrList.liked"
+msgid "This link is a video in your liked videos. Download just the video, or all your liked videos?"
+msgstr "Ši nuoroda yra vaizdo įrašas iš jūsų patikusių vaizdo įrašų. Atsisiųsti tik vaizdo įrašą ar visus jūsų patikusius vaizdo įrašus?"
+
+msgctxt "queue.choice.videoOrList.mix"
+msgid "This link is a video in a Mix. Download just the video, or the Mix?"
+msgstr "Ši nuoroda yra Mix vaizdo įrašas. Atsisiųsti tik vaizdo įrašą ar Mix?"
+
+msgctxt "queue.choice.videoOrList.playlist"
+msgid "This link is a video in a playlist. Download just the video, or the playlist?"
+msgstr "Ši nuoroda yra grojaraščio vaizdo įrašas. Atsisiųsti tik vaizdo įrašą ar grojaraštį?"
+
+msgctxt "queue.choice.videoOrList.uploads"
+msgid "This link is a video in a channel's uploads. Download just the video, or all the uploads?"
+msgstr "Ši nuoroda yra vaizdo įrašas iš kanalo įkėlimų. Atsisiųsti tik vaizdo įrašą ar visus įkėlimus?"
+
+msgctxt "queue.choice.videoOrList.watchLater"
+msgid "This link is a video in your Watch later list. Download just the video, or the whole list?"
+msgstr "Ši nuoroda yra vaizdo įrašas iš jūsų „Žiūrėti vėliau“ sąrašo. Atsisiųsti tik vaizdo įrašą ar visą sąrašą?"
 
 msgctxt "queue.clearTitle"
 msgid "Clear completed downloads"
@@ -1294,6 +1478,70 @@ msgstr "Atsisiunčiama"
 msgctxt "queue.item.subtitleLanguagesMissing"
 msgid "No subtitles in {{languages}}"
 msgstr "Nėra subtitrų šiomis kalbomis: {{languages}}"
+
+msgctxt "queue.item.waitingForSite"
+msgid "Waits for {{site}} until {{time}}"
+msgstr "Laukia {{site}} iki {{time}}"
+
+msgctxt "queue.item.waitingHint"
+msgid "{{site}} is rate-limiting this connection. Arroxy fetches this link's details after {{time}}, so the limit can clear."
+msgstr "{{site}} riboja šio ryšio užklausų skaičių. Arroxy gaus šios nuorodos informaciją po {{time}}, kad apribojimas galėtų išnykti."
+
+msgctxt "queue.listOffer.dismiss"
+msgid "Dismiss"
+msgstr "Atmesti"
+
+msgctxt "queue.listOffer.from.album"
+msgid "From an album"
+msgstr "Iš albumo"
+
+msgctxt "queue.listOffer.from.liked"
+msgid "From your liked videos"
+msgstr "Iš patikusių vaizdo įrašų"
+
+msgctxt "queue.listOffer.from.mix"
+msgid "From a Mix"
+msgstr "Iš Mix"
+
+msgctxt "queue.listOffer.from.playlist"
+msgid "From a playlist"
+msgstr "Iš grojaraščio"
+
+msgctxt "queue.listOffer.from.uploads"
+msgid "From a channel's uploads"
+msgstr "Iš kanalo įkėlimų"
+
+msgctxt "queue.listOffer.from.watchLater"
+msgid "From Watch later"
+msgstr "Iš „Žiūrėti vėliau“"
+
+msgctxt "queue.listOffer.get.album"
+msgid "Get the whole album"
+msgstr "Gauti visą albumą"
+
+msgctxt "queue.listOffer.get.liked"
+msgid "Get all liked videos"
+msgstr "Gauti visus patikusius vaizdo įrašus"
+
+msgctxt "queue.listOffer.get.mix"
+msgid "Get the whole Mix"
+msgstr "Gauti visą Mix"
+
+msgctxt "queue.listOffer.get.playlist"
+msgid "Get the whole playlist"
+msgstr "Gauti visą grojaraštį"
+
+msgctxt "queue.listOffer.get.uploads"
+msgid "Get all uploads"
+msgstr "Gauti visus įkėlimus"
+
+msgctxt "queue.listOffer.get.watchLater"
+msgid "Get all of Watch later"
+msgstr "Gauti visą „Žiūrėti vėliau“"
+
+msgctxt "queue.listOffer.hint"
+msgid "Adds the list as its own row. This video is left out."
+msgstr "Sąrašas įtraukiamas kaip atskira eilutė. Šis vaizdo įrašas praleidžiamas."
 
 msgctxt "queue.pauseAllTitle"
 msgid "Pause every active download and stop new ones from starting"
@@ -1835,10 +2083,6 @@ msgctxt "splash.greeting"
 msgid "Hey, welcome back!"
 msgstr "Sveiki sugrįžę!"
 
-msgctxt "splash.setup.bytes"
-msgid "{{done}} of {{total}}"
-msgstr "{{done}} iš {{total}}"
-
 #. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
 msgctxt "splash.setup.left.minutes_few"
 msgid "about {{count}} min left"
@@ -1863,18 +2107,6 @@ msgctxt "splash.setup.left.underMinute"
 msgid "less than a minute left"
 msgstr "liko mažiau nei minutė"
 
-msgctxt "splash.setup.note.engine"
-msgid "Keeps downloads working when sites change."
-msgstr "Užtikrina, kad atsisiuntimai veiktų, kai svetainės keičiasi."
-
-msgctxt "splash.setup.note.firstRun"
-msgid "This happens once. Arroxy keeps these tools and updates them itself."
-msgstr "Tai įvyksta tik vieną kartą. Arroxy pasilieka šiuos įrankius ir pati juos atnaujina."
-
-msgctxt "splash.setup.note.media"
-msgid "This happens once. Arroxy keeps them for future updates."
-msgstr "Tai įvyksta tik vieną kartą. Arroxy pasilieka juos būsimiems atnaujinimams."
-
 msgctxt "splash.setup.stage.checking"
 msgid "Checking everything works"
 msgstr "Tikrinama, ar viskas veikia"
@@ -1883,21 +2115,17 @@ msgctxt "splash.setup.stage.connecting"
 msgid "Connecting…"
 msgstr "Jungiamasi…"
 
-msgctxt "splash.setup.stage.downloadingBoth"
-msgid "Downloading the download engine and media tools"
-msgstr "Atsisiunčiamas atsisiuntimo variklis ir medijos įrankiai"
-
-msgctxt "splash.setup.stage.downloadingEngine"
-msgid "Downloading the download engine"
-msgstr "Atsisiunčiamas atsisiuntimo variklis"
-
-msgctxt "splash.setup.stage.downloadingMedia"
-msgid "Downloading the media tools"
-msgstr "Atsisiunčiami medijos įrankiai"
-
 msgctxt "splash.setup.stage.unpacking"
 msgid "Unpacking the media tools"
 msgstr "Išpakuojami medijos įrankiai"
+
+msgctxt "splash.setup.stage.unpackingEngine"
+msgid "Unpacking the download engine"
+msgstr "Išpakuojamas atsisiuntimo variklis"
+
+msgctxt "splash.setup.title.both"
+msgid "Updating Arroxy's tools"
+msgstr "Atnaujinami Arroxy įrankiai"
 
 msgctxt "splash.setup.title.engine"
 msgid "Updating the download engine"
@@ -1984,8 +2212,8 @@ msgid "Merging audio and video…"
 msgstr "Sujungiamas garsas ir vaizdas…"
 
 msgctxt "status.mintingToken"
-msgid "Minting YouTube token…"
-msgstr "Kuriamas YouTube žetonas…"
+msgid "Preparing YouTube download…"
+msgstr "Ruošiamas YouTube atsisiuntimas…"
 
 msgctxt "status.movingFiles"
 msgid "Moving files…"
@@ -2004,16 +2232,16 @@ msgid "Preparing binaries…"
 msgstr "Ruošiami vykdomieji failai…"
 
 msgctxt "status.qualityLimited"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help."
-msgstr "Įrašyta {{height}}p – YouTube šiam atsisiuntimui nepateikė aukštesnės kokybės. Gali padėti bandymas vėliau arba iš kito tinklo."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later may help."
+msgstr "Išsaugota {{height}}p – YouTube šiam atsisiuntimui nepateikė aukštesnių kokybių. Gali padėti bandymas dar kartą vėliau."
 
 msgctxt "status.qualityLimitedSubtitlesFailed"
-msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help."
-msgstr "Įrašyta {{height}}p – YouTube šiam atsisiuntimui nepateikė aukštesnės kokybės, o kai kurių subtitrų atsisiųsti nepavyko. Gali padėti bandymas vėliau arba iš kito tinklo."
+msgid "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later may help."
+msgstr "Išsaugota {{height}}p – YouTube šiam atsisiuntimui nepateikė aukštesnių kokybių, be to, kai kurių subtitrų atsisiųsti nepavyko. Gali padėti bandymas dar kartą vėliau."
 
 msgctxt "status.remintingToken"
-msgid "Re-minting token…"
-msgstr "Kuriamas naujas žetonas…"
+msgid "Preparing YouTube download again…"
+msgstr "Dar kartą ruošiamas YouTube atsisiuntimas…"
 
 msgctxt "status.retryingSponsorBlock"
 msgid "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…"
@@ -2510,8 +2738,8 @@ msgid "Folder name has invalid characters"
 msgstr "Aplanko pavadinime yra netinkamų simbolių"
 
 msgctxt "wizard.folder.subfolder.placeholder"
-msgid "e.g. lo-fi rips"
-msgstr "pvz., lo-fi įrašai"
+msgid "e.g. lectures"
+msgstr "pvz., paskaitos"
 
 msgctxt "wizard.folder.subfolder.toggle"
 msgid "Save inside subfolder"
@@ -2793,9 +3021,25 @@ msgctxt "wizard.formats.fit.tierAbove"
 msgid "Your profile asks for {{wanted}}p. This video has nothing that small, so {{picked}}p is selected."
 msgstr "Jūsų profilis prašo {{wanted}}p. Šiame vaizdo įraše tokios mažos raiškos nėra, todėl pasirinkta {{picked}}p."
 
-msgctxt "wizard.formats.fit.tierBelow"
-msgid "Your profile asks for {{wanted}}p. This video only goes up to {{picked}}p, so {{picked}}p is selected."
-msgstr "Jūsų profilis prašo {{wanted}}p. Šis vaizdo įrašas siekia tik iki {{picked}}p, todėl pasirinkta {{picked}}p."
+msgctxt "wizard.formats.fit.tierAbovePassedOver"
+msgid "Your profile asks for {{wanted}}p. The smaller streams this video has don't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "Jūsų profilis prašo {{wanted}}p. Mažesni šio vaizdo įrašo srautai netinka likusiai jūsų profilio daliai, todėl pasirinkta {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierBelowTakeable"
+msgid "Your profile asks for {{wanted}}p. This video has no {{wanted}}p it can take, so {{picked}}p is selected."
+msgstr "Jūsų profilis prašo {{wanted}}p. Šis vaizdo įrašas neturi tinkamos {{wanted}}p versijos, todėl pasirinkta {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierPassedOverAiUpscaled"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p is AI-upscaled, so the original {{picked}}p is selected."
+msgstr "Jūsų profilis prašo {{wanted}}p. Šio vaizdo įrašo {{wanted}}p padidinta dirbtinio intelekto pagalba, todėl pasirinkta originali {{picked}}p."
+
+msgctxt "wizard.formats.fit.tierPassedOverH264"
+msgid "Your profile asks for {{wanted}}p in H.264. This video has {{wanted}}p only in other codecs, so {{picked}}p in H.264 is selected."
+msgstr "Jūsų profilis prašo {{wanted}}p su H.264. Šis vaizdo įrašas turi {{wanted}}p tik su kitais kodekais, todėl pasirinkta {{picked}}p su H.264."
+
+msgctxt "wizard.formats.fit.tierPassedOverProfile"
+msgid "Your profile asks for {{wanted}}p. This video's {{wanted}}p doesn't fit the rest of your profile, so {{picked}}p is selected."
+msgstr "Jūsų profilis prašo {{wanted}}p. Šio vaizdo įrašo {{wanted}}p netinka likusiai jūsų profilio daliai, todėl pasirinkta {{picked}}p."
 
 msgctxt "wizard.formats.fit.webmUnavailable"
 msgid "Your profile asks for WebM. This video's picked streams include {{codec}}, which WebM can't hold, so the file type is Auto."
@@ -3033,85 +3277,81 @@ msgctxt "wizard.formats.withAudio"
 msgid "with audio"
 msgstr "su garsu"
 
-msgctxt "wizard.listPrompt.escHint"
-msgid "Esc cancels. Nothing loads until you choose."
-msgstr "Esc atšaukia. Niekas neįkeliama, kol nepasirinksite."
+msgctxt "wizard.listPrompt.backgroundHint"
+msgid "With {{profileName}}. If it has more than {{count}} videos, Downloads asks how many."
+msgstr "Su {{profileName}}. Jei joje yra daugiau nei {{count}} vaizdo įrašų, Atsisiuntimai paklaus, kiek jų atsisiųsti."
 
-msgctxt "wizard.listPrompt.interactiveSubtitle"
-msgid "Choose formats yourself"
-msgstr "Formatus pasirinkite patys"
+msgctxt "wizard.listPrompt.backgroundLabel"
+msgid "Download in the background"
+msgstr "Atsisiųsti fone"
 
-msgctxt "wizard.listPrompt.justThisVideo"
-msgid "Just this video"
-msgstr "Tik šis vaizdo įrašas"
+msgctxt "wizard.listPrompt.escOnly"
+msgid "Esc cancels."
+msgstr "Esc atšaukia."
 
-msgctxt "wizard.listPrompt.justThisVideoInteractiveHint"
-msgid "Opens its formats"
-msgstr "Atveria jo formatus"
+msgctxt "wizard.listPrompt.firstHint"
+msgid "Exactly the first {{count}}, with {{profileName}}."
+msgstr "Tiksliai pirmieji {{count}}, su {{profileName}}."
 
-msgctxt "wizard.listPrompt.justThisVideoQuickHint"
-msgid "Loads one video"
-msgstr "Įkelia vieną vaizdo įrašą"
+msgctxt "wizard.listPrompt.firstLabel"
+msgid "Download the first"
+msgstr "Atsisiųsti pirmuosius"
 
-msgctxt "wizard.listPrompt.listInteractiveHint"
-msgid "Loads up to {{count}} to choose from"
-msgstr "Įkelia iki {{count}}, kad galėtumėte rinktis"
+msgctxt "wizard.listPrompt.interactiveHint"
+msgid "Pick from the first {{count}} videos (or change the count on the next step), then set up the download."
+msgstr "Pasirinkite iš pirmųjų {{count}} vaizdo įrašų (arba pakeiskite skaičių kitame žingsnyje), tada nustatykite atsisiuntimą."
 
-msgctxt "wizard.listPrompt.listOption.album"
-msgid "The album, first"
-msgstr "Albumas, pirmieji"
+msgctxt "wizard.listPrompt.interactiveLabel"
+msgid "Interactive download…"
+msgstr "Interaktyvus atsisiuntimas…"
 
-msgctxt "wizard.listPrompt.listOption.liked"
-msgid "Your liked videos, first"
-msgstr "Patikę vaizdo įrašai, pirmieji"
+msgctxt "wizard.listPrompt.limitHint"
+msgid "How many videos to take from the list: the first option asks past it, the second takes exactly that many. The same as Settings › Playlist items to scan."
+msgstr "Kiek vaizdo įrašų imti iš sąrašo: pirmasis variantas klausia viršijus ribą, antrasis ima tiksliai tiek. Tas pats kaip Parametrai › Nuskaitomi grojaraščio elementai."
 
-msgctxt "wizard.listPrompt.listOption.mix"
-msgid "The Mix, first"
-msgstr "Mix, pirmieji"
-
-msgctxt "wizard.listPrompt.listOption.playlist"
-msgid "The playlist, first"
-msgstr "Grojaraštis, pirmieji"
-
-msgctxt "wizard.listPrompt.listOption.uploads"
-msgid "The uploads, first"
-msgstr "Kanalo įkėlimai, pirmieji"
-
-msgctxt "wizard.listPrompt.listOption.watchLater"
-msgid "Watch later, first"
-msgstr "„Žiūrėti vėliau“, pirmieji"
-
-msgctxt "wizard.listPrompt.listQuickHint"
-msgid "Loads up to {{count}}, then downloads them"
-msgstr "Įkelia iki {{count}}, tada juos atsisiunčia"
+msgctxt "wizard.listPrompt.limitLabel"
+msgid "Limit"
+msgstr "Riba"
 
 msgctxt "wizard.listPrompt.mixNote"
 msgid "A Mix changes every time you open it."
 msgstr "Mix pasikeičia kaskart, kai jį atidarote."
 
-msgctxt "wizard.listPrompt.pickOption.album"
-msgid "Pick from the album, first"
-msgstr "Rinktis iš albumo, iš pirmųjų"
+msgctxt "wizard.listPrompt.pickLoadAfter"
+msgid "to pick from."
+msgstr "vaizdo įrašų, iš kurių pasirinkti."
 
-msgctxt "wizard.listPrompt.pickOption.liked"
-msgid "Pick from your liked videos, first"
-msgstr "Rinktis iš patikusių vaizdo įrašų, iš pirmųjų"
+msgctxt "wizard.listPrompt.pickLoadBefore"
+msgid "Load the first"
+msgstr "Įkelti pirmuosius"
 
-msgctxt "wizard.listPrompt.pickOption.mix"
-msgid "Pick from the Mix, first"
-msgstr "Rinktis iš Mix, iš pirmųjų"
+msgctxt "wizard.listPrompt.pickLoadNote"
+msgid "You can change it on the next step."
+msgstr "Tai galite pakeisti kitame žingsnyje."
 
-msgctxt "wizard.listPrompt.pickOption.playlist"
-msgid "Pick from the playlist, first"
-msgstr "Rinktis iš grojaraščio, iš pirmųjų"
+msgctxt "wizard.listPrompt.pickTitle.album"
+msgid "Pick from this album"
+msgstr "Pasirinkti iš šio albumo"
 
-msgctxt "wizard.listPrompt.pickOption.uploads"
-msgid "Pick from the uploads, first"
-msgstr "Rinktis iš kanalo įkėlimų, iš pirmųjų"
+msgctxt "wizard.listPrompt.pickTitle.liked"
+msgid "Pick from your liked videos"
+msgstr "Pasirinkti iš patikusių vaizdo įrašų"
 
-msgctxt "wizard.listPrompt.pickOption.watchLater"
-msgid "Pick from Watch later, first"
-msgstr "Rinktis iš „Žiūrėti vėliau“, iš pirmųjų"
+msgctxt "wizard.listPrompt.pickTitle.mix"
+msgid "Pick from this Mix"
+msgstr "Pasirinkti iš šio Mix"
+
+msgctxt "wizard.listPrompt.pickTitle.playlist"
+msgid "Pick from this playlist"
+msgstr "Pasirinkti iš šio grojaraščio"
+
+msgctxt "wizard.listPrompt.pickTitle.uploads"
+msgid "Pick from this channel’s uploads"
+msgstr "Pasirinkti iš šio kanalo įkėlimų"
+
+msgctxt "wizard.listPrompt.pickTitle.watchLater"
+msgid "Pick from Watch later"
+msgstr "Pasirinkti iš „Žiūrėti vėliau“"
 
 msgctxt "wizard.listPrompt.title.album"
 msgid "Download from this album"
@@ -3136,6 +3376,18 @@ msgstr "Atsisiuntimas iš šio kanalo įkėlimų"
 msgctxt "wizard.listPrompt.title.watchLater"
 msgid "Download from Watch later"
 msgstr "Atsisiuntimas iš „Žiūrėti vėliau“"
+
+msgctxt "wizard.listPrompt.videoHint"
+msgid "Only the video you opened, with {{profileName}}. The list isn't loaded."
+msgstr "Tik atidarytas vaizdo įrašas, su {{profileName}}. Sąrašas neįkeliamas."
+
+msgctxt "wizard.listPrompt.videoLabel"
+msgid "Just this video"
+msgstr "Tik šį vaizdo įrašą"
+
+msgctxt "wizard.listPrompt.videoPickHint"
+msgid "Set up only the video you opened. The list isn't loaded."
+msgstr "Nustatykite tik atidarytą vaizdo įrašą. Sąrašas neįkeliamas."
 
 msgctxt "wizard.listPrompt.withProfile"
 msgid "With {{profileName}}"
@@ -3332,6 +3584,46 @@ msgstr "Pašalinti visi elementai"
 msgctxt "wizard.playlist.alreadyDownloaded"
 msgid "Already downloaded"
 msgstr "Jau atsisiųsta"
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.bulkCappedDesc_few"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "Juose yra daugiau. Norėdami pasirinkti, kiek jų imti, įklijuokite kiekvieną nuorodą atskirai."
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.bulkCappedDesc_many"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "Juose yra daugiau. Norėdami pasirinkti, kiek jų imti, įklijuokite kiekvieną nuorodą atskirai."
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.bulkCappedDesc_one"
+msgid "It has more. To choose how many, paste its link on its own."
+msgstr "Jame yra daugiau. Norėdami pasirinkti, kiek jų imti, įklijuokite jo nuorodą atskirai."
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.bulkCappedDesc_other"
+msgid "They have more. To choose how many, paste each link on its own."
+msgstr "Juose yra daugiau. Norėdami pasirinkti, kiek jų imti, įklijuokite kiekvieną nuorodą atskirai."
+
+#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
+msgctxt "wizard.playlist.bulkCappedTitle_few"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "Apkarpyti {{count}} sąrašai (iki {{limit}} vaizdo įrašų kiekvienas)"
+
+#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
+msgctxt "wizard.playlist.bulkCappedTitle_many"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "Apkarpyta {{count}} sąrašo (iki {{limit}} vaizdo įrašų kiekvienas)"
+
+#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
+msgctxt "wizard.playlist.bulkCappedTitle_one"
+msgid "“{{title}}” is cut at {{limit}} videos"
+msgstr "„{{title}}“ apkarpytas iki {{limit}} vaizdo įrašų"
+
+#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
+msgctxt "wizard.playlist.bulkCappedTitle_other"
+msgid "{{count}} lists are cut at {{limit}} videos each"
+msgstr "Apkarpyta {{count}} sąrašų (iki {{limit}} vaizdo įrašų kiekvienas)"
 
 msgctxt "wizard.playlist.bulkHeading"
 msgid "Bulk URLs"
@@ -3656,58 +3948,6 @@ msgstr "Tikrinamas aplankas…"
 msgctxt "wizard.playlist.thumbnailAlt"
 msgid "Video thumbnail"
 msgstr "Vaizdo įrašo miniatiūra"
-
-msgctxt "wizard.playlistCap.changeLimit"
-msgid "Change load limit"
-msgstr "Keisti įkėlimo ribą"
-
-#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
-msgctxt "wizard.playlistCap.description_few"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy įkėlė {{count}} elementus pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo."
-
-#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
-msgctxt "wizard.playlistCap.description_many"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy įkėlė {{count}} elemento pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo."
-
-#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
-msgctxt "wizard.playlistCap.description_one"
-msgid "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "Arroxy įkėlė {{count}} elementą pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltą elementą į eilę arba padidinkite ribą ir nuskaitykite iš naujo."
-
-#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
-msgctxt "wizard.playlistCap.description_other"
-msgid "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "Arroxy įkėlė {{count}} elementų pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo."
-
-#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
-msgctxt "wizard.playlistCap.descriptionWithTitle_few"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy įkėlė {{count}} elementus pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo."
-
-#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
-msgctxt "wizard.playlistCap.descriptionWithTitle_many"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy įkėlė {{count}} elemento pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo."
-
-#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
-msgctxt "wizard.playlistCap.descriptionWithTitle_one"
-msgid "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy įkėlė {{count}} elementą pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltą elementą į eilę arba padidinkite ribą ir nuskaitykite iš naujo."
-
-#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
-msgctxt "wizard.playlistCap.descriptionWithTitle_other"
-msgid "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again."
-msgstr "<title/>: Arroxy įkėlė {{count}} elementų pagal dabartinę {{limit}} ribą. Dabar įtraukite įkeltus elementus į eilę arba padidinkite ribą ir nuskaitykite iš naujo."
-
-msgctxt "wizard.playlistCap.queueLoaded"
-msgid "Queue loaded items"
-msgstr "Įtraukti įkeltus elementus į eilę"
-
-msgctxt "wizard.playlistCap.title"
-msgid "Playlist scan is capped"
-msgstr "Grojaraščio nuskaitymas apribotas"
 
 msgctxt "wizard.playlistPresets.heading"
 msgid "Pick quality for the batch"
@@ -4245,54 +4485,6 @@ msgctxt "wizard.profileSwitchRow.helpAria"
 msgid "{{label}} help"
 msgstr "{{label}} žinynas"
 
-msgctxt "wizard.quickProgress.cancel"
-msgid "Cancel preparation"
-msgstr "Atšaukti paruošimą"
-
-msgctxt "wizard.quickProgress.currentFallback"
-msgid "Current link"
-msgstr "Dabartinė nuoroda"
-
-msgctxt "wizard.quickProgress.description"
-msgid "Arroxy is reading the link and applying {{profileName}}."
-msgstr "Arroxy skaito nuorodą ir taiko profilį {{profileName}}."
-
-#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
-msgctxt "wizard.quickProgress.failedCount_few"
-msgid "{{count}} failed"
-msgstr "Nepavyko: {{count}}"
-
-#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
-msgctxt "wizard.quickProgress.failedCount_many"
-msgid "{{count}} failed"
-msgstr "Nepavyko: {{count}}"
-
-#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
-msgctxt "wizard.quickProgress.failedCount_one"
-msgid "{{count}} failed"
-msgstr "Nepavyko: {{count}}"
-
-#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
-msgctxt "wizard.quickProgress.failedCount_other"
-msgid "{{count}} failed"
-msgstr "Nepavyko: {{count}}"
-
-msgctxt "wizard.quickProgress.phase.probing"
-msgid "Fetching details"
-msgstr "Gaunama išsami informacija"
-
-msgctxt "wizard.quickProgress.phase.queueing"
-msgid "Adding to queue"
-msgstr "Įtraukiama į eilę"
-
-msgctxt "wizard.quickProgress.title"
-msgid "Preparing Quick Download"
-msgstr "Ruošiamas greitasis atsisiuntimas"
-
-msgctxt "wizard.quickProgress.waitHint"
-msgid "Keep this open while Arroxy prepares the queue."
-msgstr "Palikite šį langą atidarytą, kol Arroxy ruošia eilę."
-
 msgctxt "wizard.review.areas.extras"
 msgid "extras"
 msgstr "papildai"
@@ -4601,6 +4793,10 @@ msgctxt "wizard.subtitles.saveMode.sidecar"
 msgid "Next to video"
 msgstr "Šalia vaizdo įrašo"
 
+msgctxt "wizard.subtitles.saveMode.sidecarNoVideo"
+msgid "In the download folder"
+msgstr "Atsisiuntimų aplanke"
+
 msgctxt "wizard.subtitles.saveMode.subfolder"
 msgid "subtitles/ subfolder"
 msgstr "poaplankis subtitles/"
@@ -4624,14 +4820,6 @@ msgstr "Atsisiuntimo profilių naršymas"
 msgctxt "wizard.url.advanced"
 msgid "Advanced"
 msgstr "Išplėstiniai"
-
-msgctxt "wizard.url.analytics.toggle"
-msgid "Send daily heartbeat"
-msgstr "Siųsti kasdienį aktyvumo signalą"
-
-msgctxt "wizard.url.analytics.toggleDescription"
-msgid "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
-msgstr "Jokios telemetrijos. Kartą per dieną anoniminis aktyvumo signalas išsiunčia programos versiją, diegimo kanalą, OS, kalbą, šalį ir apytikslį laiką nuo Arroxy įdiegimo, kad galėtume suskaičiuoti aktyvius ir naujus naudotojus. Jokių ID, URL, vaizdo įrašų pavadinimų ar failų pavadinimų."
 
 msgctxt "wizard.url.autoRemoveCompleted.description"
 msgid "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list."
@@ -4720,6 +4908,18 @@ msgstr "Atsisiuntimų vienu metu"
 msgctxt "wizard.url.concurrentDownloads.unit"
 msgid "downloads"
 msgstr "atsisiuntimų"
+
+msgctxt "wizard.url.concurrentProbes.description"
+msgid "How many links Arroxy fetches details for at the same time, before they download. Fewer is gentler on sites that block busy connections. A link you open in Interactive Download always goes first."
+msgstr "Kiek nuorodų informaciją Arroxy gauna vienu metu, prieš jas atsisiunčiant. Mažiau – švelniau svetainėms, kurios blokuoja užimtus ryšius. Nuoroda, kurią atidarote per Interaktyvų atsisiuntimą, visada vykdoma pirma."
+
+msgctxt "wizard.url.concurrentProbes.label"
+msgid "Links checked at once"
+msgstr "Vienu metu tikrinama nuorodų"
+
+msgctxt "wizard.url.concurrentProbes.unit"
+msgid "links"
+msgstr "nuorodų"
 
 msgctxt "wizard.url.cookies.banWarning"
 msgid "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible."
@@ -4814,8 +5014,8 @@ msgid "Off"
 msgstr "Išjungta"
 
 msgctxt "wizard.url.cookies.toggleDescription"
-msgid "Helps with age-restricted, members-only, and account-private videos."
-msgstr "Padeda su vaizdo įrašais, turinčiais amžiaus apribojimą, skirtais tik nariams ir privačiais paskyros vaizdo įrašais."
+msgid "Helps with videos your own account can watch, like your private videos."
+msgstr "Padeda su vaizdo įrašais, kuriuos gali žiūrėti jūsų paskyra, pavyzdžiui, su jūsų privačiais vaizdo įrašais."
 
 msgctxt "wizard.url.downloadConnections.description"
 msgid "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you."
@@ -4828,6 +5028,30 @@ msgstr "Atsisiuntimo ryšiai"
 msgctxt "wizard.url.downloadConnections.unit"
 msgid "connections"
 msgstr "ryšių"
+
+msgctxt "wizard.url.downloadList.album"
+msgid "Download album…"
+msgstr "Atsisiųsti albumą…"
+
+msgctxt "wizard.url.downloadList.liked"
+msgid "Download liked videos…"
+msgstr "Atsisiųsti patikusius vaizdo įrašus…"
+
+msgctxt "wizard.url.downloadList.mix"
+msgid "Download Mix…"
+msgstr "Atsisiųsti Mix…"
+
+msgctxt "wizard.url.downloadList.playlist"
+msgid "Download playlist…"
+msgstr "Atsisiųsti grojaraštį…"
+
+msgctxt "wizard.url.downloadList.uploads"
+msgid "Download uploads…"
+msgstr "Atsisiųsti įkėlimus…"
+
+msgctxt "wizard.url.downloadList.watchLater"
+msgid "Download Watch later…"
+msgstr "Atsisiųsti „Žiūrėti vėliau“…"
 
 msgctxt "wizard.url.features.always.audioOnly"
 msgid "Audio only"
@@ -4901,17 +5125,9 @@ msgctxt "wizard.url.hotkey.conflict"
 msgid "This shortcut is taken by another app — pick another one."
 msgstr "Šį spartųjį klavišą naudoja kita programa – pasirinkite kitą."
 
-msgctxt "wizard.url.hotkey.hintLabel"
-msgid "Or press"
-msgstr "Arba paspauskite"
-
-msgctxt "wizard.url.hotkey.hintTooltip"
-msgid "Copy a video link anywhere, press this shortcut, and Arroxy queues it with your active profile — no need to switch windows."
-msgstr "Nukopijuokite vaizdo įrašo nuorodą bet kur, paspauskite šį spartųjį klavišą ir Arroxy įtrauks ją į eilę su jūsų aktyviu profiliu – nereikia keisti langų."
-
-msgctxt "wizard.url.hotkey.hintTooltipSettings"
-msgid "Change or turn it off in Settings."
-msgstr "Pakeiskite arba išjunkite parametruose."
+msgctxt "wizard.url.hotkey.globalLabel"
+msgid "Global shortcut"
+msgstr "Visuotinis spartusis klavišas"
 
 msgctxt "wizard.url.hotkey.recording"
 msgid "Press keys…"
@@ -4937,13 +5153,17 @@ msgctxt "wizard.url.hotkey.toggle"
 msgid "Enable global hotkey"
 msgstr "Įjungti visuotinį spartųjį klavišą"
 
-msgctxt "wizard.url.hotkey.toggleDescription"
-msgid "Press the shortcut with a video link on your clipboard."
-msgstr "Paspauskite spartųjį klavišą, kai iškarpinėje yra vaizdo įrašo nuoroda."
+msgctxt "wizard.url.hotkey.toggleDescriptionDetail"
+msgid "Copy a video link in any app and press the shortcut: Arroxy queues it with your active profile, without switching windows. A link to a video in a playlist downloads the video."
+msgstr "Nukopijuokite vaizdo įrašo nuorodą bet kurioje programoje ir paspauskite spartųjį klavišą: Arroxy įtrauks ją į eilę su jūsų aktyviu profiliu, nekeisdama lango. Nuoroda į grojaraščio vaizdo įrašą atsisiunčia tą vaizdo įrašą."
 
 msgctxt "wizard.url.interactiveDownload"
 msgid "Interactive Download"
 msgstr "Interaktyvus atsisiuntimas"
+
+msgctxt "wizard.url.interactiveDownloadAsks"
+msgid "Interactive Download…"
+msgstr "Interaktyvus atsisiuntimas…"
 
 msgctxt "wizard.url.limitRate.activeWarning"
 msgid "Active downloads keep their current limit. Pause + Resume to apply changes."
@@ -4985,21 +5205,13 @@ msgctxt "wizard.url.mascotIdle"
 msgid "Drop a link and let Arroxy pull it ✨"
 msgstr "Įmeskite nuorodą ir leiskite Arroxy ją atsisiųsti ✨"
 
-msgctxt "wizard.url.mascotMixed"
-msgid "This link points at one video inside a collection. Arroxy will ask which one you want before probing."
-msgstr "Ši nuoroda rodo į vieną vaizdo įrašą kolekcijoje. Arroxy paklaus, kurį norite, prieš nuskaitydama."
-
-msgctxt "wizard.url.mascotPreparing"
-msgid "{{quickDownload}} is reading this link and applying {{profileName}}."
-msgstr "{{quickDownload}} skaito šią nuorodą ir taiko profilį {{profileName}}."
-
-msgctxt "wizard.url.mascotQueued"
-msgid "The queue is handling this download. You can paste another link while it works."
-msgstr "Eilė tvarko šį atsisiuntimą. Kol jis vyksta, galite įklijuoti kitą nuorodą."
-
 msgctxt "wizard.url.mascotSingle"
 msgid "Quick starts one download with {{profileName}}. Use Interactive for one-off changes."
 msgstr "Greitasis režimas pradeda vieną atsisiuntimą su profiliu {{profileName}}. Vienkartiniams pakeitimams naudokite interaktyvų."
+
+msgctxt "wizard.url.mascotVideoInList"
+msgid "This link names a video and the list it’s in: download just the video, or the list."
+msgstr "Ši nuoroda nurodo vaizdo įrašą ir sąrašą, kuriame jis yra: atsisiųskite tik vaizdo įrašą arba sąrašą."
 
 msgctxt "wizard.url.nativeAudioPreference.compatible"
 msgid "Compatible stereo"
@@ -5321,6 +5533,10 @@ msgctxt "wizard.url.profile.destinationDetail.overrideSubfolder"
 msgid "Using profile override + profile subfolder"
 msgstr "Naudojamas profilio pakeitimas + profilio poaplankis"
 
+msgctxt "wizard.url.profile.destinationEditHint"
+msgid "To change where it saves, edit the profile."
+msgstr "Norėdami pakeisti, kur išsaugoma, redaguokite profilį."
+
 msgctxt "wizard.url.profile.destinationFallback"
 msgid "Destination"
 msgstr "Paskirtis"
@@ -5413,6 +5629,10 @@ msgctxt "wizard.url.profile.reset"
 msgid "Reset"
 msgstr "Atkurti"
 
+msgctxt "wizard.url.profile.savesTo"
+msgid "Saves to"
+msgstr "Išsaugoma į"
+
 msgctxt "wizard.url.profile.switchAria"
 msgid "Switch download profile: {{profileName}}"
 msgstr "Perjungti atsisiuntimo profilį: {{profileName}}"
@@ -5426,8 +5646,8 @@ msgid "Clear"
 msgstr "Išvalyti"
 
 msgctxt "wizard.url.proxy.description"
-msgid "Route traffic through a proxy — useful for geo-restricted content."
-msgstr "Nukreipia srautą per tarpinį serverį – naudinga turiniui, apribotam pagal regioną."
+msgid "Route traffic through a proxy server."
+msgstr "Nukreipti srautą per tarpinį serverį."
 
 msgctxt "wizard.url.proxy.label"
 msgid "Proxy URL"
@@ -5436,10 +5656,6 @@ msgstr "Tarpinio serverio URL"
 msgctxt "wizard.url.proxy.placeholder"
 msgid "http://host:port"
 msgstr "http://host:port"
-
-msgctxt "wizard.url.quickBulkAllFailed"
-msgid "None of those URLs could be prepared"
-msgstr "Nepavyko paruošti nė vieno iš tų URL"
 
 msgctxt "wizard.url.quickDownload"
 msgid "Quick Download"
@@ -5452,26 +5668,6 @@ msgstr "Atsisiųs naudodama: {{profileName}}"
 msgctxt "wizard.url.quickFailed"
 msgid "Couldn't add this one: {{error}}"
 msgstr "Nepavyko pridėti šio: {{error}}"
-
-#. Plural form "few" for lt: used for counts like 2, 3, 4, 5, 6, 7.
-msgctxt "wizard.url.quickPartialFailed_few"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "Į eilę įtraukta tai, kas pavyko. Nepavyko paruošti {{count}} URL."
-
-#. Plural form "many" for lt: used for fractional counts and other values not covered by the other forms.
-msgctxt "wizard.url.quickPartialFailed_many"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "Į eilę įtraukta tai, kas pavyko. Nepavyko paruošti {{count}} URL."
-
-#. Plural form "one" for lt: used for counts like 1, 21, 31, 41, 51, 61.
-msgctxt "wizard.url.quickPartialFailed_one"
-msgid "Queued what worked. {{count}} URL could not be prepared."
-msgstr "Į eilę įtraukta tai, kas pavyko. Nepavyko paruošti {{count}} URL."
-
-#. Plural form "other" for lt: used for counts like 0, 10, 11, 12, 13, 14.
-msgctxt "wizard.url.quickPartialFailed_other"
-msgid "Queued what worked. {{count}} URLs could not be prepared."
-msgstr "Į eilę įtraukta tai, kas pavyko. Nepavyko paruošti {{count}} URL."
 
 msgctxt "wizard.url.quickPrepareFailed"
 msgid "Queue item could not be prepared"
@@ -5488,6 +5684,14 @@ msgstr "Nuskaitymas nepavyko"
 msgctxt "wizard.url.quickSingleOnly"
 msgid "Paste a video, playlist, channel, or search URL to get started."
 msgstr "Norėdami pradėti, įklijuokite vaizdo įrašo, grojaraščio, kanalo ar paieškos URL."
+
+msgctxt "wizard.url.reports.toggle"
+msgid "Send anonymous heartbeat and setup reports"
+msgstr "Siųsti anonimines veikimo ir sąrankos ataskaitas"
+
+msgctxt "wizard.url.reports.toggleDescription"
+msgid "No tracking. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. When Arroxy sets up or updates its download engine or media tools, it also reports whether that worked and roughly how long it took. No IDs, URLs, video titles or filenames."
+msgstr "Jokio sekimo. Kartą per dieną anoniminis veikimo signalas išsiunčia programos versiją, diegimo kanalą, OS, kalbą, šalį ir apytiksliai, prieš kiek laiko Arroxy buvo įdiegta, kad galėtume suskaičiuoti aktyvius ir naujus naudotojus. Kai Arroxy nustato arba atnaujina atsisiuntimo variklį ar medijos įrankius, ji taip pat praneša, ar tai pavyko ir apytiksliai kiek laiko užtruko. Jokių ID, URL, vaizdo įrašų pavadinimų ar failų pavadinimų."
 
 msgctxt "wizard.url.settings.behaviorDescription"
 msgid "Global behavior that affects profile-driven downloads too."
@@ -5544,3 +5748,11 @@ msgstr "Profiliai"
 msgctxt "wizard.url.tabs.settings"
 msgid "Settings"
 msgstr "Parametrai"
+
+msgctxt "wizard.url.thisVideo"
+msgid "This video"
+msgstr "Šis vaizdo įrašas"
+
+msgctxt "wizard.url.thisVideoTooltip"
+msgid "Downloads just this video with {{profileName}}"
+msgstr "Atsisiunčia tik šį vaizdo įrašą su {{profileName}}"

@@ -9,7 +9,7 @@
 
 [![Laidiens](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Būvējums](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Vietne](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Licence](https://img.shields.io/badge/license-GPLv3-blue) ![Platformas](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Valodas](https://img.shields.io/badge/i18n-50_languages-blue)
 
-Lejupielādējiet videoklipus, Shorts, mūziku, kanālus, podkāstus vai audio celiņus no **YouTube un 2000+ atbalstītām vietnēm** — līdz pat 8K HDR ar 60 kadriem sekundē, kā MP3 / AAC / Opus vai tikai to daļu, kas jums nepieciešama. **Pārlūkojiet YouTube vai jebkuru citu vietni Arroxy iekšienē** cilnē Izpēte un lejupielādējiet video, atskaņošanas sarakstu vai kanālu, kurā atrodaties; pierakstieties tur, lai lejupielādētu privātus, tikai dalībniekiem paredzētus un vecuma ierobežotus videoklipus, ko jūsu konts var skatīties. Darbojas lokāli operētājsistēmās Windows, macOS un Linux. **Bez reklāmām, bez liekām funkcijām, bez uzmācīgas pārdošanas.**
+Lejupielādējiet videoklipus, Shorts, kanālus, podkāstus vai audio celiņus no **YouTube un 2000+ atbalstītām vietnēm** — līdz pat 8K HDR ar 60 kadriem sekundē, kā MP3 / AAC / Opus vai tikai to daļu, kas jums nepieciešama. **Pārlūkojiet YouTube vai jebkuru citu vietni Arroxy iekšienē** cilnē Izpēte un lejupielādējiet video, atskaņošanas sarakstu vai kanālu, kurā atrodaties; pierakstieties tur, lai lejupielādētu videoklipus, ko jūsu konts jau var skatīties. Darbojas lokāli operētājsistēmās Windows, macOS un Linux. **Bez reklāmām, bez liekām funkcijām, bez uzmācīgas pārdošanas.**
 
 [**↓ Instalēt jaunāko laidienu**](#install) &nbsp;·&nbsp; [**Vietne**](https://arroxy.com/) &nbsp;·&nbsp; [Windows pirmā palaišana](#windows-first-launch) · [macOS pirmā palaišana](#macos-first-launch) · [Linux pirmā palaišana](#linux-first-launch)
 
@@ -28,7 +28,7 @@ Ja Arroxy ietaupa jūsu laiku, ⭐ palīdz citiem to atrast.
 
 > **Kas ir Arroxy?** Arroxy ir bezmaksas atvērtā koda darbvirsmas grafiskā saskarne, kas lejupielādē videoklipus, audio, atskaņošanas sarakstus un subtitrus no YouTube un 2000+ citām vietnēm, ko atbalsta [yt-dlp](https://github.com/yt-dlp/yt-dlp). Darbojas operētājsistēmās Windows 10/11, macOS 13+ (Intel + Apple Silicon) un Linux (AppImage, Flatpak, tar.gz). Licence GPLv3. Bez reklāmām, bez lietojuma ierobežojumiem. Izplatīta caur [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage un tiešo lejupielādi.
 >
-> **Galvenā atšķirība: iebūvēts pārlūks.** Lielākā daļa bezmaksas YouTube lejupielādētāju ir plāni yt-dlp apvalki: URL lodziņš un formātu izvēlne bez paša pārlūka. Arroxy tāds ir – **cilne Izpēte**. Jūs pārlūkojat YouTube vai jebkuru citu vietni lietotnē un lejupielādējat videoklipu, atskaņošanas sarakstu vai kanālu, kurā atrodaties, vai noklikšķiniet ar peles labo pogu uz jebkuras saites. Sadaļā Izpēte pierakstāties vienu reizi, un Arroxy lejupielādē privātus, tikai dalībniekiem paredzētus un vecuma ierobežotus videoklipus, ko jūsu konts var skatīties, kā arī jūsu sarakstus Skatīties vēlāk un Patīk, bez sīkfailu eksportēšanas. Tur varat pierakstīties arī citās vietnēs, un to lejupielādes vajadzības gadījumā izmanto šo pierakstīšanos. Kad YouTube prasa apstiprināt, ka neesat robots, Arroxy mēģina vēlreiz ar šo pierakstīšanos. Iebūvētais pārlūks arī iegūst pilnvaru, ko YouTube gaida pirms lejupielādes, tāpēc YouTube nesašaurina lejupielādi līdz mazākam formātu skaitam. Apvalks ar vienu URL lodziņu saskaras ar visiem šiem ierobežojumiem. Sīkāka informācija: [Kāpēc Arroxy](#why-explore).
+> **Galvenā atšķirība: iebūvēts pārlūks.** Lielākā daļa bezmaksas YouTube lejupielādētāju ir plāni yt-dlp apvalki: URL lodziņš un formātu izvēlne bez paša pārlūka. Arroxy tāds ir – **cilne Izpēte**. Jūs pārlūkojat YouTube vai jebkuru citu vietni lietotnē un lejupielādējat videoklipu, atskaņošanas sarakstu vai kanālu, kurā atrodaties, vai noklikšķiniet ar peles labo pogu uz jebkuras saites. Ja vienreiz pierakstāties sadaļā Izpēte, lejupielādes, kurām nepieciešams konts, izmanto šo pierakstīšanos: jūsu privātos videoklipus, jūsu sarakstus Skatīties vēlāk un Patīk un citus videoklipus, ko jūsu konts jau var skatīties, bez sīkfailu eksportēšanas. Tur varat pierakstīties arī citās vietnēs, un to lejupielādes vajadzības gadījumā izmanto šo pierakstīšanos. Sīkāka informācija: [Kāpēc Arroxy](#why-explore).
 >
 > _Pēdējo reizi atjaunināts: 2026-10-22._
 
@@ -81,7 +81,7 @@ Ja Arroxy ietaupa jūsu laiku, ⭐ palīdz citiem to atrast.
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="../../build/Global-hotkey-dark.png" /><img src="../../build/Global-hotkey.png" alt="Arroxy globālais lejupielādes īsinājumtaustiņš — Ctrl+Shift+D sistēmās Windows un Linux, Cmd+Shift+D sistēmā macOS, nosūta nokopēto saiti tieši lejupielāžu rindā" width="760" /></picture><br/><sub><b>Globālais lejupielādes īsinājumtaustiņš</b><br/>Nokopējiet saiti jebkur, nospiediet vienreiz — tā nonāk rindā un sāk lejupielādēties</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/lv/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Atskaņošanas saraksta profili katram vienumam</b><br/>Piešķiriet katram video savu profilu — daļu arhivējiet 4K, pārējo paņemiet kā MP3</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="../../build/screenshots/lv/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Atskaņošanas saraksta profili katram vienumam</b><br/>Piešķiriet katram video savu profilu — daļu arhivējiet 4K, pārējo saglabājiet tikai kā audio</sub></td>
   </tr>
   <tr>
     <td width="50%" valign="top" align="center"><img src="../../build/screenshots/lv/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>Ātrās lejupielādes sākums</b><br/>Ielīmējiet URL un nekavējoties lejupielādējiet ar savu aktīvo profilu</sub></td>
@@ -104,7 +104,7 @@ Ja Arroxy ietaupa jūsu laiku, ⭐ palīdz citiem to atrast.
 - **Lejupielāde ar peles labo pogu** — ar peles labo pogu noklikšķiniet uz jebkuras video, atskaņošanas saraksta vai kanāla saites sadaļā Izpēte, lai to lejupielādētu ar savu profilu, izvēlētos citu profilu sadaļā **Lejupielādēt ar**, atvērtu soli pa solim lejupielādi vai nokopētu saiti. Nav jāatver katrs video atsevišķi
 - **Kompakts izkārtojums** — viens klikšķis sadaļas Izpēte rīkjoslā pārvieto Arroxy cilnes tajā un dod lapai vairāk vietas
 - **Adreses josla** — rakstiet, lai meklētu YouTube, vai ievadiet jebkuru tīmekļa adresi, lai atvērtu šo vietni
-- **Lejupielādes, kurām nepieciešams konts** — pierakstieties vienreiz sadaļā Izpēte, un Arroxy varēs lejupielādēt privātus un tikai dalībniekiem paredzētus videoklipus, ko jūsu konts var skatīties, vecuma ierobežotus videoklipus, ja konts ir ar apstiprinātu vecumu, kā arī jūsu sarakstus Skatīties vēlāk un Patīk. Tur varat pierakstīties arī citās vietnēs, un to lejupielādēs šī pierakstīšanās tiks izmantota, kad tā būs nepieciešama. Arroxy vispirms joprojām lejupielādē bez pierakstīšanās un izmanto jūsu pierakstīšanos sadaļā Izpēte tikai tad, ja lejupielāde neizdodas tādā veidā, ko konts var novērst. Kad YouTube prasa apstiprināt, ka neesat robots, Arroxy arī mēģina izmantot jūsu pierakstīšanos sadaļā Izpēte
+- **Lejupielādes, kurām nepieciešams konts** — pierakstieties vienreiz sadaļā Izpēte, un Arroxy varēs lejupielādēt videoklipus, ko jūsu konts var skatīties: jūsu privātos videoklipus, vecuma ierobežotus videoklipus, ja konts ir ar apstiprinātu vecumu, kā arī jūsu sarakstus Skatīties vēlāk un Patīk. Tur varat pierakstīties arī citās vietnēs, un to lejupielādēs šī pierakstīšanās tiks izmantota, kad tā būs nepieciešama. Arroxy vispirms joprojām lejupielādē bez pierakstīšanās un izmanto jūsu pierakstīšanos sadaļā Izpēte tikai tad, ja lejupielāde neizdodas tādā veidā, ko konts var novērst
 - **Izmantojiet papildu kontu** — sadaļas Izpēte pirmais ekrāns paskaidro, kāpēc: lejupielāde ar kontu rada zināmu risku, ka šis konts tiks ierobežots. Izrakstieties no sadaļas Izpēte iestatījumos, kad vien vēlaties aizmirst savas pierakstīšanās
 - **Reklāmu bloķētājs** — pēc noklusējuma izslēgts. Viens klikšķis uz vairoga sadaļas Izpēte rīkjoslā bloķē reklāmas un izsekotājus tās lapās, neietekmējot lejupielādes. YouTube var pretoties reklāmu bloķētājiem pierakstītiem kontiem
 
@@ -145,7 +145,7 @@ Ja Arroxy ietaupa jūsu laiku, ⭐ palīdz citiem to atrast.
 - **Ātruma un tempa vadība** — ierobežojiet lejupielādes joslas platumu, iestatiet, cik video daļu lejupielādējas vienlaikus, un pievienojiet pieprasījumu aizkaves ar sagatavēm (*Izslēgts · Līdzsvarots · Piesardzīgs · Pielāgots*)
 - **Failu nosaukumu veidnes** — nosauciet lejupielādes pēc savas izvēles ar `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}` un `{playlist_index}`, globāli vai katram lejupielādes profilam
 - **Vienlaicīgas lejupielādes un automātiska atkārtošana** — izvēlieties, cik rindā esošo lejupielāžu darbojas vienlaikus, un ļaujiet Arroxy atkārtot lejupielādi, kas saskārās ar tīkla vai servera problēmu, katru reizi gaidot ilgāk
-- **Atskaņošanas saraksta profili katram vienumam** — piešķiriet katram atskaņošanas saraksta video savu lejupielādes profilu, nevis vienu iestatījumu visam sarakstam, lai vienā piegājienā daļu arhivētu pilnā kvalitātē, bet pārējo paņemtu kā MP3
+- **Atskaņošanas saraksta profili katram vienumam** — piešķiriet katram atskaņošanas saraksta video savu lejupielādes profilu, nevis vienu iestatījumu visam sarakstam, lai vienā piegājienā daļu arhivētu pilnā kvalitātē, bet pārējo saglabātu tikai kā audio
 - **Ātrā lejupielāde darbojas fonā** — saite uzreiz parādās sadaļā Lejupielādes un tiek sagatavota tur, paziņojums ar **Skatīt** to apstiprina, un URL lauks tiek notīrīts nākamajai saitei. Sāciet cik vēlaties, kamēr iepriekšējās tiek sagatavotas
 - **Lejupielādes parāda, kam vajadzīga jūsu uzmanība** — ja Arroxy nevar nolasīt saiti, tās rinda norāda iemeslu un piedāvā risinājumu: Mēģināt vēlreiz, ieslēgt sīkfailus vai pierakstīties sadaļā Izpēte. Ja sīkfaili ir izslēgti, **Pierakstīties sadaļā Izpēte** mēģina vēlreiz jūsu vietā, tiklīdz esat pierakstījies. Atskaņošanas saraksts, kas garāks par jūsu ielādes limitu, gaida savā rindā, lai izvēlētos visu, pirmos vai pārskatu. Cilne Lejupielādes saskaita rindas, kas gaida jūs
 - **Lejupielādējiet tikai video daļu** — ekrānā Formāts izvēlieties sākumu un beigas vai nodaļu, un Arroxy saglabā tikai šo diapazonu, nosaucot to ar diapazonu pēc video id. Griezumi nonāk uz tuvāko atslēgkadru; ieslēdziet precīzu griezumu, lai tā vietā pārkodētu
@@ -172,7 +172,7 @@ Ja Arroxy ietaupa jūsu laiku, ⭐ palīdz citiem to atrast.
 <summary><strong>🌐 YouTube + 2000 vietņu</strong></summary>
 
 - **YouTube pilnībā** — Video, Shorts, kanāli, atskaņošanas saraksti, YouTube Music un podkāsti tiek apstrādāti kā pilnvērtīgi avoti
-- **2000+ citu vietņu**, izmantojot yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable un daudzas citas
+- **2000+ citu vietņu**, izmantojot yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable un daudzas citas
 - **Tikai audio un subtitri** darbojas visās atbalstītajās vietnēs, ne tikai YouTube
 - Ja vietne mainās, yt-dlp izlaiž labojumus katru nedēļu, un Arroxy startēšanas brīdī automātiski atjaunina bināro failu
 
@@ -366,7 +366,7 @@ Salīdzinājums ar visbiežāk sastopamajām alternatīvām:
 |            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Iebūvēts pārlūks (pārlūkošana, pierakstīšanās, lejupielāde) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
-| Privāti, tikai dalībniekiem paredzēti un vecuma ierobežoti videoklipi bez sīkfailu eksportēšanas |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
+| Videoklipi, ko jūsu pašu konts var skatīties, bez sīkfailu eksportēšanas |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
 | Bezmaksas, bez maksas līmeņa |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Atvērtais kods |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Tikai lokāla apstrāde |   ✅   |           ✅            |         ✅          |     ✅      |             ❌             |         ✅         |
@@ -380,9 +380,9 @@ Arroxy ir veidots vienam mērķim: tīram lokālam failam neatkarīgi no tā, va
 
 ### <a id="why-explore"></a>🧭 Ko vienkāršs yt-dlp apvalks nespēj: cilne Izpēte
 
-Lielākā daļa bezmaksas YouTube lejupielādētāju ir URL lodziņš virs yt-dlp. Arroxy arī izmanto yt-dlp, bet tam ir arī **Izpēte** — lietotnē iebūvēts pārlūks, kas atver YouTube vai jebkuru citu vietni. Izpēte pārvar ierobežojumus, ko URL lodziņš nespēj:
+Lielākā daļa bezmaksas YouTube lejupielādētāju ir URL lodziņš virs yt-dlp. Arroxy arī izmanto yt-dlp, bet tam ir arī **Izpēte** — lietotnē iebūvēts pārlūks, kas atver YouTube vai jebkuru citu vietni. Izpēte piedāvā to, ko URL lodziņš nespēj:
 
-- **Videoklipi, kuriem nepieciešams konts, bez sīkfailu eksportēšanas** — privāti, tikai dalībniekiem paredzēti un vecuma ierobežoti videoklipi (kontam ar apstiprinātu vecumu), kā arī jūsu saraksti Skatīties vēlāk un Patīk, un videoklipi aiz pierakstīšanās citās vietnēs. Vienkāršam apvalkam nepieciešams cookies.txt eksports vai tam jānolasa jūsu tīmekļa pārlūka sīkfaili, ko Chrome sistēmā Windows tagad bloķē. Arroxy jūs pierakstāties vienreiz sadaļā Izpēte, un viss pārējais notiek automātiski
+- **Videoklipi, ko jūsu konts var skatīties, bez sīkfailu eksportēšanas** — jūsu privātie videoklipi, jūsu saraksti Skatīties vēlāk un Patīk, vecuma ierobežoti videoklipi kontā ar apstiprinātu vecumu un lapas citās vietnēs, kurām nepieciešama jūsu pierakstīšanās. Vienkāršam apvalkam nepieciešams cookies.txt eksports, vai tas nolasa jūsu tīmekļa pārlūka sīkfailus. Programmā Arroxy pierakstāties vienreiz sadaļā Izpēte, un viss pārējais notiek automātiski
 - **Nav jākopē saites** — atrodiet video, atskaņošanas sarakstu vai kanālu sadaļā Izpēte un lejupielādējiet ar vienu klikšķi vai ar peles labo pogu noklikšķiniet uz jebkuras saites lapā
 - **Reklāmu bloķētājs, kad vēlaties** — viens klikšķis uz vairoga bloķē reklāmas un izsekotājus sadaļas Izpēte lapās
 
@@ -392,7 +392,7 @@ Lielākā daļa bezmaksas YouTube lejupielādētāju ir URL lodziņš virs yt-dl
 
 Lejupielādes tiek iegūtas tieši ar [yt-dlp](https://github.com/yt-dlp/yt-dlp) no YouTube uz jūsu izvēlēto mapi — nekas netiek novirzīts caur trešās puses serveri. Skatīšanās vēsture, lejupielādes vēsture, URL un failu saturs paliek jūsu ierīcē.
 
-No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
+Bez izsekošanas — viens anonīms pulsa signāls dienā (lietotnes versija, OS, valoda, instalēšanas kanāls, valsts un aptuveni cik sen Arroxy ir instalēts), lai mēs varētu saskaitīt aktīvos un jaunos lietotājus, kā arī, kad Arroxy lejupielādē vai atjaunina yt-dlp un FFmpeg, anonīms ziņojums par to, vai tas izdevās un cik aptuveni ilgi tas prasīja. Bez ID, URL, video nosaukumiem, failu ceļiem vai konta informācijas. Abus varat izslēgt iestatījumos.
 
 Izpēte glabā savas pierakstīšanās atsevišķi no jūsu pārlūka, un Arroxy nekad nenolasa un neaizpilda pierakstīšanās veidlapu — jūs rakstāt pašas vietnes lapā. Lejupielādes darbojas bez pierakstīšanās; tikai tad, kad kāda neizdodas tādā veidā, ko konts var novērst, Arroxy no jauna nolasa pierakstīšanos, glabā to pagaidu failā šai lejupielādei un pēc tam failu izdzēš. Izrakstīšanās no sadaļas Izpēte iestatījumos tās aizmirst.
 
@@ -410,7 +410,7 @@ Jā — licencēts ar GPLv3, bez maksas līmeņa, bez funkciju ierobežošanas.
 <details>
 <summary><strong>Ar ko Arroxy atšķiras no citām yt-dlp grafiskajām saskarnēm?</strong></summary>
 
-Lielākā daļa bezmaksas yt-dlp grafisko saskarņu ir apvalki, kas pieņem tikai saiti. Arroxy pievieno **Izpēti** — lietotnē iebūvētu pārlūku, kas atver YouTube vai jebkuru citu vietni: jūs pārlūkojat un lejupielādējat, nekopējot saites, un pierakstāties tur vienreiz, lai lejupielādētu privātus, tikai dalībniekiem paredzētus un vecuma ierobežotus videoklipus un savus sarakstus Skatīties vēlāk un Patīk, bez sīkfailu eksportēšanas. Arroxy izmanto šo pierakstīšanos, kad YouTube prasa apstiprināt, ka neesat robots, un tā iebūvētais pārlūks iegūst YouTube lejupielādes pilnvaru, lai lejupielādes nepārietu uz mazāku formātu skaitu. Skatiet [Kāpēc Arroxy](#why).
+Lielākā daļa bezmaksas yt-dlp grafisko saskarņu ir apvalki, kas pieņem tikai saiti. Arroxy pievieno **Izpēti** — lietotnē iebūvētu pārlūku, kas atver YouTube vai jebkuru citu vietni: jūs pārlūkojat un lejupielādējat, nekopējot saites, un pierakstāties tur vienreiz, lai lejupielādētu videoklipus, ko jūsu konts var skatīties, piemēram, savus privātos videoklipus un sarakstus Skatīties vēlāk un Patīk, bez sīkfailu eksportēšanas. Skatiet [Kāpēc Arroxy](#why).
 
 </details>
 
@@ -431,14 +431,14 @@ Jā. Formātu izvēlnē izvēlieties *tikai audio* un izvēlieties MP3, M4A/AAC,
 <details>
 <summary><strong>Kā lejupielādēt videoklipus, kuriem nepieciešams YouTube konts?</strong></summary>
 
-Pierakstieties vienreiz cilnē Izpēte. Pēc tam Arroxy var lejupielādēt privātus un tikai dalībniekiem paredzētus videoklipus, ko jūsu konts var skatīties, vecuma ierobežotus videoklipus, ja konts ir ar apstiprinātu vecumu, kā arī jūsu sarakstus Skatīties vēlāk un Patīk. Tas izmanto pierakstīšanos tikai tad, ja lejupielāde neizdodas tādā veidā, ko konts var novērst; viss pārējais tiek lejupielādēts kā iepriekš. Šī ir izvēle **Pierakstīšanās sadaļā Izpēte**, kas sīkfailu iestatījumos ir uzskaitīta pirmā un atzīmēta kā Ieteicams, un Arroxy to izvēlas jūsu vietā, kad pirmo reizi atverat Izpēti. yt-dlp wiki norāda, ka [automatizācija ar pierakstīšanos var radīt Google konta atzīmēšanu](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), tāpēc papildu konts ir drošāka izvēle.
+Pierakstieties vienreiz cilnē Izpēte. Pēc tam Arroxy var lejupielādēt videoklipus, ko jūsu konts var skatīties: jūsu privātos videoklipus, vecuma ierobežotus videoklipus, ja konts ir ar apstiprinātu vecumu, kā arī jūsu sarakstus Skatīties vēlāk un Patīk. Tas izmanto pierakstīšanos tikai tad, ja lejupielāde neizdodas tādā veidā, ko konts var novērst; viss pārējais tiek lejupielādēts kā iepriekš. Šī ir izvēle **Pierakstīšanās sadaļā Izpēte**, kas sīkfailu iestatījumos ir uzskaitīta pirmā un atzīmēta kā Ieteicams, un Arroxy to izvēlas jūsu vietā, kad pirmo reizi atverat Izpēti. yt-dlp wiki norāda, ka [automatizācija ar pierakstīšanos var radīt Google konta atzīmēšanu](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), tāpēc papildu konts ir drošāka izvēle.
 
 </details>
 
 <details>
 <summary><strong>Vai tas turpinās darboties, kad YouTube kaut ko maina?</strong></summary>
 
-yt-dlp tiek automātiski atjaunināts startēšanas brīdī, un Arroxy ātri izlaiž labojumus, kad YouTube kaut ko maina. Kad YouTube prasa apstiprināt, ka neesat robots, Arroxy arī mēģina izmantot jūsu pierakstīšanos sadaļā Izpēte, ja tur esat pierakstījies, un sīkfaili no faila vai jūsu pārlūka ir pieejami sīkfailu iestatījumos.
+yt-dlp tiek automātiski atjaunināts startēšanas brīdī, un Arroxy ātri izlaiž labojumus, kad YouTube kaut ko maina. Kad lejupielādei nepieciešama pierakstīšanās, Arroxy izmanto jūsu pierakstīšanos sadaļā Izpēte, ja tur esat pierakstījies, un sīkfaili no faila vai jūsu pārlūka ir pieejami sīkfailu iestatījumos.
 
 </details>
 
@@ -473,7 +473,7 @@ Tas ir macOS Gatekeeper, kas bloķē neparakstītu lietotni, nevis faktisks boj�
 <details>
 <summary><strong>Vai YouTube video lejupielāde ir legāla?</strong></summary>
 
-Personīgai, privātai lietošanai tā parasti tiek pieņemta lielākajā daļā jurisdikciju. Jūs esat atbildīgs par YouTube [pakalpojumu sniegšanas noteikumu](https://www.youtube.com/t/terms) un jūsu vietējo autortiesību likumu ievērošanu.
+Tas ir atkarīgs no jūsu valsts un no tā, ko lejupielādējat. Lejupielādējiet tikai saturu, kas pieder jums, saturu, kuram ir licence lejupielādei, vai saturu, ko jūsu valsts likums ļauj kopēt. Jūs esat atbildīgs par YouTube [pakalpojumu sniegšanas noteikumu](https://www.youtube.com/t/terms) un jūsu vietējo autortiesību likumu ievērošanu. Skatiet [Lietošanas noteikumi](#terms).
 
 </details>
 
@@ -498,7 +498,7 @@ Ir ideja par iespēju? [Atveriet pieprasījumu](../../../../issues) — kopienas
 
 ## <a id="support"></a>💖 Atbalstiet Arroxy
 
-Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
+Arroxy ir bezmaksas un licencēts ar GPLv3 — bez reklāmām, bez izsekošanas, bez maksas līmeņa. Ja tas ietaupa jūsu laiku, varat atbalstīt izstrādi ar Bitcoin, Tron vai Ethereum: adreses ir failā [DONATE.md](../../DONATE.md), kas ir vienīgais oficiālais to avots. Arroxy nekad nesūtīs jums adresi pa e-pastu vai privātā ziņā. Repozitorija atzīmēšana ar zvaigznīti, kļūdu ziņošana un tulkojumu uzlabošana palīdz tikpat daudz.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 
