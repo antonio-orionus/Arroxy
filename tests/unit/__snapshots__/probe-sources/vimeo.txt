@@ -13,10 +13,23 @@ MP4: High quality no size • | Low quality no size
 convert from: mp3 ← hls-fastly_skyfire-audio-high-English re-encode · m4a ← hls-fastly_skyfire-audio-high-English re-encode · opus ← hls-fastly_skyfire-audio-high-English re-encode · wav ← hls-fastly_skyfire-audio-high-English re-encode
 
 Profile picks:
-balanced: hls-fastly_skyfire-2644 (1280x720, mp4) + audio hls-fastly_skyfire-audio-high-English (audio only, mp4)
 best-quality: hls-fastly_skyfire-2644 (1280x720, mp4) + audio hls-fastly_skyfire-audio-high-English (audio only, mp4)
+best-2160: hls-fastly_skyfire-2644 (1280x720, mp4) + audio hls-fastly_skyfire-audio-high-English (audio only, mp4) (notices: {"kind":"video-tier-fallback","wanted":"2160","picked":720})
+best-1440: hls-fastly_skyfire-2644 (1280x720, mp4) + audio hls-fastly_skyfire-audio-high-English (audio only, mp4) (notices: {"kind":"video-tier-fallback","wanted":"1440","picked":720})
+hd-1080: hls-fastly_skyfire-2644 (1280x720, mp4) + audio hls-fastly_skyfire-audio-high-English (audio only, mp4) (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":720})
+balanced: hls-fastly_skyfire-2644 (1280x720, mp4) + audio hls-fastly_skyfire-audio-high-English (audio only, mp4)
+small-file: hls-fastly_skyfire-794 (640x360, mp4) + audio hls-fastly_skyfire-audio-high-English (audio only, mp4) (notices: {"kind":"video-tier-fallback","wanted":"480","picked":360})
 mp4-1080: hls-fastly_skyfire-2644 (1280x720, mp4) + audio hls-fastly_skyfire-audio-high-English (audio only, mp4) (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":720})
+mp4-720: hls-fastly_skyfire-2644 (1280x720, mp4) + audio hls-fastly_skyfire-audio-high-English (audio only, mp4)
+mp4-480: hls-fastly_skyfire-794 (640x360, mp4) + audio hls-fastly_skyfire-audio-high-English (audio only, mp4) (notices: {"kind":"video-tier-fallback","wanted":"480","picked":360})
 audio-only: audio hls-fastly_skyfire-audio-high-English (audio only, mp4)
+low-240: hls-fastly_skyfire-407 (480x270, mp4) + audio hls-fastly_skyfire-audio-high-English (audio only, mp4)
+low-144: hls-fastly_skyfire-407 (480x270, mp4) + audio hls-fastly_skyfire-audio-high-English (audio only, mp4) (notices: {"kind":"video-tier-fallback","wanted":"144","picked":240})
 
 Subtitles: es, en, fr, de
 Auto captions: none
+Subtitle picks (manual-first | manual-and-auto):
+es: es | es
+en: en | en
+fr: fr | fr
+de: de | de

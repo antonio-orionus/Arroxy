@@ -13,10 +13,21 @@ DRC switch shown
 convert from: mp3 ← 251 re-encode · m4a ← 140 copy 130 kbps · opus ← 251 copy 106 kbps · wav ← 251 re-encode
 
 Profile picks:
-balanced: 395 (320x240, mp4) + audio 251 (audio only, webm) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":240})
 best-quality: 395 (320x240, mp4) + audio 251 (audio only, webm)
+best-2160: 395 (320x240, mp4) + audio 251 (audio only, webm) (notices: {"kind":"video-tier-fallback","wanted":"2160","picked":240})
+best-1440: 395 (320x240, mp4) + audio 251 (audio only, webm) (notices: {"kind":"video-tier-fallback","wanted":"1440","picked":240})
+hd-1080: 395 (320x240, mp4) + audio 251 (audio only, webm) (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":240})
+balanced: 395 (320x240, mp4) + audio 251 (audio only, webm) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":240})
+small-file: 395 (320x240, mp4) + audio 251 (audio only, webm) (notices: {"kind":"video-tier-fallback","wanted":"480","picked":240})
 mp4-1080: 133 (320x240, mp4) + audio 140 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":240})
+mp4-720: 133 (320x240, mp4) + audio 140 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":240})
+mp4-480: 133 (320x240, mp4) + audio 140 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"480","picked":240})
 audio-only: audio 251 (audio only, webm)
+low-240: 395 (320x240, mp4) + audio 251 (audio only, webm)
+low-144: 278 (192x144, webm) + audio 251 (audio only, webm)
 
 Subtitles: en, de
 Auto captions: none
+Subtitle picks (manual-first | manual-and-auto):
+en: en | en
+de: de | de

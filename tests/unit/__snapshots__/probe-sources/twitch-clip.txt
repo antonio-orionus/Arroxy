@@ -14,10 +14,18 @@ convert: mp3, m4a, opus, wav
 convert from: mp3 ← 1080 re-encode · m4a ← 1080 re-encode · opus ← 1080 re-encode · wav ← 1080 re-encode
 
 Profile picks:
-balanced: 720 (720p, mp4) + audio none
 best-quality: 1080 (1080p, mp4) + audio none
+best-2160: 1080 (1080p, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"2160","picked":1080})
+best-1440: 1080 (1080p, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"1440","picked":1080})
+hd-1080: 1080 (1080p, mp4) + audio none
+balanced: 720 (720p, mp4) + audio none
+small-file: 480 (480p, mp4) + audio none
 mp4-1080: 1080 (1080p, mp4) + audio none (notices: {"kind":"mp4-unavailable"})
+mp4-720: 720 (720p, mp4) + audio none (notices: {"kind":"mp4-unavailable"})
+mp4-480: 480 (480p, mp4) + audio none (notices: {"kind":"mp4-unavailable"})
 audio-only: audio extract
+low-240: 360 (360p, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"240","picked":360})
+low-144: 360 (360p, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"144","picked":360})
 
 Subtitles: none
 Auto captions: none

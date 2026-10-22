@@ -11,10 +11,18 @@ convert: mp3, m4a, opus, wav
 convert from: mp3 ← 0 re-encode · m4a ← 0 re-encode · opus ← 0 re-encode · wav ← 0 re-encode
 
 Profile picks:
-balanced: 0 (no resolution, mp4) + audio none
 best-quality: 0 (no resolution, mp4) + audio none
+best-2160: 0 (no resolution, mp4) + audio none
+best-1440: 0 (no resolution, mp4) + audio none
+hd-1080: 0 (no resolution, mp4) + audio none
+balanced: 0 (no resolution, mp4) + audio none
+small-file: 0 (no resolution, mp4) + audio none
 mp4-1080: 0 (no resolution, mp4) + audio none (notices: {"kind":"mp4-unavailable"})
+mp4-720: 0 (no resolution, mp4) + audio none (notices: {"kind":"mp4-unavailable"})
+mp4-480: 0 (no resolution, mp4) + audio none (notices: {"kind":"mp4-unavailable"})
 audio-only: audio extract
+low-240: 0 (no resolution, mp4) + audio none
+low-144: 0 (no resolution, mp4) + audio none
 
 Subtitles: none
 Auto captions: none

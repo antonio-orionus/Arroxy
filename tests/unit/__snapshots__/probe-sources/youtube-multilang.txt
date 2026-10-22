@@ -18,10 +18,43 @@ DRC switch shown
 convert from: mp3 ← 251-20 re-encode · m4a ← 140-20 copy 129 kbps · opus ← 251-20 copy 128 kbps · wav ← 251-20 re-encode
 
 Profile picks:
-balanced: 398 (1280x720, mp4) + audio 251-20 (audio only, webm)
 best-quality: 616 (1920x1080, mp4) + audio 251-20 (audio only, webm)
+best-2160: 616 (1920x1080, mp4) + audio 251-20 (audio only, webm) (notices: {"kind":"video-tier-fallback","wanted":"2160","picked":1080})
+best-1440: 616 (1920x1080, mp4) + audio 251-20 (audio only, webm) (notices: {"kind":"video-tier-fallback","wanted":"1440","picked":1080})
+hd-1080: 616 (1920x1080, mp4) + audio 251-20 (audio only, webm)
+balanced: 398 (1280x720, mp4) + audio 251-20 (audio only, webm)
+small-file: 397 (854x480, mp4) + audio 251-20 (audio only, webm)
 mp4-1080: 137 (1920x1080, mp4) + audio 140-20 (audio only, m4a)
+mp4-720: 136 (1280x720, mp4) + audio 140-20 (audio only, m4a)
+mp4-480: 135 (854x480, mp4) + audio 140-20 (audio only, m4a)
 audio-only: audio 251-20 (audio only, webm)
+low-240: 395 (426x240, mp4) + audio 251-20 (audio only, webm)
+low-144: 394 (256x144, mp4) + audio 251-20 (audio only, webm)
 
 Subtitles: ar, bn, zh-Hans, zh-Hant, en, fr, de, hi, id, it, ja, ko, ml, mr, fa, pl, pt, pa, ru, es, ta, te, th, tr, vi
 Auto captions: en-orig
+Subtitle picks (manual-first | manual-and-auto):
+ar: ar | ar
+bn: bn | bn
+zh: zh-Hans + zh-Hant | zh-Hans + zh-Hant
+en: en | en + en-orig
+fr: fr | fr
+de: de | de
+hi: hi | hi
+id: id | id
+it: it | it
+ja: ja | ja
+ko: ko | ko
+ml: ml | ml
+mr: mr | mr
+fa: fa | fa
+pl: pl | pl
+pt: pt | pt
+pa: pa | pa
+ru: ru | ru
+es: es | es
+ta: ta | ta
+te: te | te
+th: th | th
+tr: tr | tr
+vi: vi | vi

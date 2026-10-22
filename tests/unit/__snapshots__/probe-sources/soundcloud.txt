@@ -10,10 +10,18 @@ convert: mp3, m4a, opus, wav
 convert from: mp3 ← hls_aac_160k re-encode · m4a ← hls_aac_160k copy 160 kbps · opus ← hls_aac_160k re-encode · wav ← hls_aac_160k re-encode
 
 Profile picks:
-balanced: audio hls_aac_160k (audio only, m4a) (notices: {"kind":"no-video"})
 best-quality: audio hls_aac_160k (audio only, m4a) (notices: {"kind":"no-video"})
+best-2160: audio hls_aac_160k (audio only, m4a) (notices: {"kind":"no-video"})
+best-1440: audio hls_aac_160k (audio only, m4a) (notices: {"kind":"no-video"})
+hd-1080: audio hls_aac_160k (audio only, m4a) (notices: {"kind":"no-video"})
+balanced: audio hls_aac_160k (audio only, m4a) (notices: {"kind":"no-video"})
+small-file: audio hls_aac_160k (audio only, m4a) (notices: {"kind":"no-video"})
 mp4-1080: audio hls_aac_160k (audio only, m4a) (notices: {"kind":"no-video"})
+mp4-720: audio hls_aac_160k (audio only, m4a) (notices: {"kind":"no-video"})
+mp4-480: audio hls_aac_160k (audio only, m4a) (notices: {"kind":"no-video"})
 audio-only: audio hls_aac_160k (audio only, m4a)
+low-240: audio hls_aac_160k (audio only, m4a) (notices: {"kind":"no-video"})
+low-144: audio hls_aac_160k (audio only, m4a) (notices: {"kind":"no-video"})
 
 Subtitles: none
 Auto captions: none

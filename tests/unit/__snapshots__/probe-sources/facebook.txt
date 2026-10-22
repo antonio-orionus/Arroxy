@@ -14,10 +14,18 @@ AAC: 76 kbps 279.2 KiB •
 convert from: mp3 ← 1390081639775431a re-encode · m4a ← 1390081639775431a copy 76 kbps · opus ← 1390081639775431a re-encode · wav ← 1390081639775431a re-encode
 
 Profile picks:
-balanced: 1390089359774659v (720x1280, mp4) + audio 1390081639775431a (audio only, m4a)
 best-quality: 1390089356441326v (1080x1920, mp4) + audio 1390081639775431a (audio only, m4a)
+best-2160: 1390089356441326v (1080x1920, mp4) + audio 1390081639775431a (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"2160","picked":1080})
+best-1440: 1390089356441326v (1080x1920, mp4) + audio 1390081639775431a (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"1440","picked":1080})
+hd-1080: 1390089356441326v (1080x1920, mp4) + audio 1390081639775431a (audio only, m4a)
+balanced: 1390089359774659v (720x1280, mp4) + audio 1390081639775431a (audio only, m4a)
+small-file: hd (no resolution, mp4) + audio none
 mp4-1080: 1390089356441326v (1080x1920, mp4) + audio 1390081639775431a (audio only, m4a) (notices: {"kind":"mp4-unavailable"})
+mp4-720: 1390089359774659v (720x1280, mp4) + audio 1390081639775431a (audio only, m4a) (notices: {"kind":"mp4-unavailable"})
+mp4-480: 1390089353107993v (540x960, mp4) + audio 1390081639775431a (audio only, m4a) (notices: {"kind":"mp4-unavailable"})
 audio-only: audio 1390081639775431a (audio only, m4a)
+low-240: hd (no resolution, mp4) + audio none
+low-144: hd (no resolution, mp4) + audio none
 
 Subtitles: none
 Auto captions: none

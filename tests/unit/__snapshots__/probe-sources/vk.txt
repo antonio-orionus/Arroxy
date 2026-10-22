@@ -12,10 +12,18 @@ MP4: High quality no size •
 convert from: mp3 ← hls_fmp4-12_0-Audio re-encode · m4a ← hls_fmp4-12_0-Audio re-encode · opus ← hls_fmp4-12_0-Audio re-encode · wav ← hls_fmp4-12_0-Audio re-encode
 
 Profile picks:
-balanced: hls_fmp4-300 (320x240, mp4) + audio hls_fmp4-12_0-Audio (audio only, mp4) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":240})
 best-quality: hls_fmp4-300 (320x240, mp4) + audio hls_fmp4-12_0-Audio (audio only, mp4)
+best-2160: hls_fmp4-300 (320x240, mp4) + audio hls_fmp4-12_0-Audio (audio only, mp4) (notices: {"kind":"video-tier-fallback","wanted":"2160","picked":240})
+best-1440: hls_fmp4-300 (320x240, mp4) + audio hls_fmp4-12_0-Audio (audio only, mp4) (notices: {"kind":"video-tier-fallback","wanted":"1440","picked":240})
+hd-1080: hls_fmp4-300 (320x240, mp4) + audio hls_fmp4-12_0-Audio (audio only, mp4) (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":240})
+balanced: hls_fmp4-300 (320x240, mp4) + audio hls_fmp4-12_0-Audio (audio only, mp4) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":240})
+small-file: hls_fmp4-300 (320x240, mp4) + audio hls_fmp4-12_0-Audio (audio only, mp4) (notices: {"kind":"video-tier-fallback","wanted":"480","picked":240})
 mp4-1080: hls_fmp4-300 (320x240, mp4) + audio dash_sep-4 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":240})
+mp4-720: hls_fmp4-300 (320x240, mp4) + audio dash_sep-4 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"720","picked":240})
+mp4-480: hls_fmp4-300 (320x240, mp4) + audio dash_sep-4 (audio only, m4a) (notices: {"kind":"video-tier-fallback","wanted":"480","picked":240})
 audio-only: audio hls_fmp4-12_0-Audio (audio only, mp4)
+low-240: hls_fmp4-300 (320x240, mp4) + audio hls_fmp4-12_0-Audio (audio only, mp4)
+low-144: hls_fmp4-111 (192x144, mp4) + audio hls_fmp4-12_0-Audio (audio only, mp4)
 
 Subtitles: none
 Auto captions: none

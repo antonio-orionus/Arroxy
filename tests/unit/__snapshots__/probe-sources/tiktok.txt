@@ -12,10 +12,18 @@ AAC: m4a 949.5 KiB
 convert from: mp3 ← audio re-encode · m4a ← audio copy · opus ← audio re-encode · wav ← audio re-encode
 
 Profile picks:
-balanced: bytevc1_720p_336791-1 (720x1280, mp4) + audio none
 best-quality: bytevc1_720p_336791-1 (720x1280, mp4) + audio none
+best-2160: bytevc1_720p_336791-1 (720x1280, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"2160","picked":720})
+best-1440: bytevc1_720p_336791-1 (720x1280, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"1440","picked":720})
+hd-1080: bytevc1_720p_336791-1 (720x1280, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":720})
+balanced: bytevc1_720p_336791-1 (720x1280, mp4) + audio none
+small-file: bytevc1_540p_309336-1 (576x1024, mp4) + audio none
 mp4-1080: h264_540p_344464-1 (576x1024, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":480})
+mp4-720: h264_540p_344464-1 (576x1024, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"720","picked":480})
+mp4-480: h264_540p_344464-1 (576x1024, mp4) + audio none
 audio-only: audio audio (audio only, m4a)
+low-240: bytevc1_540p_309336-1 (576x1024, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"240","picked":480})
+low-144: bytevc1_540p_309336-1 (576x1024, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"144","picked":480})
 
 Subtitles: none
 Auto captions: none

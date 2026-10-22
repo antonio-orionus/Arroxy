@@ -11,10 +11,18 @@ convert: mp3, m4a, opus, wav
 convert from: mp3 ← mp4 re-encode · m4a ← mp4 re-encode · opus ← mp4 re-encode · wav ← mp4 re-encode
 
 Profile picks:
-balanced: mp4 (852x480, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"720","picked":480})
 best-quality: mp4 (852x480, mp4) + audio none
+best-2160: mp4 (852x480, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"2160","picked":480})
+best-1440: mp4 (852x480, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"1440","picked":480})
+hd-1080: mp4 (852x480, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"1080","picked":480})
+balanced: mp4 (852x480, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"720","picked":480})
+small-file: mp4 (852x480, mp4) + audio none
 mp4-1080: mp4 (852x480, mp4) + audio none (notices: {"kind":"mp4-unavailable"}, {"kind":"video-tier-fallback","wanted":"1080","picked":480})
+mp4-720: mp4 (852x480, mp4) + audio none (notices: {"kind":"mp4-unavailable"}, {"kind":"video-tier-fallback","wanted":"720","picked":480})
+mp4-480: mp4 (852x480, mp4) + audio none (notices: {"kind":"mp4-unavailable"})
 audio-only: audio extract
+low-240: mp4 (852x480, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"240","picked":480})
+low-144: mp4 (852x480, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"144","picked":480})
 
 Subtitles: none
 Auto captions: none

@@ -9,6 +9,7 @@ import {describe, expect, it} from 'vite-plus/test'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {resolveProfileSelection, type MediaSelection} from '@shared/profileSelection.js'
+import {planSubtitleTracks} from '@shared/subtitleTracks.js'
 import type {VideoProbeResult} from '@shared/types.js'
 import {selectView, type FormatSelectionView, type VideoFormatRow} from '@renderer/store/formatSelectionView.js'
 import {probeSourceResult} from '@renderer/dev/probeSources/index.js'
@@ -16,7 +17,9 @@ import {PROBE_SOURCES} from '@renderer/dev/probeSources/sources.js'
 import {conversionSource} from '@shared/audioConversionSource.js'
 import {AUDIO_CONVERT_TARGETS} from '@shared/audioTargets.js'
 
-const PICK_PROFILES = ['balanced', 'best-quality', 'mp4-1080', 'audio-only'] as const
+// Every built-in that picks media, so a pick at odds with the rows above shows
+// in the diff next to them.
+const PICK_PROFILES = BUILTIN_DOWNLOAD_PROFILES.filter(profile => profile.media.kind !== 'subtitles-only').map(profile => profile.id)
 
 function selectionFor(profileId: string, probe: VideoProbeResult): ReturnType<typeof resolveProfileSelection> {
 	const profile = BUILTIN_DOWNLOAD_PROFILES.find(candidate => candidate.id === profileId)
@@ -93,6 +96,22 @@ function conversionSources(probe: VideoProbeResult): string[] {
 	return picks.length > 0 ? [`convert from: ${picks.join(' · ')}`] : []
 }
 
+// What a profile asking for each language the video lists gets, sources apart,
+// as the Format screen and Quick Download plan it.
+function subtitlePicks(probe: VideoProbeResult): string[] {
+	const maps = {subtitles: probe.subtitles, automaticCaptions: probe.automaticCaptions}
+	const languages = [...new Set([...Object.keys(probe.subtitles), ...Object.keys(probe.automaticCaptions)].map(key => key.split('-')[0] ?? key))]
+	if (languages.length === 0) return []
+	const sources = ['manual-first', 'manual-and-auto'] as const
+	return [
+		'Subtitle picks (manual-first | manual-and-auto):',
+		...languages.map(language => {
+			const plans = sources.map(source => planSubtitleTracks({kind: 'languages', languages: [language], source}, maps))
+			return `${language}: ${plans.map(plan => (plan.tracks.length > 0 ? plan.tracks.map(track => track.key).join(' + ') : 'missing')).join(' | ')}`
+		})
+	]
+}
+
 function render(id: string): string {
 	const source = PROBE_SOURCES.find(candidate => candidate.id === id)
 	const probe = probeSourceResult(source?.id ?? 'vk')
@@ -120,6 +139,7 @@ function render(id: string): string {
 		'',
 		`Subtitles: ${subtitles.length > 0 ? subtitles.join(', ') : 'none'}`,
 		`Auto captions: ${captions.length > 0 ? captions.join(', ') : 'none'}`,
+		...subtitlePicks(probe),
 		''
 	].join('\n')
 }

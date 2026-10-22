@@ -15,10 +15,18 @@ convert: mp3, m4a, opus, wav
 convert from: mp3 ← 9 re-encode · m4a ← 9 copy · opus ← 9 re-encode · wav ← 9 re-encode
 
 Profile picks:
-balanced: 7 (1280x720, mp4) + audio none
 best-quality: 9 (1920x1080, mp4) + audio none
+best-2160: 9 (1920x1080, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"2160","picked":1080})
+best-1440: 9 (1920x1080, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"1440","picked":1080})
+hd-1080: 9 (1920x1080, mp4) + audio none
+balanced: 7 (1280x720, mp4) + audio none
+small-file: 5 (852x480, mp4) + audio none
 mp4-1080: 9 (1920x1080, mp4) + audio none
+mp4-720: 7 (1280x720, mp4) + audio none
+mp4-480: 5 (852x480, mp4) + audio none
 audio-only: audio extract
+low-240: 1 (426x240, mp4) + audio none
+low-144: 1 (426x240, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"144","picked":240})
 
 Subtitles: none
 Auto captions: none

@@ -10,10 +10,18 @@ convert: mp3, m4a, opus, wav
 convert from: mp3 ← mp3-128 copy 128 kbps · m4a ← mp3-128 re-encode · opus ← mp3-128 re-encode · wav ← mp3-128 re-encode
 
 Profile picks:
-balanced: audio mp3-128 (audio only, mp3) (notices: {"kind":"no-video"})
 best-quality: audio mp3-128 (audio only, mp3) (notices: {"kind":"no-video"})
+best-2160: audio mp3-128 (audio only, mp3) (notices: {"kind":"no-video"})
+best-1440: audio mp3-128 (audio only, mp3) (notices: {"kind":"no-video"})
+hd-1080: audio mp3-128 (audio only, mp3) (notices: {"kind":"no-video"})
+balanced: audio mp3-128 (audio only, mp3) (notices: {"kind":"no-video"})
+small-file: audio mp3-128 (audio only, mp3) (notices: {"kind":"no-video"})
 mp4-1080: audio mp3-128 (audio only, mp3) (notices: {"kind":"no-video"})
+mp4-720: audio mp3-128 (audio only, mp3) (notices: {"kind":"no-video"})
+mp4-480: audio mp3-128 (audio only, mp3) (notices: {"kind":"no-video"})
 audio-only: audio mp3-128 (audio only, mp3)
+low-240: audio mp3-128 (audio only, mp3) (notices: {"kind":"no-video"})
+low-144: audio mp3-128 (audio only, mp3) (notices: {"kind":"no-video"})
 
 Subtitles: none
 Auto captions: none

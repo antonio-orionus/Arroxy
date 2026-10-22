@@ -20,10 +20,18 @@ DRC switch shown
 convert from: mp3 ← 251 re-encode · m4a ← 140 copy 130 kbps · opus ← 251 copy 104 kbps · wav ← 251 re-encode
 
 Profile picks:
-balanced: 247 (1280x640, webm) + audio 251 (audio only, webm)
 best-quality: 313 (3840x1920, webm) + audio 251 (audio only, webm)
+best-2160: 313 (3840x1920, webm) + audio 251 (audio only, webm)
+best-1440: 271 (2560x1280, webm) + audio 251 (audio only, webm)
+hd-1080: 248 (1920x960, webm) + audio 251 (audio only, webm)
+balanced: 247 (1280x640, webm) + audio 251 (audio only, webm)
+small-file: 244 (854x428, webm) + audio 251 (audio only, webm)
 mp4-1080: 137 (1920x960, mp4) + audio 140 (audio only, m4a)
+mp4-720: 136 (1280x640, mp4) + audio 140 (audio only, m4a)
+mp4-480: 135 (854x428, mp4) + audio 140 (audio only, m4a)
 audio-only: audio 251 (audio only, webm)
+low-240: 242 (426x214, webm) + audio 251 (audio only, webm)
+low-144: 278 (256x128, webm) + audio 251 (audio only, webm)
 
 Subtitles: none
 Auto captions: none
