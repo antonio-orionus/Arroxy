@@ -226,16 +226,20 @@ class ControlConnection {
 			return this.closeWith(id, controlError('internal', 'Arroxy could not answer auth.'))
 		}
 		clearTimeout(this.timer)
+		// Listening before the answer goes out: the client may read it, and be
+		// removed, before the write completes (on a Windows pipe, it does).
+		this.stopRevoked = this.deps.approvals.onRevoked(clientId => {
+			if (clientId === client.clientId) this.drop('the client was removed')
+		})
 		const delivered = await this.writeAndWait(response(id, {ok: true, result: result.data}))
 		if (approvalId !== null) {
 			if (delivered) this.deps.approvals.confirm(approvalId)
 			else release()
 		}
 		if (!delivered || this.stage.kind !== 'auth') return
+		// Removed while the proof was checked, before anything listened.
+		if (this.deps.approvals.client(client.clientId) === null) return this.drop('the client was removed')
 		const context: ControlContext = {clientId: client.clientId, kind: 'localClient', label: client.label, rules: client.rules}
-		this.stopRevoked = this.deps.approvals.onRevoked(clientId => {
-			if (clientId === context.clientId) this.drop('the client was removed')
-		})
 		this.stage = {kind: 'open', session: this.deps.service.openSession(context, this.sink())}
 		this.deps.log.info('a local client connected', {clientId: context.clientId})
 	}

@@ -1,6 +1,7 @@
 // @vitest-environment node
 
-import {afterEach, describe, expect, it} from 'vite-plus/test'
+import net from 'node:net'
+import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import {HANDSHAKE_MAX_FRAME_BYTES, handshakeClientProof} from 'arroxy-control'
 import {CONTROL_IN_FLIGHT_MAX} from '@main/control/socket/controlConnection.js'
 import {allowedClient, handshake, hello, nonce, RawClient, secretProof, silentLog, type SocketHarness, startHarness, tokenProof} from '../helpers/controlSocketHarness.js'
@@ -23,6 +24,7 @@ async function start(overrides: Parameters<typeof startHarness>[0] = {}): Promis
 }
 
 const errorLine = (id: string | null, code: string) => ({type: 'response', id, ok: false, error: expect.objectContaining({code})})
+type WriteCallback = (error?: Error | null) => void
 const settle = (ms = 50): Promise<void> => new Promise(resolve => setTimeout(resolve, ms))
 
 // hello, then auth sent and the connection dropped at once, while the server computes the proof.
@@ -148,6 +150,28 @@ describe('control socket limits', () => {
 		const big = {type: 'request', id: 'r1', method: 'queue.list', params: {cursor: 'c'.repeat(HANDSHAKE_MAX_FRAME_BYTES * 2)}}
 		client.socket.write(`${JSON.stringify(auth)}\n${JSON.stringify(big)}\n`)
 		expect(await client.line(3)).toMatchObject({id: 'r1', ok: true})
+	})
+
+	it('closes a client removed while its auth answer is still being written', async () => {
+		// The server's write callbacks fire late, as they can on a Windows pipe:
+		// the client reads the answer and is removed before the write completes.
+		const write = net.Socket.prototype.write
+		const spy = vi.spyOn(net.Socket.prototype, 'write').mockImplementation(function (this: net.Socket, chunk: string | Uint8Array, encodingOrCallback?: BufferEncoding | WriteCallback, callback?: WriteCallback): boolean {
+			if (typeof encodingOrCallback !== 'function') return write.call(this, chunk, encodingOrCallback, callback)
+			return write.call(this, chunk, undefined, error => void setTimeout(() => encodingOrCallback(error), 100))
+		})
+		try {
+			const harness = await start()
+			const {clientId, secret} = allowedClient(harness.approvals)
+			const {client, auth} = await handshake(harness.socket.socketPath, secretProof(clientId, secret))
+			expect(auth).toMatchObject({ok: true})
+			harness.approvals.remove(clientId)
+			await client.closed
+			await settle(150)
+			expect(harness.service.sessions).toEqual([])
+		} finally {
+			spy.mockRestore()
+		}
 	})
 
 	it('closes a removed client’s connections', async () => {
