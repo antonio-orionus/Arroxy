@@ -1,0 +1,119 @@
+name: YouTube URL Contract
+
+# Weekly: when yt-dlp has a new stable release, regenerate the YouTube URL
+# contract snapshot from it (the URLs in its YouTube extractors' test cases, the
+# extractor each goes to, every shape a video is shared in with a list, and the
+# list ids it accepts) and open a PR. tests/unit/youtube-url-contract.test.ts
+# holds Arroxy's reading of YouTube links to the snapshot, so a release that
+# reads a link differently (a new shape, a new list id, a shape moving to the
+# playlist extractor) fails on that PR instead of shipping a button that
+# downloads the wrong thing.
+
+on:
+  schedule:
+    - cron: '30 6 * * 1'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+  BUN_VERSION: '1.4.2'
+  SNAPSHOT: tests/fixtures/youtube-url-contract/yt-dlp.json
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    name: Regenerate from the latest yt-dlp
+    runs-on: ubuntu-latest
+    permissions:
+      # create-pull-request pushes the scan branch and opens the PR.
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version-file: .node-version
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Find a newer yt-dlp
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          # An open scan PR may carry triage commits; regenerating the branch
+          # would force-push over them. Wait until it is merged or closed.
+          open_pr=$(gh pr list --repo "$GITHUB_REPOSITORY" --head chore/youtube-url-contract-scan --state open --json number --jq '.[0].number // empty')
+          if [ -n "$open_pr" ]; then
+            echo "Scan PR #${open_pr} is still open; skipping."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          latest=$(gh api repos/yt-dlp/yt-dlp/releases/latest --jq .tag_name)
+          recorded=$(jq -er .ytDlp.version "$SNAPSHOT")
+          echo "Latest yt-dlp: ${latest} (snapshot: ${recorded})"
+          if [ "$latest" = "$recorded" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "latest=${latest}" >> "$GITHUB_OUTPUT"
+          echo "recorded=${recorded}" >> "$GITHUB_OUTPUT"
+          # The YouTube entries of every release since the recorded one, for the PR body.
+          gh api 'repos/yt-dlp/yt-dlp/releases?per_page=30' | bun scripts/youtube-url-contract/release-notes.ts --since "$recorded" > "$RUNNER_TEMP/youtube-release-notes.md"
+
+      - name: Regenerate the snapshot
+        if: steps.release.outputs.changed == 'true'
+        run: bun run youtube:url-contract --version "${{ steps.release.outputs.latest }}"
+
+      - name: Format generated data
+        if: steps.release.outputs.changed == 'true'
+        run: bunx vp fmt tests/fixtures/youtube-url-contract
+
+      - name: Write the PR body
+        if: steps.release.outputs.changed == 'true'
+        run: |
+          {
+            echo "Automated weekly regeneration of the YouTube URL contract from yt-dlp ${{ steps.release.outputs.latest }} (was ${{ steps.release.outputs.recorded }})."
+            echo
+            echo 'Triage:'
+            echo '1. Run `bun run test tests/unit/youtube-url-contract.test.ts`. Each failure is a YouTube link yt-dlp now reads differently from Arroxy: a new URL in its test cases, a shape claimed by another extractor, or a new list id.'
+            echo '2. Fix Arroxy to read it as yt-dlp does (`src/shared/cleanUrl.ts`, `src/shared/urlIntent.ts`, `src/shared/sites/youtubeListKind.ts`), or, for a link Arroxy should leave to yt-dlp, add it to `FALLBACKS` in the test with its reason.'
+            echo '3. A snapshot that only changes rows the test accepts needs no code change: the run passes, merge it.'
+            echo
+            echo 'CI does not run on PRs opened by `GITHUB_TOKEN`; it runs when you push the triage commit. A PR that needs none can be closed and reopened to trigger checks.'
+            echo
+            echo 'No changelog: regenerated test data'
+            echo
+            echo '## YouTube lines in the yt-dlp release notes since the recorded release'
+            echo
+            cat "$RUNNER_TEMP/youtube-release-notes.md"
+          } > "$RUNNER_TEMP/pr-body.md"
+
+      - name: Open PR
+        if: steps.release.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          token: ${{ github.token }}
+          add-paths: tests/fixtures/youtube-url-contract
+          commit-message: 'test(intake): regenerate the YouTube URL contract from yt-dlp ${{ steps.release.outputs.latest }}'
+          branch: chore/youtube-url-contract-scan
+          delete-branch: true
+          title: 'test(intake): regenerate the YouTube URL contract from yt-dlp ${{ steps.release.outputs.latest }}'
+          body-path: ${{ runner.temp }}/pr-body.md

@@ -125,7 +125,8 @@
 		"release:stable": "bash scripts/release.sh stable",
 		"prepare": "vp config --no-agent",
 		"postinstall": "bun scripts/dev-env.ts electron-payload",
-		"react-doctor": "react-doctor"
+		"react-doctor": "react-doctor",
+		"youtube:url-contract": "bun scripts/youtube-url-contract.ts"
 	},
 	"dependencies": {
 		"@base-ui/react": "1.9.0",

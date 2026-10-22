@@ -25,6 +25,7 @@
 | Runtime Binary Manifest Validation   | `runtime-binaries.yml`         | dispatch                                | validates signed runtime manifest generator                                                                      |
 | Windows yt-dlp probe soak            | `windows-ytdlp-probe-soak.yml` | dispatch                                | probe-duration soak measurements                                                                                 |
 | ytdlp-errors Upstream Scan           | `ytdlp-errors-upstream-scan.yml` | cron Mon 06:00 UTC + dispatch         | bumps the pinned yt-dlp release in `packages/ytdlp-errors/data` and adds new in-scope error strings (`kind: null`), then opens a PR for triage; skips while a scan PR is open |
+| YouTube URL Contract                 | `youtube-url-contract.yml`       | cron Mon 06:30 UTC + dispatch         | regenerates `tests/fixtures/youtube-url-contract/yt-dlp.json` from the latest yt-dlp release (its YouTube test URLs, the extractor each goes to, the list ids) and opens a PR; `youtube-url-contract.test.ts` fails on any link Arroxy now reads differently; skips while a scan PR is open |
 | Publish yt-dlp-bridge / ytdlp-errors | `publish-*.yml`                | package tags + dispatch                 | registry publish of workspace packages                                                                           |
 
 ## Startup verification tiers
