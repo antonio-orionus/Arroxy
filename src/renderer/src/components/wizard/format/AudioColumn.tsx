@@ -241,7 +241,7 @@ function NoAudioChip({view}: {view: AudioView}): ReactNode {
 	return <FormatChip value="none" name={`${t('wizard.formats.keepAudio')} · ${t('wizard.formats.keepAudioMeta')}`} label={t('wizard.formats.keepAudio')} tags={[t('wizard.formats.keepAudioMeta')]} disabled={view.noAudioDisabled} />
 }
 
-function NativeStreamChip({row, trackName, disabled, narrowStack}: {row: NativeAudioRow; trackName: string | undefined; disabled: boolean; narrowStack: boolean}): ReactNode {
+function NativeStreamChip({row, trackName, disabled}: {row: NativeAudioRow; trackName: string | undefined; disabled: boolean}): ReactNode {
 	const {t} = useTranslation()
 	const qualityLabel = row.quality ? t(AUDIO_QUALITY_LABEL_KEYS[row.quality]) : null
 	const drcTag = t('wizard.formats.drc.tag')
@@ -258,7 +258,7 @@ function NativeStreamChip({row, trackName, disabled, narrowStack}: {row: NativeA
 			adornment={row.quality ? <QualityMeter quality={row.quality} /> : null}
 			profilePick={row.isProfilePick}
 			disabled={disabled}
-			narrowStack={narrowStack}
+			stacked
 		/>
 	)
 }
@@ -279,8 +279,6 @@ interface AudioStreamListProps {
 
 function AudioStreamList({view, codecColumns, subtitleOnly, audioSelection, onSelect, convertSourceFor}: AudioStreamListProps): ReactNode {
 	const {t} = useTranslation()
-	// Two or more codec columns only fit a narrow window with stacked chips.
-	const narrowStack = codecColumns.length >= 2
 	// A disabled chip never reads as chosen, even though the store keeps the selection.
 	const selectedChipDisabled = audioSelection.kind === 'none' ? view.noAudioDisabled : subtitleOnly
 	const selectValue = (value: string): void => {
@@ -312,7 +310,7 @@ function AudioStreamList({view, codecColumns, subtitleOnly, audioSelection, onSe
 								{line.name}
 							</span>
 							{rows.map(row => (
-								<NativeStreamChip key={row.formatId} row={row} trackName={view.trackNames[row.track]} disabled={subtitleOnly} narrowStack={narrowStack} />
+								<NativeStreamChip key={row.formatId} row={row} trackName={view.trackNames[row.track]} disabled={subtitleOnly} />
 							))}
 						</div>
 					))}

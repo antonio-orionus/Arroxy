@@ -1,1 +1,1 @@
-On the Format screen, a video with many formats (such as 8K HDR) no longer draws its formats over the audio list: audio moves below when the two do not fit side by side.
+On the Format screen, every format shows its size under its codec, so the lists take far less room, and a video with many formats (such as 8K HDR) no longer draws them over the audio list: audio moves below when the two do not fit side by side.

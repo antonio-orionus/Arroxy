@@ -62,7 +62,7 @@ export function VideoColumn({view, selectedVideoFormatId, onSelect}: VideoColumn
 									size={row.size}
 									profilePick={row.isProfilePick}
 									disabled={view.disabled}
-									narrowStack={view.columns.length >= 2}
+									stacked
 								/>
 							) : (
 								<span key={`${range}|${codec}`} />

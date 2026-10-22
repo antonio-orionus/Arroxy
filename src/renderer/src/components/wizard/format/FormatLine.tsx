@@ -9,19 +9,15 @@ import {Hint} from '../../shared/Hint.js'
 // to what it says rather than stretched across the column. One RadioGroup holds
 // every chip, so arrow keys move across all of them.
 
-// A window narrower than lg (the 720px minimum up to 1023px) leaves Video and
-// Audio little room side by side. A grid with two or more chip columns would
-// push Audio under it there, so its chips stack
-// their size under their label (`narrowStack`); a single column still fits and
-// stays one line. This keys off the window, not the column: a size-contained
-// column could no longer be as wide as its chips.
-const NARROW_HIDDEN = 'max-lg:hidden'
-const NARROW_ONLY = 'hidden max-lg:inline'
+// A stream chip (`stacked`) says its size under its label, at every width: two
+// short lines take far less width than one long one, so more chips fit beside
+// each other and Audio more often fits beside Video. Its tags (30 fps, DRC)
+// move down beside the size, leaving the label the whole first line.
 // A chip never collapses below its widest fact (`min-w-auto` beats the base
 // `min-w-0`, so a grid track can't shrink under it); when the column still can't
 // give it one line, the size drops under the label instead of spilling out.
 const CHIP_FIT = 'h-auto min-h-9 min-w-auto flex-wrap justify-between gap-x-4 gap-y-0 py-1'
-const NARROW_CHIP = 'max-lg:h-auto max-lg:flex-col max-lg:items-start max-lg:gap-0 max-lg:py-1.5'
+const STACKED_CHIP = 'flex-col items-start gap-0 py-1.5'
 const TAG = 'shrink-0 text-caption text-subtle-foreground group-data-checked/radio-chip:text-selected-foreground'
 
 // A stream marker as an icon, so a chip stays as wide as its codec and size in
@@ -75,7 +71,7 @@ export function FormatChip({
 	adornment,
 	profilePick = false,
 	disabled,
-	narrowStack = false,
+	stacked = false,
 	className
 }: {
 	value: string
@@ -88,11 +84,11 @@ export function FormatChip({
 	adornment?: ReactNode
 	profilePick?: boolean
 	disabled?: boolean
-	narrowStack?: boolean
+	stacked?: boolean
 	className?: string
 }): ReactNode {
 	const chip = (
-		<RadioGroupChip value={value} aria-label={name} disabled={disabled} data-profile-pick={profilePick || undefined} className={cn(CHIP_FIT, narrowStack && NARROW_CHIP, className)}>
+		<RadioGroupChip value={value} aria-label={name} disabled={disabled} data-profile-pick={profilePick || undefined} className={cn(CHIP_FIT, stacked && STACKED_CHIP, className)}>
 			<span className="flex min-w-0 items-center gap-2 whitespace-nowrap">
 				{adornment}
 				<span>{label}</span>
@@ -100,16 +96,16 @@ export function FormatChip({
 					<MarkerIcon key={view.marker} {...view} />
 				))}
 				{tags.map(tag => (
-					<span key={tag} className={cn(TAG, narrowStack && NARROW_HIDDEN)}>
+					<span key={tag} className={cn(TAG, stacked && 'hidden')}>
 						{tag}
 					</span>
 				))}
 			</span>
 			{size || tags.length > 0 ? (
 				<span className="flex shrink-0 items-center gap-2 whitespace-nowrap text-xs tabular-nums text-muted-foreground group-data-checked/radio-chip:text-selected-foreground">
-					{/* A narrow chip gives its label the whole first line and says its tags beside the size. */}
+					{/* A stacked chip gives its label the whole first line and says its tags beside the size. */}
 					{tags.map(tag => (
-						<span key={tag} className={cn(TAG, narrowStack ? NARROW_ONLY : 'hidden')}>
+						<span key={tag} className={cn(TAG, !stacked && 'hidden')}>
 							{tag}
 						</span>
 					))}
