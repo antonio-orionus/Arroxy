@@ -34,11 +34,14 @@ export function VideoColumn({view, selectedVideoFormatId, onSelect}: VideoColumn
 				<SectionLabel>{t('wizard.formats.video')}</SectionLabel>
 			</div>
 
-			{/* No scroll area of its own: the step scrolls, and a scroller would hide the list's width from the layout.
+			{/* The step scrolls down; the list scrolls sideways only when the step is narrower than its chips (many
+			    codec columns in a zoomed minimum window), rather than run past the step's edge. Its padding keeps the
+			    profile dot and focus ring inside the scroller's clip. A scroller still reports its chips' full width,
+			    so Audio moves under Video rather than squeeze it.
 			    A disabled column shows nothing as chosen, even though the store keeps a selection.
 			    The range header shares the chips' grid, so each header sits over its own column. It shows
 			    even for SDR alone, so the first chips sit level with Audio's under its codec header. */}
-			<RadioGroup value={view.disabled ? null : selectedVideoFormatId} onValueChange={value => onSelect(String(value))} disabled={view.disabled} aria-label={t('wizard.formats.video')} className="items-center justify-start gap-x-2 gap-y-1.5 pt-1 pe-1.5" style={columns}>
+			<RadioGroup value={view.disabled ? null : selectedVideoFormatId} onValueChange={value => onSelect(String(value))} disabled={view.disabled} aria-label={t('wizard.formats.video')} className="items-center justify-start gap-x-2 gap-y-1.5 overflow-x-auto pt-1 pe-1.5 pb-1" style={columns}>
 				<span aria-hidden />
 				{view.ranges.map(range => (
 					<span key={range} aria-hidden className="px-3 text-caption text-subtle-foreground" style={{gridColumn: `span ${view.columns.filter(column => column.range === range).length}`}}>
