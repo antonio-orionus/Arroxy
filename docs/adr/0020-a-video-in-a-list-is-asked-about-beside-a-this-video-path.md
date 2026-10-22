@@ -9,7 +9,7 @@ A Mix reads to a finite end (yt-dlp stops once videos repeat), so "the first N" 
 Making more links ambiguous only works if asking costs nothing to people who want the video. So the question is asked only where someone can answer it, and always beside a way not to be asked:
 
 - **Every surface with a window offers This video** next to the list's button: the Explore toolbar, the URL tab, Explore's link menu. It downloads the video at once with the active profile.
-- **The list's button asks only about the list:** in the background (asking past the load limit), exactly the first N, or Interactive's picker. Interactive asks only how many to load.
+- **The list's button asks about the list:** in the background (asking past the load limit), exactly the first N, or Interactive's picker. Interactive asks how many to load. Each also offers Just this video (the list's dialog first, Interactive's in its footer): people used to the old dialog look for the video there, not beside the button.
 - **The hotkey still takes the video** (ADR 0007's hotkey half), and a Mix link is no exception.
 - **Bulk URLs keeps every former Radio link** (`RD…`, `RDCLAK…`, `start_radio`) as one video, as before: a batch has no place for a per-link question.
 

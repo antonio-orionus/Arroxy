@@ -12,6 +12,7 @@ import type {PlaylistProbeResult, PlaylistScope, ProbePlaylistMode, ProbeResult,
 import {getIncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import {cleanUrl} from '@shared/cleanUrl.js'
 import {classifyUrlIntent} from '@shared/urlIntent.js'
+import {youtubeVideoOnlyUrl} from '@shared/sites/youtube.js'
 import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
 import {resolvePlaylistDir} from './playlistDir.js'
@@ -445,6 +446,20 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		},
 
 		answerVideoListLink: async (url, source, answer) => {
+			if (answer.kind === 'video') {
+				// Interactive sets up the video alone; a quick download queues it.
+				if (source !== 'wizard') {
+					await get().quickDownload({url, entry: source, playlistMode: 'video'})
+					return
+				}
+				// The run keeps the link without its list: a retry probes it as a
+				// plain video, never asking again or loading the list.
+				const video = youtubeVideoOnlyUrl(url)
+				set({wizardUrl: video})
+				if (maybeBlockIncompleteCookiesConfig(video, set, get)) return
+				await runProbe(video, 'video', set, get)
+				return
+			}
 			if (answer.kind !== 'pick') {
 				// The list downloads with the active profile: a row in Downloads,
 				// which asks past the load limit, or exactly the first N chosen.

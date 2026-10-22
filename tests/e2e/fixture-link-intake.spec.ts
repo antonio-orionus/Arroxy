@@ -83,6 +83,56 @@ test('This video downloads the video in one move and never loads its playlist', 
 	})
 })
 
+// Users of the old dialog look for the video there, not beside the list button.
+// Actions: paste a video-in-a-playlist link, the list button, Just this video.
+// Milestones: the dialog; one row done.
+// Oracles: one mp4 on disk; the playlist was never loaded.
+test('Just this video in the list dialog downloads the video and never loads its playlist', async () => {
+	test.setTimeout(150_000)
+	const videoId = FIXTURE_PLAYLIST_VIDEO_IDS[0]
+	if (!videoId) throw new Error('fixture playlist needs a first video')
+
+	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-intake-dialog-video-user-', outputPrefix: 'arroxy-fixture-intake-dialog-video-out-'}, async ({page, fixtureServer, urls, files}) => {
+		await paste(page, urls.videoInPlaylist(videoId))
+		await page.getByTestId('profiles-quick-download').click()
+		await expect(page.getByTestId('mixed-prompt-title')).toHaveText('Download from this playlist', {timeout: 10_000})
+		await page.getByTestId('mixed-video-choice').click()
+		await expect(page.getByTestId('mixed-prompt-title')).toHaveCount(0)
+
+		await page.locator('.downloads-tab-trigger').click()
+		await expect(rows(page).first()).toHaveAttribute('data-status', 'done', {timeout: 120_000})
+		await expect(rows(page)).toHaveCount(1)
+		await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(1)
+		files.expectMp4Count(1)
+		expect(listLoads(fixtureServer, FIXTURE_PLAYLIST_ID)).toBe(0)
+	})
+})
+
+// Fixtures: the video's first probe fails.
+// Actions: paste a video-in-a-playlist link, Interactive Download…, Just this video, Retry.
+// Milestones: Interactive's prompt; the error step; the format step after Retry.
+// Oracles: Retry asks nothing again; the playlist was never loaded.
+test("Interactive's Just this video sets up the video alone, and Retry neither asks again nor loads its playlist", async () => {
+	test.setTimeout(120_000)
+	const videoId = FIXTURE_PLAYLIST_VIDEO_IDS[0]
+	if (!videoId) throw new Error('fixture playlist needs a first video')
+
+	await withFixtureProductApp({behavior: {metadataFailureIds: [videoId]}, userDataPrefix: 'arroxy-fixture-intake-pick-video-user-', outputPrefix: 'arroxy-fixture-intake-pick-video-out-'}, async ({page, fixtureServer, urls}) => {
+		await paste(page, urls.videoInPlaylist(videoId))
+		await page.getByTestId('profiles-interactive-download').click()
+		await expect(page.getByTestId('mixed-prompt-title')).toHaveText('Pick from this playlist', {timeout: 10_000})
+		await page.getByTestId('mixed-video-choice').click()
+		await expect(page.getByTestId('mixed-prompt-title')).toHaveCount(0)
+		await expect(page.getByTestId('step-error')).toBeVisible({timeout: 60_000})
+
+		fixtureServer.setBehavior({})
+		await page.getByTestId('btn-retry').click()
+		await expect(page.getByTestId('step-formats')).toBeVisible({timeout: 60_000})
+		await expect(page.getByTestId('mixed-prompt-title')).toHaveCount(0)
+		expect(listLoads(fixtureServer, FIXTURE_PLAYLIST_ID)).toBe(0)
+	})
+})
+
 // Actions: paste a Shorts link opened from a playlist (`/shorts/<id>?list=…`), This video.
 // yt-dlp sends that address to its playlist extractor, which drops the video, so
 // Arroxy reads it as its watch address first.

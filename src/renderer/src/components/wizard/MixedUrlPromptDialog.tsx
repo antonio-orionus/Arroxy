@@ -1,7 +1,7 @@
 import {useRef, useState, type ReactNode, type RefObject} from 'react'
 import {useShallow} from 'zustand/react/shallow'
 import {useTranslation} from 'react-i18next'
-import {Gauge, ListChecks, ListStart, ListVideo, type LucideIcon} from 'lucide-react'
+import {Gauge, ListChecks, ListStart, ListVideo, Play, type LucideIcon} from 'lucide-react'
 import type {ListKind} from '@shared/schemas.js'
 import {listKindForUrl} from '@shared/sites/youtubeListKind.js'
 import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
@@ -62,11 +62,12 @@ function LimitControl({onSavingChange}: {onSavingChange: (saving: boolean) => vo
 }
 
 // A YouTube link naming a video and a list (?v=X&list=Y) could mean either. The
-// store opens this before loading anything, and only for the list: This video
-// sits beside the button that opens it. From the list button: the list in the
-// background, its row asking past the limit; exactly the first N; or
-// Interactive's picker. From Interactive it only confirms how many to load for
-// the picker. One number, the playlist load limit, sets N.
+// store opens this before loading anything, from the list's button (This video
+// sits beside it). From the list button: Just this video, kept for people used
+// to the old dialog; the list in the background, its row asking past the limit;
+// exactly the first N; or Interactive's picker. From Interactive it confirms how
+// many to load for the picker, or sets up the video alone. One number, the
+// playlist load limit, sets N.
 export function MixedUrlPromptDialog(): ReactNode {
 	const {t} = useTranslation()
 	const profileNameOf = useProfileDisplayName()
@@ -94,6 +95,7 @@ export function MixedUrlPromptDialog(): ReactNode {
 				{isQuick ? (
 					<>
 						<ItemGroup className="gap-2">
+							<Option icon={Play} label={t('wizard.listPrompt.videoLabel')} hint={t('wizard.listPrompt.videoHint', {profileName})} enter={false} disabled={limitSaving} onChoose={() => void dismissMixedPrompt({kind: 'video'})} testId="mixed-video-choice" />
 							<Option icon={ListVideo} label={t('wizard.listPrompt.backgroundLabel')} hint={t('wizard.listPrompt.backgroundHint', {profileName, count})} enter buttonRef={focusRef} disabled={limitSaving} onChoose={() => void dismissMixedPrompt({kind: 'list'})} testId="mixed-list-choice" />
 							<Option
 								icon={ListStart}
@@ -130,6 +132,12 @@ export function MixedUrlPromptDialog(): ReactNode {
 							<p className="text-caption text-subtle-foreground">{t('wizard.listPrompt.pickLoadNote')}</p>
 						</div>
 						<DialogFooter className="flex-row justify-end">
+							<Hint label={t('wizard.listPrompt.videoPickHint')}>
+								<Button type="button" variant="outline" className="me-auto" aria-description={t('wizard.listPrompt.videoPickHint')} onClick={() => void dismissMixedPrompt({kind: 'video'})} data-testid="mixed-video-choice">
+									<Play data-icon="inline-start" aria-hidden />
+									{t('wizard.listPrompt.videoLabel')}
+								</Button>
+							</Hint>
 							<Button type="button" variant="outline" onClick={cancelMixedPrompt} data-testid="mixed-pick-cancel">
 								{t('common.cancel')}
 							</Button>
