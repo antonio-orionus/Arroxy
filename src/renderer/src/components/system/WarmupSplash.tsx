@@ -5,6 +5,7 @@ import type {DependencyDiagnostic, DependencyId, WarmupProgressEvent} from '@sha
 import {Button} from '../ui/button.js'
 import {RepairPanel} from './RepairPanel.js'
 import {SplashSetup} from './SplashSetup.js'
+import {setupTitleKey} from './splashSetupTitle.js'
 import {estimateSecondsLeft, summarizeSetup, type WarmupDownloads} from '../../store/warmupDownloads.js'
 
 interface Props {
@@ -180,6 +181,8 @@ export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, wa
 	const blocked = warmupBlocking.length > 0
 	const fading = initialized && minPassed && !blocked
 	const showCancel = onCancel != null && !blocked && !fading && cancelOffered
+	const setupShown = !blocked && setup !== null
+	const setupTitle = setup ? t(setupTitleKey(setup, showGreeting)) : ''
 
 	return (
 		<SplashOverlay
@@ -191,15 +194,25 @@ export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, wa
 				onDismissed?.()
 			}}
 		>
-			<img src={mainImg} alt="" className="splash-mascot" />
-			<div className="splash-text">
-				{showGreeting && (
-					<p className="splash-greeting" data-testid="splash-greeting">
-						{t('splash.greeting')}
-					</p>
-				)}
+			{/* The mascot, the name and the heading hold their place from the first
+			    frame to the last: the setup heading fades in where the greeting
+			    was, and only the lines below it change. */}
+			<div className="splash-anchor">
+				<img src={mainImg} alt="" className="splash-mascot" />
 				<p className="splash-brand">Arroxy</p>
-				{blocked ? null : setup ? <SplashSetup setup={setup} secondsLeft={secondsLeft} returning={showGreeting} firstCheck={firstCheck} /> : <SplashStatus progress={progress} firstCheck={firstCheck} />}
+				<div className="splash-head" data-testid="splash-head" data-setup={setupShown}>
+					{showGreeting && (
+						<p className="splash-greeting" data-testid="splash-greeting" aria-hidden={setupShown || undefined}>
+							{t('splash.greeting')}
+						</p>
+					)}
+					<p className="splash-setup-title" data-testid="splash-setup-title" aria-hidden={!setupShown || undefined}>
+						{setupTitle}
+					</p>
+				</div>
+			</div>
+			<div className="splash-text">
+				{blocked ? null : setupShown ? <SplashSetup setup={setup} label={setupTitle} secondsLeft={secondsLeft} firstCheck={firstCheck} /> : <SplashStatus progress={progress} firstCheck={firstCheck} />}
 				{showCancel && (
 					<Button type="button" variant="link" size="sm" className="splash-cancel" data-testid="splash-cancel" onClick={() => void onCancel?.()}>
 						{t('splash.cancel')}

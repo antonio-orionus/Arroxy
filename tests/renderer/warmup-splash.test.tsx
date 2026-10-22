@@ -42,7 +42,8 @@ describe('WarmupSplash verification phase', () => {
 
 		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} warmupDownloads={downloadsFor(warmupProgress)} showGreeting={false} />)
 
-		expect(screen.getByTestId('splash-setup')).toHaveTextContent('Downloading the download engine')
+		expect(screen.getByTestId('splash-setup-title')).toHaveTextContent('First-time setup')
+		expect(screen.getByTestId('splash-setup')).toBeInTheDocument()
 		expect(screen.queryByTestId('splash-verifying')).toBeNull()
 	})
 
@@ -181,16 +182,21 @@ describe('WarmupSplash', () => {
 		expect(screen.getByTestId('splash-overlay')).not.toHaveTextContent('Starting Arroxy')
 	})
 
-	it('turns a first download into the setup view with one bar and byte counts', () => {
+	// One heading, one bar, one line: the byte counts and the stage line said
+	// what the bar and the heading already say.
+	it('turns a first download into the setup view with one heading and one bar', () => {
 		const warmupProgress = {'yt-dlp': {binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: 3 * 1024 * 1024, totalBytes: 12 * 1024 * 1024} satisfies WarmupProgressEvent}
 
 		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} warmupDownloads={downloadsFor(warmupProgress)} showGreeting={false} />)
 
-		expect(screen.getByTestId('splash-setup')).toHaveTextContent('First-time setup')
-		expect(screen.getByTestId('splash-setup')).toHaveTextContent('Downloading the download engine')
-		expect(screen.getByTestId('splash-setup-bytes')).toHaveTextContent('3.0 MiB of 12.0 MiB')
-		expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '25')
+		expect(screen.getByTestId('splash-setup-title')).toHaveTextContent('First-time setup')
+		expect(screen.getByRole('progressbar', {name: 'First-time setup'})).toHaveAttribute('aria-valuenow', '25')
 		expect(document.querySelector('.splash-setup-bar [data-slot="progress-indicator"]')).toHaveStyle({width: '25%'})
+		const overlay = screen.getByTestId('splash-overlay')
+		expect(overlay).not.toHaveTextContent('MiB')
+		expect(overlay).not.toHaveTextContent('Downloading the download engine')
+		// "This happens once" told a waiting user nothing they could act on.
+		expect(overlay).not.toHaveTextContent('This happens once')
 	})
 
 	it('keeps the setup bar indeterminate until the first bytes arrive', () => {
@@ -199,27 +205,48 @@ describe('WarmupSplash', () => {
 		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} warmupDownloads={downloadsFor(warmupProgress)} showGreeting={false} />)
 
 		expect(screen.getByTestId('splash-setup')).toHaveAttribute('data-stage', 'connecting')
+		expect(screen.getByTestId('splash-setup-status')).toHaveTextContent('Connecting…')
 		expect(screen.getByRole('progressbar', {name: 'First-time setup'})).not.toHaveAttribute('aria-valuenow')
 		expect(document.querySelector('.splash-setup-bar [data-slot="progress-indicator"]')).toHaveAttribute('data-indeterminate')
 	})
 
-	// The first launch after the update that stopped bundling FFmpeg: a returning
-	// user should read it as an update of one part, not a fresh install.
-	it('tells a returning user which tools are updating, without repeating it', () => {
-		const warmupProgress = {ffmpeg: {binary: 'ffmpeg', phase: 'downloading', bytesDownloaded: 21 * 1024 * 1024, totalBytes: 42 * 1024 * 1024} satisfies WarmupProgressEvent}
-
+	// A returning user reads it as an update of one part, or of both, never as a
+	// fresh install; tool names are for repair and manual setup.
+	it.each([
+		['the media tools', {ffmpeg: {binary: 'ffmpeg', phase: 'downloading', bytesDownloaded: 21 * 1024 * 1024, totalBytes: 42 * 1024 * 1024}}, 'Updating the media tools'],
+		['the download engine', {'yt-dlp': {binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: 9 * 1024 * 1024, totalBytes: 18 * 1024 * 1024}}, 'Updating the download engine'],
+		['both tools', {'yt-dlp': {binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: 9 * 1024 * 1024, totalBytes: 18 * 1024 * 1024}, ffmpeg: {binary: 'ffmpeg', phase: 'downloading', bytesDownloaded: 21 * 1024 * 1024, totalBytes: 42 * 1024 * 1024}}, "Updating Arroxy's tools"]
+	] satisfies Array<[string, Partial<Record<DependencyId, WarmupProgressEvent>>, string]>)('tells a returning user it is updating %s', (_what, warmupProgress, heading) => {
 		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} warmupDownloads={downloadsFor(warmupProgress)} showGreeting />)
 
-		const setup = screen.getByTestId('splash-setup')
-		expect(setup).toHaveTextContent('Updating the media tools')
-		expect(setup).not.toHaveTextContent('Downloading the media tools')
-		expect(setup).toHaveTextContent('This happens once')
-		// Tool names are for repair and manual setup, not for someone waiting.
-		expect(setup).not.toHaveTextContent('FFmpeg')
-		expect(setup).not.toHaveTextContent('yt-dlp')
+		expect(screen.getByTestId('splash-setup-title')).toHaveTextContent(heading)
+		const overlay = screen.getByTestId('splash-overlay')
+		expect(overlay).not.toHaveTextContent('This happens once')
+		expect(overlay).not.toHaveTextContent('FFmpeg')
+		expect(overlay).not.toHaveTextContent('yt-dlp')
 	})
 
-	it('adds the time left once the store has measured a stable rate', () => {
+	// The name stays under the mascot, and the setup heading takes the
+	// greeting's place in the same slot, so the change into the setup screen
+	// moves nothing above the bar.
+	it('puts the setup heading in the slot the greeting held, under the name', () => {
+		const warmupProgress = {ffmpeg: {binary: 'ffmpeg', phase: 'downloading', bytesDownloaded: 21 * 1024 * 1024, totalBytes: 42 * 1024 * 1024} satisfies WarmupProgressEvent}
+		const {rerender} = render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={null} warmupDownloads={downloadsFor(null)} showGreeting />)
+		const slot = screen.getByTestId('splash-head')
+		expect(slot).toHaveAttribute('data-setup', 'false')
+		expect(screen.getByTestId('splash-greeting')).not.toHaveAttribute('aria-hidden')
+		expect(screen.getByTestId('splash-setup-title')).toHaveAttribute('aria-hidden', 'true')
+
+		rerender(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} warmupDownloads={downloadsFor(warmupProgress)} showGreeting />)
+
+		expect(screen.getByTestId('splash-head')).toBe(slot)
+		expect(slot).toHaveAttribute('data-setup', 'true')
+		expect(screen.getByTestId('splash-greeting')).toHaveAttribute('aria-hidden', 'true')
+		expect(screen.getByTestId('splash-setup-title')).not.toHaveAttribute('aria-hidden')
+		expect(screen.getByText('Arroxy')).toBeVisible()
+	})
+
+	it('says the time left once the store has measured a stable rate', () => {
 		const event = (bytes: number): WarmupProgressEvent => ({binary: 'ffmpeg', phase: 'downloading', bytesDownloaded: bytes, totalBytes: 42 * 1024 * 1024})
 		let downloads = EMPTY_WARMUP_DOWNLOADS
 		downloads = trackWarmupDownloads(downloads, {ffmpeg: event(0)}, 0)
@@ -228,7 +255,27 @@ describe('WarmupSplash', () => {
 		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={{ffmpeg: event(2 * 1024 * 1024)}} warmupDownloads={downloads} showGreeting={false} />)
 
 		// 40 MB left at 2 MB per 6 s is 120 s.
-		expect(screen.getByTestId('splash-setup-bytes')).toHaveTextContent('2.0 MiB of 42.0 MiB · about 2 min left')
+		expect(screen.getByTestId('splash-setup-status').textContent).toBe('about 2 min left')
+	})
+
+	it('leaves the status line empty until a time left can be promised', () => {
+		const warmupProgress = {ffmpeg: {binary: 'ffmpeg', phase: 'downloading', bytesDownloaded: 2 * 1024 * 1024, totalBytes: 42 * 1024 * 1024} satisfies WarmupProgressEvent}
+
+		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={warmupProgress} warmupDownloads={downloadsFor(warmupProgress)} showGreeting={false} />)
+
+		expect(screen.getByTestId('splash-setup-status')).toBeEmptyDOMElement()
+	})
+
+	it.each([
+		['unpacking', {binary: 'ffmpeg', phase: 'extracting'}, 'Unpacking the media tools'],
+		['checking', {binary: 'ffmpeg', phase: 'probing'}, 'Checking everything works']
+	] satisfies Array<[string, WarmupProgressEvent, string]>)('says what happens once the download is over: %s', (_stage, after, line) => {
+		let downloads = trackWarmupDownloads(EMPTY_WARMUP_DOWNLOADS, {ffmpeg: {binary: 'ffmpeg', phase: 'downloading', bytesDownloaded: 42 * 1024 * 1024, totalBytes: 42 * 1024 * 1024}}, 0)
+		downloads = trackWarmupDownloads(downloads, {ffmpeg: after}, 1000)
+
+		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={{ffmpeg: after}} warmupDownloads={downloads} showGreeting />)
+
+		expect(screen.getByTestId('splash-setup-status')).toHaveTextContent(line)
 	})
 
 	it('does not label post-download extraction as a stuck full download', () => {

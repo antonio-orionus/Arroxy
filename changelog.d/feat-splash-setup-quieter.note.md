@@ -1,0 +1,1 @@
+The screen Arroxy shows while it downloads or updates its tools is simpler: a heading, one bar and the time left, and it no longer jumps when it appears. A returning user updating both tools now sees that both are updating.

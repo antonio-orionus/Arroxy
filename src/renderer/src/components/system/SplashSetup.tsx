@@ -1,55 +1,38 @@
 import type {JSX} from 'react'
 import {useTranslation} from 'react-i18next'
-import {humanSize} from '@shared/format.js'
 import type {SetupProgress} from '../../store/warmupDownloads.js'
 import {Progress} from '../ui/progress.js'
 
-const TITLE_KEY = {firstRun: 'splash.setup.title.firstRun', media: 'splash.setup.title.media', engine: 'splash.setup.title.engine'} as const
-const NOTE_KEY = {firstRun: 'splash.setup.note.firstRun', media: 'splash.setup.note.media', engine: 'splash.setup.note.engine'} as const
-
-// Who is waiting decides the words: a first launch is setting Arroxy up; a
-// returning user is getting one of the tools updated.
-function audience(setup: SetupProgress, returning: boolean): keyof typeof TITLE_KEY {
-	if (!returning) return 'firstRun'
-	return setup.groups.includes('media') ? 'media' : 'engine'
+// The one line under the bar: the time left while bytes move, otherwise what is
+// happening. Empty while a download has no estimate yet; the line keeps its
+// height so the screen does not jump when the estimate arrives.
+function useStatusLine(setup: SetupProgress, secondsLeft: number | null): string | null {
+	const {t} = useTranslation()
+	if (setup.stage === 'connecting') return t('splash.setup.stage.connecting')
+	if (setup.stage === 'unpacking') return t('splash.setup.stage.unpacking')
+	if (setup.stage === 'checking') return t('splash.setup.stage.checking')
+	if (secondsLeft === null) return null
+	return secondsLeft < 60 ? t('splash.setup.left.underMinute') : t('splash.setup.left.minutes', {count: Math.round(secondsLeft / 60)})
 }
 
-function stageKey(setup: SetupProgress): 'splash.setup.stage.connecting' | 'splash.setup.stage.unpacking' | 'splash.setup.stage.checking' | 'splash.setup.stage.downloadingBoth' | 'splash.setup.stage.downloadingEngine' | 'splash.setup.stage.downloadingMedia' {
-	if (setup.stage === 'connecting') return 'splash.setup.stage.connecting'
-	if (setup.stage === 'unpacking') return 'splash.setup.stage.unpacking'
-	if (setup.stage === 'checking') return 'splash.setup.stage.checking'
-	const engine = setup.downloading.includes('engine')
-	const media = setup.downloading.includes('media')
-	if (engine && media) return 'splash.setup.stage.downloadingBoth'
-	return engine ? 'splash.setup.stage.downloadingEngine' : 'splash.setup.stage.downloadingMedia'
-}
-
-// The splash while Arroxy downloads its tools: one bar for everything, what is
-// happening in plain words, and that it happens once.
-export function SplashSetup({setup, secondsLeft, returning, firstCheck}: {setup: SetupProgress; secondsLeft: number | null; returning: boolean; firstCheck: boolean}): JSX.Element {
-	const {t, i18n} = useTranslation()
-	const who = audience(setup, returning)
-	const title = t(TITLE_KEY[who])
+// Under the splash's heading while Arroxy downloads its tools: one bar, one
+// line.
+export function SplashSetup({setup, label, secondsLeft, firstCheck}: {setup: SetupProgress; label: string; secondsLeft: number | null; firstCheck: boolean}): JSX.Element {
+	const {t} = useTranslation()
 	const determinate = setup.stage === 'downloading' && setup.percent !== null
-	const timeLeft = secondsLeft === null ? null : secondsLeft < 60 ? t('splash.setup.left.underMinute') : t('splash.setup.left.minutes', {count: Math.round(secondsLeft / 60)})
+	const status = useStatusLine(setup, secondsLeft)
 	return (
 		<div className="splash-setup" data-testid="splash-setup" data-stage={setup.stage}>
-			<p className="splash-setup-title">{title}</p>
-			{/* A returning user's heading already says what is downloading. */}
-			{(who === 'firstRun' || setup.stage !== 'downloading') && <p className="splash-name">{t(stageKey(setup))}</p>}
-			<Progress className="splash-setup-bar" aria-label={title} value={determinate ? Math.round(setup.percent ?? 0) : null} />
-			{determinate && setup.total > 0 && (
-				<p className="splash-bytes" data-testid="splash-setup-bytes">
-					{t('splash.setup.bytes', {done: humanSize(setup.downloaded, i18n.language), total: humanSize(setup.total, i18n.language)})}
-					{timeLeft && ` · ${timeLeft}`}
-				</p>
-			)}
+			<Progress className="splash-setup-bar" aria-label={label} value={determinate ? Math.round(setup.percent ?? 0) : null} />
+			{/* Keyed on its words, so each new line fades in rather than swapping. */}
+			<p key={status ?? ''} className="splash-setup-status" data-testid="splash-setup-status">
+				{status}
+			</p>
 			{setup.stage === 'checking' && firstCheck && (
 				<p className="splash-bytes" data-testid="splash-verify-firstcheck">
 					{t('splash.verifyFirstCheck')}
 				</p>
 			)}
-			<p className="splash-setup-note">{t(NOTE_KEY[who])}</p>
 		</div>
 	)
 }

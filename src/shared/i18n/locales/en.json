@@ -665,26 +665,18 @@
 		"cancel": "Having trouble? Set it up manually",
 		"greeting": "Hey, welcome back!",
 		"setup": {
-			"bytes": "{{done}} of {{total}}",
 			"left": {
 				"minutes_one": "about {{count}} min left",
 				"minutes_other": "about {{count}} min left",
 				"underMinute": "less than a minute left"
 			},
-			"note": {
-				"engine": "Keeps downloads working when sites change.",
-				"firstRun": "This happens once. Arroxy keeps these tools and updates them itself.",
-				"media": "This happens once. Arroxy keeps them for future updates."
-			},
 			"stage": {
 				"checking": "Checking everything works",
 				"connecting": "Connecting…",
-				"downloadingBoth": "Downloading the download engine and media tools",
-				"downloadingEngine": "Downloading the download engine",
-				"downloadingMedia": "Downloading the media tools",
 				"unpacking": "Unpacking the media tools"
 			},
 			"title": {
+				"both": "Updating Arroxy's tools",
 				"engine": "Updating the download engine",
 				"firstRun": "First-time setup",
 				"media": "Updating the media tools"
