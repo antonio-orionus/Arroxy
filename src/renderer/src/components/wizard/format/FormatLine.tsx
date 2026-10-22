@@ -9,8 +9,9 @@ import {Hint} from '../../shared/Hint.js'
 // to what it says rather than stretched across the column. One RadioGroup holds
 // every chip, so arrow keys move across all of them.
 
-// A window narrower than lg (the 720px minimum up to 1023px) halves the step.
-// A grid with two or more chip columns no longer fits there, so its chips stack
+// A window narrower than lg (the 720px minimum up to 1023px) leaves Video and
+// Audio little room side by side. A grid with two or more chip columns would
+// push Audio under it there, so its chips stack
 // their size under their label (`narrowStack`); a single column still fits and
 // stays one line. This keys off the window, not the column: a size-contained
 // column could no longer be as wide as its chips.
