@@ -3,7 +3,7 @@
 import {afterEach, describe, expect, it} from 'vite-plus/test'
 import {HANDSHAKE_MAX_FRAME_BYTES, handshakeClientProof} from 'arroxy-control'
 import {CONTROL_IN_FLIGHT_MAX} from '@main/control/socket/controlConnection.js'
-import {allowedClient, handshake, hello, nonce, RawClient, secretProof, type SocketHarness, startHarness, tokenProof} from '../helpers/controlSocketHarness.js'
+import {allowedClient, handshake, hello, nonce, RawClient, secretProof, silentLog, type SocketHarness, startHarness, tokenProof} from '../helpers/controlSocketHarness.js'
 
 // The control socket under a client that misbehaves or vanishes: no side
 // effect outlives a connection that went away, the handshake answers only
@@ -87,6 +87,16 @@ describe('control socket limits', () => {
 		const {clientId, secret} = allowedClient(harness.approvals)
 		const {client} = await handshake(harness.socket.socketPath, secretProof(clientId, secret))
 		await client.closed
+	})
+
+	it('answers internal to a request that threw, and logs its method and error name only', async () => {
+		const log = silentLog()
+		const harness = await start({throwing: ['queue.list'], log})
+		const {clientId, secret} = allowedClient(harness.approvals)
+		const {client} = await handshake(harness.socket.socketPath, secretProof(clientId, secret))
+		client.request('r1', 'queue.list', {})
+		expect(await client.line(3)).toEqual(errorLine('r1', 'internal'))
+		expect(log.error).toHaveBeenCalledWith('a control request failed inside', {method: 'queue.list', error: 'TypeError'})
 	})
 
 	it(`holds at most ${CONTROL_IN_FLIGHT_MAX} requests in flight per connection`, async () => {

@@ -9,7 +9,7 @@ import {CONTROL_DISCOVERY_FILE_NAME} from 'arroxy-control'
 import type {ControlService} from '@main/control/ControlService.js'
 import type {ControlWiring} from '@main/control/createControlService.js'
 import type {ControlSocket, ControlSocketOptions} from '@main/control/socket/startControlSocket.js'
-import {type AgentControlDeps, startAgentControl, stopAgentControlOnQuit} from '@main/control/startAgentControl.js'
+import {type AgentControlDeps, autoAllowsClients, startAgentControl, stopAgentControlOnQuit} from '@main/control/startAgentControl.js'
 import {importWithReleaseFlagsOff} from '../helpers/releaseFlags.js'
 
 vi.mock('electron-log/main.js', () => {
@@ -126,6 +126,41 @@ describe('startAgentControl', () => {
 		expect(second.stop).toHaveBeenCalledTimes(1)
 	})
 
+	it.skipIf(isWindows)('waits on stop for a re-listen under way, and stops the socket it made', async () => {
+		const dir = await tempDir()
+		const first = fakeSocket(path.join(dir, 'first.sock'))
+		const second = fakeSocket(path.join(dir, 'second.sock'))
+		await fs.writeFile(first.socket.socketPath, '')
+		let finishListening: (socket: ControlSocket) => void = () => undefined
+		const startSocket = vi
+			.fn<(options: ControlSocketOptions) => Promise<ControlSocket | null>>()
+			.mockResolvedValueOnce(first.socket)
+			.mockReturnValueOnce(new Promise(resolve => (finishListening = resolve)))
+		const control = await startAgentControl(deps({platform: 'darwin', compose: fakeCompose().compose, startSocket, socketCheckIntervalMs: 10}))
+		await fs.rm(first.socket.socketPath)
+		await vi.waitFor(() => expect(startSocket).toHaveBeenCalledTimes(2))
+		let stopped = false
+		const stopping = control?.stop().then(() => (stopped = true))
+		await new Promise(resolve => setTimeout(resolve, 30))
+		expect(stopped).toBe(false)
+		finishListening(second.socket)
+		await stopping
+		expect(second.stop).toHaveBeenCalledTimes(1)
+		expect(startSocket).toHaveBeenCalledTimes(2)
+	})
+
+	it.skipIf(isWindows)('logs a re-listen that threw by its error name', async () => {
+		const dir = await tempDir()
+		const first = fakeSocket(path.join(dir, 'first.sock'))
+		await fs.writeFile(first.socket.socketPath, '')
+		const log = {info: vi.fn(), warn: vi.fn(), error: vi.fn()}
+		const startSocket = vi.fn<(options: ControlSocketOptions) => Promise<ControlSocket | null>>().mockResolvedValueOnce(first.socket).mockRejectedValue(new TypeError('/private/path'))
+		const control = await startAgentControl(deps({platform: 'darwin', compose: fakeCompose().compose, startSocket, socketCheckIntervalMs: 10, log}))
+		await fs.rm(first.socket.socketPath)
+		await vi.waitFor(() => expect(log.error).toHaveBeenCalledWith('the control socket could not listen again', {code: 'TypeError'}))
+		await control?.stop()
+	})
+
 	it.skipIf(isWindows)('tries again on the next check when listening afresh failed', async () => {
 		const dir = await tempDir()
 		const first = fakeSocket(path.join(dir, 'first.sock'))
@@ -183,6 +218,41 @@ describe('stopAgentControlOnQuit', () => {
 		expect(app.exit).not.toHaveBeenCalled()
 	})
 
+	it('logs a start that failed by its error name when it has no errno code', async () => {
+		const app = new FakeApp()
+		const log = {info: vi.fn(), warn: vi.fn(), error: vi.fn()}
+		stopAgentControlOnQuit(app, Promise.reject(new TypeError('/private/path')), log)
+		await vi.waitFor(() => expect(log.error).toHaveBeenCalledWith('agent control could not start', {code: 'TypeError'}))
+	})
+
+	it('warns when stopping failed, and still exits', async () => {
+		const app = new FakeApp()
+		const log = {info: vi.fn(), warn: vi.fn(), error: vi.fn()}
+		const started = Promise.resolve({stop: () => Promise.reject(Object.assign(new Error('x'), {code: 'EPERM'}))})
+		stopAgentControlOnQuit(app, started, log)
+		await started
+		app.quit()
+		await vi.waitFor(() => expect(app.exit).toHaveBeenCalledWith(0))
+		expect(log.warn).toHaveBeenCalledWith('agent control did not stop cleanly', {code: 'EPERM'})
+	})
+
+	it('warns when stopping outlasts its budget, and exits anyway', async () => {
+		vi.useFakeTimers()
+		try {
+			const app = new FakeApp()
+			const log = {info: vi.fn(), warn: vi.fn(), error: vi.fn()}
+			const started = Promise.resolve({stop: () => new Promise<void>(() => undefined)})
+			stopAgentControlOnQuit(app, started, log)
+			await started
+			app.quit()
+			await vi.advanceTimersByTimeAsync(2000)
+			expect(app.exit).toHaveBeenCalledWith(0)
+			expect(log.warn).toHaveBeenCalledWith('agent control took too long to stop; quitting anyway', {budgetMs: 2000})
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
 	it('logs a start that failed, and lets the quit through', async () => {
 		const app = new FakeApp()
 		const log = {info: vi.fn(), warn: vi.fn(), error: vi.fn()}
@@ -200,6 +270,15 @@ describe('stopAgentControlOnQuit', () => {
 		expect(app.quit().defaultPrevented).toBe(false)
 		finish({stop: () => socket.stop()})
 		await vi.waitFor(() => expect(stop).toHaveBeenCalledTimes(1))
+	})
+})
+
+describe('autoAllowsClients', () => {
+	it('allows clients at once only in an unpackaged E2E run', () => {
+		expect(autoAllowsClients({e2eHarness: true, isPackaged: false})).toBe(true)
+		expect(autoAllowsClients({e2eHarness: true, isPackaged: true})).toBe(false)
+		expect(autoAllowsClients({e2eHarness: false, isPackaged: false})).toBe(false)
+		expect(autoAllowsClients({e2eHarness: false, isPackaged: true})).toBe(false)
 	})
 })
 

@@ -28,10 +28,12 @@ export interface FakeServiceOptions {
 	// Hold these methods until release().
 	readonly held?: readonly string[]
 	readonly failOpen?: boolean
+	// Throw a TypeError from these methods' handle.
+	readonly throwing?: readonly string[]
 }
 
 // Answers status with READY and anything else with an empty result.
-export function fakeService({delays = {}, held = [], failOpen = false}: FakeServiceOptions = {}) {
+export function fakeService({delays = {}, held = [], failOpen = false, throwing = []}: FakeServiceOptions = {}) {
 	const sessions: OpenedSession[] = []
 	const handled: string[] = []
 	let releaseHeld: () => void = () => undefined
@@ -47,6 +49,7 @@ export function fakeService({delays = {}, held = [], failOpen = false}: FakeServ
 				const delay = delays[request.method]
 				if (delay !== undefined) await new Promise(resolve => setTimeout(resolve, delay))
 				if (held.includes(request.method)) await heldGate
+				if (throwing.includes(request.method)) throw new TypeError('/private/path in a message')
 				if (request.method === 'status') return {ok: true, result: READY}
 				return {ok: true, result: {}}
 			}

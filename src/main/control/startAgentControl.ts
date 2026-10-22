@@ -37,6 +37,17 @@ export interface AgentControl {
 	stop(): Promise<void>
 }
 
+// Clients are allowed at once only in an E2E run of an unpackaged build, so
+// a packaged build never approves on its own, whatever its environment.
+export function autoAllowsClients(gate: {readonly e2eHarness: boolean; readonly isPackaged: boolean}): boolean {
+	return gate.e2eHarness && !gate.isPackaged
+}
+
+// For logs: the errno code, else the error's name; never the message, which can carry paths.
+function failureCode(error: unknown): string {
+	return errnoCode(error) ?? (error instanceof Error ? error.name : 'unknown')
+}
+
 export async function startAgentControl(deps: AgentControlDeps): Promise<AgentControl | null> {
 	if (!isReleaseFlagOn('agentControl')) return null
 	const {userDataDir, appVersion, platform, env, autoAllowClients, log, compose = createControlService, startSocket = startControlSocket, socketCheckIntervalMs = SOCKET_CHECK_INTERVAL_MS, ...wiring} = deps
@@ -55,34 +66,34 @@ export async function startAgentControl(deps: AgentControlDeps): Promise<AgentCo
 		platform === 'win32'
 			? null
 			: setInterval(() => {
-					void relistenIfGone().catch((error: unknown) => log.error('the control socket could not listen again', {code: errnoCode(error) ?? 'unknown'}))
+					if (relistening !== null || stopping !== null) return
+					relistening = relistenIfGone()
+						.catch((error: unknown) => log.error('the control socket could not listen again', {code: failureCode(error)}))
+						.finally(() => (relistening = null))
 				}, socketCheckIntervalMs)
 	check?.unref()
-	let checking = false
+	// The check under way, which stop waits for.
+	let relistening: Promise<void> | null = null
 	// Listens afresh when the path is gone, and again at each check after a
 	// failed attempt left no socket.
 	const relistenIfGone = async (): Promise<void> => {
-		if (checking || stopping !== null) return
-		checking = true
-		try {
-			const current = socket
-			if (current !== null) {
-				if (await pathExists(current.socketPath)) return
-				log.warn('the control socket was deleted; listening again', {socketPath: current.socketPath})
-				socket = null
-				await current.stop()
-			}
-			const next = await listen()
-			if (stopping === null) socket = next
-			else await next?.stop()
-		} finally {
-			checking = false
+		const current = socket
+		if (current !== null) {
+			if (await pathExists(current.socketPath)) return
+			log.warn('the control socket was deleted; listening again', {socketPath: current.socketPath})
+			socket = null
+			await current.stop()
 		}
+		const next = await listen()
+		if (stopping === null) socket = next
+		else await next?.stop()
 	}
 	return {
 		stop: () => {
 			stopping ??= (async () => {
 				if (check !== null) clearInterval(check)
+				// A re-listen under way stops what it made once it sees stopping.
+				await relistening
 				await socket?.stop()
 				socket = null
 			})()
@@ -125,7 +136,7 @@ export function stopAgentControlOnQuit(app: QuitHooks, starting: Promise<AgentCo
 			control = started
 			if (quitting && started !== null) void stop(started)
 		})
-		.catch((error: unknown) => log.error('agent control could not start', {code: errnoCode(error) ?? 'unknown'}))
+		.catch((error: unknown) => log.error('agent control could not start', {code: failureCode(error)}))
 	app.on('before-quit', () => {
 		quitting = true
 		if (control !== null) void stop(control)
@@ -135,7 +146,17 @@ export function stopAgentControlOnQuit(app: QuitHooks, starting: Promise<AgentCo
 		if (running === null) return
 		control = null
 		event.preventDefault()
-		const budget = new Promise<void>(resolve => setTimeout(resolve, QUIT_STOP_BUDGET_MS).unref())
-		void Promise.race([stop(running).catch(() => undefined), budget]).then(() => app.exit(0))
+		const settled = stop(running).then(
+			() => true,
+			(error: unknown) => {
+				log.warn('agent control did not stop cleanly', {code: failureCode(error)})
+				return true
+			}
+		)
+		const budget = new Promise<false>(resolve => setTimeout(() => resolve(false), QUIT_STOP_BUDGET_MS).unref())
+		void Promise.race([settled, budget]).then(done => {
+			if (!done) log.warn('agent control took too long to stop; quitting anyway', {budgetMs: QUIT_STOP_BUDGET_MS})
+			app.exit(0)
+		})
 	})
 }

@@ -51,7 +51,7 @@ import {createHotkeyOsNotifier} from '@main/services/hotkeyOsNotifier.js'
 import {routeHotkeyOutcome} from '@main/services/hotkeyFeedback.js'
 import {createIntakeService} from '@main/intake/createIntakeService.js'
 import {binaryReadiness} from '@main/control/binaryReadiness.js'
-import {startAgentControl, stopAgentControlOnQuit} from '@main/control/startAgentControl.js'
+import {autoAllowsClients, startAgentControl, stopAgentControlOnQuit} from '@main/control/startAgentControl.js'
 import {HiddenWindowTokenProvider} from '@main/token/providers/HiddenWindowTokenProvider.js'
 import {configureLogFile, mainLogPath} from '@main/utils/logFile.js'
 import {applyUserDataOverride} from '@main/userDataOverride.js'
@@ -651,7 +651,7 @@ if (hasSingleInstanceLock) {
 			appVersion: app.getVersion(),
 			platform: process.platform,
 			env: process.env,
-			autoAllowClients: e2eMode.enabled && !app.isPackaged,
+			autoAllowClients: autoAllowsClients({e2eHarness: e2eMode.enabled, isPackaged: app.isPackaged}),
 			log: log.scope('control')
 		})
 		stopAgentControlOnQuit(app, agentControl, log.scope('control'))

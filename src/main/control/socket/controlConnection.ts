@@ -254,7 +254,9 @@ class ControlConnection {
 		let answer: ControlResponse
 		try {
 			answer = await session.handle(request)
-		} catch {
+		} catch (error) {
+			// The name only: a message can carry paths.
+			this.deps.log.error('a control request failed inside', {method: request.method, error: error instanceof Error ? error.name : typeof error})
 			answer = {ok: false, error: controlError('internal', 'Arroxy could not do that.')}
 		}
 		this.inFlight--
