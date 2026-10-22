@@ -1,5 +1,5 @@
 import type {DependencyId, WarmupProgressEvent} from '@shared/types.js'
-import {buildSetupScript} from './scenarios/diagnosticScenarios.js'
+import {buildSetupScript} from './scenarios/setupScenarios.js'
 
 type Emit = (event: WarmupProgressEvent) => void
 
