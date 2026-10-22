@@ -31,9 +31,8 @@ export interface CallerOutput {
 	// as JSON, one line per video, with each track's `filepath` (`after_video`,
 	// which a `--skip-download` run reaches). With a `tempDirectory`, a track
 	// yt-dlp wrote is reported where it wrote it, inside `tempDirectory`: its
-	// move does not update `requested_subtitles`. The file is then at the same
-	// path relative to `directory`. A track already present is reported where
-	// it is.
+	// move does not update `requested_subtitles`. reportedSubtitlePath() gives
+	// where the file is.
 	report?: {finalPath?: string; subtitles?: string}
 }
 
@@ -121,6 +120,18 @@ export function callerMediaOutputArgs(output: CallerOutput, options: CallerMedia
 export function callerSubtitlesOutputArgs(output: CallerOutput): string[] {
 	const template = callerOutputTemplate(output)
 	return [...tempPathArgs(output, callerTemp(output)), '-o', output.subtitleMode === 'subfolder' ? `${SUBTITLE_SUBFOLDER}/${template}` : template, ...reportArgs(output)]
+}
+
+// Where a track the subtitles report names is once the run is done, as an
+// absolute path. yt-dlp reports a track it wrote at its path in the temp
+// folder, then moves it to the same path under the folder; one it found
+// already present, or written without a temp folder, is where it says.
+export function reportedSubtitlePath(output: CallerOutput, filepath: string): string {
+	const directory = path.resolve(output.directory)
+	const file = path.resolve(directory, filepath)
+	const temp = callerTemp(output)
+	const inTemp = temp === undefined ? null : relativeInside(path.resolve(directory, temp), file)
+	return inTemp === null ? file : path.resolve(directory, inTemp)
 }
 
 // The output root is the run's working directory. A path inside it goes
