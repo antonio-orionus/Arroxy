@@ -19,6 +19,12 @@ export function humanBitrate(kbps: number, locale?: string): string {
 	return `${new Intl.NumberFormat(locale ?? 'en-US', {minimumFractionDigits: 1, maximumFractionDigits: 1}).format(kbps / 1000)} Mbps`
 }
 
+// A frame's width × height: 1920×800. The locale's digits, without grouping, which no one writes in a frame size.
+export function frameSize(width: number, height: number, locale?: string): string {
+	const digits = new Intl.NumberFormat(locale ?? 'en-US', {useGrouping: false, maximumFractionDigits: 0})
+	return `${digits.format(width)}×${digits.format(height)}`
+}
+
 // About three significant digits, for narrow columns: 1.5 KiB, 137 MiB.
 export function compactSize(bytes: number, locale?: string): string {
 	return prettyBytes(bytes, {binary: true, locale})

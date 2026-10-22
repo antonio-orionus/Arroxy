@@ -228,6 +228,9 @@ export interface FormatOption {
 	label: string
 	ext: string
 	resolution: string
+	// The video's frame size in pixels, when the site gives both sides.
+	width?: number
+	height?: number
 	fps?: number
 	// yt-dlp vcodec (e.g. avc1.640028, vp9, av01…); lets MP4 profiles prefer H.264.
 	videoCodec?: string

@@ -192,7 +192,7 @@ function eightKHdrVideoProbe(): VideoProbeResult {
 		const fps = height >= 720 ? 60 : 30
 		const videoCodec = codec === 'AV1' ? (range ? 'av01.0.17M.10' : 'av01.0.17M.08') : codec === 'VP9' ? (range ? 'vp09.02.51.10' : 'vp09.00.51.08') : 'avc1.64002a'
 		const ext = codec === 'VP9' ? 'webm' : 'mp4'
-		return {formatId, label: [`${height}p${fps}`, ext, codec, range].filter(Boolean).join(' | '), ext, resolution: `${width}x${height}`, fps, ...(range ? {dynamicRange: range} : {}), videoCodec, filesize, isVideoOnly: true, isAudioOnly: false}
+		return {formatId, label: [`${height}p${fps}`, ext, codec, range].filter(Boolean).join(' | '), ext, resolution: `${width}x${height}`, width, height, fps, ...(range ? {dynamicRange: range} : {}), videoCodec, filesize, isVideoOnly: true, isAudioOnly: false}
 	}
 	return {
 		...normalVideoProbe({webpageUrl: 'https://www.youtube.com/watch?v=mock-8k-hdr'}),
