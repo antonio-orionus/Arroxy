@@ -1,3 +1,4 @@
+import {mkdir, rename, stat} from 'node:fs/promises'
 import path from 'node:path'
 import {expandsVariables, resolveManagedPath, type ResolvedOutputPolicy} from './filesystem.js'
 import {templateLiteral} from './output-template.js'
@@ -31,8 +32,8 @@ export interface CallerOutput {
 	// as JSON, one line per video, with each track's `filepath` (`after_video`,
 	// which a `--skip-download` run reaches). With a `tempDirectory`, a track
 	// yt-dlp wrote is reported where it wrote it, inside `tempDirectory`: its
-	// move does not update `requested_subtitles`. reportedSubtitlePath() gives
-	// where the file is.
+	// move does not update `requested_subtitles`, and skips some converted
+	// tracks. Read each `filepath` through settleReportedSubtitle().
 	report?: {finalPath?: string; subtitles?: string}
 }
 
@@ -124,14 +125,27 @@ export function callerSubtitlesOutputArgs(output: CallerOutput): string[] {
 
 // Where a track the subtitles report names is once the run is done, as an
 // absolute path. yt-dlp reports a track it wrote at its path in the temp
-// folder, then moves it to the same path under the folder; one it found
-// already present, or written without a temp folder, is where it says.
-export function reportedSubtitlePath(output: CallerOutput, filepath: string): string {
+// folder, then moves it to the same path under the folder, replacing an older
+// file there. It never registers a track converted from dfxp, ttml or tt to
+// srt for that move, so one still in the temp folder is moved here. A track
+// outside the temp folder (found already present, or a run without one) is
+// where the report says.
+export async function settleReportedSubtitle(output: CallerOutput, filepath: string): Promise<string> {
 	const directory = path.resolve(output.directory)
 	const file = path.resolve(directory, filepath)
 	const temp = callerTemp(output)
 	const inTemp = temp === undefined ? null : relativeInside(path.resolve(directory, temp), file)
-	return inTemp === null ? file : path.resolve(directory, inTemp)
+	if (inTemp === null) return file
+	const settled = path.resolve(directory, inTemp)
+	const leftInTemp = await stat(file).then(
+		entry => entry.isFile(),
+		() => false
+	)
+	if (leftInTemp) {
+		await mkdir(path.dirname(settled), {recursive: true})
+		await rename(file, settled)
+	}
+	return settled
 }
 
 // The output root is the run's working directory. A path inside it goes

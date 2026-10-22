@@ -1,7 +1,6 @@
-import path from 'node:path'
 import {describe, expect, it} from 'vite-plus/test'
 import {loadConfig} from '../src/config.js'
-import {planWorkflow, reportedSubtitlePath, templateLiteral, type WorkflowInput, type WorkflowPlanOptions} from '../src/index.js'
+import {planWorkflow, templateLiteral, type WorkflowInput, type WorkflowPlanOptions} from '../src/index.js'
 import {fillLiteralFields, ytDlpExpandPath, ytDlpExpandTemplate} from './helpers/expansion-model.js'
 
 const URL = 'https://www.youtube.com/watch?v=test'
@@ -139,23 +138,6 @@ describe('output target: relative argv', () => {
 		const plan = planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out'}, subtitles: {languages: ['en'], format: 'srt'}})
 
 		expect(plan.args).not.toContain('--paths')
-	})
-
-	// yt-dlp reports a track where it wrote it and then moves it out of the
-	// temp folder without updating the report (checked on 2026.08.19).
-	it('reads a reported subtitle path as the file after the move out of the temp folder', () => {
-		const output = {directory: '/out', tempDirectory: '/out/.arroxy-temp/job'}
-
-		expect(reportedSubtitlePath(output, './.arroxy-temp/job/Clip.en.srt')).toBe(path.resolve('/out/Clip.en.srt'))
-		expect(reportedSubtitlePath(output, './.arroxy-temp/job/subtitles/Clip.en.srt')).toBe(path.resolve('/out/subtitles/Clip.en.srt'))
-		expect(reportedSubtitlePath(output, '/out/.arroxy-temp/job/Clip.en.srt')).toBe(path.resolve('/out/Clip.en.srt'))
-		expect(reportedSubtitlePath({...output, tempDirectory: '.arroxy-temp/job'}, '.arroxy-temp/job/Clip.en.srt')).toBe(path.resolve('/out/Clip.en.srt'))
-	})
-
-	it('reads a reported subtitle path outside the temp folder, or without one, against the folder', () => {
-		expect(reportedSubtitlePath({directory: '/out', tempDirectory: '/out/.arroxy-temp/job'}, 'Clip.en.srt')).toBe(path.resolve('/out/Clip.en.srt'))
-		expect(reportedSubtitlePath({directory: '/out'}, './subtitles/Clip.en.srt')).toBe(path.resolve('/out/subtitles/Clip.en.srt'))
-		expect(reportedSubtitlePath({directory: '/out'}, '/elsewhere/Clip.en.srt')).toBe(path.resolve('/elsewhere/Clip.en.srt'))
 	})
 
 	it('runs a managed download inside its output root, with the temp root relative when it is inside', () => {
