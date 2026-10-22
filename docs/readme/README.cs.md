@@ -3,7 +3,7 @@
 
 # Arroxy — bezplatný open-source stahovač z YouTube (+ 2000 webů) s vestavěným prohlížečem pro Windows, macOS a Linux
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Číst v jazyce:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · **Čeština** · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -51,6 +51,7 @@ Pokud vám Arroxy šetří čas, ⭐ pomůže ostatním ho najít.
 - [🗺️ Plán vývoje](#roadmap)
 - [💖 Podpořte Arroxy](#support)
 - [🛠️ Vytvořeno pomocí](#tech)
+- [📜 Podmínky použití](#terms)
 
 ---
 
@@ -362,7 +363,7 @@ Chcete kontrolu malwaru třetí stranou? Nahrajte soubor na [VirusTotal](https:/
 
 Srovnání s nejběžnějšími alternativami:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Vestavěný prohlížeč (procházení, přihlášení, stahování) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | Soukromá videa, videa pro členy a videa s věkovým omezením bez exportu cookies |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -382,8 +383,6 @@ Arroxy je stvořeno pro jedno: čistý lokální soubor, ať vložíte URL, nebo
 Většina bezplatných stahovačů z YouTube je jen políčko pro URL nad yt-dlp. Arroxy také používá yt-dlp, ale má navíc **Procházení**, prohlížeč zabudovaný v aplikaci, který otevře YouTube i jakýkoli jiný web. Procházení překoná omezení, na která políčko pro URL nestačí:
 
 - **Videa, která vyžadují účet, bez exportu cookies** — soukromá videa, videa pro členy a videa s věkovým omezením (na účtu s ověřeným věkem), a také vaše seznamy Podívat se později a Označeno „To se mi líbí“ a videa za přihlášením na jiných webech. Běžný obal potřebuje export souboru cookies.txt nebo musí číst cookies vašeho webového prohlížeče, což Chrome ve Windows nyní blokuje. V Arroxy se jednou přihlásíte v Procházení a zbytek obstará aplikace
-- **„Přihlaste se a potvrďte, že nejste robot“** — když se YouTube zeptá, Arroxy zkusí stahování znovu s vaším přihlášením z Procházení, místo aby selhalo
-- **Stahovací token YouTube** — vestavěný prohlížeč Arroxy získá token, který YouTube před stažením očekává. Bez něj může YouTube nabídnout méně formátů a nižší kvalitu, než jste chtěli
 - **Bez kopírování odkazů** — najděte video, playlist nebo kanál v Procházení a stáhněte je jedním kliknutím, nebo klikněte pravým tlačítkem na libovolný odkaz na stránce
 - **Blokování reklam, když chcete** — jedno kliknutí na štít zablokuje reklamy a sledovací prvky na stránkách v Procházení
 
@@ -664,7 +663,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 Podmínky použití
+## <a id="terms"></a>📜 Podmínky použití
 
 Arroxy je nástroj určený výhradně k osobnímu, soukromému použití. Sami odpovídáte za to, že vaše stahování je v souladu se [Smluvními podmínkami](https://www.youtube.com/t/terms) YouTube a autorskými zákony vaší jurisdikce. Nepoužívejte Arroxy ke stahování, reprodukci ani šíření obsahu, k jehož použití nemáte právo. Vývojáři neodpovídají za žádné zneužití.
 

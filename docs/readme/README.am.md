@@ -3,7 +3,7 @@
 
 # Arroxy — አብሮ የተሰራ አሳሽ ያለው ነፃ ምን ኮድ ያለው YouTube (+ 2000 ጣቢያ) አውራጅ ለ Windows, macOS እና Linux
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **አንብብ በ:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · **አማርኛ** · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -49,6 +49,7 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 - [🗺️ ወደፊት ዕቅድ](#roadmap)
 - [💖 Arroxy ይደግፉ](#support)
 - [🛠️ ከምን ተሠርቷል](#tech)
+- [📜 የአጠቃቀም ደንቦች](#terms)
 
 ---
 
@@ -360,7 +361,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ከተለመዱ አማራጮች ጋር ጎን ለጎን ማወዳደሪያ:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | አብሮ የተሠራ browser (ያስሱ፣ ይግቡ፣ ያውርዱ) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | የግል፣ የአባላት-ብቻ እና ዕድሜ-የተገደቡ ቪዲዮዎች ኩኪዎችን ወደ ውጭ ሳይልኩ |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -380,8 +381,6 @@ Arroxy ለአንድ ነገር ብቻ ተሠርቷል: URL ቢለጥፉም ሆነ
 አብዛኞቹ ነፃ የYouTube አውራጆች በyt-dlp ላይ የተቀመጠ የURL ሳጥን ብቻ ናቸው። Arroxy ደግሞ yt-dlp ይጠቀማል፣ ግን **Explore**ም አለው፣ በአፑ ውስጥ አብሮ የተሠራ፣ YouTubeን ወይም ማንኛውንም ሌላ ጣቢያ የሚከፍት browser። Explore የURL ሳጥን ሊያልፋቸው የማይችላቸውን ገደቦች ያልፋል:
 
 - **ሒሳብ የሚፈልጉ ቪዲዮዎች፣ ኩኪዎችን ወደ ውጭ ሳይልኩ** — የግል፣ የአባላት-ብቻ እና ዕድሜ-የተገደቡ ቪዲዮዎች (በዕድሜ በተረጋገጠ ሒሳብ)፣ እንዲሁም የWatch Later እና Liked ዝርዝሮችዎ፣ እንዲሁም በሌሎች ጣቢያዎች ላይ ከመግቢያ ጀርባ ያሉ ቪዲዮዎች። ቀላል መጠቅለያ cookies.txt ወደ ውጭ መላክ ይፈልጋል ወይም የድር browserዎን ኩኪዎች ማንበብ አለበት፣ ይህን ደግሞ Chrome በWindows ላይ አሁን ያግዳል። በArroxy ውስጥ በExplore አንድ ጊዜ ይገባሉ፣ ቀሪውን ራሱ ይሠራል
-- **«ቦት አለመሆንዎን ለማረጋገጥ ይግቡ»** — YouTube ይህን ሲጠይቅ፣ Arroxy ከመውደቅ ይልቅ በExplore መግቢያዎ ማውረዱን እንደገና ይሞክራል
-- **የYouTube የማውረጃ ቶከን** — የArroxy አብሮ የተሠራ browser YouTube ከማውረድ በፊት የሚጠብቀውን ቶከን ያገኛል። ያለ እሱ YouTube ከጠየቁት ያነሱ ቅርጸቶችን እና ዝቅተኛ ጥራት ሊያቀርብ ይችላል
 - **ሊንክ መገልበጥ አያስፈልግም** — በExplore ውስጥ ቪዲዮ፣ playlist ወይም channel ያግኙ እና በአንድ ጠቅታ ያውርዱ፣ ወይም በገጹ ላይ ማንኛውንም ሊንክ በቀኝ ጠቅ ያድርጉ
 - **ማስታወቂያ ማገጃ ሲፈልጉ** — በጋሻው ላይ አንድ ጠቅታ በExplore ገጾች ላይ ማስታወቂያዎችን እና መከታተያዎችን ያግዳል
 
@@ -662,7 +661,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 የአጠቃቀም ደንቦች
+## <a id="terms"></a>📜 የአጠቃቀም ደንቦች
 
 Arroxy ለግል፣ ሚስጥራዊ አጠቃቀም ብቻ ሶፍትዌር ነው። ማውረዶቹ የ YouTube [የአገልግሎት ደንቦቹን](https://www.youtube.com/t/terms) እና የቦታዎ የቅጂ መብት ሕጎቹን ማክበር ሙሉ ኃላፊነትዎ ነው። Arroxy ን ለማውረድ፣ ለማባዛት ወይም ሊጠቀሙበት የማይፈቅዱ ይዘቶችን ለማሰራጨት አይጠቀሙ። ገንቢዎቹ ለምን ዓይነት አላግባብ አጠቃቀም ኃላፊነት አይወስዱም።
 

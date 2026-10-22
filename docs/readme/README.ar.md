@@ -3,7 +3,7 @@
 
 # Arroxy — محمّل يوتيوب (+ 2000 موقع) مجاني ومفتوح المصدر مع متصفح مدمج لـ Windows وmacOS وLinux
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **اقرأ بـ:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · **العربية** · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -49,6 +49,7 @@
 - [🗺️ خارطة الطريق](#roadmap)
 - [💖 ادعم Arroxy](#support)
 - [🛠️ مبني باستخدام](#tech)
+- [📜 شروط الاستخدام](#terms)
 
 ---
 
@@ -360,7 +361,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 مقارنة جنباً إلى جنب مع أكثر البدائل شيوعاً:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | متصفح مدمج (تصفّح، سجّل الدخول، نزّل) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | الفيديوهات الخاصة وفيديوهات الأعضاء فقط والمقيَّدة بالعمر دون تصدير الكوكيز |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -380,8 +381,6 @@ Arroxy مبني لغرض واحد: ملف محلي نظيف، سواء ألصق�
 معظم برامج تنزيل YouTube المجانية مجرد خانة للرابط فوق yt-dlp. يستخدم Arroxy أيضاً yt-dlp، لكنه يضم كذلك **Explore**، متصفح مدمج في التطبيق يفتح YouTube أو أي موقع آخر. يتجاوز Explore قيوداً لا تستطيع خانة الرابط تجاوزها:
 
 - **فيديوهات تحتاج إلى حساب، دون تصدير الكوكيز** — الفيديوهات الخاصة وفيديوهات الأعضاء فقط والمقيَّدة بالعمر (بحساب موثَّق العمر)، إضافةً إلى قائمتَي «المشاهدة لاحقاً» و«الإعجابات»، وفيديوهات خلف تسجيل الدخول على مواقع أخرى. تحتاج الواجهة البسيطة إلى تصدير ملف cookies.txt أو إلى قراءة كوكيز متصفح الويب لديك، وهو ما بات Chrome على Windows يحظره. أما في Arroxy فتسجّل الدخول مرة واحدة في Explore ويتولّى هو الباقي
-- **«سجّل الدخول لتأكيد أنك لست روبوتاً»** — عندما يطلب YouTube ذلك، يعيد Arroxy محاولة التنزيل بتسجيل دخولك في Explore بدلاً من أن يفشل
-- **رمز التنزيل من YouTube** — يحصل المتصفح المدمج في Arroxy على الرمز الذي يتوقعه YouTube قبل التنزيل. ومن دونه قد يقدّم YouTube صيغاً أقل وجودة أدنى مما طلبت
 - **بلا نسخ روابط** — اعثر على فيديو أو قائمة تشغيل أو قناة في Explore ونزّلها بنقرة واحدة، أو انقر بزر الفأرة الأيمن على أي رابط في الصفحة
 - **مانع الإعلانات عند الطلب** — نقرة واحدة على الدرع تحجب الإعلانات وأدوات التتبع في صفحات Explore
 
@@ -662,7 +661,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 شروط الاستخدام
+## <a id="terms"></a>📜 شروط الاستخدام
 
 Arroxy أداة للاستخدام الشخصي الخاص فقط. أنت مسؤول مسؤولية كاملة عن ضمان امتثال تنزيلاتك لـ [شروط خدمة](https://www.youtube.com/t/terms) يوتيوب وقوانين حقوق النشر في ولايتك القضائية. لا تستخدم Arroxy لتنزيل أو إعادة إنتاج أو توزيع محتوى ليس لديك حق استخدامه. المطوّرون غير مسؤولين عن أي إساءة استخدام.
 

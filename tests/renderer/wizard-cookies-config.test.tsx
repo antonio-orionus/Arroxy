@@ -321,7 +321,7 @@ describe('incomplete cookies config guard', () => {
 		useAppStore.setState({wizardUrl: SINGLE_URL, quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'bulk-probe', error: {kind: 'ytdlp', error: {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"}}, errorUrl: SINGLE_URL, urls: [SINGLE_URL], failedCount: 1}})
 		render(<StepUrlInput />)
 
-		expect(screen.getByTestId('quick-download-feedback')).toHaveTextContent('Bot protection triggered.')
+		expect(screen.getByTestId('quick-download-feedback')).toHaveTextContent("The site's bot protection stopped this download.")
 		expect(screen.getByTestId('bot-wall-notice')).toHaveTextContent('Probe was limited')
 		expect(screen.getByTestId('bot-wall-notice')).toHaveTextContent('Set up cookies in advanced settings')
 		expect(screen.getByTestId('cookies-error-alert')).toHaveAttribute('data-density', 'compact')
@@ -420,7 +420,7 @@ describe('incomplete cookies config guard', () => {
 
 		const alert = screen.getByTestId('quick-download-feedback')
 		expect(alert).toHaveTextContent('None of those URLs could be prepared')
-		expect(alert).toHaveTextContent('Bot protection triggered.')
+		expect(alert).toHaveTextContent("The site's bot protection stopped this download.")
 		expect(screen.getByTestId('quick-download-cookies-settings')).toBeInTheDocument()
 	})
 

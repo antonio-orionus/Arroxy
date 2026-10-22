@@ -96,7 +96,7 @@ export const en = {
   discord_badge_text: "Join the Discord Community",
   discord_badge_encoded: "Join%20the%20Discord%20Community",
   hero_desc:
-    "Download videos, Shorts, music, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 8K HDR at 60 fps, as MP3 / AAC / Opus, or just the part you need. **Browse YouTube or any other site inside Arroxy** in the Explore tab and download the video, playlist, or channel you're on; sign in there to download private, members-only, and age-restricted videos your account can watch. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**",
+    "Download videos, Shorts, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 8K HDR at 60 fps, as MP3 / AAC / Opus, or just the part you need. **Browse YouTube or any other site inside Arroxy** in the Explore tab and download the video, playlist, or channel you're on; sign in there to download videos your own account can already watch. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**",
   cta_latest: "↓ Install Latest Release",
   cta_website: "Website",
   website_url: "https://arroxy.com/",
@@ -105,7 +105,7 @@ export const en = {
   intro_what_is:
     "**What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). GPLv3 licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.",
   intro_key_difference:
-    "**Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).",
+    "**Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. If you sign in once in Explore, downloads that need an account use that sign-in: your private videos, your Watch Later and Liked lists, and other videos your account can already watch, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. Details: [Why Arroxy](#why-explore).",
   last_updated: "Last updated: {{LAST_UPDATED}}.",
   toc_heading: "Contents",
   why_h2: "Why Arroxy",
@@ -123,20 +123,16 @@ export const en = {
   why_r6: "Cross-platform desktop app",
   why_r7: "Subtitles + SponsorBlock",
   why_r8: "Built-in browser (browse, sign in, download)",
-  why_r9: "Private, members-only & age-restricted videos without exporting cookies",
+  why_r9: "Videos your own account can watch, without exporting cookies",
   why_table_note:
     "⚠️ = partly, or only on a paid tier. 4K Video Downloader's in-app sign-in for private videos is a paid feature; most free yt-dlp GUIs only accept a cookies file or read your web browser's cookies.",
   why_summary:
     "Arroxy is built for one thing: a clean local file, whether you paste a URL or find the video in Explore. No upsells, no data collection.",
   why_explore_h3: "What a plain yt-dlp wrapper can't do: the Explore tab",
   why_explore_intro:
-    "Most free YouTube downloaders are a URL box on top of yt-dlp. Arroxy uses yt-dlp too, but it also has **Explore**, a browser built into the app that opens YouTube or any other site. Explore gets past limits that a URL box can't:",
+    "Most free YouTube downloaders are a URL box on top of yt-dlp. Arroxy uses yt-dlp too, but it also has **Explore**, a browser built into the app that opens YouTube or any other site. Explore adds what a URL box can't:",
   why_explore_1:
-    "**Videos that need an account, without exporting cookies** — private, members-only, and age-restricted videos (on an age-verified account), plus your Watch Later and Liked lists, and videos behind a sign-in on other sites. A plain wrapper needs a cookies.txt export or must read your web browser's cookies, which Chrome on Windows now blocks. In Arroxy you sign in once in Explore and it does the rest",
-  why_explore_2:
-    "**\"Sign in to confirm you're not a bot\"** — when YouTube asks this, Arroxy tries the download again with your Explore sign-in instead of failing",
-  why_explore_3:
-    "**YouTube's download token** — Arroxy's built-in browser gets the token YouTube expects before a download. Without it, YouTube can serve fewer formats and lower quality than you asked for",
+    "**Videos your account can watch, without exporting cookies** — your private videos, your Watch Later and Liked lists, age-restricted videos on an age-verified account, and pages on other sites that need your sign-in. A plain wrapper needs a cookies.txt export or reads your web browser's cookies. In Arroxy you sign in once in Explore and it does the rest",
   why_explore_4:
     "**No copying links** — find a video, playlist, or channel in Explore and download it with one click, or right-click any link on the page",
   why_explore_5:
@@ -151,7 +147,7 @@ export const en = {
   feat_explore_2:
     "**Address bar** — type to search YouTube, or enter any web address to open that site",
   feat_explore_3:
-    "**Downloads that need an account** — sign in once in Explore and Arroxy can download private and members-only videos your account can watch, age-restricted videos if the account is age-verified, and your Watch Later and Liked lists. Sign in to other sites there too, and their downloads use that sign-in when they need it. Arroxy still downloads signed out first and only uses your Explore sign-in when a download fails in a way an account can fix. When YouTube asks you to confirm you're not a bot, Arroxy also tries your Explore sign-in",
+    "**Downloads that need an account** — sign in once in Explore and Arroxy can download videos your account can watch: your private videos, age-restricted videos if the account is age-verified, and your Watch Later and Liked lists. Sign in to other sites there too, and their downloads use that sign-in when they need it. Arroxy still downloads signed out first and only uses your Explore sign-in when a download fails in a way an account can fix",
   feat_explore_4:
     "**Use a secondary account** — Explore's first screen explains why: downloading with an account carries some risk of that account being restricted. Sign out of Explore from Settings whenever you want to forget your sign-ins",
   feat_explore_5:
@@ -196,7 +192,7 @@ export const en = {
   feat_workflow_10:
     "**Downloads at once and automatic retry** — choose how many queued downloads run at the same time, and let Arroxy retry a download that hit a network or server problem, waiting longer before each attempt",
   feat_workflow_11:
-    "**Per-item playlist profiles** — assign each video in a playlist its own download profile instead of one setting for the whole list, so a single pass can archive some at full quality and grab the rest as MP3",
+    "**Per-item playlist profiles** — assign each video in a playlist its own download profile instead of one setting for the whole list, so a single pass can archive some at full quality and save the rest as audio only",
   feat_workflow_13:
     "**Quick Download works in the background** — the link shows up in Downloads right away and prepares there, a note with **View** confirms it, and the URL field clears for the next link. Start as many as you like while earlier ones prepare",
   feat_workflow_14:
@@ -228,7 +224,7 @@ export const en = {
   feat_sites_1:
     "**YouTube, in full** — Videos, Shorts, Channels, Playlists, YouTube Music, and Podcasts handled as first-class sources",
   feat_sites_2:
-    "**2000+ other sites** via yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable, and many more",
+    "**2000+ other sites** via yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable, and many more",
   feat_sites_3:
     "**Audio-only and subtitles** work across every supported site, not just YouTube",
   feat_sites_4:
@@ -249,7 +245,7 @@ export const en = {
     "Arroxy global download hotkey — Ctrl+Shift+D on Windows and Linux, Cmd+Shift+D on macOS, sending the copied link straight into the download queue",
   hotkey_fig_cap:
     "<b>Global download hotkey</b><br/>Copy a link anywhere, press once — it lands in the queue and starts downloading",
-  shot7_cap: "<b>Per-item playlist profiles</b><br/>Give each video its own profile — archive some in 4K, grab the rest as MP3",
+  shot7_cap: "<b>Per-item playlist profiles</b><br/>Give each video its own profile — archive some in 4K, save the rest as audio only",
   shot8_cap:
     "<b>Explore</b><br/>Browse YouTube or any other site inside Arroxy and download the page you're on with your active profile",
   shot9_cap:
@@ -397,7 +393,7 @@ export const en = {
   faq_a1: "Yes — GPLv3 licensed, no premium tier, no feature gating.",
   faq_q11: "How is Arroxy different from other yt-dlp GUIs?",
   faq_a11:
-    "Most free yt-dlp GUIs are wrappers that only take a link. Arroxy adds **Explore**, a browser built into the app that opens YouTube or any other site: you browse and download without copying links, and you sign in there once to download private, members-only, and age-restricted videos and your Watch Later and Liked lists, with no cookie export. Arroxy uses that sign-in when YouTube asks you to confirm you're not a bot, and its built-in browser gets YouTube's download token so downloads don't fall back to fewer formats. See [Why Arroxy](#why).",
+    "Most free yt-dlp GUIs are wrappers that only take a link. Arroxy adds **Explore**, a browser built into the app that opens YouTube or any other site: you browse and download without copying links, and you sign in there once to download videos your account can watch, like your private videos and your Watch Later and Liked lists, with no cookie export. See [Why Arroxy](#why).",
   faq_q2: "What video qualities can I download?",
   faq_a2:
     "Anything YouTube serves: 8K (4320p), 4K UHD (2160p), 1440p, 1080p, 720p, 480p, 360p, plus audio-only. 60 fps and HDR streams are preserved as-is, and the step-by-step download lets you pick AV1, VP9 or H.264 at each resolution.",
@@ -406,10 +402,10 @@ export const en = {
     "Yes. Pick *audio-only* in the format menu and choose MP3, M4A/AAC, Opus, or WAV.",
   faq_q4: "How do I download videos that need a YouTube account?",
   faq_a4:
-    "Sign in once in the Explore tab. Arroxy can then download private and members-only videos your account can watch, age-restricted videos if the account is age-verified, and your Watch Later and Liked lists. It uses the sign-in only when a download fails in a way an account can fix; everything else downloads as before. This is the **Explore sign-in** choice, listed first and marked Recommended in the cookie settings, and Arroxy picks it for you the first time you open Explore. yt-dlp's wiki notes that [signed-in automation can flag a Google account](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), so a secondary account is the safer choice.",
+    "Sign in once in the Explore tab. Arroxy can then download videos your account can watch: your private videos, age-restricted videos if the account is age-verified, and your Watch Later and Liked lists. It uses the sign-in only when a download fails in a way an account can fix; everything else downloads as before. This is the **Explore sign-in** choice, listed first and marked Recommended in the cookie settings, and Arroxy picks it for you the first time you open Explore. yt-dlp's wiki notes that [signed-in automation can flag a Google account](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), so a secondary account is the safer choice.",
   faq_q5: "Will it keep working when YouTube changes something?",
   faq_a5:
-    "yt-dlp is updated automatically on launch, and Arroxy ships fixes promptly when YouTube changes something. When YouTube asks you to confirm you're not a bot, Arroxy also tries your Explore sign-in if you've signed in there, and cookies from a file or your browser are available in the cookie settings.",
+    "yt-dlp is updated automatically on launch, and Arroxy ships fixes promptly when YouTube changes something. When a download needs a sign-in, Arroxy uses your Explore sign-in if you've signed in there, and cookies from a file or your browser are available in the cookie settings.",
   faq_q6: "What languages is Arroxy available in?",
   faq_a6:
     "{{LANG_COUNT}} languages, out of the box: {{LANG_NAME_LIST}}. Arroxy auto-detects your operating system's language on first launch and you can switch at any time from the language picker in the toolbar. Runtime locale JSON lives in src/shared/i18n/locales/, and translator-facing PO catalogs live in i18n/locales/ — open a PR on GitHub to contribute.",
@@ -424,7 +420,7 @@ export const en = {
     'That\'s macOS Gatekeeper blocking an unsigned app, not actual damage. See [macOS first launch](#macos-first-launch) for the Terminal commands that clear quarantine and launch Arroxy.',
   faq_q10: "Is downloading YouTube videos legal?",
   faq_a10:
-    "For personal, private use it is generally accepted in most jurisdictions. You are responsible for complying with YouTube's [Terms of Service](https://www.youtube.com/t/terms) and your local copyright laws.",
+    "It depends on your country and on what you download. Download only content you own, content that is licensed for download, or content the law in your country lets you copy. You are responsible for complying with YouTube's [Terms of Service](https://www.youtube.com/t/terms) and your local copyright laws. See [Terms of use](#terms).",
   plan_intro: "Still planned — roughly in priority order:",
   plan_col1: "Feature",
   plan_col2: "Description",

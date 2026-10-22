@@ -492,7 +492,7 @@ describe('QueueManagerTab', () => {
 		expect(notices).toHaveLength(1)
 		expect(notices[0]).toHaveTextContent('Limited to 360p')
 		expect(notices[0]).not.toHaveAttribute('title')
-		await expectHint(notices[0], /360p[\s\S]*another network/i)
+		await expectHint(notices[0], /360p[\s\S]*try(ing)? again later/i)
 	})
 
 	it('shows one notice covering both a quality limit and failed subtitles', async () => {
@@ -503,7 +503,7 @@ describe('QueueManagerTab', () => {
 		const notice = screen.getByTestId('queue-quality-warning')
 		expect(notice).toHaveTextContent('Limited to 360p')
 		expect(notice.textContent).toMatch(/subtitles/i)
-		await expectHint(notice, /subtitles[\s\S]*another network/i)
+		await expectHint(notice, /subtitles[\s\S]*try(ing)? again later/i)
 	})
 
 	it('names the subtitle languages a finished row lacks, the tooltip saying what was kept', async () => {

@@ -3,7 +3,7 @@
 
 # {{title}}
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **{{read_in_label}}** {{LANG_NAV}}
 
@@ -51,6 +51,7 @@
 - [🗺️ {{roadmap_h2}}](#roadmap)
 - [💖 {{support_h2}}](#support)
 - [🛠️ {{tech_h2}}](#tech)
+- [📜 {{tos_h2}}](#terms)
 
 ---
 
@@ -358,7 +359,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 {{why_intro}}
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | {{why_r8}} |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | {{why_r9}} |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -378,8 +379,6 @@ sha256sum Arroxy-linux-x64.AppImage
 {{why_explore_intro}}
 
 - {{why_explore_1}}
-- {{why_explore_2}}
-- {{why_explore_3}}
 - {{why_explore_4}}
 - {{why_explore_5}}
 
@@ -573,7 +572,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 {{tos_h2}}
+## <a id="terms"></a>📜 {{tos_h2}}
 
 {{tos_note}}
 

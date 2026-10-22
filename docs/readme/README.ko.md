@@ -3,7 +3,7 @@
 
 # Arroxy — 브라우저가 내장된 Windows, macOS, Linux용 무료 오픈 소스 YouTube(+ 2000개 사이트) 다운로더
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **다른 언어로 읽기:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · **한국어** · [繁體中文](README.zh-Hant.md)
 
@@ -51,6 +51,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 - [🗺️ 로드맵](#roadmap)
 - [💖 Arroxy 후원](#support)
 - [🛠️ 사용 기술](#tech)
+- [📜 이용 약관](#terms)
 
 ---
 
@@ -362,7 +363,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 가장 흔한 대안과 항목별로 비교합니다:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | 내장 브라우저(탐색, 로그인, 다운로드) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | 쿠키를 내보내지 않고 비공개·멤버 전용·연령 제한 동영상 다운로드 |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -382,8 +383,6 @@ Arroxy는 한 가지 목적을 위해 만들어졌습니다. URL을 붙여 넣�
 대부분의 무료 YouTube 다운로더는 yt-dlp 위에 URL 입력창을 얹은 것입니다. Arroxy도 yt-dlp를 사용하지만, 앱에 내장된 브라우저인 **Explore**도 갖추고 있으며, YouTube든 다른 사이트든 열 수 있습니다. Explore는 URL 입력창만으로는 넘을 수 없는 제한을 넘어섭니다:
 
 - **계정이 필요한 동영상을 쿠키 내보내기 없이** — 비공개·멤버 전용 동영상, 연령 제한 동영상(연령 인증을 마친 계정), 나중에 볼 동영상과 좋아요 표시한 동영상 목록, 다른 사이트의 로그인이 필요한 동영상까지. 단순한 래퍼는 cookies.txt를 내보내거나 웹 브라우저의 쿠키를 읽어야 하는데, Windows의 Chrome은 이제 이를 차단합니다. Arroxy에서는 Explore에서 한 번 로그인하면 나머지는 알아서 처리합니다
-- **"로그인하여 봇이 아님을 확인하세요"** — YouTube가 이렇게 요구하면 Arroxy는 실패로 끝내지 않고 Explore 로그인으로 다운로드를 다시 시도합니다
-- **YouTube의 다운로드 토큰** — Arroxy의 내장 브라우저는 다운로드 전에 YouTube가 요구하는 토큰을 받아 옵니다. 토큰이 없으면 YouTube가 더 적은 형식과 요청보다 낮은 화질을 제공할 수 있습니다
 - **링크 복사 불필요** — Explore에서 동영상, 재생목록 또는 채널을 찾아 클릭 한 번으로 다운로드하거나, 페이지의 아무 링크나 우클릭하세요
 - **원할 때 켜는 광고 차단** — 방패를 한 번 클릭하면 Explore 페이지의 광고와 트래커를 차단합니다
 
@@ -664,7 +663,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 이용 약관
+## <a id="terms"></a>📜 이용 약관
 
 Arroxy는 개인적이고 비공개인 용도로만 사용하는 도구입니다. 다운로드가 YouTube [서비스 약관](https://www.youtube.com/t/terms)과 사용자의 관할권에 적용되는 저작권법을 준수하는지 확인할 책임은 전적으로 사용자에게 있습니다. 사용 권한이 없는 콘텐츠를 다운로드, 복제 또는 배포하는 데 Arroxy를 사용하지 마세요. 개발자는 오용에 책임지지 않습니다.
 

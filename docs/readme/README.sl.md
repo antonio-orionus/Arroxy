@@ -3,7 +3,7 @@
 
 # Arroxy — brezplačen odprtokodni prenosnik za YouTube (+ 2000 spletnih mest) z vgrajenim brskalnikom, za Windows, macOS in Linux
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Beri v jeziku:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · **Slovenščina** · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -51,6 +51,7 @@ Prenesite videoposnetke, Shorts, glasbo, kanale, podkaste ali zvočne posnetke z
 - [🗺️ Načrt razvoja](#roadmap)
 - [💖 Podprite Arroxy](#support)
 - [🛠️ Izdelano z](#tech)
+- [📜 Pogoji uporabe](#terms)
 
 ---
 
@@ -362,7 +363,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 Primerjava z najpogostejšimi alternativami:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Vgrajen brskalnik (brskanje, prijava, prenos) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | Zasebni videoposnetki, videoposnetki samo za člane in starostno omejeni videoposnetki brez izvoza piškotkov |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -382,8 +383,6 @@ Arroxy je narejen za eno stvar: čisto lokalno datoteko, ne glede na to, ali pri
 Večina brezplačnih prenosnikov za YouTube je polje za URL nad yt-dlp. Tudi Arroxy uporablja yt-dlp, vendar ima tudi **Razišči**, v aplikacijo vgrajen brskalnik, ki odpre YouTube ali katero koli drugo spletno mesto. Razišči preseže omejitve, ki jih polje za URL ne more:
 
 - **Videoposnetki, ki zahtevajo račun, brez izvoza piškotkov** — zasebni videoposnetki, videoposnetki samo za člane in starostno omejeni videoposnetki (pri računu s preverjeno starostjo) ter vaši seznami Ogled pozneje in Všečkano, pa tudi videoposnetki za prijavo na drugih spletnih mestih. Navaden ovoj potrebuje izvoz cookies.txt ali mora prebrati piškotke vašega spletnega brskalnika, kar Chrome v sistemu Windows zdaj blokira. V Arroxy se enkrat prijavite v Razišči, ostalo opravi program
-- **„Prijavite se, da potrdite, da niste bot“** — ko YouTube to zahteva, Arroxy namesto neuspeha ponovno poskusi prenos z vašo prijavo v Razišči
-- **Žeton za prenos YouTuba** — Arroxyjev vgrajeni brskalnik pridobi žeton, ki ga YouTube pričakuje pred prenosom. Brez njega lahko YouTube ponudi manj formatov in nižjo kakovost, kot ste jo zahtevali
 - **Brez kopiranja povezav** — v Razišči poiščite videoposnetek, seznam predvajanja ali kanal in ga prenesite z enim klikom ali pa z desnim klikom na katero koli povezavo na strani
 - **Blokator oglasov, ko ga želite** — en klik na ščit blokira oglase in sledilnike na straneh v Razišči
 
@@ -664,7 +663,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 Pogoji uporabe
+## <a id="terms"></a>📜 Pogoji uporabe
 
 Arroxy je orodje samo za osebno, zasebno uporabo. Izključno vi ste odgovorni, da so vaši prenosi skladni z YouTubovimi [Pogoji uporabe](https://www.youtube.com/t/terms) in zakoni o avtorskih pravicah vaše jurisdikcije. Arroxy ne uporabljajte za prenos, razmnoževanje ali razširjanje vsebine, ki je nimate pravice uporabljati. Razvijalci ne odgovarjajo za nobeno zlorabo.
 

@@ -3,7 +3,7 @@
 
 # Arroxy — កម្មវិធីទាញយក YouTube (+ គេហទំព័រ 2000) ឥតគិតថ្លៃ និងកូដចំហ មានកម្មវិធីរុករកភ្ជាប់មកជាមួយ សម្រាប់ Windows, macOS និង Linux
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **អានជា៖** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · **ខ្មែរ** · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -49,6 +49,7 @@
 - [🗺️ ផែនការ](#roadmap)
 - [💖 គាំទ្រ Arroxy](#support)
 - [🛠️ បង្កើតឡើងដោយ](#tech)
+- [📜 លក្ខខណ្ឌប្រើប្រាស់](#terms)
 
 ---
 
@@ -360,7 +361,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ការប្រៀបធៀបជាមួយជម្រើសផ្សេងទៀតដែលពេញនិយមបំផុត៖
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | កម្មវិធីរុករកភ្ជាប់មកជាមួយ (រុករក ចូលគណនី ទាញយក) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | វីដេអូឯកជន សម្រាប់តែសមាជិក និងកំណត់អាយុ ដោយមិនចាំបាច់នាំចេញ cookies |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -380,8 +381,6 @@ Arroxy ត្រូវបានបង្កើតឡើងសម្រាប់�
 កម្មវិធីទាញយក YouTube ឥតគិតថ្លៃភាគច្រើន គ្រាន់តែជាប្រអប់ URL ដាក់ពីលើ yt-dlp ប៉ុណ្ណោះ។ Arroxy ក៏ប្រើ yt-dlp ដែរ ប៉ុន្តែវាក៏មាន **Explore** ដែលជាកម្មវិធីរុករកដែលបង្កើតនៅក្នុងកម្មវិធីផ្ទាល់ ហើយបើក YouTube ឬគេហទំព័រផ្សេងទៀតបាន។ Explore ឆ្លងកាត់ដែនកំណត់ដែលប្រអប់ URL មិនអាចឆ្លងកាត់បាន៖
 
 - **វីដេអូដែលត្រូវការគណនី ដោយមិនចាំបាច់នាំចេញ cookies** — វីដេអូឯកជន សម្រាប់តែសមាជិក និងកំណត់អាយុ (លើគណនីដែលបានផ្ទៀងផ្ទាត់អាយុ) ព្រមទាំងបញ្ជី Watch Later និង Liked របស់អ្នក និងវីដេអូដែលត្រូវចូលគណនីនៅលើគេហទំព័រផ្សេងទៀត។ wrapper ធម្មតាត្រូវការឯកសារ cookies.txt ដែលបាននាំចេញ ឬត្រូវអាន cookies ពីកម្មវិធីរុករកតាមអ៊ីនធឺណិតរបស់អ្នក ដែល Chrome លើ Windows ឥឡូវនេះទប់ស្កាត់។ ក្នុង Arroxy អ្នកគ្រាន់តែចូលគណនីម្តងក្នុង Explore ហើយវាធ្វើអ្វីៗដែលនៅសល់
-- **"ចូលគណនីដើម្បីបញ្ជាក់ថាអ្នកមិនមែនជា bot"** — នៅពេល YouTube សួររឿងនេះ Arroxy សាកល្បងទាញយកម្តងទៀតដោយប្រើការចូលគណនី Explore របស់អ្នក ជំនួសឱ្យការបរាជ័យ
-- **token ទាញយករបស់ YouTube** — កម្មវិធីរុករកដែលភ្ជាប់មកជាមួយ Arroxy ទទួលបាន token ដែល YouTube រំពឹងទុកមុនការទាញយក។ បើគ្មានវាទេ YouTube អាចផ្តល់ទម្រង់តិចជាង និងគុណភាពទាបជាងអ្វីដែលអ្នកបានស្នើ
 - **មិនចាំបាច់ចម្លងតំណ** — ស្វែងរកវីដេអូ បញ្ជីចាក់ ឬប៉ុស្តិ៍ក្នុង Explore ហើយទាញយកវាដោយចុចតែម្តង ឬចុចកណ្ដុរស្ដាំលើតំណណាមួយនៅលើទំព័រ
 - **កម្មវិធីទប់ស្កាត់ពាណិជ្ជកម្មនៅពេលអ្នកចង់បាន** — ចុចម្តងលើខែល ដើម្បីទប់ស្កាត់ពាណិជ្ជកម្ម និងកម្មវិធីតាមដាននៅលើទំព័រ Explore
 
@@ -662,7 +661,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 លក្ខខណ្ឌប្រើប្រាស់
+## <a id="terms"></a>📜 លក្ខខណ្ឌប្រើប្រាស់
 
 Arroxy គឺជាឧបករណ៍សម្រាប់ការប្រើប្រាស់ផ្ទាល់ខ្លួន និងឯកជនតែប៉ុណ្ណោះ។ អ្នកទទួលខុសត្រូវតែម្នាក់ឯងក្នុងការធានាថាការទាញយករបស់អ្នកអនុលោមតាម [លក្ខខណ្ឌសេវាកម្ម](https://www.youtube.com/t/terms) របស់ YouTube និងច្បាប់រក្សាសិទ្ធិនៃយុត្តាធិការរបស់អ្នក។ កុំប្រើ Arroxy ដើម្បីទាញយក ផលិតឡើងវិញ ឬចែកចាយមាតិកាដែលអ្នកមិនមានសិទ្ធិប្រើ។ អ្នកអភិវឌ្ឍមិនទទួលខុសត្រូវចំពោះការប្រើប្រាស់ខុសណាមួយឡើយ។
 

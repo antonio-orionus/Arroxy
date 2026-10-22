@@ -3,7 +3,7 @@
 
 # Arroxy — Pengunduh YouTube (+ 2000 situs) Sumber Terbuka Gratis dengan Peramban Bawaan untuk Windows, macOS & Linux
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Baca di:** [Afaan Oromoo](README.om.md) · **Bahasa Indonesia** · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -51,6 +51,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 - [🗺️ Peta jalan](#roadmap)
 - [💖 Dukung Arroxy](#support)
 - [🛠️ Dibangun dengan](#tech)
+- [📜 Ketentuan penggunaan](#terms)
 
 ---
 
@@ -362,7 +363,7 @@ Ingin pemindaian malware pihak ketiga? Unggah file di [VirusTotal](https://www.v
 
 Perbandingan berdampingan dengan alternatif yang paling umum:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Browser bawaan (jelajahi, masuk, unduh) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | Video privat, khusus anggota & dengan batasan usia tanpa mengekspor cookie |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -382,8 +383,6 @@ Arroxy dibuat untuk satu hal: file lokal yang bersih, baik Anda menempelkan URL 
 Sebagian besar pengunduh YouTube gratis hanyalah kotak URL di atas yt-dlp. Arroxy juga memakai yt-dlp, tetapi juga punya **Explore**, browser yang terpasang di dalam aplikasi dan membuka YouTube atau situs lain mana pun. Explore menembus batasan yang tidak bisa diatasi oleh kotak URL:
 
 - **Video yang memerlukan akun, tanpa mengekspor cookie** — video privat, khusus anggota, dan dengan batasan usia (dengan akun yang usianya terverifikasi), serta daftar Tonton Nanti dan Disukai Anda, dan video yang memerlukan login di situs lain. Pembungkus biasa memerlukan ekspor cookies.txt atau harus membaca cookie dari browser web Anda, yang kini diblokir oleh Chrome di Windows. Di Arroxy, Anda cukup masuk sekali di Explore dan sisanya beres
-- **"Login untuk mengonfirmasi bahwa Anda bukan bot"** — saat YouTube meminta ini, Arroxy mencoba mengunduh lagi dengan login Explore Anda alih-alih gagal
-- **Token unduhan YouTube** — browser bawaan Arroxy mendapatkan token yang diharapkan YouTube sebelum unduhan dimulai. Tanpanya, YouTube bisa menyajikan lebih sedikit format dan kualitas yang lebih rendah dari yang Anda minta
 - **Tanpa menyalin tautan** — temukan video, daftar putar, atau saluran di Explore lalu unduh dengan satu klik, atau klik kanan tautan mana pun di halaman
 - **Pemblokir iklan saat Anda mau** — satu klik pada ikon perisai membuat Explore memblokir iklan dan pelacak di halamannya sendiri
 
@@ -664,7 +663,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 Ketentuan penggunaan
+## <a id="terms"></a>📜 Ketentuan penggunaan
 
 Arroxy adalah alat untuk penggunaan pribadi dan privat saja. Anda bertanggung jawab penuh untuk memastikan unduhan Anda mematuhi [Ketentuan Layanan](https://www.youtube.com/t/terms) YouTube dan undang-undang hak cipta di yurisdiksi Anda. Jangan gunakan Arroxy untuk mengunduh, mereproduksi, atau mendistribusikan konten yang tidak berhak Anda gunakan. Pengembang tidak bertanggung jawab atas penyalahgunaan apa pun.
 

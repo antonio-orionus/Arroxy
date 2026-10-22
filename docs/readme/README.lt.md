@@ -3,7 +3,7 @@
 
 # Arroxy — nemokama atvirojo kodo YouTube (+ 2000 svetainių) atsisiuntimo programa su integruota naršykle, skirta Windows, macOS ir Linux
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Skaityti kalba:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · **Lietuvių** · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -51,6 +51,7 @@ Jei Arroxy taupo jūsų laiką, ⭐ padės kitiems ją rasti.
 - [🗺️ Plėtros planas](#roadmap)
 - [💖 Paremkite Arroxy](#support)
 - [🛠️ Technologijos](#tech)
+- [📜 Naudojimo sąlygos](#terms)
 
 ---
 
@@ -362,7 +363,7 @@ Norite trečiosios šalies kenkėjiškų programų patikros? Įkelkite failą į
 
 Palyginimas su dažniausiai pasitaikančiomis alternatyvomis:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Integruota naršyklė (naršymas, prisijungimas, atsisiuntimas) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | Privatūs, tik nariams skirti ir amžiaus apribojimą turintys vaizdo įrašai be slapukų eksportavimo |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -382,8 +383,6 @@ Arroxy sukurta vienam dalykui: švariam vietiniam failui — nesvarbu, ar įklij
 Dauguma nemokamų YouTube atsisiuntimo programų yra tiesiog URL laukelis virš yt-dlp. Arroxy taip pat naudoja yt-dlp, bet turi ir **Naršymą** — programoje integruotą naršyklę, atverančią YouTube ar bet kurią kitą svetainę. Naršymas įveikia apribojimus, kurių URL laukelis įveikti negali:
 
 - **Vaizdo įrašai, kuriems reikia paskyros, be slapukų eksportavimo** — privatūs, tik nariams skirti ir amžiaus apribojimą turintys vaizdo įrašai (su amžių patvirtinusia paskyra), taip pat jūsų „Žiūrėti vėliau“ ir „Patikę“ sąrašai bei vaizdo įrašai už prisijungimo kitose svetainėse. Paprastam apvalkalui reikia cookies.txt eksporto arba jis turi skaityti jūsų žiniatinklio naršyklės slapukus, kuriuos Chrome sistemoje Windows dabar blokuoja. Arroxy prisijungiate vieną kartą Naršyme, o visa kita ji padaro pati
-- **„Prisijunkite, kad patvirtintumėte, jog nesate robotas“** — kai YouTube to paprašo, Arroxy bando atsisiųsti iš naujo su jūsų prisijungimu per Naršymą, užuot nepavykusi
-- **YouTube atsisiuntimo žetonas** — Arroxy integruota naršyklė gauna žetoną, kurio YouTube tikisi prieš atsisiuntimą. Be jo YouTube gali pateikti mažiau formatų ir žemesnę kokybę, nei prašėte
 - **Nereikia kopijuoti nuorodų** — raskite vaizdo įrašą, grojaraštį ar kanalą Naršyme ir atsisiųskite vienu spustelėjimu arba spustelėję dešiniuoju pelės mygtuku bet kurią puslapio nuorodą
 - **Skelbimų blokatorius, kai jo norite** — vienas spustelėjimas ant skydo blokuoja skelbimus ir sekimo priemones Naršymo puslapiuose
 
@@ -664,7 +663,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 Naudojimo sąlygos
+## <a id="terms"></a>📜 Naudojimo sąlygos
 
 Arroxy yra įrankis tik asmeniniam, privačiam naudojimui. Esate vienintelis atsakingas už tai, kad jūsų atsisiuntimai atitiktų YouTube [paslaugų teikimo sąlygas](https://www.youtube.com/t/terms) ir jūsų jurisdikcijos autorių teisių įstatymus. Nenaudokite Arroxy atsisiųsti, atkurti ar platinti turinio, kurio neturite teisės naudoti. Kūrėjai neprisiima atsakomybės už netinkamą naudojimą.
 

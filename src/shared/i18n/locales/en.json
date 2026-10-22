@@ -73,12 +73,12 @@
 		"noSubtitlesIn": "This video has no subtitles in {{languages}}.",
 		"ytdlp": {
 			"ageRestricted": "This video is age-restricted and cannot be downloaded without a signed-in account.",
-			"botBlock": "Bot protection triggered. The IP you're using is most likely flagged (datacenter range or busy VPN exit). Change your IP or pick a different VPN endpoint and retry. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships.",
+			"botBlock": "The site's bot protection stopped this download. Wait a while and try again, or download fewer videos at once. If it keeps failing, this may be a temporary site-side change — Arroxy updates its download engine on launch, so the fix lands automatically once it ships.",
 			"chunkTransferFailure": "The server kept cutting the download mid-stream, and Arroxy gave up after retrying. This usually hits the largest video formats (4K HDR / high-bitrate VP9). Retry, switch network/VPN, or pick a lower-resolution format.",
 			"drmProtected": "This video is DRM-protected. Arroxy can't remove DRM, so the file can't be downloaded.",
 			"formatUnavailable": "This video no longer offers the format you picked. Paste the link again and pick from the formats it offers now.",
 			"geoBlocked": "This video is not available in your region.",
-			"ipBlock": "Your IP address appears to be blocked. Try again later or use a VPN.",
+			"ipBlock": "The site is blocking requests from this connection. Try again later.",
 			"loginRequired": "This video needs a signed-in account.",
 			"missingDependency": "Arroxy could not find FFmpeg or FFprobe. Run setup again or set an FFmpeg location, then retry the download.",
 			"network": "Network error. Check your connection and retry.",
@@ -694,14 +694,14 @@
 		"fetchingSponsorBlock": "Contacting SponsorBlock…",
 		"fetchingSubtitles": "Fetching subtitles…",
 		"mergingFormats": "Merging audio and video…",
-		"mintingToken": "Minting YouTube token…",
+		"mintingToken": "Preparing YouTube download…",
 		"movingFiles": "Moving files…",
 		"noSubtitles": "No subtitles in {{languages}}",
 		"outputNotWritable": "Can't save to {{dir}} — Arroxy isn't allowed to write there",
 		"preparingBinaries": "Preparing binaries…",
-		"qualityLimited": "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later or from another network may help.",
-		"qualityLimitedSubtitlesFailed": "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later or from another network may help.",
-		"remintingToken": "Re-minting token…",
+		"qualityLimited": "Saved at {{height}}p — YouTube withheld higher qualities for this download. Trying again later may help.",
+		"qualityLimitedSubtitlesFailed": "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later may help.",
+		"remintingToken": "Preparing YouTube download again…",
 		"retryingSponsorBlock": "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…",
 		"retryingTransfer": "Connection stalled, retrying ({{attempt}}/{{total}})…",
 		"signingInWithExplore": "Signing in with your Explore account…",
@@ -829,7 +829,7 @@
 			"pictures": "Pictures",
 			"subfolder": {
 				"invalid": "Folder name has invalid characters",
-				"placeholder": "e.g. lo-fi rips",
+				"placeholder": "e.g. lectures",
 				"toggle": "Save inside subfolder"
 			},
 			"videos": "Movies"
@@ -1545,7 +1545,7 @@
 				"sourceFile": "File",
 				"sourceLabel": "Cookies source",
 				"sourceOff": "Off",
-				"toggleDescription": "Helps with age-restricted, members-only, and account-private videos."
+				"toggleDescription": "Helps with videos your own account can watch, like your private videos."
 			},
 			"downloadConnections": {
 				"description": "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you.",
@@ -1747,7 +1747,7 @@
 			},
 			"proxy": {
 				"clear": "Clear",
-				"description": "Route traffic through a proxy — useful for geo-restricted content.",
+				"description": "Route traffic through a proxy server.",
 				"label": "Proxy URL",
 				"placeholder": "http://host:port"
 			},

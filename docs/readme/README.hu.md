@@ -3,7 +3,7 @@
 
 # Arroxy — Ingyenes, nyílt forráskódú YouTube- (+ 2000 webhely) letöltő beépített böngészővel Windowsra, macOS-re és Linuxra
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Olvassa el ezen a nyelven:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · **Magyar** · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -51,6 +51,7 @@ Ha az Arroxy időt spórol Önnek, egy ⭐ segít másoknak megtalálni.
 - [🗺️ Ütemterv](#roadmap)
 - [💖 Az Arroxy támogatása](#support)
 - [🛠️ Ezzel készült](#tech)
+- [📜 Felhasználási feltételek](#terms)
 
 ---
 
@@ -362,7 +363,7 @@ Külső kártevővizsgálatot szeretne? Töltse fel a fájlt a [VirusTotalra](ht
 
 Összehasonlítás a leggyakoribb alternatívákkal:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Beépített böngésző (böngészés, bejelentkezés, letöltés) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | Privát, csak tagoknak szóló és korhatáros videók sütik exportálása nélkül |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -382,8 +383,6 @@ Az Arroxy egyetlen dologra készült: egy tiszta, helyi fájlra, akár URL-t ill
 A legtöbb ingyenes YouTube-letöltő egy URL-mező a yt-dlp tetején. Az Arroxy is a yt-dlp-t használja, de van egy **Felfedezése** is: egy az alkalmazásba épített böngésző, amely megnyitja a YouTube-ot vagy bármely más webhelyet. A Felfedezés áttöri azokat a korlátokat, amelyeket egy URL-mező nem tud:
 
 - **Fiókot igénylő videók sütik exportálása nélkül** — privát, csak tagoknak szóló és korhatáros videók (korhatár-ellenőrzött fiókkal), valamint a Megnézendő és a Kedvelt listák, illetve más webhelyeken bejelentkezés mögötti videók. Egy egyszerű burkolónak cookies.txt-exportra van szüksége, vagy a webböngésző sütijeit kell olvasnia, amit a Chrome Windowson már blokkol. Az Arroxyban egyszer bejelentkezik a Felfedezésben, a többit az Arroxy elvégzi
-- **„Jelentkezzen be annak megerősítéséhez, hogy nem robot”** — amikor a YouTube ezt kéri, az Arroxy a Felfedezés-bejelentkezéssel újrapróbálja a letöltést a hibaüzenet helyett
-- **A YouTube letöltési tokenje** — az Arroxy beépített böngészője megszerzi azt a tokent, amelyet a YouTube a letöltés előtt elvár. Enélkül a YouTube kevesebb formátumot és alacsonyabb minőséget kínálhat, mint amit kért
 - **Nincs hivatkozásmásolás** — keressen meg egy videót, lejátszási listát vagy csatornát a Felfedezésben, és töltse le egy kattintással, vagy kattintson jobb gombbal bármely hivatkozásra az oldalon
 - **Hirdetésblokkoló, ha kell** — egy kattintás a pajzsra letiltja a hirdetéseket és a nyomkövetőket a Felfedezés oldalain
 
@@ -664,7 +663,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 Felhasználási feltételek
+## <a id="terms"></a>📜 Felhasználási feltételek
 
 Az Arroxy kizárólag személyes, privát használatra szánt eszköz. Kizárólag Ön felel azért, hogy a letöltései megfeleljenek a YouTube [Szolgáltatási feltételeinek](https://www.youtube.com/t/terms) és a joghatósága szerzői jogi törvényeinek. Ne használja az Arroxyt olyan tartalom letöltésére, sokszorosítására vagy terjesztésére, amelynek felhasználására nincs joga. A fejlesztők nem felelnek a visszaélésekért.
 

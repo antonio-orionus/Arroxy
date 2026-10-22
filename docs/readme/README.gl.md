@@ -3,7 +3,7 @@
 
 # Arroxy — Descargador gratuíto e de código aberto de YouTube (+ 2000 sitios) cun navegador integrado, para Windows, macOS e Linux
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Ler en:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · **Galego** · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -51,6 +51,7 @@ Se Arroxy che aforra tempo, unha ⭐ axuda a que outros o atopen.
 - [🗺️ Folla de ruta](#roadmap)
 - [💖 Apoia Arroxy](#support)
 - [🛠️ Feito con](#tech)
+- [📜 Termos de uso](#terms)
 
 ---
 
@@ -362,7 +363,7 @@ Queres unha análise de malware de terceiros? Sube o ficheiro a [VirusTotal](htt
 
 Unha comparación lado a lado coas alternativas máis comúns:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Navegador integrado (navegar, iniciar sesión, descargar) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | Vídeos privados, só para membros e con restrición de idade sen exportar cookies |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -382,8 +383,6 @@ Arroxy está feito para unha soa cousa: un ficheiro local limpo, tanto se pegas 
 A maioría dos descargadores gratuítos de YouTube son unha caixa de URL sobre yt-dlp. Arroxy tamén usa yt-dlp, pero ademais ten **Explorar**, un navegador integrado na aplicación que abre YouTube ou calquera outro sitio. Explorar supera límites que unha caixa de URL non pode:
 
 - **Vídeos que requiren unha conta, sen exportar cookies** — vídeos privados, só para membros e con restrición de idade (nunha conta con idade verificada), ademais das túas listas Ver máis tarde e Gústame, e vídeos tras un inicio de sesión noutros sitios. Un envoltorio simple precisa unha exportación de cookies.txt ou ten que ler as cookies do teu navegador web, algo que Chrome en Windows agora bloquea. En Arroxy inicias sesión unha vez en Explorar e el fai o resto
-- **«Inicia sesión para confirmar que non es un robot»** — cando YouTube pide isto, Arroxy volve tentar a descarga co teu inicio de sesión de Explorar en vez de fallar
-- **O token de descarga de YouTube** — o navegador integrado de Arroxy obtén o token que YouTube espera antes dunha descarga. Sen el, YouTube pode ofrecer menos formatos e menor calidade da que pediches
 - **Sen copiar ligazóns** — atopa un vídeo, lista de reprodución ou canle en Explorar e descárgao cun clic, ou fai clic co botón dereito en calquera ligazón da páxina
 - **Bloqueador de anuncios cando o queiras** — un clic no escudo bloquea anuncios e rastreadores nas páxinas de Explorar
 
@@ -664,7 +663,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 Termos de uso
+## <a id="terms"></a>📜 Termos de uso
 
 Arroxy é unha ferramenta só para uso persoal e privado. Es o único responsable de asegurar que as túas descargas cumpran os [Termos do servizo](https://www.youtube.com/t/terms) de YouTube e as leis de dereitos de autor da túa xurisdición. Non uses Arroxy para descargar, reproducir ou distribuír contido que non teñas dereito a usar. Os desenvolvedores non se fan responsables de ningún mal uso.
 

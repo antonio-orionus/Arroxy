@@ -3,7 +3,7 @@
 
 # Arroxy — bezmaksas atvērtā koda YouTube (+ 2000 vietņu) lejupielādētājs ar iebūvētu pārlūku operētājsistēmām Windows, macOS un Linux
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Lasīt valodā:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · **Latviešu** · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -51,6 +51,7 @@ Ja Arroxy ietaupa jūsu laiku, ⭐ palīdz citiem to atrast.
 - [🗺️ Attīstības plāns](#roadmap)
 - [💖 Atbalstiet Arroxy](#support)
 - [🛠️ Izveidots ar](#tech)
+- [📜 Lietošanas noteikumi](#terms)
 
 ---
 
@@ -362,7 +363,7 @@ Vēlaties trešās puses ļaunprogrammatūras skenēšanu? Augšupielādējiet f
 
 Salīdzinājums ar visbiežāk sastopamajām alternatīvām:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Iebūvēts pārlūks (pārlūkošana, pierakstīšanās, lejupielāde) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | Privāti, tikai dalībniekiem paredzēti un vecuma ierobežoti videoklipi bez sīkfailu eksportēšanas |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -382,8 +383,6 @@ Arroxy ir veidots vienam mērķim: tīram lokālam failam neatkarīgi no tā, va
 Lielākā daļa bezmaksas YouTube lejupielādētāju ir URL lodziņš virs yt-dlp. Arroxy arī izmanto yt-dlp, bet tam ir arī **Izpēte** — lietotnē iebūvēts pārlūks, kas atver YouTube vai jebkuru citu vietni. Izpēte pārvar ierobežojumus, ko URL lodziņš nespēj:
 
 - **Videoklipi, kuriem nepieciešams konts, bez sīkfailu eksportēšanas** — privāti, tikai dalībniekiem paredzēti un vecuma ierobežoti videoklipi (kontam ar apstiprinātu vecumu), kā arī jūsu saraksti Skatīties vēlāk un Patīk, un videoklipi aiz pierakstīšanās citās vietnēs. Vienkāršam apvalkam nepieciešams cookies.txt eksports vai tam jānolasa jūsu tīmekļa pārlūka sīkfaili, ko Chrome sistēmā Windows tagad bloķē. Arroxy jūs pierakstāties vienreiz sadaļā Izpēte, un viss pārējais notiek automātiski
-- **„Pierakstieties, lai apstiprinātu, ka neesat robots”** — kad YouTube to prasa, Arroxy mēģina lejupielādi vēlreiz ar jūsu pierakstīšanos sadaļā Izpēte, nevis neizdodas
-- **YouTube lejupielādes pilnvara** — Arroxy iebūvētais pārlūks iegūst pilnvaru, ko YouTube gaida pirms lejupielādes. Bez tās YouTube var piedāvāt mazāk formātu un zemāku kvalitāti, nekā pieprasījāt
 - **Nav jākopē saites** — atrodiet video, atskaņošanas sarakstu vai kanālu sadaļā Izpēte un lejupielādējiet ar vienu klikšķi vai ar peles labo pogu noklikšķiniet uz jebkuras saites lapā
 - **Reklāmu bloķētājs, kad vēlaties** — viens klikšķis uz vairoga bloķē reklāmas un izsekotājus sadaļas Izpēte lapās
 
@@ -664,7 +663,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 Lietošanas noteikumi
+## <a id="terms"></a>📜 Lietošanas noteikumi
 
 Arroxy ir rīks tikai personīgai, privātai lietošanai. Jūs esat vienīgi atbildīgs par to, lai jūsu lejupielādes atbilstu YouTube [pakalpojumu sniegšanas noteikumiem](https://www.youtube.com/t/terms) un jūsu jurisdikcijas autortiesību likumiem. Neizmantojiet Arroxy, lai lejupielādētu, reproducētu vai izplatītu saturu, ko jums nav tiesību izmantot. Izstrādātāji nav atbildīgi par ļaunprātīgu izmantošanu.
 

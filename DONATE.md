@@ -1,6 +1,6 @@
 # Supporting Arroxy
 
-Arroxy is free software under the GNU GPL v3 — no ads, no telemetry, no account,
+Arroxy is free software under the GNU GPL v3 — no ads, no tracking, no account,
 no paid tier, and no usage limits. Donations are optional and buy no influence
 over the roadmap; feature priority is decided in [public issues](../../issues).
 
@@ -11,7 +11,7 @@ These cost nothing, and they help more than a small donation does:
 - **Star the repo** — it's how most people find Arroxy
 - **Report bugs** with your OS version and `main.log`
 - **Translate** — every locale drifts as features land
-- **Tell someone** still using an ad-riddled online converter
+- **Tell someone** who could use it
 
 ---
 

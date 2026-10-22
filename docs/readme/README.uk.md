@@ -3,7 +3,7 @@
 
 # Arroxy — безкоштовний завантажувач YouTube (+ 2000 сайтів) із відкритим кодом і вбудованим браузером для Windows, macOS та Linux
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Мова:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · **Українська** · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -51,6 +51,7 @@
 - [🗺️ Дорожня карта](#roadmap)
 - [💖 Підтримати Arroxy](#support)
 - [🛠️ Технології](#tech)
+- [📜 Умови використання](#terms)
 
 ---
 
@@ -362,7 +363,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 Порівняння з найпоширенішими альтернативами:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Вбудований браузер (перегляд, вхід, завантаження) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | Приватні відео, відео лише для учасників і з віковим обмеженням без експорту cookies |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -382,8 +383,6 @@ Arroxy створений для однієї задачі: чистий лок�
 Більшість безкоштовних завантажувачів YouTube — це поле для URL поверх yt-dlp. Arroxy теж використовує yt-dlp, але в ньому є **Explore** — браузер, вбудований у застосунок, який відкриває YouTube або будь-який інший сайт. Explore обходить обмеження, з якими поле для URL не впорається:
 
 - **Відео, що потребують акаунта, без експорту cookies** — приватні відео, відео лише для учасників і з віковим обмеженням (на акаунті, підтвердженому за віком), а також ваші списки «Дивитися пізніше» та «Вподобані», а також відео за входом на інших сайтах. Простій обгортці потрібен експорт cookies.txt або доступ до cookies вашого браузера, а Chrome у Windows тепер такий доступ блокує. В Arroxy достатньо один раз увійти в Explore — решту застосунок зробить сам
-- **«Увійдіть, щоб підтвердити, що ви не бот»** — коли YouTube про це просить, Arroxy не здається, а повторює завантаження з вашим входом в Explore
-- **Токен завантаження YouTube** — вбудований браузер Arroxy отримує токен, на який YouTube чекає перед завантаженням. Без нього YouTube може віддати менше форматів і нижчу якість, ніж ви запросили
 - **Без копіювання посилань** — знайдіть відео, плейлист або канал в Explore і завантажте його одним кліком або клацніть правою кнопкою на будь-яке посилання на сторінці
 - **Блокувальник реклами, коли він потрібен** — один клік по щиту блокує рекламу й трекери на сторінках Explore
 
@@ -664,7 +663,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 Умови використання
+## <a id="terms"></a>📜 Умови використання
 
 Arroxy — інструмент виключно для особистого, приватного використання. Ви одноосібно відповідаєте за те, щоб ваші завантаження відповідали [Умовам використання](https://www.youtube.com/t/terms) YouTube та авторському праву вашої юрисдикції. Не використовуйте Arroxy для завантаження, відтворення чи розповсюдження контенту, на який ви не маєте прав. Розробники не несуть відповідальності за зловживання.
 

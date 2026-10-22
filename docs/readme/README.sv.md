@@ -3,7 +3,7 @@
 
 # Arroxy — gratis hämtare med öppen källkod för YouTube (+ 2 000 webbplatser) med inbyggd webbläsare, för Windows, macOS och Linux
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Läs på:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · **Svenska** · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -51,6 +51,7 @@ Om Arroxy sparar tid åt dig hjälper en ⭐ andra att hitta det.
 - [🗺️ Färdplan](#roadmap)
 - [💖 Stöd Arroxy](#support)
 - [🛠️ Byggt med](#tech)
+- [📜 Användarvillkor](#terms)
 
 ---
 
@@ -362,7 +363,7 @@ Vill du ha en skanning efter skadlig kod från tredje part? Ladda upp filen på 
 
 En jämförelse sida vid sida med de vanligaste alternativen:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Inbyggd webbläsare (surfa, logga in, hämta) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | Privata videor, videor för medlemmar och åldersbegränsade videor utan att exportera cookies |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -382,8 +383,6 @@ Arroxy är byggt för en enda sak: en ren lokal fil, oavsett om du klistrar in e
 De flesta gratis YouTube-hämtare är en webbadressruta ovanpå yt-dlp. Arroxy använder också yt-dlp, men har dessutom **Utforska**, en webbläsare inbyggd i appen som öppnar YouTube eller någon annan webbplats. Utforska tar sig förbi begränsningar som en webbadressruta inte klarar:
 
 - **Videor som kräver ett konto, utan att exportera cookies** — privata videor, videor för medlemmar och åldersbegränsade videor (på ett åldersverifierat konto), plus dina listor Titta senare och Gillade, och videor bakom en inloggning på andra webbplatser. Ett enkelt omslag kräver en exporterad cookies.txt eller måste läsa cookies från din webbläsare, vilket Chrome i Windows numera blockerar. I Arroxy loggar du in en gång i Utforska så sköter det resten
-- **”Logga in för att bekräfta att du inte är en robot”** — när YouTube frågar det försöker Arroxy hämta igen med din inloggning i Utforska i stället för att misslyckas
-- **YouTubes hämtningstoken** — Arroxys inbyggda webbläsare hämtar den token som YouTube förväntar sig före en hämtning. Utan den kan YouTube erbjuda färre format och lägre kvalitet än du bad om
 - **Inget kopierande av länkar** — hitta en video, spellista eller kanal i Utforska och hämta den med ett klick, eller högerklicka på valfri länk på sidan
 - **Annonsblockerare när du vill ha den** — ett klick på skölden blockerar annonser och spårare på Utforskas sidor
 
@@ -664,7 +663,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 Användarvillkor
+## <a id="terms"></a>📜 Användarvillkor
 
 Arroxy är ett verktyg endast för personligt, privat bruk. Du ansvarar själv för att dina hämtningar följer YouTubes [användarvillkor](https://www.youtube.com/t/terms) och upphovsrättslagarna i din jurisdiktion. Använd inte Arroxy för att hämta, kopiera eller distribuera innehåll som du inte har rätt att använda. Utvecklarna ansvarar inte för missbruk.
 

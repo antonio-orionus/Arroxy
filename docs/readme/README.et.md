@@ -3,7 +3,7 @@
 
 # Arroxy — tasuta avatud lähtekoodiga YouTube’i (+ 2000 saidi) allalaadija sisseehitatud brauseriga, Windowsile, macOS-ile ja Linuxile
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Loe keeles:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · **Eesti** · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -51,6 +51,7 @@ Kui Arroxy säästab teie aega, aitab ⭐ teistel seda leida.
 - [🗺️ Arenduskava](#roadmap)
 - [💖 Toeta Arroxyt](#support)
 - [🛠️ Ehitatud tehnoloogiatega](#tech)
+- [📜 Kasutustingimused](#terms)
 
 ---
 
@@ -362,7 +363,7 @@ Soovite kolmanda osapoole pahavaraskannimist? Laadige fail üles teenusesse [Vir
 
 Võrdlus levinumate alternatiividega:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Sisseehitatud brauser (sirvimine, sisselogimine, allalaadimine) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | Privaatsed, ainult liikmetele mõeldud ja vanusepiiranguga videod ilma küpsiseid eksportimata |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -382,8 +383,6 @@ Arroxy on loodud ühe asja jaoks: puhas kohalik fail, olgu siis URL-i kleepimise
 Enamik tasuta YouTube’i allalaadijaid on lihtsalt URL-i kast yt-dlp peal. Arroxy kasutab samuti yt-dlp-d, kuid sellel on ka **Avasta** — rakendusse sisseehitatud brauser, mis avab YouTube’i või mis tahes muu saidi. Avasta ületab piirangud, mida URL-i kast ei suuda:
 
 - **Kontot nõudvad videod ilma küpsiseid eksportimata** — privaatsed, ainult liikmetele mõeldud ja vanusepiiranguga videod (vanuse kinnitanud kontol), samuti teie loend Vaata hiljem ja Meeldinud videod ning videod, mis on teistel saitidel sisselogimise taga. Tavaline ümbris vajab cookies.txt eksporti või peab lugema teie veebibrauseri küpsiseid, mida Chrome Windowsis nüüd blokeerib. Arroxys logite Avastas korra sisse ja ülejäänu teeb rakendus
-- **„Sign in to confirm you’re not a bot“** — kui YouTube seda küsib, proovib Arroxy allalaadimist uuesti teie Avasta sisselogimisega, selle asemel et ebaõnnestuda
-- **YouTube’i allalaadimistunnus** — Arroxy sisseehitatud brauser hangib tunnuse, mida YouTube enne allalaadimist ootab. Ilma selleta võib YouTube pakkuda vähem vorminguid ja madalamat kvaliteeti, kui küsisite
 - **Linke pole vaja kopeerida** — leidke video, esitusloend või kanal Avastas ja laadige see alla ühe klõpsuga või paremklõpsake mis tahes linki lehel
 - **Reklaamiblokeerija, kui seda soovite** — üks klõps kilbil blokeerib reklaamid ja jälgijad Avasta lehtedel
 
@@ -664,7 +663,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 Kasutustingimused
+## <a id="terms"></a>📜 Kasutustingimused
 
 Arroxy on tööriist ainult isiklikuks, privaatseks kasutamiseks. Vastutate üksnes selle eest, et teie allalaadimised vastaksid YouTube’i [teenusetingimustele](https://www.youtube.com/t/terms) ja teie jurisdiktsiooni autoriõiguse seadustele. Ärge kasutage Arroxyt sisu allalaadimiseks, reprodutseerimiseks ega levitamiseks, mille kasutamise õigust teil pole. Arendajad ei vastuta kuritarvitamise eest.
 

@@ -3,7 +3,7 @@
 
 # Arroxy — ilmainen avoimen lähdekoodin YouTube- (+ 2000 sivustoa) lataaja sisäänrakennetulla selaimella Windowsille, macOS:lle ja Linuxille
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Lue kielellä:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · **Suomi** · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -51,6 +51,7 @@ Jos Arroxy säästää aikaasi, ⭐ auttaa muita löytämään sen.
 - [🗺️ Tiekartta](#roadmap)
 - [💖 Tue Arroxya](#support)
 - [🛠️ Rakennettu näillä](#tech)
+- [📜 Käyttöehdot](#terms)
 
 ---
 
@@ -362,7 +363,7 @@ Haluatko kolmannen osapuolen haittaohjelmatarkistuksen? Lataa tiedosto palveluun
 
 Vertailu yleisimpiin vaihtoehtoihin:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Sisäänrakennettu selain (selaa, kirjaudu, lataa) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | Yksityiset, vain jäsenille tarkoitetut ja ikärajoitetut videot ilman evästeiden vientiä |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -382,8 +383,6 @@ Arroxy on tehty yhtä asiaa varten: siistiä paikallista tiedostoa varten, liiti
 Useimmat ilmaiset YouTube-lataajat ovat yt-dlp:n päälle tehty URL-kenttä. Arroxykin käyttää yt-dlp:tä, mutta siinä on myös **Tutki**, sovellukseen rakennettu selain, joka avaa YouTuben tai minkä tahansa muun sivuston. Tutki ylittää rajoitukset, joihin URL-kenttä ei yllä:
 
 - **Tilin vaativat videot ilman evästeiden vientiä** — yksityiset, vain jäsenille tarkoitetut ja ikärajoitetut videot (ikävarmennetulla tilillä) sekä Katso myöhemmin- ja Tykätyt-luettelosi ja muiden sivustojen kirjautumisen takana olevat videot. Pelkkä kääre tarvitsee cookies.txt-viennin tai sen on luettava verkkoselaimesi evästeet, jotka Chrome Windowsissa nykyään estää. Arroxyssa kirjaudut kerran Tutki-välilehdellä, ja loput hoituu itsestään
-- **”Kirjaudu sisään vahvistaaksesi, ettet ole botti”** — kun YouTube kysyy tätä, Arroxy yrittää latausta uudelleen Tutki-kirjautumisellasi epäonnistumisen sijaan
-- **YouTuben latausmerkki** — Arroxyn sisäänrakennettu selain hakee merkin, jota YouTube odottaa ennen latausta. Ilman sitä YouTube voi tarjota vähemmän muotoja ja matalamman laadun kuin pyysit
 - **Ei linkkien kopiointia** — etsi video, soittolista tai kanava Tutki-välilehdeltä ja lataa se yhdellä napsautuksella tai napsauta mitä tahansa sivun linkkiä hiiren kakkospainikkeella
 - **Mainosten esto, kun haluat** — yksi napsautus kilpeen estää mainokset ja seurantaohjelmat Tutki-välilehden sivuilla
 
@@ -664,7 +663,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 Käyttöehdot
+## <a id="terms"></a>📜 Käyttöehdot
 
 Arroxy on työkalu, joka on tarkoitettu vain henkilökohtaiseen, yksityiseen käyttöön. Olet yksin vastuussa siitä, että lataamasi sisältö noudattaa YouTuben [käyttöehtoja](https://www.youtube.com/t/terms) ja lainkäyttöalueesi tekijänoikeuslainsäädäntöä. Älä käytä Arroxya sisällön lataamiseen, jäljentämiseen tai levittämiseen, jota sinulla ei ole oikeutta käyttää. Kehittäjät eivät vastaa väärinkäytöstä.
 

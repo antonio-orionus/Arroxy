@@ -3,7 +3,7 @@
 
 # Arroxy — מוריד חינמי ובקוד פתוח עבור YouTube (ועוד 2000 אתרים) עם דפדפן מובנה, עבור Windows, macOS ו-Linux
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **קריאה ב:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · **עברית** · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -51,6 +51,7 @@
 - [🗺️ מפת דרכים](#roadmap)
 - [💖 תמיכה ב-Arroxy](#support)
 - [🛠️ נבנה באמצעות](#tech)
+- [📜 תנאי שימוש](#terms)
 
 ---
 
@@ -362,7 +363,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 השוואה צד לצד עם החלופות הנפוצות ביותר:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | דפדפן מובנה (גלישה, התחברות, הורדה) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | סרטונים פרטיים, לחברי מועדון בלבד ומוגבלי גיל בלי לייצא קובצי Cookie |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -382,8 +383,6 @@ Arroxy נבנה למטרה אחת: קובץ מקומי נקי, בין שהדבק
 רוב מורידי YouTube החינמיים הם תיבת URL מעל yt-dlp. גם Arroxy משתמש ב-yt-dlp, אבל יש בו גם **גילוי** — דפדפן מובנה ביישום שפותח את YouTube או כל אתר אחר. “גילוי” עוקף מגבלות שתיבת URL לא יכולה לעקוף:
 
 - **סרטונים שדורשים חשבון, בלי לייצא קובצי Cookie** — סרטונים פרטיים, סרטונים לחברי מועדון בלבד וסרטונים מוגבלי גיל (בחשבון שאומת גילו), וכן רשימות “צפייה מאוחרת” ו“אהבתי” שלכם, וסרטונים שמאחורי התחברות באתרים אחרים. עטיפה פשוטה דורשת ייצוא של cookies.txt או קריאה של קובצי ה-Cookie של דפדפן האינטרנט שלכם, ש-Chrome ב-Windows חוסם כיום. ב-Arroxy מתחברים פעם אחת ב“גילוי” והוא עושה את השאר
-- **“Sign in to confirm you're not a bot”** — כש-YouTube מבקש זאת, Arroxy מנסה את ההורדה שוב עם ההתחברות שלכם ב“גילוי” במקום להיכשל
-- **אסימון ההורדה של YouTube** — הדפדפן המובנה של Arroxy משיג את האסימון ש-YouTube מצפה לו לפני הורדה. בלעדיו, YouTube עשוי להציג פחות פורמטים ואיכות נמוכה ממה שביקשתם
 - **בלי להעתיק קישורים** — מצאו סרטון, רשימת השמעה או ערוץ ב“גילוי” והורידו אותם בלחיצה אחת, או לחצו לחיצה ימנית על כל קישור בדף
 - **חוסם פרסומות כשאתם רוצים** — לחיצה אחת על המגן חוסמת פרסומות ומעקבים בדפים של “גילוי”
 
@@ -664,7 +663,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 תנאי שימוש
+## <a id="terms"></a>📜 תנאי שימוש
 
 Arroxy הוא כלי לשימוש אישי ופרטי בלבד. האחריות לוודא שההורדות שלכם עומדות ב[תנאי השימוש](https://www.youtube.com/t/terms) של YouTube ובחוקי זכויות היוצרים במדינתכם היא שלכם בלבד. אל תשתמשו ב-Arroxy כדי להוריד, לשכפל או להפיץ תוכן שאין לכם זכות להשתמש בו. המפתחים אינם אחראים לכל שימוש לרעה.
 

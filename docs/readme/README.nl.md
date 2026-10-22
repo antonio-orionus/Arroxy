@@ -3,7 +3,7 @@
 
 # Arroxy — Gratis open-source downloader voor YouTube (+ 2000 sites) met ingebouwde browser, voor Windows, macOS & Linux
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Lees in:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · **Nederlands** · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -51,6 +51,7 @@ Bespaart Arroxy je tijd? Met een ⭐ help je anderen het te vinden.
 - [🗺️ Roadmap](#roadmap)
 - [💖 Steun Arroxy](#support)
 - [🛠️ Gebouwd met](#tech)
+- [📜 Gebruiksvoorwaarden](#terms)
 
 ---
 
@@ -362,7 +363,7 @@ Wil je een malwarescan door een derde partij? Upload het bestand op [VirusTotal]
 
 Een vergelijking naast elkaar met de meest voorkomende alternatieven:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Ingebouwde browser (surfen, aanmelden, downloaden) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | Privé-, ledenvideo’s en video’s met leeftijdsbeperking zonder cookies te exporteren |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -382,8 +383,6 @@ Arroxy is gebouwd voor één ding: een schoon lokaal bestand, of je nu een URL p
 De meeste gratis YouTube-downloaders zijn een URL-vak bovenop yt-dlp. Arroxy gebruikt ook yt-dlp, maar heeft daarnaast **Verkennen**, een in de app ingebouwde browser die YouTube of elke andere site opent. Verkennen komt voorbij beperkingen waar een URL-vak niet doorheen komt:
 
 - **Video’s waarvoor een account nodig is, zonder cookies te exporteren** — privé-, ledenvideo’s en video’s met leeftijdsbeperking (op een leeftijdsgeverifieerd account), plus je lijsten Later bekijken en Leuk gevonden, en video’s achter een aanmelding op andere sites. Een gewone wrapper heeft een export van cookies.txt nodig of moet de cookies van je webbrowser lezen, wat Chrome op Windows inmiddels blokkeert. In Arroxy meld je je één keer aan in Verkennen en de rest gaat vanzelf
-- **„Meld je aan om te bevestigen dat je geen bot bent”** — wanneer YouTube dit vraagt, probeert Arroxy de download opnieuw met je aanmelding in Verkennen in plaats van te mislukken
-- **Het downloadtoken van YouTube** — de ingebouwde browser van Arroxy haalt het token op dat YouTube vóór een download verwacht. Zonder dat kan YouTube minder formaten en een lagere kwaliteit aanbieden dan je vroeg
 - **Geen links kopiëren** — vind een video, afspeellijst of kanaal in Verkennen en download met één klik, of klik met rechts op een link op de pagina
 - **Advertentieblokkering wanneer je wilt** — met één klik op het schild worden advertenties en trackers op de pagina’s van Verkennen geblokkeerd
 
@@ -664,7 +663,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 Gebruiksvoorwaarden
+## <a id="terms"></a>📜 Gebruiksvoorwaarden
 
 Arroxy is een hulpmiddel voor uitsluitend persoonlijk, privégebruik. Je bent zelf volledig verantwoordelijk voor ervoor te zorgen dat je downloads voldoen aan de [Servicevoorwaarden](https://www.youtube.com/t/terms) van YouTube en de auteursrechtwetten van jouw rechtsgebied. Gebruik Arroxy niet om content te downloaden, te reproduceren of te verspreiden waarvoor je geen gebruiksrecht hebt. De ontwikkelaars zijn niet aansprakelijk voor misbruik.
 

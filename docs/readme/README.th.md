@@ -3,7 +3,7 @@
 
 # Arroxy — โปรแกรมดาวน์โหลด YouTube (+ 2000 เว็บไซต์) ฟรีและโอเพนซอร์ส พร้อมเบราว์เซอร์ในตัว สำหรับ Windows, macOS และ Linux
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **อ่านในภาษา:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · **ไทย** · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
 
@@ -51,6 +51,7 @@
 - [🗺️ แผนพัฒนา](#roadmap)
 - [💖 สนับสนุน Arroxy](#support)
 - [🛠️ สร้างด้วย](#tech)
+- [📜 ข้อกำหนดการใช้งาน](#terms)
 
 ---
 
@@ -362,7 +363,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 เปรียบเทียบกับทางเลือกยอดนิยมแบบหัวข้อต่อหัวข้อ:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | เบราว์เซอร์ในตัว (เรียกดู เข้าสู่ระบบ ดาวน์โหลด) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
 | วิดีโอส่วนตัว เฉพาะสมาชิก และจำกัดอายุ โดยไม่ต้องส่งออกคุกกี้ |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
@@ -382,8 +383,6 @@ Arroxy ถูกสร้างมาเพื่อสิ่งเดียว:
 โปรแกรมดาวน์โหลด YouTube แบบฟรีส่วนใหญ่เป็นแค่ช่องใส่ URL ที่ครอบ yt-dlp ไว้ Arroxy ก็ใช้ yt-dlp เช่นกัน แต่ยังมี **Explore** ซึ่งเป็นเบราว์เซอร์ที่สร้างไว้ในแอปและเปิด YouTube หรือเว็บไซต์อื่นใดก็ได้ Explore ผ่านข้อจำกัดที่ช่องใส่ URL ผ่านไม่ได้:
 
 - **วิดีโอที่ต้องใช้บัญชี โดยไม่ต้องส่งออกคุกกี้** — วิดีโอส่วนตัว เฉพาะสมาชิก และจำกัดอายุ (กับบัญชีที่ยืนยันอายุแล้ว) รวมถึงรายการดูภายหลังและวิดีโอที่ถูกใจของคุณ และวิดีโอที่ต้องเข้าสู่ระบบบนเว็บไซต์อื่น ตัวครอบธรรมดาต้องใช้ไฟล์ cookies.txt ที่ส่งออกมา หรือต้องอ่านคุกกี้จากเว็บเบราว์เซอร์ของคุณ ซึ่งตอนนี้ Chrome บน Windows บล็อกไว้แล้ว ใน Arroxy คุณแค่เข้าสู่ระบบใน Explore ครั้งเดียว ที่เหลือแอปจัดการให้
-- **"ลงชื่อเข้าใช้เพื่อยืนยันว่าคุณไม่ใช่บอต"** — เมื่อ YouTube ถามแบบนี้ Arroxy จะลองดาวน์โหลดอีกครั้งด้วยการเข้าสู่ระบบ Explore ของคุณ แทนที่จะล้มเหลว
-- **โทเค็นดาวน์โหลดของ YouTube** — เบราว์เซอร์ในตัวของ Arroxy รับโทเค็นที่ YouTube ต้องการก่อนการดาวน์โหลด หากไม่มีโทเค็นนี้ YouTube อาจให้รูปแบบน้อยลงและคุณภาพต่ำกว่าที่คุณขอ
 - **ไม่ต้องคัดลอกลิงก์** — หาวิดีโอ เพลย์ลิสต์ หรือช่องใน Explore แล้วดาวน์โหลดได้ด้วยคลิกเดียว หรือคลิกขวาที่ลิงก์ใดก็ได้บนหน้า
 - **ตัวบล็อกโฆษณาเมื่อคุณต้องการ** — คลิกที่โล่ครั้งเดียวก็บล็อกโฆษณาและตัวติดตามบนหน้าของ Explore
 
@@ -664,7 +663,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 ข้อกำหนดการใช้งาน
+## <a id="terms"></a>📜 ข้อกำหนดการใช้งาน
 
 Arroxy เป็นเครื่องมือสำหรับการใช้งานส่วนตัวแบบไม่เผยแพร่เท่านั้น คุณมีหน้าที่แต่เพียงผู้เดียวในการทำให้การดาวน์โหลดเป็นไปตาม [ข้อกำหนดในการให้บริการ](https://www.youtube.com/t/terms) ของ YouTube และกฎหมายลิขสิทธิ์ในเขตอำนาจของคุณ อย่าใช้ Arroxy ดาวน์โหลด ทำซ้ำ หรือเผยแพร่เนื้อหาที่คุณไม่มีสิทธิ์ใช้ ผู้พัฒนาไม่รับผิดชอบต่อการใช้งานในทางที่ผิด
 

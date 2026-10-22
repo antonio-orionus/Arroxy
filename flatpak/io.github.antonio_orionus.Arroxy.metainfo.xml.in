@@ -29,7 +29,7 @@
       <li>Download profiles that remember how you like each download</li>
       <li>Subtitles in any language, embedded or as separate files</li>
       <li>SponsorBlock and partial downloads built in</li>
-      <li>Sign in once in Explore to download private, members-only and age-restricted videos your account can watch</li>
+      <li>Sign in once in Explore to download videos your own account can already watch</li>
       <li>A download queue with live progress</li>
       <li>Works on Linux, Windows and macOS</li>
     </ul>
@@ -45,8 +45,6 @@
     <keyword>downloader</keyword>
     <keyword>video</keyword>
     <keyword>audio</keyword>
-    <keyword>music</keyword>
-    <keyword>mp3</keyword>
     <keyword>mp4</keyword>
     <keyword>subtitle</keyword>
     <keyword>playlist</keyword>

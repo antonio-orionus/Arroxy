@@ -3,13 +3,13 @@
 
 # Arroxy — Free Open-Source YouTube (+ 2000 sites) Downloader with a Built-in Browser, for Windows, macOS & Linux
 
-**Built-in browser · Members-only & age-restricted · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
 **Read in:** [Afaan Oromoo](docs/readme/README.om.md) · [Bahasa Indonesia](docs/readme/README.id.md) · [Català](docs/readme/README.ca.md) · [Čeština](docs/readme/README.cs.md) · [Dansk](docs/readme/README.da.md) · [Deutsch](docs/readme/README.de.md) · [Eesti](docs/readme/README.et.md) · **English** · [Español](docs/readme/README.es.md) · [Euskara](docs/readme/README.eu.md) · [Français](docs/readme/README.fr.md) · [Galego](docs/readme/README.gl.md) · [Hrvatski](docs/readme/README.hr.md) · [Italiano](docs/readme/README.it.md) · [Kiswahili](docs/readme/README.sw.md) · [Latviešu](docs/readme/README.lv.md) · [Lietuvių](docs/readme/README.lt.md) · [Magyar](docs/readme/README.hu.md) · [Nederlands](docs/readme/README.nl.md) · [Norsk bokmål](docs/readme/README.nb.md) · [O'zbekcha](docs/readme/README.uz.md) · [Polski](docs/readme/README.pl.md) · [Português](docs/readme/README.pt.md) · [Română](docs/readme/README.ro.md) · [Slovenčina](docs/readme/README.sk.md) · [Slovenščina](docs/readme/README.sl.md) · [Suomi](docs/readme/README.fi.md) · [Svenska](docs/readme/README.sv.md) · [Tiếng Việt](docs/readme/README.vi.md) · [Türkçe](docs/readme/README.tr.md) · [አማርኛ](docs/readme/README.am.md) · [עברית](docs/readme/README.he.md) · [العربية](docs/readme/README.ar.md) · [اردو](docs/readme/README.ur.md) · [پښتو](docs/readme/README.ps.md) · [فارسی](docs/readme/README.fa.md) · [বাংলা](docs/readme/README.bn.md) · [हिन्दी](docs/readme/README.hi.md) · [ไทย](docs/readme/README.th.md) · [မြန်မာဘာသာ](docs/readme/README.my.md) · [ខ្មែរ](docs/readme/README.km.md) · [Ελληνικά](docs/readme/README.el.md) · [Български](docs/readme/README.bg.md) · [Русский](docs/readme/README.ru.md) · [Српски](docs/readme/README.sr.md) · [Українська](docs/readme/README.uk.md) · [中文](docs/readme/README.zh.md) · [日本語](docs/readme/README.ja.md) · [한국어](docs/readme/README.ko.md) · [繁體中文](docs/readme/README.zh-Hant.md)
 
 [![Release](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Website](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![License](https://img.shields.io/badge/license-GPLv3-blue) ![Platforms](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Languages](https://img.shields.io/badge/i18n-50_languages-blue)
 
-Download videos, Shorts, music, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 8K HDR at 60 fps, as MP3 / AAC / Opus, or just the part you need. **Browse YouTube or any other site inside Arroxy** in the Explore tab and download the video, playlist, or channel you're on; sign in there to download private, members-only, and age-restricted videos your account can watch. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**
+Download videos, Shorts, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 8K HDR at 60 fps, as MP3 / AAC / Opus, or just the part you need. **Browse YouTube or any other site inside Arroxy** in the Explore tab and download the video, playlist, or channel you're on; sign in there to download videos your own account can already watch. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**
 
 [**↓ Install Latest Release**](#install) &nbsp;·&nbsp; [**Website**](https://arroxy.com/) &nbsp;·&nbsp; [Windows first launch](#windows-first-launch) · [macOS first launch](#macos-first-launch) · [Linux first launch](#linux-first-launch)
 
@@ -28,7 +28,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 
 > **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). GPLv3 licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
 >
-> **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. You sign in once in Explore, and Arroxy downloads private, members-only, and age-restricted videos your account can watch, plus your Watch Later and Liked lists, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. It retries with that sign-in when YouTube asks you to confirm you're not a bot. Its built-in browser also gets the token YouTube expects before a download, so YouTube doesn't cut a download down to fewer formats. A URL-box wrapper hits all of these limits. Details: [Why Arroxy](#why-explore).
+> **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. If you sign in once in Explore, downloads that need an account use that sign-in: your private videos, your Watch Later and Liked lists, and other videos your account can already watch, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. Details: [Why Arroxy](#why-explore).
 >
 > _Last updated: 2026-10-22._
 
@@ -49,6 +49,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 - [🗺️ Roadmap](#roadmap)
 - [💖 Support Arroxy](#support)
 - [🛠️ Built with](#tech)
+- [📜 Terms of use](#terms)
 
 ---
 
@@ -78,7 +79,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
     <td colspan="2" valign="top" align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="build/Global-hotkey-dark.png" /><img src="build/Global-hotkey.png" alt="Arroxy global download hotkey — Ctrl+Shift+D on Windows and Linux, Cmd+Shift+D on macOS, sending the copied link straight into the download queue" width="760" /></picture><br/><sub><b>Global download hotkey</b><br/>Copy a link anywhere, press once — it lands in the queue and starts downloading</sub></td>
   </tr>
   <tr>
-    <td colspan="2" valign="top" align="center"><img src="build/screenshots/en/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Per-item playlist profiles</b><br/>Give each video its own profile — archive some in 4K, grab the rest as MP3</sub></td>
+    <td colspan="2" valign="top" align="center"><img src="build/screenshots/en/Per-item-playlist-profiles-screenshot.webp" alt="Arroxy — Per-item playlist profiles" width="760" /><br/><sub><b>Per-item playlist profiles</b><br/>Give each video its own profile — archive some in 4K, save the rest as audio only</sub></td>
   </tr>
   <tr>
     <td width="50%" valign="top" align="center"><img src="build/screenshots/en/Main-screenshot.webp" alt="Arroxy — Quick Download home" /><br/><sub><b>Quick Download home</b><br/>Paste a URL and pull it instantly with your active profile</sub></td>
@@ -101,7 +102,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 - **Right-click to download** — right-click any video, playlist, or channel link in Explore to download it with your profile, pick another profile from **Download with**, open the step-by-step download, or copy the link. No need to open each video first
 - **Compact layout** — one click in Explore's toolbar moves Arroxy's tabs into it and gives the page more room
 - **Address bar** — type to search YouTube, or enter any web address to open that site
-- **Downloads that need an account** — sign in once in Explore and Arroxy can download private and members-only videos your account can watch, age-restricted videos if the account is age-verified, and your Watch Later and Liked lists. Sign in to other sites there too, and their downloads use that sign-in when they need it. Arroxy still downloads signed out first and only uses your Explore sign-in when a download fails in a way an account can fix. When YouTube asks you to confirm you're not a bot, Arroxy also tries your Explore sign-in
+- **Downloads that need an account** — sign in once in Explore and Arroxy can download videos your account can watch: your private videos, age-restricted videos if the account is age-verified, and your Watch Later and Liked lists. Sign in to other sites there too, and their downloads use that sign-in when they need it. Arroxy still downloads signed out first and only uses your Explore sign-in when a download fails in a way an account can fix
 - **Use a secondary account** — Explore's first screen explains why: downloading with an account carries some risk of that account being restricted. Sign out of Explore from Settings whenever you want to forget your sign-ins
 - **Ad blocker** — off by default. One click on the shield in Explore's toolbar blocks ads and trackers on its pages, without affecting downloads. YouTube may push back on ad blockers for signed-in accounts
 
@@ -142,7 +143,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 - **Speed and pacing controls** — cap download bandwidth, set how many parts of a video download at once, and add request delays with presets (*Off · Balanced · Careful · Custom*)
 - **Filename templates** — name downloads your way with `{title}`, `{uploader}`, `{id}`, `{date}`, `{year}`, `{resolution}`, `{site}`, `{categories}`, `{artist}`, `{album}`, `{track}`, and `{playlist_index}`, globally or per download profile
 - **Downloads at once and automatic retry** — choose how many queued downloads run at the same time, and let Arroxy retry a download that hit a network or server problem, waiting longer before each attempt
-- **Per-item playlist profiles** — assign each video in a playlist its own download profile instead of one setting for the whole list, so a single pass can archive some at full quality and grab the rest as MP3
+- **Per-item playlist profiles** — assign each video in a playlist its own download profile instead of one setting for the whole list, so a single pass can archive some at full quality and save the rest as audio only
 - **Quick Download works in the background** — the link shows up in Downloads right away and prepares there, a note with **View** confirms it, and the URL field clears for the next link. Start as many as you like while earlier ones prepare
 - **Downloads tells you what needs you** — if Arroxy can't read a link, its row says why and offers the fix: Retry, turn on cookies, or sign in in Explore. With cookies off, **Sign in with Explore** retries it for you once you're signed in. A playlist longer than your load limit waits on its row for you to pick all of it, the first ones, or a review. The Downloads tab counts the rows waiting for you
 - **Download just part of a video** — pick a start and end, or a chapter, on the Format screen and Arroxy saves only that range, named with the range after the video id. Cuts land on the nearest keyframe; turn on exact cut to re-encode instead
@@ -169,7 +170,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 <summary><strong>🌐 YouTube + 2000 sites</strong></summary>
 
 - **YouTube, in full** — Videos, Shorts, Channels, Playlists, YouTube Music, and Podcasts handled as first-class sources
-- **2000+ other sites** via yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, Bilibili, archive.org, Streamable, and many more
+- **2000+ other sites** via yt-dlp — Twitch, TikTok, Dailymotion, VK, SoundCloud, Bandcamp, archive.org, Streamable, and many more
 - **Audio-only and subtitles** work across every supported site, not just YouTube
 - If a site changes, yt-dlp ships fixes weekly and Arroxy auto-updates the binary on launch
 
@@ -360,10 +361,10 @@ Want a third-party malware scan? Upload the file at [VirusTotal](https://www.vir
 
 A side-by-side comparison with the most common alternatives:
 
-|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader | Y2Mate / online converters | Browser extensions |
+|            | Arroxy | Typical free yt-dlp GUI | 4K Video Downloader | JDownloader |     Online converters      | Browser extensions |
 | ---------- | :----: | :---------------------: | :-----------------: | :---------: | :------------------------: | :----------------: |
 | Built-in browser (browse, sign in, download) |   ✅   |           ❌            |         ⚠️          |     ❌      |             ❌             |        N/A         |
-| Private, members-only & age-restricted videos without exporting cookies |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
+| Videos your own account can watch, without exporting cookies |   ✅   |           ⚠️            |         ⚠️          |     ⚠️      |             ❌             |         ⚠️         |
 | Free, no premium tier |   ✅   |           ✅            |         ⚠️          |     ✅      |             ⚠️             |         ⚠️         |
 | Open source |   ✅   |           ✅            |         ❌          |     ❌      |             ❌             |         ⚠️         |
 | Local processing only |   ✅   |           ✅            |         ✅          |     ✅      |             ❌             |         ✅         |
@@ -377,11 +378,9 @@ Arroxy is built for one thing: a clean local file, whether you paste a URL or fi
 
 ### <a id="why-explore"></a>🧭 What a plain yt-dlp wrapper can't do: the Explore tab
 
-Most free YouTube downloaders are a URL box on top of yt-dlp. Arroxy uses yt-dlp too, but it also has **Explore**, a browser built into the app that opens YouTube or any other site. Explore gets past limits that a URL box can't:
+Most free YouTube downloaders are a URL box on top of yt-dlp. Arroxy uses yt-dlp too, but it also has **Explore**, a browser built into the app that opens YouTube or any other site. Explore adds what a URL box can't:
 
-- **Videos that need an account, without exporting cookies** — private, members-only, and age-restricted videos (on an age-verified account), plus your Watch Later and Liked lists, and videos behind a sign-in on other sites. A plain wrapper needs a cookies.txt export or must read your web browser's cookies, which Chrome on Windows now blocks. In Arroxy you sign in once in Explore and it does the rest
-- **"Sign in to confirm you're not a bot"** — when YouTube asks this, Arroxy tries the download again with your Explore sign-in instead of failing
-- **YouTube's download token** — Arroxy's built-in browser gets the token YouTube expects before a download. Without it, YouTube can serve fewer formats and lower quality than you asked for
+- **Videos your account can watch, without exporting cookies** — your private videos, your Watch Later and Liked lists, age-restricted videos on an age-verified account, and pages on other sites that need your sign-in. A plain wrapper needs a cookies.txt export or reads your web browser's cookies. In Arroxy you sign in once in Explore and it does the rest
 - **No copying links** — find a video, playlist, or channel in Explore and download it with one click, or right-click any link on the page
 - **Ad blocker when you want it** — one click on the shield blocks ads and trackers on Explore's pages
 
@@ -409,7 +408,7 @@ Yes — GPLv3 licensed, no premium tier, no feature gating.
 <details>
 <summary><strong>How is Arroxy different from other yt-dlp GUIs?</strong></summary>
 
-Most free yt-dlp GUIs are wrappers that only take a link. Arroxy adds **Explore**, a browser built into the app that opens YouTube or any other site: you browse and download without copying links, and you sign in there once to download private, members-only, and age-restricted videos and your Watch Later and Liked lists, with no cookie export. Arroxy uses that sign-in when YouTube asks you to confirm you're not a bot, and its built-in browser gets YouTube's download token so downloads don't fall back to fewer formats. See [Why Arroxy](#why).
+Most free yt-dlp GUIs are wrappers that only take a link. Arroxy adds **Explore**, a browser built into the app that opens YouTube or any other site: you browse and download without copying links, and you sign in there once to download videos your account can watch, like your private videos and your Watch Later and Liked lists, with no cookie export. See [Why Arroxy](#why).
 
 </details>
 
@@ -430,14 +429,14 @@ Yes. Pick *audio-only* in the format menu and choose MP3, M4A/AAC, Opus, or WAV.
 <details>
 <summary><strong>How do I download videos that need a YouTube account?</strong></summary>
 
-Sign in once in the Explore tab. Arroxy can then download private and members-only videos your account can watch, age-restricted videos if the account is age-verified, and your Watch Later and Liked lists. It uses the sign-in only when a download fails in a way an account can fix; everything else downloads as before. This is the **Explore sign-in** choice, listed first and marked Recommended in the cookie settings, and Arroxy picks it for you the first time you open Explore. yt-dlp's wiki notes that [signed-in automation can flag a Google account](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), so a secondary account is the safer choice.
+Sign in once in the Explore tab. Arroxy can then download videos your account can watch: your private videos, age-restricted videos if the account is age-verified, and your Watch Later and Liked lists. It uses the sign-in only when a download fails in a way an account can fix; everything else downloads as before. This is the **Explore sign-in** choice, listed first and marked Recommended in the cookie settings, and Arroxy picks it for you the first time you open Explore. yt-dlp's wiki notes that [signed-in automation can flag a Google account](https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies), so a secondary account is the safer choice.
 
 </details>
 
 <details>
 <summary><strong>Will it keep working when YouTube changes something?</strong></summary>
 
-yt-dlp is updated automatically on launch, and Arroxy ships fixes promptly when YouTube changes something. When YouTube asks you to confirm you're not a bot, Arroxy also tries your Explore sign-in if you've signed in there, and cookies from a file or your browser are available in the cookie settings.
+yt-dlp is updated automatically on launch, and Arroxy ships fixes promptly when YouTube changes something. When a download needs a sign-in, Arroxy uses your Explore sign-in if you've signed in there, and cookies from a file or your browser are available in the cookie settings.
 
 </details>
 
@@ -472,7 +471,7 @@ That's macOS Gatekeeper blocking an unsigned app, not actual damage. See [macOS 
 <details>
 <summary><strong>Is downloading YouTube videos legal?</strong></summary>
 
-For personal, private use it is generally accepted in most jurisdictions. You are responsible for complying with YouTube's [Terms of Service](https://www.youtube.com/t/terms) and your local copyright laws.
+It depends on your country and on what you download. Download only content you own, content that is licensed for download, or content the law in your country lets you copy. You are responsible for complying with YouTube's [Terms of Service](https://www.youtube.com/t/terms) and your local copyright laws. See [Terms of use](#terms).
 
 </details>
 
@@ -662,7 +661,7 @@ Arroxy reads this before opening any window, so it works even when the window ne
 
 ---
 
-## 📜 Terms of use
+## <a id="terms"></a>📜 Terms of use
 
 Arroxy is a tool for personal, private use only. You are solely responsible for ensuring your downloads comply with YouTube's [Terms of Service](https://www.youtube.com/t/terms) and the copyright laws of your jurisdiction. Do not use Arroxy to download, reproduce, or distribute content you do not have the right to use. The developers are not liable for any misuse.
 
