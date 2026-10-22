@@ -137,7 +137,8 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			}
 
 			const template = compiledOutputTemplate(preparedJob.filenameTemplate)
-			const output = {directory: job.outputDir, subtitleMode: requested.mode, ...(template ? {template} : {})}
+			// Tracks in progress stay in the temp folder, which a cancel removes.
+			const output = {directory: job.outputDir, tempDirectory: tempDir, subtitleMode: requested.mode, ...(template ? {template} : {})}
 			if (!(await clearSubtitleReport(tempDir, job.id))) {
 				logger.warn('Subtitles skipped — an earlier subtitle report could not be removed; video already saved', {jobId: job.id})
 				return SUBTITLES_FAILED
@@ -145,7 +146,7 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			const fetched = await settledRun(subtitleFetchRequest(plan, {url: input.url, output, format: requested.format ?? DEFAULTS.subtitleFormat, lists, tempDir}))
 			if (fetched.kind !== 'success') return fetched
 
-			const reported = await readSubtitleReport(subtitleReportFile(tempDir), job.outputDir, job.id)
+			const reported = await readSubtitleReport(subtitleReportFile(tempDir), output, job.id)
 			// yt-dlp reports every file it wrote or found already present.
 			if (reported.length === 0) {
 				logger.warn('Subtitles failed — the subtitle run reported no written files; video already saved', {jobId: job.id})

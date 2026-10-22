@@ -1,8 +1,8 @@
 import {readFile, rm, writeFile} from 'node:fs/promises'
-import {isAbsolute, join} from 'node:path'
+import {join} from 'node:path'
 import {z} from 'zod'
 import {ytDlpSubtitleTrackSchema, type YtDlpSubtitleTrack} from 'yt-dlp-bridge/info'
-import type {CallerOutput, CallerSubtitlesWorkflowInput} from 'yt-dlp-bridge'
+import {settleReportedSubtitle, type CallerOutput, type CallerSubtitlesWorkflowInput} from 'yt-dlp-bridge'
 import type {SubtitleOptions} from '@shared/preparedJob.js'
 import {STATUS_KEY, type SubtitleFormat} from '@shared/schemas.js'
 import type {Site} from '@shared/sites/index.js'
@@ -139,7 +139,9 @@ export function subtitleFetchRequest(plan: SubtitlePlan, opts: {url: string; out
 // yt-dlp's `requested_subtitles`, one JSON line per video: each track key it
 // wrote, with the file (relative to the run's folder, which it runs in).
 // `--convert-subs` replaces the entry, so the path names the converted file
-// and the track's name is gone (see `subtitleEmbedTracks`).
+// and the track's name is gone (see `subtitleEmbedTracks`). With a temp folder
+// the path is where yt-dlp wrote the track, inside it, so each is read through
+// settleReportedSubtitle: where the track ends up in the folder.
 const reportedTrackSchema = z.object({filepath: z.string().min(1).nullish()}).loose()
 const reportSchema = z.record(z.string(), reportedTrackSchema).nullable()
 
@@ -148,7 +150,19 @@ export interface ReportedSubtitle {
 	path: string
 }
 
-export async function readSubtitleReport(file: string, outputDir: string, jobId: string): Promise<ReportedSubtitle[]> {
+// A track that cannot leave the temp folder is left out: cleanup removes it
+// with the folder, so it is not a file this job saved.
+async function settledTrack(output: CallerOutput, key: string, filepath: string, jobId: string): Promise<ReportedSubtitle | null> {
+	return settleReportedSubtitle(output, filepath).then(
+		path => ({key, path}),
+		(err: unknown) => {
+			logger.warn('a subtitle track could not be moved out of the temp folder', {jobId, key, code: err instanceof Error && 'code' in err ? err.code : undefined, message: err instanceof Error ? err.message : String(err)})
+			return null
+		}
+	)
+}
+
+export async function readSubtitleReport(file: string, output: CallerOutput, jobId: string): Promise<ReportedSubtitle[]> {
 	const text = await readFile(file, 'utf8').catch(() => null)
 	const line = text?.split(/\r?\n/).findLast(entry => entry.trim().length > 0)
 	if (line === undefined) {
@@ -165,10 +179,13 @@ export async function readSubtitleReport(file: string, outputDir: string, jobId:
 	const parsed = reportSchema.safeParse(json)
 	if (!parsed.success) logger.warn('subtitle report has an unexpected shape', {jobId, issue: parsed.error.issues[0]?.message})
 	if (!parsed.success || parsed.data === null) return []
-	return Object.entries(parsed.data).flatMap(([key, track]) => {
-		if (!track.filepath) return []
-		return [{key, path: isAbsolute(track.filepath) ? track.filepath : join(outputDir, track.filepath)}]
-	})
+	const reported: ReportedSubtitle[] = []
+	// One at a time, in the report's order, which the mux keeps.
+	for (const [key, track] of Object.entries(parsed.data)) {
+		const settled = track.filepath ? await settledTrack(output, key, track.filepath, jobId) : null
+		if (settled) reported.push(settled)
+	}
+	return reported
 }
 
 function plannedTrackFor(plan: SubtitlePlan, key: string): SubtitlePlan['tracks'][number] | undefined {

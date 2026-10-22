@@ -1,4 +1,4 @@
-import {mkdtemp, rm, writeFile} from 'node:fs/promises'
+import {mkdir, mkdtemp, rm, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
@@ -38,12 +38,16 @@ const NETWORK: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'netwo
 const COOKIES_REJECTED: YtDlpResult = {...LOGIN_REQUIRED, accountCookiesRejected: true}
 
 let outputDir: string
+// The media run's temp folder, as VideoPhase makes it.
+let tempDir: string
 // The video's subtitle lists, as the probe saved them: a subtitle phase plans
 // from these instead of listing them with a run of its own.
 let subtitleInfoJson: string
 
 beforeEach(async () => {
 	outputDir = await mkdtemp(join(tmpdir(), 'arroxy-escalation-'))
+	tempDir = join(outputDir, '.arroxy-temp', 'job-1')
+	await mkdir(tempDir, {recursive: true})
 	subtitleInfoJson = join(outputDir, 'subtitles.info.json')
 	await writeFile(subtitleInfoJson, JSON.stringify({title: 'Video', subtitles: {en: [{ext: 'vtt'}]}, automatic_captions: {}}))
 })
@@ -73,7 +77,7 @@ function makeCtx(opts: {runs: YtDlpResult[]; input?: Partial<ResolvedStartDownlo
 		cancelRequested: false,
 		pauseRequested: false,
 		subtitlePaths: [],
-		...(opts.tempDir ? {tempDir: outputDir} : {}),
+		...(opts.tempDir ? {tempDir} : {}),
 		disposables: new AsyncStack()
 	}
 	const ports = explorePorts({signedIn: opts.signedIn, verified: opts.verified})

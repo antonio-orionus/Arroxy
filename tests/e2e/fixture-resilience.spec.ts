@@ -4,6 +4,7 @@ import os from 'node:os'
 import path from 'node:path'
 import {FIXTURE_VIDEO_IDS, SPLIT_MEDIA_VIDEO_ID} from './fixtureHarness.js'
 import {COOKIE_LIMITED_VIDEO_ID, SABR_LIMITED_VIDEO_ID, fixtureMediaFileSize} from './fixtureMediaCatalog.js'
+import {BUILTIN_DOWNLOAD_PROFILES} from '../../src/shared/downloadProfiles.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 import {clickContinue, isMediaRequestFor, openQueueTab, prepareSingleReview, startBulkFromClipboard} from './fixtureWorkflow.js'
 
@@ -359,5 +360,51 @@ for (const when of ['running', 'paused-active'] as const) {
 			// The job's own temp folder goes; the stranger's file is all that is left.
 			await expect.poll(() => files.listRecursive(), {timeout: 30_000}).toEqual([strangerPart])
 		})
+	})
+}
+
+// A subtitle track in progress is a `.part` in the job's temp folder, which
+// cancel removes with the folder (#630). Before, yt-dlp kept it beside the
+// video, and a cancel while the subtitles downloaded left it in the folder.
+// The held track trickles, so its `.part` stays until the cancel.
+for (const kind of ['video', 'subtitles-only'] as const) {
+	test(`Electron cancelling a ${kind} download while its subtitles download leaves no partial file`, async () => {
+		test.setTimeout(180_000)
+		const index = kind === 'video' ? 4 : 5
+		const videoId = FIXTURE_VIDEO_IDS[index]
+		const title = `Fixture Video ${index + 1}`
+
+		await withFixtureProductApp(
+			{
+				behavior: {subtitleSlowIds: [videoId]},
+				userDataPrefix: 'arroxy-fixture-cancel-subs-user-',
+				outputPrefix: 'arroxy-fixture-cancel-subs-out-',
+				settings: settings => {
+					if (kind === 'subtitles-only') {
+						settings.profiles.active = {kind: 'builtin', id: 'subtitles-only'}
+						return
+					}
+					const smallFile = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'small-file')
+					if (!smallFile) throw new Error('small-file built-in profile missing')
+					settings.profiles.active = {kind: 'builtin', id: 'small-file'}
+					settings.profiles.overrides = [{...smallFile, subtitles: {...smallFile.subtitles, enabled: true, languages: ['en'], mode: 'sidecar'}}]
+				}
+			},
+			async ({page, queue, files, urls}) => {
+				await page.locator('[data-testid="profiles-main-input"]').fill(urls.video(videoId))
+				await page.locator('[data-testid="profiles-quick-download"]').click()
+
+				// The track in progress sits in the job's temp folder.
+				const partial = () => files.listRecursive().find(file => file.endsWith('.vtt.part'))
+				await expect.poll(partial, {timeout: 120_000}).toBeDefined()
+				expect(partial()).toContain(`${path.sep}.arroxy-temp${path.sep}`)
+
+				await queue.action(title, 'cancel')
+				await queue.expectStatus(title, 'cancelled', 60_000)
+
+				// No partial file and no temp folder is left, nor any subtitle file.
+				await expect.poll(() => files.listRecursive().filter(file => file.endsWith('.part') || file.includes(`${path.sep}.arroxy-temp${path.sep}`) || /\.(vtt|srt)$/.test(file)), {timeout: 30_000}).toEqual([])
+			}
+		)
 	})
 }

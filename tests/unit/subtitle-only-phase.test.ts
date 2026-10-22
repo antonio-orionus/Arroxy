@@ -1,5 +1,5 @@
 import {EventEmitter} from 'node:events'
-import {access, mkdir, mkdtemp, rm, writeFile} from 'node:fs/promises'
+import {access, mkdir, mkdtemp, readFile, rm, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {afterEach, beforeEach, describe, expect, it, vi} from 'vite-plus/test'
@@ -14,6 +14,7 @@ import type {YtDlpRequest, YtDlpResult, YtDlpRunOptions, YtDlpSignal} from '@mai
 import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
 import {planWorkflow} from 'yt-dlp-bridge'
 import {explorePorts} from '../helpers/explorePorts.js'
+import {writeFetchedSubtitles} from '../helpers/subtitleFetch.js'
 
 vi.mock('@main/services/subtitlePostProcess', () => ({postProcessSubtitleFiles: vi.fn().mockResolvedValue(undefined), muxSubtitlesIntoVideo: vi.fn().mockResolvedValue({ok: false}), logger: {info: vi.fn(), warn: vi.fn(), error: vi.fn(), debug: vi.fn()}}))
 
@@ -58,18 +59,17 @@ interface FakeYtDlp {
 	listing?: unknown
 	listingResult?: YtDlpResult
 	fetchResult?: YtDlpResult
+	// Tracks yt-dlp converted from TTML, which it leaves in the temp folder.
+	leftInTemp?: readonly string[]
 }
 
-// A listing prints the video's info-json; a subtitle run writes one file per
-// key it was asked for and reports them, as yt-dlp's `requested_subtitles` does.
+// A listing prints the video's info-json; a subtitle run writes, moves and
+// reports its tracks as yt-dlp does (writeFetchedSubtitles).
 function fakeRun(fake: FakeYtDlp = {}) {
 	return vi.fn(async (req: YtDlpRequest, _signal?: YtDlpSignal, _options?: YtDlpRunOptions): Promise<YtDlpResult> => {
 		if (req.kind === 'subtitle-listing') return fake.listingResult ?? {...SUCCESS, stdout: JSON.stringify(fake.listing ?? YOUTUBE_INFO)}
 		if (fake.fetchResult && fake.fetchResult.kind !== 'success') return fake.fetchResult
-		if (req.kind === 'subtitles' && 'tracks' in req.subtitles && req.output.report?.subtitles) {
-			const report = Object.fromEntries(req.subtitles.tracks.map(track => [track.key, {ext: 'srt', filepath: `video.${track.key}.srt`}]))
-			await writeFile(req.output.report.subtitles, `${JSON.stringify(report)}\n`)
-		}
+		if (req.kind === 'subtitles') await writeFetchedSubtitles(req, {leftInTemp: fake.leftInTemp})
 		return fake.fetchResult ?? SUCCESS
 	})
 }
@@ -135,7 +135,7 @@ describe('SubtitleOnlyPhase: the fetch', () => {
 		expect(fetchRequest(ctx)).toEqual({
 			kind: 'subtitles',
 			url: URL,
-			output: {directory: outDir, subtitleMode: 'sidecar', template: '%(title).40B [%(id)s].%(ext)s', report: {subtitles: join(tempDir, '_arroxy.subtitles.report.json')}},
+			output: {directory: outDir, tempDirectory: tempDir, subtitleMode: 'sidecar', template: '%(title).40B [%(id)s].%(ext)s', report: {subtitles: join(tempDir, '_arroxy.subtitles.report.json')}},
 			subtitles: {tracks: [{key: 'en', auto: false}], format: 'srt'},
 			loadInfoJsonPath: join(tempDir, '_arroxy.probe.info.json')
 		})
@@ -189,6 +189,35 @@ describe('SubtitleOnlyPhase: the fetch', () => {
 		await SubtitleOnlyPhase.run(ctx)
 		expect(ctx.active.subtitlePaths).toEqual([join(outDir, 'video.en.srt')])
 		expect(ctx.active.mediaTitle).toBe('The Real Title')
+	})
+
+	// A cancel mid-fetch removes the temp folder, so no `.part` is left in the output folder (#630).
+	it("keeps the tracks in progress in the job's temp folder", async () => {
+		const ctx = makeCtx()
+		await SubtitleOnlyPhase.run(ctx)
+		const request = fetchRequest(ctx)
+		if (request?.kind !== 'subtitles') throw new Error('no subtitle fetch')
+		const {args} = planWorkflow(request)
+		expect(args[args.indexOf('--paths') + 1]).toBe('temp:./.arroxy-temp/job-1/')
+	})
+
+	it('moves a converted track yt-dlp left in the temp folder into the output folder, in the subfolder mode too', async () => {
+		const beside = makeCtx({input: input({job: job(codes(['en', 'ja']))}), fake: {leftInTemp: ['en']}})
+		expect(await SubtitleOnlyPhase.run(beside)).toEqual({kind: 'completed'})
+		expect(beside.active.subtitlePaths).toEqual([join(outDir, 'video.en.srt'), join(outDir, 'video.ja.srt')])
+		await expect(readFile(join(outDir, 'video.en.srt'), 'utf8')).resolves.toBe('en track')
+
+		const subfolder = makeCtx({input: input({job: job({...MANUAL_EN, mode: 'subfolder'})}), fake: {leftInTemp: ['en']}})
+		expect(await SubtitleOnlyPhase.run(subfolder)).toEqual({kind: 'completed'})
+		expect(subfolder.active.subtitlePaths).toEqual([join(outDir, 'subtitles', 'video.en.srt')])
+		await expect(access(join(outDir, 'subtitles', 'video.en.srt'))).resolves.toBeUndefined()
+	})
+
+	it('fails when no track can leave the temp folder', async () => {
+		await mkdir(join(outDir, 'video.en.srt', 'taken'), {recursive: true})
+		const ctx = makeCtx({fake: {leftInTemp: ['en']}})
+		expect(await SubtitleOnlyPhase.run(ctx)).toMatchObject({kind: 'hard-failed'})
+		expect(postProcessSubtitleFiles).not.toHaveBeenCalled()
 	})
 
 	it('post-processes every file, rolling-cue dedupe for the automatic captions alone', async () => {

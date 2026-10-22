@@ -39,8 +39,9 @@ const JPEG_1X1 = Buffer.from(
 export interface FixtureServer {
 	baseUrl: string
 	setBehavior: (behavior: FixtureServerBehavior) => void
-	// Lets a held slow download finish: its held bytes go out at once, and later
-	// requests for that video are served at full speed. No id releases them all.
+	// Lets a held slow download finish (media or subtitles): its held bytes go
+	// out at once, and later requests for that video are served at full speed.
+	// No id releases them all.
 	releaseSlowMedia: (videoId?: string) => void
 	// Lets a held probe answer (metadataHeldIds), now and from then on. No id
 	// releases them all.
@@ -65,6 +66,9 @@ export interface FixtureServerBehavior {
 	mediaFormatFailuresBeforeSuccess?: Record<string, number>
 	mediaFormatTruncateIds?: readonly string[]
 	subtitleFailureIds?: readonly string[]
+	// Subtitles for these videos trickle a byte a second until the test calls
+	// releaseSlowMedia: yt-dlp holds each track as a `.part` meanwhile.
+	subtitleSlowIds?: readonly string[]
 	// Per video, what each successive extraction reports, in order; once the
 	// list runs out, extractions behave normally. Lets a scenario reproduce
 	// YouTube's warnings and refusals with yt-dlp's own wording.
@@ -114,6 +118,7 @@ interface NormalizedFixtureBehavior {
 	mediaFormatFailuresBeforeSuccess: Map<string, number>
 	mediaFormatTruncateIds: Set<string>
 	subtitleFailureIds: Set<string>
+	subtitleSlowIds: Set<string>
 	extractionScript: Map<string, FixtureExtractionStep[]>
 }
 
@@ -251,6 +256,14 @@ function vtt(videoId: string, lang: string, track: 'manual' | 'auto'): Buffer {
 	return Buffer.from(`WEBVTT\n\n00:00:00.000 --> 00:00:02.000\n${cue}\n`, 'utf8')
 }
 
+// A held track is padded past yt-dlp's first read (1 KB) and the held tail, so
+// yt-dlp has opened its `.part` before the hold starts.
+const SLOW_SUBTITLE_PADDING = `NOTE ${'held subtitle padding '.repeat(512)}\n`
+
+function slowVtt(videoId: string, lang: string, track: 'manual' | 'auto'): Buffer {
+	return Buffer.concat([vtt(videoId, lang, track), Buffer.from(`\n${SLOW_SUBTITLE_PADDING}`, 'utf8')])
+}
+
 function parseRange(range: string | undefined, size: number): {start: number; end: number} | null {
 	if (!range) return null
 	const match = /^bytes=(\d*)-(\d*)$/.exec(range)
@@ -366,6 +379,7 @@ function normalizeBehavior(input: FixtureServerBehavior = {}): NormalizedFixture
 		mediaFormatFailuresBeforeSuccess: new Map(Object.entries(input.mediaFormatFailuresBeforeSuccess ?? {})),
 		mediaFormatTruncateIds: new Set(input.mediaFormatTruncateIds ?? []),
 		subtitleFailureIds: new Set(input.subtitleFailureIds ?? []),
+		subtitleSlowIds: new Set(input.subtitleSlowIds ?? []),
 		extractionScript: new Map(Object.entries(input.extractionScript ?? {}).map(([videoId, steps]) => [videoId, [...steps]]))
 	}
 }
@@ -413,9 +427,10 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 	}
 
 	function releaseSlowMedia(videoId?: string): void {
-		const videoIds = videoId === undefined ? new Set([...behavior.mediaSlowIds, ...heldSlowMedia.keys()]) : new Set([videoId])
+		const videoIds = videoId === undefined ? new Set([...behavior.mediaSlowIds, ...behavior.subtitleSlowIds, ...heldSlowMedia.keys()]) : new Set([videoId])
 		for (const id of videoIds) {
 			behavior.mediaSlowIds.delete(id)
+			behavior.subtitleSlowIds.delete(id)
 			const held = heldSlowMedia.get(id)
 			heldSlowMedia.delete(id)
 			for (const release of held ?? []) release()
@@ -526,7 +541,8 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 					return
 				}
 				record({kind: 'subtitle', videoId, lang, track, status: 200, at: Date.now()})
-				serveBuffer(req, res, vtt(videoId, lang, track), 'text/vtt; charset=utf-8')
+				if (behavior.subtitleSlowIds.has(videoId)) serveBuffer(req, res, slowVtt(videoId, lang, track), 'text/vtt; charset=utf-8', holdSlowMedia(videoId))
+				else serveBuffer(req, res, vtt(videoId, lang, track), 'text/vtt; charset=utf-8')
 				return
 			}
 			res.writeHead(404, {'Content-Type': 'text/plain; charset=utf-8'})
@@ -541,7 +557,7 @@ export async function startFixtureServer(initialBehavior: FixtureServerBehavior 
 		baseUrl: `http://127.0.0.1:${port}`,
 		setBehavior: next => {
 			behavior = normalizeBehavior(next)
-			for (const videoId of heldSlowMedia.keys()) if (!behavior.mediaSlowIds.has(videoId)) releaseSlowMedia(videoId)
+			for (const videoId of heldSlowMedia.keys()) if (!behavior.mediaSlowIds.has(videoId) && !behavior.subtitleSlowIds.has(videoId)) releaseSlowMedia(videoId)
 			for (const videoId of heldMetadata.keys()) if (!behavior.metadataHeldIds.has(videoId)) releaseMetadata(videoId)
 		},
 		releaseSlowMedia,
