@@ -136,7 +136,8 @@ describe('DownloadService — subtitle soft-fail finalization', () => {
 
 		expect(artifacts.map(({path, kind}) => ({path, kind}))).toEqual([
 			{path: videoPath, kind: 'media'},
-			{path: subPath, kind: 'subtitle'}
+			// The reported track comes back as an absolute path for this platform (a drive letter on Windows).
+			{path: resolve(subPath), kind: 'subtitle'}
 		])
 		// Neither file exists on disk here, so no size is reported.
 		expect(artifacts.every(artifact => artifact.sizeBytes === undefined)).toBe(true)
