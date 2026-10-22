@@ -180,6 +180,8 @@ describe('control socket limits', () => {
 		const {client} = await handshake(harness.socket.socketPath, secretProof(clientId, secret))
 		harness.approvals.remove(clientId)
 		await client.closed
-		expect(harness.service.sessions[0]?.close).toHaveBeenCalled()
+		// Where the auth answer's write lands after the client read it (Windows
+		// pipes), the removal comes before the session opens and none is opened.
+		for (const session of harness.service.sessions) expect(session.close).toHaveBeenCalled()
 	})
 })
