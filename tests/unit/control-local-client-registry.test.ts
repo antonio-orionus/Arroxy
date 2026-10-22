@@ -261,6 +261,27 @@ describe('LocalClientRegistry known clients', () => {
 		await registry.saved()
 		expect(saves.map(rows => rows.map(row => row.clientId))).toEqual([[first.clientId], [first.clientId, second.clientId, third.clientId]])
 	})
+
+	it('saves a change made just as a save finishes', async () => {
+		const saves: string[][] = []
+		let finish: () => void = () => undefined
+		const slow: LocalClientStore = {
+			load: () => Promise.resolve([]),
+			save: records => {
+				saves.push(records.map(row => row.clientId))
+				return saves.length === 1 ? new Promise(resolve => (finish = resolve)) : Promise.resolve()
+			}
+		}
+		const registry = await LocalClientRegistry.load({store: slow, secretsStorable: () => true, log: {info: vi.fn(), warn: vi.fn(), error: vi.fn()}})
+		registries.push(registry)
+		const client = allowed(registry)
+		finish()
+		// Runs after the save's last check for changes, before it counts as done.
+		queueMicrotask(() => registry.remove(client.clientId))
+		await new Promise(resolve => setTimeout(resolve, 0))
+		await registry.saved()
+		expect(saves).toEqual([[client.clientId], []])
+	})
 })
 
 describe('LocalClientRegistry connections', () => {

@@ -73,7 +73,9 @@ export class LocalClientRegistry implements LocalClientApprovals {
 	private readonly now: () => number
 	private timer: NodeJS.Timeout | null = null
 	private closed = false
-	private saving: Promise<void> | null = null
+	// Whether a save runs; cleared in the step that finds nothing left to save.
+	private saving = false
+	private idle: Promise<void> = Promise.resolve()
 	private dirty = false
 
 	private constructor(
@@ -205,7 +207,7 @@ export class LocalClientRegistry implements LocalClientApprovals {
 
 	// Settles once every save asked for so far is done.
 	saved(): Promise<void> {
-		return this.saving ?? Promise.resolve()
+		return this.idle
 	}
 
 	// Stops the expiry timer and waits for the last save.
@@ -227,7 +229,9 @@ export class LocalClientRegistry implements LocalClientApprovals {
 	// Coalesced: while a save runs, later changes wait and go out as one.
 	private persist(): void {
 		this.dirty = true
-		this.saving ??= this.saveWhileDirty().finally(() => (this.saving = null))
+		if (this.saving) return
+		this.saving = true
+		this.idle = this.saveWhileDirty()
 	}
 
 	private async saveWhileDirty(): Promise<void> {
@@ -240,6 +244,7 @@ export class LocalClientRegistry implements LocalClientApprovals {
 				this.options.log.warn('the local clients could not be saved', {error: error instanceof Error ? error.name : typeof error})
 			}
 		}
+		this.saving = false
 	}
 
 	private changed(): void {
