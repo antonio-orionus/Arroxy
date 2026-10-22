@@ -1,6 +1,6 @@
 // What a tiered profile sends yt-dlp: `res:` capped at the tier's ceiling, and
-// the selector tried first on streams the Format screen's rows put at or under
-// the tier, then on any stream of known size, then as it is. The ceilings are
+// each alternative tried first on streams the Format screen's rows put at or
+// under the tier, then on any stream of known size, then as it is. The ceilings are
 // written out (the largest short and long side under the next tier's 3%
 // tolerance) so a test checks the arithmetic rather than repeating it.
 const TIER_CEILINGS: Readonly<Record<string, {shortSide: number; longSide: number}>> = {
@@ -26,10 +26,9 @@ export function tierRes(tier: string): string {
 
 export function tierBounded(selector: string, tier: string): string {
 	const {longSide} = ceilingOf(tier)
-	const layer = (filter: string): string =>
-		selector
-			.split('/')
-			.map(alternative => alternative.replace(/^best(?:video)?\*?/, atom => `${atom}${filter}`))
-			.join('/')
-	return [layer(`[width<=${longSide}][height<=${longSide}]`), layer('[height>0]'), selector].join('/')
+	const filtered = (alternative: string, filter: string): string => alternative.replace(/^best(?:video)?\*?/, atom => `${atom}${filter}`)
+	return selector
+		.split('/')
+		.flatMap(alternative => [filtered(alternative, `[width<=?${longSide}][height<=${longSide}]`), filtered(alternative, '[height>0]'), alternative])
+		.join('/')
 }

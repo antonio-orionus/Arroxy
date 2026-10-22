@@ -355,13 +355,30 @@ describe('resolveProfileSelection: selection order and file type', () => {
 	})
 
 	// X/Twitter's extractor sorts `proto:m3u8`: HLS first, so "direct downloads first" would be wrong there.
-	// yt-dlp's `res` is the smaller side, which `-S res:1080` caps on: an
-	// ultra-wide 2560x1080 is a 1080 stream to it, though its row reads 1440p.
-	it("says nothing about the tier for a stream yt-dlp's res counts as that tier, though its row reads 1440p", () => {
-		const raw = [rawVideo('wide', 1080, {width: 2560, resolution: '2560x1080'}), rawAudio('140')]
-		const {media, notices} = resolveRaw(builtin('hd-1080'), raw)
-		expect(media.videoFormatId).toBe('wide')
-		expect(notices).toEqual([])
+	// The row names a stream's tier, for picks and notices alike: an ultra-wide
+	// 2560x1080 reads 1440p, though yt-dlp's `res` counts it as 1080.
+	it('names an ultra-wide stream by its row, taking the 1080p row beside it', () => {
+		const wide = rawVideo('wide', 1080, {width: 2560, resolution: '2560x1080'})
+		const alone = resolveRaw(builtin('hd-1080'), [wide, rawAudio('140')])
+		expect(alone.media.videoFormatId).toBe('wide')
+		expect(alone.notices).toEqual([{kind: 'video-tier-fallback', wanted: '1080', picked: 1440}])
+		const ladder = resolveRaw(builtin('hd-1080'), [wide, rawVideo('810', 810, {width: 1920, resolution: '1920x810'}), rawVideo('720', 720), rawAudio('140')])
+		expect(ladder.media.videoFormatId).toBe('810')
+		expect(ladder.notices).toEqual([])
+	})
+
+	// A site may give a stream's height alone; yt-dlp's `res` reads it from that.
+	it('keeps a stream that names its height but not its width in its tier', () => {
+		const raw = [{format_id: 'h480', ext: 'mp4', height: 480, vcodec: 'avc1.4d401e', acodec: 'none', protocol: 'https'}, rawVideo('360', 360, {width: 640, resolution: '640x360'}), rawAudio('140')]
+		expect(resolveRaw(builtin('small-file'), raw, []).media.videoFormatId).toBe('h480')
+	})
+
+	// Smart TV takes H.264 first at any height, as before tiers were bounded.
+	it('takes H.264 above the tier for Smart TV over another codec at it', () => {
+		const raw = [rawVideo('vp9', 480, {width: 854, resolution: '854x480', vcodec: 'vp9', ext: 'webm'}), rawVideo('h264', 720), rawAudio('140')]
+		const {media, notices} = resolveRaw(builtin('mp4-480'), raw)
+		expect(media.videoFormatId).toBe('h264')
+		expect(notices).toEqual([{kind: 'video-tier-fallback', wanted: '480', picked: 720}])
 	})
 
 	// A profile takes every stream its tier names on the Format screen (#657):

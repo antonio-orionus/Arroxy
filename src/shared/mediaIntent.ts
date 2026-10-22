@@ -187,22 +187,23 @@ function preferredFirst(selector: string, order: SelectionOrder): string {
 
 // A tiered profile takes what its tier names on the Format screen (videoTier).
 // `-S res:` caps the short side at the tier's ceiling (selectionOrder), and
-// the alternatives are tried in three layers: streams whose long side keeps
-// them at or under the tier, then any stream of known size, then the rest. The
-// first keeps out a widescreen stream the rows put in the next tier (1280x640
-// is 720p), the second a file with no size, which passes any `res` limit and
-// would otherwise win over sized streams above the tier (Facebook's `hd`).
+// each alternative is tried in three layers: on streams whose long side keeps
+// them at or under the tier, then on any stream of known size, then as it is.
+// The first keeps out a widescreen stream the rows put in the next tier
+// (1280x640 is 720p) and lets in one that names its height alone; the second
+// keeps out a file with no size, which passes any `res` limit and would win
+// over sized streams above the tier (Facebook's `hd`). Layering each
+// alternative, not the whole selector, keeps Smart TV's H.264 ahead of the tier.
 const VIDEO_ATOM = /^best(?:video)?\*?/
 
 function withinTier(selector: string, order: SelectionOrder): string {
 	const ceiling = order.tier === 'best' ? null : tierCeiling(Number(order.tier))
 	if (!ceiling) return selector
-	const layer = (filter: string): string =>
-		selector
-			.split('/')
-			.map(alternative => alternative.replace(VIDEO_ATOM, atom => `${atom}${filter}`))
-			.join('/')
-	return [layer(`[width<=${ceiling.longSide}][height<=${ceiling.longSide}]`), layer('[height>0]'), selector].join('/')
+	const filtered = (alternative: string, filter: string): string => alternative.replace(VIDEO_ATOM, atom => `${atom}${filter}`)
+	return selector
+		.split('/')
+		.flatMap(alternative => [filtered(alternative, `[width<=?${ceiling.longSide}][height<=${ceiling.longSide}]`), filtered(alternative, '[height>0]'), alternative])
+		.join('/')
 }
 
 function videoIntentSpec(intent: VideoMediaIntent, nativeAudioPreference: NativeAudioPreference, hdrPreference: HdrPreference): MediaIntentSpec {

@@ -26,7 +26,7 @@ mp4-720: 7 (1280x720, mp4) + audio none
 mp4-480: 5 (852x480, mp4) + audio none
 audio-only: audio extract
 low-240: 1 (426x240, mp4) + audio none
-low-144: 1 (426x240, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"144","picked":240})
+low-144: 240p (240p, mp4) + audio none (notices: {"kind":"video-tier-fallback","wanted":"144","picked":240})
 
 Subtitles: none
 Auto captions: none

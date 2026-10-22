@@ -33,11 +33,10 @@ const isAudioOnly = (format: RawFormat): boolean => format.vcodec === 'none' && 
 const isUpscaled = (format: RawFormat): boolean => format.format_id.endsWith('-sr')
 const isH264 = (format: RawFormat): boolean => /^(?:avc1|h264)/i.test(format.vcodec ?? '')
 // The tier a stream sits in, as profiles and the Format screen name it (GLOSSARY: Tier).
-const tierOf = (format: RawFormat): number | null => (format.width && format.height ? tierHeightOf(format.width, format.height) : null)
-// A stream meets a tier when either measure the app uses says so: the row's
-// tier label, or its short side, which yt-dlp's `res` counts (a 2560x1080
-// ultra-wide is 1080p though its label says 1440p).
-const meetsTier = (format: RawFormat, tier: number): boolean => tierOf(format) === tier || (format.width !== undefined && format.height !== undefined && Math.min(format.width, format.height) === tier)
+// A stream that names its height alone is labelled by it, as the app labels it.
+const tierOf = (format: RawFormat): number | null => (format.height ? tierHeightOf(format.width ?? format.height, format.height) : null)
+// A stream meets a tier when its row names that tier, as the app judges it.
+const meetsTier = (format: RawFormat, tier: number): boolean => tierOf(format) === tier
 
 const VIDEO_PROFILES = BUILTIN_DOWNLOAD_PROFILES.filter(profile => profile.media.kind === 'video-audio')
 

@@ -33,13 +33,13 @@ describe('a sampled video’s id', () => {
 })
 
 describe('the tier rule', () => {
-	// The app takes a 2560x1080 ultra-wide stream as 1080p by its short side
-	// (yt-dlp's `res`), though its 16:9 label is 1440p.
-	it('accepts a pick that meets the tier by either measure, as the app does', () => {
+	// An ultra-wide 2560x1080 sits in the 1440p row, though yt-dlp's `res`
+	// counts it as 1080, so a 1080p profile that takes it must say so.
+	it('judges a pick by the row that names it', () => {
 		const probe = probeSourceResult('youtube-2014')
 		const rule = RULES['a tiered profile picks its tier, or says what it picked instead']
 		if (!rule) throw new Error('tier rule missing')
 		const raw = probe.formats.filter(format => !format.isAudioOnly).map(format => ({format_id: format.formatId, vcodec: format.videoCodec ?? 'avc1', acodec: format.isVideoOnly ? 'none' : 'mp4a', width: 2560, height: 1080}))
-		expect(rule(probe, raw).filter(line => line.startsWith('hd-1080 '))).toEqual([])
+		expect(rule(probe, raw)).toContain('hd-1080 picks 1440p and says nothing')
 	})
 })

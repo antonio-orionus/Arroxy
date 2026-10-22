@@ -17,7 +17,7 @@ export function FitNotices(): ReactNode {
 	function message(notice: FitNotice): string {
 		switch (notice.kind) {
 			case 'video-tier-fallback':
-				return t(notice.picked < Number(notice.wanted) ? 'wizard.formats.fit.tierBelow' : 'wizard.formats.fit.tierAbove', {wanted: notice.wanted, picked: notice.picked})
+				return t(notice.picked < Number(notice.wanted) ? 'wizard.formats.fit.tierBelowClosest' : 'wizard.formats.fit.tierAbove', {wanted: notice.wanted, picked: notice.picked})
 			case 'mp4-unavailable':
 				return t('wizard.formats.fit.mp4Unavailable')
 			case 'webm-unavailable':
