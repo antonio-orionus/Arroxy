@@ -182,7 +182,9 @@ export const VideoPhase: Phase = {
 			// Disposables drain on finalize for completed / soft-failed /
 			// hard-failed / cancelled outcomes; on `paused`, JobLifecycle skips
 			// the drain so resume can pick up the .part files.
-			QueueResumeLifecycle.registerVideoTempDataCleanup(active, job.outputDir, tempDir, disposable => ctx.register(disposable))
+			QueueResumeLifecycle.registerVideoTempDataCleanup(active, tempDir, disposable => ctx.register(disposable))
+		} else {
+			logger.warn('Temp folder could not be made; partial files go to the output folder and stay there after a cancel', {jobId: job.id, outputDir: job.outputDir})
 		}
 		// Resume hardening: if a prior spawn wrote _arroxy.info.json into the
 		// preserved tempDir, feed it to yt-dlp so extraction is skipped on

@@ -317,3 +317,47 @@ test('Electron paused active fixture download resumes after app relaunch', async
 		files.expectMp4Count(1)
 	})
 })
+
+// Cancel removes only the job's own partial files (#619). A browser download
+// in progress sits in the same folder as a `.part`; before, every cancel swept
+// every `.part` at the top of the job's folder, whoever wrote it.
+for (const when of ['running', 'paused-active'] as const) {
+	test(`Electron cancelling a ${when} download leaves another app's partial file in the folder`, async () => {
+		test.setTimeout(180_000)
+		const videoId = FIXTURE_VIDEO_IDS[when === 'running' ? 7 : 8]
+		const title = `Fixture Video ${when === 'running' ? 8 : 9}`
+
+		await withFixtureProductApp({behavior: {mediaSlowIds: [videoId]}, userDataPrefix: 'arroxy-fixture-cancel-part-user-', outputPrefix: 'arroxy-fixture-cancel-part-out-'}, async ({page, queue, files}) => {
+			await prepareSingleReview(page, videoId)
+			await page.locator('[data-testid="btn-download"]').click()
+			await queue.expectStatus(title, 'running', 60_000)
+
+			// The job's folder (a profile may add a subfolder) is the one holding its temp folder.
+			const tempMarker = `${path.sep}.arroxy-temp${path.sep}`
+			let jobFolder = ''
+			await expect
+				.poll(
+					() =>
+						(jobFolder =
+							files
+								.listRecursive()
+								.find(file => file.includes(tempMarker))
+								?.split(tempMarker)[0] ?? ''),
+					{timeout: 30_000}
+				)
+				.not.toBe('')
+			const strangerPart = path.join(jobFolder, 'browser-download.zip.part')
+			fs.writeFileSync(strangerPart, 'someone else')
+
+			if (when === 'paused-active') {
+				await queue.action(title, 'pause')
+				await queue.expectStatus(title, 'paused-active', 60_000)
+			}
+			await queue.action(title, 'cancel')
+			await queue.expectStatus(title, 'cancelled', 60_000)
+
+			// The job's own temp folder goes; the stranger's file is all that is left.
+			await expect.poll(() => files.listRecursive(), {timeout: 30_000}).toEqual([strangerPart])
+		})
+	})
+}

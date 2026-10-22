@@ -1,5 +1,5 @@
 import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
-import {mkdir, rm} from 'node:fs/promises'
+import {access, mkdir, mkdtemp, rm, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import {join} from 'node:path'
 import {DownloadService} from '@main/services/DownloadService.js'
@@ -31,6 +31,28 @@ async function finishMockDownloadTimers(): Promise<void> {
 	await Promise.resolve()
 }
 
+// An output folder that also holds another download's partial file, such as
+// a browser's in ~/Downloads: no cancel may delete it.
+async function folderWithStrangerPart(): Promise<{outputDir: string; strangerPart: string}> {
+	const outputDir = await mkdtemp(join(tmpdir(), 'arroxy-cancel-folder-'))
+	const strangerPart = join(outputDir, 'browser-download.zip.part')
+	await writeFile(strangerPart, 'someone else')
+	return {outputDir, strangerPart}
+}
+
+interface PausedDownload {
+	job: DownloadJob
+	input: {url: string; outputDir: string}
+	tempDir?: string
+}
+
+function seedPausedJob(service: DownloadService, id: string, outputDir: string, tempDir: string): Map<string, PausedDownload> {
+	const job: DownloadJob = {id, url: 'https://youtube.com/watch?v=xyz', outputDir, status: 'running', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()}
+	const pausedJobs = (service as unknown as {pausedJobs: Map<string, PausedDownload>}).pausedJobs
+	pausedJobs.set(id, {job, input: {url: job.url, outputDir}, tempDir})
+	return pausedJobs
+}
+
 describe('DownloadService (mock mode)', () => {
 	it('starts and emits lifecycle events', async () => {
 		vi.useFakeTimers()
@@ -49,17 +71,20 @@ describe('DownloadService (mock mode)', () => {
 		expect(recentJobsStore.push).toHaveBeenCalledOnce()
 	})
 
-	it('cancels an active mock download and calls cleanupPartFiles', async () => {
+	it("cancels an active mock download and leaves other downloads' partial files in its folder", async () => {
 		const {service} = makeService()
-		const cleanupSpy = vi.spyOn(service, 'cleanupPartFiles').mockResolvedValue()
+		const {outputDir, strangerPart} = await folderWithStrangerPart()
+		try {
+			const startResult = await service.start({url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', outputDir, job: DEFAULT_JOB})
+			expect(startResult.ok).toBe(true)
 
-		const startResult = await service.start({url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', outputDir: '/tmp/downloads', job: DEFAULT_JOB})
-		expect(startResult.ok).toBe(true)
-
-		const cancelResult = await service.cancel()
-		expect(cancelResult.ok).toBe(true)
-		if (cancelResult.ok) expect(cancelResult.data.cancelled).toBe(true)
-		expect(cleanupSpy).toHaveBeenCalledWith('/tmp/downloads')
+			const cancelResult = await service.cancel()
+			expect(cancelResult.ok).toBe(true)
+			if (cancelResult.ok) expect(cancelResult.data.cancelled).toBe(true)
+			await expect(access(strangerPart)).resolves.toBeUndefined()
+		} finally {
+			await rm(outputDir, {recursive: true, force: true})
+		}
 	})
 
 	it('allows two downloads to start concurrently', async () => {
@@ -111,25 +136,42 @@ describe('DownloadService (mock mode)', () => {
 		expect(pausedJobs.has(jobId)).toBe(true)
 	})
 
-	it('cancel() of a paused job cleans up .part files and removes from pausedJobs', async () => {
+	it('cancel() of a paused job removes only its own temp folder and drops it from pausedJobs', async () => {
 		const {service} = makeService()
-		const cleanupSpy = vi.spyOn(service, 'cleanupPartFiles').mockResolvedValue()
+		const {outputDir, strangerPart} = await folderWithStrangerPart()
+		try {
+			const tempDir = join(outputDir, '.arroxy-temp', 'paused-j')
+			await mkdir(tempDir, {recursive: true})
+			await writeFile(join(tempDir, 'video.mp4.part'), 'partial')
+			const pausedJobs = seedPausedJob(service, 'paused-job-id', outputDir, tempDir)
 
-		// Manually inject a paused job to simulate the pause flow.
-		const pausedJob: DownloadJob = {id: 'paused-job-id', url: 'https://youtube.com/watch?v=xyz', outputDir: '/tmp/paused-downloads', status: 'running', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()}
-		interface PausedDownload {
-			job: DownloadJob
-			input: {url: string; outputDir: string}
+			const cancelResult = await service.cancel('paused-job-id')
+			expect(cancelResult.ok).toBe(true)
+			if (cancelResult.ok) expect(cancelResult.data.cancelled).toBe(true)
+			await expect(access(tempDir)).rejects.toThrow()
+			await expect(access(strangerPart)).resolves.toBeUndefined()
+			expect(pausedJobs.has('paused-job-id')).toBe(false)
+		} finally {
+			await rm(outputDir, {recursive: true, force: true})
 		}
-		;(service as unknown as {pausedJobs: Map<string, PausedDownload>}).pausedJobs.set(pausedJob.id, {job: pausedJob, input: {url: pausedJob.url, outputDir: pausedJob.outputDir}})
+	})
 
-		const cancelResult = await service.cancel(pausedJob.id)
-		expect(cancelResult.ok).toBe(true)
-		if (cancelResult.ok) expect(cancelResult.data.cancelled).toBe(true)
-		expect(cleanupSpy).toHaveBeenCalledWith('/tmp/paused-downloads')
+	it("cancel-all removes each paused job's own temp folder and nothing else in the folder", async () => {
+		const {service} = makeService()
+		const {outputDir, strangerPart} = await folderWithStrangerPart()
+		try {
+			const tempDir = join(outputDir, '.arroxy-temp', 'paused-k')
+			await mkdir(tempDir, {recursive: true})
+			const pausedJobs = seedPausedJob(service, 'paused-all-id', outputDir, tempDir)
 
-		const pausedJobs = (service as unknown as {pausedJobs: Map<string, PausedDownload>}).pausedJobs
-		expect(pausedJobs.has(pausedJob.id)).toBe(false)
+			const cancelResult = await service.cancel()
+			expect(cancelResult.ok).toBe(true)
+			await expect(access(tempDir)).rejects.toThrow()
+			await expect(access(strangerPart)).resolves.toBeUndefined()
+			expect(pausedJobs.size).toBe(0)
+		} finally {
+			await rm(outputDir, {recursive: true, force: true})
+		}
 	})
 
 	it('resume() re-runs a paused mock job under the same id', async () => {
@@ -238,7 +280,6 @@ describe('DownloadService (mock mode)', () => {
 		const settingsStore = {get: vi.fn().mockResolvedValue({})}
 		const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore)
 		const service = new DownloadService(ytDlp, recentJobsStore as never, true)
-		vi.spyOn(service, 'cleanupPartFiles').mockResolvedValue()
 
 		// Seed a paused job directly so resume() takes the within-session branch.
 		const pausedJob: DownloadJob = {id: 'paused-cancel-race', url: 'https://youtube.com/watch?v=race', outputDir: '/tmp/race', status: 'running', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()}

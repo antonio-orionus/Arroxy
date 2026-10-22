@@ -17,7 +17,7 @@ import type {ExploreSignInCheck} from './phases/types.js'
 import type {ExploreGate} from './exploreGate.js'
 import type {ExploreSpawnGate} from './exploreSpawnGate.js'
 import {stopActiveProcesses} from './download/processControl.js'
-import {cleanupPartFiles, cleanupTempDirByPath} from './download/cleanup.js'
+import {cleanupTempDirByPath} from './download/cleanup.js'
 import {QueueResumeLifecycle} from './download/QueueResumeLifecycle.js'
 import {ProgressParser} from './download/progressParser.js'
 import {YT_DLP_PROGRESS_PREFIX} from 'yt-dlp-bridge/parsers'
@@ -363,11 +363,12 @@ export class DownloadService extends EventEmitter {
 
 			const paused = this.pausedJobs.get(jobId)
 			if (paused) {
-				logger.info('Cancelling paused job — cleaning up temp dir and .part files', {jobId, outputDir: paused.job.outputDir})
+				// Only the job's own temp folder: other .part files in the output folder
+				// belong to other downloads, Arroxy's or another app's.
+				logger.info('Cancelling paused job — cleaning up its temp dir', {jobId, outputDir: paused.job.outputDir, tempDir: paused.tempDir ?? null})
 				this.pausedJobs.delete(jobId)
 				this.explore.spawnGate.resetJob(jobId)
 				if (paused.tempDir) await this.cleanupTempDirByPath(paused.tempDir)
-				await this.cleanupPartFiles(paused.job.outputDir)
 				return ok({cancelled: true})
 			}
 
@@ -382,7 +383,6 @@ export class DownloadService extends EventEmitter {
 			[...this.pausedJobs.values()].map(async paused => {
 				this.explore.spawnGate.resetJob(paused.job.id)
 				if (paused.tempDir) await this.cleanupTempDirByPath(paused.tempDir)
-				await this.cleanupPartFiles(paused.job.outputDir)
 			})
 		)
 		this.pausedJobs.clear()
@@ -447,7 +447,6 @@ export class DownloadService extends EventEmitter {
 			logger.info('Clearing mock download timer', {jobId: job.id})
 			clearInterval(active.mockTimer)
 			active.mockTimer = undefined
-			await this.cleanupPartFiles(job.outputDir)
 			this.emitStatus(job.id, 'error', STATUS_KEY.cancelled)
 			await this.finalize(job, 'cancelled')
 			return ok({cancelled: true})
@@ -455,10 +454,6 @@ export class DownloadService extends EventEmitter {
 
 		logger.info('cancelOne() — job had no process or timer (pre-spawn cancel)', {jobId: active.job.id})
 		return ok({cancelled: true})
-	}
-
-	async cleanupPartFiles(outputDir: string): Promise<void> {
-		await cleanupPartFiles(outputDir)
 	}
 
 	private async cleanupTempDirByPath(tempDir: string): Promise<void> {
