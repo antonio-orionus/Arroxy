@@ -1,0 +1,30 @@
+name: E2E Fixtures Nightly
+
+# The whole fixture E2E suite on main, every night, with no retries: pull
+# requests and pushes retry a failed test once, so a flaky test passes there
+# and this run is where it fails. It calls E2E Fixtures with `run: nightly`.
+#
+# Its checks are named "Nightly / ...", not the "E2E fixtures gate" that branch
+# protection requires, and Main Health does not wake on this workflow: a flaky
+# test failing here marks no main commit red and blocks no release. GitHub
+# mails a failed scheduled run to whoever last changed the cron below.
+
+on:
+  schedule:
+    - cron: '17 2 * * *'
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  nightly:
+    name: Nightly
+    # The called workflow's `changes` job reads earlier runs and the pull
+    # request's files; a called workflow gets no more than its caller grants.
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: read
+    uses: ./.github/workflows/e2e-fixtures.yml
+    with:
+      run: nightly
