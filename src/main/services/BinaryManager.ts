@@ -295,12 +295,15 @@ export class BinaryManager {
 
 	// Whether anything managed is on disk yet: a yt-dlp build or an FFmpeg
 	// package. Directory listings only, no hashing: the warmup report asks it
-	// once per run, only to tell a first setup from an update.
+	// once per run, only to tell a first setup from an update. A cache it cannot
+	// read rejects, rather than passing for an empty one.
 	async hasManagedInstall(): Promise<boolean> {
-		const artifacts = await fsPromises.readdir(path.join(this.artifactCacheDir, 'artifacts')).catch(() => [])
+		const artifacts = await fsPromises.readdir(path.join(this.artifactCacheDir, 'artifacts')).catch((err: unknown) => {
+			if ((err as NodeJS.ErrnoException).code === 'ENOENT') return []
+			throw err
+		})
 		if (artifacts.some(name => !name.startsWith('.'))) return true
-		const packages = await this.ffmpegPackages.installed({cacheRoot: this.artifactCacheDir}).catch(() => [])
-		return packages.length > 0
+		return (await this.ffmpegPackages.installed({cacheRoot: this.artifactCacheDir})).length > 0
 	}
 
 	// Where the binary manifest this session settled on came from; null until one is chosen.

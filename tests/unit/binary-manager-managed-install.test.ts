@@ -9,10 +9,10 @@ import {BinaryManager} from '@main/services/BinaryManager.js'
 import type {RuntimeBinaryIndexProvider} from '@main/services/binary/RuntimeBinaryIndexService.js'
 import type {FfmpegPackageEntry} from '@shared/types.js'
 
-async function makeMgr(opts: {installed?: FfmpegPackageEntry[]; index?: Partial<RuntimeBinaryIndexProvider>} = {}): Promise<{mgr: BinaryManager; dir: string}> {
+async function makeMgr(opts: {installed?: FfmpegPackageEntry[] | Error; index?: Partial<RuntimeBinaryIndexProvider>} = {}): Promise<{mgr: BinaryManager; dir: string}> {
 	const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'bm-managed-install-'))
 	const runtimeBinaryIndex: RuntimeBinaryIndexProvider = {candidatesFor: vi.fn(async () => []), ffmpegPackageCandidates: vi.fn(async () => []), invalidate: vi.fn(), ...opts.index}
-	const mgr = new BinaryManager(dir, {runtimeBinaryIndex, ffmpegPackageMaterializer: {materialize: vi.fn(), prune: vi.fn(), installed: vi.fn(async () => opts.installed ?? [])}})
+	const mgr = new BinaryManager(dir, {runtimeBinaryIndex, ffmpegPackageMaterializer: {materialize: vi.fn(), prune: vi.fn(), installed: vi.fn(async () => (opts.installed instanceof Error ? Promise.reject(opts.installed) : (opts.installed ?? [])))}})
 	return {mgr, dir}
 }
 
@@ -31,6 +31,17 @@ describe('BinaryManager.hasManagedInstall', () => {
 	it('is true once an FFmpeg package is installed', async () => {
 		const {mgr} = await makeMgr({installed: [{} as FfmpegPackageEntry]})
 		await expect(mgr.hasManagedInstall()).resolves.toBe(true)
+	})
+
+	it('fails, rather than reporting an empty install, when the cache cannot be read', async () => {
+		const {mgr, dir} = await makeMgr()
+		// A file where the folder should be: ENOTDIR, not "nothing there".
+		await fs.mkdir(path.join(dir, 'runtime-cache', 'artifact-cache-v1'), {recursive: true})
+		await fs.writeFile(path.join(dir, 'runtime-cache', 'artifact-cache-v1', 'artifacts'), '')
+		await expect(mgr.hasManagedInstall()).rejects.toThrow()
+
+		const {mgr: unreadablePackages} = await makeMgr({installed: new Error('EACCES')})
+		await expect(unreadablePackages.hasManagedInstall()).rejects.toThrow('EACCES')
 	})
 
 	it('ignores hidden files a file manager leaves behind', async () => {

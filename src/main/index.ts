@@ -15,6 +15,7 @@ import {registerIpcHandlers} from '@main/ipc/registerIpcHandlers.js'
 import {registerUpdaterHandlers} from '@main/ipc/registerUpdaterHandlers.js'
 import {counterscaleSender, createHeartbeat, HEARTBEAT_SITE_ID, heartbeatUrl, osLocale} from '@main/services/heartbeat.js'
 import {holdQuitForWarmupReport, startWarmupReporting, warmupReportCollector} from '@main/warmupReporting.js'
+import {sharedQuitHooks} from '@main/sharedQuitHooks.js'
 import {detectInstallChannel} from '@main/installChannel.js'
 import {installChannelArg, systemLanguageArg} from '@shared/runtimeInfo.js'
 import {BinaryManager} from '@main/services/BinaryManager.js'
@@ -431,7 +432,9 @@ if (hasSingleInstanceLock) {
 					context: () => ({appVersion: app.getVersion(), platform: process.platform, arch: process.arch, osLocale: osLocale(app.getPreferredSystemLanguages(), app.getLocale())})
 				})
 			: undefined
-		if (warmupReporter) holdQuitForWarmupReport(app, warmupReporter)
+		// One quit hold for everything that delays a quit, so none exits under another.
+		const quitHooks = sharedQuitHooks(app)
+		if (warmupReporter) holdQuitForWarmupReport(quitHooks, warmupReporter)
 
 		// Before the window exists, so the first paint and the Explore view agree with the saved theme.
 		applyNativeThemeSource(nativeTheme, initialSettings.common.uiTheme)
@@ -694,7 +697,7 @@ if (hasSingleInstanceLock) {
 			autoAllowClients: autoAllowsClients({e2eHarness: e2eMode.enabled, isPackaged: app.isPackaged}),
 			log: log.scope('control')
 		})
-		stopAgentControlOnQuit(app, agentControl, log.scope('control'))
+		stopAgentControlOnQuit(quitHooks, agentControl, log.scope('control'))
 
 		app.on('render-process-gone', (_event, webContents, details) => {
 			// An Explore page crash is the open web's, not the app's: the view shows

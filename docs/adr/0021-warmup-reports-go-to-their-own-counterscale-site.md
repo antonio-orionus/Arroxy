@@ -16,4 +16,4 @@ A warmup that has to fetch a managed binary therefore sends a **warmup report**:
 - Nothing changes on the collector or Cloudflare. Counterscale accepts any site id at `/collect`, and its site picker lists every site with data in the last 90 days.
 - Installed apps keep sending to `arroxy-warmup` for as long as they are in use, so renaming the site or moving it to another collector strands old versions.
 - Warmup reports share the heartbeat's opt-out and its environment rules (`ARROXY_HEARTBEAT_URL`), and stay off in release builds behind the `warmupReport` release flag until the public wording says Arroxy sends them.
-- The Counterscale server tracker keeps one global client, so warmup reports are a plain GET built to the same query format. That GET also returns a status code, so a report the collector did not take is kept and sent once at the next launch.
+- The Counterscale server tracker keeps one global client, so warmup reports are a plain GET built to the same query format. That GET also returns a status code, so each report is kept until the collector takes it, and what a quit or a dead link left behind is sent once at the next launch.

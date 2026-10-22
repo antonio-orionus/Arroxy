@@ -68,13 +68,26 @@ describe('WarmupService', () => {
 		const progress = vi.fn()
 		const settled = vi.fn(async () => undefined)
 		const runStarted = vi.fn(() => ({progress, settled}))
-		const svc = new WarmupService({binaryManager: progressfulBinaryManager(), tokenService: noopToken, observer: {runStarted}})
+		// Five byte counts inside one 100 ms throttle window: IPC keeps the newest,
+		// the observer must see every one to time a download from its first bytes.
+		const chunks = [1, 2, 3, 4, 5].map(bytesDownloaded => ({binary: 'yt-dlp' as const, phase: 'downloading' as const, bytesDownloaded}))
+		const bm = {
+			invalidateResolved: vi.fn(),
+			resolveYtDlp: vi.fn().mockImplementation(({onProgress}) => {
+				for (const chunk of chunks) onProgress?.(chunk)
+				onProgress?.({binary: 'yt-dlp', phase: 'done'})
+				return Promise.resolve(diag('yt-dlp', 'runnable'))
+			}),
+			resolveFFmpegPair: vi.fn().mockResolvedValue({ffmpeg: diag('ffmpeg', 'runnable'), ffprobe: diag('ffprobe', 'runnable')})
+		} as unknown as BinaryManager
+		const {window, send} = fakeWarmupWindow()
+		const svc = new WarmupService({binaryManager: bm, tokenService: noopToken, window, observer: {runStarted}})
 
 		const result = await svc.run()
 
 		expect(runStarted).toHaveBeenCalledTimes(1)
-		expect(progress.mock.calls.map(([event]) => `${event.binary}:${event.phase}`)).toContain('ffmpeg:downloading')
-		expect(progress).toHaveBeenCalledTimes(11)
+		expect(progress.mock.calls.map(([event]) => event.bytesDownloaded).filter(bytes => bytes !== undefined)).toEqual([1, 2, 3, 4, 5])
+		expect(progressEvents(send).filter(event => event.phase === 'downloading').length).toBeLessThan(5)
 		expect(settled).toHaveBeenCalledWith(result)
 	})
 

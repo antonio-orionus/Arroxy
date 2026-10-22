@@ -1,12 +1,12 @@
 import type {BinaryManifestSource} from '@shared/schemas.js'
 import type {Result} from '@shared/result.js'
 import type {DependencyId, WarmUpOutput, WarmupProgressEvent} from '@shared/types.js'
-import type {WarmupReportState} from '@main/stores/WarmupReportStore.js'
-import {buildWarmupReportHit, firstFailure, throughputBucket, type WarmupReport, type WarmupReportContext, type WarmupReportHit, type WarmupReportKind, type WarmupReportStage} from './warmupReport.js'
+import {KEPT_REPORTS_MAX, type WarmupReportState} from '@main/stores/WarmupReportStore.js'
+import {buildWarmupReportHit, firstFailure, throughputBucket, type WarmupOutcome, type WarmupReport, type WarmupReportContext, type WarmupReportHit, type WarmupReportKind} from './warmupReport.js'
 import type {WarmupRunObservation, WarmupRunObserver} from './WarmupService.js'
 
 // A kept report older than this says nothing about the current state of the field.
-const UNDELIVERED_MAX_AGE_MS = 7 * 86_400_000
+const KEPT_MAX_AGE_MS = 7 * 86_400_000
 
 export interface WarmupReporterDeps {
 	state: {read(): WarmupReportState; write(state: WarmupReportState): void}
@@ -15,9 +15,10 @@ export interface WarmupReporterDeps {
 	// True once anything managed (yt-dlp build or FFmpeg package) is on disk.
 	hasManagedInstall: () => Promise<boolean>
 	manifestSource: () => BinaryManifestSource | null
-	// The heartbeat's switch: off sends nothing and keeps nothing.
+	// The heartbeat's switch, read before every send: off sends nothing and keeps nothing.
 	isEnabled: () => boolean
 	now: () => number
+	onError?: (error: unknown) => void
 }
 
 interface Transfer {
@@ -28,7 +29,6 @@ interface Transfer {
 }
 
 interface Started {
-	at: number
 	kind: WarmupReportKind
 	attempt: number
 }
@@ -36,7 +36,7 @@ interface Started {
 // One warmup run, from its first download to its outcome.
 class ReportedRun implements WarmupRunObservation {
 	private readonly transfers = new Map<DependencyId, Transfer>()
-	private started: Promise<Started> | null = null
+	private started: Promise<Started | null> | null = null
 	private startedAt = 0
 	private done = false
 
@@ -54,22 +54,31 @@ class ReportedRun implements WarmupRunObservation {
 		this.track(event)
 		if (this.started) return
 		this.startedAt = this.reporter.now()
-		this.started = this.reporter.start(this.kind, this.startedAt)
-		// Awaited later by the outcome; until then a failure must not surface as unhandled.
-		this.started.catch(() => undefined)
+		this.started = this.reporter.start(this.kind)
 	}
 
 	async settled(result: Result<WarmUpOutput>): Promise<void> {
-		if (!this.started || this.done) return
+		if (this.done) return
 		this.done = true
-		const stage: WarmupReportStage = !result.ok ? 'failed' : result.data.cancelled ? 'stopped' : result.data.completed ? 'ok' : 'failed'
-		await this.reporter.finish(await this.started, {stage, elapsedMs: this.reporter.now() - this.startedAt, failure: result.ok ? firstFailure(result.data.dependencies) : 'unknown', throughput: this.throughput()})
+		// A run that set the install up without fetching (a system FFmpeg, a file
+		// the user picked) still ends a run of failed attempts.
+		if (!this.started) {
+			if (result.ok && result.data.completed) this.reporter.setUpFinished()
+			return
+		}
+		const stage = !result.ok ? 'failed' : result.data.cancelled ? 'stopped' : result.data.completed ? 'ok' : 'failed'
+		await this.finish({stage, failure: result.ok ? firstFailure(result.data.dependencies) : 'unknown'})
 	}
 
 	async quit(): Promise<void> {
-		if (!this.started || this.done) return
+		if (!this.downloading) return
 		this.done = true
-		await this.reporter.finish(await this.started, {stage: 'quit', elapsedMs: this.reporter.now() - this.startedAt, throughput: this.throughput()})
+		await this.finish({stage: 'quit', failure: 'unknown'})
+	}
+
+	private async finish(outcome: Pick<WarmupOutcome, 'stage' | 'failure'>): Promise<void> {
+		const started = await this.started
+		if (started) await this.reporter.finish(started, {...outcome, elapsedMs: this.reporter.now() - this.startedAt, throughput: this.throughput()})
 	}
 
 	// A download's start carries no byte count; only real counts are measured,
@@ -82,8 +91,7 @@ class ReportedRun implements WarmupRunObservation {
 		this.transfers.set(event.binary, known ? {...known, lastAt: at, lastBytes: bytes} : {firstAt: at, firstBytes: bytes, lastAt: at, lastBytes: bytes})
 	}
 
-	// The speed of the largest transfer, counted from its own first byte report
-	// so a resumed download is not credited with bytes it already had.
+	// The speed of the largest transfer, counted from its own first byte report.
 	private throughput(): string {
 		let best: Transfer | undefined
 		for (const transfer of this.transfers.values()) {
@@ -94,8 +102,10 @@ class ReportedRun implements WarmupRunObservation {
 }
 
 // Turns warmup runs that fetch a managed binary into warmup reports: `started`
-// at the first download, then `ok`, `failed`, `stopped` or `quit`. Never throws
-// into the warmup it watches.
+// at the first download, then `ok`, `failed`, `stopped` or `quit`. Each report
+// is kept before it is sent and dropped once the collector takes it, so one cut
+// short by a quit goes out at the next launch. Never rejects into the warmup it
+// watches or the quit it delays.
 export class WarmupReporter implements WarmupRunObserver {
 	private readonly runs = new Set<ReportedRun>()
 
@@ -110,7 +120,7 @@ export class WarmupReporter implements WarmupRunObserver {
 		// Decided before anything downloads, so a file the run itself writes cannot
 		// turn a first setup into an update. A first setup that never finished
 		// stays first until one does.
-		const kind: Promise<WarmupReportKind> = this.deps.state.read().firstPending
+		const kind: Promise<WarmupReportKind> = this.safely(() => this.deps.state.read().firstPending, false)
 			? Promise.resolve('first')
 			: this.deps.hasManagedInstall().then(
 					installed => (installed ? 'update' : 'first'),
@@ -118,7 +128,14 @@ export class WarmupReporter implements WarmupRunObserver {
 				)
 		const run = new ReportedRun(this, kind)
 		this.runs.add(run)
-		return {progress: event => run.progress(event), settled: result => run.settled(result).finally(() => this.runs.delete(run))}
+		return {
+			progress: event => run.progress(event),
+			settled: result =>
+				run
+					.settled(result)
+					.catch((error: unknown) => this.deps.onError?.(error))
+					.finally(() => this.runs.delete(run))
+		}
 	}
 
 	// The report for every run still downloading, or null when there is none,
@@ -128,32 +145,46 @@ export class WarmupReporter implements WarmupRunObserver {
 		if (downloading.length === 0) return null
 		return Promise.all(downloading.map(run => run.quit())).then(
 			() => undefined,
-			() => undefined
+			(error: unknown) => this.deps.onError?.(error)
 		)
 	}
 
-	// Sends the report a previous launch could not deliver, once.
+	// Sends what earlier launches could not deliver, once each.
 	async retryUndelivered(): Promise<void> {
 		const state = this.deps.state.read()
-		const kept = state.undelivered
-		if (!kept) return
-		this.deps.state.write({attempt: state.attempt, firstPending: state.firstPending})
-		if (!this.deps.isEnabled() || this.deps.now() - kept.at > UNDELIVERED_MAX_AGE_MS) return
-		await this.deps.send(kept.hit)
+		if (state.kept.length === 0) return
+		this.deps.state.write({...state, kept: []})
+		if (!this.deps.isEnabled()) return
+		const fresh = state.kept.filter(entry => this.deps.now() - entry.at <= KEPT_MAX_AGE_MS)
+		await Promise.all(fresh.map(entry => this.deps.send(entry.hit)))
 	}
 
-	async start(kindPromise: Promise<WarmupReportKind>, at: number): Promise<Started> {
-		const kind = await kindPromise
-		const state = this.deps.state.read()
-		const started: Started = {at, kind, attempt: state.attempt + 1}
-		this.deps.state.write({...state, attempt: started.attempt, firstPending: kind === 'first'})
-		await this.deliver({kind, stage: 'started', attempt: started.attempt, manifestSource: this.manifestSource()})
-		return started
+	// Counts the attempt and sends `started` without waiting for it, so the
+	// outcome (above all `quit`) never waits on the network for `started`.
+	async start(kindPromise: Promise<WarmupReportKind>): Promise<Started | null> {
+		try {
+			const kind = await kindPromise
+			const state = this.deps.state.read()
+			const started: Started = {kind, attempt: state.attempt + 1}
+			this.deps.state.write({...state, attempt: started.attempt, firstPending: kind === 'first'})
+			void this.deliver({kind, stage: 'started', attempt: started.attempt, manifestSource: this.manifestSource()})
+			return started
+		} catch (error) {
+			this.deps.onError?.(error)
+			return null
+		}
 	}
 
-	async finish(started: Started, outcome: Pick<WarmupReport, 'stage' | 'elapsedMs' | 'failure' | 'throughput'>): Promise<void> {
-		if (outcome.stage === 'ok') this.deps.state.write({...this.deps.state.read(), attempt: 0, firstPending: false})
+	async finish(started: Started, outcome: WarmupOutcome): Promise<void> {
+		if (outcome.stage === 'ok') this.setUpFinished()
 		await this.deliver({kind: started.kind, attempt: started.attempt, manifestSource: this.manifestSource(), ...outcome})
+	}
+
+	setUpFinished(): void {
+		this.safely(() => {
+			const state = this.deps.state.read()
+			if (state.attempt !== 0 || state.firstPending) this.deps.state.write({...state, attempt: 0, firstPending: false})
+		}, undefined)
 	}
 
 	private manifestSource(): BinaryManifestSource | 'unknown' {
@@ -161,8 +192,25 @@ export class WarmupReporter implements WarmupRunObserver {
 	}
 
 	private async deliver(report: WarmupReport): Promise<void> {
-		const hit = buildWarmupReportHit(report, this.deps.context())
-		if (await this.deps.send(hit)) return
-		this.deps.state.write({...this.deps.state.read(), undelivered: {hit, at: this.deps.now()}})
+		if (!this.deps.isEnabled()) return
+		const entry = {hit: buildWarmupReportHit(report, this.deps.context()), at: this.deps.now()}
+		this.safely(() => {
+			const state = this.deps.state.read()
+			this.deps.state.write({...state, kept: [...state.kept, entry].slice(-KEPT_REPORTS_MAX)})
+		}, undefined)
+		if (!(await this.deps.send(entry.hit))) return
+		this.safely(() => {
+			const state = this.deps.state.read()
+			this.deps.state.write({...state, kept: state.kept.filter(kept => kept.at !== entry.at || kept.hit.p !== entry.hit.p)})
+		}, undefined)
+	}
+
+	private safely<T>(work: () => T, fallback: T): T {
+		try {
+			return work()
+		} catch (error) {
+			this.deps.onError?.(error)
+			return fallback
+		}
 	}
 }

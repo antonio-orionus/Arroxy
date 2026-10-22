@@ -17,20 +17,21 @@ function output(overrides: Partial<WarmUpOutput> = {}): WarmUpOutput {
 	return {completed: true, dependencies: {'yt-dlp': diagnostic('yt-dlp'), ffmpeg: diagnostic('ffmpeg'), ffprobe: diagnostic('ffprobe')}, blockingFailures: [], cancelled: false, ...overrides}
 }
 
-function makeReporter(opts: {state?: WarmupReportState; installed?: boolean; delivered?: boolean; enabled?: boolean} = {}) {
-	let state: WarmupReportState = opts.state ?? {attempt: 0, firstPending: false}
+function makeReporter(opts: {state?: WarmupReportState; installed?: boolean; delivered?: boolean | 'never'; enabled?: () => boolean} = {}) {
+	let state: WarmupReportState = opts.state ?? {attempt: 0, firstPending: false, kept: []}
 	let now = START
 	const hits: WarmupReportHit[] = []
 	const deps: WarmupReporterDeps = {
 		state: {read: () => state, write: next => void (state = next)},
 		send: vi.fn(async (hit: WarmupReportHit) => {
 			hits.push(hit)
+			if (opts.delivered === 'never') return new Promise<boolean>(() => undefined)
 			return opts.delivered ?? true
 		}),
 		context: () => ({appVersion: '0.7.4', platform: 'win32', arch: 'x64', osLocale: 'zh-CN'}),
 		hasManagedInstall: vi.fn(async () => opts.installed ?? false),
 		manifestSource: () => 'remote',
-		isEnabled: () => opts.enabled ?? true,
+		isEnabled: opts.enabled ?? (() => true),
 		now: () => now
 	}
 	return {reporter: new WarmupReporter(deps), hits, deps, state: () => state, advance: (ms: number) => void (now += ms)}
@@ -58,7 +59,7 @@ describe('WarmupReporter', () => {
 		expect(paths(hits)).toEqual(['/0.7.4/first/a1/started', '/0.7.4/first/a1/ok'])
 		expect(hits[1]).toMatchObject({r: '10-30s', uc: 'remote', ut: 'none', uco: '2-10mbps', us: 'zh-CN'})
 		// A finished setup starts the count again.
-		expect(state()).toEqual({attempt: 0, firstPending: false})
+		expect(state()).toEqual({attempt: 0, firstPending: false, kept: []})
 	})
 
 	it('labels a warmup on an install that already has managed binaries as an update', async () => {
@@ -74,7 +75,7 @@ describe('WarmupReporter', () => {
 		const first = reporter.runStarted()
 		first.progress({binary: 'ffmpeg', phase: 'downloading', bytesDownloaded: 0})
 		await first.settled(ok(output({completed: false, blockingFailures: ['ffmpeg']})))
-		expect(state()).toEqual({attempt: 1, firstPending: true})
+		expect(state()).toEqual({attempt: 1, firstPending: true, kept: []})
 
 		const again = makeReporter({state: state(), installed: true})
 		const retry = again.reporter.runStarted()
@@ -123,14 +124,21 @@ describe('WarmupReporter', () => {
 	})
 
 	it('never rejects into the warmup or the quit when the state cannot be written', async () => {
-		const {reporter, deps} = makeReporter()
-		deps.state.write = () => {
-			throw new Error('disk full')
+		const brokenState = (): ReturnType<typeof makeReporter> => {
+			const made = makeReporter()
+			made.deps.state.write = () => {
+				throw new Error('disk full')
+			}
+			return made
 		}
-		const run = reporter.runStarted()
+		const settling = brokenState()
+		const run = settling.reporter.runStarted()
 		run.progress({binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: 0})
-		await expect(reporter.quit()).resolves.toBeUndefined()
 		await expect(run.settled(ok(output()))).resolves.toBeUndefined()
+
+		const quitting = brokenState()
+		quitting.reporter.runStarted().progress({binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: 0})
+		await expect(quitting.reporter.quit()).resolves.toBeUndefined()
 	})
 
 	it('has nothing to send on quit when no warmup is downloading', () => {
@@ -139,35 +147,66 @@ describe('WarmupReporter', () => {
 		expect(reporter.quit()).toBeNull()
 	})
 
-	it('keeps a report the collector did not take and sends it once at the next launch', async () => {
+	it('keeps reports the collector did not take and sends each once at the next launch', async () => {
 		const offline = makeReporter({delivered: false})
 		const run = offline.reporter.runStarted()
 		run.progress({binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: 0})
 		await run.settled(ok(output()))
-		const kept = offline.state().undelivered
-		expect(kept?.hit.p).toBe('/0.7.4/first/a1/ok')
+		expect(offline.state().kept.map(entry => entry.hit.p)).toEqual(['/0.7.4/first/a1/started', '/0.7.4/first/a1/ok'])
 
 		const next = makeReporter({state: offline.state(), delivered: false})
 		await next.reporter.retryUndelivered()
-		expect(paths(next.hits)).toEqual(['/0.7.4/first/a1/ok'])
-		// Retried once: a second failure drops it.
-		expect(next.state().undelivered).toBeUndefined()
+		expect(paths(next.hits)).toEqual(['/0.7.4/first/a1/started', '/0.7.4/first/a1/ok'])
+		// Retried once: a second failure drops them.
+		expect(next.state().kept).toEqual([])
+	})
+
+	it('keeps a quit report before sending it, so a quit that cuts the send short loses nothing', async () => {
+		const {reporter, state} = makeReporter({delivered: 'never'})
+		const run = reporter.runStarted()
+		run.progress({binary: 'ffmpeg', phase: 'downloading', bytesDownloaded: 0})
+		await vi.waitFor(() => expect(state().kept).toHaveLength(1))
+		// Neither send ever settles, as on a stalled link: the quit is kept at once.
+		void reporter.quit()
+		await vi.waitFor(() => expect(state().kept.map(entry => entry.hit.p)).toEqual(['/0.7.4/first/a1/started', '/0.7.4/first/a1/quit']))
+		expect(state().kept[1]?.hit.ut).toBe('unknown')
 	})
 
 	it('drops a kept report older than seven days without sending it', async () => {
-		const {reporter, hits, state} = makeReporter({state: {attempt: 0, firstPending: false, undelivered: {hit: {sid: 'arroxy-warmup', h: 'h', p: '/0.7.3/first/a1/ok', r: '', us: '', um: '', uc: '', ut: '', uco: '', ht: '1'}, at: START - 8 * DAY}}})
+		const {reporter, hits, state} = makeReporter({state: {attempt: 0, firstPending: false, kept: [{hit: {sid: 'arroxy-warmup', h: 'h', p: '/0.7.3/first/a1/ok', r: '', us: '', um: '', uc: '', ut: '', uco: '', ht: '1'}, at: START - 8 * DAY}]}})
 		await reporter.retryUndelivered()
 		expect(hits).toEqual([])
-		expect(state().undelivered).toBeUndefined()
+		expect(state().kept).toEqual([])
 	})
 
 	it('sends nothing, and keeps nothing, while reports are turned off', async () => {
-		const {reporter, hits, state} = makeReporter({enabled: false, state: {attempt: 0, firstPending: false, undelivered: {hit: {sid: 'arroxy-warmup', h: 'h', p: '/0.7.4/first/a1/ok', r: '', us: '', um: '', uc: '', ut: '', uco: '', ht: '1'}, at: START}}})
+		const {reporter, hits, state} = makeReporter({enabled: () => false, state: {attempt: 0, firstPending: false, kept: [{hit: {sid: 'arroxy-warmup', h: 'h', p: '/0.7.4/first/a1/ok', r: '', us: '', um: '', uc: '', ut: '', uco: '', ht: '1'}, at: START}]}})
 		await reporter.retryUndelivered()
 		const run = reporter.runStarted()
 		run.progress({binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: 0})
 		await run.settled(ok(output()))
 		expect(hits).toEqual([])
-		expect(state().undelivered).toBeUndefined()
+		expect(state().kept).toEqual([])
+	})
+
+	it('stops reporting a run the moment reports are turned off', async () => {
+		let enabled = true
+		const {reporter, hits, state} = makeReporter({delivered: false, enabled: () => enabled})
+		const run = reporter.runStarted()
+		run.progress({binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: 0})
+		await vi.waitFor(() => expect(hits).toHaveLength(1))
+		enabled = false
+		await run.settled(ok(output()))
+		expect(paths(hits)).toEqual(['/0.7.4/first/a1/started'])
+		expect(state().kept.map(entry => entry.hit.p)).toEqual(['/0.7.4/first/a1/started'])
+	})
+
+	it('ends a run of failed first attempts when a later warmup sets the install up without fetching', async () => {
+		const {reporter, hits, state} = makeReporter({state: {attempt: 2, firstPending: true, kept: []}})
+		const run = reporter.runStarted()
+		run.progress({binary: 'ffmpeg', phase: 'probing'})
+		await run.settled(ok(output()))
+		expect(hits).toEqual([])
+		expect(state()).toEqual({attempt: 0, firstPending: false, kept: []})
 	})
 })

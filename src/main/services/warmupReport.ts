@@ -24,16 +24,22 @@ export interface WarmupReportContext {
 	osLocale: string
 }
 
-export interface WarmupReport {
+interface WarmupReportBase {
 	kind: WarmupReportKind
-	stage: WarmupReportStage
 	attempt: number
 	manifestSource: BinaryManifestSource | 'unknown'
-	// Outcomes only: time since `started`, the first failure, download speed.
-	elapsedMs?: number
-	failure?: string
-	throughput?: string
 }
+
+// An outcome always says how long, what failed first (`none`, `<id>:<kind>`, or
+// `unknown` when the run ended without diagnostics) and how fast; `started` says none of it.
+export interface WarmupOutcome {
+	stage: Exclude<WarmupReportStage, 'started'>
+	elapsedMs: number
+	failure: string
+	throughput: string
+}
+
+export type WarmupReport = (WarmupReportBase & {stage: 'started'}) | (WarmupReportBase & WarmupOutcome)
 
 // Counterscale's /collect query, as its server tracker sends it.
 export type WarmupReportHit = Record<'sid' | 'h' | 'p' | 'r' | 'us' | 'um' | 'uc' | 'ut' | 'uco' | 'ht', string>
@@ -86,12 +92,12 @@ export function buildWarmupReportHit(report: WarmupReport, context: WarmupReport
 		sid: WARMUP_REPORT_SITE_ID,
 		h: HIT_HOST,
 		p: `/${context.appVersion}/${report.kind}/${attemptLabel(report.attempt)}/${report.stage}`,
-		r: report.elapsedMs === undefined ? '' : durationBucket(report.elapsedMs),
+		r: report.stage === 'started' ? '' : durationBucket(report.elapsedMs),
 		us: context.osLocale,
 		um: `${context.platform}-${context.arch}`,
 		uc: report.manifestSource,
-		ut: report.failure ?? '',
-		uco: report.throughput ?? '',
+		ut: report.stage === 'started' ? '' : report.failure,
+		uco: report.stage === 'started' ? '' : report.throughput,
 		// Hit type 1: every report counts as its own visit, as the heartbeat's do.
 		ht: '1'
 	}

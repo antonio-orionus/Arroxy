@@ -1,5 +1,6 @@
 import log from 'electron-log/main.js'
 import {isReleaseFlagOn} from '@shared/releaseFlags.js'
+import type {QuitHooks} from '@main/sharedQuitHooks.js'
 import type {BinaryManager} from '@main/services/BinaryManager.js'
 import {WarmupReporter} from '@main/services/WarmupReporter.js'
 import {sendWarmupReport, type WarmupReportContext} from '@main/services/warmupReport.js'
@@ -16,16 +17,6 @@ export const WARMUP_REPORT_QUIT_BUDGET_MS = 1_000
 // a day.
 export function warmupReportCollector(heartbeatCollectorUrl: string | undefined): string | undefined {
 	return isReleaseFlagOn('warmupReport') ? heartbeatCollectorUrl : undefined
-}
-
-interface QuitEvent {
-	preventDefault(): void
-}
-
-// Electron's app, as far as quitting goes.
-export interface QuitHooks {
-	on(event: 'before-quit' | 'will-quit', listener: (event: QuitEvent) => void): unknown
-	exit(code: number): void
 }
 
 // Starts the quit report as the quit begins, then holds the quit at will-quit
@@ -64,7 +55,16 @@ interface WarmupReportingDeps {
 // The reporter for this session; it first sends the report a previous launch
 // could not deliver.
 export function startWarmupReporting({collectorUrl, userDataPath, binaryManager, isEnabled, context}: WarmupReportingDeps): WarmupReporter {
-	const reporter = new WarmupReporter({state: new WarmupReportStore(userDataPath), send: hit => sendWarmupReport(collectorUrl, hit), context, hasManagedInstall: () => binaryManager.hasManagedInstall(), manifestSource: () => binaryManager.binaryManifestSource(), isEnabled, now: () => Date.now()})
+	const reporter = new WarmupReporter({
+		state: new WarmupReportStore(userDataPath),
+		send: hit => sendWarmupReport(collectorUrl, hit),
+		context,
+		hasManagedInstall: () => binaryManager.hasManagedInstall(),
+		manifestSource: () => binaryManager.binaryManifestSource(),
+		isEnabled,
+		now: () => Date.now(),
+		onError: error => logger.warn('Warmup report failed', {error: error instanceof Error ? error.message : String(error)})
+	})
 	void reporter.retryUndelivered().catch((error: unknown) => logger.warn('Kept warmup report could not be retried', {error: error instanceof Error ? error.message : String(error)}))
 	return reporter
 }

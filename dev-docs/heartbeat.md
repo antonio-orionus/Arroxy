@@ -66,15 +66,16 @@ A warmup that has to fetch a managed binary (yt-dlp, or the FFmpeg package) send
 | --- | --- |
 | `src/main/services/warmupReport.ts` | Buckets, the hit's field mapping, the GET sender |
 | `src/main/services/WarmupReporter.ts` | Turns warmup runs into reports: kind, attempt, `started`, outcome, `quit`, the kept report |
-| `src/main/stores/WarmupReportStore.ts` | `warmup-report.json`: attempt count, whether a first setup is still unfinished, one undelivered report |
+| `src/main/stores/WarmupReportStore.ts` | `warmup-report.json`: attempt count, whether a first setup is still unfinished, reports not yet delivered |
 | `src/main/warmupReporting.ts` | Release flag gate, quit hold, wiring |
+| `src/main/sharedQuitHooks.ts` | One quit hold for everything that delays a quit (warmup report, agent control) |
 | `src/main/services/WarmupService.ts` | `WarmupRunObserver`: every progress event, then the result |
 
-**When.** `started` goes out at a run's first download. Exactly one outcome follows when the run settles: `ok`, `failed` (blocking failures, or a warmup that failed before any diagnostics), or `stopped` (the user's "Having trouble?"). If the app quits while the run is still downloading, `quit` is sent instead; the quit waits at most one second for it. Started minus outcomes counts setups that were abandoned by a crash, a force-quit or a lost request.
+**When.** `started` goes out at a run's first download. Exactly one outcome follows when the run settles: `ok`, `failed` (blocking failures, or a warmup that failed before any diagnostics), or `stopped` (the user's "Having trouble?"). If the app quits while the run is still downloading, `quit` is sent instead; the quit waits at most one second for it, together with anything else holding the quit. Started minus outcomes counts setups that were abandoned by a crash, a force-quit or a lost request.
 
-**Kind and attempt.** `first` means nothing managed was on disk when the run began; `update` means something was (a new yt-dlp build, a new FFmpeg pin). A first setup that does not finish stays `first` on the next attempts until one does. The attempt counts warmups in a row that fetched without finishing, and resets on `ok`. A run cannot name which binaries it will fetch at its first download (the other branch may not have decided yet), so the kind is `first` or `update` only.
+**Kind and attempt.** `first` means nothing managed was on disk when the run began; `update` means something was (a new yt-dlp build, a new FFmpeg pin). A first setup that does not finish stays `first` on the next attempts until one does. The attempt counts warmups in a row that fetched without finishing. It resets on `ok`, and on any warmup that ends set up without fetching (a system FFmpeg, a file the user picked). A run cannot name which binaries it will fetch at its first download (the other branch may not have decided yet), so the kind is `first` or `update` only.
 
-**Delivery.** The report is a plain GET in the tracker's query format (the server tracker keeps one global client, already used by the heartbeat). A report the collector did not answer with 2xx is kept, sent once at the next launch, and dropped after seven days or if that send fails too.
+**Delivery.** The report is a plain GET in the tracker's query format (the server tracker keeps one global client, already used by the heartbeat). Each report is kept before it is sent and dropped once the collector answers 2xx, so one a quit cuts short is not lost. Whatever is still kept (the newest four) is sent once at the next launch, and dropped after seven days or if that send fails too. The switch is read before every send, so turning it off mid-run stops the rest of that run's reports.
 
 **Rules.** Same switch as the heartbeat (`analyticsEnabled`): off sends nothing and keeps nothing. Same collector and environment rules: never in E2E, nowhere in dev, mock and smoke sessions unless `ARROXY_HEARTBEAT_URL` names a collector, and nowhere with `ARROXY_HEARTBEAT_URL=off`. In release builds the `warmupReport` release flag keeps it off entirely.
 
@@ -87,7 +88,7 @@ A warmup that has to fetch a managed binary (yt-dlp, or the FFmpeg package) send
 | UTM Source | OS locale | `zh-CN` |
 | UTM Medium | platform-arch | `win32-x64` |
 | UTM Campaign | where the binary manifest came from | `remote`, `last-known-good`, `bundled`, `local`, `unknown` |
-| UTM Term | first failure (outcomes only) | `none`, `ffmpeg:timeout`, `yt-dlp:download_failed`, `unknown` |
+| UTM Term | first failure (outcomes only; `unknown` for `quit` and a warmup that failed before any diagnostics) | `none`, `ffmpeg:timeout`, `yt-dlp:download_failed`, `unknown` |
 | UTM Content | speed of the largest download (outcomes only) | `0-0.5mbps`, `0.5-2mbps`, `2-10mbps`, `10mbps-plus`, `unknown` |
 
 **Reading it.** Pick `arroxy-warmup` in the site picker (it appears once it has data). On the Path card, first-try success is `/<v>/first/a1/ok` divided by `/<v>/first/a1/started`; abandonment is started minus all outcomes. Filter Country `CN` (or UTM Source `zh-CN`, which also catches users behind a VPN) and compare with no filter.
