@@ -49,4 +49,13 @@ describe('sharedQuitHooks', () => {
 		hooks.exit(0)
 		expect(app.exit).toHaveBeenCalledWith(0)
 	})
+
+	it('hides a quit the quit gate held from every hold, so a quit the user calls off starts nothing', () => {
+		const app = new FakeApp()
+		const hooks = sharedQuitHooks(app)
+		const before = vi.fn()
+		hooks.on('before-quit', before)
+		app.emit('before-quit', {defaultPrevented: true, preventDefault: () => undefined})
+		expect(before).not.toHaveBeenCalled()
+	})
 })

@@ -1,7 +1,7 @@
 import path from 'node:path'
 import fs from 'node:fs'
 import os from 'node:os'
-import {app, BrowserWindow, clipboard, dialog, Menu, nativeTheme, safeStorage} from 'electron'
+import {app, BrowserWindow, clipboard, dialog, Menu, nativeTheme, powerMonitor, safeStorage} from 'electron'
 import log from 'electron-log/main.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import type {GraphicsPolicy} from '@shared/types.js'
@@ -68,7 +68,7 @@ import {readSmokeUrl, runSmokeMode} from '@main/smoke.js'
 import {readDownloadSmokeConfig} from '@main/downloadSmokeConfig.js'
 import {reportDownloadSmokeConfigError, runDownloadSmokeMode} from '@main/downloadSmoke.js'
 import {readRuntimeSmokeEnabled, runRuntimeSmokeMode, exitWithCode} from '@main/runtimeSmoke.js'
-import {cancelQueueBeforeExit} from '@main/shutdown.js'
+import {createQuitGate} from '@main/quitGate.js'
 import {decideCloseAction, decideRendererCrashAction, normalizeCloseBehavior} from '@main/windowLifecycle.js'
 import {applyNativeThemeSource, resolveMainWindowBackgroundColor, watchSystemThemeBackground} from '@main/windowPresentation.js'
 import {registerPreloadDiagnostics, resolveMainWindowPreloadPath} from '@main/preloadDiagnostics.js'
@@ -437,7 +437,7 @@ if (hasSingleInstanceLock) {
 			: undefined
 		// One quit hold for everything that delays a quit, so none exits under another.
 		const quitHooks = sharedQuitHooks(app)
-		const warmupQuitReport = warmupReporter ? holdQuitForWarmupReport(quitHooks, warmupReporter) : (): Promise<void> => Promise.resolve()
+		if (warmupReporter) holdQuitForWarmupReport(quitHooks, warmupReporter)
 
 		// Before the window exists, so the first paint and the Explore view agree with the saved theme.
 		applyNativeThemeSource(nativeTheme, initialSettings.common.uiTheme)
@@ -514,53 +514,17 @@ if (hasSingleInstanceLock) {
 		// Declare tray before the close handler so the handler can reference it.
 		let tray: TrayManager | null = null
 
-		// The tray's Quit item and the window's close handler both land here, and
-		// a second close attempt arrives while the first dialog is still open —
-		// without this every attempt stacks its own dialog, and each "Quit" reply
-		// fires its own app.quit().
-		let quitDialogOpen = false
-
-		async function warnActiveDownloadsThenQuit(): Promise<void> {
-			if (downloadService.runningJobCount === 0) {
-				app.quit()
-				return
-			}
-			if (quitDialogOpen) return
-			quitDialogOpen = true
-			let response: number
-			try {
-				const count = downloadService.runningJobCount
-				const lang = languageRef.current
-				;({response} = await dialog.showMessageBox(mainWindow, {
-					type: 'warning',
-					buttons: [mainT(lang, 'dialogs.quitWithActiveDownloads.pause'), mainT(lang, 'dialogs.quitWithActiveDownloads.confirm'), mainT(lang, 'dialogs.quitWithActiveDownloads.keep')],
-					defaultId: 2,
-					cancelId: 2,
-					message: mainT(lang, 'dialogs.quitWithActiveDownloads.message', {count}),
-					detail: mainT(lang, 'dialogs.quitWithActiveDownloads.detail')
-				}))
-			} finally {
-				// Must clear on the throw path too, or one failed dialog permanently
-				// disables the warning and the app can never be quit this way again.
-				quitDialogOpen = false
-			}
-			if (response === 0) {
-				await queueService.pauseAll()
-				app.quit()
-			} else if (response === 1) {
-				app.quit()
-			}
-			// response === 2: keep downloading — do nothing
-		}
-
 		mainWindow.on('close', event => {
+			// The approved quit closes the windows: let it, tray or not.
+			if (quitGate.approved) return
 			const hasTray = tray !== null
 
 			if (process.platform === 'darwin' || !hasTray) {
-				// No tray: allow if idle, else intercept and warn
+				// No tray: allow if idle (the last window closing quits the app),
+				// else keep the window and let the quit gate ask.
 				if (downloadService.runningJobCount === 0) return
 				event.preventDefault()
-				void warnActiveDownloadsThenQuit()
+				app.quit()
 				return
 			}
 
@@ -580,7 +544,7 @@ if (hasSingleInstanceLock) {
 						return
 					}
 					if (action === 'warn-and-quit') {
-						await warnActiveDownloadsThenQuit()
+						app.quit()
 						return
 					}
 
@@ -603,7 +567,7 @@ if (hasSingleInstanceLock) {
 					if (choice === 'tray') {
 						mainWindow.hide()
 					} else {
-						await warnActiveDownloadsThenQuit()
+						app.quit()
 					}
 				})
 				// preventDefault() above already vetoed this close. Without a fallback, a
@@ -658,6 +622,47 @@ if (hasSingleInstanceLock) {
 		const syncHotkeyTrayItem = (): void => tray?.setHotkeyUsable(hotkeyService.getState().registered)
 		hotkeyService.onStateChange(syncHotkeyTrayItem)
 
+		// Every quit passes this gate (see quitGate.ts). Its before-quit listener
+		// is prepended so it runs before every hold on quitHooks, which skip a
+		// quit the gate holds.
+		const quitGate = createQuitGate({
+			runningCount: () => downloadService.runningJobCount,
+			askToQuit: async count => {
+				const lang = languageRef.current
+				const options = {
+					type: 'warning' as const,
+					buttons: [mainT(lang, 'dialogs.quitWithActiveDownloads.keep'), mainT(lang, 'dialogs.quitWithActiveDownloads.quit')],
+					defaultId: 0,
+					cancelId: 0,
+					message: mainT(lang, 'dialogs.quitWithActiveDownloads.message', {count}),
+					detail: mainT(lang, 'dialogs.quitWithActiveDownloads.continueDetail')
+				}
+				const {response} = await (mainWindow.isDestroyed() ? dialog.showMessageBox(options) : dialog.showMessageBox(mainWindow, options))
+				return response === 1
+			},
+			suspendQueue: () => queueService.suspendForExit(),
+			dispose: () => {
+				tray?.destroy()
+				tray = null
+				clipboardWatcher.dispose()
+				hotkeyService.dispose()
+				tokenService.dispose()
+			},
+			quit: () => app.quit(),
+			log: {info: (message, meta) => (meta ? log.info(message, meta) : log.info(message)), warn: (message, meta) => (meta ? log.warn(message, meta) : log.warn(message))}
+		})
+		app.prependListener('before-quit', (event: Electron.Event) => quitGate.onBeforeQuit(event))
+		// The OS ending the session never waits on a dialog. macOS and Linux
+		// announce it here; Windows sends no before-quit for it, only these.
+		// preventDefault makes the OS wait (Linux keeps logind's delay inhibitor)
+		// until the gate's app.quit(); Electron's typings omit the event.
+		powerMonitor.on('shutdown', (event?: Electron.Event) => {
+			event?.preventDefault()
+			quitGate.sessionEnding()
+		})
+		mainWindow.on('query-session-end', () => quitGate.sessionEnding())
+		mainWindow.on('session-end', () => quitGate.sessionEnding())
+
 		const appMenu = installAppMenu({settingsStore, languageRef, getWindow: () => mainWindow})
 
 		registerIpcHandlers({
@@ -681,7 +686,7 @@ if (hasSingleInstanceLock) {
 		})
 
 		if (!e2eMode.disableUpdater) {
-			registerUpdaterHandlers(mainWindow)
+			registerUpdaterHandlers(mainWindow, quitGate)
 		}
 
 		// Agent control (release flag agentControl): the local socket arroxy-mcp drives the app through.
@@ -735,15 +740,7 @@ if (hasSingleInstanceLock) {
 
 		if (process.platform !== 'darwin') {
 			try {
-				tray = new TrayManager(
-					mainWindow,
-					queueService,
-					languageRef,
-					() => {
-						void warnActiveDownloadsThenQuit()
-					},
-					hotkeyService
-				)
+				tray = new TrayManager(mainWindow, queueService, languageRef, () => app.quit(), hotkeyService)
 				tray.start()
 				// Keep the tray item honest: it must appear/disappear with the
 				// chord's actual registration state.
@@ -753,29 +750,6 @@ if (hasSingleInstanceLock) {
 				tray = null
 			}
 		}
-
-		app.on('before-quit', event => {
-			tray?.destroy()
-			tray = null
-			clipboardWatcher.dispose()
-			hotkeyService.dispose()
-			if (downloadService.runningJobCount === 0) {
-				tokenService.dispose()
-				log.info('App shutting down')
-				return
-			}
-			event.preventDefault()
-			void cancelQueueBeforeExit({
-				queueService,
-				tokenService,
-				logInfo: (message, meta) => {
-					if (meta) log.info(message, meta)
-					else log.info(message)
-				},
-				// exit(), not quit(): quit() re-emits before-quit, an infinite loop. It skips will-quit, so the warmup report's hold is awaited here.
-				exit: code => void warmupQuitReport().then(() => app.exit(code))
-			})
-		})
 	})
 }
 

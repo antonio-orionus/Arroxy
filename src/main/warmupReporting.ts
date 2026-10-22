@@ -20,10 +20,9 @@ export function warmupReportCollector(heartbeatCollectorUrl: string | undefined)
 }
 
 // Starts the quit report as the quit begins, then holds the quit at will-quit
-// until it is sent or the budget runs out. A quit that ends in app.exit
-// (downloads still running) skips will-quit, so that path waits on the
-// returned function instead: the same report, the same budget.
-export function holdQuitForWarmupReport(app: QuitHooks, reporter: Pick<WarmupReporter, 'quit'>): () => Promise<void> {
+// until it is sent or the budget runs out. Every quit reaches will-quit: the
+// quit gate never ends one with app.exit.
+export function holdQuitForWarmupReport(app: QuitHooks, reporter: Pick<WarmupReporter, 'quit'>): void {
 	let sending: Promise<void> | null = null
 	let sent = false
 	// Bounded: resolves once the report is sent, fails, or the budget runs out.
@@ -45,7 +44,6 @@ export function holdQuitForWarmupReport(app: QuitHooks, reporter: Pick<WarmupRep
 		event.preventDefault()
 		void settled().then(() => app.exit(0))
 	})
-	return settled
 }
 
 interface WarmupReportingDeps {
