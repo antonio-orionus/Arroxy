@@ -6,7 +6,7 @@ import os from 'node:os'
 import path from 'node:path'
 import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import {CONTROL_DISCOVERY_FILE_NAME} from 'arroxy-control'
-import type {LocalClientRegistry} from '@main/control/clients/LocalClientRegistry.js'
+import {LocalClientRegistry} from '@main/control/clients/LocalClientRegistry.js'
 import {type LocalClientRecord, type LocalClientStore, MemoryLocalClientStore} from '@main/control/clients/localClientStore.js'
 import {e2eTestSecretCipher, type SecretCipher} from '@main/control/clients/secretCipher.js'
 import type {ControlService} from '@main/control/ControlService.js'
@@ -170,6 +170,29 @@ describe('startAgentControl', () => {
 		const control = await startAgentControl(deps({compose: fakeCompose().compose, startSocket: () => Promise.resolve(null), exposeLocalClients: () => hide}))
 		expect(control).toBeNull()
 		expect(hide).toHaveBeenCalledTimes(1)
+	})
+
+	it('takes the registry away from the window and closes it when the socket throws', async () => {
+		const hide = vi.fn()
+		const close = vi.spyOn(LocalClientRegistry.prototype, 'close')
+		cleanups.push(() => Promise.resolve(close.mockRestore()))
+		const failure = new Error('listen failed')
+		await expect(startAgentControl(deps({compose: fakeCompose().compose, startSocket: () => Promise.reject(failure), exposeLocalClients: () => hide}))).rejects.toBe(failure)
+		expect(hide).toHaveBeenCalledTimes(1)
+		expect(close).toHaveBeenCalledTimes(1)
+	})
+
+	it('closes the registry, never showing it to the window, when composing throws', async () => {
+		const exposeLocalClients = vi.fn(() => () => undefined)
+		const close = vi.spyOn(LocalClientRegistry.prototype, 'close')
+		cleanups.push(() => Promise.resolve(close.mockRestore()))
+		const failure = new Error('compose failed')
+		const compose = vi.fn((): never => {
+			throw failure
+		})
+		await expect(startAgentControl(deps({compose, exposeLocalClients}))).rejects.toBe(failure)
+		expect(exposeLocalClients).not.toHaveBeenCalled()
+		expect(close).toHaveBeenCalledTimes(1)
 	})
 
 	it('stops the socket once', async () => {

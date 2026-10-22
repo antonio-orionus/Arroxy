@@ -86,18 +86,30 @@ export async function startAgentControl(deps: AgentControlDeps): Promise<AgentCo
 	const {userDataDir, appVersion, platform, env, autoAllowClients, clientStore, secretsStorable, exposeLocalClients, log, compose = createControlService, startSocket = startControlSocket, socketCheckIntervalMs = SOCKET_CHECK_INTERVAL_MS, ...wiring} = deps
 	// Before the socket listens, so a known client is let in from the first connection.
 	const approvals = await LocalClientRegistry.load({store: clientStore, secretsStorable, log, autoAllow: autoAllowClients})
+	let hideLocalClients = (): void => undefined
+	// On stop, and on any failure from here on: no handler and no timer stay behind.
+	const release = async (): Promise<void> => {
+		hideLocalClients()
+		await approvals.close()
+	}
 	// Composed before the socket, which needs the service and the registry's
 	// bootId to start. If the socket then fails, the composition stays: its
 	// queue listeners and the onIntakeAdmission cap, once per launch. Bounded,
 	// and inert, since without a socket no client adds an intake.
-	const {service, registry} = compose({...wiring, clientLabel: clientId => approvals.label(clientId)})
-	// Before the socket too, so the window hears the first request.
-	const hideLocalClients = exposeLocalClients(approvals)
-	const listen = (): Promise<ControlSocket | null> => startSocket({userDataDir, appVersion, platform, env, service, approvals, bootId: registry.bootId, log})
-	let socket = await listen()
+	let listen: () => Promise<ControlSocket | null>
+	let socket: ControlSocket | null
+	try {
+		const {service, registry} = compose({...wiring, clientLabel: clientId => approvals.label(clientId)})
+		// Before the socket too, so the window hears the first request.
+		hideLocalClients = exposeLocalClients(approvals)
+		listen = () => startSocket({userDataDir, appVersion, platform, env, service, approvals, bootId: registry.bootId, log})
+		socket = await listen()
+	} catch (error) {
+		await release()
+		throw error
+	}
 	if (socket === null) {
-		hideLocalClients()
-		await approvals.close()
+		await release()
 		return null
 	}
 	let stopping: Promise<void> | null = null
@@ -136,8 +148,7 @@ export async function startAgentControl(deps: AgentControlDeps): Promise<AgentCo
 				await relistening
 				await socket?.stop()
 				socket = null
-				hideLocalClients()
-				await approvals.close()
+				await release()
 			})()
 			return stopping
 		}
