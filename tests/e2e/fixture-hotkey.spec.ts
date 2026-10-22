@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import {expect, test, type ElectronApplication} from '@playwright/test'
-import {FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
+import {FIXTURE_PLAYLIST_ID, FIXTURE_PLAYLIST_VIDEO_IDS, FIXTURE_VIDEO_IDS} from './fixtureHarness.js'
 import {withFixtureProductApp} from './fixtureProductE2E.js'
 import {writeClipboard} from './fixtureWorkflow.js'
 
@@ -266,6 +266,66 @@ test('hotkey follow-up survives a window reload while the link is prepared', asy
 			await expectSinkLine(sink, 'No link on your clipboard')
 			expect(await countSinkLines(sink, 'Could not add that link')).toBe(1)
 			expect(await countSinkLines(sink, 'Download queued from clipboard')).toBe(1)
+		}
+	)
+})
+
+// The press can't ask "this video or the playlist?", so it takes the video, and
+// the video's row offers the playlist afterwards.
+// Fixtures: a video opened from inside the fixture playlist.
+// Actions: on a hidden window, press the hotkey; once the video is on disk,
+// restart the app; take the row's offer.
+// Milestones: the offer under the video's row, before and after the restart;
+// gone once taken.
+// Oracles: the playlist is never loaded until the offer is taken; then one
+// row per playlist video (none added again for the hotkey's), every video on
+// disk once, and the hotkey's video never fetched again.
+test('hotkey on a video in a playlist downloads the video, and its row offers the playlist without it', async () => {
+	test.setTimeout(300_000)
+	const videoId = FIXTURE_PLAYLIST_VIDEO_IDS[1]
+	if (!videoId) throw new Error('fixture playlist needs a second video')
+	interface Telemetry {
+		telemetry(): {requests: {kind: string; videoId?: string}[]}
+	}
+	const listLoads = (fixtureServer: Telemetry): number => fixtureServer.telemetry().requests.filter(request => request.kind === 'probe-start' && request.videoId === FIXTURE_PLAYLIST_ID).length
+	const mediaFetches = (fixtureServer: Telemetry): number => fixtureServer.telemetry().requests.filter(request => request.kind === 'media' && request.videoId === videoId).length
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-hotkey-offer-user-',
+			outputPrefix: 'arroxy-fixture-hotkey-offer-out-',
+			settings: settings => {
+				settings.common.hotkeyEnabled = true
+			}
+		},
+		async ({app, page, userDataDir, urls, queue, files, fixtureServer, relaunch}) => {
+			const sink = sinkPath(userDataDir)
+			await queue.open()
+			await expectHotkeyRegistered(app)
+			await app.evaluate(({BrowserWindow}) => BrowserWindow.getAllWindows()[0]?.hide())
+
+			await writeClipboard(app, urls.videoInPlaylist(videoId))
+			await pressHotkey(app)
+			await expectSinkLine(sink, 'Download queued from clipboard')
+			await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 60_000, message: "the hotkey's video should land"}).toBe(1)
+			await expect(page.locator('[data-testid^="queue-list-offer-row-"]')).toHaveText(/From a playlist.*Get the whole playlist/, {timeout: 30_000})
+			expect(listLoads(fixtureServer), 'the offer loads nothing until taken').toBe(0)
+			const videoFetches = mediaFetches(fixtureServer)
+
+			const next = await relaunch()
+			await next.queue.open()
+			const offer = next.page.locator('[data-testid^="queue-list-offer-row-"]')
+			await expect(offer).toHaveCount(1, {timeout: 30_000})
+			await offer.getByRole('button', {name: 'Get the whole playlist'}).click()
+			await expect(offer).toHaveCount(0, {timeout: 10_000})
+
+			// One row per playlist video: the list added none for the hotkey's video.
+			const doneRows = next.page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')
+			await expect(doneRows).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 150_000})
+			await expect(next.page.locator('[data-testid^="queue-manager-row-"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length)
+			files.expectMp4Count(FIXTURE_PLAYLIST_VIDEO_IDS.length)
+			expect(mediaFetches(fixtureServer), "the hotkey's video is not downloaded again").toBe(videoFetches)
+			expect(listLoads(fixtureServer)).toBeGreaterThan(0)
 		}
 	)
 })

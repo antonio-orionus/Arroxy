@@ -24,6 +24,13 @@ export function scopeForTake(take: QuickProbeTake): PlaylistScope {
 	return {items: {kind: 'first', count: take.kind === 'first' ? take.count : PLAYLIST_PROBE_LIMIT_MAX}}
 }
 
+// A list that skips a video looks one entry further, so a count (the load
+// limit, or First N) still holds once the video is left out.
+export function widenForSkip(scope: PlaylistScope): PlaylistScope {
+	if (scope.items.kind !== 'first') return scope
+	return {items: {kind: 'first', count: Math.min(scope.items.count + 1, PLAYLIST_PROBE_LIMIT_MAX)}}
+}
+
 export interface QuickProbeContext {
 	// The row's link: names the video when the probe gives no page, and with
 	// the mode decides whether a list under the load limit is asked about.
@@ -41,6 +48,9 @@ export interface QuickProbeContext {
 	// The profile the row was placed with; the active one when it is unknown
 	// (a row restored after a restart).
 	profile?: PinnedDownloadProfile
+	// A list placed by a row's list offer: the video the hotkey already took,
+	// left out of every answer (All, First N, Review).
+	skipVideoId?: string
 }
 
 /** Preparation's host, plus the words for a failure that brings none of its own. */
@@ -87,10 +97,16 @@ function needsChoice(probe: PlaylistProbeResult, context: QuickProbeContext): Qu
 	return {kind: 'needs-choice', choice: {kind: 'list-size', loaded, capped}, title: probe.playlistTitle || probe.webpageUrl, probe}
 }
 
+// A list placed by a row's list offer, without the video the hotkey already took.
+export function withoutSkipped<T extends ProbeResult>(probe: T, skipVideoId: string | undefined): T {
+	if (probe.kind !== 'playlist' || skipVideoId === undefined) return probe
+	return {...probe, entries: probe.entries.filter(entry => entry.videoId !== skipVideoId)}
+}
+
 // The caller settles which profile prepares the rows before resolving.
 export function resolvePinnedQuickProbe(result: Result<ProbeResult, ProbeError>, context: QuickProbeContext & {profile: PinnedDownloadProfile}, inputs: QueuePreparationInputs, env: QuickProbeEnv): QuickProbeResolution {
 	if (!result.ok) return {kind: 'failed', error: localizedProbeError(result.error, env), probeError: result.error}
-	const probe = result.data
+	const probe = withoutSkipped(result.data, context.skipVideoId)
 	if (probe.kind === 'playlist') {
 		const choice = needsChoice(probe, context)
 		if (choice) return choice

@@ -212,6 +212,66 @@ describe('IntakeService', () => {
 		expect(h.probes).toHaveLength(1)
 	})
 
+	// The hotkey took the video from a link that also names a list; its row
+	// offers the list, which loads nothing until taken.
+	describe('the list offer', () => {
+		const IN_LIST = 'https://www.youtube.com/watch?v=v2&list=PLtest'
+
+		async function offered(): Promise<string> {
+			await h.intake.add({requestId: 'r1', url: IN_LIST, playlistMode: 'video', listOffer: IN_LIST, origin: {kind: 'hotkey'}})
+			await h.settled()
+			const [video] = h.queue.snapshot()
+			expect(video?.listOffer).toBe(IN_LIST)
+			return video?.id ?? ''
+		}
+
+		it('places the list as its own row without the video, and clears the offer', async () => {
+			const videoId = await offered()
+			h.answer(ok(playlist(3)))
+
+			const taken = await h.intake.takeListOffer({requestId: 'r2', itemId: videoId, origin: 'window'})
+			expect(taken).toMatchObject({ok: true, data: {kind: 'added'}})
+			expect(h.queue.snapshot().find(row => row.id === videoId)?.listOffer).toBeUndefined()
+			// One entry further than the load limit, so the count holds after the skip.
+			expect(h.probes.at(-1)).toMatchObject({url: IN_LIST, playlistMode: 'playlist', playlistScope: {items: {kind: 'first', count: 101}}})
+
+			await h.settled()
+			expect(h.queue.snapshot().map(row => row.url)).toEqual([VIDEO_URL, 'https://youtu.be/v1', 'https://youtu.be/v3'])
+		})
+
+		it('a list past the limit waits for a choice that counts after the skip, and keeps the skip through a Retry', async () => {
+			h.settings.common = {...h.settings.common, playlistProbeLimit: 2}
+			const videoId = await offered()
+			h.answer(ok(playlist(4)))
+			const taken = await h.intake.takeListOffer({requestId: 'r2', itemId: videoId, origin: 'window'})
+			const listId = taken.ok && taken.data.kind === 'added' ? taken.data.itemId : ''
+			await h.settled()
+
+			const list = h.queue.snapshot().find(row => row.id === listId)
+			expect(list).toMatchObject({status: 'needs-choice', choice: {kind: 'list-size', loaded: 2, capped: true}, skipVideoId: 'v2'})
+			expect(h.intake.keptProbe(listId)?.entries.map(entry => entry.videoId)).toEqual(['v1', 'v3', 'v4'])
+
+			expect(h.intake.choose({requestId: 'r3', itemId: listId, origin: 'window', take: 'first'}).ok).toBe(true)
+			await vi.waitFor(() => expect(h.queue.snapshot().map(row => row.url)).toEqual([VIDEO_URL, 'https://youtu.be/v1', 'https://youtu.be/v3']))
+		})
+
+		it('Dismiss clears the offer and places nothing', async () => {
+			const videoId = await offered()
+			expect(h.intake.dismissListOffer(videoId).ok).toBe(true)
+			expect(h.queue.snapshot()).toHaveLength(1)
+			expect(h.queue.snapshot()[0]?.listOffer).toBeUndefined()
+			expect(h.probes).toHaveLength(1)
+		})
+
+		it('a row without an offer refuses it', async () => {
+			await h.intake.add({requestId: 'r1', url: VIDEO_URL, playlistMode: 'video', origin: WINDOW})
+			await h.settled()
+			const taken = await h.intake.takeListOffer({requestId: 'r2', itemId: h.queue.snapshot()[0]?.id ?? '', origin: 'window'})
+			expect(taken.ok).toBe(false)
+			expect(h.probes).toHaveLength(1)
+		})
+	})
+
 	it('a playlist over the load limit waits for a choice, and First N uses the kept probe', async () => {
 		h.settings.common = {...h.settings.common, playlistProbeLimit: 2}
 		h.answer(ok(playlist(3)))

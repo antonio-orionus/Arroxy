@@ -232,6 +232,10 @@ _Avoid_: failed download (nothing downloaded), broken row
 A placeholder row waiting for the one decision only its probe could raise: how much of a loaded list to take. It always offers All and Review, and the first N only when the list ran past the load limit. It asks for a list nobody counted in advance: a list link past the load limit, or a link whose URL intent did not say list but which loaded as one (another site's list). A row placed with a count already chosen never asks. Review opens the playlist picker, not the wizard's single-video Review screen. It keeps waiting across a restart.
 _Avoid_: pending decision, blocked row, needs review
 
+**List offer**:
+What a video the global hotkey took from a mixed URL keeps on its Downloads row: a quiet "From a playlist · Get the whole playlist" line, named by the kind of list, that undoes the hotkey's guess when the list was wanted. It loads nothing until taken; taking it places the list as its own row, as if the list's link had been pasted, and that row leaves the video out of every answer (All, First N, Review), whatever became of the video's own row. It is not in needs attention, and stays until taken, dismissed or the row is removed, across a restart.
+_Avoid_: playlist suggestion, list prompt, upsell
+
 **Needs attention**:
 A row only the user can move on — a probe-error row or one that needs your choice. The Downloads tab counts them.
 _Avoid_: alerts, problems, warnings

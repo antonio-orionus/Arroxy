@@ -6,11 +6,13 @@ import {handle} from './utils.js'
 
 // The window's way into link intake. Every call it makes is the window's own
 // (origin `window`); the hotkey and outside callers reach IntakeService in main.
-export function registerIntakeHandlers(intake: Pick<IntakeService, 'add' | 'retry' | 'choose' | 'keptProbe' | 'setWindowContext'>): void {
+export function registerIntakeHandlers(intake: Pick<IntakeService, 'add' | 'retry' | 'choose' | 'keptProbe' | 'takeListOffer' | 'dismissListOffer' | 'setWindowContext'>): void {
 	handle(IPC_CHANNELS.intakeCmdAdd, intakeAddInputSchema, async request => ok(await intake.add({...request, origin: {kind: 'window'}})))
 	handle(IPC_CHANNELS.intakeCmdRetry, intakeRetryInputSchema, call => Promise.resolve(intake.retry({...call, origin: 'window'})))
 	handle(IPC_CHANNELS.intakeCmdChoose, intakeChooseInputSchema, call => Promise.resolve(intake.choose({...call, origin: 'window'})))
 	handle(IPC_CHANNELS.intakeCmdKeptProbe, intakeItemInputSchema, ({itemId}) => Promise.resolve(ok(intake.keptProbe(itemId))))
+	handle(IPC_CHANNELS.intakeCmdTakeListOffer, intakeRetryInputSchema, call => intake.takeListOffer({...call, origin: 'window'}))
+	handle(IPC_CHANNELS.intakeCmdDismissListOffer, intakeItemInputSchema, ({itemId}) => Promise.resolve(intake.dismissListOffer(itemId)))
 	handle(IPC_CHANNELS.intakeCmdSetWindowContext, intakeWindowContextSchema, context => {
 		intake.setWindowContext(context)
 		return Promise.resolve(ok(undefined))

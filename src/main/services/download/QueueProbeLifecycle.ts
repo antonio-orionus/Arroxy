@@ -48,6 +48,14 @@ export class QueueProbeLifecycle {
 		return this.resolveProbing(itemId, {kind: 'needs-choice', choice, title})
 	}
 
+	// A hotkey video's list offer, taken or dismissed: the offer goes, nothing else changes.
+	clearListOffer(itemId: string): Result<void> {
+		const item = this.find(itemId)
+		if (!item) return fail(createAppError('validation', `queue item ${itemId} not found`))
+		if (item.listOffer !== undefined) this.deps.patch(itemId, 'clearListOffer', ({listOffer: _offer, ...rest}) => rest)
+		return ok(undefined)
+	}
+
 	// Back to `probing` so the renderer can run the probe again: a Retry on a
 	// probe-error row, or a choice that needs a fresh probe. A choice's answer
 	// (`take`) is stored on the row, so a Retry and a restart keep to it.
@@ -121,11 +129,19 @@ export class QueueProbeLifecycle {
 		if (limit !== null && admitted.length > limit) return fail(createAppError('limit', `intake ${origin?.intakeId} may add at most ${limit} rows, not ${admitted.length}`))
 		this.deps.commitRemove(itemId, admitted.length === 0 ? 'nothingNew' : 'replaced')
 		if (admitted.length === 0) return ok({ids: [], skippedAlreadyQueued})
-		const queued = withPlaceholderId(itemId, items, origin ? admitted.map(item => ({...item, origin})) : admitted)
+		const queued = withPlaceholderId(itemId, items, withListOffer(placeholder, origin ? admitted.map(item => ({...item, origin})) : admitted))
 		this.deps.commitAdd(queued)
 		logger.info('replaceProbing', {itemId, replacedBy: queued.map(i => i.id), skippedAlreadyQueued})
 		return ok({ids: queued.map(i => i.id), skippedAlreadyQueued})
 	}
+}
+
+// A hotkey video's offer of its list goes onto the one row it becomes; a
+// placeholder that became several rows was a list, which offers nothing.
+function withListOffer(placeholder: QueueItem, admitted: QueueItem[]): QueueItem[] {
+	const [only] = admitted
+	if (!placeholder.listOffer || !only || admitted.length !== 1) return admitted
+	return [{...only, listOffer: placeholder.listOffer}]
 }
 
 // The batch's row that carried the placeholder's id may be one left out; the

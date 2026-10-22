@@ -96,6 +96,8 @@ export const IPC_CHANNELS = {
 	intakeCmdRetry: 'intake:cmd:retry',
 	intakeCmdChoose: 'intake:cmd:choose',
 	intakeCmdKeptProbe: 'intake:cmd:keptProbe',
+	intakeCmdTakeListOffer: 'intake:cmd:takeListOffer',
+	intakeCmdDismissListOffer: 'intake:cmd:dismissListOffer',
 	intakeCmdSetWindowContext: 'intake:cmd:setWindowContext',
 	intakeEvent: 'intake:event'
 } as const

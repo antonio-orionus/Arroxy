@@ -1,5 +1,5 @@
 import {beforeEach, describe, expect, it} from 'vite-plus/test'
-import {resolvePinnedQuickProbe, scopeForTake, type QuickProbeContext, type QuickProbeResolution} from '@shared/intake/probeResolution.js'
+import {resolvePinnedQuickProbe, scopeForTake, widenForSkip, type QuickProbeContext, type QuickProbeResolution} from '@shared/intake/probeResolution.js'
 import {pinActiveDownloadProfile, rendererPreparationEnv} from '@renderer/store/wizard/queueSubmission.js'
 import type {AppState} from '@renderer/store/types.js'
 import type {Result} from '@shared/result.js'
@@ -189,6 +189,46 @@ describe('resolveQuickProbe', () => {
 		const containers = {...playlist(2), entries: entries(2).map(entry => ({...entry, isContainer: true as const}))}
 		const resolution = resolveQuickProbe(ok(containers), {url: PLAYLIST_URL, playlistMode: 'playlist', limit: 100}, state())
 		expect(resolution).toMatchObject({kind: 'failed', probeError: null})
+	})
+})
+
+// A list placed by a row's list offer leaves out the video the hotkey already
+// took, whatever the answer: All, First N (counted after the skip) or Review.
+describe("the list offer's skipped video", () => {
+	const queued = (resolution: QuickProbeResolution): string[] => (resolution.kind === 'queue' ? resolution.prepared.items.map(item => item.url) : [])
+
+	it('queues the list without the video', () => {
+		expect(queued(resolveQuickProbe(ok(playlist(4)), {url: MIXED_URL, playlistMode: 'playlist', limit: 3, skipVideoId: 'v2'}, state()))).toEqual(['https://youtu.be/v1', 'https://youtu.be/v3', 'https://youtu.be/v4'])
+	})
+
+	it('asks past the limit, counting after the skip, and the review leaves the video out', () => {
+		const resolution = resolveQuickProbe(ok(playlist(5)), {url: MIXED_URL, playlistMode: 'playlist', limit: 3, skipVideoId: 'v2'}, state())
+		expect(resolution).toMatchObject({kind: 'needs-choice', choice: {kind: 'list-size', loaded: 3, capped: true}})
+		if (resolution.kind === 'needs-choice') expect(resolution.probe.entries.map(entry => entry.videoId)).not.toContain('v2')
+	})
+
+	it('First N counts the list after the skip', () => {
+		expect(queued(resolveQuickProbe(ok(playlist(3)), {url: MIXED_URL, playlistMode: 'playlist', limit: 2, take: {kind: 'first', count: 2}, skipVideoId: 'v1'}, state()))).toEqual(['https://youtu.be/v2', 'https://youtu.be/v3'])
+	})
+
+	it('All leaves the video out', () => {
+		expect(queued(resolveQuickProbe(ok(playlist(3)), {url: MIXED_URL, playlistMode: 'playlist', limit: 5000, take: {kind: 'all'}, skipVideoId: 'v3'}, state()))).toEqual(['https://youtu.be/v1', 'https://youtu.be/v2'])
+	})
+
+	// The duplicate check only sees rows still live; a finished video would come back.
+	it('leaves the video out even once its own row has finished', () => {
+		const done = {id: 'done', url: 'https://youtu.be/v1', status: 'done'} as QueueItem
+		expect(queued(resolveQuickProbe(ok(playlist(2)), {url: MIXED_URL, playlistMode: 'playlist', limit: 100, skipVideoId: 'v1'}, state([done])))).toEqual(['https://youtu.be/v2'])
+	})
+})
+
+describe('widenForSkip', () => {
+	it('looks one entry further, so a count holds after the skip', () => {
+		expect(widenForSkip({items: {kind: 'first', count: 7}})).toEqual({items: {kind: 'first', count: 8}})
+	})
+
+	it('stays at the load ceiling', () => {
+		expect(widenForSkip({items: {kind: 'first', count: 5000}})).toEqual({items: {kind: 'first', count: 5000}})
 	})
 })
 

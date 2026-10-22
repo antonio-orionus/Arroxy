@@ -114,6 +114,10 @@ export function armQueue(api: AppApi, options: ArmQueueOptions = {}): IntakeServ
 				const item = row(itemId)
 				if (item?.status !== 'needs-choice' && !(item?.status === 'error' && item.job.kind === 'unresolved')) return fail({code: 'validation', message: `queue item ${itemId} has no probe to restart`, recoverable: true})
 				return applyEvent(itemId, {kind: 'probe-restarted', ...(take ? {probeTake: take} : {})})
+			},
+			clearListOffer: itemId => {
+				useAppStore.setState({queue: queue().map(item => (item.id === itemId ? {...item, listOffer: undefined} : item))})
+				return ok(undefined)
 			}
 		},
 		probe: ({url, playlistMode, ownerKey, playlistScope}) => api.downloads.probe({url, playlistMode, ownerKey, ...(playlistScope ? {playlistScope} : {})}),

@@ -207,6 +207,10 @@ export class QueueService extends EventEmitter {
 		return this.probeLifecycle.reprobe(itemId, take)
 	}
 
+	clearListOffer(itemId: string): Result<void> {
+		return this.probeLifecycle.clearListOffer(itemId)
+	}
+
 	// commands ---------------------------------------------------------------
 
 	add(toAdd: QueueItem[]): Result<{ids: string[]; skippedAlreadyQueued: number}> {

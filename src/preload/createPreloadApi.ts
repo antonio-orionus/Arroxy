@@ -174,6 +174,8 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 			retry: input => ipcRenderer.invoke(IPC_CHANNELS.intakeCmdRetry, input),
 			choose: input => ipcRenderer.invoke(IPC_CHANNELS.intakeCmdChoose, input),
 			keptProbe: input => ipcRenderer.invoke(IPC_CHANNELS.intakeCmdKeptProbe, input),
+			takeListOffer: input => ipcRenderer.invoke(IPC_CHANNELS.intakeCmdTakeListOffer, input),
+			dismissListOffer: input => ipcRenderer.invoke(IPC_CHANNELS.intakeCmdDismissListOffer, input),
 			setWindowContext: context => ipcRenderer.invoke(IPC_CHANNELS.intakeCmdSetWindowContext, context),
 			onEvent: listener => {
 				const wrapped = (_: unknown, event: IntakeEvent): void => listener(event)

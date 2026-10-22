@@ -15,7 +15,7 @@ import {mixedUrlPromptPatch} from '../wizard/mixedUrlPrompt.js'
 import {canSwitchToExplore, configuredCookiesRetryMode} from '../wizard/probeErrorExperience.js'
 import {rewriteYouTubeChannelRoot} from '@shared/intake/urlIntake.js'
 import {policyForUrlIntent} from '@shared/intake/urlIntentPolicy.js'
-import {choosePlaceholder, keptChoiceProbe, placeQuickDownload, retryPlaceholder} from './quickDownloadPipeline.js'
+import {choosePlaceholder, keptChoiceProbe, placeListOffer, placeQuickDownload, retryPlaceholder} from './quickDownloadPipeline.js'
 import {quickDownloadToasts} from './quickDownloadToasts.js'
 import {withRetryTarget} from './exploreSignInRetry.js'
 
@@ -132,11 +132,19 @@ export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDow
 			if (answer === 'review') {
 				// The row stays until the review queues (P2-R40): the wizard's
 				// submission replaces it, and an abandoned review leaves it waiting.
-				await get().openPlaylistReview(row.url, row.probeMode, itemId, await keptChoiceProbe(itemId))
+				await get().openPlaylistReview(row.url, row.probeMode, itemId, await keptChoiceProbe(itemId), row.skipVideoId)
 				return
 			}
 			if (answer === 'first' && !row.choice.capped) return
 			await choosePlaceholder(itemId, answer, quickDownloadToasts('downloads', get))
+		},
+
+		takeListOffer: async itemId => {
+			await placeListOffer(itemId, quickDownloadToasts('downloads', get))
+		},
+
+		dismissListOffer: async itemId => {
+			await window.appApi.intake.dismissListOffer({itemId}).catch((error: unknown) => console.error('[quick-download] dismissing the list offer failed', error))
 		}
 	}
 }

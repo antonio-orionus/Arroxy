@@ -84,6 +84,8 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 			retry: vi.fn().mockResolvedValue(ok(undefined)),
 			choose: vi.fn().mockResolvedValue(ok(undefined)),
 			keptProbe: vi.fn().mockResolvedValue(ok(null)),
+			takeListOffer: vi.fn().mockResolvedValue(ok({kind: 'not-added'})),
+			dismissListOffer: vi.fn().mockResolvedValue(ok(undefined)),
 			setWindowContext: vi.fn().mockResolvedValue(ok(undefined)),
 			onEvent: vi.fn().mockReturnValue(() => undefined)
 		},

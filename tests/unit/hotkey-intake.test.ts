@@ -70,6 +70,16 @@ describe('intakeHotkeyTrigger', () => {
 		expect(intakeHotkeyTrigger({kind: 'single', url: 'https://www.youtube.com/watch?v=one&list=PL1'})).toMatchObject({kind: 'run', playlistMode: 'video'})
 	})
 
+	// The press can't ask, so the video's row offers the list afterwards.
+	it('keeps the link of a video in a list or Mix as the list offer, and offers nothing on a plain link', () => {
+		const inList = 'https://www.youtube.com/watch?v=one&list=PL1'
+		const inMix = 'https://www.youtube.com/watch?v=one&list=RDone'
+		expect(intakeHotkeyTrigger({kind: 'single', url: inList})).toEqual({kind: 'run', url: inList, playlistMode: 'video', listOffer: inList})
+		expect(intakeHotkeyTrigger({kind: 'single', url: inMix})).toEqual({kind: 'run', url: inMix, playlistMode: 'video', listOffer: inMix})
+		expect(intakeHotkeyTrigger({kind: 'single', url: URL})).not.toHaveProperty('listOffer')
+		expect(intakeHotkeyTrigger({kind: 'single', url: PLAYLIST_URL})).not.toHaveProperty('listOffer')
+	})
+
 	it('runs a radio URL as a plain video', () => {
 		expect(intakeHotkeyTrigger({kind: 'single', url: 'https://www.youtube.com/watch?v=one&list=RDone&start_radio=1'})).toMatchObject({kind: 'run', playlistMode: 'video'})
 	})
@@ -176,6 +186,12 @@ describe('HotkeyIntake', () => {
 		await h.hotkey.take({kind: 'single', url: 'not a url at all'})
 		expect(h.sent).toEqual([{outcome: 'invalid-clipboard'}, {outcome: 'multiple-urls'}, {outcome: 'invalid-clipboard'}])
 		expect(h.added).toEqual([])
+	})
+
+	it("places a video from a list with the list's link as its offer", async () => {
+		const inList = 'https://www.youtube.com/watch?v=one&list=PL1'
+		await h.hotkey.take({kind: 'single', url: inList})
+		expect(h.added).toEqual([{requestId: expect.any(String), url: inList, playlistMode: 'video', listOffer: inList, origin: {kind: 'hotkey'}}])
 	})
 
 	it('takes a link in as the hotkey, and a clean queue sends nothing after the ack', async () => {

@@ -28,7 +28,7 @@ const URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 const BOT_BLOCK: LocalizedError = {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"}
 const VIEW: ExploreViewState = {url: '', title: '', canGoBack: false, canGoForward: false, loading: false, signedIn: false, error: null, adBlock: 'off'}
 
-const actions = {retryQuickDownloadRow: vi.fn(), retryQuickDownloadRowWithCookies: vi.fn(), chooseQuickDownloadRow: vi.fn(), cancelItemDownload: vi.fn(), retryQueueItem: vi.fn()}
+const actions = {retryQuickDownloadRow: vi.fn(), retryQuickDownloadRowWithCookies: vi.fn(), chooseQuickDownloadRow: vi.fn(), cancelItemDownload: vi.fn(), retryQueueItem: vi.fn(), takeListOffer: vi.fn(), dismissListOffer: vi.fn()}
 
 function errorRow(error: LocalizedError = BOT_BLOCK): QueueItem {
 	return makeItem({id: 'failed', status: 'error', url: URL, title: URL, error, job: UNRESOLVED, probeMode: 'video'})
@@ -403,5 +403,29 @@ describe('a needs-choice row', () => {
 	it('reads "Needs your choice" in the status column', () => {
 		seed([choiceRow({kind: 'list-size', loaded: 12, capped: false})])
 		expect(within(screen.getByTestId('queue-manager-row-choice')).getByText('Needs your choice')).toBeInTheDocument()
+	})
+})
+
+// A video the hotkey took from a link that also names a list offers that list
+// under its title: named by the kind, never counted as needing attention.
+describe('a row with a list offer', () => {
+	const offered = (id: string, listOffer: string, status: QueueItem['status'] = 'done'): QueueItem => makeItem({id, status, url: URL, title: `Video ${id}`, listOffer})
+
+	it('names the list by its kind, and Get and Dismiss act on that row', () => {
+		seed([offered('in-list', `${URL}&list=PLx`), offered('in-mix', `${URL}&list=RDdQw4w9WgXcQ`), offered('in-album', `${URL}&list=OLAK5uy_x`)])
+		expect(screen.getByTestId('queue-list-offer-row-in-list')).toHaveTextContent('From a playlistGet the whole playlist')
+		expect(screen.getByTestId('queue-list-offer-row-in-mix')).toHaveTextContent('From a MixGet the whole Mix')
+		expect(screen.getByTestId('queue-list-offer-row-in-album')).toHaveTextContent('From an albumGet the whole album')
+
+		fireEvent.click(screen.getByTestId('queue-list-offer-in-mix'))
+		expect(actions.takeListOffer).toHaveBeenCalledWith('in-mix')
+		fireEvent.click(screen.getByTestId('queue-list-offer-dismiss-in-album'))
+		expect(actions.dismissListOffer).toHaveBeenCalledWith('in-album')
+		expect(screen.queryByTestId('queue-attention-in-list')).not.toBeInTheDocument()
+	})
+
+	it('waits for the video to be prepared: a placeholder still holds the link itself', () => {
+		seed([makeItem({id: 'probing', status: 'probing', url: URL, title: URL, job: UNRESOLVED, probeMode: 'video', listOffer: `${URL}&list=PLx`})])
+		expect(screen.queryByTestId('queue-list-offer-row-probing')).not.toBeInTheDocument()
 	})
 })

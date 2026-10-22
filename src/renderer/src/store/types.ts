@@ -235,7 +235,7 @@ export interface ProbeOrchestratorSlice {
 	cancelWizardProbe: () => void
 	// A needs-choice row's Review: the wizard's playlist step for the link,
 	// from the row's kept probe when there is one, else from a fresh probe.
-	openPlaylistReview: (url: string, playlistMode: ProbePlaylistMode, sourceRowId: string, probe?: PlaylistProbeResult) => Promise<void>
+	openPlaylistReview: (url: string, playlistMode: ProbePlaylistMode, sourceRowId: string, probe?: PlaylistProbeResult, skipVideoId?: string) => Promise<void>
 }
 
 // QuickDownload — the in-app ends of the background quick download (P2-R37/R38).
@@ -247,6 +247,9 @@ export interface QuickDownloadSlice {
 	retryQuickDownloadRow: (itemId: string) => Promise<void>
 	retryQuickDownloadRowWithCookies: (itemId: string) => Promise<void>
 	chooseQuickDownloadRow: (itemId: string, answer: QuickDownloadRowAnswer) => Promise<void>
+	// A hotkey video's offer of its list: placed as its own row without the video, or dismissed.
+	takeListOffer: (itemId: string) => Promise<void>
+	dismissListOffer: (itemId: string) => Promise<void>
 	// "Sign in with Explore" (P2-R51): the failed items waiting for the Explore
 	// sign-in, retried once it is reported. Memory only: a restart forgets them.
 	exploreRetryTargets: readonly ExploreRetryTarget[]

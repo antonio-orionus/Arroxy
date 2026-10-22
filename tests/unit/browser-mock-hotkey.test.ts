@@ -54,7 +54,12 @@ function harness(): Harness {
 			rows[index] = transition(row, event)
 			return Promise.resolve(ok(undefined))
 		},
-		settings: () => settings
+		settings: () => settings,
+		clearListOffer: itemId => {
+			const index = rows.findIndex(row => row.id === itemId)
+			const row = rows[index]
+			if (row) rows[index] = {...row, listOffer: undefined}
+		}
 	})
 	const hotkey = createHotkeyMock({intake: intake.hotkey, state: () => ({accelerator: 'CommandOrControl+Shift+D', registered: true})})
 	const heard: HotkeyOutcomeEvent[] = []

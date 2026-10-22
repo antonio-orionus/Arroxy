@@ -107,6 +107,20 @@ export async function placeQuickDownload(request: QuickDownloadRequest, feedback
 	return placement.kind === 'added' ? placement.itemId : null
 }
 
+// A hotkey video's offer of its list, taken in main: the list row is placed
+// as a pasted link's would be, and its outcomes come the same way.
+export async function placeListOffer(itemId: string, feedback: QuickDownloadFeedback): Promise<string | null> {
+	const requestId = generateId()
+	wait(requestId, feedback, false)
+	const answer = await window.appApi.intake.takeListOffer({requestId, itemId}).catch((error: unknown) => {
+		console.error('[quick-download] taking the list offer failed', error)
+		return null
+	})
+	const placement: IntakePlacement = answer?.ok ? answer.data : {kind: 'not-added'}
+	placed(requestId, placement)
+	return placement.kind === 'added' ? placement.itemId : null
+}
+
 // A row's Retry or choice, run in main. False when main refused, or the IPC
 // call itself rejected: the Downloads tab calls these without waiting, so a
 // transport failure is reported here and the row stays as it is.

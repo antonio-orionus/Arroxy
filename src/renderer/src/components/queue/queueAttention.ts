@@ -17,3 +17,9 @@ export function isDownloadErrorRow(item: QueueItem): boolean {
 export function needsAttention(item: QueueItem): boolean {
 	return item.status === QUEUE_STATUS.needsChoice || isProbeErrorRow(item)
 }
+
+// A hotkey video's offer of its list. Only a prepared video offers it: a
+// placeholder still holds the link itself. Never counted as needing attention.
+export function hasListOffer(item: QueueItem): boolean {
+	return item.listOffer !== undefined && item.job.kind !== 'unresolved'
+}

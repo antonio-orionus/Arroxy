@@ -55,7 +55,7 @@ export class HotkeyIntake {
 		const profile = this.deps.intake.windowProfile()
 		let placement: IntakePlacement
 		try {
-			placement = await this.deps.intake.add({requestId, url: intake.url, playlistMode: intake.playlistMode, ...(profile ? {profile} : {}), origin: {kind: 'hotkey'}})
+			placement = await this.deps.intake.add({requestId, url: intake.url, playlistMode: intake.playlistMode, ...(intake.listOffer ? {listOffer: intake.listOffer} : {}), ...(profile ? {profile} : {}), origin: {kind: 'hotkey'}})
 		} catch (error) {
 			logger.warn('taking the link in failed', {error: error instanceof Error ? error.message : String(error)})
 			placement = {kind: 'not-added'}

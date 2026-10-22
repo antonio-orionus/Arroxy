@@ -141,6 +141,9 @@ export interface AppApi {
 		choose(input: {requestId: string; itemId: string; take: IntakeTake}): Promise<Result<void>>
 		// The probe a needs-choice row asked about, kept for its review; null once gone.
 		keptProbe(input: {itemId: string}): Promise<Result<PlaylistProbeResult | null>>
+		// A hotkey video's offer of its list: place the list as its own row without the video.
+		takeListOffer(input: {requestId: string; itemId: string}): Promise<Result<IntakePlacement>>
+		dismissListOffer(input: {itemId: string}): Promise<Result<void>>
 		setWindowContext(context: IntakeWindowContext): Promise<Result<void>>
 		onEvent(listener: (event: IntakeEvent) => void): () => void
 	}

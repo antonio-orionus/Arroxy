@@ -20,6 +20,7 @@ import type {AppState, GetState, SetState, ProbeOrchestratorSlice, WizardOrigin,
 import {buildWizardStepGraph, nextWizardStep} from './wizardStepGraph.js'
 import {BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, currentBulkMetadataRunId, hydrateBulkMetadata, isHydrationMode, nextBulkMetadataRunId} from './bulkMetadataHydration.js'
 import {expandBulkCollectionUrls, hasCollectionUrl} from './bulkCollectionExpansion.js'
+import {withoutSkipped} from '@shared/intake/probeResolution.js'
 import {isSelectablePlaylistRow} from './playlistRowSelection.js'
 import {playlistScopeReloadErrorMessage, unknownPlaylistScopeReloadErrorMessage} from './playlistScopeReload.js'
 import {rewriteYouTubeChannelRoot} from '@shared/intake/urlIntake.js'
@@ -160,7 +161,8 @@ async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetSt
 	await finishProbe(url, playlistMode, set, get, firstProbe)
 }
 
-async function finishProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, firstProbe: boolean): Promise<void> {
+// `skipVideoId`: a review of a list placed by a row's list offer leaves out the video already taken.
+async function finishProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, firstProbe: boolean, skipVideoId?: string): Promise<void> {
 	const playlistScope = get().playlistScope
 	const run = wizardProbeRun
 	const result = await window.appApi.downloads.probe({url, playlistMode, ...(playlistMode === 'video' ? {} : {playlistScope})})
@@ -171,7 +173,7 @@ async function finishProbe(url: string, playlistMode: ProbePlaylistMode, set: Se
 	}
 
 	if (result.data.kind === 'playlist') {
-		landPlaylistProbe(result.data, set, get, firstProbe)
+		landPlaylistProbe(withoutSkipped(result.data, skipVideoId), set, get, firstProbe)
 	} else {
 		applyVideoProbeResult(result.data, set, get, firstProbe)
 	}
@@ -661,12 +663,12 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			set({wizardStep: 'url', wizardOrigin: 'download', reviewSourceRowId: null, wizardError: null, wizardErrorOrigin: null, advancedAutoOpen: true, advancedAutoTarget: 'cookies', cookiesConfigDialogIssue: null})
 		},
 
-		openPlaylistReview: async (url, playlistMode, sourceRowId, probe) => {
+		openPlaylistReview: async (url, playlistMode, sourceRowId, probe, skipVideoId) => {
 			set({wizardOrigin: 'download'})
 			startProbe(url, playlistMode, set, get)
 			set({reviewSourceRowId: sourceRowId})
-			if (probe) landPlaylistProbe(probe, set, get, true)
-			else await finishProbe(url, playlistMode, set, get, true)
+			if (probe) landPlaylistProbe(withoutSkipped(probe, skipVideoId), set, get, true)
+			else await finishProbe(url, playlistMode, set, get, true, skipVideoId)
 		},
 
 		cancelWizardProbe: () => abandonProbe(set, get),
