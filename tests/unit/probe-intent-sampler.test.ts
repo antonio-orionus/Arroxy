@@ -62,4 +62,16 @@ describe('the tier rule', () => {
 		if (!rule) throw new Error('tier rule missing')
 		expect(rule(probeResultFromFixture({info}, 'damaged'), formats).filter(line => line.startsWith('small-file '))).toEqual([])
 	})
+	// Site preference comes first for every profile, so no rule asks a profile to take a marked-down copy.
+	it('asks neither Best available nor Smart TV to take a marked-down copy', () => {
+		const audio = {format_id: 'audio', ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2', abr: 128, protocol: 'https'}
+		const top = [{format_id: 'damaged-1080', ext: 'mp4', width: 1920, height: 1080, vcodec: 'vp9', acodec: 'none', preference: -10, format_note: '1080p, DAMAGED', protocol: 'https'}, {format_id: 'healthy-720', ext: 'mp4', width: 1280, height: 720, vcodec: 'vp9', acodec: 'none', protocol: 'https'}, audio]
+		const h264 = [{format_id: 'damaged-h264', ext: 'mp4', width: 1280, height: 720, vcodec: 'avc1.4d401f', acodec: 'none', preference: -10, format_note: '720p, DAMAGED', protocol: 'https'}, {format_id: 'healthy-vp9', ext: 'webm', width: 1280, height: 720, vcodec: 'vp9', acodec: 'none', protocol: 'https'}, audio]
+		const probeOf = (formats: unknown[]) => probeResultFromFixture({info: {_type: 'video', id: 'v', title: 'V', extractor: 'generic', extractor_key: 'Generic', webpage_url: 'https://example.test/v', formats}}, 'v')
+		const best = RULES['Best available picks the top tier']
+		const smartTv = RULES['Smart TV picks H.264 when there is any, and says so when there is none']
+		if (!best || !smartTv) throw new Error('rule missing')
+		expect(best(probeOf(top), top)).toEqual([])
+		expect(smartTv(probeOf(h264), h264)).toEqual([])
+	})
 })

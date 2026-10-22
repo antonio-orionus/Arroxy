@@ -96,7 +96,7 @@ export const RULES: Record<string, Rule> = {
 	'Best available picks the top tier': (probe, raw) => {
 		const best = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'best-quality')
 		if (!best) throw new Error('best-quality built-in missing')
-		const tiers = raw.filter(format => hasVideo(format) && !isUpscaled(format)).map(tierOf)
+		const tiers = raw.filter(format => hasVideo(format) && !isUpscaled(format) && !isMarkedDown(format)).map(tierOf)
 		if (tiers.length === 0 || tiers.some(tier => tier === null)) return []
 		const top = Math.max(...tiers.map(Number))
 		const picked = raw.find(format => format.format_id === pick(best, probe).media.videoFormatId)
@@ -142,7 +142,7 @@ export const RULES: Record<string, Rule> = {
 
 	'Smart TV picks H.264 when there is any, and says so when there is none': (probe, raw) => {
 		if (!raw.some(hasVideo)) return []
-		const anyH264 = raw.some(format => hasVideo(format) && isH264(format))
+		const anyH264 = raw.some(format => hasVideo(format) && isH264(format) && !isMarkedDown(format))
 		const codecsNamed = raw.filter(hasVideo).every(format => format.vcodec !== undefined)
 		return VIDEO_PROFILES.flatMap(profile => {
 			if (profile.media.kind !== 'video-audio' || profile.media.goal !== 'smart-tv') return []
