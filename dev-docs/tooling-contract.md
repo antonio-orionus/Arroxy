@@ -27,7 +27,7 @@ bunx vp check --fix             # same, with formatter and lint fixes
 bun run check:static            # errors:build + vp check (the gate's static step)
 bun run check:tooling-parity    # representative rule parity probes
 bun run check:tooling-contract  # verifies this monorepo tooling contract
-bun run check:selection-parity  # Format-screen picks vs real yt-dlp (needs Python 3.10+)
+bun run check:selection-parity  # Format-screen picks and subtitle tracks vs real yt-dlp (needs Python 3.10+)
 bun run check:filename-parity   # predicted download paths vs real yt-dlp (needs Python 3.10+)
 bun run packages:check          # registry package gates in dependency order
 bun run check                   # canonical local and CI gate
