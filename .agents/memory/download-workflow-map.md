@@ -9,4 +9,4 @@ metadata:
 
 **Why:** the workflows span the renderer store, wizard components, quick-download pipeline and main queue; re-deriving them costs a long exploration every time.
 
-**How to apply:** read it first for any workflow or UX change, verify the specific function you touch (line numbers drift), and update the map in the same PR when a workflow, step or settings source changes. Related: [[finish-before-pr]].
+**How to apply:** read it first for any workflow or UX change, verify the specific function you touch (line numbers drift), and update the map in the same PR when a workflow, step or settings source changes.

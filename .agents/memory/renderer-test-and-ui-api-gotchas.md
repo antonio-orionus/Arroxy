@@ -25,4 +25,4 @@ read the actual `src/renderer/src/components/ui/<primitive>.tsx` before assuming
 exists. Copying a prop name from another project's idiom is the failure mode both of these
 share.
 
-Related: [[loc-limits-are-architecture-signals]], [[finish-before-pr]].
+Related: [[loc-limits-are-architecture-signals]].

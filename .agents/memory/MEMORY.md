@@ -1,13 +1,8 @@
 # Project memory index
 
-## How Antonio wants work done
+## Rules for changes
 
-- [Finish before PR](finish-before-pr.md) — close every related follow-up (tests, English copy and README, changelog fragment) before proposing a PR; translation is not part of it.
-- [Ship means merge, not release](ship-means-merge-not-release.md) — "ship"/"land" stops at the merge; release only on an explicit "release", stable by default, a beta only when he asks for one; never ask or offer to release.
 - [Review learnings](review-learnings.md) — rules the dual review injects into every reviewer and CodeRabbit reads as a guideline; add one when a refuted finding would recur.
-- [No AI attribution](no-ai-attribution.md) — never add Co-Authored-By or "Generated with" lines to commits or PRs.
-- [Docs edits skip the PR](readme-edits-skip-pr.md) — docs-only changes (README, dev-docs, AGENTS.md, ADRs, memory) go straight to main after `bun run check`.
-- [English-only PRs](english-only-prs.md) — PRs change en.json and en.mjs only; every translation happens in one sync PR as the first step of a release.
 - [LOC limits are architecture signals](loc-limits-are-architecture-signals.md) — never raise the LOC cap to land a change; extract a cohesive concern instead.
 - [Changelog stays laconic](changelog-laconic.md) — one or two user-facing sentences per fragment or entry, no internals, no exact sizes.
 

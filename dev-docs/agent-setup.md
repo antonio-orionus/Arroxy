@@ -35,7 +35,7 @@ How to run Arroxy with any coding agent without the repo depending on one.
 Project memory lives in `.agents/memory/`, indexed by `MEMORY.md`; read the index before working. Write new memories there with the same frontmatter, never in a tool's own memory. Route a lesson by audience:
 
 - maintainer-only plans and notes → `.internal/` (then `bun run internal:save`);
-- how the maintainer runs Arroxy (reviews, merging, releasing) → `.internal/AGENTS.md`;
+- how the maintainer runs Arroxy (reviews, merging, releasing) → `.internal/AGENTS.md`, or `.internal/memory/` for a longer lesson;
 - cross-repo personal preferences → `~/.agents/AGENTS.md`;
 - everything else, including deep-dive references → `.agents/memory/`.
 
