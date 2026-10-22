@@ -226,12 +226,17 @@ export function setDownloadProfileEnabled(prefs: DownloadProfilesPrefs, id: stri
 	return {...next, active: resolved.ref}
 }
 
+// Whether media of this kind has a video stream: one to embed subtitles into,
+// and for their sidecar files to sit next to.
+export function mediaKindHasVideo(mediaKind: DownloadProfile['media']['kind']): boolean {
+	return mediaKind === 'video-audio' || mediaKind === 'video-only'
+}
+
 // The subtitle mode media of this kind can run. Audio and subtitles-only media
 // have no video to embed into, so Embed writes sidecar files, in the profile's
 // subtitle format.
 export function subtitleModeForMedia(mediaKind: DownloadProfile['media']['kind'], mode: SubtitleMode): SubtitleMode {
-	const hasVideo = mediaKind === 'video-audio' || mediaKind === 'video-only'
-	return mode === 'embed' && !hasVideo ? 'sidecar' : mode
+	return mode === 'embed' && !mediaKindHasVideo(mediaKind) ? 'sidecar' : mode
 }
 
 // The subtitle mode a profile's job runs with.

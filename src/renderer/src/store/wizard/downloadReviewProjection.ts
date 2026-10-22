@@ -8,7 +8,7 @@ import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
 import {profileDisplayName} from '@renderer/lib/profileName.js'
 import {profilePickerOptions} from '@renderer/components/wizard/profilePickerOptions.js'
-import {SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
+import {wizardSubtitleModeLabelKey} from '../../lib/subtitleLabel.js'
 import {formatList} from '@shared/listFormat.js'
 import {resolveSubtitleLabel} from '@shared/subtitleTrackLabel.js'
 import {resolveAudioLabel, resolveVideoResolution} from '../helpers.js'
@@ -96,7 +96,7 @@ function buildSubtitleValue(state: WizardReviewState, effectiveSubtitleLanguages
 		ctx.language,
 		'conjunction'
 	)
-	const modeLabel = ctx.t(SUBTITLE_MODE_I18N_KEYS[state.wizardSubtitleMode])
+	const modeLabel = ctx.t(wizardSubtitleModeLabelKey(state.wizardMediaKind, state.wizardSubtitleMode))
 	const formatPart = state.wizardSubtitleMode !== 'embed' ? `${state.wizardSubtitleFormat.toUpperCase()} · ` : ''
 	return `${langList} · ${formatPart}${modeLabel}`
 }

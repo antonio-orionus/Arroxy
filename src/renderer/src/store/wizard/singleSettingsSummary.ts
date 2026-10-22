@@ -4,7 +4,7 @@
 import {isYouTubeExtractor} from '@shared/ytdlp/extractorPredicates.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
-import {SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
+import {wizardSubtitleModeLabelKey} from '../../lib/subtitleLabel.js'
 import {formatList} from '@shared/listFormat.js'
 import {resolveSubtitleLabel} from '@shared/subtitleTrackLabel.js'
 import type {AppState} from '../types.js'
@@ -58,7 +58,7 @@ export function buildSingleSettingsSummary(state: WizardReviewState, ctx: {t: Tr
 						'conjunction'
 					),
 					state.wizardSubtitleMode === 'embed' ? null : state.wizardSubtitleFormat.toUpperCase(),
-					t(SUBTITLE_MODE_I18N_KEYS[state.wizardSubtitleMode]),
+					t(wizardSubtitleModeLabelKey(state.wizardMediaKind, state.wizardSubtitleMode)),
 					fullLength
 				]
 					.filter(Boolean)

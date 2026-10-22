@@ -5,7 +5,7 @@ import {profileSubtitleMode, resolveFilenameTemplate} from '@shared/downloadProf
 import type {CommonSettings, DownloadProfile} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
-import {SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
+import {profileSubtitleModeLabelKey} from '../../lib/subtitleLabel.js'
 import {formatList} from '@shared/listFormat.js'
 import {resolveSubtitleLabel, SUBTITLE_SOURCE_LABEL_KEYS} from '@shared/subtitleTrackLabel.js'
 import type {TranslationPort} from '../../lib/translation.js'
@@ -45,7 +45,7 @@ function areaValues(profile: DownloadProfile, ctx: ProfileDiffContext): Record<C
 						'conjunction'
 					),
 					profileSubtitleMode(profile) === 'embed' ? null : subtitles.format.toUpperCase(),
-					t(SUBTITLE_MODE_I18N_KEYS[subtitles.mode]),
+					t(profileSubtitleModeLabelKey(profile)),
 					subtitles.source === 'manual-first' ? null : t(SUBTITLE_SOURCE_LABEL_KEYS[subtitles.source])
 				]
 					.filter(Boolean)

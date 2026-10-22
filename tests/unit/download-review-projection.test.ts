@@ -114,6 +114,27 @@ describe('DownloadReviewProjection', () => {
 	})
 })
 
+// Sidecar files of a download without video have no video to sit next to (#634).
+describe('where sidecar subtitles go, in the Review row and the confirm screen', () => {
+	const noVideo = {selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '251'}} as const
+	const labels = (overrides: Partial<AppState>): string[] => {
+		const s = state(overrides)
+		return [buildSingleSettingsSummary(s, {t, language: 'en'}).subtitles, buildDownloadReview(s, {t, language: 'en', commonPaths: s.commonPaths}).subtitleValue]
+	}
+
+	it.each(['audio', 'subtitles'] as const)('says the download folder for %s', kind => {
+		for (const label of labels({...noVideo, wizardMediaKind: kind})) expect(label).toBe('English · SRT · wizard.subtitles.saveMode.sidecarNoVideo')
+	})
+
+	it('says next to video for a video', () => {
+		for (const label of labels({})) expect(label).toBe('English · SRT · wizard.subtitles.saveMode.sidecar')
+	})
+
+	it('keeps the subfolder label without video', () => {
+		for (const label of labels({...noVideo, wizardMediaKind: 'subtitles', wizardSubtitleMode: 'subfolder'})) expect(label).toBe('English · SRT · wizard.subtitles.saveMode.subfolder')
+	})
+})
+
 describe('subtitle language labels in a Russian UI', () => {
 	const ruState = state({wizardSubtitleLanguages: ['ar', 'en-orig'], wizardSubtitles: {en: [{ext: 'vtt', name: 'English'}], ar: [{ext: 'vtt', name: 'Arabic'}]}, wizardAutomaticCaptions: {'en-orig': [{ext: 'vtt', name: 'English (Original)'}]}})
 	const pickedLabels = buildSubtitleList(ruState.wizardSubtitles, ruState.wizardAutomaticCaptions, 'ru')

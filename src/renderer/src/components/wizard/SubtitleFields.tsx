@@ -9,7 +9,7 @@ import {Empty, EmptyDescription, EmptyHeader, EmptyTitle} from '../ui/empty.js'
 import {InputGroup, InputGroupAddon, InputGroupInput} from '../ui/input-group.js'
 import {Separator} from '../ui/separator.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
-import {buildSubtitleList, SUBTITLE_MODE_I18N_KEYS} from '../../lib/subtitleLabel.js'
+import {buildSubtitleList, wizardSubtitleModeLabelKey} from '../../lib/subtitleLabel.js'
 import {SUBTITLE_FORMATS, SUBTITLE_MODES} from '@shared/schemas.js'
 import {SectionLabel} from '../shared/SectionLabel.js'
 import {CheckRow} from '../shared/CheckRow.js'
@@ -19,8 +19,9 @@ import {CheckRow} from '../shared/CheckRow.js'
 // since there is no media file to embed into.
 export function SubtitleFields({withMedia}: {withMedia: boolean}): ReactNode {
 	const {t, i18n} = useTranslation()
-	const {wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleLanguages, wizardSubtitleMode, wizardSubtitleFormat, toggleSubtitleLanguage, clearSubtitleLanguages, setSubtitleMode, setSubtitleFormat} = useAppStore(
+	const {wizardMediaKind, wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleLanguages, wizardSubtitleMode, wizardSubtitleFormat, toggleSubtitleLanguage, clearSubtitleLanguages, setSubtitleMode, setSubtitleFormat} = useAppStore(
 		useShallow(state => ({
+			wizardMediaKind: state.wizardMediaKind,
 			wizardSubtitles: state.wizardSubtitles,
 			wizardAutomaticCaptions: state.wizardAutomaticCaptions,
 			wizardSubtitleLanguages: state.wizardSubtitleLanguages,
@@ -51,7 +52,7 @@ export function SubtitleFields({withMedia}: {withMedia: boolean}): ReactNode {
 
 	const selectedItems = allLangs.filter(l => wizardSubtitleLanguages.includes(l.code))
 
-	const saveModes = SUBTITLE_MODES.filter(mode => withMedia || mode !== 'embed').map(mode => ({mode, label: t(SUBTITLE_MODE_I18N_KEYS[mode])}))
+	const saveModes = SUBTITLE_MODES.filter(mode => withMedia || mode !== 'embed').map(mode => ({mode, label: t(wizardSubtitleModeLabelKey(wizardMediaKind, mode))}))
 
 	return (
 		<div className="flex flex-col gap-1.5" data-testid="subtitle-fields">

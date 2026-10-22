@@ -2,7 +2,9 @@ import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {ParseKeys} from 'i18next'
 import type {DownloadProfileSubtitleSource, SubtitleFormat, SubtitleMode} from '@shared/types.js'
-import {subtitleModeForMedia} from '@shared/downloadProfiles.js'
+import {mediaKindHasVideo} from '@shared/downloadProfiles.js'
+import {SUBTITLE_MODES} from '@shared/schemas.js'
+import {subtitleModeLabelKey} from '@renderer/lib/subtitleLabel.js'
 import type {DownloadProfileDraft, DownloadProfileDraftAction} from '../../store/wizard/downloadProfileDraft.js'
 import {cn} from '@renderer/lib/utils.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
@@ -14,14 +16,6 @@ import {SubtitleLanguagePicker} from './SubtitleLanguagePicker.js'
 import {ProfileSelect} from './ProfileSelect.js'
 import type {SelectOption} from './profileSelectOptions.js'
 import {SUBTITLE_SOURCE_LABEL_KEYS} from '@shared/subtitleTrackLabel.js'
-
-// Reuses the wizard's subtitle vocabulary — these are the same three delivery
-// modes, and describing them differently in two screens invites confusion.
-const SUBTITLE_DELIVERY_OPTIONS = [
-	{value: 'sidecar', labelKey: 'wizard.subtitles.saveMode.sidecar'},
-	{value: 'embed', labelKey: 'wizard.subtitles.saveMode.embed'},
-	{value: 'subfolder', labelKey: 'wizard.subtitles.saveMode.subfolder'}
-] as const satisfies readonly {value: SubtitleMode; labelKey: ParseKeys}[]
 
 // Format names carry keys like everything else so option rendering has one
 // code path; their translations are identical to the English by design.
@@ -112,10 +106,13 @@ interface SubtitleDeliveryFieldProps {
 	onAction: (action: DownloadProfileDraftAction) => void
 }
 
+// Reuses the wizard's subtitle vocabulary (subtitleModeLabelKey): these are the
+// same delivery modes, and describing them differently in two screens invites
+// confusion.
 function SubtitleDeliveryField({subtitleDelivery, mediaMode, onAction}: SubtitleDeliveryFieldProps): ReactNode {
 	const {t} = useTranslation()
-	const canEmbed = subtitleModeForMedia(mediaMode, 'embed') === 'embed'
-	const options = SUBTITLE_DELIVERY_OPTIONS.filter(option => canEmbed || option.value !== 'embed')
+	const hasVideo = mediaKindHasVideo(mediaMode)
+	const options = SUBTITLE_MODES.filter(mode => hasVideo || mode !== 'embed')
 
 	return (
 		<Field className="gap-1.5">
@@ -130,9 +127,9 @@ function SubtitleDeliveryField({subtitleDelivery, mediaMode, onAction}: Subtitle
 				}}
 				className={cn('grid w-full', options.length === 3 ? 'grid-cols-3' : 'grid-cols-2')}
 			>
-				{options.map(option => (
-					<ToggleGroupItem key={option.value} value={option.value}>
-						{t(!canEmbed && option.value === 'sidecar' ? 'wizard.subtitles.saveMode.sidecarNoVideo' : option.labelKey)}
+				{options.map(mode => (
+					<ToggleGroupItem key={mode} value={mode}>
+						{t(subtitleModeLabelKey(mode, hasVideo))}
 					</ToggleGroupItem>
 				))}
 			</ToggleGroup>

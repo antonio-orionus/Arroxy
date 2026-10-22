@@ -29,15 +29,23 @@ describe('profileDiffRows', () => {
 		expect(profileDiffRows(before, after, CTX).map(row => row.area)).toEqual(['subtitles'])
 	})
 
-	// A subtitles-only job writes files in the saved format even with Embed saved.
+	// A subtitles-only job writes files in the saved format even with Embed
+	// saved, and those files go in the download folder: there is no video (#634).
 	it('lists a subtitle format change on a subtitles-only profile saved with Embed', () => {
 		const base = builtin('subtitles-only')
 		const before: DownloadProfile = {...base, subtitles: {...base.subtitles, mode: 'embed', format: 'ass'}}
 		const after: DownloadProfile = {...before, subtitles: {...before.subtitles, format: 'srt'}}
 		expect(profileDiffRows(before, after, CTX)).toEqual([
 			{area: 'format', before: 'Subtitles only · English · ASS', after: 'Subtitles only · English · SRT'},
-			{area: 'subtitles', before: 'English · ASS · wizard.subtitles.saveMode.embed', after: 'English · SRT · wizard.subtitles.saveMode.embed'}
+			{area: 'subtitles', before: 'English · ASS · wizard.subtitles.saveMode.sidecarNoVideo', after: 'English · SRT · wizard.subtitles.saveMode.sidecarNoVideo'}
 		])
+	})
+
+	it.each(['subtitles-only', 'audio-only'] as const)('says the download folder for sidecar subtitles of the %s profile', id => {
+		const base = builtin(id)
+		const before: DownloadProfile = {...base, subtitles: {...base.subtitles, enabled: true, languages: ['en'], mode: 'sidecar', format: 'srt'}}
+		const after: DownloadProfile = {...before, subtitles: {...before.subtitles, format: 'vtt'}}
+		expect(profileDiffRows(before, after, CTX).find(row => row.area === 'subtitles')).toEqual({area: 'subtitles', before: 'English · SRT · wizard.subtitles.saveMode.sidecarNoVideo', after: 'English · VTT · wizard.subtitles.saveMode.sidecarNoVideo'})
 	})
 
 	it('is empty for identical profiles', () => {

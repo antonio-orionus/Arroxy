@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
-import {render, screen, fireEvent, waitFor} from '@testing-library/react'
+import {render, screen, fireEvent, waitFor, within} from '@testing-library/react'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import type {ProbeResult, StatusEvent} from '@shared/types.js'
 import {ok} from '../shared/fixtures.js'
@@ -302,9 +302,21 @@ describe('Wizard subtitle step — store behavior', () => {
 
 describe('SubtitleFields — save mode UI', () => {
 	function renderStep(subtitleMode = 'sidecar') {
-		useAppStore.setState({wizardStep: 'confirm', wizardSubtitles: {en: [{ext: 'vtt', name: 'English'}]}, wizardAutomaticCaptions: {}, wizardSubtitleLanguages: [], wizardSubtitleMode: subtitleMode as never, wizardSubtitleFormat: 'srt'})
+		useAppStore.setState({wizardStep: 'confirm', wizardMediaKind: 'video', wizardSubtitles: {en: [{ext: 'vtt', name: 'English'}]}, wizardAutomaticCaptions: {}, wizardSubtitleLanguages: [], wizardSubtitleMode: subtitleMode as never, wizardSubtitleFormat: 'srt'})
 		return render(<SubtitleFields withMedia />)
 	}
+
+	// Without video there is nothing for the files to sit next to (#634).
+	it.each([
+		['audio', true],
+		['subtitles', false]
+	] as const)('offers subtitles of a %s download in the download folder, not next to a video', (kind, withMedia) => {
+		useAppStore.setState({wizardStep: 'confirm', wizardMediaKind: kind, wizardSubtitles: {en: [{ext: 'vtt', name: 'English'}]}, wizardAutomaticCaptions: {}, wizardSubtitleLanguages: [], wizardSubtitleMode: 'sidecar', wizardSubtitleFormat: 'srt'})
+		render(<SubtitleFields withMedia={withMedia} />)
+		const group = screen.getByRole('group', {name: 'Save as'})
+		expect(within(group).getByRole('button', {name: 'In the download folder'})).toHaveAttribute('aria-pressed', 'true')
+		expect(within(group).queryByRole('button', {name: 'Next to video'})).not.toBeInTheDocument()
+	})
 
 	it('renders save-mode radio options', () => {
 		renderStep()
