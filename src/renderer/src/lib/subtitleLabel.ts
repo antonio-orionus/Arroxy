@@ -25,6 +25,12 @@ export function wizardMediaHasVideo(mediaKind: WizardMediaKind): boolean {
 	return mediaKindHasVideo(WIZARD_PROFILE_MEDIA_KINDS[mediaKind])
 }
 
+// The subtitle mode a run of this kind can keep, by the profile editor's rule:
+// without video there is nothing to embed into, so Embed becomes Sidecar.
+export function wizardSubtitleModeForMedia(mediaKind: WizardMediaKind, mode: SubtitleMode): SubtitleMode {
+	return subtitleModeForMedia(WIZARD_PROFILE_MEDIA_KINDS[mediaKind], mode)
+}
+
 export interface SubtitleDeliveryLabel {
 	// The format of the files written, null when the subtitles are embedded.
 	format: string | null

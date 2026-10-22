@@ -64,6 +64,16 @@ describe('applyProfileToWizard', () => {
 	})
 })
 
+describe('applyProfileToWizard on a source without video', () => {
+	// The wizard offers no Embed without video, as the profile editor (#646).
+	it('runs an Embed profile as Sidecar when the source has only audio', () => {
+		const audioOnly = FORMATS.filter(f => f.isAudioOnly)
+		const profile: DownloadProfile = {...builtin('balanced'), subtitles: {...builtin('balanced').subtitles, mode: 'embed'}}
+		const {snapshot} = applyProfileToWizard({profile, formats: audioOnly, selection: selectionSourceFromOptions(audioOnly), subtitles: {en: [{ext: 'vtt'}]}, automaticCaptions: {}, isAudioOnlySource: true, nativeAudioPreference: 'compatible', baseOutputDir: '/home/me/Downloads', globalFilenameTemplate: undefined})
+		expect(snapshot).toMatchObject({mediaKind: 'audio', subtitleMode: 'sidecar'})
+	})
+})
+
 describe('changedFromProfile', () => {
 	const baseline = apply(builtin('balanced')).snapshot
 

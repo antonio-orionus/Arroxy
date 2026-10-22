@@ -58,7 +58,7 @@ const SCREENS: readonly [string, () => ReactNode][] = [
 	['StepPlaylistProfiles', () => <StepPlaylistProfiles />],
 	['StepReview', () => <StepReview />],
 	['StepSponsorBlock', () => <StepSponsorBlock />],
-	['SubtitleFields', () => <SubtitleFields withMedia />],
+	['SubtitleFields', () => <SubtitleFields />],
 	['BotWallNotice', () => <BotWallNotice />],
 	['RateLimitNotice', () => <RateLimitNotice />]
 ]

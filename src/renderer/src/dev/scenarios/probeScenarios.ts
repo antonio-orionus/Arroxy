@@ -43,6 +43,7 @@ export function buildProbeResult(scenario: ScenarioLike, params?: ProbeUrlParams
 			return audioStereoProbe()
 		case 'probe-with-subtitles':
 		case 'single-review-subtitles':
+		case 'single-review-audio-subtitles':
 		case 'single-subtitles-kind':
 			return videoWithSubtitlesProbe()
 		case 'single-profile-misfit':

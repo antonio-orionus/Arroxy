@@ -25,6 +25,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'default',
 	'single-normal',
 	'single-review-subtitles',
+	'single-review-audio-subtitles',
 	'single-review-returning',
 	'single-subtitles-kind',
 	'single-profile-misfit',
@@ -127,6 +128,10 @@ export type BrowserMockScenarioId = (typeof BROWSER_MOCK_SCENARIO_IDS)[number]
 // The single-video screens that need more than a probe to show.
 function applySingleScenario(id: string, store: ScenarioWorkbenchStore): void {
 	if (id === 'single-review-subtitles') store.openReview('subtitles')
+	if (id === 'single-review-audio-subtitles') {
+		store.setWizardMediaKind('audio')
+		store.openReview('subtitles')
+	}
 	if (id === 'single-review-returning') {
 		store.setState({wizardWriteThumbnail: true, wizardSponsorBlockMode: 'remove'})
 		store.openReview('extras')
@@ -229,6 +234,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'single-normal', group: 'General', title: 'Single video normal', description: 'A YouTube video on the Format screen, pre-selected from the active profile; mockStep=confirm opens the Review.', kind: 'probe'},
 	{id: 'single-review-returning', group: 'General', title: 'Review: returning user, edited', description: 'Review for someone who downloaded before: the one-page callout on top, Extras unfolded, and two edits (Save thumbnail, SponsorBlock remove) so the bar offers Update profile or Save as new.', kind: 'probe'},
 	{id: 'single-review-subtitles', group: 'General', title: 'Review: subtitles row open', description: 'Review screen with the Subtitles row open in place: search, uploaded and auto-generated languages.', kind: 'probe'},
+	{id: 'single-review-audio-subtitles', group: 'General', title: 'Review: audio run, subtitles row open', description: "An audio download's Review with the Subtitles row open: no Embed, files go in the download folder.", kind: 'probe'},
 	{id: 'single-subtitles-kind', group: 'General', title: 'Subtitles only', description: 'Format screen switched to Subtitles: the language picker replaces the stream lists.', kind: 'probe'},
 	{id: 'single-codec-mix', group: 'General', title: 'Codecs and file type', description: 'A 4K HDR video offered as AV1, VP9 and H.264: the codec in each row, the Why this one tip on the Profile badge, and the Saves as menu following the picked streams.', kind: 'probe'},
 	{id: 'single-profile-misfit', group: 'General', title: 'Profile does not fit', description: 'A Full HD profile with English subtitles on a 480p video without subtitles: the fit notices and "Closest to profile" pick.', kind: 'probe'},

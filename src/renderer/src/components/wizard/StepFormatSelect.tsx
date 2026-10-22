@@ -107,7 +107,7 @@ export function StepFormatSelect(): ReactNode {
 				<RateLimitNotice />
 
 				{wizardMediaKind === 'subtitles' ? (
-					<SubtitleFields withMedia={false} />
+					<SubtitleFields />
 				) : wizardMediaKind === 'audio' ? (
 					<AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} onSelect={setAudioSelection} />
 				) : (

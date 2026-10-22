@@ -92,7 +92,7 @@ interface ReviewRowEntry {
 function reviewRowEntries(state: WizardReviewState, summary: SingleSettingsSummary): ReviewRowEntry[] {
 	const kind = state.wizardMediaKind
 	return [
-		...(summary.subtitlesAvailable > 0 || summary.subtitlesOn ? [{row: 'subtitles' as const, value: summary.subtitles, off: !summary.subtitlesOn, fields: <SubtitleFields withMedia={kind !== 'subtitles'} />}] : []),
+		...(summary.subtitlesAvailable > 0 || summary.subtitlesOn ? [{row: 'subtitles' as const, value: summary.subtitles, off: !summary.subtitlesOn, fields: <SubtitleFields />}] : []),
 		...(sponsorBlockApplies(state) && summary.sponsorBlock !== null ? [{row: 'sponsorBlock' as const, value: summary.sponsorBlock, off: state.wizardSponsorBlockMode === 'off', fields: <SponsorBlockFields />}] : []),
 		...(kind === 'subtitles' ? [] : [{row: 'extras' as const, value: summary.extras, off: !summary.extrasOn, fields: <OutputFields />}]),
 		{row: 'saveTo', value: summary.saveTo, off: false, fields: <FolderFields persist={false} />},

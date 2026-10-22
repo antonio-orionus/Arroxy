@@ -15,9 +15,9 @@ import {SectionLabel} from '../shared/SectionLabel.js'
 import {CheckRow} from '../shared/CheckRow.js'
 
 // The single-video subtitle picker: the Format screen in Subtitles mode and
-// the Review's Subtitles row. `withMedia` false (subtitles only) drops "embed",
-// since there is no media file to embed into.
-export function SubtitleFields({withMedia}: {withMedia: boolean}): ReactNode {
+// the Review's Subtitles row. A run without video (audio or subtitles only)
+// drops "embed", since there is no video to embed into.
+export function SubtitleFields(): ReactNode {
 	const {t, i18n} = useTranslation()
 	const {wizardMediaKind, wizardSubtitles, wizardAutomaticCaptions, wizardSubtitleLanguages, wizardSubtitleMode, wizardSubtitleFormat, toggleSubtitleLanguage, clearSubtitleLanguages, setSubtitleMode, setSubtitleFormat} = useAppStore(
 		useShallow(state => ({
@@ -52,7 +52,8 @@ export function SubtitleFields({withMedia}: {withMedia: boolean}): ReactNode {
 
 	const selectedItems = allLangs.filter(l => wizardSubtitleLanguages.includes(l.code))
 
-	const saveModes = SUBTITLE_MODES.filter(mode => withMedia || mode !== 'embed').map(mode => ({mode, label: t(subtitleModeLabelKey(mode, wizardMediaHasVideo(wizardMediaKind)))}))
+	const hasVideo = wizardMediaHasVideo(wizardMediaKind)
+	const saveModes = SUBTITLE_MODES.filter(mode => hasVideo || mode !== 'embed').map(mode => ({mode, label: t(subtitleModeLabelKey(mode, hasVideo))}))
 
 	return (
 		<div className="flex flex-col gap-1.5" data-testid="subtitle-fields">
