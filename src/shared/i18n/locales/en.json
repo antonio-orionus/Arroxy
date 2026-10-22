@@ -1031,6 +1031,9 @@
 				"uploads": "Download from this channel's uploads",
 				"watchLater": "Download from Watch later"
 			},
+			"videoHint": "Only the video you opened, with {{profileName}}. The list isn't loaded.",
+			"videoLabel": "Just this video",
+			"videoPickHint": "Set up only the video you opened. The list isn't loaded.",
 			"withProfile": "With {{profileName}}"
 		},
 		"output": {

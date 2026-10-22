@@ -69,10 +69,10 @@ export type WizardStep = WizardStepName
 export type AdvancedSettingsTarget = 'cookies' | 'network' | 'hotkey'
 // `url-tab` / `explore`: a quick download asked, and its answer places the row.
 export type MixedUrlPromptSource = 'wizard' | 'url-tab' | 'explore'
-// What was answered for a link that names a video and a list: the list in the
-// background (its row asks past the load limit), exactly the first N, or the
-// wizard's picker. The video alone never asks: This video sits beside the list.
-export type MixedPromptAnswer = {kind: 'list'} | {kind: 'first'; count: number} | {kind: 'pick'}
+// What was answered for a link that names a video and a list: the video alone,
+// the list in the background (its row asks past the load limit), exactly the
+// first N, or the wizard's picker.
+export type MixedPromptAnswer = {kind: 'video'} | {kind: 'list'} | {kind: 'first'; count: number} | {kind: 'pick'}
 // The home tab a wizard run started from, and lands back on when it ends.
 export type WizardOrigin = 'download' | 'explore'
 

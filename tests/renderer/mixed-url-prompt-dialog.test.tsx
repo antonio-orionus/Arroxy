@@ -66,10 +66,15 @@ describe('the video-in-a-list dialog', () => {
 	})
 
 	describe('from the list button', () => {
-		it('offers three answers, names only, what each does in its hint', () => {
+		it('offers four answers, the video alone first, names only, what each does in its hint', () => {
 			useAppStore.setState({settings: buildSettings({playlistProbeLimit: 250})})
 			open(MIXED_URL, 'url-tab')
 			render(<MixedUrlPromptDialog />)
+			const video = screen.getByTestId('mixed-video-choice')
+			expect(video).toHaveTextContent('Just this video')
+			expect(video).toHaveAttribute('aria-description', "Only the video you opened, with Balanced 720p. The list isn't loaded.")
+			const answers = screen.getAllByRole('button').filter(button => button.dataset.testid?.endsWith('-choice'))
+			expect(answers.map(button => button.dataset.testid)).toEqual(['mixed-video-choice', 'mixed-list-choice', 'mixed-first-choice', 'mixed-pick-choice'])
 			const list = screen.getByTestId('mixed-list-choice')
 			const first = screen.getByTestId('mixed-first-choice')
 			const pick = screen.getByTestId('mixed-pick-choice')
@@ -82,7 +87,20 @@ describe('the video-in-a-list dialog', () => {
 			expect(pick).toHaveAttribute('aria-description', expect.stringContaining('Pick from the first 250 videos'))
 			expect(screen.getByTestId('mixed-limit')).toHaveTextContent('Limit')
 			expect(screen.getByText('Esc cancels.')).toBeInTheDocument()
-			expect(screen.queryByText('Just this video')).toBeNull()
+		})
+
+		it.each([
+			['url-tab', MIXED_URL],
+			['explore', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1']
+		] as const)('Just this video from %s queues the video alone and loads no list', async (source, url) => {
+			open(url, source)
+			render(<MixedUrlPromptDialog />)
+
+			fireEvent.click(screen.getByTestId('mixed-video-choice'))
+
+			await waitFor(() => expect(quickDownloadSpy).toHaveBeenCalledWith({url, entry: source, playlistMode: 'video'}))
+			expect(useAppStore.getState().mixedUrlPromptOpen).toBe(false)
+			expect(mockApi.downloads.probe).not.toHaveBeenCalled()
 		})
 
 		it('starts on Download in the background, and Enter queues the list with no count', async () => {
@@ -199,6 +217,20 @@ describe('the video-in-a-list dialog', () => {
 			fireEvent.click(next)
 
 			await waitFor(() => expect(mockApi.downloads.probe).toHaveBeenCalledWith(expect.objectContaining({url: MIXED_URL, playlistMode: 'playlist', playlistScope: {items: {kind: 'app-limit'}}})))
+			expect(quickDownloadSpy).not.toHaveBeenCalled()
+		})
+
+		it('Just this video sets up the video alone, without its list', async () => {
+			open(MIXED_URL, 'wizard')
+			render(<MixedUrlPromptDialog />)
+			const video = screen.getByTestId('mixed-video-choice')
+			expect(video).toHaveTextContent('Just this video')
+			expect(video).toHaveAttribute('aria-description', "Set up only the video you opened. The list isn't loaded.")
+
+			fireEvent.click(video)
+
+			await waitFor(() => expect(mockApi.downloads.probe).toHaveBeenCalledWith(expect.objectContaining({url: MIXED_URL, playlistMode: 'video'})))
+			expect(mockApi.downloads.probe).not.toHaveBeenCalledWith(expect.objectContaining({playlistScope: expect.anything()}))
 			expect(quickDownloadSpy).not.toHaveBeenCalled()
 		})
 

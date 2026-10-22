@@ -328,6 +328,19 @@ describe('quickDownload', () => {
 		expect(useAppStore.getState().cookiesConfigDialogIssue).toBe('file-missing-path')
 	})
 
+	it('opens the cookies config dialog instead of probing when the Interactive prompt answers Just this video with an incomplete cookie setup', async () => {
+		const api = buildMockAppApi()
+		window.appApi = api
+		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
+		const defaults = defaultAppSettings('/tmp')
+		useAppStore.setState({wizardUrl: mixedUrl, settings: {...defaults, common: {...defaults.common, cookiesMode: 'file', cookiesPath: ''}}, mixedUrlPromptOpen: true, mixedUrlPending: mixedUrl, mixedUrlPromptSource: 'wizard'})
+
+		await useAppStore.getState().dismissMixedPrompt({kind: 'video'})
+
+		expect(api.downloads.probe).not.toHaveBeenCalled()
+		expect(useAppStore.getState().cookiesConfigDialogIssue).toBe('file-missing-path')
+	})
+
 	it('works on first launch with default profile settings', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))

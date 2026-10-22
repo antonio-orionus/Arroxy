@@ -443,6 +443,16 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		},
 
 		answerVideoListLink: async (url, source, answer) => {
+			if (answer.kind === 'video') {
+				// Interactive sets up the video alone; a quick download queues it.
+				if (source !== 'wizard') {
+					await get().quickDownload({url, entry: source, playlistMode: 'video'})
+					return
+				}
+				if (maybeBlockIncompleteCookiesConfig(url, set, get)) return
+				await runProbe(url, 'video', set, get)
+				return
+			}
 			if (answer.kind !== 'pick') {
 				// The list downloads with the active profile: a row in Downloads,
 				// which asks past the load limit, or exactly the first N chosen.

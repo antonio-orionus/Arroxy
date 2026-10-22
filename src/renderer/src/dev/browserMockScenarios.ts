@@ -267,9 +267,9 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'probe-live-stream', group: 'Probe Results', title: 'Live stream', description: 'isLive:true - live-stream indicator and format restrictions should show.', kind: 'probe'},
 	// Real probes kept as fixtures (`bun run probe-sources:capture`), mapped the way the app maps them.
 	...PROBE_SOURCES.map((source): BrowserMockScenario => ({id: `source-${source.id}`, group: 'Real sites', title: source.id, description: source.shows, kind: 'probe'})),
-	{id: 'dialog-mixed-url', group: 'Dialogs', title: 'List prompt (Interactive)', description: 'Opens "Pick from this playlist" from Interactive at startup: it only confirms how many to load, then Continue.', kind: 'dialog'},
-	{id: 'dialog-mixed-url-quick', group: 'Dialogs', title: 'List prompt (list button)', description: 'Opens "Download from this playlist" from the URL tab\'s list button: Download in the background, Download the first [N], Interactive download…, and the Limit.', kind: 'dialog'},
-	{id: 'dialog-mixed-url-mix', group: 'Dialogs', title: 'List prompt (Mix)', description: 'Opens "Download from this Mix" from Explore\'s list segment: the note that a Mix changes every time, then the three answers.', kind: 'dialog'},
+	{id: 'dialog-mixed-url', group: 'Dialogs', title: 'List prompt (Interactive)', description: 'Opens "Pick from this playlist" from Interactive at startup: it confirms how many to load, then Continue, or Just this video.', kind: 'dialog'},
+	{id: 'dialog-mixed-url-quick', group: 'Dialogs', title: 'List prompt (list button)', description: 'Opens "Download from this playlist" from the URL tab\'s list button: Just this video, Download in the background, Download the first [N], Interactive download…, and the Limit.', kind: 'dialog'},
+	{id: 'dialog-mixed-url-mix', group: 'Dialogs', title: 'List prompt (Mix)', description: 'Opens "Download from this Mix" from Explore\'s list segment: the note that a Mix changes every time, then the four answers.', kind: 'dialog'},
 	{id: 'dialog-cookies-issue', group: 'Dialogs', title: 'Cookies config issue', description: 'Triggers the cookies config issue dialog (file mode, missing path).', kind: 'dialog'},
 	{id: 'update-direct', group: 'Updates', title: 'Direct update', description: 'Install & Restart action (Win/Linux direct install).', kind: 'update'},
 	{id: 'update-darwin-dmg', group: 'Updates', title: 'Darwin DMG', description: 'Direct channel on macOS - shows Download link. Use platform=mac knob to activate darwin path.', kind: 'update'},

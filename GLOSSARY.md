@@ -163,7 +163,7 @@ A URL that names one video and a playlist at once, so the user's intent is genui
 _Avoid_: combo URL, dual URL, video+playlist URL
 
 **Mixed URL prompt**:
-The question a mixed URL raises before its probe, asked only about the list: from the list's own control, the list in the background (asking past the load limit), exactly the first N, or the playlist picker; from Interactive, how many to load for the picker. It never offers the video: every surface with a window puts a This video shortcut beside the list's control, which downloads the video at once. The global hotkey never asks it and takes the video, since a stray video is cheaper to undo than a stray playlist; Bulk URLs settle mixed URLs in their own review.
+The question a mixed URL raises before its probe, asked from the list's own control: Just this video, the list in the background (asking past the load limit), exactly the first N, or the playlist picker; from Interactive, how many to load for the picker, or Just this video. Every surface with a window also puts a This video shortcut beside the list's control, which downloads the video without asking. The global hotkey never asks it and takes the video, since a stray video is cheaper to undo than a stray playlist; Bulk URLs settle mixed URLs in their own review.
 _Avoid_: playlist prompt, video-or-playlist dialog
 
 **Placeholder title**:
