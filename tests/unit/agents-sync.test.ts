@@ -123,8 +123,10 @@ describe('syncAgents', () => {
 		await syncAgents(root)
 		await syncAgents(root)
 
-		// A Windows junction stores an absolute target; elsewhere the link is relative.
-		expect(await readlink(join(root, '.agents/skills/private-flow'))).toContain(join('.internal', 'skills', 'private-flow'))
+		// A Windows junction stores an absolute target; elsewhere the link stays relative, so the checkout can move.
+		const target = await readlink(join(root, '.agents/skills/private-flow'))
+		if (process.platform === 'win32') expect(target).toContain(join('.internal', 'skills', 'private-flow'))
+		else expect(target).toBe(join('../../.internal/skills', 'private-flow'))
 		expect(await readFile(join(root, '.claude/skills/private-flow/SKILL.md'), 'utf8')).toContain('name: private-flow')
 	})
 
