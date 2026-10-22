@@ -120,7 +120,7 @@ describe('pickSystemLanguage', () => {
 
 describe('mainT', () => {
 	it('translates a known key', () => {
-		expect(mainT('en', 'dialogs.quitWithActiveDownloads.confirm')).toBe('Cancel Downloads & Quit')
+		expect(mainT('en', 'dialogs.quitWithActiveDownloads.quit')).toBe('Quit')
 	})
 
 	it('falls back to English when a key is missing in target language', () => {

@@ -8,6 +8,7 @@ import {detectInstallChannel} from '@main/installChannel.js'
 import {resolveUpdateFeed} from '@main/updateFeed.js'
 import {canMoveUnderHomebrew, installArroxyWithHomebrew, upgradeArroxyWithHomebrew} from '@main/services/binary/HomebrewRepair.js'
 import type {InstallChannel, UpdateAvailablePayload, UpdateInstallResult} from '@shared/types.js'
+import type {QuitGate} from '@main/quitGate.js'
 
 // Channels where the in-app installer should not run — either because an
 // external package manager owns updates (scoop/flatpak), because the
@@ -39,7 +40,7 @@ function resolveUpdateChannel(version: string): {channel: string; allowPrereleas
 	return {channel: 'latest', allowPrerelease: false}
 }
 
-export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
+export function registerUpdaterHandlers(mainWindow: BrowserWindow, quitGate: Pick<QuitGate, 'prepareForExit'>): void {
 	const installChannel = detectInstallChannel(app.getName())
 
 	// On Linux electron-updater only checks inside an AppImage ($APPIMAGE set);
@@ -104,12 +105,30 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
 		void announceUpdate(info.version)
 	})
 
+	// Set once the queue is saved for an install. Its downloads are stopped and
+	// its tray, hotkeys and token window gone from then on, so an install that
+	// fails restarts the app on this version rather than leave it half shut.
+	let exitPrepared = false
+	function restartWithoutUpdate(message: string): void {
+		log.error('[updater] install failed after the queue was saved; restarting on this version', message)
+		app.relaunch()
+		app.quit()
+	}
+
 	autoUpdater.on('update-downloaded', () => {
 		if (pendingInstall) {
 			pendingInstall({ok: true})
 			pendingInstall = null
 		}
-		autoUpdater.quitAndInstall(false, true)
+		// quitAndInstall closes the windows before before-quit fires, so the
+		// queue is saved first; the gate then lets that quit through.
+		void quitGate
+			.prepareForExit()
+			.then(() => {
+				exitPrepared = true
+				autoUpdater.quitAndInstall(false, true)
+			})
+			.catch((err: unknown) => restartWithoutUpdate(err instanceof Error ? err.message : String(err)))
 	})
 
 	autoUpdater.on('error', err => {
@@ -118,6 +137,7 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
 			pendingInstall({ok: false, error: err.message})
 			pendingInstall = null
 		}
+		if (exitPrepared) restartWithoutUpdate(err.message)
 	})
 
 	// The cask upgrade swaps the .app bundle in place; relaunching starts the new
@@ -136,11 +156,13 @@ export function registerUpdaterHandlers(mainWindow: BrowserWindow): void {
 			log.error('[updater] brew update failed', message)
 			return {ok: false, error: message}
 		}
+		// The user asked to restart, so the queue is saved first and the quit
+		// never asks: a quit declined after app.relaunch() would leave the
+		// relaunch armed for a later quit. quit(), not exit(), so the will-quit
+		// holds still run. The renderer re-enables its button as soon as this
+		// resolves, so the guard stays set after a success.
+		await quitGate.prepareForExit()
 		app.relaunch()
-		// quit(), not exit(): exit() skips `before-quit`, which cancels running
-		// downloads and disposes the tray, hotkeys and token service. With running
-		// downloads quit() finishes asynchronously, and the renderer re-enables its
-		// button as soon as this resolves, so the guard stays set after a success.
 		app.quit()
 		return {ok: true}
 	}

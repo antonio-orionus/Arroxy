@@ -188,6 +188,18 @@ export function readPersistedQueue(userDataDir: string): QueueItem[] {
 	return queueArraySchema.parse(items)
 }
 
+// Playwright's close() is app.quit(). With downloads running the quit gate
+// asks first (main/quitGate.ts); the app's dialogs are stubbed to answer as a
+// user confirming the quit would, response 1 being the quit dialog's Quit.
+async function quitApp(app: ElectronApplication): Promise<void> {
+	await app
+		.evaluate(({dialog}) => {
+			dialog.showMessageBox = () => Promise.resolve({response: 1, checkboxChecked: false})
+		})
+		.catch(() => undefined)
+	await app.close()
+}
+
 export async function withFixtureProductApp(options: FixtureProductOptions, run: (ctx: FixtureProductContext) => Promise<void>): Promise<void> {
 	const ytDlpPath = await prepareFixtureRuntime()
 	const fixtureServer = await startFixtureServer(options.behavior)
@@ -218,7 +230,7 @@ export async function withFixtureProductApp(options: FixtureProductOptions, run:
 			queue: queue(launched.page),
 			files: files(outputDir),
 			relaunch: async () => {
-				if (app) await app.close()
+				if (app) await quitApp(app)
 				const next = await launchFixtureApp(ytDlpPath, launchInput)
 				app = next.app
 				return {app: next.app, page: next.page, queue: queue(next.page)}
@@ -232,7 +244,7 @@ export async function withFixtureProductApp(options: FixtureProductOptions, run:
 		assertNoExternalRequests(denyProxy)
 	} finally {
 		const appToClose = app
-		await Promise.all([appToClose ? attemptCleanup(() => appToClose.close()) : Promise.resolve(), attemptCleanup(() => denyProxy.close()), attemptCleanup(() => fixtureServer.close())])
+		await Promise.all([appToClose ? attemptCleanup(() => quitApp(appToClose)) : Promise.resolve(), attemptCleanup(() => denyProxy.close()), attemptCleanup(() => fixtureServer.close())])
 		await attemptCleanup(() => fs.rmSync(userDataDir, {recursive: true, force: true}))
 		await attemptCleanup(() => fs.rmSync(outputDir, {recursive: true, force: true}))
 	}

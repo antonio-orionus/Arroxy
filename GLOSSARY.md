@@ -100,6 +100,10 @@ _Avoid_: queued pause, idle pause
 A queue item paused after its download had already begun. Resuming continues from its partial files, even across an app restart.
 _Avoid_: live pause, running pause
 
+**Quit gate**:
+The one place every way of quitting passes, from the window's close button to the end of the OS session. Quitting never cancels the queue: running items stop as an active pause would, everything is saved, and the next launch continues it on its own. It asks first only when you quit while downloads run.
+_Avoid_: shutdown cancel
+
 ### Wizard
 
 **Wizard**:

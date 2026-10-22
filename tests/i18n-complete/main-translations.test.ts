@@ -3,9 +3,9 @@ import {mainT} from '@main/i18n.js'
 
 describe('mainT in translated locales', () => {
 	it('translates a known key', () => {
-		expect(mainT('es', 'dialogs.quitWithActiveDownloads.confirm')).toBe('Cancelar descargas y salir')
-		expect(mainT('tr', 'dialogs.quitWithActiveDownloads.confirm')).toBe('İndirmeleri İptal Et ve Çık')
-		expect(mainT('pt', 'dialogs.quitWithActiveDownloads.confirm')).toBe('Cancelar Downloads e Sair')
+		expect(mainT('es', 'dialogs.quitWithActiveDownloads.keep')).toBe('Seguir descargando')
+		expect(mainT('tr', 'dialogs.quitWithActiveDownloads.keep')).toBe('İndirmeye Devam Et')
+		expect(mainT('pt', 'dialogs.quitWithActiveDownloads.keep')).toBe('Continuar Baixando')
 		expect(mainT('ko', 'common.continue')).toBe('계속')
 		expect(mainT('it', 'common.continue')).toBe('Continua')
 		expect(mainT('pl', 'common.continue')).toBe('Kontynuuj')

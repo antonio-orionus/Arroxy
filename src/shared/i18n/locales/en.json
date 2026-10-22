@@ -45,12 +45,11 @@
 			"remember": "Don't ask again"
 		},
 		"quitWithActiveDownloads": {
-			"confirm": "Cancel Downloads & Quit",
-			"detail": "Pause to resume later, or cancel to discard progress.",
+			"continueDetail": "Your queue is kept, and downloads pick up where they stopped the next time you open Arroxy.",
 			"keep": "Keep Downloading",
 			"message_one": "{{count}} download in progress",
 			"message_other": "{{count}} downloads in progress",
-			"pause": "Pause Downloads & Quit"
+			"quit": "Quit"
 		},
 		"rendererCrashed": {
 			"detail": "The renderer process crashed ({{reason}}). Reload to try again.",

@@ -1,5 +1,6 @@
 interface QuitEvent {
 	preventDefault(): void
+	readonly defaultPrevented: boolean
 }
 
 // Electron's app, as far as quitting goes.
@@ -17,10 +18,19 @@ export function sharedQuitHooks(app: QuitHooks): QuitHooks {
 	let holding = 0
 	return {
 		on(event: 'before-quit' | 'will-quit', listener: (event: QuitEvent) => void): unknown {
-			if (event === 'before-quit') return app.on('before-quit', listener)
+			// The quit gate's listener runs first (main/quitGate.ts) and holds every
+			// quit while it asks or saves the queue; the user may keep the app open.
+			// A hold starts only on the quit the gate lets through.
+			if (event === 'before-quit')
+				return app.on('before-quit', quitEvent => {
+					if (!quitEvent.defaultPrevented) listener(quitEvent)
+				})
 			return app.on('will-quit', quitEvent => {
 				let held = false
 				listener({
+					get defaultPrevented() {
+						return quitEvent.defaultPrevented
+					},
 					preventDefault: () => {
 						quitEvent.preventDefault()
 						if (held) return

@@ -39,6 +39,8 @@ import {QueuePlaylistM3u} from './download/QueuePlaylistM3u.js'
 import {admitAgainstLiveQueue, findInadmissibleQueueItem} from './download/queueAdmission.js'
 import {QueueProbeLifecycle} from './download/QueueProbeLifecycle.js'
 import {pauseEach} from './download/queuePauseEach.js'
+import {queueForNextLaunch, suspendQueueForExit} from './download/queueSuspendForExit.js'
+import {QueueSchedulerPause} from './download/QueueSchedulerPause.js'
 import {QueueTitleBackfill} from './download/queueTitleBackfill.js'
 import {ingestQueueArtifactEvent} from './download/queueTitleArtifact.js'
 import {checkQueueArtifactsOnDisk} from './download/queueArtifactDiskCheck.js'
@@ -73,20 +75,10 @@ export class QueueService extends EventEmitter {
 	// Earliest time the next normal-lane spawn is allowed. Cleared on cancel-all
 	// or when no normal job remains. Priority spawns ignore this.
 	private readonly sleep = new InterJobSleep()
-	// Global "queue paused" flag — qBittorrent-style: while true the auto-scheduler is fully
-	// suspended; explicit per-item start/resume still spawn directly. Restored in init(); emits `scheduler`.
-	private schedulerPaused = false
-	// Renderer-reported pause state (last non-silent emit or boot snapshot).
-	private rendererSchedulerPaused = false
-
-	// Single owner of the pause transition: emits `scheduler` only on a real change;
-	// `opts.silent` suppresses it for the cancel-all sweep. Boot restore assigns directly.
-	private setSchedulerPaused(paused: boolean, opts?: {silent?: boolean}): void {
-		if (this.schedulerPaused === paused) return
-		this.schedulerPaused = paused
-		if (!opts?.silent) this.rendererSchedulerPaused = paused
-		if (!opts?.silent) this.emit('scheduler', {paused})
-	}
+	// Emits `scheduler` on a change the user made; restored in init().
+	private readonly scheduler = new QueueSchedulerPause(paused => this.emit('scheduler', {paused}))
+	// Rows quitting stopped; see queueForNextLaunch.
+	private readonly exitRequeued = new Set<string>()
 	private readonly jobProgress = new QueueJobProgress()
 	// Progress is lossy (latest wins per item, flushed every 100 ms); transitions
 	// bypass it via emitImmediate. See QueueProgressCoalescer.
@@ -170,9 +162,8 @@ export class QueueService extends EventEmitter {
 		}
 		this.items = result.data.items
 		// Direct assignment: bridge not attached yet — the renderer hydrates the flag from the boot snapshot.
-		this.schedulerPaused = result.data.schedulerPaused
-		this.rendererSchedulerPaused = result.data.schedulerPaused
-		logger.info('Queue loaded', {count: this.items.length, schedulerPaused: this.schedulerPaused})
+		this.scheduler.restore(result.data.schedulerPaused)
+		logger.info('Queue loaded', {count: this.items.length, schedulerPaused: this.scheduler.paused})
 		this.probeLifecycle.promoteStaleProbes(this.items)
 		this.autoRetry.rearmPersisted(this.items)
 		void checkQueueArtifactsOnDisk(this.items)
@@ -191,7 +182,7 @@ export class QueueService extends EventEmitter {
 	// Single construction point for both snapshot hydration surfaces — the
 	// getSnapshot IPC handler and the bridge's attach-time snapshot event.
 	snapshotPayload(): QueueSnapshotPayload {
-		return {items: this.snapshot(), schedulerPaused: this.schedulerPaused}
+		return {items: this.snapshot(), schedulerPaused: this.scheduler.paused}
 	}
 
 	// Probe-stage commands for a placeholder row, whose probe the renderer runs. See QueueProbeLifecycle.
@@ -272,16 +263,13 @@ export class QueueService extends EventEmitter {
 	async pauseAll(): Promise<QueueSchedulerCommandResult> {
 		// Flip the pause flag FIRST so per-item commits below can't re-trigger an
 		// auto-spawn of the next pending item (the "pause all → next one starts" bug).
-		this.setSchedulerPaused(true)
+		this.scheduler.set(true)
 		this.sleep.clear()
 		// A row still starting (binary setup, probe cache) is pending until its start
 		// returns; pausing it holds the row, and the spawn parks the job it started.
-		const active = this.items.filter(i => i.status === QUEUE_STATUS.running || (i.status === QUEUE_STATUS.pending && this.spawning.has(i.id)))
+		const active = this.activeItemIds()
 		logger.info('pauseAll', {activeCount: active.length, total: this.items.length, snapshot: this.statusSummary()})
-		const {done, failed} = await pauseEach(
-			active.map(i => i.id),
-			{pause: itemId => this.pause(itemId), statusOf: itemId => this.findItem(itemId)?.status}
-		)
+		const {done, failed} = await pauseEach(active, {pause: itemId => this.pause(itemId), statusOf: itemId => this.findItem(itemId)?.status})
 		// Ensure the flag itself reaches disk even if no items needed pausing
 		// (e.g. queue had only pending items).
 		this.persist()
@@ -297,7 +285,7 @@ export class QueueService extends EventEmitter {
 	// would spawn every paused-active in parallel.
 	// eslint-disable-next-line @typescript-eslint/require-await -- async for IPC parity
 	async resumeAll(): Promise<QueueSchedulerCommandResult> {
-		this.setSchedulerPaused(false)
+		this.scheduler.set(false)
 		const held = this.items.filter(i => i.status === QUEUE_STATUS.pausedHeld)
 		const pausedActive = this.items.filter(i => i.status === QUEUE_STATUS.pausedActive)
 		logger.info('resumeAll', {heldCount: held.length, pausedActiveCount: pausedActive.length, snapshot: this.statusSummary()})
@@ -323,10 +311,18 @@ export class QueueService extends EventEmitter {
 		return this.schedulerCommandResult(done, [])
 	}
 
+	suspendForExit(): Promise<void> {
+		return suspendQueueForExit({items: () => this.items, activeIds: () => this.activeItemIds(), holdScheduler: () => this.scheduler.set(true, {silent: true}), pause: id => this.pause(id), requeued: this.exitRequeued, save: () => this.saveQueue(), summary: () => this.statusSummary()})
+	}
+
+	private activeItemIds(): string[] {
+		return this.items.flatMap(i => (i.status === QUEUE_STATUS.running || (i.status === QUEUE_STATUS.pending && this.spawning.has(i.id)) ? [i.id] : []))
+	}
+
 	// Reads the flag at the end, not the intent: a resume that lands while a
 	// pause-all awaits its items leaves the scheduler running.
 	private schedulerCommandResult(done: string[], failed: QueueSchedulerCommandFailure[]): QueueSchedulerCommandResult {
-		return {scheduler: this.schedulerPaused ? 'paused' : 'running', done, failed}
+		return {scheduler: this.scheduler.paused ? 'paused' : 'running', done, failed}
 	}
 
 	// Live-applied from the settings IPC handler, so a change takes effect on
@@ -406,7 +402,7 @@ export class QueueService extends EventEmitter {
 			// user-facing pause — no renderer flicker.
 			this.sleep.clear()
 			this.autoRetry.clearAll()
-			this.setSchedulerPaused(true, {silent: true})
+			this.scheduler.set(true, {silent: true})
 			await this.inBulk(async () => {
 				try {
 					for (const id of ids) {
@@ -421,7 +417,7 @@ export class QueueService extends EventEmitter {
 					// Restore "fresh slate" before the bulk exit persists and reschedules — even if a
 					// cleanup throws, the queue must not stay silently paused. Emit the unpause only
 					// when it undoes a renderer-visible pause.
-					this.setSchedulerPaused(false, {silent: !this.rendererSchedulerPaused})
+					this.scheduler.set(false, {silent: !this.scheduler.userPaused})
 				}
 			})
 			logger.info('cancelAll done', {snapshot: this.statusSummary()})
@@ -678,7 +674,7 @@ export class QueueService extends EventEmitter {
 	private recomputeSchedule(): void {
 		// Global pause: scheduler is dormant. Per-item explicit start/resume
 		// still spawn directly via spawnViaStart — they don't go through here.
-		if (this.schedulerPaused) {
+		if (this.scheduler.paused) {
 			logger.debug('recomputeSchedule skipped (queue paused)', {snapshot: this.statusSummary()})
 			return
 		}
@@ -784,15 +780,20 @@ export class QueueService extends EventEmitter {
 	// unconditionally for clarity; the guard here is the single chokepoint.
 	private persist(force = false): void {
 		if (this.bulkDepth > 0 && !force) return
-		void this.queueStore.save(this.items, this.schedulerPaused).catch(err => {
+		void this.saveQueue().catch(err => {
 			logger.error('Queue persist failed', {error: err instanceof Error ? err.message : String(err)})
 		})
+	}
+
+	// The file keeps the user's pause flag, and the rows quitting stopped as pending.
+	private saveQueue(): Promise<void> {
+		return this.queueStore.save(queueForNextLaunch(this.items, this.exitRequeued), this.scheduler.userPaused)
 	}
 
 	// Diagnostic helpers — used for logging. Kept inline (not stripped under
 	// NODE_ENV) so post-mortem of a user log file is possible without a
 	// dedicated dev build.
 	private statusSummary(): Record<string, number> {
-		return statusSummary(this.items, this.spawning.size, this.schedulerPaused)
+		return statusSummary(this.items, this.spawning.size, this.scheduler.paused)
 	}
 }

@@ -57,3 +57,34 @@ test('Electron pause-all banner is visible over real IPC, survives restart, and 
 		files.expectMp4Count(FIXTURE_PLAYLIST_VIDEO_IDS.length)
 	})
 })
+
+// Quitting with downloads running keeps the queue (main/quitGate.ts). The
+// running row stops as a pause would, every waiting row stays, and the next
+// launch continues them on its own: nobody clicks resume. Before, the quit
+// cancelled every unfinished row and the restored queue had none of them.
+test('Electron quit while downloading keeps the whole queue and continues it on relaunch', async () => {
+	test.setTimeout(300_000)
+
+	await withFixtureProductApp({behavior: {mediaSlowIds: [FIRST_VIDEO_ID]}, userDataPrefix: 'arroxy-fixture-quit-keeps-user-', outputPrefix: 'arroxy-fixture-quit-keeps-out-'}, async ({page, fixtureServer, relaunch, urls, files}) => {
+		await page.locator('[data-testid="profiles-main-input"]').fill(urls.playlist())
+		await page.locator('[data-testid="profiles-quick-download"]').click()
+
+		await openQueueTab(page)
+		const rows = page.locator('[data-testid^="queue-manager-row-"]')
+		await expect(rows).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 60_000})
+		// The held first video keeps one row running while the others wait.
+		await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="running"]')).toHaveCount(1, {timeout: 60_000})
+
+		// Quit mid-download (app.quit, as Cmd+Q does), confirming the quit dialog.
+		const relaunched = await relaunch()
+		await relaunched.queue.open()
+		const restored = relaunched.page.locator('[data-testid^="queue-manager-row-"]')
+		await expect(restored).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 60_000})
+		await expect(relaunched.page.getByTestId('queue-paused-banner')).toBeHidden()
+
+		// No resume click: the queue drains to real files on its own.
+		fixtureServer.releaseSlowMedia(FIRST_VIDEO_ID)
+		await expect(relaunched.page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(FIXTURE_PLAYLIST_VIDEO_IDS.length, {timeout: 200_000})
+		files.expectMp4Count(FIXTURE_PLAYLIST_VIDEO_IDS.length)
+	})
+})

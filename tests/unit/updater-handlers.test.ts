@@ -42,6 +42,8 @@ async function fireUpdateAvailable(handlers: HandlerMap, info: {version: string}
 	await vi.advanceTimersByTimeAsync(0)
 }
 
+const noQuitGate = {prepareForExit: vi.fn(() => Promise.resolve())}
+
 describe('registerUpdaterHandlers', () => {
 	beforeEach(() => {
 		vi.clearAllMocks()
@@ -54,13 +56,13 @@ describe('registerUpdaterHandlers', () => {
 
 	it('disables autoDownload and autoInstallOnAppQuit', () => {
 		captureUpdaterHandlers()
-		registerUpdaterHandlers(makeWindow())
+		registerUpdaterHandlers(makeWindow(), noQuitGate)
 		expect(autoUpdater.autoDownload).toBe(false)
 		expect(autoUpdater.autoInstallOnAppQuit).toBe(false)
 	})
 
 	it('registers handlers for update-available, update-downloaded, and error', () => {
-		registerUpdaterHandlers(makeWindow())
+		registerUpdaterHandlers(makeWindow(), noQuitGate)
 		const registeredEvents = vi.mocked(autoUpdater.on).mock.calls.map(c => c[0])
 		expect(registeredEvents).toContain('update-available')
 		expect(registeredEvents).toContain('update-downloaded')
@@ -70,7 +72,7 @@ describe('registerUpdaterHandlers', () => {
 	it('sends updater:available IPC with correct payload on update-available', async () => {
 		const handlers = captureUpdaterHandlers()
 		const win = makeWindow()
-		registerUpdaterHandlers(win)
+		registerUpdaterHandlers(win, noQuitGate)
 
 		await fireUpdateAvailable(handlers, {version: '2.0.0'})
 
@@ -94,7 +96,7 @@ describe('registerUpdaterHandlers', () => {
 			return scopedAutoUpdater
 		})
 		const win = makeWindow()
-		registerWithScoop(win)
+		registerWithScoop(win, noQuitGate)
 		await fireUpdateAvailable(handlers, {version: '2.0.0'})
 
 		expect(win.webContents.send).toHaveBeenCalledWith(IPC_CHANNELS.updaterAvailable, expect.objectContaining({installChannel: 'scoop'}))
@@ -122,7 +124,7 @@ describe('registerUpdaterHandlers', () => {
 		})
 
 		const win = makeWindow()
-		registerWithFlatpak(win)
+		registerWithFlatpak(win, noQuitGate)
 		vi.advanceTimersByTime(5_000)
 		await fireUpdateAvailable(handlers, {version: '2.0.0'})
 
@@ -138,19 +140,19 @@ describe('registerUpdaterHandlers', () => {
 	})
 
 	it('leaves the updater dev override off outside Flatpak', () => {
-		registerUpdaterHandlers(makeWindow())
+		registerUpdaterHandlers(makeWindow(), noQuitGate)
 		expect(vi.mocked(autoUpdater).forceDevUpdateConfig).not.toBe(true)
 	})
 
 	it('reads releases from GitHub by default', () => {
-		registerUpdaterHandlers(makeWindow())
+		registerUpdaterHandlers(makeWindow(), noQuitGate)
 		expect(autoUpdater.setFeedURL).toHaveBeenCalledWith({provider: 'github', owner: 'antonio-orionus', repo: 'Arroxy', channel: 'latest'})
 	})
 
 	it('reads releases from a loopback ARROXY_UPDATE_FEED_URL', () => {
 		vi.stubEnv('ARROXY_UPDATE_FEED_URL', 'http://127.0.0.1:8765/')
 		try {
-			registerUpdaterHandlers(makeWindow())
+			registerUpdaterHandlers(makeWindow(), noQuitGate)
 			expect(autoUpdater.setFeedURL).toHaveBeenCalledWith({provider: 'generic', url: 'http://127.0.0.1:8765/', channel: 'latest'})
 		} finally {
 			vi.unstubAllEnvs()
@@ -162,7 +164,7 @@ describe('registerUpdaterHandlers', () => {
 		vi.stubEnv('ARROXY_UPDATE_FEED_URL', 'https://user:s3cret@example.com/feed/')
 		const warn = vi.spyOn(log, 'warn').mockImplementation(() => {})
 		try {
-			registerUpdaterHandlers(makeWindow())
+			registerUpdaterHandlers(makeWindow(), noQuitGate)
 			expect(autoUpdater.setFeedURL).toHaveBeenCalledWith({provider: 'github', owner: 'antonio-orionus', repo: 'Arroxy', channel: 'latest'})
 			expect(warn).toHaveBeenCalledWith(expect.stringContaining('ARROXY_UPDATE_FEED_URL'))
 			expect(JSON.stringify(warn.mock.calls)).not.toContain('s3cret')
@@ -175,25 +177,56 @@ describe('registerUpdaterHandlers', () => {
 	it('does not send IPC if window is destroyed', async () => {
 		const handlers = captureUpdaterHandlers()
 		const win = makeWindow(true)
-		registerUpdaterHandlers(win)
+		registerUpdaterHandlers(win, noQuitGate)
 
 		await fireUpdateAvailable(handlers, {version: '2.0.0'})
 
 		expect(win.webContents.send).not.toHaveBeenCalled()
 	})
 
-	it('calls quitAndInstall when update-downloaded fires', () => {
+	it('saves the queue, then calls quitAndInstall when update-downloaded fires', async () => {
 		const handlers = captureUpdaterHandlers()
-		registerUpdaterHandlers(makeWindow())
+		let saved: () => void = () => undefined
+		const quitGate = {prepareForExit: vi.fn(() => new Promise<void>(resolve => (saved = resolve)))}
+		registerUpdaterHandlers(makeWindow(), quitGate)
 
 		handlers['update-downloaded']!()
+		await vi.advanceTimersByTimeAsync(0)
+		expect(quitGate.prepareForExit).toHaveBeenCalledOnce()
+		expect(autoUpdater.quitAndInstall).not.toHaveBeenCalled()
 
+		saved()
+		await vi.advanceTimersByTimeAsync(0)
 		expect(autoUpdater.quitAndInstall).toHaveBeenCalledWith(false, true)
+	})
+
+	it('restarts on this version when the install fails after the queue was saved', async () => {
+		const handlers = captureUpdaterHandlers()
+		registerUpdaterHandlers(makeWindow(), noQuitGate)
+
+		handlers['update-downloaded']!()
+		await vi.advanceTimersByTimeAsync(0)
+		expect(autoUpdater.quitAndInstall).toHaveBeenCalledOnce()
+		handlers.error!(new Error('signature mismatch'))
+
+		// Its downloads are stopped and its services gone, so the app must not stay open.
+		expect(app.relaunch).toHaveBeenCalledOnce()
+		expect(app.quit).toHaveBeenCalledOnce()
+	})
+
+	it('restarts nothing on an updater error before any install began', () => {
+		const handlers = captureUpdaterHandlers()
+		registerUpdaterHandlers(makeWindow(), noQuitGate)
+
+		handlers.error!(new Error('network failure'))
+
+		expect(app.relaunch).not.toHaveBeenCalled()
+		expect(app.quit).not.toHaveBeenCalled()
 	})
 
 	it('logs errors silently when error fires', () => {
 		const handlers = captureUpdaterHandlers()
-		registerUpdaterHandlers(makeWindow())
+		registerUpdaterHandlers(makeWindow(), noQuitGate)
 
 		const err = new Error('network failure')
 		handlers.error!(err)
@@ -206,7 +239,7 @@ describe('registerUpdaterHandlers', () => {
 		vi.mocked(ipcMain.handle).mockImplementation((name: string, _fn: any) => {
 			ipcHandlerNames.push(name)
 		})
-		registerUpdaterHandlers(makeWindow())
+		registerUpdaterHandlers(makeWindow(), noQuitGate)
 		expect(ipcHandlerNames).toContain(IPC_CHANNELS.updaterInstall)
 	})
 
@@ -216,7 +249,7 @@ describe('registerUpdaterHandlers', () => {
 			if (name === IPC_CHANNELS.updaterInstall) installHandler = fn
 		})
 		captureUpdaterHandlers()
-		registerUpdaterHandlers(makeWindow())
+		registerUpdaterHandlers(makeWindow(), noQuitGate)
 
 		expect(installHandler).not.toBeNull()
 		// The handler returns a Promise that resolves only when update-downloaded
@@ -233,7 +266,7 @@ describe('registerUpdaterHandlers', () => {
 			if (name === IPC_CHANNELS.updaterInstall) installHandler = fn
 		})
 		const handlers = captureUpdaterHandlers()
-		registerUpdaterHandlers(makeWindow())
+		registerUpdaterHandlers(makeWindow(), noQuitGate)
 
 		const promise = installHandler!()
 		handlers['update-downloaded']!()
@@ -247,7 +280,7 @@ describe('registerUpdaterHandlers', () => {
 		})
 		const handlers = captureUpdaterHandlers()
 		vi.spyOn(console, 'error').mockImplementation(() => undefined)
-		registerUpdaterHandlers(makeWindow())
+		registerUpdaterHandlers(makeWindow(), noQuitGate)
 
 		const promise = installHandler!()
 		handlers.error!(new Error('checksum mismatch'))
@@ -261,7 +294,7 @@ describe('registerUpdaterHandlers', () => {
 		})
 		captureUpdaterHandlers()
 		vi.mocked(autoUpdater.downloadUpdate).mockRejectedValueOnce(new Error('no network'))
-		registerUpdaterHandlers(makeWindow())
+		registerUpdaterHandlers(makeWindow(), noQuitGate)
 
 		await expect(installHandler!()).resolves.toEqual({ok: false, error: 'no network'})
 	})
@@ -283,7 +316,7 @@ describe('registerUpdaterHandlers', () => {
 			vi.mocked(scopedIpcMain.handle).mockImplementation((name: string, fn: any) => {
 				if (name === IPC_CHANNELS.updaterInstall) installHandler = fn
 			})
-			register(makeWindow())
+			register(makeWindow(), noQuitGate)
 
 			const result = await installHandler!()
 			expect(result).toMatchObject({ok: false})
@@ -304,7 +337,7 @@ describe('registerUpdaterHandlers', () => {
 			})
 			const handlers = captureUpdaterHandlers()
 			const win = makeWindow()
-			registerUpdaterHandlers(win)
+			registerUpdaterHandlers(win, noQuitGate)
 			await fireUpdateAvailable(handlers, {version: '2.0.0'})
 			return {install: installHandler!, win}
 		}
@@ -331,9 +364,12 @@ describe('registerUpdaterHandlers', () => {
 			// The announced version rides along so main can refuse to relaunch into an
 			// older cask when Homebrew's tap lags the release.
 			expect(installArroxyWithHomebrew).toHaveBeenCalledExactlyOnceWith('2.0.0')
+			// The queue is saved before the relaunch is armed, so the quit that
+			// follows never asks: a declined quit would leave the relaunch armed.
+			expect(noQuitGate.prepareForExit).toHaveBeenCalledOnce()
+			expect(noQuitGate.prepareForExit.mock.invocationCallOrder[0]).toBeLessThan(vi.mocked(app.relaunch).mock.invocationCallOrder[0])
 			expect(app.relaunch).toHaveBeenCalledOnce()
-			// quit(), not exit(): exit() skips `before-quit`, which cancels running
-			// downloads and disposes the tray, hotkeys and token service.
+			// quit(), not exit(): exit() skips the quit gate's pass and the will-quit holds.
 			expect(app.quit).toHaveBeenCalledOnce()
 			expect(app.exit).not.toHaveBeenCalled()
 			expect(autoUpdater.downloadUpdate).not.toHaveBeenCalled()
@@ -401,7 +437,7 @@ describe('registerUpdaterHandlers', () => {
 				handlers[event as EventName] = fn
 				return scopedAutoUpdater
 			})
-			register(makeWindow())
+			register(makeWindow(), noQuitGate)
 			// The banner only exists once an update was announced; install acts on that version.
 			await fireUpdateAvailable(handlers, {version: '2.0.0'})
 			return {install: installHandler!, upgradeArroxyWithHomebrew, scopedApp, scopedAutoUpdater}
@@ -477,7 +513,7 @@ describe('registerUpdaterHandlers', () => {
 
 	it('calls checkForUpdates after 5 second delay', () => {
 		captureUpdaterHandlers()
-		registerUpdaterHandlers(makeWindow())
+		registerUpdaterHandlers(makeWindow(), noQuitGate)
 
 		expect(autoUpdater.checkForUpdates).not.toHaveBeenCalled()
 		vi.advanceTimersByTime(5_001)
@@ -486,7 +522,7 @@ describe('registerUpdaterHandlers', () => {
 
 	it('does not call checkForUpdates before 5 seconds', () => {
 		captureUpdaterHandlers()
-		registerUpdaterHandlers(makeWindow())
+		registerUpdaterHandlers(makeWindow(), noQuitGate)
 
 		vi.advanceTimersByTime(4_999)
 		expect(autoUpdater.checkForUpdates).not.toHaveBeenCalled()
@@ -496,7 +532,7 @@ describe('registerUpdaterHandlers', () => {
 		vi.mocked(app.getVersion).mockReturnValue('0.5.3')
 		const handlers = captureUpdaterHandlers()
 		const win = makeWindow()
-		registerUpdaterHandlers(win)
+		registerUpdaterHandlers(win, noQuitGate)
 
 		await fireUpdateAvailable(handlers, {version: '1.0.0'})
 
@@ -507,7 +543,7 @@ describe('registerUpdaterHandlers', () => {
 	// about a release: the check repeats, and each version is announced once.
 	it('checks again on an interval after the first check', () => {
 		captureUpdaterHandlers()
-		registerUpdaterHandlers(makeWindow())
+		registerUpdaterHandlers(makeWindow(), noQuitGate)
 
 		vi.advanceTimersByTime(5_000)
 		expect(autoUpdater.checkForUpdates).toHaveBeenCalledTimes(1)
@@ -526,7 +562,7 @@ describe('registerUpdaterHandlers', () => {
 			if (name === IPC_CHANNELS.updaterInstall) installHandler = fn
 		})
 		const handlers = captureUpdaterHandlers()
-		registerUpdaterHandlers(makeWindow())
+		registerUpdaterHandlers(makeWindow(), noQuitGate)
 		vi.advanceTimersByTime(5_000)
 		expect(autoUpdater.checkForUpdates).toHaveBeenCalledTimes(1)
 
@@ -543,7 +579,7 @@ describe('registerUpdaterHandlers', () => {
 	it('announces a version once, so a dismissed banner stays dismissed until a newer release', async () => {
 		const handlers = captureUpdaterHandlers()
 		const win = makeWindow()
-		registerUpdaterHandlers(win)
+		registerUpdaterHandlers(win, noQuitGate)
 
 		await fireUpdateAvailable(handlers, {version: '2.0.0'})
 		await fireUpdateAvailable(handlers, {version: '2.0.0'})
@@ -584,7 +620,7 @@ describe('tarball install', () => {
 			return scopedAutoUpdater
 		})
 		const win = makeWindow()
-		register(win)
+		register(win, noQuitGate)
 		return {win, handlers, autoUpdater: scopedAutoUpdater}
 	}
 
