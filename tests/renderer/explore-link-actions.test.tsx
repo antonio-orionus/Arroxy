@@ -155,6 +155,73 @@ describe('Explore link menu picks', () => {
 	})
 })
 
+// On a link to a video in a list, the menu offers this video and the list
+// dialog's answers; each runs here exactly as the dialog's would.
+describe('Explore link menu picks on a video in a list', () => {
+	const IN_LIST = `${WATCH_URL}&list=PL1234567890`
+
+	it('Download this video queues the video alone, with no question', async () => {
+		const quickDownload = vi.fn().mockResolvedValue(undefined)
+		useAppStore.setState({quickDownload})
+		renderExplore()
+		await waitFor(() => expect(linkListener).not.toBeNull())
+
+		pick({kind: 'download-video', url: IN_LIST})
+
+		await waitFor(() => expect(quickDownload).toHaveBeenCalledWith({url: IN_LIST, entry: 'explore', playlistMode: 'video'}))
+		expect(useAppStore.getState().mixedUrlPromptOpen).toBe(false)
+		expect(window.appApi.settings.update).not.toHaveBeenCalled()
+	})
+
+	it('a profile in This video with becomes the active profile, then the video is queued with it', async () => {
+		const quickDownload = vi.fn().mockResolvedValue(undefined)
+		useAppStore.setState({quickDownload})
+		renderExplore()
+		await waitFor(() => expect(linkListener).not.toBeNull())
+
+		pick({kind: 'download-video', url: IN_LIST, profile: {kind: 'builtin', id: 'audio-only'}})
+
+		await waitFor(() => expect(quickDownload).toHaveBeenCalledWith({url: IN_LIST, entry: 'explore', playlistMode: 'video'}))
+		expect(window.appApi.settings.update).toHaveBeenCalledWith(expect.objectContaining({profiles: expect.objectContaining({active: {kind: 'builtin', id: 'audio-only'}})}))
+	})
+
+	it('Download in the background queues the list with no count: its row asks past the limit', async () => {
+		const quickDownload = vi.fn().mockResolvedValue(undefined)
+		useAppStore.setState({quickDownload})
+		renderExplore()
+		await waitFor(() => expect(linkListener).not.toBeNull())
+
+		pick({kind: 'list', url: IN_LIST, answer: 'background'})
+
+		await waitFor(() => expect(quickDownload).toHaveBeenCalledWith({url: IN_LIST, entry: 'explore', playlistMode: 'playlist'}))
+	})
+
+	it('Download the first N takes the load limit as it is when the pick runs', async () => {
+		const quickDownload = vi.fn().mockResolvedValue(undefined)
+		useAppStore.setState({quickDownload})
+		renderExplore()
+		await waitFor(() => expect(linkListener).not.toBeNull())
+		const current = useAppStore.getState().settings
+		if (!current) throw new Error('expected settings')
+		useAppStore.setState({settings: {...current, common: {...current.common, playlistProbeLimit: 250}}})
+
+		pick({kind: 'list', url: IN_LIST, answer: 'first'})
+
+		await waitFor(() => expect(quickDownload).toHaveBeenCalledWith({url: IN_LIST, entry: 'explore', playlistMode: 'playlist', take: {kind: 'first', count: 250}}))
+	})
+
+	it('Interactive download… opens the picker for the list, landing back in Explore', async () => {
+		vi.mocked(window.appApi.downloads.probe).mockReturnValue(new Promise(() => {}))
+		renderExplore()
+		await waitFor(() => expect(linkListener).not.toBeNull())
+
+		pick({kind: 'list', url: IN_LIST, answer: 'pick'})
+
+		await waitFor(() => expect(window.appApi.downloads.probe).toHaveBeenCalledWith(expect.objectContaining({url: IN_LIST, playlistMode: 'playlist', playlistScope: {items: {kind: 'app-limit'}}})))
+		expect(useAppStore.getState()).toMatchObject({wizardUrl: IN_LIST, wizardOrigin: 'explore', mixedUrlPromptOpen: false})
+	})
+})
+
 describe('One-time right-click callout in Explore', () => {
 	function seedTip(common: Record<string, unknown> = {}): void {
 		const base = defaultAppSettings('/tmp')

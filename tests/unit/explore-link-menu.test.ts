@@ -4,7 +4,7 @@ import {describe, expect, it, vi} from 'vite-plus/test'
 import {exploreLinkMenuTemplate, type ExploreLinkMenuDeps} from '@main/services/explore/exploreLinkMenu.js'
 import {DEFAULT_DOWNLOAD_PROFILES_PREFS, enabledDownloadProfiles, resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import type {DownloadProfile, DownloadProfilesPrefs} from '@shared/types.js'
-import type {ExploreLinkAction} from '@shared/exploreSchemas.js'
+import {exploreLinkActionSchema, type ExploreLinkAction} from '@shared/exploreSchemas.js'
 import {EXPLORE_ADDRESS_MAX} from '@shared/sites/exploreAddress.js'
 import {englishProfileName} from '../shared/profileNames.js'
 
@@ -14,10 +14,10 @@ import {englishProfileName} from '../shared/profileNames.js'
 
 const WATCH = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 
-function harness(prefs?: DownloadProfilesPrefs) {
+function harness(prefs?: DownloadProfilesPrefs, limit = 100) {
 	const sent: ExploreLinkAction[] = []
 	const copy = vi.fn<(text: string) => void>()
-	const deps: ExploreLinkMenuDeps = {profiles: () => prefs, lang: () => 'en', send: action => sent.push(action), copy}
+	const deps: ExploreLinkMenuDeps = {profiles: () => prefs, lang: () => 'en', playlistLimit: () => limit, send: action => sent.push(action), copy}
 	return {deps, sent, copy}
 }
 
@@ -67,7 +67,7 @@ describe('Explore link menu', () => {
 		const active = resolveActiveDownloadProfile(undefined).profile
 		const template = exploreLinkMenuTemplate(WATCH, deps)
 
-		expect(template?.map(entry => entry.label ?? entry.type)).toEqual([`Download · ${englishProfileName(active)}`, 'Download with', 'separator', 'Interactive Download: choose format, subtitles and more…', 'separator', 'Copy link'])
+		expect(template?.map(entry => entry.label ?? entry.type)).toEqual([`Download · ${englishProfileName(active)}`, 'Download with', 'separator', 'Interactive Download…', 'separator', 'Copy link'])
 	})
 
 	it('Download sends the link with the active profile', () => {
@@ -123,7 +123,7 @@ describe('Explore link menu', () => {
 
 	it('Interactive opens the step-by-step flow for the link', () => {
 		const {deps, sent} = harness()
-		click(item(exploreLinkMenuTemplate(WATCH, deps), 'Interactive Download: choose format, subtitles and more…'))
+		click(item(exploreLinkMenuTemplate(WATCH, deps), 'Interactive Download…'))
 
 		expect(sent).toEqual([{kind: 'interactive', url: WATCH}])
 	})
@@ -133,7 +133,7 @@ describe('Explore link menu', () => {
 		const shared = `${WATCH}&si=tracking123`
 		const template = exploreLinkMenuTemplate(shared, deps)
 
-		click(item(template, 'Interactive Download: choose format, subtitles and more…'))
+		click(item(template, 'Interactive Download…'))
 		click(item(template, 'Copy link'))
 
 		expect(sent).toEqual([{kind: 'interactive', url: WATCH}])
@@ -162,5 +162,110 @@ describe('Explore link menu', () => {
 		const profiles = submenu(item(exploreLinkMenuTemplate(WATCH, deps), 'Download with'))
 
 		expect(profiles.map(entry => entry.label)).toContain('Talks && Q&&A')
+	})
+})
+
+// A link to a video inside a list: this video's two items, then the list's
+// three answers in a submenu, then Copy link. Interactive sits only in the
+// list's submenu: on such a link it means picking from the list.
+describe('Explore link menu on a video in a list', () => {
+	const IN_PLAYLIST = `${WATCH}&list=PL1234567890&index=2`
+	const IN_MIX = `${WATCH}&list=RDdQw4w9WgXcQ&start_radio=1`
+	const labels = (template: MenuItemConstructorOptions[] | null): string[] => template?.map(entry => entry.label ?? entry.type ?? '') ?? []
+
+	it.each([
+		[IN_PLAYLIST, 'From this playlist'],
+		[IN_MIX, 'From this Mix'],
+		[`${WATCH}&list=RDCLAK5uy_x`, 'From this playlist'],
+		[`https://music.youtube.com/watch?v=dQw4w9WgXcQ&list=OLAK5uy_x`, 'From this album'],
+		[`${WATCH}&list=UUx`, 'From this channel’s uploads'],
+		[`${WATCH}&list=WL`, 'From Watch later'],
+		[`${WATCH}&list=LL`, 'From your liked videos']
+	])('lays out %s: this video, then %s, then Copy link', (link, fromList) => {
+		const {deps} = harness()
+		const active = englishProfileName(resolveActiveDownloadProfile(undefined).profile)
+		const template = exploreLinkMenuTemplate(link, deps)
+
+		expect(labels(template)).toEqual([`Download this video · ${active}`, 'This video with', 'separator', fromList, 'separator', 'Copy link'])
+		expect(labels(submenu(item(template, fromList)))).toEqual(['Download in the background', 'Download the first 100', 'Interactive download…'])
+	})
+
+	it('names the load limit in Download the first N', () => {
+		const {deps} = harness(undefined, 250)
+		expect(labels(submenu(item(exploreLinkMenuTemplate(IN_PLAYLIST, deps), 'From this playlist')))).toContain('Download the first 250')
+	})
+
+	it('Download this video sends the video alone, with the active profile', () => {
+		const {deps, sent} = harness()
+		const active = englishProfileName(resolveActiveDownloadProfile(undefined).profile)
+		click(item(exploreLinkMenuTemplate(IN_MIX, deps), `Download this video · ${active}`))
+
+		expect(sent).toEqual([{kind: 'download-video', url: IN_MIX}])
+	})
+
+	it('a pick in This video with sends the video with that profile', () => {
+		const prefs: DownloadProfilesPrefs = {...DEFAULT_DOWNLOAD_PROFILES_PREFS, custom: [customProfile('Podcasts')]}
+		const {deps, sent} = harness(prefs)
+		const profiles = submenu(item(exploreLinkMenuTemplate(IN_PLAYLIST, deps), 'This video with'))
+
+		expect(profiles.map(entry => entry.label)).toEqual(enabledDownloadProfiles(prefs).map(englishProfileName))
+		expect(profiles.filter(entry => entry.checked === true).map(entry => entry.label)).toEqual([englishProfileName(resolveActiveDownloadProfile(prefs).profile)])
+		click(item(profiles, 'Podcasts'))
+
+		expect(sent).toEqual([{kind: 'download-video', url: IN_PLAYLIST, profile: {kind: 'custom', id: 'custom-Podcasts'}}])
+	})
+
+	it('each list answer sends its own action; the first N is read when it runs', () => {
+		const {deps, sent} = harness()
+		const answers = submenu(item(exploreLinkMenuTemplate(IN_PLAYLIST, deps), 'From this playlist'))
+
+		click(item(answers, 'Download in the background'))
+		click(item(answers, 'Download the first 100'))
+		click(item(answers, 'Interactive download…'))
+
+		expect(sent).toEqual([
+			{kind: 'list', url: IN_PLAYLIST, answer: 'background'},
+			{kind: 'list', url: IN_PLAYLIST, answer: 'first'},
+			{kind: 'list', url: IN_PLAYLIST, answer: 'pick'}
+		])
+	})
+
+	it('offers no top-level Interactive or plain Download on such a link', () => {
+		const {deps} = harness()
+		const top = labels(exploreLinkMenuTemplate(IN_PLAYLIST, deps))
+		expect(top).not.toContain('Interactive Download…')
+		expect(top).not.toContain('Download with')
+	})
+
+	it('keeps an ampersand in the profile name of Download this video as written', () => {
+		const prefs: DownloadProfilesPrefs = {...DEFAULT_DOWNLOAD_PROFILES_PREFS, custom: [customProfile('Talks & Q&A')], active: {kind: 'custom', id: 'custom-Talks & Q&A'}}
+		const {deps} = harness(prefs)
+		expect(labels(exploreLinkMenuTemplate(IN_PLAYLIST, deps))[0]).toBe('Download this video · Talks && Q&&A')
+	})
+})
+
+describe('exploreLinkActionSchema', () => {
+	it.each<ExploreLinkAction>([
+		{kind: 'download', url: WATCH},
+		{kind: 'download', url: WATCH, profile: {kind: 'builtin', id: 'audio-only'}},
+		{kind: 'download-video', url: WATCH},
+		{kind: 'download-video', url: WATCH, profile: {kind: 'custom', id: 'custom-x'}},
+		{kind: 'list', url: WATCH, answer: 'background'},
+		{kind: 'list', url: WATCH, answer: 'first'},
+		{kind: 'list', url: WATCH, answer: 'pick'},
+		{kind: 'interactive', url: WATCH}
+	])('accepts %o', action => {
+		expect(exploreLinkActionSchema.safeParse(action).success).toBe(true)
+	})
+
+	it.each([
+		{kind: 'list', url: WATCH, answer: 'all'},
+		{kind: 'list', url: WATCH},
+		{kind: 'list', url: WATCH, answer: 'first', count: 5},
+		{kind: 'download-video', url: WATCH, playlistMode: 'video'},
+		{kind: 'interactive', url: WATCH, profile: {kind: 'builtin', id: 'audio-only'}},
+		{kind: 'video', url: WATCH}
+	])('rejects %o', action => {
+		expect(exploreLinkActionSchema.safeParse(action).success).toBe(false)
 	})
 })

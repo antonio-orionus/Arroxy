@@ -26,9 +26,17 @@ export const exploreSetVisibleSchema = z.object({visible: z.boolean()})
 export const exploreSetActiveSchema = z.object({active: z.boolean()})
 // A pick in the Explore page's link menu, for the link right-clicked (main
 // builds and shows the menu): `download` queues it with `profile` made the
-// active profile first, or with the active one; `interactive` opens the wizard.
+// active profile first, or with the active one; `download-video` the same for
+// the video a link names beside its list, with no question; `list` is one of
+// the list dialog's answers (`first` takes the load limit when it runs);
+// `interactive` opens the wizard.
 const exploreLinkUrlSchema = z.string().min(1).max(EXPLORE_ADDRESS_MAX)
-export const exploreLinkActionSchema = z.discriminatedUnion('kind', [z.strictObject({kind: z.literal('download'), url: exploreLinkUrlSchema, profile: downloadProfileRefSchema.optional()}), z.strictObject({kind: z.literal('interactive'), url: exploreLinkUrlSchema})])
+export const exploreLinkActionSchema = z.discriminatedUnion('kind', [
+	z.strictObject({kind: z.literal('download'), url: exploreLinkUrlSchema, profile: downloadProfileRefSchema.optional()}),
+	z.strictObject({kind: z.literal('download-video'), url: exploreLinkUrlSchema, profile: downloadProfileRefSchema.optional()}),
+	z.strictObject({kind: z.literal('list'), url: exploreLinkUrlSchema, answer: z.enum(['background', 'first', 'pick'])}),
+	z.strictObject({kind: z.literal('interactive'), url: exploreLinkUrlSchema})
+])
 export type ExploreLinkAction = z.infer<typeof exploreLinkActionSchema>
 // A snapshot of the Explore view, shown in its place while an overlay hides it
 // (P2-R35): a base64 JPEG data URL and nothing else (an SVG could carry

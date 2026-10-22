@@ -10,6 +10,7 @@ import {mainT} from '@main/i18n.js'
 import {installAppMenu} from '@main/installAppMenu.js'
 import {pickLanguage, pickSystemLanguage} from '@shared/i18n/language.js'
 import type {SupportedLang} from '@shared/i18n/types.js'
+import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {registerIpcHandlers} from '@main/ipc/registerIpcHandlers.js'
 import {registerUpdaterHandlers} from '@main/ipc/registerUpdaterHandlers.js'
 import {counterscaleSender, createHeartbeat, HEARTBEAT_SITE_ID, heartbeatUrl, osLocale} from '@main/services/heartbeat.js'
@@ -470,6 +471,7 @@ if (hasSingleInstanceLock) {
 				const template = exploreLinkMenuTemplate(linkURL, {
 					profiles: () => settingsStore.getSync().profiles,
 					lang: () => languageRef.current,
+					playlistLimit: () => resolvePlaylistProbeLimit(settingsStore.getSync().common),
 					send: action => exploreEvents.linkAction(action),
 					copy: text => {
 						clipboard.writeText(text).catch((err: unknown) => log.warn('explore link menu could not copy the link', {error: err instanceof Error ? err.name : 'unknown'}))

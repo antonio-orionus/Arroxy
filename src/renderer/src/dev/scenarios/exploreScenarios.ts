@@ -10,6 +10,15 @@ const BLANK_VIEW: ExploreViewState = {url: '', title: '', canGoBack: false, canG
 
 const SAMPLE_PAGE: ExploreViewState = {...BLANK_VIEW, url: 'https://www.youtube.com/@sample-travel-films/videos', title: 'Sample page', canGoBack: true, signedIn: true}
 
+// A video opened from a list: the address names both, so the toolbar offers This video beside the list.
+const VIDEO_IN_LIST_URL: Record<string, string> = {
+	'explore-video-in-playlist': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf&index=3',
+	'explore-video-in-playlist-compact': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf&index=3',
+	'explore-video-in-mix': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1',
+	'explore-video-in-album': 'https://music.youtube.com/watch?v=dQw4w9WgXcQ&list=OLAK5uy_mockAlbumId0000000000000000000',
+	'explore-video-in-watch-later': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=WL&index=1'
+}
+
 // What the native Explore view would report for each Explore scenario. Every
 // other scenario leaves the view blank.
 export function buildExploreView(scenario: ScenarioLike): ExploreViewState {
@@ -20,6 +29,12 @@ export function buildExploreView(scenario: ScenarioLike): ExploreViewState {
 			return SAMPLE_PAGE
 		case 'explore-nudge':
 			return {...SAMPLE_PAGE, signedIn: false}
+		case 'explore-video-in-playlist':
+		case 'explore-video-in-playlist-compact':
+		case 'explore-video-in-mix':
+		case 'explore-video-in-album':
+		case 'explore-video-in-watch-later':
+			return {...SAMPLE_PAGE, url: VIDEO_IN_LIST_URL[scenario.id] ?? SAMPLE_PAGE.url, title: 'Sample video'}
 		case 'explore-adblock-on':
 			return {...SAMPLE_PAGE, adBlock: 'on'}
 		case 'explore-adblock-unavailable':
@@ -38,7 +53,13 @@ export function exploreSettingsPatch(scenario: ScenarioLike): CommonPatch {
 	switch (scenario.id) {
 		case 'explore-notice':
 			return {exploreEnabled: true, exploreNoticeSeen: false, cookiesMode: 'off', exploreModeAutoSwitched: false}
+		case 'explore-video-in-playlist-compact':
+			return {exploreEnabled: true, exploreNoticeSeen: true, cookiesMode: 'explore', exploreModeAutoSwitched: true, exploreCompactChrome: true}
 		case 'explore-browsing':
+		case 'explore-video-in-playlist':
+		case 'explore-video-in-mix':
+		case 'explore-video-in-album':
+		case 'explore-video-in-watch-later':
 		case 'explore-long-profile':
 		case 'explore-address-refused':
 		case 'explore-proxy-error':

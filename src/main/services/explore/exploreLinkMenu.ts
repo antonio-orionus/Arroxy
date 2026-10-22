@@ -5,12 +5,16 @@ import {downloadProfileName} from '@shared/downloadProfileName.js'
 import {downloadProfileRefFor, enabledDownloadProfiles, resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {isExploreGrabbable} from '@shared/exploreGrab.js'
 import type {SupportedLang} from '@shared/i18n/types.js'
+import type {ListKind} from '@shared/schemas.js'
 import {EXPLORE_ADDRESS_MAX} from '@shared/sites/exploreAddress.js'
-import type {DownloadProfile, DownloadProfilesPrefs, ExploreLinkAction} from '@shared/types.js'
+import type {DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs, ExploreLinkAction} from '@shared/types.js'
+import {videoListKind} from '@shared/urlIntent.js'
 
 export interface ExploreLinkMenuDeps {
 	profiles: () => DownloadProfilesPrefs | undefined
 	lang: () => SupportedLang
+	// The playlist load limit, named in "Download the first N" (the pick reads it again when it runs).
+	playlistLimit: () => number
 	// To the renderer, which runs a pick as the bar's controls would.
 	send: (action: ExploreLinkAction) => void
 	copy: (text: string) => void
@@ -28,6 +32,12 @@ function webLink(raw: string): string | null {
 	}
 }
 
+// What the list's submenu is called, per kind (spec §3.4); spelled out so the unused-key check sees each key.
+const FROM_LIST_KEY = {playlist: 'explore.linkMenu.fromList.playlist', mix: 'explore.linkMenu.fromList.mix', album: 'explore.linkMenu.fromList.album', uploads: 'explore.linkMenu.fromList.uploads', 'watch-later': 'explore.linkMenu.fromList.watchLater', liked: 'explore.linkMenu.fromList.liked'} as const satisfies Record<
+	ListKind,
+	string
+>
+
 // Electron reads `&` as a mnemonic marker on Windows and Linux.
 function menuText(text: string): string {
 	return text.replaceAll('&', '&&')
@@ -36,7 +46,9 @@ function menuText(text: string): string {
 // The Explore page's link menu: for a link the download flow can take, the
 // bar's controls for that link (Download with the active profile, a profile
 // pick that becomes the active profile, Interactive) and Copy link; for any
-// other web link only Copy link; with no link, no menu (null).
+// other web link only Copy link; with no link, no menu (null). A link to a
+// video in a list gets this video's items, then the list dialog's answers in
+// a submenu (a native menu holds no number picker: the count is the load limit).
 export function exploreLinkMenuTemplate(linkURL: string, deps: ExploreLinkMenuDeps): MenuItemConstructorOptions[] | null {
 	const link = webLink(linkURL)
 	if (link === null) return null
@@ -48,17 +60,34 @@ export function exploreLinkMenuTemplate(linkURL: string, deps: ExploreLinkMenuDe
 	const prefs = deps.profiles()
 	const active = resolveActiveDownloadProfile(prefs)
 	const nameOf = (profile: DownloadProfile): string => downloadProfileName(profile, key => mainT(lang, key))
+	const listKind = videoListKind(url)
 	// The in-app pickers' rule (saved order, current one marked) with the OS's own
 	// marker: radio items. The active profile is never hidden, so none is tagged.
-	const profiles = enabledDownloadProfiles(prefs).map((profile): MenuItemConstructorOptions => {
-		const ref = downloadProfileRefFor(profile, prefs)
-		return {label: menuText(nameOf(profile)), type: 'radio', checked: ref.kind === active.ref.kind && ref.id === active.ref.id, click: () => deps.send({kind: 'download', url, profile: ref})}
-	})
+	const profiles = (pick: (profile: DownloadProfileRef) => ExploreLinkAction): MenuItemConstructorOptions[] =>
+		enabledDownloadProfiles(prefs).map((profile): MenuItemConstructorOptions => {
+			const ref = downloadProfileRefFor(profile, prefs)
+			return {label: menuText(nameOf(profile)), type: 'radio', checked: ref.kind === active.ref.kind && ref.id === active.ref.id, click: () => deps.send(pick(ref))}
+		})
+	if (listKind) {
+		const answers: MenuItemConstructorOptions[] = [
+			{label: mainT(lang, 'wizard.listPrompt.backgroundLabel'), click: () => deps.send({kind: 'list', url, answer: 'background'})},
+			{label: mainT(lang, 'explore.linkMenu.downloadFirst', {count: deps.playlistLimit()}), click: () => deps.send({kind: 'list', url, answer: 'first'})},
+			{label: mainT(lang, 'wizard.listPrompt.interactiveLabel'), click: () => deps.send({kind: 'list', url, answer: 'pick'})}
+		]
+		return [
+			{label: menuText(mainT(lang, 'explore.linkMenu.downloadThisVideo', {profileName: nameOf(active.profile)})), click: () => deps.send({kind: 'download-video', url})},
+			{label: mainT(lang, 'explore.linkMenu.thisVideoWith'), submenu: profiles(profile => ({kind: 'download-video', url, profile}))},
+			{type: 'separator'},
+			{label: mainT(lang, FROM_LIST_KEY[listKind]), submenu: answers},
+			{type: 'separator'},
+			copy
+		]
+	}
 	return [
 		{label: menuText(mainT(lang, 'explore.toolbar.downloadWithProfile', {profileName: nameOf(active.profile)})), click: () => deps.send({kind: 'download', url})},
-		{label: mainT(lang, 'explore.linkMenu.downloadWith'), submenu: profiles},
+		{label: mainT(lang, 'explore.linkMenu.downloadWith'), submenu: profiles(profile => ({kind: 'download', url, profile}))},
 		{type: 'separator'},
-		{label: mainT(lang, 'explore.toolbar.interactiveHint'), click: () => deps.send({kind: 'interactive', url})},
+		{label: mainT(lang, 'explore.linkMenu.interactive'), click: () => deps.send({kind: 'interactive', url})},
 		{type: 'separator'},
 		copy
 	]

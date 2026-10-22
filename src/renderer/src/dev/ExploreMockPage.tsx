@@ -4,8 +4,17 @@ import {cn} from '@renderer/lib/utils.js'
 import {Skeleton} from '../components/ui/skeleton.js'
 import {readKnobs} from './browserMockKnobs.js'
 import {showcaseArtwork, showcaseTitle} from './showcaseContent.js'
+import {ExploreMockLinkMenu} from './ExploreMockLinkMenu.js'
 
-const CARDS = ['explore-card-1', 'explore-card-2', 'explore-card-3', 'explore-card-4', 'explore-card-5', 'explore-card-6'] as const
+// Each card is a link of one kind; right-click it for the link menu's stand-in.
+const CARDS = [
+	{seed: 'explore-card-1', kind: 'Plain video', url: 'https://www.youtube.com/watch?v=jNQXAC9IVRw'},
+	{seed: 'explore-card-2', kind: 'Video in a playlist', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf&index=2'},
+	{seed: 'explore-card-3', kind: 'Video in a Mix', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1'},
+	{seed: 'explore-card-4', kind: 'Album track', url: 'https://music.youtube.com/watch?v=dQw4w9WgXcQ&list=OLAK5uy_mockAlbumId0000000000000000000'},
+	{seed: 'explore-card-5', kind: 'Playlist', url: 'https://www.youtube.com/playlist?list=PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf'},
+	{seed: 'explore-card-6', kind: 'Another site', url: 'https://example.com/some/page'}
+] as const
 const SIDEBAR = [
 	{id: 'home', width: 'w-3/4'},
 	{id: 'shorts', width: 'w-1/2'},
@@ -37,18 +46,21 @@ function Block({className}: {className: string}): ReactNode {
 }
 
 // A home-feed card: thumbnail, a round channel avatar, the title and a meta line.
-function VideoCard({seed, showcase}: {seed: string; showcase: boolean}): ReactNode {
+function VideoCard({seed, kind, url, showcase}: {seed: string; kind: string; url: string; showcase: boolean}): ReactNode {
 	return (
-		<div className="flex min-w-0 flex-col gap-2">
-			{showcase ? <img src={showcaseArtwork(seed)} alt="" className="aspect-video w-full rounded-lg object-cover" /> : <Skeleton className="aspect-video w-full animate-none rounded-lg" />}
-			<div className="flex min-w-0 gap-2">
-				<Block className="size-7 shrink-0" />
-				<div className="flex min-w-0 flex-1 flex-col gap-1.5">
-					{showcase ? <p className="line-clamp-2 text-xs font-medium text-foreground">{showcaseTitle(seed)}</p> : <Block className="h-2.5 w-full" />}
-					<Block className="h-2 w-1/2" />
+		<ExploreMockLinkMenu url={url}>
+			<div className="flex min-w-0 cursor-context-menu flex-col gap-2" data-testid={`explore-mock-link-${seed}`} title={url}>
+				{showcase ? <img src={showcaseArtwork(seed)} alt="" className="aspect-video w-full rounded-lg object-cover" /> : <Skeleton className="aspect-video w-full animate-none rounded-lg" />}
+				<div className="flex min-w-0 gap-2">
+					<Block className="size-7 shrink-0" />
+					<div className="flex min-w-0 flex-1 flex-col gap-1.5">
+						{showcase ? <p className="line-clamp-2 text-xs font-medium text-foreground">{showcaseTitle(seed)}</p> : <Block className="h-2.5 w-full" />}
+						<Block className="h-2 w-1/2" />
+						{showcase ? null : <p className="text-caption text-subtle-foreground">{kind} · right-click</p>}
+					</div>
 				</div>
 			</div>
-		</div>
+		</ExploreMockLinkMenu>
 	)
 }
 
@@ -63,10 +75,10 @@ function VideoCard({seed, showcase}: {seed: string; showcase: boolean}): ReactNo
 export function ExploreMockPage(): ReactNode {
 	const showcase = showcaseEnabled()
 	return (
-		// Pinned inside the placeholder and clipped: like the native view it stands
+		// Pinned inside the placeholder, scrolling inside it: like the native view it stands
 		// in for, the page never sizes the layout around it.
 		<div className="relative min-h-0 flex-1 overflow-hidden" aria-hidden data-testid="explore-mock-page">
-			<div className="absolute inset-0 flex flex-col gap-4 p-4">
+			<div className="absolute inset-0 flex flex-col gap-4 overflow-y-auto p-4">
 				<div className="flex items-center gap-4">
 					<Block className="h-4 w-20 shrink-0" />
 					<div className="mx-auto flex h-8 w-full max-w-md min-w-0 items-center justify-end rounded-full border border-border px-3">
@@ -98,8 +110,8 @@ export function ExploreMockPage(): ReactNode {
 							))}
 						</div>
 						<div className="grid grid-cols-2 gap-x-4 gap-y-4 md:grid-cols-3">
-							{CARDS.map(seed => (
-								<VideoCard key={seed} seed={seed} showcase={showcase} />
+							{CARDS.map(card => (
+								<VideoCard key={card.seed} seed={card.seed} kind={card.kind} url={card.url} showcase={showcase} />
 							))}
 						</div>
 					</div>

@@ -2,9 +2,15 @@ import type {AppApi} from '@shared/api.js'
 import {fail} from '@shared/result.js'
 import {exploreAddressScope, isExploreAddress} from '@shared/sites/exploreAddress.js'
 import {youtubeSite} from '@shared/sites/youtube.js'
-import type {ExploreViewBounds, ExploreViewState} from '@shared/types.js'
+import type {ExploreLinkAction, ExploreViewBounds, ExploreViewState} from '@shared/types.js'
 
 const HOME_URL = 'https://www.youtube.com/'
+
+// The mock page's link menu sends its picks here, as main sends the native menu's.
+const linkActionListeners = new Set<(action: ExploreLinkAction) => void>()
+export function emitMockLinkAction(action: ExploreLinkAction): void {
+	for (const listener of linkActionListeners) listener(action)
+}
 
 // Every call the renderer made to the fake view, for browser tests to read.
 // Exists only in browser-mock: this module is imported nowhere else.
@@ -114,8 +120,12 @@ export function createExploreMock(initial: ExploreViewState): {api: AppApi['expl
 		},
 		// The mock page is renderer DOM: the pointer never enters a native view.
 		onPointerInView: () => () => undefined,
-		// The mock page has no native link menu to pick from.
-		onLinkAction: () => () => undefined
+		onLinkAction: listener => {
+			linkActionListeners.add(listener)
+			return () => {
+				linkActionListeners.delete(listener)
+			}
+		}
 	}
 	return {api, setAdBlock}
 }

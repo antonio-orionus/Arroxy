@@ -46,6 +46,8 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'profiles-home-clipboard-bulk',
 	'profiles-split-menu',
 	'profiles-plain-link',
+	'profiles-video-in-playlist',
+	'profiles-video-in-mix',
 	'profiles-editor',
 	'profiles-bulk',
 	'profiles-bulk-huge-input',
@@ -62,6 +64,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	...PROBE_SOURCES.map(source => `source-${source.id}` as const),
 	'dialog-mixed-url',
 	'dialog-mixed-url-quick',
+	'dialog-mixed-url-mix',
 	'dialog-cookies-issue',
 	'update-direct',
 	'update-homebrew',
@@ -105,7 +108,12 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'explore-proxy-error',
 	'explore-adblock-on',
 	'explore-adblock-unavailable',
-	'explore-address-refused'
+	'explore-address-refused',
+	'explore-video-in-playlist',
+	'explore-video-in-playlist-compact',
+	'explore-video-in-mix',
+	'explore-video-in-album',
+	'explore-video-in-watch-later'
 ] as const
 
 export type BrowserMockScenarioId = (typeof BROWSER_MOCK_SCENARIO_IDS)[number]
@@ -237,6 +245,8 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'profiles-home-clipboard-bulk', group: 'Profiles', title: 'Clipboard bulk', description: 'Profile home after several clipboard links were detected; the first link is prefilled.', kind: 'profile'},
 	{id: 'profiles-split-menu', group: 'Profiles', title: 'Profile menu', description: 'Quick Download profile picker opened.', kind: 'profile'},
 	{id: 'profiles-plain-link', group: 'Profiles', title: 'Plain video link', description: 'A plain watch?v=… link pasted with the hotkey registered: Quick Download shows its name; the profile and the global shortcut are in its hint.', kind: 'profile'},
+	{id: 'profiles-video-in-playlist', group: 'Profiles', title: 'Video in a playlist', description: 'A watch?v=…&list=PL… link pasted with the hotkey registered: This video beside "Download playlist…", the global shortcut in This video\'s hint, Interactive Download… below.', kind: 'profile'},
+	{id: 'profiles-video-in-mix', group: 'Profiles', title: 'Video in a Mix', description: 'A watch?v=…&list=RD… link pasted: This video beside "Download Mix…"; the mascot line waits in the heading\'s hint.', kind: 'profile'},
 	{id: 'profiles-editor', group: 'Profiles', title: 'Profile editor', description: 'New profile form opened in a dialog.', kind: 'profile'},
 	{id: 'profiles-bulk', group: 'Profiles', title: 'Bulk URLs dialog', description: 'Bulk URLs dialog opened from the redesigned main screen.', kind: 'profile'},
 	{id: 'profiles-bulk-huge-input', group: 'Profiles', title: 'Bulk URLs huge input', description: 'Bulk URLs dialog seeded with a giant pasted log so textarea scrolling and dialog chrome stay visible.', kind: 'profile'},
@@ -252,8 +262,9 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'probe-live-stream', group: 'Probe Results', title: 'Live stream', description: 'isLive:true - live-stream indicator and format restrictions should show.', kind: 'probe'},
 	// Real probes kept as fixtures (`bun run probe-sources:capture`), mapped the way the app maps them.
 	...PROBE_SOURCES.map((source): BrowserMockScenario => ({id: `source-${source.id}`, group: 'Real sites', title: source.id, description: source.shows, kind: 'probe'})),
-	{id: 'dialog-mixed-url', group: 'Dialogs', title: 'Mixed URL prompt', description: 'Opens the "Download from this playlist" prompt from Interactive at startup: "Just this video" or "Pick from the playlist, first [N]".', kind: 'dialog'},
-	{id: 'dialog-mixed-url-quick', group: 'Dialogs', title: 'Mixed URL prompt (Quick Download)', description: 'Opens the "Download from this playlist" prompt from the URL tab: "With <profile>", "Just this video" or "The playlist, first [N]".', kind: 'dialog'},
+	{id: 'dialog-mixed-url', group: 'Dialogs', title: 'List prompt (Interactive)', description: 'Opens "Pick from this playlist" from Interactive at startup: it only confirms how many to load, then Continue.', kind: 'dialog'},
+	{id: 'dialog-mixed-url-quick', group: 'Dialogs', title: 'List prompt (list button)', description: 'Opens "Download from this playlist" from the URL tab\'s list button: Download in the background, Download the first [N], Interactive download…, and the Limit.', kind: 'dialog'},
+	{id: 'dialog-mixed-url-mix', group: 'Dialogs', title: 'List prompt (Mix)', description: 'Opens "Download from this Mix" from Explore\'s list segment: the note that a Mix changes every time, then the three answers.', kind: 'dialog'},
 	{id: 'dialog-cookies-issue', group: 'Dialogs', title: 'Cookies config issue', description: 'Triggers the cookies config issue dialog (file mode, missing path).', kind: 'dialog'},
 	{id: 'update-direct', group: 'Updates', title: 'Direct update', description: 'Install & Restart action (Win/Linux direct install).', kind: 'update'},
 	{id: 'update-darwin-dmg', group: 'Updates', title: 'Darwin DMG', description: 'Direct channel on macOS - shows Download link. Use platform=mac knob to activate darwin path.', kind: 'update'},
@@ -297,7 +308,12 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'explore-proxy-error', group: 'Explore', title: 'Explore proxy error', description: 'The view refuses to load because the proxy setting is invalid: the error surface replaces the page.', kind: 'explore'},
 	{id: 'explore-adblock-on', group: 'Explore', title: 'Explore ad blocker on', description: 'The user turned the ad blocker on: the shield in the toolbar is pressed and Explore pages load filtered.', kind: 'explore'},
 	{id: 'explore-adblock-unavailable', group: 'Explore', title: 'Explore ad blocker unavailable', description: "The ad blocker is on but its filter lists couldn't be downloaded: the shield warns and nothing is blocked.", kind: 'explore'},
-	{id: 'explore-address-refused', group: 'Explore', title: 'Explore refused address', description: 'An address Explore does not load (another scheme, or a sign-in page) was typed in the address bar: the hint under the toolbar says so.', kind: 'explore'}
+	{id: 'explore-address-refused', group: 'Explore', title: 'Explore refused address', description: 'An address Explore does not load (another scheme, or a sign-in page) was typed in the address bar: the hint under the toolbar says so.', kind: 'explore'},
+	{id: 'explore-video-in-playlist', group: 'Explore', title: 'Explore video in a playlist', description: 'A video opened from a playlist: This video beside "Download playlist…", the filled segment where Download sits on a plain link. Right-click the page\'s cards for the link menu.', kind: 'explore'},
+	{id: 'explore-video-in-playlist-compact', group: 'Explore', title: 'Explore video in a playlist, compact', description: 'Compact toolbar on a video in a playlist: This video and the playlist segment as icons, named in their tooltips.', kind: 'explore'},
+	{id: 'explore-video-in-mix', group: 'Explore', title: 'Explore video in a Mix', description: 'A video playing in a Mix (list=RD…, start_radio): This video beside "Download Mix…".', kind: 'explore'},
+	{id: 'explore-video-in-album', group: 'Explore', title: 'Explore video in an album', description: 'A YouTube Music track opened from its album (list=OLAK5uy…): This video beside "Download album…".', kind: 'explore'},
+	{id: 'explore-video-in-watch-later', group: 'Explore', title: 'Explore video in Watch later', description: 'A video opened from Watch later (list=WL): This video beside "Download Watch later…".', kind: 'explore'}
 ] as const
 
 const SCENARIOS_BY_ID = new Map<string, BrowserMockScenario>(BROWSER_MOCK_SCENARIOS.map(scenario => [scenario.id, scenario]))
@@ -375,6 +391,8 @@ function profileScenarioPatch(scenario: BrowserMockScenario): Partial<AppState> 
 	if (scenario.id === 'profiles-home-clipboard-bulk') return {wizardStep: 'url', wizardUrl: PROFILE_BULK_URLS[0]}
 	if (scenario.id === 'profiles-split-menu') return {wizardStep: 'url', wizardUrl: PROFILE_SINGLE_URL}
 	if (scenario.id === 'profiles-plain-link') return {wizardStep: 'url', wizardUrl: PROFILE_SINGLE_URL}
+	if (scenario.id === 'profiles-video-in-playlist') return {wizardStep: 'url', wizardUrl: `${PROFILE_SINGLE_URL}&list=PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf`}
+	if (scenario.id === 'profiles-video-in-mix') return {wizardStep: 'url', wizardUrl: `${PROFILE_SINGLE_URL}&list=RDdQw4w9WgXcQ&start_radio=1`}
 	if (scenario.id === 'profiles-quick-progress')
 		return {wizardStep: 'url', wizardUrl: '', quickDownloadStatus: 'preparing', quickDownloadProgressPhase: 'probing', quickDownloadProgressTotal: 3, quickDownloadProgressCompleted: 1, quickDownloadProgressFailed: 0, quickDownloadProgressCurrent: PROFILE_BULK_URLS[1], quickDownloadProgressTitle: 'Me at the zoo'}
 	if (scenario.id === 'profiles-playlist-cap') {
@@ -544,6 +562,8 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 			store.setState({mixedUrlPromptOpen: true, mixedUrlPending: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf', mixedUrlPromptSource: 'wizard'})
 		} else if (scenario.id === 'dialog-mixed-url-quick') {
 			store.setState({mixedUrlPromptOpen: true, mixedUrlPending: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf', mixedUrlPromptSource: 'url-tab'})
+		} else if (scenario.id === 'dialog-mixed-url-mix') {
+			store.setState({mixedUrlPromptOpen: true, mixedUrlPending: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1', mixedUrlPromptSource: 'explore'})
 		} else if (scenario.id === 'dialog-cookies-issue') {
 			store.setState({cookiesConfigDialogIssue: 'file-missing-path'})
 		}
@@ -573,7 +593,7 @@ function buildSettings(scenario: BrowserMockScenario, knobs?: BrowserMockKnobs):
 			embedThumbnail: false,
 			playlistProbeLimit: DEFAULT_PLAYLIST_PROBE_LIMIT,
 			commonPaths,
-			...(scenario.id === 'hotkey-hint' || scenario.id === 'hotkey-conflict' || scenario.id === 'profiles-plain-link' ? {hotkeyEnabled: true, hotkeyAccelerator: 'CommandOrControl+Shift+D'} : {}),
+			...(scenario.id === 'hotkey-hint' || scenario.id === 'hotkey-conflict' || scenario.id === 'profiles-plain-link' || scenario.id === 'profiles-video-in-playlist' ? {hotkeyEnabled: true, hotkeyAccelerator: 'CommandOrControl+Shift+D'} : {}),
 			...(scenario.id === 'single-review-returning' ? {successfulDownloadCount: 12} : {}),
 			...(scenario.id === 'update-whats-new' ? {launchCount: 3, lastReleaseNotesVersionShown: '0.4.0-beta.3'} : {}),
 			...(scenario.id === 'update-whats-new-catchup' ? {launchCount: 9, lastReleaseNotesVersionShown: '0.4.2'} : {}),
