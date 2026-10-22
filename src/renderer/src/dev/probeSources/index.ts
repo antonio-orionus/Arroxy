@@ -77,6 +77,12 @@ export function isProbeSourceId(value: string): value is ProbeSourceId {
 	return (PROBE_SOURCE_IDS as readonly string[]).includes(value)
 }
 
+// The probe as yt-dlp printed it, for checks that judge the app's mapping
+// against the raw data rather than against the app's own output.
+export function probeSourceInfo(id: ProbeSourceId): unknown {
+	return FIXTURES[id].info
+}
+
 export function probeSourceResult(id: ProbeSourceId): VideoProbeResult {
 	const fixture = FIXTURES[id]
 	const info = infoDictSchema.parse(fixture.info)
