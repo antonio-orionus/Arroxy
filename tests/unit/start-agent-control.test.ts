@@ -6,10 +6,13 @@ import os from 'node:os'
 import path from 'node:path'
 import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import {CONTROL_DISCOVERY_FILE_NAME} from 'arroxy-control'
+import {LocalClientRegistry} from '@main/control/clients/LocalClientRegistry.js'
+import {type LocalClientRecord, type LocalClientStore, MemoryLocalClientStore} from '@main/control/clients/localClientStore.js'
+import {e2eTestSecretCipher, type SecretCipher} from '@main/control/clients/secretCipher.js'
 import type {ControlService} from '@main/control/ControlService.js'
 import type {ControlWiring} from '@main/control/createControlService.js'
 import type {ControlSocket, ControlSocketOptions} from '@main/control/socket/startControlSocket.js'
-import {type AgentControlDeps, autoAllowsClients, startAgentControl, stopAgentControlOnQuit} from '@main/control/startAgentControl.js'
+import {type AgentControlDeps, autoAllowsClients, type LocalClientsHolder, E2E_MANUAL_CLIENT_APPROVAL_VAR, localClientCipher, startAgentControl, stopAgentControlOnQuit} from '@main/control/startAgentControl.js'
 import {importWithReleaseFlagsOff} from '../helpers/releaseFlags.js'
 
 vi.mock('electron-log/main.js', () => {
@@ -53,9 +56,19 @@ function fakeSocket(socketPath: string) {
 	return {socket, stop}
 }
 
-function deps(overrides: Partial<AgentControlDeps> = {}): AgentControlDeps {
-	return {...wiring, userDataDir: '/user-data', appVersion: '9.9.9', platform: 'linux', env: {XDG_RUNTIME_DIR: '/run/user/1000'}, autoAllowClients: false, log: silentLog, ...overrides}
+// The window's local-clients IPC, recording what agent control sets and clears.
+function fakeHolder(events: string[] = []) {
+	const set = vi.fn((_clients: LocalClientRegistry) => void events.push('set'))
+	const clear = vi.fn(() => void events.push('cleared'))
+	const holder: LocalClientsHolder = {set, clear}
+	return {holder, set, clear}
 }
+
+function deps(overrides: Partial<AgentControlDeps> = {}): AgentControlDeps {
+	return {...wiring, userDataDir: '/user-data', appVersion: '9.9.9', platform: 'linux', env: {XDG_RUNTIME_DIR: '/run/user/1000'}, autoAllowClients: false, clientStore: new MemoryLocalClientStore(), secretsStorable: () => true, localClients: fakeHolder().holder, log: silentLog, ...overrides}
+}
+
+const knownRecord: LocalClientRecord = {clientId: 'known-1', label: 'Claude Code', pathsRead: false, firstSeenAt: 1, lastSeenAt: 2, secret: 'known-secret'}
 
 describe('startAgentControl', () => {
 	it('composes the service and starts the socket with it', async () => {
@@ -97,9 +110,102 @@ describe('startAgentControl', () => {
 		expect(await claims(false)).toBe('pending')
 	})
 
+	it('loads the known clients before the socket listens', async () => {
+		let finishLoading: (records: LocalClientRecord[]) => void = () => undefined
+		const clientStore: LocalClientStore = {load: () => new Promise(resolve => (finishLoading = resolve)), save: () => Promise.resolve()}
+		const startSocket = vi.fn((options: ControlSocketOptions) => {
+			expect(options.approvals.client('known-1')).toMatchObject({clientId: 'known-1', secret: 'known-secret'})
+			return Promise.resolve(fakeSocket('/s').socket)
+		})
+		const starting = startAgentControl(deps({compose: fakeCompose().compose, startSocket, clientStore}))
+		await new Promise(resolve => setTimeout(resolve, 20))
+		expect(startSocket).not.toHaveBeenCalled()
+		finishLoading([knownRecord])
+		const control = await starting
+		expect(startSocket).toHaveBeenCalledTimes(1)
+		await control?.stop()
+	})
+
+	it('waits on stop for the last save of the local clients', async () => {
+		let finishSaving: () => void = () => undefined
+		const save = vi.fn(() => new Promise<void>(resolve => (finishSaving = resolve)))
+		const startSocket = vi.fn((_options: ControlSocketOptions) => Promise.resolve(fakeSocket('/s').socket))
+		const control = await startAgentControl(deps({compose: fakeCompose().compose, startSocket, autoAllowClients: true, clientStore: {load: () => Promise.resolve([]), save}}))
+		const approvals = startSocket.mock.calls[0]?.[0].approvals
+		if (!approvals) throw new Error('not started')
+		const approvalId = approvals.request('agent')
+		approvals.claim(approvalId)
+		approvals.confirm(approvalId)
+		expect(save).toHaveBeenCalledTimes(1)
+		let stopped = false
+		const stopping = control?.stop().then(() => (stopped = true))
+		await new Promise(resolve => setTimeout(resolve, 20))
+		expect(stopped).toBe(false)
+		finishSaving()
+		await stopping
+		expect(stopped).toBe(true)
+	})
+
 	it('is null when the socket cannot start', async () => {
 		const control = await startAgentControl(deps({compose: fakeCompose().compose, startSocket: () => Promise.resolve(null)}))
 		expect(control).toBeNull()
+	})
+
+	it('sets the registry the socket uses for the window, from before it listens until stop', async () => {
+		const events: string[] = []
+		const {holder, set} = fakeHolder(events)
+		const {socket, stop} = fakeSocket('/s')
+		stop.mockImplementation(() => {
+			events.push('socket stopped')
+			return Promise.resolve()
+		})
+		const startSocket = vi.fn((_options: ControlSocketOptions) => {
+			events.push('listening')
+			return Promise.resolve(socket)
+		})
+		const control = await startAgentControl(deps({compose: fakeCompose().compose, startSocket, localClients: holder}))
+		expect(set).toHaveBeenCalledExactlyOnceWith(startSocket.mock.calls[0]?.[0].approvals)
+		await control?.stop()
+		await control?.stop()
+		expect(events).toEqual(['set', 'listening', 'socket stopped', 'cleared'])
+	})
+
+	it('clears the registry from the window when the socket cannot start', async () => {
+		const events: string[] = []
+		const control = await startAgentControl(deps({compose: fakeCompose().compose, startSocket: () => Promise.resolve(null), localClients: fakeHolder(events).holder}))
+		expect(control).toBeNull()
+		expect(events).toEqual(['set', 'cleared'])
+	})
+
+	it('clears the registry from the window and closes it when the socket throws', async () => {
+		const events: string[] = []
+		const close = vi.spyOn(LocalClientRegistry.prototype, 'close')
+		cleanups.push(() => Promise.resolve(close.mockRestore()))
+		const failure = new Error('listen failed')
+		await expect(startAgentControl(deps({compose: fakeCompose().compose, startSocket: () => Promise.reject(failure), localClients: fakeHolder(events).holder}))).rejects.toBe(failure)
+		expect(events).toEqual(['set', 'cleared'])
+		expect(close).toHaveBeenCalledTimes(1)
+	})
+
+	it('closes the registry, never setting it for the window, when composing throws', async () => {
+		const {holder, set} = fakeHolder()
+		const close = vi.spyOn(LocalClientRegistry.prototype, 'close')
+		cleanups.push(() => Promise.resolve(close.mockRestore()))
+		const failure = new Error('compose failed')
+		const compose = vi.fn((): never => {
+			throw failure
+		})
+		await expect(startAgentControl(deps({compose, localClients: holder}))).rejects.toBe(failure)
+		expect(set).not.toHaveBeenCalled()
+		expect(close).toHaveBeenCalledTimes(1)
+	})
+
+	it('never sets a registry for the window when the clients fail to load', async () => {
+		const {holder, set} = fakeHolder()
+		const failure = new Error('load failed')
+		const clientStore: LocalClientStore = {load: () => Promise.reject(failure), save: () => Promise.resolve()}
+		await expect(startAgentControl(deps({compose: fakeCompose().compose, clientStore, localClients: holder}))).rejects.toBe(failure)
+		expect(set).not.toHaveBeenCalled()
 	})
 
 	it('stops the socket once', async () => {
@@ -275,10 +381,33 @@ describe('stopAgentControlOnQuit', () => {
 
 describe('autoAllowsClients', () => {
 	it('allows clients at once only in an unpackaged E2E run', () => {
-		expect(autoAllowsClients({e2eHarness: true, isPackaged: false})).toBe(true)
-		expect(autoAllowsClients({e2eHarness: true, isPackaged: true})).toBe(false)
-		expect(autoAllowsClients({e2eHarness: false, isPackaged: false})).toBe(false)
-		expect(autoAllowsClients({e2eHarness: false, isPackaged: true})).toBe(false)
+		expect(autoAllowsClients({e2eHarness: true, isPackaged: false}, {})).toBe(true)
+		expect(autoAllowsClients({e2eHarness: true, isPackaged: true}, {})).toBe(false)
+		expect(autoAllowsClients({e2eHarness: false, isPackaged: false}, {})).toBe(false)
+		expect(autoAllowsClients({e2eHarness: false, isPackaged: true}, {})).toBe(false)
+	})
+
+	it('leaves Allow to the run that asks for it, and reads that only in an unpackaged E2E run', () => {
+		const manual = {[E2E_MANUAL_CLIENT_APPROVAL_VAR]: '1'}
+		expect(autoAllowsClients({e2eHarness: true, isPackaged: false}, manual)).toBe(false)
+		expect(autoAllowsClients({e2eHarness: true, isPackaged: false}, {[E2E_MANUAL_CLIENT_APPROVAL_VAR]: '0'})).toBe(true)
+		const read = vi.fn(() => '1')
+		const watched = new Proxy<Record<string, string | undefined>>({}, {get: read})
+		expect(autoAllowsClients({e2eHarness: false, isPackaged: false}, watched)).toBe(false)
+		expect(autoAllowsClients({e2eHarness: true, isPackaged: true}, watched)).toBe(false)
+		expect(read).not.toHaveBeenCalled()
+	})
+})
+
+describe('localClientCipher', () => {
+	it('keeps secrets with the marked test cipher only in an unpackaged E2E run', () => {
+		const platform: SecretCipher = {available: () => true, encrypt: plain => Buffer.from(plain), decrypt: data => data.toString()}
+		const platformCipher = vi.fn(() => platform)
+		expect(localClientCipher({e2eHarness: true, isPackaged: false}, platformCipher)).toBe(e2eTestSecretCipher)
+		expect(platformCipher).not.toHaveBeenCalled()
+		expect(localClientCipher({e2eHarness: true, isPackaged: true}, platformCipher)).toBe(platform)
+		expect(localClientCipher({e2eHarness: false, isPackaged: false}, platformCipher)).toBe(platform)
+		expect(localClientCipher({e2eHarness: false, isPackaged: true}, platformCipher)).toBe(platform)
 	})
 })
 
@@ -292,9 +421,18 @@ describe('startAgentControl in a release build', () => {
 		const stale = JSON.stringify({socketPath: path.posix.join(runtimeDir, 'arroxy-abcdef', 'control.sock'), token: 't', version: '1', startedAt: 1})
 		await fs.writeFile(path.join(userDataDir, CONTROL_DISCOVERY_FILE_NAME), stale)
 		const {compose} = fakeCompose()
-		const control = await startInRelease(deps({userDataDir, env: {XDG_RUNTIME_DIR: runtimeDir}, compose}))
+		const clientStore = {load: vi.fn<LocalClientStore['load']>(), save: vi.fn<LocalClientStore['save']>()}
+		const secretsStorable = vi.fn(() => true)
+		// The window's local-clients IPC: never given a registry.
+		const {holder, set, clear} = fakeHolder()
+		const control = await startInRelease(deps({userDataDir, env: {XDG_RUNTIME_DIR: runtimeDir}, compose, clientStore, secretsStorable, localClients: holder}))
 		expect(control).toBeNull()
 		expect(compose).not.toHaveBeenCalled()
+		expect(clientStore.load).not.toHaveBeenCalled()
+		expect(clientStore.save).not.toHaveBeenCalled()
+		expect(secretsStorable).not.toHaveBeenCalled()
+		expect(set).not.toHaveBeenCalled()
+		expect(clear).not.toHaveBeenCalled()
 		expect(await fs.readdir(runtimeDir)).toEqual([])
 		expect(await fs.readFile(path.join(userDataDir, CONTROL_DISCOVERY_FILE_NAME), 'utf8')).toBe(stale)
 	})

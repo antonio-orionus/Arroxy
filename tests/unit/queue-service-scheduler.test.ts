@@ -818,11 +818,12 @@ describe('QueueService — two-lane heavy scenarios', () => {
 		expect(qs.snapshot().filter(i => i.status === 'paused-active')).toHaveLength(1)
 		expect(qs.snapshot().filter(i => i.status === 'pending')).toHaveLength(9)
 
+		ds.resume.mockResolvedValue(ok({resumed: true}))
 		await qs.resumeAll()
 		await flushMicrotasks()
-		// Cap=1: paused-active gets re-spawned, others stay pending. Total
-		// ds.start calls = 1 (initial) + 1 (after resume) = 2.
-		expect(ds.start).toHaveBeenCalledTimes(2)
+		// Cap=1: the paused-active row resumes its parked job, others stay pending.
+		expect(ds.resume).toHaveBeenCalledOnce()
+		expect(ds.start).toHaveBeenCalledTimes(1)
 		expect(qs.snapshot().filter(i => i.status === 'running')).toHaveLength(1)
 		expect(qs.snapshot().filter(i => i.status === 'pending')).toHaveLength(9)
 	})
@@ -831,6 +832,8 @@ describe('QueueService — two-lane heavy scenarios', () => {
 		const {qs, ds} = makeServiceCeiling(1, 4)
 		jobMock(ds)
 		ds.pause.mockResolvedValue(ok({paused: true, tempDir: '/tmp/resume-here'}))
+		// No parked job to resume (as after a restart): a fresh start continues from the temp dir.
+		ds.resume.mockResolvedValue(ok({resumed: false}))
 
 		qs.add([makeItem({id: 'a', status: 'pending', lane: 'normal'})])
 		await vi.waitFor(() => expect(qs.snapshot()[0].status).toBe('running'))

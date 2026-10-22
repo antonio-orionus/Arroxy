@@ -240,7 +240,7 @@ reviews:
     - "!src/shared/i18n/locales/ca.json"
     - "!src/shared/i18n/locales/eu.json"
     - "!src/shared/i18n/locales/gl.json"
-  # Same priorities as the local dual review (scripts/dual-review/prompts.ts): correctness, not
+  # Same priorities as the maintainer's local dual review: correctness, not
   # security hardening, which the owner ruled out of scope for this desktop app.
   path_instructions:
     - path: "**/*"

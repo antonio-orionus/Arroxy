@@ -12,7 +12,8 @@
 
 import log from 'electron-log/main.js'
 import {resolveActiveDownloadProfile, resolveChosenDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
-import {resolvePinnedQuickProbe, scopeForTake, type QuickProbeEnv, type QuickProbeResolution} from '@shared/intake/probeResolution.js'
+import {resolvePinnedQuickProbe, scopeForTake, widenForSkip, type QuickProbeEnv, type QuickProbeResolution} from '@shared/intake/probeResolution.js'
+import {youtubeLinkVideoId} from '@shared/urlIntent.js'
 import type {IntakeEvent, IntakePlacement, QuickDownloadEvent} from '@shared/intake/intakeEvents.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
@@ -37,6 +38,7 @@ export interface IntakeQueue {
 	probeFailed(itemId: string, error: LocalizedError, auth?: JobAuth): Result<void>
 	// A choice's answer (`take`) is stored on the row, as a count chosen at intake is.
 	reprobe(itemId: string, take?: QuickProbeTake): Result<void>
+	clearListOffer(itemId: string): Result<void>
 }
 
 export interface IntakeProbeRequest {
@@ -77,6 +79,10 @@ export interface IntakeAddRequest {
 	// Mixed URL prompt's list answer). Kept on the row, so a Retry and a
 	// restart keep to it and nothing asks "how many?" again.
 	take?: QuickProbeTake
+	// The hotkey's video from a link that also names a list: that link, offered on the row.
+	listOffer?: string
+	// A list placed by a row's list offer: the video already taken, left out.
+	skipVideoId?: string
 	origin: IntakeCaller
 }
 
@@ -175,6 +181,24 @@ export class IntakeService {
 		return restarted
 	}
 
+	// A hotkey video's offer of its list, taken: the list goes in as its own
+	// row, as if its link had been pasted, leaving out the video already taken.
+	// Nobody chose a count, so past the load limit it asks. The offer is gone
+	// once the list row is placed; the video's row is otherwise untouched.
+	async takeListOffer(call: IntakeCall): Promise<Result<IntakePlacement>> {
+		const row = this.find(call.itemId)
+		const listUrl = row?.listOffer
+		if (!row || !listUrl || row.job.kind === 'unresolved') return fail(createAppError('validation', `queue item ${call.itemId} offers no list`))
+		const skipVideoId = youtubeLinkVideoId(listUrl)
+		const placement = await this.add({requestId: call.requestId, url: listUrl, playlistMode: 'playlist', ...(skipVideoId ? {skipVideoId} : {}), ...(this.window.activeProfile ? {profile: this.window.activeProfile} : {}), origin: {kind: 'window'}})
+		if (placement.kind === 'added') this.deps.queue.clearListOffer(call.itemId)
+		return {ok: true, data: placement}
+	}
+
+	dismissListOffer(itemId: string): Result<void> {
+		return this.deps.queue.clearListOffer(itemId)
+	}
+
 	// The probe a needs-choice row asked about, for its review in the window;
 	// gone with the row (cancelled, removed, resolved).
 	keptProbe(itemId: string): PlaylistProbeResult | null {
@@ -199,7 +223,9 @@ export class IntakeService {
 			// Read before the probe, as the probe reads it: the result is one entry
 			// past this limit when the collection goes on, whatever the setting is by then.
 			const limit = probe.take?.kind === 'all' ? PLAYLIST_PROBE_LIMIT_MAX : probe.take?.kind === 'first' ? probe.take.count : resolvePlaylistProbeLimit((await this.deps.settings()).common)
-			const result = await this.deps.probe({url: probe.url, playlistMode: probe.playlistMode, ownerKey: itemId, ...(probe.scope ? {playlistScope: probe.scope} : {})})
+			// A list that leaves a video out looks one entry further, so its count holds.
+			const scope = this.find(itemId)?.skipVideoId ? widenForSkip(probe.scope ?? {items: {kind: 'first', count: limit}}) : probe.scope
+			const result = await this.deps.probe({url: probe.url, playlistMode: probe.playlistMode, ownerKey: itemId, ...(scope ? {playlistScope: scope} : {})})
 			return this.resolve(itemId, result, probe, limit)
 		})
 	}
@@ -218,9 +244,11 @@ export class IntakeService {
 
 	private async resolve(itemId: string, result: Result<ProbeResult, ProbeError>, probe: PlaceholderProbe, limit: number): Promise<QuickProbeResolution> {
 		const settings = await this.deps.settings()
+		const row = this.find(itemId)
 		// A row saved before the profile was stored on it prepares with the active one.
-		const pinned = this.find(itemId)?.pinnedProfile ?? this.activePinned(settings)
-		return resolvePinnedQuickProbe(result, {url: probe.url, playlistMode: probe.playlistMode, limit, ...(probe.take ? {take: probe.take} : {}), profile: pinned}, {settings, queue: this.deps.queue.snapshot()}, this.env())
+		const pinned = row?.pinnedProfile ?? this.activePinned(settings)
+		const skip = row?.skipVideoId ? {skipVideoId: row.skipVideoId} : {}
+		return resolvePinnedQuickProbe(result, {url: probe.url, playlistMode: probe.playlistMode, limit, ...(probe.take ? {take: probe.take} : {}), ...skip, profile: pinned}, {settings, queue: this.deps.queue.snapshot()}, this.env())
 	}
 
 	// Never rejects. A write that throws is logged, and the row, if still
@@ -354,6 +382,8 @@ export class IntakeService {
 			retryCount: 0,
 			probeMode: request.playlistMode,
 			...(request.take ? {probeTake: request.take} : {}),
+			...(request.listOffer ? {listOffer: request.listOffer} : {}),
+			...(request.skipVideoId ? {skipVideoId: request.skipVideoId} : {}),
 			pinnedProfile: pinned,
 			origin,
 			job: {kind: 'unresolved', extractor: '', extractorKey: ''}

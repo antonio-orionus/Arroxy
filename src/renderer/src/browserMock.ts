@@ -347,7 +347,20 @@ export function installBrowserMock(): void {
 		return {ok: true, data: normalVideoProbe({webpageUrl: input.url, degraded: simulateBotWall ? {reasons: ['botWall' as const]} : undefined})}
 	}
 
-	const intakeMock = createIntakeMock({probe: input => mock.downloads.probe(input), add: items => mock.queue.cmd.add(items), replaceProbing: input => mock.queue.cmd.replaceProbing(input), items: () => queueItems, transition: applyProbeStageEvent, settings: () => settings})
+	const intakeMock = createIntakeMock({
+		probe: input => mock.downloads.probe(input),
+		add: items => mock.queue.cmd.add(items),
+		replaceProbing: input => mock.queue.cmd.replaceProbing(input),
+		items: () => queueItems,
+		transition: applyProbeStageEvent,
+		settings: () => settings,
+		clearListOffer: itemId => {
+			const item = queueItemById.get(itemId)
+			if (!item?.listOffer) return
+			const {listOffer: _offer, ...rest} = item
+			setQueueItem(rest)
+		}
+	})
 	// Registration mirrors the mock setting so the URL screen's hotkey hint is
 	// reviewable in dev:mock; hotkey-conflict overrides only whether the chord
 	// is taken, so recording a new one in that scenario still shows it.
@@ -607,11 +620,14 @@ export function installBrowserMock(): void {
 					}
 					const atIdx = queueItems.findIndex(item => item.id === itemId)
 					removeQueueItem(itemId)
-					queueItems.splice(atIdx, 0, ...items)
-					for (const item of items) queueItemById.set(item.id, item)
-					queueAddedListeners.forEach(listener => listener({items, atIdx}))
+					// A hotkey video's list offer goes onto the one row it becomes.
+					const [only] = items
+					const swapped = placeholder.listOffer && only && items.length === 1 ? [{...only, listOffer: placeholder.listOffer}] : items
+					queueItems.splice(atIdx, 0, ...swapped)
+					for (const item of swapped) queueItemById.set(item.id, item)
+					queueAddedListeners.forEach(listener => listener({items: swapped, atIdx}))
 					maybeStartNextQueueItem()
-					return Promise.resolve({ok: true, data: {ids: items.map(item => item.id), skippedAlreadyQueued: 0}} as const)
+					return Promise.resolve({ok: true, data: {ids: swapped.map(item => item.id), skippedAlreadyQueued: 0}} as const)
 				},
 				setLane: ({itemId, lane}) => {
 					const item = queueItemById.get(itemId)

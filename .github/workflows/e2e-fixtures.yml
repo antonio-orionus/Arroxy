@@ -105,11 +105,58 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
+  # Windows refuses paths past 260 characters, a limit the Linux shards never
+  # meet, so the scenario that downloads into a folder near the limit (tagged
+  # @path-limit) also runs here. Only that scenario: the shards run the rest.
+  windows-path-limit:
+    name: Fixture product E2E (Windows path limit)
+    needs: changes
+    if: ${{ needs.changes.outputs.run == 'true' }}
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version-file: .node-version
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - name: Cache bun dependencies
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9
+        with:
+          path: ~/.bun/install/cache
+          key: windows-latest-bun-${{ hashFiles('bun.lock') }}
+          restore-keys: windows-latest-bun-
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      # Same entry point as the shards; on Windows it runs with a hidden window.
+      - name: Run the path-limit scenario
+        env:
+          BTBN_GITHUB_TOKEN: ${{ github.token }}
+        run: bun run test:e2e:fixtures:ci --grep "@path-limit"
+
+      - name: Upload Playwright artifacts
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: fixture-e2e-playwright-windows-path-limit
+          path: test-results
+          if-no-files-found: ignore
+          retention-days: 7
+
   # The required check: passes only when the filter ran and, if the suite had
   # to run, every job above passed (see .github/actions/suite-gate).
   gate:
     name: E2E fixtures gate
-    needs: [changes, fixtures]
+    needs: [changes, fixtures, windows-path-limit]
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:

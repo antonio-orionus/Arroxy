@@ -1,6 +1,6 @@
 import type {z} from 'zod'
 import {loadConfig, type ServerConfig} from './config.js'
-import {audioConversionSourceSelector} from './audio-conversion.js'
+import {audioConversionSourceSelector, isAudioFormat} from './audio-conversion.js'
 import {withExtractorArgs} from './extractorArgs.js'
 import {callerPath, resolveOutputPolicy, type OutputPolicyInput, type ResolvedOutputPolicy} from './filesystem.js'
 import {callerMediaOutputArgs, callerOutputTemplate, callerSubtitlesOutputArgs, loadInfoJsonArgs, managedDownloadArchiveArgs, managedOutputArgs, type CallerOutput} from './output-target.js'
@@ -683,7 +683,8 @@ function appendCallerMediaSelectionArgs(args: string[], input: CallerMediaWorkfl
 		// (one audio language of several) goes ahead of the conversion source
 		// chain, which stays as the fallback if it is gone.
 		const {formatId, formatSelector, formatSort} = input.selection ?? {}
-		const sourceSelector = audioConversionSourceSelector(audioConvert.target)
+		// A mapped target (`aac>m4a/mp3`) has no one codec to look for.
+		const sourceSelector = audioConversionSourceSelector(isAudioFormat(audioConvert.target) ? audioConvert.target : undefined)
 		args.push('-f', formatSelector ?? (formatId ? `${formatId}/${sourceSelector}` : sourceSelector))
 		if (formatSelector && formatSort) args.push('-S', formatSort)
 		args.push('-x', '--audio-format', audioConvert.target)

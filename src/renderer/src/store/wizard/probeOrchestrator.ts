@@ -16,10 +16,12 @@ import {bulkLogger} from '@renderer/lib/bulkLogger.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
 import {resolvePlaylistDir} from './playlistDir.js'
 import {WizardCommands, RESET_WIZARD_STATE} from './commands.js'
-import type {AppState, GetState, SetState, ProbeOrchestratorSlice, WizardOrigin, WizardStep} from '../types.js'
+import type {AppState, BulkCappedList, GetState, SetState, ProbeOrchestratorSlice, WizardOrigin, WizardStep} from '../types.js'
+import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {buildWizardStepGraph, nextWizardStep} from './wizardStepGraph.js'
 import {BULK_METADATA_CONCURRENCY, cancelBulkMetadataProbes, currentBulkMetadataRunId, hydrateBulkMetadata, isHydrationMode, nextBulkMetadataRunId} from './bulkMetadataHydration.js'
 import {expandBulkCollectionUrls, hasCollectionUrl} from './bulkCollectionExpansion.js'
+import {widenForSkip, withoutSkipped} from '@shared/intake/probeResolution.js'
 import {isSelectablePlaylistRow} from './playlistRowSelection.js'
 import {playlistScopeReloadErrorMessage, unknownPlaylistScopeReloadErrorMessage} from './playlistScopeReload.js'
 import {rewriteYouTubeChannelRoot} from '@shared/intake/urlIntake.js'
@@ -111,7 +113,20 @@ function applyVideoProbeResult(probe: Extract<ProbeResult, {kind: 'video'}>, set
 }
 
 function applyPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'playlist'}>, set: SetState, get: GetState, firstProbe: boolean): void {
-	set(projectPlaylistProbeResult(probe, get(), firstProbe))
+	set(projectPlaylistProbeResult(withoutSkipped(probe, reviewSkip(get())), get(), firstProbe))
+}
+
+// A review of a list placed by a row's list offer leaves out the video the
+// hotkey already took, on every load of the list (the first, a scope reload,
+// a retry). The review's source row, still in the queue, holds which video.
+function reviewSkip(state: AppState): string | undefined {
+	return state.reviewSourceRowId ? state.queue.find(item => item.id === state.reviewSourceRowId)?.skipVideoId : undefined
+}
+
+// Such a load reads one entry further, so the list still shows when it goes on.
+function probeScopeFor(scope: PlaylistScope, state: AppState): PlaylistScope {
+	if (!reviewSkip(state)) return scope
+	return widenForSkip(scope.items.kind === 'app-limit' ? {items: {kind: 'first', count: resolvePlaylistProbeLimit(state.settings?.common)}} : scope)
 }
 
 // Hydrate only placeholder rows in the playlist picker — fully-populated
@@ -161,7 +176,7 @@ async function runProbe(url: string, playlistMode: ProbePlaylistMode, set: SetSt
 }
 
 async function finishProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, firstProbe: boolean): Promise<void> {
-	const playlistScope = get().playlistScope
+	const playlistScope = probeScopeFor(get().playlistScope, get())
 	const run = wizardProbeRun
 	const result = await window.appApi.downloads.probe({url, playlistMode, ...(playlistMode === 'video' ? {} : {playlistScope})})
 	if (run !== wizardProbeRun) return
@@ -212,7 +227,7 @@ async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get:
 
 	let result: Awaited<ReturnType<typeof window.appApi.downloads.probe>>
 	try {
-		result = await window.appApi.downloads.probe({url, playlistMode: 'playlist', playlistScope: scope})
+		result = await window.appApi.downloads.probe({url, playlistMode: 'playlist', playlistScope: probeScopeFor(scope, state)})
 	} catch (error) {
 		const message = `Could not reload that playlist scope: ${unknownPlaylistScopeReloadErrorMessage(error)}. Your previous list is still shown.`
 		set({playlistScope: previousScope, playlistScopeReloading: false, playlistScopeError: message, playlistLikelyCapped: previousLikelyCapped, playlistProbeProgress: null})
@@ -250,8 +265,8 @@ async function reloadPlaylistWithScope(scope: PlaylistScope, set: SetState, get:
 export function createProbeOrchestratorSlice(set: SetState, get: GetState): ProbeOrchestratorSlice {
 	// Shared tail of both bulk entry paths: project the rows, then hydrate only
 	// the ones no probe has spoken for yet.
-	function startBulkRows(rows: readonly string[], seeds: ReadonlyMap<string, BulkEntrySeed> | undefined, bulkRunId: number, fromStep: WizardStep): void {
-		const projection = projectBulkStart(rows, get(), seeds)
+	function startBulkRows(rows: readonly string[], seeds: ReadonlyMap<string, BulkEntrySeed> | undefined, bulkRunId: number, fromStep: WizardStep, cappedLists: BulkCappedList[] = []): void {
+		const projection = projectBulkStart(rows, get(), seeds, cappedLists)
 		set(projection.patch)
 		bulkLogger.info('Bulk URL flow started', {runId: bulkRunId, count: rows.length, selectedCount: projection.playlistItems.length, seededCount: rows.length - projection.metadataTargets.length, allYouTubeVideos: projection.allYouTubeVideos, metadataConcurrency: BULK_METADATA_CONCURRENCY})
 		void hydrateBulkMetadata(projection.metadataTargets, set, bulkRunId)
@@ -298,6 +313,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		bulkMetadataCompleted: RESET_WIZARD_STATE.bulkMetadataCompleted,
 		bulkMetadataTotal: RESET_WIZARD_STATE.bulkMetadataTotal,
 		bulkMetadataById: RESET_WIZARD_STATE.bulkMetadataById,
+		bulkCappedLists: RESET_WIZARD_STATE.bulkCappedLists,
 		quickDownloadStatus: RESET_WIZARD_STATE.quickDownloadStatus,
 		quickDownloadFailure: RESET_WIZARD_STATE.quickDownloadFailure,
 		quickDownloadQueueIds: RESET_WIZARD_STATE.quickDownloadQueueIds,
@@ -366,14 +382,15 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 					bulkMetadataStatus: 'resolving',
 					bulkMetadataTotal: urls.length,
 					bulkMetadataCompleted: 0,
-					bulkMetadataById: {}
+					bulkMetadataById: {},
+					bulkCappedLists: []
 				})
 				void (async () => {
 					try {
 						const expansion = await expandBulkCollectionUrls(
 							urls,
 							input => window.appApi.downloads.probe(input),
-							get().playlistScope,
+							{limit: resolvePlaylistProbeLimit(get().settings?.common)},
 							() => currentBulkMetadataRunId() === bulkRunId
 						)
 						if (currentBulkMetadataRunId() !== bulkRunId || expansion.aborted) return
@@ -390,7 +407,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 							set({...projectProbeFailure(expansion.error ?? {kind: 'other', code: 'unknown', message: 'Could not read that playlist'}), bulkMetadataStatus: 'done'})
 							return
 						}
-						startBulkRows(expansion.urls, expansion.seeds, bulkRunId, fromStep)
+						startBulkRows(expansion.urls, expansion.seeds, bulkRunId, fromStep, expansion.capped)
 					} catch (error) {
 						// The probe bridge rejecting (rather than returning a failed
 						// Result) would otherwise leave this detached task with no store

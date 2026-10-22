@@ -16,7 +16,9 @@ import type {IntakePlacement, QuickDownloadEvent} from './intakeEvents.js'
 import {rewriteYouTubeChannelRoot} from './urlIntake.js'
 import {policyForUrlIntent} from './urlIntentPolicy.js'
 
-export type HotkeyLinkIntake = {kind: 'run'; url: string; playlistMode: ProbePlaylistMode} | {kind: 'outcome'; outcome: HotkeyOutcome}
+// `listOffer`: a video taken from a link that also names a list keeps that
+// link, so its row can offer the list the press could not ask about.
+export type HotkeyLinkIntake = {kind: 'run'; url: string; playlistMode: ProbePlaylistMode; listOffer?: string} | {kind: 'outcome'; outcome: HotkeyOutcome}
 
 // Pure: trigger → a link to take in, or the outcome that answers the press.
 export function intakeHotkeyTrigger(trigger: HotkeyTriggerPayload): HotkeyLinkIntake {
@@ -34,9 +36,10 @@ export function intakeHotkeyTrigger(trigger: HotkeyTriggerPayload): HotkeyLinkIn
 	// point: it resolves a mixed URL to its video rather than bouncing the press
 	// back to the app. "Unknown" is every non-YouTube site — the wizard probes
 	// those happily, so the hotkey does too.
-	const action = policyForUrlIntent(classifyUrlIntent(url), 'hotkey')
+	const intent = classifyUrlIntent(url)
+	const action = policyForUrlIntent(intent, 'hotkey')
 	if (!('playlistMode' in action)) return {kind: 'outcome', outcome: 'needs-review'}
-	return {kind: 'run', url, playlistMode: action.playlistMode}
+	return {kind: 'run', url, playlistMode: action.playlistMode, ...(intent.kind === 'mixed' ? {listOffer: url} : {})}
 }
 
 // Outcome for a failed preparation. A cookies-config failure needs the

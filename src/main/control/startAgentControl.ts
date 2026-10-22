@@ -1,16 +1,20 @@
 // The way into the Control API from outside the app, behind the agentControl
-// release flag: composes the Control service on the real queue and intake,
-// starts the local socket with in-memory client approvals, and stops it on
-// quit. With the flag off it returns before anything else: no socket folder,
-// no socket or pipe, no control.json, and no clean-up of an earlier launch's.
+// release flag: loads the allowed local clients and shows them to the window,
+// composes the Control service on the real queue and intake, starts the local
+// socket, and stops it on quit. With the flag off it returns before anything
+// else: no socket folder, no socket or pipe, no control.json, no clean-up of
+// an earlier launch's, no local clients file read or written, and no
+// local-clients IPC.
 
 import fs from 'node:fs/promises'
 import {isReleaseFlagOn} from '@shared/releaseFlags.js'
+import {LocalClientRegistry} from './clients/LocalClientRegistry.js'
+import type {LocalClientStore} from './clients/localClientStore.js'
+import {e2eTestSecretCipher, type SecretCipher} from './clients/secretCipher.js'
 import type {ControlService} from './ControlService.js'
 import {type ControlWiring, createControlService} from './createControlService.js'
 import type {ControlSocketLog} from './socket/controlConnection.js'
-import {errnoCode} from './socket/errnoCode.js'
-import {MemoryLocalClientApprovals} from './socket/localClientApprovals.js'
+import {errnoCode, failureCode} from './socket/errnoCode.js'
 import {type ControlSocket, type ControlSocketOptions, startControlSocket} from './socket/startControlSocket.js'
 
 // How often the socket's path is checked. macOS deletes what sits in /tmp
@@ -26,6 +30,12 @@ export interface AgentControlDeps extends Omit<ControlWiring, 'clientLabel' | 'c
 	readonly env: Readonly<Record<string, string | undefined>>
 	// Allow every client at once: E2E runs only (the e2eHarness gate).
 	readonly autoAllowClients: boolean
+	// The allowed local clients, kept between launches.
+	readonly clientStore: LocalClientStore
+	// Whether a client's secret can be stored encrypted right now.
+	readonly secretsStorable: () => boolean
+	// The window's local-clients IPC, registered before this starts.
+	readonly localClients: LocalClientsHolder
 	readonly log: ControlSocketLog
 	// Tests replace these.
 	readonly compose?: (wiring: ControlWiring) => {service: Pick<ControlService, 'openSession'>; registry: {readonly bootId: string}}
@@ -33,33 +43,76 @@ export interface AgentControlDeps extends Omit<ControlWiring, 'clientLabel' | 'c
 	readonly socketCheckIntervalMs?: number
 }
 
+// What the window's local-clients IPC answers from: the loaded clients while
+// agent control runs; empty before they load and after it stops or fails to
+// start, when every request answers not_running.
+export interface LocalClientsHolder {
+	set(clients: LocalClientRegistry): void
+	clear(): void
+}
+
 export interface AgentControl {
 	stop(): Promise<void>
 }
 
-// Clients are allowed at once only in an E2E run of an unpackaged build, so
-// a packaged build never approves on its own, whatever its environment.
-export function autoAllowsClients(gate: {readonly e2eHarness: boolean; readonly isPackaged: boolean}): boolean {
+interface LaunchGate {
+	readonly e2eHarness: boolean
+	readonly isPackaged: boolean
+}
+
+// An E2E run of an unpackaged build. A packaged build is never one, whatever
+// its environment.
+function isUnpackagedE2eRun(gate: LaunchGate): boolean {
 	return gate.e2eHarness && !gate.isPackaged
 }
 
-// For logs: the errno code, else the error's name; never the message, which can carry paths.
-function failureCode(error: unknown): string {
-	return errnoCode(error) ?? (error instanceof Error ? error.name : 'unknown')
+// Set to 1 by an E2E spec that answers each request itself, through the
+// window's IPC, as the user would. Read only in an unpackaged E2E run.
+export const E2E_MANUAL_CLIENT_APPROVAL_VAR = 'ARROXY_E2E_MANUAL_CLIENT_APPROVAL'
+
+// Clients are allowed at once only in an unpackaged E2E run that does not
+// answer requests itself, so a packaged build never approves on its own.
+export function autoAllowsClients(gate: LaunchGate, env: Readonly<Record<string, string | undefined>>): boolean {
+	return isUnpackagedE2eRun(gate) && env[E2E_MANUAL_CLIENT_APPROVAL_VAR] !== '1'
+}
+
+// What encrypts the local clients' secrets: the marked test cipher in an
+// unpackaged E2E run (no keychain dialog, no keyring on Linux CI), the
+// platform's everywhere else.
+export function localClientCipher(gate: LaunchGate, platformCipher: () => SecretCipher): SecretCipher {
+	return isUnpackagedE2eRun(gate) ? e2eTestSecretCipher : platformCipher()
 }
 
 export async function startAgentControl(deps: AgentControlDeps): Promise<AgentControl | null> {
 	if (!isReleaseFlagOn('agentControl')) return null
-	const {userDataDir, appVersion, platform, env, autoAllowClients, log, compose = createControlService, startSocket = startControlSocket, socketCheckIntervalMs = SOCKET_CHECK_INTERVAL_MS, ...wiring} = deps
-	const approvals = new MemoryLocalClientApprovals({autoAllow: autoAllowClients})
+	const {userDataDir, appVersion, platform, env, autoAllowClients, clientStore, secretsStorable, localClients, log, compose = createControlService, startSocket = startControlSocket, socketCheckIntervalMs = SOCKET_CHECK_INTERVAL_MS, ...wiring} = deps
+	// Before the socket listens, so a known client is let in from the first connection.
+	const approvals = await LocalClientRegistry.load({store: clientStore, secretsStorable, log, autoAllow: autoAllowClients})
+	// On stop, and on any failure from here on: the window is told not_running, and no timer stays behind.
+	const release = async (): Promise<void> => {
+		localClients.clear()
+		await approvals.close()
+	}
 	// Composed before the socket, which needs the service and the registry's
 	// bootId to start. If the socket then fails, the composition stays: its
 	// queue listeners and the onIntakeAdmission cap, once per launch. Bounded,
 	// and inert, since without a socket no client adds an intake.
-	const {service, registry} = compose({...wiring, clientLabel: clientId => approvals.label(clientId)})
-	const listen = (): Promise<ControlSocket | null> => startSocket({userDataDir, appVersion, platform, env, service, approvals, bootId: registry.bootId, log})
-	let socket = await listen()
-	if (socket === null) return null
+	let listen: () => Promise<ControlSocket | null>
+	let socket: ControlSocket | null
+	try {
+		const {service, registry} = compose({...wiring, clientLabel: clientId => approvals.label(clientId)})
+		// Before the socket too, so the window hears the first request.
+		localClients.set(approvals)
+		listen = () => startSocket({userDataDir, appVersion, platform, env, service, approvals, bootId: registry.bootId, log})
+		socket = await listen()
+	} catch (error) {
+		await release()
+		throw error
+	}
+	if (socket === null) {
+		await release()
+		return null
+	}
 	let stopping: Promise<void> | null = null
 	// A pipe has no path on disk to lose.
 	const check =
@@ -96,6 +149,7 @@ export async function startAgentControl(deps: AgentControlDeps): Promise<AgentCo
 				await relistening
 				await socket?.stop()
 				socket = null
+				await release()
 			})()
 			return stopping
 		}

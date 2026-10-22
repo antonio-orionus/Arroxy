@@ -18,6 +18,7 @@ import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import {isCollectionUrl} from '@shared/urlIntent.js'
 import {bulkLogger, redactUrlForLog} from '@renderer/lib/bulkLogger.js'
 import type {BulkEntrySeed} from './probeResultProjection.js'
+import type {BulkCappedList} from '../types.js'
 
 export interface BulkExpansion {
 	urls: string[]
@@ -27,9 +28,15 @@ export interface BulkExpansion {
 	dropped: string[]
 	/** Last probe failure, so a run that drops everything can say why. */
 	error?: ProbeError
+	/** Collections past the load limit, cut there. */
+	capped: BulkCappedList[]
 	/** True when the run was superseded or cancelled part-way through. */
 	aborted: boolean
 }
+
+// Bulk URLs has no scope control, so a first-N or range scope left from a
+// single playlist never reaches its lists: each loads up to the load limit.
+const BULK_SCOPE: PlaylistScope = {items: {kind: 'app-limit'}}
 
 type ProbeFn = (input: {url: string; playlistMode: 'playlist'; playlistScope?: PlaylistScope}) => Promise<Result<ProbeResult, ProbeError>>
 
@@ -64,8 +71,9 @@ export function hasCollectionUrl(urls: readonly string[]): boolean {
  * Duplicate URLs collapse, since two playlists can share a video and a repeated
  * row would download it twice.
  */
-export async function expandBulkCollectionUrls(urls: readonly string[], probe: ProbeFn, playlistScope: PlaylistScope, isActive: () => boolean = () => true): Promise<BulkExpansion> {
+export async function expandBulkCollectionUrls(urls: readonly string[], probe: ProbeFn, {limit}: {limit: number}, isActive: () => boolean = () => true): Promise<BulkExpansion> {
 	const out: string[] = []
+	const capped: BulkCappedList[] = []
 	const seeds = new Map<string, BulkEntrySeed>()
 	const dropped: string[] = []
 	const seen = new Set<string>()
@@ -83,14 +91,14 @@ export async function expandBulkCollectionUrls(urls: readonly string[], probe: P
 		// starts a new list must not be left waiting on the old one's remaining
 		// URLs. `probeCancel` already aborts the in-flight probe; this stops the
 		// loop from marching on through the rest.
-		if (!isActive()) return {urls: out, seeds, dropped, aborted: true, ...(error ? {error} : {})}
+		if (!isActive()) return {urls: out, seeds, dropped, capped, aborted: true, ...(error ? {error} : {})}
 		if (!isCollectionUrl(url)) {
 			push(url)
 			continue
 		}
 
 		bulkLogger.info('Bulk collection URL expanding', {url: redactUrlForLog(url)})
-		const result = await probe({url, playlistMode: 'playlist', playlistScope})
+		const result = await probe({url, playlistMode: 'playlist', playlistScope: BULK_SCOPE})
 		if (!result.ok || result.data.kind !== 'playlist') {
 			bulkLogger.warn('Bulk collection URL could not be expanded', {url: redactUrlForLog(url), ok: result.ok})
 			if (!result.ok) error = result.error
@@ -104,10 +112,14 @@ export async function expandBulkCollectionUrls(urls: readonly string[], probe: P
 			continue
 		}
 
-		const entries = result.data.entries.filter(entry => entry.isContainer !== true)
-		bulkLogger.info('Bulk collection URL expanded', {url: redactUrlForLog(url), entries: entries.length})
+		// The probe reads one entry past the limit to tell the list goes on; that
+		// one is dropped, and the list is named so the review can say it was cut.
+		const listed = result.data.entries
+		if (listed.length > limit) capped.push({url, title: result.data.playlistTitle})
+		const entries = listed.slice(0, limit).filter(entry => entry.isContainer !== true)
+		bulkLogger.info('Bulk collection URL expanded', {url: redactUrlForLog(url), entries: entries.length, capped: listed.length > limit})
 		for (const entry of entries) push(entry.url, seedFor(entry))
 	}
 
-	return {urls: out, seeds, dropped, aborted: false, ...(error ? {error} : {})}
+	return {urls: out, seeds, dropped, capped, aborted: false, ...(error ? {error} : {})}
 }

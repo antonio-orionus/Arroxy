@@ -716,6 +716,31 @@ describe('a probe that needs the user’s choice', () => {
 		expect(probe.calls).toHaveLength(1)
 	})
 
+	// A list placed by a row's list offer leaves the hotkey's video out of the
+	// review too, even restored after a restart, when the review loads it again.
+	it("Review of a list placed by a row's list offer leaves the skipped video out", async () => {
+		const probe = deferredProbe()
+		useAppStore.setState({queue: [makeItem({id: 'offered', status: 'needs-choice', url: PLAYLIST_URL, title: 'Road trip mix', probeMode: 'playlist', skipVideoId: 'v2', choice: {kind: 'list-size', loaded: 2, capped: true}, job: {kind: 'unresolved', extractor: '', extractorKey: ''}})]})
+		const reviewing = useAppStore.getState().chooseQuickDownloadRow('offered', 'review')
+		await vi.waitFor(() => expect(probe.calls).toHaveLength(1))
+		// One entry further than the load limit, so the list still shows it goes on.
+		expect(probe.calls[0]).toMatchObject({playlistScope: {items: {kind: 'first', count: 3}}})
+		probe.resolve(ok(playlist(3)))
+		await reviewing
+
+		expect(useAppStore.getState().playlistItems.map(entry => entry.videoId)).toEqual(['v1', 'v3'])
+		expect(useAppStore.getState().reviewSourceRowId).toBe('offered')
+
+		// A scope reload in the review leaves it out too.
+		const reloading = useAppStore.getState().reloadPlaylistWithScope({items: {kind: 'first', count: 2}})
+		await vi.waitFor(() => expect(probe.calls).toHaveLength(2))
+		expect(probe.calls[1]).toMatchObject({playlistScope: {items: {kind: 'first', count: 3}}})
+		probe.resolve(ok(playlist(3)))
+		await reloading
+		expect(useAppStore.getState().playlistItems.map(entry => entry.videoId)).toEqual(['v1', 'v3'])
+		expect(useAppStore.getState().playlistLikelyCapped).toBe(false)
+	})
+
 	it('queueing from the review replaces the row with the chosen videos', async () => {
 		const probe = deferredProbe()
 		const id = await cappedRow(probe)

@@ -6,9 +6,8 @@ import path from 'node:path'
 import {afterEach, describe, expect, it} from 'vite-plus/test'
 import {CONTROL_DISCOVERY_FILE_NAME} from 'arroxy-control'
 import {readDiscoveryFile, writeDiscoveryFile} from '@main/control/socket/discoveryFile.js'
-import {MemoryLocalClientApprovals} from '@main/control/socket/localClientApprovals.js'
 import {startControlSocket} from '@main/control/socket/startControlSocket.js'
-import {fakeService, handshake, RawClient, silentLog, type SocketHarness, startHarness, tokenProof} from '../helpers/controlSocketHarness.js'
+import {fakeService, handshake, memoryRegistry, RawClient, silentLog, type SocketHarness, startHarness, tokenProof} from '../helpers/controlSocketHarness.js'
 
 // Starting and stopping the control socket: the launch folder, the socket,
 // control.json, and what an earlier crashed launch left behind.
@@ -79,7 +78,7 @@ describe('startControlSocket', () => {
 		cleanups.push(() => fs.rm(staleDir, {recursive: true, force: true}))
 		await fs.writeFile(path.join(staleDir, 'control.sock'), '')
 		await writeDiscoveryFile(userDataDir, {socketPath: path.join(staleDir, 'control.sock'), token: 'old', version: '1.0.0', startedAt: 1})
-		const socket = await startControlSocket({userDataDir, appVersion: '9.9.9', platform: process.platform, env: {}, service: fakeService(), approvals: new MemoryLocalClientApprovals(), bootId: 'b', log: silentLog()})
+		const socket = await startControlSocket({userDataDir, appVersion: '9.9.9', platform: process.platform, env: {}, service: fakeService(), approvals: await memoryRegistry(), bootId: 'b', log: silentLog()})
 		if (socket === null) throw new Error('did not start')
 		cleanups.push(() => socket.stop())
 		expect(await exists(staleDir)).toBe(false)
@@ -91,7 +90,7 @@ describe('startControlSocket', () => {
 		const foreign = await tempDir('/tmp')
 		await writeDiscoveryFile(userDataDir, {socketPath: path.join(foreign, 'control.sock'), token: 'old', version: '1.0.0', startedAt: 1})
 		const log = silentLog()
-		const socket = await startControlSocket({userDataDir, appVersion: '9.9.9', platform: process.platform, env: {}, service: fakeService(), approvals: new MemoryLocalClientApprovals(), bootId: 'b', log})
+		const socket = await startControlSocket({userDataDir, appVersion: '9.9.9', platform: process.platform, env: {}, service: fakeService(), approvals: await memoryRegistry(), bootId: 'b', log})
 		cleanups.push(async () => socket?.stop())
 		expect(await exists(foreign)).toBe(true)
 		expect(log.warn).toHaveBeenCalledWith('an earlier control socket folder was left in place', expect.anything())
@@ -103,7 +102,7 @@ describe('startControlSocket', () => {
 		const runtimeDir = path.join(longBase, 'r'.repeat(Math.max(1, 90 - longBase.length)))
 		await fs.mkdir(runtimeDir)
 		const log = silentLog()
-		const socket = await startControlSocket({userDataDir, appVersion: '9.9.9', platform: 'linux', env: {XDG_RUNTIME_DIR: runtimeDir}, service: fakeService(), approvals: new MemoryLocalClientApprovals(), bootId: 'b', log})
+		const socket = await startControlSocket({userDataDir, appVersion: '9.9.9', platform: 'linux', env: {XDG_RUNTIME_DIR: runtimeDir}, service: fakeService(), approvals: await memoryRegistry(), bootId: 'b', log})
 		expect(socket).toBeNull()
 		expect(log.error).toHaveBeenCalledWith('the control socket is off: its path is too long', expect.anything())
 		expect(await fs.readdir(runtimeDir)).toEqual([])
@@ -112,7 +111,7 @@ describe('startControlSocket', () => {
 
 	it('refuses to start where no socket can be reached, writing nothing', async () => {
 		const userDataDir = await tempDir()
-		const socket = await startControlSocket({userDataDir, appVersion: '9.9.9', platform: 'linux', env: {FLATPAK_ID: 'io.github.antonio_orionus.Arroxy'}, service: fakeService(), approvals: new MemoryLocalClientApprovals(), bootId: 'b', log: silentLog()})
+		const socket = await startControlSocket({userDataDir, appVersion: '9.9.9', platform: 'linux', env: {FLATPAK_ID: 'io.github.antonio_orionus.Arroxy'}, service: fakeService(), approvals: await memoryRegistry(), bootId: 'b', log: silentLog()})
 		expect(socket).toBeNull()
 		expect(await fs.readdir(userDataDir)).toEqual([])
 	})

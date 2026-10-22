@@ -82,6 +82,12 @@ const expandingTitleVideo = catalog.videos.find(video => titleOverride(video)?.i
 if (!expandingTitleVideo) throw new Error('fixture-media-catalog.json must define a video whose title names a variable')
 export const EXPANDING_TITLE_VIDEO_ID = expandingTitleVideo.id
 export const EXPANDING_TITLE = titleOverride(expandingTitleVideo) ?? ''
+// A long title in plain ASCII, so it measures the same in bytes and in UTF-16
+// units: a deep folder shortens it by the same amount on every platform.
+const longPlainTitleVideo = catalog.videos.find(video => /^[ -~]{150,}$/.test(titleOverride(video) ?? ''))
+if (!longPlainTitleVideo) throw new Error('fixture-media-catalog.json must define a video with a long plain title')
+export const LONG_PLAIN_TITLE_VIDEO_ID = longPlainTitleVideo.id
+export const LONG_PLAIN_TITLE = titleOverride(longPlainTitleVideo) ?? ''
 // Mimics a signed-in session YouTube limited: the 720p format comes back without
 // a URL and yt-dlp prints its SABR warning, leaving only the 360p fallback.
 const isSabrLimited = (video: (typeof catalog.videos)[number]): boolean => sessionLimits(video).warnings.some(warning => warning.includes('missing a URL'))

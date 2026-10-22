@@ -15,7 +15,7 @@ import {mixedUrlPromptPatch} from '../wizard/mixedUrlPrompt.js'
 import {canSwitchToExplore, configuredCookiesRetryMode} from '../wizard/probeErrorExperience.js'
 import {rewriteYouTubeChannelRoot} from '@shared/intake/urlIntake.js'
 import {policyForUrlIntent} from '@shared/intake/urlIntentPolicy.js'
-import {choosePlaceholder, keptChoiceProbe, placeQuickDownload, retryPlaceholder} from './quickDownloadPipeline.js'
+import {choosePlaceholder, keptChoiceProbe, placeListOffer, placeQuickDownload, retryPlaceholder} from './quickDownloadPipeline.js'
 import {quickDownloadToasts} from './quickDownloadToasts.js'
 import {withRetryTarget} from './exploreSignInRetry.js'
 
@@ -137,6 +137,14 @@ export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDow
 			}
 			if (answer === 'first' && !row.choice.capped) return
 			await choosePlaceholder(itemId, answer, quickDownloadToasts('downloads', get))
+		},
+
+		takeListOffer: async itemId => {
+			await placeListOffer(itemId, quickDownloadToasts('downloads', get))
+		},
+
+		dismissListOffer: async itemId => {
+			await window.appApi.intake.dismissListOffer({itemId}).catch((error: unknown) => console.error('[quick-download] dismissing the list offer failed', error))
 		}
 	}
 }

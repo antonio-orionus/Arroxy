@@ -3,14 +3,17 @@
 // pick from the same profile (mediaIntentSpec's -f and -S). This check runs
 // both over every recorded probe (src/renderer/src/dev/probeSources) and a
 // matrix of profiles, and fails on any pick they disagree on, so the copy
-// cannot drift from yt-dlp unnoticed.
+// cannot drift from yt-dlp unnoticed. It holds subtitle tracks to yt-dlp the
+// same way: the tracks a job plans against the ones yt-dlp fetches for the
+// run that job sends (scripts/selection-parity/subtitles.ts).
 //
 //   bun run check:selection-parity            # fail on any difference
 //   bun run check:selection-parity --verbose  # also list the agreed cases
 //
 // yt-dlp is the pinned release below, its zipapp fetched once into
 // node_modules/.cache and checked against the published SHA-256; it runs
-// in-process under Python 3.10+ (scripts/selection-parity/oracle.py, found by
+// in-process under Python 3.10+ (scripts/selection-parity/oracle.py and
+// subtitle_oracle.py, found by
 // scripts/selection-parity/python.ts; `bun run doctor` reports it).
 
 import {execFile} from 'node:child_process'
@@ -29,6 +32,7 @@ import {VIDEO_CODEC_PREFERENCES, type DownloadProfile, type DownloadProfileMedia
 import {videoCodecAllowed} from '../src/shared/selectionOrder.js'
 import {findPython, PYTHON_REQUIREMENT} from './selection-parity/python.js'
 import {CONSTRUCTED_PROBES} from './selection-parity/constructedProbes.js'
+import {subtitleCases, subtitleDifference} from './selection-parity/subtitles.js'
 import {mapFormats} from '../src/shared/ytdlp/formatMapping.js'
 import {formatSelectionSource, type FormatSelectionSource, type YtDlpSelectableFormat} from '../src/shared/ytdlp/selectableFormat.js'
 import type {FormatOption} from '../src/shared/types.js'
@@ -42,6 +46,7 @@ const YT_DLP = {version: '2026.08.19', sha256: '1fa6733c37ea6fb51c99ad8fe785e7b7
 const ROOT = path.resolve(import.meta.dirname, '..')
 const CACHE_DIR = path.join(ROOT, 'node_modules/.cache/arroxy-selection-parity')
 const ORACLE = path.join(ROOT, 'scripts/selection-parity/oracle.py')
+const SUBTITLE_ORACLE = path.join(ROOT, 'scripts/selection-parity/subtitle_oracle.py')
 const run = promisify(execFile)
 
 function sha256(bytes: Uint8Array): string {
@@ -118,10 +123,12 @@ function withUrls(info: unknown, id: string): unknown {
 	return {...info, formats: (Array.isArray(formats) ? formats : []).map((format: unknown, index) => (typeof format === 'object' && format !== null ? {...format, url: `https://parity.invalid/${index}`} : format))}
 }
 
+const readFixture = (id: string): unknown => JSON.parse(readFileSync(path.join(ROOT, 'src/renderer/src/dev/probeSources', `${id}.json`), 'utf8'))
+
 function recordedProbe(id: (typeof PROBE_SOURCES)[number]['id']): ParityProbe {
 	const probe = probeSourceResult(id)
 	if (!probe.formatSelection) throw new Error(`${id}: the probe carries no yt-dlp formats`)
-	const fixture: unknown = JSON.parse(readFileSync(path.join(ROOT, 'src/renderer/src/dev/probeSources', `${id}.json`), 'utf8'))
+	const fixture = readFixture(id)
 	if (typeof fixture !== 'object' || fixture === null || !('info' in fixture)) throw new Error(`${id}: fixture has no info dict`)
 	return {id, formats: probe.formats, formatSelection: probe.formatSelection, isAudioOnlySource: probe.isAudioOnlySource, info: withUrls(fixture.info, id)}
 }
@@ -209,9 +216,15 @@ const python = await findPython()
 if (python === null) throw new Error(`check:selection-parity needs ${PYTHON_REQUIREMENT}. Install it, then run the check again.`)
 const child = run(python.command, [...python.args, ORACLE, ytDlp], {maxBuffer: 64 * 1024 * 1024})
 child.child.stdin?.end(request)
-const {stdout} = await child
+const subtitles = subtitleCases(PROBE_SOURCES.map(source => ({id: source.id, fixture: readFixture(source.id)})))
+const subtitleChild = run(python.command, [...python.args, SUBTITLE_ORACLE, ytDlp], {maxBuffer: 64 * 1024 * 1024})
+subtitleChild.child.stdin?.end(JSON.stringify({videos: subtitles.videos, cases: subtitles.cases.map(({video, argv}) => ({video, argv}))}))
+const [{stdout}, {stdout: subtitleStdout}] = await Promise.all([child, subtitleChild])
 const picks: unknown = JSON.parse(stdout)
 if (!Array.isArray(picks) || picks.length !== cases.length) throw new Error('the oracle returned a different number of picks than cases')
+const subtitleAnswers: unknown = JSON.parse(subtitleStdout)
+if (!Array.isArray(subtitleAnswers) || subtitleAnswers.length !== subtitles.cases.length) throw new Error('the subtitle oracle returned a different number of answers than cases')
+const subtitleDifferences = subtitles.cases.flatMap((testCase, index) => subtitleDifference(testCase, subtitleAnswers[index]) ?? [])
 
 const known = new Set<string>()
 // One oracle answer: yt-dlp's format_id and the extension of its result, or nothing picked.
@@ -253,6 +266,7 @@ const smartTvMisses = cases.flatMap((testCase, index) => {
 	return miss ? [`${testCase.probe} · ${testCase.label}: ${miss}`] : []
 })
 if (verbose) for (const testCase of cases) console.log(`${testCase.probe} · ${testCase.label}: ${testCase.expected}`)
+if (verbose) for (const testCase of subtitles.cases) console.log(`${testCase.video} · ${testCase.label}: ${Object.keys(testCase.expected).join(', ')}`)
 console.log(`selection parity: ${cases.length} cases over ${probes.length} probes, yt-dlp ${YT_DLP.version}; ${differences.length} differ`)
 for (const difference of differences) console.log(`  ${difference}`)
 const stale = KNOWN_DIFFERENCES.filter(entry => !known.has(`${entry.probe} · ${entry.label}`))
@@ -260,4 +274,6 @@ if (known.size > 0) console.log(`  ${known.size} known (${[...new Set(KNOWN_DIFF
 for (const entry of stale) console.log(`  no longer differs, remove it from KNOWN_DIFFERENCES: ${entry.probe} · ${entry.label}`)
 console.log(`smart tv intent: ${smartTvMisses.length} misses`)
 for (const miss of smartTvMisses) console.log(`  ${miss}`)
-if (differences.length > 0 || stale.length > 0 || smartTvMisses.length > 0) process.exitCode = 1
+console.log(`subtitle tracks: ${subtitles.cases.length} cases over ${Object.keys(subtitles.videos).length} videos; ${subtitleDifferences.length} differ`)
+for (const difference of subtitleDifferences) console.log(`  ${difference}`)
+if (differences.length > 0 || stale.length > 0 || smartTvMisses.length > 0 || subtitleDifferences.length > 0) process.exitCode = 1

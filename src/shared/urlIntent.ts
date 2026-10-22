@@ -151,7 +151,12 @@ const YOUTUBE_ID_BEARING_PREFIXES = new Set(['shorts', 'live', 'embed', 'v', 'e'
 
 export function extractUrlIntentYouTubeVideoId(intent: UrlIntent): string | null {
 	if (intent.kind !== 'obvious-single' || intent.site !== 'youtube') return null
-	const parsed = parseUrl(intent.url)
+	return youtubeLinkVideoId(intent.url)
+}
+
+// The video a YouTube link names, whether or not it also names a list.
+export function youtubeLinkVideoId(url: string): string | null {
+	const parsed = parseUrl(url)
 	if (!parsed || !isYouTubeHostname(parsed.hostname)) return null
 
 	const host = parsed.hostname.toLowerCase()

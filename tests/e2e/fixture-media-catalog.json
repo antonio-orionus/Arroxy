@@ -50,7 +50,8 @@
 			]
 		},
 		{"id": "ARX00000017", "number": 17, "formatSet": "muxed", "title": "~$HOME pays 100%(id)s"},
-		{"id": "ARX00000018", "number": 18, "formatSet": "muxed", "mediaTags": {"uploadDate": "20010312", "categories": ["Music"], "artist": "Fixture Artist", "album": "Fixture Album", "track": "Fixture Track"}}
+		{"id": "ARX00000018", "number": 18, "formatSet": "muxed", "mediaTags": {"uploadDate": "20010312", "categories": ["Music"], "artist": "Fixture Artist", "album": "Fixture Album", "track": "Fixture Track"}},
+		{"id": "ARX00000019", "number": 19, "formatSet": "muxed", "title": "A fixture video whose plain title runs far longer than any deep download folder leaves room for, so Arroxy has to shorten it to keep the whole path under the operating system limit while its id stays"}
 	],
 	"formatSets": {
 		"muxed": [

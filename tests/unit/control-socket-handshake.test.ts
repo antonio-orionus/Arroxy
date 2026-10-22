@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import {afterEach, describe, expect, it} from 'vite-plus/test'
+import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import {HANDSHAKE_MAX_FRAME_BYTES, handshakeServerProof} from 'arroxy-control'
 import {SESSION_MAX_FRAME_BYTES} from '@main/control/socket/controlConnection.js'
 import {allowedClient, handshake, hello, nonce, RawClient, READY, secretProof, type SocketHarness, startHarness, tokenProof} from '../helpers/controlSocketHarness.js'
@@ -53,7 +53,7 @@ describe('control socket handshake', () => {
 		const first = await handshake(harness.socket.socketPath, tokenProof(token))
 		expect(first.auth).toEqual(errorLine('h2', 'approval_pending'))
 		await first.client.closed
-		const [pending] = harness.approvals.pending()
+		const [pending] = harness.approvals.snapshot().pending
 		if (!pending) throw new Error('no pending approval')
 		expect(pending.label).toBe('test-client')
 		expect(first.auth).toMatchObject({error: {details: {approvalId: pending.approvalId}}})
@@ -61,7 +61,7 @@ describe('control socket handshake', () => {
 		const early = await handshake(harness.socket.socketPath, tokenProof(token, {approvalId: pending.approvalId}))
 		expect(early.auth).toMatchObject({ok: false, error: {code: 'approval_pending', details: {approvalId: pending.approvalId}}})
 
-		harness.approvals.allow(pending.approvalId)
+		harness.approvals.allow(pending.approvalId, {pathsRead: false})
 		const collect = await handshake(harness.socket.socketPath, tokenProof(token, {approvalId: pending.approvalId}))
 		expect(collect.auth).toMatchObject({ok: true, result: {protocol: 1, rules: ['trusted'], clientSecret: expect.any(String)}})
 		const {clientId, clientSecret} = (collect.auth as {result: {clientId: string; clientSecret: string}}).result
@@ -93,7 +93,7 @@ describe('control socket handshake', () => {
 		const harness = await start()
 		const {client} = await handshake(harness.socket.socketPath, tokenProof('not-the-token'))
 		await closedWith(client, [expect.objectContaining({ok: true}), errorLine('h2', 'unauthorized')])
-		expect(harness.approvals.pending()).toEqual([])
+		expect(harness.approvals.snapshot().pending).toEqual([])
 	})
 
 	it('refuses a known client whose proof is not keyed by its secret', async () => {
@@ -211,5 +211,84 @@ describe('control socket session', () => {
 		expect(writes).toBeLessThan(64)
 		client.socket.resume()
 		await expect.poll(() => drained.length).toBeGreaterThan(0)
+	})
+})
+
+describe('control socket and the local client registry', () => {
+	// Counts each connection's release, which must come once per session.
+	function countReleases(harness: SocketHarness) {
+		const releases = vi.fn()
+		const connected = harness.approvals.connected.bind(harness.approvals)
+		vi.spyOn(harness.approvals, 'connected').mockImplementation(clientId => {
+			const end = connected(clientId)
+			return () => {
+				releases(clientId)
+				end()
+			}
+		})
+		return releases
+	}
+
+	const connectedNow = (harness: SocketHarness, clientId: string): boolean | undefined => harness.approvals.snapshot().clients.find(client => client.clientId === clientId)?.connected
+
+	it('keeps a collected client in the store, and a removed one out of it, closing its live connection', async () => {
+		const harness = await start()
+		const {token} = await harness.discovery()
+		const approvalId = harness.approvals.request('test-client')
+		harness.approvals.allow(approvalId, {pathsRead: false})
+		const collect = await handshake(harness.socket.socketPath, tokenProof(token, {approvalId}))
+		const {clientId, clientSecret} = (collect.auth as {result: {clientId: string; clientSecret: string}}).result
+		await harness.service.firstSession()
+		await harness.approvals.saved()
+		expect(harness.store.records).toEqual([expect.objectContaining({clientId, label: 'test-client', secret: clientSecret})])
+
+		harness.approvals.remove(clientId)
+		await collect.client.closed
+		await harness.approvals.saved()
+		expect(harness.store.records).toEqual([])
+		const again = await handshake(harness.socket.socketPath, secretProof(clientId, clientSecret))
+		await closedWith(again.client, [expect.anything(), errorLine('h2', 'unauthorized')])
+	})
+
+	it('shows a client connected while a session is open, released once on every way it closes', async () => {
+		const harness = await start()
+		const releases = countReleases(harness)
+		const {clientId, secret} = allowedClient(harness.approvals)
+		expect(connectedNow(harness, clientId)).toBe(false)
+
+		// The client hangs up.
+		const first = await handshake(harness.socket.socketPath, secretProof(clientId, secret))
+		await expect.poll(() => connectedNow(harness, clientId)).toBe(true)
+		first.client.socket.destroy()
+		await expect.poll(() => connectedNow(harness, clientId)).toBe(false)
+		expect(releases).toHaveBeenCalledTimes(1)
+
+		// The server drops it.
+		const second = await handshake(harness.socket.socketPath, secretProof(clientId, secret))
+		await expect.poll(() => connectedNow(harness, clientId)).toBe(true)
+		second.client.socket.write('[]\n')
+		await second.client.closed
+		await expect.poll(() => releases.mock.calls.length).toBe(2)
+		expect(connectedNow(harness, clientId)).toBe(false)
+
+		// Two at once, then the socket stops.
+		await handshake(harness.socket.socketPath, secretProof(clientId, secret))
+		await handshake(harness.socket.socketPath, secretProof(clientId, secret))
+		await expect.poll(() => harness.service.sessions.length).toBe(4)
+		expect(connectedNow(harness, clientId)).toBe(true)
+		await harness.socket.stop()
+		await expect.poll(() => releases.mock.calls.length).toBe(4)
+		expect(connectedNow(harness, clientId)).toBe(false)
+	})
+
+	it('counts no session for a connection that never opened one', async () => {
+		const harness = await start({failOpen: true})
+		const releases = countReleases(harness)
+		const {clientId, secret} = allowedClient(harness.approvals)
+		const {client} = await handshake(harness.socket.socketPath, secretProof(clientId, secret))
+		await client.closed
+		expect(harness.approvals.connected).not.toHaveBeenCalled()
+		expect(releases).not.toHaveBeenCalled()
+		expect(connectedNow(harness, clientId)).toBe(false)
 	})
 })

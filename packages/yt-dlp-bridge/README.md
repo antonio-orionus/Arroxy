@@ -335,7 +335,7 @@ Prefer the root export for workflow planning and subpaths for lower-level utilit
 | --- | --- |
 | Workflow planning | `planWorkflow`, `templateLiteral`, workflow input/plan/fact types |
 | Schemas | `WorkflowInspectInputSchema`, `WorkflowDownloadInputSchema`, `WorkflowExecutionInputSchema`, `WorkflowPostprocessInputSchema`, `WorkflowExpertInputSchema`, `WorkflowInputSchema`, `ValidateWorkflowInputSchema` |
-| Audio conversion | `audioConversionCopies`, `audioConversionOutcome`, `audioConversionCopyFilter`, `audioCodecPreference`, `audioConversionSourceSelector`, `AUDIO_CONVERSION_COPY_MIN_KBPS` from `yt-dlp-bridge/audio-conversion` |
+| Audio conversion | `audioConversionCopies`, `audioConversionOutcome`, `audioConversionCopyFilter`, `audioCodecPreference`, `audioConversionSourceSelector`, `isAudioFormat`, `AUDIO_CONVERSION_COPY_MIN_KBPS` from `yt-dlp-bridge/audio-conversion`; `AudioFormatSchema`, `AUDIO_FORMATS` and the `AudioFormat` type from the root |
 | Config | `loadConfig` from `yt-dlp-bridge/config` |
 | Environment | `checkEnvironment` from `yt-dlp-bridge/environment` |
 | Filesystem policy | `resolveOutputPolicy`, `resolveManagedPath`, `ensureWithinRoot`, `isPathInside`, `isPathInsideWith`, `hasParentTraversal`, `ensureDirectory`, `readArchive` from `yt-dlp-bridge/filesystem` |

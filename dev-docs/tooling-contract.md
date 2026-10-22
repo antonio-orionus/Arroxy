@@ -27,7 +27,7 @@ bunx vp check --fix             # same, with formatter and lint fixes
 bun run check:static            # errors:build + vp check (the gate's static step)
 bun run check:tooling-parity    # representative rule parity probes
 bun run check:tooling-contract  # verifies this monorepo tooling contract
-bun run check:selection-parity  # Format-screen picks vs real yt-dlp (needs Python 3.10+)
+bun run check:selection-parity  # Format-screen picks and subtitle tracks vs real yt-dlp (needs Python 3.10+)
 bun run check:filename-parity   # predicted download paths vs real yt-dlp (needs Python 3.10+)
 bun run packages:check          # registry package gates in dependency order
 bun run check                   # canonical local and CI gate
@@ -60,7 +60,7 @@ A file with unstaged or untracked changes holds work outside the commit, possibl
 
 `.vite-hooks/pre-push` runs `scripts/check-push.ts` on every branch push except to `main`, which takes docs-only commits directly. It fetches `origin main` and refuses a push that wholly undoes recent main commits, meaning every file such a commit changed is back to an earlier version byte-for-byte. That is what squashing with `git reset --soft origin/main` after main moved produces. The re-parented stale index reads as a revert of everything merged since. A diff comparison of `origin/main` with `origin/main...HEAD` cannot see it, because the merge-base is then main itself. A commit undone only by deleting its files does not count, since that is also how files are retired.
 
-A deliberate revert passes with `ARROXY_ALLOW_REVERT=1 git push`. The land flow runs the same check through `bun run review:check-head`, which also refuses a head whose diff differs from the one `review:dual` last reviewed. That gate stays out of the hook, so a plain push by hand never needs a review.
+A deliberate revert passes with `ARROXY_ALLOW_REVERT=1 git push`. The maintainer's land flow runs the same check before pushing (the global `dual-review` skill's `check-head`), plus a check that the head is the diff its review last saw. That gate stays out of the hook, so a plain push by hand never needs a review.
 
 Publish workflows stay package-specific, but they call root package check scripts: `bun run errors:check` for `ytdlp-errors` and `bun run bridge:check` for `yt-dlp-bridge`. `arroxy-control` and `arroxy-mcp` are private, in-repo packages with no publish workflow; `packages:check` still runs their gates (`control:check`, `mcp:check`: typecheck, test, build).
 

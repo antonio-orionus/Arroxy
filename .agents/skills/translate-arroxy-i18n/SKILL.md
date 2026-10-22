@@ -36,7 +36,7 @@ Run it from a fresh `main` in its own worktree, as its own PR. It is the only PR
    - the rules: edit only `msgstr` (and remove `fuzzy` only after checking the translation against the current `msgid`); keep placeholders, markup, shortcut text and product names; non-Latin-script locales write their own script.
 5. Review the subagents' output yourself, then run `bun run i18n:compile` and `bun readme-src/build.mjs --record-translated`. The second records the English the README locales now match and rebuilds the READMEs.
 6. `bun run check:i18n:complete` must pass: every entry translated, fresh POT, runtime JSON equal to the compiled PO, README key parity in every locale, and the `i18n-complete` tests. Then `bun run check`.
-7. Open `i18n: sync translations` and land it with `review:dual --light` (a translation diff, not logic) plus a native-script spot check of a few locales. No CodeRabbit trigger.
+7. Open `i18n: sync translations` and land it with a light dual review (a translation diff, not logic) plus a native-script spot check of a few locales. No CodeRabbit trigger.
 
 If `bun run i18n:sync` fails because `msgmerge` is missing, install GNU gettext or report that the sync is blocked. Never edit generated JSON by hand to get around it.
 

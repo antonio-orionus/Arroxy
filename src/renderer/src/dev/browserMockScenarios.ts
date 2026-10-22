@@ -4,7 +4,7 @@ import type {AppSettings, DownloadProfileRef, ExploreViewState, ProbeResult, Que
 import type {YtDlpErrorKind} from '@shared/schemas.js'
 import type {BrowserMockKnobs} from './browserMockKnobs.js'
 import type {AppState} from '../store/types.js'
-import {bulkStressFixture, bulkStressState} from './scenarios/bulkScenarios.js'
+import {bulkCappedListsFor, bulkStressFixture, bulkStressState} from './scenarios/bulkScenarios.js'
 import {bilibiliHydrationVideo, buildProbeResult, normalVideoProbe, playlistProbe, shouldMockEmptyPlaylistScopeReload} from './scenarios/probeScenarios.js'
 import {ATTENTION_SCENARIO_FAILED_URL, ATTENTION_SCENARIO_ROWS, buildQueueItems, QUICK_DOWNLOAD_SCENARIO_ROWS} from './scenarios/queueScenarios.js'
 import {buildUpdate} from './scenarios/updateScenarios.js'
@@ -39,6 +39,8 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'playlist-nested',
 	'playlist-hydration',
 	'bulk-stress',
+	'bulk-capped-list',
+	'bulk-capped-lists',
 	'profiles-home-empty',
 	'hotkey-hint',
 	'hotkey-conflict',
@@ -90,6 +92,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'queue-large',
 	'queue-quick-download',
 	'queue-attention',
+	'queue-list-offer',
 	'diagnostics-all-ok',
 	'diagnostics-ytdlp-missing',
 	'diagnostics-ffmpeg-broken',
@@ -238,6 +241,8 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'playlist-nested', group: 'Playlist', title: 'Nested playlists', description: 'Rows that are themselves playlists/albums/channels: badged, disabled, and explained.', kind: 'probe'},
 	{id: 'playlist-hydration', group: 'Playlist', title: 'Hydrating series', description: 'Bilibili-style series: placeholder rows resolve titles, thumbnails, and upload dates in the background (p5 fails, p7 stays dateless, dates are shuffled so the upload sort visibly reorders).', kind: 'probe'},
 	{id: 'bulk-stress', group: 'Playlist', title: 'Bulk stress', description: 'Visual fixture for 50 bulk URL rows with long duplicate titles, missing thumbnails, and mixed metadata states.', kind: 'bulk'},
+	{id: 'bulk-capped-list', group: 'Playlist', title: 'Bulk capped list', description: 'Bulk URLs review where one pasted list went past the load limit and was cut there.', kind: 'bulk'},
+	{id: 'bulk-capped-lists', group: 'Playlist', title: 'Bulk capped lists', description: 'Bulk URLs review where three pasted lists went past the load limit and were cut there.', kind: 'bulk'},
 	{id: 'profiles-home-empty', group: 'Profiles', title: 'Profiles home', description: 'Redesigned main screen with active built-in profile and no dialog open.', kind: 'profile'},
 	{id: 'hotkey-hint', group: 'Profiles', title: 'Quick Download hotkey hint', description: 'Quick Download card with the configured global hotkey enabled and registered: the shortcut is in its hint.', kind: 'profile'},
 	{id: 'hotkey-conflict', group: 'Profiles', title: 'Global hotkey conflict', description: 'Hotkey settings with the configured shortcut unavailable because another app owns it.', kind: 'profile'},
@@ -289,6 +294,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'queue-columns', group: 'Queue', title: 'Queue columns', description: 'Rows with varied timestamps for sorting and column visibility review.', kind: 'queue'},
 	{id: 'queue-quick-download', group: 'Queue', title: 'Queue quick download', description: 'Quick download rows: probing with Cancel, a failed probe with its guidance, a capped playlist and an uncapped list from another site waiting for a choice, and the toasts with actions.', kind: 'queue'},
 	{id: 'queue-attention', group: 'Queue', title: 'Queue needs attention', description: 'Background quick downloads: one preparing, a private video that offers Sign in in Explore, a capped playlist waiting for a choice, the attention badge on the Downloads tab, and a failure toast with View and Retry.', kind: 'queue'},
+	{id: 'queue-list-offer', group: 'Queue', title: 'Queue list offer', description: 'Videos the hotkey took from a playlist, Mix and album link, each offering the whole list under its title; one plain video without.', kind: 'queue'},
 	{id: 'queue-large', group: 'Queue', title: 'Queue large', description: '5,000 queued rows, some finished ones a line taller (a notice plus missing subtitle languages), for virtualization and scroll performance review.', kind: 'queue'},
 	{id: 'diagnostics-all-ok', group: 'Diagnostics', title: 'All OK', description: 'Runnable dependency diagnostics.', kind: 'diagnostics'},
 	{id: 'diagnostics-ytdlp-missing', group: 'Diagnostics', title: 'yt-dlp missing', description: 'Blocking yt-dlp setup failure.', kind: 'diagnostics'},
@@ -524,7 +530,7 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 	}
 	if (scenario.kind === 'bulk') {
 		store.reset()
-		store.setState(bulkStressState())
+		store.setState({...bulkStressState(), bulkCappedLists: bulkCappedListsFor(scenario.id)})
 		return
 	}
 	if (scenario.kind === 'profile') {

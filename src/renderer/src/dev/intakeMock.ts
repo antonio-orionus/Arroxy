@@ -8,9 +8,10 @@ import i18next from 'i18next'
 import type {AppApi} from '@shared/api.js'
 import {resolveActiveDownloadProfile, resolveChosenDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
 import type {IntakeEvent, IntakePlacement, QuickDownloadEvent} from '@shared/intake/intakeEvents.js'
-import {resolvePinnedQuickProbe, scopeForTake, type QuickProbeEnv, type QuickProbeResolution} from '@shared/intake/probeResolution.js'
+import {resolvePinnedQuickProbe, scopeForTake, widenForSkip, type QuickProbeEnv, type QuickProbeResolution} from '@shared/intake/probeResolution.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
+import {youtubeLinkVideoId} from '@shared/urlIntent.js'
 import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 import type {QueueEvent} from '@shared/queueTransition.js'
 import {fail, ok, type Result} from '@shared/result.js'
@@ -26,7 +27,12 @@ export interface IntakeMockDeps {
 	// A probe-stage transition on a mock row (probe-failed, needs-choice, probe-restarted).
 	transition: (itemId: string, event: QueueEvent) => Promise<Result<void>>
 	settings: () => AppSettings
+	clearListOffer: (itemId: string) => void
 }
+
+// What main's intake takes beyond the window's own add: the hotkey's list
+// offer, and the video a list placed by that offer leaves out.
+type PlaceRequest = IntakeAddInput & {listOffer?: string; skipVideoId?: string}
 
 interface Probe {
 	url: string
@@ -40,7 +46,7 @@ type IntakeOutcomeEvent = Extract<IntakeEvent, {kind: 'outcome'}>
 
 // The hotkey's way in, as main's HotkeyIntake uses IntakeService.
 export interface HotkeyIntakeMock {
-	add(request: IntakeAddInput): Promise<IntakePlacement>
+	add(request: PlaceRequest): Promise<IntakePlacement>
 	windowProfile(): DownloadProfileRef | undefined
 	onEvent(listener: (event: IntakeOutcomeEvent) => void): () => void
 }
@@ -98,9 +104,11 @@ export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 	async function runProbe(itemId: string, probe: Probe, requestId: string, origin: IntakeOriginKind, answer?: PlaylistProbeResult): Promise<void> {
 		const tell = (outcome: QuickDownloadEvent): void => emit({kind: 'outcome', requestId, intakeId: find(itemId)?.origin?.intakeId ?? null, origin, outcome})
 		const limit = probe.take?.kind === 'all' ? PLAYLIST_PROBE_LIMIT_MAX : probe.take?.kind === 'first' ? probe.take.count : resolvePlaylistProbeLimit(deps.settings().common)
-		const result = answer ? ok(answer) : await deps.probe({url: probe.url, playlistMode: probe.playlistMode, ownerKey: itemId, ...(probe.scope ? {playlistScope: probe.scope} : {})})
+		const skipVideoId = find(itemId)?.skipVideoId
+		const scope = skipVideoId ? widenForSkip(probe.scope ?? {items: {kind: 'first', count: limit}}) : probe.scope
+		const result = answer ? ok(answer) : await deps.probe({url: probe.url, playlistMode: probe.playlistMode, ownerKey: itemId, ...(scope ? {playlistScope: scope} : {})})
 		const profile = find(itemId)?.pinnedProfile ?? activePinned()
-		const resolution = resolvePinnedQuickProbe(result, {url: probe.url, playlistMode: probe.playlistMode, limit, ...(probe.take ? {take: probe.take} : {}), profile}, {settings: deps.settings(), queue: deps.items()}, env())
+		const resolution = resolvePinnedQuickProbe(result, {url: probe.url, playlistMode: probe.playlistMode, limit, ...(probe.take ? {take: probe.take} : {}), ...(skipVideoId ? {skipVideoId} : {}), profile}, {settings: deps.settings(), queue: deps.items()}, env())
 		await write(itemId, probe.title, resolution, tell)
 	}
 
@@ -114,7 +122,7 @@ export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 		return restarted
 	}
 
-	async function place({requestId, url, playlistMode, title, profile: requested, take}: IntakeAddInput, caller: IntakeCaller): Promise<IntakePlacement> {
+	async function place({requestId, url, playlistMode, title, profile: requested, take, listOffer, skipVideoId}: PlaceRequest, caller: IntakeCaller): Promise<IntakePlacement> {
 		const live = deps.items().find(item => isLiveQueueItem(item) && item.url === url)
 		if (live) return {kind: 'already-queued', itemId: live.id}
 		const intakeId = crypto.randomUUID()
@@ -146,6 +154,8 @@ export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 			retryCount: 0,
 			probeMode: playlistMode,
 			...(take ? {probeTake: take} : {}),
+			...(listOffer ? {listOffer} : {}),
+			...(skipVideoId ? {skipVideoId} : {}),
 			pinnedProfile: pinned,
 			origin: {...caller, intakeId},
 			job: {kind: 'unresolved', extractor: '', extractorKey: ''}
@@ -173,6 +183,19 @@ export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 			return restart(itemId, requestId, {scope: scopeForTake(first), take: first}, kept.get(itemId))
 		},
 		keptProbe: ({itemId}) => Promise.resolve(ok(kept.get(itemId) ?? null)),
+		takeListOffer: async ({requestId, itemId}) => {
+			const row = find(itemId)
+			const listUrl = row?.listOffer
+			if (!row || !listUrl || row.job.kind === 'unresolved') return fail({code: 'validation', message: `queue item ${itemId} offers no list`})
+			const skipVideoId = youtubeLinkVideoId(listUrl)
+			const placement = await place({requestId, url: listUrl, playlistMode: 'playlist', ...(skipVideoId ? {skipVideoId} : {}), ...(windowContext.activeProfile ? {profile: windowContext.activeProfile} : {})}, {kind: 'window'})
+			if (placement.kind === 'added') deps.clearListOffer(itemId)
+			return ok(placement)
+		},
+		dismissListOffer: ({itemId}) => {
+			deps.clearListOffer(itemId)
+			return Promise.resolve(ok(undefined))
+		},
 		setWindowContext: context => {
 			windowContext = context
 			return Promise.resolve(ok(undefined))

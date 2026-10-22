@@ -591,6 +591,22 @@ body {
 		0 0 0 2px var(--ring);
 }
 
+/* A line that belongs to the row above it (the list offer): one row to the eye,
+   with no divider between them and the row's hover and selection on both. */
+tbody > tr:has(+ .queue-row-continuation) {
+	border-bottom-width: 0;
+}
+tbody > tr:has(+ .queue-row-continuation) > td {
+	padding-bottom: 0;
+}
+tbody:hover > tr:has(+ .queue-row-continuation),
+tbody:hover > .queue-row-continuation {
+	background: color-mix(in oklab, var(--muted) 30%, transparent);
+}
+tbody:has(> .queue-manager-row-selected) > .queue-row-continuation {
+	background: var(--queue-row-selected-fill) !important;
+}
+
 /* A row shown by a toast's View: a ring that fades, so the eye lands on it. */
 [data-slot='table-row'][data-highlighted='true'] {
 	animation: queue-row-highlight 2.4s ease-out both;

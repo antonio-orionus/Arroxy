@@ -759,6 +759,8 @@ export interface FixtureEnvInput {
 	exploreAdBlockFiltersPath?: string
 	// How long Explore waits after the tab is left before releasing the page (ARROXY_E2E_EXPLORE_IDLE_MS).
 	exploreIdleUnloadMs?: number
+	// The spec answers each local client's request itself instead of the run allowing every one (ARROXY_E2E_MANUAL_CLIENT_APPROVAL).
+	manualClientApproval?: boolean
 }
 
 export function buildFixtureEnv(input: FixtureEnvInput): Record<string, string> {
@@ -789,6 +791,8 @@ export function buildFixtureEnv(input: FixtureEnvInput): Record<string, string> 
 	else delete env.ARROXY_E2E_EXPLORE_ADBLOCK_FILTERS
 	if (input.exploreIdleUnloadMs !== undefined) env.ARROXY_E2E_EXPLORE_IDLE_MS = String(input.exploreIdleUnloadMs)
 	else delete env.ARROXY_E2E_EXPLORE_IDLE_MS
+	if (input.manualClientApproval === true) env.ARROXY_E2E_MANUAL_CLIENT_APPROVAL = '1'
+	else delete env.ARROXY_E2E_MANUAL_CLIENT_APPROVAL
 	delete env.MOCK_BACKEND
 	delete env.ELECTRON_RUN_AS_NODE
 	return env

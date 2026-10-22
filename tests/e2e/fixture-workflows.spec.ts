@@ -437,6 +437,38 @@ test('Electron bulk list expands a pasted playlist URL instead of queueing it wh
 	})
 })
 
+// A pasted list longer than the load limit used to come back with one row
+// past the limit and no word that the rest was left out (#584).
+// Actions: Bulk URLs with a video and the fixture playlist, a load limit below
+// the playlist's length, Continue.
+// Oracles: the playlist's rows stop at the limit; the review names the cut list.
+test('Electron bulk review cuts a pasted list at the load limit and says so', async () => {
+	test.setTimeout(120_000)
+	const limit = 2
+	const videoId = FIXTURE_VIDEO_IDS[5]
+	if (!videoId || FIXTURE_PLAYLIST_VIDEO_IDS.length <= limit) throw new Error('fixture playlist needs more videos than the limit')
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-bulk-capped-user-',
+			outputPrefix: 'arroxy-fixture-bulk-capped-out-',
+			settings: settings => {
+				settings.common.playlistProbeLimit = limit
+			}
+		},
+		async ({app, page, urls}) => {
+			await startBulkFromClipboard(page, app, `${urls.video(videoId)}\n${urls.playlist()}`)
+			await page.locator('[data-testid="bulk-url-confirm"]').click()
+
+			await expect(page.locator('[data-testid="step-playlist-items"]')).toBeVisible({timeout: 90_000})
+			await expect(page.locator('[data-testid^="playlist-item-row-"]')).toHaveCount(1 + limit, {timeout: 90_000})
+			await expect(page.getByTestId('bulk-capped-alert')).toContainText(`is cut at ${limit} videos`)
+			await expect(page.getByTestId('bulk-capped-alert')).toContainText('paste its link on its own')
+			await expect(page.getByTestId('bulk-capped-alert')).toContainText('Fixture Playlist')
+		}
+	)
+})
+
 test('Electron bulk metadata concurrency and back/next navigation reach completed queue files', async () => {
 	test.setTimeout(240_000)
 

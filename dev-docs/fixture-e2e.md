@@ -74,7 +74,7 @@ Every `*.spec.ts` in `tests/e2e/` gates CI, whatever its name: the E2E Fixtures 
 
 Name a spec by its risk group, not to get it selected: the selection once matched `fixture-*` only, and the `profile-*` and `playlist-multi-profile` specs never ran in CI.
 
-CI splits the run over four runners with Playwright's `--shard`, which divides by test, not by file, so a spec with many tests spreads across shards on its own. Add a shard to the matrix in `.github/workflows/e2e-fixtures.yml` when the slowest shard nears its 30-minute timeout, rather than leaving a spec out.
+CI splits the run over four runners with Playwright's `--shard`, which divides by test, not by file, so a spec with many tests spreads across shards on its own. Add a shard to the matrix in `.github/workflows/e2e-fixtures.yml` when the slowest shard nears its 30-minute timeout, rather than leaving a spec out. A separate Windows job runs only the `@path-limit` scenario ([Deep output paths](#deep-output-paths)).
 
 ## Running headless
 
@@ -89,3 +89,5 @@ The suites launch `out/main/index.js`, not the dev server, so rebuild first (`bu
 ## Deep output paths
 
 `ARROXY_E2E_OUTPUT_ROOT=<folder>` puts each fixture run's download folder under that folder (created if missing) instead of the system temp folder; userData and TEMP stay where they are. Use it to push output paths toward Windows' 260-character limit or Linux's 255-byte name limit. Don't deepen TEMP for that: yt-dlp is a PyInstaller build that unpacks itself into TEMP, so a deep TEMP breaks yt-dlp (global setup reports `Downloaded yt-dlp is not runnable`) before any Arroxy path code runs. Only the folders `withFixtureProductApp` and `withFixtureYtDlp` hand out as `outputDir` follow it.
+
+One scenario sets its own root: `fixture-deep-output-path.spec.ts` passes `outputRoot` to `withFixtureProductApp` (which stands in for the variable) to size the download folder to this platform's path limit less a fixed headroom, then checks that a long title is shortened and the file lands. Tagged `@path-limit`, it also runs on a Windows runner in the E2E Fixtures workflow (`--grep @path-limit`), the only place the 260-character limit applies; the Linux shards run it against Linux's own limit.

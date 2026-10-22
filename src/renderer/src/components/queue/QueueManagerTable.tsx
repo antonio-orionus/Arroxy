@@ -10,7 +10,8 @@ import {SelectableVirtualTable} from '../shared/SelectableVirtualTable.js'
 import type {RowSelectionInteractions} from '../shared/useRowSelectionInteractions.js'
 import {QueueArtifactsRow} from './QueueArtifactsRow.js'
 import {DownloadErrorGuidanceRow, QueueAttentionRow} from './QueueAttentionRow.js'
-import {isDownloadErrorRow, needsAttention} from './queueAttention.js'
+import {QueueListOfferRow} from './QueueListOffer.js'
+import {hasListOffer, isDownloadErrorRow, needsAttention} from './queueAttention.js'
 import type {QueueTableFeatures} from './queueTableFeatures.js'
 import {isQueueTableColumnId, type QueueTableColumnId} from './queueTablePreferences.js'
 import type {QueueColumnWidths} from './queueColumnWidths.js'
@@ -129,6 +130,7 @@ export function QueueManagerTable({
 			renderExtraRows={row => (
 				<>
 					{needsAttention(row.original) ? <QueueAttentionRow columnsLength={renderedColumnCount} item={row.original} /> : isDownloadErrorRow(row.original) ? <DownloadErrorGuidanceRow columnsLength={renderedColumnCount} item={row.original} /> : null}
+					{hasListOffer(row.original) ? <QueueListOfferRow columnsLength={renderedColumnCount} item={row.original} /> : null}
 					{expandedIds.has(row.original.id) ? <QueueArtifactsRow columnsLength={renderedColumnCount} item={row.original} /> : null}
 				</>
 			)}

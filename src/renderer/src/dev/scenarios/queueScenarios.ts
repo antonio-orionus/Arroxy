@@ -60,6 +60,8 @@ export function buildQueueItems(scenario: ScenarioLike): QueueItem[] {
 			return buildQuickDownloadItems()
 		case 'queue-attention':
 			return buildAttentionItems()
+		case 'queue-list-offer':
+			return buildListOfferItems()
 		default:
 			return []
 	}
@@ -114,6 +116,46 @@ function buildQuickDownloadItems(): QueueItem[] {
 			addedAt: '2026-05-31T12:01:00.000Z'
 		}),
 		queueItem({...placeholder, id: QUICK_DOWNLOAD_SCENARIO_ROWS.listed, url: 'https://media.example/course/42', title: 'Course 42 - all lessons', status: QUEUE_STATUS.needsChoice, probeMode: 'auto', choice: {kind: 'list-size', loaded: 12, capped: false}, addedAt: '2026-05-31T12:00:00.000Z'})
+	]
+}
+
+// Videos the hotkey took from links that also name a list, each offering it.
+function buildListOfferItems(): QueueItem[] {
+	return [
+		queueItem({
+			id: 'lo-running',
+			title: 'Lecture 3 - Gradient descent, explained',
+			url: 'https://www.youtube.com/watch?v=aircAruvnKk',
+			listOffer: 'https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi',
+			status: QUEUE_STATUS.running,
+			progressPercent: 46,
+			progressDetail: 'Downloading 46% · 11.2 MiB/s · ETA 0:38',
+			lastJobId: 'mock-lo-running',
+			addedAt: '2026-05-31T12:04:00.000Z'
+		}),
+		queueItem({
+			id: 'lo-mix',
+			title: 'Never Gonna Give You Up',
+			url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+			listOffer: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ',
+			status: QUEUE_STATUS.done,
+			progressPercent: 100,
+			progressDetail: null,
+			finishedAt: '2026-05-31T12:03:00.000Z',
+			addedAt: '2026-05-31T12:02:00.000Z'
+		}),
+		queueItem({
+			id: 'lo-album',
+			title: 'Track 1 - Opening',
+			url: 'https://music.youtube.com/watch?v=lYBUbBu4W08',
+			listOffer: 'https://music.youtube.com/watch?v=lYBUbBu4W08&list=OLAK5uy_mock_album',
+			status: QUEUE_STATUS.pending,
+			progressPercent: 0,
+			progressDetail: null,
+			lastStatus: null,
+			addedAt: '2026-05-31T12:01:00.000Z'
+		}),
+		queueItem({id: 'lo-plain', title: 'A plain video, no list', url: 'https://www.youtube.com/watch?v=jNQXAC9IVRw', status: QUEUE_STATUS.done, progressPercent: 100, progressDetail: null, finishedAt: '2026-05-31T12:00:30.000Z', addedAt: '2026-05-31T12:00:00.000Z'})
 	]
 }
 

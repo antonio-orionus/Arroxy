@@ -76,6 +76,12 @@ export type MixedPromptAnswer = {kind: 'list'} | {kind: 'first'; count: number} 
 // The home tab a wizard run started from, and lands back on when it ends.
 export type WizardOrigin = 'download' | 'explore'
 
+// A list pasted into Bulk URLs that went past the load limit and was cut there.
+export interface BulkCappedList {
+	url: string
+	title: string
+}
+
 // Where a copied link came from: the clipboard watcher, or an arroxy:// link
 // another app or a web page opened. Only the toast's wording differs.
 export interface CopiedLink {
@@ -159,6 +165,7 @@ export interface ProbeOrchestratorSlice {
 	bulkMetadataCompleted: number
 	bulkMetadataTotal: number
 	bulkMetadataById: Record<string, BulkMetadataItemStatus>
+	bulkCappedLists: BulkCappedList[]
 	quickDownloadStatus: QuickDownloadStatus
 	quickDownloadFailure: QuickDownloadFailure | null
 	quickDownloadQueueIds: string[]
@@ -247,6 +254,9 @@ export interface QuickDownloadSlice {
 	retryQuickDownloadRow: (itemId: string) => Promise<void>
 	retryQuickDownloadRowWithCookies: (itemId: string) => Promise<void>
 	chooseQuickDownloadRow: (itemId: string, answer: QuickDownloadRowAnswer) => Promise<void>
+	// A hotkey video's offer of its list: placed as its own row without the video, or dismissed.
+	takeListOffer: (itemId: string) => Promise<void>
+	dismissListOffer: (itemId: string) => Promise<void>
 	// "Sign in with Explore" (P2-R51): the failed items waiting for the Explore
 	// sign-in, retried once it is reported. Memory only: a restart forgets them.
 	exploreRetryTargets: readonly ExploreRetryTarget[]

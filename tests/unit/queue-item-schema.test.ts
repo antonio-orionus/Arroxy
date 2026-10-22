@@ -33,6 +33,19 @@ describe('queue item schema', () => {
 		expect(queueItemSchema.safeParse({...makeItem({id: 'resolved', status: 'pending'}), probeTake: {kind: 'first', count: 100}}).success).toBe(false)
 	})
 
+	it('accepts a skipped video id on a placeholder and refuses it on a resolved row', () => {
+		const unresolved = {kind: 'unresolved', extractor: '', extractorKey: ''} as const
+		const placeholder = {...makeItem({id: 'probing', status: 'probing', probeMode: 'playlist', job: unresolved})}
+		expect(queueItemSchema.safeParse({...placeholder, skipVideoId: 'abc'}).success).toBe(true)
+		expect(queueItemSchema.safeParse({...makeItem({id: 'resolved', status: 'pending'}), skipVideoId: 'abc'}).success).toBe(false)
+	})
+
+	it('keeps a list offer on a row, and loads a row saved without one', () => {
+		const row = makeItem({id: 'video', status: 'done'})
+		expect(queueItemSchema.parse({...row, listOffer: 'https://www.youtube.com/watch?v=abc&list=PL1'}).listOffer).toBe('https://www.youtube.com/watch?v=abc&list=PL1')
+		expect(queueItemSchema.parse(row).listOffer).toBeUndefined()
+	})
+
 	// The intake origin is users' data: rows saved before the Control API keep
 	// loading, and a Control client's row names the client that added it.
 	it('accepts every intake origin kind, and a Control client origin only with its client id', () => {

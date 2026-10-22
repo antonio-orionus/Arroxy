@@ -3,7 +3,6 @@ import {mkdir, mkdtemp, rm, writeFile} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import path from 'node:path'
 import {afterEach, beforeEach, describe, expect, it} from 'vite-plus/test'
-import {checkReviewed, recordReviewed, reviewedSnapshot} from '../../scripts/dual-review/reviewedState.js'
 import {gitIn, parsePushedRefs, refsToCheck, revertedFiles, type Git} from '../../scripts/pushGuard.js'
 
 const ZERO = '0'.repeat(40)
@@ -158,106 +157,5 @@ describe('pre-push refs', () => {
 		sh(clone, 'reset', '-q', '--soft', sh(clone, 'merge-base', 'origin/main', 'HEAD'))
 		sh(clone, 'commit', '-qm', 'feat: squashed')
 		expect(spawnSync('git', ['push', '-q', 'origin', 'feat/x'], {cwd: clone, encoding: 'utf8', env: ENV}).status).toBe(0)
-	})
-})
-
-describe('reviewed state', () => {
-	const review = (commit = 'HEAD') => recordReviewed(git, reviewedSnapshot(git, 'origin/main', commit))
-	const check = () => checkReviewed(git, 'origin/main')
-	const changed = {ok: false, reason: expect.stringMatching(/changed since the review/)}
-
-	it('passes a clean rebase and a merge of main, and refuses the stale squash', async () => {
-		await commit({'mine.txt': 'mine\n'}, 'feat: one')
-		await review()
-		await landOnMain({'a.txt': 'a2\n'}, 'fix: other lane')
-		sh(clone, 'fetch', '-q', 'origin')
-		sh(clone, 'rebase', '-q', 'origin/main')
-		expect(await check()).toEqual({ok: true})
-
-		sh(clone, 'reset', '-q', '--hard', 'ORIG_HEAD')
-		sh(clone, 'merge', '-q', '--no-edit', 'origin/main')
-		expect(await check()).toEqual({ok: true})
-
-		sh(clone, 'reset', '-q', '--hard', 'ORIG_HEAD')
-		sh(clone, 'reset', '-q', '--soft', 'origin/main')
-		sh(clone, 'commit', '-qm', 'feat: squashed')
-		expect(await check()).toEqual(changed)
-	})
-
-	it('tells the same edit apart by where it sits', async () => {
-		const src = (a: string, b: string) => `function a() {\n\treturn ${a}\n}\n\nfunction b() {\n\treturn ${b}\n}\n`
-		await landOnMain({'f.ts': src('true', 'true')}, 'feat: f')
-		sh(clone, 'pull', '-q', '--rebase', 'origin', 'main')
-		await commit({'f.ts': src('false', 'true')}, 'fix: a')
-		await review()
-		sh(clone, 'reset', '-q', '--hard', 'HEAD~1')
-		await commit({'f.ts': src('true', 'false')}, 'fix: b')
-		expect(await check()).toEqual(changed)
-	})
-
-	it('tells apart repeated blocks whose surrounding lines are identical', async () => {
-		const block = (value: string) => ['\tif (x) {', '\t\tone()', '\t\ttwo()', '\t\tthree()', `\t\treturn ${value}`, '\t\tfour()', '\t\tfive()', '\t\tsix()', '\t}']
-		const src = (first: string, second: string) => ['function f(x) {', '\tif (mode === 1) {', ...block(first), '\t}', '\tif (mode === 2) {', ...block(second), '\t}', '}', ''].join('\n')
-		await landOnMain({'f.ts': src('true', 'true')}, 'feat: f')
-		sh(clone, 'pull', '-q', '--rebase', 'origin', 'main')
-		await commit({'f.ts': src('false', 'true')}, 'fix: first')
-		await review()
-		sh(clone, 'reset', '-q', '--hard', 'HEAD~1')
-		await commit({'f.ts': src('true', 'false')}, 'fix: second')
-		expect(await check()).toEqual(changed)
-	})
-
-	it('passes a rebase over main editing the same file elsewhere, and refuses a hand-resolved conflict', async () => {
-		const lines = (top: string, bottom: string) => [top, ...Array.from({length: 20}, (_, i) => `line ${i}`), bottom, ''].join('\n')
-		await landOnMain({'f.txt': lines('top', 'bottom')}, 'feat: f')
-		sh(clone, 'pull', '-q', '--rebase', 'origin', 'main')
-		await commit({'f.txt': lines('top', 'bottom edited')}, 'fix: bottom')
-		await review()
-		await landOnMain({'f.txt': lines('top edited\nadded', 'bottom')}, 'fix: top')
-		sh(clone, 'pull', '-q', '--rebase', 'origin', 'main')
-		expect(await check()).toEqual({ok: true})
-
-		await landOnMain({'f.txt': lines('top edited\nadded', 'bottom from main')}, 'fix: bottom on main')
-		sh(clone, 'fetch', '-q', 'origin')
-		spawnSync('git', ['rebase', '-q', 'origin/main'], {cwd: clone, env: ENV})
-		await writeFile(path.join(clone, 'f.txt'), lines('top edited\nadded', 'bottom edited'))
-		sh(clone, 'add', 'f.txt')
-		sh(clone, '-c', 'core.editor=true', 'rebase', '--continue')
-		expect(await check()).toMatchObject({ok: false, reason: expect.stringMatching(/does not replay cleanly/)})
-	})
-
-	it('records the commit the review started on, not one that landed while it ran', async () => {
-		await commit({'mine.txt': 'mine\n'}, 'feat: one')
-		const started = reviewedSnapshot(git, 'origin/main', 'HEAD')
-		await commit({'mine.txt': 'mine 2\n'}, 'fix: landed during review')
-		await recordReviewed(git, started)
-		expect(await check()).toEqual(changed)
-		sh(clone, 'reset', '-q', '--hard', 'HEAD~1')
-		expect(await check()).toEqual({ok: true})
-	})
-
-	it('refuses an unreviewed branch and a change made after review', async () => {
-		await commit({'mine.txt': 'mine\n'}, 'feat: one')
-		expect(await check()).toMatchObject({ok: false, reason: expect.stringMatching(/no review recorded/)})
-		await review()
-		expect(await check()).toEqual({ok: true})
-		await commit({'mine.txt': 'mine 2\n'}, 'fix: after review')
-		expect(await check()).toEqual(changed)
-	})
-
-	it('lets land push only the reviewed head, and names the files it pushes', async () => {
-		const checkHead = () => spawnSync('bun', [path.resolve('scripts/dual-review/check-head.ts')], {cwd: clone, encoding: 'utf8', env: ENV})
-		await commit({'mine.txt': 'mine\n'}, 'feat: one')
-		expect(checkHead()).toMatchObject({status: 1, stderr: expect.stringMatching(/no review recorded/)})
-		await review()
-		expect(checkHead()).toMatchObject({status: 0, stdout: expect.stringMatching(/mine\.txt/)})
-
-		await commit({'mine.txt': 'mine 2\n'}, 'feat: two')
-		await review()
-		await landOnMain({'a.txt': 'a2\n'}, 'fix: other lane')
-		sh(clone, 'fetch', '-q', 'origin')
-		sh(clone, 'reset', '-q', '--soft', 'origin/main')
-		sh(clone, 'commit', '-qm', 'feat: squashed')
-		expect(checkHead()).toMatchObject({status: 1, stderr: expect.stringMatching(/undoes 1 file[\s\S]*a\.txt/)})
 	})
 })

@@ -154,7 +154,7 @@ describe('DownloadService (mock mode)', () => {
 
 	it('resume() restores tempDir from PausedDownload onto the new ActiveDownload when dir still exists', async () => {
 		vi.useFakeTimers()
-		const {service} = makeService()
+		const {service, recentJobsStore} = makeService()
 
 		// Resume validates the preserved tempDir exists on disk; create one in
 		// the OS temp tree so the stat() check succeeds.
@@ -182,8 +182,12 @@ describe('DownloadService (mock mode)', () => {
 			const active = activeJobs.get(pausedJob.id)
 			expect(active?.tempDir).toBe(tempDir)
 			await finishMockDownloadTimers()
+			// Finalize drains the job's disposables, which remove its temp dir. On
+			// Windows that removal racing the cleanup below fails it with EPERM.
+			await vi.waitFor(() => expect(recentJobsStore.push).toHaveBeenCalledOnce())
 		} finally {
-			await rm(outputDir, {recursive: true, force: true})
+			vi.useRealTimers()
+			await rm(outputDir, {recursive: true, force: true, maxRetries: 5, retryDelay: 100})
 		}
 	})
 

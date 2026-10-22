@@ -20,4 +20,4 @@ the change itself introduced. If the file is still over, it was already too big
 — extract another genuinely separate responsibility rather than shaving lines
 or trimming comments. Prefer concerns with existing test coverage so the
 extraction is verifiable. Mention unrelated extractions in the PR description
-so the scope is visible; see [[finish-before-pr]].
+so the scope is visible.

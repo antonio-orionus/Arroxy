@@ -1,5 +1,7 @@
 import {IPC_CHANNELS} from '@shared/ipc.js'
-import type {AppApi} from '@shared/api.js'
+import type {AppApi, LocalClientsApi} from '@shared/api.js'
+import type {LocalClientsSnapshot} from '@shared/localClients.js'
+import {isReleaseFlagOn} from '@shared/releaseFlags.js'
 import type {ExploreLinkAction, ExploreViewState, HotkeyOutcomeEvent, ProbeProgressEvent, ProgressEvent, QueueItem, QueueLane, QueueSelectionAction, QueueSchedulerEventPayload, QueueSnapshotPayload, SiteCooldown, StatusEvent, UpdateAvailablePayload, WarmupProgressEvent} from '@shared/types.js'
 import type {IntakeEvent} from '@shared/intake/intakeEvents.js'
 
@@ -14,8 +16,24 @@ export interface PreloadIpcRenderer {
 	send(channel: string, ...args: unknown[]): void
 }
 
+function localClientsApi(ipcRenderer: PreloadIpcRenderer): LocalClientsApi {
+	return {
+		get: () => ipcRenderer.invoke(IPC_CHANNELS.localClientsGet),
+		allow: input => ipcRenderer.invoke(IPC_CHANNELS.localClientsAllow, input),
+		deny: input => ipcRenderer.invoke(IPC_CHANNELS.localClientsDeny, input),
+		remove: input => ipcRenderer.invoke(IPC_CHANNELS.localClientsRemove, input),
+		onChanged: listener => {
+			const wrapped = (_: unknown, snapshot: LocalClientsSnapshot): void => listener(snapshot)
+			ipcRenderer.on(IPC_CHANNELS.localClientsChanged, wrapped)
+			return () => ipcRenderer.removeListener(IPC_CHANNELS.localClientsChanged, wrapped)
+		}
+	}
+}
+
 export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 	return {
+		// A release build has no handlers behind these, so it gets no methods either.
+		...(isReleaseFlagOn('agentControl') ? {localClients: localClientsApi(ipcRenderer)} : {}),
 		app: {
 			warmUp: input => ipcRenderer.invoke(IPC_CHANNELS.appWarmUp, input ?? {}),
 			cancelWarmup: () => ipcRenderer.invoke(IPC_CHANNELS.appCancelWarmup),
@@ -174,6 +192,8 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 			retry: input => ipcRenderer.invoke(IPC_CHANNELS.intakeCmdRetry, input),
 			choose: input => ipcRenderer.invoke(IPC_CHANNELS.intakeCmdChoose, input),
 			keptProbe: input => ipcRenderer.invoke(IPC_CHANNELS.intakeCmdKeptProbe, input),
+			takeListOffer: input => ipcRenderer.invoke(IPC_CHANNELS.intakeCmdTakeListOffer, input),
+			dismissListOffer: input => ipcRenderer.invoke(IPC_CHANNELS.intakeCmdDismissListOffer, input),
 			setWindowContext: context => ipcRenderer.invoke(IPC_CHANNELS.intakeCmdSetWindowContext, context),
 			onEvent: listener => {
 				const wrapped = (_: unknown, event: IntakeEvent): void => listener(event)

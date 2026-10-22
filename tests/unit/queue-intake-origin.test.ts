@@ -47,6 +47,21 @@ describe('replaceProbing and the intake origin', () => {
 		expect(qs.snapshot().map(item => item.origin)).toEqual([ORIGIN, ORIGIN, ORIGIN])
 	})
 
+	// A hotkey video's offer of its list survives the swap, onto the one video
+	// row; a placeholder that became several rows was a list, which offers nothing.
+	it("carries the placeholder's list offer onto the one row it becomes", async () => {
+		const offer = 'https://www.youtube.com/watch?v=v1&list=PL1'
+		const qs = makeService()
+		qs.add([{...placeholder(ORIGIN), listOffer: offer}])
+		await qs.replaceProbing('p1', prepared(1))
+		expect(qs.snapshot()[0]?.listOffer).toBe(offer)
+
+		const many = makeService()
+		many.add([{...placeholder(ORIGIN), listOffer: offer}])
+		await many.replaceProbing('p1', prepared(2))
+		expect(many.snapshot().map(item => item.listOffer)).toEqual([undefined, undefined])
+	})
+
 	it('leaves rows without an origin when the placeholder had none', async () => {
 		const qs = makeService()
 		qs.add([placeholder()])

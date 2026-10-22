@@ -75,6 +75,12 @@ export const queueItemSchema = z
 		pinnedProfile: pinnedDownloadProfileSchema.optional(),
 		// Who took the link in; copied onto every row the placeholder becomes.
 		origin: intakeOriginSchema.optional(),
+		// A video the hotkey took from a link that also names a list: that list's
+		// URL, offered on the row as "Get the whole playlist" until taken or dismissed.
+		listOffer: z.string().min(1).optional(),
+		// A list placed by a row's list offer: the video the hotkey already
+		// took, left out of whatever the list becomes, through Retry and restart.
+		skipVideoId: z.string().min(1).optional(),
 		job: preparedJobSchema
 	})
 	.superRefine((item, ctx) => {
@@ -90,6 +96,9 @@ export const queueItemSchema = z
 		// A placeholder's Retry probes the way it was submitted.
 		if (unresolved && item.probeMode === undefined) {
 			ctx.addIssue({code: 'custom', path: ['probeMode'], message: 'a placeholder row needs the probe mode it was submitted with'})
+		}
+		if (item.skipVideoId !== undefined && !unresolved) {
+			ctx.addIssue({code: 'custom', path: ['skipVideoId'], message: 'a skipped video belongs to a placeholder row'})
 		}
 		if (item.probeTake !== undefined && !unresolved) {
 			ctx.addIssue({code: 'custom', path: ['probeTake'], message: 'a chosen count belongs to a placeholder row'})

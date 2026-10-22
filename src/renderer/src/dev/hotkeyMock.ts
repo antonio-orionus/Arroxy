@@ -33,7 +33,7 @@ export function createHotkeyMock(deps: {intake: HotkeyIntakeMock; state: () => H
 			return
 		}
 		const profile = deps.intake.windowProfile()
-		const placement = await deps.intake.add({requestId: crypto.randomUUID(), url: intake.url, playlistMode: intake.playlistMode, ...(profile ? {profile} : {})})
+		const placement = await deps.intake.add({requestId: crypto.randomUUID(), url: intake.url, playlistMode: intake.playlistMode, ...(intake.listOffer ? {listOffer: intake.listOffer} : {}), ...(profile ? {profile} : {})})
 		send({outcome: hotkeyAck(placement), ...(placement.kind === 'added' ? {intakeId: placement.intakeId} : {})})
 	}
 

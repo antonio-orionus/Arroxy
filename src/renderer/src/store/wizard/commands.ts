@@ -11,7 +11,7 @@ import type {FitNotice} from '@shared/profileSelection.js'
 import type {SelectionOrder} from '@shared/selectionOrder.js'
 import type {ReviewRow, WizardSettingsSnapshot} from './profileApplication.js'
 import type {AudioSelection, BulkMetadataItemStatus, BulkMetadataStatus, DownloadProfile, DownloadProfileRef, FormatOption, MediaTags, PlaylistEntry, PlaylistScope, PlaylistSelection, SubtitleMap, WizardMode} from '@shared/types.js'
-import type {GetState, SetState, WizardOrigin, WizardStep} from '../types.js'
+import type {BulkCappedList, GetState, SetState, WizardOrigin, WizardStep} from '../types.js'
 import {assignProfileToItems, clearAssignmentsForItems} from './playlistProfileAssignments.js'
 import {QUICK_DOWNLOAD_FEEDBACK_INITIAL} from './quickDownloadFeedback.js'
 import {RESET_VIDEO_PART_STATE} from './videoPart.js'
@@ -64,6 +64,7 @@ export const RESET_WIZARD_STATE = {
 	bulkMetadataCompleted: 0,
 	bulkMetadataTotal: 0,
 	bulkMetadataById: {} as Record<string, BulkMetadataItemStatus>,
+	bulkCappedLists: [] as BulkCappedList[],
 	...QUICK_DOWNLOAD_FEEDBACK_INITIAL,
 	// formatPicker
 	wizardFormats: [] as FormatOption[],

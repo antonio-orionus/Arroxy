@@ -116,6 +116,31 @@ describe('syncAgents', () => {
 		expect(await readlink(join(root, 'CLAUDE.local.md'))).toBe('mine.md')
 	})
 
+	it('links the private skills in .internal/skills into .agents/skills, and so into every tool', async () => {
+		await mkdir(join(root, '.internal/skills/private-flow'), {recursive: true})
+		await writeFile(join(root, '.internal/skills/private-flow/SKILL.md'), '---\nname: private-flow\n---\n')
+
+		await syncAgents(root)
+		await syncAgents(root)
+
+		// A Windows junction stores an absolute target; elsewhere the link stays relative, so the checkout can move.
+		const target = await readlink(join(root, '.agents/skills/private-flow'))
+		if (process.platform === 'win32') expect(target).toContain(join('.internal', 'skills', 'private-flow'))
+		else expect(target).toBe(join('../../.internal/skills', 'private-flow'))
+		expect(await readFile(join(root, '.claude/skills/private-flow/SKILL.md'), 'utf8')).toContain('name: private-flow')
+	})
+
+	it('drops the link of a private skill that is gone, and leaves other skills alone', async () => {
+		await symlink('../../.internal/skills/retired', join(root, '.agents/skills/retired'))
+		await mkdir(join(root, '.internal/skills/alpha'), {recursive: true})
+		await writeFile(join(root, '.internal/skills/alpha/SKILL.md'), '---\nname: private alpha\n---\n')
+
+		await syncAgents(root)
+
+		await expect(lstat(join(root, '.agents/skills/retired'))).rejects.toThrow()
+		expect(await readFile(join(root, '.agents/skills/alpha/SKILL.md'), 'utf8')).toContain('name: alpha')
+	})
+
 	it('fails instead of unwiring when .internal/AGENTS.md exists but cannot be read', async () => {
 		await mkdir(join(root, '.internal/AGENTS.md'), {recursive: true})
 

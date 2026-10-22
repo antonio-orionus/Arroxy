@@ -1,6 +1,7 @@
 import type {Result} from './result.js'
 import type {SupportedLang} from './i18n/types.js'
 import type {
+	AppError,
 	AppSettings,
 	CancelDownloadInput,
 	CancelDownloadOutput,
@@ -46,6 +47,7 @@ import type {
 import type {PlaylistManifest} from './playlistManifest.js'
 import type {IntakeAddInput, IntakeTake, IntakeWindowContext} from './intake/intakeSchemas.js'
 import type {IntakeEvent, IntakePlacement} from './intake/intakeEvents.js'
+import type {LocalClientsAllowInput, LocalClientsDenyInput, LocalClientsError, LocalClientsRemoveInput, LocalClientsSnapshot} from './localClients.js'
 
 export interface SettingsPatch {
 	common?: Partial<CommonSettings>
@@ -59,6 +61,18 @@ export interface WindowApi {
 	close(): Promise<void>
 	isMaximized(): Promise<boolean>
 	onMaximizedChange(listener: (isMaximized: boolean) => void): () => void
+}
+
+// The programs on this computer allowed to use the Control API, and the
+// requests waiting for Allow (see LocalClientRegistry).
+export interface LocalClientsApi {
+	get(): Promise<Result<LocalClientsSnapshot, LocalClientsError | AppError>>
+	// pathsRead also lets the client read the paths of downloaded files.
+	allow(input: LocalClientsAllowInput): Promise<Result<void, LocalClientsError | AppError>>
+	deny(input: LocalClientsDenyInput): Promise<Result<void, LocalClientsError | AppError>>
+	// Its open connections close, and its secret stops working.
+	remove(input: LocalClientsRemoveInput): Promise<Result<void, LocalClientsError | AppError>>
+	onChanged(listener: (snapshot: LocalClientsSnapshot) => void): () => void
 }
 
 export interface AppApi {
@@ -141,6 +155,9 @@ export interface AppApi {
 		choose(input: {requestId: string; itemId: string; take: IntakeTake}): Promise<Result<void>>
 		// The probe a needs-choice row asked about, kept for its review; null once gone.
 		keptProbe(input: {itemId: string}): Promise<Result<PlaylistProbeResult | null>>
+		// A hotkey video's offer of its list: place the list as its own row without the video.
+		takeListOffer(input: {requestId: string; itemId: string}): Promise<Result<IntakePlacement>>
+		dismissListOffer(input: {itemId: string}): Promise<Result<void>>
 		setWindowContext(context: IntakeWindowContext): Promise<Result<void>>
 		onEvent(listener: (event: IntakeEvent) => void): () => void
 	}
@@ -166,6 +183,8 @@ export interface AppApi {
 		tryNow(site: string): Promise<Result<void>>
 		onCooldownsChanged(listener: (cooldowns: SiteCooldown[]) => void): () => void
 	}
+	// Only while the agentControl release flag is on.
+	localClients?: LocalClientsApi
 	updater: {onUpdateAvailable(listener: (info: UpdateAvailablePayload) => void): () => void; install(): Promise<UpdateInstallResult>}
 	diagnostics: {logWizardStep(snapshot: WizardStepSnapshot): void}
 	playlist: {scanFolder(input: {outputDir: string; videoIds: string[]}): Promise<Result<{matchedIds: string[]}>>; registerManifest(manifest: PlaylistManifest): Promise<Result<void>>}

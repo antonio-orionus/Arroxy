@@ -1,7 +1,7 @@
 import path from 'node:path'
 import fs from 'node:fs'
 import os from 'node:os'
-import {app, BrowserWindow, clipboard, dialog, Menu, nativeTheme} from 'electron'
+import {app, BrowserWindow, clipboard, dialog, Menu, nativeTheme, safeStorage} from 'electron'
 import log from 'electron-log/main.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import type {GraphicsPolicy} from '@shared/types.js'
@@ -12,6 +12,7 @@ import {pickLanguage, pickSystemLanguage} from '@shared/i18n/language.js'
 import type {SupportedLang} from '@shared/i18n/types.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {registerIpcHandlers} from '@main/ipc/registerIpcHandlers.js'
+import {registerLocalClientHandlers} from '@main/ipc/localClientHandlers.js'
 import {registerUpdaterHandlers} from '@main/ipc/registerUpdaterHandlers.js'
 import {counterscaleSender, createHeartbeat, HEARTBEAT_SITE_ID, heartbeatUrl, osLocale} from '@main/services/heartbeat.js'
 import {holdQuitForWarmupReport, startWarmupReporting, warmupReportCollector} from '@main/warmupReporting.js'
@@ -54,7 +55,9 @@ import {createHotkeyOsNotifier} from '@main/services/hotkeyOsNotifier.js'
 import {routeHotkeyOutcome} from '@main/services/hotkeyFeedback.js'
 import {createIntakeService} from '@main/intake/createIntakeService.js'
 import {binaryReadiness} from '@main/control/binaryReadiness.js'
-import {autoAllowsClients, startAgentControl, stopAgentControlOnQuit} from '@main/control/startAgentControl.js'
+import {FileLocalClientStore, LOCAL_CLIENTS_FILE_NAME} from '@main/control/clients/localClientStore.js'
+import {safeStorageCipher} from '@main/control/clients/secretCipher.js'
+import {autoAllowsClients, localClientCipher, startAgentControl, stopAgentControlOnQuit} from '@main/control/startAgentControl.js'
 import {HiddenWindowTokenProvider} from '@main/token/providers/HiddenWindowTokenProvider.js'
 import {configureLogFile, mainLogPath} from '@main/utils/logFile.js'
 import {applyUserDataOverride} from '@main/userDataOverride.js'
@@ -682,6 +685,11 @@ if (hasSingleInstanceLock) {
 		}
 
 		// Agent control (release flag agentControl): the local socket arroxy-mcp drives the app through.
+		// Building the store and cipher touches nothing; with the flag off neither is used.
+		const controlGate = {e2eHarness: e2eMode.enabled, isPackaged: app.isPackaged}
+		const clientCipher = localClientCipher(controlGate, () => safeStorageCipher(safeStorage, process.platform))
+		// Before agent control starts, so the window's calls answer not_running until the clients load, and after a failed start. Registers nothing with the flag off.
+		const localClients = registerLocalClientHandlers(mainWindow)
 		const agentControl = startAgentControl({
 			queueService,
 			intake: intakeService,
@@ -694,7 +702,10 @@ if (hasSingleInstanceLock) {
 			appVersion: app.getVersion(),
 			platform: process.platform,
 			env: process.env,
-			autoAllowClients: autoAllowsClients({e2eHarness: e2eMode.enabled, isPackaged: app.isPackaged}),
+			autoAllowClients: autoAllowsClients(controlGate, process.env),
+			clientStore: new FileLocalClientStore({filePath: path.join(userDataPath, LOCAL_CLIENTS_FILE_NAME), cipher: clientCipher, log: log.scope('control')}),
+			secretsStorable: () => clientCipher.available(),
+			localClients,
 			log: log.scope('control')
 		})
 		stopAgentControlOnQuit(quitHooks, agentControl, log.scope('control'))

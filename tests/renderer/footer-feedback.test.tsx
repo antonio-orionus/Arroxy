@@ -50,7 +50,7 @@ const mockAppApi = {
 		onHotkeyOutcome: vi.fn().mockReturnValue(() => undefined),
 		onWarmupProgress: vi.fn().mockReturnValue(() => undefined)
 	},
-	intake: {add: vi.fn(), retry: vi.fn(), choose: vi.fn(), keptProbe: vi.fn(), setWindowContext: vi.fn().mockResolvedValue(ok(undefined)), onEvent: vi.fn().mockReturnValue(() => undefined)},
+	intake: {add: vi.fn(), retry: vi.fn(), choose: vi.fn(), keptProbe: vi.fn(), takeListOffer: vi.fn(), dismissListOffer: vi.fn(), setWindowContext: vi.fn().mockResolvedValue(ok(undefined)), onEvent: vi.fn().mockReturnValue(() => undefined)},
 	queue: {
 		cmd: {
 			add: vi.fn().mockResolvedValue({ok: true, data: {ids: []}}),

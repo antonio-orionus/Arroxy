@@ -57,7 +57,8 @@ async function boot(dir: string, normalCap = 1, ceiling = 4) {
 	let n = 0
 	ds.start.mockImplementation(() => Promise.resolve(jobResult(`job-${++n}`)))
 	ds.pause.mockResolvedValue(ok({paused: true, tempDir: '/tmp/.arroxy-temp/sim'}))
-	ds.resume.mockResolvedValue(ok({resumed: true}))
+	// A booted process holds no parked jobs: a resume after reload starts afresh.
+	ds.resume.mockResolvedValue(ok({resumed: false}))
 	ds.cancel.mockResolvedValue(ok({cancelled: true}))
 
 	const store = new QueueStore(dir)

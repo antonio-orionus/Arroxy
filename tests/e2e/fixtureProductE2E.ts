@@ -42,12 +42,17 @@ interface FixtureProductOptions {
 	exploreAdBlockFilters?: string
 	// How long Explore waits after the tab is left before releasing the page.
 	exploreIdleUnloadMs?: number
+	// Local clients wait for Allow, which the spec gives through the window's IPC.
+	manualClientApproval?: boolean
 	// A queue left by a previous session, restored at startup.
 	restoredQueue?: (outputDir: string) => QueueItem[]
 	// Arguments after the app's entry on the first launch, e.g. an arroxy:// link.
 	launchArgs?: readonly string[]
 	userDataPrefix?: string
 	outputPrefix?: string
+	// The folder the download folder is made in, for this scenario alone; it
+	// stands in for ARROXY_E2E_OUTPUT_ROOT.
+	outputRoot?: string
 }
 
 interface FixtureYtDlpOptions {
@@ -188,7 +193,7 @@ export async function withFixtureProductApp(options: FixtureProductOptions, run:
 	const fixtureServer = await startFixtureServer(options.behavior)
 	const denyProxy = await startDenyProxy()
 	const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), options.userDataPrefix ?? 'arroxy-fixture-user-'))
-	const outputDir = makeFixtureOutputDir(options.outputPrefix ?? 'arroxy-fixture-out-')
+	const outputDir = makeFixtureOutputDir(options.outputPrefix ?? 'arroxy-fixture-out-', options.outputRoot === undefined ? process.env : {ARROXY_E2E_OUTPUT_ROOT: options.outputRoot})
 	writeE2eSettings(userDataDir, outputDir, options.settings)
 	const exploreCookiesPath = options.exploreCookies ? writeExploreCookies(userDataDir, options.exploreCookies) : undefined
 	if (options.restoredQueue) writeRestoredQueue(userDataDir, options.restoredQueue(outputDir))
@@ -197,7 +202,7 @@ export async function withFixtureProductApp(options: FixtureProductOptions, run:
 		exploreAdBlockFiltersPath = path.join(userDataDir, 'e2e-adblock-filters.txt')
 		fs.writeFileSync(exploreAdBlockFiltersPath, options.exploreAdBlockFilters, 'utf8')
 	}
-	const launchInput = {userDataDir, fixtureServer, denyProxy, exploreCookiesPath, exploreHomeUrl: options.exploreHomeUrl, exploreAdBlockFiltersPath, exploreIdleUnloadMs: options.exploreIdleUnloadMs}
+	const launchInput = {userDataDir, fixtureServer, denyProxy, exploreCookiesPath, exploreHomeUrl: options.exploreHomeUrl, exploreAdBlockFiltersPath, exploreIdleUnloadMs: options.exploreIdleUnloadMs, manualClientApproval: options.manualClientApproval}
 
 	let app: ElectronApplication | null = null
 	try {

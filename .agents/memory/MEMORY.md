@@ -1,14 +1,8 @@
 # Project memory index
 
-## How Antonio wants work done
+## Rules for changes
 
-- [Finish before PR](finish-before-pr.md) — close every related follow-up (tests, English copy and README, changelog fragment) before proposing a PR; translation is not part of it.
-- [Ship means merge, not release](ship-means-merge-not-release.md) — "ship"/"land" stops at the merge; release only on an explicit "release", stable by default, a beta only when he asks for one; never ask or offer to release.
-- [CodeRabbit review workflow](coderabbit-review-workflow.md) — 2 reviews/hour shared and adaptive, auto reviews off: trigger behaviour PRs once on a final head after CI is green, one retry at most, never push mid-review.
 - [Review learnings](review-learnings.md) — rules the dual review injects into every reviewer and CodeRabbit reads as a guideline; add one when a refuted finding would recur.
-- [No AI attribution](no-ai-attribution.md) — never add Co-Authored-By or "Generated with" lines to commits or PRs.
-- [Docs edits skip the PR](readme-edits-skip-pr.md) — docs-only changes (README, dev-docs, AGENTS.md, ADRs, memory) go straight to main after `bun run check`.
-- [English-only PRs](english-only-prs.md) — PRs change en.json and en.mjs only; every translation happens in one sync PR as the first step of a release.
 - [LOC limits are architecture signals](loc-limits-are-architecture-signals.md) — never raise the LOC cap to land a change; extract a cohesive concern instead.
 - [Changelog stays laconic](changelog-laconic.md) — one or two user-facing sentences per fragment or entry, no internals, no exact sizes.
 
@@ -20,6 +14,7 @@
 ## Test machines and environment
 
 - [Windows VM testing](windows-vm-testing.md) — ssh into the Win11 ARM64 VM for `dist:win:dir` + `verify:startup`; bash on PATH, x64-only assets, node not bun.
+- [Live YouTube request budget](live-youtube-request-budget.md) — ~40 fresh-profile loads in an hour got Antonio's IP a 429 captcha; a handful of loads, one persistent profile, stop at the first captcha.
 - [Linux VM testing](linux-vm-testing.md) — Ubuntu ARM64 guest for Linux/Electron/GPU checks; `scripts/vm/ubu-*` launch over ssh; never log the session out.
 - [Inherited ELECTRON_RUN_AS_NODE](electron-run-as-node-leak.md) — agent shells can carry it; hand-launched Electron then fails on `BrowserWindow`. Strip it.
 - [macOS 26 Electron Audio Service](macos-26-electron-audio-service.md) — Electron (seen on 42) can crash-loop `audio.mojom.AudioService`; disabled out of process on Darwin 25+.

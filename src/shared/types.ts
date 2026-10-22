@@ -379,6 +379,10 @@ export interface QueueItem {
 	choice?: import('./schemas.js').QueueChoice
 	pinnedProfile?: import('./intake/intakeSchemas.js').PinnedDownloadProfile
 	origin?: import('./intake/intakeSchemas.js').IntakeOrigin
+	// A video the hotkey took from a link that also names a list: that list's URL, offered on the row.
+	listOffer?: string
+	// A list placed by a row's list offer: the video the hotkey already took, left out.
+	skipVideoId?: string
 	job: PreparedJob
 }
 
