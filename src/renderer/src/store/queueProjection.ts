@@ -1,11 +1,9 @@
 import type {QueueItem, QueueSchedulerEventPayload, QueueSnapshotPayload} from '@shared/types.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
-import {reconcileQuickDownloadFeedback, type QuickDownloadFeedbackState} from './wizard/quickDownloadFeedback.js'
-
-type QueueProjectionState = Pick<
-	QuickDownloadFeedbackState,
-	'quickDownloadStatus' | 'quickDownloadFailure' | 'quickDownloadQueueIds' | 'quickDownloadProgressPhase' | 'quickDownloadProgressTotal' | 'quickDownloadProgressCompleted' | 'quickDownloadProgressFailed' | 'quickDownloadProgressCurrent' | 'quickDownloadProgressTitle' | 'quickDownloadProgressRunId'
-> & {queue: QueueItem[]; schedulerPaused: boolean}
+interface QueueProjectionState {
+	queue: QueueItem[]
+	schedulerPaused: boolean
+}
 
 interface QueueProjectionBatch {
 	adds: {items: QueueItem[]; atIdx: number}[]
@@ -19,8 +17,8 @@ export interface QueueProjectionResult {
 	patch: Partial<QueueProjectionState>
 }
 
-export function projectQueueSnapshot(state: QueueProjectionState, snapshot: QueueSnapshotPayload): Partial<QueueProjectionState> {
-	return {queue: snapshot.items, schedulerPaused: snapshot.schedulerPaused, ...reconcileQuickDownloadFeedback(state, snapshot.items)}
+export function projectQueueSnapshot(snapshot: QueueSnapshotPayload): Partial<QueueProjectionState> {
+	return {queue: snapshot.items, schedulerPaused: snapshot.schedulerPaused}
 }
 
 export function applyQueueProjectionBatch(state: QueueProjectionState, batch: QueueProjectionBatch): QueueProjectionResult {
@@ -56,8 +54,7 @@ export function applyQueueProjectionBatch(state: QueueProjectionState, batch: Qu
 	}
 	if (updates.size > 0) next = next.map(item => updates.get(item.id) ?? item)
 
-	const quickPatch = reconcileQuickDownloadFeedback(state, next)
-	const patch = next === state.queue ? quickPatch : {queue: next, ...quickPatch}
+	const patch = next === state.queue ? {} : {queue: next}
 	return {queue: next, doneIncrements, patch}
 }
 
@@ -117,7 +114,7 @@ export function bindQueueProjection<State extends QueueProjectionState>({events,
 
 	const unbindSnapshot = events.onSnapshot(snapshot => {
 		if (!active) return
-		set(state => projectQueueSnapshot(state, snapshot) as Partial<State>)
+		set(() => projectQueueSnapshot(snapshot) as Partial<State>)
 	})
 	const unbindScheduler = events.onScheduler(({paused}) => {
 		if (!active || get().schedulerPaused === paused) return

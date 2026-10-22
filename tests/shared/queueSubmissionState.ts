@@ -2,6 +2,15 @@ import {selectionSourceFromOptions} from '@shared/ytdlp/optionSelectionSource.js
 import {defaultAppSettings} from '@shared/constants.js'
 import type {FormatOption, PlaylistEntry} from '@shared/types.js'
 import type {AppState} from '@renderer/store/types.js'
+import type {ProbeResult, QueueLane} from '@shared/types.js'
+import i18next from 'i18next'
+import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
+import {profileFormatLabel} from '@shared/profileFormatLabel.js'
+import {preparePinnedProfileQueueSubmission, type PreparedQueueSubmission, type QueuePreparationEnv} from '@shared/queueSubmission.js'
+import type {PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
+import {displayShowsHdr} from '@renderer/lib/displayHdr.js'
+import {generateId} from '@renderer/store/helpers.js'
+import {rendererFilenameBinding} from '@renderer/store/wizard/outputTemplates.js'
 
 // The wizard state queue-submission tests start from: one YouTube video with a
 // 1080p video track and an Opus audio track, plus a two-item playlist.
@@ -56,4 +65,20 @@ export function wizardState(overrides: Partial<AppState> = {}): AppState {
 		queue: [],
 		...overrides
 	} as AppState
+}
+
+/** The active profile, with the folders it resolves against right now. */
+export function pinActiveDownloadProfile(state: AppState): PinnedDownloadProfile {
+	return {ref: resolveActiveDownloadProfile(state.settings?.profiles).ref, outputContext: {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}}
+}
+
+/** Rows get fresh ids, HDR follows this window's screen, names this machine's filesystem. */
+export function rendererPreparationEnv(): QueuePreparationEnv {
+	return {newId: generateId, profileFormatLabel: profile => profileFormatLabel(profile, i18next.t, i18next.language), displayShowsHdr: displayShowsHdr(), filenames: rendererFilenameBinding()}
+}
+
+// A probe prepared with the active profile and the wizard's folder, as main's
+// intake prepares a placeholder row's (preparePinnedProfileQueueSubmission).
+export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: AppState, lane: QueueLane, source: {url: string; playlistTitle: string}): PreparedQueueSubmission | null {
+	return preparePinnedProfileQueueSubmission(probe, state, lane, source, pinActiveDownloadProfile(state), rendererPreparationEnv())
 }

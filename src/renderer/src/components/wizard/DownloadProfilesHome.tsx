@@ -12,7 +12,6 @@ import {notify} from '@renderer/lib/notify.js'
 import {useProfileDisplayName} from '@renderer/lib/profileName.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {useDownloadHomeView, type DownloadHomeView, type DownloadInputType} from '../../store/downloadHomeView.js'
-import {Alert, AlertDescription} from '../ui/alert.js'
 import {Button} from '../ui/button.js'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '../ui/card.js'
 import {InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput} from '../ui/input-group.js'
@@ -25,7 +24,6 @@ import {IncompleteCookiesConfigDialog} from './IncompleteCookiesConfigDialog.js'
 import {QuickProfileControl} from './QuickProfileControl.js'
 import {QueueManagerTab} from '../queue/QueueManagerTab.js'
 import {ExploreTab} from '../explore/ExploreTab.js'
-import {QuickDownloadErrorAlert} from './QuickDownloadErrorAlert.js'
 import {HomeTabsList, QueueTabFirstRunCue} from './DownloadHomeTabs.js'
 import {isProfilesTab, selectProfilesTab, useProfilesTabRoute, useQueueTabSummary, useQueueTabTip, type ProfilesTab} from './homeTabRoute.js'
 import {useBulkUrlDialog, useCopiedLinkIntake} from './downloadHomeIntake.js'
@@ -45,21 +43,9 @@ function browserMockScenarioId(): string | null {
 }
 
 // What the mascot says under the heading: what Quick Download will do with the
-// link in the field, or how it is getting on.
+// link in the field.
 // `inHint`: the buttons already say what the link offers, so the line waits in the heading's hint.
-function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t}: {activeProfileName: string; hasActiveDownloads: boolean; hasInput: boolean; inputType: DownloadInputType | null; quickDownloadStatus: string; t: TFunction}): {
-	body: string
-	image: string
-	inHint?: boolean
-} {
-	if (quickDownloadStatus === 'preparing') {
-		return {body: t('wizard.url.mascotPreparing', {quickDownload: t('wizard.url.quickDownload'), profileName: activeProfileName}), image: downloadingImg}
-	}
-
-	if (quickDownloadStatus === 'queued') {
-		return {body: t('wizard.url.mascotQueued'), image: downloadingImg}
-	}
-
+function downloadMascotHelp({activeProfileName, hasActiveDownloads, hasInput, inputType, t}: {activeProfileName: string; hasActiveDownloads: boolean; hasInput: boolean; inputType: DownloadInputType | null; t: TFunction}): {body: string; image: string; inHint?: boolean} {
 	if (!hasInput) {
 		return hasActiveDownloads ? {body: t('wizard.url.mascotBusy'), image: downloadingImg} : {body: t('wizard.url.mascotIdle'), image: hiImg}
 	}
@@ -202,8 +188,6 @@ function DownloadTabPanel({view, initialBrowserMockScenario, onEditProfile, onMa
 					profilesPrefs={profilesPrefs}
 				/>
 
-				<QuickDownloadFeedback view={view} />
-
 				<div className="mt-3 grid w-full gap-2 sm:grid-cols-2" data-testid="profiles-action-rows">
 					<ActionRow disabled={!urlReady} icon={Wand2} title={listKind ? t('wizard.url.interactiveDownloadAsks') : t('wizard.url.interactiveDownload')} description={t('wizard.url.fetchFormatsTooltip')} onClick={() => void submitUrl()} testId="profiles-interactive-download" />
 					<ActionRow icon={ListPlus} title={t('wizard.url.bulkButton')} description={t('wizard.url.bulkTooltip')} onClick={onOpenBulk} testId="profiles-bulk-urls" />
@@ -215,9 +199,9 @@ function DownloadTabPanel({view, initialBrowserMockScenario, onEditProfile, onMa
 
 function DownloadMascotHeader({view}: {view: DownloadHomeView}): ReactNode {
 	const {t} = useTranslation()
-	const {activeProfile, hasActiveDownloads, hasInput, inputType, quickDownloadStatus} = view
+	const {activeProfile, hasActiveDownloads, hasInput, inputType} = view
 	const nameOf = useProfileDisplayName()
-	const mascotHelp = downloadMascotHelp({activeProfileName: nameOf(activeProfile), hasActiveDownloads, hasInput, inputType, quickDownloadStatus, t})
+	const mascotHelp = downloadMascotHelp({activeProfileName: nameOf(activeProfile), hasActiveDownloads, hasInput, inputType, t})
 	const showMascotHelp = inputType !== 'Unknown URL' && inputType !== 'Unsupported URL'
 	const mascotHeaderBody = showMascotHelp ? mascotHelp.body : t('wizard.url.quickSingleOnly')
 	const mascotHeaderImage = showMascotHelp ? mascotHelp.image : hiImg
@@ -319,35 +303,6 @@ function DownloadUrlInput({view, onPasteBulk}: {view: DownloadHomeView; onPasteB
 				</InputGroupAddon>
 			)}
 		</InputGroup>
-	)
-}
-
-function QuickDownloadFeedback({view}: {view: DownloadHomeView}): ReactNode {
-	const {t} = useTranslation()
-	const {openCookiesSettings, openExploreSignIn, quickDownloadFailureMessage, quickDownloadProbeExperience, quickDownloadProgressFailed, quickDownloadStatus, retryQuickDownloadFailure, retryQuickDownloadWithCookies, retryWithExploreSignIn, signInWithExploreThenRetry} = view
-	const showQuickPartialWarning = quickDownloadStatus === 'queued' && quickDownloadProgressFailed > 0
-	return (
-		<>
-			{quickDownloadStatus === 'error' ? (
-				<QuickDownloadErrorAlert
-					className="mt-2"
-					experience={quickDownloadProbeExperience}
-					message={quickDownloadFailureMessage}
-					url={view.quickDownloadFailure?.kind === 'bulk-probe' ? view.quickDownloadFailure.errorUrl : (view.quickDownloadFailure?.urls[0] ?? null)}
-					onEnableCookiesAndRetry={() => void retryQuickDownloadWithCookies()}
-					onOpenCookiesSettings={openCookiesSettings}
-					onSignInWithExplore={openExploreSignIn}
-					onSignInWithExploreThenRetry={site => void signInWithExploreThenRetry({kind: 'home'}, site)}
-					onRetryWithExploreSignIn={() => void retryWithExploreSignIn({kind: 'home'})}
-					onRetry={() => void retryQuickDownloadFailure()}
-				/>
-			) : null}
-			{showQuickPartialWarning ? (
-				<Alert variant="warning" size="sm" className="mt-2" data-testid="quick-download-feedback">
-					<AlertDescription>{t('wizard.url.quickPartialFailed', {count: quickDownloadProgressFailed})}</AlertDescription>
-				</Alert>
-			) : null}
-		</>
 	)
 }
 

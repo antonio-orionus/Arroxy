@@ -1,4 +1,4 @@
-import {useMemo, useRef, useState, type ReactNode} from 'react'
+import {useEffect, useMemo, useRef, useState, type ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import {AlertTriangle, Link2, WandSparkles} from 'lucide-react'
 import type {BulkUrlRejectReason, DownloadProfileRef} from '@shared/types.js'
@@ -38,14 +38,31 @@ const REJECT_I18N: Record<BulkUrlRejectReason, 'wizard.bulk.reject.duplicate'> =
 export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfile, onManageProfiles, onNewProfile, renderActions}: BulkUrlDialogProps): ReactNode {
 	const {t} = useTranslation()
 	const startBulkUrls = useAppStore(state => state.startBulkUrls)
-	const quickDownloadUrls = useAppStore(state => state.quickDownloadUrls)
-	const quickDownloadStatus = useAppStore(state => state.quickDownloadStatus)
+	const bulkQuickDownload = useAppStore(state => state.bulkQuickDownload)
 	const setActiveDownloadProfile = useAppStore(state => state.setActiveDownloadProfile)
 	const profilesPrefs = useAppStore(state => state.settings?.profiles)
-	const [raw, setRaw] = useState(initialRaw)
+	const [raw, setRawState] = useState(initialRaw)
+	// The text as it is now, for a placement that finishes later.
+	const rawRef = useRef(initialRaw)
+	function setRaw(next: string): void {
+		rawRef.current = next
+		setRawState(next)
+	}
 	const textareaRef = useRef<HTMLTextAreaElement>(null)
 	const preview = useMemo(() => buildBulkUrlPreview(raw), [raw])
-	const quickPreparing = quickDownloadStatus === 'preparing'
+	// While the links are being placed: a second press must not place them twice.
+	const [placing, setPlacing] = useState(false)
+	const placingRef = useRef(false)
+	// Which opening of the dialog a placement belongs to. Opening, closing and
+	// unmounting (the home mounts a new dialog each time) move it on, so a
+	// placement that finishes later never closes or clears the dialog opened since.
+	const openingRef = useRef(0)
+	useEffect(
+		() => () => {
+			openingRef.current += 1
+		},
+		[open]
+	)
 
 	function close(): void {
 		onOpenChange(false)
@@ -58,22 +75,35 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 
 	function confirm(): void {
 		const current = buildBulkUrlPreview(raw)
-		if (!current.canConfirm) return
+		// The links being placed must not also go to the review.
+		if (!current.canConfirm || placingRef.current) return
 		bulkLogger.info('Bulk URL dialog confirmed', {accepted: current.accepted.length, rejected: current.rejected.length, ignored: current.ignoredCount})
 		startBulkUrls(current.acceptedUrls)
 		setRaw('')
 		onOpenChange(false)
 	}
 
+	// Each accepted link becomes a row in Downloads through link intake. The
+	// dialog closes once something was placed (or the batch went to the
+	// review), and stays open with its text when nothing was, or when the text
+	// was edited meanwhile: that is the next batch.
 	async function confirmQuick(): Promise<void> {
 		const current = buildBulkUrlPreview(raw)
-		if (!current.canConfirm || quickPreparing) return
+		if (!current.canConfirm || placingRef.current) return
 		bulkLogger.info('Bulk URL dialog quick download requested', {accepted: current.accepted.length, rejected: current.rejected.length, ignored: current.ignoredCount})
-		await quickDownloadUrls(current.acceptedUrls)
-		const nextState = useAppStore.getState()
-		if (nextState.quickDownloadStatus === 'queued' || nextState.wizardMode === 'bulk') {
-			setRaw('')
-			onOpenChange(false)
+		const opening = openingRef.current
+		const submitted = raw
+		placingRef.current = true
+		setPlacing(true)
+		try {
+			const closes = await bulkQuickDownload(current.acceptedUrls)
+			if (closes && openingRef.current === opening && rawRef.current === submitted) {
+				setRaw('')
+				onOpenChange(false)
+			}
+		} finally {
+			placingRef.current = false
+			setPlacing(false)
 		}
 	}
 
@@ -162,13 +192,13 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 
 					{renderActions ? null : (
 						<QuickProfileControl
-							disabled={!preview.canConfirm || quickPreparing}
+							disabled={!preview.canConfirm || placing}
 							onDownload={() => void confirmQuick()}
 							onEditProfile={() => closeAndRun(onEditProfile)}
 							onManageProfiles={() => closeAndRun(onManageProfiles)}
 							onNewProfile={() => closeAndRun(onNewProfile)}
 							onPickProfile={activateProfile}
-							preparing={quickPreparing}
+							preparing={placing}
 							profilesPrefs={profilesPrefs}
 							size="compact"
 							testIdPrefix="bulk"
@@ -184,7 +214,7 @@ export function BulkUrlDialog({open, onOpenChange, initialRaw = '', onEditProfil
 							<Button type="button" variant="outline" onClick={close}>
 								{t('common.cancel')}
 							</Button>
-							<Button type="button" variant="outline" onClick={confirm} disabled={!preview.canConfirm} data-testid="bulk-url-confirm">
+							<Button type="button" variant="outline" onClick={confirm} disabled={!preview.canConfirm || placing} data-testid="bulk-url-confirm">
 								<WandSparkles data-icon="inline-start" />
 								{t('wizard.url.interactiveDownload')}
 							</Button>

@@ -1,4 +1,4 @@
-import {act, fireEvent, render, screen, waitFor} from '@testing-library/react'
+import {fireEvent, render, screen, waitFor} from '@testing-library/react'
 import {I18nextProvider} from 'react-i18next'
 import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 import {App} from '@renderer/App.js'
@@ -23,7 +23,7 @@ const USER_DATA = ['Balanced 720p', '/tmp/Balanced 720p', '/mnt/archive/Lectures
 
 describe('home screen copy', () => {
 	beforeEach(() => {
-		useAppStore.setState({initialized: false, initializing: false, splashDismissed: false, settings: null, language: 'en', wizardStep: 'url', wizardUrl: '', wizardOutputDir: '', quickDownloadStatus: 'idle', quickDownloadFailure: null, quickDownloadQueueIds: [], queue: []})
+		useAppStore.setState({initialized: false, initializing: false, splashDismissed: false, settings: null, language: 'en', wizardStep: 'url', wizardUrl: '', wizardOutputDir: '', queue: []})
 		window.appApi = buildMockAppApi()
 		window.platform = 'linux'
 		window.history.replaceState(null, '', '/')
@@ -40,15 +40,6 @@ describe('home screen copy', () => {
 		const panel = await renderHome()
 		await screen.findByTestId('profiles-profile-destination')
 		fireEvent.change(screen.getByTestId('profiles-main-input'), {target: {value: url}})
-
-		expect(untranslatedWords(panel, USER_DATA)).toEqual([])
-	})
-
-	it.each(['preparing', 'queued'] as const)('translates the URL panel while Quick Download is %s', async status => {
-		const panel = await renderHome()
-		await screen.findByTestId('profiles-profile-destination')
-		fireEvent.change(screen.getByTestId('profiles-main-input'), {target: {value: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}})
-		act(() => useAppStore.setState({quickDownloadStatus: status}))
 
 		expect(untranslatedWords(panel, USER_DATA)).toEqual([])
 	})

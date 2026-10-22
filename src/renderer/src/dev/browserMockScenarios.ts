@@ -55,8 +55,6 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'profiles-editor',
 	'profiles-bulk',
 	'profiles-bulk-huge-input',
-	'profiles-playlist-cap',
-	'profiles-quick-progress',
 	'profiles-manage-origins',
 	'profiles-picker-origins',
 	'probe-audio-only',
@@ -267,8 +265,6 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'profiles-editor', group: 'Profiles', title: 'Profile editor', description: 'New profile form opened in a dialog.', kind: 'profile'},
 	{id: 'profiles-bulk', group: 'Profiles', title: 'Bulk URLs dialog', description: 'Bulk URLs dialog opened from the redesigned main screen.', kind: 'profile'},
 	{id: 'profiles-bulk-huge-input', group: 'Profiles', title: 'Bulk URLs huge input', description: 'Bulk URLs dialog seeded with a giant pasted log so textarea scrolling and dialog chrome stay visible.', kind: 'profile'},
-	{id: 'profiles-playlist-cap', group: 'Profiles', title: 'Playlist cap dialog', description: 'Quick Download playlist probe limit confirmation.', kind: 'profile'},
-	{id: 'profiles-quick-progress', group: 'Profiles', title: 'Quick Download progress', description: 'Preparing dialog while Quick Download reads the second of three links.', kind: 'profile'},
 	{id: 'profiles-manage-origins', group: 'Profiles', title: 'Profiles tab: every badge', description: 'Profiles tab with built-in, custom, modified (active) and hidden profiles, one hidden built-in and one hidden custom.', kind: 'profile'},
 	{id: 'profiles-picker-origins', group: 'Profiles', title: 'Profile menu: every badge', description: 'Quick Download profile picker opened over built-in, custom and modified (active) profiles.', kind: 'profile'},
 	{id: 'probe-audio-only', group: 'Probe Results', title: 'Audio only source', description: 'isAudioOnlySource:true - wizard defaults to audio-only mode (Bandcamp/SoundCloud-like extractor).', kind: 'probe'},
@@ -414,26 +410,6 @@ function profileScenarioPatch(scenario: BrowserMockScenario): Partial<AppState> 
 	if (scenario.id === 'profiles-plain-link') return {wizardStep: 'url', wizardUrl: PROFILE_SINGLE_URL}
 	if (scenario.id === 'profiles-video-in-playlist') return {wizardStep: 'url', wizardUrl: `${PROFILE_SINGLE_URL}&list=PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf`}
 	if (scenario.id === 'profiles-video-in-mix') return {wizardStep: 'url', wizardUrl: `${PROFILE_SINGLE_URL}&list=RDdQw4w9WgXcQ&start_radio=1`}
-	if (scenario.id === 'profiles-quick-progress')
-		return {wizardStep: 'url', wizardUrl: '', quickDownloadStatus: 'preparing', quickDownloadProgressPhase: 'probing', quickDownloadProgressTotal: 3, quickDownloadProgressCompleted: 1, quickDownloadProgressFailed: 0, quickDownloadProgressCurrent: PROFILE_BULK_URLS[1], quickDownloadProgressTitle: 'Me at the zoo'}
-	if (scenario.id === 'profiles-playlist-cap') {
-		const playlist = playlistProbe(DEFAULT_PLAYLIST_PROBE_LIMIT, {webpageUrl: 'https://www.youtube.com/playlist?list=PLbrowsermock&items=100'})
-		if (playlist.kind !== 'playlist') return {wizardStep: 'url', wizardUrl: ''}
-		return {
-			wizardStep: 'url',
-			wizardMode: 'playlist',
-			wizardUrl: playlist.webpageUrl,
-			wizardExtractor: playlist.extractor,
-			wizardExtractorKey: playlist.extractorKey,
-			playlistItems: playlist.entries,
-			selectedPlaylistItemIds: playlist.entries.map(entry => entry.id),
-			playlistTitle: playlist.playlistTitle,
-			playlistId: playlist.playlistId,
-			playlistIsMultiVideo: true,
-			playlistLikelyCapped: true,
-			quickPlaylistCapDialogOpen: true
-		}
-	}
 	return {wizardStep: 'url', wizardUrl: ''}
 }
 

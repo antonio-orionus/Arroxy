@@ -1,22 +1,21 @@
 import {describe, expect, it, vi} from 'vite-plus/test'
 import {applyQueueProjectionBatch, bindQueueProjection, projectQueueSnapshot, type QueueProjectionBindings} from '@renderer/store/queueProjection.js'
-import {QUICK_DOWNLOAD_FEEDBACK_INITIAL, resetQuickDownloadFeedback, type QuickDownloadFeedbackState} from '@renderer/store/wizard/quickDownloadFeedback.js'
 import type {QueueItem, QueueSchedulerEventPayload, QueueSnapshotPayload} from '@shared/types.js'
 import {makeItem} from '../shared/fixtures.js'
 
-function state(queue: QueueItem[] = []): QuickDownloadFeedbackState & {queue: QueueItem[]; schedulerPaused: boolean} {
-	return {queue, schedulerPaused: false, ...QUICK_DOWNLOAD_FEEDBACK_INITIAL}
+function state(queue: QueueItem[] = []): {queue: QueueItem[]; schedulerPaused: boolean} {
+	return {queue, schedulerPaused: false}
 }
 
 describe('QueueProjection', () => {
-	it('projects snapshots and reconciles quick-download feedback', () => {
-		const patch = projectQueueSnapshot({...state(), quickDownloadStatus: 'queued', quickDownloadQueueIds: ['q1']}, {items: [makeItem({id: 'q1', status: 'done'})], schedulerPaused: false})
+	it('projects snapshots', () => {
+		const patch = projectQueueSnapshot({items: [makeItem({id: 'q1', status: 'done'})], schedulerPaused: false})
 
-		expect(patch).toEqual({queue: [expect.objectContaining({id: 'q1', status: 'done'})], schedulerPaused: false, ...resetQuickDownloadFeedback()})
+		expect(patch).toEqual({queue: [expect.objectContaining({id: 'q1', status: 'done'})], schedulerPaused: false})
 	})
 
 	it('projects the scheduler-paused flag into state', () => {
-		const patch = projectQueueSnapshot(state(), {items: [makeItem({id: 'q1', status: 'pending'})], schedulerPaused: true})
+		const patch = projectQueueSnapshot({items: [makeItem({id: 'q1', status: 'pending'})], schedulerPaused: true})
 
 		expect(patch.schedulerPaused).toBe(true)
 		expect(patch.queue).toHaveLength(1)
@@ -27,14 +26,14 @@ describe('QueueProjection', () => {
 		const q2 = makeItem({id: 'q2', status: 'pending'})
 		const q3 = makeItem({id: 'q3', status: 'pending'})
 
-		const result = applyQueueProjectionBatch({...state([q1, q2]), quickDownloadStatus: 'queued', quickDownloadQueueIds: ['q1']}, {removes: new Set(['q2']), adds: [{items: [q3], atIdx: 9}], updates: new Map([['q1', {...q1, status: 'done', progressPercent: 100}]])})
+		const result = applyQueueProjectionBatch(state([q1, q2]), {removes: new Set(['q2']), adds: [{items: [q3], atIdx: 9}], updates: new Map([['q1', {...q1, status: 'done', progressPercent: 100}]])})
 
 		expect(result.doneIncrements).toBe(1)
 		expect(result.queue.map(item => [item.id, item.status])).toEqual([
 			['q1', 'done'],
 			['q3', 'pending']
 		])
-		expect(result.patch).toMatchObject({queue: result.queue, quickDownloadStatus: 'idle', quickDownloadFailure: null, quickDownloadQueueIds: []})
+		expect(result.patch).toMatchObject({queue: result.queue})
 	})
 
 	it('binds queue events through the scheduler and reports done increments with the previous milestone count', () => {

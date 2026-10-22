@@ -22,7 +22,8 @@ import type {DownloadProfile, DownloadProfileSubtitleSource, QueueItem, VideoPro
 import type {AppState} from '@renderer/store/types.js'
 import {probeSourceResult} from '@renderer/dev/probeSources/index.js'
 import type {ProbeSourceId} from '@renderer/dev/probeSources/sources.js'
-import {prepareActiveProfileQueueSubmission, prepareManualQueueSubmission} from '@renderer/store/wizard/queueSubmission.js'
+import {prepareManualQueueSubmission} from '@renderer/store/wizard/queueSubmission.js'
+import {prepareActiveProfileQueueSubmission} from '../shared/queueSubmissionState.js'
 import {profilePatch} from '@renderer/store/wizard/wizardProfileState.js'
 import youtube2007 from '@renderer/dev/probeSources/youtube-2007.json' with {type: 'json'}
 import youtube2010 from '@renderer/dev/probeSources/youtube-2010.json' with {type: 'json'}

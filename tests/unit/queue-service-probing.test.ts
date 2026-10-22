@@ -135,6 +135,22 @@ describe('QueueService — probing items', () => {
 		await vi.waitFor(() => expect(ds.start).toHaveBeenCalled())
 	})
 
+	// Downloads lists the newest first: a row that resolves keeps its place
+	// instead of jumping to the top when its probe answers, so a batch reads in
+	// the order it was placed whatever order its probes finish in.
+	it("replaceProbing stamps every prepared row with the placeholder's added time", async () => {
+		const {qs} = makeService()
+		qs.add([{...probingItem('p1'), addedAt: '2026-10-22T12:00:00.000Z'}])
+		const prepared = ['r1', 'r2'].map(id => makeItem({id, status: 'pending', url: `https://youtube.com/watch?v=${id}`, job: REAL_JOB, addedAt: '2026-10-22T12:05:00.000Z'}))
+		await qs.pauseAll()
+		const result = await qs.replaceProbing('p1', prepared)
+		expect(result.ok).toBe(true)
+		expect(qs.snapshot().map(item => [item.id, item.addedAt])).toEqual([
+			['r1', '2026-10-22T12:00:00.000Z'],
+			['r2', '2026-10-22T12:00:00.000Z']
+		])
+	})
+
 	it('replaceProbing refuses and enqueues nothing when the placeholder is gone', async () => {
 		const {qs, ds} = makeService()
 		qs.add([probingItem('p1')])

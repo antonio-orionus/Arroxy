@@ -4,11 +4,11 @@ import {i18next} from '@shared/i18n/index.js'
 import type {DownloadProfile, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueItemStatus} from '@shared/types.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {AppState} from '@renderer/store/types.js'
-import {prepareActiveProfileQueueSubmission, prepareManualQueueSubmission, prepareMultiProfileQueueSubmission} from '@renderer/store/wizard/queueSubmission.js'
+import {prepareManualQueueSubmission, prepareMultiProfileQueueSubmission} from '@renderer/store/wizard/queueSubmission.js'
 import type {PreparedQueueSubmission} from '@shared/queueSubmission.js'
 import {profilePatch} from '@renderer/store/wizard/wizardProfileState.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
-import {FORMATS, PLAYLIST_ITEMS, wizardState as state} from '../shared/queueSubmissionState.js'
+import {FORMATS, PLAYLIST_ITEMS, prepareActiveProfileQueueSubmission, wizardState as state} from '../shared/queueSubmissionState.js'
 import {tierRes} from '../shared/tierSelectors.js'
 
 const VIDEO_PROBE: Extract<ProbeResult, {kind: 'video'}> = {

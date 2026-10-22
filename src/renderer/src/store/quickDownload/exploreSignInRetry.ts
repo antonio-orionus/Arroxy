@@ -17,8 +17,6 @@ function sameRetryTarget(a: ExploreRetryTarget, b: ExploreRetryTarget): boolean 
 			return b.kind === a.kind && b.itemId === a.itemId
 		case 'wizard':
 			return b.kind === 'wizard' && a.url === b.url
-		case 'home':
-			return b.kind === 'home'
 	}
 }
 
@@ -36,7 +34,7 @@ function rowExists(state: AppState, target: ExploreRetryTarget): boolean {
 }
 
 // Still worth retrying: the row still failed, the URL tab still holds the
-// wizard's link with no run open, the URL tab's quick download still failed.
+// wizard's link with no run open.
 function stillFailed(state: AppState, target: ExploreRetryTarget): boolean {
 	switch (target.kind) {
 		case 'row':
@@ -44,8 +42,6 @@ function stillFailed(state: AppState, target: ExploreRetryTarget): boolean {
 			return state.queue.some(item => item.id === target.itemId && item.status === QUEUE_STATUS.error)
 		case 'wizard':
 			return state.wizardStep === 'url' && state.wizardUrl.trim() === target.url
-		case 'home':
-			return state.quickDownloadStatus === 'error'
 	}
 }
 
@@ -59,8 +55,6 @@ async function retryTargetLater(target: ExploreRetryTarget, get: GetState): Prom
 			return get().retryQueueItem(target.itemId)
 		case 'wizard':
 			return get().submitUrl('download')
-		case 'home':
-			return get().retryQuickDownloadFailure()
 	}
 }
 

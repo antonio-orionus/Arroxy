@@ -1,7 +1,6 @@
 // @vitest-environment jsdom
 import {fireEvent, render, screen, waitFor} from '@testing-library/react'
 import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
-import {QuickPlaylistCapDialog} from '@renderer/components/wizard/QuickPlaylistCapDialog.js'
 import {StepPlaylistItems} from '@renderer/components/wizard/StepPlaylistItems.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
@@ -228,48 +227,6 @@ describe('playlist probe limit selector alert', () => {
 		fireEvent.keyDown(window, {key: 'Delete'})
 
 		expect(useAppStore.getState().removedPlaylistItemIds).toEqual([])
-	})
-})
-
-describe('quick playlist cap dialog', () => {
-	it('shows a playlist title literally, even one that looks like a placeholder', () => {
-		installApi()
-		resetStore(50, 2, true)
-		useAppStore.setState({wizardStep: 'url', quickPlaylistCapDialogOpen: true, playlistTitle: 'Mix {{count}}'} as never)
-		render(<QuickPlaylistCapDialog />)
-
-		const description = screen.getByTestId('quick-playlist-cap-dialog')
-		expect(description).toHaveTextContent('Mix {{count}}')
-		expect(description).toHaveTextContent('loaded 2 items using')
-	})
-
-	it('counts loaded items with the plural form', () => {
-		installApi()
-		resetStore(50, 1, true)
-		useAppStore.setState({wizardStep: 'url', quickPlaylistCapDialogOpen: true} as never)
-		render(<QuickPlaylistCapDialog />)
-
-		expect(screen.getByTestId('quick-playlist-cap-dialog')).toHaveTextContent('loaded 1 item using')
-	})
-
-	it('saves a new limit and retries through quick download instead of opening interactive review', async () => {
-		const api = installApi()
-		resetStore(50, 50, true)
-		useAppStore.setState({wizardStep: 'url', quickPlaylistCapDialogOpen: true, quickDownloadStatus: 'idle', quickDownloadFailure: null, quickDownloadQueueIds: [], wizardOutputDir: '/tmp'} as never)
-
-		render(<QuickPlaylistCapDialog />)
-
-		fireEvent.click(screen.getByTestId('quick-playlist-cap-probe-limit-trigger'))
-		fireEvent.click(await screen.findByTestId('quick-playlist-cap-probe-limit-option-100'))
-
-		await waitFor(() => {
-			expect(api.settings.update).toHaveBeenCalledWith({common: {playlistProbeLimit: 100}})
-			expect(api.downloads.probe).toHaveBeenCalledWith({url: PLAYLIST_URL, playlistMode: 'playlist', playlistScope: {items: {kind: 'app-limit'}}})
-			expect(api.queue.cmd.add).toHaveBeenCalled()
-		})
-		expect(useAppStore.getState().wizardStep).toBe('url')
-		expect(useAppStore.getState().quickPlaylistCapDialogOpen).toBe(false)
-		expect(useAppStore.getState().quickDownloadStatus).toBe('queued')
 	})
 })
 

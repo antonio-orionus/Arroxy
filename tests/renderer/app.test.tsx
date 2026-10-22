@@ -51,9 +51,6 @@ describe('App renderer', () => {
 			wizardOutputDir: '',
 			wizardError: null,
 			wizardErrorOrigin: null,
-			quickDownloadStatus: 'idle',
-			quickDownloadFailure: null,
-			quickDownloadQueueIds: [],
 			queue: [],
 			graphicsPolicy: null,
 			uiStyle: DEFAULTS.uiStyle,
@@ -255,7 +252,6 @@ describe('App renderer', () => {
 		await waitFor(() => expect(api.intake.add).toHaveBeenCalledTimes(1))
 		await waitFor(() => expect(useAppStore.getState().queue).toMatchObject([{status: 'probing', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'}]))
 		await waitFor(() => expect(input).toHaveValue(''))
-		expect(screen.queryByTestId('quick-download-progress-dialog')).not.toBeInTheDocument()
 		expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
 		fireEvent.change(input, {target: {value: 'https://www.youtube.com/watch?v=jNQXAC9IVRw'}})
 		expect(quick).toHaveAttribute('aria-disabled', 'false')
@@ -292,43 +288,6 @@ describe('App renderer', () => {
 		const destination = await screen.findByTestId('profiles-profile-destination')
 		expect(destination).toHaveTextContent('/mnt/archive/Lectures')
 		await expectHint(destination, 'Using profile override + profile subfolder')
-	})
-
-	// Bulk URLs still prepares its links in one modal run.
-	it('shows and cancels a Bulk URLs preparation in the blocking progress dialog', async () => {
-		vi.mocked(mockAppApi.downloads.probe).mockReturnValue(new Promise(() => undefined))
-		render(<App />)
-		await screen.findByTestId('profiles-main-input')
-
-		act(() => {
-			void useAppStore.getState().quickDownloadUrls(['https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://www.youtube.com/watch?v=jNQXAC9IVRw'])
-		})
-
-		const progressDialog = await screen.findByTestId('quick-download-progress-dialog')
-		expect(progressDialog).toHaveTextContent('Preparing Quick Download')
-		expect(progressDialog).toHaveTextContent('Balanced 720p')
-		expect(progressDialog).toHaveClass('overflow-hidden')
-		expect(screen.getByTestId('quick-download-progress-body')).toHaveClass('min-w-0')
-		expect(screen.getByTestId('quick-download-progress-current')).toHaveClass('max-w-full', 'min-w-0', 'overflow-hidden')
-		// A dialog stays calm: the live status sits on an inset panel, not a lit glow tile.
-		expect(screen.getByTestId('quick-download-progress-current')).toHaveAttribute('data-variant', 'inset')
-		expect(screen.getByTestId('quick-download-progress-current')).not.toHaveClass('glow-tile')
-		expect(screen.getByTestId('quick-download-progress-current-label')).toHaveClass('flex-1', 'min-w-0', 'truncate')
-		expect(screen.getByTestId('quick-download-progress-count')).toHaveTextContent('0 / 2')
-
-		act(() => {
-			useAppStore.setState({playlistProbeProgress: {url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', playlistMode: 'playlist', phase: 'items', loaded: 48, total: 100, at: new Date().toISOString()}} as never)
-		})
-		expect(screen.getByTestId('quick-download-progress-current')).toHaveTextContent('Collecting videos')
-		expect(screen.getByTestId('quick-download-progress-count')).toHaveTextContent('48 / 100')
-		expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '48')
-
-		fireEvent.click(screen.getByTestId('quick-download-progress-cancel'))
-
-		await waitFor(() => {
-			expect(screen.queryByTestId('quick-download-progress-dialog')).not.toBeInTheDocument()
-		})
-		expect(mockAppApi.downloads.probeCancel).toHaveBeenCalled()
 	})
 
 	it('closes the profile picker when opening the new profile editor', async () => {

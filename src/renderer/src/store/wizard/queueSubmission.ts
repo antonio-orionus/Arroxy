@@ -1,27 +1,26 @@
 import {DEFAULTS} from '@shared/constants.js'
 import {allDownloadProfiles, downloadProfileRefFor, resolveActiveDownloadProfile, resolveDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
-import type {AudioSelection, PlaylistEntry, PlaylistSelection, ProbeResult, QueueItem, QueueLane} from '@shared/types.js'
+import type {AudioSelection, PlaylistEntry, PlaylistSelection, QueueItem, QueueLane} from '@shared/types.js'
 import type {EmbedOptions, SubtitleOptions} from '@shared/preparedJob.js'
 import {prepareJob} from '@shared/prepareJob.js'
 import {planSubtitleTracks, type SubtitlePlan} from '@shared/subtitleTracks.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
-import type {PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
 import {sanitizeJobOptions} from '@shared/sanitizeJobOptions.js'
 import {fileTypeContainerArgs} from '@shared/selectionOrder.js'
 import {templateOutputDir} from '@shared/filenameTemplate.js'
 import {requestedFormats} from '@shared/nameBudget.js'
 import {canWriteM3u, playlistEntryTemplateMeta, playlistSelectionInFlight, profileInFlight, resolveJobFilenameTemplate, templateOwnsDirs} from '@shared/outputTemplates.js'
-import {buildProfileEntryQueueItem, firstOccurrencePerUrl, isQueueableEntry, preparePinnedProfileQueueSubmission, withoutAlreadyQueued, type PlaylistManifestPayload, type PreparedQueueSubmission, type QueuePreparationEnv} from '@shared/queueSubmission.js'
+import {buildProfileEntryQueueItem, firstOccurrencePerUrl, isQueueableEntry, withoutAlreadyQueued, type PlaylistManifestPayload, type PreparedQueueSubmission} from '@shared/queueSubmission.js'
 import {scaleBytesToPart, videoPartSuffix} from '@shared/videoPart.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
-import {displayShowsHdr, resolveAppHdr} from '@renderer/lib/displayHdr.js'
+import {resolveAppHdr} from '@renderer/lib/displayHdr.js'
 import i18next from 'i18next'
 import type {AppState} from '../types.js'
 import {buildAudioConvertPayload, buildFormatId, buildFormatLabel, generateId, resolveVideoResolution} from '../helpers.js'
 import {resolveOutputContainer} from './resolveContainer.js'
 import {resolvePlaylistDir} from './playlistDir.js'
-import {bindJobFilenameTemplate, rendererFilenameBinding, singleTemplateMeta} from './outputTemplates.js'
+import {bindJobFilenameTemplate, singleTemplateMeta} from './outputTemplates.js'
 import {sortPlaylistEntries} from './playlistSort.js'
 import {wizardVideoPart} from './videoPart.js'
 import {wizardPickedTracks} from './profileApplication.js'
@@ -282,19 +281,4 @@ export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueL
 	})
 
 	return {items, skippedAlreadyQueued}
-}
-
-/** The active profile, with the folders it resolves against right now. */
-export function pinActiveDownloadProfile(state: AppState): PinnedDownloadProfile {
-	return {ref: resolveActiveDownloadProfile(state.settings?.profiles).ref, outputContext: {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}}
-}
-
-/** Rows get fresh ids, HDR follows this window's screen, names this machine's filesystem. */
-export function rendererPreparationEnv(): QueuePreparationEnv {
-	return {newId: generateId, profileFormatLabel: profile => profileFormatLabel(profile, i18next.t, i18next.language), displayShowsHdr: displayShowsHdr(), filenames: rendererFilenameBinding()}
-}
-
-// Without a pinned profile, the active profile and the wizard's folder are used.
-export function prepareActiveProfileQueueSubmission(probe: ProbeResult, state: AppState, lane: QueueLane, source: {url: string; playlistTitle: string}, pinned: PinnedDownloadProfile = pinActiveDownloadProfile(state)): PreparedQueueSubmission | null {
-	return preparePinnedProfileQueueSubmission(probe, state, lane, source, pinned, rendererPreparationEnv())
 }

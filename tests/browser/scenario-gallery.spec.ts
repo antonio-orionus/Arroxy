@@ -194,10 +194,6 @@ test('profile scenarios render their seeded browser-mock states', async ({page})
 	// P2-R51: cookies off with the Explore tab on, so the row leads with Explore.
 	await expect(failed.getByTestId('cookies-error-alert')).toHaveAttribute('data-variant', 'explore-offer')
 	await expect(failed.getByRole('button', {name: 'Sign in with Explore'})).toBeVisible()
-
-	await openScenario(page, 'profiles-playlist-cap')
-	await expect(page.getByTestId('quick-playlist-cap-dialog')).toBeVisible()
-	await expect(page.getByTestId('quick-playlist-cap-dialog')).toContainText('Mock Browser Playlist')
 })
 
 test('playlist scope empty reload scenario stays on playlist with inline error', async ({page}) => {

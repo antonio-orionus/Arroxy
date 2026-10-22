@@ -286,20 +286,6 @@ describe('a profile switch while a quick download prepares', () => {
 		expect(row(id)?.job).toMatchObject({intent: {kind: 'audio-only'}})
 	})
 
-	it('keeps them when the review queues the loaded videos', async () => {
-		const probe = deferredProbe()
-		const settings = useAppStore.getState().settings
-		if (!settings) throw new Error('no settings')
-		useAppStore.setState({settings: {...settings, common: {...settings.common, playlistProbeLimit: 2}}})
-		const id = await placeAsAudioThenSwitch(PLAYLIST_URL)
-		probe.resolve(ok(playlist(3)))
-		await vi.waitFor(() => expect(row(id)?.status).toBe('needs-choice'))
-		await useAppStore.getState().chooseQuickDownloadRow(id, 'review')
-		await useAppStore.getState().queueLoadedPlaylistWithActiveProfile()
-
-		expect(queue().map(item => item.formatLabel)).toEqual(['Audio only · Keep as-is', 'Audio only · Keep as-is'])
-	})
-
 	it('keeps them through a needs-choice answer and a Retry', async () => {
 		const probe = deferredProbe()
 		const settings = useAppStore.getState().settings
@@ -830,11 +816,12 @@ describe('a probe that needs the user’s choice', () => {
 		useAppStore.getState()[leave]({kind: 'youtube'})
 		expect(useAppStore.getState().reviewSourceRowId).toBeNull()
 
-		// A single-link Bulk run that turns out to be a list opens its own review.
-		const bulk = useAppStore.getState().quickDownloadUrls(['https://media.example/list/9'])
+		// A later Interactive Download of another list opens its own review.
+		useAppStore.setState({wizardUrl: 'https://media.example/list/9'})
+		const run = useAppStore.getState().submitUrl()
 		await vi.waitFor(() => expect(probe.calls).toHaveLength(2))
 		probe.resolve(ok({...playlist(2), webpageUrl: 'https://media.example/list/9'}))
-		await bulk
+		await run
 		expect(useAppStore.getState()).toMatchObject({wizardStep: 'playlistItems', reviewSourceRowId: null})
 		await useAppStore.getState().addToQueue()
 
@@ -873,17 +860,6 @@ describe('a probe that needs the user’s choice', () => {
 		expect(api.queue.cmd.replaceProbing).toHaveBeenLastCalledWith({itemId: id, items: []})
 		expect(row(id)).toBeUndefined()
 		expect(useAppStore.getState().reviewSourceRowId).toBeNull()
-	})
-
-	it('queueing the loaded slice from the review replaces the row too', async () => {
-		const probe = deferredProbe()
-		const id = await cappedRow(probe)
-		await useAppStore.getState().chooseQuickDownloadRow(id, 'review')
-		await useAppStore.getState().queueLoadedPlaylistWithActiveProfile()
-
-		expect(api.queue.cmd.replaceProbing).toHaveBeenLastCalledWith({itemId: id, items: expect.any(Array)})
-		expect(queue().map(item => item.url)).toEqual(['https://youtu.be/v1', 'https://youtu.be/v2'])
-		expect(queue()[0]?.id).toBe(id)
 	})
 
 	it("asks about another site's list under the load limit, and All queues every video", async () => {

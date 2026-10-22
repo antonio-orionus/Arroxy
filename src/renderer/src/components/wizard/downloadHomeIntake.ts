@@ -70,10 +70,9 @@ export function useCopiedLinkIntake({bulkOpen, downloadTabActive, setWizardUrl}:
 	const {t} = useTranslation()
 	const copiedLink = useAppStore(state => state.copiedLink)
 	const formatsLoading = useAppStore(state => state.formatsLoading)
-	const quickPreparing = useAppStore(state => state.quickDownloadStatus === 'preparing')
 
 	useEffect(() => {
-		if (copiedLink === null || !canApplyCopiedLink({bulkOpen, downloadTabActive, formatsLoading, quickPreparing})) return
+		if (copiedLink === null || !canApplyCopiedLink({bulkOpen, downloadTabActive, formatsLoading})) return
 		useAppStore.setState({copiedLink: null})
 		const action = resolveCopiedLink(copiedLink.url, useAppStore.getState().wizardUrl)
 		if (action.kind === 'none') return
@@ -85,8 +84,8 @@ export function useCopiedLinkIntake({bulkOpen, downloadTabActive, setWizardUrl}:
 		}
 		const undo = (): void => {
 			const state = useAppStore.getState()
-			if (canUndoCopiedLink({wizardStep: state.wizardStep, wizardUrl: state.wizardUrl, formatsLoading: state.formatsLoading, quickPreparing: state.quickDownloadStatus === 'preparing'}, action.url)) setWizardUrl(action.previous)
+			if (canUndoCopiedLink({wizardStep: state.wizardStep, wizardUrl: state.wizardUrl, formatsLoading: state.formatsLoading}, action.url)) setWizardUrl(action.previous)
 		}
 		notify.clipboard(opened ? t('wizard.url.openedLink.replaced') : t('wizard.url.clipboard.replacedLink'), [{label: t('wizard.url.clipboard.undo'), onClick: undo}])
-	}, [bulkOpen, copiedLink, downloadTabActive, formatsLoading, quickPreparing, setWizardUrl, t])
+	}, [bulkOpen, copiedLink, downloadTabActive, formatsLoading, setWizardUrl, t])
 }

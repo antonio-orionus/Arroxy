@@ -131,7 +131,10 @@ export class QueueProbeLifecycle {
 		if (limit !== null && admitted.length > limit) return fail(createAppError('limit', `intake ${origin?.intakeId} may add at most ${limit} rows, not ${admitted.length}`))
 		this.deps.commitRemove(itemId, admitted.length === 0 ? 'nothingNew' : 'replaced')
 		if (admitted.length === 0) return ok({ids: [], skippedAlreadyQueued})
-		const queued = withPlaceholderId(itemId, items, withListOffer(placeholder, origin ? admitted.map(item => ({...item, origin})) : admitted))
+		// The rows take the placeholder's place: its origin, and the time it was
+		// added, so Downloads (newest first) keeps a batch in the order it was placed.
+		const placed = admitted.map(item => ({...item, addedAt: placeholder.addedAt, ...(origin ? {origin} : {})}))
+		const queued = withPlaceholderId(itemId, items, withListOffer(placeholder, placed))
 		this.deps.commitAdd(queued)
 		logger.info('replaceProbing', {itemId, replacedBy: queued.map(i => i.id), skippedAlreadyQueued})
 		return ok({ids: queued.map(i => i.id), skippedAlreadyQueued})

@@ -37,7 +37,6 @@ async function quickDownloadFromUrlTab(page: Page, url: string): Promise<void> {
 
 // A quick download places a row and never opens a modal.
 async function expectNoModal(page: Page): Promise<void> {
-	await expect(page.getByTestId('quick-download-progress-dialog')).toHaveCount(0)
 	await expect(page.locator('[data-slot="dialog-overlay"]')).toHaveCount(0)
 }
 
@@ -100,6 +99,75 @@ test('starting and leaving an interactive run never fails a quick download still
 		await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="error"]')).toHaveCount(0)
 		await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(1)
 	})
+})
+
+// Bulk URLs' Quick Download goes through link intake as the URL tab's does:
+// each link is a probing row in Downloads at once, in pasted order, and a list
+// past the load limit asks on its row instead of in a dialog (#626).
+// Fixtures: two videos outside the fixture playlist and the playlist itself,
+// with the load limit at 2. The videos' probes are held until the test lets
+// them answer, the later-pasted one first; the playlist's answers after a delay.
+// Actions: paste the three links into Bulk URLs, Quick Download.
+// Oracles: the dialog closes and no overlay blocks the window; one batch
+// toast; three probing rows top-down in pasted order, kept while the later
+// link resolves before the earlier one; the playlist row asks how many; both
+// videos on disk; each link probed once.
+test("Bulk URLs' Quick Download places every link in Downloads at once, and a list past the limit asks on its row", async () => {
+	test.setTimeout(180_000)
+	const videoIds = FIXTURE_VIDEO_IDS.filter(id => !FIXTURE_PLAYLIST_VIDEO_IDS.includes(id)).slice(0, 2)
+	if (videoIds.length < 2) throw new Error('fixture catalog needs two videos outside the playlist')
+
+	await withFixtureProductApp(
+		{
+			behavior: {metadataHeldIds: videoIds, metadataDelayMs: {[FIXTURE_PLAYLIST_ID]: PROBE_DELAY_MS}},
+			settings: settings => {
+				settings.common.playlistProbeLimit = 2
+			},
+			userDataPrefix: 'arroxy-fixture-bg-quick-bulk-user-',
+			outputPrefix: 'arroxy-fixture-bg-quick-bulk-out-'
+		},
+		async ({page, urls, files, fixtureServer}) => {
+			const links = [...urls.videos(videoIds), urls.playlist()]
+			await page.getByTestId('profiles-bulk-urls').click()
+			await page.getByTestId('bulk-url-textarea').fill(links.join('\n'))
+			await page.getByTestId('bulk-quick-download').click()
+
+			await expect(page.getByTestId('bulk-url-dialog')).toHaveCount(0)
+			await expectNoModal(page)
+			await expect(toast(page, 'Added 3 links to Downloads')).toBeVisible({timeout: 10_000})
+			await viewFromToast(page, 'Added 3 links to Downloads')
+
+			// Newest first, and placed last link first: top-down they read as pasted.
+			await expect.poll(async () => rows(page).evaluateAll(found => found.map(row => row.getAttribute('data-status'))), {timeout: 10_000}).toEqual(['probing', 'probing', 'probing'])
+			const order = await rows(page).evaluateAll((found, pasted) => found.map(row => pasted.findIndex(link => row.textContent?.includes(link))), links)
+			expect(order).toEqual([0, 1, 2])
+			const rowIds = (): Promise<(string | null)[]> => rows(page).evaluateAll(found => found.map(row => row.getAttribute('data-testid')))
+			const placedIds = await rowIds()
+
+			const [firstVideo, secondVideo] = videoIds
+			const [firstRow, secondRow] = placedIds
+			if (!firstVideo || !secondVideo || !firstRow || !secondRow) throw new Error('expected two video rows')
+			const playlistRow = rows(page).filter({hasText: urls.playlist()})
+			await expect(playlistRow).toHaveAttribute('data-status', 'needs-choice', {timeout: 60_000})
+
+			// The later-pasted video answers first: its row resolves and keeps its
+			// place below the earlier one, which is still probing.
+			fixtureServer.releaseMetadata(secondVideo)
+			await expect(page.getByTestId(secondRow)).not.toHaveAttribute('data-status', 'probing', {timeout: 60_000})
+			await expect(page.getByTestId(firstRow)).toHaveAttribute('data-status', 'probing')
+			expect(await rowIds()).toEqual(placedIds)
+
+			fixtureServer.releaseMetadata(firstVideo)
+			await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(2, {timeout: 120_000})
+			await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(2)
+			// A row that resolves keeps its place: the batch still reads as pasted.
+			expect(await rowIds()).toEqual(placedIds)
+
+			for (const videoId of videoIds) expect(probeStartsFor(fixtureServer, videoId)).toBe(1)
+			expect(playlistLoads(fixtureServer)).toBe(1)
+			await expect(toast(page, 'Added:')).toHaveCount(0)
+		}
+	)
 })
 
 interface ExplorePage {
@@ -422,4 +490,9 @@ test("another site's list under the load limit offers All and Review, and All qu
 // The fixture playlist's own loads, recorded under its id.
 function playlistLoads(fixtureServer: FixtureServer): number {
 	return fixtureServer.telemetry().requests.filter(request => request.kind === 'probe-start' && request.videoId === FIXTURE_PLAYLIST_ID).length
+}
+
+// A video's probes: its own extractions at the fixture server.
+function probeStartsFor(fixtureServer: FixtureServer, videoId: string): number {
+	return fixtureServer.telemetry().requests.filter(request => request.kind === 'probe-start' && request.videoId === videoId).length
 }

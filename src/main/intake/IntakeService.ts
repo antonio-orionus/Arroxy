@@ -117,6 +117,9 @@ export class IntakeService {
 	private readonly windowReported: Promise<void>
 	private markWindowReported: () => void = () => undefined
 	private stopping = false
+	// When the last placeholder row was placed: each next one is stamped
+	// strictly later, so Downloads (newest first) never ties a batch's rows.
+	private lastPlacedAt = Number.NEGATIVE_INFINITY
 
 	constructor(private readonly deps: IntakeServiceDeps) {
 		this.kept = new KeptProbes(deps.now)
@@ -431,7 +434,7 @@ export class IntakeService {
 			progressDetail: null,
 			lastStatus: null,
 			error: null,
-			addedAt: new Date(this.deps.now?.() ?? Date.now()).toISOString(),
+			addedAt: new Date(this.nextPlacedAt()).toISOString(),
 			finishedAt: null,
 			artifacts: [],
 			writeM3u: false,
@@ -452,6 +455,13 @@ export class IntakeService {
 
 	// A placeholder carries the probe mode it was taken in with (the schema
 	// requires it on every unresolved row); its Retry and choices reuse it.
+	// The clock, or one millisecond after the last row placed if the clock has
+	// not moved past it (a batch placed within one millisecond).
+	private nextPlacedAt(): number {
+		this.lastPlacedAt = Math.max(this.deps.now?.() ?? Date.now(), this.lastPlacedAt + 1)
+		return this.lastPlacedAt
+	}
+
 	private placeholder(itemId: string): PlaceholderRow | undefined {
 		const row = this.find(itemId)
 		if (row?.job.kind !== 'unresolved' || row.probeMode === undefined) return undefined

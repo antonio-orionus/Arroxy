@@ -154,7 +154,7 @@ describe('a failed quick download on a rate limit', () => {
 		render(
 			<QuickDownloadErrorAlert
 				experience={buildProbeErrorExperience({error: RATE_LIMIT, commonSettings})}
-				message={{kind: 'text', text: 'Too many requests'}}
+				message="Too many requests"
 				url={URL}
 				onEnableCookiesAndRetry={vi.fn()}
 				onOpenCookiesSettings={vi.fn()}

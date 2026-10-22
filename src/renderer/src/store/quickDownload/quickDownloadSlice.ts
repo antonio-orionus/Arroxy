@@ -8,7 +8,9 @@ import {cleanUrl} from '@shared/cleanUrl.js'
 import {getIncompleteCookiesConfigIssue} from '@shared/cookiesConfig.js'
 import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
-import {classifyUrlIntent} from '@shared/urlIntent.js'
+import {classifyBulkUrlIntent, classifyUrlIntent} from '@shared/urlIntent.js'
+import type {IntakePlacement} from '@shared/intake/intakeEvents.js'
+import {notify} from '@renderer/lib/notify.js'
 import type {ProbePlaylistMode, QueueItem} from '@shared/types.js'
 import type {ExploreRetryTarget, GetState, QuickDownloadSlice, SetState} from '../types.js'
 import {mixedUrlPromptPatch} from '../wizard/mixedUrlPrompt.js'
@@ -43,8 +45,6 @@ async function retryTargetNow(target: ExploreRetryTarget, get: GetState): Promis
 			return get().retryQueueItem(target.itemId)
 		case 'wizard':
 			return get().retry()
-		case 'home':
-			return get().retryQuickDownloadFailure()
 	}
 }
 
@@ -111,6 +111,50 @@ export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDow
 			// The link is in Downloads now: clear the field for the next one,
 			// unless the user already typed something else.
 			if (placed && entry === 'url-tab' && cleanQuickDownloadUrl(get().wizardUrl) === cleaned) get().setWizardUrl('')
+		},
+
+		bulkQuickDownload: async urls => {
+			const cleaned = urls.flatMap(url => {
+				const link = cleanQuickDownloadUrl(url)
+				return link ? [link] : []
+			})
+			if (cleaned.length === 0) return false
+			const issue = getIncompleteCookiesConfigIssue(get().settings?.common)
+			if (issue) {
+				set({cookiesConfigDialogIssue: issue})
+				return false
+			}
+			const actions = cleaned.map(url => policyForUrlIntent(classifyBulkUrlIntent(url), 'bulk-quick-download'))
+			// Until #581 settles it: a link naming a video in a list sends the whole batch to Bulk's review.
+			if (actions.some(action => action.kind === 'open-bulk-review')) {
+				get().startBulkUrls(cleaned)
+				return true
+			}
+			const toasts = quickDownloadToasts('url-tab', get)
+			const profiles = get().settings?.profiles
+			const profile = profiles ? resolveActiveDownloadProfile(profiles).ref : undefined
+			const placements: IntakePlacement[] = []
+			// Downloads lists the newest first: placed last to first, the rows read in pasted order.
+			for (let index = cleaned.length - 1; index >= 0; index--) {
+				const url = cleaned[index]
+				const action = actions[index]
+				if (url === undefined || !action || !('playlistMode' in action)) continue
+				const answer: {placement: IntakePlacement | null} = {placement: null}
+				await placeQuickDownload({url, playlistMode: action.playlistMode, ...(profile ? {profile} : {})}, event => {
+					// The first answer is the placement, told in the batch's one toast. Everything
+					// later (what the probe ends in, an already-queued video main dropped) toasts as usual.
+					if (answer.placement === null && (event.kind === 'added' || event.kind === 'already-queued' || event.kind === 'not-added')) answer.placement = event
+					else toasts(event)
+				})
+				placements[index] = answer.placement ?? {kind: 'not-added'}
+			}
+			const count = (kind: IntakePlacement['kind']): number => placements.filter(placement => placement.kind === kind).length
+			const first = placements.find(placement => placement.kind !== 'not-added')
+			const firstId = first?.kind === 'added' ? first.itemId : first?.kind === 'already-queued' ? first.itemId : null
+			// While a wizard run is open, View would have to abandon it (P2-R41).
+			const view = get().wizardStep === 'url' && first ? () => get().showQueueItem(firstId) : undefined
+			notify.quickDownloadBatchAdded({added: count('added'), alreadyQueued: count('already-queued'), notAdded: count('not-added')}, view)
+			return first !== undefined
 		},
 
 		retryQuickDownloadRow: async itemId => {

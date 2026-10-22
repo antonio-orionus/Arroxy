@@ -4,8 +4,8 @@ import {useAppStore} from '@renderer/store/useAppStore.js'
 import {RESET_WIZARD_STATE} from '@renderer/store/wizard/commands.js'
 import {setNotificationSink, type NotificationLevel} from '@renderer/lib/notify.js'
 import {defaultAppSettings} from '@shared/constants.js'
-import {fail, ok} from '@shared/result.js'
-import type {PlaylistEntry, ProbeError, ProbeResult} from '@shared/types.js'
+import {fail} from '@shared/result.js'
+import type {ProbeError} from '@shared/types.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 
 // A wizard run remembers the tab it started from. Started in Explore (the
@@ -15,9 +15,6 @@ import {buildMockAppApi} from '../shared/mockAppApi.js'
 // tab alone, as before. The landing never depends on where the hash was left.
 
 const WATCH_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-const PLAYLIST_URL = 'https://www.youtube.com/playlist?list=PLtest'
-const ENTRIES: PlaylistEntry[] = ['a', 'b', 'c'].map((id, index) => ({id, title: `Entry ${id}`, url: `https://youtu.be/${id}`, thumbnail: '', duration: 60, playlistIndex: index + 1, videoId: id}))
-const PLAYLIST_PROBE: Extract<ProbeResult, {kind: 'playlist'}> = {kind: 'playlist', extractor: 'youtube:tab', extractorKey: 'YoutubeTab', webpageUrl: PLAYLIST_URL, isAudioOnlySource: false, playlistTitle: 'Road trip mix', playlistId: 'PLtest', isMultiVideo: false, entries: ENTRIES}
 
 const notices: {level: NotificationLevel; message: string; id: string}[] = []
 
@@ -139,14 +136,5 @@ describe('the wizard origin across retries and other runs', () => {
 		setHash('#explore')
 		await useAppStore.getState().quickDownload({url: WATCH_URL, entry: 'explore'})
 		expect(useAppStore.getState()).toMatchObject({wizardStep: 'url', wizardOrigin: 'download'})
-		vi.mocked(window.appApi.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
-		setHash('#download')
-
-		// A single collection link from Bulk URLs opens its review, a URL-tab run.
-		await useAppStore.getState().quickDownloadUrls(['https://media.example/collection/42'])
-		expect(useAppStore.getState().wizardOrigin).toBe('download')
-		useAppStore.getState().reset()
-
-		expect(window.location.hash).toBe('#download')
 	})
 })

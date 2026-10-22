@@ -5,8 +5,6 @@ import {STEP_REGISTRY} from '../wizard/stepRegistry.js'
 import {buildWizardStepGraph, visibleWizardSteps} from '../../store/wizard/wizardStepGraph.js'
 import {StepError} from '../wizard/StepError.js'
 import {MixedUrlPromptDialog} from '../wizard/MixedUrlPromptDialog.js'
-import {QuickPlaylistCapDialog} from '../wizard/QuickPlaylistCapDialog.js'
-import {QuickDownloadProgressDialog} from '../wizard/QuickDownloadProgressDialog.js'
 import {cn} from '@renderer/lib/utils.js'
 import {collectionKindForWizardUrls} from '../../store/wizard/collectionKind.js'
 import {Check} from 'lucide-react'
@@ -89,8 +87,6 @@ export function WizardPanel(): ReactNode {
 				{wizardStep === 'error' ? <StepError /> : activeDescriptor ? <Suspense fallback={<WizardStepFallback />}>{activeDescriptor.render()}</Suspense> : null}
 			</WizardStage>
 			<MixedUrlPromptDialog />
-			<QuickDownloadProgressDialog />
-			<QuickPlaylistCapDialog />
 		</section>
 	)
 }

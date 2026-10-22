@@ -6,28 +6,26 @@ export interface CopiedLinkContext {
 	downloadTabActive: boolean
 	bulkOpen: boolean
 	formatsLoading: boolean
-	quickPreparing: boolean
 }
 
 // One rule: on the idle Download tab, a copied link goes into the URL field.
-// Anything in flight (a probe, a quick download starting, the bulk dialog)
-// or another tab makes it wait; the latest copied link is taken afterwards.
-export function canApplyCopiedLink({bulkOpen, downloadTabActive, formatsLoading, quickPreparing}: CopiedLinkContext): boolean {
-	return downloadTabActive && !bulkOpen && !formatsLoading && !quickPreparing
+// Anything in flight (a probe, the bulk dialog) or another tab makes it wait;
+// the latest copied link is taken afterwards.
+export function canApplyCopiedLink({bulkOpen, downloadTabActive, formatsLoading}: CopiedLinkContext): boolean {
+	return downloadTabActive && !bulkOpen && !formatsLoading
 }
 
 export interface CopiedLinkUndoContext {
 	wizardStep: WizardStep
 	wizardUrl: string
 	formatsLoading: boolean
-	quickPreparing: boolean
 }
 
 // Undo puts back only the field's text, so it is safe only while nothing took
-// the copied link yet: still on the URL step, no probe or quick download
-// started from it, and the field not edited since.
-export function canUndoCopiedLink({formatsLoading, quickPreparing, wizardStep, wizardUrl}: CopiedLinkUndoContext, link: string): boolean {
-	return wizardStep === 'url' && !formatsLoading && !quickPreparing && wizardUrl === link
+// the copied link yet: still on the URL step, no probe started from it, and
+// the field not edited since (a quick download clears the field).
+export function canUndoCopiedLink({formatsLoading, wizardStep, wizardUrl}: CopiedLinkUndoContext, link: string): boolean {
+	return wizardStep === 'url' && !formatsLoading && wizardUrl === link
 }
 
 // The field only holds a link not yet submitted, so it is replaced without

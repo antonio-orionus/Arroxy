@@ -65,7 +65,7 @@ function ProbeErrorGuidance({item}: {item: QueueItem}): ReactNode {
 	return (
 		<QuickDownloadErrorAlert
 			experience={experience}
-			message={{kind: 'text', text: formatLocalizedError(item.error)}}
+			message={formatLocalizedError(item.error)}
 			url={item.url}
 			onRetry={() => void retryQuickDownloadRow(item.id)}
 			onEnableCookiesAndRetry={() => void retryQuickDownloadRowWithCookies(item.id)}

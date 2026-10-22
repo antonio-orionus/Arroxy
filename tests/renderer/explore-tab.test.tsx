@@ -106,7 +106,7 @@ beforeEach(() => {
 	})
 	window.history.replaceState(null, '', '#download')
 	localStorage.clear()
-	useAppStore.setState({queue: [], wizardUrl: '', quickDownloadStatus: 'idle', quickDownloadFailure: null, quickDownloadProgressFailed: 0, uiZoom: 1})
+	useAppStore.setState({queue: [], wizardUrl: '', uiZoom: 1})
 	seedSettings({exploreNoticeSeen: true, exploreModeAutoSwitched: true, cookiesMode: 'explore'})
 })
 

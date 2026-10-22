@@ -28,7 +28,3 @@ export function policyForUrlIntent(intent: UrlIntent, entryPoint: UrlIntentEntry
 	if (entryPoint === 'hotkey' && intent.kind === 'mixed') return {kind: 'probe-video', playlistMode: 'video'}
 	return probeActionForIntent(intent)
 }
-
-export function shouldReviewPlaylistProbeResult(intent: UrlIntent): boolean {
-	return intent.kind !== 'obvious-collection'
-}

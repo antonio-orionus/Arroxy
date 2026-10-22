@@ -54,7 +54,7 @@ interface Harness {
 	onProbe: (hook: (request: IntakeProbeRequest) => void) => void
 }
 
-function harness({windowReported = true}: {windowReported?: boolean} = {}): Harness {
+function harness({windowReported = true, now}: {windowReported?: boolean; now?: () => number} = {}): Harness {
 	const store = {load: vi.fn().mockResolvedValue(ok({items: [], schedulerPaused: true})), save: vi.fn().mockResolvedValue(ok(undefined))} as unknown as QueueStore
 	const queue = new QueueService(store, new FakeDownloadService() as unknown as DownloadService)
 	// Paused, so prepared rows stay pending and the snapshot is stable.
@@ -82,7 +82,8 @@ function harness({windowReported = true}: {windowReported?: boolean} = {}): Harn
 		profileFormatLabel: profile => profileFormatLabel(profile, mainTranslator(language), language),
 		emit: event => events.push(event),
 		platform: 'linux',
-		newId: () => `id-${++id}`
+		newId: () => `id-${++id}`,
+		...(now ? {now} : {})
 	})
 	if (windowReported) intake.setWindowContext({currentOutputDir: '/wizard-folder', displayShowsHdr: false})
 	return {
@@ -677,5 +678,35 @@ describe('IntakeService', () => {
 			expect(h.queue.snapshot()[0]?.status).toBe('probing')
 			expect(outcomes(h)).toEqual([])
 		})
+	})
+
+	// Downloads lists the newest row first, so a batch placed within one
+	// millisecond (Bulk URLs places last to first) must never tie: each row is
+	// stamped strictly after the one before, and reads in placement order.
+	it('stamps each placed row strictly after the one before, even within the same millisecond', async () => {
+		const sameMillisecond = harness({now: () => Date.parse('2026-10-22T12:00:00.000Z')})
+		const urls = ['https://www.youtube.com/watch?v=c', 'https://www.youtube.com/watch?v=b', 'https://www.youtube.com/watch?v=a']
+		// Each probe fails, so every row stays (as a probe-error row) to be read back.
+		sameMillisecond.answer(fail({kind: 'other', code: 'unknown', message: 'offline'}))
+		const ids: string[] = []
+		for (const [index, url] of urls.entries()) {
+			const placement = await sameMillisecond.intake.add({requestId: `r${index}`, url, playlistMode: 'video', origin: WINDOW})
+			if (placement.kind === 'added') ids.push(placement.itemId)
+		}
+		await sameMillisecond.settled()
+
+		// In placement order.
+		const stamps = ids.map(id => Date.parse(sameMillisecond.queue.snapshot().find(row => row.id === id)?.addedAt ?? ''))
+		expect(stamps).toEqual([Date.parse('2026-10-22T12:00:00.000Z'), Date.parse('2026-10-22T12:00:00.001Z'), Date.parse('2026-10-22T12:00:00.002Z')])
+	})
+
+	it('keeps the clock when it is already past the last row', async () => {
+		let clock = Date.parse('2026-10-22T12:00:00.000Z')
+		const ticking = harness({now: () => clock})
+		await ticking.intake.add({requestId: 'r1', url: 'https://www.youtube.com/watch?v=a', playlistMode: 'video', origin: WINDOW})
+		clock += 5_000
+		await ticking.intake.add({requestId: 'r2', url: 'https://www.youtube.com/watch?v=b', playlistMode: 'video', origin: WINDOW})
+
+		expect(ticking.queue.snapshot().map(row => row.addedAt)).toEqual(['2026-10-22T12:00:00.000Z', '2026-10-22T12:00:05.000Z'])
 	})
 })

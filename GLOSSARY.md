@@ -225,7 +225,7 @@ Copying streams into another file type without re-encoding them: fast and lossle
 _Avoid_: convert, transcode, re-encode
 
 **Quick download**:
-Starting a download straight from a saved profile, skipping the wizard steps. A single link prepares in the background as a placeholder row in Downloads, so several can prepare at once and nothing waits on the window.
+Starting a download straight from a saved profile, skipping the wizard steps. Every link, one at a time or a batch from Bulk URLs, prepares in the background as a placeholder row in Downloads, so several can prepare at once and nothing waits on the window.
 _Avoid_: instant download, one-click download
 
 **Placeholder row**:

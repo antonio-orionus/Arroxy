@@ -132,34 +132,6 @@ describe('Quick Download of a playlist', () => {
 	})
 })
 
-describe('queueing a loaded playlist with the active profile', () => {
-	function arm(queue: QueueItem[]) {
-		const api = buildMockAppApi()
-		window.appApi = api
-		useAppStore.setState({wizardUrl: PLAYLIST_URL, wizardStep: 'playlistItems', wizardMode: 'playlist', playlistTitle: 'My Playlist', playlistItems: ENTRIES, selectedPlaylistItemIds: ENTRIES.map(entry => entry.id), quickPlaylistCapDialogOpen: true, queue})
-		return api
-	}
-
-	it('queues the rest and reports the skip', async () => {
-		const api = arm([queued(URL_C)])
-
-		await useAppStore.getState().queueLoadedPlaylistWithActiveProfile()
-
-		expect(vi.mocked(api.queue.cmd.add).mock.calls[0]?.[0].map(item => item.url)).toEqual([URL_A, URL_B])
-		expectSkippedNotice(1)
-	})
-
-	it('closes the cap dialog without a failure when everything is already queued', async () => {
-		const api = arm(ENTRIES.map(entry => queued(entry.url)))
-
-		await useAppStore.getState().queueLoadedPlaylistWithActiveProfile()
-
-		expect(api.queue.cmd.add).not.toHaveBeenCalled()
-		expect(useAppStore.getState()).toMatchObject({quickDownloadStatus: 'idle', quickDownloadFailure: null, quickPlaylistCapDialogOpen: false})
-		expectSkippedNotice(3)
-	})
-})
-
 describe('adding a reviewed playlist or bulk list to the queue', () => {
 	function arm(queue: QueueItem[], wizardMode: 'playlist' | 'bulk') {
 		const api = buildMockAppApi()

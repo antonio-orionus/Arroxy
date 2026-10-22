@@ -19,8 +19,8 @@ prepared rows. The global hotkey reaches intake in main too
 outcomes become hotkey notifications and are never sent on `intake:event`.
 The renderer issues them over IPC (`queue.cmd.add`,
 `queue.cmd.replaceProbing`) only from
-`src/renderer/src/store/wizard/queueSubmissionAdapter.ts` (wizard, bulk quick
-run, playlist cap dialog, a needs-choice row's review). It reaches intake
+`src/renderer/src/store/wizard/queueSubmissionAdapter.ts` (wizard, a
+needs-choice row's review). It reaches intake
 through `intake.cmd.*` (`src/renderer/src/store/quickDownload/quickDownloadPipeline.ts`)
 and hears outcomes back on `intake:event`, keyed by the request id of the call
 that caused them.
@@ -51,8 +51,7 @@ graph TD
   NC --> REV[Review in wizard] --> WP
   PE --> RTY[Retry, cookies, sign-in] --> PRB
   APS --> SWAP[replaceProbing]
-  BULK --> BQ[Bulk quick modal run] --> APS2[Active profile preparation]
-  BQ --> CAP[Cap dialog] --> APS2
+  BULK --> BQ[Bulk Quick Download] --> PLC
   BULK --> BW[Bulk review wizard] --> WP
   WAND --> SU[submitUrl probe]
   SU --> WS[Single: Format, pre-selected from the profile]
@@ -67,7 +66,6 @@ graph TD
   PP -.-> CNF
   MPM --> CNF
   CNF --> SUB[submitWizardToQueue] --> ADD[Main add or replace]
-  APS2 --> ADD
   SWAP --> ADD
   DLR[Row Retry] --> MAIN[Main retry-reset]
   BOOT[Startup queue restore] --> MAIN
@@ -92,7 +90,7 @@ picker edge sets the active profile that Quick Download uses.
 | QD, MIX | Cleans the URL, blocks on incomplete cookies setup, asks how to take the list for a link that names a video and a list (Mix and `RDCLAK` included): in the background (the row asks past the load limit), exactly the first N, or the wizard's picker; from the wand it only confirms how many to load | — | `quickDownloadSlice.quickDownload`, `MixedUrlPromptDialog`, `probeOrchestrator.answerVideoListLink` |
 | PLC → SWAP | In main: places a placeholder row that stores the active profile and the window's folder (`pinnedProfile`) and who took it in (`origin`), probes in the background once a probe slot frees ("Links checked at once"; the window's probe goes first), then swaps in prepared items or leaves a needs-choice / probe-error row | pinned active profile | `IntakeService`, `ProbeSlots`, `src/shared/intake/probeResolution.ts` |
 | NC, PE | Rows that need the user: the size question (All and Review, plus first N when the list went past the load limit; asked for a plain list link past the limit and for any list the link did not announce, never for a row that already carries a count); Retry / cookies / sign in. All, first N and Retry run in main, and the answer is stored on the row so a Retry keeps it; the probe a needs-choice row asked about is kept there (bounded) for first N and the review | pinned profile; Review uses wizard selections | `QueueAttentionRow`, `quickDownloadSlice`, `IntakeService` |
-| BULK, BQ, CAP | Bulk dialog: quick runs a modal probe loop (no placeholder rows, own cap dialog); otherwise the bulk wizard. Links are read with `classifyBulkUrlIntent`: a former Radio link (any `RD…` list) stays one video; a plain mixed link sends the batch to the bulk wizard | active profile / wizard | `BulkUrlDialog`, `quickDownloadPreparation.ts` |
+| BULK, BQ | Bulk dialog: Quick Download places every accepted link through link intake, one placeholder row each, last link first so Downloads (newest first) reads them in pasted order, with one toast for the batch; main's probe slots pace the probes, and a list past the load limit asks on its row. Otherwise the bulk wizard. Links are read with `classifyBulkUrlIntent`: a former Radio link (any `RD…` list) stays one video; a plain mixed link sends the whole batch to the bulk wizard | active profile / wizard | `BulkUrlDialog`, `quickDownloadSlice.bulkQuickDownload`, `IntakeService` |
 | DLR, BOOT | Retry on a resolved row re-runs its stored job; startup restores `queue.json`; placeholder rows left probing at quit (the quit stops their probes) probe again once the window reports its context, in queue order and paced by the probe slots, and any other row left probing becomes a probe error | the row's job | `queueSlice`, `QueueService`, `QueueProbeLifecycle`, `QueueAutoRetry`, `IntakeService.resumePlaceholderProbes` |
 
 No queue row can be reopened in the wizard except a needs-choice row's Review.
@@ -201,10 +199,6 @@ Known duplication between the two:
   `resolveDownloadProfile`); the playlist wizard path relies on `prepareJob`
   alone.
 - Output folder, `.m3u` and format label computed differently per path.
-- Two quick pipelines for the same job (placeholder rows vs the bulk modal run).
-- Copied helpers: `maybeBlockIncompleteCookiesConfig` and
-  `applyPlaylistProbeResult` exist in both `probeOrchestrator.ts` and
-  `quickDownloadPreparation.ts`.
 
 ## yt-dlp bridge gaps
 

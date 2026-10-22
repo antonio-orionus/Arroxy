@@ -134,6 +134,17 @@ export const notify = {
 	quickDownloadAdded(title: string, onView?: () => void): void {
 		emit('info', i18next.t('notifications.quickDownload.added', {title: toastItemName(title)}), 'quick-download-added', viewOnly(onView))
 	},
+	// Bulk URLs' Quick Download: one toast for the whole batch's placements. A
+	// batch with links not added warns; one with none placed is an error.
+	quickDownloadBatchAdded({added, alreadyQueued, notAdded}: {added: number; alreadyQueued: number; notAdded: number}, onView?: () => void): void {
+		const placed = added + alreadyQueued
+		if (placed === 0) {
+			emit('error', i18next.t('notifications.quickDownload.batchNoneAdded', {count: notAdded}), 'quick-download-batch')
+			return
+		}
+		const parts = [added > 0 ? i18next.t('notifications.quickDownload.batchAdded', {count: added}) : null, alreadyQueued > 0 ? i18next.t('notifications.quickDownload.batchAlreadyQueued', {count: alreadyQueued}) : null, notAdded > 0 ? i18next.t('notifications.quickDownload.batchNotAdded', {count: notAdded}) : null]
+		emit(notAdded > 0 ? 'warning' : 'info', parts.filter(part => part !== null).join(' · '), 'quick-download-batch', viewOnly(onView))
+	},
 	quickDownloadAlreadyQueued(onView?: () => void): void {
 		emit('info', i18next.t('notifications.quickDownload.alreadyQueued'), 'quick-download-already-queued', viewOnly(onView))
 	},

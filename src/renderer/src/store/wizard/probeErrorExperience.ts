@@ -209,24 +209,3 @@ export function buildProbeErrorExperience({error, url = null, commonSettings = n
 		}
 	}
 }
-
-function guidanceScore(error: ProbeError, commonSettings: Partial<CommonSettings> | null | undefined, exploreSignedIn: ExploreSignedIn): number {
-	const experience = buildProbeErrorExperience({error, commonSettings, exploreSignedIn})
-	if (experience.actions.enableCookiesAndRetry) return 3
-	if (experience.cookies.variant !== 'hidden') return 2
-	if (experience.botWall.variant !== 'hidden' || experience.rateLimit.variant !== 'hidden') return 1
-	return 0
-}
-
-export function selectProbeErrorForGuidance(errors: readonly ProbeError[], commonSettings: Partial<CommonSettings> | null | undefined, exploreSignedIn: ExploreSignedIn = null): ProbeError | null {
-	let selected: ProbeError | null = null
-	let selectedScore = -1
-	for (const error of errors) {
-		const score = guidanceScore(error, commonSettings, exploreSignedIn)
-		if (score <= selectedScore) continue
-		selected = error
-		selectedScore = score
-		if (score === 3) break
-	}
-	return selected
-}

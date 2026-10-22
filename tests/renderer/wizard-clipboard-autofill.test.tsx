@@ -36,7 +36,6 @@ function resetStore(overrides: Partial<ReturnType<typeof useAppStore.getState>> 
 		wizardErrorOrigin: null,
 		playlistItems: [],
 		queue: [],
-		quickDownloadStatus: 'idle',
 		copiedLink: null,
 		...overrides
 	})
@@ -162,17 +161,6 @@ describe('wizard clipboard auto-fill', () => {
 		expect(useAppStore.getState().wizardUrl).toBe(OLD_URL)
 
 		act(() => useAppStore.setState({formatsLoading: false}))
-		expect(useAppStore.getState().wizardUrl).toBe(FRESH_URL)
-	})
-
-	it('waits while a quick download is preparing', () => {
-		useAppStore.setState({quickDownloadStatus: 'preparing'})
-		render(<StepUrlInput />)
-
-		copy(FRESH_URL)
-		expect(useAppStore.getState().wizardUrl).toBe('')
-
-		act(() => useAppStore.setState({quickDownloadStatus: 'idle'}))
 		expect(useAppStore.getState().wizardUrl).toBe(FRESH_URL)
 	})
 

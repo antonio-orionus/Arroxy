@@ -18,7 +18,6 @@ import {editedProfileDraft} from './wizard/wizardProfileState.js'
 import {configuredCookiesRetryMode} from './wizard/probeErrorExperience.js'
 import {prepareManualQueueSubmission, prepareMultiProfileQueueSubmission} from './wizard/queueSubmission.js'
 import {submitPreparedQueueSubmission} from './wizard/queueSubmissionAdapter.js'
-import {queueLoadedPlaylistWithActiveProfile} from './wizard/quickDownloadPreparation.js'
 import {settlePlaceholder} from './quickDownload/quickDownloadPipeline.js'
 import {DownloadProfileOutputMissingError} from '@shared/downloadProfiles.js'
 
@@ -110,8 +109,6 @@ export function createQueueSlice(set: SetState, get: GetState): QueueSlice {
 		addToQueue: () => submitWizardToQueue(set, get, 'normal'),
 
 		addAndDownloadImmediately: () => submitWizardToQueue(set, get, 'priority'),
-
-		queueLoadedPlaylistWithActiveProfile: () => queueLoadedPlaylistWithActiveProfile(set, get, 'normal'),
 
 		setItemLane: async (itemId, lane) => {
 			await window.appApi.queue.cmd.setLane({itemId, lane})

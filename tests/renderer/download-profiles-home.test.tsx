@@ -40,7 +40,7 @@ describe('DownloadProfilesHome downloads tab', () => {
 		window.appApi = buildMockAppApi()
 		window.history.replaceState(null, '', '#download')
 		localStorage.clear()
-		useAppStore.setState({queue: [makeItem({id: 'queued-video', title: 'Queued video', status: 'pending'})], wizardUrl: '', quickDownloadStatus: 'idle', quickDownloadFailure: null, quickDownloadProgressFailed: 0})
+		useAppStore.setState({queue: [makeItem({id: 'queued-video', title: 'Queued video', status: 'pending'})], wizardUrl: ''})
 	})
 
 	afterEach(() => {
@@ -180,7 +180,7 @@ describe('DownloadProfilesHome URL tab on a video in a list', () => {
 		window.appApi = buildMockAppApi()
 		window.history.replaceState(null, '', '#download')
 		localStorage.clear()
-		useAppStore.setState({queue: [], wizardUrl: '', quickDownloadStatus: 'idle', quickDownloadFailure: null, settings: defaultAppSettings('/tmp')})
+		useAppStore.setState({queue: [], wizardUrl: '', settings: defaultAppSettings('/tmp')})
 	})
 
 	it('offers This video and the Mix, with Interactive Download… below', () => {
@@ -225,7 +225,7 @@ describe('DownloadProfilesHome profiles tab visibility', () => {
 		window.appApi = buildMockAppApi()
 		window.history.replaceState(null, '', '#profiles')
 		localStorage.clear()
-		useAppStore.setState({queue: [], wizardUrl: '', quickDownloadStatus: 'idle', quickDownloadFailure: null, quickDownloadProgressFailed: 0, settings: defaultAppSettings('/tmp')})
+		useAppStore.setState({queue: [], wizardUrl: '', settings: defaultAppSettings('/tmp')})
 	})
 
 	afterEach(() => {
@@ -446,7 +446,7 @@ describe('DownloadProfilesHome profiles tab reordering', () => {
 		window.appApi = buildMockAppApi()
 		window.history.replaceState(null, '', '#profiles')
 		localStorage.clear()
-		useAppStore.setState({queue: [], wizardUrl: '', quickDownloadStatus: 'idle', quickDownloadFailure: null, quickDownloadProgressFailed: 0, settings: defaultAppSettings('/tmp')})
+		useAppStore.setState({queue: [], wizardUrl: '', settings: defaultAppSettings('/tmp')})
 		vi.mocked(window.appApi.settings.update).mockImplementation(async patch => {
 			const current = useAppStore.getState().settings
 			return ok({...current, profiles: {...current?.profiles, ...patch.profiles}} as AppSettings)

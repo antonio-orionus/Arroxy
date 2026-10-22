@@ -1,5 +1,5 @@
-// Turning a probe into queue rows with a download profile: the background
-// quick download, Bulk URLs' quick run and the playlist cap dialog. Pure: what
+// Turning a probe into queue rows with a download profile: every quick
+// download, prepared by link intake in main (a placeholder row's). Pure: what
 // the window or the machine supplies (the screen's HDR, the filesystem, ids)
 // comes in through `QueuePreparationEnv`, so the same preparation can run
 // wherever intake runs.

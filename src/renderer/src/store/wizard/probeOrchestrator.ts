@@ -26,8 +26,6 @@ import {widenForSkip, withoutSkipped} from '@shared/intake/probeResolution.js'
 import {isSelectablePlaylistRow} from './playlistRowSelection.js'
 import {playlistScopeReloadErrorMessage, unknownPlaylistScopeReloadErrorMessage} from './playlistScopeReload.js'
 import {rewriteYouTubeChannelRoot} from '@shared/intake/urlIntake.js'
-import {quickDownloadUrls, cancelQuickDownload, retryQuickDownloadFailure, retryQuickDownloadWithCookies, retryQuickPlaylistCap} from './quickDownloadPreparation.js'
-import {resetQuickDownloadFeedback} from './quickDownloadFeedback.js'
 import {projectBulkStart, projectPlaylistProbeResult, projectProbeFailure, projectProbeStart, projectVideoProbeResult, type BulkEntrySeed} from './probeResultProjection.js'
 import {mixedUrlPromptPatch} from './mixedUrlPrompt.js'
 import {configuredCookiesRetryMode} from './probeErrorExperience.js'
@@ -317,41 +315,17 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		bulkMetadataTotal: RESET_WIZARD_STATE.bulkMetadataTotal,
 		bulkMetadataById: RESET_WIZARD_STATE.bulkMetadataById,
 		bulkCappedLists: RESET_WIZARD_STATE.bulkCappedLists,
-		quickDownloadStatus: RESET_WIZARD_STATE.quickDownloadStatus,
-		quickDownloadFailure: RESET_WIZARD_STATE.quickDownloadFailure,
-		quickDownloadQueueIds: RESET_WIZARD_STATE.quickDownloadQueueIds,
-		quickDownloadProgressPhase: RESET_WIZARD_STATE.quickDownloadProgressPhase,
-		quickDownloadProgressTotal: RESET_WIZARD_STATE.quickDownloadProgressTotal,
-		quickDownloadProgressCompleted: RESET_WIZARD_STATE.quickDownloadProgressCompleted,
-		quickDownloadProgressFailed: RESET_WIZARD_STATE.quickDownloadProgressFailed,
-		quickDownloadProgressCurrent: RESET_WIZARD_STATE.quickDownloadProgressCurrent,
-		quickDownloadProgressTitle: RESET_WIZARD_STATE.quickDownloadProgressTitle,
-		quickDownloadProgressRunId: RESET_WIZARD_STATE.quickDownloadProgressRunId,
 		reviewSourceRowId: RESET_WIZARD_STATE.reviewSourceRowId,
 		wizardReviewRow: RESET_WIZARD_STATE.wizardReviewRow,
 		syncedDownloadedIds: RESET_WIZARD_STATE.syncedDownloadedIds,
 		syncScanState: RESET_WIZARD_STATE.syncScanState,
 
-		setWizardUrl: url => set({wizardUrl: url, ...resetQuickDownloadFeedback()}),
+		setWizardUrl: url => set({wizardUrl: url}),
 
 		// A submitted URL is a new run: it is the review of no row.
 		submitUrl: async (origin = 'download') => {
 			set({reviewSourceRowId: null})
 			await submitWizardUrl(origin, set, get)
-		},
-
-		quickDownloadUrls: urls => quickDownloadUrls(urls, set, get),
-
-		retryQuickDownloadFailure: () => retryQuickDownloadFailure(set, get),
-
-		retryQuickPlaylistCap: () => retryQuickPlaylistCap(set, get),
-
-		retryQuickDownloadWithCookies: () => retryQuickDownloadWithCookies(set, get),
-
-		cancelQuickDownload: () => cancelQuickDownload(set, get),
-
-		dismissQuickDownloadFailure: () => {
-			if (get().quickDownloadStatus === 'error') set(resetQuickDownloadFeedback())
 		},
 
 		startBulkUrls: urls => {

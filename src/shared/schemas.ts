@@ -367,13 +367,6 @@ export const UI_STYLES = uiStyleSchema.options
 export const graphicsPolicyBackdropReasonSchema = z.enum(['gpu-feature-disabled', 'gpu-feature-software', 'virtual-or-software-renderer', 'gpu-info-unavailable'])
 export type GraphicsPolicyBackdropReason = z.infer<typeof graphicsPolicyBackdropReasonSchema>
 
-export const quickDownloadStatusSchema = z.enum(['idle', 'preparing', 'queued', 'error'])
-export type QuickDownloadStatus = z.infer<typeof quickDownloadStatusSchema>
-
-export const quickDownloadProgressPhaseSchema = z.enum(['probing', 'queueing'])
-export type QuickDownloadProgressPhase = z.infer<typeof quickDownloadProgressPhaseSchema>
-export const QUICK_DOWNLOAD_PROGRESS_PHASES = quickDownloadProgressPhaseSchema.options
-
 export const wizardModeSchema = z.enum(['single', 'playlist', 'bulk'])
 export type WizardMode = z.infer<typeof wizardModeSchema>
 

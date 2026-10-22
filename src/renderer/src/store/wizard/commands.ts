@@ -13,7 +13,6 @@ import type {ReviewRow, WizardSettingsSnapshot} from './profileApplication.js'
 import type {AudioSelection, BulkMetadataItemStatus, BulkMetadataStatus, DownloadProfile, DownloadProfileRef, FormatOption, MediaTags, PlaylistEntry, PlaylistScope, PlaylistSelection, SubtitleMap, WizardMode} from '@shared/types.js'
 import type {BulkCappedList, GetState, SetState, WizardOrigin, WizardStep} from '../types.js'
 import {assignProfileToItems, clearAssignmentsForItems} from './playlistProfileAssignments.js'
-import {QUICK_DOWNLOAD_FEEDBACK_INITIAL} from './quickDownloadFeedback.js'
 import {RESET_VIDEO_PART_STATE} from './videoPart.js'
 
 // Full wizard reset state — owned conceptually by the four slices but applied
@@ -66,7 +65,6 @@ export const RESET_WIZARD_STATE = {
 	bulkMetadataTotal: 0,
 	bulkMetadataById: {} as Record<string, BulkMetadataItemStatus>,
 	bulkCappedLists: [] as BulkCappedList[],
-	...QUICK_DOWNLOAD_FEEDBACK_INITIAL,
 	// formatPicker
 	wizardFormats: [] as FormatOption[],
 	wizardFormatSelection: EMPTY_FORMAT_SELECTION,
@@ -110,8 +108,7 @@ export const RESET_WIZARD_STATE = {
 	mixedUrlPromptOpen: false,
 	mixedUrlPending: null as string | null,
 	mixedUrlPromptSource: null,
-	cookiesConfigDialogIssue: null,
-	quickPlaylistCapDialogOpen: false
+	cookiesConfigDialogIssue: null
 } as const
 
 export const WizardCommands = {

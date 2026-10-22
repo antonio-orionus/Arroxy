@@ -157,6 +157,37 @@ describe('toasts with actions', () => {
 		expect(sink.mock.calls[1]?.[3]?.map((action: {label: string}) => action.label)).toEqual(['Retry'])
 	})
 
+	// Bulk URLs' Quick Download tells its batch in one toast, whatever each link met.
+	it.each([
+		[{added: 3, alreadyQueued: 0, notAdded: 0}, 'info', 'Added 3 links to Downloads'],
+		[{added: 1, alreadyQueued: 0, notAdded: 0}, 'info', 'Added 1 link to Downloads'],
+		[{added: 2, alreadyQueued: 1, notAdded: 0}, 'info', 'Added 2 links to Downloads · 1 already in the queue'],
+		[{added: 0, alreadyQueued: 2, notAdded: 0}, 'info', '2 already in the queue'],
+		[{added: 2, alreadyQueued: 0, notAdded: 1}, 'warning', "Added 2 links to Downloads · 1 couldn't be added"],
+		[{added: 0, alreadyQueued: 1, notAdded: 2}, 'warning', "1 already in the queue · 2 couldn't be added"],
+		[{added: 0, alreadyQueued: 0, notAdded: 1}, 'error', "1 link couldn't be added"],
+		[{added: 0, alreadyQueued: 0, notAdded: 3}, 'error', "3 links couldn't be added"]
+	] as const)('tells the batch %o as %s: %s', (counts, level, message) => {
+		const sink = vi.fn()
+		setNotificationSink(sink)
+		notify.quickDownloadBatchAdded(counts, vi.fn())
+		expect(sink.mock.calls[0]?.slice(0, 2)).toEqual([level, message])
+	})
+
+	it('offers View on the batch toast only when something was placed and the caller has somewhere to go', () => {
+		const sink = vi.fn()
+		setNotificationSink(sink)
+		const view = vi.fn()
+		notify.quickDownloadBatchAdded({added: 2, alreadyQueued: 0, notAdded: 0}, view)
+		notify.quickDownloadBatchAdded({added: 2, alreadyQueued: 0, notAdded: 0})
+		notify.quickDownloadBatchAdded({added: 0, alreadyQueued: 0, notAdded: 2}, view)
+		expect(sink.mock.calls[0]?.[3]?.map((action: {label: string}) => action.label)).toEqual(['View'])
+		sink.mock.calls[0]?.[3]?.[0]?.onClick()
+		expect(view).toHaveBeenCalledOnce()
+		expect(sink.mock.calls[1]).toHaveLength(3)
+		expect(sink.mock.calls[2]).toHaveLength(3)
+	})
+
 	it('asks how many videos to queue for a list past the load limit', () => {
 		const sink = vi.fn()
 		setNotificationSink(sink)

@@ -31,7 +31,6 @@
 		"cancel": "Cancel",
 		"close": "Close",
 		"continue": "Continue",
-		"dismiss": "Dismiss",
 		"loading": "Loading",
 		"retry": "Retry",
 		"startOver": "Start over"
@@ -274,6 +273,14 @@
 		"quickDownload": {
 			"added": "Added: {{title}}",
 			"alreadyQueued": "Already in the queue",
+			"batchAdded_one": "Added {{count}} link to Downloads",
+			"batchAdded_other": "Added {{count}} links to Downloads",
+			"batchAlreadyQueued_one": "{{count}} already in the queue",
+			"batchAlreadyQueued_other": "{{count}} already in the queue",
+			"batchNoneAdded_one": "{{count}} link couldn't be added",
+			"batchNoneAdded_other": "{{count}} links couldn't be added",
+			"batchNotAdded_one": "{{count}} couldn't be added",
+			"batchNotAdded_other": "{{count}} couldn't be added",
 			"chooseFromList_one": "{{count}} video in this list — choose what to download",
 			"chooseFromList_other": "{{count}} videos in this list — choose what to download",
 			"chooseHowMany_one": "{{count}}+ video — choose how many",
@@ -1180,15 +1187,6 @@
 			"syncScanning": "Checking folder…",
 			"thumbnailAlt": "Video thumbnail"
 		},
-		"playlistCap": {
-			"changeLimit": "Change load limit",
-			"descriptionWithTitle_one": "<title/>: Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again.",
-			"descriptionWithTitle_other": "<title/>: Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again.",
-			"description_one": "Arroxy loaded {{count}} item using the current limit of {{limit}}. Queue the loaded item now, or increase the limit and scan again.",
-			"description_other": "Arroxy loaded {{count}} items using the current limit of {{limit}}. Queue the loaded items now, or increase the limit and scan again.",
-			"queueLoaded": "Queue loaded items",
-			"title": "Playlist scan is capped"
-		},
 		"playlistPresets": {
 			"heading": "Pick quality for the batch",
 			"itemCount_one": "{{count}} item",
@@ -1370,19 +1368,6 @@
 		},
 		"profileSwitchRow": {
 			"helpAria": "{{label}} help"
-		},
-		"quickProgress": {
-			"cancel": "Cancel preparation",
-			"currentFallback": "Current link",
-			"description": "Arroxy is reading the link and applying {{profileName}}.",
-			"failedCount_one": "{{count}} failed",
-			"failedCount_other": "{{count}} failed",
-			"phase": {
-				"probing": "Fetching details",
-				"queueing": "Adding to queue"
-			},
-			"title": "Preparing Quick Download",
-			"waitHint": "Keep this open while Arroxy prepares the queue."
 		},
 		"review": {
 			"areas": {
@@ -1631,8 +1616,6 @@
 			"mascotBusy": "Downloading in the background… I can multitask 😎",
 			"mascotCollection": "Quick queues loaded items with {{profileName}}. Interactive lets you inspect or select items first.",
 			"mascotIdle": "Drop a link and let Arroxy pull it ✨",
-			"mascotPreparing": "{{quickDownload}} is reading this link and applying {{profileName}}.",
-			"mascotQueued": "The queue is handling this download. You can paste another link while it works.",
 			"mascotSingle": "Quick starts one download with {{profileName}}. Use Interactive for one-off changes.",
 			"mascotVideoInList": "This link names a video and the list it’s in: download just the video, or the list.",
 			"nativeAudioPreference": {
@@ -1772,12 +1755,9 @@
 				"label": "Proxy URL",
 				"placeholder": "http://host:port"
 			},
-			"quickBulkAllFailed": "None of those URLs could be prepared",
 			"quickDownload": "Quick Download",
 			"quickDownloadTooltip": "Will download using: {{profileName}}",
 			"quickFailed": "Couldn't add this one: {{error}}",
-			"quickPartialFailed_one": "Queued what worked. {{count}} URL could not be prepared.",
-			"quickPartialFailed_other": "Queued what worked. {{count}} URLs could not be prepared.",
 			"quickPrepareFailed": "Queue item could not be prepared",
 			"quickPreparing": "Preparing",
 			"quickProbeFailed": "Probe failed",

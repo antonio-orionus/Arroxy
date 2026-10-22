@@ -7,7 +7,6 @@ import {defaultAppSettings} from '@shared/constants.js'
 import {RESET_WIZARD_STATE} from '@renderer/store/wizard/commands.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 import {armQueue} from '../shared/quickDownloadHarness.js'
-import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 
@@ -144,20 +143,6 @@ describe('submitUrl — video probe', () => {
 })
 
 describe('quickDownload', () => {
-	it('records playlist probe progress while quick download is preparing', async () => {
-		const api = buildMockAppApi()
-		window.appApi = api
-
-		await useAppStore.getState().initialize()
-		const progressListener = vi.mocked(api.events.onProbeProgress).mock.calls.at(-1)?.[0]
-		expect(progressListener).toBeDefined()
-		useAppStore.setState({wizardUrl: 'https://www.youtube.com/@sunnyboy66/videos', playlistProbeLoading: false, quickDownloadStatus: 'preparing', quickDownloadProgressPhase: 'probing', quickDownloadProgressCurrent: 'https://www.youtube.com/@sunnyboy66/videos'})
-
-		progressListener?.({url: 'https://www.youtube.com/@sunnyboy66/videos', playlistMode: 'playlist', phase: 'pages', loaded: 8, at: new Date().toISOString()})
-
-		expect(useAppStore.getState().playlistProbeProgress).toMatchObject({phase: 'pages', loaded: 8})
-	})
-
 	it('ignores unrelated probe progress without notifying store subscribers', async () => {
 		const api = buildMockAppApi()
 		window.appApi = api
@@ -196,7 +181,7 @@ describe('quickDownload', () => {
 
 		// Nothing is taken in until the prompt is answered.
 		expect(api.intake.add).not.toHaveBeenCalled()
-		expect(useAppStore.getState()).toMatchObject({wizardUrl: mixedUrl, mixedUrlPromptOpen: true, mixedUrlPending: mixedUrl, mixedUrlPromptSource: 'url-tab', quickDownloadStatus: 'idle'})
+		expect(useAppStore.getState()).toMatchObject({wizardUrl: mixedUrl, mixedUrlPromptOpen: true, mixedUrlPending: mixedUrl, mixedUrlPromptSource: 'url-tab'})
 	})
 
 	it.each(['&list=RDdQw4w9WgXcQ&start_radio=1', '&list=RDCLAK5uy_test', '&list=PLtest&start_radio=1'])('asks about a video in a Mix or Music playlist too (%s)', async suffix => {
@@ -377,15 +362,6 @@ describe('quickDownload', () => {
 		expect(useAppStore.getState().wizardStep).toBe('url')
 	})
 
-	it('resets quick-download feedback when the URL changes', () => {
-		useAppStore.setState({quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'exception', message: 'Previous failure', urls: [YOUTUBE_URL]}})
-
-		useAppStore.getState().setWizardUrl(YOUTUBE_URL)
-
-		expect(useAppStore.getState().quickDownloadStatus).toBe('idle')
-		expect(useAppStore.getState().quickDownloadFailure).toBeNull()
-	})
-
 	it('queues every loaded playlist entry with the active profile', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
@@ -423,7 +399,7 @@ describe('quickDownload', () => {
 
 		await vi.waitFor(() => expect(useAppStore.getState().queue).toMatchObject([{status: 'needs-choice', choice: {kind: 'list-size', loaded: 2, capped: false}, title: 'My Playlist'}]))
 		expect(api.queue.cmd.replaceProbing).not.toHaveBeenCalled()
-		expect(useAppStore.getState()).toMatchObject({wizardStep: 'url', quickDownloadStatus: 'idle'})
+		expect(useAppStore.getState()).toMatchObject({wizardStep: 'url'})
 	})
 
 	it('asks how many to queue on the row when a playlist quick scan is capped', async () => {
@@ -438,266 +414,7 @@ describe('quickDownload', () => {
 
 		await vi.waitFor(() => expect(useAppStore.getState().queue).toMatchObject([{status: 'needs-choice', choice: {kind: 'list-size', loaded: 100, capped: true}}]))
 		expect(api.queue.cmd.replaceProbing).not.toHaveBeenCalled()
-		expect(useAppStore.getState()).toMatchObject({wizardStep: 'url', quickPlaylistCapDialogOpen: false, playlistItems: []})
-	})
-
-	it('queues capped playlist loaded items with the active profile', async () => {
-		const api = buildMockAppApi()
-		window.appApi = api
-
-		const settings = defaultAppSettings('/tmp')
-		useAppStore.setState({
-			wizardStep: 'playlistItems',
-			wizardMode: 'playlist',
-			wizardUrl: 'https://www.youtube.com/playlist?list=PLtest',
-			wizardOutputDir: '/tmp',
-			wizardExtractor: 'youtube:playlist',
-			wizardExtractorKey: 'YoutubePlaylist',
-			wizardWebpageUrl: 'https://www.youtube.com/playlist?list=PLtest',
-			playlistItems: PLAYLIST_PROBE.entries,
-			selectedPlaylistItemIds: PLAYLIST_PROBE.entries.map(entry => entry.id),
-			playlistTitle: 'My Playlist',
-			playlistId: 'PLtest',
-			playlistIsMultiVideo: false,
-			playlistLikelyCapped: true,
-			quickPlaylistCapDialogOpen: true,
-			settings
-		})
-
-		await useAppStore.getState().queueLoadedPlaylistWithActiveProfile()
-
-		const items = vi.mocked(api.queue.cmd.add).mock.calls[0]?.[0] ?? []
-		expect(items).toHaveLength(2)
-		expect(items.every(item => item.job.kind === 'ranged-format')).toBe(true)
-		expect(items.every(item => item.playlistGroupId === items[0]?.playlistGroupId)).toBe(true)
-		expect(api.playlist.registerManifest).toHaveBeenCalledWith(
-			expect.objectContaining({
-				playlistTitle: 'My Playlist',
-				items: [
-					{videoId: 'e1', title: 'Entry 1', duration: 60},
-					{videoId: 'e2', title: 'Entry 2', duration: 120}
-				]
-			})
-		)
-		expect(useAppStore.getState().wizardStep).toBe('url')
-		expect(useAppStore.getState().quickPlaylistCapDialogOpen).toBe(false)
-		expect(useAppStore.getState().quickDownloadStatus).toBe('queued')
-	})
-
-	// #539: the error escaped the button's discarded promise, so nothing showed
-	// and the dialog stayed open.
-	it('says so when the profile saves to a folder that is not set, and closes the cap dialog', async () => {
-		const api = buildMockAppApi()
-		window.appApi = api
-		const base = defaultAppSettings('/tmp')
-		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')
-		if (!balanced) throw new Error('expected the balanced profile')
-
-		useAppStore.setState({
-			wizardStep: 'playlistItems',
-			wizardMode: 'playlist',
-			wizardUrl: 'https://www.youtube.com/playlist?list=PLtest',
-			wizardOutputDir: '/tmp',
-			wizardWebpageUrl: 'https://www.youtube.com/playlist?list=PLtest',
-			playlistItems: PLAYLIST_PROBE.entries,
-			playlistTitle: 'My Playlist',
-			playlistId: 'PLtest',
-			playlistLikelyCapped: true,
-			quickPlaylistCapDialogOpen: true,
-			settings: {...base, profiles: {...base.profiles, overrides: [{...balanced, output: {kind: 'fixed', dir: ' '}}]}}
-		})
-
-		await expect(useAppStore.getState().queueLoadedPlaylistWithActiveProfile()).resolves.toBeUndefined()
-
-		expect(api.queue.cmd.add).not.toHaveBeenCalled()
-		expect(useAppStore.getState()).toMatchObject({quickDownloadStatus: 'error', quickDownloadFailure: {kind: 'prepare', messageKey: 'wizard.url.profile.outputMissing'}, quickPlaylistCapDialogOpen: false, isSubmittingToQueue: false})
-	})
-
-	it('quickDownloadUrls probes and queues every accepted bulk URL with the active profile', async () => {
-		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
-		window.appApi = api
-
-		useAppStore.setState({wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
-		await useAppStore.getState().quickDownloadUrls(['https://youtu.be/one', 'https://youtu.be/two'])
-
-		expect(api.downloads.probe).toHaveBeenCalledTimes(2)
-		expect(api.queue.cmd.add).toHaveBeenCalledTimes(2)
-		const allQueued = vi.mocked(api.queue.cmd.add).mock.calls.flatMap(call => call[0])
-		expect(allQueued).toHaveLength(2)
-		expect(allQueued.every(item => item.job.kind === 'ranged-format')).toBe(true)
-		expect(useAppStore.getState().quickDownloadStatus).toBe('queued')
-		expect(useAppStore.getState().wizardStep).toBe('url')
-	})
-
-	it('quickDownloadUrls reports a profile with no output folder in the app language', async () => {
-		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
-		window.appApi = api
-		const base = defaultAppSettings('/tmp')
-		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')
-		if (!balanced) throw new Error('expected the balanced profile')
-
-		useAppStore.setState({wizardOutputDir: '/tmp', settings: {...base, profiles: {...base.profiles, overrides: [{...balanced, output: {kind: 'fixed', dir: ' '}}]}}})
-		await useAppStore.getState().quickDownloadUrls(['https://youtu.be/one', 'https://youtu.be/two'])
-
-		expect(useAppStore.getState().quickDownloadFailure).toMatchObject({kind: 'prepare', messageKey: 'wizard.url.profile.outputMissing'})
-	})
-
-	it('quickDownloadUrls routes mixed watch/list URLs to bulk review instead of silently forcing single-video mode', async () => {
-		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
-		window.appApi = api
-
-		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
-		useAppStore.setState({wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
-		await useAppStore.getState().quickDownloadUrls(['https://youtu.be/one', mixedUrl])
-
-		expect(api.queue.cmd.add).not.toHaveBeenCalled()
-		expect(useAppStore.getState()).toMatchObject({wizardStep: 'playlistItems', wizardMode: 'bulk', playlistTitle: 'Bulk URLs', quickDownloadStatus: 'idle'})
-		expect(useAppStore.getState().playlistItems.map(item => item.url)).toEqual(['https://youtu.be/one', mixedUrl])
-	})
-
-	// Bulk URLs is out of the video-or-list question: a link that was Radio
-	// before stays one video there, probed alone and queued with no question.
-	it.each(['&list=RDtest&start_radio=1', '&list=RDtest', '&list=RDCLAK5uy_test'])('quickDownloadUrls keeps a video in a Mix (%s) as one video', async suffix => {
-		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
-		window.appApi = api
-
-		const mixUrl = `${YOUTUBE_URL}${suffix}`
-		useAppStore.setState({wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
-		await useAppStore.getState().quickDownloadUrls(['https://youtu.be/one', mixUrl])
-
-		expect(useAppStore.getState().mixedUrlPromptOpen).toBe(false)
-		expect(vi.mocked(api.downloads.probe).mock.calls.map(call => call[0].playlistMode)).toEqual(['video', 'video'])
-		expect(api.queue.cmd.add).toHaveBeenCalledTimes(2)
-		expect(useAppStore.getState().wizardMode).not.toBe('bulk')
-	})
-
-	it('quickDownloadUrls opens playlist review when an unknown bulk URL probes as a playlist', async () => {
-		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockResolvedValue(ok({...PLAYLIST_PROBE, webpageUrl: 'https://example.com/series'}))
-		window.appApi = api
-
-		useAppStore.setState({wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
-		await useAppStore.getState().quickDownloadUrls(['https://example.com/series'])
-
-		expect(api.queue.cmd.add).not.toHaveBeenCalled()
-		expect(useAppStore.getState()).toMatchObject({wizardStep: 'playlistItems', wizardMode: 'playlist', playlistTitle: 'My Playlist', quickDownloadStatus: 'idle'})
-	})
-
-	it('quickDownloadUrls preserves the whole batch when an unknown URL probes as a playlist', async () => {
-		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockImplementation(async ({url}) => {
-			if (url.includes('series')) return ok({...PLAYLIST_PROBE, webpageUrl: url})
-			return ok({...VIDEO_PROBE, webpageUrl: url, title: 'Single'})
-		})
-		window.appApi = api
-
-		useAppStore.setState({wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
-		await useAppStore.getState().quickDownloadUrls(['https://youtu.be/one', 'https://example.com/series'])
-
-		expect(api.queue.cmd.add).not.toHaveBeenCalled()
-		expect(useAppStore.getState()).toMatchObject({wizardStep: 'playlistItems', wizardMode: 'bulk', playlistTitle: 'Bulk URLs', quickDownloadStatus: 'idle'})
-		expect(useAppStore.getState().playlistItems.map(item => item.url)).toEqual(['https://youtu.be/one', 'https://example.com/series'])
-	})
-
-	it('quickDownloadUrls continues after failed bulk probes and reports the failed count', async () => {
-		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockImplementation(async ({url}) => {
-			if (url.includes('bad')) return fail({kind: 'other', code: 'unknown', message: 'Probe failed'})
-			return ok({...VIDEO_PROBE, title: url.includes('one') ? 'One' : 'Two'})
-		})
-		window.appApi = api
-
-		useAppStore.setState({wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
-		await useAppStore.getState().quickDownloadUrls(['https://youtu.be/one', 'https://youtu.be/bad', 'https://youtu.be/two'])
-
-		expect(api.downloads.probe).toHaveBeenCalledTimes(3)
-		expect(api.queue.cmd.add).toHaveBeenCalledTimes(2)
-		const allQueued = vi.mocked(api.queue.cmd.add).mock.calls.flatMap(call => call[0])
-		expect(allQueued.map(item => item.title)).toEqual(['One', 'Two'])
-		expect(useAppStore.getState().quickDownloadStatus).toBe('queued')
-		expect(useAppStore.getState().quickDownloadProgressFailed).toBe(1)
-		expect(useAppStore.getState().quickDownloadFailure).toBeNull()
-	})
-
-	it('quickDownloadUrls keeps representative probe guidance when every bulk probe fails', async () => {
-		const api = buildMockAppApi()
-		const networkError: ProbeError = {kind: 'ytdlp', error: {kind: 'network', raw: 'network down'}}
-		const botBlockError: ProbeError = {kind: 'ytdlp', error: {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"}}
-		vi.mocked(api.downloads.probe).mockImplementation(async ({url}) => fail(url.includes('bot') ? botBlockError : networkError))
-		window.appApi = api
-
-		const settings = defaultAppSettings('/tmp')
-		useAppStore.setState({wizardOutputDir: '/tmp', settings: {...settings, common: {...settings.common, cookiesMode: 'off', cookiesPath: '/tmp/cookies.txt'}}})
-		await useAppStore.getState().quickDownloadUrls(['https://youtu.be/network', 'https://youtu.be/bot'])
-
-		expect(api.downloads.probe).toHaveBeenCalledTimes(2)
-		expect(api.queue.cmd.add).not.toHaveBeenCalled()
-		expect(useAppStore.getState().quickDownloadFailure).toEqual({kind: 'bulk-probe', error: botBlockError, errorUrl: 'https://youtu.be/bot', urls: ['https://youtu.be/network', 'https://youtu.be/bot'], failedCount: 2})
-		expect(useAppStore.getState().quickDownloadProgressFailed).toBe(2)
-	})
-
-	it('retryQuickDownloadFailure reruns the original failed bulk URL list', async () => {
-		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'other', code: 'unknown', message: 'Probe failed'}))
-		window.appApi = api
-
-		useAppStore.setState({wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
-		await useAppStore.getState().quickDownloadUrls(['https://youtu.be/one', 'https://youtu.be/two'])
-		expect(useAppStore.getState().quickDownloadFailure?.kind).toBe('bulk-probe')
-
-		vi.mocked(api.downloads.probe).mockClear()
-		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
-		await useAppStore.getState().retryQuickDownloadFailure()
-
-		expect(vi.mocked(api.downloads.probe).mock.calls.map(call => call[0].url)).toEqual(['https://youtu.be/one', 'https://youtu.be/two'])
-		expect(api.queue.cmd.add).toHaveBeenCalledTimes(2)
-		expect(useAppStore.getState().quickDownloadStatus).toBe('queued')
-	})
-
-	it('retryQuickDownloadWithCookies enables configured cookies before rerunning a failed bulk URL list', async () => {
-		const api = buildMockAppApi()
-		vi.mocked(api.downloads.probe).mockResolvedValue(fail({kind: 'ytdlp', error: {kind: 'botBlock', raw: "Sign in to confirm you're not a bot"}}))
-		window.appApi = api
-
-		const settings = defaultAppSettings('/tmp')
-		useAppStore.setState({wizardOutputDir: '/tmp', settings: {...settings, common: {...settings.common, cookiesMode: 'off', cookiesPath: '/tmp/cookies.txt'}}})
-		await useAppStore.getState().quickDownloadUrls(['https://youtu.be/one', 'https://youtu.be/two'])
-
-		vi.mocked(api.downloads.probe).mockClear()
-		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
-		await useAppStore.getState().retryQuickDownloadWithCookies()
-
-		expect(api.settings.update).toHaveBeenCalledWith({common: {cookiesMode: 'file'}})
-		expect(vi.mocked(api.downloads.probe).mock.calls.map(call => call[0].url)).toEqual(['https://youtu.be/one', 'https://youtu.be/two'])
-	})
-
-	it('cancelQuickDownload stops pending bulk probes and keeps queued items untouched', async () => {
-		const api = buildMockAppApi()
-		let resolveFirst!: (value: Result<ProbeResult, ProbeError>) => void
-		vi.mocked(api.downloads.probe).mockReturnValue(
-			new Promise(resolve => {
-				resolveFirst = resolve
-			})
-		)
-		window.appApi = api
-
-		useAppStore.setState({wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
-		const promise = useAppStore.getState().quickDownloadUrls(['https://youtu.be/one', 'https://youtu.be/two'])
-		expect(useAppStore.getState().quickDownloadStatus).toBe('preparing')
-		expect(useAppStore.getState().quickDownloadProgressTotal).toBe(2)
-
-		useAppStore.getState().cancelQuickDownload()
-		resolveFirst(ok(VIDEO_PROBE))
-		await promise
-
-		expect(api.downloads.probeCancel).toHaveBeenCalled()
-		expect(api.queue.cmd.add).not.toHaveBeenCalled()
-		expect(useAppStore.getState().quickDownloadStatus).toBe('idle')
-		expect(useAppStore.getState().quickDownloadProgressTotal).toBe(0)
+		expect(useAppStore.getState()).toMatchObject({wizardStep: 'url', playlistItems: []})
 	})
 
 	it('keeps the URL when the row cannot be placed', async () => {
@@ -723,7 +440,6 @@ describe('quickDownload', () => {
 
 		expect(api.intake.add).not.toHaveBeenCalled()
 		expect(useAppStore.getState().cookiesConfigDialogIssue).toBe('file-missing-path')
-		expect(useAppStore.getState().quickDownloadStatus).toBe('idle')
 	})
 })
 

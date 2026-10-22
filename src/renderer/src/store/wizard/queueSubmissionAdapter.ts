@@ -1,9 +1,13 @@
-import {queueIdsFromAddResult} from './quickDownloadFeedback.js'
 import type {PreparedQueueSubmission} from '@shared/queueSubmission.js'
 
 // `skippedAlreadyQueued`: rows main left out because their video is live
 // there (the renderer's queue lags main's); the preparation counts its own.
 export type QueueSubmissionResult = {ok: true; ids: string[]; skippedAlreadyQueued: number} | {ok: false; error: string}
+
+// Main's ids for the added rows; the prepared ones when main reports none.
+function queueIdsFromAddResult(addResultIds: string[], items: PreparedQueueSubmission['items']): string[] {
+	return addResultIds.length > 0 ? addResultIds : items.map(item => item.id)
+}
 
 async function registerManifest(prepared: PreparedQueueSubmission): Promise<void> {
 	if (!prepared.manifest) return

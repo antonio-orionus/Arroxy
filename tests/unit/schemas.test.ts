@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {queueArraySchema} from '@shared/queueItemSchema.js'
-import {audioConvertSchema, MAX_SUBTITLE_LANGUAGES, updateSettingsSchema, PLAYLIST_VIDEO_TIERS, QUICK_DOWNLOAD_PROGRESS_PHASES, probeSchema, FILENAME_TEMPLATE_MAX, UI_STYLES} from '@shared/schemas.js'
+import {audioConvertSchema, MAX_SUBTITLE_LANGUAGES, updateSettingsSchema, PLAYLIST_VIDEO_TIERS, probeSchema, FILENAME_TEMPLATE_MAX, UI_STYLES} from '@shared/schemas.js'
 import {startDownloadSchema} from '@shared/preparedJob.js'
 import {DEFAULTS} from '@shared/constants.js'
 
@@ -63,12 +63,6 @@ describe('startDownloadSchema — multi-site URL acceptance', () => {
 describe('playlist video tiers', () => {
 	it('preserves highest-to-lowest presentation order', () => {
 		expect(PLAYLIST_VIDEO_TIERS).toEqual(['best', '2160', '1440', '1080', '720', '480', '360', '240', '144'])
-	})
-})
-
-describe('quick download progress phases', () => {
-	it('exports schema options for downstream exhaustive maps', () => {
-		expect(QUICK_DOWNLOAD_PROGRESS_PHASES).toEqual(['probing', 'queueing'])
 	})
 })
 

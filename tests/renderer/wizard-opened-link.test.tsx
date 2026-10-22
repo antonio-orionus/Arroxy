@@ -37,7 +37,7 @@ beforeEach(() => {
 	window.appApi = mockApi
 	window.platform = 'linux'
 	const settings = defaultAppSettings('/tmp')
-	useAppStore.setState({initialized: true, initializing: false, splashDismissed: true, settings, wizardStep: 'url', wizardMode: 'single', formatsLoading: false, wizardUrl: '', quickDownloadStatus: 'idle', queue: [], copiedLink: null})
+	useAppStore.setState({initialized: true, initializing: false, splashDismissed: true, settings, wizardStep: 'url', wizardMode: 'single', formatsLoading: false, wizardUrl: '', queue: [], copiedLink: null})
 })
 
 afterEach(() => {

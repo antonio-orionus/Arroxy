@@ -5,7 +5,6 @@
 
 import type {GetState, SetState, WizardDialogsSlice} from '../types.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
-import {resetQuickDownloadFeedback} from './quickDownloadFeedback.js'
 
 // The Settings tab only exists on the home screen, so reaching it from a wizard
 // step first leaves that step and drops any prompt that was waiting on it.
@@ -19,7 +18,6 @@ export function createWizardDialogsSlice(set: SetState, _get: GetState): WizardD
 		advancedAutoOpen: false,
 		advancedAutoTarget: 'cookies',
 		cookiesConfigDialogIssue: null,
-		quickPlaylistCapDialogOpen: false,
 
 		setAdvancedAutoOpen: (open, target = 'cookies') => set({advancedAutoOpen: open, advancedAutoTarget: target}),
 
@@ -39,10 +37,6 @@ export function createWizardDialogsSlice(set: SetState, _get: GetState): WizardD
 
 		dismissCookiesConfigDialog: () => {
 			set({cookiesConfigDialogIssue: null})
-		},
-
-		dismissQuickPlaylistCapDialog: () => {
-			set({quickPlaylistCapDialogOpen: false, ...resetQuickDownloadFeedback()})
 		}
 	}
 }

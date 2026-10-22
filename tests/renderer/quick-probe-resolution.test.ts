@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it} from 'vite-plus/test'
 import {resolvePinnedQuickProbe, scopeForTake, widenForSkip, type QuickProbeContext, type QuickProbeResolution} from '@shared/intake/probeResolution.js'
-import {pinActiveDownloadProfile, rendererPreparationEnv} from '@renderer/store/wizard/queueSubmission.js'
+import {pinActiveDownloadProfile, rendererPreparationEnv} from '../shared/queueSubmissionState.js'
 import type {AppState} from '@renderer/store/types.js'
 import type {Result} from '@shared/result.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'

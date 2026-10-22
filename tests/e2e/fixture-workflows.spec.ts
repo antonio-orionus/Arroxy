@@ -602,42 +602,6 @@ for (const {source, button, expectedText, expectedTrack, unexpectedTrack} of [
 	})
 }
 
-test('Electron bulk Quick Download shows preparation progress and queues fixture files', async () => {
-	test.setTimeout(180_000)
-
-	await withFixtureProductApp(
-		{
-			behavior: {metadataDelayMs: 1_500},
-			userDataPrefix: 'arroxy-fixture-bulk-quick-user-',
-			outputPrefix: 'arroxy-fixture-bulk-quick-out-',
-			settings: settings => {
-				configureSmallFileQuickProfile(settings)
-			}
-		},
-		async ({app, page, outputDir, urls, files}) => {
-			const rawBulkText = urls.videos([FIXTURE_VIDEO_IDS[0], FIXTURE_VIDEO_IDS[1]]).join('\n')
-			await startBulkFromClipboard(page, app, rawBulkText)
-			await expect(page.locator('[data-testid="bulk-url-valid-count"]')).toContainText('2')
-			await expect(page.locator('[data-testid="bulk-active-profile-card"]')).toContainText('Small file 480p')
-			await page.locator('[data-testid="bulk-quick-download"]').click()
-
-			await expect(page.locator('[data-testid="quick-download-progress-dialog"]')).toBeVisible({timeout: 10_000})
-			await expect(page.locator('[data-testid="quick-download-progress-dialog"]')).toContainText('Small file 480p')
-			await expect(page.locator('[data-testid="quick-download-progress-count"]')).toContainText('/ 2')
-			await expect(page.locator('[data-testid="quick-download-progress-dialog"]')).toBeHidden({timeout: 60_000})
-
-			await openQueueTab(page)
-			await expect(page.locator('[data-testid^="queue-manager-row-"]')).toHaveCount(2, {timeout: 20_000})
-			await expect
-				.poll(async () => page.locator('[data-testid^="queue-manager-row-"]').evaluateAll(cards => cards.map(card => ({status: card.getAttribute('data-status'), text: card.textContent?.replace(/\s+/g, ' ').trim()}))), {timeout: 140_000})
-				.toEqual([expect.objectContaining({status: 'done'}), expect.objectContaining({status: 'done'})])
-			const profileDir = smallFileProfileDir(outputDir)
-			await expect.poll(() => files.mediaFiles('.mp4', profileDir).length, {timeout: 20_000}).toBe(2)
-			files.expectMp4Count(2, profileDir)
-		}
-	)
-})
-
 // Filename templates are the acceptance case for "file output" — unit tests
 // prove the compiler emits the right -o string, but only a real download proves
 // yt-dlp then writes the file we expected under that name.

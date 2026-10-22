@@ -293,9 +293,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			unbindProbeProgress = window.appApi.events.onProbeProgress(event => {
 				const state = get()
 				const playlistProbeActive = state.playlistProbeLoading || state.playlistScopeReloading
-				const quickDownloadProbeActive = state.quickDownloadStatus === 'preparing' && state.quickDownloadProgressPhase === 'probing'
-				const matchesActiveUrl = state.wizardUrl === event.url || state.quickDownloadProgressCurrent === event.url
-				if ((!playlistProbeActive && !quickDownloadProbeActive) || !matchesActiveUrl) return
+				if (!playlistProbeActive || state.wizardUrl !== event.url) return
 				set({playlistProbeProgress: event})
 			})
 
@@ -337,7 +335,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
 			const snapshotResult = await snapshotPromise
 			if (snapshotResult.ok) {
-				set(state => projectQueueSnapshot(state, snapshotResult.data))
+				set(projectQueueSnapshot(snapshotResult.data))
 			}
 			// warmUp() itself turns its own failures into a `fail` Result rather than
 			// rejecting, but the IPC transport in front of it is not this store's to

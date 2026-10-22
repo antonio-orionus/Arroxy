@@ -52,8 +52,6 @@ export type {
 	NativeAudioPreference,
 	HdrPreference,
 	HdrSetting,
-	QuickDownloadStatus,
-	QuickDownloadProgressPhase,
 	ProbeOtherErrorCode,
 	AppErrorCode,
 	WizardMode,

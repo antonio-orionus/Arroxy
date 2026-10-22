@@ -4,7 +4,7 @@ import {YT_DLP_ERROR_KINDS, type YtDlpErrorKind} from '@shared/schemas.js'
 import type {CommonSettings, ProbeError} from '@shared/types.js'
 import {EXPLORE_ADDRESS_MAX} from '@shared/sites/exploreAddress.js'
 import {exploreSignInSiteFor} from '@renderer/store/exploreSignInSite.js'
-import {buildProbeErrorExperience, configuredCookiesRetryMode, type ExploreSignedIn, isBotWallKind, isCookiesNeededKind, isDpapiCookieError, selectProbeErrorForGuidance} from '@renderer/store/wizard/probeErrorExperience.js'
+import {buildProbeErrorExperience, configuredCookiesRetryMode, type ExploreSignedIn, isBotWallKind, isCookiesNeededKind, isDpapiCookieError} from '@renderer/store/wizard/probeErrorExperience.js'
 
 function ytdlpError(kind: YtDlpErrorKind, raw = `ERROR: ${kind}`): ProbeError {
 	return {kind: 'ytdlp', error: {kind, raw}}
@@ -52,19 +52,6 @@ describe('ProbeErrorExperience', () => {
 		expect(configuredCookiesRetryMode({cookiesMode: 'off', cookiesPath: '/tmp/cookies.txt', cookiesBrowser: 'firefox'})).toBe('file')
 	})
 
-	it('selects the most actionable probe error for compact guidance', () => {
-		const network = ytdlpError('network')
-		const rateLimit = ytdlpError('rateLimit')
-		const botBlock = ytdlpError('botBlock')
-		const ageRestricted = ytdlpError('ageRestricted')
-
-		expect(selectProbeErrorForGuidance([], {cookiesMode: 'off', exploreEnabled: false})).toBeNull()
-		expect(selectProbeErrorForGuidance([network, botBlock], {cookiesMode: 'off', exploreEnabled: false, cookiesPath: '/tmp/cookies.txt'})).toBe(botBlock)
-		expect(selectProbeErrorForGuidance([network, ageRestricted], {cookiesMode: 'off', exploreEnabled: false})).toBe(ageRestricted)
-		expect(selectProbeErrorForGuidance([network, rateLimit], {cookiesMode: 'off', exploreEnabled: false})).toBe(rateLimit)
-		expect(selectProbeErrorForGuidance([network, ytdlpError('parse')], {cookiesMode: 'off', exploreEnabled: false})).toBe(network)
-	})
-
 	describe('under the explore cookie mode', () => {
 		const EXPLORE = {cookiesMode: 'explore'} as const
 
@@ -105,11 +92,6 @@ describe('ProbeErrorExperience', () => {
 				expect(buildProbeErrorExperience({error: ytdlpError('botBlock'), commonSettings: {...disabled, ...stored}, exploreSignedIn: true})).toMatchObject({cookies: {variant: 'needs-cookies'}, botWall: {variant: 'unconfigured'}, actions: {enableCookiesAndRetry: false, openCookiesSettings: true}})
 				expect(buildProbeErrorExperience({error: null, degradedReasons: ['botWall'], commonSettings: {...disabled, ...stored}}).botWall.variant).toBe('unconfigured')
 			}
-		})
-
-		it('selects the error a sign-in would fix', () => {
-			const ageRestricted = ytdlpError('ageRestricted')
-			expect(selectProbeErrorForGuidance([ytdlpError('network'), ytdlpError('rateLimit'), ageRestricted], EXPLORE, false)).toBe(ageRestricted)
 		})
 	})
 
@@ -203,11 +185,6 @@ describe('ProbeErrorExperience', () => {
 					}
 				}
 			}
-		})
-
-		it('selects the error a sign-in would fix', () => {
-			const ageRestricted = ytdlpError('ageRestricted')
-			expect(selectProbeErrorForGuidance([ytdlpError('network'), ytdlpError('rateLimit'), ageRestricted], {cookiesMode: 'off'}, false)).toBe(ageRestricted)
 		})
 	})
 })

@@ -3,15 +3,12 @@ import {useShallow} from 'zustand/react/shallow'
 import {cleanUrl} from '@shared/cleanUrl.js'
 import {allDownloadProfiles, resolveActiveDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
 import {classifyUrlIntent, urlIntentHomeLabel} from '@shared/urlIntent.js'
-import type {DownloadProfile, DownloadProfilesPrefs, ProbeError} from '@shared/types.js'
+import type {DownloadProfile, DownloadProfilesPrefs} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {useAppStore} from './useAppStore.js'
-import {buildProbeErrorExperience, type ProbeErrorExperience} from './wizard/probeErrorExperience.js'
-import type {QuickDownloadFailure, QuickDownloadFailureMessageKey} from './wizard/quickDownloadFeedback.js'
 
 export type DownloadInputType = 'Single URL' | 'Playlist URL' | 'Channel URL' | 'Search URL' | 'Mixed URL' | 'URL' | 'Unsupported URL' | 'Unknown URL'
 export type ActiveProfileDestinationDetailKey = 'wizard.url.profile.destinationDetail.global' | 'wizard.url.profile.destinationDetail.globalSubfolder' | 'wizard.url.profile.destinationDetail.override' | 'wizard.url.profile.destinationDetail.overrideSubfolder'
-export type QuickDownloadFailureMessage = {kind: 'i18n'; key: QuickDownloadFailureMessageKey} | {kind: 'text'; text: string} | {kind: 'bulk-probe'; error: ProbeError}
 
 export interface DownloadHomeView {
 	activeProfileDestination: string
@@ -26,21 +23,11 @@ export interface DownloadHomeView {
 	hasInput: boolean
 	inputType: DownloadInputType | null
 	openCookiesSettings: ReturnType<typeof useAppStore.getState>['openCookiesSettings']
-	openExploreSignIn: ReturnType<typeof useAppStore.getState>['openExploreSignIn']
-	signInWithExploreThenRetry: ReturnType<typeof useAppStore.getState>['signInWithExploreThenRetry']
-	retryWithExploreSignIn: ReturnType<typeof useAppStore.getState>['retryWithExploreSignIn']
 	profiles: DownloadProfile[]
 	profilesPrefs: DownloadProfilesPrefs | undefined
 	quickDownload: ReturnType<typeof useAppStore.getState>['quickDownload']
-	quickDownloadFailure: QuickDownloadFailure | null
-	quickDownloadFailureMessage: QuickDownloadFailureMessage | null
-	quickDownloadProbeExperience: ProbeErrorExperience | null
-	quickDownloadProgressFailed: ReturnType<typeof useAppStore.getState>['quickDownloadProgressFailed']
-	quickDownloadStatus: ReturnType<typeof useAppStore.getState>['quickDownloadStatus']
 	moveDownloadProfile: ReturnType<typeof useAppStore.getState>['moveDownloadProfile']
 	removeDownloadProfile: ReturnType<typeof useAppStore.getState>['removeDownloadProfile']
-	retryQuickDownloadFailure: ReturnType<typeof useAppStore.getState>['retryQuickDownloadFailure']
-	retryQuickDownloadWithCookies: ReturnType<typeof useAppStore.getState>['retryQuickDownloadWithCookies']
 	saveDownloadProfile: ReturnType<typeof useAppStore.getState>['saveDownloadProfile']
 	setActiveDownloadProfile: ReturnType<typeof useAppStore.getState>['setActiveDownloadProfile']
 	setDownloadProfileEnabled: ReturnType<typeof useAppStore.getState>['setDownloadProfileEnabled']
@@ -48,17 +35,6 @@ export interface DownloadHomeView {
 	submitUrl: ReturnType<typeof useAppStore.getState>['submitUrl']
 	urlReady: boolean
 	wizardUrl: string
-}
-
-function quickDownloadProbeFailure(failure: QuickDownloadFailure | null): ProbeError | null {
-	return failure?.kind === 'bulk-probe' ? failure.error : null
-}
-
-function quickDownloadFailureMessage(failure: QuickDownloadFailure | null): QuickDownloadFailureMessage | null {
-	if (!failure) return null
-	if (failure.kind === 'bulk-probe') return {kind: 'bulk-probe', error: failure.error}
-	if (failure.kind === 'prepare') return {kind: 'i18n', key: failure.messageKey}
-	return {kind: 'text', text: failure.message}
 }
 
 function detectUrlType(value: string): DownloadInputType | null {
@@ -87,21 +63,12 @@ export function useDownloadHomeView(): DownloadHomeView {
 			dismissCookiesConfigDialog: s.dismissCookiesConfigDialog,
 			hasActiveDownloads: s.queue.some(item => item.status === 'running'),
 			openCookiesSettings: s.openCookiesSettings,
-			openExploreSignIn: s.openExploreSignIn,
-			signInWithExploreThenRetry: s.signInWithExploreThenRetry,
-			retryWithExploreSignIn: s.retryWithExploreSignIn,
 			commonSettings: s.settings?.common,
-			exploreSignedIn: s.exploreView?.signedIn ?? null,
 			chooseWizardFolder: s.chooseWizardFolder,
 			profilesPrefs: s.settings?.profiles,
 			quickDownload: s.quickDownload,
-			quickDownloadFailure: s.quickDownloadFailure,
-			quickDownloadProgressFailed: s.quickDownloadProgressFailed,
-			quickDownloadStatus: s.quickDownloadStatus,
 			moveDownloadProfile: s.moveDownloadProfile,
 			removeDownloadProfile: s.removeDownloadProfile,
-			retryQuickDownloadFailure: s.retryQuickDownloadFailure,
-			retryQuickDownloadWithCookies: s.retryQuickDownloadWithCookies,
 			saveDownloadProfile: s.saveDownloadProfile,
 			setActiveDownloadProfile: s.setActiveDownloadProfile,
 			setDownloadProfileEnabled: s.setDownloadProfileEnabled,
@@ -124,14 +91,6 @@ export function useDownloadHomeView(): DownloadHomeView {
 	}, [activeProfile, commonSettings, state.wizardOutputDir])
 	const globalDestinationRoot = state.wizardOutputDir?.trim() ? state.wizardOutputDir : (commonSettings?.defaultOutputDir ?? '')
 	const inputType = useMemo(() => detectUrlType(state.wizardUrl), [state.wizardUrl])
-	const quickDownloadFailureText = useMemo(() => quickDownloadFailureMessage(state.quickDownloadFailure), [state.quickDownloadFailure])
-	const quickDownloadProbeFailureError = useMemo(() => quickDownloadProbeFailure(state.quickDownloadFailure), [state.quickDownloadFailure])
-	const exploreSignedIn = state.exploreSignedIn
-	const quickDownloadProbeFailureUrl = state.quickDownloadFailure?.kind === 'bulk-probe' ? state.quickDownloadFailure.errorUrl : null
-	const quickDownloadProbeExperience = useMemo(
-		() => (quickDownloadProbeFailureError ? buildProbeErrorExperience({error: quickDownloadProbeFailureError, url: quickDownloadProbeFailureUrl, commonSettings, exploreSignedIn}) : null),
-		[quickDownloadProbeFailureError, quickDownloadProbeFailureUrl, commonSettings, exploreSignedIn]
-	)
 	const hasInput = state.wizardUrl.trim().length > 0
 
 	return {
@@ -144,8 +103,6 @@ export function useDownloadHomeView(): DownloadHomeView {
 		hasInput,
 		inputType,
 		profiles,
-		quickDownloadFailureMessage: quickDownloadFailureText,
-		quickDownloadProbeExperience,
 		urlReady: inputType !== null && inputType !== 'Unknown URL' && inputType !== 'Unsupported URL'
 	}
 }
