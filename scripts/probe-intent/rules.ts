@@ -10,6 +10,8 @@ import {resolveProfileSelection, type ProfileSelection} from '../../src/shared/p
 import {planSubtitleTracks} from '../../src/shared/subtitleTracks.js'
 import type {DownloadProfile, VideoProbeResult} from '../../src/shared/types.js'
 import {tierHeightOf} from '../../src/shared/videoTier.js'
+import {videoCodecName} from '../../src/shared/fileTypeFit.js'
+import {codecFilterPick} from '../../src/renderer/src/store/videoCodecFilter.js'
 
 export interface RawFormat {
 	format_id: string
@@ -93,6 +95,20 @@ export const RULES: Record<string, Rule> = {
 			const listed = format.width !== undefined || format.height !== undefined ? `${format.width ?? '?'}x${format.height ?? '?'}` : null
 			return listed === frame ? [] : [`${format.formatId} is ${frame ?? 'of no known frame'}, listed as ${listed ?? 'none'}`]
 		}),
+
+	// The Format screen's codec filter moves a pick it would hide to a stream of the chosen codec.
+	'filtering the Video list to a codec the video has picks a stream of that codec': (probe, raw) => {
+		const named = [...new Set(raw.filter(hasVideo).flatMap(format => videoCodecName(format.vcodec) ?? []))]
+		if (named.length < 2) return []
+		const best = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'best-quality')
+		if (!best) throw new Error('best-quality built-in missing')
+		const start = pick(best, probe).media.videoFormatId
+		return named.flatMap(codec => {
+			const id = codecFilterPick(probe.formats, start, codec) ?? start
+			const chosen = raw.find(format => format.format_id === id)
+			return chosen && videoCodecName(chosen.vcodec) === codec ? [] : [`filtering to ${codec} picks ${id} (${chosen?.vcodec ?? 'not listed'})`]
+		})
+	},
 
 	'a video profile picks video when the video has some, and says so when it has none': (probe, raw) => {
 		const videoExists = raw.some(hasVideo)

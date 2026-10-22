@@ -18,6 +18,7 @@ import type {AudioSelection} from './types.js'
 import {useAppStore} from './useAppStore.js'
 import {resolutionLabel} from '@renderer/lib/resolutionLabel.js'
 import {groupVideoFormats, resolveVideoResolution} from './helpers.js'
+import {activeCodecFilter, videoCodecFilterOf} from './videoCodecFilter.js'
 import {wizardVideoPart} from './wizard/videoPart.js'
 import {formatMode} from './wizard/formatMode.js'
 
@@ -452,8 +453,10 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 		].map(codec => ({range, codec}))
 	)
 	const codecs = [...new Set(videoColumns.flatMap(column => (column.codec ? [column.codec] : [])))]
-	const filter = state.videoCodecFilter ?? 'all'
-	const codecFilter = filter !== 'all' && codecs.length >= 2 && codecs.includes(filter) ? filter : null
+	// Never hides the pick: a pick of another codec (one made before the filter, or a profile's) shows every codec.
+	const active = activeCodecFilter(codecs, state.videoCodecFilter ?? 'all')
+	const pickedCodec = videoRows.find(row => row.formatId === selectedVideoFormatId)?.codec
+	const codecFilter = active !== null && (pickedCodec === undefined || pickedCodec === active) ? active : null
 	const shownColumns = codecFilter === null ? videoColumns : videoColumns.filter(column => column.codec === codecFilter)
 	const shownRows = codecFilter === null ? videoRows : videoRows.filter(row => row.codec === codecFilter)
 	const videoLines = groupBy(shownRows, row => lineOf(row).id)
@@ -511,7 +514,7 @@ export function useFormatSelectionView(): FormatSelectionView {
 	const selectedVideoFormatId = useAppStore(s => s.selectedVideoFormatId)
 	const audioSelection = useAppStore(s => s.audioSelection)
 	const lastConvertBitrate = useAppStore(s => s.lastConvertBitrate)
-	const videoCodecFilter = useAppStore(s => s.videoCodecFilter)
+	const videoCodecFilter = useAppStore(videoCodecFilterOf)
 	const mediaKind = useAppStore(s => s.wizardMediaKind)
 	const wizardFormats = useAppStore(s => s.wizardFormats)
 	const formatSelection = useAppStore(s => s.wizardFormatSelection)

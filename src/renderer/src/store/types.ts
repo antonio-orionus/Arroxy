@@ -281,9 +281,6 @@ export interface FormatPickerSlice {
 	// Preserves the user's bitrate choice when toggling between mp3/m4a/opus
 	// rows or away to wav and back. Default 192 (industry standard MP3).
 	lastConvertBitrate: AudioBitrate
-	// The Format screen's Video codec filter, a saved setting: kept from one
-	// video to the next.
-	videoCodecFilter: VideoCodecFilter
 	// The Format screen's Video / Audio / Subtitles switch.
 	wizardMediaKind: WizardMediaKind
 	wizardSubtitles: SubtitleMap
@@ -309,9 +306,8 @@ export interface FormatPickerSlice {
 	wizardFileTypeReset: {from: VideoFileType; blocker: string} | null
 
 	setSelectedVideoFormatId: (id: string) => void
-	// Saves the filter and moves a pick it would hide to the closest shown stream.
-	setVideoCodecFilter: (filter: VideoCodecFilter) => void
-	// After a probe lands: the remembered filter's stream replaces a pick it hides.
+	// The saved codec filter never hides the pick: after a probe lands or
+	// anything else picks a stream, a hidden pick moves to the closest shown one.
 	keepPickInCodecFilter: () => void
 	setWizardFileType: (fileType: VideoFileType) => void
 	setAudioSelection: (sel: AudioSelection) => void
@@ -540,6 +536,8 @@ export interface SystemSlice {
 	setPlaylistProbeLimit: (value: number) => Promise<void>
 	setNativeAudioPreference: (value: NativeAudioPreference) => Promise<void>
 	setHdrPreference: (value: HdrSetting) => Promise<void>
+	// The Format screen's Video codec filter, kept from one video to the next.
+	setVideoCodecFilter: (value: VideoCodecFilter) => Promise<void>
 	setFilenameTemplate: (template: string) => Promise<void>
 	setNetworkPacingPreset: (value: AppSettings['common']['networkPacingPreset']) => Promise<void>
 	setPacingSleepRequests: (value: number | undefined) => Promise<void>

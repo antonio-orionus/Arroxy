@@ -116,7 +116,7 @@ export function StepFormatSelect(): ReactNode {
 					// width instead, and a video with many codec columns (8K HDR) spilled over the other list.
 					<div className="flex flex-wrap items-start gap-5 lg:gap-x-12">
 						<div className="max-w-full flex-none">
-							<VideoColumn view={view.video} selectedVideoFormatId={selectedVideoFormatId} onSelect={setSelectedVideoFormatId} onFilter={setVideoCodecFilter} />
+							<VideoColumn view={view.video} selectedVideoFormatId={selectedVideoFormatId} onSelect={setSelectedVideoFormatId} onFilter={filter => void setVideoCodecFilter(filter)} />
 						</div>
 						{silent ? null : (
 							<div className="max-w-full min-w-72 flex-1 basis-0">

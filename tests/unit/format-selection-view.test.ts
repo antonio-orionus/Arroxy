@@ -430,7 +430,7 @@ describe('selectView — one chip per codec', () => {
 
 	it('offers a filter for each codec the video has, and shows only the filtered codec’s columns and lines', () => {
 		const formats = [video('701', '3840x2160', 'mp4', 'av01.0.12M.10'), video('313', '3840x2160', 'webm', 'vp9'), video('137', '1920x1080', 'mp4', 'avc1.640028'), video('248', '1920x1080', 'webm', 'vp9')]
-		const filtered = (videoCodecFilter: 'all' | 'AV1' | 'VP9' | 'HEVC') => selectView({selectedVideoFormatId: '313', audioSelection: {kind: 'none'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: formats, videoCodecFilter}).video
+		const filtered = (videoCodecFilter: 'all' | 'AV1' | 'VP9' | 'HEVC', selectedVideoFormatId = '313') => selectView({selectedVideoFormatId, audioSelection: {kind: 'none'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: formats, videoCodecFilter}).video
 		const all = filtered('all')
 		expect(all.codecs).toEqual(['AV1', 'VP9', 'H.264'])
 		expect(all.codecFilter).toBeNull()
@@ -444,10 +444,14 @@ describe('selectView — one chip per codec', () => {
 		])
 		expect(vp9.rows.map(row => row.formatId)).toEqual(['313', '248'])
 		// AV1 has no 1080p: the line goes.
-		expect(filtered('AV1').lines.map(line => line.name)).toEqual(['2160p'])
+		expect(filtered('AV1', '701').lines.map(line => line.name)).toEqual(['2160p'])
 		// A remembered codec this video lacks shows every codec.
 		expect(filtered('HEVC').codecFilter).toBeNull()
 		expect(filtered('HEVC').columns).toHaveLength(3)
+		// The pick is never hidden: one of another codec shows every codec.
+		const hiding = selectView({selectedVideoFormatId: '701', audioSelection: {kind: 'none'}, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: formats, videoCodecFilter: 'VP9'}).video
+		expect(hiding.codecFilter).toBeNull()
+		expect(hiding.rows.map(row => row.formatId)).toContain('701')
 	})
 
 	it('puts streams with no codec name in one shared column, labelled by file type', () => {

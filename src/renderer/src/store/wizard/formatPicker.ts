@@ -16,7 +16,7 @@ import type {AppState, FormatPickerSlice, GetState, SetState} from '../types.js'
 import {notify} from '@renderer/lib/notify.js'
 import {profileDisplayName} from '@renderer/lib/profileName.js'
 import {formatMode} from './formatMode.js'
-import {codecFilterPick} from '../videoCodecFilter.js'
+import {codecFilterPick, videoCodecFilterOf} from '../videoCodecFilter.js'
 import type {FormatMode} from '@shared/schemas.js'
 import {editedProfileDraft, profilePatch, profileVideoPick, switchProfilePatch, updatedProfileDraft, wizardSnapshot} from './wizardProfileState.js'
 
@@ -142,7 +142,6 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 		audioSelection: {kind: 'none'},
 		wizardSilencedAudio: null,
 		lastConvertBitrate: DEFAULT_AUDIO_BITRATE,
-		videoCodecFilter: DEFAULTS.videoCodecFilter,
 		wizardMediaKind: 'video',
 		wizardSubtitles: {},
 		wizardAutomaticCaptions: {},
@@ -158,21 +157,23 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 		wizardFileType: 'auto',
 		wizardFileTypeReset: null,
 
-		setVideoCodecFilter: filter => {
-			set({videoCodecFilter: filter})
-			void window.appApi.settings.update({common: {videoCodecFilter: filter}}).then(result => {
-				if (!result.ok) console.error('[settings] videoCodecFilter save failed', result.error)
-			})
-			get().keepPickInCodecFilter()
-		},
-
 		keepPickInCodecFilter: () => {
 			const state = get()
 			if (state.wizardMediaKind !== 'video') return
 			// The streams the Video list shows: Video, no audio leaves out those with their own sound.
 			const formats = formatMode(state) === 'video-only' ? state.wizardFormats.filter(f => f.isVideoOnly || f.isAudioOnly) : state.wizardFormats
-			const id = codecFilterPick(formats, state.selectedVideoFormatId, state.videoCodecFilter)
-			if (id) state.setSelectedVideoFormatId(id)
+			const baseline = state.wizardProfileBaseline
+			const id = codecFilterPick(formats, state.selectedVideoFormatId, videoCodecFilterOf(state), baseline?.videoFormatId ? [baseline.videoFormatId] : [])
+			if (!id) return
+			const profilesOwn = baseline !== null && baseline.videoFormatId === state.selectedVideoFormatId
+			state.setSelectedVideoFormatId(id)
+			// The profile's pick is seen through the filter: when the pick was the
+			// profile's own, the baseline moves with it, so the video doesn't read
+			// as changed from the profile.
+			if (profilesOwn) {
+				const next = get()
+				set({wizardProfileBaseline: {...baseline, videoFormatId: id, audioSelection: next.audioSelection, fileType: next.wizardFileType}})
+			}
 		},
 
 		// Invariant: a video stream and a convert target are mutually exclusive —
@@ -204,8 +205,14 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 				}
 			}),
 
-		setWizardMediaKind: kind => set(state => mediaKindPatch(kind, state)),
-		setFormatMode: mode => set(state => formatModePatch(mode, state)),
+		setWizardMediaKind: kind => {
+			set(state => mediaKindPatch(kind, state))
+			get().keepPickInCodecFilter()
+		},
+		setFormatMode: mode => {
+			set(state => formatModePatch(mode, state))
+			get().keepPickInCodecFilter()
+		},
 
 		toggleSubtitleLanguage: lang => set(state => ({wizardSubtitleLanguages: state.wizardSubtitleLanguages.includes(lang) ? state.wizardSubtitleLanguages.filter(l => l !== lang) : [...state.wizardSubtitleLanguages, lang]})),
 		clearSubtitleLanguages: () => set({wizardSubtitleLanguages: []}),
@@ -216,11 +223,14 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 		chooseWizardProfile: (ref, keepEdits = false) => {
 			const {profile} = resolveChosenDownloadProfile(ref, get().settings?.profiles)
 			set(switchProfilePatch(profile, get(), keepEdits))
+			get().keepPickInCodecFilter()
 		},
 
 		resetWizardToProfile: () => {
 			const profile = get().wizardProfile
-			if (profile) set(profilePatch(profile, get()))
+			if (!profile) return
+			set(profilePatch(profile, get()))
+			get().keepPickInCodecFilter()
 		},
 
 		saveWizardAsProfile: async name => {

@@ -324,17 +324,7 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 				document.documentElement.lang = nextLanguage
 				document.documentElement.dir = isRtl(nextLanguage) ? 'rtl' : 'ltr'
 				void window.appApi.app.setLanguage(nextLanguage)
-				set({
-					settings,
-					hotkeyRegistration: common.hotkeyEnabled ? 'pending' : 'off',
-					wizardOutputDir: common.defaultOutputDir,
-					commonPaths: common.commonPaths,
-					uiZoom: zoom,
-					uiTheme: theme,
-					uiStyle: common.uiStyle ?? DEFAULTS.uiStyle,
-					videoCodecFilter: common.videoCodecFilter ?? DEFAULTS.videoCodecFilter,
-					language: nextLanguage
-				})
+				set({settings, hotkeyRegistration: common.hotkeyEnabled ? 'pending' : 'off', wizardOutputDir: common.defaultOutputDir, commonPaths: common.commonPaths, uiZoom: zoom, uiTheme: theme, uiStyle: common.uiStyle ?? DEFAULTS.uiStyle, language: nextLanguage})
 				if (common.hotkeyEnabled) void refreshHotkeyRegistration(get, set)
 				else ++hotkeyStatusRequest
 			}
@@ -587,6 +577,13 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 
 		setHdrPreference: async value => {
 			await applyCommonPatchAsync(get, set, 'hdrPreference', {hdrPreference: value})
+		},
+
+		setVideoCodecFilter: async value => {
+			const saved = applyCommonPatchAsync(get, set, 'videoCodecFilter', {videoCodecFilter: value})
+			// The optimistic settings already hold the filter: move a pick it hides now, not after the write.
+			get().keepPickInCodecFilter()
+			await saved
 		},
 
 		setFilenameTemplate: async template => {
