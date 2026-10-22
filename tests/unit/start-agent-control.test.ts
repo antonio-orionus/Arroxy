@@ -6,10 +6,12 @@ import os from 'node:os'
 import path from 'node:path'
 import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import {CONTROL_DISCOVERY_FILE_NAME} from 'arroxy-control'
+import {type LocalClientRecord, type LocalClientStore, MemoryLocalClientStore} from '@main/control/clients/localClientStore.js'
+import {e2eTestSecretCipher, type SecretCipher} from '@main/control/clients/secretCipher.js'
 import type {ControlService} from '@main/control/ControlService.js'
 import type {ControlWiring} from '@main/control/createControlService.js'
 import type {ControlSocket, ControlSocketOptions} from '@main/control/socket/startControlSocket.js'
-import {type AgentControlDeps, autoAllowsClients, startAgentControl, stopAgentControlOnQuit} from '@main/control/startAgentControl.js'
+import {type AgentControlDeps, autoAllowsClients, localClientCipher, startAgentControl, stopAgentControlOnQuit} from '@main/control/startAgentControl.js'
 import {importWithReleaseFlagsOff} from '../helpers/releaseFlags.js'
 
 vi.mock('electron-log/main.js', () => {
@@ -54,8 +56,10 @@ function fakeSocket(socketPath: string) {
 }
 
 function deps(overrides: Partial<AgentControlDeps> = {}): AgentControlDeps {
-	return {...wiring, userDataDir: '/user-data', appVersion: '9.9.9', platform: 'linux', env: {XDG_RUNTIME_DIR: '/run/user/1000'}, autoAllowClients: false, log: silentLog, ...overrides}
+	return {...wiring, userDataDir: '/user-data', appVersion: '9.9.9', platform: 'linux', env: {XDG_RUNTIME_DIR: '/run/user/1000'}, autoAllowClients: false, clientStore: new MemoryLocalClientStore(), secretsStorable: () => true, log: silentLog, ...overrides}
 }
+
+const knownRecord: LocalClientRecord = {clientId: 'known-1', label: 'Claude Code', pathsRead: false, firstSeenAt: 1, lastSeenAt: 2, secret: 'known-secret'}
 
 describe('startAgentControl', () => {
 	it('composes the service and starts the socket with it', async () => {
@@ -95,6 +99,42 @@ describe('startAgentControl', () => {
 		}
 		expect(await claims(true)).toBe('allowed')
 		expect(await claims(false)).toBe('pending')
+	})
+
+	it('loads the known clients before the socket listens', async () => {
+		let finishLoading: (records: LocalClientRecord[]) => void = () => undefined
+		const clientStore: LocalClientStore = {load: () => new Promise(resolve => (finishLoading = resolve)), save: () => Promise.resolve()}
+		const startSocket = vi.fn((options: ControlSocketOptions) => {
+			expect(options.approvals.client('known-1')).toMatchObject({clientId: 'known-1', secret: 'known-secret'})
+			return Promise.resolve(fakeSocket('/s').socket)
+		})
+		const starting = startAgentControl(deps({compose: fakeCompose().compose, startSocket, clientStore}))
+		await new Promise(resolve => setTimeout(resolve, 20))
+		expect(startSocket).not.toHaveBeenCalled()
+		finishLoading([knownRecord])
+		const control = await starting
+		expect(startSocket).toHaveBeenCalledTimes(1)
+		await control?.stop()
+	})
+
+	it('waits on stop for the last save of the local clients', async () => {
+		let finishSaving: () => void = () => undefined
+		const save = vi.fn(() => new Promise<void>(resolve => (finishSaving = resolve)))
+		const startSocket = vi.fn((_options: ControlSocketOptions) => Promise.resolve(fakeSocket('/s').socket))
+		const control = await startAgentControl(deps({compose: fakeCompose().compose, startSocket, autoAllowClients: true, clientStore: {load: () => Promise.resolve([]), save}}))
+		const approvals = startSocket.mock.calls[0]?.[0].approvals
+		if (!approvals) throw new Error('not started')
+		const approvalId = approvals.request('agent')
+		approvals.claim(approvalId)
+		approvals.confirm(approvalId)
+		expect(save).toHaveBeenCalledTimes(1)
+		let stopped = false
+		const stopping = control?.stop().then(() => (stopped = true))
+		await new Promise(resolve => setTimeout(resolve, 20))
+		expect(stopped).toBe(false)
+		finishSaving()
+		await stopping
+		expect(stopped).toBe(true)
 	})
 
 	it('is null when the socket cannot start', async () => {
@@ -282,6 +322,18 @@ describe('autoAllowsClients', () => {
 	})
 })
 
+describe('localClientCipher', () => {
+	it('keeps secrets with the marked test cipher only in an unpackaged E2E run', () => {
+		const platform: SecretCipher = {available: () => true, encrypt: plain => Buffer.from(plain), decrypt: data => data.toString()}
+		const platformCipher = vi.fn(() => platform)
+		expect(localClientCipher({e2eHarness: true, isPackaged: false}, platformCipher)).toBe(e2eTestSecretCipher)
+		expect(platformCipher).not.toHaveBeenCalled()
+		expect(localClientCipher({e2eHarness: true, isPackaged: true}, platformCipher)).toBe(platform)
+		expect(localClientCipher({e2eHarness: false, isPackaged: false}, platformCipher)).toBe(platform)
+		expect(localClientCipher({e2eHarness: false, isPackaged: true}, platformCipher)).toBe(platform)
+	})
+})
+
 describe('startAgentControl in a release build', () => {
 	// A release build must not reach the socket at all: no launch folder, no
 	// socket, no control.json, and no clean-up of an earlier launch's.
@@ -292,9 +344,14 @@ describe('startAgentControl in a release build', () => {
 		const stale = JSON.stringify({socketPath: path.posix.join(runtimeDir, 'arroxy-abcdef', 'control.sock'), token: 't', version: '1', startedAt: 1})
 		await fs.writeFile(path.join(userDataDir, CONTROL_DISCOVERY_FILE_NAME), stale)
 		const {compose} = fakeCompose()
-		const control = await startInRelease(deps({userDataDir, env: {XDG_RUNTIME_DIR: runtimeDir}, compose}))
+		const clientStore = {load: vi.fn<LocalClientStore['load']>(), save: vi.fn<LocalClientStore['save']>()}
+		const secretsStorable = vi.fn(() => true)
+		const control = await startInRelease(deps({userDataDir, env: {XDG_RUNTIME_DIR: runtimeDir}, compose, clientStore, secretsStorable}))
 		expect(control).toBeNull()
 		expect(compose).not.toHaveBeenCalled()
+		expect(clientStore.load).not.toHaveBeenCalled()
+		expect(clientStore.save).not.toHaveBeenCalled()
+		expect(secretsStorable).not.toHaveBeenCalled()
 		expect(await fs.readdir(runtimeDir)).toEqual([])
 		expect(await fs.readFile(path.join(userDataDir, CONTROL_DISCOVERY_FILE_NAME), 'utf8')).toBe(stale)
 	})

@@ -5,10 +5,11 @@ import os from 'node:os'
 import path from 'node:path'
 import {vi} from 'vite-plus/test'
 import {type AppStatus, CONTROL_DISCOVERY_FILE_NAME, type ControlDiscovery, controlDiscoverySchema, controlResponseEnvelopeSchema, handshakeClientProof, parseControlResult} from 'arroxy-control'
+import {LocalClientRegistry} from '@main/control/clients/LocalClientRegistry.js'
+import {MemoryLocalClientStore} from '@main/control/clients/localClientStore.js'
 import type {ControlResponse, ControlSession} from '@main/control/ControlService.js'
 import type {ControlContext, ControlSink} from '@main/control/controlTypes.js'
 import type {ControlSocketLog} from '@main/control/socket/controlConnection.js'
-import {MemoryLocalClientApprovals} from '@main/control/socket/localClientApprovals.js'
 import {type ControlSocket, type ControlSocketOptions, startControlSocket} from '@main/control/socket/startControlSocket.js'
 
 // A real control socket on this OS (a /tmp launch folder, or a pipe on
@@ -73,10 +74,16 @@ export function fakeService({delays = {}, held = [], failOpen = false, throwing 
 
 export const silentLog = (): ControlSocketLog => ({info: vi.fn(), warn: vi.fn(), error: vi.fn()})
 
+// A registry over an in-memory store that can always store secrets.
+export function memoryRegistry(store = new MemoryLocalClientStore()): Promise<LocalClientRegistry> {
+	return LocalClientRegistry.load({store, secretsStorable: () => true, log: silentLog()})
+}
+
 export interface SocketHarness {
 	readonly socket: ControlSocket
 	readonly userDataDir: string
-	readonly approvals: MemoryLocalClientApprovals
+	readonly approvals: LocalClientRegistry
+	readonly store: MemoryLocalClientStore
 	readonly service: ReturnType<typeof fakeService>
 	discovery(): Promise<ControlDiscovery>
 	cleanup(): Promise<void>
@@ -84,7 +91,8 @@ export interface SocketHarness {
 
 export async function startHarness(overrides: Partial<ControlSocketOptions> & FakeServiceOptions = {}): Promise<SocketHarness> {
 	const userDataDir = await fs.mkdtemp(path.join(os.tmpdir(), 'acs-'))
-	const approvals = new MemoryLocalClientApprovals()
+	const store = new MemoryLocalClientStore()
+	const approvals = await memoryRegistry(store)
 	const service = fakeService(overrides)
 	const socket = await startControlSocket({userDataDir, appVersion: '9.9.9', platform: process.platform, env: {}, service, approvals, bootId: 'boot-1', log: silentLog(), ...overrides})
 	if (socket === null) throw new Error('the control socket did not start')
@@ -92,10 +100,12 @@ export async function startHarness(overrides: Partial<ControlSocketOptions> & Fa
 		socket,
 		userDataDir,
 		approvals,
+		store,
 		service,
 		discovery: async () => controlDiscoverySchema.parse(JSON.parse(await fs.readFile(path.join(userDataDir, CONTROL_DISCOVERY_FILE_NAME), 'utf8'))),
 		cleanup: async () => {
 			await socket.stop()
+			await approvals.close()
 			await fs.rm(userDataDir, {recursive: true, force: true})
 		}
 	}
@@ -195,7 +205,7 @@ export const secretProof =
 	async (challenge: Challenge, clientNonce: string): Promise<unknown> => ({clientId, proof: await handshakeClientProof(secret, challenge.serverNonce, clientNonce)})
 
 // A client the user has already allowed.
-export function allowedClient(approvals: MemoryLocalClientApprovals, pathsRead = false): {clientId: string; secret: string} {
+export function allowedClient(approvals: LocalClientRegistry, pathsRead = false): {clientId: string; secret: string} {
 	const approvalId = approvals.request('test-client')
 	approvals.allow(approvalId, {pathsRead})
 	const claim = approvals.claim(approvalId)
