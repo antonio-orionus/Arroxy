@@ -31,6 +31,8 @@ const isStoryboard = (format: RawFormat): boolean => format.ext === 'mhtml'
 const hasVideo = (format: RawFormat): boolean => format.vcodec !== 'none' && !isStoryboard(format)
 const isAudioOnly = (format: RawFormat): boolean => format.vcodec === 'none' && format.acodec !== undefined && format.acodec !== 'none'
 const isUpscaled = (format: RawFormat): boolean => format.format_id.endsWith('-sr')
+// A copy the site marks down (YouTube's DAMAGED, TikTok's watermarked), which profiles leave for others.
+const isMarkedDown = (format: RawFormat): boolean => /\b(?:damaged|watermarked)\b/i.test(format.format_note ?? '')
 const isH264 = (format: RawFormat): boolean => /^(?:avc1|h264)/i.test(format.vcodec ?? '')
 // The tier a stream sits in, as profiles and the Format screen name it (GLOSSARY: Tier).
 // A stream that names its height alone is labelled by that height, as the
@@ -115,7 +117,7 @@ export const RULES: Record<string, Rule> = {
 			// A stream the site gives no size for says nothing about the tier, so
 			// it is no pick for a size limit while sized streams exist.
 			if (pickedTier === null) return raw.some(format => hasVideo(format) && tierOf(format) !== null) ? [`${profile.id} picks ${picked.format_id}, of unknown size, over sized streams`] : []
-			const takeable = raw.some(format => hasVideo(format) && !isUpscaled(format) && meetsTier(format, wanted) && (!smartTv || isH264(format)))
+			const takeable = raw.some(format => hasVideo(format) && !isUpscaled(format) && !isMarkedDown(format) && meetsTier(format, wanted) && (!smartTv || isH264(format)))
 			const onTier = meetsTier(picked, wanted)
 			if (!onTier && takeable) return [`${profile.id} picks ${pickedTier}p though a ${wanted}p stream it can take exists`]
 			if (!onTier && !fellBack) return [`${profile.id} picks ${pickedTier}p and says nothing`]
