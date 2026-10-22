@@ -84,6 +84,56 @@ describe('spawn of a row that names a parked job', () => {
 	})
 })
 
+describe('spawn of a row paused while its parked job is being resumed', () => {
+	// Resume All is resuming the row's parked job; the user pauses the row before it returns.
+	async function pausedDuringResume(qs: QueueService, ds: FakeDownloadService): Promise<(value: unknown) => void> {
+		let answer: (value: unknown) => void = () => undefined
+		ds.resume.mockReturnValueOnce(new Promise(res => (answer = res)))
+		await parkedRowResumed(qs, ds)
+		await vi.waitFor(() => expect(ds.resume).toHaveBeenCalledOnce())
+		expect((await qs.pause('a')).ok).toBe(true)
+		expect(qs.snapshot()[0]).toMatchObject({status: 'paused-held', lastJobId: 'job-1'})
+		return answer
+	}
+
+	it('keeps the row on its parked job when that job was still pausing, so a later resume continues it', async () => {
+		const {qs, ds} = makeService()
+		const answer = await pausedDuringResume(qs, ds)
+		answer(ok({resumed: false, jobLive: true}))
+		await vi.waitFor(() => expect(qs.snapshot()[0]?.status).toBe('paused-active'))
+		expect(qs.snapshot()[0]).toMatchObject({lastJobId: 'job-1', tempDir: '/tmp/x'})
+
+		ds.resume.mockResolvedValue(ok({resumed: true}))
+		expect((await qs.resume('a')).ok).toBe(true)
+		expect(ds.resume).toHaveBeenLastCalledWith('job-1')
+		expect(qs.snapshot()[0]).toMatchObject({status: 'running', lastJobId: 'job-1'})
+		expect(ds.start).toHaveBeenCalledOnce()
+	})
+
+	it('fails the row when resuming its parked job failed, rather than leave it paused', async () => {
+		const {qs, ds} = makeService()
+		const answer = await pausedDuringResume(qs, ds)
+		answer({ok: false, error: {code: 'download', message: 'boom'}})
+		await vi.waitFor(() => expect(qs.snapshot()[0]?.status).toBe('error'))
+		expect(ds.start).toHaveBeenCalledOnce()
+	})
+
+	it.each([
+		['Resume', (qs: QueueService) => qs.resume('a')],
+		['Resume All', (qs: QueueService) => qs.resumeAll()]
+	])('resumes the parked job when %s lands before the first resume returns', async (_command, resumeRow) => {
+		const {qs, ds} = makeService()
+		const answer = await pausedDuringResume(qs, ds)
+		await resumeRow(qs)
+		expect(qs.snapshot()[0]).toMatchObject({status: 'pending', lastJobId: 'job-1', tempDir: '/tmp/x'})
+
+		answer(ok({resumed: true}))
+		await vi.waitFor(() => expect(qs.snapshot()[0]?.status).toBe('running'))
+		expect(qs.snapshot()[0]?.lastJobId).toBe('job-1')
+		expect(ds.start).toHaveBeenCalledOnce()
+	})
+})
+
 describe('spawn of a row paused while it was starting', () => {
 	it('keeps tracking the job when it ended before it could be parked', async () => {
 		const {qs, ds} = makeService()

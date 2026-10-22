@@ -389,7 +389,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 {{privacy_p1}}
 
-{{privacy_p2}}
+{{privacy_reports}}
 
 {{privacy_p3}}
 
@@ -495,7 +495,7 @@ sha256sum Arroxy-linux-x64.AppImage
 
 ## <a id="support"></a>💖 {{support_h2}}
 
-{{support_note}}
+{{support_line}}
 
 <a href="DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

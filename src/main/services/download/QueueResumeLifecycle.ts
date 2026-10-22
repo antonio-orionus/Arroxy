@@ -2,7 +2,7 @@ import {stat} from 'node:fs/promises'
 import type {LocalizedError, QueueItem, QueueResumeContext, YtDlpErrorKind} from '@shared/types.js'
 import {QUEUE_STATUS} from '@shared/schemas.js'
 import type {Disposable, ActiveJob} from '../phases/types.js'
-import {cleanupPartFiles, cleanupTempDirByPath} from './cleanup.js'
+import {cleanupTempDirByPath} from './cleanup.js'
 
 const RESUMABLE_MEDIA_FAILURES: ReadonlySet<YtDlpErrorKind> = new Set(['chunkTransferFailure', 'network', 'rateLimit', 'postprocessFailure', 'outOfDiskSpace'])
 
@@ -66,14 +66,12 @@ function registerInputTempDirCleanup(active: ActiveJob): void {
 	})
 }
 
-function registerVideoTempDataCleanup(active: ActiveJob, outputDir: string, tempDir: string, register: (disposable: Disposable) => void): void {
+// The job's partial files live in its own temp folder, so that folder is all
+// it removes: a .part beside it in the output folder is another download's.
+function registerVideoTempDataCleanup(active: ActiveJob, tempDir: string, register: (disposable: Disposable) => void): void {
 	register(() => {
 		if (shouldPreserveTempData(active, tempDir)) return
 		return cleanupTempDirByPath(tempDir)
-	})
-	register(() => {
-		if (shouldPreserveTempData(active, tempDir)) return
-		return cleanupPartFiles(outputDir)
 	})
 }
 

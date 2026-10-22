@@ -183,4 +183,33 @@ describe('Resume All', () => {
 		expect(start).not.toHaveBeenCalled()
 		await queue.cancel(null)
 	})
+
+	it('keeps a row paused and resumed again while its parked job is resuming on that job', async () => {
+		vi.useFakeTimers()
+		const {queue, downloads, binaryManager, internals} = makeServices()
+		queue.add([await itemIn('a')])
+		await vi.waitFor(() => expect(queue.snapshot()[0]?.status).toBe('running'))
+		const jobId = queue.snapshot()[0]?.lastJobId ?? ''
+		await queue.pauseAll()
+		expect(downloads.pausedCount).toBe(1)
+
+		// The resumed job waits in binary setup, so the row is still pending when the user acts.
+		const binaries = deferred()
+		binaryManager.ensureYtDlp.mockImplementation(() => binaries.promise.then(() => '/tmp/yt-dlp'))
+		const start = vi.spyOn(downloads, 'start')
+		await queue.resumeAll()
+		await vi.waitFor(() => expect(internals.activeJobs.has(jobId)).toBe(true))
+		expect((await queue.pause('a')).ok).toBe(true)
+		expect((await queue.resume('a')).ok).toBe(true)
+
+		binaries.resolve()
+		await vi.waitFor(() => expect(queue.snapshot()[0]?.status).toBe('running'))
+		expect(queue.snapshot()[0]?.lastJobId).toBe(jobId)
+		expect(start).not.toHaveBeenCalled()
+
+		// The row still controls its job: cancelling it leaves nothing parked or running.
+		await queue.cancel('a')
+		expect(downloads.pausedCount).toBe(0)
+		expect(downloads.runningJobCount).toBe(0)
+	})
 })

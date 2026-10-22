@@ -34,9 +34,9 @@ describe('warmupReportCollector', () => {
 		expect(warmupReportCollector(undefined)).toBeUndefined()
 	})
 
-	it('reports nowhere in a release build', async () => {
+	it('reports to the same collector in a release build', async () => {
 		const {warmupReportCollector: inRelease} = await importWithReleaseFlagsOff(() => import('@main/warmupReporting.js'))
-		expect(inRelease('https://stats.example.test/collect')).toBeUndefined()
+		expect(inRelease('https://stats.example.test/collect')).toBe('https://stats.example.test/collect')
 	})
 })
 

@@ -5,12 +5,22 @@ name: E2E Fixtures
 # deterministic by the fixture extractor plugin, local media server, and deny
 # proxy. This suite existed for a long time without ever running in CI, which is
 # how a batch of stale selectors and a silent resume-after-restart bug survived.
+#
+# A failed test is retried once here, and a test that passes on retry is listed
+# as flaky in the job summary. E2E Fixtures Nightly calls this workflow with
+# `run: nightly` to run the suite on main with no retries.
 
 on:
   push:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      run:
+        description: "ARROXY_E2E_RUN for the suite (playwright.config.ts): ci retries a failed test once, nightly never retries"
+        type: string
+        required: true
 
 concurrency:
   # A pull request cancels its superseded runs. Every other run (each push to
@@ -94,7 +104,13 @@ jobs:
         env:
           BTBN_GITHUB_TOKEN: ${{ github.token }}
           SHARD: ${{ matrix.shard }}/${{ strategy.job-total }}
+          ARROXY_E2E_RUN: ${{ inputs.run || 'ci' }}
         run: bun run test:e2e:fixtures:ci --shard="$SHARD"
+
+      # Lists the tests that passed only on retry; runs after a failure too.
+      - name: Report flaky tests
+        if: always()
+        run: bun scripts/e2e-flaky-summary.ts playwright-report/e2e-report.json
 
       - name: Upload Playwright artifacts
         if: always()
@@ -141,7 +157,12 @@ jobs:
       - name: Run the path-limit scenario
         env:
           BTBN_GITHUB_TOKEN: ${{ github.token }}
+          ARROXY_E2E_RUN: ${{ inputs.run || 'ci' }}
         run: bun run test:e2e:fixtures:ci --grep "@path-limit"
+
+      - name: Report flaky tests
+        if: always()
+        run: bun scripts/e2e-flaky-summary.ts playwright-report/e2e-report.json
 
       - name: Upload Playwright artifacts
         if: always()

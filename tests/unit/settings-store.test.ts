@@ -447,6 +447,31 @@ describe('settings and recent stores', () => {
 		expect(settings.profiles.overrides[0]?.media).toMatchObject({goal: 'best-picture', tier: '720'})
 	})
 
+	// A profile without video has nothing to embed into: its downloads already
+	// write sidecar files, which the editor now shows as Next to video (#605).
+	it('loads a profile saved with Embed and no video as Next to video, and writes that back', async () => {
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-profile-embed-no-video-'))
+		const base = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+		const subtitles: DownloadProfile['subtitles'] = {enabled: true, languages: ['en'], source: 'manual-first', mode: 'embed', format: 'ass'}
+		const custom = (id: string, media: DownloadProfile['media']): DownloadProfile => ({...base, id, name: id, media, subtitles, createdAt: NOW, updatedAt: NOW})
+		const subtitlesOnly = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'subtitles-only')!
+		const profiles = {
+			active: {kind: 'builtin', id: 'balanced'},
+			custom: [custom('subs', {kind: 'subtitles-only'}), custom('audio', {kind: 'audio-only', audio: {format: 'mp3', bitrateKbps: 192}}), custom('video', base.media), custom('video-only', {kind: 'video-only', goal: 'best-picture', tier: '720', fileType: 'auto'})],
+			overrides: [{...subtitlesOnly, subtitles}]
+		}
+		await fs.writeFile(path.join(userData, 'settings.json'), JSON.stringify({...baseDefaults, profiles}), 'utf-8')
+
+		const settings = await new SettingsStore(userData, baseDefaults).get()
+		const modes = Object.fromEntries(settings.profiles.custom.map(profile => [profile.id, profile.subtitles.mode]))
+
+		expect(modes).toEqual({subs: 'sidecar', audio: 'sidecar', video: 'embed', 'video-only': 'embed'})
+		expect(settings.profiles.overrides[0]?.subtitles).toEqual({...subtitles, mode: 'sidecar'})
+		const onDisk = JSON.parse(await fs.readFile(path.join(userData, 'settings.json'), 'utf-8')) as AppSettings
+		expect(onDisk.profiles.custom.map(profile => profile.subtitles.mode)).toEqual(['sidecar', 'sidecar', 'embed', 'embed'])
+		expect(onDisk.profiles.overrides[0]?.subtitles.mode).toBe('sidecar')
+	})
+
 	describe('HDR preference for installs that already have settings', () => {
 		const savedWithoutIt = (extra: Record<string, unknown> = {}) => {
 			const {hdrPreference: _drop, ...common} = baseDefaults.common

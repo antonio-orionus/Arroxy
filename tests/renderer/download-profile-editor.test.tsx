@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import {fireEvent, render, screen, waitFor} from '@testing-library/react'
+import {fireEvent, render, screen, waitFor, within} from '@testing-library/react'
 import {describe, expect, it, vi} from 'vite-plus/test'
 import {DownloadProfileEditor} from '@renderer/components/wizard/DownloadProfileEditor.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
@@ -336,6 +336,48 @@ describe('DownloadProfileEditor', () => {
 		const locked = await screen.findByRole('switch', {name: 'Subtitle downloads'})
 		expect(locked).toHaveAttribute('aria-checked', 'true')
 		expect(locked).toHaveAttribute('aria-disabled', 'true')
+	})
+
+	// A profile without video has nothing to embed subtitles into, so it keeps
+	// the format field it writes in (#605).
+	it('offers Embed only to a profile with video, and moves it to the download folder when the video goes', async () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === 'balanced')
+		expect(balanced).toBeDefined()
+		const embedding: DownloadProfile = {...balanced!, subtitles: {enabled: true, languages: ['en'], source: 'manual-first', mode: 'embed', format: 'ass'}}
+		render(<DownloadProfileEditor initialProfile={embedding} open onOpenChange={() => undefined} />)
+
+		const delivery = await screen.findByRole('group', {name: 'Delivery'})
+		expect(within(delivery).getByRole('button', {name: 'Embed into video'})).toHaveAttribute('aria-pressed', 'true')
+		expect(
+			within(delivery)
+				.getAllByRole('button')
+				.map(button => button.textContent)
+		).toEqual(['Next to video', 'Embed into video', 'subtitles/ subfolder'])
+		expect(screen.getByText('Embed mode saves output as .mkv so subtitle tracks embed reliably.')).toBeInTheDocument()
+		expect(screen.queryByRole('group', {name: 'Format'})).not.toBeInTheDocument()
+
+		fireEvent.click(screen.getByText('Subtitles only'))
+
+		const noVideo = await screen.findByRole('group', {name: 'Delivery'})
+		expect(within(noVideo).queryByRole('button', {name: 'Embed into video'})).not.toBeInTheDocument()
+		expect(within(noVideo).getByRole('button', {name: 'In the download folder'})).toHaveAttribute('aria-pressed', 'true')
+		expect(screen.queryByText('Embed mode saves output as .mkv so subtitle tracks embed reliably.')).not.toBeInTheDocument()
+		expect(within(screen.getByRole('group', {name: 'Format'})).getByRole('button', {name: 'ASS'})).toHaveAttribute('aria-pressed', 'true')
+	})
+
+	it.each(['subtitles-only', 'audio-only'] as const)('shows the %s built-in its format, without Embed', async id => {
+		const builtin = BUILTIN_DOWNLOAD_PROFILES.find(item => item.id === id)
+		expect(builtin).toBeDefined()
+		const profile: DownloadProfile = {...builtin!, subtitles: {...builtin!.subtitles, enabled: true, languages: ['en']}}
+		render(<DownloadProfileEditor initialProfile={profile} open onOpenChange={() => undefined} />)
+
+		const delivery = await screen.findByRole('group', {name: 'Delivery'})
+		expect(
+			within(delivery)
+				.getAllByRole('button')
+				.map(button => button.textContent)
+		).toEqual(['In the download folder', 'subtitles/ subfolder'])
+		expect(screen.getByRole('group', {name: 'Format'})).toBeInTheDocument()
 	})
 
 	it('saves WAV audio-only profiles without a bitrate', async () => {

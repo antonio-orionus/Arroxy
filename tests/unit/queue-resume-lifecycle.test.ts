@@ -85,7 +85,7 @@ describe('QueueResumeLifecycle', () => {
 		}
 	})
 
-	it('cleans temp data unless the active job owns a matching resume context', async () => {
+	it("cleans only the job's own temp folder, unless the active job owns a matching resume context", async () => {
 		const outputDir = await mkdtemp(join(tmpdir(), 'arroxy-resume-cleanup-'))
 		const tempDir = join(outputDir, '.arroxy-temp', 'job-1')
 		await mkdir(tempDir, {recursive: true})
@@ -94,11 +94,13 @@ describe('QueueResumeLifecycle', () => {
 		await writeFile(join(tempDir, 'nested.part'), 'partial', {flag: 'w'})
 
 		const active = makeActive({tempDir})
-		QueueResumeLifecycle.registerVideoTempDataCleanup(active, outputDir, tempDir, disposable => active.disposables.defer(disposable))
+		QueueResumeLifecycle.registerVideoTempDataCleanup(active, tempDir, disposable => active.disposables.defer(disposable))
 		await active.disposables[Symbol.asyncDispose]()
 
 		await expect(access(tempDir)).rejects.toThrow()
-		await expect(access(join(outputDir, 'download.part'))).rejects.toThrow()
+		// The job's partial files live in its temp folder; a .part beside them in
+		// the output folder is another download's (a browser's, say) and stays.
+		await expect(access(join(outputDir, 'download.part'))).resolves.toBeUndefined()
 		await expect(access(join(outputDir, 'keep.txt'))).resolves.toBeUndefined()
 
 		const preservedOutputDir = await mkdtemp(join(tmpdir(), 'arroxy-resume-preserved-'))
@@ -106,7 +108,7 @@ describe('QueueResumeLifecycle', () => {
 		await mkdir(preservedTempDir, {recursive: true})
 		await writeFile(join(preservedTempDir, 'nested.part'), 'partial', {flag: 'w'})
 		const preservedActive = makeActive({tempDir: preservedTempDir, resumeContext: {kind: 'media-retry', tempDir: preservedTempDir, reason: 'media-transfer', failureKind: 'network'}})
-		QueueResumeLifecycle.registerVideoTempDataCleanup(preservedActive, preservedOutputDir, preservedTempDir, disposable => preservedActive.disposables.defer(disposable))
+		QueueResumeLifecycle.registerVideoTempDataCleanup(preservedActive, preservedTempDir, disposable => preservedActive.disposables.defer(disposable))
 		await preservedActive.disposables[Symbol.asyncDispose]()
 		await expect(access(preservedTempDir)).resolves.toBeUndefined()
 

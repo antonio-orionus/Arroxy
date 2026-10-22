@@ -210,6 +210,15 @@ describe('profileFromWizard', () => {
 		expect(save(autoOnly, snapshot => ({...snapshot, subtitleMode: 'embed'}), FORMATS, ctx).subtitles).toMatchObject({languages: ['en'], source: 'auto-only', mode: 'embed'})
 	})
 
+	// Audio has no video to embed into, so the saved profile says what its
+	// downloads write: subtitle files next to it (#605).
+	it('saves Embed as Next to video when the run downloads audio only', () => {
+		const embedding = {...builtin('balanced'), subtitles: {...builtin('balanced').subtitles, enabled: true, languages: ['en'], mode: 'embed' as const, format: 'ass' as const}}
+		const saved = save(embedding, snapshot => ({...snapshot, mediaKind: 'audio', videoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 320}}))
+		expect(saved.media.kind).toBe('audio-only')
+		expect(saved.subtitles).toEqual({...embedding.subtitles, mode: 'sidecar'})
+	})
+
 	it('saves audio conversions, folder and file name', () => {
 		const saved = save(builtin('balanced'), snapshot => ({...snapshot, mediaKind: 'audio', videoFormatId: '', audioSelection: {kind: 'convert-lossy', target: 'mp3', bitrateKbps: 320}, outputDir: '/music', filenameTemplate: '{title}'}))
 		expect(saved.media).toEqual({kind: 'audio-only', audio: {format: 'mp3', bitrateKbps: 320}})

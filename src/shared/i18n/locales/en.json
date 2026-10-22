@@ -1480,6 +1480,7 @@
 				"embed": "Embed into video",
 				"heading": "Save as",
 				"sidecar": "Next to video",
+				"sidecarNoVideo": "In the download folder",
 				"subfolder": "subtitles/ subfolder"
 			},
 			"searchPlaceholder": "Search languages…",
@@ -1489,10 +1490,6 @@
 		"tabsNavAria": "Download profile navigation",
 		"url": {
 			"advanced": "Advanced",
-			"analytics": {
-				"toggle": "Send daily heartbeat",
-				"toggleDescription": "No telemetry. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. No IDs, URLs, video titles or filenames."
-			},
 			"autoRemoveCompleted": {
 				"description": "Takes a download off the Downloads list a few seconds after it finishes. The files stay in your folder; failed and cancelled downloads stay in the list.",
 				"label": "Remove finished downloads"
@@ -1767,6 +1764,10 @@
 			"quickPreparing": "Preparing",
 			"quickProbeFailed": "Probe failed",
 			"quickSingleOnly": "Paste a video, playlist, channel, or search URL to get started.",
+			"reports": {
+				"toggle": "Send anonymous heartbeat and setup reports",
+				"toggleDescription": "No tracking. Once a day, an anonymous heartbeat sends the app version, install channel, OS, language, country and roughly how long ago Arroxy was installed, so we can count active and new users. When Arroxy sets up or updates its download engine or media tools, it also reports whether that worked and roughly how long it took. No IDs, URLs, video titles or filenames."
+			},
 			"settings": {
 				"behaviorDescription": "Global behavior that affects profile-driven downloads too.",
 				"behaviorHeading": "Download behavior",

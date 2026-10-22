@@ -76,6 +76,16 @@ Name a spec by its risk group, not to get it selected: the selection once matche
 
 CI splits the run over four runners with Playwright's `--shard`, which divides by test, not by file, so a spec with many tests spreads across shards on its own. Add a shard to the matrix in `.github/workflows/e2e-fixtures.yml` when the slowest shard nears its 30-minute timeout, rather than leaving a spec out. A separate Windows job runs only the `@path-limit` scenario ([Deep output paths](#deep-output-paths)).
 
+### Retries and flaky tests
+
+`ARROXY_E2E_RUN` says which run this is, and `playwright.config.ts` sets retries from it:
+
+- **`ci`** (pull requests, pushes to `main`, a manual run): a failed test is retried once. One that then passes no longer fails the run, so it is reported instead: Playwright writes a JSON report (`playwright-report/e2e-report.json`), and `scripts/e2e-flaky-summary.ts` lists each test that passed only on retry in the job summary and puts a "Flaky test" warning on its line. A flaky test is a bug to fix or file, not noise.
+- **`nightly`**: the E2E Fixtures Nightly workflow (`e2e-fixtures-nightly.yml`) runs the whole suite on `main` every night with no retries, by calling E2E Fixtures with `run: nightly`, so a flaky test fails it. Its checks are named `Nightly / …`, outside the required checks and `main-health.yml`, so a red nightly blocks no merge or release. Instead it opens one issue labelled `e2e-nightly` (later failures comment on it), and the next passing nightly closes it.
+- **unset** (a local run): no retries.
+
+Any other value stops the run with an error.
+
 ## Running headless
 
 `ARROXY_E2E_HEADLESS=1` maps to `show: false` on the `BrowserWindow`, so the app runs and is fully driveable, just never paints on screen. Electron has no Chrome-style `--headless`, and `xvfb-run` only helps on Linux, so this is the option on macOS and Windows.

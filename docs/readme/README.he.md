@@ -393,7 +393,7 @@ Arroxy נבנה למטרה אחת: קובץ מקומי נקי, בין שהדבק
 
 ההורדות מתבצעות ישירות באמצעות [yt-dlp](https://github.com/yt-dlp/yt-dlp) מ-YouTube אל התיקייה שבחרתם — דבר אינו מנותב דרך שרת של צד שלישי. היסטוריית הצפייה, היסטוריית ההורדות, כתובות ה-URL ותוכן הקבצים נשארים במכשיר שלכם.
 
-ללא טלמטריה — רק פעימת לב אנונימית אחת ביום: גרסת היישום, מערכת ההפעלה, השפה, ערוץ ההתקנה, המדינה והזמן המשוער שחלף מאז ההתקנה של Arroxy, כדי שנוכל לספור משתמשים פעילים וחדשים. ללא מזהים, כתובות URL, כותרות סרטונים, נתיבי קבצים או פרטי חשבון. אפשר לכבות זאת בהגדרות.
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 “גילוי” שומר התחברויות משלו, בנפרד מהדפדפן שלכם, ו-Arroxy לעולם אינו קורא או ממלא טופס התחברות — אתם מקלידים בדף של האתר עצמו. ההורדות רצות כשאתם מנותקים; רק כשהורדה נכשלת באופן שחשבון יכול לתקן, Arroxy קורא את ההתחברות מחדש, שומר אותה בקובץ זמני עבור אותה הורדה, ומוחק את הקובץ לאחר מכן. התנתקות מ“גילוי” בהגדרות מוחקת אותן.
 
@@ -499,7 +499,7 @@ yt-dlp מתעדכן אוטומטית בהפעלה, ו-Arroxy מפרסם תיקו
 
 ## <a id="support"></a>💖 תמיכה ב-Arroxy
 
-Arroxy חינמי וברישיון GPLv3 — ללא פרסומות, ללא טלמטריה, וללא מסלול בתשלום. אם הוא חוסך לכם זמן, אפשר לתמוך בפיתוח באמצעות Bitcoin, Tron או Ethereum: הכתובות נמצאות ב-[DONATE.md](../../DONATE.md), שהוא המקור הרשמי היחיד שלהן. Arroxy לעולם לא ישלח לכם כתובת בדוא״ל או בהודעה ישירה. סימון הריפו בכוכב, דיווח על באגים ושיפור תרגומים עוזרים באותה מידה.
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

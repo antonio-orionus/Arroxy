@@ -5,7 +5,7 @@ import log from 'electron-log/main.js'
 import type {ZodError, ZodType} from 'zod'
 import type {AppSettings, CommonSettings, DownloadProfile, DownloadProfileRef, DownloadProfilesPrefs} from '@shared/types.js'
 import type {SettingsPatch} from '@shared/api.js'
-import {BUILTIN_DOWNLOAD_PROFILES, DEFAULT_DOWNLOAD_PROFILE_REF, isBuiltinDownloadProfileId} from '@shared/downloadProfiles.js'
+import {BUILTIN_DOWNLOAD_PROFILES, DEFAULT_DOWNLOAD_PROFILE_REF, isBuiltinDownloadProfileId, withRunnableSubtitleMode} from '@shared/downloadProfiles.js'
 import {appSettingsSchema, customDownloadProfileSchema, downloadProfileRefSchema, downloadProfileSchema} from '@shared/schemas.js'
 import {isShippedBuiltinProfileName} from './shippedBuiltinProfileNames.js'
 
@@ -278,8 +278,10 @@ function persistedActiveRef(value: unknown, custom: readonly DownloadProfile[]):
 
 function normalizePersistedProfiles(source: unknown, dropShippedNames: boolean): DownloadProfilesPrefs {
 	const record = asRecord(source)
-	const custom = parseProfileList(record?.custom, 'custom', customDownloadProfileSchema)
-	const overrides = parseProfileList(record?.overrides, 'overrides', downloadProfileSchema)
+	// A profile without video saved with Embed already wrote sidecar files, so
+	// loading stores that and the editor shows it.
+	const custom = parseProfileList(record?.custom, 'custom', customDownloadProfileSchema).map(withRunnableSubtitleMode)
+	const overrides = parseProfileList(record?.overrides, 'overrides', downloadProfileSchema).map(withRunnableSubtitleMode)
 	const prefs: DownloadProfilesPrefs = {active: persistedActiveRef(record?.active, custom), custom, overrides: dropShippedNames ? overrides.map(withoutShippedName) : overrides, enabledOverrides: parseEnabledOverrides(record?.enabledOverrides)}
 	const order = parseProfileOrder(record?.order)
 	return order ? {...prefs, order} : prefs

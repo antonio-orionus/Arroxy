@@ -18,7 +18,7 @@ import type {
 	VideoGoal
 } from '@shared/types.js'
 import type {GlobalHdr} from '@shared/hdrSetting.js'
-import {BUILTIN_DOWNLOAD_PROFILES, isBuiltinDownloadProfileId} from '@shared/downloadProfiles.js'
+import {BUILTIN_DOWNLOAD_PROFILES, isBuiltinDownloadProfileId, profileSubtitleMode, subtitleModeForMedia} from '@shared/downloadProfiles.js'
 import {effectiveFileType, effectiveVideoCodec, selectionOrder, type SelectionOrder} from '@shared/selectionOrder.js'
 import {DEFAULT_AUDIO_BITRATE, MAX_SUBTITLE_LANGUAGES, SPONSORBLOCK_CATEGORIES, type AiUpscaled} from '@shared/schemas.js'
 import {canEmbedThumbnail, mediaIntentFromProfileMedia, mediaIntentSpec} from '@shared/mediaIntent.js'
@@ -206,7 +206,7 @@ export function createDownloadProfileDraft(initialProfile: DownloadProfile | nul
 		subtitleEnabled: initialProfile ? initialProfile.subtitles.enabled || initialProfile.media.kind === 'subtitles-only' : true,
 		subtitleLanguages: initialProfile ? initialProfile.subtitles.languages : [newProfile.subtitleLanguage],
 		subtitleSource: initialProfile?.subtitles.source ?? 'manual-first',
-		subtitleDelivery: initialProfile?.subtitles.mode ?? 'sidecar',
+		subtitleDelivery: initialProfile ? profileSubtitleMode(initialProfile) : 'sidecar',
 		subtitleFormat: initialProfile?.subtitles.format ?? 'srt',
 		destination: initialProfile?.output.kind === 'fixed' ? initialProfile.output.dir : '',
 		filenameTemplate: initialProfile?.filename.kind === 'custom' ? initialProfile.filename.template : '',
@@ -230,9 +230,12 @@ export function updateDownloadProfileDraft(draft: DownloadProfileDraft, action: 
 		}
 		case 'set-profile-icon':
 			return {...draft, profileIcon: action.profileIcon}
-		case 'set-media-mode':
-			if (action.mediaMode === 'audio-only') return {...draft, mediaMode: action.mediaMode, audioFormat: 'best', audioQuality: 'best'}
-			return {...draft, mediaMode: action.mediaMode, subtitleEnabled: action.mediaMode === 'subtitles-only' ? true : draft.subtitleEnabled}
+		case 'set-media-mode': {
+			// Media without video has no Embed to offer: it writes sidecar files.
+			const changed = {...draft, mediaMode: action.mediaMode, subtitleDelivery: subtitleModeForMedia(action.mediaMode, draft.subtitleDelivery)}
+			if (action.mediaMode === 'audio-only') return {...changed, audioFormat: 'best', audioQuality: 'best'}
+			return {...changed, subtitleEnabled: action.mediaMode === 'subtitles-only' ? true : draft.subtitleEnabled}
+		}
 		case 'set-goal':
 			return withVideoCodec({...draft, goal: action.goal, resolution: smartTvCompatibleResolution(action.goal, draft.resolution), fileType: effectiveFileType(action.goal, draft.fileType)}, draft.videoCodec)
 		case 'set-resolution':
@@ -258,7 +261,7 @@ export function updateDownloadProfileDraft(draft: DownloadProfileDraft, action: 
 		case 'set-subtitle-source':
 			return {...draft, subtitleSource: action.subtitleSource}
 		case 'set-subtitle-delivery':
-			return {...draft, subtitleDelivery: action.subtitleDelivery}
+			return {...draft, subtitleDelivery: subtitleModeForMedia(draft.mediaMode, action.subtitleDelivery)}
 		case 'set-subtitle-format':
 			return {...draft, subtitleFormat: action.subtitleFormat}
 		case 'set-destination':

@@ -393,7 +393,7 @@ A maioría dos descargadores gratuítos de YouTube son unha caixa de URL sobre y
 
 As descargas obtéñense directamente mediante [yt-dlp](https://github.com/yt-dlp/yt-dlp) desde YouTube ao cartafol que escollas: nada pasa por un servidor de terceiros. O historial de reprodución, o historial de descargas, as URLs e o contido dos ficheiros quedan no teu dispositivo.
 
-Sen telemetría: só unha sinal anónima ao día con a versión da aplicación, o SO, o idioma, a canle de instalación, o país e aproximadamente canto tempo hai que se instalou Arroxy, para poder contar os usuarios activos e novos. Sen IDs, URLs, títulos de vídeos, rutas de ficheiros nin datos de contas. Podes desactivala na configuración.
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 Explorar garda os seus propios inicios de sesión, separados do teu navegador, e Arroxy nunca le nin completa un formulario de inicio de sesión: escribes na propia páxina do sitio. As descargas execútanse sen sesión iniciada; só cando unha falla de xeito que unha conta pode arranxar, Arroxy le o inicio de sesión de novo, gárdao nun ficheiro temporal para esa descarga e elimina o ficheiro despois. Pechar a sesión en Explorar na configuración esquéceos.
 
@@ -499,7 +499,7 @@ Tes unha función en mente? [Abre unha solicitude](../../../../issues) — as ac
 
 ## <a id="support"></a>💖 Apoia Arroxy
 
-Arroxy é gratuíto e ten licenza GPLv3: sen anuncios, sen telemetría, sen nivel de pagamento. Se che aforra tempo, podes apoiar o desenvolvemento con Bitcoin, Tron ou Ethereum: os enderezos están en [DONATE.md](../../DONATE.md), que é a única fonte oficial deles. Arroxy nunca che enviará un enderezo por correo electrónico nin mensaxe directa. Darlle unha estrela ao repositorio, informar de erros e mellorar as traducións axudan igual de ben.
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 
