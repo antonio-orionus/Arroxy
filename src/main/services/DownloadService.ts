@@ -363,11 +363,10 @@ export class DownloadService extends EventEmitter {
 
 			const paused = this.pausedJobs.get(jobId)
 			if (paused) {
-				logger.info('Cancelling paused job — cleaning up temp dir and .part files', {jobId, outputDir: paused.job.outputDir})
+				logger.info('Cancelling paused job — cleaning up its temp dir', {jobId, outputDir: paused.job.outputDir})
 				this.pausedJobs.delete(jobId)
 				this.explore.spawnGate.resetJob(jobId)
 				if (paused.tempDir) await this.cleanupTempDirByPath(paused.tempDir)
-				await this.cleanupPartFiles(paused.job.outputDir)
 				return ok({cancelled: true})
 			}
 
@@ -382,7 +381,6 @@ export class DownloadService extends EventEmitter {
 			[...this.pausedJobs.values()].map(async paused => {
 				this.explore.spawnGate.resetJob(paused.job.id)
 				if (paused.tempDir) await this.cleanupTempDirByPath(paused.tempDir)
-				await this.cleanupPartFiles(paused.job.outputDir)
 			})
 		)
 		this.pausedJobs.clear()

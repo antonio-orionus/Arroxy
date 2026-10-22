@@ -111,22 +111,26 @@ describe('DownloadService (mock mode)', () => {
 		expect(pausedJobs.has(jobId)).toBe(true)
 	})
 
-	it('cancel() of a paused job cleans up .part files and removes from pausedJobs', async () => {
+	it('cancel() of a paused job cleans only its temp dir and removes from pausedJobs', async () => {
 		const {service} = makeService()
 		const cleanupSpy = vi.spyOn(service, 'cleanupPartFiles').mockResolvedValue()
+		const tempCleanupSpy = vi.spyOn(service, 'cleanupTempDirByPath').mockResolvedValue()
+		const tempDir = '/tmp/paused-downloads/.arroxy-temp/paused-j'
 
 		// Manually inject a paused job to simulate the pause flow.
 		const pausedJob: DownloadJob = {id: 'paused-job-id', url: 'https://youtube.com/watch?v=xyz', outputDir: '/tmp/paused-downloads', status: 'running', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()}
 		interface PausedDownload {
 			job: DownloadJob
 			input: {url: string; outputDir: string}
+			tempDir?: string
 		}
-		;(service as unknown as {pausedJobs: Map<string, PausedDownload>}).pausedJobs.set(pausedJob.id, {job: pausedJob, input: {url: pausedJob.url, outputDir: pausedJob.outputDir}})
+		;(service as unknown as {pausedJobs: Map<string, PausedDownload>}).pausedJobs.set(pausedJob.id, {job: pausedJob, input: {url: pausedJob.url, outputDir: pausedJob.outputDir}, tempDir})
 
 		const cancelResult = await service.cancel(pausedJob.id)
 		expect(cancelResult.ok).toBe(true)
 		if (cancelResult.ok) expect(cancelResult.data.cancelled).toBe(true)
-		expect(cleanupSpy).toHaveBeenCalledWith('/tmp/paused-downloads')
+		expect(tempCleanupSpy).toHaveBeenCalledWith(tempDir)
+		expect(cleanupSpy).not.toHaveBeenCalled()
 
 		const pausedJobs = (service as unknown as {pausedJobs: Map<string, PausedDownload>}).pausedJobs
 		expect(pausedJobs.has(pausedJob.id)).toBe(false)
