@@ -132,16 +132,20 @@ describe('Subtitles kind', () => {
 	})
 
 	// Nothing to embed subtitles into without video, as in the profile editor (#646).
-	it.each(['audio', 'subtitles'] as const)('the %s switch moves a kept Embed to Sidecar', async kind => {
+	it('an Audio run queues a kept Embed as files, with no warning', async () => {
 		window.appApi = buildMockApi() as never
 		await useAppStore.getState().initialize()
 		useAppStore.getState().setWizardUrl(YOUTUBE_URL)
 		await useAppStore.getState().submitUrl()
 		useAppStore.getState().setSubtitleMode('embed')
+		useAppStore.getState().clearSubtitleLanguages()
+		useAppStore.getState().toggleSubtitleLanguage('en')
 
-		useAppStore.getState().setWizardMediaKind(kind)
+		useAppStore.getState().setWizardMediaKind('audio')
+		await useAppStore.getState().addToQueue()
 
-		expect(useAppStore.getState().wizardSubtitleMode).toBe('sidecar')
+		const item = vi.mocked(window.appApi.queue.cmd.add).mock.calls[0][0][0]
+		expect((item.job as Extract<typeof item.job, {kind: 'single-format'}>).subtitles?.mode).toBe('sidecar')
 	})
 
 	it('the Subtitles kind queues a subtitle-only job', async () => {
@@ -432,6 +436,18 @@ describe('Review — subtitle row', () => {
 		const value = screen.getByTestId('review-row-subtitles').textContent ?? ''
 		expect(value).toContain('Embed into video')
 		expect(value).not.toContain('SRT')
+	})
+
+	// A run that keeps an edited Embed through a switch to an audio profile.
+	it('shows a kept Embed of an audio run as files in the download folder', () => {
+		singleState({wizardMediaKind: 'audio', selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '140'}, wizardSubtitleLanguages: ['en'], wizardSubtitleMode: 'embed'})
+		render(<StepReview />)
+		expect(screen.getByTestId('review-row-subtitles').textContent).toContain('In the download folder')
+		fireEvent.click(screen.getByTestId('review-row-subtitles-toggle'))
+		const group = screen.getByRole('group', {name: 'Save as'})
+		expect(within(group).getByRole('button', {name: 'In the download folder'})).toHaveAttribute('aria-pressed', 'true')
+		expect(screen.queryByTestId('subtitle-embed-note')).not.toBeInTheDocument()
+		expect(screen.queryByTestId('review-conflict-subtitleEmbedAudioOnly')).not.toBeInTheDocument()
 	})
 
 	it('offers no Embed for an audio run (#646)', () => {

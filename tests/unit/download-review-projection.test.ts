@@ -100,10 +100,11 @@ describe('DownloadReviewProjection', () => {
 		expect(review.conflictWarnings).toEqual([])
 	})
 
-	it('surfaces visible audio-only subtitle embed conflicts', () => {
+	// An audio run saves a kept Embed as files, as the profile editor does (#646).
+	it('raises no embed warning for an audio run that kept Embed', () => {
 		const review = buildDownloadReview(state({selectedVideoFormatId: '', audioSelection: {kind: 'native', formatId: '251'}, wizardMediaKind: 'audio', wizardSubtitleMode: 'embed'}), {t, language: 'en', commonPaths: state().commonPaths})
 
-		expect(review.conflictWarnings.map(conflict => conflict.code)).toEqual(['subtitleEmbedAudioOnly'])
+		expect(review.conflictWarnings).toEqual([])
 	})
 
 	it('gates actions when nothing is selected', () => {

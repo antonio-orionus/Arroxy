@@ -15,6 +15,7 @@ import {buildProfileEntryQueueItem, firstOccurrencePerUrl, isQueueableEntry, wit
 import {scaleBytesToPart, videoPartSuffix} from '@shared/videoPart.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
 import {resolveAppHdr} from '@renderer/lib/displayHdr.js'
+import {wizardSubtitleModeForMedia} from '@renderer/lib/subtitleLabel.js'
 import i18next from 'i18next'
 import type {AppState} from '../types.js'
 import {buildAudioConvertPayload, buildFormatId, buildFormatLabel, generateId, resolveVideoResolution} from '../helpers.js'
@@ -81,7 +82,7 @@ function buildSingleQueueItemFromState(state: AppState, lane: QueueLane): QueueI
 		isSubtitleOnly: wizardMediaKind === 'subtitles',
 		hasVideoTrack: selectedVideoFormatId !== '',
 		resolvedOutputContainer: resolvedContainer,
-		subtitleMode: state.wizardSubtitleMode,
+		subtitleMode: wizardSubtitleModeForMedia(wizardMediaKind, state.wizardSubtitleMode),
 		subtitleLanguages,
 		embed,
 		sponsorBlockMode: wizardMediaKind === 'video' ? state.wizardSponsorBlockMode : 'off'

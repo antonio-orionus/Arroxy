@@ -14,7 +14,6 @@ import {preferredNativeAudioId} from '@shared/nativeAudioPreference.js'
 import {planSubtitleTracks} from '@shared/subtitleTracks.js'
 import type {AppState, FormatPickerSlice, GetState, SetState} from '../types.js'
 import {notify} from '@renderer/lib/notify.js'
-import {wizardSubtitleModeForMedia} from '@renderer/lib/subtitleLabel.js'
 import {profileDisplayName} from '@renderer/lib/profileName.js'
 import {formatMode} from './formatMode.js'
 import type {FormatMode} from '@shared/schemas.js'
@@ -76,9 +75,10 @@ function fileTypeAfterPick(state: AppState, videoFormatId: string, audio: AudioS
 }
 
 function mediaKindPatch(kind: WizardMediaKind, state: AppState): Partial<AppState> {
-	const subtitleMode = wizardSubtitleModeForMedia(kind, state.wizardSubtitleMode)
-	if (kind === 'subtitles') return {wizardMediaKind: kind, selectedVideoFormatId: '', audioSelection: {kind: 'none'}, wizardSubtitleMode: subtitleMode, wizardSubtitleLanguages: state.wizardSubtitleLanguages.length > 0 ? state.wizardSubtitleLanguages : appLanguageTracks(state)}
-	if (kind === 'audio') return {wizardMediaKind: kind, selectedVideoFormatId: '', audioSelection: audioForAudioOnly(state), wizardSubtitleMode: subtitleMode}
+	// The subtitle mode stays as picked: a run without video saves an Embed as
+	// files (wizardSubtitleModeForMedia), and a return to Video embeds again.
+	if (kind === 'subtitles') return {wizardMediaKind: kind, selectedVideoFormatId: '', audioSelection: {kind: 'none'}, wizardSubtitleLanguages: state.wizardSubtitleLanguages.length > 0 ? state.wizardSubtitleLanguages : appLanguageTracks(state)}
+	if (kind === 'audio') return {wizardMediaKind: kind, selectedVideoFormatId: '', audioSelection: audioForAudioOnly(state)}
 	const videos = state.wizardFormats.filter(f => !f.isAudioOnly)
 	if (videos.length === 0) return {}
 	const baseline = state.wizardProfileBaseline

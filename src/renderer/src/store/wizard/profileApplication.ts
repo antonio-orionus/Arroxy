@@ -14,7 +14,6 @@ import {PLAYLIST_VIDEO_TIERS} from '@shared/schemas.js'
 import {baseLanguage, pickedTrack, planSubtitleTracks, type PickedTrack, type SubtitleMaps} from '@shared/subtitleTracks.js'
 import type {AudioSelection, DownloadProfile, NativeAudioPreference, PlaylistVideoTier, VideoCodecPreference, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import type {FormatOption, SubtitleMap} from '@shared/types.js'
-import {wizardSubtitleModeForMedia} from '@renderer/lib/subtitleLabel.js'
 
 export interface WizardSettingsSnapshot {
 	mediaKind: WizardMediaKind
@@ -74,7 +73,7 @@ export function applyProfileToWizard(input: ProfileApplicationInput): {snapshot:
 			videoFormatId: selection.media.videoFormatId,
 			audioSelection: selection.media.audioSelection,
 			subtitleLanguages: selection.subtitleLanguages,
-			subtitleMode: wizardSubtitleModeForMedia(selection.media.kind, profile.subtitles.mode),
+			subtitleMode: profile.subtitles.mode,
 			subtitleFormat: profile.subtitles.format,
 			sponsorBlockMode: profile.sponsorBlock.mode,
 			sponsorBlockCategories: [...profile.sponsorBlock.categories],

@@ -8,7 +8,7 @@ import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
 import {profileDisplayName} from '@renderer/lib/profileName.js'
 import {profilePickerOptions} from '@renderer/components/wizard/profilePickerOptions.js'
-import {wizardSubtitleDeliveryLabel} from '../../lib/subtitleLabel.js'
+import {wizardSubtitleDeliveryLabel, wizardSubtitleModeForMedia} from '../../lib/subtitleLabel.js'
 import {formatList} from '@shared/listFormat.js'
 import {resolveSubtitleLabel} from '@shared/subtitleTrackLabel.js'
 import {resolveAudioLabel, resolveVideoResolution} from '../helpers.js'
@@ -156,7 +156,7 @@ export function singleConflictWarnings(state: WizardReviewState): UserVisibleCon
 		hasVideoTrack: videoId !== '',
 		resolvedOutputContainer: resolveOutputContainer(videoId, audio, state.wizardSubtitleMode, state.wizardFormats, kind, state.wizardEmbedThumbnail, kind === 'video' ? state.wizardFileType : 'auto'),
 		requestedFileType: kind === 'video' ? state.wizardFileType : 'auto',
-		subtitleMode: state.wizardSubtitleMode,
+		subtitleMode: wizardSubtitleModeForMedia(kind, state.wizardSubtitleMode),
 		subtitleLanguages: state.wizardSubtitleLanguages,
 		embed: {chapters: state.wizardEmbedChapters, metadata: state.wizardEmbedMetadata, thumbnail: state.wizardEmbedThumbnail, description: state.wizardWriteDescription, thumbnailSidecar: state.wizardWriteThumbnail},
 		sponsorBlockMode: state.wizardSponsorBlockMode
