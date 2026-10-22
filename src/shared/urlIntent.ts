@@ -60,6 +60,18 @@ function isFormerRadioLink(searchParams: URLSearchParams): boolean {
 	return searchParams.get('list')?.startsWith('RD') === true
 }
 
+// A search, whose query is free text: `/results` or `/search` with
+// `search_query=` or `q=`, the links yt-dlp's two search extractors take
+// (YouTube Music's included).
+function isYouTubeSearchPath(segments: string[], searchParams: URLSearchParams): boolean {
+	return (segments[0] === 'results' || segments[0] === 'search') && (searchParams.has('search_query') || searchParams.has('q'))
+}
+
+export function isYouTubeSearchLink(url: string): boolean {
+	const parsed = parseUrl(url)
+	return parsed !== null && isYouTubeHostname(parsed.hostname) && isYouTubeSearchPath(youtubePathSegments(parsed), parsed.searchParams)
+}
+
 export function classifyUrlIntent(url: string): UrlIntent {
 	const parsed = parseUrl(url)
 	if (!parsed || !isYouTubeHostname(parsed.hostname)) return {kind: 'unknown', url}
@@ -74,7 +86,7 @@ export function classifyUrlIntent(url: string): UrlIntent {
 	// A video with any list names both: a Mix (`RD…`) and a
 	// YouTube Music playlist (`RDCLAK…`) included. Each entry point decides.
 	if (hasConcreteVideo && hasList) return {kind: 'mixed', url, reason: 'youtube-video-with-list'}
-	if (segments[0] === 'results' && parsed.searchParams.has('search_query')) return {kind: 'obvious-collection', url, collection: 'search'}
+	if (isYouTubeSearchPath(segments, parsed.searchParams)) return {kind: 'obvious-collection', url, collection: 'search'}
 	if (isYouTubeChannelPath(segments)) return {kind: 'obvious-collection', url, collection: 'channel'}
 	if (isYouTubeBrowseCollectionPath(segments)) return {kind: 'obvious-collection', url, collection: 'playlist'}
 	if (hasList) return {kind: 'obvious-collection', url, collection: 'playlist'}

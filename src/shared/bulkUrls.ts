@@ -1,7 +1,7 @@
 import {cleanUrl} from './cleanUrl.js'
 import type {BulkUrlKind, BulkUrlRejectReason} from './schemas.js'
 import {isYouTubeHostname} from './sites/youtubeHost.js'
-import {classifyBulkUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId, isObviousSingleUrlIntent, type UrlIntent, urlIntentBulkLabel} from './urlIntent.js'
+import {classifyBulkUrlIntent, deriveUrlIntentLabel, extractUrlIntentYouTubeVideoId, isObviousSingleUrlIntent, isYouTubeSearchLink, type UrlIntent, urlIntentBulkLabel} from './urlIntent.js'
 
 export interface BulkUrlAccepted {
 	url: string
@@ -106,11 +106,19 @@ function endsInQueryValue(url: string): boolean {
 // values never hold an apostrophe nor end in `!` or `?`.
 function isYouTubeIdLink(url: string): boolean {
 	try {
-		const parsed = new URL(url)
-		return isYouTubeHostname(parsed.hostname) && parsed.pathname !== '/results'
+		return isYouTubeHostname(new URL(url).hostname) && !isYouTubeSearchLink(url)
 	} catch {
 		return false
 	}
+}
+
+// A final `'s` is the sentence's possessive, except in a YouTube search's query
+// value (`?search_query=it's`).
+function trimPossessive(token: string): string {
+	const possessive = TRAILING_POSSESSIVE_RE.exec(token)
+	if (!possessive) return token
+	const rest = token.slice(0, possessive.index)
+	return isYouTubeSearchLink(rest) && endsInQueryValue(rest) ? token : rest
 }
 
 // A `!` or `?` run after a link is the sentence's, unless it ends a query value
@@ -132,7 +140,7 @@ function cutYouTubeAtApostrophe(token: string): string {
 function trimUrlToken(token: string): string {
 	let trimmed = cutYouTubeAtApostrophe(token)
 	for (;;) {
-		const next = trimSentenceMarks(trimmed.replace(TRAILING_PUNCTUATION_RE, '').replace(TRAILING_POSSESSIVE_RE, ''))
+		const next = trimSentenceMarks(trimPossessive(trimmed.replace(TRAILING_PUNCTUATION_RE, '')))
 		if (next === trimmed) return trimmed
 		trimmed = next
 	}

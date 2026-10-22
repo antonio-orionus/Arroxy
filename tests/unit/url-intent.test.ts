@@ -22,7 +22,12 @@ describe('classifyUrlIntent', () => {
 		['https://www.youtube.com/playlist?list=PLtest', 'playlist'],
 		['https://www.youtube.com/@arroxy', 'channel'],
 		['https://www.youtube.com/channel/UC123/videos', 'channel'],
-		['https://www.youtube.com/results?search_query=arroxy', 'search']
+		['https://www.youtube.com/results?search_query=arroxy', 'search'],
+		['https://www.youtube.com/results/?search_query=arroxy', 'search'],
+		// yt-dlp's search extractors also take `q=`, `/search` and YouTube Music's search (#638).
+		['https://www.youtube.com/results?q=arroxy', 'search'],
+		['https://www.youtube.com/search?q=arroxy', 'search'],
+		['https://music.youtube.com/search?q=arroxy', 'search']
 	] as const)('%s -> obvious collection', (url, collection) => {
 		expect(classifyUrlIntent(url)).toMatchObject({kind: 'obvious-collection', collection, url})
 	})

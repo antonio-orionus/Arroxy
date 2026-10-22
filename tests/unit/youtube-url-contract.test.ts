@@ -83,7 +83,6 @@ const FALLBACKS: readonly {reason: string; matches: (url: URL) => boolean}[] = [
 	{reason: 'not a YouTube host Arroxy treats as YouTube (Invidious, youtubekids.com, mirrors)', matches: url => !/(^|\.)youtube(-nocookie)?\.com$|^youtu\.be$/.test(url.hostname)},
 	{reason: 'the home page or a feed (/feed/…): yt-dlp loads it as a list, and a list asks on its row', matches: url => url.pathname === '/' || url.pathname.startsWith('/feed/')},
 	{reason: 'a legacy channel shortcut (/<name>, /<name>/<tab>), a hashtag, news or course page', matches: url => /^\/(?!watch|playlist|shorts|live|embed|v\/|e\/|clip|results|@|channel|c\/|user|browse)[^/]+(\/[^/]+)?\/?$/.test(url.pathname)},
-	{reason: 'a search by `q=` or on YouTube Music: yt-dlp loads it as a list', matches: url => url.pathname === '/results' || url.pathname === '/search'},
 	{reason: 'a popup or audio-pivot page around a video', matches: url => url.pathname === '/watch_popup' || url.pathname.startsWith('/source/')},
 	{reason: 'an HTML-escaped query (`&amp;`) as found in page source, not a link a user copies', matches: url => url.search.includes('&amp;')}
 ]
