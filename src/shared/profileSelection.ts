@@ -110,15 +110,23 @@ function forThisVideo(order: SelectionOrder, sortFields: readonly string[]): Sel
 	return {...order, video: order.video.filter(rank => (rank.kind !== 'source' || named('source')) && (rank.kind !== 'protocol' || named('proto')))}
 }
 
-// Why a pick left the profile's tier when the video has streams there. A
-// reason is named only when it holds for the pick too: an H.264 pick for
-// "only in other codecs", an original one for "AI-upscaled".
+// Why a pick left the profile's tier when the video has streams the notice
+// would otherwise deny: at the tier for a pick below it, at or under the tier
+// for a pick above it. A reason is named only when it holds for the pick too:
+// an H.264 pick for "only in other codecs" (and only when every stream left
+// names its codec), an original one for "AI-upscaled".
 function tierPassedOver(formats: readonly FormatOption[], tier: number, order: SelectionOrder, picked: FormatOption): TierPassedOver | undefined {
-	const atTier = formats.filter(format => !format.isAudioOnly && videoHeight(format.resolution) === tier)
-	if (atTier.length === 0) return undefined
+	const pickedAbove = videoHeight(picked.resolution) > tier
+	const left = formats.filter(format => {
+		if (format.isAudioOnly) return false
+		const height = videoHeight(format.resolution)
+		return height !== 0 && (pickedAbove ? height <= tier : height === tier)
+	})
+	if (left.length === 0) return undefined
+	if (pickedAbove) return 'profile'
 	const upscaled = (format: FormatOption): boolean => format.markers?.includes('ai-upscaled') === true
-	if (order.skipAiUpscaled && atTier.every(upscaled) && !upscaled(picked)) return 'ai-upscaled'
-	if (order.goal === 'smart-tv' && !atTier.some(isH264) && isH264(picked)) return 'h264'
+	if (order.skipAiUpscaled && left.every(upscaled) && !upscaled(picked)) return 'ai-upscaled'
+	if (order.goal === 'smart-tv' && left.every(format => format.videoCodec !== undefined && format.videoCodec !== '' && !isH264(format)) && isH264(picked)) return 'h264'
 	return 'profile'
 }
 

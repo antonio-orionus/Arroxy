@@ -124,11 +124,17 @@ export const RULES: Record<string, Rule> = {
 			// tier, or only ones the profile leaves (another codec, AI-upscaled).
 			const notice = notices.find(candidate => candidate.kind === 'video-tier-fallback')
 			if (notice?.kind !== 'video-tier-fallback') return []
-			const atTier = raw.filter(format => hasVideo(format) && meetsTier(format, wanted))
-			if (notice.passedOver === undefined && atTier.length > 0) return [`${profile.id} says the video has no ${wanted}p though it lists ${atTier.map(format => format.format_id).join(', ')}`]
-			if (notice.passedOver !== undefined && atTier.length === 0) return [`${profile.id} says the video's ${wanted}p was passed over, but it lists none`]
-			if (notice.passedOver === 'h264' && (atTier.some(isH264) || !isH264(picked))) return [`${profile.id} says the video has ${wanted}p only in other codecs and picks H.264`]
-			if (notice.passedOver === 'ai-upscaled' && (!atTier.every(isUpscaled) || isUpscaled(picked))) return [`${profile.id} says the video's ${wanted}p is only AI-upscaled and picks an original`]
+			// What the notice would deny: streams at the tier for a pick below it,
+			// at or under the tier for a pick above it.
+			const above = pickedTier > wanted
+			const left = raw.filter(format => {
+				const tier = hasVideo(format) ? tierOf(format) : null
+				return tier !== null && (above ? tier <= wanted : tier === wanted)
+			})
+			if (notice.passedOver === undefined && left.length > 0) return [`${profile.id} says the video has nothing ${above ? 'that small' : `at ${wanted}p`} though it lists ${left.map(format => format.format_id).join(', ')}`]
+			if (notice.passedOver !== undefined && left.length === 0) return [`${profile.id} says streams were passed over, but the video lists none`]
+			if (notice.passedOver === 'h264' && (above || left.some(format => !format.vcodec || isH264(format)) || !isH264(picked))) return [`${profile.id} says the video has ${wanted}p only in other codecs and picks H.264`]
+			if (notice.passedOver === 'ai-upscaled' && (above || !left.every(isUpscaled) || isUpscaled(picked))) return [`${profile.id} says the video's ${wanted}p is only AI-upscaled and picks an original`]
 			return []
 		}),
 

@@ -378,7 +378,7 @@ describe('resolveProfileSelection: selection order and file type', () => {
 		const raw = [rawVideo('vp9', 480, {width: 854, resolution: '854x480', vcodec: 'vp9', ext: 'webm'}), rawVideo('h264', 720), rawAudio('140')]
 		const {media, notices} = resolveRaw(builtin('mp4-480'), raw)
 		expect(media.videoFormatId).toBe('h264')
-		expect(notices).toEqual([{kind: 'video-tier-fallback', wanted: '480', picked: 720, passedOver: 'h264'}])
+		expect(notices).toEqual([{kind: 'video-tier-fallback', wanted: '480', picked: 720, passedOver: 'profile'}])
 	})
 
 	// The notice says why a stream at the profile's tier was left: not H.264,
@@ -397,6 +397,12 @@ describe('resolveProfileSelection: selection order and file type', () => {
 		const allUpscaled = [rawVideo('vp9-720-sr', 720, {vcodec: 'vp9', ext: 'webm', format_note: '720p, AI-upscaled'}), rawVideo('135-sr', 480, {width: 854, resolution: '854x480', format_note: '480p, AI-upscaled'}), rawAudio('140')]
 		// The 480p pick is upscaled too, so the notice names the codec, never an "original".
 		expect(resolveRaw(builtin('mp4-720'), allUpscaled).notices).toContainEqual({kind: 'video-tier-fallback', wanted: '720', picked: 480, passedOver: 'h264'})
+		// A stream that names no codec may be H.264, so the codec is no reason.
+		const unnamed = [rawVideo('720', 720, {vcodec: undefined}), rawVideo('135', 480, {width: 854, resolution: '854x480'}), rawAudio('140')]
+		expect(resolveRaw(builtin('mp4-720'), unnamed).notices).toEqual([{kind: 'video-tier-fallback', wanted: '720', picked: 480, passedOver: 'profile'}])
+		// A pick above the tier leaves the smaller streams, not the tier itself.
+		const smallerVp9 = [rawVideo('vp9-360', 360, {width: 640, resolution: '640x360', vcodec: 'vp9', ext: 'webm'}), rawVideo('h264-720', 720), rawAudio('140')]
+		expect(resolveRaw(builtin('mp4-480'), smallerVp9).notices).toEqual([{kind: 'video-tier-fallback', wanted: '480', picked: 720, passedOver: 'profile'}])
 	})
 
 	// A profile takes every stream its tier names on the Format screen (#657):
