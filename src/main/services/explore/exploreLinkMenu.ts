@@ -38,6 +38,16 @@ const FROM_LIST_KEY = {playlist: 'explore.linkMenu.fromList.playlist', mix: 'exp
 	string
 >
 
+// The background answer names the list: a native menu has no hint on Windows or Linux.
+const BACKGROUND_KEY = {
+	playlist: 'explore.linkMenu.background.playlist',
+	mix: 'explore.linkMenu.background.mix',
+	album: 'explore.linkMenu.background.album',
+	uploads: 'explore.linkMenu.background.uploads',
+	'watch-later': 'explore.linkMenu.background.watchLater',
+	liked: 'explore.linkMenu.background.liked'
+} as const satisfies Record<ListKind, string>
+
 // Electron reads `&` as a mnemonic marker on Windows and Linux.
 function menuText(text: string): string {
 	return text.replaceAll('&', '&&')
@@ -72,7 +82,7 @@ export function exploreLinkMenuTemplate(linkURL: string, deps: ExploreLinkMenuDe
 		})
 	if (listKind) {
 		const answers: MenuItemConstructorOptions[] = [
-			{label: mainT(lang, 'wizard.listPrompt.backgroundLabel'), click: () => deps.send({kind: 'list', url, answer: 'background'})},
+			{label: mainT(lang, BACKGROUND_KEY[listKind]), click: () => deps.send({kind: 'list', url, answer: 'background'})},
 			{label: mainT(lang, 'explore.linkMenu.downloadFirst', {count: deps.playlistLimit()}), click: () => deps.send({kind: 'list', url, answer: 'first'})}
 		]
 		return [

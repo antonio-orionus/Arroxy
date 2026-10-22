@@ -107,6 +107,14 @@
 			"title": "Right-click a link to download it"
 		},
 		"linkMenu": {
+			"background": {
+				"album": "Download the album in the background",
+				"liked": "Download your liked videos in the background",
+				"mix": "Download the Mix in the background",
+				"playlist": "Download the playlist in the background",
+				"uploads": "Download the uploads in the background",
+				"watchLater": "Download Watch later in the background"
+			},
 			"copyLink": "Copy link",
 			"downloadFirst": "Download the first {{count}}",
 			"downloadThisVideo": "Download this video · {{profileName}}",

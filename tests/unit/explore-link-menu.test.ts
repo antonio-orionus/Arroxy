@@ -173,20 +173,21 @@ describe('Explore link menu on a video in a list', () => {
 	const labels = (template: MenuItemConstructorOptions[] | null): string[] => template?.map(entry => entry.label ?? entry.type ?? '') ?? []
 
 	it.each([
-		[IN_PLAYLIST, 'From this playlist'],
-		[IN_MIX, 'From this Mix'],
-		[`${WATCH}&list=RDCLAK5uy_x`, 'From this playlist'],
-		[`https://music.youtube.com/watch?v=dQw4w9WgXcQ&list=OLAK5uy_x`, 'From this album'],
-		[`${WATCH}&list=UUx`, 'From this channel’s uploads'],
-		[`${WATCH}&list=WL`, 'From Watch later'],
-		[`${WATCH}&list=LL`, 'From your liked videos']
-	])('lays out %s: this video, then %s, then Interactive, then Copy link', (link, fromList) => {
+		[IN_PLAYLIST, 'From this playlist', 'Download the playlist in the background'],
+		[IN_MIX, 'From this Mix', 'Download the Mix in the background'],
+		[`${WATCH}&list=RDCLAK5uy_x`, 'From this playlist', 'Download the playlist in the background'],
+		[`https://music.youtube.com/watch?v=dQw4w9WgXcQ&list=OLAK5uy_x`, 'From this album', 'Download the album in the background'],
+		[`${WATCH}&list=UUx`, 'From this channel’s uploads', 'Download the uploads in the background'],
+		[`${WATCH}&list=WL`, 'From Watch later', 'Download Watch later in the background'],
+		[`${WATCH}&list=LL`, 'From your liked videos', 'Download your liked videos in the background']
+	])('lays out %s: this video, then %s, then Interactive, then Copy link', (link, fromList, background) => {
 		const {deps} = harness()
 		const active = englishProfileName(resolveActiveDownloadProfile(undefined).profile)
 		const template = exploreLinkMenuTemplate(link, deps)
 
 		expect(labels(template)).toEqual([`Download this video · ${active}`, 'This video with', 'separator', fromList, 'separator', 'Interactive Download…', 'separator', 'Copy link'])
-		expect(labels(submenu(item(template, fromList)))).toEqual(['Download in the background', 'Download the first 100'])
+		// The background item names the list: a native menu shows no hint on Windows or Linux.
+		expect(labels(submenu(item(template, fromList)))).toEqual([background, 'Download the first 100'])
 	})
 
 	it('names the load limit in Download the first N', () => {
@@ -218,7 +219,7 @@ describe('Explore link menu on a video in a list', () => {
 		const {deps, sent} = harness()
 		const answers = submenu(item(exploreLinkMenuTemplate(IN_PLAYLIST, deps), 'From this playlist'))
 
-		click(item(answers, 'Download in the background'))
+		click(item(answers, 'Download the playlist in the background'))
 		click(item(answers, 'Download the first 100'))
 
 		expect(sent).toEqual([

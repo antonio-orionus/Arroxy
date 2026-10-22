@@ -16,6 +16,16 @@ const FROM_LIST_KEY = {playlist: 'explore.linkMenu.fromList.playlist', mix: 'exp
 	string
 >
 
+// The background answer names the list: a native menu has no hint on Windows or Linux.
+const BACKGROUND_KEY = {
+	playlist: 'explore.linkMenu.background.playlist',
+	mix: 'explore.linkMenu.background.mix',
+	album: 'explore.linkMenu.background.album',
+	uploads: 'explore.linkMenu.background.uploads',
+	'watch-later': 'explore.linkMenu.background.watchLater',
+	liked: 'explore.linkMenu.background.liked'
+} as const satisfies Record<ListKind, string>
+
 // browser-mock stand-in for Explore's native link menu (built in main), with the
 // same items in the same order, so its design can be tried in a browser. Its picks
 // go through the renderer's real link-action handler.
@@ -73,7 +83,7 @@ export function ExploreMockLinkMenu({url, children}: {url: string; children: Rea
 								<ContextMenuSub>
 									<ContextMenuSubTrigger>{t(FROM_LIST_KEY[listKind])}</ContextMenuSubTrigger>
 									<ContextMenuSubContent>
-										<ContextMenuItem onClick={() => emitMockLinkAction({kind: 'list', url, answer: 'background'})}>{t('wizard.listPrompt.backgroundLabel')}</ContextMenuItem>
+										<ContextMenuItem onClick={() => emitMockLinkAction({kind: 'list', url, answer: 'background'})}>{t(BACKGROUND_KEY[listKind])}</ContextMenuItem>
 										<ContextMenuItem onClick={() => emitMockLinkAction({kind: 'list', url, answer: 'first'})}>{t('explore.linkMenu.downloadFirst', {count: limit})}</ContextMenuItem>
 									</ContextMenuSubContent>
 								</ContextMenuSub>
