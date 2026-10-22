@@ -613,7 +613,15 @@ if (hasSingleInstanceLock) {
 			intake: intakeService,
 			hotkey: hotkeyIntake,
 			control: controlOutcomes
-		} = createIntakeService({probeService, queueService, settingsStore, playlistManifestStore, languageRef, mainWindow, hotkeyFeedback: event => routeHotkeyOutcome(event, {lang: languageRef.current, window: hotkeyWindow, osNotifier: hotkeyOsNotifier, rendererReady: hotkeyService.isRendererReady()})})
+		} = createIntakeService({
+			probeService,
+			queueService,
+			settingsStore,
+			playlistManifestStore,
+			languageRef,
+			mainWindow,
+			hotkeyFeedback: event => routeHotkeyOutcome(event, {lang: languageRef.current, window: hotkeyWindow, osNotifier: hotkeyOsNotifier, rendererReady: hotkeyService.isRendererReady()})
+		})
 		const hotkeyService = new HotkeyService(hotkeyWindow, hotkeyIntake, electronShortcutRegistry())
 		hotkeyService.apply(initialSettings.common.hotkeyEnabled, initialSettings.common.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator)
 		// A future main-frame navigation/reload destroys the renderer listener.
