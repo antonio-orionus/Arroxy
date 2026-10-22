@@ -73,6 +73,13 @@ export const IPC_CHANNELS = {
 	siteRequestsGetCooldowns: 'siteRequests:getCooldowns',
 	siteRequestsTryNow: 'siteRequests:tryNow',
 	siteRequestsCooldownsChanged: 'siteRequests:cooldownsChanged',
+	// Local clients (release flag agentControl): main keeps them; the window
+	// lists them and the requests waiting for Allow, and answers those.
+	localClientsGet: 'localClients:get',
+	localClientsAllow: 'localClients:allow',
+	localClientsDeny: 'localClients:deny',
+	localClientsRemove: 'localClients:remove',
+	localClientsChanged: 'localClients:changed',
 	updaterAvailable: 'updater:available',
 	updaterInstall: 'updater:install',
 	eventsClipboardUrl: 'events:clipboardUrl',

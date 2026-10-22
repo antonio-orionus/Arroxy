@@ -6,12 +6,13 @@ import os from 'node:os'
 import path from 'node:path'
 import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import {CONTROL_DISCOVERY_FILE_NAME} from 'arroxy-control'
+import type {LocalClientRegistry} from '@main/control/clients/LocalClientRegistry.js'
 import {type LocalClientRecord, type LocalClientStore, MemoryLocalClientStore} from '@main/control/clients/localClientStore.js'
 import {e2eTestSecretCipher, type SecretCipher} from '@main/control/clients/secretCipher.js'
 import type {ControlService} from '@main/control/ControlService.js'
 import type {ControlWiring} from '@main/control/createControlService.js'
 import type {ControlSocket, ControlSocketOptions} from '@main/control/socket/startControlSocket.js'
-import {type AgentControlDeps, autoAllowsClients, localClientCipher, startAgentControl, stopAgentControlOnQuit} from '@main/control/startAgentControl.js'
+import {type AgentControlDeps, autoAllowsClients, E2E_MANUAL_CLIENT_APPROVAL_VAR, localClientCipher, startAgentControl, stopAgentControlOnQuit} from '@main/control/startAgentControl.js'
 import {importWithReleaseFlagsOff} from '../helpers/releaseFlags.js'
 
 vi.mock('electron-log/main.js', () => {
@@ -56,7 +57,7 @@ function fakeSocket(socketPath: string) {
 }
 
 function deps(overrides: Partial<AgentControlDeps> = {}): AgentControlDeps {
-	return {...wiring, userDataDir: '/user-data', appVersion: '9.9.9', platform: 'linux', env: {XDG_RUNTIME_DIR: '/run/user/1000'}, autoAllowClients: false, clientStore: new MemoryLocalClientStore(), secretsStorable: () => true, log: silentLog, ...overrides}
+	return {...wiring, userDataDir: '/user-data', appVersion: '9.9.9', platform: 'linux', env: {XDG_RUNTIME_DIR: '/run/user/1000'}, autoAllowClients: false, clientStore: new MemoryLocalClientStore(), secretsStorable: () => true, exposeLocalClients: () => () => undefined, log: silentLog, ...overrides}
 }
 
 const knownRecord: LocalClientRecord = {clientId: 'known-1', label: 'Claude Code', pathsRead: false, firstSeenAt: 1, lastSeenAt: 2, secret: 'known-secret'}
@@ -140,6 +141,35 @@ describe('startAgentControl', () => {
 	it('is null when the socket cannot start', async () => {
 		const control = await startAgentControl(deps({compose: fakeCompose().compose, startSocket: () => Promise.resolve(null)}))
 		expect(control).toBeNull()
+	})
+
+	it('shows the window the registry the socket uses, from before it listens until stop', async () => {
+		const events: string[] = []
+		const exposeLocalClients = vi.fn((_clients: LocalClientRegistry) => {
+			events.push('exposed')
+			return () => events.push('hidden')
+		})
+		const {socket, stop} = fakeSocket('/s')
+		stop.mockImplementation(() => {
+			events.push('socket stopped')
+			return Promise.resolve()
+		})
+		const startSocket = vi.fn((_options: ControlSocketOptions) => {
+			events.push('listening')
+			return Promise.resolve(socket)
+		})
+		const control = await startAgentControl(deps({compose: fakeCompose().compose, startSocket, exposeLocalClients}))
+		expect(exposeLocalClients).toHaveBeenCalledExactlyOnceWith(startSocket.mock.calls[0]?.[0].approvals)
+		await control?.stop()
+		await control?.stop()
+		expect(events).toEqual(['exposed', 'listening', 'socket stopped', 'hidden'])
+	})
+
+	it('takes the registry away from the window when the socket cannot start', async () => {
+		const hide = vi.fn()
+		const control = await startAgentControl(deps({compose: fakeCompose().compose, startSocket: () => Promise.resolve(null), exposeLocalClients: () => hide}))
+		expect(control).toBeNull()
+		expect(hide).toHaveBeenCalledTimes(1)
 	})
 
 	it('stops the socket once', async () => {
@@ -315,10 +345,21 @@ describe('stopAgentControlOnQuit', () => {
 
 describe('autoAllowsClients', () => {
 	it('allows clients at once only in an unpackaged E2E run', () => {
-		expect(autoAllowsClients({e2eHarness: true, isPackaged: false})).toBe(true)
-		expect(autoAllowsClients({e2eHarness: true, isPackaged: true})).toBe(false)
-		expect(autoAllowsClients({e2eHarness: false, isPackaged: false})).toBe(false)
-		expect(autoAllowsClients({e2eHarness: false, isPackaged: true})).toBe(false)
+		expect(autoAllowsClients({e2eHarness: true, isPackaged: false}, {})).toBe(true)
+		expect(autoAllowsClients({e2eHarness: true, isPackaged: true}, {})).toBe(false)
+		expect(autoAllowsClients({e2eHarness: false, isPackaged: false}, {})).toBe(false)
+		expect(autoAllowsClients({e2eHarness: false, isPackaged: true}, {})).toBe(false)
+	})
+
+	it('leaves Allow to the run that asks for it, and reads that only in an unpackaged E2E run', () => {
+		const manual = {[E2E_MANUAL_CLIENT_APPROVAL_VAR]: '1'}
+		expect(autoAllowsClients({e2eHarness: true, isPackaged: false}, manual)).toBe(false)
+		expect(autoAllowsClients({e2eHarness: true, isPackaged: false}, {[E2E_MANUAL_CLIENT_APPROVAL_VAR]: '0'})).toBe(true)
+		const read = vi.fn(() => '1')
+		const watched = new Proxy<Record<string, string | undefined>>({}, {get: read})
+		expect(autoAllowsClients({e2eHarness: false, isPackaged: false}, watched)).toBe(false)
+		expect(autoAllowsClients({e2eHarness: true, isPackaged: true}, watched)).toBe(false)
+		expect(read).not.toHaveBeenCalled()
 	})
 })
 
@@ -346,12 +387,15 @@ describe('startAgentControl in a release build', () => {
 		const {compose} = fakeCompose()
 		const clientStore = {load: vi.fn<LocalClientStore['load']>(), save: vi.fn<LocalClientStore['save']>()}
 		const secretsStorable = vi.fn(() => true)
-		const control = await startInRelease(deps({userDataDir, env: {XDG_RUNTIME_DIR: runtimeDir}, compose, clientStore, secretsStorable}))
+		// The window's local-clients IPC: no handler registered, no change listened to.
+		const exposeLocalClients = vi.fn(() => () => undefined)
+		const control = await startInRelease(deps({userDataDir, env: {XDG_RUNTIME_DIR: runtimeDir}, compose, clientStore, secretsStorable, exposeLocalClients}))
 		expect(control).toBeNull()
 		expect(compose).not.toHaveBeenCalled()
 		expect(clientStore.load).not.toHaveBeenCalled()
 		expect(clientStore.save).not.toHaveBeenCalled()
 		expect(secretsStorable).not.toHaveBeenCalled()
+		expect(exposeLocalClients).not.toHaveBeenCalled()
 		expect(await fs.readdir(runtimeDir)).toEqual([])
 		expect(await fs.readFile(path.join(userDataDir, CONTROL_DISCOVERY_FILE_NAME), 'utf8')).toBe(stale)
 	})

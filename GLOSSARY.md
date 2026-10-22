@@ -372,6 +372,14 @@ _Avoid_: remote API, agent API, MCP (one way of speaking it), public IPC
 A program outside the Arroxy window that the user has allowed to use the Control API, such as a paired phone, an AI agent or a script. Each one has its own identity, shows in the user's list of devices and apps, and stops working the moment it is removed.
 _Avoid_: integration, consumer, connected app, remote
 
+**Local client**:
+A client on the same computer as Arroxy, such as an AI agent or a script, that reaches it over the local connection. Local clients are kept in their own list, apart from paired phones; the list shows when each was first and last seen and whether it is connected now.
+_Avoid_: local app, desktop client, agent (one kind of local client)
+
+**Approval request**:
+What a program's first connection raises: the question, shown to the user under the name the program gave, whether it may become a local client. Allow makes it one, and can also let it read where downloaded files were saved; Deny records nothing. A request nobody answers lapses, and the program has to ask again.
+_Avoid_: pairing (phones pair), permission prompt, consent
+
 **Entry point**:
 A way work reaches Arroxy: inside the window (the link field, a copied link, Explore, the global hotkey) or from outside it (a phone, the local connection agents and scripts use, an `arroxy://` link). An outside entry point only checks who is calling and passes the Control API message on; it decides nothing itself.
 _Avoid_: adapter (a shell's answer to a port), endpoint, transport, integration

@@ -11,6 +11,7 @@
 
 import {randomBytes, randomUUID} from 'node:crypto'
 import type {ControlRule} from 'arroxy-control'
+import type {LocalClientsRefusal, LocalClientsSnapshot} from '@shared/localClients.js'
 import type {ControlSocketLog} from '../socket/controlConnection.js'
 import type {ApprovalClaim, LocalClient, LocalClientApprovals} from '../socket/localClientApprovals.js'
 import type {LocalClientRecord, LocalClientStore} from './localClientStore.js'
@@ -23,30 +24,7 @@ export const PENDING_APPROVAL_TTL_MS = 10 * 60_000
 // How long an allowed approval waits to be collected.
 export const ALLOWED_APPROVAL_TTL_MS = 10 * 60_000
 
-// A known client as a screen shows it; never its secret.
-export interface LocalClientView {
-	readonly clientId: string
-	readonly label: string
-	readonly pathsRead: boolean
-	readonly firstSeenAt: number
-	readonly lastSeenAt: number
-	readonly connected: boolean
-}
-
-export interface PendingApprovalView {
-	readonly approvalId: string
-	readonly label: string
-	readonly requestedAt: number
-	readonly expiresAt: number
-}
-
-export interface LocalClientsSnapshot {
-	readonly clients: LocalClientView[]
-	// Oldest first.
-	readonly pending: PendingApprovalView[]
-}
-
-export type AllowResult = {readonly ok: true} | {readonly ok: false; readonly code: 'not_pending' | 'secure_storage_unavailable'}
+export type AllowResult = {readonly ok: true} | {readonly ok: false; readonly code: Extract<LocalClientsRefusal, 'not_pending' | 'secure_storage_unavailable'>}
 
 export interface LocalClientRegistryOptions {
 	readonly store: LocalClientStore

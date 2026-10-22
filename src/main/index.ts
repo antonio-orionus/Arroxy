@@ -12,6 +12,7 @@ import {pickLanguage, pickSystemLanguage} from '@shared/i18n/language.js'
 import type {SupportedLang} from '@shared/i18n/types.js'
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {registerIpcHandlers} from '@main/ipc/registerIpcHandlers.js'
+import {registerLocalClientHandlers} from '@main/ipc/localClientHandlers.js'
 import {registerUpdaterHandlers} from '@main/ipc/registerUpdaterHandlers.js'
 import {counterscaleSender, createHeartbeat, HEARTBEAT_SITE_ID, heartbeatUrl, osLocale} from '@main/services/heartbeat.js'
 import {detectInstallChannel} from '@main/installChannel.js'
@@ -658,9 +659,10 @@ if (hasSingleInstanceLock) {
 			appVersion: app.getVersion(),
 			platform: process.platform,
 			env: process.env,
-			autoAllowClients: autoAllowsClients(controlGate),
+			autoAllowClients: autoAllowsClients(controlGate, process.env),
 			clientStore: new FileLocalClientStore({filePath: path.join(userDataPath, LOCAL_CLIENTS_FILE_NAME), cipher: clientCipher, log: log.scope('control')}),
 			secretsStorable: () => clientCipher.available(),
+			exposeLocalClients: clients => registerLocalClientHandlers(clients, mainWindow),
 			log: log.scope('control')
 		})
 		stopAgentControlOnQuit(app, agentControl, log.scope('control'))
