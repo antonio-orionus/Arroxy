@@ -498,7 +498,7 @@ describe('quickDownload', () => {
 
 	// Bulk URLs is out of the video-or-list question: a link that was Radio
 	// before stays one video there, probed alone and queued with no question.
-	it.each(['&list=RDtest&start_radio=1', '&list=RDCLAK5uy_test', '&list=PLtest&start_radio=1'])('quickDownloadUrls keeps a video in a Mix (%s) as one video', async suffix => {
+	it.each(['&list=RDtest&start_radio=1', '&list=RDtest', '&list=RDCLAK5uy_test'])('quickDownloadUrls keeps a video in a Mix (%s) as one video', async suffix => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(VIDEO_PROBE))
 		window.appApi = api

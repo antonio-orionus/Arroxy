@@ -27,12 +27,20 @@ describe('classifyUrlIntent', () => {
 		expect(classifyUrlIntent(url)).toMatchObject({kind: 'obvious-collection', collection, url})
 	})
 
-	it.each(['https://www.youtube.com/watch?v=abc123&list=PLtest', 'https://m.youtube.com/watch?list=PLtest&v=abc123', 'https://www.youtube.com/live/ScsahA7OzVo?list=PLtest', 'https://www.youtube.com/clip/Ugkx_123?list=PLtest'])('%s -> mixed', url => {
+	it.each(['https://www.youtube.com/watch?v=abc123&list=PLtest', 'https://m.youtube.com/watch?list=PLtest&v=abc123', 'https://www.youtube.com/live/ScsahA7OzVo?list=PLtest'])('%s -> mixed', url => {
 		expect(classifyUrlIntent(url)).toEqual({kind: 'mixed', reason: 'youtube-video-with-list', url})
 	})
 
+	// yt-dlp's clip extractor takes a clip link and ignores its list, so the list
+	// cannot be offered from it.
+	it('reads a clip link as the clip, list or not', () => {
+		const url = 'https://www.youtube.com/clip/UgkxU2HSeGL_NvmDJ-nQJrlLwllwMDBdGZFs?list=PLtest'
+		expect(classifyUrlIntent(url)).toEqual({kind: 'obvious-single', site: 'youtube', url})
+		expect(videoListKind(url)).toBeNull()
+	})
+
 	// A link that names a video and a list is ambiguous whatever the list: a Mix
-	// (`RD…`, or any list reached through `start_radio`) and a YouTube Music
+	// (`RD…`; `start_radio` says nothing yt-dlp reads) and a YouTube Music
 	// playlist (`RDCLAK…`) included. Each entry point decides what to do with it.
 	it.each([
 		['https://www.youtube.com/watch?v=abc123&list=PLtest', 'playlist'],
@@ -46,7 +54,9 @@ describe('classifyUrlIntent', () => {
 		['https://www.youtube.com/watch?v=abc123&list=LL', 'liked'],
 		['https://www.youtube.com/watch?v=abc123&list=FLabc', 'playlist'],
 		['https://www.youtube.com/watch?v=abc123&list=RDabc123&start_radio=1', 'mix'],
-		['https://www.youtube.com/watch?v=abc123&list=PLtest&start_radio=1', 'mix'],
+		['https://www.youtube.com/watch?v=abc123&list=PLtest&start_radio=1', 'playlist'],
+		['https://www.youtube.com/watch?v=abc123&list=LM', 'liked'],
+		['https://www.youtube.com/watch?v=abc123&list=PUabc', 'uploads'],
 		['https://youtu.be/abc123?list=RDabc123', 'mix'],
 		['https://www.youtube.com/shorts/abc123?list=PLtest', 'playlist']
 	] as const)('%s -> mixed, naming a %s', (url, kind) => {
@@ -128,11 +138,11 @@ describe('classifyUrlIntent', () => {
 })
 
 // Bulk URLs is out of scope for the video-or-list question: every link that was
-// Radio before (`RD…`, `RDCLAK…` included, and `start_radio`) stays one video
+// Radio before (`RD…`, `RDCLAK…` included) stays one video
 // there, with its id and "YouTube <id>" label, and a plain mixed link keeps
 // diverting the batch to the Bulk review.
 describe('classifyBulkUrlIntent', () => {
-	it.each(['https://www.youtube.com/watch?v=abc123&list=RDabc123', 'https://music.youtube.com/watch?v=abc123&list=RDCLAK5uy_abc', 'https://www.youtube.com/watch?v=abc123&list=PLtest&start_radio=1', 'https://youtu.be/abc123?list=RDabc123'])('%s stays a single video', url => {
+	it.each(['https://www.youtube.com/watch?v=abc123&list=RDabc123', 'https://music.youtube.com/watch?v=abc123&list=RDCLAK5uy_abc', 'https://youtu.be/abc123?list=RDabc123'])('%s stays a single video', url => {
 		expect(classifyBulkUrlIntent(url)).toEqual({kind: 'obvious-single', site: 'youtube', url})
 		expect(extractUrlIntentYouTubeVideoId(classifyBulkUrlIntent(url))).toBe('abc123')
 		expect(deriveUrlIntentLabel(url)).toBe('YouTube abc123')

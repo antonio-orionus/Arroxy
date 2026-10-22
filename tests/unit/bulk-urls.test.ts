@@ -133,7 +133,8 @@ describe('classifyBulkUrlKind', () => {
 		// Former Radio links stay single videos in Bulk URLs.
 		['https://www.youtube.com/watch?v=abc123&list=RDabc123', 'single'],
 		['https://music.youtube.com/watch?v=abc123&list=RDCLAK5uy_abc', 'single'],
-		['https://www.youtube.com/watch?v=abc123&list=PLtest&start_radio=1', 'single'],
+		// start_radio is not a tell: with a PL id it is a plain mixed link.
+		['https://www.youtube.com/watch?v=abc123&list=PLtest&start_radio=1', 'mixed'],
 		['https://www.youtube.com/embed/videoseries?list=PLtest', 'playlist'],
 		['https://www.youtube.com/playlist?list=PLtest', 'playlist'],
 		['https://www.youtube.com/@arroxy', 'channel'],

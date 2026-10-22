@@ -10,7 +10,12 @@ describe('youtubeListKind', () => {
 		['OLAK5uy_abc', 'album'],
 		['UUabc', 'uploads'],
 		['WL', 'watch-later'],
-		['LL', 'liked']
+		['LL', 'liked'],
+		['LM', 'liked'], // YouTube Music liked songs
+		['PUabc', 'uploads'], // a channel's popular uploads
+		['UUSHabc', 'uploads'],
+		['RDMM', 'mix'],
+		['RDAMVMabc', 'mix']
 	])('%s is a %s', (id, kind) => expect(youtubeListKind(id)).toBe(kind))
 
 	it('falls back to playlist for an unknown prefix', () => {
@@ -21,7 +26,11 @@ describe('youtubeListKind', () => {
 
 describe('listKindForUrl', () => {
 	it('reads the list of a video link', () => expect(listKindForUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=OLAK5uy_x')).toBe('album'))
-	it('treats start_radio as a Mix whatever the list', () => expect(listKindForUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=PLx&start_radio=1')).toBe('mix'))
+	// yt-dlp never reads start_radio: the list id alone says what the list is.
+	it('ignores start_radio', () => {
+		expect(listKindForUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=PLx&start_radio=1')).toBe('playlist')
+		expect(listKindForUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1')).toBe('mix')
+	})
 	it('is null without a list, off YouTube, or for a bad URL', () => {
 		expect(listKindForUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ')).toBeNull()
 		expect(listKindForUrl('https://vimeo.com/123?list=PLx')).toBeNull()

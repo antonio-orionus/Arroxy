@@ -1,0 +1,1 @@
+This video on a Shorts, live or embedded YouTube link from a playlist now downloads just that video, not the playlist. A clip link stays one clip, and YouTube Music liked songs and a channel's popular uploads get their own names.

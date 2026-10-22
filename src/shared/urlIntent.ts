@@ -53,10 +53,10 @@ function isYouTubeBrowseCollectionPath(segments: string[]): boolean {
 }
 
 // What was Radio before a Mix became a list to offer: any `RD…` list
-// (`RDCLAK…` included), or any list reached through `start_radio`. Only Bulk
-// URLs still reads such a link as the video alone (classifyBulkUrlIntent).
+// (`RDCLAK…` included). `start_radio` is not a tell: yt-dlp never reads it, and a
+// Mix always has an `RD` id. Only Bulk URLs still reads such a link as the video
+// alone (classifyBulkUrlIntent).
 function isFormerRadioLink(searchParams: URLSearchParams): boolean {
-	if (searchParams.has('start_radio')) return true
 	return searchParams.get('list')?.startsWith('RD') === true
 }
 
@@ -69,7 +69,9 @@ export function classifyUrlIntent(url: string): UrlIntent {
 	const hasList = parsed.searchParams.has('list')
 	const hasConcreteVideo = isYouTubeVideoPath(host, segments, parsed.searchParams)
 
-	// A video with any list names both: a Mix (`RD…`, `start_radio`) and a
+	// A clip is one video even with a list: yt-dlp's clip extractor ignores it.
+	if (hasConcreteVideo && segments[0] === 'clip') return {kind: 'obvious-single', url, site: 'youtube'}
+	// A video with any list names both: a Mix (`RD…`) and a
 	// YouTube Music playlist (`RDCLAK…`) included. Each entry point decides.
 	if (hasConcreteVideo && hasList) return {kind: 'mixed', url, reason: 'youtube-video-with-list'}
 	if (segments[0] === 'results' && parsed.searchParams.has('search_query')) return {kind: 'obvious-collection', url, collection: 'search'}

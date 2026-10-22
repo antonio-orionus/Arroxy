@@ -30,7 +30,7 @@ describe('policyForUrlIntent', () => {
 
 	// A Mix is a video with a list now: every entry point that can ask, asks;
 	// the hotkey takes the video; Bulk URLs reads it as one video, as before.
-	describe.each(['https://www.youtube.com/watch?v=one&list=RDone', 'https://www.youtube.com/watch?v=one&list=PL1&start_radio=1', 'https://music.youtube.com/watch?v=one&list=RDCLAK5uy_one'])('a video in a Mix or Music playlist (%s)', url => {
+	describe.each(['https://www.youtube.com/watch?v=one&list=RDone', 'https://www.youtube.com/watch?v=one&list=RDone&start_radio=1', 'https://music.youtube.com/watch?v=one&list=RDCLAK5uy_one'])('a video in a Mix or Music playlist (%s)', url => {
 		it('asks on the interactive and quick-download paths', () => {
 			expect(policyForUrlIntent(classifyUrlIntent(url), 'interactive-submit')).toEqual({kind: 'show-mixed-prompt'})
 			expect(policyForUrlIntent(classifyUrlIntent(url), 'quick-download')).toEqual({kind: 'show-mixed-prompt'})

@@ -83,6 +83,30 @@ test('This video downloads the video in one move and never loads its playlist', 
 	})
 })
 
+// Actions: paste a Shorts link opened from a playlist (`/shorts/<id>?list=…`), This video.
+// yt-dlp sends that address to its playlist extractor, which drops the video, so
+// Arroxy reads it as its watch address first.
+// Oracles: one video on disk; the playlist was never loaded.
+test('This video on a Shorts link inside a playlist downloads the video, not the playlist', async () => {
+	test.setTimeout(150_000)
+	const videoId = FIXTURE_PLAYLIST_VIDEO_IDS[0]
+	if (!videoId) throw new Error('fixture playlist needs a first video')
+
+	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-intake-shorts-user-', outputPrefix: 'arroxy-fixture-intake-shorts-out-'}, async ({page, fixtureServer, files}) => {
+		await paste(page, `https://www.youtube.com/shorts/${videoId}?list=${FIXTURE_PLAYLIST_ID}`)
+		await expectSplitCard(page, 'Download playlist…')
+
+		await page.getByTestId('profiles-quick-download-video').click()
+		await expect(page.getByTestId('mixed-prompt-title')).toHaveCount(0)
+
+		await page.locator('.downloads-tab-trigger').click()
+		await expect(rows(page).first()).toHaveAttribute('data-status', 'done', {timeout: 120_000})
+		await expect(rows(page)).toHaveCount(1)
+		await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(1)
+		expect(listLoads(fixtureServer, FIXTURE_PLAYLIST_ID)).toBe(0)
+	})
+})
+
 // Actions: paste a video-in-a-playlist link with a load limit below the
 // playlist's length, Download playlist…, Download the first N.
 // Milestones: the dialog with the count in its answer; N rows; N rows done.
@@ -155,10 +179,11 @@ test('a video in a Mix offers the Mix, and Enter downloads it in the background'
 })
 
 // Actions: paste a YouTube Music playlist link, then a start_radio link on a
-// plain playlist, then a plain video; open the list dialog on the first, Esc.
+// plain playlist (start_radio is not a tell: yt-dlp never reads it), then a
+// plain video; open the list dialog on the first, Esc.
 // Oracles: each reads as the spec names it; Esc loads nothing; nothing is
 // loaded by reading a link.
-test('the card names each list by its link: RDCLAK a playlist, start_radio a Mix, a plain video no list', async () => {
+test('the card names each list by its id: RDCLAK a playlist, start_radio on a PL id a playlist, a plain video no list', async () => {
 	test.setTimeout(120_000)
 	const videoId = FIXTURE_VIDEO_IDS[1]
 	if (!videoId) throw new Error('fixture catalog needs a second video')
@@ -175,7 +200,7 @@ test('the card names each list by its link: RDCLAK a playlist, start_radio a Mix
 		await expect(page.getByTestId('mixed-prompt-title')).toHaveCount(0)
 
 		await paste(page, `${fixtureUrl(videoId)}&list=${FIXTURE_PLAYLIST_ID}&start_radio=1`)
-		await expectSplitCard(page, 'Download Mix…')
+		await expectSplitCard(page, 'Download playlist…')
 
 		await paste(page, fixtureUrl(videoId))
 		await expect(page.getByTestId('profiles-quick-download-video')).toHaveCount(0)

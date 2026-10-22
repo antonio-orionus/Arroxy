@@ -9,6 +9,7 @@
 
 import type {ListKind} from '../schemas.js'
 import type {ExploreCookie, PlaylistEntryHint, Site} from './types.js'
+import {isYouTubeHostname} from './youtubeHost.js'
 import {youtubeListKind} from './youtubeListKind.js'
 
 const LIST_KIND_HINT: Record<ListKind, string> = {playlist: 'Playlist', mix: 'Mix', album: 'Album', uploads: 'Uploads', 'watch-later': 'Watch later', liked: 'Liked'}
@@ -60,6 +61,31 @@ export function youtubeShowPlaylistUrl(url: string): string | null {
 	const playlist = new URL('https://www.youtube.com/playlist')
 	playlist.searchParams.set('list', id.slice(2))
 	return playlist.toString()
+}
+
+// A video address that carries a list (`/shorts/<id>?list=…`, `/live/…`,
+// `/embed/…`, `/v/…`, `/e/…`, a nocookie embed) goes to yt-dlp's playlist
+// extractor, which drops the video: --no-playlist then still loads the list, so
+// "this video" could not be taken. Its watch address keeps both, and
+// --no-playlist / --yes-playlist each work on it. Null for any other URL.
+const VIDEO_IN_LIST_PREFIXES = new Set(['shorts', 'live', 'embed', 'v', 'e'])
+const VIDEO_ID_RE = /^[0-9A-Za-z_-]{11}$/
+
+export function youtubeVideoInListWatchUrl(url: string): string | null {
+	let parsed: URL
+	try {
+		parsed = new URL(url)
+	} catch {
+		return null
+	}
+	if (!isYouTubeHostname(parsed.hostname) || !parsed.searchParams.get('list')) return null
+	const [prefix, id, ...rest] = parsed.pathname.split('/').filter(Boolean)
+	// `embed/videoseries` is a playlist embed whose segment happens to be 11 characters.
+	if (!prefix || !VIDEO_IN_LIST_PREFIXES.has(prefix) || !id || id === 'videoseries' || !VIDEO_ID_RE.test(id) || rest.length > 0) return null
+	const watch = new URL('https://www.youtube.com/watch')
+	watch.searchParams.set('v', id)
+	for (const [key, value] of parsed.searchParams) watch.searchParams.append(key, value)
+	return watch.toString()
 }
 
 // Used to filter heterogeneous flat-playlist results so the wizard's

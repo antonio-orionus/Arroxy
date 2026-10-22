@@ -97,4 +97,30 @@ describe('cleanUrl — ClearURLs ruleset port', () => {
 			expect(cleanUrl(url)).toBe(url)
 		})
 	})
+
+	// yt-dlp hands these to its playlist extractor, which drops the video, so
+	// --no-playlist cannot single it out; only watch?v=…&list=… honours it.
+	describe('a video address carrying a list', () => {
+		const WATCH = 'https://www.youtube.com/watch?v=HL1UzIK-flA&list=PL_5Bp3hQ_Iu30q5d6qXbZct8zseCSdGzd'
+
+		it.each([
+			'https://www.youtube.com/shorts/HL1UzIK-flA?list=PL_5Bp3hQ_Iu30q5d6qXbZct8zseCSdGzd',
+			'https://www.youtube.com/live/HL1UzIK-flA?list=PL_5Bp3hQ_Iu30q5d6qXbZct8zseCSdGzd',
+			'https://www.youtube.com/embed/HL1UzIK-flA?list=PL_5Bp3hQ_Iu30q5d6qXbZct8zseCSdGzd',
+			'https://www.youtube.com/v/HL1UzIK-flA?list=PL_5Bp3hQ_Iu30q5d6qXbZct8zseCSdGzd',
+			'https://www.youtube.com/e/HL1UzIK-flA?list=PL_5Bp3hQ_Iu30q5d6qXbZct8zseCSdGzd',
+			'https://m.youtube.com/shorts/HL1UzIK-flA?list=PL_5Bp3hQ_Iu30q5d6qXbZct8zseCSdGzd',
+			'https://www.youtube-nocookie.com/embed/HL1UzIK-flA?list=PL_5Bp3hQ_Iu30q5d6qXbZct8zseCSdGzd'
+		])('reads %s as its watch address', url => {
+			expect(cleanUrl(url)).toBe(WATCH)
+		})
+
+		it('keeps the position in the list', () => {
+			expect(cleanUrl('https://www.youtube.com/embed/HL1UzIK-flA?list=PL_5Bp3hQ_Iu30q5d6qXbZct8zseCSdGzd&index=3')).toBe(`${WATCH}&index=3`)
+		})
+
+		it.each(['https://www.youtube.com/embed/videoseries?list=PL_5Bp3hQ_Iu30q5d6qXbZct8zseCSdGzd', 'https://www.youtube.com/shorts/HL1UzIK-flA', 'https://www.youtube.com/clip/UgkxSlug?list=PL_5Bp3hQ_Iu30q5d6qXbZct8zseCSdGzd', 'https://example.com/embed/HL1UzIK-flA?list=PL1'])('leaves %s alone', url => {
+			expect(cleanUrl(url)).toBe(url)
+		})
+	})
 })
