@@ -464,6 +464,7 @@ test('Electron bulk review cuts a pasted list at the load limit and says so', as
 			await expect(page.locator('[data-testid^="playlist-item-row-"]')).toHaveCount(1 + limit, {timeout: 90_000})
 			await expect(page.getByTestId('bulk-capped-alert')).toContainText(`is cut at ${limit} videos`)
 			await expect(page.getByTestId('bulk-capped-alert')).toContainText('paste its link on its own')
+			await expect(page.getByTestId('bulk-capped-alert')).toContainText('Fixture Playlist')
 		}
 	)
 })
