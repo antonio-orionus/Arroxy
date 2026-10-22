@@ -75,18 +75,13 @@ export function ExploreMockLinkMenu({url, children}: {url: string; children: Rea
 									<ContextMenuSubContent>
 										<ContextMenuItem onClick={() => emitMockLinkAction({kind: 'list', url, answer: 'background'})}>{t('wizard.listPrompt.backgroundLabel')}</ContextMenuItem>
 										<ContextMenuItem onClick={() => emitMockLinkAction({kind: 'list', url, answer: 'first'})}>{t('explore.linkMenu.downloadFirst', {count: limit})}</ContextMenuItem>
-										<ContextMenuItem onClick={() => emitMockLinkAction({kind: 'list', url, answer: 'pick'})}>{t('wizard.listPrompt.interactiveLabel')}</ContextMenuItem>
 									</ContextMenuSubContent>
 								</ContextMenuSub>
 							</>
 						) : null}
-						{/* On a video-in-a-list link Interactive is the list's picker: it sits in that submenu only. */}
-						{listKind ? null : (
-							<>
-								<ContextMenuSeparator />
-								<ContextMenuItem onClick={() => emitMockLinkAction({kind: 'interactive', url})}>{t('explore.linkMenu.interactive')}</ContextMenuItem>
-							</>
-						)}
+						{/* On a video-in-a-list link Interactive asks how many to load first, as the URL tab does. */}
+						<ContextMenuSeparator />
+						<ContextMenuItem onClick={() => emitMockLinkAction({kind: 'interactive', url})}>{t('explore.linkMenu.interactive')}</ContextMenuItem>
 						<ContextMenuSeparator />
 					</>
 				) : null}

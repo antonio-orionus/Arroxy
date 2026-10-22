@@ -28,13 +28,14 @@ export const exploreSetActiveSchema = z.object({active: z.boolean()})
 // builds and shows the menu): `download` queues it with `profile` made the
 // active profile first, or with the active one; `download-video` the same for
 // the video a link names beside its list, with no question; `list` is one of
-// the list dialog's answers (`first` takes the load limit when it runs);
-// `interactive` opens the wizard.
+// the list dialog's one-move answers (`first` takes the load limit when it
+// runs); `interactive` opens the wizard, which on a video in a list asks how
+// many to load first, as the URL tab does.
 const exploreLinkUrlSchema = z.string().min(1).max(EXPLORE_ADDRESS_MAX)
 export const exploreLinkActionSchema = z.discriminatedUnion('kind', [
 	z.strictObject({kind: z.literal('download'), url: exploreLinkUrlSchema, profile: downloadProfileRefSchema.optional()}),
 	z.strictObject({kind: z.literal('download-video'), url: exploreLinkUrlSchema, profile: downloadProfileRefSchema.optional()}),
-	z.strictObject({kind: z.literal('list'), url: exploreLinkUrlSchema, answer: z.enum(['background', 'first', 'pick'])}),
+	z.strictObject({kind: z.literal('list'), url: exploreLinkUrlSchema, answer: z.enum(['background', 'first'])}),
 	z.strictObject({kind: z.literal('interactive'), url: exploreLinkUrlSchema})
 ])
 export type ExploreLinkAction = z.infer<typeof exploreLinkActionSchema>

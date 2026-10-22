@@ -21,8 +21,6 @@ function listAnswer(answer: Extract<ExploreLinkAction, {kind: 'list'}>['answer']
 			return {kind: 'list'}
 		case 'first':
 			return {kind: 'first', count: resolvePlaylistProbeLimit(useAppStore.getState().settings?.common)}
-		case 'pick':
-			return {kind: 'pick'}
 	}
 }
 

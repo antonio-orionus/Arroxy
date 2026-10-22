@@ -166,8 +166,7 @@ describe('Explore link menu', () => {
 })
 
 // A link to a video inside a list: this video's two items, then the list's
-// three answers in a submenu, then Copy link. Interactive sits only in the
-// list's submenu: on such a link it means picking from the list.
+// two one-move answers in a submenu, then Interactive, then Copy link.
 describe('Explore link menu on a video in a list', () => {
 	const IN_PLAYLIST = `${WATCH}&list=PL1234567890&index=2`
 	const IN_MIX = `${WATCH}&list=RDdQw4w9WgXcQ&start_radio=1`
@@ -181,13 +180,13 @@ describe('Explore link menu on a video in a list', () => {
 		[`${WATCH}&list=UUx`, 'From this channel’s uploads'],
 		[`${WATCH}&list=WL`, 'From Watch later'],
 		[`${WATCH}&list=LL`, 'From your liked videos']
-	])('lays out %s: this video, then %s, then Copy link', (link, fromList) => {
+	])('lays out %s: this video, then %s, then Interactive, then Copy link', (link, fromList) => {
 		const {deps} = harness()
 		const active = englishProfileName(resolveActiveDownloadProfile(undefined).profile)
 		const template = exploreLinkMenuTemplate(link, deps)
 
-		expect(labels(template)).toEqual([`Download this video · ${active}`, 'This video with', 'separator', fromList, 'separator', 'Copy link'])
-		expect(labels(submenu(item(template, fromList)))).toEqual(['Download in the background', 'Download the first 100', 'Interactive download…'])
+		expect(labels(template)).toEqual([`Download this video · ${active}`, 'This video with', 'separator', fromList, 'separator', 'Interactive Download…', 'separator', 'Copy link'])
+		expect(labels(submenu(item(template, fromList)))).toEqual(['Download in the background', 'Download the first 100'])
 	})
 
 	it('names the load limit in Download the first N', () => {
@@ -221,20 +220,24 @@ describe('Explore link menu on a video in a list', () => {
 
 		click(item(answers, 'Download in the background'))
 		click(item(answers, 'Download the first 100'))
-		click(item(answers, 'Interactive download…'))
 
 		expect(sent).toEqual([
 			{kind: 'list', url: IN_PLAYLIST, answer: 'background'},
-			{kind: 'list', url: IN_PLAYLIST, answer: 'first'},
-			{kind: 'list', url: IN_PLAYLIST, answer: 'pick'}
+			{kind: 'list', url: IN_PLAYLIST, answer: 'first'}
 		])
 	})
 
-	it('offers no top-level Interactive or plain Download on such a link', () => {
+	// As on the URL tab: Interactive asks how many to load (or the video alone) before loading anything.
+	it('Interactive Download… sends the link to Interactive, which asks before loading', () => {
+		const {deps, sent} = harness()
+		click(item(exploreLinkMenuTemplate(IN_PLAYLIST, deps), 'Interactive Download…'))
+
+		expect(sent).toEqual([{kind: 'interactive', url: IN_PLAYLIST}])
+	})
+
+	it('offers no plain Download on such a link', () => {
 		const {deps} = harness()
-		const top = labels(exploreLinkMenuTemplate(IN_PLAYLIST, deps))
-		expect(top).not.toContain('Interactive Download…')
-		expect(top).not.toContain('Download with')
+		expect(labels(exploreLinkMenuTemplate(IN_PLAYLIST, deps))).not.toContain('Download with')
 	})
 
 	it('keeps an ampersand in the profile name of Download this video as written', () => {
@@ -252,7 +255,6 @@ describe('exploreLinkActionSchema', () => {
 		{kind: 'download-video', url: WATCH, profile: {kind: 'custom', id: 'custom-x'}},
 		{kind: 'list', url: WATCH, answer: 'background'},
 		{kind: 'list', url: WATCH, answer: 'first'},
-		{kind: 'list', url: WATCH, answer: 'pick'},
 		{kind: 'interactive', url: WATCH}
 	])('accepts %o', action => {
 		expect(exploreLinkActionSchema.safeParse(action).success).toBe(true)
@@ -260,6 +262,7 @@ describe('exploreLinkActionSchema', () => {
 
 	it.each([
 		{kind: 'list', url: WATCH, answer: 'all'},
+		{kind: 'list', url: WATCH, answer: 'pick'},
 		{kind: 'list', url: WATCH},
 		{kind: 'list', url: WATCH, answer: 'first', count: 5},
 		{kind: 'download-video', url: WATCH, playlistMode: 'video'},

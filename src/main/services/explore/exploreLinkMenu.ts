@@ -47,8 +47,9 @@ function menuText(text: string): string {
 // bar's controls for that link (Download with the active profile, a profile
 // pick that becomes the active profile, Interactive) and Copy link; for any
 // other web link only Copy link; with no link, no menu (null). A link to a
-// video in a list gets this video's items, then the list dialog's answers in
-// a submenu (a native menu holds no number picker: the count is the load limit).
+// video in a list gets this video's items, then the list's one-move answers in
+// a submenu (a native menu holds no number picker: the count is the load
+// limit), then Interactive, which asks how many to load as the URL tab does.
 export function exploreLinkMenuTemplate(linkURL: string, deps: ExploreLinkMenuDeps): MenuItemConstructorOptions[] | null {
 	const link = webLink(linkURL)
 	if (link === null) return null
@@ -61,6 +62,7 @@ export function exploreLinkMenuTemplate(linkURL: string, deps: ExploreLinkMenuDe
 	const active = resolveActiveDownloadProfile(prefs)
 	const nameOf = (profile: DownloadProfile): string => downloadProfileName(profile, key => mainT(lang, key))
 	const listKind = videoListKind(url)
+	const interactive: MenuItemConstructorOptions = {label: mainT(lang, 'explore.linkMenu.interactive'), click: () => deps.send({kind: 'interactive', url})}
 	// The in-app pickers' rule (saved order, current one marked) with the OS's own
 	// marker: radio items. The active profile is never hidden, so none is tagged.
 	const profiles = (pick: (profile: DownloadProfileRef) => ExploreLinkAction): MenuItemConstructorOptions[] =>
@@ -71,14 +73,15 @@ export function exploreLinkMenuTemplate(linkURL: string, deps: ExploreLinkMenuDe
 	if (listKind) {
 		const answers: MenuItemConstructorOptions[] = [
 			{label: mainT(lang, 'wizard.listPrompt.backgroundLabel'), click: () => deps.send({kind: 'list', url, answer: 'background'})},
-			{label: mainT(lang, 'explore.linkMenu.downloadFirst', {count: deps.playlistLimit()}), click: () => deps.send({kind: 'list', url, answer: 'first'})},
-			{label: mainT(lang, 'wizard.listPrompt.interactiveLabel'), click: () => deps.send({kind: 'list', url, answer: 'pick'})}
+			{label: mainT(lang, 'explore.linkMenu.downloadFirst', {count: deps.playlistLimit()}), click: () => deps.send({kind: 'list', url, answer: 'first'})}
 		]
 		return [
 			{label: menuText(mainT(lang, 'explore.linkMenu.downloadThisVideo', {profileName: nameOf(active.profile)})), click: () => deps.send({kind: 'download-video', url})},
 			{label: mainT(lang, 'explore.linkMenu.thisVideoWith'), submenu: profiles(profile => ({kind: 'download-video', url, profile}))},
 			{type: 'separator'},
 			{label: mainT(lang, FROM_LIST_KEY[listKind]), submenu: answers},
+			{type: 'separator'},
+			interactive,
 			{type: 'separator'},
 			copy
 		]
@@ -87,7 +90,7 @@ export function exploreLinkMenuTemplate(linkURL: string, deps: ExploreLinkMenuDe
 		{label: menuText(mainT(lang, 'explore.toolbar.downloadWithProfile', {profileName: nameOf(active.profile)})), click: () => deps.send({kind: 'download', url})},
 		{label: mainT(lang, 'explore.linkMenu.downloadWith'), submenu: profiles(profile => ({kind: 'download', url, profile}))},
 		{type: 'separator'},
-		{label: mainT(lang, 'explore.linkMenu.interactive'), click: () => deps.send({kind: 'interactive', url})},
+		interactive,
 		{type: 'separator'},
 		copy
 	]

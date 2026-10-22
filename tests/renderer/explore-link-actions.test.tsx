@@ -210,15 +210,14 @@ describe('Explore link menu picks on a video in a list', () => {
 		await waitFor(() => expect(quickDownload).toHaveBeenCalledWith({url: IN_LIST, entry: 'explore', playlistMode: 'playlist', take: {kind: 'first', count: 250}}))
 	})
 
-	it('Interactive download… opens the picker for the list, landing back in Explore', async () => {
-		vi.mocked(window.appApi.downloads.probe).mockReturnValue(new Promise(() => {}))
+	it('Interactive Download… on a video in a list asks how many to load first, as the URL tab does, loading nothing yet', async () => {
 		renderExplore()
 		await waitFor(() => expect(linkListener).not.toBeNull())
 
-		pick({kind: 'list', url: IN_LIST, answer: 'pick'})
+		pick({kind: 'interactive', url: IN_LIST})
 
-		await waitFor(() => expect(window.appApi.downloads.probe).toHaveBeenCalledWith(expect.objectContaining({url: IN_LIST, playlistMode: 'playlist', playlistScope: {items: {kind: 'app-limit'}}})))
-		expect(useAppStore.getState()).toMatchObject({wizardUrl: IN_LIST, wizardOrigin: 'explore', mixedUrlPromptOpen: false})
+		await waitFor(() => expect(useAppStore.getState()).toMatchObject({mixedUrlPromptOpen: true, mixedUrlPending: IN_LIST, mixedUrlPromptSource: 'wizard', wizardOrigin: 'explore'}))
+		expect(window.appApi.downloads.probe).not.toHaveBeenCalled()
 	})
 })
 
