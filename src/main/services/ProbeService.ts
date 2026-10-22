@@ -23,6 +23,7 @@ import type {LookedUpSizes} from './formatSizeLookup.js'
 import {resolveMediaTags} from './probeMediaTags.js'
 import {sanitizeSubtitleMap} from '@shared/ytdlp/subtitleMap.js'
 import {buildMockProbeResult} from './probeMockResult.js'
+import {summarizeProbeResult} from './probeResultSummary.js'
 import type {ProbeInfoJsonCache} from './ProbeInfoJsonCache.js'
 import {degradationIsTransient, deriveDegraded, detectProbeDegradationSignals, isRateLimited, type ProbeSignal} from './probeDegradation.js'
 import {defaultVhxTitleFetcher, deriveRecoveredTitle, extractPageTitleMeta, isLikelyParentPage, isVhxEmbedExtractor, isVhxSentinelTitle, patchInfoJsonTitle, smuggledRefererOf, type VhxTitleFetcher} from './vhxTitleRecovery.js'
@@ -747,32 +748,4 @@ function formatCount(info: InfoDict): number {
 
 function playlistScopeRequestForLog(scope: PlaylistScope | undefined): PlaylistScopeRequestLog {
 	return scope?.items ?? {kind: 'app-limit'}
-}
-
-// Compact, log-friendly summary of a ProbeResult. Intentionally drops large
-// fields (full formats array, full subtitle map) and keeps the shapes a human
-// scanning logs would care about: kind, extractor, counts, degradation flags.
-function summarizeProbeResult(r: ProbeResult): Record<string, unknown> {
-	if (r.kind === 'video') {
-		return {
-			kind: r.kind,
-			extractor: r.extractor,
-			extractorKey: r.extractorKey,
-			webpageUrl: r.webpageUrl,
-			isAudioOnlySource: r.isAudioOnlySource,
-			title: r.title,
-			duration: r.duration,
-			formatCount: r.formats.length,
-			formatIds: r.formats.map(f => f.formatId),
-			subtitleLangs: Object.keys(r.subtitles ?? {}),
-			autoCaptionLangs: Object.keys(r.automaticCaptions ?? {}),
-			isLive: r.isLive,
-			hasDrm: r.hasDrm,
-			availability: r.availability,
-			ageLimit: r.ageLimit,
-			degraded: r.degraded?.reasons ?? null,
-			thumbnail: r.thumbnail || null
-		}
-	}
-	return {kind: r.kind, extractor: r.extractor, extractorKey: r.extractorKey, webpageUrl: r.webpageUrl, isAudioOnlySource: r.isAudioOnlySource, isMultiVideo: r.isMultiVideo, playlistId: r.playlistId, playlistTitle: r.playlistTitle, entryCount: r.entries.length, firstEntryUrl: r.entries[0]?.url ?? null}
 }
