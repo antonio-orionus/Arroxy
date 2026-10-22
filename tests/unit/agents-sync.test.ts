@@ -123,7 +123,8 @@ describe('syncAgents', () => {
 		await syncAgents(root)
 		await syncAgents(root)
 
-		expect(await readlink(join(root, '.agents/skills/private-flow'))).toBe(join('../../.internal/skills', 'private-flow'))
+		// A Windows junction stores an absolute target; elsewhere the link is relative.
+		expect(await readlink(join(root, '.agents/skills/private-flow'))).toContain(join('.internal', 'skills', 'private-flow'))
 		expect(await readFile(join(root, '.claude/skills/private-flow/SKILL.md'), 'utf8')).toContain('name: private-flow')
 	})
 
