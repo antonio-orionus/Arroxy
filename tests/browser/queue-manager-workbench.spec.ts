@@ -6,6 +6,21 @@ async function openScenario(page: Page, scenario: string): Promise<void> {
 	await page.waitForSelector('[data-testid="app-root"]')
 }
 
+// The wizard step slides in (translateX) for 0.2 s after load. Playwright's
+// boundingBox() reads float32 quad corners, so a fractional offset mid-slide
+// turns a 1152 px panel into 1152.00006; measure once finite animations end.
+// Spinners loop forever, so only animations that end are awaited.
+async function settleAnimations(page: Page): Promise<void> {
+	await page.evaluate(() =>
+		Promise.all(
+			document
+				.getAnimations()
+				.filter(animation => animation.effect?.getComputedTiming().iterations !== Infinity)
+				.map(animation => animation.finished.catch(() => undefined))
+		)
+	)
+}
+
 async function openQueueScenario(page: Page, scenario: string): Promise<void> {
 	await openScenario(page, scenario)
 	await page.getByRole('tab', {name: /^downloads/i}).click()
@@ -149,11 +164,13 @@ for (const viewport of [
 test('on a wide window the URL tab keeps the wizard width while Downloads grows wider', async ({page}) => {
 	await page.setViewportSize({width: 1800, height: 1000})
 	await openScenario(page, 'queue-large')
+	await settleAnimations(page)
 
 	const urlPanel = await page.getByTestId('profiles-download-panel').boundingBox()
 	expect(urlPanel?.width).toBeLessThanOrEqual(72 * 16)
 
 	await page.getByRole('tab', {name: /^downloads/i}).click()
+	await settleAnimations(page)
 	const queuePanel = await page.getByTestId('queue-manager-tab').boundingBox()
 	expect(queuePanel?.width).toBeGreaterThan(92 * 16)
 })
