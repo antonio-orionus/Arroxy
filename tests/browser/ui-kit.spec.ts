@@ -33,6 +33,13 @@ for (const variant of VARIANTS) {
 // A profile picker's list row answers the pointer in both skies: an unpicked row
 // takes a tint on hover, and the picked row keeps its own tint rather than
 // trading it for the hover's.
+// A computed colour such as `oklab(0.57 -0.03 -0.23 / 0.12)`, split into its colour and its alpha.
+function tint(color: string): {channels: string; alpha: number} {
+	const match = /^(\w+\([^/)]*?)\s*(?:\/\s*([\d.]+))?\)$/.exec(color)
+	if (!match) throw new Error(`Unexpected colour ${color}`)
+	return {channels: match[1] ?? '', alpha: match[2] === undefined ? 1 : Number(match[2])}
+}
+
 for (const theme of ['dark', 'light'] as const) {
 	test(`profile picker list rows show hover and keep the selected tint (${theme})`, async ({page}) => {
 		await page.setViewportSize({width: 900, height: 760})
@@ -49,8 +56,16 @@ for (const theme of ['dark', 'light'] as const) {
 		const restingPicked = await background(picked)
 		expect(restingPicked).not.toBe(restingUnpicked)
 
+		// The hover is the picked row's tint, lighter. The ghost button's own muted
+		// hover did not show on the dark popover, and a mid-transition read passes
+		// for any change, so the row settles before it is read.
 		await unpicked.hover()
-		await expect.poll(() => background(unpicked)).not.toBe(restingUnpicked)
+		await expect.poll(() => unpicked.evaluate(element => element.getAnimations().length)).toBe(0)
+		const hovered = tint(await background(unpicked))
+		const selected = tint(restingPicked)
+		expect(hovered.channels).toEqual(selected.channels)
+		expect(hovered.alpha).toBeGreaterThan(0)
+		expect(hovered.alpha).toBeLessThan(selected.alpha)
 
 		await picked.hover()
 		// Let the hover's colour transition finish before reading the picked row.
