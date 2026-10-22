@@ -2,7 +2,9 @@ import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
 import type {ParseKeys} from 'i18next'
 import type {DownloadProfileSubtitleSource, SubtitleFormat, SubtitleMode} from '@shared/types.js'
+import {subtitleModeForMedia} from '@shared/downloadProfiles.js'
 import type {DownloadProfileDraft, DownloadProfileDraftAction} from '../../store/wizard/downloadProfileDraft.js'
+import {cn} from '@renderer/lib/utils.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Field, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldTitle} from '../ui/field.js'
 import {ToggleGroup, ToggleGroupItem} from '../ui/toggle-group.js'
@@ -43,7 +45,8 @@ interface ProfileSubtitlesPanelProps {
 }
 
 // The profile editor's Subtitles panel. A subtitles-only profile always
-// downloads subtitles, so its switch is locked on.
+// downloads subtitles, so its switch is locked on. Media without video offers
+// no Embed, so its subtitle format stays in view.
 export function ProfileSubtitlesPanel({draft, subtitleLanguagesMissing, onAction}: ProfileSubtitlesPanelProps): ReactNode {
 	const {t} = useTranslation()
 	const subtitlesOnly = draft.mediaMode === 'subtitles-only'
@@ -72,7 +75,7 @@ export function ProfileSubtitlesPanel({draft, subtitleLanguagesMissing, onAction
 						<FieldGroup className="gap-3">
 							<ProfileSelect label={t('wizard.profileEditor.field.source')} value={draft.subtitleSource} options={SUBTITLE_SOURCE_OPTIONS} onValueChange={next => onAction({type: 'set-subtitle-source', subtitleSource: next})} testId="profiles-editor-subtitle-source" />
 
-							<SubtitleDeliveryField subtitleDelivery={draft.subtitleDelivery} onAction={onAction} />
+							<SubtitleDeliveryField subtitleDelivery={draft.subtitleDelivery} mediaMode={draft.mediaMode} onAction={onAction} />
 
 							{draft.subtitleDelivery !== 'embed' ? <SubtitleFormatField subtitleFormat={draft.subtitleFormat} subtitleSource={draft.subtitleSource} onAction={onAction} /> : null}
 						</FieldGroup>
@@ -104,11 +107,14 @@ function SubtitleLanguagesField({subtitleLanguages, subtitlesOnly, missing, onAc
 
 interface SubtitleDeliveryFieldProps {
 	subtitleDelivery: SubtitleMode
+	mediaMode: DownloadProfileDraft['mediaMode']
 	onAction: (action: DownloadProfileDraftAction) => void
 }
 
-function SubtitleDeliveryField({subtitleDelivery, onAction}: SubtitleDeliveryFieldProps): ReactNode {
+function SubtitleDeliveryField({subtitleDelivery, mediaMode, onAction}: SubtitleDeliveryFieldProps): ReactNode {
 	const {t} = useTranslation()
+	const canEmbed = subtitleModeForMedia(mediaMode, 'embed') === 'embed'
+	const options = SUBTITLE_DELIVERY_OPTIONS.filter(option => canEmbed || option.value !== 'embed')
 
 	return (
 		<Field className="gap-1.5">
@@ -121,9 +127,9 @@ function SubtitleDeliveryField({subtitleDelivery, onAction}: SubtitleDeliveryFie
 				onValueChange={value => {
 					if (value[0]) onAction({type: 'set-subtitle-delivery', subtitleDelivery: value[0] as SubtitleMode})
 				}}
-				className="grid w-full grid-cols-3"
+				className={cn('grid w-full', options.length === 3 ? 'grid-cols-3' : 'grid-cols-2')}
 			>
-				{SUBTITLE_DELIVERY_OPTIONS.map(option => (
+				{options.map(option => (
 					<ToggleGroupItem key={option.value} value={option.value}>
 						{t(option.labelKey)}
 					</ToggleGroupItem>

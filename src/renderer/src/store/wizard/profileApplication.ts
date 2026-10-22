@@ -4,7 +4,7 @@
 // user changed, and those settings → a profile to save. Kept I/O-free so the
 // store slices only call it and `set()` the result.
 
-import {resolveFilenameTemplate} from '@shared/downloadProfiles.js'
+import {resolveFilenameTemplate, withRunnableSubtitleMode} from '@shared/downloadProfiles.js'
 import type {FormatSelectionSource} from '@shared/ytdlp/selectableFormat.js'
 import {audioCodecName, videoCodecName, webmBlocker} from '@shared/fileTypeFit.js'
 import type {GlobalHdr} from '@shared/hdrSetting.js'
@@ -252,7 +252,8 @@ function subtitlesFromWizard(base: DownloadProfile, baseline: WizardSettingsSnap
 export function profileFromWizard(base: DownloadProfile, baseline: WizardSettingsSnapshot, snapshot: WizardSettingsSnapshot, formats: readonly FormatOption[], context: SaveProfileContext): DownloadProfile {
 	const changed = new Set(changedFromProfile(baseline, snapshot))
 	const defaultTemplate = resolveFilenameTemplate(undefined, context.globalFilenameTemplate)
-	return {
+	// A run switched to audio or subtitles saves an Embed choice as the sidecar it writes.
+	return withRunnableSubtitleMode({
 		id: context.id,
 		name: context.name,
 		icon: base.icon,
@@ -266,5 +267,5 @@ export function profileFromWizard(base: DownloadProfile, baseline: WizardSetting
 		filename: !changed.has('fileName') ? base.filename : snapshot.filenameTemplate === defaultTemplate ? {kind: 'default'} : {kind: 'custom', template: snapshot.filenameTemplate},
 		createdAt: context.now,
 		updatedAt: context.now
-	}
+	})
 }

@@ -226,12 +226,24 @@ export function setDownloadProfileEnabled(prefs: DownloadProfilesPrefs, id: stri
 	return {...next, active: resolved.ref}
 }
 
-// The subtitle mode a profile's job runs with. Audio and subtitles-only media
-// have no video to embed into, so a saved Embed writes sidecar files, in the
-// profile's subtitle format.
+// The subtitle mode media of this kind can run. Audio and subtitles-only media
+// have no video to embed into, so Embed writes sidecar files, in the profile's
+// subtitle format.
+export function subtitleModeForMedia(mediaKind: DownloadProfile['media']['kind'], mode: SubtitleMode): SubtitleMode {
+	const hasVideo = mediaKind === 'video-audio' || mediaKind === 'video-only'
+	return mode === 'embed' && !hasVideo ? 'sidecar' : mode
+}
+
+// The subtitle mode a profile's job runs with.
 export function profileSubtitleMode(profile: DownloadProfile): SubtitleMode {
-	const hasVideo = profile.media.kind === 'video-audio' || profile.media.kind === 'video-only'
-	return profile.subtitles.mode === 'embed' && !hasVideo ? 'sidecar' : profile.subtitles.mode
+	return subtitleModeForMedia(profile.media.kind, profile.subtitles.mode)
+}
+
+// The profile with the subtitle mode its job runs with, so a profile without
+// video never stores Embed. Returns the same object when nothing changes.
+export function withRunnableSubtitleMode<T extends DownloadProfile>(profile: T): T {
+	const mode = profileSubtitleMode(profile)
+	return mode === profile.subtitles.mode ? profile : {...profile, subtitles: {...profile.subtitles, mode}}
 }
 
 export function resolveDownloadProfile(profile: DownloadProfile, ref: DownloadProfileRef = downloadProfileRefFor(profile, undefined), nativeAudioPreference: NativeAudioPreference = DEFAULTS.nativeAudioPreference, hdrPreference: HdrPreference = DEFAULT_HDR_PREFERENCE): ResolvedDownloadProfile {

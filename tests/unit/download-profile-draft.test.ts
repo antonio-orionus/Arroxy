@@ -283,4 +283,34 @@ describe('DownloadProfileDraft', () => {
 		const off: DownloadProfile = {...balanced, id: 'sb-off', sponsorBlock: {mode: 'off', categories: []}}
 		expect(createDownloadProfileDraft(off, NEW_PROFILE).sponsorBlockCategories).toEqual([...DEFAULTS.sponsorBlockCategories])
 	})
+
+	// Audio and subtitles-only media have no video to embed subtitles into (#605).
+	describe('Embed without video', () => {
+		const balanced = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'balanced')!
+		const embedding: DownloadProfile = {...balanced, subtitles: {enabled: true, languages: ['en'], source: 'manual-first', mode: 'embed', format: 'ass'}}
+
+		it.each(['subtitles-only', 'audio-only'] as const)('moves Embed to Sidecar when the media changes to %s', mediaMode => {
+			const draft = updateDownloadProfileDraft(createDownloadProfileDraft(embedding, NEW_PROFILE), {type: 'set-media-mode', mediaMode})
+			expect(draft.subtitleDelivery).toBe('sidecar')
+			expect(downloadProfileFromDraft(draft, NOW, () => 'id').subtitles).toMatchObject({mode: 'sidecar', format: 'ass'})
+		})
+
+		it('keeps Embed for media with video', () => {
+			const draft = updateDownloadProfileDraft(createDownloadProfileDraft(embedding, NEW_PROFILE), {type: 'set-media-mode', mediaMode: 'video-only'})
+			expect(draft.subtitleDelivery).toBe('embed')
+		})
+
+		it('keeps Subfolder when the media changes to one without video', () => {
+			let draft = updateDownloadProfileDraft(createDownloadProfileDraft(embedding, NEW_PROFILE), {type: 'set-subtitle-delivery', subtitleDelivery: 'subfolder'})
+			draft = updateDownloadProfileDraft(draft, {type: 'set-media-mode', mediaMode: 'subtitles-only'})
+			expect(draft.subtitleDelivery).toBe('subfolder')
+		})
+
+		it('opens a profile with Embed and no video on Sidecar, and never picks Embed for it', () => {
+			const subtitlesOnly: DownloadProfile = {...embedding, media: {kind: 'subtitles-only'}}
+			const draft = createDownloadProfileDraft(subtitlesOnly, NEW_PROFILE)
+			expect(draft.subtitleDelivery).toBe('sidecar')
+			expect(updateDownloadProfileDraft(draft, {type: 'set-subtitle-delivery', subtitleDelivery: 'embed'}).subtitleDelivery).toBe('sidecar')
+		})
+	})
 })

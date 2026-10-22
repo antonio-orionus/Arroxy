@@ -1,1 +1,1 @@
-A subtitles-only profile set to Embed now shows its subtitle format in its summary and in the Update changes.
+Subtitles-only and audio-only profiles no longer offer Embed, so the profile editor always shows the subtitle format they save. Ones saved with Embed switch to Next to video, which is what they already did.
