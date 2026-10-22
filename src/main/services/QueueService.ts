@@ -301,9 +301,7 @@ export class QueueService extends EventEmitter {
 		const held = this.items.filter(i => i.status === QUEUE_STATUS.pausedHeld)
 		const pausedActive = this.items.filter(i => i.status === QUEUE_STATUS.pausedActive)
 		logger.info('resumeAll', {heldCount: held.length, pausedActiveCount: pausedActive.length, snapshot: this.statusSummary()})
-		for (const item of held) {
-			this.commit({kind: 'event', itemId: item.id, evt: {kind: 'retry-reset'}})
-		}
+		for (const item of held) this.resumeHeld(item)
 		for (const item of pausedActive) {
 			// Patch (not transition) — keep lastJobId so the upcoming spawn resumes
 			// the parked job, and tempDir for a start after a restart, when no job is
@@ -362,7 +360,7 @@ export class QueueService extends EventEmitter {
 		if (!item) return fail(createAppError('validation', `queue item ${itemId} not found`))
 
 		if (item.status === QUEUE_STATUS.pausedHeld) {
-			this.commit({kind: 'event', itemId, evt: {kind: 'retry-reset'}})
+			this.resumeHeld(item)
 			return ok(undefined)
 		}
 
@@ -388,6 +386,13 @@ export class QueueService extends EventEmitter {
 		const tempDir = await QueueResumeLifecycle.validateTempDir(item.tempDir)
 		if (item.tempDir && !tempDir) logger.debug('resume: persisted tempDir missing — restarting fresh', {itemId, tempDir: item.tempDir})
 		return this.spawnViaStart(itemId, tempDir)
+	}
+
+	// A held row naming a job was paused while that parked job was resuming: back
+	// to pending with it, so the spawn resumes the job instead of starting another.
+	private resumeHeld(item: QueueItem): void {
+		if (item.lastJobId) this.commit({kind: 'patch', itemId: item.id, reason: 'resume:heldParked', patcher: prev => ({...prev, status: QUEUE_STATUS.pending})})
+		else this.commit({kind: 'event', itemId: item.id, evt: {kind: 'retry-reset'}})
 	}
 
 	async cancel(itemId: string | null): Promise<Result<void>> {
