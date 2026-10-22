@@ -1,11 +1,11 @@
 // What updating a profile changes: one row per Review area whose value differs
 // between the saved profile and its updated version, in Review's order.
 
-import {profileSubtitleMode, resolveFilenameTemplate} from '@shared/downloadProfiles.js'
+import {resolveFilenameTemplate} from '@shared/downloadProfiles.js'
 import type {CommonSettings, DownloadProfile} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
-import {profileSubtitleModeLabelKey} from '../../lib/subtitleLabel.js'
+import {subtitleDeliveryLabel} from '../../lib/subtitleLabel.js'
 import {formatList} from '@shared/listFormat.js'
 import {resolveSubtitleLabel, SUBTITLE_SOURCE_LABEL_KEYS} from '@shared/subtitleTrackLabel.js'
 import type {TranslationPort} from '../../lib/translation.js'
@@ -35,6 +35,7 @@ function areaValues(profile: DownloadProfile, ctx: ProfileDiffContext): Record<C
 	const subtitlesOn = subtitles.enabled || profile.media.kind === 'subtitles-only'
 	const extras = EMBED_FIELDS.filter(field => profile.embed[field]).map(field => t(EMBED_OPTION_KEYS[field].labelKey))
 	const baseDir = profile.output.kind === 'fixed' ? profile.output.dir : ctx.defaultOutputDir
+	const delivery = subtitleDeliveryLabel(profile.media.kind, subtitles.mode, subtitles.format)
 	return {
 		format: ctx.profileFormat(profile),
 		subtitles: subtitlesOn
@@ -44,8 +45,8 @@ function areaValues(profile: DownloadProfile, ctx: ProfileDiffContext): Record<C
 						ctx.language,
 						'conjunction'
 					),
-					profileSubtitleMode(profile) === 'embed' ? null : subtitles.format.toUpperCase(),
-					t(profileSubtitleModeLabelKey(profile)),
+					delivery.format,
+					t(delivery.labelKey),
 					subtitles.source === 'manual-first' ? null : t(SUBTITLE_SOURCE_LABEL_KEYS[subtitles.source])
 				]
 					.filter(Boolean)

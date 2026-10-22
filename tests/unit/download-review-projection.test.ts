@@ -130,6 +130,16 @@ describe('where sidecar subtitles go, in the Review row and the confirm screen',
 		for (const label of labels({})) expect(label).toBe('English · SRT · wizard.subtitles.saveMode.sidecar')
 	})
 
+	// An audio run can keep Embed from Video; with no video it writes sidecar
+	// files in its format, so the summary says that.
+	it('describes Embed without video as the files it writes', () => {
+		for (const label of labels({...noVideo, wizardMediaKind: 'audio', wizardSubtitleMode: 'embed'})) expect(label).toBe('English · SRT · wizard.subtitles.saveMode.sidecarNoVideo')
+	})
+
+	it('keeps Embed for a video', () => {
+		for (const label of labels({wizardSubtitleMode: 'embed'})) expect(label).toBe('English · wizard.subtitles.saveMode.embed')
+	})
+
 	it('keeps the subfolder label without video', () => {
 		for (const label of labels({...noVideo, wizardMediaKind: 'subtitles', wizardSubtitleMode: 'subfolder'})) expect(label).toBe('English · SRT · wizard.subtitles.saveMode.subfolder')
 	})

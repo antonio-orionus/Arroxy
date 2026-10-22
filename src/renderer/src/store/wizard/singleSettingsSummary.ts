@@ -4,7 +4,7 @@
 import {isYouTubeExtractor} from '@shared/ytdlp/extractorPredicates.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
-import {wizardSubtitleModeLabelKey} from '../../lib/subtitleLabel.js'
+import {wizardSubtitleDeliveryLabel} from '../../lib/subtitleLabel.js'
 import {formatList} from '@shared/listFormat.js'
 import {resolveSubtitleLabel} from '@shared/subtitleTrackLabel.js'
 import type {AppState} from '../types.js'
@@ -48,6 +48,7 @@ export function buildSingleSettingsSummary(state: WizardReviewState, ctx: {t: Tr
 	const subtitlesAvailable = Object.keys(state.wizardSubtitles).length + Object.keys(state.wizardAutomaticCaptions).filter(code => !state.wizardSubtitles[code]).length
 	// Subtitles are never cut: with a part they still cover the whole video.
 	const fullLength = state.wizardMediaKind !== 'subtitles' && state.wizardPart !== null ? t('wizard.part.subtitlesFullLength') : null
+	const delivery = wizardSubtitleDeliveryLabel(state.wizardMediaKind, state.wizardSubtitleMode, state.wizardSubtitleFormat)
 	const subtitles =
 		languages.length === 0
 			? t('wizard.review.value.subtitlesOff')
@@ -57,8 +58,8 @@ export function buildSingleSettingsSummary(state: WizardReviewState, ctx: {t: Tr
 						ctx.language,
 						'conjunction'
 					),
-					state.wizardSubtitleMode === 'embed' ? null : state.wizardSubtitleFormat.toUpperCase(),
-					t(wizardSubtitleModeLabelKey(state.wizardMediaKind, state.wizardSubtitleMode)),
+					delivery.format,
+					t(delivery.labelKey),
 					fullLength
 				]
 					.filter(Boolean)
