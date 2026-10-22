@@ -73,5 +73,10 @@ describe('the tier rule', () => {
 		if (!best || !smartTv) throw new Error('rule missing')
 		expect(best(probeOf(top), top)).toEqual([])
 		expect(smartTv(probeOf(h264), h264)).toEqual([])
+		// Marked down or AI-upscaled is still taken when nothing else is there.
+		const loneDamaged = [{...h264[0], format_id: 'lone-damaged'}, audio]
+		expect(smartTv(probeOf(loneDamaged), loneDamaged)).toEqual([])
+		const upscaledH264 = [{format_id: '136-sr', ext: 'mp4', width: 1280, height: 720, vcodec: 'avc1.4d401f', acodec: 'none', format_note: '720p, AI-upscaled', protocol: 'https'}, {format_id: 'original-vp9', ext: 'webm', width: 854, height: 480, vcodec: 'vp9', acodec: 'none', protocol: 'https'}, audio]
+		expect(smartTv(probeOf(upscaledH264), upscaledH264)).toEqual([])
 	})
 })

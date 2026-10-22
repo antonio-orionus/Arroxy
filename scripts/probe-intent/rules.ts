@@ -33,6 +33,17 @@ const isAudioOnly = (format: RawFormat): boolean => format.vcodec === 'none' && 
 const isUpscaled = (format: RawFormat): boolean => format.format_id.endsWith('-sr')
 // A copy the site marks down (YouTube's DAMAGED, TikTok's watermarked), which profiles leave for others.
 const isMarkedDown = (format: RawFormat): boolean => /\b(?:damaged|watermarked)\b/i.test(format.format_note ?? '')
+
+// The streams a built-in profile chooses among, in the order it ranks them:
+// the site's preference first (copies not marked down, if any), then
+// originals over AI-upscaled ones (if any). Codec and size come after.
+function preferredVideo(raw: readonly RawFormat[]): RawFormat[] {
+	const video = raw.filter(hasVideo)
+	const healthy = video.filter(format => !isMarkedDown(format))
+	const pool = healthy.length > 0 ? healthy : video
+	const originals = pool.filter(format => !isUpscaled(format))
+	return originals.length > 0 ? originals : pool
+}
 const isH264 = (format: RawFormat): boolean => /^(?:avc1|h264)/i.test(format.vcodec ?? '')
 // The tier a stream sits in, as profiles and the Format screen name it (GLOSSARY: Tier).
 // A stream that names its height alone is labelled by that height, as the
@@ -96,7 +107,7 @@ export const RULES: Record<string, Rule> = {
 	'Best available picks the top tier': (probe, raw) => {
 		const best = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'best-quality')
 		if (!best) throw new Error('best-quality built-in missing')
-		const tiers = raw.filter(format => hasVideo(format) && !isUpscaled(format) && !isMarkedDown(format)).map(tierOf)
+		const tiers = preferredVideo(raw).map(tierOf)
 		if (tiers.length === 0 || tiers.some(tier => tier === null)) return []
 		const top = Math.max(...tiers.map(Number))
 		const picked = raw.find(format => format.format_id === pick(best, probe).media.videoFormatId)
@@ -117,7 +128,7 @@ export const RULES: Record<string, Rule> = {
 			// A stream the site gives no size for says nothing about the tier, so
 			// it is no pick for a size limit while sized streams exist.
 			if (pickedTier === null) return raw.some(format => hasVideo(format) && tierOf(format) !== null) ? [`${profile.id} picks ${picked.format_id}, of unknown size, over sized streams`] : []
-			const takeable = raw.some(format => hasVideo(format) && !isUpscaled(format) && !isMarkedDown(format) && meetsTier(format, wanted) && (!smartTv || isH264(format)))
+			const takeable = preferredVideo(raw).some(format => meetsTier(format, wanted) && (!smartTv || isH264(format)))
 			const onTier = meetsTier(picked, wanted)
 			if (!onTier && takeable) return [`${profile.id} picks ${pickedTier}p though a ${wanted}p stream it can take exists`]
 			if (!onTier && !fellBack) return [`${profile.id} picks ${pickedTier}p and says nothing`]
@@ -142,7 +153,7 @@ export const RULES: Record<string, Rule> = {
 
 	'Smart TV picks H.264 when there is any, and says so when there is none': (probe, raw) => {
 		if (!raw.some(hasVideo)) return []
-		const anyH264 = raw.some(format => hasVideo(format) && isH264(format) && !isMarkedDown(format))
+		const anyH264 = preferredVideo(raw).some(isH264)
 		const codecsNamed = raw.filter(hasVideo).every(format => format.vcodec !== undefined)
 		return VIDEO_PROFILES.flatMap(profile => {
 			if (profile.media.kind !== 'video-audio' || profile.media.goal !== 'smart-tv') return []
@@ -151,7 +162,7 @@ export const RULES: Record<string, Rule> = {
 			const saysUnavailable = notices.some(notice => notice.kind === 'mp4-unavailable')
 			if (anyH264 && picked && !isH264(picked)) return [`${profile.id} picks ${picked.vcodec ?? 'an unnamed codec'} though H.264 exists`]
 			if (picked && isH264(picked) && saysUnavailable) return [`${profile.id} picks H.264 yet says MP4 is unavailable`]
-			if (codecsNamed && !anyH264 && !saysUnavailable) return [`${profile.id} has no H.264 to take and says nothing`]
+			if (codecsNamed && !anyH264 && !(picked && isH264(picked)) && !saysUnavailable) return [`${profile.id} has no H.264 to take and says nothing`]
 			return []
 		})
 	},
