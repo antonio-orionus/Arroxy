@@ -44,7 +44,9 @@ export interface LocalClientApprovals {
 	confirm(approvalId: string): void
 	// The answer was not written: the approval can be collected again.
 	release(approvalId: string): void
-	// A known client, or null when unknown or removed.
+	// A known client, or one whose secret is being written to it right now
+	// (the client can read it, and reconnect, before the write completes; a
+	// proof made with the secret shows it arrived). Null when unknown or removed.
 	client(clientId: string): LocalClient | null
 	// Hears a client's id when the user removes it, so its connections close.
 	onRevoked(listener: (clientId: string) => void): () => void
@@ -116,7 +118,10 @@ export class MemoryLocalClientApprovals implements LocalClientApprovals {
 	}
 
 	client(clientId: string): LocalClient | null {
-		return this.clients.get(clientId) ?? null
+		const known = this.clients.get(clientId)
+		if (known) return known
+		for (const approval of this.approvals.values()) if (approval.state === 'allowed' && approval.claimed && approval.client.clientId === clientId) return approval.client
+		return null
 	}
 
 	onRevoked(listener: (clientId: string) => void): () => void {
@@ -126,7 +131,7 @@ export class MemoryLocalClientApprovals implements LocalClientApprovals {
 
 	// For createControlService's clientLabel.
 	label(clientId: string): string | null {
-		return this.clients.get(clientId)?.label ?? null
+		return this.client(clientId)?.label ?? null
 	}
 
 	// Oldest first.

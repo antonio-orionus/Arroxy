@@ -66,6 +66,8 @@ describe('control socket handshake', () => {
 		expect(collect.auth).toMatchObject({ok: true, result: {protocol: 1, rules: ['trusted'], clientSecret: expect.any(String)}})
 		const {clientId, clientSecret} = (collect.auth as {result: {clientId: string; clientSecret: string}}).result
 		expect(collect.client.isClosed()).toBe(false)
+		// The approval is used up once the answer's write completes, when the session opens.
+		await harness.service.firstSession()
 
 		const again = await handshake(harness.socket.socketPath, tokenProof(token, {approvalId: pending.approvalId}))
 		expect(again.auth).toEqual(errorLine('h2', 'unauthorized'))
@@ -160,8 +162,7 @@ describe('control socket session', () => {
 		const harness = await start(overrides)
 		const {clientId, secret} = allowedClient(harness.approvals)
 		const {client} = await handshake(harness.socket.socketPath, secretProof(clientId, secret))
-		const [session] = harness.service.sessions
-		if (!session) throw new Error('no session')
+		const session = await harness.service.firstSession()
 		return {harness, client, session}
 	}
 

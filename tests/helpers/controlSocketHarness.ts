@@ -35,13 +35,16 @@ export interface FakeServiceOptions {
 // Answers status with READY and anything else with an empty result.
 export function fakeService({delays = {}, held = [], failOpen = false, throwing = []}: FakeServiceOptions = {}) {
 	const sessions: OpenedSession[] = []
+	const sessionWaiters: Array<(session: OpenedSession) => void> = []
 	const handled: string[] = []
 	let releaseHeld: () => void = () => undefined
 	let heldGate = new Promise<void>(resolve => (releaseHeld = resolve))
 	const openSession = (context: ControlContext, sink: ControlSink): ControlSession => {
 		if (failOpen) throw new Error('openSession failed')
 		const close = vi.fn()
-		sessions.push({context, sink, close})
+		const opened = {context, sink, close}
+		sessions.push(opened)
+		for (const wake of sessionWaiters.splice(0)) wake(opened)
 		return {
 			close,
 			handle: async (request): Promise<ControlResponse> => {
@@ -59,7 +62,13 @@ export function fakeService({delays = {}, held = [], failOpen = false, throwing 
 		releaseHeld()
 		heldGate = new Promise<void>(resolve => (releaseHeld = resolve))
 	}
-	return {sessions, handled, release, openSession}
+	// The first session, once one opens: after auth the session opens only
+	// when the answer's write completes, which a client can outrun.
+	const firstSession = (): Promise<OpenedSession> => {
+		const [first] = sessions
+		return first ? Promise.resolve(first) : new Promise(resolve => sessionWaiters.push(resolve))
+	}
+	return {sessions, handled, release, firstSession, openSession}
 }
 
 export const silentLog = (): ControlSocketLog => ({info: vi.fn(), warn: vi.fn(), error: vi.fn()})
@@ -193,4 +202,18 @@ export function allowedClient(approvals: MemoryLocalClientApprovals, pathsRead =
 	if (claim.status !== 'allowed') throw new Error('expected allowed')
 	approvals.confirm(approvalId)
 	return {clientId: claim.client.clientId, secret: claim.client.secret}
+}
+
+type WriteCallback = (error?: Error | null) => void
+
+// Makes every socket write that takes a callback (the server's auth answer and
+// closing lines) call it `ms` late, as a Windows pipe can: the client reads
+// the line before the server hears that it was written. Answers the restore.
+export function delayWriteCallbacks(ms: number): () => void {
+	const write = net.Socket.prototype.write
+	const spy = vi.spyOn(net.Socket.prototype, 'write').mockImplementation(function (this: net.Socket, chunk: string | Uint8Array, encodingOrCallback?: BufferEncoding | WriteCallback, callback?: WriteCallback): boolean {
+		if (typeof encodingOrCallback !== 'function') return write.call(this, chunk, encodingOrCallback, callback)
+		return write.call(this, chunk, undefined, error => void setTimeout(() => encodingOrCallback(error), ms))
+	})
+	return () => spy.mockRestore()
 }

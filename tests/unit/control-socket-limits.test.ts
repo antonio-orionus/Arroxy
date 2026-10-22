@@ -1,10 +1,9 @@
 // @vitest-environment node
 
-import net from 'node:net'
-import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
-import {HANDSHAKE_MAX_FRAME_BYTES, handshakeClientProof} from 'arroxy-control'
+import {afterEach, describe, expect, it} from 'vite-plus/test'
+import {controlResponseEnvelopeSchema, HANDSHAKE_MAX_FRAME_BYTES, handshakeClientProof, parseControlResult} from 'arroxy-control'
 import {CONTROL_IN_FLIGHT_MAX} from '@main/control/socket/controlConnection.js'
-import {allowedClient, handshake, hello, nonce, RawClient, secretProof, silentLog, type SocketHarness, startHarness, tokenProof} from '../helpers/controlSocketHarness.js'
+import {allowedClient, delayWriteCallbacks, handshake, hello, nonce, RawClient, secretProof, silentLog, type SocketHarness, startHarness, tokenProof} from '../helpers/controlSocketHarness.js'
 
 // The control socket under a client that misbehaves or vanishes: no side
 // effect outlives a connection that went away, the handshake answers only
@@ -24,7 +23,13 @@ async function start(overrides: Parameters<typeof startHarness>[0] = {}): Promis
 }
 
 const errorLine = (id: string | null, code: string) => ({type: 'response', id, ok: false, error: expect.objectContaining({code})})
-type WriteCallback = (error?: Error | null) => void
+function collectedCredentials(line: unknown): {clientId: string; clientSecret: string} {
+	const envelope = controlResponseEnvelopeSchema.parse(line)
+	const result = envelope.ok ? parseControlResult('auth', envelope.result) : null
+	if (!result?.success || result.data.clientSecret === undefined) throw new Error(`no secret in ${JSON.stringify(line)}`)
+	return {clientId: result.data.clientId, clientSecret: result.data.clientSecret}
+}
+
 const settle = (ms = 50): Promise<void> => new Promise(resolve => setTimeout(resolve, ms))
 
 // hello, then auth sent and the connection dropped at once, while the server computes the proof.
@@ -48,6 +53,7 @@ describe('a client that vanishes mid-handshake', () => {
 		await settle()
 		const claim = harness.approvals.claim(approvalId)
 		expect(claim.status).toBe('allowed')
+		harness.approvals.release(approvalId)
 		if (claim.status === 'allowed') expect(harness.approvals.client(claim.client.clientId)).toBeNull()
 	})
 
@@ -152,14 +158,40 @@ describe('control socket limits', () => {
 		expect(await client.line(3)).toMatchObject({id: 'r1', ok: true})
 	})
 
+	it('serves a request sent the moment the auth answer arrives, before its write completes', async () => {
+		const restore = delayWriteCallbacks(100)
+		try {
+			const harness = await start()
+			const {clientId, secret} = allowedClient(harness.approvals)
+			const {client, auth} = await handshake(harness.socket.socketPath, secretProof(clientId, secret))
+			expect(auth).toMatchObject({ok: true})
+			client.request('r1', 'status')
+			expect(await client.line(3)).toMatchObject({id: 'r1', ok: true})
+		} finally {
+			restore()
+		}
+	})
+
+	it('lets a client use its secret before the answer that issued it has finished writing', async () => {
+		const restore = delayWriteCallbacks(100)
+		try {
+			const harness = await start()
+			const {token} = await harness.discovery()
+			const approvalId = harness.approvals.request('test-client')
+			harness.approvals.allow(approvalId)
+			const collect = await handshake(harness.socket.socketPath, tokenProof(token, {approvalId}))
+			const {clientId, clientSecret} = collectedCredentials(collect.auth)
+			const known = await handshake(harness.socket.socketPath, secretProof(clientId, clientSecret))
+			expect(known.auth).toMatchObject({ok: true, result: {clientId}})
+		} finally {
+			restore()
+		}
+	})
+
 	it('closes a client removed while its auth answer is still being written', async () => {
 		// The server's write callbacks fire late, as they can on a Windows pipe:
 		// the client reads the answer and is removed before the write completes.
-		const write = net.Socket.prototype.write
-		const spy = vi.spyOn(net.Socket.prototype, 'write').mockImplementation(function (this: net.Socket, chunk: string | Uint8Array, encodingOrCallback?: BufferEncoding | WriteCallback, callback?: WriteCallback): boolean {
-			if (typeof encodingOrCallback !== 'function') return write.call(this, chunk, encodingOrCallback, callback)
-			return write.call(this, chunk, undefined, error => void setTimeout(() => encodingOrCallback(error), 100))
-		})
+		const restore = delayWriteCallbacks(100)
 		try {
 			const harness = await start()
 			const {clientId, secret} = allowedClient(harness.approvals)
@@ -170,7 +202,7 @@ describe('control socket limits', () => {
 			await settle(150)
 			expect(harness.service.sessions).toEqual([])
 		} finally {
-			spy.mockRestore()
+			restore()
 		}
 	})
 

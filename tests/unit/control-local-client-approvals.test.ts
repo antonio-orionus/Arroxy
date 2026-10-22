@@ -25,7 +25,8 @@ describe('MemoryLocalClientApprovals', () => {
 		expect(approvals.allow(approvalId)).toBe(true)
 		const client = claimed(approvals.claim(approvalId))
 		expect(client).toEqual({clientId: expect.any(String), label: 'arroxy-mcp', secret: expect.stringMatching(/^[A-Za-z0-9_-]{43}$/), rules: ['trusted']})
-		expect(approvals.client(client.clientId)).toBeNull()
+		// Known while its secret is being written, so a quick reconnect works.
+		expect(approvals.client(client.clientId)).toEqual(client)
 		approvals.confirm(approvalId)
 		expect(approvals.client(client.clientId)).toEqual(client)
 		expect(approvals.label(client.clientId)).toBe('arroxy-mcp')
