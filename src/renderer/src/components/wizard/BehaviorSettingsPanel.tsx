@@ -269,7 +269,7 @@ function AppBehaviorFields(): ReactNode {
 				<SettingSwitch id="profiles-settings-close-tray" label={t('wizard.url.closeToTray.toggle')} description={t('wizard.url.closeToTray.toggleDescription')} checked={common?.closeBehavior === 'tray'} onCheckedChange={checked => void setCloseBehavior(checked ? 'tray' : 'quit')} />
 			) : null}
 
-			<SettingSwitch id="profiles-settings-analytics" label={t('wizard.url.analytics.toggle')} description={t('wizard.url.analytics.toggleDescription')} checked={common?.analyticsEnabled ?? true} onCheckedChange={checked => void setAnalyticsEnabled(checked)} />
+			<SettingSwitch id="profiles-settings-analytics" label={t('wizard.url.reports.toggle')} description={t('wizard.url.reports.toggleDescription')} checked={common?.analyticsEnabled ?? true} onCheckedChange={checked => void setAnalyticsEnabled(checked)} />
 
 			<Field>
 				<Button type="button" variant="outline" size="sm" className="w-fit" onClick={() => void openLogs()} data-testid="btn-logs">

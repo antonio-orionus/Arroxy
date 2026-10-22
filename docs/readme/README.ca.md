@@ -30,7 +30,7 @@ Si Arroxy t'estalvia temps, una ⭐ ajuda que altres el trobin.
 >
 > **La diferència clau: un navegador integrat.** La majoria de descarregadors gratuïts de YouTube són embolcalls prims de yt-dlp: un quadre d'URL i un menú de formats, sense navegador propi. Arroxy en té un, la **pestanya Explora**. Navegues per YouTube o per qualsevol altre lloc dins de l'aplicació i descarregues el vídeo, la llista o el canal on ets, o fas clic dret en qualsevol enllaç. Inicies la sessió una vegada a Explora i Arroxy baixa els vídeos privats, només per a membres i amb restricció d'edat que el teu compte pot veure, a més de les teves llistes Mira-ho més tard i M'agrada, sense exportar galetes. Hi inicies la sessió també en altres llocs, i les seves descàrregues faran servir aquest inici de sessió quan el necessitin. Arroxy ho torna a provar amb aquest inici de sessió quan YouTube et demana confirmar que no ets un robot. El seu navegador integrat també obté el testimoni que YouTube espera abans d'una descàrrega, perquè YouTube no redueixi una descàrrega a menys formats. Un embolcall amb quadre d'URL es troba amb tots aquests límits. Detalls: [Per què Arroxy](#why-explore).
 >
-> _Última actualització: 2026-10-21._
+> _Última actualització: 2026-10-22._
 
 > 🌐 Aquesta traducció s'ha fet amb ajuda de la IA. El [README en anglès](../../README.md) és la font principal. Has trobat un error? [Obre una PR](../../../../pulls).
 
@@ -393,7 +393,7 @@ La majoria de descarregadors gratuïts de YouTube són un quadre d'URL sobre yt-
 
 Les descàrregues s'obtenen directament mitjançant [yt-dlp](https://github.com/yt-dlp/yt-dlp) de YouTube a la carpeta que triïs — res no passa per un servidor de tercers. L'historial de reproducció, l'historial de descàrregues, les URL i el contingut dels fitxers es queden al teu dispositiu.
 
-Sense telemetria — només un senyal anònim al dia: versió de l'aplicació, sistema operatiu, idioma, canal d'instal·lació, país i aproximadament fa quant que s'ha instal·lat Arroxy, per poder comptar els usuaris actius i nous. Sense identificadors, URL, títols de vídeos, rutes de fitxers ni dades de comptes. El pots desactivar a la configuració.
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 Explora conserva els seus propis inicis de sessió, separats del teu navegador, i Arroxy mai no llegeix ni emplena un formulari d'inici de sessió — escrius a la pàgina del mateix lloc. Les descàrregues s'executen sense sessió; només quan una falla d'una manera que un compte pot resoldre, Arroxy llegeix l'inici de sessió de nou, el guarda en un fitxer temporal per a aquella descàrrega i suprimeix el fitxer després. Tancar la sessió d'Explora a la configuració els oblida.
 
@@ -499,7 +499,7 @@ Tens alguna funció al cap? [Obre una sol·licitud](../../../../issues) — l'op
 
 ## <a id="support"></a>💖 Dona suport a Arroxy
 
-Arroxy és gratuït i amb llicència GPLv3 — sense anuncis, sense telemetria, sense nivell de pagament. Si t'estalvia temps, pots donar suport al desenvolupament amb Bitcoin, Tron o Ethereum: les adreces són a [DONATE.md](../../DONATE.md), que és l'única font oficial. Arroxy mai no t'enviarà una adreça per correu electrònic ni per missatge directe. Donar una estrella al repositori, informar d'errors i millorar les traduccions ajuda igual de bé.
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

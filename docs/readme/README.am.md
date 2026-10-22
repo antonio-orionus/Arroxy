@@ -30,7 +30,7 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 >
 > **ዋናው ልዩነት፡ አብሮ የተሠራ browser።** አብዛኞቹ ነፃ የYouTube ማውረጃዎች ቀጭን የyt-dlp መጠቅለያዎች ናቸው፦ የURL ሳጥን እና የቅርጸት ምናሌ፣ የራሳቸው browser የሌላቸው። Arroxy አንድ አለው፣ **Explore ትር**። በአፑ ውስጥ YouTubeን ወይም ማንኛውንም ሌላ ጣቢያ ያስሳሉ እና ያሉበትን ቪዲዮ፣ playlist ወይም ቻናል ያወርዳሉ፣ ወይም በማንኛውም ሊንክ ላይ በቀኝ ጠቅ ያደርጋሉ። በExplore ውስጥ አንድ ጊዜ ይገባሉ፣ Arroxy ደግሞ ሒሳብዎ ማየት የሚችላቸውን የግል፣ የአባላት-ብቻ እና ዕድሜ-የተገደቡ ቪዲዮዎች እንዲሁም የWatch Later እና Liked ዝርዝሮችዎን ያወርዳል፣ ኩኪዎችን ወደ ውጭ መላክ ሳያስፈልግ። ወደ ሌሎች ጣቢያዎችም እዚያ ይግቡ፣ ማውረዶቻቸውም ሲያስፈልግ ያንን መግቢያ ይጠቀማሉ። YouTube ቦት አለመሆንዎን እንዲያረጋግጡ ሲጠይቅ በዚያ መግቢያ እንደገና ይሞክራል። አብሮ የተሠራው browser ደግሞ YouTube ከማውረድ በፊት የሚጠብቀውን ቶከን ያገኛል፣ ስለዚህ YouTube ማውረድን ወደ ያነሱ ቅርጸቶች አይቀንስም። የURL ሳጥን ያለው መጠቅለያ ከእነዚህ ሁሉ ገደቦች ጋር ይጋጫል። ዝርዝሮች፦ [ለምን Arroxy](#why-explore)።
 >
-> _መጨረሻ የተዘመነው፦ 2026-10-21።_
+> _መጨረሻ የተዘመነው፦ 2026-10-22።_
 
 ---
 
@@ -391,7 +391,7 @@ Arroxy ለአንድ ነገር ብቻ ተሠርቷል: URL ቢለጥፉም ሆነ
 
 ማውረዶቹ ቀጥታ በ [yt-dlp](https://github.com/yt-dlp/yt-dlp) ከ YouTube ወደ መረጡት አቃፊ ይወርዳሉ — ምንም ሦስተኛ ወገን ሰርቨር አይሆንም። የእይታ ታሪክ፣ የማውረድ ታሪክ፣ URLs፣ እና የፋይሎቹ ይዘቶች በመሳሪያዎ ላይ ይቆያሉ።
 
-ቴሌሜትሪ የለም — በቀን አንድ ስም-አልባ ምልክት ብቻ፦ የአፕ ስሪት፣ OS፣ ቋንቋ፣ የመጫኛ ቻናል፣ ሀገር እና Arroxy ከተጫነ ወዲህ በግምት ምን ያህል ጊዜ እንደሆነ፣ ንቁና አዲስ ተጠቃሚዎችን ለመቁጠር። ምንም ID፣ URLs፣ የቪዲዮ ርዕሶች፣ የፋይል መንገዶች ወይም የመለያ መረጃ የለም። በSettings ውስጥ ማጥፋት ይችላሉ።
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 Explore ከbrowserዎ የተለየ የራሱን መግቢያዎች ይይዛል፣ እና Arroxy ማንኛውንም የመግቢያ ቅጽ ፈጽሞ አያነብም ወይም አይሞላም — እርስዎ በጣቢያው የራሱ ገጽ ላይ ይተይባሉ። ማውረዶች ሳይገቡ ይሠራሉ፤ ማውረድ ሒሳብ ሊያስተካክለው በሚችል መንገድ ሲወድቅ ብቻ Arroxy መግቢያውን እንደገና ያነባል፣ ለዚያ ማውረድ በጊዜያዊ ፋይል ውስጥ ያቆየዋል፣ እና በኋላ ፋይሉን ይሰርዛል። በSettings ውስጥ ከExplore መውጣት ይረሳቸዋል።
 
@@ -497,7 +497,7 @@ yt-dlp በማስነሻ ላይ ራስ ሰር ይዘመናሉ፣ እናም YouTube
 
 ## <a id="support"></a>💖 Arroxy ይደግፉ
 
-Arroxy ነፃ ነው እና በGPLv3 ፈቃድ ይሰራጫል — ማስታወቂያ የለም፣ ቴሌሜትሪ የለም፣ የሚከፈልበት እትም የለም። ጊዜዎን የሚቆጥብ ከሆነ ልማቱን በBitcoin፣ በTron ወይም በEthereum መደገፍ ይችላሉ፦ አድራሻዎቹ በ[DONATE.md](../../DONATE.md) ውስጥ ይገኛሉ፣ እርሱም ብቸኛው ይፋዊ ምንጫቸው ነው። Arroxy በኢሜይል ወይም በቀጥታ መልእክት አድራሻ በፍጹም አይልክልዎትም። ማከማቻውን በኮከብ ምልክት ማድረግ፣ ስህተቶችን ማሳወቅ እና ትርጉሞችን ማሻሻል እኩል ይረዳሉ።
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

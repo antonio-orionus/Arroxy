@@ -30,7 +30,7 @@ Jei Arroxy taupo jūsų laiką, ⭐ padės kitiems ją rasti.
 >
 > **Pagrindinis skirtumas: integruota naršyklė.** Dauguma nemokamų YouTube atsisiuntimo programų yra plonos yt-dlp apvalkalo programos: URL laukelis ir formatų meniu, be savo naršyklės. Arroxy ją turi – tai **skirtukas „Naršymas“**. Naršote YouTube ar bet kurią kitą svetainę programoje ir atsisiunčiate vaizdo įrašą, grojaraštį ar kanalą, kuriame esate, arba spustelite bet kurią nuorodą dešiniuoju pelės klavišu. Naršyme prisijungiate vieną kartą, o Arroxy atsisiunčia privačius, tik nariams skirtus ir amžiaus apribojimą turinčius vaizdo įrašus, kuriuos gali žiūrėti jūsų paskyra, taip pat jūsų „Žiūrėti vėliau“ ir „Patikę“ sąrašus, be slapukų eksportavimo. Taip pat ten prisijunkite prie kitų svetainių, ir jų atsisiuntimai prireikus naudos tą prisijungimą. Kai YouTube prašo patvirtinti, kad nesate robotas, Arroxy bando dar kartą su tuo prisijungimu. Integruota naršyklė taip pat gauna žetoną, kurio YouTube tikisi prieš atsisiuntimą, todėl YouTube neapkarpo atsisiuntimo iki mažesnio formatų skaičiaus. Apvalkalo programa su vien URL laukeliu susiduria su visais šiais apribojimais. Išsamiau: [Kodėl Arroxy](#why-explore).
 >
-> _Paskutinį kartą atnaujinta: 2026-10-21._
+> _Paskutinį kartą atnaujinta: 2026-10-22._
 
 > 🌐 Šis vertimas parengtas padedant DI. [Angliškas README](../../README.md) yra pagrindinis šaltinis. Radote klaidą? [Atverkite PR](../../../../pulls).
 
@@ -393,7 +393,7 @@ Dauguma nemokamų YouTube atsisiuntimo programų yra tiesiog URL laukelis virš 
 
 Atsisiuntimai gaunami tiesiogiai per [yt-dlp](https://github.com/yt-dlp/yt-dlp) iš YouTube į jūsų pasirinktą aplanką — nieko nenukreipiant per trečiosios šalies serverį. Žiūrėjimo istorija, atsisiuntimų istorija, URL ir failų turinys lieka jūsų įrenginyje.
 
-Jokios telemetrijos — tik vienas anoniminis aktyvumo signalas per dieną: programos versija, OS, kalba, diegimo kanalas, šalis ir apytikslis laikas nuo Arroxy įdiegimo, kad galėtume suskaičiuoti aktyvius ir naujus naudotojus. Jokių ID, URL, vaizdo įrašų pavadinimų, failų kelių ar paskyros informacijos. Galite tai išjungti parametruose.
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 Naršymas laiko savo prisijungimus atskirai nuo jūsų naršyklės, o Arroxy niekada neskaito ir neužpildo prisijungimo formos — rašote svetainės puslapyje. Atsisiuntimai vyksta neprisijungus; tik kai vienas nepavyksta dėl priežasties, kurią gali ištaisyti paskyra, Arroxy iš naujo nuskaito prisijungimą, laiko jį laikinajame faile to atsisiuntimo metu ir vėliau tą failą ištrina. Atsijungus nuo Naršymo parametruose, jie pamirštami.
 
@@ -499,7 +499,7 @@ Turite funkcijos idėją? [Pateikite prašymą](../../../../issues) — bendruom
 
 ## <a id="support"></a>💖 Paremkite Arroxy
 
-Arroxy yra nemokama ir licencijuota pagal GPLv3 — be reklamų, be telemetrijos, be mokamo plano. Jei ji taupo jūsų laiką, kūrimą galite paremti Bitcoin, Tron ar Ethereum: adresai yra [DONATE.md](../../DONATE.md), kuris yra vienintelis oficialus jų šaltinis. Arroxy niekada nesiųs jums adreso el. paštu ar tiesioginiu pranešimu. Saugyklos pažymėjimas žvaigždute, klaidų pranešimas ir vertimų gerinimas padeda ne mažiau.
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

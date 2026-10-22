@@ -30,7 +30,7 @@
 >
 > **關鍵差異：內建瀏覽器。** 多數免費 YouTube 下載器只是單薄的 yt-dlp 包裝程式：一個網址輸入框加一個格式選單，沒有自己的瀏覽器。Arroxy 有，就是 **Explore 分頁**。你可以在應用程式內瀏覽 YouTube 或任何其他網站，直接下載目前所在的影片、播放清單或頻道，或對任何連結按右鍵。你只要在 Explore 登入一次，Arroxy 就能下載你的帳號可觀看的私人、會員專屬與年齡限制影片，以及你的「稍後觀看」和「喜歡的影片」清單，無需匯出 Cookie。你也可以在 Explore 登入其他網站，這些網站的下載在需要時會使用該登入。當 YouTube 要求確認你不是機器人時，Arroxy 會用該登入重試。其內建瀏覽器還會在下載前取得 YouTube 所期待的權杖，因此 YouTube 不會把下載縮減為較少的格式。只有網址輸入框的包裝程式會碰上這些所有限制。詳情：[為什麼選 Arroxy](#why-explore)。
 >
-> _最後更新：2026-10-21。_
+> _最後更新：2026-10-22。_
 
 > 🌐 這是 AI 輔助翻譯。[英文 README](../../README.md) 是內容基準。發現錯誤？歡迎 [建立 PR](../../../../pulls)。
 
@@ -393,7 +393,7 @@ Arroxy 只做一件事：無論你是貼上連結，還是在 Explore 中找到�
 
 下載透過 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 直接從 YouTube 取得到你選擇的資料夾 — 不經過任何第三方伺服器。觀看歷史、下載歷史、URL 和檔案內容均保留在你的裝置上。
 
-沒有遙測 — 每天只傳送一次匿名心跳訊號：應用程式版本、OS、語言、安裝管道、國家/地區，以及 Arroxy 大約是多久前安裝的，用來統計活躍使用者和新使用者。不包含 ID、URL、影片標題、檔案路徑或帳號資訊。你可以在設定中關閉。
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 Explore 有自己獨立的登入，與你的瀏覽器分開，Arroxy 不會讀取或填寫登入表單 — 你是在 該網站自己的頁面上輸入。下載在未登入狀態下進行；只有在下載因帳號可解決的原因失敗時，Arroxy 才會重新讀取該登入，把它放進僅供該次下載使用的暫存檔，並在之後刪除該檔案。在設定中登出 Explore 即可清除這些登入。
 
@@ -499,7 +499,7 @@ yt-dlp 在啟動時自動更新，YouTube 一旦發生變化，Arroxy 會及時�
 
 ## <a id="support"></a>💖 支援 Arroxy
 
-Arroxy 完全免費並採用 GPLv3 授權條款 —— 沒有廣告、沒有遙測、沒有付費版本。如果它為你節省了時間，你可以透過 Bitcoin、Tron 或 Ethereum 支援它的開發：地址見 [DONATE.md](../../DONATE.md)，這是唯一的官方來源。Arroxy 絕不會透過電子郵件或私信向你傳送地址。給儲存庫點星、報告問題和改進翻譯同樣有幫助。
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

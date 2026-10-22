@@ -30,7 +30,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 >
 > **Garaagarummaa ijoo: biraawzara keessa ijaarame.** Buufattoonni YouTube bilisaa baay'een wraapperii yt-dlp salphaa dha: saanduqa URL fi menu formaataa, biraawzara mataa isaanii malee. Arroxy tokko qaba, tabii **Daawwannaa**. YouTube ykn marsariitii biraa kamiyyuu app keessatti ilaaltu, viidiyoo, playlist ykn channel irra jirtu buufatta, ykn hidhaa kamiyyuu irratti right-click godhita. Daawwannaa keessatti altokko seenta, Arroxy immoo viidiyoowwan dhuunfaa, miseensoota qofaaf fi umuriin daangeffaman akkaawuntiin kee ilaaluu danda'u, akkasumas tarreewwan Booda Ilaali fi Jaallatamte kee, kuukkii baasuu malee ni buusa. Marsariitiiwwan biraatti illee achitti seeni, buufannaan isaanii yeroo barbaachisu seensa sana fayyadama. YouTube bot akka hin taane akka mirkaneessitu yeroo gaafatu, seensa sanaan irra deebi'ee yaala. Biraawzarri isaa keessa ijaarame tokenii YouTube buufannaa dura eegu illee ni argata, kanaaf YouTube buufannaa formaata xiqqaatti hin hir'isu. Wraapperiin saanduqa URL qofa qabu daangaa kana hundatti dhaqqaba. Bal'inaan: [Maaliif Arroxy](#why-explore).
 >
-> _Yeroo dhumaa haaromfame: 2026-10-21._
+> _Yeroo dhumaa haaromfame: 2026-10-22._
 
 ---
 
@@ -391,7 +391,7 @@ Buufattoota YouTube bilisaa baay'een saanduqa URL yt-dlp irratti kaa'ame qofa. A
 
 Buufannoonni kallattiin [yt-dlp](https://github.com/yt-dlp/yt-dlp) fayyadamuudhaan YouTube irraa foldera filatteetti darbamu — miila-seerri hunduu sarara servera sadarkaa-sadaffaa tokko keessa darbuu hin qabu. Seenaa ilaaluu, seenaa buufannoo, URLs, fi qabiyyee faayilaa meeshaa kee irratti hafu.
 
-Telemetrii hin jiru — guyyaatti mallattoo maqaa-dhabduu tokko qofa: version app, OS, afaan, karaa itti install godhame, biyya fi Arroxy tilmaamaan yeroo hammamii dura install godhame, akka fayyadamtoota hojii irra jiran fi haaraa lakkoofnuuf. ID, URL, mata-duree viidiyoo, karaa faayilaa yookaan odeeffannoo account hin jiru. Settings keessatti dhaabuu dandeessa.
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 Explore seensawwan mataa isaa qaba, biraawzara keetii addaa, Arroxyn unka seensaa gonkumaa hin dubbisu hin guutus — ati fuula marsariitii mataa isaa irratti barreessita. Buufannaan utuu hin seenin deemu; yeroo tokko karaa akkaawuntiin sirreessuu danda'un hin milkoofnetti qofa Arroxy seensa yeroo sana haaraatti dubbisa, buufannaa sanaaf faayilii yeroo keessatti qaba, booda faayilicha haqa. Qindoomina keessatti Explore irraa bahuun isaan irraanfachiisa.
 
@@ -497,7 +497,7 @@ Amala yaaddetee jirtaa? [Gaaffii bani](../../../../issues) — galchiin hawaasaa
 
 ## <a id="support"></a>💖 Arroxy Deggeri
 
-Arroxy bilisa fi hayyama GPLv3 jala jira — beeksisni hin jiru, telemetriin hin jiru, fooyya'iinsi kaffaltiin hin jiru. Yoo yeroo siif qusate, guddina isaa Bitcoin, Tron ykn Ethereum'iin deggeruu dandeessa: teessoowwan [DONATE.md](../../DONATE.md) keessa jiru, innis madda ofiisaa qofa. Arroxy gonkumaa teessoo iimeeliidhaan ykn ergaa kallattiitiin siif hin ergu. Repoo'f urjii kennuun, dogoggora gabaasuu fi hiikkaa fooyyessuun hammuma sana gargaara.
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

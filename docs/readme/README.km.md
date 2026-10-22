@@ -30,7 +30,7 @@
 >
 > **ភាពខុសគ្នាចម្បង៖ កម្មវិធីរុករកដែលភ្ជាប់មកជាមួយ។** កម្មវិធីទាញយក YouTube ឥតគិតថ្លៃភាគច្រើនគ្រាន់តែជា wrapper yt-dlp សាមញ្ញៗ៖ ប្រអប់ URL និងម៉ឺនុយទម្រង់ ដោយគ្មានកម្មវិធីរុករករបស់ខ្លួនឯង។ Arroxy មានមួយ គឺ**ផ្ទាំង Explore**។ អ្នករុករក YouTube ឬគេហទំព័រផ្សេងទៀតនៅក្នុងកម្មវិធី ហើយទាញយកវីដេអូ បញ្ជីចាក់ ឬប៉ុស្តិ៍ដែលអ្នកកំពុងមើល ឬចុចកណ្ដុរស្ដាំលើតំណណាមួយ។ អ្នកចូលគណនីម្តងក្នុងExplore ហើយ Arroxy ទាញយកវីដេអូឯកជន សម្រាប់តែសមាជិក និងកំណត់អាយុ ដែលគណនីរបស់អ្នកអាចមើលបាន ព្រមទាំងបញ្ជី Watch Later និង Liked របស់អ្នក ដោយមិនចាំបាច់នាំចេញ cookies។ ចូលគណនីគេហទំព័រផ្សេងទៀតនៅទីនោះផងដែរ ហើយការទាញយករបស់ពួកវាប្រើការចូលគណនីនោះនៅពេលត្រូវការ។ Arroxy សាកល្បងម្តងទៀតដោយប្រើការចូលគណនីនោះ នៅពេល YouTube សុំឱ្យអ្នកបញ្ជាក់ថាអ្នកមិនមែនជា bot។ កម្មវិធីរុករកដែលភ្ជាប់មកជាមួយក៏ទទួលបាន token ដែល YouTube រំពឹងទុកមុនការទាញយក ដូច្នេះ YouTube មិនកាត់បន្ថយការទាញយកឱ្យនៅសល់ទម្រង់តិចជាងមុនទេ។ wrapper ដែលមានតែប្រអប់ URL ជួបដែនកំណត់ទាំងអស់នេះ។ ព័ត៌មានលម្អិត៖ [ហេតុអ្វី Arroxy](#why-explore)។
 >
-> _ធ្វើបច្ចុប្បន្នភាពចុងក្រោយ៖ 2026-10-21។_
+> _ធ្វើបច្ចុប្បន្នភាពចុងក្រោយ៖ 2026-10-22។_
 
 ---
 
@@ -391,7 +391,7 @@ Arroxy ត្រូវបានបង្កើតឡើងសម្រាប់�
 
 ការទាញយកត្រូវបានទាញដោយផ្ទាល់តាម [yt-dlp](https://github.com/yt-dlp/yt-dlp) ពី YouTube ទៅថតដែលអ្នកជ្រើសរើស — គ្មានអ្វីឆ្លងកាត់ម៉ាស៊ីនមេភាគីទីបីទេ។ ប្រវត្តិមើល ប្រវត្តិទាញយក URL និងមាតិកាឯកសារនៅលើឧបករណ៍របស់អ្នក។
 
-គ្មានការតាមដានទេ — មានតែសញ្ញាអនាមិកមួយក្នុងមួយថ្ងៃ៖ កំណែកម្មវិធី ប្រព័ន្ធប្រតិបត្តិការ ភាសា ប៉ុស្តិ៍ដំឡើង ប្រទេស និងរយៈពេលប្រហែលចាប់តាំងពី Arroxy ត្រូវបានដំឡើង ដើម្បីឱ្យយើងអាចរាប់អ្នកប្រើសកម្ម និងអ្នកប្រើថ្មី។ គ្មាន ID, URL, ចំណងជើងវីដេអូ ផ្លូវឯកសារ ឬព័ត៌មានគណនីទេ។ អ្នកអាចបិទវាក្នុងការកំណត់។
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 Explore រក្សាការចូលគណនីផ្ទាល់ខ្លួន ដាច់ដោយឡែកពីកម្មវិធីរុករករបស់អ្នក ហើយ Arroxy មិនដែលអាន ឬបំពេញទម្រង់ចូលគណនីណាមួយទេ — អ្នកវាយចូលទំព័ររបស់គេហទំព័រនោះផ្ទាល់។ ការទាញយកដំណើរការដោយមិនចូលគណនី; មានតែនៅពេលមួយបរាជ័យក្នុងរបៀបដែលគណនីអាចជួសជុលបាន ទើប Arroxy អានការចូលគណនីថ្មី រក្សាវាក្នុងឯកសារបណ្តោះអាសន្នសម្រាប់ការទាញយកនោះ ហើយលុបឯកសារនោះបន្ទាប់មក។ ការចាកចេញពី Explore ក្នុងការកំណត់នឹងបំភ្លេចវា។
 
@@ -497,7 +497,7 @@ yt-dlp ត្រូវបានធ្វើបច្ចុប្បន្នភ�
 
 ## <a id="support"></a>💖 គាំទ្រ Arroxy
 
-Arroxy ឥតគិតថ្លៃ និងមានអាជ្ញាប័ណ្ណ GPLv3 — គ្មានពាណិជ្ជកម្ម គ្មានការតាមដាន គ្មានកម្រិតបង់ប្រាក់។ ប្រសិនបើវាជួយសន្សំពេលវេលារបស់អ្នក អ្នកអាចគាំទ្រការអភិវឌ្ឍជាមួយ Bitcoin, Tron ឬ Ethereum៖ អាសយដ្ឋានមាននៅក្នុង [DONATE.md](../../DONATE.md) ដែលជាប្រភពផ្លូវការតែមួយគត់សម្រាប់ពួកវា។ Arroxy នឹងមិនដែលផ្ញើអាសយដ្ឋានមកអ្នកតាមអ៊ីមែល ឬសារផ្ទាល់ទេ។ ការដាក់ផ្កាយលើ repo ការរាយការណ៍កំហុស និងការកែលម្អការបកប្រែក៏ជួយបានច្រើនដូចគ្នា។
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

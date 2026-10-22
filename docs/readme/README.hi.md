@@ -30,7 +30,7 @@
 >
 > **मुख्य अंतर: बिल्ट-इन ब्राउज़र।** ज़्यादातर मुफ़्त YouTube डाउनलोडर yt-dlp के पतले रैपर होते हैं: एक URL बॉक्स और एक फ़ॉर्मैट मेन्यू, अपने किसी ब्राउज़र के बिना। Arroxy में एक है, **Explore टैब**। आप ऐप के अंदर ही YouTube या कोई भी दूसरी साइट ब्राउज़ करते हैं और जो वीडियो, प्लेलिस्ट या चैनल देख रहे हैं उसे डाउनलोड करते हैं, या किसी भी लिंक पर राइट-क्लिक करते हैं। आप Explore में एक बार साइन इन करते हैं, और Arroxy वे प्राइवेट, केवल-सदस्यों वाले और आयु-प्रतिबंधित वीडियो डाउनलोड करता है जिन्हें आपका अकाउंट देख सकता है, साथ ही आपकी Watch Later और Liked सूचियाँ, बिना कुकीज़ एक्सपोर्ट किए। वहाँ दूसरी साइटों पर भी साइन इन करें, और उनके डाउनलोड ज़रूरत पड़ने पर वही साइन-इन इस्तेमाल करते हैं। जब YouTube पुष्टि माँगता है कि आप बॉट नहीं हैं, तो Arroxy उसी साइन-इन के साथ दोबारा आज़माता है। इसका बिल्ट-इन ब्राउज़र वह टोकन भी हासिल करता है जिसकी YouTube डाउनलोड से पहले उम्मीद करता है, ताकि YouTube डाउनलोड को कम फ़ॉर्मैट तक सीमित न कर दे। URL बॉक्स वाला रैपर इन सभी सीमाओं से टकराता है। विवरण: [Arroxy क्यों?](#why-explore)।
 >
-> _अंतिम अपडेट: 2026-10-21।_
+> _अंतिम अपडेट: 2026-10-22।_
 
 > 🌐 यह AI-सहायता प्राप्त अनुवाद है। [अंग्रेज़ी README](../../README.md) सत्य का स्रोत है। कोई गलती दिखी? [PR का स्वागत है](../../../../pulls)।
 
@@ -393,7 +393,7 @@ Arroxy एक ही काम के लिए बना है: एक सा�
 
 डाउनलोड सीधे [yt-dlp](https://github.com/yt-dlp/yt-dlp) के ज़रिए YouTube से आपके चुने हुए फ़ोल्डर में फ़ेच होते हैं — किसी थर्ड-पार्टी सर्वर से नहीं गुज़रते। देखने की हिस्ट्री, डाउनलोड हिस्ट्री, URLs और फ़ाइल कंटेंट आपके डिवाइस पर रहते हैं।
 
-कोई टेलीमेट्री नहीं — दिन में बस एक गुमनाम सिग्नल: ऐप वर्शन, OS, भाषा, इंस्टॉल चैनल, देश और लगभग कितने समय पहले Arroxy इंस्टॉल हुआ था, ताकि हम सक्रिय और नए उपयोगकर्ता गिन सकें। कोई ID, URL, वीडियो शीर्षक, फ़ाइल पाथ या अकाउंट जानकारी नहीं। Settings में इसे बंद कर सकते हैं।
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 Explore के साइन-इन आपके ब्राउज़र से अलग, उसके अपने हैं, और Arroxy किसी भी साइन-इन फ़ॉर्म को कभी पढ़ता या भरता नहीं — आप साइट के अपने पेज पर ही टाइप करते हैं। डाउनलोड साइन आउट रहकर चलते हैं; सिर्फ़ तब जब कोई डाउनलोड ऐसी वजह से फ़ेल हो जिसे अकाउंट ठीक कर सकता है, Arroxy साइन-इन को ताज़ा पढ़ता है, उस डाउनलोड के लिए उसे एक अस्थायी फ़ाइल में रखता है और बाद में फ़ाइल मिटा देता है। सेटिंग्स में Explore से साइन आउट करने पर साइन-इन भुला दिए जाते हैं।
 
@@ -499,7 +499,7 @@ yt-dlp लॉन्च पर अपने आप अपडेट हो जा�
 
 ## <a id="support"></a>💖 Arroxy का समर्थन करें
 
-Arroxy मुफ़्त और GPLv3-लाइसेंस्ड है — कोई विज्ञापन नहीं, कोई टेलीमेट्री नहीं, कोई पेड संस्करण नहीं। अगर यह आपका समय बचाता है, तो आप Bitcoin, Tron या Ethereum से इसके विकास में सहयोग कर सकते हैं: पते [DONATE.md](../../DONATE.md) में हैं, जो उनका एकमात्र आधिकारिक स्रोत है। Arroxy आपको कभी ईमेल या डायरेक्ट मैसेज से पता नहीं भेजेगा। रिपॉज़िटरी को स्टार देना, बग रिपोर्ट करना और अनुवाद सुधारना भी उतनी ही मदद करता है।
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

@@ -30,7 +30,7 @@ Pokud vám Arroxy šetří čas, ⭐ pomůže ostatním ho najít.
 >
 > **Hlavní rozdíl: vestavěný prohlížeč.** Většina bezplatných stahovačů z YouTube jsou tenké obaly na yt-dlp: políčko pro URL a nabídka formátů, bez vlastního prohlížeče. Arroxy ho má, a to **kartu Procházení**. Procházíte YouTube nebo jakýkoli jiný web přímo v aplikaci a stahujete video, playlist nebo kanál, na kterém právě jste, nebo kliknete pravým tlačítkem na libovolný odkaz. V Procházení se jednou přihlásíte a Arroxy stáhne soukromá videa, videa pro členy a videa s věkovým omezením, která váš účet smí přehrát, plus vaše seznamy Podívat se později a Označeno „To se mi líbí“, bez exportu cookies. Přihlaste se tam i k dalším webům a jejich stahování pak toto přihlášení použije, když ho bude potřebovat. S tímto přihlášením to Arroxy zkusí znovu, když vás YouTube požádá o potvrzení, že nejste robot. Jeho vestavěný prohlížeč také získá token, který YouTube před stažením očekává, takže YouTube stahování neomezí na méně formátů. Obal s políčkem pro URL narazí na všechna tato omezení. Podrobnosti: [Proč Arroxy](#why-explore).
 >
-> _Poslední aktualizace: 2026-10-21._
+> _Poslední aktualizace: 2026-10-22._
 
 > 🌐 Tento překlad vznikl za pomoci AI. [Anglické README](../../README.md) je nadřazeným zdrojem. Našli jste chybu? [Otevřete PR](../../../../pulls).
 
@@ -393,7 +393,7 @@ Většina bezplatných stahovačů z YouTube je jen políčko pro URL nad yt-dlp
 
 Stahování probíhá přímo přes [yt-dlp](https://github.com/yt-dlp/yt-dlp) z YouTube do složky, kterou zvolíte — nic nejde přes server třetí strany. Historie sledování, historie stahování, URL a obsah souborů zůstávají na vašem zařízení.
 
-Žádná telemetrie — jen jeden anonymní signál denně: verze aplikace, operační systém, jazyk, kanál instalace, země a přibližná doba od instalace Arroxy, abychom mohli počítat aktivní a nové uživatele. Žádná ID, URL, názvy videí, cesty k souborům ani údaje o účtu. Můžete jej vypnout v Nastavení.
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 Procházení uchovává vlastní přihlášení, oddělená od vašeho prohlížeče, a Arroxy nikdy nečte ani nevyplňuje přihlašovací formulář — píšete přímo na stránku webu. Stahování běží nepřihlášené; teprve když některé selže způsobem, který účet vyřeší, Arroxy přihlášení načte znovu, uchová je v dočasném souboru pro dané stahování a soubor poté smaže. Odhlášením z Procházení v Nastavení se přihlášení zapomenou.
 
@@ -499,7 +499,7 @@ Máte nápad na funkci? [Otevřete požadavek](../../../../issues) — názory k
 
 ## <a id="support"></a>💖 Podpořte Arroxy
 
-Arroxy je zdarma a s licencí GPLv3 — bez reklam, bez telemetrie, bez placené verze. Pokud vám šetří čas, můžete vývoj podpořit Bitcoinem, Tronem nebo Ethereem: adresy jsou v [DONATE.md](../../DONATE.md), což je jediný oficiální zdroj. Arroxy vám adresu nikdy nepošle e-mailem ani přímou zprávou. Stejně tak pomáhá hvězdička u repozitáře, hlášení chyb a zlepšování překladů.
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

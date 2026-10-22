@@ -30,7 +30,7 @@ Arroxy-k denbora aurrezten badizu, ⭐ batek besteei aurkitzen laguntzen die.
 >
 > **Alde nagusia: nabigatzaile integratua.** YouTube-ren deskargatzaile libre gehienak yt-dlp-ren gaineko wrapper meheak dira: URL kutxa bat eta formatu-menu bat, nabigatzaile propiorik gabe. Arroxy-k bat du, **Esploratu fitxa**. YouTube edo beste edozein gune aplikazioaren barruan arakatzen duzu eta ikusten ari zaren bideoa, erreprodukzio-zerrenda edo kanala deskargatzen duzu, edo edozein estekatan eskuineko botoia sakatzen duzu. Esploratu fitxan behin hasten duzu saioa, eta Arroxy-k zure kontuak ikus ditzakeen bideo pribatuak, bazkideentzakoak eta adin-murrizketadunak deskargatzen ditu, baita zure Ikusteko geroago eta Gustuko zerrendak ere, cookie-ak esportatu gabe. Hasi saioa beste guneetan ere hor, eta haien deskargek saio hori erabiliko dute behar dutenean. YouTube-k bot ez zarela berresteko eskatzen duenean, Arroxy-k saio horrekin berriro saiatzen da. Nabigatzaile integratuak YouTube-k deskarga baino lehen espero duen tokena ere lortzen du, YouTube-k deskarga formatu gutxiagora mugatu ez dezan. URL kutxa bateko wrapper batek muga horiek guztiak jotzen ditu. Xehetasunak: [Zergatik Arroxy](#why-explore).
 >
-> _Azken eguneratzea: 2026-10-21._
+> _Azken eguneratzea: 2026-10-22._
 
 > 🌐 Itzulpen hau adimen artifizialaren laguntzaz egin da. [README ingelesa](../../README.md) da iturri nagusia. Akatsen bat aurkitu duzu? [Ireki PR bat](../../../../pulls).
 
@@ -393,7 +393,7 @@ YouTube-ren deskargatzaile libre gehienak yt-dlp-ren gaineko URL kutxa bat dira.
 
 Deskargak [yt-dlp](https://github.com/yt-dlp/yt-dlp)-ren bidez zuzenean eskuratzen dira YouTube-tik zuk aukeratutako karpetara — ezer ez da hirugarren baten zerbitzaritik igarotzen. Ikusitakoen historia, deskargen historia, URLak eta fitxategien edukia zure gailuan geratzen dira.
 
-Telemetriarik ez — egunean behin seinale anonimo bakarra: aplikazioaren bertsioa, sistema eragilea, hizkuntza, instalazio-kanala, herrialdea eta Arroxy gutxi gorabehera noiz instalatu zen, erabiltzaile aktiboak eta berriak zenbatu ahal izateko. Ez da IDrik, URLrik, bideo-izenbururik, fitxategi-bide-izenik edo konturik bidaltzen. Ezarpenetan desaktiba dezakezu.
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 Esploratu fitxak bere saio-hasierak gordetzen ditu, zure nabigatzailetik bereiziak, eta Arroxy-k ez du inoiz saio-hasiera inprimakirik irakurtzen edo betetzen — gunearen orrian bertan idazten duzu. Deskargak saiorik gabe exekutatzen dira; kontu batek konpon dezakeen moduan batek huts egiten duenean bakarrik irakurtzen du Arroxy-k saioa berriro, aldi baterako fitxategi batean gordetzen du deskarga horretarako, eta fitxategia ezabatzen du ondoren. Ezarpenetan Esploratu fitxako saioa amaitzeak ahaztu egiten ditu.
 
@@ -499,7 +499,7 @@ Eginbide baten ideia duzu? [Ireki eskaera bat](../../../../issues) — komunitat
 
 ## <a id="support"></a>💖 Lagundu Arroxy
 
-Arroxy doakoa eta GPLv3 lizentziakoa da — iragarkirik, telemetriarik edo ordainpeko mailarik gabe. Denbora aurrezten badizu, garapena lagun dezakezu Bitcoin, Tron edo Ethereum bidez: helbideak [DONATE.md](../../DONATE.md) fitxategian daude, eta hori da horien iturri ofizial bakarra. Arroxy-k ez dizu inoiz helbiderik bidaliko posta elektronikoz edo mezu zuzenez. Biltegiari izarra ematea, akatsak jakinaraztea eta itzulpenak hobetzea berdin laguntzen dute.
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

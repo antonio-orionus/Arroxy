@@ -30,7 +30,7 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
 >
 > **最大の違いは内蔵ブラウザー。** 無料の YouTube ダウンローダーの多くは、URL 入力欄と形式メニューだけの薄い yt-dlp ラッパーで、独自のブラウザーを持ちません。Arroxy には**Explore タブ**があります。アプリの中で YouTube やほかのサイトを閲覧し、表示中の動画・プレイリスト・チャンネルをダウンロードでき、リンクを右クリックしてもダウンロードできます。Exploreで一度サインインするだけで、Arroxy はアカウントで視聴できる非公開動画、メンバー限定動画、年齢制限付き動画に加え、「後で見る」や「高く評価した動画」のリストも、Cookie をエクスポートせずにダウンロードします。ほかのサイトにもそこでサインインすれば、必要なときにそのサインインがダウンロードに使われます。YouTube にボットではないことの確認を求められたときも、そのサインインで再試行します。内蔵ブラウザーはダウンロード前に YouTube が求めるトークンも取得するため、YouTube にダウンロードを少ない形式に絞られることもありません。URL 入力欄だけのラッパーは、これらの制限すべてに突き当たります。詳細：[なぜ Arroxy？](#why-explore)。
 >
-> _最終更新：2026-10-21。_
+> _最終更新：2026-10-22。_
 
 > 🌐 これは AI 翻訳です。[英語版 README](../../README.md) が情報のソースです。誤りを見つけたら [PR を歓迎します](../../../../pulls)。
 
@@ -393,7 +393,7 @@ Arroxy はひとつのことのために作られています：URL を貼り付
 
 ダウンロードは [yt-dlp](https://github.com/yt-dlp/yt-dlp) 経由で YouTube から選択したフォルダへ直接取得されます — サードパーティのサーバーは経由しません。視聴履歴、ダウンロード履歴、URL、ファイルの内容はすべてあなたのデバイスに留まります。
 
-テレメトリーはありません — 1日1回、匿名のハートビートを送るだけです：アプリバージョン、OS、言語、インストール方法、国、Arroxy をインストールしてからのおおよその期間。アクティブユーザーと新規ユーザーの数を数えるためのものです。ID、URL、動画タイトル、ファイルパス、アカウント情報は含みません。設定でオフにできます。
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 Explore は、ブラウザーとは別に独自のサインインを保持します。Arroxy がどのサインインフォームも読み取ったり入力したりすることはなく、入力するのはそのサイト自身のページです。ダウンロードはサインアウトの状態で実行され、アカウントで解決できる理由で失敗したときだけ、Arroxy はサインイン情報をその都度読み取り、そのダウンロード用の一時ファイルに保存して、終了後にファイルを削除します。設定で Explore をサインアウトすると、サインインは消去されます。
 
@@ -499,7 +499,7 @@ yt-dlp は起動時に自動更新され、YouTube に変更があれば Arroxy 
 
 ## <a id="support"></a>💖 Arroxy を支援する
 
-Arroxy は無料で GPLv3 ライセンスです。広告もテレメトリも有料版もありません。時間の節約に役立っているなら、Bitcoin、Tron、または Ethereum で開発を支援できます。アドレスは [DONATE.md](../../DONATE.md) に記載しており、これが唯一の公式な情報源です。Arroxy がメールやダイレクトメッセージでアドレスをお送りすることは決してありません。リポジトリへのスター、バグ報告、翻訳の改善も同じくらい助けになります。
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

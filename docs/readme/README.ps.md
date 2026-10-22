@@ -30,7 +30,7 @@
 >
 > **مهم توپیر: په ځان کې جوړ browser.** ډېری وړیا YouTube ډاونلوډرونه نریز yt-dlp wrappers دي: د URL یوه خانه او د فارمټ مینو، پرته له خپل browser. Arroxy یو لري، **د Explore ټب**. تاسو د اپلیکیشن دننه YouTube یا بل هر سایټ ګورئ او هغه ویډیو، playlist یا چینل چې پکې یاست ډاونلوډ کوئ، یا په هر لینک ښي کلیک کوئ. تاسو په سپړنه کې یو ځل sign in کوئ، او Arroxy هغه شخصي، یوازې د غړو او د عمر محدودیت لرونکې ویډیوګانې چې ستاسو اکاونټ یې لیدلی شي، او ستاسو Watch Later او Liked لیستونه، پرته له کوکیز صادرولو ډاونلوډوي. هلته په نورو سایټونو کې هم sign in وکړئ، او د هغوی ډاونلوډونه هغه sign in کاروي کله چې ورته اړتیا وي. کله چې YouTube وغواړي چې تایید کړئ bot نه یاست، دا په هغه sign in بیا هڅه کوي. د دې په ځان کې جوړ browser هغه ټوکن هم ترلاسه کوي چې YouTube یې له ډاونلوډ مخکې تمه لري، نو YouTube ډاونلوډ لږو فارمټونو ته نه محدودوي. د URL خانې wrapper دې ټولو محدودیتونو ته رسېږي. جزئیات: [ولې Arroxy](#why-explore).
 >
-> _وروستی تازه کول: 2026-10-21._
+> _وروستی تازه کول: 2026-10-22._
 
 ---
 
@@ -391,7 +391,7 @@ Arroxy د یوه کار لپاره جوړ شوی: یو پاک ځایي فایل�
 
 ډاونلوډونه مستقیما د [yt-dlp](https://github.com/yt-dlp/yt-dlp) له لارې له YouTube څخه هغه فولډر ته راوړل کیږي چې تاسو انتخاب کوئ — هیڅ شی د دریمې ډلې سرور له لارې نه تیریږي. د لیدلو تاریخ، ډاونلوډ تاریخ، URL، او د فایل منځپانګه ستاسو وسیله کې پاتې کیږي.
 
-هیڅ ټیلیمیټري نشته — په ورځ کې یوازې یو ناپیژندلی سیګنال: د اپ نسخه، OS، ژبه، د نصب چینل، هېواد او تقریباً دا چې Arroxy څومره وخت مخکې نصب شوی، ترڅو موږ فعال او نوي کاروونکي وشمېرو. هیڅ ID، URLs، د ویډیو سرلیکونه، د فایل لارې یا د اکاونټ معلومات نشته. تاسو یې په Settings کې بندولی شئ.
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 Explore خپل sign in ګانې ساتي، ستاسو له browser جلا، او Arroxy هیڅکله د sign in فورمه نه لولي او نه یې ډکوي — تاسو د سایټ په خپله پاڼه کې ټایپ کوئ. ډاونلوډونه له sign in پرته چلېږي؛ یوازې کله چې یو ډاونلوډ په داسې ډول ناکام شي چې اکاونټ یې سمولی شي، Arroxy sign in بیا لولي، د هغه ډاونلوډ لپاره یې په موقت فایل کې ساتي، او وروسته فایل ړنګوي. په Settings کې له Explore څخه sign out هغوی هېروي.
 
@@ -497,7 +497,7 @@ yt-dlp د لانچ پر مهال اتومات تازه کیږي، او Arroxy ه
 
 ## <a id="support"></a>💖 Arroxy ملاتړ وکړئ
 
-Arroxy وړیا دی او د GPLv3 جواز لري — نه اعلانونه، نه ټیلي‌مېټري، او نه د پیسو نسخه. که ستاسو وخت خوندي کوي، کولی شئ د Bitcoin، Tron یا Ethereum له لارې یې پرمختګ ملاتړ کړئ: پتې په [DONATE.md](../../DONATE.md) کې دي، چې د هغوی یوازینۍ رسمي سرچینه ده. Arroxy به تاسو ته هیڅکله د بریښنالیک یا مستقیم پیغام له لارې پته وا نه لېږي. ریپو ته ستوری ورکول، د ستونزو راپور ورکول او د ژباړو ښه کول هم په همدې اندازه ګټور دي.
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

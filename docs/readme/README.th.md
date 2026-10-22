@@ -30,7 +30,7 @@
 >
 > **ข้อแตกต่างสำคัญ: เบราว์เซอร์ในตัว** โปรแกรมดาวน์โหลด YouTube ฟรีส่วนใหญ่เป็นเพียงตัวครอบ yt-dlp แบบบาง ๆ ที่มีช่องใส่ URL กับเมนูรูปแบบ และไม่มีเบราว์เซอร์ของตัวเอง Arroxy มีให้ นั่นคือ **แท็บ Explore** คุณเรียกดู YouTube หรือเว็บไซต์อื่นใดก็ได้ภายในแอป แล้วดาวน์โหลดวิดีโอ เพลย์ลิสต์ หรือช่องที่เปิดอยู่ หรือคลิกขวาที่ลิงก์ใดก็ได้ เข้าสู่ระบบใน Explore เพียงครั้งเดียว แล้ว Arroxy จะดาวน์โหลดวิดีโอส่วนตัว วิดีโอเฉพาะสมาชิก และวิดีโอจำกัดอายุที่บัญชีของคุณดูได้ รวมถึงรายการดูภายหลังและวิดีโอที่ถูกใจของคุณ โดยไม่ต้องส่งออกคุกกี้ เข้าสู่ระบบเว็บไซต์อื่นที่นั่นได้เช่นกัน และการดาวน์โหลดจากเว็บไซต์เหล่านั้นจะใช้การเข้าสู่ระบบนี้เมื่อจำเป็น Arroxy จะลองใหม่ด้วยการเข้าสู่ระบบนี้เมื่อ YouTube ขอให้ยืนยันว่าคุณไม่ใช่บอต เบราว์เซอร์ในตัวยังได้รับโทเค็นที่ YouTube คาดหวังก่อนการดาวน์โหลด YouTube จึงไม่ลดการดาวน์โหลดให้เหลือรูปแบบน้อยลง ตัวครอบที่มีแค่ช่องใส่ URL ติดข้อจำกัดเหล่านี้ทั้งหมด รายละเอียด: [เหตุผลที่เลือก Arroxy](#why-explore)
 >
-> _อัปเดตล่าสุด: 2026-10-21._
+> _อัปเดตล่าสุด: 2026-10-22._
 
 > 🌐 คำแปลนี้จัดทำโดยมี AI ช่วยเหลือ [README ภาษาอังกฤษ](../../README.md) คือแหล่งข้อมูลหลัก พบข้อผิดพลาดหรือไม่ [เปิด PR](../../../../pulls) ได้เลย
 
@@ -393,7 +393,7 @@ Arroxy ถูกสร้างมาเพื่อสิ่งเดียว:
 
 [yt-dlp](https://github.com/yt-dlp/yt-dlp) ดึงไฟล์ตรงจาก YouTube ไปยังโฟลเดอร์ที่คุณเลือก โดยไม่ผ่านเซิร์ฟเวอร์ภายนอก ประวัติการดูและดาวน์โหลด URL และเนื้อหาไฟล์อยู่บนอุปกรณ์ของคุณ
 
-ไม่มีเทเลเมทรี มีเพียงสัญญาณแบบไม่ระบุตัวตนวันละครั้ง ได้แก่ รุ่นแอป ระบบปฏิบัติการ ภาษา ช่องทางการติดตั้ง ประเทศ และระยะเวลาโดยประมาณนับตั้งแต่ติดตั้ง Arroxy เพื่อให้เรานับจำนวนผู้ใช้ที่ใช้งานอยู่และผู้ใช้ใหม่ได้ ไม่มี ID URL ชื่อวิดีโอ พาธไฟล์ หรือข้อมูลบัญชี คุณปิดได้ในการตั้งค่า
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 Explore เก็บการเข้าสู่ระบบของตัวเองแยกจากเบราว์เซอร์ และ Arroxy ไม่เคยอ่านหรือกรอกแบบฟอร์มเข้าสู่ระบบ คุณพิมพ์บนหน้าของเว็บไซต์นั้นเอง การดาวน์โหลดทำงานแบบไม่เข้าสู่ระบบ เฉพาะเมื่อล้มเหลวด้วยเหตุที่บัญชีแก้ได้ Arroxy จึงอ่านข้อมูลการเข้าสู่ระบบใหม่ เก็บในไฟล์ชั่วคราวสำหรับการดาวน์โหลดนั้น แล้วลบไฟล์ทิ้งหลังจากนั้น การออกจากระบบ Explore ในการตั้งค่าจะลบข้อมูลเหล่านั้น
 
@@ -499,7 +499,7 @@ yt-dlp อัปเดตอัตโนมัติเมื่อเปิด�
 
 ## <a id="support"></a>💖 สนับสนุน Arroxy
 
-Arroxy ฟรีและใช้ GPLv3 — ไม่มีโฆษณา ไม่มีเทเลเมทรี และไม่มีระดับแบบชำระเงิน ถ้าช่วยประหยัดเวลา คุณสนับสนุนการพัฒนาด้วย Bitcoin, Tron หรือ Ethereum ได้ ที่อยู่ระบุไว้ใน [DONATE.md](../../DONATE.md) ซึ่งเป็นแหล่งทางการเพียงแห่งเดียว Arroxy จะไม่ส่งที่อยู่ให้ทางอีเมลหรือข้อความส่วนตัว การกดดาวให้ repository รายงานบั๊ก และปรับปรุงคำแปลก็ช่วยได้มากเช่นกัน
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

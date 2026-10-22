@@ -30,7 +30,7 @@
 >
 > **الفرق الجوهري: متصفح مدمج.** معظم برامج تنزيل YouTube المجانية أغلفة رقيقة حول yt-dlp: مربع لإدخال الرابط وقائمة صيغ، بلا متصفح خاص بها. أما Arroxy فلديه واحد، هو **تبويب Explore**. تتصفّح YouTube أو أي موقع آخر داخل التطبيق وتنزّل الفيديو أو قائمة التشغيل أو القناة التي أنت فيها، أو تنقر بزر الفأرة الأيمن على أي رابط. تسجّل الدخول مرة واحدة في Explore، فيُنزّل Arroxy الفيديوهات الخاصة وفيديوهات الأعضاء فقط والمقيَّدة بالعمر التي يستطيع حسابك مشاهدتها، إضافةً إلى قائمتَي «المشاهدة لاحقاً» و«الإعجابات»، دون تصدير الكوكيز. سجّل الدخول إلى مواقع أخرى هناك أيضاً، وستستخدم تنزيلاتها تسجيل الدخول هذا عند الحاجة. ويعيد المحاولة بتسجيل الدخول هذا عندما يطلب YouTube تأكيد أنك لست روبوتاً. كما يحصل متصفحه المدمج على الرمز الذي يتوقعه YouTube قبل التنزيل، فلا يقلّص YouTube التنزيل إلى صيغ أقل. أما الغلاف ذو مربع الرابط فيصطدم بكل هذه الحدود. التفاصيل: [لماذا Arroxy](#why-explore).
 >
-> _آخر تحديث: 2026-10-21._
+> _آخر تحديث: 2026-10-22._
 
 ---
 
@@ -391,7 +391,7 @@ Arroxy مبني لغرض واحد: ملف محلي نظيف، سواء ألصق�
 
 تُجلب التنزيلات مباشرة عبر [yt-dlp](https://github.com/yt-dlp/yt-dlp) من يوتيوب إلى المجلد الذي تختاره — لا شيء يمر عبر خادم طرف ثالث. سجل المشاهدة والتنزيل والروابط ومحتوى الملفات تبقى على جهازك.
 
-لا قياسات عن بُعد — فقط نبضة مجهولة واحدة يوميًا: إصدار التطبيق ونظام التشغيل واللغة وقناة التثبيت والبلد والمدة التقريبية منذ تثبيت Arroxy، لنتمكن من عدّ المستخدمين النشطين والجدد. لا معرّفات، لا URLs، لا عناوين فيديو، لا مسارات ملفات، ولا معلومات حساب. يمكنك إيقافها من الإعدادات.
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 يحتفظ Explore بجلسات تسجيل دخول خاصة به، منفصلة عن متصفحك، ولا يقرأ Arroxy أي نموذج تسجيل دخول ولا يملؤه أبداً — أنت تكتب في صفحة الموقع نفسها. تعمل التنزيلات دون تسجيل دخول؛ وفقط عندما يفشل تنزيل لسبب يمكن لحساب إصلاحه، يقرأ Arroxy تسجيل الدخول من جديد ويحفظه في ملف مؤقت لذلك التنزيل ثم يحذف الملف بعده. تسجيل الخروج من Explore في الإعدادات ينساها.
 
@@ -497,7 +497,7 @@ Arroxy مبني لغرض واحد: ملف محلي نظيف، سواء ألصق�
 
 ## <a id="support"></a>💖 ادعم Arroxy
 
-Arroxy مجاني ومرخّص بموجب GPLv3 — بلا إعلانات، بلا تتبّع، وبلا نسخة مدفوعة. إذا كان يوفّر وقتك، يمكنك دعم تطويره عبر Bitcoin أو Tron أو Ethereum: العناوين موجودة في [DONATE.md](../../DONATE.md)، وهو المصدر الرسمي الوحيد لها. لن يرسل إليك Arroxy عنواناً عبر البريد الإلكتروني أو الرسائل المباشرة أبداً. منح المستودع نجمة والإبلاغ عن الأخطاء وتحسين الترجمات تساعد بالقدر نفسه.
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

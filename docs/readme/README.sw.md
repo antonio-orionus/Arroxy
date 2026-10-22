@@ -30,7 +30,7 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 >
 > **Tofauti kuu: kivinjari kilichojengewa ndani.** Vipakuzi vingi vya bure vya YouTube ni vifuniko vyembamba vya yt-dlp: kisanduku cha URL na menyu ya miundo, bila kivinjari chao wenyewe. Arroxy ina kimoja, **kichupo cha Explore**. Unavinjari YouTube au tovuti nyingine yoyote ndani ya programu na kupakua video, orodha ya kucheza, au kituo ulichopo, au kubofya kulia kiungo chochote. Unaingia mara moja katika Explore, na Arroxy hupakua video za faragha, za wanachama pekee, na zenye kikomo cha umri ambazo akaunti yako inaweza kutazama, pamoja na orodha zako za Tazama Baadaye na Zilizopendwa, bila kuhamisha vidakuzi. Ingia pia kwenye tovuti nyingine humo, na upakuaji wao hutumia kuingia huko pale unapohitajika. Hujaribu tena kwa kuingia huko YouTube inapokuomba uthibitishe kuwa wewe si roboti. Kivinjari chake kilichojengewa ndani pia hupata tokeni ambayo YouTube inatarajia kabla ya upakuaji, ili YouTube isipunguze upakuaji hadi miundo michache zaidi. Kifuniko cha kisanduku cha URL hukumbwa na vikwazo hivi vyote. Maelezo: [Kwa Nini Arroxy](#why-explore).
 >
-> _Imesasishwa mara ya mwisho: 2026-10-21._
+> _Imesasishwa mara ya mwisho: 2026-10-22._
 
 ---
 
@@ -391,7 +391,7 @@ Vipakuzi vingi vya bure vya YouTube ni kisanduku cha URL juu ya yt-dlp tu. Arrox
 
 Maudhui hupakuliwa moja kwa moja kupitia [yt-dlp](https://github.com/yt-dlp/yt-dlp) kutoka YouTube hadi kwenye folda unayochagua — hakuna kitu kinachopita kwenye seva ya mtu wa tatu. Historia ya kutazama, historia ya kupakua, URL, na maudhui ya faili yanabaki kwenye kifaa chako.
 
-Hakuna telemetry — ishara moja tu isiyo na jina kwa siku: toleo la programu, OS, lugha, njia ya usakinishaji, nchi na takriban muda uliopita tangu Arroxy iliposakinishwa, ili tuweze kuhesabu watumiaji hai na wapya. Hakuna vitambulisho, URLs, vichwa vya video, njia za faili wala taarifa za akaunti. Unaweza kuizima katika Mipangilio.
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 Explore ina njia zake za kuingia, tofauti na kivinjari chako, na Arroxy haisomi wala kujaza fomu ya kuingia kamwe — unaandika kwenye ukurasa wa tovuti wenyewe. Upakuaji hufanyika bila kuingia; ni pale tu upakuaji unaposhindwa kwa njia ambayo akaunti inaweza kurekebisha ndipo Arroxy husoma kuingia upya, kuliweka kwenye faili ya muda kwa upakuaji huo, na kufuta faili baadaye. Kutoka kwenye Explore katika Mipangilio huzifanya zisahaulike.
 
@@ -497,7 +497,7 @@ Una kipengele unachofikiria? [Fungua ombi](../../../../issues) — maoni ya jami
 
 ## <a id="support"></a>💖 Saidia Arroxy
 
-Arroxy ni bure na ina leseni ya GPLv3 — hakuna matangazo, hakuna telemetria, hakuna toleo la kulipia. Ikiwa inakuokolea muda, unaweza kusaidia maendeleo yake kwa Bitcoin, Tron au Ethereum: anwani zipo katika [DONATE.md](../../DONATE.md), ambacho ndicho chanzo rasmi pekee cha anwani hizo. Arroxy hatakutumia kamwe anwani kwa barua pepe au ujumbe wa moja kwa moja. Kuipa repo nyota, kuripoti hitilafu, na kuboresha tafsiri kunasaidia vivyo hivyo.
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

@@ -30,7 +30,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 >
 > **Điểm khác biệt chính: trình duyệt tích hợp.** Hầu hết trình tải YouTube miễn phí chỉ là lớp bao mỏng quanh yt-dlp: một ô nhập URL và một menu định dạng, không có trình duyệt riêng. Arroxy thì có, đó là **tab Explore**. Bạn duyệt YouTube hoặc bất kỳ trang nào khác ngay trong ứng dụng và tải video, danh sách phát hoặc kênh đang mở, hoặc nhấp chuột phải vào bất kỳ liên kết nào. Bạn đăng nhập một lần trong Explore, và Arroxy tải video riêng tư, video dành cho thành viên và video giới hạn độ tuổi mà tài khoản của bạn xem được, cùng danh sách Xem sau và Video đã thích của bạn, mà không cần xuất cookie. Bạn cũng có thể đăng nhập các trang khác tại đó, và các lượt tải từ những trang này sẽ dùng đăng nhập đó khi cần. Arroxy thử lại bằng đăng nhập đó khi YouTube yêu cầu xác nhận bạn không phải robot. Trình duyệt tích hợp cũng lấy token mà YouTube mong đợi trước khi tải, nên YouTube không cắt bớt số định dạng của lượt tải. Một lớp bao chỉ có ô nhập URL sẽ vướng tất cả những giới hạn này. Chi tiết: [Tại sao chọn Arroxy](#why-explore).
 >
-> _Cập nhật lần cuối: 2026-10-21._
+> _Cập nhật lần cuối: 2026-10-22._
 
 ---
 
@@ -391,7 +391,7 @@ Hầu hết các trình tải YouTube miễn phí chỉ là một ô nhập URL 
 
 Tải xuống được lấy trực tiếp qua [yt-dlp](https://github.com/yt-dlp/yt-dlp) từ YouTube đến thư mục bạn chọn — không có gì đi qua máy chủ bên thứ ba. Lịch sử xem, lịch sử tải xuống, URL và nội dung file vẫn ở trên thiết bị của bạn.
 
-Không có telemetry — chỉ một tín hiệu ẩn danh mỗi ngày: phiên bản ứng dụng, OS, ngôn ngữ, kênh cài đặt, quốc gia và khoảng thời gian đã trôi qua kể từ khi cài đặt Arroxy, để chúng tôi đếm số người dùng đang hoạt động và người dùng mới. Không có ID, URL, tiêu đề video, đường dẫn tệp hay thông tin tài khoản. Bạn có thể tắt trong Cài đặt.
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 Explore giữ các đăng nhập riêng, tách biệt với trình duyệt của bạn, và Arroxy không bao giờ đọc hay điền biểu mẫu đăng nhập — bạn nhập trực tiếp vào trang của chính trang web đó. Các lượt tải chạy khi chưa đăng nhập; chỉ khi một lượt tải thất bại theo cách mà tài khoản có thể khắc phục, Arroxy mới đọc lại thông tin đăng nhập, lưu vào một tệp tạm cho lượt tải đó và xóa tệp sau đó. Đăng xuất khỏi Explore trong Cài đặt sẽ xóa các thông tin này.
 
@@ -497,7 +497,7 @@ Bạn có ý tưởng tính năng? [Mở yêu cầu](../../../../issues) — ý 
 
 ## <a id="support"></a>💖 Ủng hộ Arroxy
 
-Arroxy miễn phí và có giấy phép GPLv3 — không quảng cáo, không telemetry, không bản trả phí. Nếu nó giúp bạn tiết kiệm thời gian, bạn có thể ủng hộ việc phát triển bằng Bitcoin, Tron hoặc Ethereum: địa chỉ nằm trong [DONATE.md](../../DONATE.md), nguồn chính thức duy nhất cho các địa chỉ này. Arroxy sẽ không bao giờ gửi cho bạn địa chỉ qua email hay tin nhắn riêng. Gắn sao cho kho mã, báo lỗi và cải thiện bản dịch cũng giúp ích không kém.
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

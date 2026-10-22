@@ -30,7 +30,7 @@ Jos Arroxy säästää aikaasi, ⭐ auttaa muita löytämään sen.
 >
 > **Keskeinen ero: sisäänrakennettu selain.** Useimmat ilmaiset YouTube-lataajat ovat ohuita yt-dlp-kääreitä: URL-kenttä ja muotovalikko, ilman omaa selainta. Arroxyssa sellainen on, **Tutki-välilehti**. Selaat YouTubea tai mitä tahansa muuta sivustoa sovelluksen sisällä ja lataat videon, soittolistan tai kanavan, jolla olet, tai napsautat mitä tahansa linkkiä hiiren kakkospainikkeella. Kirjaudut kerran sisään Tutki-välilehdellä, ja Arroxy lataa yksityiset, vain jäsenille tarkoitetut ja ikärajoitetut videot, joita tilisi voi katsoa, sekä Katso myöhemmin- ja Tykätyt-luettelosi ilman evästeiden vientiä. Kirjaudu myös muille sivustoille siellä, ja niiden lataukset käyttävät kirjautumista tarvittaessa. Arroxy yrittää uudelleen tällä kirjautumisella, kun YouTube pyytää vahvistamaan, ettet ole botti. Sen sisäänrakennettu selain hakee myös merkin, jota YouTube odottaa ennen latausta, joten YouTube ei rajaa latausta vähempiin muotoihin. URL-kentällinen kääre törmää kaikkiin näihin rajoituksiin. Lisätietoja: [Miksi Arroxy](#why-explore).
 >
-> _Päivitetty viimeksi: 2026-10-21._
+> _Päivitetty viimeksi: 2026-10-22._
 
 > 🌐 Tämä käännös on tehty tekoälyn avulla. [Englanninkielinen README](../../README.md) on ensisijainen lähde. Löysitkö virheen? [Avaa PR](../../../../pulls).
 
@@ -393,7 +393,7 @@ Useimmat ilmaiset YouTube-lataajat ovat yt-dlp:n päälle tehty URL-kenttä. Arr
 
 Lataukset haetaan suoraan [yt-dlp:n](https://github.com/yt-dlp/yt-dlp) kautta YouTubesta valitsemaasi kansioon — mitään ei reititetä kolmannen osapuolen palvelimen kautta. Katseluhistoria, lataushistoria, URL-osoitteet ja tiedostojen sisältö pysyvät laitteellasi.
 
-Ei telemetriaa — vain yksi nimetön elonmerkki päivässä: sovelluksen versio, käyttöjärjestelmä, kieli, asennuskanava, maa ja suunnilleen kuinka kauan Arroxy on ollut asennettuna, jotta voimme laskea aktiiviset ja uudet käyttäjät. Ei tunnisteita, URL-osoitteita, videoiden nimiä, tiedostopolkuja tai tilitietoja. Voit poistaa sen käytöstä Asetuksista.
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 Tutki säilyttää omat kirjautumisensa erillään selaimestasi, eikä Arroxy koskaan lue tai täytä kirjautumislomaketta — kirjoitat sivuston omalle sivulle. Lataukset ajetaan kirjautumattomana; vasta kun lataus epäonnistuu tavalla, jonka tili voi korjata, Arroxy lukee kirjautumisen uudelleen, säilyttää sen väliaikaisessa tiedostossa kyseistä latausta varten ja poistaa tiedoston sen jälkeen. Uloskirjautuminen Tutki-välilehdeltä Asetuksissa unohtaa ne.
 
@@ -499,7 +499,7 @@ Onko sinulla ominaisuusideaa? [Avaa pyyntö](../../../../issues) — yhteisön p
 
 ## <a id="support"></a>💖 Tue Arroxya
 
-Arroxy on ilmainen ja GPLv3-lisensoitu — ei mainoksia, ei telemetriaa, ei maksullista tasoa. Jos se säästää aikaasi, voit tukea kehitystä Bitcoinilla, Tronilla tai Ethereumilla: osoitteet ovat tiedostossa [DONATE.md](../../DONATE.md), joka on niiden ainoa virallinen lähde. Arroxy ei koskaan lähetä sinulle osoitetta sähköpostitse tai yksityisviestillä. Repositorion tähdittäminen, virheistä ilmoittaminen ja käännösten parantaminen auttavat yhtä paljon.
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 

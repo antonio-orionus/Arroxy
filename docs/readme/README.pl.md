@@ -30,7 +30,7 @@ Jeśli Arroxy oszczędza Ci czas, ⭐ pomoże innym je znaleźć.
 >
 > **Kluczowa różnica: wbudowana przeglądarka.** Większość darmowych programów do pobierania z YouTube to cienkie nakładki na yt-dlp: pole na adres URL i menu formatów, bez własnej przeglądarki. Arroxy ma ją — to karta **Explore**. Przeglądasz YouTube lub dowolną inną stronę w aplikacji i pobierasz film, playlistę lub kanał, na którym jesteś, albo klikasz prawym przyciskiem dowolny link. Logujesz się raz w Explore, a Arroxy pobiera prywatne filmy, filmy tylko dla członków i z ograniczeniem wieku, które może oglądać Twoje konto, a także Twoje listy Do obejrzenia i Polubione, bez eksportowania plików cookie. Zaloguj się tam także na innych stronach, a ich pobieranie użyje tego logowania, gdy będzie potrzebne. Gdy YouTube prosi o potwierdzenie, że nie jesteś botem, Arroxy ponawia pobieranie z tym logowaniem. Wbudowana przeglądarka pobiera też token, którego YouTube oczekuje przed pobraniem, więc YouTube nie ogranicza pobierania do mniejszej liczby formatów. Nakładka z samym polem na URL napotyka wszystkie te ograniczenia. Szczegóły: [Dlaczego Arroxy](#why-explore).
 >
-> _Ostatnia aktualizacja: 2026-10-21._
+> _Ostatnia aktualizacja: 2026-10-22._
 
 > 🌐 To tłumaczenie powstało przy wsparciu AI. [Angielski README](../../README.md) jest źródłem nadrzędnym. Znalazłeś błąd? [Otwórz PR](../../../../pulls).
 
@@ -393,7 +393,7 @@ Większość darmowych programów do pobierania z YouTube to pole na adres URL n
 
 Pliki są pobierane przez [yt-dlp](https://github.com/yt-dlp/yt-dlp) bezpośrednio z YouTube do wybranego folderu — bez pośrednictwa serwera zewnętrznego. Historia oglądania i pobierania, adresy URL oraz zawartość plików pozostają na urządzeniu.
 
-Bez telemetrii — tylko jeden anonimowy sygnał dziennie: wersja aplikacji, system, język, kanał instalacji, kraj i orientacyjnie, jak dawno zainstalowano Arroxy, abyśmy mogli policzyć aktywnych i nowych użytkowników. Bez identyfikatorów, adresów URL, tytułów filmów, ścieżek plików i danych kont. Możesz go wyłączyć w Ustawieniach.
+No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
 
 Explore ma własne logowania, oddzielone od Twojej przeglądarki, a Arroxy nigdy nie odczytuje ani nie wypełnia formularza logowania — wpisujesz dane na stronie danej witryny. Pobieranie odbywa się bez logowania; tylko gdy jedno kończy się błędem, który może naprawić konto, Arroxy odczytuje logowanie na nowo, przechowuje je w pliku tymczasowym na czas tego pobierania i potem go usuwa. Wylogowanie z Explore w Ustawieniach usuwa logowania.
 
@@ -499,7 +499,7 @@ Masz pomysł na funkcję? [Otwórz propozycję](../../../../issues) — opinie s
 
 ## <a id="support"></a>💖 Wesprzyj Arroxy
 
-Arroxy jest bezpłatne i ma licencję GPLv3 — bez reklam, telemetrii i płatnego planu. Jeśli oszczędza Ci czas, możesz wesprzeć rozwój przez Bitcoin, Tron lub Ethereum; adresy znajdują się w [DONATE.md](../../DONATE.md), jedynym oficjalnym źródle. Arroxy nigdy nie wyśle adresu e-mailem ani prywatną wiadomością. Gwiazdka dla repozytorium, zgłaszanie błędów i ulepszanie tłumaczeń pomagają równie mocno.
+Arroxy is free and GPLv3-licensed — no ads, no tracking, no paid tier. If it saves you time, you can support development with Bitcoin, Tron or Ethereum: the addresses are in [DONATE.md](../../DONATE.md), which is the only official source for them. Arroxy will never send you an address by email or direct message. Starring the repo, reporting bugs, and improving translations help just as much.
 
 <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Bitcoin-DONATE.md-F7931A?style=for-the-badge&logo=bitcoin&logoColor=white" alt="Bitcoin donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Tron-DONATE.md-EF0027?style=for-the-badge&logo=tron&logoColor=white" alt="Tron donation address" /></a> <a href="../../DONATE.md"><img src="https://img.shields.io/badge/Ethereum-DONATE.md-3C3C3D?style=for-the-badge&logo=ethereum&logoColor=white" alt="Ethereum donation address" /></a>
 
