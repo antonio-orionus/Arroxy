@@ -21,11 +21,17 @@ export function warmupReportCollector(heartbeatCollectorUrl: string | undefined)
 
 // Starts the quit report as the quit begins, then holds the quit at will-quit
 // until it is sent or the budget runs out. A quit that ends in app.exit
-// (downloads still running) skips will-quit, and the report gets only what
-// time that exit leaves it.
-export function holdQuitForWarmupReport(app: QuitHooks, reporter: Pick<WarmupReporter, 'quit'>): void {
+// (downloads still running) skips will-quit, so that path waits on the
+// returned function instead: the same report, the same budget.
+export function holdQuitForWarmupReport(app: QuitHooks, reporter: Pick<WarmupReporter, 'quit'>): () => Promise<void> {
 	let sending: Promise<void> | null = null
 	let sent = false
+	// Bounded: resolves once the report is sent, fails, or the budget runs out.
+	const settled = (): Promise<void> => {
+		if (!sending || sent) return Promise.resolve()
+		const budget = new Promise<void>(resolve => setTimeout(resolve, WARMUP_REPORT_QUIT_BUDGET_MS).unref())
+		return Promise.race([sending, budget])
+	}
 	app.on('before-quit', () => {
 		// A report that fails must still let the app quit.
 		sending ??=
@@ -36,12 +42,10 @@ export function holdQuitForWarmupReport(app: QuitHooks, reporter: Pick<WarmupRep
 	})
 	app.on('will-quit', event => {
 		if (!sending || sent) return
-		const pending = sending
-		sending = null
 		event.preventDefault()
-		const budget = new Promise<void>(resolve => setTimeout(resolve, WARMUP_REPORT_QUIT_BUDGET_MS).unref())
-		void Promise.race([pending, budget]).then(() => app.exit(0))
+		void settled().then(() => app.exit(0))
 	})
+	return settled
 }
 
 interface WarmupReportingDeps {

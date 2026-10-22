@@ -68,6 +68,36 @@ describe('holdQuitForWarmupReport', () => {
 		await vi.waitFor(() => expect(app.exit).toHaveBeenCalledWith(0))
 	})
 
+	it('gives a quit that exits directly (downloads still running) the same bounded wait', async () => {
+		vi.useFakeTimers()
+		const {app, fire} = fakeApp()
+		let sent!: () => void
+		const quitReport = holdQuitForWarmupReport(app, {quit: () => new Promise<void>(resolve => (sent = resolve))})
+		fire('before-quit')
+		const exited = vi.fn()
+		void quitReport().then(exited)
+		await vi.advanceTimersByTimeAsync(0)
+		expect(exited).not.toHaveBeenCalled()
+		sent()
+		await vi.advanceTimersByTimeAsync(0)
+		expect(exited).toHaveBeenCalled()
+
+		const stalled = fakeApp()
+		const stalledReport = holdQuitForWarmupReport(stalled.app, {quit: () => new Promise<void>(() => undefined)})
+		stalled.fire('before-quit')
+		const stalledExit = vi.fn()
+		void stalledReport().then(stalledExit)
+		await vi.advanceTimersByTimeAsync(WARMUP_REPORT_QUIT_BUDGET_MS)
+		expect(stalledExit).toHaveBeenCalled()
+	})
+
+	it('has nothing to wait for on a direct exit when no warmup is downloading', async () => {
+		const {app, fire} = fakeApp()
+		const quitReport = holdQuitForWarmupReport(app, {quit: () => null})
+		fire('before-quit')
+		await expect(quitReport()).resolves.toBeUndefined()
+	})
+
 	it('quits anyway once its budget runs out', async () => {
 		vi.useFakeTimers()
 		const {app, fire} = fakeApp()

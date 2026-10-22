@@ -434,7 +434,7 @@ if (hasSingleInstanceLock) {
 			: undefined
 		// One quit hold for everything that delays a quit, so none exits under another.
 		const quitHooks = sharedQuitHooks(app)
-		if (warmupReporter) holdQuitForWarmupReport(quitHooks, warmupReporter)
+		const warmupQuitReport = warmupReporter ? holdQuitForWarmupReport(quitHooks, warmupReporter) : (): Promise<void> => Promise.resolve()
 
 		// Before the window exists, so the first paint and the Explore view agree with the saved theme.
 		applyNativeThemeSource(nativeTheme, initialSettings.common.uiTheme)
@@ -761,7 +761,8 @@ if (hasSingleInstanceLock) {
 					if (meta) log.info(message, meta)
 					else log.info(message)
 				},
-				exit: code => app.exit(code) // must use exit(), not quit() — quit() re-emits before-quit causing infinite loop
+				// exit(), not quit(): quit() re-emits before-quit, an infinite loop. It skips will-quit, so the warmup report's hold is awaited here.
+				exit: code => void warmupQuitReport().then(() => app.exit(code))
 			})
 		})
 	})
