@@ -584,6 +584,9 @@ async function runBootstrapOrRepair(kind: 'bootstrap' | 'repair'): Promise<void>
 	await ensureDevDirs(env)
 
 	await runStep('Installing dependencies', () => spawnChecked(commandName('bun'), ['install', '--frozen-lockfile'], {cwd: repoRoot, env: childEnv}))
+	// yt-dlp-bridge and the app type-check against ytdlp-errors' built `dist`, which a
+	// fresh worktree lacks: without it `vp check` reports type errors that are not there.
+	await runStep('Building ytdlp-errors', () => spawnChecked(commandName('bun'), ['run', 'errors:build'], {cwd: repoRoot, env: childEnv}))
 	await runStep('Rebuilding native Electron app dependencies', () => spawnChecked(commandName('bun'), ['run', 'electron-builder', 'install-app-deps'], {cwd: repoRoot, env: childEnv}))
 	await runStep('Verifying Electron payload', () => repairElectronPayload(repoRoot, childEnv))
 	await runStep('Verifying embedded host binaries', () => ensureEmbeddedHostBinaries(repoRoot, childEnv))
