@@ -147,6 +147,13 @@ describe('named uploaded tracks', () => {
 		expect(baseLanguage('pt-BR-nP7_2PuUl7o')).toBe('pt-BR')
 		expect(baseLanguage('de-en')).toBe('de-en')
 		expect(baseLanguage('de-es-419')).toBe('de-es-419')
+		// An id that happens to end in `-orig` is still an id.
+		expect(baseLanguage('en-abcdef-orig')).toBe('en')
+	})
+
+	it('are asked for by their own key, even when the id ends in -orig', () => {
+		const odd: SubtitleMaps = {subtitles: {'en-abcdef-orig': [{ext: 'vtt'}]}, automaticCaptions: {}}
+		expect(planSubtitleTracks({kind: 'tracks', tracks: [{key: 'en-abcdef-orig', auto: false}]}, odd).tracks.map(track => track.requestKey)).toEqual(['en-abcdef-orig'])
 	})
 
 	it('are picked for their language, the plain request key kept', () => {

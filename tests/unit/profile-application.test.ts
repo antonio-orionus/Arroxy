@@ -189,6 +189,13 @@ describe('profileFromWizard', () => {
 		expect(save(builtin('balanced'), snapshot => ({...snapshot, subtitleLanguages: ['de']}), FORMATS, regional).subtitles).toMatchObject({languages: ['de'], source: 'manual-first'})
 	})
 
+	// yt-dlp keys a YouTube track uploaded under a name of its own by its vssId.
+	it('saves a track uploaded under a name of its own as its language', () => {
+		const ctx = {...context, subtitles: {'en-nP7-2PuUl7o': [{ext: 'vtt'}]}, automaticCaptions: {'en-orig': [{ext: 'vtt'}]}}
+		expect(save(builtin('balanced'), snapshot => ({...snapshot, subtitleLanguages: ['en-nP7-2PuUl7o']}), FORMATS, ctx).subtitles).toMatchObject({enabled: true, languages: ['en'], source: 'manual-first'})
+		expect(save(builtin('balanced'), snapshot => ({...snapshot, subtitleLanguages: ['en-nP7-2PuUl7o', 'en-orig']}), FORMATS, ctx).subtitles).toMatchObject({enabled: true, languages: ['en'], source: 'manual-and-auto'})
+	})
+
 	// Every picked track must come back, not just a track of the same kind.
 	it('never lets a regional caption stand in for the picked one', () => {
 		const ctx = {...context, automaticCaptions: {'en-orig': [{ext: 'vtt'}], 'en-US-orig': [{ext: 'vtt'}]}}

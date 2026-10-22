@@ -100,13 +100,14 @@ const AUTO_CAPTION_SUFFIX = '-orig'
 // (`.en.nP7-2PuUl7o` → `en-nP7-2PuUl7o`); the language is the part before it.
 const NAMED_TRACK_KEY = /^([a-z]{2,3}(?:-(?:[A-Z]{2}|[A-Z][a-z]{3}|\d{3}))?)-[\w-]{11}$/
 
+// An id that happens to end in `-orig` is still an id, so the named-track
+// shape is read first.
 function withoutAutoCaptionSuffix(trackKey: string): string {
-	return trackKey.endsWith(AUTO_CAPTION_SUFFIX) ? trackKey.slice(0, -AUTO_CAPTION_SUFFIX.length) : trackKey
+	return trackKey.endsWith(AUTO_CAPTION_SUFFIX) && !NAMED_TRACK_KEY.test(trackKey) ? trackKey.slice(0, -AUTO_CAPTION_SUFFIX.length) : trackKey
 }
 
 export function baseLanguage(trackKey: string): string {
-	const key = withoutAutoCaptionSuffix(trackKey)
-	return NAMED_TRACK_KEY.exec(key)?.[1] ?? key
+	return NAMED_TRACK_KEY.exec(trackKey)?.[1] ?? withoutAutoCaptionSuffix(trackKey)
 }
 
 function matchingKeys(code: string, map: TrackMap): string[] {
