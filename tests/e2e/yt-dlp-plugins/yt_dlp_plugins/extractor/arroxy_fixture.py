@@ -47,6 +47,22 @@ def _english_track_key(video):
     return f'en-{named}' if named else 'en'
 
 
+def _fixture_subtitles(catalog, video, base_url, video_id, kind):
+    # The catalog's tracks, as YouTube lists them: the original-language
+    # caption twice (bare and `-orig`, one file), every other automatic key a
+    # machine translation, never a planned track. yt-dlp keys an uploaded
+    # track by YouTube's vssId, so one uploaded with a name of its own
+    # carries an id after its language (`en-nP7-2PuUl7o`). An entry may add
+    # tracks of other shapes YouTube lists (regional, script, live chat).
+    entries = catalog['subtitleTracks'][kind] + video.get('extraSubtitleTracks', {}).get(kind, [])
+    tracks = {}
+    for entry in entries:
+        key = _english_track_key(video) if kind == 'subtitles' and entry['key'] == 'en' else entry['key']
+        ext = entry.get('ext', 'vtt')
+        tracks[key] = [{'url': f"{base_url}/subtitles/{video_id}/{entry['file']}.{ext}", 'ext': ext, 'name': entry['name']}]
+    return tracks
+
+
 def _fixture_title(catalog, video_id):
     # A catalog entry may override its title to exercise names the filesystem
     # makes hard: characters yt-dlp's sanitizer rewrites, multibyte text whose
@@ -182,52 +198,8 @@ class ArroxyFixtureYoutubeIE(YoutubeIE, plugin_name='arroxyfixture'):
                     'height': 180,
                 },
             ],
-            'subtitles': {
-                # yt-dlp keys an uploaded track by YouTube's vssId, so one
-                # uploaded with a name of its own carries an id after its
-                # language (`en-nP7-2PuUl7o`).
-                _english_track_key(video): [
-                    {
-                        'url': f'{base_url}/subtitles/{video_id}/en.vtt',
-                        'ext': 'vtt',
-                        'name': 'English',
-                    },
-                ],
-                'es': [
-                    {
-                        'url': f'{base_url}/subtitles/{video_id}/es.vtt',
-                        'ext': 'vtt',
-                        'name': 'Spanish',
-                    },
-                ],
-            },
-            # Like YouTube's: the original-language caption is listed twice,
-            # bare and with `-orig`, both pointing at the same track.
-            'automatic_captions': {
-                'en': [
-                    {
-                        'url': f'{base_url}/subtitles/{video_id}/en.auto.vtt',
-                        'ext': 'vtt',
-                        'name': 'English',
-                    },
-                ],
-                'en-orig': [
-                    {
-                        'url': f'{base_url}/subtitles/{video_id}/en.auto.vtt',
-                        'ext': 'vtt',
-                        'name': 'English (Original)',
-                    },
-                ],
-                # A machine translation of the English caption, under the bare
-                # code YouTube lists every translation by. Never a planned track.
-                'de': [
-                    {
-                        'url': f'{base_url}/subtitles/{video_id}/de.auto.vtt',
-                        'ext': 'vtt',
-                        'name': 'German',
-                    },
-                ],
-            },
+            'subtitles': _fixture_subtitles(catalog, video, base_url, video_id, 'subtitles'),
+            'automatic_captions': _fixture_subtitles(catalog, video, base_url, video_id, 'automaticCaptions'),
             'formats': _fixture_formats(catalog, base_url, video_id, signed_in),
         }
         if video.get('chapters'):
