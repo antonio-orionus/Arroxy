@@ -129,10 +129,11 @@ export function mapFormats(formats: readonly YtDlpFormat[], {durationSeconds, lo
 		const dynamicRange = item.dynamic_range && item.dynamic_range !== 'SDR' ? item.dynamic_range : undefined
 		const details = [resolution, ext, fps ? `${fps}fps` : null, dynamicRange ?? null, filesize ? humanSize(filesize) : null].filter(Boolean).join(' | ')
 		const tbr = item.tbr ?? item.vbr
+		const frame = item.width !== undefined && item.height !== undefined && item.width > 0 && item.height > 0 ? {width: item.width, height: item.height} : {}
 
 		// A combined stream's own audio codec says what extracting its audio gives.
 		const audioCodec = !isVideoOnly && item.acodec ? {audioCodec: item.acodec} : {}
-		return [{formatId, label: details, ext, resolution, fps, ...(item.vcodec ? {videoCodec: item.vcodec} : {}), ...audioCodec, ...(tbr ? {tbr} : {}), filesize, isVideoOnly, isAudioOnly: false, dynamicRange, ...streamFlags(item, wide)} satisfies FormatOption]
+		return [{formatId, label: details, ext, resolution, ...frame, fps, ...(item.vcodec ? {videoCodec: item.vcodec} : {}), ...audioCodec, ...(tbr ? {tbr} : {}), filesize, isVideoOnly, isAudioOnly: false, dynamicRange, ...streamFlags(item, wide)} satisfies FormatOption]
 	})
 
 	return sortFormatsByQuality(mapped)

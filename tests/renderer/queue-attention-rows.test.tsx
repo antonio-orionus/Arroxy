@@ -400,6 +400,33 @@ describe('a needs-choice row', () => {
 		}
 	})
 
+	// A Bulk link naming a video and a list asks which before anything loads (#581).
+	it('asks this video or the list, named by its kind, and each answer reaches the row', () => {
+		seed([makeItem({id: 'choice', status: 'needs-choice', url: 'https://www.youtube.com/watch?v=a&list=PLx', title: 'https://www.youtube.com/watch?v=a&list=PLx', choice: {kind: 'video-or-list', list: 'playlist'}, job: UNRESOLVED, probeMode: 'auto'})])
+		const panel = attention('choice')
+		expect(panel).toHaveTextContent('This link is a video in a playlist. Download just the video, or the playlist?')
+		expect(
+			within(panel)
+				.getAllByRole('button')
+				.map(button => button.textContent)
+		).toEqual(['This video', 'The playlist', 'Pick from it…'])
+		for (const [name, answer] of [
+			['This video', 'video'],
+			['The playlist', 'list'],
+			['Pick from it…', 'review']
+		] as const) {
+			fireEvent.click(within(panel).getByRole('button', {name}))
+			expect(actions.chooseQuickDownloadRow).toHaveBeenLastCalledWith('choice', answer)
+		}
+	})
+
+	it('names an album by its kind', () => {
+		seed([makeItem({id: 'choice', status: 'needs-choice', url: 'https://www.youtube.com/watch?v=a&list=OLAK5uy_x', title: 'x', choice: {kind: 'video-or-list', list: 'album'}, job: UNRESOLVED, probeMode: 'auto'})])
+		const panel = attention('choice')
+		expect(panel).toHaveTextContent('This link is a video in an album. Download just the video, or the album?')
+		expect(within(panel).getByRole('button', {name: 'The album'})).toBeInTheDocument()
+	})
+
 	it('reads "Needs your choice" in the status column', () => {
 		seed([choiceRow({kind: 'list-size', loaded: 12, capped: false})])
 		expect(within(screen.getByTestId('queue-manager-row-choice')).getByText('Needs your choice')).toBeInTheDocument()

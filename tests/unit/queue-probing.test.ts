@@ -152,6 +152,16 @@ describe('needs-choice queue-item contract', () => {
 		expect(transition(failed, {kind: 'probe-restarted'}).probeTake).toEqual({kind: 'all'})
 	})
 
+	// A video-or-list row's answer is the mode it probes in (#581), kept for its Retry and a restart.
+	it('a restart with a probe mode stores it on the row, and one without keeps the mode it had', () => {
+		const asking = choiceItem({probeMode: 'auto', choice: {kind: 'video-or-list', list: 'playlist'}})
+		const answered = transition(asking, {kind: 'probe-restarted', probeMode: 'video'})
+		expect(answered).toMatchObject({status: 'probing', probeMode: 'video'})
+		expect(answered.choice).toBeUndefined()
+		expect(queueItemSchema.safeParse(answered).success).toBe(true)
+		expect(transition(choiceItem({probeMode: 'playlist'}), {kind: 'probe-restarted'}).probeMode).toBe('playlist')
+	})
+
 	it('restarts no probe on a row that has a real job', () => {
 		expect(illegalTransition(makeItem({id: 'a', status: 'error', error: {kind: 'network', raw: 'x'}}), {kind: 'probe-restarted'})).toBeTruthy()
 		expect(illegalTransition(probingItem(), {kind: 'probe-restarted'})).toBeTruthy()

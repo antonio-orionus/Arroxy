@@ -469,12 +469,22 @@ export const ffmpegPackageFormatSchema = z.enum(['tar.br'])
 export const queueItemStatusSchema = z.enum(['probing', 'needs-choice', 'pending', 'running', 'paused-held', 'paused-active', 'done', 'error', 'cancelled'])
 export type QueueItemStatus = z.infer<typeof queueItemStatusSchema>
 
-// What a needs-choice row asks: how much of a list to download. `loaded`: the
-// videos the probe kept, up to the load limit. `capped`: the list goes on past
-// them, so `loaded` is a lower bound. Answers: All and Review always, First
-// `loaded` only when capped.
-export const queueChoiceSchema = z.object({kind: z.literal('list-size'), loaded: z.number().int().nonnegative(), capped: z.boolean()})
+// What a YouTube `list=` id names, read from its prefix.
+export const listKindSchema = z.enum(['playlist', 'mix', 'album', 'uploads', 'watch-later', 'liked'])
+export type ListKind = z.infer<typeof listKindSchema>
+
+// What a needs-choice row asks.
+// `list-size`: how much of a list to download. `loaded`: the videos the probe
+// kept, up to the load limit. `capped`: the list goes on past them, so
+// `loaded` is a lower bound. Answers: All and Review always, First `loaded`
+// only when capped.
+// `video-or-list`: a Bulk URLs link that names a video and a list, asked
+// before anything is probed. `list`: what kind of list it names. Answers:
+// This video, the list in the background, or Pick from it (the Review).
+export const queueChoiceSchema = z.discriminatedUnion('kind', [z.object({kind: z.literal('list-size'), loaded: z.number().int().nonnegative(), capped: z.boolean()}), z.object({kind: z.literal('video-or-list'), list: listKindSchema})])
 export type QueueChoice = z.infer<typeof queueChoiceSchema>
+// The question a probe raises (the video-or-list one is asked before any probe).
+export type ListSizeChoice = Extract<QueueChoice, {kind: 'list-size'}>
 
 // Lane controls how the scheduler treats an item. `normal` items respect the
 // single-slot cap and the inter-job sleep window — typical queue flow.
@@ -588,10 +598,6 @@ export type ProbePlaylistMode = z.infer<typeof probePlaylistModeSchema>
 // lookup's (backfill) are background probes that wait their turn.
 export const probeKindSchema = z.enum(['interactive', 'intake', 'backfill'])
 export type ProbeKind = z.infer<typeof probeKindSchema>
-
-// What a YouTube `list=` id names, read from its prefix.
-export const listKindSchema = z.enum(['playlist', 'mix', 'album', 'uploads', 'watch-later', 'liked'])
-export type ListKind = z.infer<typeof listKindSchema>
 
 export const probeSchema = z.object({url: webUrlSchema, playlistMode: probePlaylistModeSchema.optional(), playlistScope: playlistScopeSchema.optional(), ownerKey: z.string().min(1).optional(), timeoutMs: probeTimeoutMsSchema.optional()})
 

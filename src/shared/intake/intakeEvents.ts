@@ -3,7 +3,7 @@
 
 import type {BudgetFailure} from '@shared/nameBudget.js'
 import type {IntakeOriginKind} from './intakeSchemas.js'
-import type {QueueChoice} from '@shared/schemas.js'
+import type {ListSizeChoice} from '@shared/schemas.js'
 import type {ProbeError} from '@shared/types.js'
 
 // What the user hears about. Rows the event names are already in the queue.
@@ -17,7 +17,7 @@ export type QuickDownloadEvent =
 	// `overRowLimit`: the rows were refused as more than the caller may add
 	// from one link, which the same link would make again.
 	| {kind: 'failed'; itemId: string; title: string; probeError: ProbeError | null; overRowLimit?: true}
-	| {kind: 'needs-choice'; itemId: string; choice: QueueChoice}
+	| {kind: 'needs-choice'; itemId: string; choice: ListSizeChoice}
 
 // Where a link landed the moment it was taken in, before its probe answers.
 export type IntakePlacement = Extract<QuickDownloadEvent, {kind: 'added' | 'already-queued' | 'not-added'}>

@@ -5,7 +5,7 @@
 
 import {classifyUrlIntent} from '@shared/urlIntent.js'
 import type {PinnedDownloadProfile} from './intakeSchemas.js'
-import {PLAYLIST_PROBE_LIMIT_MAX, type QueueChoice, type QuickProbeTake} from '@shared/schemas.js'
+import {PLAYLIST_PROBE_LIMIT_MAX, type ListSizeChoice, type QuickProbeTake} from '@shared/schemas.js'
 import type {Result} from '@shared/result.js'
 import type {KeptProbe, LocalizedError, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult} from '@shared/types.js'
 import {preparePinnedProfileQueueSubmission, type PreparedQueueSubmission, type QueuePreparationEnv, type QueuePreparationInputs} from '@shared/queueSubmission.js'
@@ -15,7 +15,7 @@ export type QuickProbeResolution =
 	| {kind: 'queue'; prepared: PreparedQueueSubmission}
 	// Every video was already live in the queue: nothing failed, nothing to add.
 	| {kind: 'nothing-new'; skippedAlreadyQueued: number}
-	| {kind: 'needs-choice'; choice: QueueChoice; title: string; kept: KeptProbe}
+	| {kind: 'needs-choice'; choice: ListSizeChoice; title: string; kept: KeptProbe}
 	// `probeError` is null when the probe succeeded and preparing the rows failed.
 	| {kind: 'failed'; error: LocalizedError; probeError: ProbeError | null}
 

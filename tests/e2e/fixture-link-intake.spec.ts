@@ -303,3 +303,81 @@ test('Bulk URLs keeps a video in a Mix one video', async () => {
 		expect(listLoads(fixtureServer, FIXTURE_MIX_ID)).toBe(0)
 	})
 })
+
+// Bulk URLs asks about a link that names a video and a playlist on that
+// link's own row, before anything loads; the rest of the batch downloads (#581).
+// Fixtures: a plain video, and a video inside the fixture playlist by its
+// `watch?v=…&list=…` link.
+// Actions: Bulk URLs with both links, Quick Download, then This video.
+// Oracles: no Bulk review; the asking row's answers; nothing probed for that
+// link until answered; one file each; the playlist never loaded.
+test('Bulk URLs asks on its row about a video in a playlist, and This video downloads that video alone', async () => {
+	test.setTimeout(200_000)
+	const plain = FIXTURE_VIDEO_IDS.find(id => !FIXTURE_PLAYLIST_VIDEO_IDS.includes(id))
+	const inList = FIXTURE_PLAYLIST_VIDEO_IDS[0]
+	if (!plain || !inList) throw new Error('fixture catalog needs a video outside the playlist and one inside it')
+
+	await withFixtureProductApp({userDataPrefix: 'arroxy-fixture-intake-bulk-ask-user-', outputPrefix: 'arroxy-fixture-intake-bulk-ask-out-'}, async ({page, urls, fixtureServer, files}) => {
+		const mixed = urls.videoInPlaylist(inList)
+		await page.getByTestId('profiles-bulk-urls').click()
+		await page.getByTestId('bulk-url-textarea').fill(`${urls.video(plain)}\n${mixed}`)
+		await page.getByTestId('bulk-quick-download').click()
+
+		await expect(page.getByTestId('step-playlist-items')).toHaveCount(0)
+		await page.locator('.downloads-tab-trigger').click()
+		const asking = rows(page).filter({hasText: mixed})
+		await expect(asking).toHaveAttribute('data-status', 'needs-choice', {timeout: 10_000})
+		const id = (await asking.getAttribute('data-testid'))?.replace('queue-manager-row-', '') ?? ''
+		const question = page.getByTestId(`queue-attention-${id}`)
+		await expect(question).toContainText('This link is a video in a playlist. Download just the video, or the playlist?')
+		await expect(question.getByRole('button')).toHaveText(['This video', 'The playlist', 'Pick from it…'])
+
+		// The plain video downloads meanwhile; the asking link probes nothing.
+		await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(1, {timeout: 120_000})
+		expect(listLoads(fixtureServer, inList)).toBe(0)
+		expect(listLoads(fixtureServer, FIXTURE_PLAYLIST_ID)).toBe(0)
+
+		await question.getByRole('button', {name: 'This video'}).click()
+		await expect(page.locator('[data-testid^="queue-manager-row-"][data-status="done"]')).toHaveCount(2, {timeout: 120_000})
+		await expect.poll(() => files.mediaFiles('mp4').length, {timeout: 20_000}).toBe(2)
+		files.expectMp4Count(2)
+		expect(listLoads(fixtureServer, inList)).toBe(1)
+		expect(listLoads(fixtureServer, FIXTURE_PLAYLIST_ID)).toBe(0)
+	})
+})
+
+// Actions: Bulk URLs with a video-in-a-playlist link, Quick Download, The playlist.
+// Oracles: the list loads once, in the background; past the load limit the
+// same row then asks how many, as any list row does; the video alone never probed.
+test('Bulk URLs: The playlist loads the list in the background, and past the limit the row asks how many', async () => {
+	test.setTimeout(150_000)
+	const inList = FIXTURE_PLAYLIST_VIDEO_IDS[0]
+	if (!inList) throw new Error('fixture catalog needs a playlist')
+
+	await withFixtureProductApp(
+		{
+			settings: settings => {
+				settings.common.playlistProbeLimit = 2
+			},
+			userDataPrefix: 'arroxy-fixture-intake-bulk-list-user-',
+			outputPrefix: 'arroxy-fixture-intake-bulk-list-out-'
+		},
+		async ({page, urls, fixtureServer}) => {
+			const mixed = urls.videoInPlaylist(inList)
+			await page.getByTestId('profiles-bulk-urls').click()
+			await page.getByTestId('bulk-url-textarea').fill(mixed)
+			await page.getByTestId('bulk-quick-download').click()
+			await page.locator('.downloads-tab-trigger').click()
+			const row = rows(page).first()
+			await expect(row).toHaveAttribute('data-status', 'needs-choice', {timeout: 10_000})
+			const id = (await row.getAttribute('data-testid'))?.replace('queue-manager-row-', '') ?? ''
+			expect(probeStarts(fixtureServer)).toBe(0)
+
+			await page.getByTestId(`queue-attention-${id}`).getByRole('button', {name: 'The playlist'}).click()
+			await expect(page.getByTestId(`queue-attention-${id}`)).toContainText('More than 2 videos', {timeout: 60_000})
+			await expect(page.getByTestId(`queue-attention-${id}`).getByRole('button')).toHaveText(['All videos', 'First 2', 'Review'])
+			expect(listLoads(fixtureServer, FIXTURE_PLAYLIST_ID)).toBe(1)
+			expect(listLoads(fixtureServer, inList)).toBe(0)
+		}
+	)
+})

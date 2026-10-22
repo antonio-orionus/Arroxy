@@ -120,6 +120,41 @@ describe('submitUrl — video probe', () => {
 		expect(useAppStore.getState()).toMatchObject({mixedUrlPromptOpen: true, mixedUrlPending: mixedUrl, mixedUrlPromptSource: 'wizard'})
 	})
 
+	it('a retry of a failed list Review on a video-in-a-list link loads the list again, without asking', async () => {
+		const api = buildMockAppApi()
+		const mixedUrl = `${YOUTUBE_URL}&list=PLtest`
+		vi.mocked(api.downloads.probe)
+			.mockResolvedValueOnce(fail({kind: 'other', code: 'unknown', message: 'Bot block'}))
+			.mockResolvedValueOnce(ok(PLAYLIST_PROBE))
+		window.appApi = api
+
+		await useAppStore.getState().openPlaylistReview(mixedUrl, 'playlist', 'row-1')
+		expect(useAppStore.getState().wizardStep).toBe('error')
+		await useAppStore.getState().retry()
+
+		const state = useAppStore.getState()
+		expect(state.mixedUrlPromptOpen).toBe(false)
+		expect(api.downloads.probe).toHaveBeenCalledTimes(2)
+		expect(api.downloads.probe).toHaveBeenLastCalledWith(expect.objectContaining({url: mixedUrl, playlistMode: 'playlist'}))
+		expect(state).toMatchObject({wizardStep: 'playlistItems', reviewSourceRowId: 'row-1', formatsLoading: false})
+		expect(state.playlistItems).toHaveLength(2)
+	})
+
+	it('a retry whose list lands first takes the saved list settings, as a first load does', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe)
+			.mockResolvedValueOnce(fail({kind: 'other', code: 'unknown', message: 'Bot block'}))
+			.mockResolvedValueOnce(ok(PLAYLIST_PROBE))
+		window.appApi = api
+		const settings = defaultAppSettings('/tmp/downloads')
+		useAppStore.setState({settings: {...settings, common: {...settings.common, lastSubfolderEnabled: true, lastSubfolder: 'Saved folder'}}})
+
+		await useAppStore.getState().openPlaylistReview(`${YOUTUBE_URL}&list=PLtest`, 'playlist', 'row-1')
+		await useAppStore.getState().retry()
+
+		expect(useAppStore.getState()).toMatchObject({wizardStep: 'playlistItems', wizardSubfolderEnabled: true, wizardSubfolderName: 'Saved folder'})
+	})
+
 	it('sets formatsLoading=true during probe and false after', async () => {
 		const api = buildMockAppApi()
 		let resolveProbe!: (v: Result<ProbeResult, ProbeError>) => void

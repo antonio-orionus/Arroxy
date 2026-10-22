@@ -29,7 +29,7 @@ import {fail, ok, type Result} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {nowIso} from '@main/utils/clock.js'
 import type {IntakeOrigin} from '@shared/intake/intakeSchemas.js'
-import {QUEUE_STATUS, type JobAuth, type QueueChoice, type QueueLane, type QuickProbeTake} from '@shared/schemas.js'
+import {QUEUE_STATUS, type JobAuth, type QueueChoice, type QueueLane} from '@shared/schemas.js'
 import {transition, illegalTransition, type QueueEvent} from '@shared/queueTransition.js'
 import {MAX_CONCURRENT_DOWNLOADS, NORMAL_LANE_CAP, PRIORITY_LANE_HEADROOM} from '@shared/constants.js'
 import {InterJobSleep} from './download/InterJobSleep.js'
@@ -37,7 +37,7 @@ import {QueueAutoRemove} from './download/QueueAutoRemove.js'
 import {QueueAutoRetry} from './download/QueueAutoRetry.js'
 import {QueuePlaylistM3u} from './download/QueuePlaylistM3u.js'
 import {admitAgainstLiveQueue, findInadmissibleQueueItem} from './download/queueAdmission.js'
-import {QueueProbeLifecycle} from './download/QueueProbeLifecycle.js'
+import {QueueProbeLifecycle, type ProbeAnswer} from './download/QueueProbeLifecycle.js'
 import {pauseEach} from './download/queuePauseEach.js'
 import {queueForNextLaunch, suspendQueueForExit} from './download/queueSuspendForExit.js'
 import {QueueSchedulerPause} from './download/QueueSchedulerPause.js'
@@ -194,8 +194,8 @@ export class QueueService extends EventEmitter {
 		return this.probeLifecycle.needsChoice(itemId, choice, title)
 	}
 
-	reprobe(itemId: string, take?: QuickProbeTake): Result<void> {
-		return this.probeLifecycle.reprobe(itemId, take)
+	reprobe(itemId: string, answer?: ProbeAnswer): Result<void> {
+		return this.probeLifecycle.reprobe(itemId, answer)
 	}
 
 	clearListOffer(itemId: string): Result<void> {

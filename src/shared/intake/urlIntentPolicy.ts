@@ -8,7 +8,8 @@ export type UrlIntentPolicyAction =
 	| {kind: 'probe-auto'; playlistMode: Extract<ProbePlaylistMode, 'auto'>}
 	| {kind: 'probe-playlist'; playlistMode: Extract<ProbePlaylistMode, 'playlist'>}
 	| {kind: 'show-mixed-prompt'}
-	| {kind: 'open-bulk-review'}
+	// Bulk URLs' link naming a video and a list: its own row asks which (#581).
+	| {kind: 'ask-on-row'}
 	| {kind: 'show-label'; label: UrlIntentHomeLabel}
 
 function probeActionForIntent(intent: UrlIntent): Extract<UrlIntentPolicyAction, {playlistMode: ProbePlaylistMode}> | {kind: 'show-mixed-prompt'} {
@@ -20,7 +21,7 @@ function probeActionForIntent(intent: UrlIntent): Extract<UrlIntentPolicyAction,
 
 export function policyForUrlIntent(intent: UrlIntent, entryPoint: UrlIntentEntryPoint): UrlIntentPolicyAction {
 	if (entryPoint === 'home-label') return {kind: 'show-label', label: urlIntentHomeLabel(intent)}
-	if (entryPoint === 'bulk-quick-download' && intent.kind === 'mixed') return {kind: 'open-bulk-review'}
+	if (entryPoint === 'bulk-quick-download' && intent.kind === 'mixed') return {kind: 'ask-on-row'}
 	// The hotkey fires against a hidden window, so there is nobody to prompt and
 	// every review path costs the user a trip back into the app. A mixed URL
 	// always names a concrete video, and queueing one unwanted video is far

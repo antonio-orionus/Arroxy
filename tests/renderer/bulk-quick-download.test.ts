@@ -122,17 +122,56 @@ describe("Bulk URLs' Quick Download", () => {
 		expect(queue().map(item => item.id)).toEqual(['live'])
 	})
 
-	it('sends the whole batch to the review when a link names a video in a list, placing nothing', async () => {
+	// #581: a link naming a video and a list gets its own row, which asks
+	// which before anything is probed; the batch no longer goes to the review.
+	it('places a link naming a video and a list as a row that asks, in its pasted place, probing the rest', async () => {
 		const probe = deferredProbe(api)
 		const startBulkUrls = vi.fn()
 		useAppStore.setState({startBulkUrls})
 
-		expect(await bulk([VIDEO_URL, MIXED_URL])).toBe(true)
+		expect(await bulk([VIDEO_URL, MIXED_URL, OTHER_URL])).toBe(true)
 
-		expect(startBulkUrls).toHaveBeenCalledWith([VIDEO_URL, MIXED_URL])
-		expect(queue()).toEqual([])
-		expect(probe.calls).toEqual([])
-		expect(toasts).toEqual([])
+		expect(startBulkUrls).not.toHaveBeenCalled()
+		expect(queue().map(item => [item.url, item.status, item.choice])).toEqual([
+			[OTHER_URL, 'probing', undefined],
+			[MIXED_URL, 'needs-choice', {kind: 'video-or-list', list: 'playlist'}],
+			[VIDEO_URL, 'probing', undefined]
+		])
+		expect(probe.calls.map(call => call.url)).toEqual([OTHER_URL, VIDEO_URL])
+		expect(toasts.map(toast => toast.message)).toEqual(['Added 3 links to Downloads'])
+	})
+
+	it('This video probes the video alone', async () => {
+		const probe = deferredProbe(api)
+		await bulk([MIXED_URL])
+		const id = queue()[0]?.id ?? ''
+
+		await useAppStore.getState().chooseQuickDownloadRow(id, 'video')
+		await vi.waitFor(() => expect(probe.calls).toEqual([expect.objectContaining({url: MIXED_URL, playlistMode: 'video', ownerKey: id})]))
+		expect(queue()[0]).toMatchObject({id, status: 'probing', probeMode: 'video'})
+	})
+
+	it('The list probes the list in the background', async () => {
+		const probe = deferredProbe(api)
+		await bulk([MIXED_URL])
+		const id = queue()[0]?.id ?? ''
+
+		await useAppStore.getState().chooseQuickDownloadRow(id, 'list')
+		await vi.waitFor(() => expect(probe.calls).toEqual([expect.objectContaining({url: MIXED_URL, playlistMode: 'playlist', ownerKey: id})]))
+	})
+
+	it("Pick from it opens the list's review for that row", async () => {
+		const probe = deferredProbe(api)
+		await bulk([MIXED_URL])
+		const id = queue()[0]?.id ?? ''
+
+		const reviewing = useAppStore.getState().chooseQuickDownloadRow(id, 'review')
+		await vi.waitFor(() => expect(probe.calls).toEqual([expect.objectContaining({url: MIXED_URL, playlistMode: 'playlist'})]))
+		expect(probe.calls[0]).not.toHaveProperty('ownerKey')
+		expect(useAppStore.getState().reviewSourceRowId).toBe(id)
+		probe.resolve(fail({kind: 'other', code: 'unknown', message: 'offline'}))
+		await reviewing
+		expect(queue()[0]).toMatchObject({id, status: 'needs-choice'})
 	})
 
 	it('opens the cookies setup first when it is incomplete, placing nothing', async () => {

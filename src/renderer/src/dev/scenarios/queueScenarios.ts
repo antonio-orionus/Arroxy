@@ -64,6 +64,8 @@ export function buildQueueItems(scenario: ScenarioLike): QueueItem[] {
 			return buildListOfferItems()
 		case 'queue-probe-waiting':
 			return buildProbeWaitingItems()
+		case 'queue-bulk-mixed':
+			return buildBulkMixedItems()
 		default:
 			return []
 	}
@@ -126,6 +128,18 @@ function buildQuickDownloadItems(): QueueItem[] {
 			addedAt: '2026-05-31T12:01:00.000Z'
 		}),
 		queueItem({...placeholder, id: QUICK_DOWNLOAD_SCENARIO_ROWS.listed, url: 'https://media.example/course/42', title: 'Course 42 - all lessons', status: QUEUE_STATUS.needsChoice, probeMode: 'auto', choice: {kind: 'list-size', loaded: 12, capped: false}, addedAt: '2026-05-31T12:00:00.000Z'})
+	]
+}
+
+// A Bulk URLs batch where one link names a video in a playlist: its row asks
+// which before anything loads (#581), while the rest of the batch downloads.
+function buildBulkMixedItems(): QueueItem[] {
+	const unresolved = {kind: 'unresolved', extractor: '', extractorKey: ''} as const
+	const mixed = 'https://www.youtube.com/watch?v=aircAruvnKk&list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi'
+	return [
+		queueItem({id: 'bulk-mixed-ask', title: mixed, url: mixed, thumbnail: '', progressPercent: 0, progressDetail: null, lastStatus: null, writeM3u: false, job: unresolved, status: QUEUE_STATUS.needsChoice, probeMode: 'auto', choice: {kind: 'video-or-list', list: 'playlist'}, addedAt: '2026-05-31T12:00:03.000Z'}),
+		queueItem({id: 'bulk-mixed-2', title: 'Me at the zoo', url: 'https://www.youtube.com/watch?v=jNQXAC9IVRw', status: QUEUE_STATUS.running, progressPercent: 42, addedAt: '2026-05-31T12:00:02.000Z'}),
+		queueItem({id: 'bulk-mixed-3', title: 'Gangnam Style', url: 'https://www.youtube.com/watch?v=9bZkp7q19f0', status: QUEUE_STATUS.pending, progressPercent: 0, addedAt: '2026-05-31T12:00:01.000Z'})
 	]
 }
 

@@ -265,7 +265,8 @@ export type ExploreRetryTarget = {kind: 'row'; itemId: string} | {kind: 'downloa
 export type InAppQuickDownloadEntry = 'url-tab' | 'explore' | 'downloads'
 
 // A needs-choice row's answers: all of the collection, the first N loaded, or the wizard's review.
-export type QuickDownloadRowAnswer = 'all' | 'first' | 'review'
+// A list-size row: All, First N, Review. A video-or-list row (#581): This video, the list, Review (Pick from it).
+export type QuickDownloadRowAnswer = 'all' | 'first' | 'review' | 'video' | 'list'
 
 // FormatPicker — formats / audio / subtitles state, post-probe, plus the
 // download profile a single-video run starts from.

@@ -106,6 +106,19 @@ describe('selectView — media kinds', () => {
 		expect(hint('hls')).toBe('30 fps')
 	})
 
+	it("hints a video stream's frame size first, in the app's digits and without grouping, when the site gives it", () => {
+		const formats: FormatOption[] = [
+			{formatId: '137', label: 'h264', ext: 'mp4', resolution: '1080p', width: 1920, height: 800, fps: 24, videoCodec: 'avc1.640028', tbr: 5000, isVideoOnly: true, isAudioOnly: false},
+			{formatId: '136', label: 'h264', ext: 'mp4', resolution: '720p', fps: 24, videoCodec: 'avc1.4d401f', isVideoOnly: true, isAudioOnly: false}
+		]
+		const hint = (language: string, id: string): string | null | undefined => selectView({selectedVideoFormatId: '137', audioSelection: NONE_AUDIO, lastConvertBitrate: 192, mediaKind: 'video', wizardFormats: formats, language}).video.rows.find(row => row.formatId === id)?.hint
+		expect(hint('en', '137')).toBe('1920×800 · mp4 · 24 fps · Bitrate 5.0 Mbps')
+		expect(hint('de', '137')).toBe('1920×800 · mp4 · 24 fps · Bitrate 5,0 Mbps')
+		expect(hint('ar-EG', '137')?.startsWith('١٩٢٠×٨٠٠ · ')).toBe(true)
+		// No frame size from the site: the hint stays as it was.
+		expect(hint('en', '136')).toBe('mp4 · 24 fps')
+	})
+
 	// Combined files a site gives no resolution or codec for: distinct files keep
 	// a line each, named the site's way (Facebook's sd and hd), the bigger first;
 	// the same file listed twice (Instagram's three copies) stays one chip.

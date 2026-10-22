@@ -12,6 +12,7 @@ import {resolvePinnedQuickProbe, scopeForTake, widenForSkip, type QuickProbeEnv,
 import {resolvePlaylistProbeLimit} from '@shared/networkPacing.js'
 import {isLiveQueueItem} from '@shared/queueActions.js'
 import {youtubeLinkVideoId} from '@shared/urlIntent.js'
+import {listKindForUrl} from '@shared/sites/youtubeListKind.js'
 import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 import type {QueueEvent} from '@shared/queueTransition.js'
 import {fail, ok, type Result} from '@shared/result.js'
@@ -112,17 +113,18 @@ export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 		await write(itemId, probe.title, resolution, tell)
 	}
 
-	async function restart(itemId: string, requestId: string, widen: Pick<Probe, 'scope' | 'take'>, answer?: PlaylistProbeResult): Promise<Result<void>> {
+	// `mode`: a video-or-list row's answer, the mode it now probes in.
+	async function restart(itemId: string, requestId: string, widen: Pick<Probe, 'scope' | 'take'>, answer?: PlaylistProbeResult, mode?: ProbePlaylistMode): Promise<Result<void>> {
 		const row = find(itemId)
 		if (!row?.probeMode) return fail({code: 'validation', message: `queue item ${itemId} has no probe to restart`})
-		const restarted = await deps.transition(itemId, {kind: 'probe-restarted', ...(widen.take ? {probeTake: widen.take} : {})})
+		const restarted = await deps.transition(itemId, {kind: 'probe-restarted', ...(widen.take ? {probeTake: widen.take} : {}), ...(mode ? {probeMode: mode} : {})})
 		if (!restarted.ok) return restarted
 		kept.delete(itemId)
-		void runProbe(itemId, {url: row.url, playlistMode: row.probeMode, title: row.title, ...widen}, requestId, 'window', answer)
+		void runProbe(itemId, {url: row.url, playlistMode: mode ?? row.probeMode, title: row.title, ...widen}, requestId, 'window', answer)
 		return restarted
 	}
 
-	async function place({requestId, url, playlistMode, title, profile: requested, take, listOffer, skipVideoId}: PlaceRequest, caller: IntakeCaller): Promise<IntakePlacement> {
+	async function place({requestId, url, playlistMode, title, profile: requested, take, listOffer, skipVideoId, ask}: PlaceRequest, caller: IntakeCaller): Promise<IntakePlacement> {
 		const live = deps.items().find(item => isLiveQueueItem(item) && item.url === url)
 		if (live) return {kind: 'already-queued', itemId: live.id}
 		const intakeId = crypto.randomUUID()
@@ -141,7 +143,8 @@ export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 			thumbnail: '',
 			outputDir,
 			formatLabel: profileFormatLabel(profile, i18next.t, i18next.language),
-			status: QUEUE_STATUS.probing,
+			// A Bulk link naming a video and a list asks which before anything is probed (#581).
+			...(ask ? {status: QUEUE_STATUS.needsChoice, choice: {kind: 'video-or-list', list: listKindForUrl(url) ?? 'playlist'}} : {status: QUEUE_STATUS.probing}),
 			lane: 'normal',
 			progressPercent: 0,
 			progressDetail: null,
@@ -162,7 +165,7 @@ export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 		}
 		const added = await deps.add([row])
 		if (!added.ok) return added.error.code === 'conflict' ? {kind: 'already-queued', itemId: null} : {kind: 'not-added'}
-		void runProbe(row.id, {url, playlistMode, title: row.title, ...ownTake(row)}, requestId, caller.kind)
+		if (!ask) void runProbe(row.id, {url, playlistMode, title: row.title, ...ownTake(row)}, requestId, caller.kind)
 		return {kind: 'added', itemId: row.id, title: row.title, intakeId}
 	}
 
@@ -176,6 +179,13 @@ export function createIntakeMock(deps: IntakeMockDeps): IntakeMock {
 			const row = find(itemId)
 			if (row?.status !== QUEUE_STATUS.needsChoice || !row.choice) return Promise.resolve(fail({code: 'validation', message: `queue item ${itemId} is not waiting for a choice`}))
 			const {choice} = row
+			if (choice.kind === 'video-or-list') {
+				if (take === 'video') return restart(itemId, requestId, {}, undefined, 'video')
+				if (take === 'list') return restart(itemId, requestId, {}, undefined, 'playlist')
+				if (take === 'all') return restart(itemId, requestId, {scope: scopeForTake({kind: 'all'}), take: {kind: 'all'}}, undefined, 'playlist')
+				return Promise.resolve(fail({code: 'validation', message: `queue item ${itemId} has loaded no videos to take the first of`}))
+			}
+			if (take === 'video' || take === 'list') return Promise.resolve(fail({code: 'validation', message: `queue item ${itemId} asks how much of a list, not which`}))
 			// The answer overrides any count the row was placed with.
 			if (take === 'all') return restart(itemId, requestId, {scope: scopeForTake({kind: 'all'}), take: {kind: 'all'}})
 			if (!choice.capped) return Promise.resolve(fail({code: 'validation', message: 'only a list past the load limit offers its first videos'}))

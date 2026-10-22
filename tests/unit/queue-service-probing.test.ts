@@ -284,7 +284,7 @@ describe('QueueService — probing items', () => {
 	it('reprobe stores a take on the row, and one without a take keeps it', () => {
 		const {qs} = makeService()
 		qs.add([choiceItem('c1')])
-		expect(qs.reprobe('c1', {kind: 'all'}).ok).toBe(true)
+		expect(qs.reprobe('c1', {take: {kind: 'all'}}).ok).toBe(true)
 		expect(qs.snapshot()[0]).toMatchObject({status: 'probing', probeTake: {kind: 'all'}})
 		qs.probeFailed('c1', {kind: 'network', raw: 'offline'})
 		expect(qs.reprobe('c1').ok).toBe(true)

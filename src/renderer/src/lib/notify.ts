@@ -7,7 +7,7 @@
 
 import i18next from 'i18next'
 import type {HotkeyOutcome} from '@shared/types.js'
-import type {QueueChoice} from '@shared/schemas.js'
+import type {ListSizeChoice} from '@shared/schemas.js'
 import {HOTKEY_OUTCOME_COPY} from '@shared/hotkeyOutcomes.js'
 import {toastItemName} from './toastItemName.js'
 
@@ -158,7 +158,7 @@ export const notify = {
 		emit('error', i18next.t('notifications.quickDownload.failed', {title: toastItemName(title)}), `quick-download-failed-${itemId}`, onView ? [main, viewAction(onView)] : [main])
 	},
 	// The size question: a capped list's count is a lower bound ("100+").
-	quickDownloadNeedsChoice(itemId: string, choice: QueueChoice, onView?: () => void): void {
+	quickDownloadNeedsChoice(itemId: string, choice: ListSizeChoice, onView?: () => void): void {
 		emit('info', i18next.t(NEEDS_CHOICE_TOAST[choice.capped ? 'capped' : 'uncapped'], {count: choice.loaded}), `quick-download-choice-${itemId}`, viewOnly(onView))
 	},
 	filenameShortened(title: string, tokens: readonly string[]): void {

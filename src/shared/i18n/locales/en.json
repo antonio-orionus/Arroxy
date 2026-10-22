@@ -374,9 +374,27 @@
 			"cappedBody_one": "More than {{count}} video in this playlist. Download them all, the first {{count}}, or pick in a review.",
 			"cappedBody_other": "More than {{count}} videos in this playlist. Download them all, the first {{count}}, or pick in a review.",
 			"first": "First {{count}}",
+			"list": {
+				"album": "The album",
+				"liked": "Liked videos",
+				"mix": "The Mix",
+				"playlist": "The playlist",
+				"uploads": "All the uploads",
+				"watchLater": "Watch later"
+			},
+			"pick": "Pick from it…",
 			"review": "Review",
 			"uncappedBody_one": "This link is a list of {{count}} video. Download it, or pick in a review.",
-			"uncappedBody_other": "This link is a list of {{count}} videos. Download them all, or pick in a review."
+			"uncappedBody_other": "This link is a list of {{count}} videos. Download them all, or pick in a review.",
+			"video": "This video",
+			"videoOrList": {
+				"album": "This link is a video in an album. Download just the video, or the album?",
+				"liked": "This link is a video in your liked videos. Download just the video, or all your liked videos?",
+				"mix": "This link is a video in a Mix. Download just the video, or the Mix?",
+				"playlist": "This link is a video in a playlist. Download just the video, or the playlist?",
+				"uploads": "This link is a video in a channel's uploads. Download just the video, or all the uploads?",
+				"watchLater": "This link is a video in your Watch later list. Download just the video, or the whole list?"
+			}
 		},
 		"clearTitle": "Clear completed downloads",
 		"empty": "Queued downloads will appear here",

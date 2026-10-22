@@ -298,6 +298,15 @@ describe('IntakeRegistry', () => {
 			expect(state(h, intakeId)).toEqual({state: 'cancelled'})
 		})
 
+		// A Bulk link naming a video and a list asks the window which (#581).
+		// A client adopting it sees a question only the window answers in full:
+		// here it takes all of the list, as for a list to review.
+		it('adopts a window row asking video or list as a review nobody has loaded yet', () => {
+			h.rows.push(makeItem({id: 'w1', status: 'needs-choice', url: 'https://youtube.com/watch?v=w1&list=PL1', job: UNRESOLVED, probeMode: 'auto', origin: windowOrigin, choice: {kind: 'video-or-list', list: 'playlist'}}))
+			const {state: adopted} = h.registry.adoptLive('client-1', 'w1')
+			expect(adopted).toEqual({state: 'needsYourChoice', kind: 'playlistReview', total: null, offered: 0})
+		})
+
 		// The probe found every video live elsewhere: intake drops the
 		// placeholder (a nothingNew swap), then tells already-queued.
 		it("follows its intake's already-queued outcome after the placeholder is dropped", () => {

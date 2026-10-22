@@ -171,7 +171,7 @@ A URL that names one video and a playlist at once, so the user's intent is genui
 _Avoid_: combo URL, dual URL, video+playlist URL
 
 **Mixed URL prompt**:
-The question a mixed URL raises before its probe, asked from the list's own control: Just this video, the list in the background (asking past the load limit), exactly the first N, or the playlist picker; from Interactive, how many to load for the picker, or Just this video. Every surface with a window also puts a This video shortcut beside the list's control, which downloads the video without asking. The global hotkey never asks it and takes the video, since a stray video is cheaper to undo than a stray playlist; Bulk URLs settle mixed URLs in their own review.
+The question a mixed URL raises before its probe, asked from the list's own control: Just this video, the list in the background (asking past the load limit), exactly the first N, or the playlist picker; from Interactive, how many to load for the picker, or Just this video. Every surface with a window also puts a This video shortcut beside the list's control, which downloads the video without asking. The global hotkey never asks it and takes the video, since a stray video is cheaper to undo than a stray playlist; Bulk URLs ask it on the link's own row instead (Needs your choice), and keep a Mix link as its video.
 _Avoid_: playlist prompt, video-or-playlist dialog
 
 **Placeholder title**:
@@ -237,7 +237,7 @@ A placeholder row whose probe failed. It carries the same guidance as any failed
 _Avoid_: failed download (nothing downloaded), broken row
 
 **Needs your choice**:
-A placeholder row waiting for the one decision only its probe could raise: how much of a loaded list to take. It always offers All and Review, and the first N only when the list ran past the load limit. It asks for a list nobody counted in advance: a list link past the load limit, or a link whose URL intent did not say list but which loaded as one (another site's list). A row placed with a count already chosen never asks. Review opens the playlist picker, not the wizard's single-video Review screen. It keeps waiting across a restart.
+A placeholder row waiting for a decision only the user can make. Mostly it is the one its probe raised: how much of a loaded list to take. It always offers All and Review, and the first N only when the list ran past the load limit. It asks for a list nobody counted in advance: a list link past the load limit, or a link whose URL intent did not say list but which loaded as one (another site's list). A row placed with a count already chosen never asks. Review opens the playlist picker, not the wizard's single-video Review screen. A Bulk URLs link naming a video and a list asks first, before anything is probed: This video, the list in the background (which may then ask how many), or Pick from it (the picker). It keeps waiting across a restart.
 _Avoid_: pending decision, blocked row, needs review
 
 **List offer**:

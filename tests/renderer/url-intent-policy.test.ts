@@ -45,7 +45,8 @@ describe('policyForUrlIntent', () => {
 		})
 	})
 
-	it('still sends a plain mixed link in Bulk URLs to the Bulk review', () => {
-		expect(policyForUrlIntent(classifyBulkUrlIntent('https://www.youtube.com/watch?v=one&list=PL1'), 'bulk-quick-download')).toEqual({kind: 'open-bulk-review'})
+	// #581: the link's own row asks; the batch no longer goes to the Bulk review.
+	it('asks on its row for a plain mixed link in Bulk URLs', () => {
+		expect(policyForUrlIntent(classifyBulkUrlIntent('https://www.youtube.com/watch?v=one&list=PL1'), 'bulk-quick-download')).toEqual({kind: 'ask-on-row'})
 	})
 })

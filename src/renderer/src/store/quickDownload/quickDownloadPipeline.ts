@@ -32,6 +32,8 @@ export interface QuickDownloadRequest {
 	// How much of a collection to keep, when the user already chose. Main keeps
 	// it on the row, so Retry and a restart keep to it and nothing asks again.
 	take?: QuickProbeTake
+	// A Bulk URLs link naming a video and a list: the row asks which first (#581).
+	ask?: 'video-or-list'
 }
 
 export type QuickDownloadFeedback = (event: QuickDownloadEvent) => void
@@ -98,10 +100,12 @@ export function bindIntakeEvents(unclaimed: () => QuickDownloadFeedback): () => 
 export async function placeQuickDownload(request: QuickDownloadRequest, feedback: QuickDownloadFeedback): Promise<string | null> {
 	const requestId = generateId()
 	wait(requestId, feedback, false)
-	const answer = await window.appApi.intake.add({requestId, url: request.url, playlistMode: request.playlistMode, ...(request.title ? {title: request.title} : {}), ...(request.profile ? {profile: request.profile} : {}), ...(request.take ? {take: request.take} : {})}).catch((error: unknown) => {
-		console.error('[quick-download] taking the link in failed', error)
-		return null
-	})
+	const answer = await window.appApi.intake
+		.add({requestId, url: request.url, playlistMode: request.playlistMode, ...(request.title ? {title: request.title} : {}), ...(request.profile ? {profile: request.profile} : {}), ...(request.take ? {take: request.take} : {}), ...(request.ask ? {ask: request.ask} : {})})
+		.catch((error: unknown) => {
+			console.error('[quick-download] taking the link in failed', error)
+			return null
+		})
 	const placement: IntakePlacement = answer?.ok ? answer.data : {kind: 'not-added'}
 	placed(requestId, placement)
 	return placement.kind === 'added' ? placement.itemId : null

@@ -111,10 +111,17 @@ export function StepFormatSelect(): ReactNode {
 				) : wizardMediaKind === 'audio' ? (
 					<AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} onSelect={setAudioSelection} />
 				) : (
-					// Stacked while the step is under 36rem wide (a zoomed minimum window), halves up to lg (`max-lg:` keeps the container query from overriding the next rule); from lg both lists sit at their own width, so a wide window adds no gap between them. The container is this wrapper, never a column: a size-contained column could not take its chips' width.
-					<div className="grid grid-cols-1 gap-5 @xl:max-lg:grid-cols-[auto_minmax(0,1fr)] lg:grid-cols-[auto_minmax(0,auto)] lg:justify-start lg:gap-x-12">
-						<VideoColumn view={view.video} selectedVideoFormatId={selectedVideoFormatId} onSelect={setSelectedVideoFormatId} />
-						{silent ? null : <AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} onSelect={setAudioSelection} />}
+					// Video keeps its chips' width; Audio sits beside it while 18rem are left, else under it. A grid split the
+					// width instead, and a video with many codec columns (8K HDR) spilled over the other list.
+					<div className="flex flex-wrap items-start gap-5 lg:gap-x-12">
+						<div className="max-w-full flex-none">
+							<VideoColumn view={view.video} selectedVideoFormatId={selectedVideoFormatId} onSelect={setSelectedVideoFormatId} />
+						</div>
+						{silent ? null : (
+							<div className="max-w-full min-w-72 flex-1 basis-0">
+								<AudioColumn view={view.audio} mode={view.mode} audioSelection={audioSelection} onSelect={setAudioSelection} />
+							</div>
+						)}
 					</div>
 				)}
 			</div>

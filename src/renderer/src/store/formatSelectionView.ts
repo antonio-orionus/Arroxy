@@ -5,7 +5,7 @@ import {useMemo} from 'react'
 import {useTranslation} from 'react-i18next'
 import {i18next} from '@shared/i18n/index.js'
 import {audioTrackNames, listedAudioFormats, trackOf} from '@renderer/lib/audioTracks.js'
-import {humanBitrate, humanSize} from '@shared/format.js'
+import {frameSize, humanBitrate, humanSize} from '@shared/format.js'
 import {AUDIO_CONVERT_TARGETS} from '@shared/audioTargets.js'
 import {audioCodecName, VIDEO_CODEC_ORDER, videoCodecName} from '@shared/fileTypeFit.js'
 import {channelLabel, sampleRateLabel} from '@shared/audioTrackMeta.js'
@@ -408,7 +408,9 @@ export function selectView(state: SelectViewInput): FormatSelectionView {
 		const dynamicRange = rawFormat?.dynamicRange ?? null
 		const fpsTag = fps !== null && fps !== commonFps ? `${fps} fps` : null
 		const bitrate = rawFormat?.tbr ? i18next.t('wizard.formats.bitrateValue', {bitrate: humanBitrate(rawFormat.tbr, state.language)}) : null
-		const hint = compact([codec ? ext : null, fps !== null && !fpsTag ? `${fps} fps` : null, bitrate]).join(' · ')
+		// The line names the height class (1080p); the frame may be cropped, vertical or 4:3.
+		const frame = rawFormat?.width !== undefined && rawFormat.height !== undefined ? frameSize(rawFormat.width, rawFormat.height, state.language) : null
+		const hint = compact([frame, codec ? ext : null, fps !== null && !fpsTag ? `${fps} fps` : null, bitrate]).join(' · ')
 		return {
 			filesize,
 			formatId: group.formatId,

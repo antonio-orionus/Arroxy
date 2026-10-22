@@ -6,7 +6,8 @@ import type {IntakeAddRequest} from '@main/intake/IntakeService.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import type {IntakePlacement} from '@shared/intake/intakeEvents.js'
 import {fail} from '@shared/result.js'
-import type {DownloadProfile, QueueItem} from '@shared/types.js'
+import type {DownloadProfile} from '@shared/types.js'
+import type {ListSizeChoice} from '@shared/schemas.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {makeItem} from '../shared/fixtures.js'
 import {context, errorOf, harness, resultOf, UNRESOLVED, type Harness} from '../helpers/controlServiceHarness.js'
@@ -191,7 +192,7 @@ describe('ControlService intake answers', () => {
 	})
 
 	// A client's intake whose placeholder now asks for a choice.
-	async function needingChoice(choice: NonNullable<QueueItem['choice']>): Promise<{intakeId: string; placeholderId: string}> {
+	async function needingChoice(choice: ListSizeChoice): Promise<{intakeId: string; placeholderId: string}> {
 		const added = await addLink(h, `r-${choice.kind}`, 'https://www.youtube.com/playlist?list=PLx')
 		const row = h.rows.find(candidate => candidate.id === added.placeholderId)
 		if (!row) throw new Error('no placeholder')

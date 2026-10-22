@@ -1,8 +1,8 @@
 import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {ListChecks} from 'lucide-react'
+import {ListChecks, Play} from 'lucide-react'
 import type {QueueItem} from '@shared/types.js'
-import {QUEUE_STATUS} from '@shared/schemas.js'
+import {QUEUE_STATUS, type ListKind} from '@shared/schemas.js'
 import {formatLocalizedError, useAppStore} from '../../store/useAppStore.js'
 import {placeholderErrorExperience, rowProbeError} from '../../store/quickDownload/quickDownloadToasts.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
@@ -80,28 +80,68 @@ function ProbeErrorGuidance({item}: {item: QueueItem}): ReactNode {
 // The size question's body, by whether the list went past the load limit.
 const CHOICE_BODY = {capped: 'queue.choice.cappedBody', uncapped: 'queue.choice.uncappedBody'} as const satisfies Record<'capped' | 'uncapped', string>
 
-// All and Review always; First N only when the list went past the load limit.
+// The video-or-list question and its list answer, per kind of list (#581),
+// spelled out so the unused-key check sees each.
+const VIDEO_OR_LIST_BODY = {playlist: 'queue.choice.videoOrList.playlist', mix: 'queue.choice.videoOrList.mix', album: 'queue.choice.videoOrList.album', uploads: 'queue.choice.videoOrList.uploads', 'watch-later': 'queue.choice.videoOrList.watchLater', liked: 'queue.choice.videoOrList.liked'} as const satisfies Record<
+	ListKind,
+	string
+>
+const LIST_ANSWER = {playlist: 'queue.choice.list.playlist', mix: 'queue.choice.list.mix', album: 'queue.choice.list.album', uploads: 'queue.choice.list.uploads', 'watch-later': 'queue.choice.list.watchLater', liked: 'queue.choice.list.liked'} as const satisfies Record<ListKind, string>
+
 function ChoiceAnswers({item}: {item: QueueItem}): ReactNode {
+	const choice = item.status === QUEUE_STATUS.needsChoice ? item.choice : undefined
+	if (choice?.kind === 'list-size') return <ListSizeAnswers itemId={item.id} loaded={choice.loaded} capped={choice.capped} />
+	if (choice?.kind === 'video-or-list') return <VideoOrListAnswers itemId={item.id} list={choice.list} />
+	return null
+}
+
+// A Bulk URLs link naming a video and a list, asked before anything loads:
+// the video alone, the list in the background, or Pick from it (the Review).
+function VideoOrListAnswers({itemId, list}: {itemId: string; list: ListKind}): ReactNode {
 	const {t} = useTranslation()
 	const choose = useAppStore(state => state.chooseQuickDownloadRow)
-	const choice = item.status === QUEUE_STATUS.needsChoice ? item.choice : undefined
-	if (!choice) return null
-	const count = choice.loaded
 	return (
 		<Alert variant="info" size="sm" data-testid="queue-choice">
 			<ListChecks aria-hidden />
 			<AlertDescription className="flex flex-col gap-2">
-				<span>{t(CHOICE_BODY[choice.capped ? 'capped' : 'uncapped'], {count})}</span>
+				<span>{t(VIDEO_OR_LIST_BODY[list])}</span>
 				<div className="flex flex-wrap gap-2">
-					<Button type="button" size="sm" variant="outline" onClick={() => void choose(item.id, 'all')} data-testid="queue-choice-all">
+					<Button type="button" size="sm" variant="outline" onClick={() => void choose(itemId, 'video')} data-testid="queue-choice-video">
+						<Play data-icon="inline-start" aria-hidden />
+						{t('queue.choice.video')}
+					</Button>
+					<Button type="button" size="sm" variant="outline" onClick={() => void choose(itemId, 'list')} data-testid="queue-choice-list">
+						{t(LIST_ANSWER[list])}
+					</Button>
+					<Button type="button" size="sm" variant="outline" onClick={() => void choose(itemId, 'review')} data-testid="queue-choice-pick">
+						{t('queue.choice.pick')}
+					</Button>
+				</div>
+			</AlertDescription>
+		</Alert>
+	)
+}
+
+// All and Review always; First N only when the list went past the load limit.
+function ListSizeAnswers({itemId, loaded, capped}: {itemId: string; loaded: number; capped: boolean}): ReactNode {
+	const {t} = useTranslation()
+	const choose = useAppStore(state => state.chooseQuickDownloadRow)
+	const count = loaded
+	return (
+		<Alert variant="info" size="sm" data-testid="queue-choice">
+			<ListChecks aria-hidden />
+			<AlertDescription className="flex flex-col gap-2">
+				<span>{t(CHOICE_BODY[capped ? 'capped' : 'uncapped'], {count})}</span>
+				<div className="flex flex-wrap gap-2">
+					<Button type="button" size="sm" variant="outline" onClick={() => void choose(itemId, 'all')} data-testid="queue-choice-all">
 						{t('queue.choice.all')}
 					</Button>
-					{choice.capped ? (
-						<Button type="button" size="sm" variant="outline" onClick={() => void choose(item.id, 'first')} data-testid="queue-choice-first">
+					{capped ? (
+						<Button type="button" size="sm" variant="outline" onClick={() => void choose(itemId, 'first')} data-testid="queue-choice-first">
 							{t('queue.choice.first', {count})}
 						</Button>
 					) : null}
-					<Button type="button" size="sm" variant="outline" onClick={() => void choose(item.id, 'review')} data-testid="queue-choice-review">
+					<Button type="button" size="sm" variant="outline" onClick={() => void choose(itemId, 'review')} data-testid="queue-choice-review">
 						{t('queue.choice.review')}
 					</Button>
 				</div>

@@ -709,4 +709,92 @@ describe('IntakeService', () => {
 
 		expect(ticking.queue.snapshot().map(row => row.addedAt)).toEqual(['2026-10-22T12:00:00.000Z', '2026-10-22T12:00:05.000Z'])
 	})
+
+	// Bulk URLs places a link naming a video and a list as a row that asks
+	// which, before anything is probed (#581).
+	describe('a row that asks video or list', () => {
+		const MIXED = 'https://www.youtube.com/watch?v=abc&list=PLtest'
+		const ALBUM = 'https://www.youtube.com/watch?v=abc&list=OLAK5uy_album'
+
+		async function asking(url = MIXED): Promise<string> {
+			const placement = await h.intake.add({requestId: 'r1', url, playlistMode: 'auto', ask: 'video-or-list', origin: WINDOW})
+			if (placement.kind !== 'added') throw new Error(`expected the row placed, got ${placement.kind}`)
+			return placement.itemId
+		}
+
+		it('places a row that asks, naming the kind of list, and probes nothing', async () => {
+			const id = await asking()
+			await h.settled()
+			expect(h.queue.snapshot()).toMatchObject([{id, status: 'needs-choice', url: MIXED, choice: {kind: 'video-or-list', list: 'playlist'}}])
+			expect(h.probes).toEqual([])
+			expect(outcomes(h)).toEqual([])
+		})
+
+		it('names an album by its kind', async () => {
+			await asking(ALBUM)
+			expect(h.queue.snapshot()[0]?.choice).toEqual({kind: 'video-or-list', list: 'album'})
+		})
+
+		it('This video probes the video alone, and the row keeps that mode', async () => {
+			const id = await asking()
+			expect(h.intake.choose({requestId: 'r2', itemId: id, origin: 'window', take: 'video'}).ok).toBe(true)
+			expect(h.queue.snapshot()[0]).toMatchObject({id, status: 'probing', probeMode: 'video'})
+			await h.settled()
+			expect(h.probes).toEqual([{url: MIXED, playlistMode: 'video', ownerKey: id, playlistScope: {items: {kind: 'first', count: 100}}}])
+		})
+
+		it('The list probes the list in the background, with no count, and the row keeps that mode', async () => {
+			const id = await asking()
+			h.answer(fail({kind: 'other', code: 'unknown', message: 'offline'}))
+			expect(h.intake.choose({requestId: 'r2', itemId: id, origin: 'window', take: 'list'}).ok).toBe(true)
+			await h.settled()
+			expect(h.probes).toEqual([{url: MIXED, playlistMode: 'playlist', ownerKey: id, playlistScope: {items: {kind: 'first', count: 100}}}])
+			const row = h.queue.snapshot()[0]
+			expect(row).toMatchObject({id, status: 'error', probeMode: 'playlist'})
+			expect(row).not.toHaveProperty('probeTake')
+			// A Retry keeps to the answer.
+			expect(h.intake.retry({requestId: 'r3', itemId: id, origin: 'window'}).ok).toBe(true)
+			await h.settled()
+			expect(h.probes.at(-1)).toMatchObject({playlistMode: 'playlist'})
+		})
+
+		it('a list past the load limit then asks how many, as any list row does', async () => {
+			h.settings.common = {...h.settings.common, playlistProbeLimit: 2}
+			const id = await asking()
+			h.answer(ok(playlist(3)))
+			h.intake.choose({requestId: 'r2', itemId: id, origin: 'window', take: 'list'})
+			await h.settled()
+			expect(h.queue.snapshot()[0]).toMatchObject({id, status: 'needs-choice', choice: {kind: 'list-size', loaded: 2, capped: true}})
+		})
+
+		it('all takes every video of the list', async () => {
+			const id = await asking()
+			h.intake.choose({requestId: 'r2', itemId: id, origin: 'window', take: 'all'})
+			expect(h.queue.snapshot()[0]).toMatchObject({probeMode: 'playlist', probeTake: {kind: 'all'}})
+			await h.settled()
+			expect(h.probes).toEqual([{url: MIXED, playlistMode: 'playlist', ownerKey: id, playlistScope: {items: {kind: 'first', count: 5000}}}])
+		})
+
+		it('refuses the first N, which nothing has loaded', async () => {
+			const id = await asking()
+			expect(h.intake.choose({requestId: 'r2', itemId: id, origin: 'window', take: 'first'}).ok).toBe(false)
+			expect(h.queue.snapshot()[0]?.status).toBe('needs-choice')
+		})
+
+		it('a list-size question takes neither This video nor The list', async () => {
+			h.settings.common = {...h.settings.common, playlistProbeLimit: 2}
+			h.answer(ok(playlist(3)))
+			const placement = await h.intake.add({requestId: 'r1', url: PLAYLIST_URL, playlistMode: 'playlist', origin: WINDOW})
+			await h.settled()
+			const id = placement.kind === 'added' ? placement.itemId : ''
+			expect(h.intake.choose({requestId: 'r2', itemId: id, origin: 'window', take: 'video'}).ok).toBe(false)
+			expect(h.intake.choose({requestId: 'r3', itemId: id, origin: 'window', take: 'list'}).ok).toBe(false)
+		})
+
+		it('is left asking at launch: it never probed', async () => {
+			await asking()
+			expect(await h.intake.resumePlaceholderProbes()).toBe(0)
+			expect(h.probes).toEqual([])
+		})
+	})
 })

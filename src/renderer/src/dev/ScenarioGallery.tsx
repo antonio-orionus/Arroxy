@@ -11,7 +11,7 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '../
 import {showcasePlaylistEntry, showcaseWatchUrl} from './showcaseContent.js'
 import type {AppState} from '../store/types.js'
 
-const GROUPS: BrowserMockScenarioGroup[] = ['General', 'Playlist', 'Profiles', 'Probe Results', 'Real sites', 'Probe Errors', 'Dialogs', 'Updates', 'Queue', 'Diagnostics', 'Explore']
+const GROUPS: BrowserMockScenarioGroup[] = ['General', 'Playlist', 'Profiles', 'Probe Results', 'Real sites', 'Probe Errors', 'Dialogs', 'Updates', 'Queue', 'Diagnostics', 'Setup', 'Explore']
 const PLAYLIST_PRESETS = [99, 100, 101] as const
 
 function activeScenario(): BrowserMockScenario {

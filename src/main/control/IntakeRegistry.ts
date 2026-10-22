@@ -318,8 +318,11 @@ function liveState(row: QueueItem): IntakeState {
 
 // A list past the load limit asks how much of it (loadLimit); one the probe
 // saw whole asks only to be reviewed (playlistReview). `total` is known only
-// when the probe saw the whole list.
+// when the probe saw the whole list. A Bulk link naming a video and a list
+// asks the window which (#581); nothing is loaded yet, and here, as for a
+// review, a client can only take all of the list.
 function needsYourChoice(choice: QueueChoice): IntakeState {
+	if (choice.kind === 'video-or-list') return {state: 'needsYourChoice', kind: 'playlistReview', total: null, offered: 0}
 	if (choice.capped) return {state: 'needsYourChoice', kind: 'loadLimit', total: null, offered: choice.loaded}
 	return {state: 'needsYourChoice', kind: 'playlistReview', total: choice.loaded, offered: choice.loaded}
 }

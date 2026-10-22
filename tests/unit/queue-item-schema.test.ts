@@ -3,6 +3,16 @@ import {queueItemSchema} from '@shared/queueItemSchema.js'
 import {makeItem} from '../shared/fixtures.js'
 
 describe('queue item schema', () => {
+	// A needs-choice row asks how much of a list (saved rows all ask this), or,
+	// for a Bulk link naming a video and a list, which of the two (#581).
+	it('loads both questions a needs-choice row can ask, and nothing else', () => {
+		const base = {id: 'asking', status: 'needs-choice', url: 'https://www.youtube.com/watch?v=a&list=PL1', job: {kind: 'unresolved', extractor: '', extractorKey: ''}, probeMode: 'auto'} as const
+		expect(queueItemSchema.safeParse({...makeItem({id: 'x', status: 'pending'}), ...base, choice: {kind: 'list-size', loaded: 100, capped: true}}).success).toBe(true)
+		expect(queueItemSchema.safeParse({...makeItem({id: 'x', status: 'pending'}), ...base, choice: {kind: 'video-or-list', list: 'playlist'}}).success).toBe(true)
+		expect(queueItemSchema.safeParse({...makeItem({id: 'x', status: 'pending'}), ...base, choice: {kind: 'video-or-list', list: 'shelf'}}).success).toBe(false)
+		expect(queueItemSchema.safeParse({...makeItem({id: 'x', status: 'pending'}), ...base, choice: {kind: 'video-or-list'}}).success).toBe(false)
+	})
+
 	it('defaults addedAt to null for persisted queue items that predate the field', () => {
 		expect(makeItem({id: 'legacy', status: 'pending'}).addedAt).toBeNull()
 	})

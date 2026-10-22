@@ -17,7 +17,13 @@ import {fail, ok, type Result} from '@shared/result.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {admitAgainstLiveQueue, findInadmissibleQueueItem} from './queueAdmission.js'
 import type {QueueRemovalReason} from './queueMutation.js'
-import type {JobAuth, QueueChoice, QuickProbeTake} from '@shared/schemas.js'
+import type {JobAuth, ProbePlaylistMode, QueueChoice, QuickProbeTake} from '@shared/schemas.js'
+
+// A choice's answer that restarts a probe: how much of a list to keep, the mode to probe in.
+export interface ProbeAnswer {
+	take?: QuickProbeTake
+	probeMode?: ProbePlaylistMode
+}
 import type {LocalizedError, QueueItem} from '@shared/types.js'
 
 const logger = log.scope('queue')
@@ -25,7 +31,7 @@ const logger = log.scope('queue')
 export interface QueueProbeLifecycleDeps {
 	items: () => readonly QueueItem[]
 	patch: (itemId: string, reason: string, patcher: (item: QueueItem) => QueueItem) => void
-	commitEvent: (itemId: string, evt: {kind: 'probe-failed'; error: LocalizedError; auth?: JobAuth} | {kind: 'needs-choice'; choice: QueueChoice; title: string} | {kind: 'probe-restarted'; probeTake?: QuickProbeTake}) => void
+	commitEvent: (itemId: string, evt: {kind: 'probe-failed'; error: LocalizedError; auth?: JobAuth} | {kind: 'needs-choice'; choice: QueueChoice; title: string} | {kind: 'probe-restarted'; probeTake?: QuickProbeTake; probeMode?: ProbePlaylistMode}) => void
 	abortProbe: (itemId: string) => void
 	// Raw commit seams for the atomic swap: remove + add run back-to-back with
 	// no await between them, so no other command can interleave.
@@ -58,12 +64,13 @@ export class QueueProbeLifecycle {
 
 	// Back to `probing` so intake can run the probe again: a Retry on a
 	// probe-error row, or a choice that needs a fresh probe. A choice's answer
-	// (`take`) is stored on the row, so a Retry and a restart keep to it.
-	reprobe(itemId: string, take?: QuickProbeTake): Result<void> {
+	// (how much of a list, the mode a video-or-list row probes in) is stored on
+	// the row, so a Retry and a restart keep to it.
+	reprobe(itemId: string, answer: ProbeAnswer = {}): Result<void> {
 		const item = this.find(itemId)
 		const restartable = item?.status === QUEUE_STATUS.needsChoice || (item?.status === QUEUE_STATUS.error && item.job.kind === 'unresolved')
 		if (!restartable) return fail(createAppError('validation', `queue item ${itemId} has no probe to restart`))
-		this.deps.commitEvent(itemId, {kind: 'probe-restarted', ...(take ? {probeTake: take} : {})})
+		this.deps.commitEvent(itemId, {kind: 'probe-restarted', ...(answer.take ? {probeTake: answer.take} : {}), ...(answer.probeMode ? {probeMode: answer.probeMode} : {})})
 		return ok(undefined)
 	}
 

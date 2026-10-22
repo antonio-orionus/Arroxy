@@ -428,6 +428,16 @@ describe('browser mock scenarios', () => {
 		expect(rows.map(item => item.choice ?? null)).toEqual([null, null, {kind: 'list-size', loaded: 100, capped: true}, {kind: 'list-size', loaded: 12, capped: false}])
 	})
 
+	it('builds a Bulk batch whose video-in-a-playlist row asks which, schema-valid', () => {
+		const rows = buildScenarioAppApiState(getScenario('queue-bulk-mixed')).queueItems
+		expect(rows.every(item => queueItemSchema.safeParse(item).success)).toBe(true)
+		expect(rows.map(item => [item.status, item.choice ?? null])).toEqual([
+			['needs-choice', {kind: 'video-or-list', list: 'playlist'}],
+			['running', null],
+			['pending', null]
+		])
+	})
+
 	it('raises the quick download toasts with their actions', async () => {
 		const sink = vi.fn()
 		setNotificationSink(sink)

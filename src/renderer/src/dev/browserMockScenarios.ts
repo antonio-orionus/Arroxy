@@ -9,6 +9,7 @@ import {bilibiliHydrationVideo, buildProbeResult, normalVideoProbe, playlistProb
 import {ATTENTION_SCENARIO_FAILED_URL, ATTENTION_SCENARIO_ROWS, buildQueueItems, QUICK_DOWNLOAD_SCENARIO_ROWS} from './scenarios/queueScenarios.js'
 import {buildUpdate} from './scenarios/updateScenarios.js'
 import {buildWarmUp} from './scenarios/diagnosticScenarios.js'
+import {isReturningSetupScenario, SETUP_SCENARIOS} from './scenarios/setupScenarios.js'
 import {buildExploreView, exploreProfilesPatch, exploreSettingsPatch} from './scenarios/exploreScenarios.js'
 import {ORIGINS_CUSTOM_REF, ORIGINS_HIDDEN_REF, profileOriginsPatch} from './scenarios/profileOriginScenarios.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
@@ -94,6 +95,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'queue-large',
 	'queue-quick-download',
 	'queue-probe-waiting',
+	'queue-bulk-mixed',
 	'queue-attention',
 	'queue-list-offer',
 	'diagnostics-all-ok',
@@ -102,9 +104,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'diagnostics-ffprobe-broken',
 	'diagnostics-all-missing',
 	'diagnostics-warmup-running',
-	'setup-first-run',
-	'setup-media-update',
-	'setup-unpacking',
+	...SETUP_SCENARIOS.map(scenario => scenario.id),
 	'repair-offline',
 	'repair-mixed',
 	'explore-notice',
@@ -147,7 +147,7 @@ function applySingleScenario(id: string, store: ScenarioWorkbenchStore): void {
 		if (fullHd) store.setState(profilePatch({...fullHd, name: 'Full HD + English subs', subtitles: {...fullHd.subtitles, enabled: true, languages: ['en']}}, store.getState()))
 	}
 }
-export type BrowserMockScenarioGroup = 'General' | 'Playlist' | 'Profiles' | 'Probe Results' | 'Real sites' | 'Probe Errors' | 'Dialogs' | 'Updates' | 'Queue' | 'Diagnostics' | 'Explore'
+export type BrowserMockScenarioGroup = 'General' | 'Playlist' | 'Profiles' | 'Probe Results' | 'Real sites' | 'Probe Errors' | 'Dialogs' | 'Updates' | 'Queue' | 'Diagnostics' | 'Setup' | 'Explore'
 type ScenarioKind = 'default' | 'probe' | 'bulk' | 'profile' | 'queue' | 'update' | 'diagnostics' | 'dialog' | 'state' | 'explore'
 const PROBE_ERROR_TARGETS = ['wizard', 'quick-download'] as const
 export type ProbeErrorTarget = (typeof PROBE_ERROR_TARGETS)[number]
@@ -302,6 +302,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'queue-errors', group: 'Queue', title: 'Queue errors', description: 'Failed and cancelled rows for retry/remove states.', kind: 'queue'},
 	{id: 'queue-notices', group: 'Queue', title: 'Queue completion notices', description: 'Finished rows carrying a quality-limit, subtitle, or combined notice.', kind: 'queue'},
 	{id: 'queue-columns', group: 'Queue', title: 'Queue columns', description: 'Rows with varied timestamps for sorting and column visibility review.', kind: 'queue'},
+	{id: 'queue-bulk-mixed', group: 'Queue', title: 'Bulk: a video in a playlist asks', description: 'A Bulk URLs batch whose video-in-a-playlist link waits on its row for "this video or the playlist" (This video, The playlist, Pick from it…), while the rest of the batch downloads.', kind: 'queue'},
 	{id: 'queue-probe-waiting', group: 'Queue', title: 'Probes waiting out a cooldown', description: 'Rows still fetching details while YouTube cools down: they say they wait for YouTube until a time; the row on another site does not.', kind: 'queue'},
 	{id: 'queue-quick-download', group: 'Queue', title: 'Queue quick download', description: 'Quick download rows: probing with Cancel, a failed probe with its guidance, a capped playlist and an uncapped list from another site waiting for a choice, and the toasts with actions.', kind: 'queue'},
 	{id: 'queue-attention', group: 'Queue', title: 'Queue needs attention', description: 'Background quick downloads: one preparing, a private video that offers Sign in in Explore, a capped playlist waiting for a choice, the attention badge on the Downloads tab, and a failure toast with View and Retry.', kind: 'queue'},
@@ -313,11 +314,9 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'diagnostics-ffprobe-broken', group: 'Diagnostics', title: 'ffprobe broken', description: 'Blocking ffprobe probe failure (bad exit code).', kind: 'diagnostics'},
 	{id: 'diagnostics-all-missing', group: 'Diagnostics', title: 'All missing', description: 'Fresh-install state - all setup dependencies failed; all are blocking.', kind: 'diagnostics'},
 	{id: 'diagnostics-warmup-running', group: 'Diagnostics', title: 'Warmup running', description: 'Setup is still running without blocking failures.', kind: 'diagnostics'},
-	{id: 'setup-first-run', group: 'Diagnostics', title: 'Setup: first launch', description: 'First launch downloads the download engine and the media tools package side by side; one bar, bytes and time left, one-time note.', kind: 'diagnostics'},
-	{id: 'setup-media-update', group: 'Diagnostics', title: 'Setup: media tools update', description: 'A returning user downloads only the FFmpeg package, e.g. the first launch after the update that stopped bundling it.', kind: 'diagnostics'},
-	{id: 'setup-unpacking', group: 'Diagnostics', title: 'Setup: unpacking', description: 'Downloads are done and the media tools package is being unpacked.', kind: 'diagnostics'},
 	{id: 'repair-offline', group: 'Diagnostics', title: 'Repair: offline', description: 'Every tool failed to download for the same reason: one message, Try again first, manual setup collapsed.', kind: 'diagnostics'},
 	{id: 'repair-mixed', group: 'Diagnostics', title: 'Repair: mixed causes', description: 'Antivirus blocked the download engine while the media tools failed to download: one line per cause.', kind: 'diagnostics'},
+	...SETUP_SCENARIOS.map((scenario): BrowserMockScenario => ({id: scenario.id, group: 'Setup', title: scenario.title, description: scenario.description, kind: 'diagnostics'})),
 	{id: 'explore-notice', group: 'Explore', title: 'Explore first-run notice', description: 'First open of the Explore tab: an illustrated preview of Explore (toolbar with the Download split over an abstract video page) and the ban-risk notice show before any view exists.', kind: 'explore'},
 	{id: 'explore-browsing', group: 'Explore', title: 'Explore browsing', description: 'Notice acknowledged and signed in: toolbar plus a loaded page (a neutral placeholder stands in for the native view).', kind: 'explore'},
 	{id: 'explore-long-profile', group: 'Explore', title: 'Explore long profile name', description: 'A custom profile with a long name is active: the Download button shows no name; its hint names the profile in full.', kind: 'explore'},
@@ -604,7 +603,7 @@ function buildSettings(scenario: BrowserMockScenario, knobs?: BrowserMockKnobs):
 			...(scenario.id === 'single-review-returning' ? {successfulDownloadCount: 12} : {}),
 			...(scenario.id === 'update-whats-new' ? {launchCount: 3, lastReleaseNotesVersionShown: '0.4.0-beta.3'} : {}),
 			...(scenario.id === 'update-whats-new-catchup' ? {launchCount: 9, lastReleaseNotesVersionShown: '0.4.2'} : {}),
-			...(scenario.id === 'setup-media-update' ? {launchCount: 6} : {}),
+			...(isReturningSetupScenario(scenario.id) ? {launchCount: 6} : {}),
 			...exploreSettingsPatch(scenario),
 			// Explore is set up but signed out, so the private video's row offers Sign in in Explore.
 			...(scenario.id === 'queue-attention' ? {exploreEnabled: true, exploreNoticeSeen: true, cookiesMode: 'explore', exploreModeAutoSwitched: true} : {}),

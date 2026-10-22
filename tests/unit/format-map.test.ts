@@ -31,6 +31,20 @@ describe('mapFormats', () => {
 		expect(mapped.find(f => f.formatId === '137')).not.toHaveProperty('audioChannels')
 	})
 
+	it("keeps a video stream's frame size as data, only when the site gives both sides", () => {
+		const mapped = mapFormats([
+			{format_id: '137', resolution: '1080p', width: 1920, height: 800, ext: 'mp4', vcodec: 'avc1.640028', acodec: 'none'},
+			{format_id: 'hls', resolution: '720p', height: 720, ext: 'mp4', vcodec: 'avc1.4d401f', acodec: 'none'},
+			{format_id: 'odd', resolution: '0x0', width: 0, height: 0, ext: 'mp4', vcodec: 'avc1', acodec: 'none'},
+			{format_id: '140', resolution: 'audio only', width: 1920, height: 1080, ext: 'm4a', vcodec: 'none', acodec: 'mp4a.40.2'}
+		])
+		expect(mapped.find(f => f.formatId === '137')).toEqual(expect.objectContaining({width: 1920, height: 800}))
+		expect(mapped.find(f => f.formatId === 'hls')).not.toHaveProperty('width')
+		expect(mapped.find(f => f.formatId === 'hls')).not.toHaveProperty('height')
+		expect(mapped.find(f => f.formatId === 'odd')).not.toHaveProperty('width')
+		expect(mapped.find(f => f.formatId === '140')).not.toHaveProperty('width')
+	})
+
 	it('keeps the video codec on video streams so MP4 profiles can prefer H.264', () => {
 		const mapped = mapFormats([
 			{format_id: '137', resolution: '1920x1080', ext: 'mp4', vcodec: 'avc1.640028', acodec: 'none'},

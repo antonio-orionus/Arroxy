@@ -24,6 +24,7 @@ import {PLAYLIST_PROBE_LIMIT_MAX, QUEUE_STATUS, type JobAuth, type QueueChoice, 
 import type {AppSettings, DownloadProfile, DownloadProfileRef, KeptProbe, LocalizedError, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeResult, QueueItem} from '@shared/types.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 import {KeptProbes} from './KeptProbes.js'
+import {listKindForUrl} from '@shared/sites/youtubeListKind.js'
 
 const logger = log.scope('intake')
 
@@ -36,8 +37,8 @@ export interface IntakeQueue {
 	replaceProbing(itemId: string, items: QueueItem[]): Promise<QueueAddResult>
 	needsChoice(itemId: string, choice: QueueChoice, title: string): Result<void>
 	probeFailed(itemId: string, error: LocalizedError, auth?: JobAuth): Result<void>
-	// A choice's answer (`take`) is stored on the row, as a count chosen at intake is.
-	reprobe(itemId: string, take?: QuickProbeTake): Result<void>
+	// A choice's answer (how much of a list, the mode to probe in) is stored on the row, as a count chosen at intake is.
+	reprobe(itemId: string, answer?: {take?: QuickProbeTake; probeMode?: ProbePlaylistMode}): Result<void>
 	clearListOffer(itemId: string): Result<void>
 }
 
@@ -84,6 +85,9 @@ export interface IntakeAddRequest {
 	listOffer?: string
 	// A list placed by a row's list offer: the video already taken, left out.
 	skipVideoId?: string
+	// A Bulk URLs link naming a video and a list: the row asks which, and
+	// nothing is probed until it is answered (#581).
+	ask?: 'video-or-list'
 	origin: IntakeCaller
 }
 
@@ -182,7 +186,8 @@ export class IntakeService {
 		if (live) return {kind: 'already-queued', itemId: live.id}
 		const settings = await this.deps.settings()
 		const origin: IntakeOrigin = {...request.origin, intakeId: this.deps.newId()}
-		const row = this.placeholderRow(request, this.activePinned(settings, request.profile), origin, settings)
+		const placeholder = this.placeholderRow(request, this.activePinned(settings, request.profile), origin, settings)
+		const row: QueueItem = request.ask ? {...placeholder, status: QUEUE_STATUS.needsChoice, choice: {kind: 'video-or-list', list: listKindForUrl(request.url) ?? 'playlist'}} : placeholder
 		const added = this.deps.queue.add([row])
 		if (!added.ok) {
 			// The queue of record refused: a conflict means another row holds the link.
@@ -190,8 +195,8 @@ export class IntakeService {
 			logger.warn('placing the row failed', {error: added.error.message})
 			return {kind: 'not-added'}
 		}
-		logger.info('link taken in', {itemId: row.id, intakeId: origin.intakeId, origin: origin.kind, playlistMode: request.playlistMode})
-		void this.runProbe(row.id, {url: row.url, playlistMode: request.playlistMode, title: row.title, ...ownTake(row)}, {requestId: request.requestId, origin: origin.kind})
+		logger.info('link taken in', {itemId: row.id, intakeId: origin.intakeId, origin: origin.kind, playlistMode: request.playlistMode, ...(request.ask ? {ask: request.ask} : {})})
+		if (!request.ask) void this.runProbe(row.id, {url: row.url, playlistMode: request.playlistMode, title: row.title, ...ownTake(row)}, {requestId: request.requestId, origin: origin.kind})
 		return {kind: 'added', itemId: row.id, title: row.title, intakeId: origin.intakeId}
 	}
 
@@ -206,14 +211,18 @@ export class IntakeService {
 		return restarted
 	}
 
-	// A needs-choice row's answer: every video, or the first N a capped list offered.
-	// The answer overrides any count the row was placed with, and is stored on
-	// the row before its probe starts, so a Retry and a restart keep to it.
+	// A needs-choice row's answer: every video, or the first N a capped list
+	// offered; for a video-or-list row, the video, the list in the background,
+	// or every video of the list. The answer overrides any count the row was
+	// placed with, and is stored on the row (with the mode it probes in) before
+	// its probe starts, so a Retry and a restart keep to it.
 	choose(call: IntakeCall & {take: IntakeTake}): Result<void> {
 		const row = this.placeholder(call.itemId)
 		// A refused answer leaves the row as it is: restarting it here would
 		// leave it probing with no probe running.
 		if (row?.status !== QUEUE_STATUS.needsChoice || !row.choice) return fail(createAppError('validation', `queue item ${call.itemId} is not waiting for a choice`))
+		if (row.choice.kind === 'video-or-list') return this.chooseVideoOrList(row, call)
+		if (call.take === 'video' || call.take === 'list') return fail(createAppError('validation', `queue item ${call.itemId} asks how much of a list, not which`))
 		const kept = this.kept.get(call.itemId)
 		const probe = {url: row.url, playlistMode: row.probeMode, title: row.title}
 		if (call.take === 'all') return this.reprobe(row, {...probe, scope: scopeForTake({kind: 'all'}), take: {kind: 'all'}}, call)
@@ -222,11 +231,26 @@ export class IntakeService {
 		if (!kept) return this.reprobe(row, {...probe, scope: scopeForTake(take), take}, call)
 		// The kept probe already holds the first N: no second probe. The row
 		// still goes back to probing, so a failure can land on it as usual.
-		const restarted = this.deps.queue.reprobe(call.itemId, take)
+		const restarted = this.deps.queue.reprobe(call.itemId, {take})
 		if (!restarted.ok) return restarted
 		this.kept.forget(call.itemId)
 		void this.settle(row.id, probe, call, async () => this.resolve(row.id, {ok: true, data: kept.probe}, {...probe, take}, take.count))
 		return restarted
+	}
+
+	// Nothing was loaded yet, so the first N is not an answer here.
+	private chooseVideoOrList(row: PlaceholderRow, call: IntakeCall & {take: IntakeTake}): Result<void> {
+		const probe = {url: row.url, title: row.title}
+		switch (call.take) {
+			case 'video':
+				return this.reprobe(row, {...probe, playlistMode: 'video'}, call)
+			case 'list':
+				return this.reprobe(row, {...probe, playlistMode: 'playlist'}, call)
+			case 'all':
+				return this.reprobe(row, {...probe, playlistMode: 'playlist', scope: scopeForTake({kind: 'all'}), take: {kind: 'all'}}, call)
+			case 'first':
+				return fail(createAppError('validation', `queue item ${call.itemId} has loaded no videos to take the first of`))
+		}
 	}
 
 	// A hotkey video's offer of its list, taken: the list goes in as its own
@@ -258,7 +282,7 @@ export class IntakeService {
 	}
 
 	private reprobe(row: PlaceholderRow, probe: PlaceholderProbe, caller: Caller): Result<void> {
-		const restarted = this.deps.queue.reprobe(row.id, probe.take)
+		const restarted = this.deps.queue.reprobe(row.id, {...(probe.take ? {take: probe.take} : {}), probeMode: probe.playlistMode})
 		if (!restarted.ok) return restarted
 		this.kept.forget(row.id)
 		void this.runProbe(row.id, probe, caller)

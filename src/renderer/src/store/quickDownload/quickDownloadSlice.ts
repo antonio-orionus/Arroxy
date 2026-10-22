@@ -125,11 +125,6 @@ export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDow
 				return false
 			}
 			const actions = cleaned.map(url => policyForUrlIntent(classifyBulkUrlIntent(url), 'bulk-quick-download'))
-			// Until #581 settles it: a link naming a video in a list sends the whole batch to Bulk's review.
-			if (actions.some(action => action.kind === 'open-bulk-review')) {
-				get().startBulkUrls(cleaned)
-				return true
-			}
 			const toasts = quickDownloadToasts('url-tab', get)
 			const profiles = get().settings?.profiles
 			const profile = profiles ? resolveActiveDownloadProfile(profiles).ref : undefined
@@ -138,9 +133,11 @@ export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDow
 			for (let index = cleaned.length - 1; index >= 0; index--) {
 				const url = cleaned[index]
 				const action = actions[index]
-				if (url === undefined || !action || !('playlistMode' in action)) continue
+				// A link naming a video and a list is placed asking which; nothing probes until it is answered (#581).
+				const how = action?.kind === 'ask-on-row' ? {playlistMode: 'auto' as const, ask: 'video-or-list' as const} : action && 'playlistMode' in action ? {playlistMode: action.playlistMode} : null
+				if (url === undefined || how === null) continue
 				const answer: {placement: IntakePlacement | null} = {placement: null}
-				await placeQuickDownload({url, playlistMode: action.playlistMode, ...(profile ? {profile} : {})}, event => {
+				await placeQuickDownload({url, ...how, ...(profile ? {profile} : {})}, event => {
 					// The first answer is the placement, told in the batch's one toast. Everything
 					// later (what the probe ends in, an already-queued video main dropped) toasts as usual.
 					if (answer.placement === null && (event.kind === 'added' || event.kind === 'already-queued' || event.kind === 'not-added')) answer.placement = event
@@ -173,13 +170,17 @@ export function createQuickDownloadSlice(set: SetState, get: GetState): QuickDow
 		chooseQuickDownloadRow: async (itemId, answer) => {
 			const row = findPlaceholder(itemId, get)
 			if (row?.status !== QUEUE_STATUS.needsChoice || !row.choice) return
+			const {choice} = row
 			if (answer === 'review') {
 				// The row stays until the review queues (P2-R40): the wizard's
 				// submission replaces it, and an abandoned review leaves it waiting.
-				await get().openPlaylistReview(row.url, row.probeMode, itemId, await keptChoiceProbe(itemId))
+				// A row asking video or list probed nothing: its review loads the list.
+				if (choice.kind === 'video-or-list') await get().openPlaylistReview(row.url, 'playlist', itemId)
+				else await get().openPlaylistReview(row.url, row.probeMode, itemId, await keptChoiceProbe(itemId))
 				return
 			}
-			if (answer === 'first' && !row.choice.capped) return
+			const fits = choice.kind === 'video-or-list' ? answer === 'video' || answer === 'list' : answer === 'all' || (answer === 'first' && choice.capped)
+			if (!fits) return
 			await choosePlaceholder(itemId, answer, quickDownloadToasts('downloads', get))
 		},
 

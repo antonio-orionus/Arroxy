@@ -1,0 +1,1 @@
+A video from a playlist in Bulk URLs no longer sends the whole batch to the review: its row in Downloads asks whether you want just the video or the playlist, and the rest of the batch downloads at once.

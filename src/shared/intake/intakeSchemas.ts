@@ -43,12 +43,16 @@ export const intakeAddInputSchema = z.object({
 		.transform(title => title.slice(0, INTAKE_TITLE_MAX))
 		.optional(),
 	profile: downloadProfileRefSchema.optional(),
-	take: quickProbeTakeSchema.optional()
+	take: quickProbeTakeSchema.optional(),
+	// A Bulk URLs link naming a video and a list: its row asks which before anything is probed.
+	ask: z.literal('video-or-list').optional()
 })
 export type IntakeAddInput = z.input<typeof intakeAddInputSchema>
 export const intakeRetryInputSchema = z.object({requestId: intakeRequestIdSchema, itemId: z.string().min(1)})
 // The answers a needs-choice row takes in main; Review stays in the window.
-export const intakeTakeSchema = z.enum(['all', 'first'])
+// A list-size row takes `all` or `first`; a video-or-list row takes `video`,
+// `list` (the list in the background) or `all` (every video of the list).
+export const intakeTakeSchema = z.enum(['all', 'first', 'video', 'list'])
 export type IntakeTake = z.infer<typeof intakeTakeSchema>
 export const intakeChooseInputSchema = z.object({requestId: intakeRequestIdSchema, itemId: z.string().min(1), take: intakeTakeSchema})
 export const intakeItemInputSchema = z.object({itemId: z.string().min(1)})
