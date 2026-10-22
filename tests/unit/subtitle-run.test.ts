@@ -180,6 +180,20 @@ describe('reported files and the plan', () => {
 		])
 	})
 
+	// yt-dlp keys a track uploaded with a name of its own by YouTube's vssId.
+	it('titles an English caption Auto-generated beside an English track uploaded under a name of its own', async () => {
+		const named: SubtitleLists = {...(await lists()), subtitles: {'en-nP7-2PuUl7o': [{ext: 'srt', name: 'English - en'}]}, automaticCaptions: {'en-orig': [{ext: 'srt', name: 'English (Original)'}], en: [{ext: 'srt', name: 'English'}]}}
+		const planned = planSubtitleRun(options(languages(['en'], 'manual-and-auto')), named, {site: YOUTUBE, jobId: 'job'})
+		const files = [
+			{key: 'en-nP7-2PuUl7o', path: '/out/v.en-nP7-2PuUl7o.srt'},
+			{key: 'en', path: '/out/v.en.srt'}
+		]
+		expect(subtitleEmbedTracks(files, planned, {lists: named, format: 'srt'})).toEqual([
+			{path: '/out/v.en-nP7-2PuUl7o.srt', lang: 'en', name: 'English - en'},
+			{path: '/out/v.en.srt', lang: 'en', name: 'English', title: 'Auto-generated'}
+		])
+	})
+
 	it('names a track after the format the run fetched: the last in that format, else the last', async () => {
 		const named = {
 			...(await lists()),

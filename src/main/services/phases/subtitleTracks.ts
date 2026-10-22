@@ -181,10 +181,10 @@ export function automaticCaptionPaths(reported: readonly ReportedSubtitle[], pla
 	return reported.filter(entry => plannedTrackFor(plan, entry.key)?.auto === true).map(entry => entry.path)
 }
 
-// A YouTube automatic caption keeps its `-orig` key only beside a manual track
-// in the same language. ffmpeg writes a language tag verbatim, and "en-orig"
-// is no ISO 639-2 code, so it is tagged with its base language and titled
-// apart from the manual track.
+// A YouTube automatic caption beside a manual track in the same language
+// (`en`, or `en-nP7-2PuUl7o` for one uploaded under a name of its own) is
+// tagged with that language too, since ffmpeg writes a tag verbatim and
+// "en-orig" is no ISO 639-2 code, and titled apart from the manual track.
 const ORIGINAL_CAPTION_TITLE = 'Auto-generated'
 
 // The format of a track that `--sub-format <format>/best` picks: the last one
@@ -210,7 +210,7 @@ export function subtitleEmbedTracks(reported: readonly ReportedSubtitle[], plan:
 		if (!planned) return {path: entry.path, lang: 'und'}
 		const name = trackName(opts.lists, planned, opts.format)
 		const named = name ? {name} : {}
-		const besideManual = planned.auto && plan.tracks.some(track => !track.auto && track.requestKey === planned.language)
+		const besideManual = planned.auto && plan.tracks.some(track => !track.auto && track.language === planned.language)
 		return {path: entry.path, lang: planned.language, ...named, ...(besideManual ? {title: ORIGINAL_CAPTION_TITLE} : {})}
 	})
 }
