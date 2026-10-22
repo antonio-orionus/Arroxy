@@ -50,6 +50,8 @@ import {HotkeyService, hotkeyWindowFromBrowserWindow, electronShortcutRegistry} 
 import {createHotkeyOsNotifier} from '@main/services/hotkeyOsNotifier.js'
 import {routeHotkeyOutcome} from '@main/services/hotkeyFeedback.js'
 import {createIntakeService} from '@main/intake/createIntakeService.js'
+import {binaryReadiness} from '@main/control/binaryReadiness.js'
+import {startAgentControl, stopAgentControlOnQuit} from '@main/control/startAgentControl.js'
 import {HiddenWindowTokenProvider} from '@main/token/providers/HiddenWindowTokenProvider.js'
 import {configureLogFile, mainLogPath} from '@main/utils/logFile.js'
 import {applyUserDataOverride} from '@main/userDataOverride.js'
@@ -605,15 +607,11 @@ if (hasSingleInstanceLock) {
 		// Intake runs in main for the window and the hotkey alike. The hotkey's
 		// outcomes are routed when they happen, by which time `hotkeyService`
 		// (created next, since it hands presses to this intake) exists.
-		const {intake: intakeService, hotkey: hotkeyIntake} = createIntakeService({
-			probeService,
-			queueService,
-			settingsStore,
-			playlistManifestStore,
-			languageRef,
-			mainWindow,
-			hotkeyFeedback: event => routeHotkeyOutcome(event, {lang: languageRef.current, window: hotkeyWindow, osNotifier: hotkeyOsNotifier, rendererReady: hotkeyService.isRendererReady()})
-		})
+		const {
+			intake: intakeService,
+			hotkey: hotkeyIntake,
+			control: controlOutcomes
+		} = createIntakeService({probeService, queueService, settingsStore, playlistManifestStore, languageRef, mainWindow, hotkeyFeedback: event => routeHotkeyOutcome(event, {lang: languageRef.current, window: hotkeyWindow, osNotifier: hotkeyOsNotifier, rendererReady: hotkeyService.isRendererReady()})})
 		const hotkeyService = new HotkeyService(hotkeyWindow, hotkeyIntake, electronShortcutRegistry())
 		hotkeyService.apply(initialSettings.common.hotkeyEnabled, initialSettings.common.hotkeyAccelerator ?? DEFAULTS.hotkeyAccelerator)
 		// A future main-frame navigation/reload destroys the renderer listener.
@@ -639,6 +637,24 @@ if (hasSingleInstanceLock) {
 		if (!e2eMode.disableUpdater) {
 			registerUpdaterHandlers(mainWindow)
 		}
+
+		// Agent control (release flag agentControl): the local socket arroxy-mcp drives the app through.
+		const agentControl = startAgentControl({
+			queueService,
+			intake: intakeService,
+			outcomes: controlOutcomes,
+			settingsStore,
+			siteRequests,
+			binaries: binaryReadiness(binaryManager),
+			languageRef,
+			userDataDir: userDataPath,
+			appVersion: app.getVersion(),
+			platform: process.platform,
+			env: process.env,
+			autoAllowClients: e2eMode.enabled,
+			log: log.scope('control')
+		})
+		stopAgentControlOnQuit(app, agentControl)
 
 		app.on('render-process-gone', (_event, webContents, details) => {
 			// An Explore page crash is the open web's, not the app's: the view shows
