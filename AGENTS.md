@@ -34,9 +34,7 @@ Sibling repos (site, runtime binaries, private notes, package-manager manifests)
 **One concern per PR.** Each PR makes one reviewable change and passes `bun run check` alone, so every review reads a single idea.
 
 - **Split along seams:** a `packages/*` change apart from the app change using it; a behaviour-free refactor or rename before the feature needing it; mechanical churn (formatting, licence headers, dependency bumps, locale sync, regenerated files) apart from logic; independent features as separate PRs.
-- **A concern can be several tasks:** one plan built task by task in one branch (implementer, then reviewer, per task) is one PR.
 - **Same-kind mechanical changes may share a PR** when each is a few lines and none changes behaviour (several `ci:` or tooling tweaks): light review, and no behaviour change rides along. Why: on 2026-10-21, 36 of 172 PRs were under 50 lines, each paying a full CI and review cycle.
-- **Small fixes in one area may land as a batch PR:** up to ~5 confirmed issues sharing files or a theme, ~500 lines, one review kind, never package plus app. One test-first commit and one `Fixes #N` line per issue; one dual review, one CI cycle, at most one CodeRabbit trigger. Merge with a merge commit, not a squash (overriding the `land` skill), so each fix stays revertable. Why: a push costs ~8 minutes of CI, and CodeRabbit's hourly budget is per trigger.
 - **Tests stay with their code;** never split by layer.
 - **Keep one PR** when the pieces cannot each be green alone, and say why in its body.
 - **Don't stack PRs:** branch every PR from `main`. If one piece needs an unmerged other, put both in one PR with a commit each, or start the second after the first merges; nothing wakes anyone when a stack's base merges, and each merge forces the next to rerun CI and re-enable auto-merge.

@@ -5,7 +5,7 @@ metadata:
   type: feedback
 ---
 
-`bun run review:dual` pastes everything below the frontmatter into each review
+The local dual review (the maintainer's global `dual-review` skill) pastes everything below the frontmatter into each review
 and verification prompt, and CodeRabbit reads this file as a code guideline
 (`knowledge_base.code_guidelines` in `.coderabbit.yaml`), so write entries as
 instructions to a reviewer. Add an

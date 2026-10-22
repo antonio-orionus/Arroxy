@@ -1,8 +1,9 @@
 // Regenerates per-tool agent adapters from the shared `.agents/` sources.
 // `.agents/skills/` and `.agents/mcp.json` are the only tracked inputs; every
-// output here is gitignored local state, safe to delete and rebuild. The one
-// untracked input is the maintainer's personal `.internal/AGENTS.md`, wired into
-// each tool when it exists so it loads as automatically as `AGENTS.md`.
+// output here is gitignored local state, safe to delete and rebuild. The
+// untracked inputs are the maintainer's personal `.internal/AGENTS.md`, wired into
+// each tool when it exists so it loads as automatically as `AGENTS.md`, and the
+// private skills in `.internal/skills/`, linked in beside the shared ones.
 import {lstat, mkdir, readdir, readFile, readlink, rm, stat, symlink, writeFile} from 'node:fs/promises'
 import path from 'node:path'
 import {fileURLToPath} from 'node:url'
@@ -18,6 +19,7 @@ export type AgentsMcpConfig = z.infer<typeof agentsMcpConfigSchema>
 const CLAUDE_SKILLS_DIR = '.claude/skills'
 
 const PERSONAL_INSTRUCTIONS = '.internal/AGENTS.md'
+const PERSONAL_SKILLS = '.internal/skills'
 // Claude Code loads this from the project root; an `@` import through `.internal`
 // would resolve outside the repo and need a per-project approval instead.
 const CLAUDE_LOCAL = 'CLAUDE.local.md'
@@ -57,8 +59,7 @@ async function exists(target: string): Promise<boolean> {
 	)
 }
 
-async function listSharedSkills(repoRoot: string): Promise<string[]> {
-	const dir = path.join(repoRoot, '.agents/skills')
+async function listSkills(dir: string): Promise<string[]> {
 	if (!(await exists(dir))) return []
 	const entries = await readdir(dir, {withFileTypes: true})
 	const names = await Promise.all(entries.map(async entry => ((entry.isDirectory() || entry.isSymbolicLink()) && (await exists(path.join(dir, entry.name, 'SKILL.md'))) ? entry.name : null)))
@@ -74,7 +75,7 @@ async function syncClaudeSkillLinks(repoRoot: string): Promise<void> {
 		if (entry.isSymbolicLink() && !(await exists(link))) await rm(link)
 	}
 
-	for (const name of await listSharedSkills(repoRoot)) {
+	for (const name of await listSkills(path.join(repoRoot, '.agents/skills'))) {
 		const link = path.join(linkDir, name)
 		const current = await lstat(link).catch(() => null)
 		if (current && !current.isSymbolicLink()) {
@@ -85,6 +86,28 @@ async function syncClaudeSkillLinks(repoRoot: string): Promise<void> {
 		// Junctions need no Windows symlink privilege but require an absolute target.
 		if (process.platform === 'win32') await symlink(path.join(repoRoot, '.agents/skills', name), link, 'junction')
 		else await symlink(path.join('../../.agents/skills', name), link)
+	}
+}
+
+// Links each private skill into `.agents/skills`, which Codex and OpenCode read
+// natively and Claude Code reaches through its own links. A tracked skill of the
+// same name wins; a link whose private skill is gone is dropped.
+async function syncPersonalSkillLinks(repoRoot: string): Promise<void> {
+	const sharedDir = path.join(repoRoot, '.agents/skills')
+	await mkdir(sharedDir, {recursive: true})
+	const ownTarget = (name: string): string => path.join('../../', PERSONAL_SKILLS, name)
+
+	for (const entry of await readdir(sharedDir, {withFileTypes: true})) {
+		const link = path.join(sharedDir, entry.name)
+		if (entry.isSymbolicLink() && path.normalize(await readlink(link)).includes(path.normalize(PERSONAL_SKILLS)) && !(await exists(link))) await rm(link)
+	}
+
+	for (const name of await listSkills(path.join(repoRoot, PERSONAL_SKILLS))) {
+		const link = path.join(sharedDir, name)
+		// Already linked, or a tracked or installed skill of the same name.
+		if (await lstat(link).catch(() => null)) continue
+		if (process.platform === 'win32') await symlink(path.join(repoRoot, PERSONAL_SKILLS, name), link, 'junction')
+		else await symlink(ownTarget(name), link)
 	}
 }
 
@@ -125,15 +148,16 @@ async function writeMcpTargets(repoRoot: string, personalInstructions: string | 
 	}
 }
 
-// The part of the sync that depends on `.internal/AGENTS.md`, for refreshing other worktrees.
+// The part of the sync that depends on `.internal/`, for refreshing other worktrees.
 export async function syncPersonalInstructions(repoRoot: string): Promise<void> {
+	await syncPersonalSkillLinks(repoRoot)
+	await syncClaudeSkillLinks(repoRoot)
 	const personalInstructions = await readPersonalInstructions(repoRoot)
 	await syncClaudeLocalLink(repoRoot, personalInstructions !== undefined)
 	await writeMcpTargets(repoRoot, personalInstructions)
 }
 
 export async function syncAgents(repoRoot: string): Promise<void> {
-	await syncClaudeSkillLinks(repoRoot)
 	await syncPersonalInstructions(repoRoot)
 }
 

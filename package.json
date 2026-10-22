@@ -17,8 +17,6 @@
 	"scripts": {
 		"agents:skills:restore": "bunx skills experimental_install && bun run agents:sync",
 		"agents:sync": "bun scripts/agents-sync.ts",
-		"review:dual": "bun scripts/dual-review/run.ts",
-		"review:check-head": "bun scripts/dual-review/check-head.ts",
 		"bootstrap": "bun scripts/dev-env.ts bootstrap",
 		"internal:save": "bun scripts/internal-docs.ts save",
 		"internal:sync": "bun scripts/internal-docs.ts link",

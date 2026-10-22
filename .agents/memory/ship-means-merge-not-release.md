@@ -28,4 +28,4 @@ line. Antonio decides when to release and says so.
 
 **How to apply:** the `land` skill stops at the merge; releasing follows
 `dev-docs/release-runbook.md` only on request. Related:
-[[finish-before-pr]], [[coderabbit-review-workflow]].
+[[finish-before-pr]].
