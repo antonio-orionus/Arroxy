@@ -18,16 +18,22 @@ export interface CallerOutput {
 	// The file name as an output template: fields, and literal text from
 	// templateLiteral(). Relative to `directory`.
 	template?: string
-	// Inside `directory`, absolute or relative to it. yt-dlp has no escape for
-	// it, so a variable below `directory` (`$NAME`, `%NAME%` on Windows) is
-	// refused.
+	// Where media and subtitle runs keep files in progress (`.part` included)
+	// before yt-dlp moves each finished one to the same path under
+	// `directory`. Inside `directory`, absolute or relative to it. yt-dlp has
+	// no escape for it, so a variable below `directory` (`$NAME`, `%NAME%` on
+	// Windows) is refused.
 	tempDirectory?: string
 	subtitleMode?: SubtitleMode
 	// Files inside `directory` that yt-dlp appends what it wrote to.
 	// finalPath: the media's absolute path once every postprocessor and the
 	// move are done (`after_move:filepath`). subtitles: `requested_subtitles`
 	// as JSON, one line per video, with each track's `filepath` (`after_video`,
-	// which a `--skip-download` run reaches).
+	// which a `--skip-download` run reaches). With a `tempDirectory`, a track
+	// yt-dlp wrote is reported where it wrote it, inside `tempDirectory`: its
+	// move does not update `requested_subtitles`. The file is then at the same
+	// path relative to `directory`. A track already present is reported where
+	// it is.
 	report?: {finalPath?: string; subtitles?: string}
 }
 
@@ -88,10 +94,21 @@ export function loadInfoJsonArgs(output: CallerOutput, file: string | undefined,
 	return ['--load-info-json', relativeInside(output.directory, file) === null ? file : unexpandedInside(output.directory, file, label)]
 }
 
+// The temp folder relative to the folder, if the caller gave one.
+function callerTemp(output: CallerOutput): string | undefined {
+	return output.tempDirectory ? insideTarget(output.directory, output.tempDirectory, 'output.tempDirectory') : undefined
+}
+
+// yt-dlp downloads into the temp folder, `.part` files included, and moves a
+// finished file to the same path under the folder.
+function tempPathArgs(output: CallerOutput, temp: string | undefined): string[] {
+	return temp ? ['--paths', `temp:${unexpandedInside(output.directory, temp, 'output.tempDirectory')}/`] : []
+}
+
 export function callerMediaOutputArgs(output: CallerOutput, options: CallerMediaOutputOptions): string[] {
 	const template = callerOutputTemplate(output)
-	const temp = output.tempDirectory ? insideTarget(output.directory, output.tempDirectory, 'output.tempDirectory') : undefined
-	const args = temp ? ['--paths', `temp:${unexpandedInside(output.directory, temp, 'output.tempDirectory')}/`, '-o', template] : ['-o', template]
+	const temp = callerTemp(output)
+	const args = [...tempPathArgs(output, temp), '-o', template]
 	if (temp && !options.skipDownload && options.resume?.writeInfoJson !== false) {
 		args.push('--write-info-json', '-o', `infojson:${templateLiteral(`${temp}/${options.resume?.infoJsonBaseName ?? DEFAULT_INFO_JSON_BASE_NAME}`)}`)
 	}
@@ -99,9 +116,11 @@ export function callerMediaOutputArgs(output: CallerOutput, options: CallerMedia
 	return args
 }
 
+// A track is written and converted in the temp folder (the subfolder too),
+// then moved: `<temp>/subtitles/x.en.srt` ends as `subtitles/x.en.srt`.
 export function callerSubtitlesOutputArgs(output: CallerOutput): string[] {
 	const template = callerOutputTemplate(output)
-	return ['-o', output.subtitleMode === 'subfolder' ? `${SUBTITLE_SUBFOLDER}/${template}` : template, ...reportArgs(output)]
+	return [...tempPathArgs(output, callerTemp(output)), '-o', output.subtitleMode === 'subfolder' ? `${SUBTITLE_SUBFOLDER}/${template}` : template, ...reportArgs(output)]
 }
 
 // The output root is the run's working directory. A path inside it goes

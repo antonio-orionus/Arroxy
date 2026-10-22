@@ -286,6 +286,34 @@
 			"https://www.youtube.com/watch?v=test"
 		]
 	},
+	"subtitles with a temp folder, reporting what yt-dlp wrote": {
+		"cwd": "/out",
+		"args": [
+			"--progress",
+			"--progress-template",
+			"download:[yt-dlp-bridge:progress] {\"progress\":%(progress.{status,downloaded_bytes,total_bytes,total_bytes_estimate,speed,eta,elapsed,fragment_index,fragment_count})j,\"format_id\":%(info.format_id|null)j}",
+			"--skip-download",
+			"--no-playlist",
+			"--write-subs",
+			"--sub-langs",
+			"(?-i:en)",
+			"--sleep-subtitles",
+			"3",
+			"--sub-format",
+			"srt/best",
+			"--convert-subs",
+			"srt",
+			"--paths",
+			"temp:./.arroxy-temp/job/",
+			"-o",
+			"%(title).200B.%(ext)s",
+			"--print-to-file",
+			"after_video:%(requested_subtitles)j",
+			".arroxy-temp/job/_arroxy.subtitles.json",
+			"--load-info-json",
+			"./.arroxy-temp/job/_arroxy.listing.json"
+		]
+	},
 	"subtitles in a subfolder, in a folder with %": {
 		"cwd": "/out/100% b%(e)s",
 		"args": [

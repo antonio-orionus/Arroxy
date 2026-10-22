@@ -27,6 +27,10 @@ const CASES: [string, WorkflowInput, WorkflowPlanOptions?][] = [
 	['media without a temp folder, in a folder with %', {kind: 'media', url: URL, output: {directory: PCT_DIR}}],
 	['media embedding subtitles', {kind: 'media', url: URL, output: {directory: '/out', tempDirectory: '/out/.arroxy-temp/job'}, subtitles: {embed: true, languages: ['en'], writeAuto: true}}, {configFiles: {mode: 'disabled'}}],
 	['subtitles beside the media', {kind: 'subtitles', url: URL, output: {directory: '/out'}, subtitles: {languages: ['en', 'ja'], format: 'vtt'}}],
+	[
+		'subtitles with a temp folder, reporting what yt-dlp wrote',
+		{kind: 'subtitles', url: URL, output: {directory: '/out', tempDirectory: '/out/.arroxy-temp/job', report: {subtitles: '/out/.arroxy-temp/job/_arroxy.subtitles.json'}}, subtitles: {tracks: [{key: 'en', auto: false}], format: 'srt'}, loadInfoJsonPath: '/out/.arroxy-temp/job/_arroxy.listing.json'}
+	],
 	['subtitles in a subfolder, in a folder with %', {kind: 'subtitles', url: URL, output: {directory: PCT_DIR, template: '%(id)s.%(ext)s', subtitleMode: 'subfolder'}, subtitles: {languages: ['en'], format: 'ass', autoOnly: true}}],
 	['managed media', {kind: 'media', url: URL}, {config}],
 	['managed media with its own output', {kind: 'media', url: URL, output: {outputRoot: '/srv/out/a', tempRoot: '/srv/tmp/b', outputTemplate: '%(id)s.%(ext)s', allowOverwrite: true}}, {config}],

@@ -104,6 +104,7 @@ describe('output target: relative argv', () => {
 		expect(() => planWorkflow({kind: 'media', url: URL, output: {directory: '/out', tempDirectory: '/tmp/job'}})).toThrow(/output\.tempDirectory/)
 		expect(() => planWorkflow({kind: 'media', url: URL, output: {directory: '/out', tempDirectory: '/out/../job'}})).toThrow(/output\.tempDirectory/)
 		expect(() => planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out', report: {subtitles: '/elsewhere/subs.json'}}, subtitles: {languages: ['en'], format: 'srt'}})).toThrow(/output\.report\.subtitles/)
+		expect(() => planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out', tempDirectory: '/tmp/job'}, subtitles: {languages: ['en'], format: 'srt'}})).toThrow(/output\.tempDirectory/)
 	})
 
 	it('escapes a report file name, which yt-dlp reads as an output template', () => {
@@ -120,6 +121,23 @@ describe('output target: relative argv', () => {
 		expect(adjacent(beside.args, '-o', '%(title).200B.%(ext)s')).toBe(true)
 		expect(beside.args.join('\n')).toContain(['--print-to-file', 'after_video:%(requested_subtitles)j', '.arroxy-temp/job/_arroxy.subtitles.json'].join('\n'))
 		expect(adjacent(subfolder.args, '-o', 'subtitles/%(id)s.%(ext)s')).toBe(true)
+	})
+
+	it('keeps subtitles in progress in the temp folder, beside the media or in a subfolder', () => {
+		const beside = planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out', tempDirectory: '/out/.arroxy-temp/job'}, subtitles: {languages: ['en'], format: 'srt'}})
+		const subfolder = planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out', tempDirectory: '.arroxy-temp/job', template: '%(id)s.%(ext)s', subtitleMode: 'subfolder'}, subtitles: {languages: ['en'], format: 'srt'}})
+
+		expect(adjacent(beside.args, '--paths', 'temp:./.arroxy-temp/job/')).toBe(true)
+		expect(adjacent(beside.args, '-o', '%(title).200B.%(ext)s')).toBe(true)
+		expect(adjacent(subfolder.args, '--paths', 'temp:./.arroxy-temp/job/')).toBe(true)
+		expect(adjacent(subfolder.args, '-o', 'subtitles/%(id)s.%(ext)s')).toBe(true)
+		expect(beside.args).not.toContain('--write-info-json')
+	})
+
+	it('plans subtitles without a temp folder straight into the folder', () => {
+		const plan = planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out'}, subtitles: {languages: ['en'], format: 'srt'}})
+
+		expect(plan.args).not.toContain('--paths')
 	})
 
 	it('runs a managed download inside its output root, with the temp root relative when it is inside', () => {
@@ -163,6 +181,7 @@ describe('output target: path flags yt-dlp would expand', () => {
 
 	it.each(EXPANDS)('refuses an in-folder path %j, since these flags have no escape', name => {
 		expect(() => planWorkflow({kind: 'media', url: URL, output: {directory: '/out', tempDirectory: `/out/${name}`}})).toThrow(/output\.tempDirectory/)
+		expect(() => planWorkflow({kind: 'subtitles', url: URL, output: {directory: '/out', tempDirectory: `/out/${name}`}, subtitles: {languages: ['en'], format: 'srt'}})).toThrow(/output\.tempDirectory/)
 		expect(() => planWorkflow({kind: 'media', url: URL, output: {directory: '/out'}, resume: {loadInfoJsonPath: `/out/${name}/i.json`}})).toThrow(/resume\.loadInfoJsonPath/)
 		expect(() => planWorkflow({kind: 'playlist', url: URL, selection: {downloadArchive: `${name}.txt`}}, {config: {...loadConfig({}), outputRoot: '/srv/out', tempRoot: '/srv/out/.tmp'}})).toThrow(/downloadArchive/)
 		expect(() => planWorkflow({kind: 'media', url: URL}, {config: {...loadConfig({}), outputRoot: '/srv/out', tempRoot: `/srv/out/${name}`}})).toThrow(/tempRoot/)
