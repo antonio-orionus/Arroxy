@@ -120,12 +120,20 @@ export const SubtitleOnlyPhase: Phase = {
 		const fetched = await settledRun(subtitleFetchRequest(plan, {url: input.url, output, format: subtitles.format ?? DEFAULTS.subtitleFormat, lists, tempDir}))
 		if (fetched.kind === 'ended') return fetched.outcome
 
-		const reported = await readSubtitleReport(subtitleReportFile(tempDir), output, job.id)
+		const {saved: reported, unmoved} = await readSubtitleReport(subtitleReportFile(tempDir), output, job.id)
 		// yt-dlp reports every file it wrote or found already present, so a run
 		// that planned tracks and reports none saved nothing this job is for.
-		if (reported.length === 0) return hardFailure(ctx, {kind: 'unknown', raw: 'The download engine saved none of the planned subtitle tracks'}, {error: 'no subtitle files reported'})
-		active.subtitlePaths = reported.map(entry => entry.path)
-		await postProcessSubtitleFiles(active.subtitlePaths, {extractor: preparedJob.extractor, url: input.url, jobId: job.id, shouldAbort: () => active.cancelRequested, rollingDedupe: automaticCaptionPaths(reported, plan)})
+		if (reported.length === 0 && unmoved.length === 0) return hardFailure(ctx, {kind: 'unknown', raw: 'The download engine saved none of the planned subtitle tracks'}, {error: 'no subtitle files reported'})
+		if (reported.length > 0) {
+			active.subtitlePaths = reported.map(entry => entry.path)
+			await postProcessSubtitleFiles(active.subtitlePaths, {extractor: preparedJob.extractor, url: input.url, jobId: job.id, shouldAbort: () => active.cancelRequested, rollingDedupe: automaticCaptionPaths(reported, plan)})
+		}
+		// A track yt-dlp wrote that cannot reach the folder is lost with the temp folder.
+		if (unmoved.length > 0) {
+			const error: LocalizedError = {kind: 'outputNotWritable', raw: `${job.outputDir}: subtitle tracks ${unmoved.join(', ')} could not be moved out of the temp folder`}
+			ctx.emitStatus('error', STATUS_KEY.outputNotWritable, {dir: job.outputDir}, error)
+			return {kind: 'hard-failed', error}
+		}
 
 		return missing.after ?? {kind: 'completed'}
 	}

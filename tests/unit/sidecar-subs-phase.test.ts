@@ -205,7 +205,20 @@ describe('SidecarSubsPhase: the fetch', () => {
 		await expect(access(join(tempDir, 'subtitles', 'video.ja.srt'))).rejects.toThrow()
 	})
 
-	it('drops a track that cannot leave the temp folder, and soft-fails when none is left', async () => {
+	// Cleanup removes the temp folder, so a track left there is not saved.
+	it('keeps the other tracks and soft-fails when a track cannot leave the temp folder', async () => {
+		await mkdir(join(outDir, 'video.en.srt', 'taken'), {recursive: true})
+		const ctx = makeCtx({input: input({job: job(codes(['en', 'ja']))}), fake: {leftInTemp: ['en']}})
+		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
+		expect(ctx.active.subtitlePaths).toEqual([join(outDir, 'video.ja.srt')])
+		expect(postProcessSubtitleFiles).toHaveBeenCalledWith([join(outDir, 'video.ja.srt')], expect.anything())
+
+		vi.mocked(muxSubtitlesIntoVideo).mockClear()
+		expect(await SidecarSubsPhase(true).run(makeCtx({input: input({job: job(codes(['en', 'ja']))}), fake: {leftInTemp: ['en']}}))).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})
+		expect(vi.mocked(muxSubtitlesIntoVideo).mock.calls[0]?.[0].tracks.map(track => track.path)).toEqual([join(outDir, 'video.ja.srt')])
+	})
+
+	it('soft-fails without post-processing when no track can leave the temp folder', async () => {
 		await mkdir(join(outDir, 'video.en.srt', 'taken'), {recursive: true})
 		const ctx = makeCtx({fake: {leftInTemp: ['en']}})
 		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'soft-failed', status: STATUS_KEY.subtitlesFailed})

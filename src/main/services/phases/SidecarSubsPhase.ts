@@ -146,10 +146,11 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			const fetched = await settledRun(subtitleFetchRequest(plan, {url: input.url, output, format: requested.format ?? DEFAULTS.subtitleFormat, lists, tempDir}))
 			if (fetched.kind !== 'success') return fetched
 
-			const reported = await readSubtitleReport(subtitleReportFile(tempDir), output, job.id)
+			const {saved: reported, unmoved} = await readSubtitleReport(subtitleReportFile(tempDir), output, job.id)
 			// yt-dlp reports every file it wrote or found already present.
 			if (reported.length === 0) {
-				logger.warn('Subtitles failed — the subtitle run reported no written files; video already saved', {jobId: job.id})
+				if (unmoved.length > 0) logger.warn('Subtitles failed — no track could be moved out of the temp folder; video already saved', {jobId: job.id, unmoved})
+				else logger.warn('Subtitles failed — the subtitle run reported no written files; video already saved', {jobId: job.id})
 				return SUBTITLES_FAILED
 			}
 			active.subtitlePaths = reported.map(entry => entry.path)
@@ -162,6 +163,8 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 				if (!muxOk) return SUBTITLES_FAILED
 			}
 
+			// A track lost in the move is a failed subtitle, ahead of languages the video lacks.
+			if (unmoved.length > 0) return SUBTITLES_FAILED
 			return missing.after ?? {kind: 'completed'}
 		}
 	}

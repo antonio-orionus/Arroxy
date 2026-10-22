@@ -150,8 +150,16 @@ export interface ReportedSubtitle {
 	path: string
 }
 
-// A track that cannot leave the temp folder is left out: cleanup removes it
-// with the folder, so it is not a file this job saved.
+// The report read: the tracks saved in the folder, and the keys of tracks
+// yt-dlp wrote that could not be moved out of the temp folder. Cleanup
+// removes those with the folder, so they are not saved: the phase says so.
+export interface SubtitleReport {
+	saved: ReportedSubtitle[]
+	unmoved: string[]
+}
+
+const NO_REPORT: SubtitleReport = {saved: [], unmoved: []}
+
 async function settledTrack(output: CallerOutput, key: string, filepath: string, jobId: string): Promise<ReportedSubtitle | null> {
 	return settleReportedSubtitle(output, filepath).then(
 		path => ({key, path}),
@@ -162,30 +170,32 @@ async function settledTrack(output: CallerOutput, key: string, filepath: string,
 	)
 }
 
-export async function readSubtitleReport(file: string, output: CallerOutput, jobId: string): Promise<ReportedSubtitle[]> {
+export async function readSubtitleReport(file: string, output: CallerOutput, jobId: string): Promise<SubtitleReport> {
 	const text = await readFile(file, 'utf8').catch(() => null)
 	const line = text?.split(/\r?\n/).findLast(entry => entry.trim().length > 0)
 	if (line === undefined) {
 		logger.warn('subtitle report missing or empty', {jobId, missing: text === null})
-		return []
+		return NO_REPORT
 	}
 	let json: unknown
 	try {
 		json = JSON.parse(line)
 	} catch {
 		logger.warn('subtitle report is not JSON', {jobId, line: line.slice(0, 200)})
-		return []
+		return NO_REPORT
 	}
 	const parsed = reportSchema.safeParse(json)
 	if (!parsed.success) logger.warn('subtitle report has an unexpected shape', {jobId, issue: parsed.error.issues[0]?.message})
-	if (!parsed.success || parsed.data === null) return []
-	const reported: ReportedSubtitle[] = []
+	if (!parsed.success || parsed.data === null) return NO_REPORT
+	const report: SubtitleReport = {saved: [], unmoved: []}
 	// One at a time, in the report's order, which the mux keeps.
 	for (const [key, track] of Object.entries(parsed.data)) {
-		const settled = track.filepath ? await settledTrack(output, key, track.filepath, jobId) : null
-		if (settled) reported.push(settled)
+		if (!track.filepath) continue
+		const settled = await settledTrack(output, key, track.filepath, jobId)
+		if (settled) report.saved.push(settled)
+		else report.unmoved.push(key)
 	}
-	return reported
+	return report
 }
 
 function plannedTrackFor(plan: SubtitlePlan, key: string): SubtitlePlan['tracks'][number] | undefined {

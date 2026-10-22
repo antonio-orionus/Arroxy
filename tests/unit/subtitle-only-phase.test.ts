@@ -213,10 +213,20 @@ describe('SubtitleOnlyPhase: the fetch', () => {
 		await expect(access(join(outDir, 'subtitles', 'video.en.srt'))).resolves.toBeUndefined()
 	})
 
-	it('fails when no track can leave the temp folder', async () => {
+	// Cleanup removes the temp folder, so a track left there is not saved.
+	it('fails, naming the folder, when a track cannot leave the temp folder, and keeps the others', async () => {
+		await mkdir(join(outDir, 'video.en.srt', 'taken'), {recursive: true})
+		const ctx = makeCtx({input: input({job: job(codes(['en', 'ja']))}), fake: {leftInTemp: ['en']}})
+		expect(await SubtitleOnlyPhase.run(ctx)).toMatchObject({kind: 'hard-failed', error: {kind: 'outputNotWritable'}})
+		expect(ctx.emitStatus).toHaveBeenCalledWith('error', STATUS_KEY.outputNotWritable, {dir: outDir}, expect.objectContaining({kind: 'outputNotWritable'}))
+		expect(ctx.active.subtitlePaths).toEqual([join(outDir, 'video.ja.srt')])
+		expect(postProcessSubtitleFiles).toHaveBeenCalledWith([join(outDir, 'video.ja.srt')], expect.anything())
+	})
+
+	it('fails, naming the folder, when no track can leave the temp folder', async () => {
 		await mkdir(join(outDir, 'video.en.srt', 'taken'), {recursive: true})
 		const ctx = makeCtx({fake: {leftInTemp: ['en']}})
-		expect(await SubtitleOnlyPhase.run(ctx)).toMatchObject({kind: 'hard-failed'})
+		expect(await SubtitleOnlyPhase.run(ctx)).toMatchObject({kind: 'hard-failed', error: {kind: 'outputNotWritable'}})
 		expect(postProcessSubtitleFiles).not.toHaveBeenCalled()
 	})
 
