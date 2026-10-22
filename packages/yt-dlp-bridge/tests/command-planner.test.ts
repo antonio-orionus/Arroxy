@@ -180,7 +180,7 @@ describe('planWorkflow — media', () => {
 		})
 
 		it('is the exported audioConversionSourceSelector, so a caller can run the same selection', () => {
-			for (const target of ['m4a', 'opus', 'mp3', 'wav']) expect(conversionSelector(target)).toBe(bridgeConversionSelector(target))
+			for (const target of ['m4a', 'opus', 'mp3', 'wav'] as const) expect(conversionSelector(target)).toBe(bridgeConversionSelector(target))
 		})
 
 		it("puts the caller's stream ahead of the chain", () => {
