@@ -19,6 +19,7 @@ export const PROBE_SOURCES = [
 	{id: 'youtube-2014', url: 'https://www.youtube.com/watch?v=OPf0YbXqDm0', shows: 'A 2014 music video: 1080p tops, low-fps storyboard-like streams'},
 	{id: 'youtube-2010', url: 'https://www.youtube.com/watch?v=OQSNhk5ICTI', shows: 'A 2010 upload: 480p tops, odd frame rates (13 and 25 fps)'},
 	{id: 'youtube-2007', url: 'https://www.youtube.com/watch?v=_OBlgSz8sSM', shows: 'A 2007 upload: YouTube adds AI-upscaled 720p and 1080p (-sr) above the original 480p'},
+	{id: 'youtube-named-tracks', url: 'https://www.youtube.com/watch?v=Rt9tW3cMLhI', shows: 'Seventeen uploaded subtitle tracks given names of their own, keyed by vssId: en-nP7-2PuUl7o, zh-Hans-xmBv0MfmNEY, pt-PT-cb_A15dyEgs, it-S-jgbSe8p-E'},
 	{id: 'youtube-2005', url: 'https://www.youtube.com/watch?v=jNQXAC9IVRw', shows: 'The first YouTube video: 240p tops'},
 	{id: 'youtube-short', url: 'https://www.youtube.com/shorts/zinYqcm70zk', shows: 'A vertical Short: 1080x1920, plus a 608x1080 stream that rounds to 480p beside 480x854'},
 	{id: 'youtube-autodub', url: 'https://www.youtube.com/watch?v=XIAzwtSjIq0', shows: 'YouTube AI auto-dubbed audio tracks ("dubbed-auto") beside the original'},

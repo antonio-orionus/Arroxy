@@ -1,0 +1,281 @@
+{
+	"source": {
+		"id": "youtube-named-tracks",
+		"url": "https://www.youtube.com/watch?v=Rt9tW3cMLhI",
+		"capturedAt": "2026-10-22",
+		"ytDlp": "2026.10.10.233141"
+	},
+	"info": {
+		"_format_sort_fields": [
+			"quality",
+			"res",
+			"fps",
+			"hdr:12",
+			"source",
+			"vcodec",
+			"channels",
+			"acodec",
+			"lang",
+			"proto"
+		],
+		"id": "Rt9tW3cMLhI",
+		"title": "Olivia Rodrigo - stupid song (Official Music Video)",
+		"thumbnail": "https://i.ytimg.com/vi/Rt9tW3cMLhI/hq720.jpg",
+		"duration": 217,
+		"webpage_url": "https://www.youtube.com/watch?v=Rt9tW3cMLhI",
+		"extractor": "youtube",
+		"extractor_key": "Youtube",
+		"is_live": false,
+		"live_status": "not_live",
+		"age_limit": 0,
+		"uploader": "Olivia Rodrigo",
+		"channel": "Olivia Rodrigo",
+		"upload_date": "20260612",
+		"formats": [
+			{"format_id":"sb2","ext":"mhtml","resolution":"48x27","format_note":"storyboard","width":48,"height":27,"fps":0.4608294930875576,"vbr":0,"abr":0,"vcodec":"none","acodec":"none","protocol":"mhtml"},
+			{"format_id":"sb1","ext":"mhtml","resolution":"75x45","format_note":"storyboard","width":75,"height":45,"fps":0.5069124423963134,"vbr":0,"abr":0,"vcodec":"none","acodec":"none","protocol":"mhtml"},
+			{"format_id":"sb0","ext":"mhtml","resolution":"150x90","format_note":"storyboard","width":150,"height":90,"fps":0.5069124423963134,"vbr":0,"abr":0,"vcodec":"none","acodec":"none","protocol":"mhtml"},
+			{"format_id":"233","ext":"mp4","resolution":"audio only","format_note":"Default, low","vbr":0,"vcodec":"none","protocol":"m3u8_native","source_preference":0,"quality":-1,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"234","ext":"mp4","resolution":"audio only","format_note":"Default, high","vbr":0,"vcodec":"none","protocol":"m3u8_native","source_preference":1,"quality":-1,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"139","ext":"m4a","resolution":"audio only","format_note":"low","tbr":48.811,"vbr":0,"abr":48.811,"asr":22050,"audio_channels":2,"filesize":1324372,"filesize_approx":1324364,"vcodec":"none","acodec":"mp4a.40.5","protocol":"https","language_preference":-1,"source_preference":-1,"quality":2,"has_drm":false},
+			{"format_id":"249","ext":"webm","resolution":"audio only","format_note":"low","tbr":49.099,"vbr":0,"abr":49.099,"asr":48000,"audio_channels":2,"filesize":1331449,"filesize_approx":1331448,"vcodec":"none","acodec":"opus","protocol":"https","language_preference":-1,"source_preference":-1,"quality":2,"has_drm":false},
+			{"format_id":"250","ext":"webm","resolution":"audio only","format_note":"low","tbr":64.975,"vbr":0,"abr":64.975,"asr":48000,"audio_channels":2,"filesize":1761990,"filesize_approx":1761967,"vcodec":"none","acodec":"opus","protocol":"https","language_preference":-1,"source_preference":-1,"quality":2,"has_drm":false},
+			{"format_id":"140","ext":"m4a","resolution":"audio only","format_note":"medium","tbr":129.5,"vbr":0,"abr":129.5,"asr":44100,"audio_channels":2,"filesize":3512159,"filesize_approx":3512153,"vcodec":"none","acodec":"mp4a.40.2","protocol":"https","language_preference":-1,"source_preference":-1,"quality":3,"has_drm":false},
+			{"format_id":"251","ext":"webm","resolution":"audio only","format_note":"medium","tbr":128.41,"vbr":0,"abr":128.41,"asr":48000,"audio_channels":2,"filesize":3482176,"filesize_approx":3482174,"vcodec":"none","acodec":"opus","protocol":"https","language_preference":-1,"source_preference":-1,"quality":3,"has_drm":false},
+			{"format_id":"602","ext":"mp4","resolution":"240x144","width":240,"height":144,"fps":12,"tbr":86.553,"vbr":86.553,"abr":0,"vcodec":"vp09.00.10.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":0,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"269","ext":"mp4","resolution":"240x144","width":240,"height":144,"fps":24,"tbr":162.455,"vbr":162.455,"abr":0,"vcodec":"avc1.4D400C","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":0,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"160","ext":"mp4","resolution":"240x144","format_note":"144p","width":240,"height":144,"fps":24,"tbr":85.059,"vbr":85.059,"abr":0,"filesize":2306334,"filesize_approx":2306332,"vcodec":"avc1.4D400C","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":0,"has_drm":false},
+			{"format_id":"603","ext":"mp4","resolution":"240x144","width":240,"height":144,"fps":24,"tbr":138.208,"vbr":138.208,"abr":0,"vcodec":"vp09.00.11.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":0,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"278","ext":"webm","resolution":"240x144","format_note":"144p","width":240,"height":144,"fps":24,"tbr":63.185,"vbr":63.185,"abr":0,"filesize":1713234,"filesize_approx":1713229,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":0,"has_drm":false},
+			{"format_id":"394","ext":"mp4","resolution":"240x144","format_note":"144p","width":240,"height":144,"fps":24,"tbr":68.079,"vbr":68.079,"abr":0,"filesize":1845930,"filesize_approx":1845928,"vcodec":"av01.0.00M.08","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":0,"has_drm":false},
+			{"format_id":"229","ext":"mp4","resolution":"400x240","width":400,"height":240,"fps":24,"tbr":295.933,"vbr":295.933,"abr":0,"vcodec":"avc1.4D400D","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":5,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"133","ext":"mp4","resolution":"400x240","format_note":"240p","width":400,"height":240,"fps":24,"tbr":186.082,"vbr":186.082,"abr":0,"filesize":5045531,"filesize_approx":5045520,"vcodec":"avc1.4D400D","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":5,"has_drm":false},
+			{"format_id":"604","ext":"mp4","resolution":"400x240","width":400,"height":240,"fps":24,"tbr":234.444,"vbr":234.444,"abr":0,"vcodec":"vp09.00.20.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":5,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"242","ext":"webm","resolution":"400x240","format_note":"240p","width":400,"height":240,"fps":24,"tbr":119.474,"vbr":119.474,"abr":0,"filesize":3239490,"filesize_approx":3239477,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":5,"has_drm":false},
+			{"format_id":"395","ext":"mp4","resolution":"400x240","format_note":"240p","width":400,"height":240,"fps":24,"tbr":120.781,"vbr":120.781,"abr":0,"filesize":3274917,"filesize_approx":3274916,"vcodec":"av01.0.00M.08","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":5,"has_drm":false},
+			{"format_id":"230","ext":"mp4","resolution":"600x360","width":600,"height":360,"fps":24,"tbr":761.496,"vbr":761.496,"abr":0,"vcodec":"avc1.4D401E","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":6,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"134","ext":"mp4","resolution":"600x360","format_note":"360p","width":600,"height":360,"fps":24,"tbr":403.297,"vbr":403.297,"abr":0,"filesize":10935218,"filesize_approx":10935196,"vcodec":"avc1.4D401E","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":6,"has_drm":false},
+			{"format_id":"18","ext":"mp4","resolution":"600x360","format_note":"360p","width":600,"height":360,"fps":24,"tbr":689.431,"asr":44100,"audio_channels":2,"filesize":18697988,"filesize_approx":18697971,"vcodec":"avc1.42001E","acodec":"mp4a.40.2","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":6,"has_drm":false},
+			{"format_id":"605","ext":"mp4","resolution":"600x360","width":600,"height":360,"fps":24,"tbr":547.464,"vbr":547.464,"abr":0,"vcodec":"vp09.00.21.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":6,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"243","ext":"webm","resolution":"600x360","format_note":"360p","width":600,"height":360,"fps":24,"tbr":261.504,"vbr":261.504,"abr":0,"filesize":7090574,"filesize_approx":7090550,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":6,"has_drm":false},
+			{"format_id":"396","ext":"mp4","resolution":"600x360","format_note":"360p","width":600,"height":360,"fps":24,"tbr":251.211,"vbr":251.211,"abr":0,"filesize":6811479,"filesize_approx":6811460,"vcodec":"av01.0.01M.08","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":6,"has_drm":false},
+			{"format_id":"231","ext":"mp4","resolution":"800x480","width":800,"height":480,"fps":24,"tbr":1276.089,"vbr":1276.089,"abr":0,"vcodec":"avc1.4D401E","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":7,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"135","ext":"mp4","resolution":"800x480","format_note":"480p","width":800,"height":480,"fps":24,"tbr":649.35,"vbr":649.35,"abr":0,"filesize":17606812,"filesize_approx":17606800,"vcodec":"avc1.4D401E","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":7,"has_drm":false},
+			{"format_id":"606","ext":"mp4","resolution":"800x480","width":800,"height":480,"fps":24,"tbr":796.998,"vbr":796.998,"abr":0,"vcodec":"vp09.00.30.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":7,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"244","ext":"webm","resolution":"800x480","format_note":"480p","width":800,"height":480,"fps":24,"tbr":404.193,"vbr":404.193,"abr":0,"filesize":10959507,"filesize_approx":10959491,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":7,"has_drm":false},
+			{"format_id":"397","ext":"mp4","resolution":"800x480","format_note":"480p","width":800,"height":480,"fps":24,"tbr":427.624,"vbr":427.624,"abr":0,"filesize":11594826,"filesize_approx":11594810,"vcodec":"av01.0.04M.08","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":7,"has_drm":false},
+			{"format_id":"232","ext":"mp4","resolution":"1200x720","width":1200,"height":720,"fps":24,"tbr":2151.182,"vbr":2151.182,"abr":0,"vcodec":"avc1.4D401F","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":8,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"136","ext":"mp4","resolution":"1200x720","format_note":"720p","width":1200,"height":720,"fps":24,"tbr":1067.195,"vbr":1067.195,"abr":0,"filesize":28936465,"filesize_approx":28936458,"vcodec":"avc1.4D401F","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":8,"has_drm":false},
+			{"format_id":"609","ext":"mp4","resolution":"1200x720","width":1200,"height":720,"fps":24,"tbr":2048.813,"vbr":2048.813,"abr":0,"vcodec":"vp09.00.31.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":8,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"247","ext":"webm","resolution":"1200x720","format_note":"720p","width":1200,"height":720,"fps":24,"tbr":767.48,"vbr":767.48,"abr":0,"filesize":20809853,"filesize_approx":20809836,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":8,"has_drm":false},
+			{"format_id":"398","ext":"mp4","resolution":"1200x720","format_note":"720p","width":1200,"height":720,"fps":24,"tbr":770.585,"vbr":770.585,"abr":0,"filesize":20894027,"filesize_approx":20894026,"vcodec":"av01.0.05M.08","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":8,"has_drm":false},
+			{"format_id":"270","ext":"mp4","resolution":"1800x1080","width":1800,"height":1080,"fps":24,"tbr":5091.811,"vbr":5091.811,"abr":0,"vcodec":"avc1.640028","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":9,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"137","ext":"mp4","resolution":"1800x1080","format_note":"1080p","width":1800,"height":1080,"fps":24,"tbr":3995.08,"vbr":3995.08,"abr":0,"filesize":108324616,"filesize_approx":108324596,"vcodec":"avc1.640028","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":9,"has_drm":false},
+			{"format_id":"614","ext":"mp4","resolution":"1800x1080","width":1800,"height":1080,"fps":24,"tbr":7372.426,"vbr":7372.426,"abr":0,"vcodec":"vp09.00.40.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":9,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"248","ext":"webm","resolution":"1800x1080","format_note":"1080p","width":1800,"height":1080,"fps":24,"tbr":2084.115,"vbr":2084.115,"abr":0,"filesize":56509750,"filesize_approx":56509736,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":9,"has_drm":false},
+			{"format_id":"399","ext":"mp4","resolution":"1800x1080","format_note":"1080p","width":1800,"height":1080,"fps":24,"tbr":1525.196,"vbr":1525.196,"abr":0,"filesize":41354939,"filesize_approx":41354926,"vcodec":"av01.0.08M.08","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":9,"has_drm":false},
+			{"format_id":"620","ext":"mp4","resolution":"2400x1440","width":2400,"height":1440,"fps":24,"tbr":8878.37,"vbr":8878.37,"abr":0,"vcodec":"vp09.00.50.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":10,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"271","ext":"webm","resolution":"2400x1440","format_note":"1440p","width":2400,"height":1440,"fps":24,"tbr":8115.108,"vbr":8115.108,"abr":0,"filesize":220037096,"filesize_approx":220037095,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":10,"has_drm":false},
+			{"format_id":"400","ext":"mp4","resolution":"2400x1440","format_note":"1440p","width":2400,"height":1440,"fps":24,"tbr":5956.375,"vbr":5956.375,"abr":0,"filesize":161504138,"filesize_approx":161504129,"vcodec":"av01.0.12M.08","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":10,"has_drm":false},
+			{"format_id":"625","ext":"mp4","resolution":"3600x2160","width":3600,"height":2160,"fps":24,"tbr":17598.223,"vbr":17598.223,"abr":0,"vcodec":"vp09.00.50.08","acodec":"none","dynamic_range":"SDR","protocol":"m3u8_native","source_preference":-1,"quality":11,"has_drm":false,"manifest_url":"https://manifest.invalid/"},
+			{"format_id":"313","ext":"webm","resolution":"3600x2160","format_note":"2160p","width":3600,"height":2160,"fps":24,"tbr":16227.452,"vbr":16227.452,"abr":0,"filesize":439999252,"filesize_approx":439999247,"vcodec":"vp9","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":11,"has_drm":false},
+			{"format_id":"401","ext":"mp4","resolution":"3600x2160","format_note":"2160p","width":3600,"height":2160,"fps":24,"tbr":12221.291,"vbr":12221.291,"abr":0,"filesize":331374220,"filesize_approx":331374194,"vcodec":"av01.0.12M.08","acodec":"none","dynamic_range":"SDR","protocol":"https","language_preference":-1,"source_preference":-1,"quality":11,"has_drm":false}
+		],
+		"subtitles": {
+			"zh-Hans-xmBv0MfmNEY": [
+				{
+					"ext": "json3",
+					"name": "Chinese (Simplified) - Chinese (Simplified)"
+				}
+			],
+			"zh-Hant-ZY7cFeM9q7w": [
+				{
+					"ext": "json3",
+					"name": "Chinese (Traditional) - Chinese (Traditional)"
+				}
+			],
+			"nl-NL-XLceUkRtyxY": [
+				{
+					"ext": "json3",
+					"name": "Dutch (Netherlands) - Dutch (Netherlands)"
+				}
+			],
+			"en-nP7-2PuUl7o": [
+				{
+					"ext": "json3",
+					"name": "English - en"
+				}
+			],
+			"fr-FR-FoKUcDSMMkM": [
+				{
+					"ext": "json3",
+					"name": "French (France) - French (France)"
+				}
+			],
+			"de-DE-HJd8PVbqasI": [
+				{
+					"ext": "json3",
+					"name": "German (Germany) - German (Germany)"
+				}
+			],
+			"id-qt7omlNIOJ8": [
+				{
+					"ext": "json3",
+					"name": "Indonesian - Indonesian [id]"
+				}
+			],
+			"it-S-jgbSe8p-E": [
+				{
+					"ext": "json3",
+					"name": "Italian - Italian"
+				}
+			],
+			"ja-8yztapuhZMQ": [
+				{
+					"ext": "json3",
+					"name": "Japanese - Japanese"
+				}
+			],
+			"ko-0L2zzeR32C4": [
+				{
+					"ext": "json3",
+					"name": "Korean - Korean"
+				}
+			],
+			"pl-xzA4m8jZnlk": [
+				{
+					"ext": "json3",
+					"name": "Polish - Polish"
+				}
+			],
+			"pt-PT-cb_A15dyEgs": [
+				{
+					"ext": "json3",
+					"name": "Portuguese (Portugal) - Portuguese (Portugal)"
+				}
+			],
+			"ru-3rppIOcGFUA": [
+				{
+					"ext": "json3",
+					"name": "Russian - Russian"
+				}
+			],
+			"es-ES-zb4CG-GXYzU": [
+				{
+					"ext": "json3",
+					"name": "Spanish (Spain) - Spanish (Spain)"
+				}
+			],
+			"th-Q93HibzqQXc": [
+				{
+					"ext": "json3",
+					"name": "Thai - Thai"
+				}
+			],
+			"tr-wWErvev6RUY": [
+				{
+					"ext": "json3",
+					"name": "Turkish - Turkish"
+				}
+			],
+			"vi-e4D66FZAwWw": [
+				{
+					"ext": "json3",
+					"name": "Vietnamese - Vietnamese"
+				}
+			],
+			"live_chat": [
+				{
+					"ext": "json"
+				}
+			]
+		},
+		"automatic_captions": {
+			"zh-Hans": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"zh-Hant": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"nl-NL": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"en": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"fr-FR": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"de-DE": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"id": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"it": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"ja": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"ko": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"pl": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"pt-PT": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"ru": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"es-ES": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"th": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"tr": [
+				{
+					"ext": "vtt"
+				}
+			],
+			"vi": [
+				{
+					"ext": "vtt"
+				}
+			]
+		}
+	}
+}

@@ -23,6 +23,7 @@ import youtube2005 from './youtube-2005.json' with {type: 'json'}
 import youtube2007 from './youtube-2007.json' with {type: 'json'}
 import youtube2010 from './youtube-2010.json' with {type: 'json'}
 import youtube2014 from './youtube-2014.json' with {type: 'json'}
+import youtubeNamedTracks from './youtube-named-tracks.json' with {type: 'json'}
 import youtube8kHdr from './youtube-8k-hdr.json' with {type: 'json'}
 import youtubeMultilang from './youtube-multilang.json' with {type: 'json'}
 import youtubeShort from './youtube-short.json' with {type: 'json'}
@@ -44,6 +45,7 @@ const FIXTURES: Record<ProbeSourceId, {info: unknown; lookedUpSizes?: Record<str
 	'youtube-multilang': youtubeMultilang,
 	'youtube-8k-hdr': youtube8kHdr,
 	'youtube-2014': youtube2014,
+	'youtube-named-tracks': youtubeNamedTracks,
 	'youtube-2010': youtube2010,
 	'youtube-2007': youtube2007,
 	'youtube-2005': youtube2005,
@@ -84,9 +86,13 @@ export function probeSourceInfo(id: ProbeSourceId): unknown {
 }
 
 export function probeSourceResult(id: ProbeSourceId): VideoProbeResult {
-	const fixture = FIXTURES[id]
+	return probeResultFromFixture(FIXTURES[id], id)
+}
+
+// A recorded probe, or a fresh one cut the same way, as the probe result the app builds.
+export function probeResultFromFixture(fixture: {info: unknown; lookedUpSizes?: Record<string, number>}, name: string): VideoProbeResult {
 	const info = infoDictSchema.parse(fixture.info)
-	if (info._type !== 'video') throw new Error(`Probe source ${id} is not a single video`)
+	if (info._type !== 'video') throw new Error(`Probe ${name} is not a single video`)
 	const extractor = info.extractor ?? ''
 	const site = siteForExtractor(extractor)
 	const formats = mapFormats(info.formats ?? [], {durationSeconds: info.duration, ...(fixture.lookedUpSizes ? {lookedUpSizes: new Map(Object.entries(fixture.lookedUpSizes))} : {})})

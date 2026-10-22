@@ -93,6 +93,7 @@
 		"test:e2e": "bun run build && xvfb-run -a playwright test",
 		"verify:startup": "bunx playwright test tests/e2e/startup-journeys.spec.ts --config playwright.config.ts",
 		"probe-sources:capture": "bun scripts/capture-probe-sources.ts",
+		"probe-intent:sample": "bun scripts/sample-probe-intent.ts",
 		"test:e2e:fixtures:dev": "node scripts/e2e-fixtures.mjs",
 		"test:e2e:fixtures": "VITE_RELEASE_FLAGS=on bun run build && node scripts/e2e-fixtures.mjs",
 		"test:e2e:fixtures:ci": "bun run embed:fetch:host && VITE_RELEASE_FLAGS=on bun run build && node scripts/e2e-fixtures.mjs",
