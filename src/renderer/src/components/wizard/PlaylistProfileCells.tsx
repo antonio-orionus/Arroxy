@@ -9,6 +9,7 @@ import type {PlaylistEntry} from '@shared/types.js'
 import {formatEntryDuration} from '@renderer/lib/formatDuration.js'
 import {Button} from '../ui/button.js'
 import {Checkbox} from '../ui/checkbox.js'
+import {Hint} from '../shared/Hint.js'
 import {PopoverTrigger} from '../ui/popover.js'
 import {PROFILE_ICONS} from './downloadProfileVisuals.js'
 import {usePlaylistProfileColumnsContext} from './playlistProfileColumnsContext.js'
@@ -71,7 +72,16 @@ export function DurationCell({duration}: {duration: PlaylistEntry['duration']}):
 	return <span className="block truncate text-xs text-muted-foreground">{formatEntryDuration(duration, liveLabel)}</span>
 }
 
+// A label too long for its column (some translations) ends in an ellipsis,
+// and its hint shows the whole label.
 export function ColumnHeader({labelKey}: {labelKey: 'queue.table.title' | 'wizard.playlistProfiles.columnProfile' | 'wizard.playlistProfiles.columnDuration'}): ReactNode {
 	const {t} = useTranslation()
-	return t(labelKey)
+	const label = t(labelKey)
+	return (
+		<Hint label={label} reveal>
+			<span className="block truncate" data-testid="playlist-profile-column-label">
+				{label}
+			</span>
+		</Hint>
+	)
 }

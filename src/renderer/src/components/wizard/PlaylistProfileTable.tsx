@@ -36,12 +36,13 @@ interface PlaylistProfileTableProps {
 }
 
 // Title takes whatever the fixed columns leave. The profile column is wide
-// enough that a builtin name still reads at the window's minimum width.
+// enough that a builtin name still reads at the window's minimum width, and
+// the duration column fits its header in most languages (the rest truncate it).
 function columnClassName(columnId: string): string {
 	if (columnId === 'select') return 'w-10'
 	if (columnId === 'title') return 'min-w-0'
 	if (columnId === 'profile') return 'w-[34%]'
-	return 'w-24'
+	return 'w-32'
 }
 
 function PlaylistProfileContextMenuItems({itemIds, menu, onAssign, onReset, onRemove}: {itemIds: string[]; menu: PlaylistProfileMenuModel; onAssign: (itemIds: string[], ref: DownloadProfileRef) => void; onReset: (itemIds: string[]) => void; onRemove: (itemIds: string[]) => void}): ReactNode {
