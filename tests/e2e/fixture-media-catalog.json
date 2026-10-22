@@ -61,6 +61,7 @@
 				"subtitles": [
 					{"key": "pt-BR", "file": "pt-BR", "name": "Portuguese (Brazil)"},
 					{"key": "zh-Hans", "file": "zh-Hans", "name": "Chinese (Simplified)"},
+					{"key": "fr-CA-Xk3vQ9pLm2A", "file": "fr-CA", "name": "French (Canada) - fr-CA"},
 					{"key": "live_chat", "file": "live_chat", "name": "", "ext": "json"}
 				],
 				"automaticCaptions": [
