@@ -84,6 +84,16 @@ export const RULES: Record<string, Rule> = {
 		})
 	},
 
+	// The Format screen's hint names it: a cropped film or a vertical video has another frame than its tier says.
+	'a video stream keeps its frame size, and claims none the site left out': (probe, raw) =>
+		probe.formats.flatMap(format => {
+			if (format.isAudioOnly) return []
+			const source = raw.find(candidate => candidate.format_id === format.formatId)
+			const frame = source?.width && source.height && source.width > 0 && source.height > 0 ? `${source.width}x${source.height}` : null
+			const listed = format.width !== undefined || format.height !== undefined ? `${format.width ?? '?'}x${format.height ?? '?'}` : null
+			return listed === frame ? [] : [`${format.formatId} is ${frame ?? 'of no known frame'}, listed as ${listed ?? 'none'}`]
+		}),
+
 	'a video profile picks video when the video has some, and says so when it has none': (probe, raw) => {
 		const videoExists = raw.some(hasVideo)
 		return VIDEO_PROFILES.flatMap(profile => {
