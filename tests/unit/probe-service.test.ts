@@ -91,6 +91,16 @@ describe('ProbeService — video probe', () => {
 	it.each([
 		{case: 'a name that reads like audio, with a video stream', extractor: 'bbc:radio', formats: [{format_id: 'hls-720', ext: 'mp4', vcodec: 'avc1.64001f', acodec: 'mp4a.40.2', width: 1280, height: 720}], expected: false},
 		{case: 'a listed audio site, with a video stream', extractor: 'soundcloud', formats: [{format_id: 'hls-720', ext: 'mp4', vcodec: 'avc1.64001f', acodec: 'mp4a.40.2', width: 1280, height: 720}], expected: false},
+		{
+			case: 'a listed audio site, with audio streams beside a video stream',
+			extractor: 'soundcloud',
+			formats: [
+				{format_id: 'hls-opus', ext: 'opus', vcodec: 'none', acodec: 'opus', abr: 64},
+				{format_id: 'hls-720', ext: 'mp4', vcodec: 'avc1.64001f', acodec: 'none', width: 1280, height: 720},
+				{format_id: 'http-mp3', ext: 'mp3', vcodec: 'none', acodec: 'mp3', abr: 128}
+			],
+			expected: false
+		},
 		{case: 'an unlisted site, with audio streams only', extractor: 'generic', formats: [{format_id: 'mp3', ext: 'mp3', vcodec: 'none', acodec: 'mp3', abr: 128}], expected: true},
 		{case: 'a listed audio site, with no formats but subtitles', extractor: 'bandcamp', formats: [], subtitles: {en: [{ext: 'vtt', url: 'https://example.com/en.vtt'}]}, expected: true},
 		{case: 'an unlisted site, with no formats but subtitles', extractor: 'generic', formats: [], subtitles: {en: [{ext: 'vtt', url: 'https://example.com/en.vtt'}]}, expected: false}

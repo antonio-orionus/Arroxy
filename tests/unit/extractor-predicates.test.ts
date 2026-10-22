@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {isYouTubeExtractor, isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
+import {isYouTubeExtractor, isAudioOnlySource, isAudioOnlyVideo} from '@shared/ytdlp/extractorPredicates.js'
 
 describe('isYouTubeExtractor', () => {
 	it.each(['youtube', 'youtube:tab', 'youtube:playlist', 'youtube:search', 'youtube:user'])('accepts %s', name => {
@@ -71,5 +71,25 @@ describe('isAudioOnlySource', () => {
 		expect(isAudioOnlySource('')).toBe(false)
 		expect(isAudioOnlySource(undefined)).toBe(false)
 		expect(isAudioOnlySource(null)).toBe(false)
+	})
+})
+
+describe('isAudioOnlyVideo', () => {
+	const audio = {isAudioOnly: true}
+	const video = {isAudioOnly: false}
+
+	it('is audio-only when every format is audio, whatever the name says', () => {
+		expect(isAudioOnlyVideo('generic', [audio, audio])).toBe(true)
+	})
+
+	it('is not audio-only when any format carries a picture, even on an audio-named site', () => {
+		expect(isAudioOnlyVideo('soundcloud', [audio, video, audio])).toBe(false)
+		expect(isAudioOnlyVideo('bbc:radio', [video])).toBe(false)
+	})
+
+	it('falls back to the extractor name only when there are no formats', () => {
+		expect(isAudioOnlyVideo('bandcamp', [])).toBe(true)
+		expect(isAudioOnlyVideo('vimeo', [])).toBe(false)
+		expect(isAudioOnlyVideo(undefined, [])).toBe(false)
 	})
 })
