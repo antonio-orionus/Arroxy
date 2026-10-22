@@ -266,14 +266,30 @@ describe('WarmupSplash', () => {
 		expect(screen.getByTestId('splash-setup-status')).toBeEmptyDOMElement()
 	})
 
+	// With one download still waiting for its size, the bytes left leave that
+	// download out, so a time left would promise far too little.
+	it('holds back the time left while any running download has no size yet', () => {
+		const engine = (bytes: number): WarmupProgressEvent => ({binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: bytes, totalBytes: 18 * 1024 * 1024})
+		const media: WarmupProgressEvent = {binary: 'ffmpeg', phase: 'downloading'}
+		let downloads = trackWarmupDownloads(EMPTY_WARMUP_DOWNLOADS, {'yt-dlp': engine(1024 * 1024), ffmpeg: media}, 0)
+		downloads = trackWarmupDownloads(downloads, {'yt-dlp': engine(5 * 1024 * 1024), ffmpeg: media}, 6000)
+
+		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={{'yt-dlp': engine(5 * 1024 * 1024), ffmpeg: media}} warmupDownloads={downloads} showGreeting={false} />)
+
+		expect(screen.getByRole('progressbar', {name: 'First-time setup'})).not.toHaveAttribute('aria-valuenow')
+		expect(screen.getByTestId('splash-setup-status')).toBeEmptyDOMElement()
+	})
+
 	it.each([
-		['unpacking', {binary: 'ffmpeg', phase: 'extracting'}, 'Unpacking the media tools'],
+		['the media tools unpacking', {binary: 'ffmpeg', phase: 'extracting'}, 'Unpacking the media tools'],
+		['the download engine unpacking', {binary: 'yt-dlp', phase: 'extracting'}, 'Unpacking the download engine'],
 		['checking', {binary: 'ffmpeg', phase: 'probing'}, 'Checking everything works']
 	] satisfies Array<[string, WarmupProgressEvent, string]>)('says what happens once the download is over: %s', (_stage, after, line) => {
-		let downloads = trackWarmupDownloads(EMPTY_WARMUP_DOWNLOADS, {ffmpeg: {binary: 'ffmpeg', phase: 'downloading', bytesDownloaded: 42 * 1024 * 1024, totalBytes: 42 * 1024 * 1024}}, 0)
-		downloads = trackWarmupDownloads(downloads, {ffmpeg: after}, 1000)
+		const binary = after.binary
+		let downloads = trackWarmupDownloads(EMPTY_WARMUP_DOWNLOADS, {[binary]: {binary, phase: 'downloading', bytesDownloaded: 18 * 1024 * 1024, totalBytes: 18 * 1024 * 1024}}, 0)
+		downloads = trackWarmupDownloads(downloads, {[binary]: after}, 1000)
 
-		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={{ffmpeg: after}} warmupDownloads={downloads} showGreeting />)
+		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={{[binary]: after}} warmupDownloads={downloads} showGreeting />)
 
 		expect(screen.getByTestId('splash-setup-status')).toHaveTextContent(line)
 	})

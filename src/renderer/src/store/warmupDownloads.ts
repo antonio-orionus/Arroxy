@@ -63,6 +63,8 @@ export interface SetupProgress {
 	groups: SetupToolGroup[]
 	// The groups whose download is still running.
 	downloading: SetupToolGroup[]
+	// The groups being unpacked after their download.
+	unpacking: SetupToolGroup[]
 }
 
 const GROUP_ORDER: readonly SetupToolGroup[] = ['engine', 'media']
@@ -81,8 +83,9 @@ export function summarizeSetup(ledger: DownloadLedger, progress: Partial<Record<
 	// the whole job, so the bar waits until every running download is sized.
 	const unsized = records.some(([, record]) => !record.finished && record.total === 0)
 	const runningBytes = records.reduce((sum, [, record]) => sum + (record.finished ? 0 : record.downloaded), 0)
-	const stage: SetupStage = downloading.length > 0 ? (runningBytes > 0 ? 'downloading' : 'connecting') : events.some(event => event.phase === 'extracting') ? 'unpacking' : 'checking'
-	return {downloaded, total, percent: total > 0 && !unsized ? Math.min(100, (downloaded / total) * 100) : null, stage, groups, downloading}
+	const unpacking = GROUP_ORDER.filter(group => events.some(event => event.phase === 'extracting' && SETUP_GROUP_OF[event.binary] === group))
+	const stage: SetupStage = downloading.length > 0 ? (runningBytes > 0 ? 'downloading' : 'connecting') : unpacking.length > 0 ? 'unpacking' : 'checking'
+	return {downloaded, total, percent: total > 0 && !unsized ? Math.min(100, (downloaded / total) * 100) : null, stage, groups, downloading, unpacking}
 }
 
 export interface RateSample {

@@ -9,9 +9,11 @@ import {Progress} from '../ui/progress.js'
 function useStatusLine(setup: SetupProgress, secondsLeft: number | null): string | null {
 	const {t} = useTranslation()
 	if (setup.stage === 'connecting') return t('splash.setup.stage.connecting')
-	if (setup.stage === 'unpacking') return t('splash.setup.stage.unpacking')
+	if (setup.stage === 'unpacking') return setup.unpacking.includes('media') ? t('splash.setup.stage.unpacking') : t('splash.setup.stage.unpackingEngine')
 	if (setup.stage === 'checking') return t('splash.setup.stage.checking')
-	if (secondsLeft === null) return null
+	// Only a sized bar backs a time left: while a download has no size yet, the
+	// bytes left leave it out and the estimate would promise too little.
+	if (secondsLeft === null || setup.percent === null) return null
 	return secondsLeft < 60 ? t('splash.setup.left.underMinute') : t('splash.setup.left.minutes', {count: Math.round(secondsLeft / 60)})
 }
 

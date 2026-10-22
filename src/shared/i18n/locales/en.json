@@ -673,7 +673,8 @@
 			"stage": {
 				"checking": "Checking everything works",
 				"connecting": "Connecting…",
-				"unpacking": "Unpacking the media tools"
+				"unpacking": "Unpacking the media tools",
+				"unpackingEngine": "Unpacking the download engine"
 			},
 			"title": {
 				"both": "Updating Arroxy's tools",
