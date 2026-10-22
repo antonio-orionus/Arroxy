@@ -81,7 +81,7 @@ CI splits the run over four runners with Playwright's `--shard`, which divides b
 `ARROXY_E2E_RUN` says which run this is, and `playwright.config.ts` sets retries from it:
 
 - **`ci`** (pull requests, pushes to `main`, a manual run): a failed test is retried once. One that then passes no longer fails the run, so it is reported instead: Playwright writes a JSON report (`playwright-report/e2e-report.json`), and `scripts/e2e-flaky-summary.ts` lists each test that passed only on retry in the job summary and puts a "Flaky test" warning on its line. A flaky test is a bug to fix or file, not noise.
-- **`nightly`**: the E2E Fixtures Nightly workflow (`e2e-fixtures-nightly.yml`) runs the whole suite on `main` every night with no retries, by calling E2E Fixtures with `run: nightly`, so a flaky test fails it. Its checks are named `Nightly / …`, outside the required checks and `main-health.yml`, so a red nightly blocks no merge or release; GitHub mails it to whoever last changed its cron.
+- **`nightly`**: the E2E Fixtures Nightly workflow (`e2e-fixtures-nightly.yml`) runs the whole suite on `main` every night with no retries, by calling E2E Fixtures with `run: nightly`, so a flaky test fails it. Its checks are named `Nightly / …`, outside the required checks and `main-health.yml`, so a red nightly blocks no merge or release. Instead it opens one issue labelled `e2e-nightly` (later failures comment on it), and the next passing nightly closes it.
 - **unset** (a local run): no retries.
 
 Any other value stops the run with an error.

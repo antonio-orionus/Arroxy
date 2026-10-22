@@ -6,8 +6,9 @@ name: E2E Fixtures Nightly
 #
 # Its checks are named "Nightly / ...", not the "E2E fixtures gate" that branch
 # protection requires, and Main Health does not wake on this workflow: a flaky
-# test failing here marks no main commit red and blocks no release. GitHub
-# mails a failed scheduled run to whoever last changed the cron below.
+# test failing here marks no main commit red and blocks no release. A failure
+# opens one issue labelled e2e-nightly instead (later failures comment on it),
+# and the next passing run closes it, as Startup Nightly does.
 
 on:
   schedule:
@@ -28,3 +29,54 @@ jobs:
     uses: ./.github/workflows/e2e-fixtures.yml
     with:
       run: nightly
+  notify:
+    name: Report nightly result
+    needs: nightly
+    # always() runs this job on failure too; the steps gate on the suite's
+    # result explicitly, since step-level success()/failure() see only the
+    # steps before them in this job.
+    if: always()
+    runs-on: ubuntu-latest
+    concurrency:
+      # Serialize the list-then-create issue flow across overlapping runs
+      # (schedule + workflow_dispatch); never cancel an in-progress notify.
+      group: e2e-fixtures-nightly-notify
+      cancel-in-progress: false
+    permissions:
+      issues: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - name: Close the nightly failure issue on recovery
+        if: needs.nightly.result == 'success'
+        run: |
+          set -euo pipefail
+          existing=$(gh issue list --label e2e-nightly --state open --limit 1 --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue close "$existing" --comment "Fixture E2E nightly green again: $RUN_URL"
+            echo "closed #$existing"
+          else
+            echo "no open e2e-nightly issue"
+          fi
+      - name: Open or update the nightly failure issue
+        if: needs.nightly.result == 'failure'
+        run: |
+          set -euo pipefail
+          existing=$(gh issue list --label e2e-nightly --state open --limit 1 --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "Fixture E2E nightly failed again: $RUN_URL"
+            echo "commented on #$existing"
+            exit 0
+          fi
+          gh issue create --title "Fixture E2E nightly is failing" --label e2e-nightly --body "$(cat <<EOF
+          The nightly fixture E2E run on main failed. It runs the suite with no
+          retries, so a test that pull requests pass only on retry fails here:
+          a flaky test to fix, or a real bug the retry was hiding.
+
+          Run: $RUN_URL
+
+          Context: \`dev-docs/fixture-e2e.md\` (Retries and flaky tests)
+          EOF
+          )"

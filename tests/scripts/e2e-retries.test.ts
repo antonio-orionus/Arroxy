@@ -65,10 +65,45 @@ describe('E2E Fixtures Nightly workflow', () => {
 	it('runs the whole suite on main every night with no retries', () => {
 		const on = record(workflow.on, 'on')
 		expect(on.schedule).toEqual([{cron: expect.any(String)}])
-		const jobs = Object.values(record(workflow.jobs, 'jobs')).map(job => record(job, 'a job'))
-		expect(jobs).toHaveLength(1)
-		expect(jobs[0]?.uses).toBe('./.github/workflows/e2e-fixtures.yml')
-		expect(jobs[0]?.with).toEqual({run: 'nightly'})
+		const jobs = record(workflow.jobs, 'jobs')
+		expect(Object.keys(jobs).toSorted()).toEqual(['nightly', 'notify'])
+		const nightly = record(jobs.nightly, 'nightly')
+		expect(nightly.uses).toBe('./.github/workflows/e2e-fixtures.yml')
+		expect(nightly.with).toEqual({run: 'nightly'})
+	})
+
+	// Reported the way Startup Nightly reports: one open issue labelled
+	// e2e-nightly, commented on while the nightly keeps failing and closed once
+	// it passes.
+	describe('notify job', () => {
+		const notify = record(record(workflow.jobs, 'jobs').notify, 'notify')
+		const steps = stepsOf(notify)
+
+		it('runs after the suite whatever its result, and alone may write issues', () => {
+			expect(notify.needs).toBe('nightly')
+			expect(notify.if).toBe('always()')
+			expect(notify.permissions).toEqual({issues: 'write'})
+			expect(workflow.permissions).toEqual({})
+		})
+
+		it('serializes the list-then-write issue flow and never cancels it', () => {
+			expect(notify.concurrency).toEqual({group: 'e2e-fixtures-nightly-notify', 'cancel-in-progress': false})
+		})
+
+		it('closes the e2e-nightly issue on success', () => {
+			const close = steps.find(step => step.if === "needs.nightly.result == 'success'")
+			expect(close?.run).toContain('gh issue list --label e2e-nightly --state open')
+			expect(close?.run).toContain('gh issue close')
+		})
+
+		it('comments on the open e2e-nightly issue on failure, or opens one', () => {
+			const report = steps.find(step => step.if === "needs.nightly.result == 'failure'")
+			expect(report?.run).toContain('gh issue list --label e2e-nightly --state open')
+			expect(report?.run).toContain('gh issue comment')
+			expect(report?.run).toContain('gh issue create --title "Fixture E2E nightly is failing" --label e2e-nightly')
+			expect(report?.run).toContain('$RUN_URL')
+			expect(report?.run).toContain('dev-docs/fixture-e2e.md')
+		})
 	})
 
 	// Its checks are named "<job> / E2E fixtures gate", never the bare context
