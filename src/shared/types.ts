@@ -170,6 +170,7 @@ export interface CommonSettings {
 	pacingSleepSubtitles?: number
 	downloadConnections?: number
 	concurrentDownloads?: number
+	concurrentProbes?: number
 	autoRetryAttempts?: number
 	autoRemoveCompleted?: boolean
 	clipboardWatchEnabled: boolean

@@ -1,13 +1,13 @@
-import {useEffect, useState, type JSX} from 'react'
+import type {JSX} from 'react'
 import {useShallow} from 'zustand/react/shallow'
 import {RefreshCw, Timer, Zap} from 'lucide-react'
 import {useTranslation} from 'react-i18next'
 import {requestSiteFor} from '@shared/sites/index.js'
-import type {SiteCooldown} from '@shared/types.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 import {buildProbeErrorExperience, type RateLimitGuidance} from '@renderer/store/wizard/probeErrorExperience.js'
 import {Alert, AlertDescription, AlertTitle} from '@renderer/components/ui/alert.js'
 import {Button} from '@renderer/components/ui/button.js'
+import {cooldownEndLabel, siteLabel, useRunningCooldowns} from '@renderer/components/shared/useRunningCooldowns.js'
 
 type GuidanceDensity = 'full' | 'compact'
 
@@ -21,37 +21,17 @@ interface RateLimitAlertProps {
 	density?: GuidanceDensity
 }
 
-// The running cooldown for `site`, or null once it ends. Main pushes a
-// cooldown when it starts or ends early, not when it runs out, so its end is
-// timed here.
-function useRunningCooldown(site: string): SiteCooldown | null {
-	const cooldown = useAppStore(state => state.siteCooldowns.find(entry => entry.site === site) ?? null)
-	const until = cooldown?.until ?? null
-	const [endedUntil, setEndedUntil] = useState<string | null>(null)
-	useEffect(() => {
-		if (until === null) return
-		const timer = window.setTimeout(() => setEndedUntil(until), Math.max(0, Date.parse(until) - Date.now()))
-		return () => window.clearTimeout(timer)
-	}, [until])
-	return cooldown && endedUntil !== until ? cooldown : null
-}
-
-// YouTube is one request site across its hosts; any other site is its hostname.
-function siteLabel(site: string): string {
-	return site === 'youtube' ? 'YouTube' : site
-}
-
 // The site is rate-limiting this connection: says so, says when Arroxy asks it
 // again, and offers "Try now" while the cooldown runs. Never cookie advice —
 // no cookie or account can lift a rate limit.
 export function RateLimitAlert({guidance, site, onRetry, density = 'full'}: RateLimitAlertProps): JSX.Element | null {
 	const {t, i18n} = useTranslation()
 	const tryRateLimitedSiteNow = useAppStore(state => state.tryRateLimitedSiteNow)
-	const cooldown = useRunningCooldown(site)
+	const cooldown = useRunningCooldowns().find(entry => entry.site === site) ?? null
 	if (guidance.variant === 'hidden') return null
 	const compact = density === 'compact'
 	const name = siteLabel(site)
-	const time = cooldown ? new Intl.DateTimeFormat(i18n.language, {hour: 'numeric', minute: '2-digit'}).format(new Date(cooldown.until)) : null
+	const time = cooldown ? cooldownEndLabel(cooldown, i18n.language) : null
 	const lead = guidance.variant === 'degraded' ? t('wizard.formats.rateLimit.leadDegraded') : t('wizard.formats.rateLimit.leadFailed', {site: name})
 	const wait = time ? t('wizard.formats.rateLimit.waitUntil', {site: name, time}) : t('wizard.formats.rateLimit.waitOver')
 	const session = cooldown?.evidence === 'sessionRateLimited' ? ` ${t('wizard.formats.rateLimit.sessionNote', {site: name})}` : ''

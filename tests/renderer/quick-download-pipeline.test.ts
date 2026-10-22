@@ -55,7 +55,7 @@ describe('Quick Download from the URL tab', () => {
 		expect(queue()).toHaveLength(1)
 		const [placeholder] = queue()
 		expect(placeholder).toMatchObject({url: VIDEO_URL, title: VIDEO_URL, status: 'probing', probeMode: 'video'})
-		expect(probe.calls).toEqual([{url: VIDEO_URL, playlistMode: 'video', ownerKey: placeholder?.id}])
+		expect(probe.calls).toEqual([{url: VIDEO_URL, playlistMode: 'video', ownerKey: placeholder?.id, playlistScope: {items: {kind: 'first', count: 100}}}])
 		expect(toasts.map(toast => toast.message)).toEqual(['Added: youtube.com · abc'])
 		expect(useAppStore.getState().wizardUrl).toBe('')
 
@@ -461,7 +461,7 @@ describe('a failed probe', () => {
 		const retry = useAppStore.getState().retryQuickDownloadRow(id)
 		await vi.waitFor(() => expect(probe.calls).toHaveLength(2))
 		expect(row(id)?.status).toBe('probing')
-		expect(probe.calls[1]).toEqual({url: VIDEO_URL, playlistMode: 'video', ownerKey: id})
+		expect(probe.calls[1]).toEqual({url: VIDEO_URL, playlistMode: 'video', ownerKey: id, playlistScope: {items: {kind: 'first', count: 100}}})
 		probe.resolve(ok(VIDEO))
 		await retry
 		await vi.waitFor(() => expect(row(id)).toMatchObject({status: 'pending', title: 'Fixture Video'}))
@@ -481,7 +481,7 @@ describe('a failed probe', () => {
 		const retry = useAppStore.getState().retryQuickDownloadRowWithCookies(id)
 		await vi.waitFor(() => expect(row(id)?.status).toBe('probing'))
 		expect(api.settings.update).toHaveBeenCalledWith({common: {cookiesMode: 'browser'}})
-		expect(probe.calls[1]).toEqual({url: VIDEO_URL, playlistMode: 'video', ownerKey: id})
+		expect(probe.calls[1]).toEqual({url: VIDEO_URL, playlistMode: 'video', ownerKey: id, playlistScope: {items: {kind: 'first', count: 100}}})
 		expect(row(id)?.title).toBe('Fixture Video - YouTube')
 		probe.resolve(ok(VIDEO))
 		await retry

@@ -152,6 +152,7 @@ export function installBrowserMock(): void {
 	let settings: AppSettings = scenarioState.settings
 	const exploreMock = createExploreMock(scenarioState.explore)
 	const siteRequestsMock = createSiteRequestsMock()
+	if (scenarioState.scenario.id === 'queue-probe-waiting') siteRequestsMock.rateLimited('https://www.youtube.com/', 'rateLimited', 12 * 60_000)
 
 	window.__arroxyMockEmitClipboardUrl = url => {
 		clipboardUrlListeners.forEach(listener => listener(url))

@@ -123,6 +123,23 @@ if (!namedSubtitleTrackVideo) throw new Error('fixture-media-catalog.json must d
 export const NAMED_SUBTITLE_TRACK_VIDEO_ID = namedSubtitleTrackVideo.id
 export const NAMED_SUBTITLE_TRACK_KEY = `en-${namedSubtitleTrack(namedSubtitleTrackVideo) ?? ''}`
 
+interface FixtureSubtitleTrack {
+	key: string
+}
+type SubtitleTrackLists = Record<'subtitles' | 'automaticCaptions', FixtureSubtitleTrack[]>
+
+function extraSubtitleTracks(video: (typeof catalog.videos)[number]): Partial<SubtitleTrackLists> {
+	return (video as {extraSubtitleTracks?: Partial<SubtitleTrackLists>}).extraSubtitleTracks ?? {}
+}
+
+// Every subtitle key some fixture video lists, by map, as the fixture
+// extractor builds them: the catalog's tracks, the English one renamed on a
+// video with a named track, plus each video's extra tracks.
+export const FIXTURE_SUBTITLE_KEYS: Record<'subtitles' | 'automaticCaptions', string[]> = {
+	subtitles: [...new Set(catalog.videos.flatMap(video => [...catalog.subtitleTracks.subtitles.map(track => (track.key === 'en' && namedSubtitleTrack(video) ? `en-${namedSubtitleTrack(video)}` : track.key)), ...(extraSubtitleTracks(video).subtitles ?? []).map(track => track.key)]))],
+	automaticCaptions: [...new Set(catalog.videos.flatMap(video => [...catalog.subtitleTracks.automaticCaptions.map(track => track.key), ...(extraSubtitleTracks(video).automaticCaptions ?? []).map(track => track.key)]))]
+}
+
 export const FIXTURE_PLAYLIST_ID = catalog.playlist.id
 export const FIXTURE_PLAYLIST_VIDEO_IDS = catalog.playlist.videoIds
 // A playlist that lists one video at two positions, as a mix or a long playlist can.

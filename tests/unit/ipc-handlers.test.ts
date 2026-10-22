@@ -59,6 +59,7 @@ function makeDeps() {
 		pauseAll: vi.fn().mockResolvedValue({scheduler: 'paused', done: ['b'], failed: [{itemId: 'a', error: {code: 'ipc', message: 'pause failed'}}]}),
 		resumeAll: vi.fn().mockResolvedValue({scheduler: 'running', done: ['a', 'b'], failed: []})
 	})
+	const probeSlots = {setBackgroundLimit: vi.fn()}
 	const settingsStore = {
 		get: vi.fn().mockResolvedValue({common: {defaultOutputDir: '/tmp', rememberLastOutputDir: true, clipboardWatchEnabled: false, cookiesMode: 'off'}, playlist: {}}),
 		getSync: vi.fn().mockReturnValue({common: {cookiesMode: 'off'}, profiles: {active: {kind: 'builtin', id: 'balanced'}}}),
@@ -98,9 +99,10 @@ function makeDeps() {
 		playlistManifestStore: {save: vi.fn(), get: vi.fn(), remove: vi.fn()} as never,
 		exploreView: {navigate: vi.fn(), setBounds: vi.fn(), setVisible: vi.fn(), setActive: vi.fn(), signOut: vi.fn(), getState: vi.fn(), destroy: vi.fn(), applyProxySetting: vi.fn(), applyAdBlockSetting: vi.fn(), applyIdleUnloadSetting: vi.fn(), applyZoomSetting: vi.fn()} as never,
 		siteRequests: {snapshot: vi.fn().mockReturnValue([]), allowOnce: vi.fn(), onChange: vi.fn().mockReturnValue(() => undefined)} as never,
+		probeSlots: probeSlots as never,
 		graphicsPolicyProvider: vi.fn().mockResolvedValue({backdrop: {webglBlocked: false, softwareWebglAllowed: false}}),
 		intakeService: intakeService as never,
-		_raw: {downloadService, probeService, mainWindow, queueService, settingsStore, languageRef, clipboardWatcher, intakeService}
+		_raw: {downloadService, probeService, mainWindow, queueService, settingsStore, languageRef, clipboardWatcher, intakeService, probeSlots}
 	}
 }
 
@@ -160,7 +162,7 @@ describe('registerIpcHandlers', () => {
 	})
 
 	describe('title backfill wiring', () => {
-		it('probes placeholder rows anonymously with the pinned 180s budget, not the default', async () => {
+		it('probes placeholder rows anonymously with the pinned 180s budget, keyed to the backfill', async () => {
 			expect(PROBE_TIMEOUT_MS).toBe(180_000)
 			const deps = makeDeps()
 			deps._raw.probeService.probe.mockResolvedValue({ok: true, data: {kind: 'video', title: '  Real Title  '}})
@@ -168,10 +170,24 @@ describe('registerIpcHandlers', () => {
 
 			const setProbe = deps._raw.queueService.setTitleBackfillProbe
 			expect(setProbe).toHaveBeenCalledTimes(1)
-			const probeTitle = setProbe.mock.calls[0]?.[0] as (url: string) => Promise<string | null>
+			const probeTitle = setProbe.mock.calls[0]?.[0] as (url: string, admit: () => boolean) => Promise<unknown>
+			const admit = (): boolean => true
 
-			await expect(probeTitle('https://example.com/a')).resolves.toBe('Real Title')
-			expect(deps._raw.probeService.probe).toHaveBeenCalledWith('https://example.com/a', {playlistMode: 'video', timeoutMs: PROBE_TIMEOUT_MS, escalate: false})
+			await expect(probeTitle('https://example.com/a', admit)).resolves.toEqual({kind: 'found', title: 'Real Title'})
+			expect(deps._raw.probeService.probe).toHaveBeenCalledWith('https://example.com/a', {kind: 'backfill', ownerKey: 'title-backfill', playlistMode: 'video', timeoutMs: PROBE_TIMEOUT_MS, escalate: false, admit})
+		})
+	})
+
+	describe('settings wiring', () => {
+		it('settings:update hands a new links-checked-at-once count to the probe slots', async () => {
+			const deps = makeDeps()
+			deps._raw.settingsStore.update.mockResolvedValue({common: {clipboardWatchEnabled: false, hotkeyEnabled: false, concurrentProbes: 3}, playlist: {}, profiles: {}})
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.settingsUpdate)!.fn
+			await handler(null, {common: {concurrentProbes: 3}})
+
+			expect(deps._raw.probeSlots.setBackgroundLimit).toHaveBeenCalledWith(3)
 		})
 	})
 
@@ -536,6 +552,17 @@ describe('registerIpcHandlers', () => {
 			expect(result.ok).toBe(false)
 			expect(result.error).toMatchObject({kind: 'other', code: 'cookies_config', message: 'Pick a file to use cookies'})
 			expect(deps._raw.probeService.probe).not.toHaveBeenCalled()
+		})
+
+		it("downloads:probe runs the window's probe as an interactive one", async () => {
+			const deps = makeDeps()
+			deps._raw.probeService.probe.mockResolvedValue({ok: true, data: {kind: 'video'}})
+			registerIpcHandlers(deps)
+
+			const handler = findCall(IPC_CHANNELS.downloadsProbe)!.fn
+			await handler(null, {url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', playlistMode: 'video', ownerKey: 'bulk-1'})
+
+			expect(deps._raw.probeService.probe).toHaveBeenCalledWith('https://www.youtube.com/watch?v=dQw4w9WgXcQ', expect.objectContaining({kind: 'interactive', playlistMode: 'video', ownerKey: 'bulk-1'}))
 		})
 
 		it('downloads:start rejects incomplete cookies config before starting downloads', async () => {

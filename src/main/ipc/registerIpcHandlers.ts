@@ -13,6 +13,7 @@ import type {HotkeyService} from '@main/services/HotkeyService.js'
 import type {ExploreViewHost} from '@main/services/explore/ExploreViewHost.js'
 import type {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
 import type {SiteRequestState} from '@main/services/SiteRequestState.js'
+import type {ProbeSlots} from '@main/services/ProbeSlots.js'
 import type {IntakeService} from '@main/intake/IntakeService.js'
 import {DownloadEventBridge} from '@main/services/DownloadEventBridge.js'
 import {QueueEventBridge} from '@main/services/QueueEventBridge.js'
@@ -46,6 +47,7 @@ export interface IpcDependencies {
 	playlistManifestStore: PlaylistManifestStore
 	exploreView: ExploreViewHost
 	siteRequests: SiteRequestState
+	probeSlots: ProbeSlots
 	graphicsPolicyProvider: () => Promise<GraphicsPolicy>
 	intakeService: IntakeService
 	// Rebuilds the native application menu (macOS) after a language, style, theme, or speed-limit change.
@@ -59,13 +61,23 @@ let activeQueueBridge: QueueEventBridge | null = null
 let activeProbeBridge: ProbeEventBridge | null = null
 
 export function registerIpcHandlers(deps: IpcDependencies): void {
-	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, playlistManifestStore, exploreView, siteRequests, graphicsPolicyProvider, intakeService, refreshAppMenu, warmupObserver} = deps
+	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, playlistManifestStore, exploreView, siteRequests, probeSlots, graphicsPolicyProvider, intakeService, refreshAppMenu, warmupObserver} = deps
 
 	const warmupService = new WarmupService({binaryManager, tokenService, window: mainWindow, observer: warmupObserver})
 	registerAppHandlers({warmupService, binaryManager, languageRef, graphicsPolicyProvider, onLanguageChanged: refreshAppMenu})
 	registerWindowHandlers(mainWindow)
 	registerDownloadHandlers({downloadService, probeService, settingsStore})
-	registerSettingsHandlers({settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView, onProxyChanged: () => siteRequests.routeChanged(), onMenuStateChanged: refreshAppMenu, onThemeChanged: theme => applyNativeThemeSource(nativeTheme, theme)})
+	registerSettingsHandlers({
+		settingsStore,
+		clipboardWatcher,
+		queueService,
+		hotkeyService,
+		exploreView,
+		onProxyChanged: () => siteRequests.routeChanged(),
+		onMenuStateChanged: refreshAppMenu,
+		onThemeChanged: theme => applyNativeThemeSource(nativeTheme, theme),
+		onConcurrentProbesChanged: limit => probeSlots.setBackgroundLimit(limit)
+	})
 	registerFileHandlers(mainWindow, binaryManager, () => describeSessionContext(currentRuntimeFacts(app.getVersion()), settingsStore.getSync(), tokenService.lastWarmUp()))
 	registerHotkeyHandlers({hotkeyService})
 	registerQueueHandlers(queueService, probeService)

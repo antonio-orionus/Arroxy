@@ -403,7 +403,9 @@
 			"statusPending": "Waiting",
 			"statusProbing": "Fetching details",
 			"statusRunning": "Downloading",
-			"subtitleLanguagesMissing": "No subtitles in {{languages}}"
+			"subtitleLanguagesMissing": "No subtitles in {{languages}}",
+			"waitingForSite": "Waits for {{site}} until {{time}}",
+			"waitingHint": "{{site}} is rate-limiting this connection. Arroxy fetches this link's details after {{time}}, so the limit can clear."
 		},
 		"listOffer": {
 			"dismiss": "Dismiss",
@@ -1530,6 +1532,11 @@
 				"description": "How many queued items download at the same time. More at once finishes a long queue sooner, but raises the chance a site limits you.",
 				"label": "Downloads at once",
 				"unit": "downloads"
+			},
+			"concurrentProbes": {
+				"description": "How many links Arroxy fetches details for at the same time, before they download. Fewer is gentler on sites that block busy connections. A link you open in Interactive Download always goes first.",
+				"label": "Links checked at once",
+				"unit": "links"
 			},
 			"cookies": {
 				"banWarning": "Sites like YouTube may flag — and sometimes ban — accounts whose cookies are used by download tools like Arroxy. Use a throwaway account when possible.",

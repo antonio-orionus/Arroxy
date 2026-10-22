@@ -121,7 +121,7 @@ describe('IntakeService', () => {
 		const placement = await h.intake.add({requestId: 'r1', url: VIDEO_URL, playlistMode: 'video', origin: WINDOW})
 		expect(placement.kind).toBe('added')
 		const placeholderId = placement.kind === 'added' ? placement.itemId : ''
-		expect(h.probes).toEqual([{url: VIDEO_URL, playlistMode: 'video', ownerKey: placeholderId}])
+		expect(h.probes).toEqual([{url: VIDEO_URL, playlistMode: 'video', ownerKey: placeholderId, playlistScope: {items: {kind: 'first', count: 100}}}])
 
 		await h.settled()
 		const [row] = h.queue.snapshot()
@@ -495,7 +495,16 @@ describe('IntakeService', () => {
 			await h.intake.add({requestId: 'r1', url: MIXED_URL, playlistMode: 'playlist', origin: WINDOW})
 			await h.settled()
 			expect(h.queue.snapshot()[0]).not.toHaveProperty('probeTake')
-			expect(h.probes[0]).not.toHaveProperty('playlistScope')
+		})
+
+		// A probe may wait minutes for its slot: the count it resolves against is
+		// the one it asked yt-dlp for, never the setting as it stands at the spawn.
+		it('asks for the load limit read before the probe, not the one yt-dlp would read later', async () => {
+			h.settings.common = {...h.settings.common, playlistProbeLimit: 7}
+			h.answer(ok(playlist(3)))
+			await h.intake.add({requestId: 'r1', url: MIXED_URL, playlistMode: 'playlist', origin: WINDOW})
+			await h.settled()
+			expect(h.probes[0]?.playlistScope).toEqual({items: {kind: 'first', count: 7}})
 		})
 
 		it("a Retry keeps the row's count and its scope", async () => {

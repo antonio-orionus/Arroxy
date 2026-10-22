@@ -62,6 +62,8 @@ export function buildQueueItems(scenario: ScenarioLike): QueueItem[] {
 			return buildAttentionItems()
 		case 'queue-list-offer':
 			return buildListOfferItems()
+		case 'queue-probe-waiting':
+			return buildProbeWaitingItems()
 		default:
 			return []
 	}
@@ -85,6 +87,14 @@ function buildLargeQueueItems(): QueueItem[] {
 			...(status === QUEUE_STATUS.pausedActive ? {lastJobId: `large-job-${n}`, tempDir: `/tmp/arroxy-large-${n}`} : {})
 		})
 	})
+}
+
+// Placeholder rows whose probes wait: three on YouTube, which is cooling down, and one on another site.
+function buildProbeWaitingItems(): QueueItem[] {
+	const unresolved = {kind: 'unresolved', extractor: '', extractorKey: ''} as const
+	const placeholder = {thumbnail: '', progressPercent: 0, progressDetail: null, lastStatus: null, writeM3u: false, job: unresolved, status: QUEUE_STATUS.probing, probeMode: 'video'} as const
+	const urls = ['https://www.youtube.com/watch?v=jNQXAC9IVRw', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://www.youtube.com/watch?v=9bZkp7q19f0', 'https://vimeo.com/76979871']
+	return urls.map((url, index) => queueItem({...placeholder, id: `probe-waiting-${index}`, url, title: url, addedAt: `2026-05-31T12:0${index}:00.000Z`}))
 }
 
 // A quick download's placeholder rows, one per state the Downloads tab resolves.

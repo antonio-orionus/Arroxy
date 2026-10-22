@@ -38,8 +38,8 @@ export interface QueueProbeLifecycleDeps {
 export class QueueProbeLifecycle {
 	constructor(private readonly deps: QueueProbeLifecycleDeps) {}
 
-	// The probe ended without a job: the renderer reports a failure, or a
-	// decision only the user can make. Only a probing row accepts either.
+	// The probe ended without a job: intake reports a failure, or a decision
+	// only the user can make. Only a probing row accepts either.
 	probeFailed(itemId: string, error: LocalizedError, auth?: JobAuth): Result<void> {
 		return this.resolveProbing(itemId, {kind: 'probe-failed', error, ...(auth ? {auth} : {})})
 	}
@@ -56,7 +56,7 @@ export class QueueProbeLifecycle {
 		return ok(undefined)
 	}
 
-	// Back to `probing` so the renderer can run the probe again: a Retry on a
+	// Back to `probing` so intake can run the probe again: a Retry on a
 	// probe-error row, or a choice that needs a fresh probe. A choice's answer
 	// (`take`) is stored on the row, so a Retry and a restart keep to it.
 	reprobe(itemId: string, take?: QuickProbeTake): Result<void> {

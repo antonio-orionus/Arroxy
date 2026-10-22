@@ -57,7 +57,7 @@ beforeEach(() => {
 describe('ProbeService — mockMode', () => {
 	it('returns a canned video result without spawning yt-dlp', async () => {
 		const svc = makeProbeService(true)
-		const r = await svc.probe('https://example.com/x')
+		const r = await svc.probe('https://example.com/x', {kind: 'interactive'})
 		expect(r.ok).toBe(true)
 		if (r.ok) {
 			expect(r.data.kind).toBe('video')
@@ -75,7 +75,7 @@ describe('ProbeService — video probe', () => {
 		const json = JSON.stringify({_type: 'video', id: 'abc', title: 'Bandcamp Track', extractor: 'bandcamp', extractor_key: 'Bandcamp', webpage_url: 'https://artist.bandcamp.com/track/x', formats: [{format_id: 'mp3-128', ext: 'mp3', acodec: 'mp3', vcodec: 'none', abr: 128}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://artist.bandcamp.com/track/x')
+		const r = await makeProbeService().probe('https://artist.bandcamp.com/track/x', {kind: 'interactive'})
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'video') {
 			expect(r.data.extractor).toBe('bandcamp')
@@ -108,7 +108,7 @@ describe('ProbeService — video probe', () => {
 		const json = JSON.stringify({_type: 'video', id: 'v1', title: 'Video', extractor, extractor_key: extractor, webpage_url: 'https://example.com/v1', formats, ...(subtitles ? {subtitles} : {})})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://example.com/v1')
+		const r = await makeProbeService().probe('https://example.com/v1', {kind: 'interactive'})
 		expect(r.ok && r.data.kind).toBe('video')
 		if (r.ok && r.data.kind === 'video') expect(r.data.isAudioOnlySource).toBe(expected)
 	})
@@ -131,7 +131,7 @@ describe('ProbeService — video probe', () => {
 		})
 		vi.mocked(spawnYtDlp).mockImplementationOnce(() => makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=yt1', {playlistMode: 'video'})
+		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=yt1', {kind: 'interactive', playlistMode: 'video'})
 
 		expect(spawnYtDlp).toHaveBeenCalledTimes(1)
 		const args: string[] = vi.mocked(spawnYtDlp).mock.calls[0][1]
@@ -156,7 +156,7 @@ describe('ProbeService — video probe', () => {
 		const cache = {write: vi.fn().mockResolvedValue(ref), resolve: vi.fn().mockResolvedValue('/cache/probe-info-cache-v1/00000000-0000-4000-8000-000000000001.info.json')} as unknown as ProbeInfoJsonCache
 		vi.mocked(log.info).mockClear()
 
-		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=yt1', {playlistMode: 'video'})
+		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=yt1', {kind: 'interactive', playlistMode: 'video'})
 
 		expect(cache.write).toHaveBeenCalledWith(expect.objectContaining({id: 'yt1', title: 'Ref Title'}), {videoId: 'yt1'})
 		expect(cache.resolve).toHaveBeenCalledWith(ref)
@@ -181,7 +181,7 @@ describe('ProbeService — video probe', () => {
 		})
 		const cache = {write: vi.fn().mockResolvedValue({id: '00000000-0000-4000-8000-000000000002', createdAt: '2026-06-14T00:00:00.000Z', videoId: 'yt2', formatsWithheld: true}), resolve: vi.fn().mockResolvedValue('/cache/x.info.json')} as unknown as ProbeInfoJsonCache
 
-		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=yt2', {playlistMode: 'video'})
+		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=yt2', {kind: 'interactive', playlistMode: 'video'})
 
 		expect(r.ok).toBe(true)
 		expect(cache.write).toHaveBeenCalledWith(expect.objectContaining({id: 'yt2'}), {videoId: 'yt2', formatsWithheld: true})
@@ -192,7 +192,7 @@ describe('ProbeService — video probe', () => {
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 		const cache = {write: vi.fn()} as unknown as ProbeInfoJsonCache
 
-		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=auto-video', {playlistMode: 'auto'})
+		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=auto-video', {kind: 'interactive', playlistMode: 'auto'})
 
 		expect(cache.write).not.toHaveBeenCalled()
 		expect(r.ok).toBe(true)
@@ -204,7 +204,7 @@ describe('ProbeService — video probe', () => {
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 		const cache = {write: vi.fn()} as unknown as ProbeInfoJsonCache
 
-		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=empty-video', {playlistMode: 'video'})
+		const r = await makeProbeService(false, cache).probe('https://www.youtube.com/watch?v=empty-video', {kind: 'interactive', playlistMode: 'video'})
 
 		expect(cache.write).not.toHaveBeenCalled()
 		expect(r.ok).toBe(false)
@@ -217,7 +217,7 @@ describe('ProbeService — playlist probe', () => {
 		const json = JSON.stringify({_type: 'playlist', id: 'PL1', title: 'My Songs', extractor: 'youtube:tab', extractor_key: 'YoutubeTab', webpage_url: 'https://www.youtube.com/playlist?list=PL1', entries: [{_type: 'url', id: 'song-1', title: 'First Song', url: 'https://www.youtube.com/watch?v=song-1'}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(`[download] Downloading playlist: My Songs\n[download] Downloading item 1 of 2\n${json}\n`) as never)
 
-		const r = await makeProbeService().probe('https://www.youtube.com/playlist?list=PL1')
+		const r = await makeProbeService().probe('https://www.youtube.com/playlist?list=PL1', {kind: 'interactive'})
 
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'playlist') {
@@ -234,7 +234,7 @@ describe('ProbeService — playlist probe', () => {
 		const events: ProbeProgressEvent[] = []
 		svc.on('progress', event => events.push(event as ProbeProgressEvent))
 
-		await svc.probe('https://www.youtube.com/playlist?list=PL1', {playlistMode: 'playlist'})
+		await svc.probe('https://www.youtube.com/playlist?list=PL1', {kind: 'interactive', playlistMode: 'playlist'})
 
 		expect(events).toMatchObject([
 			{url: 'https://www.youtube.com/playlist?list=PL1', playlistMode: 'playlist', phase: 'items', loaded: 1, total: 3},
@@ -249,7 +249,7 @@ describe('ProbeService — playlist probe', () => {
 		const events: ProbeProgressEvent[] = []
 		svc.on('progress', event => events.push(event as ProbeProgressEvent))
 
-		await svc.probe('https://www.youtube.com/playlist?list=PL1', {playlistMode: 'playlist'})
+		await svc.probe('https://www.youtube.com/playlist?list=PL1', {kind: 'interactive', playlistMode: 'playlist'})
 
 		expect(events).toMatchObject([{phase: 'items', loaded: 2, total: 5}])
 	})
@@ -261,7 +261,7 @@ describe('ProbeService — playlist probe', () => {
 		const events: ProbeProgressEvent[] = []
 		svc.on('progress', event => events.push(event as ProbeProgressEvent))
 
-		await svc.probe('https://www.youtube.com/@sunnyboy66/videos', {playlistMode: 'playlist'})
+		await svc.probe('https://www.youtube.com/@sunnyboy66/videos', {kind: 'interactive', playlistMode: 'playlist'})
 
 		expect(events).toMatchObject([
 			{url: 'https://www.youtube.com/@sunnyboy66/videos', playlistMode: 'playlist', phase: 'pages', loaded: 23},
@@ -285,7 +285,7 @@ describe('ProbeService — playlist probe', () => {
 		})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://y.qq.com/n/ryqq/playlist/PL1')
+		const r = await makeProbeService().probe('https://y.qq.com/n/ryqq/playlist/PL1', {kind: 'interactive'})
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'playlist') {
 			expect(r.data.extractor).toBe('qqmusic:playlist')
@@ -314,7 +314,7 @@ describe('ProbeService — playlist probe', () => {
 		})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=dup&list=RDmix')
+		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=dup&list=RDmix', {kind: 'interactive'})
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'playlist') {
 			const ids = r.data.entries.map(e => e.id)
@@ -340,7 +340,7 @@ describe('ProbeService — heterogeneous playlist filter', () => {
 		})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://music.youtube.com/search?q=x')
+		const r = await makeProbeService().probe('https://music.youtube.com/search?q=x', {kind: 'interactive'})
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'playlist') {
 			expect(r.data.entries).toHaveLength(1)
@@ -362,7 +362,7 @@ describe('ProbeService — heterogeneous playlist filter', () => {
 		})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://music.youtube.com/search?q=x')
+		const r = await makeProbeService().probe('https://music.youtube.com/search?q=x', {kind: 'interactive'})
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'playlist') {
 			expect(r.data.entries).toHaveLength(2)
@@ -384,7 +384,7 @@ describe('ProbeService — title fallback chain', () => {
 		})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://music.youtube.com/search?q=x')
+		const r = await makeProbeService().probe('https://music.youtube.com/search?q=x', {kind: 'interactive'})
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'playlist') {
 			expect(r.data.entries[0].title).toMatch(/^Channel · /)
@@ -406,7 +406,7 @@ describe('ProbeService — title fallback chain', () => {
 		})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://last.fm/user/x/playlists/1')
+		const r = await makeProbeService().probe('https://last.fm/user/x/playlists/1', {kind: 'interactive'})
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'playlist') {
 			expect(r.data.entries[0].title).toBe('Untitled · #1')
@@ -423,7 +423,7 @@ describe('ProbeService — thumbnail null skip', () => {
 		const json = JSON.stringify({_type: 'playlist', id: 'p1', extractor: 'somesite:playlist', entries: [{_type: 'url', id: 'item1', title: 'Track', url: 'https://example.com/track1', thumbnails: [{url: null}, {url: 'https://example.com/thumb.jpg'}]}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://example.com/playlist')
+		const r = await makeProbeService().probe('https://example.com/playlist', {kind: 'interactive'})
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'playlist') {
 			expect(r.data.entries[0].thumbnail).toBe('https://example.com/thumb.jpg')
@@ -435,14 +435,14 @@ describe('ProbeService — error handling', () => {
 	it('returns Result.fail when yt-dlp exits non-zero', async () => {
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting('', 1) as never)
 
-		const r = await makeProbeService().probe('https://example.com/missing')
+		const r = await makeProbeService().probe('https://example.com/missing', {kind: 'interactive'})
 		expect(r.ok).toBe(false)
 	})
 
 	it('returns Result.fail when stdout is not valid JSON', async () => {
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting('not json {{{', 0) as never)
 
-		const r = await makeProbeService().probe('https://example.com/garbage')
+		const r = await makeProbeService().probe('https://example.com/garbage', {kind: 'interactive'})
 		expect(r.ok).toBe(false)
 	})
 
@@ -452,7 +452,7 @@ describe('ProbeService — error handling', () => {
 		const bogusJson = JSON.stringify({_type: 'playlist', id: 'x'})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(bogusJson) as never)
 
-		const r = await makeProbeService().probe('https://example.com/bogus')
+		const r = await makeProbeService().probe('https://example.com/bogus', {kind: 'interactive'})
 		expect(r.ok).toBe(false)
 	})
 })
@@ -465,7 +465,7 @@ describe('ProbeService — playlistMode arg threading', () => {
 		const json = JSON.stringify({_type: 'video', id: 'x', title: 't', extractor: 'generic', formats: [{format_id: 'mp4', ext: 'mp4', vcodec: 'avc1', acodec: 'aac', resolution: '720p'}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		await makeProbeService().probe('https://www.youtube.com/watch?v=x&list=PLabc', {playlistMode: mode})
+		await makeProbeService().probe('https://www.youtube.com/watch?v=x&list=PLabc', {kind: 'interactive', playlistMode: mode})
 
 		const args = vi.mocked(spawnYtDlp).mock.calls[0][1]
 		expect(args).toContain(expectedFlag)
@@ -475,7 +475,7 @@ describe('ProbeService — playlistMode arg threading', () => {
 		const json = JSON.stringify({_type: 'video', id: 'x', title: 't', extractor: 'generic', formats: [{format_id: 'mp4', ext: 'mp4', vcodec: 'avc1', acodec: 'aac'}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		await makeProbeService().probe('https://www.youtube.com/watch?v=x')
+		await makeProbeService().probe('https://www.youtube.com/watch?v=x', {kind: 'interactive'})
 
 		const args = vi.mocked(spawnYtDlp).mock.calls[0][1]
 		expect(args).not.toContain('--no-playlist')
@@ -498,7 +498,7 @@ describe('ProbeService — _type: url redirect', () => {
 			return makeFakeProcessEmitting(json) as never
 		})
 
-		const r = await makeProbeService().probe('https://shortener.example/abc')
+		const r = await makeProbeService().probe('https://shortener.example/abc', {kind: 'interactive'})
 		expect(spawnYtDlp).toHaveBeenCalledTimes(2)
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'video') {
@@ -515,7 +515,7 @@ describe('ProbeService — uploader and upload date for filename templates', () 
 		const json = JSON.stringify({_type: 'video', id: 'v1', title: 'Clip', uploader: 'Blender Foundation', upload_date: '20260803', extractor: 'youtube', extractor_key: 'Youtube', webpage_url: 'https://www.youtube.com/watch?v=v1', formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v1')
+		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v1', {kind: 'interactive'})
 
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'video') {
@@ -531,7 +531,7 @@ describe('ProbeService — uploader and upload date for filename templates', () 
 		const json = JSON.stringify({_type: 'video', id: 'v2', title: 'Clip', channel: 'Fallback Channel', extractor: 'youtube', extractor_key: 'Youtube', webpage_url: 'https://www.youtube.com/watch?v=v2', formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v2')
+		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v2', {kind: 'interactive'})
 
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'video') expect(r.data.uploader).toBe('Fallback Channel')
@@ -541,7 +541,7 @@ describe('ProbeService — uploader and upload date for filename templates', () 
 		const json = JSON.stringify({_type: 'video', id: 'v3', title: 'Clip', extractor: 'generic', extractor_key: 'Generic', webpage_url: 'https://example.com/v3', formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://example.com/v3')
+		const r = await makeProbeService().probe('https://example.com/v3', {kind: 'interactive'})
 
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'video') {
@@ -564,7 +564,7 @@ describe('ProbeService — uploader and upload date for filename templates', () 
 		})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://www.youtube.com/playlist?list=PL1')
+		const r = await makeProbeService().probe('https://www.youtube.com/playlist?list=PL1', {kind: 'interactive'})
 
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'playlist') {
@@ -579,7 +579,7 @@ describe('ProbeService — uploader and upload date for filename templates', () 
 		const json = JSON.stringify({_type: 'playlist', id: 'PL2', title: 'Sparse', extractor: 'youtube:tab', extractor_key: 'YoutubeTab', webpage_url: 'https://www.youtube.com/playlist?list=PL2', entries: [{_type: 'url', id: 'e1', title: 'First', url: 'https://www.youtube.com/watch?v=e1'}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://www.youtube.com/playlist?list=PL2')
+		const r = await makeProbeService().probe('https://www.youtube.com/playlist?list=PL2', {kind: 'interactive'})
 
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'playlist') expect(r.data.entries[0]?.uploader).toBeUndefined()
@@ -601,7 +601,7 @@ describe('ProbeService — uploader and upload date for filename templates', () 
 		})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v1')
+		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v1', {kind: 'interactive'})
 
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'video') expect(r.data.mediaTags).toEqual({category: 'Music', artist: 'Daft Punk', album: 'Discovery', track: 'One More Time'})
@@ -611,7 +611,7 @@ describe('ProbeService — uploader and upload date for filename templates', () 
 		const json = JSON.stringify({_type: 'video', id: 'v1', title: 'Song', artists: ['Artist A', 'Artist B'], extractor: 'youtube', extractor_key: 'Youtube', webpage_url: 'https://www.youtube.com/watch?v=v1', formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v1')
+		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v1', {kind: 'interactive'})
 
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'video') expect(r.data.mediaTags).toEqual({artist: 'Artist A, Artist B'})
@@ -621,7 +621,7 @@ describe('ProbeService — uploader and upload date for filename templates', () 
 		const json = JSON.stringify({_type: 'video', id: 'v1', title: 'Clip', categories: ['  '], artist: 42, album: '', track: null, extractor: 'generic', extractor_key: 'Generic', webpage_url: 'https://example.com/v1', formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://example.com/v1')
+		const r = await makeProbeService().probe('https://example.com/v1', {kind: 'interactive'})
 
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'video') expect(r.data.mediaTags).toBeUndefined()
@@ -639,7 +639,7 @@ describe('ProbeService — uploader and upload date for filename templates', () 
 		})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://www.youtube.com/playlist?list=PL1')
+		const r = await makeProbeService().probe('https://www.youtube.com/playlist?list=PL1', {kind: 'interactive'})
 
 		expect(r.ok).toBe(true)
 		if (r.ok && r.data.kind === 'playlist') expect(r.data.entries[0]?.mediaTags).toEqual({category: 'Music', artist: 'Daft Punk', album: 'Discovery', track: 'Aerodynamic'})
@@ -649,7 +649,7 @@ describe('ProbeService — uploader and upload date for filename templates', () 
 		const json = JSON.stringify({_type: 'video', id: 'v1', title: 'Clip', timestamp: 1754000000, extractor: 'youtube', extractor_key: 'Youtube', webpage_url: 'https://www.youtube.com/watch?v=v1', formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v1')
+		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v1', {kind: 'interactive'})
 
 		expect(r.ok).toBe(true)
 		if (!r.ok) throw new Error('expected ok probe result')
@@ -662,7 +662,7 @@ describe('ProbeService — uploader and upload date for filename templates', () 
 		const json = JSON.stringify({_type: 'video', id: 'v1', title: 'Clip', extractor: 'generic', extractor_key: 'Generic', webpage_url: 'https://example.com/v1', formats: [{format_id: 'f1', ext: 'mp4'}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
-		const r = await makeProbeService().probe('https://example.com/v1')
+		const r = await makeProbeService().probe('https://example.com/v1', {kind: 'interactive'})
 
 		expect(r.ok).toBe(true)
 		if (!r.ok) throw new Error('expected ok probe result')
@@ -676,7 +676,7 @@ describe('ProbeService — chapters for part of video', () => {
 	async function probeVideo(fields: Record<string, unknown>) {
 		const json = JSON.stringify({_type: 'video', id: 'v1', title: 'Clip', duration: 600, extractor: 'youtube', extractor_key: 'Youtube', webpage_url: 'https://www.youtube.com/watch?v=v1', formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}], ...fields})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
-		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v1')
+		const r = await makeProbeService().probe('https://www.youtube.com/watch?v=v1', {kind: 'interactive'})
 		if (!r.ok || r.data.kind !== 'video') throw new Error('expected a video probe result')
 		return r.data
 	}
@@ -744,7 +744,7 @@ describe('ProbeService — Explore session escalation', () => {
 		it('retries once with a fresh jar when the session is still signed in', async () => {
 			const {service, run, verifySignedIn} = makeEscalationService([exitError(AGE_GATE), rejected(exitError(AGE_GATE)), success(videoInfo())], async () => true, undefined, 'signedIn')
 
-			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+			const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 			expect(verifySignedIn).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
 			expect(run.mock.calls.map(call => call[2])).toEqual([{identity: 'configured'}, {identity: 'exploreSession'}, {identity: 'exploreSession'}])
@@ -754,7 +754,7 @@ describe('ProbeService — Explore session escalation', () => {
 		it('retries only once', async () => {
 			const {service, run, verifySignedIn} = makeEscalationService([exitError(AGE_GATE), rejected(exitError(AGE_GATE)), rejected(exitError(AGE_GATE))], async () => true, undefined, 'signedIn')
 
-			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+			const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 			expect(result.ok).toBe(false)
 			expect(run).toHaveBeenCalledTimes(3)
@@ -767,7 +767,7 @@ describe('ProbeService — Explore session escalation', () => {
 				const verifiedSignedOut = vi.fn()
 				service.onExploreVerifiedSignedOut(verifiedSignedOut)
 
-				const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+				const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 				expect(result).toEqual({ok: false, error: {kind: 'ytdlp', error: {kind: 'loginRequired', raw: 'Signed out of the Explore session'}}})
 				expect(run).toHaveBeenCalledTimes(2)
@@ -777,11 +777,11 @@ describe('ProbeService — Explore session escalation', () => {
 
 		it('fails a failed probe as retryable when the check cannot tell, and keeps a successful one', async () => {
 			const failed = makeEscalationService([exitError(AGE_GATE), rejected(exitError(AGE_GATE))], async () => true, undefined, 'unknown')
-			expect(await failed.service.probe(VIDEO_URL, {playlistMode: 'video'})).toEqual({ok: false, error: {kind: 'ytdlp', error: {kind: 'network', raw: 'Could not confirm the Explore session'}}})
+			expect(await failed.service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})).toEqual({ok: false, error: {kind: 'ytdlp', error: {kind: 'network', raw: 'Could not confirm the Explore session'}}})
 			expect(failed.run).toHaveBeenCalledTimes(2)
 
 			const succeeded = makeEscalationService([exitError(AGE_GATE), rejected(success(videoInfo()))], async () => true, undefined, 'unknown')
-			const result = await succeeded.service.probe(VIDEO_URL, {playlistMode: 'video'})
+			const result = await succeeded.service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 			expect(result.ok && result.data.auth).toBe('exploreSession')
 			expect(succeeded.run).toHaveBeenCalledTimes(2)
 		})
@@ -791,7 +791,7 @@ describe('ProbeService — Explore session escalation', () => {
 			const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-probe-rejected-cache-'))
 			try {
 				const {service} = makeEscalationService([exitError(AGE_GATE), rejected(success(videoInfo()))], async () => true, new ProbeInfoJsonCache(dir), 'unknown')
-				const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+				const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 				expect(result.ok && result.data.kind === 'video' && result.data.probeInfoJsonRef).toBeUndefined()
 				await expect(fs.readdir(path.join(dir, 'probe-info-cache-v1'))).rejects.toThrow()
 			} finally {
@@ -803,7 +803,7 @@ describe('ProbeService — Explore session escalation', () => {
 			const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'arroxy-probe-retry-cache-'))
 			try {
 				const {service} = makeEscalationService([exitError(AGE_GATE), rejected(success(videoInfo())), success(videoInfo())], async () => true, new ProbeInfoJsonCache(dir), 'signedIn')
-				const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+				const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 				expect(result.ok && result.data.kind === 'video' && result.data.probeInfoJsonRef?.auth).toBe('exploreSession')
 			} finally {
 				await fs.rm(dir, {recursive: true, force: true})
@@ -812,14 +812,14 @@ describe('ProbeService — Explore session escalation', () => {
 
 		it('ignores the warning on a probe that never escalated', async () => {
 			const {service, verifySignedIn} = makeEscalationService([rejected(success(videoInfo()))], async () => true)
-			expect((await service.probe(VIDEO_URL, {playlistMode: 'video'})).ok).toBe(true)
+			expect((await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})).ok).toBe(true)
 			expect(verifySignedIn).not.toHaveBeenCalled()
 		})
 
 		it('checks a rejected escalated playlist that came back empty', async () => {
 			const {service, run, verifySignedIn} = makeEscalationService([success(playlistWith([])), rejected(success(playlistWith([]))), success(playlistWith(['a']))], async () => true, undefined, 'signedIn')
 
-			const result = await service.probe('https://www.youtube.com/playlist?list=WL')
+			const result = await service.probe('https://www.youtube.com/playlist?list=WL', {kind: 'interactive'})
 
 			expect(verifySignedIn).toHaveBeenCalledOnce()
 			expect(run).toHaveBeenCalledTimes(3)
@@ -832,7 +832,7 @@ describe('ProbeService — Explore session escalation', () => {
 		try {
 			const {service, run, gate} = makeEscalationService([exitError(AGE_GATE), success(videoInfo())], async () => true, new ProbeInfoJsonCache(dir))
 
-			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+			const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 			expect(gate.canEscalate).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
 			expect(run).toHaveBeenCalledTimes(2)
@@ -849,7 +849,7 @@ describe('ProbeService — Explore session escalation', () => {
 	it('does not escalate when the gate says no (not explore mode / signed out / disabled)', async () => {
 		const {service, run} = makeEscalationService([exitError(AGE_GATE)], async () => false)
 
-		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+		const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 		expect(result.ok).toBe(false)
 		expect(run).toHaveBeenCalledTimes(1)
@@ -858,7 +858,7 @@ describe('ProbeService — Explore session escalation', () => {
 	it('does not consult the gate for a failure an account cannot fix', async () => {
 		const {service, run, gate} = makeEscalationService([exitError('ERROR: [youtube] abc: Video unavailable. This video has been removed by the uploader')], async () => true)
 
-		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+		const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 		expect(result.ok).toBe(false)
 		expect(run).toHaveBeenCalledTimes(1)
@@ -868,7 +868,7 @@ describe('ProbeService — Explore session escalation', () => {
 	it('escalates at most once and reports the signed-in failure', async () => {
 		const {service, run} = makeEscalationService([exitError(AGE_GATE), exitError(AGE_GATE)], async () => true)
 
-		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+		const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 		expect(run).toHaveBeenCalledTimes(2)
 		expect(result.ok).toBe(false)
@@ -877,7 +877,7 @@ describe('ProbeService — Explore session escalation', () => {
 	it('escalates an empty Watch Later playlist and marks the result', async () => {
 		const {service, run} = makeEscalationService([success(playlistWith([])), success(playlistWith(['a', 'b']))], async () => true)
 
-		const result = await service.probe('https://www.youtube.com/playlist?list=WL')
+		const result = await service.probe('https://www.youtube.com/playlist?list=WL', {kind: 'interactive'})
 
 		expect(run).toHaveBeenCalledTimes(2)
 		expect(run.mock.calls[1]?.[2]).toEqual({identity: 'exploreSession'})
@@ -888,7 +888,7 @@ describe('ProbeService — Explore session escalation', () => {
 	it('signs in every item of a playlist only an account can open', async () => {
 		const {service} = makeEscalationService([success(playlistWith([])), success(playlistWith(['a', 'b']))], async () => true)
 
-		const result = await service.probe('https://www.youtube.com/playlist?list=WL')
+		const result = await service.probe('https://www.youtube.com/playlist?list=WL', {kind: 'interactive'})
 
 		expect(result.ok && result.data.kind === 'playlist' && result.data.entries.map(entry => entry.auth)).toEqual(['exploreSession', 'exploreSession'])
 	})
@@ -897,20 +897,20 @@ describe('ProbeService — Explore session escalation', () => {
 	describe('the identity of a failure', () => {
 		it('is the Explore session when the escalated probe failed too', async () => {
 			const {service} = makeEscalationService([exitError(AGE_GATE), exitError(AGE_GATE)], async () => true)
-			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+			const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 			expect(result.ok === false && result.error).toMatchObject({kind: 'ytdlp', auth: 'exploreSession'})
 		})
 
 		it('is unset for an anonymous failure that did not escalate', async () => {
 			const {service} = makeEscalationService([exitError(AGE_GATE)], async () => false)
-			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+			const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 			expect(result.ok === false && result.error.kind === 'ytdlp' && 'auth' in result.error).toBe(false)
 		})
 
 		it('is unset when yt-dlp dropped the Explore cookies on the last run', async () => {
 			const rejected: YtDlpResult = {...exitError(AGE_GATE), accountCookiesRejected: true}
 			const {service} = makeEscalationService([exitError(AGE_GATE), rejected, rejected], async () => true, undefined, 'signedIn')
-			const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+			const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 			expect(result.ok === false && result.error.kind === 'ytdlp' && 'auth' in result.error).toBe(false)
 		})
 	})
@@ -920,7 +920,7 @@ describe('ProbeService — Explore session escalation', () => {
 		const publicPlaylist = {...(playlistWith(['a', 'b']) as object), id: 'PLx', webpage_url: 'https://www.youtube.com/playlist?list=PLx'}
 		const {service, run} = makeEscalationService([exitError(BOT_WALL), success(publicPlaylist)], async () => true)
 
-		const result = await service.probe('https://www.youtube.com/playlist?list=PLx')
+		const result = await service.probe('https://www.youtube.com/playlist?list=PLx', {kind: 'interactive'})
 
 		expect(run.mock.calls.map(call => call[2])).toEqual([{identity: 'configured'}, {identity: 'exploreSession'}])
 		expect(result.ok && result.data.auth).toBe('exploreSession')
@@ -931,7 +931,7 @@ describe('ProbeService — Explore session escalation', () => {
 	it('does not escalate an empty ordinary playlist', async () => {
 		const {service, run, gate} = makeEscalationService([success({...(playlistWith([]) as object), id: 'PLx', webpage_url: 'https://www.youtube.com/playlist?list=PLx'})], async () => true)
 
-		const result = await service.probe('https://www.youtube.com/playlist?list=PLx')
+		const result = await service.probe('https://www.youtube.com/playlist?list=PLx', {kind: 'interactive'})
 
 		expect(result.ok).toBe(false)
 		expect(run).toHaveBeenCalledTimes(1)
@@ -945,7 +945,7 @@ describe('ProbeService — Explore session escalation', () => {
 			return exitError(AGE_GATE)
 		})
 
-		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+		const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 		expect(result.ok).toBe(false)
 		expect(run).toHaveBeenCalledTimes(1)
@@ -964,7 +964,7 @@ describe('ProbeService — Explore session escalation', () => {
 			return success(videoInfo())
 		})
 
-		await service.probe(VIDEO_URL, {playlistMode: 'video', ownerKey: 'row-1'})
+		await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video', ownerKey: 'row-1'})
 
 		expect(signals[0]?.aborted).toBe(false)
 	})
@@ -978,7 +978,7 @@ describe('ProbeService — Explore session escalation', () => {
 			return exitError('ERROR: cancelled')
 		})
 
-		await service.probe(VIDEO_URL, {playlistMode: 'video', ownerKey: 'row-1'})
+		await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video', ownerKey: 'row-1'})
 
 		expect(signals[0]?.aborted).toBe(true)
 	})
@@ -988,7 +988,7 @@ describe('ProbeService — Explore session escalation', () => {
 		try {
 			const {service, run, gate} = makeEscalationService([exitError(AGE_GATE), success(videoInfo())], async () => true, new ProbeInfoJsonCache(dir))
 
-			const result = await service.probe(VIDEO_URL, {playlistMode: 'video', timeoutMs: 180_000, escalate: false})
+			const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video', timeoutMs: 180_000, escalate: false})
 
 			expect(result.ok).toBe(false)
 			expect(run).toHaveBeenCalledTimes(1)
@@ -1004,7 +1004,7 @@ describe('ProbeService — Explore session escalation', () => {
 		const degraded = {...(success(videoInfo()) as Extract<YtDlpResult, {kind: 'success'}>), stderr: 'WARNING: [youtube] abc: Some formats may be missing'}
 		const {service, run} = makeEscalationService([exitError(AGE_GATE), degraded, success(videoInfo())], async () => true)
 
-		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+		const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 		expect(result.ok && result.data.auth).toBe('exploreSession')
 		expect(run.mock.calls.map(call => call[2])).toEqual([{identity: 'configured'}, {identity: 'exploreSession'}, {identity: 'exploreSession'}])
@@ -1014,7 +1014,7 @@ describe('ProbeService — Explore session escalation', () => {
 		const timedOut: YtDlpResult = {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Probe timed out', stdout: '', stderr: ''}
 		const {service, run} = makeEscalationService([exitError(AGE_GATE), timedOut, success(videoInfo())], async () => true)
 
-		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+		const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 		expect(result.ok && result.data.auth).toBe('exploreSession')
 		expect(run.mock.calls.map(call => call[2])).toEqual([{identity: 'configured'}, {identity: 'exploreSession'}, {identity: 'exploreSession'}])
@@ -1023,7 +1023,7 @@ describe('ProbeService — Explore session escalation', () => {
 	it('leaves an ordinary success anonymous', async () => {
 		const {service, run, gate} = makeEscalationService([success(videoInfo())], async () => true)
 
-		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+		const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 		expect(result.ok && result.data.auth).toBeUndefined()
 		expect(run.mock.calls[0]?.[2]).toEqual({identity: 'configured'})
@@ -1035,7 +1035,7 @@ describe('ProbeService — Explore session escalation', () => {
 		run.mockResolvedValueOnce(exitError(AGE_GATE))
 		const service = new ProbeService({run} as never)
 
-		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+		const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 		expect(result.ok).toBe(false)
 		expect(run).toHaveBeenCalledTimes(1)
@@ -1058,7 +1058,7 @@ describe('ProbeService — sizes the site does not report', () => {
 
 	it('looks up the sizes a site leaves out before the formats are listed', async () => {
 		const {service, formatSizes} = serviceFor(REEL_INFO)
-		const result = await service.probe(REEL, {playlistMode: 'video'})
+		const result = await service.probe(REEL, {kind: 'interactive', playlistMode: 'video'})
 		if (!result.ok || result.data.kind !== 'video') throw new Error('probe failed')
 		expect(formatSizes).toHaveBeenCalledTimes(1)
 		expect(Object.fromEntries(result.data.formats.map(f => [f.formatId, f.filesize]))).toEqual({sd: 3_576_134, hd: 16_344_300})
@@ -1070,14 +1070,14 @@ describe('ProbeService — sizes the site does not report', () => {
 	it('never looks anything up for YouTube', async () => {
 		const url = 'https://www.youtube.com/watch?v=abc'
 		const {service, formatSizes} = serviceFor({_type: 'video', id: 'abc', title: 'Video', extractor: 'youtube', extractor_key: 'Youtube', webpage_url: url, formats: [{...SD, format_id: '18'}]})
-		await service.probe(url, {playlistMode: 'video'})
+		await service.probe(url, {kind: 'interactive', playlistMode: 'video'})
 		expect(formatSizes).not.toHaveBeenCalled()
 	})
 
 	// A degraded first run is probed again; only the result kept is looked up.
 	it('looks sizes up once, for the attempt the probe keeps', async () => {
 		const {service, formatSizes, run} = serviceFor(REEL_INFO, ['WARNING: [facebook] r: Failed to download m3u8 information: The read operation timed out', ''])
-		const result = await service.probe(REEL, {playlistMode: 'video'})
+		const result = await service.probe(REEL, {kind: 'interactive', playlistMode: 'video'})
 		expect(result.ok).toBe(true)
 		expect(run).toHaveBeenCalledTimes(2)
 		expect(formatSizes).toHaveBeenCalledTimes(1)
@@ -1089,7 +1089,7 @@ describe('ProbeService — sizes the site does not report', () => {
 			service.cancelInFlight()
 			return new Map()
 		})
-		const result = await service.probe(REEL, {playlistMode: 'video'})
+		const result = await service.probe(REEL, {kind: 'interactive', playlistMode: 'video'})
 		expect(result.ok).toBe(false)
 		expect(!result.ok && result.error.kind === 'other' && result.error.code).toBe('cancelled')
 	})

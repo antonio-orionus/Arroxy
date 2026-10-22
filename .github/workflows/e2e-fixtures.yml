@@ -90,13 +90,12 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      # Electron needs the browser system libraries; xvfb provides the display
-      # the suite runs against.
-      - name: Install Playwright system dependencies
-        run: bunx playwright install chromium --with-deps
-
+      # xvfb provides the display the suite runs against. The runner image
+      # already has the system libraries Electron needs; Playwright's
+      # --with-deps added ~20 MB of fonts that the Ubuntu mirror sometimes
+      # served at tens of kB/s, stalling a shard for up to 11 min.
       - name: Install xvfb
-        run: sudo apt-get update && sudo apt-get install -y xvfb
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends xvfb
 
       # Fetches embedded ffmpeg/ffprobe for the host, builds, then runs this
       # runner's shard of the fixture specs serially under a virtual display.

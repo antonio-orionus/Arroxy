@@ -41,7 +41,7 @@ import {QueueProbeLifecycle} from './download/QueueProbeLifecycle.js'
 import {pauseEach} from './download/queuePauseEach.js'
 import {queueForNextLaunch, suspendQueueForExit} from './download/queueSuspendForExit.js'
 import {QueueSchedulerPause} from './download/QueueSchedulerPause.js'
-import {QueueTitleBackfill} from './download/queueTitleBackfill.js'
+import {QueueTitleBackfill, type QueueTitleBackfillDeps} from './download/queueTitleBackfill.js'
 import {ingestQueueArtifactEvent} from './download/queueTitleArtifact.js'
 import {checkQueueArtifactsOnDisk} from './download/queueArtifactDiskCheck.js'
 import {describeMutation, isProgressOnlyMutation, statusSummary, type Mutation} from './download/queueMutation.js'
@@ -121,9 +121,9 @@ export class QueueService extends EventEmitter {
 	// Deferred title-backfill probe, wired at the composition root
 	// (registerQueueHandlers). Unset it resolves nothing — rows keep their
 	// flag for the artifact backstop. Same setter pattern as onProbeAbort.
-	private titleProbe: (url: string) => Promise<string | null> = () => Promise.resolve(null)
-	private readonly titleBackfill = new QueueTitleBackfill({items: () => this.items, patch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher}), probeTitle: url => this.titleProbe(url)})
-	setTitleBackfillProbe(probe: (url: string) => Promise<string | null>): void {
+	private titleProbe: QueueTitleBackfillDeps['probeTitle'] = () => Promise.resolve({kind: 'none'})
+	private readonly titleBackfill = new QueueTitleBackfill({items: () => this.items, patch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher}), probeTitle: (url, admit) => this.titleProbe(url, admit)})
+	setTitleBackfillProbe(probe: QueueTitleBackfillDeps['probeTitle']): void {
 		this.titleProbe = probe
 	}
 

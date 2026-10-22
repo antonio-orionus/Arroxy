@@ -75,6 +75,14 @@ describe('createIntakeService routing', () => {
 		expect(h.send).not.toHaveBeenCalled()
 	})
 
+	it("runs a placeholder row's probe as an intake probe, keyed by the row", async () => {
+		const h = wired(OFFLINE)
+		const placement = await h.intake.add({requestId: 'w1', url: URL, playlistMode: 'video', origin: {kind: 'window'}})
+		await vi.waitFor(() => expect(h.probe).toHaveBeenCalledTimes(1))
+		const itemId = placement.kind === 'added' ? placement.itemId : null
+		expect(h.probe).toHaveBeenCalledWith(URL, expect.objectContaining({kind: 'intake', playlistMode: 'video', ownerKey: itemId}))
+	})
+
 	it("sends a window link's outcome to the window", async () => {
 		const h = wired(OFFLINE)
 		await h.intake.add({requestId: 'w1', url: URL, playlistMode: 'video', origin: {kind: 'window'}})

@@ -90,7 +90,7 @@ picker edge sets the active profile that Quick Download uses.
 | EXL | Right-click a link in the Explore page: the same Download, profile pick (sets the active profile first) and wand, for the link; a native menu built in main. On a video in a list: Download this video, This video with ▸, From this <list> ▸ with MIX's two one-move answers (`answerVideoListLink`), and the wand, which opens MIX's Interactive form as the URL tab's wand does | active profile / wizard | `exploreLinkMenu.ts`, `exploreLinkActions.ts` |
 | HK | Hotkey chord, tray item, or Settings test press, run in main; a mixed URL is forced to its video. Acknowledged at once (queued, or why not), then one follow-up only when the link fails, needs a choice or adds nothing; both keyed by the intake id, as a toast on a focused window or an OS notification | the window's active profile, else main's | `HotkeyService`, `HotkeyIntake`, `src/shared/intake/hotkeyIntake.ts`, `hotkeyFeedback.ts` |
 | QD, MIX | Cleans the URL, blocks on incomplete cookies setup, asks how to take the list for a link that names a video and a list (Mix and `RDCLAK` included): in the background (the row asks past the load limit), exactly the first N, or the wizard's picker; from the wand it only confirms how many to load | — | `quickDownloadSlice.quickDownload`, `MixedUrlPromptDialog`, `probeOrchestrator.answerVideoListLink` |
-| PLC → SWAP | In main: places a placeholder row that stores the active profile and the window's folder (`pinnedProfile`) and who took it in (`origin`), probes in the background, then swaps in prepared items or leaves a needs-choice / probe-error row | pinned active profile | `IntakeService`, `src/shared/intake/probeResolution.ts` |
+| PLC → SWAP | In main: places a placeholder row that stores the active profile and the window's folder (`pinnedProfile`) and who took it in (`origin`), probes in the background once a probe slot frees ("Links checked at once"; the window's probe goes first), then swaps in prepared items or leaves a needs-choice / probe-error row | pinned active profile | `IntakeService`, `ProbeSlots`, `src/shared/intake/probeResolution.ts` |
 | NC, PE | Rows that need the user: the size question (All and Review, plus first N when the list went past the load limit; asked for a plain list link past the limit and for any list the link did not announce, never for a row that already carries a count); Retry / cookies / sign in. All, first N and Retry run in main, and the answer is stored on the row so a Retry keeps it; the probe a needs-choice row asked about is kept there (bounded) for first N and the review | pinned profile; Review uses wizard selections | `QueueAttentionRow`, `quickDownloadSlice`, `IntakeService` |
 | BULK, BQ, CAP | Bulk dialog: quick runs a modal probe loop (no placeholder rows, own cap dialog); otherwise the bulk wizard. Links are read with `classifyBulkUrlIntent`: a former Radio link (any `RD…` list) stays one video; a plain mixed link sends the batch to the bulk wizard | active profile / wizard | `BulkUrlDialog`, `quickDownloadPreparation.ts` |
 | DLR, BOOT | Retry on a resolved row re-runs its stored job; startup restores `queue.json`, stale probing rows become errors | the row's job | `queueSlice`, `QueueService`, `QueueProbeLifecycle`, `QueueAutoRetry` |
@@ -107,9 +107,11 @@ any signed-in slot wait and the token mint). The cooldown starts at the first st
 shows the site rate-limiting this connection (an HTTP 429, or YouTube's session
 limit), while the run may still be transferring, and goes against the route
 that run used. From then on, new requests to that site
-on the same network route wait out one cooldown: a probe fails at once as a
-`rateLimit` without launching, `QueueService` keeps pending rows pending (both
-lanes) and starts them when it ends, and `QueueAutoRetry` schedules no sooner.
+on the same network route wait out one cooldown: the window's probe fails at
+once as a `rateLimit` without launching, a background probe (a placeholder
+row's, a title lookup's) waits in `ProbeSlots` without taking a slot and runs
+when it ends, `QueueService` keeps pending rows pending (both lanes) and starts
+them when it ends, and `QueueAutoRetry` schedules no sooner.
 The subtitle phase of a job that already saved its media is the only run that
 goes ahead. The wizard's Format and error steps and the quick-download alert
 show `RateLimitAlert`, whose "Try now" lets one request through; its clean

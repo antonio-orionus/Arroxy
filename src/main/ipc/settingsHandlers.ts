@@ -11,7 +11,7 @@ import type {ClipboardWatcher} from '@main/services/ClipboardWatcher.js'
 import type {HotkeyService} from '@main/services/HotkeyService.js'
 import type {QueueService} from '@main/services/QueueService.js'
 import type {ExploreViewHost} from '@main/services/explore/ExploreViewHost.js'
-import {DEFAULTS, NORMAL_LANE_CAP} from '@shared/constants.js'
+import {DEFAULT_CONCURRENT_PROBES, DEFAULTS, NORMAL_LANE_CAP} from '@shared/constants.js'
 import {buildCommonPaths, handle, handleRaw, toUnknownFailure} from './utils.js'
 
 // A profile saved with a filename template that does not validate would fail
@@ -43,10 +43,12 @@ interface SettingsHandlerDeps {
 	onMenuStateChanged?: () => void
 	// Keeps Chromium's colour scheme (and so the Explore page) in step with the app theme.
 	onThemeChanged?: (theme: UiTheme) => void
+	// The "Links checked at once" count, for the probe slots.
+	onConcurrentProbesChanged?: (limit: number) => void
 }
 
 export function registerSettingsHandlers(deps: SettingsHandlerDeps): void {
-	const {settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView, onProxyChanged, onMenuStateChanged, onThemeChanged} = deps
+	const {settingsStore, clipboardWatcher, queueService, hotkeyService, exploreView, onProxyChanged, onMenuStateChanged, onThemeChanged, onConcurrentProbesChanged} = deps
 
 	handleRaw(IPC_CHANNELS.settingsGet, async () => {
 		try {
@@ -67,6 +69,9 @@ export function registerSettingsHandlers(deps: SettingsHandlerDeps): void {
 		}
 		if (data.common?.concurrentDownloads !== undefined) {
 			queueService.setConcurrentDownloads(updated.common.concurrentDownloads ?? NORMAL_LANE_CAP)
+		}
+		if (data.common?.concurrentProbes !== undefined) {
+			onConcurrentProbesChanged?.(updated.common.concurrentProbes ?? DEFAULT_CONCURRENT_PROBES)
 		}
 		if (data.common?.autoRetryAttempts !== undefined) {
 			queueService.setAutoRetryAttempts(updated.common.autoRetryAttempts ?? 0)

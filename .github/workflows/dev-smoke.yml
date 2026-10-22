@@ -106,10 +106,6 @@ jobs:
       - name: Inspect checkout readiness
         run: bun run doctor
 
-      - name: Install Linux browser system dependencies
-        if: runner.os == 'Linux'
-        run: bunx playwright install chromium --with-deps
-
       - name: Run browser-mock dev smoke
         run: bun run test:browser:smoke
 

@@ -114,6 +114,10 @@ _Avoid_: flow, stepper, form
 Inspecting a URL to discover its title, available formats, and metadata before any download starts.
 _Avoid_: fetch, inspect, scan, lookup
 
+**Probe slot**:
+One of the few probes main runs at once. Background probes (a placeholder row's, a title lookup's) wait their turn in arrival order, and one whose site is in a **rate-limit cooldown** waits it out without taking a slot, so links for other sites go ahead. The window's own probe goes first. How many background probes run at once is the "Links checked at once" setting.
+_Avoid_: probe queue, probe pool, concurrency
+
 **Media kind**:
 What a single-video download produces: video, audio, or subtitles only. Picked on the Format screen.
 _Avoid_: preset, mode, type
@@ -225,7 +229,7 @@ Starting a download straight from a saved profile, skipping the wizard steps. A 
 _Avoid_: instant download, one-click download
 
 **Placeholder row**:
-The row a quick download puts in Downloads the moment a link is taken in, before its probe has answered. It has no job yet and never starts by itself; once the probe answers it becomes the queued items, a probe-error row, or a row that needs your choice. Cancelling it simply removes it.
+The row a quick download puts in Downloads the moment a link is taken in, before its probe has answered. It has no job yet and never starts by itself; once the probe answers it becomes the queued items, a probe-error row, or a row that needs your choice. Cancelling it simply removes it. Its probe may wait for a **probe slot** first; the row stays Fetching details meanwhile, and says so when it waits out its site's rate-limit cooldown.
 _Avoid_: pending row, stub row, ghost row
 
 **Probe-error row**:

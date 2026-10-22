@@ -93,8 +93,12 @@ jobs:
           fi
           echo "PACKAGED_EXE=$GITHUB_WORKSPACE/$exe" >> "$GITHUB_ENV"
 
-      - name: Install Playwright browsers
-        run: bunx playwright install chromium --with-deps
+      # The smokes below run under xvfb-run. The runner image already has the
+      # system libraries Electron needs, and Playwright only attaches to the
+      # packaged app, so no browser or --with-deps install (its fonts download
+      # sometimes stalled for minutes on the Ubuntu mirror).
+      - name: Install xvfb
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends xvfb
 
       - name: Write fake JS runtimes for the runtime smoke
         shell: bash

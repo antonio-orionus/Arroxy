@@ -132,6 +132,16 @@ describe('settings and recent stores', () => {
 		expect((await store.get()).common.nativeAudioPreference).toBe('surround')
 	})
 
+	it('validates and persists the links checked at once, 1 to 4', async () => {
+		for (const value of [1, 4]) expect(updateSettingsSchema.safeParse({common: {concurrentProbes: value}}).success).toBe(true)
+		for (const value of [0, 5, 1.5]) expect(updateSettingsSchema.safeParse({common: {concurrentProbes: value}}).success).toBe(false)
+
+		const userData = await fs.mkdtemp(path.join(os.tmpdir(), 'settings-store-concurrent-probes-'))
+		const updated = await new SettingsStore(userData, baseDefaults).update({common: {concurrentProbes: 3}})
+		expect(updated.common.concurrentProbes).toBe(3)
+		expect((await new SettingsStore(userData, baseDefaults).get()).common.concurrentProbes).toBe(3)
+	})
+
 	it('validates and persists the last shown release notes version', async () => {
 		expect(updateSettingsSchema.safeParse({common: {lastReleaseNotesVersionShown: '1.2.0'}}).success).toBe(true)
 		expect(updateSettingsSchema.safeParse({common: {lastReleaseNotesVersionShown: ''}}).success).toBe(false)

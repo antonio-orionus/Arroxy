@@ -111,15 +111,27 @@ export class SiteRequestState {
 	admit(site: string, {honorCooldown = true}: {honorCooldown?: boolean} = {}): SiteAdmission {
 		const route = this.route()
 		const record = this.records.get(routeKey(route, site))
-		const now = this.now()
 		const launch = (bypassed: boolean): SiteAdmission => ({kind: 'launch', run: new SiteRequestRun(this, {site, route, generation: record?.generation ?? 0, bypassed, honorsCooldown: honorCooldown})})
-		if (!honorCooldown || !record || now >= record.until) return launch(false)
-		if (now < record.passUntil) {
+		const decision = honorCooldown ? this.decide(record) : 'launch'
+		if (decision === 'launch') return launch(false)
+		if (decision === 'pass' && record) {
 			record.passUntil = 0
 			logger.info('Try now: one request goes through the cooldown', {site})
 			return launch(true)
 		}
-		return {kind: 'wait', until: record.until}
+		return {kind: 'wait', until: record?.until ?? this.now()}
+	}
+
+	// Whether admit() would let a request to the site launch now, spending
+	// nothing: probe slots ask before they hand a waiting probe its slot.
+	wouldAdmit(site: string): boolean {
+		return this.decide(this.records.get(this.key(site))) !== 'wait'
+	}
+
+	private decide(record: SiteRecord | undefined): 'launch' | 'pass' | 'wait' {
+		const now = this.now()
+		if (!record || now >= record.until) return 'launch'
+		return now < record.passUntil ? 'pass' : 'wait'
 	}
 
 	// The same decision again, right before the spawn, for a run admitted
@@ -138,6 +150,8 @@ export class SiteRequestState {
 		const record = this.records.get(this.key(site))
 		if (!record || this.now() >= record.until) return
 		record.passUntil = this.now() + TRY_NOW_PASS_MS
+		// Probe slots waiting out this cooldown hear of the pass.
+		this.notify()
 	}
 
 	// The request "Try now" let through came back without a rate limit, so the

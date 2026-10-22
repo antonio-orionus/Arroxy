@@ -42,7 +42,7 @@ export function createIntakeService(wiring: IntakeWiring): {intake: IntakeServic
 		probe: async ({url, playlistMode, ownerKey, playlistScope}) => {
 			const issue = getIncompleteCookiesConfigIssue((await settingsStore.get()).common)
 			if (issue) return fail<ProbeResult, ProbeError>({kind: 'other', code: 'cookies_config', message: cookiesConfigIssueMessage(issue)})
-			return probeService.probe(url, {playlistMode, ownerKey, ...(playlistScope ? {playlistScope} : {})})
+			return probeService.probe(url, {kind: 'intake', playlistMode, ownerKey, playlistScope})
 		},
 		registerManifest: async manifest => {
 			try {

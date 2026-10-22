@@ -5,7 +5,11 @@
 // Load-bearing pacing: concurrency 1, and the loop yields while ANY download
 // is running, so a backfill probe never races an active yt-dlp transfer for
 // network or rate-limit headroom. A blocked loop re-arms a single retry timer
-// until the lane clears.
+// until the lane clears. Its probes are background ones (ProbeSlots): each
+// waits behind every placeholder row's probe and out of its site's cooldown,
+// and asks again when its slot is granted: a download that started meanwhile
+// defers the lookup, which goes back to the front and waits for the lane; a
+// row removed or titled meanwhile is dropped.
 //
 // Follows the QueueProbeLifecycle host-interface pattern: no queue state here,
 // every read and mutation goes back through the injected deps. ProbeService
@@ -22,12 +26,18 @@ import type {QueueItem} from '@shared/types.js'
 
 const logger = log.scope('queue')
 
+// What a title lookup came back with. `deferred`: a download started while
+// the lookup waited for its probe slot, so nothing ran; `cancelled`: its probe
+// was aborted.
+export type TitleLookup = {kind: 'found'; title: string} | {kind: 'none'} | {kind: 'cancelled'} | {kind: 'deferred'}
+
 export interface QueueTitleBackfillDeps {
 	items: () => readonly QueueItem[]
 	patch: (itemId: string, reason: string, patcher: (item: QueueItem) => QueueItem) => void
-	// Resolves a video URL to its real title, or null when unresolvable.
-	// Wired to ProbeService.probe at the composition root; must not throw.
-	probeTitle: (url: string) => Promise<string | null>
+	// Looks up a video URL's real title (titleBackfillProbe at the composition
+	// root). `admit` says whether the lookup may still start when its probe slot
+	// is granted. Should not throw; a throw counts as nothing found.
+	probeTitle: (url: string, admit: () => boolean) => Promise<TitleLookup>
 	retryDelayMs?: number
 }
 
@@ -62,6 +72,10 @@ export class QueueTitleBackfill {
 		this.pending.length = 0
 	}
 
+	private stillUntitled(itemId: string): boolean {
+		return this.deps.items().find(item => item.id === itemId)?.titleIsPlaceholder === true
+	}
+
 	private hasActiveDownload(): boolean {
 		return this.deps.items().some(item => item.status === QUEUE_STATUS.running)
 	}
@@ -85,20 +99,26 @@ export class QueueTitleBackfill {
 				}
 				const target = this.pending.shift()
 				if (!target) return
-				const current = this.deps.items().find(item => item.id === target.itemId)
-				if (!current || current.titleIsPlaceholder !== true) continue
-				let title: string | null = null
+				if (!this.stillUntitled(target.itemId)) continue
+				let lookup: TitleLookup = {kind: 'none'}
 				try {
-					title = await this.deps.probeTitle(target.url)
+					lookup = await this.deps.probeTitle(target.url, () => !this.hasActiveDownload() && this.stillUntitled(target.itemId))
 				} catch (err) {
 					logger.debug('Title backfill probe failed — leaving row for the artifact backstop', {itemId: target.itemId, error: err instanceof Error ? err.message : String(err)})
 				}
-				const realTitle = title?.trim() ? title.trim() : null
-				if (realTitle === null) continue
+				// Declined at its slot: a row gone or titled meanwhile is dropped; one held back by a download waits first in line.
+				if (lookup.kind === 'deferred' && !this.stillUntitled(target.itemId)) continue
+				if (lookup.kind === 'deferred') {
+					this.pending.unshift(target)
+					this.scheduleRetry()
+					return
+				}
+				if (lookup.kind === 'cancelled') logger.info('Title backfill lookup cancelled — leaving row for the artifact backstop', {itemId: target.itemId})
+				if (lookup.kind !== 'found') continue
+				const realTitle = lookup.title
 				// Re-check: the artifact backstop may have resolved the row
 				// while the probe was in flight — never overwrite a real title.
-				const latest = this.deps.items().find(item => item.id === target.itemId)
-				if (!latest || latest.titleIsPlaceholder !== true) continue
+				if (!this.stillUntitled(target.itemId)) continue
 				this.deps.patch(target.itemId, 'title-backfill', prev => (prev.titleIsPlaceholder === true ? withBackfilledTitle(prev, realTitle) : prev))
 				logger.info('Title backfilled', {itemId: target.itemId, title: realTitle})
 			}

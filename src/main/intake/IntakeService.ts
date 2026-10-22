@@ -46,7 +46,8 @@ export interface IntakeProbeRequest {
 	playlistMode: ProbePlaylistMode
 	// The placeholder row's id: cancelling the row aborts exactly this probe.
 	ownerKey: string
-	playlistScope?: PlaylistScope
+	// Always the count asked for, never left to the setting yt-dlp reads at spawn.
+	playlistScope: PlaylistScope
 }
 
 export interface IntakeServiceDeps {
@@ -220,12 +221,14 @@ export class IntakeService {
 	// Runs (or re-runs) the probe of a placeholder that is `probing` in the queue.
 	private async runProbe(itemId: string, probe: PlaceholderProbe, caller: Caller): Promise<void> {
 		await this.settle(itemId, probe, caller, async () => {
-			// Read before the probe, as the probe reads it: the result is one entry
-			// past this limit when the collection goes on, whatever the setting is by then.
+			// Read before the probe and asked for explicitly, since the probe may wait
+			// minutes for its slot: the result is one entry past this limit when the
+			// collection goes on, whatever the setting is by the time yt-dlp starts.
 			const limit = probe.take?.kind === 'all' ? PLAYLIST_PROBE_LIMIT_MAX : probe.take?.kind === 'first' ? probe.take.count : resolvePlaylistProbeLimit((await this.deps.settings()).common)
+			const pinned = probe.scope ?? {items: {kind: 'first', count: limit}}
 			// A list that leaves a video out looks one entry further, so its count holds.
-			const scope = this.find(itemId)?.skipVideoId ? widenForSkip(probe.scope ?? {items: {kind: 'first', count: limit}}) : probe.scope
-			const result = await this.deps.probe({url: probe.url, playlistMode: probe.playlistMode, ownerKey: itemId, ...(scope ? {playlistScope: scope} : {})})
+			const scope = this.find(itemId)?.skipVideoId ? widenForSkip(pinned) : pinned
+			const result = await this.deps.probe({url: probe.url, playlistMode: probe.playlistMode, ownerKey: itemId, playlistScope: scope})
 			return this.resolve(itemId, result, probe, limit)
 		})
 	}

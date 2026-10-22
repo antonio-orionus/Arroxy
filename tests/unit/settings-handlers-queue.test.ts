@@ -99,6 +99,27 @@ describe('settings update reaches the rate-limit cooldowns', () => {
 	})
 })
 
+describe('settings update reaches the probe slots', () => {
+	const onConcurrentProbesChanged = vi.fn()
+
+	beforeEach(() => {
+		handlers.clear()
+		vi.clearAllMocks()
+		const settingsStore = {get: vi.fn(), update: vi.fn().mockResolvedValue({common: {clipboardWatchEnabled: false, hotkeyEnabled: false, concurrentProbes: 3}, playlist: {}, profiles: {}})}
+		registerSettingsHandlers({settingsStore: settingsStore as never, clipboardWatcher: {setEnabled: vi.fn()} as never, queueService: {} as never, hotkeyService: {apply: vi.fn()} as never, exploreView: {destroy: vi.fn()} as never, onConcurrentProbesChanged})
+	})
+
+	it('passes the saved links-checked-at-once count on', async () => {
+		await update({common: {concurrentProbes: 3}})
+		expect(onConcurrentProbesChanged).toHaveBeenCalledWith(3)
+	})
+
+	it('leaves them alone when the patch does not touch the setting', async () => {
+		await update({common: {clipboardWatchEnabled: false}})
+		expect(onConcurrentProbesChanged).not.toHaveBeenCalled()
+	})
+})
+
 // A profile saved with a filename template that does not validate would fail
 // every download it starts, so the write is refused before it reaches the store.
 // A template already stored is let through, or one old typo would refuse every

@@ -42,6 +42,7 @@ import {ProbeInfoJsonCache} from '@main/services/ProbeInfoJsonCache.js'
 import {TokenService} from '@main/services/TokenService.js'
 import {YtDlp} from '@main/services/YtDlp.js'
 import {SiteRequestState} from '@main/services/SiteRequestState.js'
+import {ProbeSlots} from '@main/services/ProbeSlots.js'
 import {proxyRouteKey} from '@main/utils/proxyUrl.js'
 import {RecentJobsStore} from '@main/stores/RecentJobsStore.js'
 import {SettingsStore} from '@main/stores/SettingsStore.js'
@@ -63,7 +64,7 @@ import {configureLogFile, mainLogPath} from '@main/utils/logFile.js'
 import {applyUserDataOverride} from '@main/userDataOverride.js'
 import {currentRuntimeFacts, describeSessionContext} from '@main/utils/sessionContext.js'
 import {MockTokenProvider} from '@main/token/providers/MockTokenProvider.js'
-import {defaultAppSettings, DEFAULTS, NORMAL_LANE_CAP, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT, WINDOWS_APP_USER_MODEL_ID} from '@shared/constants.js'
+import {DEFAULT_CONCURRENT_PROBES, defaultAppSettings, DEFAULTS, NORMAL_LANE_CAP, WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT, WINDOW_DEFAULT_WIDTH, WINDOW_DEFAULT_HEIGHT, WINDOWS_APP_USER_MODEL_ID} from '@shared/constants.js'
 import {readSmokeUrl, runSmokeMode} from '@main/smoke.js'
 import {readDownloadSmokeConfig} from '@main/downloadSmokeConfig.js'
 import {reportDownloadSmokeConfigError, runDownloadSmokeMode} from '@main/downloadSmoke.js'
@@ -373,7 +374,9 @@ if (hasSingleInstanceLock) {
 		// Sizes a site leaves out come from one HEAD request per file. Not through a
 		// proxy (these requests would bypass it) and not under the E2E harness.
 		const formatSizes = isMockBackend || e2eMode.enabled ? undefined : (formats: readonly YtDlpFormat[], signal: AbortSignal) => (nonEmpty(settingsStore.getSync().common.proxyUrl?.trim()) ? Promise.resolve(new Map<string, number>()) : lookUpMissingSizes(formats, fetchHeadLength, signal))
-		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache, {exploreGate, exploreSession, ...(formatSizes ? {formatSizes} : {})})
+		// How many probes run at once: background ones wait their turn and wait out their site's cooldown.
+		const probeSlots = new ProbeSlots({backgroundLimit: initialSettings.common.concurrentProbes ?? DEFAULT_CONCURRENT_PROBES, cooldown: siteRequests})
+		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache, {exploreGate, exploreSession, slots: probeSlots, ...(formatSizes ? {formatSizes} : {})})
 		const queueService = new QueueService(queueStore, downloadService, undefined, undefined, {manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u}, probeInfoJsonCache, siteRequests)
 		// Apply the persisted concurrency before init() runs its boot-time spawn
 		// pass, so a restart honors the user's limit instead of falling back to
@@ -679,6 +682,7 @@ if (hasSingleInstanceLock) {
 			playlistManifestStore,
 			exploreView,
 			siteRequests,
+			probeSlots,
 			graphicsPolicyProvider,
 			intakeService,
 			refreshAppMenu: appMenu.refresh,

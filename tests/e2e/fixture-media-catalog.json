@@ -52,8 +52,35 @@
 		{"id": "ARX00000017", "number": 17, "formatSet": "muxed", "title": "~$HOME pays 100%(id)s"},
 		{"id": "ARX00000018", "number": 18, "formatSet": "muxed", "mediaTags": {"uploadDate": "20010312", "categories": ["Music"], "artist": "Fixture Artist", "album": "Fixture Album", "track": "Fixture Track"}},
 		{"id": "ARX00000019", "number": 19, "formatSet": "muxed", "title": "A fixture video whose plain title runs far longer than any deep download folder leaves room for, so Arroxy has to shorten it to keep the whole path under the operating system limit while its id stays"},
-		{"id": "ARX00000020", "number": 20, "formatSet": "muxed", "namedSubtitleTrack": "nP7-2PuUl7o"}
+		{
+			"id": "ARX00000020",
+			"number": 20,
+			"formatSet": "muxed",
+			"namedSubtitleTrack": "nP7-2PuUl7o",
+			"extraSubtitleTracks": {
+				"subtitles": [
+					{"key": "pt-BR", "file": "pt-BR", "name": "Portuguese (Brazil)"},
+					{"key": "zh-Hans", "file": "zh-Hans", "name": "Chinese (Simplified)"},
+					{"key": "live_chat", "file": "live_chat", "name": "", "ext": "json"}
+				],
+				"automaticCaptions": [
+					{"key": "de-DE", "file": "de-DE.auto", "name": "German (Germany)"},
+					{"key": "zh-Hant", "file": "zh-Hant.auto", "name": "Chinese (Traditional)"}
+				]
+			}
+		}
 	],
+	"subtitleTracks": {
+		"subtitles": [
+			{"key": "en", "file": "en", "name": "English"},
+			{"key": "es", "file": "es", "name": "Spanish"}
+		],
+		"automaticCaptions": [
+			{"key": "en", "file": "en.auto", "name": "English"},
+			{"key": "en-orig", "file": "en.auto", "name": "English (Original)"},
+			{"key": "de", "file": "de.auto", "name": "German"}
+		]
+	},
 	"formatSets": {
 		"muxed": [
 			{"id": "18", "note": "360p fixture mp4", "ext": "mp4", "contentType": "video/mp4", "mediaKind": "generated-muxed", "width": 640, "height": 360, "fps": 30, "tbr": 800, "filesize": 262144, "vcodec": "avc1.42001E", "acodec": "mp4a.40.2"},

@@ -2,9 +2,9 @@ import {useState, type ReactNode} from 'react'
 import {useShallow} from 'zustand/react/shallow'
 import {useTranslation} from 'react-i18next'
 import {FileArchive, FileText, Gauge} from 'lucide-react'
-import {DEFAULTS, NORMAL_LANE_CAP, RECOMMENDED_AUTO_RETRY_ATTEMPTS, RECOMMENDED_DOWNLOAD_CONNECTIONS} from '@shared/constants.js'
+import {DEFAULT_CONCURRENT_PROBES, DEFAULTS, NORMAL_LANE_CAP, RECOMMENDED_AUTO_RETRY_ATTEMPTS, RECOMMENDED_DOWNLOAD_CONNECTIONS} from '@shared/constants.js'
 import {HDR_SETTINGS, NATIVE_AUDIO_PREFERENCES} from '@shared/schemas.js'
-import {AUTO_RETRY_ATTEMPTS_MAX, autoRetryAttemptsSchema, CONCURRENT_DOWNLOADS_MAX, concurrentDownloadsSchema, DOWNLOAD_CONNECTIONS_MAX, downloadConnectionsSchema} from '@shared/settingLimits.js'
+import {AUTO_RETRY_ATTEMPTS_MAX, autoRetryAttemptsSchema, CONCURRENT_DOWNLOADS_MAX, concurrentDownloadsSchema, CONCURRENT_PROBES_MAX, concurrentProbesSchema, DOWNLOAD_CONNECTIONS_MAX, downloadConnectionsSchema} from '@shared/settingLimits.js'
 import {validateFilenameTemplate} from '@shared/filenameTemplate.js'
 import {formatLimitRateLabel} from '@shared/limitRate.js'
 import type {HdrSetting, NativeAudioPreference} from '@shared/types.js'
@@ -129,8 +129,8 @@ function LimitRateField(): ReactNode {
 
 function DownloadTransferFields(): ReactNode {
 	const {t} = useTranslation()
-	const {settings, setConcurrentDownloads, setAutoRetryAttempts, setAutoRemoveCompleted, setDownloadConnections} = useAppStore(
-		useShallow(state => ({settings: state.settings, setConcurrentDownloads: state.setConcurrentDownloads, setAutoRetryAttempts: state.setAutoRetryAttempts, setAutoRemoveCompleted: state.setAutoRemoveCompleted, setDownloadConnections: state.setDownloadConnections}))
+	const {settings, setConcurrentDownloads, setConcurrentProbes, setAutoRetryAttempts, setAutoRemoveCompleted, setDownloadConnections} = useAppStore(
+		useShallow(state => ({settings: state.settings, setConcurrentDownloads: state.setConcurrentDownloads, setConcurrentProbes: state.setConcurrentProbes, setAutoRetryAttempts: state.setAutoRetryAttempts, setAutoRemoveCompleted: state.setAutoRemoveCompleted, setDownloadConnections: state.setDownloadConnections}))
 	)
 	const common = settings?.common
 	return (
@@ -147,6 +147,20 @@ function DownloadTransferFields(): ReactNode {
 				schema={concurrentDownloadsSchema}
 				onCommit={value => void setConcurrentDownloads(value)}
 				testId="concurrent-downloads-input"
+			/>
+
+			<NumericSettingRow
+				id="profiles-settings-concurrent-probes"
+				label={t('wizard.url.concurrentProbes.label')}
+				description={t('wizard.url.concurrentProbes.description')}
+				unit={t('wizard.url.concurrentProbes.unit')}
+				value={common?.concurrentProbes}
+				emptyValue={DEFAULT_CONCURRENT_PROBES}
+				placeholder={DEFAULT_CONCURRENT_PROBES}
+				max={CONCURRENT_PROBES_MAX}
+				schema={concurrentProbesSchema}
+				onCommit={value => void setConcurrentProbes(value)}
+				testId="concurrent-probes-input"
 			/>
 
 			<NumericSettingRow

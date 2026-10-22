@@ -613,6 +613,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'concurrentDownloads', {concurrentDownloads: value})
 		},
 
+		setConcurrentProbes: async value => {
+			await applyCommonPatchAsync(get, set, 'concurrentProbes', {concurrentProbes: value})
+		},
+
 		setAutoRetryAttempts: async value => {
 			await applyCommonPatchAsync(get, set, 'autoRetryAttempts', {autoRetryAttempts: value})
 		},

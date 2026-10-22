@@ -30,7 +30,7 @@ describe('ProbeService — rate limits', () => {
 	it('keeps a result that came back with a 429 warning, marked rate-limited, and does not relaunch', async () => {
 		const {service, run} = makeService([success(WEBPAGE_429)])
 
-		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+		const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 		expect(run).toHaveBeenCalledTimes(1)
 		expect(result.ok && result.data.kind === 'video' ? result.data.degraded : null).toEqual({reasons: ['rateLimit']})
@@ -39,7 +39,7 @@ describe('ProbeService — rate limits', () => {
 	it('reads the session rate limit the same way', async () => {
 		const {service, run} = makeService([success(SESSION_LIMIT)])
 
-		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+		const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 		expect(run).toHaveBeenCalledTimes(1)
 		expect(result.ok && result.data.kind === 'video' ? result.data.degraded?.reasons : null).toEqual(['rateLimit'])
@@ -48,7 +48,7 @@ describe('ProbeService — rate limits', () => {
 	it('still relaunches once for an extractor-side miss', async () => {
 		const {service, run} = makeService([success(FORMATS_MISSING), success()])
 
-		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+		const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 		expect(run).toHaveBeenCalledTimes(2)
 		expect(result.ok && result.data.kind === 'video' ? result.data.degraded : 'absent').toBeUndefined()
@@ -57,7 +57,7 @@ describe('ProbeService — rate limits', () => {
 	it('fails a fatal 429 as a rate limit without bringing in the Explore session', async () => {
 		const {service, run, gate} = makeService([exitError(FATAL_429)])
 
-		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+		const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 		expect(run).toHaveBeenCalledTimes(1)
 		expect(gate.canEscalate).not.toHaveBeenCalled()
@@ -67,7 +67,7 @@ describe('ProbeService — rate limits', () => {
 	it('reads a run held by the cooldown as a rate limit', async () => {
 		const {service, run} = makeService([{kind: 'exit-error', exitCode: -1, errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE, stdout: '', stderr: ''}])
 
-		const result = await service.probe(VIDEO_URL, {playlistMode: 'video'})
+		const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 		expect(run).toHaveBeenCalledTimes(1)
 		expect(result.ok ? null : result.error).toMatchObject({kind: 'ytdlp', error: {kind: 'rateLimit'}})

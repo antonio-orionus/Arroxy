@@ -58,11 +58,11 @@ describe('ProbeService — keyed probe cancellation', () => {
 		const svc = new ProbeService(makeYtDlp())
 
 		let firstSettled = false
-		const first = svc.probe('https://a.example/1', {playlistMode: 'video', ownerKey: 'item-1'}).then(r => {
+		const first = svc.probe('https://a.example/1', {kind: 'interactive', playlistMode: 'video', ownerKey: 'item-1'}).then(r => {
 			firstSettled = true
 			return r
 		})
-		const second = svc.probe('https://b.example/2', {playlistMode: 'video', ownerKey: 'item-2'})
+		const second = svc.probe('https://b.example/2', {kind: 'interactive', playlistMode: 'video', ownerKey: 'item-2'})
 		// Synchronize on both probes reaching the cancellable state (yt-dlp
 		// spawned + stdout attached) before cancelling — a fixed delay could
 		// race cancelProbe ahead of registration under slow scheduling.
@@ -97,9 +97,9 @@ describe('ProbeService — keyed probe cancellation', () => {
 			.mockReturnValueOnce(secondProc as never)
 		const svc = new ProbeService(makeYtDlp())
 
-		const first = svc.probe('https://a.example/1', {playlistMode: 'video', ownerKey: 'item-1'})
+		const first = svc.probe('https://a.example/1', {kind: 'interactive', playlistMode: 'video', ownerKey: 'item-1'})
 		await firstProc.spawned
-		const second = svc.probe('https://b.example/2', {playlistMode: 'video', ownerKey: 'item-1'})
+		const second = svc.probe('https://b.example/2', {kind: 'interactive', playlistMode: 'video', ownerKey: 'item-1'})
 		await secondProc.spawned
 
 		// Only the newest probe is reachable through the key: cancelling the

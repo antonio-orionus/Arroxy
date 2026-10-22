@@ -131,7 +131,7 @@ describe('Layer 1 — deferred background fill', () => {
 		// Zero normal-lane cap: the row stays pending so the backfill (which
 		// yields to running downloads) can reach it in this test.
 		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, 0, 1)
-		qs.setTitleBackfillProbe(async url => (url === 'https://example.com/a' ? 'Real Title' : null))
+		qs.setTitleBackfillProbe(async url => (url === 'https://example.com/a' ? {kind: 'found', title: 'Real Title'} : {kind: 'none'}))
 
 		qs.add([makeItem({id: 'q-wired', status: 'pending', url: 'https://example.com/a', title: 'Untitled · #1', titleIsPlaceholder: true})])
 
@@ -142,7 +142,7 @@ describe('Layer 1 — deferred background fill', () => {
 	it('leaves the row flagged when the wired probe resolves nothing', async () => {
 		const ds = new FakeDownloadService()
 		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, 0, 1)
-		qs.setTitleBackfillProbe(async () => null)
+		qs.setTitleBackfillProbe(async () => ({kind: 'none'}))
 
 		qs.add([makeItem({id: 'q-miss', status: 'pending', url: 'https://example.com/miss', title: 'Untitled · #1', titleIsPlaceholder: true})])
 

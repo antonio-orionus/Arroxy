@@ -11,7 +11,7 @@ const MOCK_COOLDOWN_MS = 60_000
 export interface SiteRequestsMock {
 	api: AppApi['siteRequests']
 	// A mock probe saw a rate limit for `url`.
-	rateLimited(url: string, evidence?: RateLimitEvidence): void
+	rateLimited(url: string, evidence?: RateLimitEvidence, ms?: number): void
 	// Whether a "Try now" pass lets this probe through; spends the pass and ends the cooldown.
 	passesTryNow(url: string): boolean
 }
@@ -37,9 +37,9 @@ export function createSiteRequestsMock(): SiteRequestsMock {
 				return () => listeners.delete(listener)
 			}
 		},
-		rateLimited: (url, evidence = 'rateLimited') => {
+		rateLimited: (url, evidence = 'rateLimited', ms = MOCK_COOLDOWN_MS) => {
 			const site = requestSiteFor(url)
-			publish([...cooldowns.filter(entry => entry.site !== site), {site, until: new Date(Date.now() + MOCK_COOLDOWN_MS).toISOString(), evidence}])
+			publish([...cooldowns.filter(entry => entry.site !== site), {site, until: new Date(Date.now() + ms).toISOString(), evidence}])
 		},
 		passesTryNow: url => {
 			const site = requestSiteFor(url)

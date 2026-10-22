@@ -21,6 +21,12 @@
 // A second scenario embeds the track and the caption beside it (Manual and
 // auto): ffprobe finds both tagged eng, the caption titled Auto-generated so
 // the two can be told apart.
+//
+// A third asks for Portuguese, Chinese and German on the same video, which
+// also lists the other key shapes real YouTube probes have (`pt-BR`,
+// `zh-Hans`, `live_chat`, regional machine translations): each language gets
+// its uploaded track, no translation is fetched, and German, which has only
+// translations, is named as missing.
 import path from 'node:path'
 import {expect, test} from '@playwright/test'
 import {BUILTIN_DOWNLOAD_PROFILES} from '../../src/shared/downloadProfiles.js'
@@ -94,6 +100,33 @@ test('Electron Manual and auto profile embeds a named English track and the Engl
 			expect(subtitleTracks.toSorted((a, b) => a.localeCompare(b))).toEqual(['eng|Auto-generated', 'eng|English'])
 			const fetched = fixtureServer.telemetry().requests.flatMap(request => (request.kind === 'subtitle' && request.status === 200 ? [`${request.lang}:${request.track}`] : []))
 			expect(fetched.toSorted((a, b) => a.localeCompare(b))).toEqual(['en:auto', 'en:manual'])
+		}
+	)
+})
+
+test('Electron subtitles-only profile takes regional and script tracks and never a translation', async () => {
+	test.setTimeout(160_000)
+	const many: DownloadProfile & {name: string} = {...profile, id: 'many-subtitles-only', name: 'Many subtitles-only', subtitles: {...profile.subtitles, languages: ['pt', 'zh', 'de']}, subfolder: {enabled: true, name: 'Many subtitles-only'}}
+
+	await withFixtureProductApp(
+		{
+			userDataPrefix: 'arroxy-fixture-subtitle-shapes-user-',
+			outputPrefix: 'arroxy-fixture-subtitle-shapes-out-',
+			settings: settings => {
+				settings.profiles.custom = [many]
+				settings.profiles.active = {kind: 'custom', id: many.id}
+			}
+		},
+		async ({page, urls, queue, files, fixtureServer}) => {
+			await page.locator('[data-testid="profiles-main-input"]').fill(urls.video(NAMED_SUBTITLE_TRACK_VIDEO_ID))
+			await page.locator('[data-testid="profiles-quick-download"]').click()
+			await queue.expectStatus(title, 'done', 140_000)
+
+			expect(files.mediaFiles('.pt-BR.srt')).toHaveLength(1)
+			expect(files.mediaFiles('.zh-Hans.srt')).toHaveLength(1)
+			await expect(queue.cardByTitle(title).getByTestId('queue-subs-warning')).toContainText('German')
+			const fetched = fixtureServer.telemetry().requests.flatMap(request => (request.kind === 'subtitle' && request.status === 200 ? [`${request.lang}:${request.track}`] : []))
+			expect(fetched.toSorted((a, b) => a.localeCompare(b))).toEqual(['pt-BR:manual', 'zh-Hans:manual'])
 		}
 	)
 })

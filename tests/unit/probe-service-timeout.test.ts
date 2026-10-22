@@ -20,7 +20,7 @@ describe('ProbeService — retry on probe timeout', () => {
 		const run = vi.fn().mockResolvedValueOnce(TIMEOUT_RESULT).mockResolvedValueOnce(videoStdout(url))
 		const {service} = makeService(run)
 
-		const result = await service.probe(url, {playlistMode: 'video'})
+		const result = await service.probe(url, {kind: 'interactive', playlistMode: 'video'})
 
 		expect(run).toHaveBeenCalledTimes(2)
 		expect(result.ok).toBe(true)
@@ -31,7 +31,7 @@ describe('ProbeService — retry on probe timeout', () => {
 		const run = vi.fn().mockResolvedValue(TIMEOUT_RESULT)
 		const {service} = makeService(run)
 
-		const result = await service.probe('https://www.bilibili.com/video/BV1?p=1', {playlistMode: 'video'})
+		const result = await service.probe('https://www.bilibili.com/video/BV1?p=1', {kind: 'interactive', playlistMode: 'video'})
 
 		expect(run).toHaveBeenCalledTimes(2)
 		expect(result.ok).toBe(false)
@@ -41,7 +41,7 @@ describe('ProbeService — retry on probe timeout', () => {
 		const run = vi.fn().mockResolvedValue(BLOCKED_RESULT)
 		const {service} = makeService(run)
 
-		const result = await service.probe('https://www.bilibili.com/video/BV1', {playlistMode: 'video'})
+		const result = await service.probe('https://www.bilibili.com/video/BV1', {kind: 'interactive', playlistMode: 'video'})
 
 		expect(run).toHaveBeenCalledTimes(1)
 		expect(result.ok).toBe(false)
@@ -54,7 +54,7 @@ describe('ProbeService — probe timeout override', () => {
 		const run = vi.fn().mockResolvedValue(videoStdout(url))
 		const {service} = makeService(run)
 
-		await service.probe(url, {playlistMode: 'video', timeoutMs: 180_000})
+		await service.probe(url, {kind: 'interactive', playlistMode: 'video', timeoutMs: 180_000})
 
 		expect(run).toHaveBeenCalledTimes(1)
 		const signal = run.mock.calls[0]?.[1] as YtDlpSignal | undefined
@@ -66,7 +66,7 @@ describe('ProbeService — probe timeout override', () => {
 		const run = vi.fn().mockResolvedValue(videoStdout(url))
 		const {service} = makeService(run)
 
-		await service.probe(url, {playlistMode: 'video'})
+		await service.probe(url, {kind: 'interactive', playlistMode: 'video'})
 
 		const signal = run.mock.calls[0]?.[1] as YtDlpSignal | undefined
 		expect(signal?.timeoutMs).toBeUndefined()

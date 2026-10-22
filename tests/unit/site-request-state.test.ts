@@ -178,18 +178,18 @@ describe('SiteRequestState', () => {
 		expect(siteRequests.rateLimitedUntil('youtube')).toBe(clock.now() + RATE_LIMIT_BASE_MS)
 	})
 
-	it('tells listeners when a cooldown starts, changes or ends early', () => {
+	it('tells listeners when a cooldown starts, Try now grants a pass, or the cooldown ends early', () => {
 		const {siteRequests} = state()
 		const listener = vi.fn()
 		const off = siteRequests.onChange(listener)
 		siteRequests.recordRateLimit('youtube', 'rateLimited')
 		siteRequests.allowOnce('youtube')
 		launched(siteRequests.admit('youtube')).finish('', true)
-		expect(listener).toHaveBeenCalledTimes(2)
+		expect(listener).toHaveBeenCalledTimes(3)
 		expect(listener).toHaveBeenLastCalledWith([])
 		off()
 		siteRequests.recordRateLimit('youtube', 'rateLimited')
-		expect(listener).toHaveBeenCalledTimes(2)
+		expect(listener).toHaveBeenCalledTimes(3)
 	})
 
 	it('tells listeners the new route’s cooldowns when the route changes', () => {
@@ -305,5 +305,32 @@ describe('SiteRequestRun', () => {
 			siteRequests.recordRateLimit('youtube', 'rateLimited')
 			expect(run.recheck('direct')).toBeNull()
 		})
+	})
+})
+
+// Probe slots ask before they hand a waiting probe a slot, without spending
+// the pass: the pass is spent where the run is admitted (YtDlp.run).
+describe('SiteRequestState — wouldAdmit', () => {
+	it('says yes outside a cooldown, no inside one, and yes again once it ends', () => {
+		const {clock, siteRequests} = state()
+		expect(siteRequests.wouldAdmit('youtube')).toBe(true)
+		siteRequests.recordRateLimit('youtube', 'rateLimited')
+		expect(siteRequests.wouldAdmit('youtube')).toBe(false)
+		expect(siteRequests.wouldAdmit('vimeo.com')).toBe(true)
+		clock.advance(RATE_LIMIT_BASE_MS)
+		expect(siteRequests.wouldAdmit('youtube')).toBe(true)
+	})
+
+	it('says yes while a Try now pass waits, and leaves the pass for the run', () => {
+		const {clock, siteRequests} = state()
+		siteRequests.recordRateLimit('youtube', 'rateLimited')
+		siteRequests.allowOnce('youtube')
+		expect(siteRequests.wouldAdmit('youtube')).toBe(true)
+		expect(siteRequests.wouldAdmit('youtube')).toBe(true)
+		expect(admitted(siteRequests.admit('youtube'))).toEqual({bypassed: true})
+		expect(siteRequests.wouldAdmit('youtube')).toBe(false)
+		siteRequests.allowOnce('youtube')
+		clock.advance(TRY_NOW_PASS_MS)
+		expect(siteRequests.wouldAdmit('youtube')).toBe(false)
 	})
 })

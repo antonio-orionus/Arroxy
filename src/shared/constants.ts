@@ -121,6 +121,12 @@ export const NORMAL_LANE_CAP = 1
 export const MAX_CONCURRENT_DOWNLOADS = 4
 export const INTER_JOB_SLEEP_MS = 500
 
+// Links checked at once in the background when the user has not chosen
+// (concurrentProbesSchema), and how many more the window's own probes may run
+// above that, so a link opened in Interactive Download never waits behind a batch.
+export const DEFAULT_CONCURRENT_PROBES = 2
+export const INTERACTIVE_PROBE_HEADROOM = 2
+
 // How many spawn slots stay reserved above the normal-lane cap so a "pull now"
 // priority item can still start while the normal lane is saturated. Derived
 // from the historical fixed pair (cap 1, ceiling 4) so the default behaves

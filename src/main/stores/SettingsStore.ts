@@ -36,6 +36,7 @@ const COMMON_FLAT_KEYS = [
 	'pacingSleepSubtitles',
 	'downloadConnections',
 	'concurrentDownloads',
+	'concurrentProbes',
 	'autoRetryAttempts',
 	'autoRemoveCompleted',
 	'clipboardWatchEnabled',

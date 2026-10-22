@@ -1,6 +1,6 @@
 // The bounds of the numeric settings that decide how hard Arroxy works the
-// network: request pacing, connections per download, downloads at once, and
-// automatic retries.
+// network: request pacing, connections per download, downloads and link
+// checks at once, and automatic retries.
 
 import {z} from 'zod'
 
@@ -20,6 +20,12 @@ export const downloadConnectionsSchema = z.number().int().min(0).max(DOWNLOAD_CO
 // traffic to the sites being downloaded from.
 export const CONCURRENT_DOWNLOADS_MAX = 8
 export const concurrentDownloadsSchema = z.number().int().min(1).max(CONCURRENT_DOWNLOADS_MAX)
+
+// How many links main checks (probes) at once in the background, the "Links
+// checked at once" setting. Kept low: a pasted batch that probes all at once
+// gets the connection rate-limited or blocked.
+export const CONCURRENT_PROBES_MAX = 4
+export const concurrentProbesSchema = z.number().int().min(1).max(CONCURRENT_PROBES_MAX)
 
 // Automatic retries per queue item after a transient failure. 0 means off —
 // failures wait for the user, which is the historical behavior. Bounded

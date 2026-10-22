@@ -96,6 +96,31 @@ describe('download connections setting', () => {
 		await waitFor(() => expect(input).toHaveValue(2))
 	})
 
+	it('shows the default as a placeholder for links checked at once', () => {
+		mount()
+		const input = screen.getByTestId('concurrent-probes-input')
+		expect(input).toHaveValue(null)
+		expect(input).toHaveAttribute('placeholder', '2')
+	})
+
+	it('persists a links-checked-at-once count', async () => {
+		mount()
+		const input = screen.getByTestId('concurrent-probes-input')
+		fireEvent.change(input, {target: {value: '4'}})
+		fireEvent.blur(input)
+		await waitFor(() => expect(mockApi.settings.update).toHaveBeenCalledWith({common: {concurrentProbes: 4}}))
+	})
+
+	it('renders the stored links-checked-at-once count, and rejects one above the maximum', async () => {
+		mount({concurrentProbes: 3})
+		const input = screen.getByTestId('concurrent-probes-input')
+		expect(input).toHaveValue(3)
+		fireEvent.change(input, {target: {value: '5'}})
+		fireEvent.blur(input)
+		expect(mockApi.settings.update).not.toHaveBeenCalled()
+		await waitFor(() => expect(input).toHaveValue(3))
+	})
+
 	it('shows the recommended attempt count as a placeholder for automatic retry', () => {
 		mount()
 		const input = screen.getByTestId('auto-retry-input')

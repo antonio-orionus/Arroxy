@@ -227,7 +227,7 @@ describe('quickDownload', () => {
 		await useAppStore.getState().quickDownload({url: mixedUrl, entry: 'url-tab', playlistMode: 'video'})
 		expect(useAppStore.getState().mixedUrlPromptOpen).toBe(false)
 
-		await vi.waitFor(() => expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'video', ownerKey: expect.any(String)}))
+		await vi.waitFor(() => expect(api.downloads.probe).toHaveBeenCalledWith({url: mixedUrl, playlistMode: 'video', ownerKey: expect.any(String), playlistScope: {items: {kind: 'first', count: 100}}}))
 		const [queued] = await swapped(api)
 		expect(queued).toMatchObject({
 			url: VIDEO_PROBE.webpageUrl,
@@ -395,7 +395,7 @@ describe('quickDownload', () => {
 		useAppStore.setState({wizardUrl: 'https://www.youtube.com/playlist?list=PLtest', wizardOutputDir: '/tmp', settings: defaultAppSettings('/tmp')})
 		await useAppStore.getState().quickDownload({url: 'https://www.youtube.com/playlist?list=PLtest', entry: 'url-tab'})
 
-		await vi.waitFor(() => expect(api.downloads.probe).toHaveBeenCalledWith({url: 'https://www.youtube.com/playlist?list=PLtest', playlistMode: 'playlist', ownerKey: expect.any(String)}))
+		await vi.waitFor(() => expect(api.downloads.probe).toHaveBeenCalledWith({url: 'https://www.youtube.com/playlist?list=PLtest', playlistMode: 'playlist', ownerKey: expect.any(String), playlistScope: {items: {kind: 'first', count: 100}}}))
 		const items = await swapped(api)
 		expect(items).toHaveLength(2)
 		expect(items.every(item => item.job.kind === 'ranged-format')).toBe(true)
