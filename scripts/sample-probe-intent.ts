@@ -19,6 +19,7 @@ import {promisify} from 'node:util'
 import {probeResultFromFixture} from '../src/renderer/src/dev/probeSources/index.js'
 import {PROBE_SOURCES} from '../src/renderer/src/dev/probeSources/sources.js'
 import {rawFormats, RULES} from './probe-intent/rules.js'
+import {parseSampleArgs, sampleId} from './probe-intent/sampleArgs.js'
 import {captureFixture, writeFixture, YT_DLP} from './probe-source-capture.js'
 
 const run = promisify(execFile)
@@ -49,11 +50,7 @@ async function freshUrls(): Promise<string[]> {
 	return ids.slice(0, MAX_PROBES).map(id => `https://www.youtube.com/watch?v=${id}`)
 }
 
-const args = process.argv.slice(2)
-const keepIndex = args.indexOf('--keep')
-const keepDir = keepIndex === -1 ? null : (args[keepIndex + 1] ?? null)
-if (keepIndex !== -1 && keepDir === null) throw new Error('--keep needs a directory')
-const given = args.filter((arg, index) => arg !== '--keep' && index !== keepIndex + 1)
+const {urls: given, keepDir} = parseSampleArgs(process.argv.slice(2))
 const urls = given.length > 0 ? given.slice(0, MAX_PROBES) : await freshUrls()
 
 const privateDir = await mkdtemp(path.join(tmpdir(), 'arroxy-probe-intent-'))
@@ -63,7 +60,7 @@ let failed = 0
 try {
 	if (keepDir) await mkdir(keepDir, {recursive: true})
 	for (const url of urls) {
-		const id = new URL(url).searchParams.get('v') ?? url
+		const id = sampleId(url)
 		try {
 			const fixture = await captureFixture({id: `sample-${id}`, url, shows: 'sampled'}, noSignIn, privateDir)
 			const probe = probeResultFromFixture(fixture, id)

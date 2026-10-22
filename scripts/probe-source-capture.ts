@@ -154,7 +154,7 @@ export async function captureFixture(source: ProbeSource, cookieJar: (scope: Sig
 	const rawFormats = z.array(ytDlpFormatSchema).parse(Array.isArray(info.formats) ? info.formats : [])
 	// Sizes the app looks up are kept apart from yt-dlp's own fields, which the
 	// selection parity check feeds back to yt-dlp as it saw them.
-	const lookedUp = id.startsWith('youtube') ? new Map<string, number>() : await lookUpMissingSizes(rawFormats, fetchHeadLength, AbortSignal.timeout(15_000))
+	const lookedUp = info.extractor_key === 'Youtube' ? new Map<string, number>() : await lookUpMissingSizes(rawFormats, fetchHeadLength, AbortSignal.timeout(15_000))
 	const formats = rawFormats.map(format => withRedactedManifest(pick(format, FORMAT_FIELDS)))
 	const fixture = {
 		source: {id, url, capturedAt: new Date().toISOString().slice(0, 10), ytDlp: version.trim(), ...(source.signIn === undefined ? {} : {signedIn: true})},

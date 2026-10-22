@@ -34,6 +34,10 @@ const isUpscaled = (format: RawFormat): boolean => format.format_id.endsWith('-s
 const isH264 = (format: RawFormat): boolean => /^(?:avc1|h264)/i.test(format.vcodec ?? '')
 // The tier a stream sits in, as profiles and the Format screen name it (GLOSSARY: Tier).
 const tierOf = (format: RawFormat): number | null => (format.width && format.height ? tierHeightOf(format.width, format.height) : null)
+// A stream meets a tier when either measure the app uses says so: the row's
+// tier label, or its short side, which yt-dlp's `res` counts (a 2560x1080
+// ultra-wide is 1080p though its label says 1440p).
+const meetsTier = (format: RawFormat, tier: number): boolean => tierOf(format) === tier || (format.width !== undefined && format.height !== undefined && Math.min(format.width, format.height) === tier)
 
 const VIDEO_PROFILES = BUILTIN_DOWNLOAD_PROFILES.filter(profile => profile.media.kind === 'video-audio')
 
@@ -111,10 +115,11 @@ export const RULES: Record<string, Rule> = {
 			// A stream the site gives no size for says nothing about the tier, so
 			// it is no pick for a size limit while sized streams exist.
 			if (pickedTier === null) return raw.some(format => hasVideo(format) && tierOf(format) !== null) ? [`${profile.id} picks ${picked.format_id}, of unknown size, over sized streams`] : []
-			const takeable = raw.some(format => hasVideo(format) && !isUpscaled(format) && tierOf(format) === wanted && (!smartTv || isH264(format)))
-			if (pickedTier !== wanted && takeable) return [`${profile.id} picks ${pickedTier}p though a ${wanted}p stream it can take exists`]
-			if (pickedTier !== wanted && !fellBack) return [`${profile.id} picks ${pickedTier}p and says nothing`]
-			if (pickedTier === wanted && fellBack) return [`${profile.id} picks ${wanted}p yet says it fell back`]
+			const takeable = raw.some(format => hasVideo(format) && !isUpscaled(format) && meetsTier(format, wanted) && (!smartTv || isH264(format)))
+			const onTier = meetsTier(picked, wanted)
+			if (!onTier && takeable) return [`${profile.id} picks ${pickedTier}p though a ${wanted}p stream it can take exists`]
+			if (!onTier && !fellBack) return [`${profile.id} picks ${pickedTier}p and says nothing`]
+			if (onTier && fellBack) return [`${profile.id} picks ${wanted}p yet says it fell back`]
 			return []
 		}),
 
