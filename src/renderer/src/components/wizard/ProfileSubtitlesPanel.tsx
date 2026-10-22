@@ -46,7 +46,8 @@ interface ProfileSubtitlesPanelProps {
 
 // The profile editor's Subtitles panel. A subtitles-only profile always
 // downloads subtitles, so its switch is locked on. Media without video offers
-// no Embed, so its subtitle format stays in view.
+// no Embed, so its subtitle format stays in view, and its sidecar files go in
+// the download folder rather than next to a video.
 export function ProfileSubtitlesPanel({draft, subtitleLanguagesMissing, onAction}: ProfileSubtitlesPanelProps): ReactNode {
 	const {t} = useTranslation()
 	const subtitlesOnly = draft.mediaMode === 'subtitles-only'
@@ -131,7 +132,7 @@ function SubtitleDeliveryField({subtitleDelivery, mediaMode, onAction}: Subtitle
 			>
 				{options.map(option => (
 					<ToggleGroupItem key={option.value} value={option.value}>
-						{t(option.labelKey)}
+						{t(!canEmbed && option.value === 'sidecar' ? 'wizard.subtitles.saveMode.sidecarNoVideo' : option.labelKey)}
 					</ToggleGroupItem>
 				))}
 			</ToggleGroup>

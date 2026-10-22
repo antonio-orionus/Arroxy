@@ -1477,6 +1477,7 @@
 				"embed": "Embed into video",
 				"heading": "Save as",
 				"sidecar": "Next to video",
+				"sidecarNoVideo": "In the download folder",
 				"subfolder": "subtitles/ subfolder"
 			},
 			"searchPlaceholder": "Search languages…",
