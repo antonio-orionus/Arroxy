@@ -16,11 +16,13 @@ export function parseSampleArgs(args: readonly string[]): {urls: string[]; keepD
 }
 
 // A sampled video's name in reports and kept files: its YouTube id for any
-// link shape (`watch?v=`, `/shorts/`, `youtu.be/`), else the link made safe
-// as a file name.
+// link shape (`watch?v=`, `/shorts/`, `/live/`, `/embed/`, `youtu.be/`),
+// else the link made safe as a file name.
 export function sampleId(url: string): string {
+	const safe = (text: string): string => text.replace(/[^\w-]+/g, '-')
+	if (!URL.canParse(url)) return safe(url)
 	const parsed = new URL(url)
+	const youtube = /(?:^|\.)(?:youtube\.com|youtu\.be)$/.test(parsed.hostname)
 	const fromPath = /^\/(?:shorts\/|embed\/|live\/)?([\w-]{11})$/.exec(parsed.pathname)?.[1]
-	const id = parsed.searchParams.get('v') ?? (parsed.hostname.endsWith('youtu.be') || parsed.pathname.startsWith('/shorts/') ? fromPath : undefined)
-	return id ?? `${parsed.hostname}${parsed.pathname}`.replace(/[^\w-]+/g, '-')
+	return parsed.searchParams.get('v') ?? (youtube ? fromPath : undefined) ?? safe(`${parsed.hostname}${parsed.pathname}`)
 }
