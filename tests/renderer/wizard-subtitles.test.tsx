@@ -448,6 +448,10 @@ describe('Review — subtitle row', () => {
 		expect(within(group).getByRole('button', {name: 'In the download folder'})).toHaveAttribute('aria-pressed', 'true')
 		expect(screen.queryByTestId('subtitle-embed-note')).not.toBeInTheDocument()
 		expect(screen.queryByTestId('review-conflict-subtitleEmbedAudioOnly')).not.toBeInTheDocument()
+
+		// Picking the option it shows makes it the run's own choice.
+		fireEvent.click(within(group).getByRole('button', {name: 'In the download folder'}))
+		expect(useAppStore.getState().wizardSubtitleMode).toBe('sidecar')
 	})
 
 	it('offers no Embed for an audio run (#646)', () => {

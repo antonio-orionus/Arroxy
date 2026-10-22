@@ -70,8 +70,10 @@ export function SubtitleFields(): ReactNode {
 						variant="outline"
 						value={[subtitleMode]}
 						onValueChange={values => {
-							const next = values[0] as (typeof SUBTITLE_MODES)[number] | undefined
-							if (next) setSubtitleMode(next)
+							// A click on the pressed item comes as no value: it confirms the mode
+							// shown, which a run without video may show for a kept Embed.
+							const next = (values[0] as (typeof SUBTITLE_MODES)[number] | undefined) ?? subtitleMode
+							if (next !== wizardSubtitleMode) setSubtitleMode(next)
 						}}
 						aria-label={t('wizard.subtitles.saveMode.heading')}
 						spacing={1}

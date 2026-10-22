@@ -81,6 +81,12 @@ describe('changedFromProfile', () => {
 		expect(changedFromProfile(baseline, {...baseline, mediaKind: 'audio'})).toEqual(['format'])
 		expect(changedFromProfile(baseline, {...baseline, sponsorBlockMode: 'remove'})).toEqual(['sponsorBlock'])
 	})
+
+	// Without video an Embed is saved as files, so it reads as the profile's Sidecar (#646).
+	it('compares the subtitle mode the run uses, not the one it keeps', () => {
+		expect(changedFromProfile(baseline, {...baseline, mediaKind: 'audio', subtitleMode: 'embed'})).toEqual(['format'])
+		expect(changedFromProfile(baseline, {...baseline, subtitleMode: 'embed'})).toEqual(['subtitles'])
+	})
 })
 
 describe('profileFromWizard', () => {
