@@ -367,6 +367,13 @@ describe('resolveProfileSelection: selection order and file type', () => {
 		expect(ladder.notices).toEqual([])
 	})
 
+	// The site's preference still comes first: a damaged copy at the tier
+	// never wins over a healthy stream above it.
+	it('keeps a damaged copy at the tier behind a healthy stream above it', () => {
+		const raw = [rawVideo('damaged', 480, {width: 854, resolution: '854x480', preference: -10, format_note: '480p, DAMAGED'}), rawVideo('healthy', 720), rawAudio('140')]
+		expect(resolveRaw(builtin('small-file'), raw).media.videoFormatId).toBe('healthy')
+	})
+
 	// A site may give a stream's height alone; yt-dlp's `res` reads it from that.
 	it('keeps a stream that names its height but not its width in its tier', () => {
 		const raw = [{format_id: 'h480', ext: 'mp4', height: 480, vcodec: 'avc1.4d401e', acodec: 'none', protocol: 'https'}, rawVideo('360', 360, {width: 640, resolution: '640x360'}), rawAudio('140')]

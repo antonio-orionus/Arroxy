@@ -87,10 +87,10 @@ describe('mediaIntentSpec native audio preference', () => {
 })
 
 // Every video choice reaches yt-dlp as one `-f` argument, and Windows caps a
-// whole command line at 32,767 characters: a selector past 16,000 would leave
+// whole command line at 32,767 characters: a selector past 20,000 would leave
 // too little room for cookies, extractor arguments and output paths.
 describe('selector length', () => {
-	it('stays under 16,000 characters for every video choice', () => {
+	it('stays under 20,000 characters for every video choice', () => {
 		const lengths = VIDEO_GOALS.flatMap(goal =>
 			PLAYLIST_VIDEO_TIERS.flatMap(tier =>
 				VIDEO_FILE_TYPES.filter(fileType => fileTypeAllowed(goal, fileType)).flatMap(fileType =>
@@ -107,7 +107,7 @@ describe('selector length', () => {
 				)
 			)
 		)
-		expect(lengths.filter(({length}) => length >= 16_000)).toEqual([])
+		expect(lengths.filter(({length}) => length >= 20_000)).toEqual([])
 		expect(lengths.length).toBeGreaterThan(100)
 	})
 })

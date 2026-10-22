@@ -15,7 +15,7 @@ describe('FitNotices', () => {
 		useAppStore.setState({wizardFitNotices: [{kind: 'video-tier-fallback', wanted: '480', picked: 360}]})
 		render(<FitNotices />)
 		const notice = screen.getByTestId('fit-notice-video-tier-fallback')
-		expect(notice).toHaveTextContent('Your profile asks for 480p. This video has no 480p, so 360p, the closest below, is selected.')
+		expect(notice).toHaveTextContent('Your profile asks for 480p. This video has no 480p it can take, so 360p is selected.')
 		expect(notice).not.toHaveTextContent('only goes up to')
 	})
 

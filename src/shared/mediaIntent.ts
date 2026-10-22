@@ -170,7 +170,8 @@ function withoutAiUpscaled(selector: string): string {
 // extractors name as marked down: YouTube's DAMAGED (truncated, -10) and
 // TikTok's watermarked (-2). One marked down without such a note can still
 // win there over a stream of another codec.
-const H264_VIDEO = "[vcodec~='(?i)^(?:[hx]264|avc)'][format_note!~=?'(?i)\\b(?:damaged|watermarked)\\b']"
+const NOT_MARKED_DOWN = "[format_note!~=?'(?i)\\b(?:damaged|watermarked)\\b']"
+const H264_VIDEO = `[vcodec~='(?i)^(?:[hx]264|avc)']${NOT_MARKED_DOWN}`
 const MP4_VIDEO = '[ext=mp4]'
 
 function preferredFirst(selector: string, order: SelectionOrder): string {
@@ -194,6 +195,8 @@ function preferredFirst(selector: string, order: SelectionOrder): string {
 // keeps out a file with no size, which passes any `res` limit and would win
 // over sized streams above the tier (Facebook's `hd`). Layering each
 // alternative, not the whole selector, keeps Smart TV's H.264 ahead of the tier.
+// Both layers leave out the copies the site marks down, as the H.264 tiers do,
+// so a damaged copy at the tier never wins over a healthy stream above it.
 const VIDEO_ATOM = /^best(?:video)?\*?/
 
 function withinTier(selector: string, order: SelectionOrder): string {
@@ -202,7 +205,7 @@ function withinTier(selector: string, order: SelectionOrder): string {
 	const filtered = (alternative: string, filter: string): string => alternative.replace(VIDEO_ATOM, atom => `${atom}${filter}`)
 	return selector
 		.split('/')
-		.flatMap(alternative => [filtered(alternative, `[width<=?${ceiling.longSide}][height<=${ceiling.longSide}]`), filtered(alternative, '[height>0]'), alternative])
+		.flatMap(alternative => [filtered(alternative, `[width<=?${ceiling.longSide}][height<=${ceiling.longSide}]${NOT_MARKED_DOWN}`), filtered(alternative, '[height>0]'), alternative])
 		.join('/')
 }
 

@@ -14,6 +14,8 @@ const TIER_CEILINGS: Readonly<Record<string, {shortSide: number; longSide: numbe
 	'2160': {shortSide: 4190, longSide: 7449}
 }
 
+const NOT_MARKED_DOWN = "[format_note!~=?'(?i)\\b(?:damaged|watermarked)\\b']"
+
 function ceilingOf(tier: string): {shortSide: number; longSide: number} {
 	const ceiling = TIER_CEILINGS[tier]
 	if (!ceiling) throw new Error(`no ceiling for tier ${tier}`)
@@ -29,6 +31,6 @@ export function tierBounded(selector: string, tier: string): string {
 	const filtered = (alternative: string, filter: string): string => alternative.replace(/^best(?:video)?\*?/, atom => `${atom}${filter}`)
 	return selector
 		.split('/')
-		.flatMap(alternative => [filtered(alternative, `[width<=?${longSide}][height<=${longSide}]`), filtered(alternative, '[height>0]'), alternative])
+		.flatMap(alternative => [filtered(alternative, `[width<=?${longSide}][height<=${longSide}]${NOT_MARKED_DOWN}`), filtered(alternative, '[height>0]'), alternative])
 		.join('/')
 }
