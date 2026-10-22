@@ -357,8 +357,8 @@ How long ago an install sent its first heartbeat, as a coarse bucket (new, up to
 _Avoid_: install date, user age, cohort ID
 
 **Warmup report**:
-The anonymous note an install sends about a **Warmup** that had to fetch a managed binary: that it started, then how it ended (finished, failed, stopped, or the app quit) and roughly how long and how fast it was. It covers only that process and never carries crash reports, feature usage, links or anything about the user's downloads.
-_Avoid_: setup report (Setup is the Windows installer), telemetry, crash report, install event
+The anonymous note an install sends about a **Warmup** that had to fetch a managed binary: that it started, then how it ended (finished, failed, stopped, or the app quit) and roughly how long and how fast it was. It covers only that process and never carries crash reports, feature usage, links or anything about the user's downloads. On screen it is a setup report, after the splash's "First-time setup".
+_Avoid_: setup report outside on-screen copy (Setup is also the Windows installer), telemetry, crash report, install event
 
 ### Appearance
 
