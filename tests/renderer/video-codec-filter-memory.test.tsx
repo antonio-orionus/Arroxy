@@ -15,9 +15,10 @@ import type {AppSettings, FormatOption, ProbeResult} from '@shared/types.js'
 
 const video = (formatId: string, height: number, videoCodec: string): FormatOption => ({formatId, label: formatId, ext: 'mp4', resolution: `${Math.round((height * 16) / 9)}x${height}`, videoCodec, isVideoOnly: true, isAudioOnly: false})
 const AUDIO: FormatOption = {formatId: '140', label: 'aac', ext: 'm4a', resolution: 'audio only', abr: 128, audioCodec: 'mp4a.40.2', isVideoOnly: false, isAudioOnly: true}
+const OPUS: FormatOption = {formatId: '251', label: 'opus', ext: 'webm', resolution: 'audio only', abr: 130, audioCodec: 'opus', isVideoOnly: false, isAudioOnly: true}
 
 function probe(formats: FormatOption[]): ProbeResult {
-	return {kind: 'video', extractor: 'youtube', extractorKey: 'Youtube', webpageUrl: 'https://www.youtube.com/watch?v=x', isAudioOnlySource: false, formats: [...formats, AUDIO], title: 'Test', thumbnail: '', duration: 100, subtitles: {}, automaticCaptions: {}, isLive: false, hasDrm: false}
+	return {kind: 'video', extractor: 'youtube', extractorKey: 'Youtube', webpageUrl: 'https://www.youtube.com/watch?v=x', isAudioOnlySource: false, formats: [...formats, AUDIO, OPUS], title: 'Test', thumbnail: '', duration: 100, subtitles: {}, automaticCaptions: {}, isLive: false, hasDrm: false}
 }
 
 const WITH_VP9 = probe([video('av1-1080', 1080, 'av01.0.08M.08'), video('vp9-1080', 1080, 'vp09.00.40.08'), video('h264-1080', 1080, 'avc1.640028')])
@@ -78,5 +79,31 @@ describe('video codec filter', () => {
 		expect(videoCodecFilterOf(useAppStore.getState())).toBe('VP9')
 		expect(useAppStore.getState().selectedVideoFormatId).toBe('av1-1080')
 		expect(update).not.toHaveBeenCalled()
+	})
+
+	it('keeps the user’s own edits as edits when the filter moves the profile’s pick', async () => {
+		await open(WITH_VP9)
+		const store = useAppStore.getState
+		const audio = store().audioSelection
+		const other = audio.kind === 'native' && audio.formatId === '251' ? '140' : '251'
+		store().setAudioSelection({kind: 'native', formatId: other})
+		await store().setVideoCodecFilter('VP9')
+		expect(store().selectedVideoFormatId).toBe('vp9-1080')
+		expect(wizardChangedAreas(store())).toEqual(['format'])
+	})
+
+	it('keeps the profile’s pick unchanged on a retried probe of a filtered video', async () => {
+		await open(WITH_VP9, {videoCodecFilter: 'VP9'})
+		await useAppStore.getState().retryFormatProbe()
+		expect(useAppStore.getState().selectedVideoFormatId).toBe('vp9-1080')
+		expect(wizardChangedAreas(useAppStore.getState())).toEqual([])
+	})
+
+	it('moves the pick when settings land with another filter, as a queued write’s answer does', async () => {
+		await open(WITH_VP9)
+		const settings = useAppStore.getState().settings
+		if (!settings) throw new Error('settings load')
+		useAppStore.setState({settings: {...settings, common: {...settings.common, videoCodecFilter: 'H.264'}}})
+		expect(useAppStore.getState().selectedVideoFormatId).toBe('h264-1080')
 	})
 })

@@ -1,9 +1,11 @@
+import type {StoreApi} from 'zustand'
 import {resolutionLabel} from '@renderer/lib/resolutionLabel.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {VIDEO_CODEC_ORDER, videoCodecName} from '@shared/fileTypeFit.js'
 import type {VideoCodecFilter, VideoCodecName} from '@shared/schemas.js'
 import type {AppSettings, FormatOption} from '@shared/types.js'
 import {groupVideoFormats} from './helpers.js'
+import type {AppState} from './types.js'
 
 // The saved filter, or every codec before settings load.
 export function videoCodecFilterOf(state: {settings: AppSettings | null}): VideoCodecFilter {
@@ -46,4 +48,12 @@ export function codecFilterPick(formats: FormatOption[], selectedId: string, fil
 		.map(format => ({format, rank: rank(format)}))
 		.toSorted((a, b) => a.rank[0] - b.rank[0] || a.rank[1] - b.rank[1] || a.rank[2] - b.rank[2])[0]
 	return closest?.format.formatId ?? null
+}
+
+// The saved filter never hides the pick, however it changes: picked here, rolled
+// back after a failed write, or a queued write's response landing later.
+export function watchVideoCodecFilter(store: Pick<StoreApi<AppState>, 'subscribe'>): () => void {
+	return store.subscribe((state, previous) => {
+		if (videoCodecFilterOf(state) !== videoCodecFilterOf(previous)) state.keepPickInCodecFilter()
+	})
 }

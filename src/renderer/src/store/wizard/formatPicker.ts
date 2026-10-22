@@ -162,18 +162,25 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 			if (state.wizardMediaKind !== 'video') return
 			// The streams the Video list shows: Video, no audio leaves out those with their own sound.
 			const formats = formatMode(state) === 'video-only' ? state.wizardFormats.filter(f => f.isVideoOnly || f.isAudioOnly) : state.wizardFormats
+			const filter = videoCodecFilterOf(state)
+			// The profile's pick is seen through the filter, from the profile's own
+			// audio and file type: a filtered video doesn't read as changed from the
+			// profile, and the user's edits still do.
 			const baseline = state.wizardProfileBaseline
-			const id = codecFilterPick(formats, state.selectedVideoFormatId, videoCodecFilterOf(state), baseline?.videoFormatId ? [baseline.videoFormatId] : [])
-			if (!id) return
-			const profilesOwn = baseline !== null && baseline.videoFormatId === state.selectedVideoFormatId
-			state.setSelectedVideoFormatId(id)
-			// The profile's pick is seen through the filter: when the pick was the
-			// profile's own, the baseline moves with it, so the video doesn't read
-			// as changed from the profile.
-			if (profilesOwn) {
-				const next = get()
-				set({wizardProfileBaseline: {...baseline, videoFormatId: id, audioSelection: next.audioSelection, fileType: next.wizardFileType}})
+			const baseId = baseline?.mediaKind === 'video' ? codecFilterPick(formats, baseline.videoFormatId, filter, [state.selectedVideoFormatId]) : null
+			if (baseline && baseId) {
+				const asProfile: AppState = {...state, audioSelection: baseline.audioSelection, wizardFileType: baseline.fileType}
+				const audioSelection = audioForVideo(
+					state.wizardFormats.find(f => f.formatId === baseId),
+					asProfile
+				)
+				const fileType = fileTypeAfterPick(asProfile, baseId, audioSelection)
+				set({wizardProfileBaseline: {...baseline, videoFormatId: baseId, audioSelection, fileType: 'wizardFileType' in fileType ? fileType.wizardFileType : baseline.fileType}})
 			}
+			const current = get()
+			const profileId = current.wizardProfileBaseline?.videoFormatId
+			const id = codecFilterPick(formats, current.selectedVideoFormatId, filter, profileId ? [profileId] : [])
+			if (id) current.setSelectedVideoFormatId(id)
 		},
 
 		// Invariant: a video stream and a convert target are mutually exclusive —

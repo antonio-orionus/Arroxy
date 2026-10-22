@@ -11,6 +11,7 @@ import {createSystemSlice} from './systemSlice.js'
 import {createSiteCooldownSlice} from './siteCooldownSlice.js'
 import {watchExploreRetryTargets} from './quickDownload/exploreSignInRetry.js'
 import {watchIntakeWindowContext} from './quickDownload/intakeWindowContext.js'
+import {watchVideoCodecFilter} from './videoCodecFilter.js'
 import type {AppState} from './types.js'
 
 // QueueService on main is the queue-of-record; the renderer queue is a
@@ -33,6 +34,8 @@ export const useAppStore = create<AppState>()((set, get) => ({
 watchExploreRetryTargets(useAppStore)
 // Intake runs in main, which prepares links with the wizard's folder and this screen's HDR.
 watchIntakeWindowContext(useAppStore)
+// The Format screen's codec filter never hides the picked stream.
+watchVideoCodecFilter(useAppStore)
 
 // Re-export pure helpers so existing import paths
 // (`import { foo } from '../store/useAppStore.js'`) keep working without churn

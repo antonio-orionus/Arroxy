@@ -580,10 +580,8 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 		},
 
 		setVideoCodecFilter: async value => {
-			const saved = applyCommonPatchAsync(get, set, 'videoCodecFilter', {videoCodecFilter: value})
-			// The optimistic settings already hold the filter: move a pick it hides now, not after the write.
-			get().keepPickInCodecFilter()
-			await saved
+			// watchVideoCodecFilter moves a pick the filter hides, here and on every later settings change.
+			await applyCommonPatchAsync(get, set, 'videoCodecFilter', {videoCodecFilter: value})
 		},
 
 		setFilenameTemplate: async template => {
