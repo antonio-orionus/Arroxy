@@ -739,15 +739,16 @@ async function runLauncher(args: string[]): Promise<void> {
 		return
 	}
 
+	if (launcher === 'browser-test') {
+		// Other arguments go to Playwright, e.g. `tests/browser/foo.spec.ts -g "wide window"` to run one test.
+		await spawnChecked(commandName('bun'), ['run', 'playwright', 'test', '--config', 'playwright.browser.config.ts', ...launcherArgs], {cwd: repoRoot, env: baseEnv})
+		return
+	}
+
 	if (launcherArgs.length > 0) throw new Error(`Unexpected arguments for ${launcher}: ${launcherArgs.join(' ')}`)
 
 	if (launcher === 'mock') {
 		await spawnChecked(commandName('bun'), ['run', 'vp', 'dev', 'src/renderer', '--host', env.rendererHost, '--port', String(env.rendererPort), '--strictPort', '--config', 'src/renderer/vite.config.mjs', '--mode', 'browser-mock'], {cwd: repoRoot, env: baseEnv})
-		return
-	}
-
-	if (launcher === 'browser-test') {
-		await spawnChecked(commandName('bun'), ['run', 'playwright', 'test', '--config', 'playwright.browser.config.ts'], {cwd: repoRoot, env: baseEnv})
 		return
 	}
 

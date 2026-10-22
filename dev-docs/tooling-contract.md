@@ -42,6 +42,7 @@ The two parity checks run the pinned yt-dlp zipapp (fetched once into `node_modu
 
 - Run the suite with `bun run test` (Vitest), never `bun test`: Bun's built-in runner ignores the Vitest config and per-file `// @vitest-environment` directives.
 - One file: `bunx vp test run --project node <path>` or `--project jsdom <path>`, from the repo root.
+- One browser spec or test: `bun run test:browser <spec> [-g <title>]`; the arguments go to Playwright.
 - Test files import from `vite-plus/test`, not `vitest`.
 - When code adds idempotent IPC registration (`ipcMain.removeHandler()`, `autoUpdater.removeAllListeners()`), add that method as `vi.fn()` to the matching `vi.mock('electron')` / `vi.mock('electron-updater')` blocks, or tests fail at module load with `TypeError: X is not a function`.
 
