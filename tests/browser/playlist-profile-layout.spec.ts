@@ -56,6 +56,10 @@ for (const locale of SUPPORTED_LANGS) {
 			expect(label, `${label.text} stays inside its header cell`).toMatchObject({spillPx: 0})
 			if (!label.truncated) continue
 			expect(label, `${label.text} ends in an ellipsis`).toMatchObject({ellipsis: true})
+			// The footer's one-time style hint opens on its own 1.5 s after startup
+			// and closes whatever hint is open then, so a header hint opened just
+			// before it lasts a frame or two. Let it open first.
+			await expect(page.getByTestId('style-hint')).toBeVisible()
 			const hint = page.locator('[data-slot="tooltip-content"][data-open]', {hasText: label.text})
 			await page.locator(LABEL, {hasText: label.text}).hover()
 			await expect(hint).toHaveText(label.text)
