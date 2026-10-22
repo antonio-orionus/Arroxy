@@ -32,11 +32,14 @@ export function isYouTubeExtractor(extractor: string | undefined | null): boolea
 	return YOUTUBE_IE_NAMES.has(canonicalName)
 }
 
-// Sites whose extractors return audio-only content. Used to default the wizard
-// to the audio-only preset, hide muted video columns, and auto-pick an
-// audio-best playlist preset. List of curated extractor name prefixes (matched
-// case-insensitively) covers the major music hosts. The `music`/`audio`/`radio`
-// keyword fallback catches less common extractors with self-describing names.
+// Sites whose extractors return audio-only content, guessed from the extractor
+// name. Only a probe with no formats to read needs the guess: a flat playlist
+// (to auto-pick an audio-best playlist preset and count tracks), or a single
+// video that came back without formats. A single video with formats decides
+// from them (`isAudioOnlyVideo`). List of curated extractor name prefixes
+// (matched case-insensitively) covers the major music hosts. The
+// `music`/`audio`/`radio` keyword fallback catches less common extractors with
+// self-describing names.
 //
 // Excluded: `youtube:music:*` — YouTube Music returns mixed video+audio
 // content; user might want either, so we don't force.
@@ -75,4 +78,12 @@ export function isAudioOnlySource(extractor: string | undefined | null): boolean
 	if (lower.startsWith('youtube:music')) return false
 	if (KNOWN_AUDIO_ONLY_PREFIXES.some(p => lower.startsWith(p))) return true
 	return AUDIO_KEYWORD_RE.test(lower)
+}
+
+// A single video is audio-only when none of its formats carries a picture:
+// yt-dlp marks every format's `vcodec`, so this is exact where the name is a
+// guess (#551). Only a video with no formats to read falls back to the name.
+export function isAudioOnlyVideo(extractor: string | undefined | null, formats: readonly {isAudioOnly: boolean}[]): boolean {
+	if (formats.length === 0) return isAudioOnlySource(extractor)
+	return formats.every(format => format.isAudioOnly)
 }

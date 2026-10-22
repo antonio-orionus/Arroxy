@@ -71,7 +71,7 @@ describe('ProbeService — mockMode', () => {
 })
 
 describe('ProbeService — video probe', () => {
-	it('parses _type:video and derives isAudioOnlySource from extractor', async () => {
+	it('parses _type:video and marks a video whose formats are all audio as audio-only', async () => {
 		const json = JSON.stringify({_type: 'video', id: 'abc', title: 'Bandcamp Track', extractor: 'bandcamp', extractor_key: 'Bandcamp', webpage_url: 'https://artist.bandcamp.com/track/x', formats: [{format_id: 'mp3-128', ext: 'mp3', acodec: 'mp3', vcodec: 'none', abr: 128}]})
 		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
 
@@ -84,6 +84,23 @@ describe('ProbeService — video probe', () => {
 			expect(r.data.formats.length).toBe(1)
 		}
 		expect(spawnYtDlp).toHaveBeenCalledTimes(1)
+	})
+
+	// #551: for a single video the formats say exactly whether there is a
+	// picture; the extractor-name guess is only for probes with nothing to read.
+	it.each([
+		{case: 'a name that reads like audio, with a video stream', extractor: 'bbc:radio', formats: [{format_id: 'hls-720', ext: 'mp4', vcodec: 'avc1.64001f', acodec: 'mp4a.40.2', width: 1280, height: 720}], expected: false},
+		{case: 'a listed audio site, with a video stream', extractor: 'soundcloud', formats: [{format_id: 'hls-720', ext: 'mp4', vcodec: 'avc1.64001f', acodec: 'mp4a.40.2', width: 1280, height: 720}], expected: false},
+		{case: 'an unlisted site, with audio streams only', extractor: 'generic', formats: [{format_id: 'mp3', ext: 'mp3', vcodec: 'none', acodec: 'mp3', abr: 128}], expected: true},
+		{case: 'a listed audio site, with no formats but subtitles', extractor: 'bandcamp', formats: [], subtitles: {en: [{ext: 'vtt', url: 'https://example.com/en.vtt'}]}, expected: true},
+		{case: 'an unlisted site, with no formats but subtitles', extractor: 'generic', formats: [], subtitles: {en: [{ext: 'vtt', url: 'https://example.com/en.vtt'}]}, expected: false}
+	])('decides audio-only for $case from the formats, not the name', async ({extractor, formats, subtitles, expected}) => {
+		const json = JSON.stringify({_type: 'video', id: 'v1', title: 'Video', extractor, extractor_key: extractor, webpage_url: 'https://example.com/v1', formats, ...(subtitles ? {subtitles} : {})})
+		vi.mocked(spawnYtDlp).mockReturnValue(makeFakeProcessEmitting(json) as never)
+
+		const r = await makeProbeService().probe('https://example.com/v1')
+		expect(r.ok && r.data.kind).toBe('video')
+		if (r.ok && r.data.kind === 'video') expect(r.data.isAudioOnlySource).toBe(expected)
 	})
 
 	it('uses one combined-client YouTube probe so Dolby formats are in the same extraction context', async () => {

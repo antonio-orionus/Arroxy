@@ -7,7 +7,7 @@ import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import type {JobAuth, MediaTags, PlaylistEntry, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, ProbeInfoJsonRef, VideoChapter, VideoProbeResult} from '@shared/types.js'
 import type {EscalationReason, ExploreSignInState} from '@shared/schemas.js'
 import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo, type YtDlpFormat} from 'yt-dlp-bridge/info'
-import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
+import {isAudioOnlySource, isAudioOnlyVideo} from '@shared/ytdlp/extractorPredicates.js'
 import {classifyYtDlpStderr, sabrSkippedClient} from 'ytdlp-errors'
 import {splitOutputLines} from 'yt-dlp-bridge/runner'
 import {siteForExtractor, siteForUrl, type Site} from '@shared/sites/index.js'
@@ -300,6 +300,7 @@ function resolveChapters(raw: unknown[] | undefined): VideoChapter[] {
 function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reasons: ProbeDegradationReason[]} | undefined, lookedUpSizes?: LookedUpSizes, probeInfoJsonRef?: ProbeInfoJsonRef): VideoProbeResult {
 	const extractor = info.extractor ?? ''
 	const site = siteForExtractor(extractor)
+	const formats = mapFormats(info.formats ?? [], {durationSeconds: typeof info.duration === 'number' ? info.duration : undefined, ...(lookedUpSizes ? {lookedUpSizes} : {})})
 	return {
 		kind: 'video',
 		videoId: typeof info.id === 'string' && info.id.length > 0 ? info.id : null,
@@ -307,8 +308,8 @@ function buildVideoProbeResult(info: VideoInfo, jobUrl: string, degraded: {reaso
 		extractor,
 		extractorKey: info.extractor_key ?? '',
 		webpageUrl: info.webpage_url ?? jobUrl,
-		isAudioOnlySource: isAudioOnlySource(extractor),
-		formats: mapFormats(info.formats ?? [], {durationSeconds: typeof info.duration === 'number' ? info.duration : undefined, ...(lookedUpSizes ? {lookedUpSizes} : {})}),
+		isAudioOnlySource: isAudioOnlyVideo(extractor, formats),
+		formats,
 		// yt-dlp's own formats and its extractor's sort, so the profile pick runs as the download will.
 		formatSelection: formatSelectionSource(info, '_format_sort_fields' in info ? info._format_sort_fields : undefined),
 		title: info.title ?? '',

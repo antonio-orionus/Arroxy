@@ -476,10 +476,12 @@ interface ProbeCommon {
 	extractor: string
 	extractorKey: string
 	webpageUrl: string
-	// True when the extractor only ever returns audio content (Bandcamp,
-	// SoundCloud, QQMusic, Mixcloud, etc.). Renderer uses this to default the
-	// wizard to audio-only mode without making the user override the format
-	// picker every time. See `isAudioOnlySource()` in shared/ytdlp.
+	// True when the media has no picture. A single video decides from its
+	// formats (`isAudioOnlyVideo()`); a playlist, whose flat entries carry no
+	// formats, guesses from the extractor name (Bandcamp, SoundCloud, QQMusic…,
+	// `isAudioOnlySource()`), as does a video that came back without formats.
+	// Renderer uses this to default the wizard to audio-only mode without
+	// making the user override the format picker every time.
 	isAudioOnlySource: boolean
 	// Set when the probe only succeeded with the Explore session; the jobs it
 	// produces must run signed in too.

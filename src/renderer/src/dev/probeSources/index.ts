@@ -4,7 +4,7 @@
 
 import type {VideoProbeResult} from '@shared/types.js'
 import {siteForExtractor} from '@shared/sites/index.js'
-import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
+import {isAudioOnlyVideo} from '@shared/ytdlp/extractorPredicates.js'
 import {mapFormats} from '@shared/ytdlp/formatMapping.js'
 import {formatSelectionSource} from '@shared/ytdlp/selectableFormat.js'
 import {sanitizeSubtitleMap} from '@shared/ytdlp/subtitleMap.js'
@@ -83,14 +83,15 @@ export function probeSourceResult(id: ProbeSourceId): VideoProbeResult {
 	if (info._type !== 'video') throw new Error(`Probe source ${id} is not a single video`)
 	const extractor = info.extractor ?? ''
 	const site = siteForExtractor(extractor)
+	const formats = mapFormats(info.formats ?? [], {durationSeconds: info.duration, ...(fixture.lookedUpSizes ? {lookedUpSizes: new Map(Object.entries(fixture.lookedUpSizes))} : {})})
 	return {
 		kind: 'video',
 		videoId: info.id ?? null,
 		extractor,
 		extractorKey: info.extractor_key ?? '',
 		webpageUrl: info.webpage_url ?? '',
-		isAudioOnlySource: isAudioOnlySource(extractor),
-		formats: mapFormats(info.formats ?? [], {durationSeconds: info.duration, ...(fixture.lookedUpSizes ? {lookedUpSizes: new Map(Object.entries(fixture.lookedUpSizes))} : {})}),
+		isAudioOnlySource: isAudioOnlyVideo(extractor, formats),
+		formats,
 		formatSelection: formatSelectionSource(info, '_format_sort_fields' in info ? info._format_sort_fields : undefined),
 		title: info.title ?? '',
 		thumbnail: info.thumbnail ?? '',
