@@ -49,6 +49,12 @@ async function storeIn(dir: string, cipher: SecretCipher, logger = log()) {
 	return {store: new FileLocalClientStore({filePath, cipher, log: logger}), filePath, log: logger}
 }
 
+// The row for `clientId` in a parsed local-clients.json.
+function rowOf(file: unknown, clientId: string): unknown {
+	const clients = (file as {clients: Array<{clientId: string}>}).clients
+	return clients.find(row => row.clientId === clientId)
+}
+
 describe('FileLocalClientStore', () => {
 	it('loads nothing when there is no file', async () => {
 		const {store} = await storeIn(await tempDir(), fakeCipher().cipher)
@@ -101,13 +107,43 @@ describe('FileLocalClientStore', () => {
 		expect(await store.load()).toEqual([record()])
 	})
 
-	it('drops a row whose secret does not decrypt, naming its clientId', async () => {
+	it('keeps a row whose secret does not decrypt in the file, unread, naming its clientId', async () => {
 		const dir = await tempDir()
 		const writer = await storeIn(dir, fakeCipher().cipher)
 		await writer.store.save([record({clientId: 'broken', secret: 'lost-secret'}), record({clientId: 'fine'})])
+		const brokenRow = rowOf(JSON.parse(await fs.readFile(writer.filePath, 'utf8')), 'broken')
 		const reader = await storeIn(dir, fakeCipher({undecryptable: ['lost-secret']}).cipher)
 		expect(await reader.store.load()).toEqual([record({clientId: 'fine'})])
 		expect(reader.log.warn).toHaveBeenCalledWith(expect.any(String), {clientId: 'broken'})
+		// A save rewrites the file with the unread row exactly as it was.
+		await reader.store.save([record({clientId: 'fine', lastSeenAt: 3000}), record({clientId: 'new'})])
+		expect(rowOf(JSON.parse(await fs.readFile(writer.filePath, 'utf8')), 'broken')).toEqual(brokenRow)
+		// Once it decrypts again, it is back.
+		expect(await (await storeIn(dir, fakeCipher().cipher)).store.load()).toEqual([record({clientId: 'fine', lastSeenAt: 3000}), record({clientId: 'new'}), record({clientId: 'broken', secret: 'lost-secret'})])
+	})
+
+	it('keeps a row whose secret decrypts to nothing, as it was', async () => {
+		const dir = await tempDir()
+		const writer = await storeIn(dir, fakeCipher().cipher)
+		await writer.store.save([record({clientId: 'empty', secret: 'x'})])
+		const before = await fs.readFile(writer.filePath, 'utf8')
+		const emptying: SecretCipher = {available: () => true, encrypt: plain => Buffer.from(plain), decrypt: () => ''}
+		const reader = await storeIn(dir, emptying)
+		expect(await reader.store.load()).toEqual([])
+		await reader.store.save([])
+		expect(await fs.readFile(writer.filePath, 'utf8')).toBe(before)
+	})
+
+	it('lets a removed client go: only rows that did not decrypt are kept', async () => {
+		const dir = await tempDir()
+		const writer = await storeIn(dir, fakeCipher().cipher)
+		await writer.store.save([record({clientId: 'broken', secret: 'lost-secret'}), record({clientId: 'removed'})])
+		const reader = await storeIn(dir, fakeCipher({undecryptable: ['lost-secret']}).cipher)
+		expect(await reader.store.load()).toEqual([record({clientId: 'removed'})])
+		await reader.store.save([])
+		const clients = (JSON.parse(await fs.readFile(writer.filePath, 'utf8')) as {clients: Array<{clientId: string}>}).clients
+		expect(clients.map(row => row.clientId)).toEqual(['broken'])
+		expect(await (await storeIn(dir, fakeCipher().cipher)).store.load()).toEqual([record({clientId: 'broken', secret: 'lost-secret'})])
 	})
 
 	it('reads no client while secrets cannot be decrypted, and leaves the file as it is', async () => {
@@ -122,7 +158,7 @@ describe('FileLocalClientStore', () => {
 		expect(await fs.readFile(filePath, 'utf8')).toBe(before)
 		// Not even once secrets are storable again: the rows it could not read would be lost.
 		state.available = true
-		await expect(locked.store.save([record({clientId: 'new'})])).rejects.toThrow()
+		await expect(locked.store.save([record({clientId: 'new'})])).rejects.toMatchObject({name: 'LocalClientStoreRefusal', code: 'store_unread'})
 		expect(await fs.readFile(filePath, 'utf8')).toBe(before)
 	})
 
@@ -130,7 +166,7 @@ describe('FileLocalClientStore', () => {
 		const dir = await tempDir()
 		const {store, filePath} = await storeIn(dir, fakeCipher({available: false}).cipher)
 		expect(await store.load()).toEqual([])
-		await expect(store.save([record()])).rejects.toThrow()
+		await expect(store.save([record()])).rejects.toMatchObject({name: 'LocalClientStoreRefusal', code: 'cipher_unavailable'})
 		await expect(fs.readFile(filePath)).rejects.toThrow()
 		expect(await fs.readdir(dir)).toEqual([])
 	})
@@ -145,7 +181,7 @@ describe('FileLocalClientStore', () => {
 			decrypt: () => ''
 		}
 		const {store} = await storeIn(dir, cipher)
-		await expect(store.save([record()])).rejects.toThrow()
+		await expect(store.save([record()])).rejects.toMatchObject({name: 'LocalClientStoreRefusal', code: 'encrypt_failed'})
 		expect(await fs.readdir(dir)).toEqual([])
 	})
 })

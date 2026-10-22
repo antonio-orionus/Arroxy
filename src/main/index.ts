@@ -655,6 +655,8 @@ if (hasSingleInstanceLock) {
 		// Building the store and cipher touches nothing; with the flag off neither is used.
 		const controlGate = {e2eHarness: e2eMode.enabled, isPackaged: app.isPackaged}
 		const clientCipher = localClientCipher(controlGate, () => safeStorageCipher(safeStorage, process.platform))
+		// Before agent control starts, so the window's calls answer not_running until the clients load, and after a failed start. Registers nothing with the flag off.
+		const localClients = registerLocalClientHandlers(mainWindow)
 		const agentControl = startAgentControl({
 			queueService,
 			intake: intakeService,
@@ -670,7 +672,7 @@ if (hasSingleInstanceLock) {
 			autoAllowClients: autoAllowsClients(controlGate, process.env),
 			clientStore: new FileLocalClientStore({filePath: path.join(userDataPath, LOCAL_CLIENTS_FILE_NAME), cipher: clientCipher, log: log.scope('control')}),
 			secretsStorable: () => clientCipher.available(),
-			exposeLocalClients: clients => registerLocalClientHandlers(clients, mainWindow),
+			localClients,
 			log: log.scope('control')
 		})
 		stopAgentControlOnQuit(app, agentControl, log.scope('control'))

@@ -12,7 +12,7 @@ import {e2eTestSecretCipher, type SecretCipher} from '@main/control/clients/secr
 import type {ControlService} from '@main/control/ControlService.js'
 import type {ControlWiring} from '@main/control/createControlService.js'
 import type {ControlSocket, ControlSocketOptions} from '@main/control/socket/startControlSocket.js'
-import {type AgentControlDeps, autoAllowsClients, E2E_MANUAL_CLIENT_APPROVAL_VAR, localClientCipher, startAgentControl, stopAgentControlOnQuit} from '@main/control/startAgentControl.js'
+import {type AgentControlDeps, autoAllowsClients, type LocalClientsHolder, E2E_MANUAL_CLIENT_APPROVAL_VAR, localClientCipher, startAgentControl, stopAgentControlOnQuit} from '@main/control/startAgentControl.js'
 import {importWithReleaseFlagsOff} from '../helpers/releaseFlags.js'
 
 vi.mock('electron-log/main.js', () => {
@@ -56,8 +56,16 @@ function fakeSocket(socketPath: string) {
 	return {socket, stop}
 }
 
+// The window's local-clients IPC, recording what agent control sets and clears.
+function fakeHolder(events: string[] = []) {
+	const set = vi.fn((_clients: LocalClientRegistry) => void events.push('set'))
+	const clear = vi.fn(() => void events.push('cleared'))
+	const holder: LocalClientsHolder = {set, clear}
+	return {holder, set, clear}
+}
+
 function deps(overrides: Partial<AgentControlDeps> = {}): AgentControlDeps {
-	return {...wiring, userDataDir: '/user-data', appVersion: '9.9.9', platform: 'linux', env: {XDG_RUNTIME_DIR: '/run/user/1000'}, autoAllowClients: false, clientStore: new MemoryLocalClientStore(), secretsStorable: () => true, exposeLocalClients: () => () => undefined, log: silentLog, ...overrides}
+	return {...wiring, userDataDir: '/user-data', appVersion: '9.9.9', platform: 'linux', env: {XDG_RUNTIME_DIR: '/run/user/1000'}, autoAllowClients: false, clientStore: new MemoryLocalClientStore(), secretsStorable: () => true, localClients: fakeHolder().holder, log: silentLog, ...overrides}
 }
 
 const knownRecord: LocalClientRecord = {clientId: 'known-1', label: 'Claude Code', pathsRead: false, firstSeenAt: 1, lastSeenAt: 2, secret: 'known-secret'}
@@ -143,12 +151,9 @@ describe('startAgentControl', () => {
 		expect(control).toBeNull()
 	})
 
-	it('shows the window the registry the socket uses, from before it listens until stop', async () => {
+	it('sets the registry the socket uses for the window, from before it listens until stop', async () => {
 		const events: string[] = []
-		const exposeLocalClients = vi.fn((_clients: LocalClientRegistry) => {
-			events.push('exposed')
-			return () => events.push('hidden')
-		})
+		const {holder, set} = fakeHolder(events)
 		const {socket, stop} = fakeSocket('/s')
 		stop.mockImplementation(() => {
 			events.push('socket stopped')
@@ -158,41 +163,49 @@ describe('startAgentControl', () => {
 			events.push('listening')
 			return Promise.resolve(socket)
 		})
-		const control = await startAgentControl(deps({compose: fakeCompose().compose, startSocket, exposeLocalClients}))
-		expect(exposeLocalClients).toHaveBeenCalledExactlyOnceWith(startSocket.mock.calls[0]?.[0].approvals)
+		const control = await startAgentControl(deps({compose: fakeCompose().compose, startSocket, localClients: holder}))
+		expect(set).toHaveBeenCalledExactlyOnceWith(startSocket.mock.calls[0]?.[0].approvals)
 		await control?.stop()
 		await control?.stop()
-		expect(events).toEqual(['exposed', 'listening', 'socket stopped', 'hidden'])
+		expect(events).toEqual(['set', 'listening', 'socket stopped', 'cleared'])
 	})
 
-	it('takes the registry away from the window when the socket cannot start', async () => {
-		const hide = vi.fn()
-		const control = await startAgentControl(deps({compose: fakeCompose().compose, startSocket: () => Promise.resolve(null), exposeLocalClients: () => hide}))
+	it('clears the registry from the window when the socket cannot start', async () => {
+		const events: string[] = []
+		const control = await startAgentControl(deps({compose: fakeCompose().compose, startSocket: () => Promise.resolve(null), localClients: fakeHolder(events).holder}))
 		expect(control).toBeNull()
-		expect(hide).toHaveBeenCalledTimes(1)
+		expect(events).toEqual(['set', 'cleared'])
 	})
 
-	it('takes the registry away from the window and closes it when the socket throws', async () => {
-		const hide = vi.fn()
+	it('clears the registry from the window and closes it when the socket throws', async () => {
+		const events: string[] = []
 		const close = vi.spyOn(LocalClientRegistry.prototype, 'close')
 		cleanups.push(() => Promise.resolve(close.mockRestore()))
 		const failure = new Error('listen failed')
-		await expect(startAgentControl(deps({compose: fakeCompose().compose, startSocket: () => Promise.reject(failure), exposeLocalClients: () => hide}))).rejects.toBe(failure)
-		expect(hide).toHaveBeenCalledTimes(1)
+		await expect(startAgentControl(deps({compose: fakeCompose().compose, startSocket: () => Promise.reject(failure), localClients: fakeHolder(events).holder}))).rejects.toBe(failure)
+		expect(events).toEqual(['set', 'cleared'])
 		expect(close).toHaveBeenCalledTimes(1)
 	})
 
-	it('closes the registry, never showing it to the window, when composing throws', async () => {
-		const exposeLocalClients = vi.fn(() => () => undefined)
+	it('closes the registry, never setting it for the window, when composing throws', async () => {
+		const {holder, set} = fakeHolder()
 		const close = vi.spyOn(LocalClientRegistry.prototype, 'close')
 		cleanups.push(() => Promise.resolve(close.mockRestore()))
 		const failure = new Error('compose failed')
 		const compose = vi.fn((): never => {
 			throw failure
 		})
-		await expect(startAgentControl(deps({compose, exposeLocalClients}))).rejects.toBe(failure)
-		expect(exposeLocalClients).not.toHaveBeenCalled()
+		await expect(startAgentControl(deps({compose, localClients: holder}))).rejects.toBe(failure)
+		expect(set).not.toHaveBeenCalled()
 		expect(close).toHaveBeenCalledTimes(1)
+	})
+
+	it('never sets a registry for the window when the clients fail to load', async () => {
+		const {holder, set} = fakeHolder()
+		const failure = new Error('load failed')
+		const clientStore: LocalClientStore = {load: () => Promise.reject(failure), save: () => Promise.resolve()}
+		await expect(startAgentControl(deps({compose: fakeCompose().compose, clientStore, localClients: holder}))).rejects.toBe(failure)
+		expect(set).not.toHaveBeenCalled()
 	})
 
 	it('stops the socket once', async () => {
@@ -410,15 +423,16 @@ describe('startAgentControl in a release build', () => {
 		const {compose} = fakeCompose()
 		const clientStore = {load: vi.fn<LocalClientStore['load']>(), save: vi.fn<LocalClientStore['save']>()}
 		const secretsStorable = vi.fn(() => true)
-		// The window's local-clients IPC: no handler registered, no change listened to.
-		const exposeLocalClients = vi.fn(() => () => undefined)
-		const control = await startInRelease(deps({userDataDir, env: {XDG_RUNTIME_DIR: runtimeDir}, compose, clientStore, secretsStorable, exposeLocalClients}))
+		// The window's local-clients IPC: never given a registry.
+		const {holder, set, clear} = fakeHolder()
+		const control = await startInRelease(deps({userDataDir, env: {XDG_RUNTIME_DIR: runtimeDir}, compose, clientStore, secretsStorable, localClients: holder}))
 		expect(control).toBeNull()
 		expect(compose).not.toHaveBeenCalled()
 		expect(clientStore.load).not.toHaveBeenCalled()
 		expect(clientStore.save).not.toHaveBeenCalled()
 		expect(secretsStorable).not.toHaveBeenCalled()
-		expect(exposeLocalClients).not.toHaveBeenCalled()
+		expect(set).not.toHaveBeenCalled()
+		expect(clear).not.toHaveBeenCalled()
 		expect(await fs.readdir(runtimeDir)).toEqual([])
 		expect(await fs.readFile(path.join(userDataDir, CONTROL_DISCOVERY_FILE_NAME), 'utf8')).toBe(stale)
 	})

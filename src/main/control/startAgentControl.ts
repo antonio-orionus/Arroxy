@@ -14,7 +14,7 @@ import {e2eTestSecretCipher, type SecretCipher} from './clients/secretCipher.js'
 import type {ControlService} from './ControlService.js'
 import {type ControlWiring, createControlService} from './createControlService.js'
 import type {ControlSocketLog} from './socket/controlConnection.js'
-import {errnoCode} from './socket/errnoCode.js'
+import {errnoCode, failureCode} from './socket/errnoCode.js'
 import {type ControlSocket, type ControlSocketOptions, startControlSocket} from './socket/startControlSocket.js'
 
 // How often the socket's path is checked. macOS deletes what sits in /tmp
@@ -34,14 +34,21 @@ export interface AgentControlDeps extends Omit<ControlWiring, 'clientLabel' | 'c
 	readonly clientStore: LocalClientStore
 	// Whether a client's secret can be stored encrypted right now.
 	readonly secretsStorable: () => boolean
-	// Gives the app window the loaded clients (its IPC handlers and change
-	// events); answers what takes them away again.
-	readonly exposeLocalClients: (clients: LocalClientRegistry) => () => void
+	// The window's local-clients IPC, registered before this starts.
+	readonly localClients: LocalClientsHolder
 	readonly log: ControlSocketLog
 	// Tests replace these.
 	readonly compose?: (wiring: ControlWiring) => {service: Pick<ControlService, 'openSession'>; registry: {readonly bootId: string}}
 	readonly startSocket?: (options: ControlSocketOptions) => Promise<ControlSocket | null>
 	readonly socketCheckIntervalMs?: number
+}
+
+// What the window's local-clients IPC answers from: the loaded clients while
+// agent control runs; empty before they load and after it stops or fails to
+// start, when every request answers not_running.
+export interface LocalClientsHolder {
+	set(clients: LocalClientRegistry): void
+	clear(): void
 }
 
 export interface AgentControl {
@@ -76,20 +83,14 @@ export function localClientCipher(gate: LaunchGate, platformCipher: () => Secret
 	return isUnpackagedE2eRun(gate) ? e2eTestSecretCipher : platformCipher()
 }
 
-// For logs: the errno code, else the error's name; never the message, which can carry paths.
-function failureCode(error: unknown): string {
-	return errnoCode(error) ?? (error instanceof Error ? error.name : 'unknown')
-}
-
 export async function startAgentControl(deps: AgentControlDeps): Promise<AgentControl | null> {
 	if (!isReleaseFlagOn('agentControl')) return null
-	const {userDataDir, appVersion, platform, env, autoAllowClients, clientStore, secretsStorable, exposeLocalClients, log, compose = createControlService, startSocket = startControlSocket, socketCheckIntervalMs = SOCKET_CHECK_INTERVAL_MS, ...wiring} = deps
+	const {userDataDir, appVersion, platform, env, autoAllowClients, clientStore, secretsStorable, localClients, log, compose = createControlService, startSocket = startControlSocket, socketCheckIntervalMs = SOCKET_CHECK_INTERVAL_MS, ...wiring} = deps
 	// Before the socket listens, so a known client is let in from the first connection.
 	const approvals = await LocalClientRegistry.load({store: clientStore, secretsStorable, log, autoAllow: autoAllowClients})
-	let hideLocalClients = (): void => undefined
-	// On stop, and on any failure from here on: no handler and no timer stay behind.
+	// On stop, and on any failure from here on: the window is told not_running, and no timer stays behind.
 	const release = async (): Promise<void> => {
-		hideLocalClients()
+		localClients.clear()
 		await approvals.close()
 	}
 	// Composed before the socket, which needs the service and the registry's
@@ -101,7 +102,7 @@ export async function startAgentControl(deps: AgentControlDeps): Promise<AgentCo
 	try {
 		const {service, registry} = compose({...wiring, clientLabel: clientId => approvals.label(clientId)})
 		// Before the socket too, so the window hears the first request.
-		hideLocalClients = exposeLocalClients(approvals)
+		localClients.set(approvals)
 		listen = () => startSocket({userDataDir, appVersion, platform, env, service, approvals, bootId: registry.bootId, log})
 		socket = await listen()
 	} catch (error) {

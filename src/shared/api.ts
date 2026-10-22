@@ -66,7 +66,7 @@ export interface WindowApi {
 // The programs on this computer allowed to use the Control API, and the
 // requests waiting for Allow (see LocalClientRegistry).
 export interface LocalClientsApi {
-	get(): Promise<Result<LocalClientsSnapshot>>
+	get(): Promise<Result<LocalClientsSnapshot, LocalClientsError | AppError>>
 	// pathsRead also lets the client read the paths of downloaded files.
 	allow(input: LocalClientsAllowInput): Promise<Result<void, LocalClientsError | AppError>>
 	deny(input: LocalClientsDenyInput): Promise<Result<void, LocalClientsError | AppError>>

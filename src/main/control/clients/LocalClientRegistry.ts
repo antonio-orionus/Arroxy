@@ -13,6 +13,7 @@ import {randomBytes, randomUUID} from 'node:crypto'
 import type {ControlRule} from 'arroxy-control'
 import type {LocalClientsRefusal, LocalClientsSnapshot} from '@shared/localClients.js'
 import type {ControlSocketLog} from '../socket/controlConnection.js'
+import {failureCode} from '../socket/errnoCode.js'
 import type {ApprovalClaim, LocalClient, LocalClientApprovals} from '../socket/localClientApprovals.js'
 import type {LocalClientRecord, LocalClientStore} from './localClientStore.js'
 
@@ -218,8 +219,8 @@ export class LocalClientRegistry implements LocalClientApprovals {
 			try {
 				await this.options.store.save([...this.records.values()])
 			} catch (error) {
-				// The name only: a message can carry paths.
-				this.options.log.warn('the local clients could not be saved', {error: error instanceof Error ? error.name : typeof error})
+				// A code, never the message: it can carry paths.
+				this.options.log.warn('the local clients could not be saved', {code: failureCode(error)})
 			}
 		}
 		this.saving = false

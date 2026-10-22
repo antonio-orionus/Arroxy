@@ -2,7 +2,7 @@
 
 import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import {ALLOWED_APPROVAL_TTL_MS, LocalClientRegistry, type LocalClientRegistryOptions, PENDING_APPROVAL_TTL_MS, PENDING_APPROVALS_MAX} from '@main/control/clients/LocalClientRegistry.js'
-import {type LocalClientRecord, type LocalClientStore, MemoryLocalClientStore} from '@main/control/clients/localClientStore.js'
+import {type LocalClientRecord, type LocalClientStore, LocalClientStoreRefusal, MemoryLocalClientStore} from '@main/control/clients/localClientStore.js'
 import type {ApprovalClaim, LocalClient} from '@main/control/socket/localClientApprovals.js'
 
 // Who may use the Control API over the local socket: requests waiting for the
@@ -237,8 +237,24 @@ describe('LocalClientRegistry known clients', () => {
 		registries.push(registry)
 		const client = allowed(registry)
 		await registry.saved()
-		expect(log.warn).toHaveBeenCalledWith('the local clients could not be saved', {error: 'TypeError'})
+		expect(log.warn).toHaveBeenCalledWith('the local clients could not be saved', {code: 'TypeError'})
+		expect(JSON.stringify(log.warn.mock.calls)).not.toContain('/private/path')
 		expect(registry.client(client.clientId)).toEqual(client)
+	})
+
+	it.each([
+		['the errno code of a write that failed', Object.assign(new Error('ENOSPC: no space left, open /private/path'), {code: 'ENOSPC'}), 'ENOSPC'],
+		["the store's own refusal", new LocalClientStoreRefusal('store_unread'), 'store_unread']
+	])('logs a failed save by %s, never its message', async (_case, failure, code) => {
+		const failing: LocalClientStore = {load: () => Promise.resolve([]), save: () => Promise.reject(failure)}
+		const log = {info: vi.fn(), warn: vi.fn(), error: vi.fn()}
+		const registry = await LocalClientRegistry.load({store: failing, secretsStorable: () => true, log})
+		registries.push(registry)
+		const client = allowed(registry)
+		await registry.saved()
+		expect(log.warn).toHaveBeenCalledExactlyOnceWith('the local clients could not be saved', {code})
+		expect(JSON.stringify(log.warn.mock.calls)).not.toContain('/private/path')
+		expect(JSON.stringify(log.warn.mock.calls)).not.toContain(client.secret)
 	})
 
 	it('saves the latest state once a save under way finishes', async () => {

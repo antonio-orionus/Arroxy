@@ -21,10 +21,13 @@ import {MemoryLocalClientStore} from '@main/control/clients/localClientStore.js'
 import {registerLocalClientHandlers} from '@main/ipc/localClientHandlers.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
 import {allowedClient, silentLog} from '../helpers/controlSocketHarness.js'
+import {importWithReleaseFlagsOff} from '../helpers/releaseFlags.js'
 
-// The window's IPC over the local clients: each request reaches the registry
-// once its payload parses, a refusal keeps its reason, and every change goes
-// to the window as a fresh snapshot.
+// The window's IPC over the local clients: registered at start-up, it answers
+// not_running until agent control sets the loaded clients and again once it
+// clears them; while set, each request reaches the registry once its payload
+// parses, a refusal keeps its reason, and every change goes to the window as
+// a fresh snapshot.
 
 const CHANNELS = [IPC_CHANNELS.localClientsGet, IPC_CHANNELS.localClientsAllow, IPC_CHANNELS.localClientsDeny, IPC_CHANNELS.localClientsRemove]
 
@@ -57,11 +60,28 @@ beforeEach(async () => {
 
 afterEach(async () => {
 	await registry.close()
+	vi.unstubAllEnvs()
+	vi.resetModules()
 })
+
+// The handlers, answering from `registry`.
+function exposed(window = fakeWindow().window) {
+	const holder = registerLocalClientHandlers(window)
+	holder.set(registry)
+	return holder
+}
+
+// A valid request on every channel.
+const REQUESTS: Array<[string, unknown]> = [
+	[IPC_CHANNELS.localClientsGet, undefined],
+	[IPC_CHANNELS.localClientsAllow, {approvalId: 'a1', pathsRead: false}],
+	[IPC_CHANNELS.localClientsDeny, {approvalId: 'a1'}],
+	[IPC_CHANNELS.localClientsRemove, {clientId: 'c1'}]
+]
 
 describe('registerLocalClientHandlers', () => {
 	it('answers get with the snapshot, never a secret', async () => {
-		registerLocalClientHandlers(registry, fakeWindow().window)
+		exposed()
 		const {clientId, secret} = allowedClient(registry)
 		const approvalId = registry.request('script')
 		const answer = await invoke(IPC_CHANNELS.localClientsGet)
@@ -78,7 +98,7 @@ describe('registerLocalClientHandlers', () => {
 		['an approvalId too long', {approvalId: 'a'.repeat(129), pathsRead: false}],
 		['an unknown key', {approvalId: 'a1', pathsRead: false, rules: ['trusted']}]
 	])('refuses allow with %s', async (_name, payload) => {
-		registerLocalClientHandlers(registry, fakeWindow().window)
+		exposed()
 		const allow = vi.spyOn(registry, 'allow')
 		const answer = await invoke(IPC_CHANNELS.localClientsAllow, payload)
 		expect(answer).toMatchObject({ok: false, error: {code: 'validation'}})
@@ -91,7 +111,7 @@ describe('registerLocalClientHandlers', () => {
 		[IPC_CHANNELS.localClientsRemove, {}],
 		[IPC_CHANNELS.localClientsRemove, {clientId: ''}]
 	])('refuses %s with a bad payload', async (channel, payload) => {
-		registerLocalClientHandlers(registry, fakeWindow().window)
+		exposed()
 		const deny = vi.spyOn(registry, 'deny')
 		const remove = vi.spyOn(registry, 'remove')
 		expect(await invoke(channel, payload)).toMatchObject({ok: false, error: {code: 'validation'}})
@@ -100,7 +120,7 @@ describe('registerLocalClientHandlers', () => {
 	})
 
 	it('allows a pending client with the grant it was given', async () => {
-		registerLocalClientHandlers(registry, fakeWindow().window)
+		exposed()
 		const approvalId = registry.request('Claude Code')
 		expect(await invoke(IPC_CHANNELS.localClientsAllow, {approvalId, pathsRead: true})).toEqual({ok: true, data: undefined})
 		const claim = registry.claim(approvalId)
@@ -109,12 +129,12 @@ describe('registerLocalClientHandlers', () => {
 	})
 
 	it('refuses to allow a request that is no longer pending', async () => {
-		registerLocalClientHandlers(registry, fakeWindow().window)
+		exposed()
 		expect(await invoke(IPC_CHANNELS.localClientsAllow, {approvalId: 'gone', pathsRead: false})).toMatchObject({ok: false, error: {code: 'not_pending'}})
 	})
 
 	it('refuses to allow without secure storage, and the request stays pending', async () => {
-		registerLocalClientHandlers(registry, fakeWindow().window)
+		exposed()
 		const approvalId = registry.request('script')
 		secretsStorable = false
 		expect(await invoke(IPC_CHANNELS.localClientsAllow, {approvalId, pathsRead: false})).toMatchObject({ok: false, error: {code: 'secure_storage_unavailable'}})
@@ -122,7 +142,7 @@ describe('registerLocalClientHandlers', () => {
 	})
 
 	it('denies a pending request, and refuses one no longer pending', async () => {
-		registerLocalClientHandlers(registry, fakeWindow().window)
+		exposed()
 		const approvalId = registry.request('script')
 		expect(await invoke(IPC_CHANNELS.localClientsDeny, {approvalId})).toEqual({ok: true, data: undefined})
 		expect(registry.snapshot().pending).toEqual([])
@@ -131,7 +151,7 @@ describe('registerLocalClientHandlers', () => {
 	})
 
 	it('removes a known client, closing its connections, and refuses an unknown one', async () => {
-		registerLocalClientHandlers(registry, fakeWindow().window)
+		exposed()
 		const {clientId} = allowedClient(registry)
 		const revoked = vi.fn()
 		registry.onRevoked(revoked)
@@ -143,7 +163,7 @@ describe('registerLocalClientHandlers', () => {
 
 	it('sends the window a fresh snapshot on every change', () => {
 		const {window, send} = fakeWindow()
-		registerLocalClientHandlers(registry, window)
+		exposed(window)
 		const approvalId = registry.request('script')
 		expect(send).toHaveBeenLastCalledWith(IPC_CHANNELS.localClientsChanged, {clients: [], pending: [expect.objectContaining({approvalId})]})
 		registry.deny(approvalId)
@@ -153,20 +173,64 @@ describe('registerLocalClientHandlers', () => {
 
 	it('sends nothing to a closed window', () => {
 		const {window, send, destroy} = fakeWindow()
-		registerLocalClientHandlers(registry, window)
+		exposed(window)
 		destroy()
 		registry.request('script')
 		expect(send).not.toHaveBeenCalled()
 	})
 
-	it('takes its handlers and its listener away again', async () => {
+	it.each(REQUESTS)('answers %s with not_running before the clients are set', async (channel, payload) => {
+		registerLocalClientHandlers(fakeWindow().window)
+		expect(await invoke(channel, payload)).toMatchObject({ok: false, error: {code: 'not_running', message: expect.any(String)}})
+	})
+
+	it('still checks the payload before the clients are set', async () => {
+		registerLocalClientHandlers(fakeWindow().window)
+		expect(await invoke(IPC_CHANNELS.localClientsAllow, {approvalId: ''})).toMatchObject({ok: false, error: {code: 'validation'}})
+	})
+
+	it('answers not_running again once the clients are cleared, and stops pushing their changes', async () => {
 		const {window, send} = fakeWindow()
-		const unregister = registerLocalClientHandlers(registry, window)
+		const holder = exposed(window)
+		const approvalId = registry.request('script')
+		expect(send).toHaveBeenCalledTimes(1)
+		holder.clear()
+		holder.clear()
+		for (const [channel, payload] of REQUESTS) expect(await invoke(channel, payload)).toMatchObject({ok: false, error: {code: 'not_running'}})
+		registry.deny(approvalId)
+		expect(send).toHaveBeenCalledTimes(1)
+		// The handlers stay registered: nothing rejects with "no handler".
 		expect(CHANNELS.every(channel => handlers.has(channel))).toBe(true)
-		unregister()
-		expect(CHANNELS.filter(channel => handlers.has(channel))).toEqual([])
+	})
+
+	it('pushes the changes of the clients set last, and only theirs', async () => {
+		const {window, send} = fakeWindow()
+		const holder = exposed(window)
+		const next = await LocalClientRegistry.load({store: new MemoryLocalClientStore(), secretsStorable: () => true, log: silentLog()})
+		try {
+			holder.set(next)
+			registry.request('old')
+			expect(send).not.toHaveBeenCalled()
+			const approvalId = next.request('new')
+			expect(send).toHaveBeenCalledExactlyOnceWith(IPC_CHANNELS.localClientsChanged, {clients: [], pending: [expect.objectContaining({approvalId, label: 'new'})]})
+			expect(await invoke(IPC_CHANNELS.localClientsGet)).toEqual({ok: true, data: next.snapshot()})
+		} finally {
+			await next.close()
+		}
+	})
+})
+
+describe('registerLocalClientHandlers in a release build', () => {
+	it('registers no handler and never listens to the clients', async () => {
+		const {registerLocalClientHandlers: registerInRelease} = await importWithReleaseFlagsOff(() => import('@main/ipc/localClientHandlers.js'))
+		const {window, send} = fakeWindow()
+		const onChange = vi.spyOn(registry, 'onChange')
+		const holder = registerInRelease(window)
+		holder.set(registry)
 		registry.request('script')
+		holder.clear()
+		expect([...handlers.keys()]).toEqual([])
+		expect(onChange).not.toHaveBeenCalled()
 		expect(send).not.toHaveBeenCalled()
-		await expect(invoke(IPC_CHANNELS.localClientsGet)).rejects.toThrow('no handler')
 	})
 })

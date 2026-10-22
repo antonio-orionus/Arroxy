@@ -37,7 +37,9 @@ export interface LocalClientsSnapshot {
 // already answered, withdrawn or expired. `secure_storage_unavailable`: the
 // secret Allow issues could not be stored encrypted (no keyring), so nothing
 // was allowed. `unknown_client`: no such client, or it was removed already.
-const localClientsRefusalSchema = z.enum(['not_pending', 'secure_storage_unavailable', 'unknown_client'])
+// `not_running`: agent control has not loaded the clients yet, or it stopped
+// or failed to start, so there are none to show or change.
+const localClientsRefusalSchema = z.enum(['not_pending', 'secure_storage_unavailable', 'unknown_client', 'not_running'])
 export type LocalClientsRefusal = z.infer<typeof localClientsRefusalSchema>
 
 // The failure a refused local-clients request answers with, apart from
