@@ -161,19 +161,25 @@ export function createFormatPickerSlice(set: SetState, get: GetState): FormatPic
 			const state = get()
 			if (state.wizardMediaKind !== 'video') return
 			// The streams the Video list shows: Video, no audio leaves out those with their own sound.
-			const formats = formatMode(state) === 'video-only' ? state.wizardFormats.filter(f => f.isVideoOnly || f.isAudioOnly) : state.wizardFormats
+			const silentOnly = state.wizardFormats.filter(f => f.isVideoOnly || f.isAudioOnly)
+			const formats = formatMode(state) === 'video-only' ? silentOnly : state.wizardFormats
 			const filter = videoCodecFilterOf(state)
 			// The profile's pick is seen through the filter, from the profile's own
-			// audio and file type: a filtered video doesn't read as changed from the
-			// profile, and the user's edits still do.
+			// mode, audio and file type: a filtered video doesn't read as changed
+			// from the profile, and the user's edits still do. A silent profile
+			// (video, no audio) stays silent, among silent streams.
 			const baseline = state.wizardProfileBaseline
-			const baseId = baseline?.mediaKind === 'video' ? codecFilterPick(formats, baseline.videoFormatId, filter, [state.selectedVideoFormatId]) : null
+			const baseVideo = state.wizardFormats.find(f => f.formatId === baseline?.videoFormatId)
+			const baseSilent = baseline?.audioSelection.kind === 'none' && baseVideo?.isVideoOnly === true
+			const baseId = baseline?.mediaKind === 'video' ? codecFilterPick(baseSilent ? silentOnly : state.wizardFormats, baseline.videoFormatId, filter, [state.selectedVideoFormatId]) : null
 			if (baseline && baseId) {
 				const asProfile: AppState = {...state, audioSelection: baseline.audioSelection, wizardFileType: baseline.fileType}
-				const audioSelection = audioForVideo(
-					state.wizardFormats.find(f => f.formatId === baseId),
-					asProfile
-				)
+				const audioSelection: AudioSelection = baseSilent
+					? {kind: 'none'}
+					: audioForVideo(
+							state.wizardFormats.find(f => f.formatId === baseId),
+							asProfile
+						)
 				const fileType = fileTypeAfterPick(asProfile, baseId, audioSelection)
 				set({wizardProfileBaseline: {...baseline, videoFormatId: baseId, audioSelection, fileType: 'wizardFileType' in fileType ? fileType.wizardFileType : baseline.fileType}})
 			}
