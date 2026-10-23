@@ -574,9 +574,11 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			const res = await window.appApi.playlist.scanFolder({outputDir, videoIds})
 			// A newer scan, probe or multi-profile mode answers for itself.
 			if (generation !== folderScanGeneration) return
-			// The answer applies only to the folder and videos it scanned (#681).
+			// The answer applies only to the folder and the list it scanned (#681).
+			// Hydration may name a placeholder's video meanwhile: the list stays the
+			// same, and the matches still in it stand.
 			const now = get()
-			if (now.multiProfileMode || resolvePlaylistDir(now) !== outputDir || now.playlistItems.map(e => e.videoId).join('\n') !== state.playlistItems.map(e => e.videoId).join('\n')) {
+			if (now.multiProfileMode || resolvePlaylistDir(now) !== outputDir || now.playlistItems.map(e => e.id).join('\n') !== state.playlistItems.map(e => e.id).join('\n')) {
 				set({syncedDownloadedIds: [], syncScanState: 'idle'})
 				return
 			}
@@ -584,7 +586,8 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 				set({syncedDownloadedIds: [], syncScanState: 'done'})
 				return
 			}
-			set({syncedDownloadedIds: res.data.matchedIds, syncScanState: 'done'})
+			const listed = new Set(now.playlistItems.map(e => e.videoId))
+			set({syncedDownloadedIds: res.data.matchedIds.filter(id => listed.has(id)), syncScanState: 'done'})
 		},
 
 		// Deselect every item already present in the folder, leaving only the ones

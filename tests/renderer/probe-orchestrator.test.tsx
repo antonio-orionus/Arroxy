@@ -307,6 +307,22 @@ describe('submitUrl — video probe', () => {
 		expect(useAppStore.getState().syncedDownloadedIds).toEqual([])
 	})
 
+	it('keeps a folder scan answer when hydration fills in a video id meanwhile', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		let answer!: (value: Result<{matchedIds: string[]}>) => void
+		vi.mocked(api.playlist.scanFolder).mockImplementation(() => new Promise(resolve => (answer = resolve)))
+		window.appApi = api
+		useAppStore.setState({settings: defaultAppSettings('/tmp/downloads'), wizardOutputDir: '/tmp/downloads', wizardUrl: PLAYLIST_PROBE.webpageUrl})
+		await useAppStore.getState().submitUrl()
+		await vi.waitFor(() => expect(api.playlist.scanFolder).toHaveBeenCalledOnce())
+
+		// A placeholder's own probe names its video.
+		useAppStore.setState(state => ({playlistItems: state.playlistItems.map(entry => (entry.id === 'e2' ? {...entry, videoId: 'e2-real'} : entry))}))
+		answer(ok({matchedIds: ['e1']}))
+		await vi.waitFor(() => expect(useAppStore.getState()).toMatchObject({syncedDownloadedIds: ['e1'], syncScanState: 'done'}))
+	})
+
 	it("keeps the row's profile when every picked video was already queued, and the list stays open", async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
