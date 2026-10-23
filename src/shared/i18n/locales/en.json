@@ -1561,6 +1561,7 @@
 				"openExplore": "Open Explore",
 				"placeholder": "No file selected",
 				"profileHelp": "For a browser that isn't listed, like Floorp, Helium or Falkon, pick the one it's built on (Firefox or Chromium) and choose its profile folder. If you don't see the folder, type its path in the folder dialog.",
+				"profileHiddenLinux": "Profile folders are hidden: press Ctrl+H in the folder dialog to show them.",
 				"profileLabel": "Profile folder (optional)",
 				"profilePlaceholder": "The browser's default profile",
 				"recommended": "Recommended",

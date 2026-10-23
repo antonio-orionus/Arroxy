@@ -4,6 +4,7 @@ import {useTranslation} from 'react-i18next'
 import {AlertTriangle} from 'lucide-react'
 import type {CookiesBrowser, CookiesMode} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
+import {notify} from '@renderer/lib/notify.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
@@ -168,8 +169,16 @@ function CookiesBrowserProfileField(): ReactNode {
 	const commonPaths = settings?.common?.commonPaths
 
 	async function chooseProfileFolder(): Promise<void> {
-		const result = await window.appApi.dialog.chooseBrowserProfileFolder(profile || undefined)
-		if (result.ok && result.data.path) await setCookiesBrowserProfile(result.data.path)
+		try {
+			const result = await window.appApi.dialog.chooseBrowserProfileFolder(profile || undefined)
+			if (!result.ok) {
+				notify.folderSelectFailed(result.error)
+				return
+			}
+			if (result.data.path) await setCookiesBrowserProfile(result.data.path)
+		} catch (error) {
+			notify.folderSelectFailed(error)
+		}
 	}
 
 	return (
@@ -189,6 +198,8 @@ function CookiesBrowserProfileField(): ReactNode {
 				</InputGroupAddon>
 			</InputGroup>
 			<FieldDescription>{t('wizard.url.cookies.profileHelp')}</FieldDescription>
+			{/* Electron can't show hidden folders in the Linux dialog; GTK leaves that to the user. */}
+			{window.platform === 'linux' ? <FieldDescription data-testid="cookies-browser-profile-hidden-hint">{t('wizard.url.cookies.profileHiddenLinux')}</FieldDescription> : null}
 		</Field>
 	)
 }

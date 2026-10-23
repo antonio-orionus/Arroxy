@@ -26,7 +26,8 @@ export function registerFileHandlers(mainWindow: BrowserWindow, binaryManager: B
 	})
 
 	// Browser profiles sit in hidden folders under home (~/.mozilla, ~/.var/app,
-	// ~/Library/Application Support), so the dialog starts there and shows them.
+	// ~/Library/Application Support), so the dialog starts there and shows them
+	// on macOS and Windows; Linux ignores showHiddenFiles (Ctrl+H, as the UI says).
 	handleRaw(IPC_CHANNELS.chooseBrowserProfileFolder, async (_, payload: unknown) => {
 		try {
 			const defaultPath = typeof payload === 'string' && payload.length > 0 ? payload : app.getPath('home')
