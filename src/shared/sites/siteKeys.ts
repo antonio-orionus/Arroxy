@@ -6,6 +6,7 @@
 // no registrable domain (an IP address, `localhost`) is itself.
 
 import {getDomain} from 'tldts'
+import type {SignInPolicy} from '../schemas.js'
 import {isYouTubeHostname} from './youtubeHost.js'
 
 // How launches signed in to the Explore session are paced on one site, before
@@ -24,11 +25,20 @@ export interface SignedInPacing {
 	entriesPerLaunch: number
 }
 
+// How the Explore session is used on a site: its policy, and the cookie that
+// shows a sign-in, checked on the host the site sends it to.
+export interface SiteSignIn {
+	policy: SignInPolicy
+	cookies: readonly string[]
+	host: string
+}
+
 interface KnownSite {
 	key: string
 	label: string
 	matches: (host: string) => boolean
 	signedInPacing?: Partial<SignedInPacing>
+	signIn?: SiteSignIn
 }
 
 function onDomains(domains: readonly string[]): (host: string) => boolean {
@@ -37,8 +47,8 @@ function onDomains(domains: readonly string[]): (host: string) => boolean {
 
 const KNOWN_SITES: readonly KnownSite[] = [
 	{key: 'youtube', label: 'YouTube', matches: isYouTubeHostname},
-	{key: 'instagram', label: 'Instagram', matches: onDomains(['instagram.com', 'instagr.am']), signedInPacing: {spacingMs: 8000, windowMs: 11 * 60_000, perWindow: 11, entriesPerLaunch: 12}},
-	{key: 'x', label: 'X', matches: onDomains(['x.com', 'twitter.com', 't.co']), signedInPacing: {windowMs: 15 * 60_000, perWindow: 30, entriesPerLaunch: 20}}
+	{key: 'instagram', label: 'Instagram', matches: onDomains(['instagram.com', 'instagr.am']), signedInPacing: {spacingMs: 8000, windowMs: 11 * 60_000, perWindow: 11, entriesPerLaunch: 12}, signIn: {policy: 'first', cookies: ['sessionid'], host: 'www.instagram.com'}},
+	{key: 'x', label: 'X', matches: onDomains(['x.com', 'twitter.com', 't.co']), signedInPacing: {windowMs: 15 * 60_000, perWindow: 30, entriesPerLaunch: 20}, signIn: {policy: 'first', cookies: ['auth_token'], host: 'api.x.com'}}
 ]
 
 export function siteKeyForHost(hostname: string): string {
@@ -52,6 +62,16 @@ export function siteKeyForHost(hostname: string): string {
 // A site's own signed-in pacing, where it differs from the defaults.
 export function knownSignedInPacing(key: string): Partial<SignedInPacing> {
 	return KNOWN_SITES.find(site => site.key === key)?.signedInPacing ?? {}
+}
+
+// A site's sign-in row; null for a site that has none (when needed, by ADR 0011).
+export function knownSiteSignIn(key: string): SiteSignIn | null {
+	return KNOWN_SITES.find(site => site.key === key)?.signIn ?? null
+}
+
+// The sites that have a sign-in row.
+export function signInSiteKeys(): string[] {
+	return KNOWN_SITES.flatMap(site => (site.signIn ? [site.key] : []))
 }
 
 // How a site key reads to the user: a known site's name, else the key itself.

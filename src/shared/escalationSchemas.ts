@@ -21,3 +21,10 @@ export type ExploreGateRefusal = z.infer<typeof exploreGateRefusalSchema>
 // host to scope cookies to, or the gate could not answer.
 const escalationDeclineSchema = z.enum([...exploreGateRefusalSchema.options, 'notAccountFixable', 'noExploreScope', 'gateFailed'])
 export type EscalationDecline = z.infer<typeof escalationDeclineSchema>
+
+// Why a job starts anonymous rather than on the Explore session (ADR 0022):
+// its site does not start signed in, the cookie mode is not Explore, the
+// Explore tab is off, downloads marked the site's sign-in as not working, or
+// the session holds no sign-in cookie for the site.
+const startAnonymousReasonSchema = z.enum(['notSignInFirst', 'notExploreMode', 'exploreDisabled', 'signInSuspect', 'noSignInCookie'])
+export type StartAnonymousReason = z.infer<typeof startAnonymousReasonSchema>

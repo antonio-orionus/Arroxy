@@ -419,6 +419,17 @@ export const jobAuthSchema = z.enum(['anonymous', 'exploreSession'])
 export type JobAuth = z.infer<typeof jobAuthSchema>
 export const JOB_AUTHS = jobAuthSchema.options
 
+// How the Explore session is used on a site (ADR 0022): never, when a failure
+// needs it (escalation), first, or required.
+export const signInPolicySchema = z.enum(['never', 'whenNeeded', 'first', 'required'])
+export type SignInPolicy = z.infer<typeof signInPolicySchema>
+
+// Why a job runs on the Explore session: its site starts signed in, or a
+// failure an account can fix escalated it. Absent on stored rows: escalation,
+// the only reason before ADR 0022.
+export const authBasisSchema = z.enum(['siteDefault', 'escalation'])
+export type AuthBasis = z.infer<typeof authBasisSchema>
+
 // What a page load on the Explore partition says about the session. `unknown`:
 // the check could not tell (proxy, timeout, load failure, off the site).
 const exploreSignInStateSchema = z.enum(['signedIn', 'signedOut', 'unknown'])
