@@ -1,7 +1,8 @@
-import {expect, test, type Page} from '@playwright/test'
+import {expect, test, type ElectronApplication, type Page} from '@playwright/test'
 import type {ExploreCookie} from '../../src/shared/sites/types.js'
 import type {AppSettings, JobAuth, QueueItem} from '../../src/shared/types.js'
 import {FIXTURE_VIDEO_IDS, type FixtureServer, type FixtureServerRequest} from './fixtureHarness.js'
+import {SIGN_IN_VIDEO_ID} from './fixtureMediaCatalog.js'
 import {readPersistedQueue, restoredQueueItem, withFixtureProductApp} from './fixtureProductE2E.js'
 import {openQueueTab, queueCardByTitle} from './fixtureWorkflow.js'
 
@@ -115,4 +116,117 @@ test('a sign-in that keeps failing gets one anonymous run per download, and is m
 			await expect(notWorkingRow(next.page)).toHaveCount(0)
 		}
 	)
+})
+
+function exploreModeSeen(settings: AppSettings): void {
+	settings.common.cookiesMode = 'explore'
+	settings.common.exploreNoticeSeen = true
+	// Past the first share milestone: the Share dialog the third finished
+	// download opens would cover the tabs mid-story.
+	settings.common.successfulDownloadCount = 3
+}
+
+// Signs the Explore partition in as a user would by signing in on the page: the
+// cookies change, and Arroxy reads the new sign-in once they settle.
+async function signInToExplore(app: ElectronApplication, cookies: readonly ExploreCookie[]): Promise<void> {
+	await app.evaluate(async ({session}, seed) => {
+		const ses = session.fromPartition('persist:arroxy-explore')
+		for (const c of seed) {
+			await ses.cookies.set({url: `https://${c.domain.replace(/^\./, '')}${c.path}`, name: c.name, value: c.value, domain: c.domain, path: c.path, secure: c.secure, httpOnly: c.httpOnly, ...(c.expirationDate === undefined ? {} : {expirationDate: c.expirationDate})})
+		}
+	}, cookies)
+}
+
+// Quick Download from the URL tab, as a user pastes a link.
+async function quickDownload(page: Page, url: string): Promise<void> {
+	await page.getByRole('tab', {name: 'URL'}).click()
+	await page.locator('[data-testid="profiles-main-input"]').fill(url)
+	await page.locator('[data-testid="profiles-quick-download"]').click()
+}
+
+async function expectRow(page: Page, videoId: string, status: string): Promise<void> {
+	await openQueueTab(page)
+	await expect(queueCardByTitle(page, videoId)).toHaveAttribute('data-status', status, {timeout: 120_000})
+}
+
+async function rowId(page: Page, videoId: string): Promise<string> {
+	return ((await queueCardByTitle(page, videoId).getAttribute('data-testid')) ?? '').replace('queue-manager-row-', '')
+}
+
+async function openSettings(page: Page): Promise<void> {
+	await page.getByRole('tab', {name: 'Settings'}).click()
+}
+
+// The whole life of a sign-in, as a user meets it, one Quick Download per step:
+//   1. Signed in: a download runs signed in, and Settings says nothing.
+//   2. The site asks to verify the account (a checkpoint): that download fails,
+//      Settings says the sign-in stopped working, a retry runs signed out and
+//      works, and the next download starts signed out at once.
+//   3. The user signs in again in Explore: the warning goes, and downloads run
+//      signed in on the new sign-in.
+//   4. The user signs out of Explore: downloads run signed out with no warning,
+//      and a video that needs an account fails with the offer to sign in in Explore.
+// Oracles: the marker each extraction carried (null: signed out), each row's
+// status, and what Settings shows at each step.
+test('a sign-in from signed in, through a checkpoint and a fresh sign-in, to signed out', async () => {
+	test.setTimeout(420_000)
+	const [first, walled, afterWall, afterSignIn, afterSignOut] = [FIXTURE_VIDEO_IDS[2], FIXTURE_VIDEO_IDS[3], FIXTURE_VIDEO_IDS[4], FIXTURE_VIDEO_IDS[5], FIXTURE_VIDEO_IDS[6]]
+	const notWorking = (page: Page) => page.getByTestId('cookies-not-working-sign-ins')
+
+	await withFixtureProductApp({settings: exploreModeSeen, signInFirst: true, exploreCookies: SIGNED_IN_EXPLORE_SESSION, userDataPrefix: 'arroxy-fixture-signin-life-user-', outputPrefix: 'arroxy-fixture-signin-life-out-'}, async ({app, page, fixtureServer, urls, files}) => {
+		// 1. Signed in.
+		await quickDownload(page, urls.video(first))
+		await expectRow(page, first, 'done')
+		expect(markers(fixtureServer, first).every(marker => marker === MARKER)).toBe(true)
+		await openSettings(page)
+		await expect(page.getByTestId('cookies-source')).toBeVisible()
+		await expect(notWorking(page)).toHaveCount(0)
+
+		// 2. The site asks to verify the account.
+		fixtureServer.setBehavior({extractionScript: {[walled]: [{error: 'checkpoint_required'}]}})
+		await quickDownload(page, urls.video(walled))
+		await expectRow(page, walled, 'error')
+		await openSettings(page)
+		await expect(page.getByTestId('cookies-not-working-sign-in-youtube')).toContainText('YouTube stopped working with your sign-in')
+		await openQueueTab(page)
+		const walledRow = page.getByTestId(`queue-attention-${await rowId(page, walled)}`)
+		await expect(walledRow).toContainText('checkpoint_required')
+		await walledRow.getByTestId('quick-download-retry').click()
+		await expectRow(page, walled, 'done')
+		expect(markers(fixtureServer, walled)[0]).toBe(MARKER)
+		expect(
+			markers(fixtureServer, walled)
+				.slice(1)
+				.every(marker => marker === null)
+		).toBe(true)
+		await quickDownload(page, urls.video(afterWall))
+		await expectRow(page, afterWall, 'done')
+		expect(markers(fixtureServer, afterWall).every(marker => marker === null)).toBe(true)
+
+		// 3. A fresh sign-in in Explore.
+		await signInToExplore(app, [sessionCookie('ARROXY_FIXTURE_AUTH', 'e2e-again')])
+		await openSettings(page)
+		await expect(notWorking(page)).toHaveCount(0, {timeout: 15_000})
+		await quickDownload(page, urls.video(afterSignIn))
+		await expectRow(page, afterSignIn, 'done')
+		expect(markers(fixtureServer, afterSignIn).every(marker => marker === 'e2e-again')).toBe(true)
+
+		// 4. Signed out of Explore.
+		await openSettings(page)
+		await page.getByTestId('explore-settings-sign-out').click()
+		await page.getByTestId('explore-sign-out-confirm').click()
+		await expect(page.getByTestId('explore-sign-out-dialog')).toHaveCount(0)
+		await quickDownload(page, urls.video(afterSignOut))
+		await expectRow(page, afterSignOut, 'done')
+		expect(markers(fixtureServer, afterSignOut).every(marker => marker === null)).toBe(true)
+		await openSettings(page)
+		await expect(notWorking(page)).toHaveCount(0)
+
+		await quickDownload(page, urls.video(SIGN_IN_VIDEO_ID))
+		await expectRow(page, SIGN_IN_VIDEO_ID, 'error')
+		const signInGuidance = page.getByTestId(`queue-attention-${await rowId(page, SIGN_IN_VIDEO_ID)}`).getByTestId('cookies-error-alert')
+		await expect(signInGuidance).toHaveAttribute('data-variant', 'explore-sign-in')
+		await expect(signInGuidance.getByRole('button', {name: 'Sign in in Explore'})).toBeVisible()
+		files.expectMp4Count(5)
+	})
 })
