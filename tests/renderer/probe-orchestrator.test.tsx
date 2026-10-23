@@ -164,7 +164,6 @@ describe('submitUrl — video probe', () => {
 		useAppStore.setState({settings, wizardOutputDir: '/tmp/downloads', queue: [row]})
 
 		await useAppStore.getState().openPlaylistReview(PLAYLIST_PROBE.webpageUrl, 'playlist', 'row-1')
-		// The window's own folder stays: only this batch goes to the row's.
 		expect(useAppStore.getState()).toMatchObject({wizardStep: 'playlistItems', multiProfileMode: true, wizardOutputDir: '/tmp/downloads'})
 		// Continue goes to the per-video profiles: this mode has no presets.
 		useAppStore.getState().confirmPlaylistSelection()
@@ -179,7 +178,7 @@ describe('submitUrl — video probe', () => {
 		expect(items).toHaveLength(2)
 		for (const item of items) {
 			expect(item.formatLabel).toBe(audioOnly ? profileFormatLabel(audioOnly, i18next.t, i18next.language) : '')
-			expect(item.outputDir.startsWith('/music')).toBe(true)
+			expect(item.outputDir.startsWith('/tmp/downloads')).toBe(true)
 		}
 	})
 
@@ -211,6 +210,21 @@ describe('submitUrl — video probe', () => {
 			return profile ? profileFormatLabel(profile, i18next.t, i18next.language) : ''
 		}
 		expect(items.map(item => item.formatLabel)).toEqual([label(settings.profiles.active.id), label('audio-only')])
+	})
+
+	it("keeps the row's profile when every picked video was already queued, and the list stays open", async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+		const pinnedProfile = {ref: {kind: 'builtin', id: 'audio-only'}, outputContext: {defaultOutputDir: '/tmp/downloads'}} as const
+		const row = makeItem({id: 'row-1', status: 'needs-choice', choice: {kind: 'list-size', loaded: 2, capped: false}, url: PLAYLIST_PROBE.webpageUrl, job: {kind: 'unresolved', extractor: '', extractorKey: ''}, probeMode: 'playlist', pinnedProfile})
+		const queued = PLAYLIST_PROBE.entries.map(entry => makeItem({id: `q-${entry.id}`, status: 'pending', url: entry.url}))
+		useAppStore.setState({settings: defaultAppSettings('/tmp/downloads'), wizardOutputDir: '/tmp/downloads', queue: [row, ...queued]})
+		await useAppStore.getState().openPlaylistReview(PLAYLIST_PROBE.webpageUrl, 'playlist', 'row-1')
+
+		await useAppStore.getState().addToQueue()
+
+		expect(useAppStore.getState()).toMatchObject({wizardStep: 'playlistItems', reviewSourceRowId: null, reviewPinnedProfile: pinnedProfile})
 	})
 
 	it('a retry whose list lands first takes the saved list settings, as a first load does', async () => {

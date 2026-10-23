@@ -173,8 +173,9 @@ export interface ProbeOrchestratorSlice {
 	// another Review) and every exit (Back home, Start over, cookie settings,
 	// Explore sign-in) clear it and leave the row waiting.
 	reviewSourceRowId: string | null
-	// The profile and folders that row was placed with, taken when its Review
-	// opens: every picked video starts from them (#665). Cleared with the row id.
+	// The profile that row was placed with, taken when its Review opens: every
+	// picked video starts from it (#665), in the window's folder. Cleared when
+	// the run ends.
 	reviewPinnedProfile: PinnedDownloadProfile | null
 	// The single-video Review row that is open (one at a time), if any.
 	wizardReviewRow: ReviewRow | null

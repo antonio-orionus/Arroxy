@@ -64,7 +64,8 @@ async function submitWizardToQueue(set: SetState, get: GetState, lane: QueueLane
 			// can adjust the selection. A reviewed row has nothing left to wait for.
 			if (reviewSourceRowId !== null) {
 				await settlePlaceholder(reviewSourceRowId)
-				set({reviewSourceRowId: null, reviewPinnedProfile: null})
+				// The wizard stays open on this list: its videos keep the row's profile.
+				set({reviewSourceRowId: null})
 			}
 			notify.queueSkippedAlreadyQueued(prepared.skippedAlreadyQueued)
 			return

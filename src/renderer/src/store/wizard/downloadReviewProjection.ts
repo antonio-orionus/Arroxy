@@ -17,7 +17,7 @@ import type {WizardReviewState} from './wizardReviewState.js'
 import {resolveOutputContainer} from './resolveContainer.js'
 import {profileAssignmentCounts} from './playlistProfileAssignments.js'
 import {wizardVideoPart} from './videoPart.js'
-import {playlistBaselineProfile, playlistOutputContext} from './reviewedRowProfile.js'
+import {playlistBaselineProfile} from './reviewedRowProfile.js'
 
 type Translate = (key: string, params?: Record<string, unknown>) => string
 
@@ -127,7 +127,7 @@ export function multiProfileBreakdown(state: WizardReviewState): MultiProfileBre
 	const profiles = allDownloadProfiles(prefs)
 	const counts = profileAssignmentCounts(selectedItemIds, state.playlistProfileAssignments, profiles, playlistBaselineProfile(state).ref)
 	const orderedProfiles = profilePickerOptions(prefs, {current: null, inUse: profiles.filter(profile => counts.has(profile.id))}).map(option => option.profile)
-	const outputContext = playlistOutputContext(state)
+	const outputContext: DownloadProfileOutputContext = {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}
 
 	return orderedProfiles.filter(profile => (counts.get(profile.id) ?? 0) > 0).map(profile => ({profileId: profile.id, name: profileDisplayName(profile), icon: profile.icon, count: counts.get(profile.id) ?? 0, outputDir: safeProfileOutputDir(profile, outputContext, state.commonPaths)}))
 }

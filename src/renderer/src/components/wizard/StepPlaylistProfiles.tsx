@@ -90,7 +90,7 @@ export function StepPlaylistProfiles(): ReactNode {
 	const resolveProfile = useCallback((entry: PlaylistEntry): DownloadProfile => resolveAssignedProfile(entry.id, playlistProfileAssignments, profiles, model.activeProfile), [playlistProfileAssignments, profiles, model.activeProfile])
 	// Mirrors useDownloadHomeView's globalDestinationRoot so the quick-edit
 	// dialog previews the same resolved path DownloadProfilesHome would show.
-	const globalDestinationRoot = pinned ? (pinned.outputContext.currentOutputDir ?? pinned.outputContext.defaultOutputDir ?? '') : wizardOutputDir?.trim() ? wizardOutputDir : (settings?.common?.defaultOutputDir ?? '')
+	const globalDestinationRoot = wizardOutputDir?.trim() ? wizardOutputDir : (settings?.common?.defaultOutputDir ?? '')
 
 	const [state, dispatch] = useReducer(playlistProfileTableReducer, undefined, createPlaylistProfileTableState)
 	const {filter, selection} = state
