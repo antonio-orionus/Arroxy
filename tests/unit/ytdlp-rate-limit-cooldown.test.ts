@@ -79,7 +79,7 @@ describe('YtDlp — rate-limit cooldown', () => {
 		siteRequests.recordRateLimit('youtube', 'rateLimited')
 		resolvePath('/fake/yt-dlp')
 
-		expect(await running).toMatchObject({errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE})
+		expect(await running).toMatchObject({errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE, heldBeforeLaunch: true})
 		expect(spawnYtDlp).not.toHaveBeenCalled()
 	})
 
@@ -91,7 +91,7 @@ describe('YtDlp — rate-limit cooldown', () => {
 		siteRequests.recordRateLimit('youtube', 'rateLimited')
 		resolveToken({token: 'tok', visitorData: 'vd', fromCache: false})
 
-		expect(await running).toMatchObject({errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE})
+		expect(await running).toMatchObject({errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE, heldBeforeLaunch: true})
 		expect(spawnYtDlp).not.toHaveBeenCalled()
 	})
 
@@ -104,7 +104,7 @@ describe('YtDlp — rate-limit cooldown', () => {
 		siteRequests.recordRateLimit('youtube', 'rateLimited')
 		folderReady()
 
-		expect(await running).toMatchObject({errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE})
+		expect(await running).toMatchObject({errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE, heldBeforeLaunch: true})
 		expect(spawnYtDlp).not.toHaveBeenCalled()
 	})
 
@@ -115,7 +115,7 @@ describe('YtDlp — rate-limit cooldown', () => {
 		vi.mocked(spawnYtDlp).mockClear()
 
 		const held = await ytDlp.run({kind: 'probe', url: URL, selection: {playlistMode: 'video'}})
-		expect(held).toMatchObject({kind: 'exit-error', errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE})
+		expect(held).toMatchObject({kind: 'exit-error', errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE, heldBeforeLaunch: true})
 		expect(await ytDlp.run(media(), undefined, {identity: 'exploreSession'})).toMatchObject({errorKind: 'rateLimit'})
 		expect(spawnYtDlp).not.toHaveBeenCalled()
 

@@ -1205,7 +1205,7 @@ describe('YtDlp — run identity', () => {
 		const withJar = vi.fn()
 		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: {withJar, getUserAgent: () => EXPLORE_UA}, spawnGate: pacerWith({run: vi.fn().mockResolvedValue({kind: 'cap-exceeded'})})})
 		const result = await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession', jobKey: 'job-9'})
-		expect(result).toMatchObject({kind: 'exit-error', exitCode: -1, errorKind: 'unknown'})
+		expect(result).toMatchObject({kind: 'exit-error', exitCode: -1, errorKind: 'unknown', heldBeforeLaunch: true})
 		expect(result.kind === 'exit-error' && result.rawError).toMatch(/signed-in attempts/i)
 		expect(withJar).not.toHaveBeenCalled()
 		expect(spawnYtDlp).not.toHaveBeenCalled()

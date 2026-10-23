@@ -107,12 +107,25 @@ describe('a signed-in probe waiting for a spawn slot (R21)', () => {
 
 		const result = await ytDlp.run(PROBE, {timeoutMs: 50}, {identity: 'exploreSession'})
 
-		expect(result).toMatchObject({kind: 'exit-error', errorKind: 'unknown', rawError: PROBE_TIMEOUT_MESSAGE})
+		// It reached no site: the probe records nothing about the sign-in from it.
+		expect(result).toMatchObject({kind: 'exit-error', errorKind: 'unknown', rawError: PROBE_TIMEOUT_MESSAGE, heldBeforeLaunch: true})
 		expect(withJar).not.toHaveBeenCalled()
 		expect(spawnYtDlp).not.toHaveBeenCalled()
 		// The slot it gave up on is not lost.
 		release()
 		await expect(gate.run('youtube', 'next', () => Promise.resolve('ran'))).resolves.toEqual({ran: 'ran'})
+	})
+
+	it('holds a signed-in probe the site spacing would keep waiting past its budget, without a jar or a spawn', async () => {
+		const gate = testPacer({atOnce: 2, spacingMs: 60_000})
+		await gate.run('youtube', 'earlier-launch', () => Promise.resolve())
+		const {ytDlp, withJar} = makeYtDlp(gate)
+
+		const result = await ytDlp.run(PROBE, {timeoutMs: 50}, {identity: 'exploreSession'})
+
+		expect(result).toMatchObject({kind: 'exit-error', rawError: 'Pacing signed-in requests to this site', heldBeforeLaunch: true})
+		expect(withJar).not.toHaveBeenCalled()
+		expect(spawnYtDlp).not.toHaveBeenCalled()
 	})
 
 	it('does not bound a signed-in download the same way: it keeps its place until a slot frees up', async () => {
@@ -186,6 +199,8 @@ describe.skipIf(process.platform === 'win32')('a stopped signed-in run', () => {
 		const result = await ytDlp.run(PROBE, {timeoutMs: 30}, {identity: 'exploreSession'})
 
 		expect(result).toMatchObject({kind: 'exit-error', rawError: PROBE_TIMEOUT_MESSAGE})
+		// A run that spawned reached the site, so its timeout says something about the sign-in.
+		expect(result).not.toHaveProperty('heldBeforeLaunch')
 		expect(events).toEqual(['jar-written', 'group-kill:SIGTERM', 'close', 'jar-deleted'])
 	})
 
@@ -207,6 +222,7 @@ describe.skipIf(process.platform === 'win32')('a stopped signed-in run', () => {
 		const result = await ytDlp.run(PROBE, {timeoutMs: 30})
 
 		expect(result).toMatchObject({kind: 'exit-error', rawError: PROBE_TIMEOUT_MESSAGE})
+		expect(result).not.toHaveProperty('heldBeforeLaunch')
 		expect(events).toEqual(['group-kill:SIGTERM', 'close'])
 		expect(procs.values().next().value?.kill).not.toHaveBeenCalled()
 	})
