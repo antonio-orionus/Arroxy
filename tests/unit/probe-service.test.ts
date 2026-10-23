@@ -900,11 +900,9 @@ describe('ProbeService — Explore session escalation', () => {
 				throw new Error('settings unreadable')
 			})
 
-			vi.mocked(log.warn).mockClear()
-
 			await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
-			expect(log.warn).toHaveBeenCalledWith('Probe failure escalation', {scope: {kind: 'site', siteId: 'youtube'}, failure: 'ageRestricted', escalated: false, declined: 'gateFailed', error: 'settings unreadable'})
+			expect(decisionLines()).toEqual([{scope: {kind: 'site', siteId: 'youtube'}, failure: 'ageRestricted', escalated: false, declined: 'gateFailed', error: 'settings unreadable'}])
 		})
 
 		it('logs nothing for a probe that succeeded, opted out or was cancelled', async () => {

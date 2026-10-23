@@ -249,6 +249,14 @@ describe('download escalation decision log', () => {
 		expect(JSON.stringify(decisionLines())).not.toContain('secret')
 	})
 
+	it('keeps the original failure and logs gateFailed when the gate cannot answer', async () => {
+		const {ctx, run, canEscalate} = makeCtx({runs: [LOGIN_REQUIRED], signedIn: true})
+		canEscalate.mockRejectedValueOnce(new Error('cookie store unavailable'))
+		expect(await VideoPhase.run(ctx)).toMatchObject({kind: 'hard-failed', error: {kind: 'loginRequired'}})
+		expect(run).toHaveBeenCalledOnce()
+		expect(decisionLines()).toEqual([{jobId: 'job-1', scope: YOUTUBE_SCOPE, failure: 'loginRequired', escalated: false, declined: 'gateFailed', error: 'cookie store unavailable'}])
+	})
+
 	it('logs nothing for a run that succeeded or a job already signed in', async () => {
 		await VideoPhase.run(makeCtx({runs: [SUCCESS], signedIn: true}).ctx)
 		await VideoPhase.run(makeCtx({runs: [LOGIN_REQUIRED], input: {auth: 'exploreSession'}, signedIn: true}).ctx)

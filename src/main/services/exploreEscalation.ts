@@ -16,8 +16,9 @@ import {asksForCookieLogin, asksOnlyForPassword} from '@shared/ytdlp/loginHint.j
 export type ExploreGateDecision = {allowed: true} | {allowed: false; reason: ExploreGateRefusal}
 
 // Whether a failed run is retried with the Explore session, and why not when it
-// is not. Logged once per failed run that could have escalated.
-export type EscalationDecision = {escalated: true; reason: EscalationReason} | {escalated: false; declined: EscalationDecline}
+// is not; `error` is a gate's own failure. Logged once per failed run that
+// could have escalated.
+export type EscalationDecision = {escalated: true; reason: EscalationReason} | {escalated: false; declined: EscalationDecline; error?: string}
 
 export type EscalationInput = {stage: 'probe'; url: string; error: ProbeError} | {stage: 'download'; errorKind: YtDlpErrorKind; rawError: string | null; ladderExhausted: boolean}
 
@@ -88,10 +89,15 @@ export function reachesPlaylistItems(reason: EscalationReason): boolean {
 
 // Decides a failed run's escalation from why an account would fix it (null:
 // it would not) and the run's cookie scope; the gate is asked only when both
-// are there. A gate that throws is the caller's to handle.
+// are there. A gate that cannot answer counts as "no": the anonymous failure
+// stands.
 export async function decideEscalation(reason: EscalationReason | null, scope: ExploreCookieScope | null, gate: {canEscalate(scope: ExploreCookieScope): Promise<ExploreGateDecision>}): Promise<EscalationDecision> {
 	if (reason === null) return {escalated: false, declined: 'notAccountFixable'}
 	if (scope === null) return {escalated: false, declined: 'noExploreScope'}
-	const decision = await gate.canEscalate(scope)
-	return decision.allowed ? {escalated: true, reason} : {escalated: false, declined: decision.reason}
+	try {
+		const decision = await gate.canEscalate(scope)
+		return decision.allowed ? {escalated: true, reason} : {escalated: false, declined: decision.reason}
+	} catch (err) {
+		return {escalated: false, declined: 'gateFailed', error: err instanceof Error ? err.message : String(err)}
+	}
 }

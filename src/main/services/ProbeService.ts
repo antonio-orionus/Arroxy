@@ -15,7 +15,7 @@ import {exploreCookieScopeFor} from '@shared/sites/exploreCookieScope.js'
 import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
 import {PROBE_TIMEOUT_MESSAGE, RATE_LIMIT_COOLDOWN_MESSAGE, YtDlp, type RunIdentity} from './YtDlp.js'
 import type {ProbeSlots} from './ProbeSlots.js'
-import {decideEscalation, escalationReason, reachesPlaylistItems, type EscalationDecision} from './exploreEscalation.js'
+import {decideEscalation, escalationReason, reachesPlaylistItems} from './exploreEscalation.js'
 import type {ExploreGate} from './exploreGate.js'
 import type {ExploreSignInCheck} from './phases/types.js'
 import {mapFormats} from '@shared/ytdlp/formatMapping.js'
@@ -537,21 +537,13 @@ export class ProbeService extends EventEmitter {
 	}
 
 	// Why an account would fix this failure, while the user is signed in to
-	// Explore; null otherwise. A gate that cannot answer counts as "no": the
-	// anonymous failure stands. Every failure that reaches the gate's question
-	// logs one line saying whether it escalated, and why not.
+	// Explore; null otherwise. Every failed probe that could have escalated logs
+	// one line saying whether it did, and why not.
 	private async escalationFor(url: string, error: ProbeError, signal: AbortSignal): Promise<EscalationReason | null> {
 		if (signal.aborted || !this.exploreGate) return null
 		const scope = exploreCookieScopeFor(url)
-		const failure = error.kind === 'ytdlp' ? error.error.kind : error.code
-		let decision: EscalationDecision
-		try {
-			decision = await decideEscalation(escalationReason({stage: 'probe', url, error}), scope, this.exploreGate)
-		} catch (err) {
-			logger.warn('Probe failure escalation', {scope, failure, escalated: false, declined: 'gateFailed', error: err instanceof Error ? err.message : String(err)})
-			return null
-		}
-		logger.info('Probe failure escalation', {scope, failure, ...decision})
+		const decision = await decideEscalation(escalationReason({stage: 'probe', url, error}), scope, this.exploreGate)
+		logger.info('Probe failure escalation', {scope, failure: error.kind === 'ytdlp' ? error.error.kind : error.code, ...decision})
 		return decision.escalated ? decision.reason : null
 	}
 
