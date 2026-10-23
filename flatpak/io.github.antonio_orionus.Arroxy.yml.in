@@ -16,6 +16,10 @@ finish-args:
   - --filesystem=xdg-videos
   - --filesystem=xdg-music
   - --talk-name=org.freedesktop.Notifications
+  # yt-dlp reads the key that Chromium-based browsers encrypt their cookies with
+  # from the Secret Service; the profile folder itself comes through the file
+  # chooser portal, so no browser folder is granted here.
+  - --talk-name=org.freedesktop.secrets
 
 modules:
   - name: arroxy
