@@ -1,0 +1,41 @@
+{
+	"id": "ffmpeg",
+	"version": "n9.0.2-17-g2a571b6068",
+	"platform": "linux",
+	"arch": "x64",
+	"url": "https://github.com/antonio-orionus/arroxy-runtime-binaries/releases/download/ffmpeg-2026.10.19.2/arroxy-ffmpeg-linux-x64.tar.br",
+	"mirrors": [],
+	"size": 50907555,
+	"sha256": "d297ba99a735bddc340579cd0d3366393f9bf40dc72fa09f0c4e6fbe67b7053d",
+	"format": "tar.br",
+	"ffmpegPath": "ffmpeg",
+	"ffprobePath": "ffprobe",
+	"files": [
+		{"path": "ffmpeg", "size": 510168},
+		{"path": "ffprobe", "size": 227472},
+		{"path": "libavcodec.so.63.1.102", "size": 119947888},
+		{"path": "libavdevice.so.63.1.102", "size": 5688608},
+		{"path": "libavfilter.so.12.1.102", "size": 38088096},
+		{"path": "libavformat.so.63.1.102", "size": 26275224},
+		{"path": "libavutil.so.61.1.102", "size": 8617640},
+		{"path": "libswresample.so.7.1.102", "size": 502728},
+		{"path": "libswscale.so.10.1.102", "size": 2250712},
+		{"path": "NOTICE.txt", "size": 889}
+	],
+	"links": [
+		{"path": "libavcodec.so", "target": "libavcodec.so.63.1.102"},
+		{"path": "libavcodec.so.63", "target": "libavcodec.so.63.1.102"},
+		{"path": "libavdevice.so", "target": "libavdevice.so.63.1.102"},
+		{"path": "libavdevice.so.63", "target": "libavdevice.so.63.1.102"},
+		{"path": "libavfilter.so", "target": "libavfilter.so.12.1.102"},
+		{"path": "libavfilter.so.12", "target": "libavfilter.so.12.1.102"},
+		{"path": "libavformat.so", "target": "libavformat.so.63.1.102"},
+		{"path": "libavformat.so.63", "target": "libavformat.so.63.1.102"},
+		{"path": "libavutil.so", "target": "libavutil.so.61.1.102"},
+		{"path": "libavutil.so.61", "target": "libavutil.so.61.1.102"},
+		{"path": "libswresample.so", "target": "libswresample.so.7.1.102"},
+		{"path": "libswresample.so.7", "target": "libswresample.so.7.1.102"},
+		{"path": "libswscale.so", "target": "libswscale.so.10.1.102"},
+		{"path": "libswscale.so.10", "target": "libswscale.so.10.1.102"}
+	]
+}

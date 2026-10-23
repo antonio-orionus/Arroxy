@@ -1,0 +1,103 @@
+name: yt-dlp Message Catalogue
+
+# Daily: build the yt-dlp message catalogue for the commit the signed runtime
+# manifest pins (the yt-dlp users run), and push it with its coverage report to
+# the `ytdlp-catalogue` data branch, one commit per pin. Runs an hour after the
+# manifest publishes (13:00 UTC); exits early when neither the pin nor the label
+# generator changed. Never part of a pin bump: the manifest is already published,
+# nothing on main reads the data branch, and a failure fails only this run.
+# Reads and pushes nothing else; labels change on main (scripts/ytdlp-catalogue/).
+
+on:
+  schedule:
+    - cron: '0 14 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+  BUN_VERSION: '1.4.2'
+  DATA_BRANCH: ytdlp-catalogue
+
+permissions:
+  contents: read
+
+jobs:
+  catalogue:
+    name: Build the catalogue
+    runs-on: ubuntu-latest
+    permissions:
+      # Pushes the data branch, and nothing else.
+      contents: write
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version-file: .node-version
+
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      # The data branch shares no history with main; the first run starts it.
+      - name: Check out the data branch
+        run: |
+          set -euo pipefail
+          data="$RUNNER_TEMP/catalogue"
+          if git ls-remote --exit-code --heads "https://github.com/${GITHUB_REPOSITORY}.git" "$DATA_BRANCH" > /dev/null; then
+            git clone --quiet --depth 1 --branch "$DATA_BRANCH" "https://github.com/${GITHUB_REPOSITORY}.git" "$data"
+          else
+            git init --quiet --initial-branch "$DATA_BRANCH" "$data"
+          fi
+          echo "DATA_DIR=$data" >> "$GITHUB_ENV"
+
+      - name: Build for the pinned yt-dlp
+        id: build
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: bun scripts/ytdlp-catalogue/daily.ts --data-dir "$DATA_DIR"
+
+      - name: Coverage report to the summary
+        if: steps.build.outputs.changed == 'true'
+        env:
+          REPORT: ${{ steps.build.outputs.report }}
+        run: cat "$DATA_DIR/coverage/$REPORT.md" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Push the data branch
+        if: steps.build.outputs.changed == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.build.outputs.version }}
+          REASON: ${{ steps.build.outputs.reason }}
+        run: |
+          set -euo pipefail
+          cd "$DATA_DIR"
+          git add --all
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit --quiet -m "yt-dlp ${VERSION}: ${REASON}"
+          auth=$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 -w0)
+          echo "::add-mask::${auth}"
+          git -c "http.https://github.com/.extraheader=AUTHORIZATION: basic ${auth}" push --quiet "https://github.com/${GITHUB_REPOSITORY}.git" "HEAD:refs/heads/${DATA_BRANCH}"
+
+      # Pushed first: a partial catalogue still beats none. Red, because those
+      # files' sites are missing until the extractor reads them.
+      - name: Fail on files that did not parse
+        if: steps.build.outputs.changed == 'true' && steps.build.outputs.parseFailures != '0'
+        env:
+          FAILURES: ${{ steps.build.outputs.parseFailures }}
+        run: |
+          echo "::error::${FAILURES} yt-dlp files did not parse; their message sites are missing from the catalogue (see the coverage report)."
+          exit 1

@@ -6,7 +6,7 @@ import {mkdtemp, readFile, rm} from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import {afterAll, describe, expect, it} from 'vite-plus/test'
-import {buildCatalogue, readPrevious, RULE_FILES, writeCatalogue} from '../../scripts/ytdlp-catalogue/build.js'
+import {buildCatalogue, readPrevious, GENERATOR_FILES, writeCatalogue} from '../../scripts/ytdlp-catalogue/build.js'
 import {catalogueSchema} from '../../scripts/ytdlp-catalogue/catalogue.js'
 import {findPython} from '../../scripts/selection-parity/python.js'
 
@@ -28,7 +28,7 @@ describe.skipIf(python === null && !process.env.CI)('ytdlp-catalogue build', asy
 		expect(parsed.ytDlp).toEqual(YT_DLP)
 		expect(parsed.sites.length).toBeGreaterThan(50)
 		expect(text.split('\n').filter(line => line.startsWith('{"id":'))).toHaveLength(parsed.sites.length)
-		expect(parsed.generator.rulesHash).toMatch(/^[0-9a-f]{12}$/)
+		expect(parsed.generator.hash).toMatch(/^[0-9a-f]{12}$/)
 	})
 
 	it('labels the fixture sites by their rules', () => {
@@ -58,15 +58,26 @@ describe.skipIf(python === null && !process.env.CI)('ytdlp-catalogue build', asy
 		expect(await readPrevious(undefined)).toBeNull()
 	})
 
-	it('the rules hash covers the classifier and the app escalation it labels with', () => {
+	it('the generator hash covers the extractor, the labels, the report, the classifier and the app escalation', () => {
 		expect(
-			RULE_FILES.map(file =>
+			GENERATOR_FILES.map(file =>
 				path
 					.relative(path.resolve(import.meta.dirname, '../..'), file)
 					.split(path.sep)
 					.join('/')
 			)
-		).toEqual(expect.arrayContaining(['scripts/ytdlp-catalogue/label.ts', 'scripts/ytdlp-catalogue/overrides.json', 'packages/ytdlp-errors/src/patterns.ts', 'src/main/services/exploreEscalation.ts', 'src/shared/ytdlp/loginHint.ts']))
+		).toEqual(
+			expect.arrayContaining([
+				'scripts/ytdlp-catalogue/extract.py',
+				'scripts/ytdlp-catalogue/extract.ts',
+				'scripts/ytdlp-catalogue/coverage.ts',
+				'scripts/ytdlp-catalogue/label.ts',
+				'scripts/ytdlp-catalogue/overrides.json',
+				'packages/ytdlp-errors/src/patterns.ts',
+				'src/main/services/exploreEscalation.ts',
+				'src/shared/ytdlp/loginHint.ts'
+			])
+		)
 	})
 
 	it('refuses a version that cannot name a file', async () => {

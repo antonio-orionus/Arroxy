@@ -59,3 +59,4 @@ The Flatpak repo is not a separate repository: the release pipeline publishes it
 - [startup-verification.md](startup-verification.md) — Startup-verification program: current tier status, the nine design decisions and their rationale, open defects, and incidents.
 - [tooling-contract.md](tooling-contract.md) — The root-owned tooling contract behind `bun run check` (`vp check`, tests, knip, package gates). Do not add package-local formatter/linter configs.
 - [visual-debugging.md](visual-debugging.md) — browser-mock and Electron CDP inspection, agent-browser and Playwright recipes, locale simulation, and the GPU/backdrop fallback model.
+- [ytdlp-message-catalogue.md](ytdlp-message-catalogue.md) — The daily yt-dlp message catalogue: every message site in the pinned yt-dlp, labelled with failure kind, account help and action plus the rule behind each; where it lives (the `ytdlp-catalogue` data branch), the commands, and how to change a label.

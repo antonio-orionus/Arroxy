@@ -56,8 +56,9 @@ export type CatalogueSite = z.infer<typeof catalogueSiteSchema>
 export const catalogueSchema = z.strictObject({
 	schemaVersion: z.literal(1),
 	ytDlp: z.strictObject({commit: z.string().regex(/^[0-9a-f]{40}$/), version: z.string().min(1), channel: z.enum(['nightly', 'stable']), manifestGeneratedAt: z.string().nullable()}),
-	// A rules change alone re-labels the same sites, so the hash says which rules wrote the file.
-	generator: z.strictObject({extractVersion: z.literal(1), rulesHash: z.string().regex(/^[0-9a-f]{12}$/)}),
+	// A change to the generator alone (extractor, rules, report) changes the output
+	// for the same commit, so the hash says which generator wrote the file.
+	generator: z.strictObject({extractVersion: z.literal(1), hash: z.string().regex(/^[0-9a-f]{12}$/)}),
 	sites: z.array(catalogueSiteSchema)
 })
 export type Catalogue = z.infer<typeof catalogueSchema>

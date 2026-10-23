@@ -16,7 +16,7 @@ const COMMIT = 'a'.repeat(40)
 
 function catalogue(sites: RawSite[], overrides: Override[] = [], version = '2026.10.21.233146') {
 	const labelled = labelSites(sites, overrides)
-	const built: Catalogue = {schemaVersion: 1, ytDlp: {commit: COMMIT, version, channel: 'nightly', manifestGeneratedAt: null}, generator: {extractVersion: 1, rulesHash: '0123456789ab'}, sites: labelled.sites}
+	const built: Catalogue = {schemaVersion: 1, ytDlp: {commit: COMMIT, version, channel: 'nightly', manifestGeneratedAt: null}, generator: {extractVersion: 1, hash: '0123456789ab'}, sites: labelled.sites}
 	return {catalogue: built, overrideHits: labelled.overrideHits, disagreements: labelled.disagreements}
 }
 

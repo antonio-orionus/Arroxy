@@ -21,11 +21,15 @@ import {labelSites} from './label.js'
 const HERE = import.meta.dirname
 const ROOT = path.resolve(HERE, '../..')
 const OVERRIDES = path.join(HERE, 'overrides.json')
-// The files whose change alone re-labels the same sites: the rules, the
-// overrides, the patterns the text rule classifies with, and the app's sign-in
-// escalation the account rule asks.
-export const RULE_FILES = [
+// The files whose change alone changes the output for the same yt-dlp commit:
+// the extractor, the rules and overrides, the report, the patterns the text rule
+// classifies with, and the app's sign-in escalation the account rule asks.
+export const GENERATOR_FILES = [
+	path.join(HERE, 'extract.py'),
+	path.join(HERE, 'extract.ts'),
 	path.join(HERE, 'label.ts'),
+	path.join(HERE, 'coverage.ts'),
+	path.join(HERE, 'build.ts'),
 	path.join(HERE, 'catalogue.ts'),
 	OVERRIDES,
 	...['patterns.ts', 'classifier.ts', 'kinds.ts'].map(file => path.join(ROOT, 'packages/ytdlp-errors/src', file)),
@@ -50,19 +54,22 @@ export async function buildCatalogue({src, ytDlp, previous}: BuildOptions): Prom
 	const overrides = overridesSchema.parse(JSON.parse(await readFile(OVERRIDES, 'utf8')))
 	const extracted = await extractSites(src)
 	const {sites, overrideHits, disagreements} = labelSites(extracted.sites, overrides)
-	const catalogue = catalogueSchema.parse({schemaVersion: 1, ytDlp, generator: {extractVersion: 1, rulesHash: await rulesHash()}, sites})
+	const catalogue = catalogueSchema.parse({schemaVersion: 1, ytDlp, generator: {extractVersion: 1, hash: await generatorHash()}, sites})
 	return {catalogue, report: coverageReport({catalogue, previous, overrideHits, disagreements, parseFailures: extracted.parseFailures}), parseFailures: extracted.parseFailures}
 }
 
-export async function writeCatalogue(outDir: string, {catalogue, report}: Built): Promise<void> {
+// The report is named after the version unless a name is given (a same-pin
+// rebuild writes its own, so the pin's report keeps its diff).
+export async function writeCatalogue(outDir: string, {catalogue, report}: Built, reportName = catalogue.ytDlp.version): Promise<void> {
+	if (!/^[\w.+-]+$/.test(reportName) || reportName.startsWith('.')) throw new Error(`"${reportName}" cannot name a coverage file`)
 	await mkdir(path.join(outDir, 'coverage'), {recursive: true})
 	await writeFile(path.join(outDir, 'ytdlp-catalogue.json'), serializeCatalogue(catalogue))
-	await writeFile(path.join(outDir, 'coverage', `${catalogue.ytDlp.version}.md`), report)
+	await writeFile(path.join(outDir, 'coverage', `${reportName}.md`), report)
 }
 
-async function rulesHash(): Promise<string> {
+export async function generatorHash(): Promise<string> {
 	const hash = createHash('sha256')
-	for (const file of RULE_FILES) hash.update(await readFile(file))
+	for (const file of GENERATOR_FILES) hash.update(await readFile(file))
 	return hash.digest('hex').slice(0, 12)
 }
 

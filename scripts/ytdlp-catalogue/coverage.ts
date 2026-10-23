@@ -22,7 +22,7 @@ export function coverageReport({catalogue, previous, overrideHits, disagreements
 	return [
 		`# yt-dlp message catalogue: ${ytDlp.version}`,
 		'',
-		`Commit \`${ytDlp.commit}\` (${ytDlp.channel})${ytDlp.manifestGeneratedAt ? `, pinned by the runtime manifest of ${ytDlp.manifestGeneratedAt}` : ''}. ${sites.length} message sites; rules \`${catalogue.generator.rulesHash}\`.`,
+		`Commit \`${ytDlp.commit}\` (${ytDlp.channel})${ytDlp.manifestGeneratedAt ? `, pinned by the runtime manifest of ${ytDlp.manifestGeneratedAt}` : ''}. ${sites.length} message sites; generator \`${catalogue.generator.hash}\`.`,
 		'',
 		...(parseFailures.length ? ['## Files that did not parse', '', 'Their sites are missing from this catalogue.', '', ...parseFailures.map(failure => `- \`${failure.file}\`: ${failure.error}`), ''] : []),
 		...sitesSection(sites),
