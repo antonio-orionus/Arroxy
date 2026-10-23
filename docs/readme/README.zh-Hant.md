@@ -30,7 +30,7 @@
 >
 > **關鍵差異：內建瀏覽器。** 多數免費 YouTube 下載器只是單薄的 yt-dlp 包裝程式：一個網址輸入框加一個格式選單，沒有自己的瀏覽器。Arroxy 有，就是 **Explore 分頁**。你可以在應用程式內瀏覽 YouTube 或任何其他網站，直接下載目前所在的影片、播放清單或頻道，或對任何連結按右鍵。如果你在 Explore 登入一次，需要帳號的下載就會使用該登入：你的私人影片、你的「稍後觀看」和「喜歡的影片」清單，以及你的帳號本來就能觀看的其他影片，無需匯出 Cookie。你也可以在 Explore 登入其他網站，這些網站的下載在需要時會使用該登入。詳情：[為什麼選 Arroxy](#why-explore)。
 >
-> _最後更新：2026-10-22。_
+> _最後更新：2026-10-23。_
 
 > 🌐 這是 AI 輔助翻譯。[英文 README](../../README.md) 是內容基準。發現錯誤？歡迎 [建立 PR](../../../../pulls)。
 
@@ -392,9 +392,9 @@ Arroxy 只做一件事：無論你是貼上連結，還是在 Explore 中找到�
 
 下載透過 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 直接從 YouTube 取得到你選擇的資料夾 — 不經過任何第三方伺服器。觀看歷史、下載歷史、URL 和檔案內容均保留在你的裝置上。
 
-不追蹤 — 每天只傳送一次匿名心跳訊號（應用程式版本、OS、語言、安裝管道、國家/地區，以及 Arroxy 大約是多久前安裝的），用來統計活躍使用者和新使用者；Arroxy 下載或更新 yt-dlp 和 FFmpeg 時，也會傳送一則匿名記錄，說明是否成功以及大約耗時。不包含 ID、URL、影片標題、檔案路徑或帳號資訊。你可以在設定中關閉這兩項。
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explore 有自己獨立的登入，與你的瀏覽器分開，Arroxy 不會讀取或填寫登入表單 — 你是在 該網站自己的頁面上輸入。下載在未登入狀態下進行；只有在下載因帳號可解決的原因失敗時，Arroxy 才會重新讀取該登入，把它放進僅供該次下載使用的暫存檔，並在之後刪除該檔案。在設定中登出 Explore 即可清除這些登入。
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

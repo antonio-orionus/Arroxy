@@ -30,7 +30,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 >
 > **Điểm khác biệt chính: trình duyệt tích hợp.** Hầu hết trình tải YouTube miễn phí chỉ là lớp bao mỏng quanh yt-dlp: một ô nhập URL và một menu định dạng, không có trình duyệt riêng. Arroxy thì có, đó là **tab Explore**. Bạn duyệt YouTube hoặc bất kỳ trang nào khác ngay trong ứng dụng và tải video, danh sách phát hoặc kênh đang mở, hoặc nhấp chuột phải vào bất kỳ liên kết nào. Nếu bạn đăng nhập một lần trong Explore, các lượt tải cần tài khoản sẽ dùng đăng nhập đó: video riêng tư của bạn, danh sách Xem sau và Video đã thích của bạn, cùng các video khác mà tài khoản của bạn đã xem được, mà không cần xuất cookie. Bạn cũng có thể đăng nhập các trang khác tại đó, và các lượt tải từ những trang này sẽ dùng đăng nhập đó khi cần. Chi tiết: [Tại sao chọn Arroxy](#why-explore).
 >
-> _Cập nhật lần cuối: 2026-10-22._
+> _Cập nhật lần cuối: 2026-10-23._
 
 ---
 
@@ -390,9 +390,9 @@ Hầu hết các trình tải YouTube miễn phí chỉ là một ô nhập URL 
 
 Tải xuống được lấy trực tiếp qua [yt-dlp](https://github.com/yt-dlp/yt-dlp) từ YouTube đến thư mục bạn chọn — không có gì đi qua máy chủ bên thứ ba. Lịch sử xem, lịch sử tải xuống, URL và nội dung file vẫn ở trên thiết bị của bạn.
 
-Không theo dõi — mỗi ngày một tín hiệu ẩn danh (phiên bản ứng dụng, OS, ngôn ngữ, kênh cài đặt, quốc gia và khoảng thời gian đã trôi qua kể từ khi cài đặt Arroxy) để chúng tôi đếm số người dùng đang hoạt động và người dùng mới, và khi Arroxy tải hoặc cập nhật yt-dlp và FFmpeg, một ghi chú ẩn danh cho biết việc đó có thành công không và mất khoảng bao lâu. Không có ID, URL, tiêu đề video, đường dẫn tệp hay thông tin tài khoản. Bạn có thể tắt cả hai trong Cài đặt.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explore giữ các đăng nhập riêng, tách biệt với trình duyệt của bạn, và Arroxy không bao giờ đọc hay điền biểu mẫu đăng nhập — bạn nhập trực tiếp vào trang của chính trang web đó. Các lượt tải chạy khi chưa đăng nhập; chỉ khi một lượt tải thất bại theo cách mà tài khoản có thể khắc phục, Arroxy mới đọc lại thông tin đăng nhập, lưu vào một tệp tạm cho lượt tải đó và xóa tệp sau đó. Đăng xuất khỏi Explore trong Cài đặt sẽ xóa các thông tin này.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

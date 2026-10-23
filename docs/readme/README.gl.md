@@ -30,7 +30,7 @@ Se Arroxy che aforra tempo, unha ⭐ axuda a que outros o atopen.
 >
 > **Diferenza clave: un navegador integrado.** A maioría dos descargadores gratuítos de YouTube son envoltorios finos de yt-dlp: unha caixa de URL e un menú de formatos, sen navegador propio. Arroxy ten un, a lapela **Explorar**. Navegas por YouTube ou por calquera outro sitio dentro da aplicación e descargas o vídeo, a lista de reprodución ou a canle na que estás, ou fas clic dereito en calquera ligazón. Se inicias sesión unha vez en Explorar, as descargas que requiren unha conta usarán ese inicio de sesión: os teus vídeos privados, as túas listas Ver máis tarde e Gústame, e outros vídeos que a túa conta xa pode ver, sen exportar cookies. Inicia sesión tamén noutros sitios alí, e as súas descargas usarán ese inicio de sesión cando o precisen. Detalles: [Por que Arroxy](#why-explore).
 >
-> _Última actualización: 2026-10-22._
+> _Última actualización: 2026-10-23._
 
 > 🌐 Esta tradución fíxose co apoio da IA. O [README en inglés](../../README.md) é a fonte de referencia. Atopaches un erro? [Abre un PR](../../../../pulls).
 
@@ -392,9 +392,9 @@ A maioría dos descargadores gratuítos de YouTube son unha caixa de URL sobre y
 
 As descargas obtéñense directamente mediante [yt-dlp](https://github.com/yt-dlp/yt-dlp) desde YouTube ao cartafol que escollas: nada pasa por un servidor de terceiros. O historial de reprodución, o historial de descargas, as URLs e o contido dos ficheiros quedan no teu dispositivo.
 
-Sen seguimento — un sinal anónimo ao día (versión da aplicación, SO, idioma, canle de instalación, país e aproximadamente canto tempo hai que se instalou Arroxy) para poder contar os usuarios activos e novos e, cando Arroxy descarga ou actualiza yt-dlp e FFmpeg, unha nota anónima sobre se funcionou e aproximadamente canto tardou. Sen IDs, URLs, títulos de vídeos, rutas de ficheiros nin datos de contas. Podes desactivar ambos na configuración.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explorar garda os seus propios inicios de sesión, separados do teu navegador, e Arroxy nunca le nin completa un formulario de inicio de sesión: escribes na propia páxina do sitio. As descargas execútanse sen sesión iniciada; só cando unha falla de xeito que unha conta pode arranxar, Arroxy le o inicio de sesión de novo, gárdao nun ficheiro temporal para esa descarga e elimina o ficheiro despois. Pechar a sesión en Explorar na configuración esquéceos.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

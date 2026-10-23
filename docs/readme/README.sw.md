@@ -30,7 +30,7 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 >
 > **Tofauti kuu: kivinjari kilichojengewa ndani.** Vipakuzi vingi vya bure vya YouTube ni vifuniko vyembamba vya yt-dlp: kisanduku cha URL na menyu ya miundo, bila kivinjari chao wenyewe. Arroxy ina kimoja, **kichupo cha Gundua**. Unavinjari YouTube au tovuti nyingine yoyote ndani ya programu na kupakua video, orodha ya kucheza, au kituo ulichopo, au kubofya kulia kiungo chochote. Ukiingia mara moja katika Gundua, upakuaji unaohitaji akaunti hutumia kuingia huko: video zako za faragha, orodha zako za Tazama Baadaye na Zilizopendwa, na video nyingine ambazo akaunti yako tayari inaweza kutazama, bila kuhamisha vidakuzi. Ingia pia kwenye tovuti nyingine humo, na upakuaji wao hutumia kuingia huko pale unapohitajika. Maelezo: [Kwa Nini Arroxy](#why-explore).
 >
-> _Imesasishwa mara ya mwisho: 2026-10-22._
+> _Imesasishwa mara ya mwisho: 2026-10-23._
 
 ---
 
@@ -390,9 +390,9 @@ Vipakuzi vingi vya bure vya YouTube ni kisanduku cha URL juu ya yt-dlp tu. Arrox
 
 Maudhui hupakuliwa moja kwa moja kupitia [yt-dlp](https://github.com/yt-dlp/yt-dlp) kutoka YouTube hadi kwenye folda unayochagua — hakuna kitu kinachopita kwenye seva ya mtu wa tatu. Historia ya kutazama, historia ya kupakua, URL, na maudhui ya faili yanabaki kwenye kifaa chako.
 
-Hakuna ufuatiliaji — ishara moja tu isiyo na jina kwa siku (toleo la programu, OS, lugha, njia ya usakinishaji, nchi na takriban muda uliopita tangu Arroxy iliposakinishwa) ili tuweze kuhesabu watumiaji hai na wapya, na, Arroxy inapopakua au kusasisha yt-dlp na FFmpeg, taarifa isiyo na jina kuhusu kama ilifanikiwa na takriban ilichukua muda gani. Hakuna vitambulisho, URLs, vichwa vya video, njia za faili wala taarifa za akaunti. Unaweza kuzima zote mbili katika Mipangilio.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explore ina njia zake za kuingia, tofauti na kivinjari chako, na Arroxy haisomi wala kujaza fomu ya kuingia kamwe — unaandika kwenye ukurasa wa tovuti wenyewe. Upakuaji hufanyika bila kuingia; ni pale tu upakuaji unaposhindwa kwa njia ambayo akaunti inaweza kurekebisha ndipo Arroxy husoma kuingia upya, kuliweka kwenye faili ya muda kwa upakuaji huo, na kufuta faili baadaye. Kutoka kwenye Explore katika Mipangilio huzifanya zisahaulike.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

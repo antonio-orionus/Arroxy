@@ -30,7 +30,7 @@
 >
 > **مهم توپیر: په ځان کې جوړ browser.** ډېری وړیا YouTube ډاونلوډرونه نریز yt-dlp wrappers دي: د URL یوه خانه او د فارمټ مینو، پرته له خپل browser. Arroxy یو لري، **د Explore ټب**. تاسو د اپلیکیشن دننه YouTube یا بل هر سایټ ګورئ او هغه ویډیو، playlist یا چینل چې پکې یاست ډاونلوډ کوئ، یا په هر لینک ښي کلیک کوئ. که تاسو په Explore کې یو ځل sign in وکړئ، هغه ډاونلوډونه چې اکاونټ ته اړتیا لري همدا sign in کاروي: ستاسو شخصي ویډیوګانې، ستاسو Watch Later او Liked لیستونه، او نورې ویډیوګانې چې ستاسو اکاونټ یې دمخه لیدلی شي، پرته له کوکیز صادرولو. هلته په نورو سایټونو کې هم sign in وکړئ، او د هغوی ډاونلوډونه هغه sign in کاروي کله چې ورته اړتیا وي. جزئیات: [ولې Arroxy](#why-explore).
 >
-> _وروستی تازه کول: 2026-10-22._
+> _وروستی تازه کول: 2026-10-23._
 
 ---
 
@@ -390,9 +390,9 @@ Arroxy د یوه کار لپاره جوړ شوی: یو پاک ځایي فایل�
 
 ډاونلوډونه مستقیما د [yt-dlp](https://github.com/yt-dlp/yt-dlp) له لارې له YouTube څخه هغه فولډر ته راوړل کیږي چې تاسو انتخاب کوئ — هیڅ شی د دریمې ډلې سرور له لارې نه تیریږي. د لیدلو تاریخ، ډاونلوډ تاریخ، URL، او د فایل منځپانګه ستاسو وسیله کې پاتې کیږي.
 
-هیڅ تعقیب نشته — په ورځ کې یو ناپیژندلی هارټ بیټ (د اپ نسخه، OS، ژبه، د نصب چینل، هېواد او تقریباً دا چې Arroxy څومره وخت مخکې نصب شوی) ترڅو موږ فعال او نوي کاروونکي وشمېرو، او کله چې Arroxy yt-dlp او FFmpeg ډاونلوډوي یا تازه کوي، یو ناپیژندلی یادښت چې ایا بریالی شو او تقریباً څومره وخت یې ونیو. هیڅ ID، URLs، د ویډیو سرلیکونه، د فایل لارې یا د اکاونټ معلومات نشته. تاسو دواړه په Settings کې بندولی شئ.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explore خپل sign in ګانې ساتي، ستاسو له browser جلا، او Arroxy هیڅکله د sign in فورمه نه لولي او نه یې ډکوي — تاسو د سایټ په خپله پاڼه کې ټایپ کوئ. ډاونلوډونه له sign in پرته چلېږي؛ یوازې کله چې یو ډاونلوډ په داسې ډول ناکام شي چې اکاونټ یې سمولی شي، Arroxy sign in بیا لولي، د هغه ډاونلوډ لپاره یې په موقت فایل کې ساتي، او وروسته فایل ړنګوي. په Settings کې له Explore څخه sign out هغوی هېروي.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

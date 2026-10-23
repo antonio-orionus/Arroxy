@@ -30,7 +30,7 @@ Prenesite videoposnetke, Shorts, kanale, podkaste ali zvočne posnetke z **YouTu
 >
 > **Ključna razlika: vgrajen brskalnik.** Večina brezplačnih prenosnikov za YouTube so tanki ovoji okoli yt-dlp: polje za URL in meni formatov, brez lastnega brskalnika. Arroxy ga ima, to je zavihek **Razišči**. Po YouTubu ali katerem koli drugem spletnem mestu brskate v aplikaciji in prenesete videoposnetek, seznam predvajanja ali kanal, na katerem ste, ali pa z desnim klikom na katero koli povezavo. Če se v Razišči prijavite enkrat, prenosi, ki zahtevajo račun, uporabijo to prijavo: vaše zasebne videoposnetke, vaša seznama Ogled pozneje in Všečkano ter druge videoposnetke, ki jih že lahko gleda vaš račun, brez izvoza piškotkov. Tam se prijavite tudi v druga spletna mesta, njihovi prenosi pa to prijavo uporabijo, kadar jo potrebujejo. Podrobnosti: [Zakaj Arroxy](#why-explore).
 >
-> _Zadnja posodobitev: 2026-10-22._
+> _Zadnja posodobitev: 2026-10-23._
 
 > 🌐 Ta prevod je nastal s pomočjo umetne inteligence. [Angleški README](../../README.md) je nadrejeni vir. Ste našli napako? [Odprite PR](../../../../pulls).
 
@@ -392,9 +392,9 @@ Večina brezplačnih prenosnikov za YouTube je polje za URL nad yt-dlp. Tudi Arr
 
 Prenosi se pridobijo neposredno prek [yt-dlp](https://github.com/yt-dlp/yt-dlp) z YouTuba v mapo, ki jo izberete — nič ne gre prek strežnika tretje osebe. Zgodovina ogledov, zgodovina prenosov, naslovi URL in vsebina datotek ostanejo na vaši napravi.
 
-Brez sledenja — en anonimen signal delovanja na dan (različica aplikacije, OS, jezik, kanal namestitve, država in približno, kako dolgo nazaj je bil Arroxy nameščen), da lahko štejemo aktivne in nove uporabnike, ter, ko Arroxy prenese ali posodobi yt-dlp in FFmpeg, anonimno sporočilo o tem, ali je uspelo, in približno, koliko časa je trajalo. Brez ID-jev, naslovov URL, naslovov videoposnetkov, poti do datotek ali podatkov o računu. Oboje lahko izklopite v nastavitvah.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Razišči hrani lastne prijave, ločene od vašega brskalnika, Arroxy pa nikoli ne prebere ali izpolni obrazca za prijavo — vpisujete na strani spletnega mesta samega. Prenosi tečejo odjavljeni; samo kadar kateri spodleti na način, ki ga lahko odpravi račun, Arroxy sveže prebere prijavo, jo za ta prenos shrani v začasno datoteko in datoteko nato izbriše. Z odjavo iz Razišči v nastavitvah se pozabijo.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

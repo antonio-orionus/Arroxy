@@ -438,7 +438,7 @@ export const EXPLORE_SEARCH_ENGINES = exploreSearchEngineSchema.options
 export const exploreViewStateSchema = z.object({url: z.string(), title: z.string(), canGoBack: z.boolean(), canGoForward: z.boolean(), loading: z.boolean(), signedIn: z.boolean(), error: exploreViewErrorSchema.nullable(), adBlock: exploreAdBlockStatusSchema})
 export type ExploreViewState = z.infer<typeof exploreViewStateSchema>
 
-export const cookiesBrowserSchema = z.enum(['firefox', 'chromium', 'chrome', 'brave', 'edge', 'safari', 'vivaldi'])
+export const cookiesBrowserSchema = z.enum(['firefox', 'chromium', 'chrome', 'brave', 'edge', 'opera', 'safari', 'vivaldi', 'whale'])
 export type CookiesBrowser = z.infer<typeof cookiesBrowserSchema>
 
 export const networkPacingPresetSchema = z.enum(['off', 'balanced', 'careful', 'custom'])
@@ -680,6 +680,8 @@ const commonSettingsSchema = z.object({
 	cookiesPath: z.string().optional(),
 	cookiesMode: cookiesModeSchema.optional(),
 	cookiesBrowser: cookiesBrowserSchema.optional(),
+	// A profile folder for the browser: a fork's own (Floorp, Helium) or a non-default one.
+	cookiesBrowserProfile: z.string().optional(),
 	proxyUrl: z.string().optional(),
 	exploreEnabled: z.boolean().optional(), // absent means enabled
 	exploreUserAgent: z.string().max(64).optional(),

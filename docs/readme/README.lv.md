@@ -30,7 +30,7 @@ Ja Arroxy ietaupa jūsu laiku, ⭐ palīdz citiem to atrast.
 >
 > **Galvenā atšķirība: iebūvēts pārlūks.** Lielākā daļa bezmaksas YouTube lejupielādētāju ir plāni yt-dlp apvalki: URL lodziņš un formātu izvēlne bez paša pārlūka. Arroxy tāds ir – **cilne Izpēte**. Jūs pārlūkojat YouTube vai jebkuru citu vietni lietotnē un lejupielādējat videoklipu, atskaņošanas sarakstu vai kanālu, kurā atrodaties, vai noklikšķiniet ar peles labo pogu uz jebkuras saites. Ja vienreiz pierakstāties sadaļā Izpēte, lejupielādes, kurām nepieciešams konts, izmanto šo pierakstīšanos: jūsu privātos videoklipus, jūsu sarakstus Skatīties vēlāk un Patīk un citus videoklipus, ko jūsu konts jau var skatīties, bez sīkfailu eksportēšanas. Tur varat pierakstīties arī citās vietnēs, un to lejupielādes vajadzības gadījumā izmanto šo pierakstīšanos. Sīkāka informācija: [Kāpēc Arroxy](#why-explore).
 >
-> _Pēdējo reizi atjaunināts: 2026-10-22._
+> _Pēdējo reizi atjaunināts: 2026-10-23._
 
 > 🌐 Šis tulkojums tapis ar mākslīgā intelekta atbalstu. [Angļu valodas README](../../README.md) ir primārais avots. Atradāt kļūdu? [Atveriet PR](../../../../pulls).
 
@@ -392,9 +392,9 @@ Lielākā daļa bezmaksas YouTube lejupielādētāju ir URL lodziņš virs yt-dl
 
 Lejupielādes tiek iegūtas tieši ar [yt-dlp](https://github.com/yt-dlp/yt-dlp) no YouTube uz jūsu izvēlēto mapi — nekas netiek novirzīts caur trešās puses serveri. Skatīšanās vēsture, lejupielādes vēsture, URL un failu saturs paliek jūsu ierīcē.
 
-Bez izsekošanas — viens anonīms pulsa signāls dienā (lietotnes versija, OS, valoda, instalēšanas kanāls, valsts un aptuveni cik sen Arroxy ir instalēts), lai mēs varētu saskaitīt aktīvos un jaunos lietotājus, kā arī, kad Arroxy lejupielādē vai atjaunina yt-dlp un FFmpeg, anonīms ziņojums par to, vai tas izdevās un cik aptuveni ilgi tas prasīja. Bez ID, URL, video nosaukumiem, failu ceļiem vai konta informācijas. Abus varat izslēgt iestatījumos.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Izpēte glabā savas pierakstīšanās atsevišķi no jūsu pārlūka, un Arroxy nekad nenolasa un neaizpilda pierakstīšanās veidlapu — jūs rakstāt pašas vietnes lapā. Lejupielādes darbojas bez pierakstīšanās; tikai tad, kad kāda neizdodas tādā veidā, ko konts var novērst, Arroxy no jauna nolasa pierakstīšanos, glabā to pagaidu failā šai lejupielādei un pēc tam failu izdzēš. Izrakstīšanās no sadaļas Izpēte iestatījumos tās aizmirst.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

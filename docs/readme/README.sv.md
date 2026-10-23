@@ -30,7 +30,7 @@ Om Arroxy sparar tid åt dig hjälper en ⭐ andra att hitta det.
 >
 > **Viktig skillnad: en inbyggd webbläsare.** De flesta gratis YouTube-hämtare är tunna omslag kring yt-dlp: en webbadressruta och en formatmeny, utan egen webbläsare. Arroxy har en, **fliken Utforska**. Du surfar på YouTube eller någon annan webbplats i appen och hämtar videon, spellistan eller kanalen du är på, eller högerklickar på valfri länk. Om du loggar in en gång i Utforska använder hämtningar som kräver ett konto den inloggningen: dina privata videor, dina listor Titta senare och Gillade och andra videor som ditt konto redan får se, utan att exportera cookies. Logga in på andra webbplatser där också, så använder deras hämtningar den inloggningen när de behöver den. Detaljer: [Varför Arroxy](#why-explore).
 >
-> _Senast uppdaterad: 2026-10-22._
+> _Senast uppdaterad: 2026-10-23._
 
 > 🌐 Den här översättningen har tagits fram med hjälp av AI. Den [engelska README-filen](../../README.md) är den överordnade källan. Hittat ett fel? [Öppna en PR](../../../../pulls).
 
@@ -392,9 +392,9 @@ De flesta gratis YouTube-hämtare är en webbadressruta ovanpå yt-dlp. Arroxy a
 
 Hämtningar görs direkt via [yt-dlp](https://github.com/yt-dlp/yt-dlp) från YouTube till mappen du väljer — inget dirigeras via en tredjepartsserver. Visningshistorik, hämtningshistorik, webbadresser och filinnehåll stannar på din enhet.
 
-Ingen spårning — en anonym hjärtslagssignal per dag (appversion, operativsystem, språk, installationskanal, land och ungefär hur länge sedan Arroxy installerades) så att vi kan räkna aktiva och nya användare, och när Arroxy hämtar eller uppdaterar yt-dlp och FFmpeg en anonym notering om det lyckades och ungefär hur lång tid det tog. Inga ID:n, webbadresser, videotitlar, filsökvägar eller kontouppgifter. Du kan stänga av båda i Inställningar.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Utforska har sina egna inloggningar, skilda från din webbläsare, och Arroxy läser eller fyller aldrig i ett inloggningsformulär — du skriver på webbplatsens egen sida. Hämtningar körs utloggade; bara när en misslyckas på ett sätt som ett konto kan åtgärda läser Arroxy inloggningen på nytt, sparar den i en temporär fil för den hämtningen och tar bort filen efteråt. Om du loggar ut från Utforska i Inställningar glöms de.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

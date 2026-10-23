@@ -30,7 +30,7 @@ Bespaart Arroxy je tijd? Met een ⭐ help je anderen het te vinden.
 >
 > **Het belangrijkste verschil: een ingebouwde browser.** De meeste gratis YouTube-downloaders zijn dunne yt-dlp-wrappers: een URL-vak en een formatmenu, zonder eigen browser. Arroxy heeft er een, het **tabblad Verkennen**. Je surft op YouTube of een andere site binnen de app en downloadt de video, afspeellijst of het kanaal waar je bent, of klikt met de rechtermuisknop op een willekeurige link. Meld je één keer aan in Verkennen, dan gebruiken downloads waarvoor een account nodig is die aanmelding: je privévideo’s, je lijsten Later bekijken en Leuk gevonden en andere video’s die je account al kan bekijken, zonder cookies te exporteren. Meld je daar ook aan op andere sites, dan gebruiken hun downloads die aanmelding als dat nodig is. Details: [Waarom Arroxy](#why-explore).
 >
-> _Laatst bijgewerkt: 2026-10-22._
+> _Laatst bijgewerkt: 2026-10-23._
 
 > 🌐 Deze vertaling is tot stand gekomen met behulp van AI. De [Engelse README](../../README.md) is de leidende bron. Een fout gevonden? [Open een PR](../../../../pulls).
 
@@ -392,9 +392,9 @@ De meeste gratis YouTube-downloaders zijn een URL-vak bovenop yt-dlp. Arroxy geb
 
 Downloads worden rechtstreeks via [yt-dlp](https://github.com/yt-dlp/yt-dlp) van YouTube naar de map van je keuze opgehaald — niets loopt via een server van een derde partij. Kijkgeschiedenis, downloadgeschiedenis, URL’s en bestandsinhoud blijven op je apparaat.
 
-Geen tracking — één anonieme heartbeat per dag (app-versie, besturingssysteem, taal, installatiekanaal, land en ongeveer hoe lang geleden Arroxy is geïnstalleerd), zodat we actieve en nieuwe gebruikers kunnen tellen, en wanneer Arroxy yt-dlp en FFmpeg downloadt of bijwerkt, een anonieme melding of dat is gelukt en ongeveer hoe lang het duurde. Geen ID’s, URL’s, videotitels, bestandspaden of accountgegevens. Je kunt beide uitschakelen in Instellingen.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Verkennen bewaart zijn eigen aanmeldingen, los van je browser, en Arroxy leest of vult nooit een aanmeldformulier in — je typt op de eigen pagina van de site. Downloads draaien afgemeld; alleen wanneer er een mislukt op een manier die een account kan oplossen, leest Arroxy de aanmelding vers uit, bewaart die voor die download in een tijdelijk bestand en verwijdert het bestand daarna. Afmelden bij Verkennen in Instellingen vergeet ze.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

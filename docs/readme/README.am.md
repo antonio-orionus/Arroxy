@@ -30,7 +30,7 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 >
 > **ዋናው ልዩነት፡ አብሮ የተሠራ browser።** አብዛኞቹ ነፃ የYouTube ማውረጃዎች ቀጭን የyt-dlp መጠቅለያዎች ናቸው፦ የURL ሳጥን እና የቅርጸት ምናሌ፣ የራሳቸው browser የሌላቸው። Arroxy አንድ አለው፣ **የዳሰሳ ትር**። በአፑ ውስጥ YouTubeን ወይም ማንኛውንም ሌላ ጣቢያ ያስሳሉ እና ያሉበትን ቪዲዮ፣ playlist ወይም ቻናል ያወርዳሉ፣ ወይም በማንኛውም ሊንክ ላይ በቀኝ ጠቅ ያደርጋሉ። በዳሰሳ ውስጥ አንድ ጊዜ ከገቡ፣ ሒሳብ የሚፈልጉ ማውረዶች ያንን መግቢያ ይጠቀማሉ፦ የግል ቪዲዮዎችዎ፣ የ“በኋላ ይመልከቱ” እና የወደዷቸው ቪዲዮዎች ዝርዝሮችዎ፣ እና ሒሳብዎ አስቀድሞ ማየት የሚችላቸው ሌሎች ቪዲዮዎች፣ ኩኪዎችን ወደ ውጭ መላክ ሳያስፈልግ። ወደ ሌሎች ጣቢያዎችም እዚያ ይግቡ፣ ማውረዶቻቸውም ሲያስፈልግ ያንን መግቢያ ይጠቀማሉ። ዝርዝሮች፦ [ለምን Arroxy](#why-explore)።
 >
-> _መጨረሻ የተዘመነው፦ 2026-10-22።_
+> _መጨረሻ የተዘመነው፦ 2026-10-23።_
 
 ---
 
@@ -390,9 +390,9 @@ Arroxy ለአንድ ነገር ብቻ ተሠርቷል: URL ቢለጥፉም ሆነ
 
 ማውረዶቹ ቀጥታ በ [yt-dlp](https://github.com/yt-dlp/yt-dlp) ከ YouTube ወደ መረጡት አቃፊ ይወርዳሉ — ምንም ሦስተኛ ወገን ሰርቨር አይሆንም። የእይታ ታሪክ፣ የማውረድ ታሪክ፣ URLs፣ እና የፋይሎቹ ይዘቶች በመሳሪያዎ ላይ ይቆያሉ።
 
-ክትትል የለም — በቀን አንድ ስም-አልባ ምልክት (የመተግበሪያ ስሪት፣ OS፣ ቋንቋ፣ የመጫኛ ቻናል፣ ሀገር እና Arroxy ከተጫነ ወዲህ በግምት ምን ያህል ጊዜ እንደሆነ) ንቁና አዲስ ተጠቃሚዎችን ለመቁጠር፣ እንዲሁም Arroxy yt-dlp እና FFmpegን ሲያወርድ ወይም ሲያዘምን ስኬታማ መሆን አለመሆኑንና በግምት ምን ያህል ጊዜ እንደወሰደ የሚያሳውቅ ስም-አልባ ማስታወሻ። ምንም መታወቂያ፣ URL፣ የቪዲዮ ርዕሶች፣ የፋይል መንገዶች ወይም የሒሳብ መረጃ የለም። ሁለቱንም በቅንብሮች ውስጥ ማጥፋት ይችላሉ።
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explore ከbrowserዎ የተለየ የራሱን መግቢያዎች ይይዛል፣ እና Arroxy ማንኛውንም የመግቢያ ቅጽ ፈጽሞ አያነብም ወይም አይሞላም — እርስዎ በጣቢያው የራሱ ገጽ ላይ ይተይባሉ። ማውረዶች ሳይገቡ ይሠራሉ፤ ማውረድ ሒሳብ ሊያስተካክለው በሚችል መንገድ ሲወድቅ ብቻ Arroxy መግቢያውን እንደገና ያነባል፣ ለዚያ ማውረድ በጊዜያዊ ፋይል ውስጥ ያቆየዋል፣ እና በኋላ ፋይሉን ይሰርዛል። በSettings ውስጥ ከExplore መውጣት ይረሳቸዋል።
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

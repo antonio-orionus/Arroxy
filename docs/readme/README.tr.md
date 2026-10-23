@@ -30,7 +30,7 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 >
 > **Temel fark: yerleşik tarayıcı.** Ücretsiz YouTube indiricilerinin çoğu ince yt-dlp sarmalayıcılarıdır: bir URL kutusu ve bir biçim menüsü, kendi tarayıcıları yok. Arroxy'de var: **Explore sekmesi**. YouTube'da ya da başka herhangi bir sitede uygulamanın içinde gezinirsin; açık olan videoyu, oynatma listesini veya kanalı indirirsin ya da herhangi bir bağlantıya sağ tıklarsın. Explore'da bir kez giriş yaparsan, hesap gerektiren indirmeler bu girişi kullanır: özel videoların, Daha Sonra İzle ve Beğenilenler listelerin ve hesabının zaten izleyebildiği diğer videolar, çerez dışa aktarmadan. Başka sitelerde de orada giriş yap; onların indirmeleri gerektiğinde bu girişi kullanır. Ayrıntılar: [Neden Arroxy](#why-explore).
 >
-> _Son güncelleme: 2026-10-22._
+> _Son güncelleme: 2026-10-23._
 
 > 🌐 Bu, yapay zeka destekli bir çeviridir. [İngilizce README](../../README.md) gerçek kaynak kabul edilir. Hata mı gördün? [PR'lar memnuniyetle karşılanır](../../../../pulls).
 
@@ -392,9 +392,9 @@ Arroxy tek bir şey için yapılmıştır: ister URL yapıştır ister videoyu E
 
 İndirmeler [yt-dlp](https://github.com/yt-dlp/yt-dlp) ile doğrudan YouTube'dan seçtiğin klasöre alınır — hiçbir şey üçüncü taraf sunucu üzerinden yönlendirilmez. İzleme geçmişi, indirme geçmişi, URL'ler ve dosya içerikleri cihazında kalır.
 
-Takip yok — günde bir anonim sinyal (uygulama sürümü, işletim sistemi, dil, kurulum kanalı, ülke ve Arroxy'nin yaklaşık ne kadar önce kurulduğu); böylece etkin ve yeni kullanıcıları sayabiliriz. Arroxy yt-dlp ve FFmpeg'i indirdiğinde veya güncellediğinde bunun işe yarayıp yaramadığına ve yaklaşık ne kadar sürdüğüne dair anonim bir not da gönderilir. Kimlik, URL, video başlığı, dosya yolu veya hesap bilgisi yok. İkisini de Ayarlar'dan kapatabilirsin.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explore, tarayıcından ayrı kendi girişlerini tutar ve Arroxy bir giriş formunu asla okumaz ya da doldurmaz — sitenin kendi sayfasına yazarsın. İndirmeler oturum açmadan çalışır; yalnızca biri hesabın düzeltebileceği bir şekilde başarısız olduğunda Arroxy girişi o an okur, o indirme için geçici bir dosyada tutar ve dosyayı sonra siler. Ayarlar'dan Explore'dan çıkış yapmak girişleri unutturur.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

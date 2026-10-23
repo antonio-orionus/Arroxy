@@ -30,7 +30,7 @@ Hvis Arroxy sparer deg tid, hjelper en ⭐ andre med å finne det.
 >
 > **Hovedforskjellen: en innebygd nettleser.** De fleste gratis YouTube-nedlastere er tynne yt-dlp-innpakninger: et nettadressefelt og en formatmeny, uten egen nettleser. Arroxy har en, **fanen Utforsk**. Du surfer på YouTube eller et hvilket som helst annet nettsted i appen og laster ned videoen, spillelisten eller kanalen du er på, eller høyreklikker på en lenke. Hvis du logger på én gang i Utforsk, bruker nedlastinger som krever en konto den påloggingen: de private videoene dine, listene dine Se senere og Likte videoer og andre videoer kontoen din allerede kan se, uten eksport av informasjonskapsler. Logg på andre nettsteder der også, så bruker nedlastingene fra dem den påloggingen når de trenger det. Detaljer: [Hvorfor Arroxy](#why-explore).
 >
-> _Sist oppdatert: 2026-10-22._
+> _Sist oppdatert: 2026-10-23._
 
 > 🌐 Denne oversettelsen er laget med støtte fra KI. [Den engelske README-filen](../../README.md) er den overordnede kilden. Fant du en feil? [Åpne en PR](../../../../pulls).
 
@@ -392,9 +392,9 @@ De fleste gratis YouTube-nedlastere er et nettadressefelt oppå yt-dlp. Arroxy b
 
 Nedlastinger hentes direkte via [yt-dlp](https://github.com/yt-dlp/yt-dlp) fra YouTube til mappen du velger — ingenting rutes via en tredjepartsserver. Visningshistorikk, nedlastingshistorikk, nettadresser og filinnhold blir på enheten din.
 
-Ingen sporing — ett anonymt hjerteslag om dagen (appversjon, operativsystem, språk, installasjonskanal, land og omtrent hvor lenge siden Arroxy ble installert), slik at vi kan telle aktive og nye brukere, og, når Arroxy laster ned eller oppdaterer yt-dlp og FFmpeg, en anonym melding om det gikk bra og omtrent hvor lang tid det tok. Ingen ID-er, nettadresser, videotitler, filbaner eller kontoinformasjon. Du kan slå begge av i innstillingene.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Utforsk har sine egne pålogginger, atskilt fra nettleseren din, og Arroxy leser eller fyller aldri ut et påloggingsskjema — du skriver inn på nettstedets egen side. Nedlastinger kjører avlogget; bare når en feiler på en måte en konto kan rette opp, leser Arroxy påloggingen på nytt, beholder den i en midlertidig fil for den nedlastingen og sletter filen etterpå. Når du logger av Utforsk i innstillingene, glemmes de.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

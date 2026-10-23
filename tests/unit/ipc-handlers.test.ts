@@ -27,7 +27,7 @@ vi.mock('electron', () => ({
 import {registerIpcHandlers} from '@main/ipc/registerIpcHandlers.js'
 import {PROBE_TIMEOUT_MS} from '@shared/constants.js'
 import {IPC_CHANNELS} from '@shared/ipc.js'
-import {app, shell} from 'electron'
+import {app, dialog, shell} from 'electron'
 import log from 'electron-log/main.js'
 
 class FakeDownloadService extends EventEmitter {
@@ -601,6 +601,32 @@ describe('registerIpcHandlers', () => {
 	})
 
 	describe('file handlers', () => {
+		// showOpenDialog(window, options): the typed overload names only the options.
+		const lastDialogOptions = (): unknown => {
+			const call: readonly unknown[] = vi.mocked(dialog.showOpenDialog).mock.lastCall ?? []
+			return call[1]
+		}
+
+		it('dialog:chooseBrowserProfileFolder starts at home with hidden folders shown, where profiles live', async () => {
+			vi.mocked(dialog.showOpenDialog).mockResolvedValue({canceled: false, filePaths: ['/tmp/.floorp']})
+			registerIpcHandlers(makeDeps())
+
+			const result = (await findCall(IPC_CHANNELS.chooseBrowserProfileFolder)!.fn(null, undefined)) as {ok: boolean; data?: {path: string | null}}
+
+			expect(result).toEqual({ok: true, data: {path: '/tmp/.floorp'}})
+			expect(lastDialogOptions()).toEqual({properties: ['openDirectory', 'showHiddenFiles'], defaultPath: '/tmp'})
+		})
+
+		it('dialog:chooseBrowserProfileFolder reopens at the folder already picked', async () => {
+			vi.mocked(dialog.showOpenDialog).mockResolvedValue({canceled: true, filePaths: []})
+			registerIpcHandlers(makeDeps())
+
+			const result = (await findCall(IPC_CHANNELS.chooseBrowserProfileFolder)!.fn(null, '/home/u/.floorp')) as {ok: boolean; data?: {path: string | null}}
+
+			expect(result).toEqual({ok: true, data: {path: null}})
+			expect(lastDialogOptions()).toMatchObject({defaultPath: '/home/u/.floorp'})
+		})
+
 		it('logs:openDir reveals main.log in Explorer on Windows', async () => {
 			const originalPlatform = Object.getOwnPropertyDescriptor(process, 'platform')!
 			Object.defineProperty(process, 'platform', {value: 'win32', configurable: true})

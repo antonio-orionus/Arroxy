@@ -70,7 +70,12 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 		links: {rendererReady: () => ipcRenderer.invoke(IPC_CHANNELS.linksRendererReady)},
 		shell: {openFolder: targetPath => ipcRenderer.invoke(IPC_CHANNELS.shellOpenFolder, targetPath), openExternal: url => ipcRenderer.invoke(IPC_CHANNELS.shellOpenExternal, url), openBinariesDir: () => ipcRenderer.invoke(IPC_CHANNELS.shellOpenBinariesDir)},
 		logs: {openDir: () => ipcRenderer.invoke(IPC_CHANNELS.logsOpenDir), uploadFeedbackDiagnostic: input => ipcRenderer.invoke(IPC_CHANNELS.logsUploadFeedbackDiagnostic, input), saveDiagnostics: () => ipcRenderer.invoke(IPC_CHANNELS.logsSaveDiagnostics)},
-		dialog: {chooseFolder: (defaultPath?: string) => ipcRenderer.invoke(IPC_CHANNELS.chooseFolder, defaultPath), chooseFile: () => ipcRenderer.invoke(IPC_CHANNELS.chooseFile), chooseExecutable: binary => ipcRenderer.invoke(IPC_CHANNELS.dialogChooseExecutable, binary)},
+		dialog: {
+			chooseFolder: (defaultPath?: string) => ipcRenderer.invoke(IPC_CHANNELS.chooseFolder, defaultPath),
+			chooseFile: () => ipcRenderer.invoke(IPC_CHANNELS.chooseFile),
+			chooseBrowserProfileFolder: (current?: string) => ipcRenderer.invoke(IPC_CHANNELS.chooseBrowserProfileFolder, current),
+			chooseExecutable: binary => ipcRenderer.invoke(IPC_CHANNELS.dialogChooseExecutable, binary)
+		},
 		events: {
 			onStatus: listener => {
 				const wrapped = (_: unknown, event: StatusEvent): void => listener(event)

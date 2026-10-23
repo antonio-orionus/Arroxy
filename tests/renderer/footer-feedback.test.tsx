@@ -39,7 +39,7 @@ const mockAppApi = {
 	links: {rendererReady: vi.fn().mockResolvedValue(ok(undefined))},
 	shell: {openFolder: vi.fn().mockResolvedValue(ok({opened: true})), openExternal: mockOpenExternal, openBinariesDir: vi.fn().mockResolvedValue(ok({opened: true}))},
 	logs: {openDir: mockOpenLogsDir, uploadFeedbackDiagnostic: mockUploadFeedbackDiagnostic, saveDiagnostics: mockSaveDiagnostics},
-	dialog: {chooseFolder: vi.fn().mockResolvedValue(ok({path: '/tmp'})), chooseFile: vi.fn().mockResolvedValue(ok({path: null})), chooseExecutable: vi.fn().mockResolvedValue(ok({path: null}))},
+	dialog: {chooseFolder: vi.fn().mockResolvedValue(ok({path: '/tmp'})), chooseFile: vi.fn().mockResolvedValue(ok({path: null})), chooseBrowserProfileFolder: vi.fn().mockResolvedValue(ok({path: null})), chooseExecutable: vi.fn().mockResolvedValue(ok({path: null}))},
 	events: {
 		onStatus: vi.fn().mockReturnValue(() => undefined),
 		onProgress: vi.fn().mockReturnValue(() => undefined),

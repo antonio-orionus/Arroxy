@@ -30,7 +30,7 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
 >
 > **Asosiy farq: o'rnatilgan brauzer.** Ko'pchilik bepul YouTube yuklovchilari yupqa yt-dlp qobiqlaridir: URL maydoni va format menyusi, o'z brauzeri yo'q. Arroxy'da u bor — **Explore bo'limi**. Siz YouTube yoki boshqa istalgan saytni ilova ichida ko'rib chiqasiz va turgan videongiz, pleylistingiz yoki kanalingizni yuklab olasiz, yoki istalgan havolani o'ng tugma bilan bosasiz. Explore'da bir marta tizimga kirsangiz, hisob talab qiladigan yuklamalar shu kirishdan foydalanadi: yopiq videolaringiz, “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringiz hamda hisobingiz allaqachon ko'ra oladigan boshqa videolar, kukilarni eksport qilmasdan. Boshqa saytlarga ham shu yerda kiring — ularning yuklamalari kerak bo'lganda shu kirishdan foydalanadi. Batafsil: [Nima uchun Arroxy](#why-explore).
 >
-> _Oxirgi yangilanish: 2026-10-22._
+> _Oxirgi yangilanish: 2026-10-23._
 
 ---
 
@@ -390,9 +390,9 @@ Ko'pchilik bepul YouTube yuklovchilari yt-dlp ustidagi URL maydonidan iborat. Ar
 
 Yuklamalar YouTube'dan siz tanlagan papkaga to'g'ridan-to'g'ri [yt-dlp](https://github.com/yt-dlp/yt-dlp) orqali olinadi — hech narsa uchinchi tomon server orqali yo'naltirilmaydi. Ko'rish tarixi, yuklab olish tarixi, URL'lar va fayl mazmunlari qurilmangizda qoladi.
 
-Kuzatuv yo'q — kuniga bitta anonim signal (ilova versiyasi, OS, til, o'rnatish kanali, mamlakat va Arroxy taxminan qachon o'rnatilgani), shunda faol va yangi foydalanuvchilarni sanay olamiz, hamda Arroxy yt-dlp va FFmpeg'ni yuklab olganda yoki yangilaganda, bu ishlagani va taxminan qancha vaqt olgani haqida anonim xabar. ID, URL, video sarlavhasi, fayl yo'li yoki hisob ma'lumoti yo'q. Ikkalasini ham Sozlamalarda o'chirib qo'yishingiz mumkin.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explore o'z kirishlarini saqlaydi, brauzeringizdan alohida, va Arroxy kirish shaklini hech qachon o'qimaydi yoki to'ldirmaydi — siz saytning o'z sahifasiga yozasiz. Yuklab olishlar tizimga kirmasdan bajariladi; faqat biri hisob tuzata oladigan tarzda muvaffaqiyatsiz bo'lganda Arroxy kirishni o'sha payt o'qiydi, o'sha yuklab olish uchun vaqtinchalik faylda saqlaydi va keyin faylni o'chiradi. Sozlamalarda Explore'dan chiqish ularni unutadi.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

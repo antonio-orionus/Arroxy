@@ -16,6 +16,11 @@ finish-args:
   - --filesystem=xdg-videos
   - --filesystem=xdg-music
   - --talk-name=org.freedesktop.Notifications
+  # yt-dlp reads the key that Chromium-based browsers encrypt their cookies with
+  # from the Secret Service. No browser folder is granted here: the sandbox
+  # reaches a profile only through a folder the user picks in the file chooser
+  # portal (Settings > Cookies source > Browser > Profile folder).
+  - --talk-name=org.freedesktop.secrets
 
 modules:
   - name: arroxy

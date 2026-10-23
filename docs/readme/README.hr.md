@@ -30,7 +30,7 @@ Ako vam Arroxy štedi vrijeme, ⭐ pomaže drugima da ga pronađu.
 >
 > **Ključna razlika: ugrađeni preglednik.** Većina besplatnih programa za preuzimanje s YouTubea tanki su omotači oko yt-dlp-a: okvir za URL i izbornik formata, bez vlastitog preglednika. Arroxy ga ima, a to je kartica **Istraži**. Pregledavate YouTube ili bilo koje drugo web-mjesto unutar aplikacije i preuzimate videozapis, popis za reprodukciju ili kanal na kojem se nalazite, ili desnom tipkom miša kliknete bilo koju poveznicu. Ako se jednom prijavite u Istraži, preuzimanja koja zahtijevaju račun koriste tu prijavu: vaše privatne videozapise, vaše popise Za kasnije i Označeno sa sviđa mi se te druge videozapise koje vaš račun već može gledati, bez izvoza kolačića. Prijavite se tamo i na druga web-mjesta pa će njihova preuzimanja koristiti tu prijavu kad im zatreba. Pojedinosti: [Zašto Arroxy](#why-explore).
 >
-> _Zadnje ažuriranje: 2026-10-22._
+> _Zadnje ažuriranje: 2026-10-23._
 
 > 🌐 Ovaj je prijevod nastao uz pomoć umjetne inteligencije. [Englesko izdanje README-a](../../README.md) mjerodavan je izvor. Pronašli ste pogrešku? [Otvorite PR](../../../../pulls).
 
@@ -392,9 +392,9 @@ Većina besplatnih programa za preuzimanje s YouTubea samo je okvir za URL povrh
 
 Preuzimanja se dohvaćaju izravno putem [yt-dlp-a](https://github.com/yt-dlp/yt-dlp) s YouTubea u mapu koju odaberete — ništa ne prolazi kroz poslužitelj treće strane. Povijest gledanja, povijest preuzimanja, URL-ovi i sadržaj datoteka ostaju na vašem uređaju.
 
-Bez praćenja — jedan anonimni signal aktivnosti dnevno (verzija aplikacije, OS, jezik, kanal instalacije, država i otprilike koliko je prošlo od instalacije Arroxyja) kako bismo mogli brojati aktivne i nove korisnike te, kad Arroxy preuzima ili ažurira yt-dlp i FFmpeg, anonimna bilješka o tome je li uspjelo i otprilike koliko je trajalo. Bez ID-ova, URL-ova, naslova videozapisa, putanja datoteka ili podataka o računu. Oboje možete isključiti u postavkama.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Istraži čuva vlastite prijave, odvojeno od vašeg preglednika, a Arroxy nikad ne čita niti ispunjava obrazac za prijavu — upisujete izravno na stranici web-mjesta. Preuzimanja se izvode odjavljena; tek kad jedno propadne na način koji račun može popraviti, Arroxy iznova pročita prijavu, zadrži je u privremenoj datoteci za to preuzimanje i nakon toga izbriše datoteku. Odjava iz Istraži u postavkama zaboravlja ih.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

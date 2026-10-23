@@ -388,9 +388,9 @@ sha256sum Arroxy-linux-x64.AppImage
 
 {{privacy_p1}}
 
-{{privacy_reports}}
+{{privacy_anonymous_reports}}
 
-{{privacy_p3}}
+{{privacy_explore_sign_ins}}
 
 ---
 

@@ -30,7 +30,7 @@ Jeśli Arroxy oszczędza Ci czas, ⭐ pomoże innym je znaleźć.
 >
 > **Kluczowa różnica: wbudowana przeglądarka.** Większość darmowych programów do pobierania z YouTube to cienkie nakładki na yt-dlp: pole na adres URL i menu formatów, bez własnej przeglądarki. Arroxy ma ją — to karta **Odkrywaj**. Przeglądasz YouTube lub dowolną inną stronę w aplikacji i pobierasz film, playlistę lub kanał, na którym jesteś, albo klikasz prawym przyciskiem dowolny link. Jeśli zalogujesz się raz w Odkrywaj, pobieranie wymagające konta użyje tego logowania: Twoje prywatne filmy, listy Do obejrzenia i Polubione oraz inne filmy, które Twoje konto już może oglądać, bez eksportowania plików cookie. Zaloguj się tam także na innych stronach, a ich pobieranie użyje tego logowania, gdy będzie potrzebne. Szczegóły: [Dlaczego Arroxy](#why-explore).
 >
-> _Ostatnia aktualizacja: 2026-10-22._
+> _Ostatnia aktualizacja: 2026-10-23._
 
 > 🌐 To tłumaczenie powstało przy wsparciu AI. [Angielski README](../../README.md) jest źródłem nadrzędnym. Znalazłeś błąd? [Otwórz PR](../../../../pulls).
 
@@ -392,9 +392,9 @@ Większość darmowych programów do pobierania z YouTube to pole na adres URL n
 
 Pliki są pobierane przez [yt-dlp](https://github.com/yt-dlp/yt-dlp) bezpośrednio z YouTube do wybranego folderu — bez pośrednictwa serwera zewnętrznego. Historia oglądania i pobierania, adresy URL oraz zawartość plików pozostają na urządzeniu.
 
-Bez śledzenia — jeden anonimowy sygnał dziennie (wersja aplikacji, system, język, kanał instalacji, kraj i orientacyjnie, jak dawno zainstalowano Arroxy), abyśmy mogli policzyć aktywnych i nowych użytkowników, a gdy Arroxy pobiera lub aktualizuje yt-dlp i FFmpeg — anonimowa informacja, czy się udało i mniej więcej ile to trwało. Bez identyfikatorów, adresów URL, tytułów filmów, ścieżek plików i danych kont. Oba możesz wyłączyć w Ustawieniach.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explore ma własne logowania, oddzielone od Twojej przeglądarki, a Arroxy nigdy nie odczytuje ani nie wypełnia formularza logowania — wpisujesz dane na stronie danej witryny. Pobieranie odbywa się bez logowania; tylko gdy jedno kończy się błędem, który może naprawić konto, Arroxy odczytuje logowanie na nowo, przechowuje je w pliku tymczasowym na czas tego pobierania i potem go usuwa. Wylogowanie z Explore w Ustawieniach usuwa logowania.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

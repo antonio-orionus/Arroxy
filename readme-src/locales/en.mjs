@@ -385,10 +385,10 @@ export const en = {
 
   privacy_p1:
     "Downloads are fetched directly via [yt-dlp](https://github.com/yt-dlp/yt-dlp) from YouTube to the folder you pick — nothing routed through a third-party server. Watch history, download history, URLs, and file contents stay on your device.",
-  privacy_reports:
-    "No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.",
-  privacy_p3:
-    "Explore keeps its own sign-ins, separate from your browser, and Arroxy never reads or fills in a sign-in form — you type into the site's own page. Downloads run signed out; only when one fails in a way an account can fix does Arroxy read the sign-in fresh, keep it in a temporary file for that download, and delete the file afterwards. Signing out of Explore in Settings forgets them.",
+  privacy_anonymous_reports:
+    "**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.",
+  privacy_explore_sign_ins:
+    "Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.",
   faq_q1: "Is it really free?",
   faq_a1: "Yes — GPLv3 licensed, no premium tier, no feature gating.",
   faq_q11: "How is Arroxy different from other yt-dlp GUIs?",

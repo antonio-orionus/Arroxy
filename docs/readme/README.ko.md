@@ -30,7 +30,7 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 >
 > **핵심 차이: 내장 브라우저.** 대부분의 무료 YouTube 다운로더는 URL 입력창과 형식 메뉴만 있고 자체 브라우저가 없는 얇은 yt-dlp 래퍼입니다. Arroxy에는 **탐색 탭**이 있습니다. 앱 안에서 YouTube나 다른 사이트를 둘러보며 보고 있는 동영상, 재생목록, 채널을 다운로드하거나 링크를 마우스 오른쪽 버튼으로 클릭해 다운로드할 수 있습니다. 탐색에서 한 번 로그인하면 계정이 필요한 다운로드에 그 로그인이 사용되어, 비공개 동영상, 나중에 볼 동영상과 좋아요 표시한 동영상 목록, 그 밖에 내 계정으로 이미 볼 수 있는 동영상을 쿠키 내보내기 없이 다운로드합니다. 다른 사이트에도 그곳에서 로그인하면, 필요할 때 해당 사이트의 다운로드가 그 로그인을 사용합니다. 자세한 내용: [Arroxy를 선택하는 이유](#why-explore).
 >
-> _최종 업데이트: 2026-10-22._
+> _최종 업데이트: 2026-10-23._
 
 > 🌐 이 번역은 AI의 도움으로 작성되었습니다. [영문 README](../../README.md)가 기준 문서입니다. 오류를 발견했다면 [PR을 열어 주세요](../../../../pulls).
 
@@ -392,9 +392,9 @@ Arroxy는 한 가지 목적을 위해 만들어졌습니다. URL을 붙여 넣�
 
 [yt-dlp](https://github.com/yt-dlp/yt-dlp)가 YouTube에서 선택한 폴더로 파일을 직접 가져오며 외부 서버를 거치지 않습니다. 시청 기록, 다운로드 기록, URL, 파일 내용은 장치에 남습니다.
 
-추적은 없습니다. 하루에 한 번 익명 하트비트(앱 버전, OS, 언어, 설치 방식, 국가, Arroxy를 설치한 지 대략 얼마나 되었는지)를 보내 활성 사용자와 신규 사용자 수를 세며, Arroxy가 yt-dlp와 FFmpeg를 다운로드하거나 업데이트할 때는 성공 여부와 대략적인 소요 시간을 익명으로 보고합니다. ID, URL, 동영상 제목, 파일 경로, 계정 정보는 포함하지 않습니다. 둘 다 설정에서 끌 수 있습니다.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explore는 브라우저와 별개로 자체 로그인을 유지하며, Arroxy는 어떤 로그인 양식도 읽거나 채우지 않습니다. 입력은 해당 사이트 자체 페이지에서 직접 합니다. 다운로드는 로그아웃 상태로 실행되고, 계정으로 해결할 수 있는 이유로 실패할 때만 Arroxy가 로그인 정보를 새로 읽어 해당 다운로드용 임시 파일에 두었다가 끝나면 파일을 삭제합니다. 설정에서 Explore를 로그아웃하면 로그인 정보가 지워집니다.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

@@ -30,7 +30,7 @@ Arroxy-k denbora aurrezten badizu, ⭐ batek besteei aurkitzen laguntzen die.
 >
 > **Alde nagusia: nabigatzaile integratua.** YouTube-ren deskargatzaile libre gehienak yt-dlp-ren gaineko wrapper meheak dira: URL kutxa bat eta formatu-menu bat, nabigatzaile propiorik gabe. Arroxy-k bat du, **Esploratu fitxa**. YouTube edo beste edozein gune aplikazioaren barruan arakatzen duzu eta ikusten ari zaren bideoa, erreprodukzio-zerrenda edo kanala deskargatzen duzu, edo edozein estekatan eskuineko botoia sakatzen duzu. Esploratu fitxan behin saioa hasten baduzu, kontu bat behar duten deskargek saio hori erabiltzen dute: bideo pribatuak, Ikusteko geroago eta Gustuko zerrendak eta zure kontuak dagoeneko ikus ditzakeen beste bideo batzuk, cookie-ak esportatu gabe. Hasi saioa beste guneetan ere hor, eta haien deskargek saio hori erabiliko dute behar dutenean. Xehetasunak: [Zergatik Arroxy](#why-explore).
 >
-> _Azken eguneratzea: 2026-10-22._
+> _Azken eguneratzea: 2026-10-23._
 
 > 🌐 Itzulpen hau adimen artifizialaren laguntzaz egin da. [README ingelesa](../../README.md) da iturri nagusia. Akatsen bat aurkitu duzu? [Ireki PR bat](../../../../pulls).
 
@@ -392,9 +392,9 @@ YouTube-ren deskargatzaile libre gehienak yt-dlp-ren gaineko URL kutxa bat dira.
 
 Deskargak [yt-dlp](https://github.com/yt-dlp/yt-dlp)-ren bidez zuzenean eskuratzen dira YouTube-tik zuk aukeratutako karpetara — ezer ez da hirugarren baten zerbitzaritik igarotzen. Ikusitakoen historia, deskargen historia, URLak eta fitxategien edukia zure gailuan geratzen dira.
 
-Jarraipenik ez — egunean behin seinale anonimo bat (aplikazioaren bertsioa, sistema eragilea, hizkuntza, instalazio-kanala, herrialdea eta Arroxy gutxi gorabehera noiz instalatu zen) erabiltzaile aktiboak eta berriak zenbatu ahal izateko, eta Arroxy-k yt-dlp eta FFmpeg deskargatzen edo eguneratzen dituenean, funtzionatu duen eta gutxi gorabehera zenbat denbora behar izan duen jakinarazten duen ohar anonimo bat. Ez da IDrik, URLrik, bideo-izenbururik, fitxategi-bide-izenik edo konturik bidaltzen. Biak desaktiba ditzakezu Ezarpenetan.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Esploratu fitxak bere saio-hasierak gordetzen ditu, zure nabigatzailetik bereiziak, eta Arroxy-k ez du inoiz saio-hasiera inprimakirik irakurtzen edo betetzen — gunearen orrian bertan idazten duzu. Deskargak saiorik gabe exekutatzen dira; kontu batek konpon dezakeen moduan batek huts egiten duenean bakarrik irakurtzen du Arroxy-k saioa berriro, aldi baterako fitxategi batean gordetzen du deskarga horretarako, eta fitxategia ezabatzen du ondoren. Ezarpenetan Esploratu fitxako saioa amaitzeak ahaztu egiten ditu.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

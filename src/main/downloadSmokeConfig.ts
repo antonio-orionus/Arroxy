@@ -100,7 +100,8 @@ function cookiesPatch(cookies: SmokeCookiesOverride): Partial<AppSettings['commo
 		case 'off':
 			return {cookiesMode: 'off'}
 		case 'browser':
-			return {cookiesMode: 'browser', cookiesBrowser: cookies.browser}
+			// The named browser's default profile: a saved folder belongs to the saved browser.
+			return {cookiesMode: 'browser', cookiesBrowser: cookies.browser, cookiesBrowserProfile: undefined}
 		case 'file':
 			return {cookiesMode: 'file', cookiesPath: cookies.path}
 	}

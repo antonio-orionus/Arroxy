@@ -66,6 +66,11 @@ describe('applyDownloadSmokeOverrides', () => {
 		expect(base.common.cookiesMode).toBe('file')
 	})
 
+	it("a browser override reads that browser's default profile, not a saved folder", () => {
+		const withProfile: AppSettings = {...base, common: {...base.common, cookiesMode: 'browser', cookiesBrowser: 'chromium', cookiesBrowserProfile: '/home/u/.config/net.imput.helium'}}
+		expect(applyDownloadSmokeOverrides(withProfile, cfg({cookies: {kind: 'browser', browser: 'firefox'}})).common.cookiesBrowserProfile).toBeUndefined()
+	})
+
 	it('maps cookies off and a cookies file', () => {
 		expect(applyDownloadSmokeOverrides(base, cfg({cookies: {kind: 'off'}})).common.cookiesMode).toBe('off')
 		expect(applyDownloadSmokeOverrides(base, cfg({cookies: {kind: 'file', path: '/other.txt'}, proxy: {kind: 'url', url: 'http://q:2'}})).common).toMatchObject({cookiesMode: 'file', cookiesPath: '/other.txt', proxyUrl: 'http://q:2'})

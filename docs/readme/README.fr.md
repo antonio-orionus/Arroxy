@@ -30,7 +30,7 @@ Si Arroxy te fait gagner du temps, une ⭐ aide les autres à le trouver.
 >
 > **Différence clé : un navigateur intégré.** La plupart des téléchargeurs YouTube gratuits sont de simples wrappers autour de yt-dlp : un champ d'URL et un menu de formats, sans navigateur à eux. Arroxy en a un, l'onglet **Explore**. Tu parcours YouTube ou n'importe quel autre site dans l'application et tu télécharges la vidéo, la playlist ou la chaîne que tu regardes, ou tu fais un clic droit sur n'importe quel lien. Si tu te connectes une fois dans Explore, les téléchargements qui demandent un compte utilisent cette connexion : tes vidéos privées, tes listes À regarder plus tard et J'aime, et les autres vidéos que ton compte peut déjà regarder, sans export de cookies. Connecte-toi aussi aux autres sites là-bas : leurs téléchargements utilisent cette connexion quand ils en ont besoin. Détails : [Pourquoi Arroxy](#why-explore).
 >
-> _Dernière mise à jour : 2026-10-22._
+> _Dernière mise à jour : 2026-10-23._
 
 > 🌐 Traduction assistée par IA. Le [README en anglais](../../README.md) fait foi. Tu vois une erreur ? [Les PRs sont les bienvenues](../../../../pulls).
 
@@ -392,9 +392,9 @@ La plupart des téléchargeurs YouTube gratuits ne sont qu'un champ d'URL posé 
 
 Les téléchargements sont récupérés directement via [yt-dlp](https://github.com/yt-dlp/yt-dlp) depuis YouTube vers le dossier que tu choisis — rien ne passe par un serveur tiers. L'historique de visionnage, l'historique de téléchargement, les URLs et le contenu des fichiers restent sur ton appareil.
 
-Aucun suivi — un signal anonyme par jour (version de l'app, OS, langue, canal d'installation, pays et, approximativement, depuis combien de temps Arroxy est installé) pour compter les utilisateurs actifs et nouveaux, et, quand Arroxy télécharge ou met à jour yt-dlp et FFmpeg, une note anonyme indiquant si cela a fonctionné et combien de temps cela a pris environ. Aucun identifiant, URL, titre de vidéo, chemin de fichier ni info de compte. Tu peux désactiver les deux dans les Réglages.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explore garde ses propres connexions, séparées de ton navigateur, et Arroxy ne lit ni ne remplit jamais un formulaire de connexion : tu saisis tes identifiants sur la page du site elle-même. Les téléchargements se font sans connexion ; seulement quand l'un échoue d'une manière qu'un compte peut corriger, Arroxy relit la connexion à ce moment-là, la garde dans un fichier temporaire pour ce téléchargement et supprime le fichier ensuite. Se déconnecter d'Explore dans les Paramètres les oublie.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

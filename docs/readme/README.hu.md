@@ -30,7 +30,7 @@ Ha az Arroxy időt spórol Önnek, egy ⭐ segít másoknak megtalálni.
 >
 > **Fő különbség: beépített böngésző.** A legtöbb ingyenes YouTube-letöltő a yt-dlp vékony burkolója: egy URL-mező és egy formátumválasztó menü, saját böngésző nélkül. Az Arroxyban van egy, a **Felfedezés lap**. Az alkalmazáson belül böngészik a YouTube-on vagy bármely más webhelyen, és letölti az éppen nézett videót, lejátszási listát vagy csatornát, vagy jobb gombbal kattint bármely hivatkozásra. Ha egyszer bejelentkezik a Felfedezésben, a fiókot igénylő letöltések ezt a bejelentkezést használják: a privát videói, a Megnézendő és a Kedvelt listái, valamint más videók, amelyeket a fiókja már megnézhet, sütik exportálása nélkül. Más webhelyekre is bejelentkezhet ott, és azok letöltései ezt a bejelentkezést használják, ha szükséges. Részletek: [Miért az Arroxy](#why-explore).
 >
-> _Utolsó frissítés: 2026-10-22._
+> _Utolsó frissítés: 2026-10-23._
 
 > 🌐 Ez a fordítás MI támogatásával készült. Az [angol README](../../README.md) az irányadó forrás. Hibát talált? [Nyisson egy PR-t](../../../../pulls).
 
@@ -392,9 +392,9 @@ A legtöbb ingyenes YouTube-letöltő egy URL-mező a yt-dlp tetején. Az Arroxy
 
 A letöltések közvetlenül a [yt-dlp](https://github.com/yt-dlp/yt-dlp) segítségével töltődnek le a YouTube-ról a kiválasztott mappába — semmi sem megy át külső kiszolgálón. A megtekintési előzmények, a letöltési előzmények, az URL-ek és a fájltartalom az eszközén marad.
 
-Nincs követés — naponta egy névtelen jelzés (az alkalmazás verziója, az operációs rendszer, a nyelv, a telepítési csatorna, az ország és hozzávetőlegesen az, mikor telepítették az Arroxyt), hogy megszámolhassuk az aktív és az új felhasználókat, valamint, amikor az Arroxy letölti vagy frissíti a yt-dlp-t és az FFmpeg-et, egy névtelen jelzés arról, hogy sikerült-e, és nagyjából mennyi ideig tartott. Azonosítók, URL-ek, videócímek, fájlelérési utak vagy fiókadatok nincsenek benne. Mindkettőt kikapcsolhatja a Beállításokban.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-A Felfedezés saját bejelentkezéseket tart a böngészőjétől elkülönítve, és az Arroxy soha nem olvas vagy tölt ki bejelentkezési űrlapot — a webhely saját oldalán gépel. A letöltések kijelentkezve futnak; csak ha egy olyan módon hibásodik meg, amit egy fiók orvosolhat, olvassa be az Arroxy frissen a bejelentkezést, tartja egy ideiglenes fájlban az adott letöltés idejére, majd utána törli a fájlt. A Beállításokban a Felfedezésből való kijelentkezés elfelejti őket.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

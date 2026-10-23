@@ -8,7 +8,7 @@ import type {YtDlpErrorKind} from 'ytdlp-errors'
 import {duplicateExtractorArgsBlocks, planWorkflow, withExtractorArgs, type CallerMediaWorkflowInput, type CallerSubtitlesWorkflowInput, type ExtractorArgs, type ProbePlaylistMode, type ProbeWorkflowInput, type SubtitleFormat, type SubtitleListingWorkflowInput, type WorkflowPlanOptions} from 'yt-dlp-bridge'
 import {redactArgs} from 'yt-dlp-bridge/redaction'
 import {createStreamTextReader} from 'yt-dlp-bridge/runner'
-import {resolveCookies, type ResolvedCookies} from './cookiesResolver.js'
+import {cookiesFromBrowserArg, resolveCookies, type ResolvedCookies} from './cookiesResolver.js'
 import {nonEmpty} from '@shared/format.js'
 import {unknownToMessage} from '@main/utils/errorFactory.js'
 import {parseProxySetting, proxyForLog, proxyRouteKey} from '@main/utils/proxyUrl.js'
@@ -255,7 +255,7 @@ async function invokeOnce(opts: InvokeOptions, strategy: RetryStrategy): Promise
 			return exploreSessionUnavailable()
 		}
 	}
-	const cookiesArgs = cookies?.kind === 'file' ? ['--cookies', cookies.path] : cookies?.kind === 'browser' ? ['--cookies-from-browser', cookies.browser] : []
+	const cookiesArgs = cookies?.kind === 'file' ? ['--cookies', cookies.path] : cookies?.kind === 'browser' ? ['--cookies-from-browser', cookiesFromBrowserArg(cookies)] : []
 	return spawnCollect(opts, strategy, cookiesArgs)
 }
 

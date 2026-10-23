@@ -30,7 +30,7 @@ Ak vám Arroxy ušetrí čas, ⭐ pomôže ostatným, aby ho našli.
 >
 > **Kľúčový rozdiel: vstavaný prehliadač.** Väčšina bezplatných nástrojov na sťahovanie z YouTube sú tenké obaly nad yt-dlp: pole na adresu URL a ponuka formátov, bez vlastného prehliadača. Arroxy ho má, je to **karta Preskúmať**. YouTube alebo akýkoľvek iný web prehliadate priamo v aplikácii a stiahnete video, zoznam skladieb alebo kanál, na ktorom sa nachádzate, alebo kliknete pravým tlačidlom na ľubovoľný odkaz. Ak sa raz prihlásite v Preskúmať, sťahovania, ktoré vyžadujú účet, použijú toto prihlásenie: vaše súkromné videá, vaše zoznamy Pozrieť neskôr a Páči sa mi a ďalšie videá, ktoré váš účet už dokáže prehrať, bez exportu súborov cookie. Prihlásiť sa tam môžete aj na iných weboch a ich sťahovania použijú toto prihlásenie, keď ho potrebujú. Podrobnosti: [Prečo Arroxy](#why-explore).
 >
-> _Posledná aktualizácia: 2026-10-22._
+> _Posledná aktualizácia: 2026-10-23._
 
 > 🌐 Tento preklad vznikol s podporou AI. [Anglické README](../../README.md) je nadradeným zdrojom. Našli ste chybu? [Otvorte PR](../../../../pulls).
 
@@ -392,9 +392,9 @@ Väčšina bezplatných nástrojov na sťahovanie z YouTube je len pole na adres
 
 Sťahovania sa preberajú priamo cez [yt-dlp](https://github.com/yt-dlp/yt-dlp) z YouTube do priečinka, ktorý vyberiete — nič nejde cez server tretej strany. História pozerania, história sťahovania, adresy URL a obsah súborov zostávajú na vašom zariadení.
 
-Žiadne sledovanie — jeden anonymný signál denne (verzia aplikácie, operačný systém, jazyk, kanál inštalácie, krajina a približne ako dávno bol Arroxy nainštalovaný), aby sme mohli počítať aktívnych a nových používateľov, a keď Arroxy sťahuje alebo aktualizuje yt-dlp a FFmpeg, anonymná informácia o tom, či sa to podarilo a približne ako dlho to trvalo. Žiadne identifikátory, adresy URL, názvy videí, cesty k súborom ani údaje o účte. Obe môžete vypnúť v Nastaveniach.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Preskúmať si uchováva vlastné prihlásenia, oddelené od vášho prehliadača, a Arroxy nikdy nečíta ani nevypĺňa prihlasovací formulár — píšete na vlastnú stránku webu. Sťahovania bežia bez prihlásenia; iba keď jedno zlyhá spôsobom, ktorý účet dokáže vyriešiť, Arroxy znova načíta prihlásenie, uchová ho v dočasnom súbore pre dané sťahovanie a súbor potom odstráni. Odhlásenie z Preskúmať v Nastaveniach ich zabudne.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

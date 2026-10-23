@@ -30,7 +30,7 @@ Se Arroxy ti fa risparmiare tempo, una ⭐ aiuta altre persone a scoprirlo.
 >
 > **La differenza chiave: un browser integrato.** La maggior parte dei downloader gratuiti per YouTube sono semplici wrapper di yt-dlp: una casella per l'URL e un menu dei formati, senza un browser proprio. Arroxy ce l'ha: la **scheda Explore**. Navighi su YouTube o su qualsiasi altro sito dentro l'app e scarichi il video, la playlist o il canale che stai guardando, oppure fai clic destro su un link qualsiasi. Se accedi una volta in Explore, i download che richiedono un account usano quell'accesso: i tuoi video privati, le tue liste Guarda più tardi e Piaciuti e altri video che il tuo account può già vedere, senza esportare cookie. Accedi anche ad altri siti da lì, e i loro download useranno quell'accesso quando serve. Dettagli: [Perché Arroxy](#why-explore).
 >
-> _Ultimo aggiornamento: 2026-10-22._
+> _Ultimo aggiornamento: 2026-10-23._
 
 > 🌐 Questa traduzione è stata realizzata con assistenza IA. Il [README in inglese](../../README.md) è la fonte autorevole. Hai trovato un errore? [Apri una PR](../../../../pulls).
 
@@ -392,9 +392,9 @@ La maggior parte dei downloader gratuiti per YouTube è una casella per l'URL so
 
 I download vengono trasferiti direttamente da YouTube alla cartella scelta tramite [yt-dlp](https://github.com/yt-dlp/yt-dlp), senza passare per server di terzi. Cronologia di visualizzazione e download, URL e contenuto dei file restano sul tuo dispositivo.
 
-Nessun tracciamento — un segnale anonimo al giorno (versione dell'app, sistema operativo, lingua, canale di installazione, paese e più o meno da quanto tempo Arroxy è installato) per contare gli utenti attivi e nuovi e, quando Arroxy scarica o aggiorna yt-dlp e FFmpeg, una nota anonima sull'esito e più o meno sul tempo impiegato. Nessun ID, URL, titolo video, percorso di file o dato dell'account. Puoi disattivare entrambi nelle Impostazioni.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explore mantiene i propri accessi, separati dal tuo browser, e Arroxy non legge né compila mai un modulo di accesso: scrivi direttamente nella pagina del sito. I download avvengono senza accesso; solo quando uno fallisce in un modo che un account può risolvere, Arroxy rilegge l'accesso in quel momento, lo conserva in un file temporaneo per quel download e poi elimina il file. Uscire da Explore nelle Impostazioni li cancella.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

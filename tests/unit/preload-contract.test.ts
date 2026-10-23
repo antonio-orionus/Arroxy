@@ -119,6 +119,12 @@ describe('invoke methods → correct IPC channel', () => {
 		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.chooseFolder, undefined)
 	})
 
+	it('dialog.chooseBrowserProfileFolder', () => {
+		const api = createPreloadApi(ipc.ipcRenderer)
+		void api.dialog.chooseBrowserProfileFolder('/home/u/.floorp')
+		expect(ipc.invoke).toHaveBeenCalledWith(IPC_CHANNELS.chooseBrowserProfileFolder, '/home/u/.floorp')
+	})
+
 	it('queue.cmd.add', () => {
 		const api = createPreloadApi(ipc.ipcRenderer)
 		void api.queue.cmd.add([])

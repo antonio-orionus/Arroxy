@@ -30,7 +30,7 @@ Si Arroxy t'estalvia temps, una ⭐ ajuda que altres el trobin.
 >
 > **La diferència clau: un navegador integrat.** La majoria de descarregadors gratuïts de YouTube són embolcalls prims de yt-dlp: un quadre d'URL i un menú de formats, sense navegador propi. Arroxy en té un, la **pestanya Explora**. Navegues per YouTube o per qualsevol altre lloc dins de l'aplicació i descarregues el vídeo, la llista o el canal on ets, o fas clic dret en qualsevol enllaç. Si inicies la sessió una vegada a Explora, les descàrregues que requereixen un compte faran servir aquest inici de sessió: els teus vídeos privats, les teves llistes Mira-ho més tard i M'agrada, i altres vídeos que el teu compte ja pot veure, sense exportar galetes. Hi inicies la sessió també en altres llocs, i les seves descàrregues faran servir aquest inici de sessió quan el necessitin. Detalls: [Per què Arroxy](#why-explore).
 >
-> _Última actualització: 2026-10-22._
+> _Última actualització: 2026-10-23._
 
 > 🌐 Aquesta traducció s'ha fet amb ajuda de la IA. El [README en anglès](../../README.md) és la font principal. Has trobat un error? [Obre una PR](../../../../pulls).
 
@@ -392,9 +392,9 @@ La majoria de descarregadors gratuïts de YouTube són un quadre d'URL sobre yt-
 
 Les descàrregues s'obtenen directament mitjançant [yt-dlp](https://github.com/yt-dlp/yt-dlp) de YouTube a la carpeta que triïs — res no passa per un servidor de tercers. L'historial de reproducció, l'historial de descàrregues, les URL i el contingut dels fitxers es queden al teu dispositiu.
 
-Sense seguiment — un senyal anònim al dia (versió de l'aplicació, sistema operatiu, idioma, canal d'instal·lació, país i aproximadament fa quant que s'ha instal·lat Arroxy) per poder comptar els usuaris actius i nous i, quan Arroxy baixa o actualitza yt-dlp i FFmpeg, una nota anònima sobre si ha funcionat i aproximadament quant ha tardat. Sense identificadors, URL, títols de vídeos, rutes de fitxers ni dades de comptes. Pots desactivar-los tots dos a la configuració.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explora conserva els seus propis inicis de sessió, separats del teu navegador, i Arroxy mai no llegeix ni emplena un formulari d'inici de sessió — escrius a la pàgina del mateix lloc. Les descàrregues s'executen sense sessió; només quan una falla d'una manera que un compte pot resoldre, Arroxy llegeix l'inici de sessió de nou, el guarda en un fitxer temporal per a aquella descàrrega i suprimeix el fitxer després. Tancar la sessió d'Explora a la configuració els oblida.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

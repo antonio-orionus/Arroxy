@@ -30,7 +30,7 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
 >
 > **最大の違いは内蔵ブラウザー。** 無料の YouTube ダウンローダーの多くは、URL 入力欄と形式メニューだけの薄い yt-dlp ラッパーで、独自のブラウザーを持ちません。Arroxy には**探索タブ**があります。アプリの中で YouTube やほかのサイトを閲覧し、表示中の動画・プレイリスト・チャンネルをダウンロードでき、リンクを右クリックしてもダウンロードできます。探索で一度サインインすると、アカウントが必要なダウンロードにそのサインインが使われ、非公開動画、「後で見る」や「高く評価した動画」のリスト、そのほかアカウントですでに視聴できる動画を、Cookie をエクスポートせずにダウンロードできます。ほかのサイトにもそこでサインインすれば、必要なときにそのサインインがダウンロードに使われます。詳細：[なぜ Arroxy？](#why-explore)。
 >
-> _最終更新：2026-10-22。_
+> _最終更新：2026-10-23。_
 
 > 🌐 これは AI 翻訳です。[英語版 README](../../README.md) が情報のソースです。誤りを見つけたら [PR を歓迎します](../../../../pulls)。
 
@@ -392,9 +392,9 @@ Arroxy はひとつのことのために作られています：URL を貼り付
 
 ダウンロードは [yt-dlp](https://github.com/yt-dlp/yt-dlp) 経由で YouTube から選択したフォルダへ直接取得されます — サードパーティのサーバーは経由しません。視聴履歴、ダウンロード履歴、URL、ファイルの内容はすべてあなたのデバイスに留まります。
 
-トラッキングはありません — 1日1回、匿名のハートビートを送ります（アプリバージョン、OS、言語、インストール方法、国、Arroxy をインストールしてからのおおよその期間）。アクティブユーザーと新規ユーザーの数を数えるためのものです。また、Arroxy が yt-dlp と FFmpeg をダウンロードまたは更新したときは、成功したかどうかとおおよその所要時間を匿名で報告します。ID、URL、動画タイトル、ファイルパス、アカウント情報は含みません。どちらも設定でオフにできます。
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explore は、ブラウザーとは別に独自のサインインを保持します。Arroxy がどのサインインフォームも読み取ったり入力したりすることはなく、入力するのはそのサイト自身のページです。ダウンロードはサインアウトの状態で実行され、アカウントで解決できる理由で失敗したときだけ、Arroxy はサインイン情報をその都度読み取り、そのダウンロード用の一時ファイルに保存して、終了後にファイルを削除します。設定で Explore をサインアウトすると、サインインは消去されます。
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

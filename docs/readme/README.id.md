@@ -30,7 +30,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 >
 > **Perbedaan utama: browser bawaan.** Sebagian besar pengunduh YouTube gratis hanyalah pembungkus yt-dlp yang tipis: kotak URL dan menu format, tanpa browser sendiri. Arroxy memilikinya, yaitu **tab Explore**. Anda menjelajahi YouTube atau situs lain mana pun di dalam aplikasi dan mengunduh video, daftar putar, atau saluran yang sedang Anda buka, atau klik kanan tautan mana pun. Jika Anda masuk sekali di Explore, unduhan yang memerlukan akun memakai login itu: video privat Anda, daftar Tonton Nanti dan Disukai Anda, serta video lain yang sudah bisa ditonton akun Anda, tanpa ekspor cookie. Masuk juga ke situs lain di sana, dan unduhannya memakai login itu bila diperlukan. Detail: [Mengapa Arroxy](#why-explore).
 >
-> _Terakhir diperbarui: 2026-10-22._
+> _Terakhir diperbarui: 2026-10-23._
 
 > 🌐 Ini adalah terjemahan dengan bantuan AI. [README bahasa Inggris](../../README.md) adalah sumber kebenaran. Menemukan kesalahan? [PR diterima](../../../../pulls).
 
@@ -392,9 +392,9 @@ Sebagian besar pengunduh YouTube gratis hanyalah kotak URL di atas yt-dlp. Arrox
 
 Unduhan diambil langsung melalui [yt-dlp](https://github.com/yt-dlp/yt-dlp) dari YouTube ke folder yang Anda pilih — tidak ada yang dirutekan melalui server pihak ketiga. Riwayat tontonan, riwayat unduhan, URL, dan konten file tetap ada di perangkat Anda.
 
-Tanpa pelacakan — satu sinyal anonim per hari (versi aplikasi, OS, bahasa, saluran instalasi, negara, dan kira-kira sudah berapa lama Arroxy terpasang) agar kami bisa menghitung pengguna aktif dan baru, serta, saat Arroxy mengunduh atau memperbarui yt-dlp dan FFmpeg, catatan anonim tentang berhasil tidaknya dan kira-kira berapa lama prosesnya. Tanpa ID, URL, judul video, jalur file, atau info akun. Anda bisa mematikan keduanya di Pengaturan.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explore menyimpan login-nya sendiri, terpisah dari browser Anda, dan Arroxy tidak pernah membaca atau mengisi formulir login apa pun — Anda mengetik di halaman situs itu sendiri. Unduhan berjalan tanpa masuk; hanya saat satu unduhan gagal dengan cara yang bisa diperbaiki oleh sebuah akun, Arroxy membaca login itu saat itu juga, menyimpannya di file sementara untuk unduhan tersebut, lalu menghapus file itu setelahnya. Keluar dari Explore di Pengaturan akan melupakannya.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

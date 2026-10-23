@@ -30,7 +30,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 >
 > **Garaagarummaa ijoo: biraawzara keessa ijaarame.** Buufattoonni YouTube bilisaa baay'een wraapperii yt-dlp salphaa dha: saanduqa URL fi menu formaataa, biraawzara mataa isaanii malee. Arroxy tokko qaba, tabii **Daawwannaa**. YouTube ykn marsariitii biraa kamiyyuu app keessatti ilaaltu, viidiyoo, playlist ykn channel irra jirtu buufatta, ykn hidhaa kamiyyuu irratti right-click godhita. Daawwannaa keessatti altokko yoo seente, buufannaan akkaawuntii barbaadu seensa sana fayyadama: viidiyoowwan dhuunfaa kee, tarreewwan Booda Ilaali fi Jaallatamte kee, fi viidiyoowwan biroo akkaawuntiin kee duraanuu ilaaluu danda'u, kuukkii baasuu malee. Marsariitiiwwan biraatti illee achitti seeni, buufannaan isaanii yeroo barbaachisu seensa sana fayyadama. Bal'inaan: [Maaliif Arroxy](#why-explore).
 >
-> _Yeroo dhumaa haaromfame: 2026-10-22._
+> _Yeroo dhumaa haaromfame: 2026-10-23._
 
 ---
 
@@ -390,9 +390,9 @@ Buufattoota YouTube bilisaa baay'een saanduqa URL yt-dlp irratti kaa'ame qofa. A
 
 Buufannoonni kallattiin [yt-dlp](https://github.com/yt-dlp/yt-dlp) fayyadamuudhaan YouTube irraa foldera filatteetti darbamu — miila-seerri hunduu sarara servera sadarkaa-sadaffaa tokko keessa darbuu hin qabu. Seenaa ilaaluu, seenaa buufannoo, URLs, fi qabiyyee faayilaa meeshaa kee irratti hafu.
 
-Hordoffiin hin jiru — guyyaatti mallattoo maqaa-dhabduu tokko qofa (version app, OS, afaan, karaa itti install godhame, biyya fi Arroxy tilmaamaan yeroo hammamii dura install godhame) akka fayyadamtoota hojii irra jiran fi haaraa lakkoofnuuf, akkasumas Arroxy yt-dlp fi FFmpeg yeroo buufatu ykn haaromsu, kun milkaa'uu fi tilmaamaan yeroo hammam fudhate ilaalchisee yaadannoo maqaa-dhabduu. ID, URL, mata-duree viidiyoo, karaa faayilaa yookaan odeeffannoo account hin jiru. Lamaan isaanii Settings keessatti dhaabuu dandeessa.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explore seensawwan mataa isaa qaba, biraawzara keetii addaa, Arroxyn unka seensaa gonkumaa hin dubbisu hin guutus — ati fuula marsariitii mataa isaa irratti barreessita. Buufannaan utuu hin seenin deemu; yeroo tokko karaa akkaawuntiin sirreessuu danda'un hin milkoofnetti qofa Arroxy seensa yeroo sana haaraatti dubbisa, buufannaa sanaaf faayilii yeroo keessatti qaba, booda faayilicha haqa. Qindoomina keessatti Explore irraa bahuun isaan irraanfachiisa.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

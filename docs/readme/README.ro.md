@@ -30,7 +30,7 @@ Dacă Arroxy vă economisește timp, un ⭐ îi ajută pe alții să-l găseasc�
 >
 > **Diferența cheie: un browser încorporat.** Majoritatea descărcătoarelor gratuite pentru YouTube sunt simple învelișuri peste yt-dlp: o casetă de URL și un meniu de formate, fără browser propriu. Arroxy are unul, **fila Explorare**. Navigați pe YouTube sau pe orice alt site direct în aplicație și descărcați videoclipul, lista de redare sau canalul pe care vă aflați, ori faceți clic dreapta pe orice link. Dacă vă conectați o singură dată în Explorare, descărcările care necesită un cont folosesc acea conectare: videoclipurile private, listele Vizionează mai târziu și Apreciate și alte videoclipuri pe care contul dvs. le poate deja viziona, fără export de cookie-uri. Conectați-vă acolo și la alte site-uri, iar descărcările lor folosesc acea conectare când au nevoie. Detalii: [De ce Arroxy](#why-explore).
 >
-> _Ultima actualizare: 2026-10-22._
+> _Ultima actualizare: 2026-10-23._
 
 > 🌐 Această traducere a fost realizată cu sprijinul IA. [README-ul în engleză](../../README.md) este sursa de referință. Ați găsit o greșeală? [Deschideți un PR](../../../../pulls).
 
@@ -392,9 +392,9 @@ Majoritatea descărcătoarelor gratuite pentru YouTube sunt o casetă de URL dea
 
 Descărcările sunt preluate direct prin [yt-dlp](https://github.com/yt-dlp/yt-dlp) de pe YouTube în folderul ales de dvs. — nimic nu trece printr-un server terț. Istoricul de vizionare, istoricul descărcărilor, URL-urile și conținutul fișierelor rămân pe dispozitivul dvs.
 
-Fără urmărire — un semnal anonim pe zi (versiunea aplicației, sistemul de operare, limba, canalul de instalare, țara și aproximativ cât timp a trecut de la instalarea Arroxy), ca să putem număra utilizatorii activi și noi, iar atunci când Arroxy descarcă sau actualizează yt-dlp și FFmpeg, o notă anonimă despre dacă a reușit și aproximativ cât a durat. Fără ID-uri, URL-uri, titluri de videoclipuri, căi de fișiere sau informații despre cont. Le puteți dezactiva pe ambele în Setări.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explorare își păstrează propriile conectări, separate de browserul dvs., iar Arroxy nu citește și nu completează niciodată un formular de conectare — tastați în pagina site-ului însuși. Descărcările rulează fără conectare; doar când una eșuează într-un mod pe care un cont îl poate remedia, Arroxy citește conectarea la momentul respectiv, o păstrează într-un fișier temporar pentru acea descărcare și șterge fișierul după aceea. Deconectarea din Explorare, în Setări, le uită.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

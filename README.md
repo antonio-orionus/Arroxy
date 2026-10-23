@@ -30,7 +30,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. If you sign in once in Explore, downloads that need an account use that sign-in: your private videos, your Watch Later and Liked lists, and other videos your account can already watch, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-22._
+> _Last updated: 2026-10-23._
 
 ---
 
@@ -390,9 +390,9 @@ Most free YouTube downloaders are a URL box on top of yt-dlp. Arroxy uses yt-dlp
 
 Downloads are fetched directly via [yt-dlp](https://github.com/yt-dlp/yt-dlp) from YouTube to the folder you pick — nothing routed through a third-party server. Watch history, download history, URLs, and file contents stay on your device.
 
-No tracking — one anonymous heartbeat a day (app version, OS, language, install channel, country and roughly how long ago Arroxy was installed) so we can count active and new users, and, when Arroxy downloads or updates yt-dlp and FFmpeg, an anonymous note on whether that worked and roughly how long it took. No IDs, URLs, video titles, file paths or account info. You can turn both off in Settings.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Explore keeps its own sign-ins, separate from your browser, and Arroxy never reads or fills in a sign-in form — you type into the site's own page. Downloads run signed out; only when one fails in a way an account can fix does Arroxy read the sign-in fresh, keep it in a temporary file for that download, and delete the file afterwards. Signing out of Explore in Settings forgets them.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

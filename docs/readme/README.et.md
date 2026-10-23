@@ -30,7 +30,7 @@ Kui Arroxy säästab teie aega, aitab ⭐ teistel seda leida.
 >
 > **Peamine erinevus: sisseehitatud brauser.** Enamik tasuta YouTube’i allalaadijaid on õhukesed yt-dlp ümbrised: URL-i kast ja vormingumenüü, ilma oma brauserita. Arroxyl on see olemas – vahekaart **Avasta**. Sirvite YouTube’i või mis tahes muud saiti rakenduse sees ning laadite alla video, esitusloendi või kanali, mille juures olete, või paremklõpsate mis tahes lingil. Kui logite Avastas korra sisse, kasutavad kontot nõudvad allalaadimised seda sisselogimist: Teie privaatsed videod, Teie loendid Vaata hiljem ja Meeldinud videod ning muud videod, mida Teie konto juba saab vaadata, ilma küpsiseid eksportimata. Logige seal sisse ka teistele saitidele ning nende allalaadimised kasutavad seda sisselogimist, kui vaja. Üksikasjad: [Miks Arroxy](#why-explore).
 >
-> _Viimati uuendatud: 2026-10-22._
+> _Viimati uuendatud: 2026-10-23._
 
 > 🌐 See tõlge valmis tehisintellekti toel. [Ingliskeelne README](../../README.md) on esmane allikas. Leidsite vea? [Avage PR](../../../../pulls).
 
@@ -392,9 +392,9 @@ Enamik tasuta YouTube’i allalaadijaid on lihtsalt URL-i kast yt-dlp peal. Arro
 
 Allalaadimised tuuakse otse [yt-dlp](https://github.com/yt-dlp/yt-dlp) abil YouTube’ist teie valitud kausta — midagi ei suunata läbi kolmanda osapoole serveri. Vaatamisajalugu, allalaadimisajalugu, URL-id ja failide sisu jäävad teie seadmesse.
 
-Jälgimist pole — üks anonüümne elumärk päevas (rakenduse versioon, OS, keel, installikanal, riik ja ligikaudu see, kui ammu Arroxy installiti), et saaksime lugeda aktiivseid ja uusi kasutajaid, ning kui Arroxy laadib alla või uuendab yt-dlp-d ja FFmpegi, anonüümne teade selle kohta, kas see õnnestus ja ligikaudu kui kaua see aega võttis. Ei mingeid ID-sid, URL-e, videopealkirju, failiteid ega konto teavet. Saate mõlemad sätetes välja lülitada.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Avasta hoiab oma sisselogimisi eraldi teie brauserist ja Arroxy ei loe ega täida kunagi sisselogimisvormi — tippite saidi enda lehel. Allalaadimised toimuvad sisse logimata; ainult kui üks ebaõnnestub viisil, mida konto saab parandada, loeb Arroxy sisselogimise värskelt, hoiab seda selle allalaadimise ajaks ajutises failis ja kustutab faili pärast. Avastast väljalogimine sätetes unustab need.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

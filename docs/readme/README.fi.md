@@ -30,7 +30,7 @@ Jos Arroxy säästää aikaasi, ⭐ auttaa muita löytämään sen.
 >
 > **Keskeinen ero: sisäänrakennettu selain.** Useimmat ilmaiset YouTube-lataajat ovat ohuita yt-dlp-kääreitä: URL-kenttä ja muotovalikko, ilman omaa selainta. Arroxyssa sellainen on, **Tutki-välilehti**. Selaat YouTubea tai mitä tahansa muuta sivustoa sovelluksen sisällä ja lataat videon, soittolistan tai kanavan, jolla olet, tai napsautat mitä tahansa linkkiä hiiren kakkospainikkeella. Jos kirjaudut kerran sisään Tutki-välilehdellä, tilin vaativat lataukset käyttävät tuota kirjautumista: yksityiset videosi, Katso myöhemmin- ja Tykätyt-luettelosi sekä muut videot, joita tilisi voi jo katsoa, ilman evästeiden vientiä. Kirjaudu myös muille sivustoille siellä, ja niiden lataukset käyttävät kirjautumista tarvittaessa. Lisätietoja: [Miksi Arroxy](#why-explore).
 >
-> _Päivitetty viimeksi: 2026-10-22._
+> _Päivitetty viimeksi: 2026-10-23._
 
 > 🌐 Tämä käännös on tehty tekoälyn avulla. [Englanninkielinen README](../../README.md) on ensisijainen lähde. Löysitkö virheen? [Avaa PR](../../../../pulls).
 
@@ -392,9 +392,9 @@ Useimmat ilmaiset YouTube-lataajat ovat yt-dlp:n päälle tehty URL-kenttä. Arr
 
 Lataukset haetaan suoraan [yt-dlp:n](https://github.com/yt-dlp/yt-dlp) kautta YouTubesta valitsemaasi kansioon — mitään ei reititetä kolmannen osapuolen palvelimen kautta. Katseluhistoria, lataushistoria, URL-osoitteet ja tiedostojen sisältö pysyvät laitteellasi.
 
-Ei seurantaa — yksi nimetön elonmerkki päivässä (sovelluksen versio, käyttöjärjestelmä, kieli, asennuskanava, maa ja suunnilleen kuinka kauan Arroxy on ollut asennettuna), jotta voimme laskea aktiiviset ja uudet käyttäjät, sekä, kun Arroxy lataa tai päivittää yt-dlp:n ja FFmpegin, nimetön ilmoitus siitä, onnistuiko se ja suunnilleen kuinka kauan se kesti. Ei tunnisteita, URL-osoitteita, videoiden nimiä, tiedostopolkuja tai tilitietoja. Voit poistaa molemmat käytöstä Asetuksista.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Tutki säilyttää omat kirjautumisensa erillään selaimestasi, eikä Arroxy koskaan lue tai täytä kirjautumislomaketta — kirjoitat sivuston omalle sivulle. Lataukset ajetaan kirjautumattomana; vasta kun lataus epäonnistuu tavalla, jonka tili voi korjata, Arroxy lukee kirjautumisen uudelleen, säilyttää sen väliaikaisessa tiedostossa kyseistä latausta varten ja poistaa tiedoston sen jälkeen. Uloskirjautuminen Tutki-välilehdeltä Asetuksissa unohtaa ne.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 

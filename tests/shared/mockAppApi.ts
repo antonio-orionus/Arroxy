@@ -68,7 +68,7 @@ export function buildMockAppApi(options: BuildMockOptions = {}): AppApi {
 			saveDiagnostics: vi.fn().mockResolvedValue(ok({path: '/tmp/arroxy-diagnostics.txt'})),
 			uploadFeedbackDiagnostic: vi.fn(({reportId}: {reportId: string}) => Promise.resolve(ok({reportId, diagnosticUrl: null, rawBytes: 42, compressedBytes: 31, truncated: false, sha256: 'a'.repeat(64)})))
 		},
-		dialog: {chooseFolder: vi.fn().mockResolvedValue(ok({path: '/tmp'})), chooseFile: vi.fn().mockResolvedValue(ok({path: null})), chooseExecutable: vi.fn().mockResolvedValue(ok({path: null}))},
+		dialog: {chooseFolder: vi.fn().mockResolvedValue(ok({path: '/tmp'})), chooseBrowserProfileFolder: vi.fn().mockResolvedValue(ok({path: null})), chooseFile: vi.fn().mockResolvedValue(ok({path: null})), chooseExecutable: vi.fn().mockResolvedValue(ok({path: null}))},
 		events: {
 			onStatus: vi.fn().mockReturnValue(() => undefined),
 			onProgress: vi.fn().mockReturnValue(() => undefined),

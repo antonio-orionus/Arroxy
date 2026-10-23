@@ -30,7 +30,7 @@ Jei Arroxy taupo jūsų laiką, ⭐ padės kitiems ją rasti.
 >
 > **Pagrindinis skirtumas: integruota naršyklė.** Dauguma nemokamų YouTube atsisiuntimo programų yra plonos yt-dlp apvalkalo programos: URL laukelis ir formatų meniu, be savo naršyklės. Arroxy ją turi – tai **skirtukas „Naršymas“**. Naršote YouTube ar bet kurią kitą svetainę programoje ir atsisiunčiate vaizdo įrašą, grojaraštį ar kanalą, kuriame esate, arba spustelite bet kurią nuorodą dešiniuoju pelės klavišu. Jei Naršyme prisijungiate vieną kartą, atsisiuntimai, kuriems reikia paskyros, naudoja tą prisijungimą: jūsų privatūs vaizdo įrašai, jūsų „Žiūrėti vėliau“ ir „Patikę“ sąrašai bei kiti vaizdo įrašai, kuriuos jūsų paskyra jau gali žiūrėti, be slapukų eksportavimo. Taip pat ten prisijunkite prie kitų svetainių, ir jų atsisiuntimai prireikus naudos tą prisijungimą. Išsamiau: [Kodėl Arroxy](#why-explore).
 >
-> _Paskutinį kartą atnaujinta: 2026-10-22._
+> _Paskutinį kartą atnaujinta: 2026-10-23._
 
 > 🌐 Šis vertimas parengtas padedant DI. [Angliškas README](../../README.md) yra pagrindinis šaltinis. Radote klaidą? [Atverkite PR](../../../../pulls).
 
@@ -392,9 +392,9 @@ Dauguma nemokamų YouTube atsisiuntimo programų yra tiesiog URL laukelis virš 
 
 Atsisiuntimai gaunami tiesiogiai per [yt-dlp](https://github.com/yt-dlp/yt-dlp) iš YouTube į jūsų pasirinktą aplanką — nieko nenukreipiant per trečiosios šalies serverį. Žiūrėjimo istorija, atsisiuntimų istorija, URL ir failų turinys lieka jūsų įrenginyje.
 
-Jokio sekimo — vienas anoniminis aktyvumo signalas per dieną (programos versija, OS, kalba, diegimo kanalas, šalis ir apytikslis laikas nuo Arroxy įdiegimo), kad galėtume suskaičiuoti aktyvius ir naujus naudotojus, o kai Arroxy atsisiunčia ar atnaujina yt-dlp ir FFmpeg, – anoniminis pranešimas, ar tai pavyko ir apytiksliai kiek laiko užtruko. Jokių ID, URL, vaizdo įrašų pavadinimų, failų kelių ar paskyros informacijos. Abu galite išjungti parametruose.
+**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
 
-Naršymas laiko savo prisijungimus atskirai nuo jūsų naršyklės, o Arroxy niekada neskaito ir neužpildo prisijungimo formos — rašote svetainės puslapyje. Atsisiuntimai vyksta neprisijungus; tik kai vienas nepavyksta dėl priežasties, kurią gali ištaisyti paskyra, Arroxy iš naujo nuskaito prisijungimą, laiko jį laikinajame faile to atsisiuntimo metu ir vėliau tą failą ištrina. Atsijungus nuo Naršymo parametruose, jie pamirštami.
+Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
 
 ---
 
