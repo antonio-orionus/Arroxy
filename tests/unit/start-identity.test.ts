@@ -17,6 +17,12 @@ describe('decideStartIdentity', () => {
 		expect(decideStartIdentity('https://vimeo.com/1', inputs())).toEqual({site: 'vimeo.com', auth: 'anonymous', reason: 'notSignInFirst'})
 	})
 
+	it('reads the policy from the sign-in rows it is given', () => {
+		const rowFor = (site: string) => (site === 'youtube' ? {policy: 'first' as const, cookies: ['SID'], host: 'www.youtube.com'} : null)
+		expect(decideStartIdentity('https://www.youtube.com/watch?v=a', inputs({rowFor}))).toEqual({site: 'youtube', auth: 'exploreSession', basis: 'siteDefault'})
+		expect(decideStartIdentity('https://www.instagram.com/reel/a', inputs({rowFor}))).toMatchObject({auth: 'anonymous', reason: 'notSignInFirst'})
+	})
+
 	it('says why a first site starts anonymous', () => {
 		const url = 'https://www.instagram.com/reel/a'
 		expect(decideStartIdentity(url, inputs({cookiesMode: 'off'}))).toMatchObject({auth: 'anonymous', reason: 'notExploreMode'})

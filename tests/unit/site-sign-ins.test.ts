@@ -56,4 +56,21 @@ describe('parseSuspectSignInMarks', () => {
 		expect(parseSuspectSignInMarks([good, {site: 'y'}, 'junk'])).toEqual([good])
 		expect(parseSuspectSignInMarks('junk')).toEqual([])
 	})
+
+	it('checks the sites and rows it is given', async () => {
+		const jar = [cookie('MARK', 'm', '.youtube.com'), cookie('sessionid', 's', '.instagram.com')]
+		const signIns = new SiteSignIns({readCookies: () => Promise.resolve(jar), sites: ['youtube'], rowFor: site => (site === 'youtube' ? {policy: 'first', cookies: ['MARK'], host: 'www.youtube.com'} : null)})
+		await signIns.refresh()
+
+		expect(signIns.signedIn('youtube')).toBe(true)
+		expect(signIns.signedIn('instagram')).toBe(false)
+	})
+
+	it('reads each site’s cookies as a download to its sign-in host would get them', async () => {
+		const asked: string[] = []
+		const signIns = new SiteSignIns({readCookies: host => (asked.push(host), Promise.resolve([]))})
+		await signIns.refresh()
+
+		expect(asked.sort()).toEqual(['api.x.com', 'www.instagram.com'])
+	})
 })

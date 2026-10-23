@@ -3,6 +3,8 @@
 // marked as not working, and the start identity both give a link.
 
 import type {CommonSettings} from '@shared/types.js'
+import {exploreCookieScopeFor} from '@shared/sites/exploreCookieScope.js'
+import {knownSiteSignIn, signInSiteKeys, type SiteSignIn} from '@shared/sites/siteKeys.js'
 import {SuspectSignInStore} from '@main/stores/SuspectSignInStore.js'
 import type {ExploreSessionService} from './ExploreSessionService.js'
 import {SiteSignIns} from './SiteSignIns.js'
@@ -18,9 +20,22 @@ export interface ExploreSignIns {
 	recordEvidence: (site: string, evidence: SignInEvidence) => void
 }
 
-export async function createExploreSignIns(deps: {userDataPath: string; session: Pick<ExploreSessionService, 'readCookies' | 'onCookiesChanged'>; settings: () => Pick<CommonSettings, 'cookiesMode' | 'exploreEnabled'>}): Promise<ExploreSignIns> {
-	// A web scope reads every cookie a download from another site may get.
-	const signIns = new SiteSignIns({readCookies: () => deps.session.readCookies({kind: 'web', host: 'sign-ins.invalid'})})
+// `extraSignIns`: sign-in rows that add to or replace the known sites' (the E2E
+// harness makes its fixture site start signed in).
+export async function createExploreSignIns(deps: {userDataPath: string; session: Pick<ExploreSessionService, 'readCookies' | 'onCookiesChanged'>; settings: () => Pick<CommonSettings, 'cookiesMode' | 'exploreEnabled'>; extraSignIns?: Readonly<Record<string, SiteSignIn>>}): Promise<ExploreSignIns> {
+	const extra = deps.extraSignIns ?? {}
+	const rowFor = (site: string): SiteSignIn | null => extra[site] ?? knownSiteSignIn(site)
+	const sites = [...new Set([...signInSiteKeys(), ...Object.keys(extra)])]
+	// Each site's cookies as a download to it gets them: a site Explore knows
+	// (YouTube) keeps its account cookies to its own scope.
+	const signIns = new SiteSignIns({
+		readCookies: async host => {
+			const scope = exploreCookieScopeFor(`https://${host}/`)
+			return scope ? deps.session.readCookies(scope) : []
+		},
+		sites,
+		rowFor
+	})
 	const suspects = new SuspectSignIns({store: new SuspectSignInStore(deps.userDataPath), cookieFingerprint: site => signIns.cookieFingerprint(site)})
 	signIns.onChange(site => suspects.cookieChanged(site))
 	await signIns.refresh()
@@ -34,7 +49,7 @@ export async function createExploreSignIns(deps: {userDataPath: string; session:
 		suspects,
 		decideStart: url => {
 			const {cookiesMode, exploreEnabled} = deps.settings()
-			return decideStartIdentity(url, {cookiesMode, exploreEnabled: exploreEnabled !== false, signedIn: site => signIns.signedIn(site), suspect: site => suspects.isSuspect(site)})
+			return decideStartIdentity(url, {cookiesMode, exploreEnabled: exploreEnabled !== false, signedIn: site => signIns.signedIn(site), suspect: site => suspects.isSuspect(site), rowFor})
 		},
 		recordEvidence: (site, evidence) => suspects.record(site, evidence)
 	}

@@ -8,7 +8,7 @@ import type {CookiesMode} from '@shared/schemas.js'
 import type {AuthBasis} from '@shared/signInSchemas.js'
 import type {StartAnonymousReason} from '@shared/escalationSchemas.js'
 import {requestSiteFor} from '@shared/sites/index.js'
-import {siteSignInPolicy} from '@shared/sites/siteSignIn.js'
+import {siteSignInPolicy, type SignInRowFor} from '@shared/sites/siteSignIn.js'
 
 export interface StartIdentityInputs {
 	cookiesMode: CookiesMode | undefined
@@ -17,6 +17,8 @@ export interface StartIdentityInputs {
 	signedIn: (site: string) => boolean
 	// Whether downloads marked the site's sign-in as not working.
 	suspect: (site: string) => boolean
+	// The sites' sign-in rows; the known sites' when absent.
+	rowFor?: SignInRowFor
 }
 
 export type StartDecision = {site: string; auth: 'exploreSession'; basis: Extract<AuthBasis, 'siteDefault'>} | {site: string; auth: 'anonymous'; reason: StartAnonymousReason}
@@ -24,7 +26,7 @@ export type StartDecision = {site: string; auth: 'exploreSession'; basis: Extrac
 export function decideStartIdentity(url: string, inputs: StartIdentityInputs): StartDecision {
 	const site = requestSiteFor(url)
 	const anonymous = (reason: StartAnonymousReason): StartDecision => ({site, auth: 'anonymous', reason})
-	if (siteSignInPolicy(site) !== 'first') return anonymous('notSignInFirst')
+	if (siteSignInPolicy(site, inputs.rowFor) !== 'first') return anonymous('notSignInFirst')
 	if (inputs.cookiesMode !== 'explore') return anonymous('notExploreMode')
 	if (!inputs.exploreEnabled) return anonymous('exploreDisabled')
 	if (inputs.suspect(site)) return anonymous('signInSuspect')

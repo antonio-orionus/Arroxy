@@ -6,38 +6,47 @@
 
 import {createHash} from 'node:crypto'
 import log from 'electron-log/main.js'
-import {signInSiteKeys} from '@shared/sites/siteKeys.js'
-import {siteSignInCookie} from '@shared/sites/siteSignIn.js'
+import {knownSiteSignIn, signInSiteKeys} from '@shared/sites/siteKeys.js'
+import {siteSignInCookie, type SignInRowFor} from '@shared/sites/siteSignIn.js'
 import type {ExploreCookie} from '@shared/sites/types.js'
 
 const logger = log.scope('sign-ins')
 
 export interface SiteSignInsOptions {
-	// Every cookie in the Explore session that a download may use.
-	readCookies: () => Promise<ExploreCookie[]>
+	// The Explore session's cookies a download to the host may use.
+	readCookies: (host: string) => Promise<ExploreCookie[]>
 	now?: () => number
+	// The sites checked and their sign-in rows; the known sites' when absent.
+	sites?: readonly string[]
+	rowFor?: SignInRowFor
 }
 
 export class SiteSignIns {
-	private readonly readCookies: () => Promise<ExploreCookie[]>
+	private readonly readCookies: (host: string) => Promise<ExploreCookie[]>
 	private readonly now: () => number
+	private readonly sites: readonly string[]
+	private readonly rowFor: SignInRowFor
 	private readonly fingerprints = new Map<string, string>()
 	private readonly listeners = new Set<(site: string) => void>()
 
 	constructor(options: SiteSignInsOptions) {
 		this.readCookies = options.readCookies
 		this.now = options.now ?? Date.now
+		this.sites = options.sites ?? signInSiteKeys()
+		this.rowFor = options.rowFor ?? knownSiteSignIn
 	}
 
 	async refresh(): Promise<void> {
-		let cookies: ExploreCookie[] = []
-		try {
-			cookies = await this.readCookies()
-		} catch (err) {
-			logger.warn('Could not read the Explore sign-ins', {error: err instanceof Error ? err.message : String(err)})
-		}
-		for (const site of signInSiteKeys()) {
-			const cookie = siteSignInCookie(cookies, site, this.now() / 1000)
+		for (const site of this.sites) {
+			const row = this.rowFor(site)
+			if (!row) continue
+			let cookies: ExploreCookie[] = []
+			try {
+				cookies = await this.readCookies(row.host)
+			} catch (err) {
+				logger.warn('Could not read the Explore sign-ins', {site, error: err instanceof Error ? err.message : String(err)})
+			}
+			const cookie = siteSignInCookie(cookies, site, this.now() / 1000, this.rowFor)
 			const fingerprint = cookie === null ? null : fingerprintOf(cookie)
 			if ((this.fingerprints.get(site) ?? null) === fingerprint) continue
 			if (fingerprint === null) this.fingerprints.delete(site)
