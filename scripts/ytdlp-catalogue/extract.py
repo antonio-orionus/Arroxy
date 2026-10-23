@@ -108,6 +108,12 @@ def unpacks(call):
     return any(isinstance(a, ast.Starred) for a in call.args) or any(k.arg is None for k in call.keywords)
 
 
+def only_http_error(node):
+    """Whether an `except` catches HTTPError and nothing else."""
+    names = node.elts if isinstance(node, ast.Tuple) else [node]
+    return all(callee_name(ast.Call(func=name, args=[], keywords=[])) == 'HTTPError' for name in names)
+
+
 UNKNOWN = object()
 
 
@@ -739,6 +745,14 @@ class Extractor:
             flags['cause'] = True
         if Extractor.on_http_error(chain, site):
             flags['onHttpError'] = True
+        handler = next((n for n in chain if isinstance(n, (ast.ExceptHandler, ast.FunctionDef, ast.AsyncFunctionDef, ast.Lambda))), None)
+        if isinstance(handler, ast.ExceptHandler) and handler.type is not None and HTTP_CHECK.search(ast.unparse(handler.type)):
+            # A network error is being handled: ExtractorError then sets
+            # expected=True itself, so no bug-report request. It checks the exact
+            # class (HTTPError, TransportError), so an except that also catches
+            # subclasses (`except TransportError`, `network_exceptions`) only
+            # may hold one.
+            flags['networkExcept'] = 'yes' if only_http_error(handler.type) else 'maybe'
         if 'metadata_available' in bound:
             flags['metadataAvailable'] = tristate(bound['metadata_available'])
         if name == 'raise_login_required':

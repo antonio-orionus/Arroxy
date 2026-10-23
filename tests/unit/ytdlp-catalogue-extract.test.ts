@@ -103,6 +103,14 @@ describe.skipIf(python === null && !process.env.CI)('ytdlp-catalogue extract.py'
 			expect(one('ExampleIE.literal').flags.onHttpError).toBeUndefined()
 		})
 
+		it('networkExcept: inside an except for a network error, where yt-dlp sets expected=True itself', () => {
+			expect(one('ExampleIE.network_except', 'ExtractorError').flags).toMatchObject({networkExcept: 'yes', onHttpError: true})
+			// An HTTP check on an ExtractorError's cause is not one: the exception being handled is the ExtractorError.
+			expect(one('ExampleIE.with_cause', 'ExtractorError').flags.networkExcept).toBeUndefined()
+			// yt-dlp checks the exact class: an except on a parent class may catch one it does not count.
+			expect(one('ExampleIE.transport_except', 'ExtractorError').flags.networkExcept).toBe('maybe')
+		})
+
 		it('an HTTP error check counts only on its own branch', () => {
 			const branches = Object.fromEntries(at('ExampleIE.http_else', 'ExtractorError').map(site => [site.template, site.flags.onHttpError]))
 			expect(branches).toEqual({'The HTTP side': true, 'The other side': undefined})

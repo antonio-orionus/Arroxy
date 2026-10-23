@@ -97,6 +97,20 @@ class ExampleIE(InfoExtractor):
     def regex_dynamic_default(self, webpage, fatal):
         return self._search_regex(r'http-equiv="refresh"', webpage, 'meta refresh redirect', default=NO_DEFAULT if fatal else None)
 
+    def network_except(self):
+        try:
+            self._download_json('https://example.com', None)
+        except HTTPError:
+            raise ExtractorError('Request failed')
+
+    def transport_except(self):
+        try:
+            self._download_json('https://example.com', None)
+        except TransportError:
+            # Also catches subclasses (SSLError, IncompleteRead), which yt-dlp
+            # does not count as network errors for expected=.
+            raise ExtractorError('Transport failed')
+
     def login_default(self):
         self.raise_login_required()
 

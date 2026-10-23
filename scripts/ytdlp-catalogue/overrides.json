@@ -1,0 +1,8 @@
+[
+	{
+		"name": "content-too-short",
+		"match": {"file": "yt_dlp/YoutubeDL.py", "call": "report_error", "template": "^content too short \\(expected "},
+		"label": {"failureKind": "chunkTransferFailure", "accountHelps": "no", "action": "retry"},
+		"note": "The download ended before Content-Length was reached (ContentTooShortError). From the curated ytdlp-errors string yt-content-too-short; its text alone does not match the chunkTransferFailure pattern."
+	}
+]

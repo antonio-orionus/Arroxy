@@ -39,6 +39,9 @@ const rawSiteSchema = z.strictObject({
 		fatal: tristate.optional(),
 		cause: z.literal(true).optional(),
 		onHttpError: z.literal(true).optional(),
+		// Inside an `except` for a network error, where ExtractorError sets expected=True
+		// itself: `yes` for HTTPError alone, `maybe` when the except also catches subclasses.
+		networkExcept: z.enum(['yes', 'maybe']).optional(),
 		metadataAvailable: tristate.optional(),
 		loginMethod: z.enum(['password', 'cookies', 'session_cookies', 'any', 'default', 'dynamic']).optional(),
 		// A regex helper's default= may be a fallback or NO_DEFAULT; only known at run time.

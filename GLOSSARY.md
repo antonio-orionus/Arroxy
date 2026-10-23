@@ -324,6 +324,10 @@ _Avoid_: cookie fallback, signed-out mode
 One place in the downloader's source that raises, reports or prints a message, recorded with its text as a template and where that text comes from. A site whose text is what the site said (an API's error message, a scraped page notice) relays it rather than wording it.
 _Avoid_: error string, known string
 
+**Message catalogue**:
+Every message site in the downloader build users run, each labelled with its failure kind, whether an account helps, and the user's way out, and with the rule (or human override) each label came from. Rebuilt for each pinned build, with a coverage report of what is labelled and what changed.
+_Avoid_: error database, string snapshot
+
 **Download smoke**:
 A headless run of the real download path for one link that stops as soon as the downloader has chosen formats, reporting which formats were picked and why — used to compare cookie, proxy, profile, and player-client variations one at a time.
 _Avoid_: dry run, format test, quality probe
