@@ -1055,6 +1055,19 @@ describe('ProbeService — Explore session escalation', () => {
 			expect(record.mock.calls[0]?.[2].startedAt).toBeGreaterThanOrEqual(before)
 		})
 
+		it.each([
+			['signedInSucceeded', [success(igVideo())]],
+			['anonymousWorked', [exitError(RULING), success(igVideo())]]
+		] as const)('records %s under the address the link resolved to, the one its download records', async (kind, results) => {
+			const record = vi.fn()
+			const queue: YtDlpResult[] = [...results]
+			const run = vi.fn(async () => queue.shift() ?? success(igVideo()))
+			const service = new ProbeService({run} as never, false, undefined, {exploreGate: {canEscalate: vi.fn(allowed)}, exploreSession: {verifySignedIn: vi.fn()}, startIdentity: () => ({site: 'instagram', auth: 'exploreSession', basis: 'siteDefault'}), signInEvidence: record})
+			await service.probe('https://www.instagram.com/share/xyz/', {kind: 'intake', playlistMode: 'video'})
+
+			expect(record).toHaveBeenCalledWith('instagram', kind, {item: IG_URL, startedAt: expect.any(Number)})
+		})
+
 		it('runs anonymous, recording nothing, when its session is refused before launch (a short link with no cookies for its host)', async () => {
 			const refused: YtDlpResult = {kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: '', signedInRefused: true}
 			const {service, run, evidence} = makeSiteDefaultService([refused, success(igVideo())])

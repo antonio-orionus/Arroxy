@@ -464,7 +464,9 @@ export class ProbeService extends EventEmitter {
 			return {outcome: await runAnonymous(), ranAnonymous: true}
 		}
 		const {item: url} = source
-		const record = (evidence: SignInEvidence): void => this.signInEvidence?.(site, evidence, source)
+		// A result counts under the address the link resolved to, which its download
+		// records too: a share or short link and its download are one item.
+		const record = (evidence: SignInEvidence, outcome: ProbeOutcome = first): void => this.signInEvidence?.(site, evidence, outcome.kind === 'failure' ? source : {...source, item: outcome.result.webpageUrl})
 		if (cookiesRejectedBy !== null) record('cookiesRejected')
 		if (first.kind !== 'failure') {
 			if (cookiesRejectedBy === null) record('signedInSucceeded')
@@ -476,7 +478,7 @@ export class ProbeService extends EventEmitter {
 		if (failure !== 'accountRequired' && failure !== 'unknown') return {outcome: first, ranAnonymous: false}
 		logger.info('Probe failed signed in by its site’s default; running once anonymous', {url, site, failure})
 		const anonymous = await runAnonymous()
-		if (anonymous.kind !== 'failure') record('anonymousWorked')
+		if (anonymous.kind !== 'failure') record('anonymousWorked', anonymous)
 		return {outcome: anonymous, ranAnonymous: true}
 	}
 
