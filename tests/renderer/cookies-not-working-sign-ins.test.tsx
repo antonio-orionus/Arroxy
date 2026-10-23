@@ -12,8 +12,9 @@ import {buildAppSettings} from '../shared/settingsFixtures.js'
 
 let api: AppApi
 
-function mount(notWorkingSignIns: string[], cookiesMode: CookiesMode = 'explore'): {openExploreSignIn: ReturnType<typeof vi.fn>} {
+function mount(notWorkingSignIns: string[], cookiesMode: CookiesMode = 'explore', common: Record<string, unknown> = {}): {openExploreSignIn: ReturnType<typeof vi.fn>} {
 	const settings = buildAppSettings({cookiesMode})
+	Object.assign(settings.common, common)
 	api = buildMockAppApi({settings})
 	window.appApi = api
 	const openExploreSignIn = vi.fn()
@@ -50,6 +51,13 @@ describe('Settings: sign-ins that stopped working', () => {
 		const {openExploreSignIn} = mount(['instagram'])
 		fireEvent.click(screen.getByTestId('cookies-sign-in-again-instagram'))
 		expect(openExploreSignIn).toHaveBeenCalledWith(exploreSignInSiteFor(knownSiteSignIn('instagram')?.page))
+	})
+
+	it('leaves Explore as plain text while the Explore tab is off, since there is nowhere to open', () => {
+		mount(['instagram'], 'explore', {exploreEnabled: false})
+		const instagram = screen.getByTestId('cookies-not-working-sign-in-instagram')
+		expect(instagram.textContent).toContain('Sign in to Instagram again in Explore')
+		expect(screen.queryByTestId('cookies-sign-in-again-instagram')).toBeNull()
 	})
 
 	it('asks main to use the sign-in again', () => {

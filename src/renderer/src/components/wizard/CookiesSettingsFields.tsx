@@ -76,7 +76,7 @@ function CookiesSourceField({cookiesMode}: {cookiesMode: CookiesMode}): ReactNod
 				<ToggleGroupItem value="browser">{t('wizard.url.cookies.sourceBrowser')}</ToggleGroupItem>
 			</ToggleGroup>
 			{cookiesMode === 'explore' ? <ExploreModeDescription enabled={exploreEnabled} linked={notWorking.length === 0} /> : null}
-			{cookiesMode === 'explore' ? <NotWorkingSignIns /> : null}
+			{cookiesMode === 'explore' ? <NotWorkingSignIns exploreEnabled={exploreEnabled} /> : null}
 			{cookiesMode !== 'off' ? <WarningText text={t('wizard.url.cookies.banWarning')} /> : null}
 		</Field>
 	)
@@ -226,7 +226,8 @@ function ExploreModeDescription({enabled, linked}: {enabled: boolean; linked: bo
 // Sites whose Explore sign-in downloads marked as not working (ADR 0022): they
 // start anonymous and never escalate until the user signs in again in Explore,
 // or says here to use the sign-in again (after dealing with a checkpoint).
-function NotWorkingSignIns(): ReactNode {
+// With the Explore tab off there is nowhere to open, so "Explore" stays text.
+function NotWorkingSignIns({exploreEnabled}: {exploreEnabled: boolean}): ReactNode {
 	const {t} = useTranslation()
 	const {sites, reuseSignIn, openExploreSignIn} = useAppStore(useShallow(state => ({sites: state.notWorkingSignIns, reuseSignIn: state.reuseSignIn, openExploreSignIn: state.openExploreSignIn})))
 	if (sites.length === 0) return null
@@ -240,7 +241,7 @@ function NotWorkingSignIns(): ReactNode {
 						<Trans
 							i18nKey="wizard.url.cookies.signInStoppedWorkingDetail"
 							values={{site: siteKeyLabel(site)}}
-							components={{explore: <Button type="button" variant="link" size="inline" onClick={() => openExploreSignIn(exploreSignInSiteFor(knownSiteSignIn(site)?.page))} data-testid={`cookies-sign-in-again-${site}`} />}}
+							components={{explore: exploreEnabled ? <Button type="button" variant="link" size="inline" onClick={() => openExploreSignIn(exploreSignInSiteFor(knownSiteSignIn(site)?.page))} data-testid={`cookies-sign-in-again-${site}`} /> : <span />}}
 						/>
 					</AlertDescription>
 					<div className="col-start-2 flex flex-wrap gap-2">
