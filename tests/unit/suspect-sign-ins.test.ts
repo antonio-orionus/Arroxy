@@ -49,6 +49,13 @@ describe('SuspectSignIns: what marks a sign-in as not working', () => {
 		expect(suspects.isSuspect('instagram')).toBe(true)
 	})
 
+	it('counts a share link and its canonical address as one item', () => {
+		const {suspects} = setup()
+		suspects.record('instagram', 'anonymousWorked', {item: 'https://www.instagram.com/reel/A1/?igsh=xyz', startedAt: 0})
+		suspects.record('instagram', 'anonymousWorked', {item: 'https://www.instagram.com/reel/A1/', startedAt: 0})
+		expect(suspects.isSuspect('instagram')).toBe(false)
+	})
+
 	it('drops evidence from a launch that started before the user signed in again', () => {
 		const {suspects, advance, fingerprints} = setup()
 		const before = 1_000_000

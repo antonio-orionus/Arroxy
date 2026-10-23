@@ -77,7 +77,7 @@ export class SuspectSignIns {
 		if (threshold === undefined || this.isSuspect(site)) return
 		const now = this.now()
 		const recent = (this.seen.get(site) ?? []).filter(entry => entry.at > now - WINDOW_MS)
-		recent.push({kind: evidence, at: now, item: source?.item})
+		recent.push({kind: evidence, at: now, item: source === undefined ? undefined : itemKey(source.item)})
 		this.seen.set(site, recent)
 		const matching = recent.filter(entry => entry.kind === evidence)
 		// Two items worked only anonymously: one item's probe and download count once.
@@ -139,5 +139,19 @@ export class SuspectSignIns {
 	private notify(): void {
 		const sites = this.list()
 		for (const listener of this.listeners) listener(sites)
+	}
+}
+
+// One item however its link was written: a probe records the pasted link, its
+// download the canonical one (a share link loses its `?igsh=…`, twitter.com
+// becomes x.com). Evidence is kept per site, so the path names the item; a
+// video id in `v` is kept, since it is the item on a watch page.
+function itemKey(item: string): string {
+	try {
+		const url = new URL(item)
+		const video = url.searchParams.get('v')
+		return `${url.pathname.replace(/\/+$/, '')}${video === null ? '' : `?v=${video}`}`
+	} catch {
+		return item
 	}
 }
