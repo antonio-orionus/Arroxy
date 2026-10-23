@@ -577,6 +577,41 @@ describe('VideoPhase: a job its site started signed in (ADR 0022)', () => {
 		expect(fetches[1]).not.toHaveProperty('loadInfoJsonPath')
 	})
 
+	it.each([
+		['its safety launch', {runs: [RULING, SUCCESS], signedIn: true}],
+		['a sign-in refused before it spawns', {runs: [SUCCESS], signedIn: false, refusal: 'signInSuspect' as const}]
+	])('forgets the probe info-json extracted signed in once %s moves it to anonymous, so a resume never replays it', async (_case, opts) => {
+		const {ctx} = makeCtx({...opts, input: {...SITE_DEFAULT, probeInfoJsonPath: '/cache/signed-in.info.json', probeFormatsWithheld: true}})
+
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
+		expect(ctx.active.input.auth).toBe('anonymous')
+		expect(ctx.active.input).not.toHaveProperty('probeInfoJsonPath')
+		expect(ctx.active.input).not.toHaveProperty('probeFormatsWithheld')
+	})
+
+	const SIDECAR_JOB: ResolvedStartDownloadInput['job'] = {...IG_JOB, subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}}
+	const SIGNED_IN_REFUSED: YtDlpResult = {kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'The Explore session is not usable', stdout: '', stderr: '', signedInRefused: true}
+	const LISTED: YtDlpResult = {...SUCCESS, stdout: JSON.stringify({title: 'Video', subtitles: {en: [{ext: 'vtt'}]}, automatic_captions: {}})}
+
+	it('lists sidecar subtitles anonymous when the listing is refused its sign-in before launch, and fetches from that listing', async () => {
+		const evidence: string[] = []
+		const {ctx, run} = makeCtx({runs: [SIGNED_IN_REFUSED, LISTED, SUCCESS], input: {...SITE_DEFAULT, job: SIDECAR_JOB}, signedIn: true, tempDir: true, evidence})
+
+		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'completed'})
+		expect(identities(run)).toEqual(['exploreSession', 'configured', 'configured'])
+		expect(run.mock.calls[2]?.[0]).toHaveProperty('loadInfoJsonPath')
+		expect(evidence).toEqual([])
+	})
+
+	it('fetches sidecar subtitles anonymous without the signed-in listing when the fetch is refused its sign-in', async () => {
+		const {ctx, run} = makeCtx({runs: [LISTED, SIGNED_IN_REFUSED, SUCCESS], input: {...SITE_DEFAULT, job: SIDECAR_JOB}, signedIn: true, tempDir: true})
+
+		expect(await SidecarSubsPhase(false).run(ctx)).toEqual({kind: 'completed'})
+		expect(identities(run)).toEqual(['exploreSession', 'exploreSession', 'configured'])
+		expect(run.mock.calls[1]?.[0]).toHaveProperty('loadInfoJsonPath')
+		expect(run.mock.calls[2]?.[0]).not.toHaveProperty('loadInfoJsonPath')
+	})
+
 	it('never escalates a job its safety launch left anonymous', async () => {
 		const {ctx, run, canEscalate} = makeCtx({runs: [LOGIN_REQUIRED], input: {url: IG_URL, job: IG_JOB, auth: 'anonymous'}, signedIn: true})
 

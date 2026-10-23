@@ -6,7 +6,7 @@ import {classifyYtDlpFailure} from '../download/errorClassification.js'
 import {cleanupTempDirByPath} from '../download/cleanup.js'
 import {setupTempDir} from '../download/jobTempDir.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
-import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, exploreSignedOut, guardSignedInSpawn, interruptedOutcome, probeInfoJsonInTemp} from './phaseHelpers.js'
+import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, exploreSignedOut, guardSignedInSpawn, interruptedOutcome, probeInfoJsonInTemp, withoutListing} from './phaseHelpers.js'
 import {automaticCaptionPaths, eagerSubtitleLists, endWithoutFetching, missingSubtitles, planSubtitleRun, readSubtitleReport, clearSubtitleReport, saveSubtitleListing, subtitleFetchRequest, subtitleReportFile} from './subtitleTracks.js'
 import {identityFor} from '../exploreGate.js'
 import {siteForJob} from '@shared/sites/index.js'
@@ -14,12 +14,6 @@ import type {YtDlpRequest, YtDlpResult} from '../YtDlp.js'
 import {settleWithExploreSession} from './signedInFlow.js'
 
 type SettledRun = {kind: 'done'; result: Extract<YtDlpResult, {kind: 'success'}>} | {kind: 'ended'; outcome: PhaseOutcome}
-
-function withoutListing(req: YtDlpRequest): YtDlpRequest {
-	if (req.kind !== 'subtitles') return req
-	const {loadInfoJsonPath: _listing, ...rest} = req
-	return rest
-}
 
 function hardFailure(ctx: PhaseContext, error: LocalizedError, params: Record<string, string>): PhaseOutcome {
 	ctx.emitStatus('error', STATUS_KEY.ytdlpProcessError, params, error)

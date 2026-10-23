@@ -5,7 +5,7 @@ import {requestSiteFor, type Site} from '@shared/sites/index.js'
 import type {ExploreSignInState} from '@shared/schemas.js'
 import type {YtDlpResult} from '../YtDlp.js'
 import {decideEscalation, escalationReason, type EscalationDecision} from '../exploreEscalation.js'
-import {interruptedOutcome} from './phaseHelpers.js'
+import {continueAnonymous, interruptedOutcome} from './phaseHelpers.js'
 import {signedInFailure} from '../signedInEvidence.js'
 import type {SignInEvidence} from '../SuspectSignIns.js'
 import type {PhaseContext, PhaseOutcome} from './types.js'
@@ -128,8 +128,7 @@ async function settleSiteDefault<R extends SignedInRun>(ctx: PhaseContext, run: 
 	const runAnonymous = async (runAnonymously: () => Promise<R>, failure: string): Promise<SignedInFlowResult<R>> => {
 		logger.info('Download failed signed in by its site’s default; one anonymous launch', {jobId: active.job.id, site, failure})
 		ctx.emitStatus('download', STATUS_KEY.retryingWithoutSignIn)
-		const {authBasis: _basis, ...rest} = active.input
-		active.input = {...rest, auth: 'anonymous'}
+		continueAnonymous(active)
 		const next = await runAnonymously()
 		const stopped = interruptedOutcome(active)
 		if (stopped) return {kind: 'stopped', outcome: stopped}

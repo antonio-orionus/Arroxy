@@ -4,7 +4,7 @@ import type {SubtitlePlan} from '@shared/subtitleTracks.js'
 import {postProcessSubtitleFiles, muxSubtitlesIntoVideo, logger} from '../subtitlePostProcess.js'
 import type {Phase, PhaseContext, PhaseOutcome} from './types.js'
 import {join} from 'node:path'
-import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, INFO_JSON_NAME, interruptedOutcome, probeInfoJsonInTemp, trackFfmpegProcess} from './phaseHelpers.js'
+import {buildYtDlpSignal, canSpawnSignedIn, compiledOutputTemplate, INFO_JSON_NAME, interruptedOutcome, probeInfoJsonInTemp, trackFfmpegProcess, withoutListing} from './phaseHelpers.js'
 import {automaticCaptionPaths, clearSubtitleReport, eagerSubtitleLists, endWithoutFetching, missingSubtitles, planSubtitleRun, readSubtitleReport, saveSubtitleListing, subtitleEmbedTracks, subtitleFetchRequest, subtitleReportFile, type ReportedSubtitle, type SubtitleLists} from './subtitleTracks.js'
 import {identityFor} from '../exploreGate.js'
 import {siteForJob} from '@shared/sites/index.js'
@@ -71,6 +71,9 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			// already saved, so a lost Explore session soft-fails this phase like
 			// any other subtitle failure instead of failing the download.
 			const site = siteForJob(preparedJob.extractor, input.url)
+			// Whether the listing the fetch loads was extracted on the account: the
+			// media run's or the probe's, when the job ran signed in, or a listing run that was.
+			let listingSignedIn = active.input.auth === 'exploreSession'
 			if (!(await canSpawnSignedIn(ctx))) {
 				logger.warn('Subtitles skipped — Explore session no longer available for this signed-in job; video already saved', {jobId: job.id})
 				return SUBTITLES_FAILED
@@ -84,23 +87,28 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 
 			ctx.emitStatus('download', STATUS_KEY.fetchingSubtitles)
 
+			// A job its site started signed in that went on anonymous never replays a
+			// listing extracted signed in: the fetch re-extracts without it.
+			const anonymousReplay = (req: YtDlpRequest): boolean => req.kind === 'subtitles' && listingSignedIn && active.input.auth !== 'exploreSession'
+
 			// Never escalates (the video is saved; a subtitle failure is soft), but an
-			// escalated job's rejected cookies are checked like any signed-in run's.
+			// escalated job's rejected cookies are checked like any signed-in run's,
+			// and a job its site started signed in gets its one anonymous launch.
 			const settledRun = async (req: YtDlpRequest): Promise<Extract<YtDlpResult, {kind: 'success'}> | PhaseOutcome> => {
 				const spawn = async (): Promise<{result: YtDlpResult}> => ({
 					result: await ytDlp.run(
-						req,
+						anonymousReplay(req) ? withoutListing(req) : req,
 						// A listing's stdout is the info-json, read from the result: no progress to parse, nothing to log.
 						buildYtDlpSignal(ctx, active, req.kind === 'subtitle-listing' ? {onStdout: () => undefined} : {}),
 						// The media is saved: the rest of this job goes ahead through a
 						// rate-limit cooldown its own media run may have started.
-						{identity: identityFor(active.input.auth), jobKey: job.id, honorCooldown: false, ...(input.explicit ? {explicit: true} : {}), ...(input.signedInReservation === undefined ? {} : {signedInReservation: input.signedInReservation})}
+						{identity: identityFor(active.input.auth), jobKey: job.id, honorCooldown: false, ...(active.input.explicit ? {explicit: true} : {}), ...(active.input.signedInReservation === undefined ? {} : {signedInReservation: active.input.signedInReservation})}
 					)
 				})
 				const first = await spawn()
 				const stopped = interruptedOutcome(active)
 				if (stopped) return stopped
-				const settled = await settleWithExploreSession(ctx, first, {site, runSignedIn: async () => ((await canSpawnSignedIn(ctx)) ? spawn() : null)})
+				const settled = await settleWithExploreSession(ctx, first, {site, runSignedIn: async () => ((await canSpawnSignedIn(ctx)) ? spawn() : null), runAnonymous: spawn})
 				if (settled.kind === 'stopped') return settled.outcome
 				if (settled.kind === 'signedOut') {
 					logger.warn('Subtitles skipped — the Explore session is signed out; video already saved', {jobId: job.id})
@@ -120,6 +128,7 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 			if (!lists) {
 				const listed = await settledRun({kind: 'subtitle-listing', url: input.url})
 				if (listed.kind !== 'success') return listed
+				listingSignedIn = active.input.auth === 'exploreSession'
 				const saved = await saveSubtitleListing(listed.stdout, tempDir)
 				if (saved.kind !== 'saved') {
 					if (saved.kind === 'not-info-json') logger.warn('Subtitles skipped — the subtitle listing printed no info-json; video already saved', {jobId: job.id})
