@@ -125,6 +125,19 @@ async function settleSiteDefault<R extends SignedInRun>(ctx: PhaseContext, run: 
 	const {result} = run
 	// Arroxy held the run back: nothing reached the site, so it shows nothing about the sign-in.
 	if (result.kind === 'exit-error' && result.heldBeforeLaunch === true) return {kind: 'run', run}
+	const runAnonymous = async (runAnonymously: () => Promise<R>, failure: string): Promise<SignedInFlowResult<R>> => {
+		logger.info('Download failed signed in by its site’s default; one anonymous launch', {jobId: active.job.id, site, failure})
+		ctx.emitStatus('download', STATUS_KEY.retryingWithoutSignIn)
+		const {authBasis: _basis, ...rest} = active.input
+		active.input = {...rest, auth: 'anonymous'}
+		const next = await runAnonymously()
+		const stopped = interruptedOutcome(active)
+		if (stopped) return {kind: 'stopped', outcome: stopped}
+		if (next.result.kind === 'success' && failure !== 'signedInRefused') record('anonymousWorked')
+		return {kind: 'run', run: next}
+	}
+	// The session was refused before launch: no evidence, and the job goes on without it.
+	if (result.kind === 'exit-error' && result.signedInRefused === true) return flow.runAnonymous ? runAnonymous(flow.runAnonymous, 'signedInRefused') : {kind: 'run', run}
 	const rejected = result.kind !== 'spawn-error' && result.cookiesRejectedBy !== undefined
 	if (rejected) record('cookiesRejected')
 	if (result.kind === 'success') {
@@ -136,13 +149,5 @@ async function settleSiteDefault<R extends SignedInRun>(ctx: PhaseContext, run: 
 	if (failure === 'accountWall') record('accountWall')
 	if (failure === 'unknown') record('signedInUnknown')
 	if ((failure !== 'accountRequired' && failure !== 'unknown') || !flow.runAnonymous) return {kind: 'run', run}
-	logger.info('Download failed signed in by its site’s default; one anonymous launch', {jobId: active.job.id, site, failure})
-	ctx.emitStatus('download', STATUS_KEY.retryingWithoutSignIn)
-	const {authBasis: _basis, ...rest} = active.input
-	active.input = {...rest, auth: 'anonymous'}
-	const next = await flow.runAnonymous()
-	const stopped = interruptedOutcome(active)
-	if (stopped) return {kind: 'stopped', outcome: stopped}
-	if (next.result.kind === 'success') record('anonymousWorked')
-	return {kind: 'run', run: next}
+	return runAnonymous(flow.runAnonymous, failure)
 }

@@ -1136,21 +1136,21 @@ describe('YtDlp — run identity', () => {
 	it('refuses to run an escalated job anonymously when explore mode is off', async () => {
 		const withJar = vi.fn()
 		const result = await makeYtDlp({settings: {cookiesMode: 'off'}, sessionJars: {withJar, getUserAgent: () => EXPLORE_UA}}).run(mediaRequest(), undefined, {identity: 'exploreSession'})
-		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: '', heldBeforeLaunch: true})
+		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: '', signedInRefused: true})
 		expect(spawnYtDlp).not.toHaveBeenCalled()
 		expect(withJar).not.toHaveBeenCalled()
 	})
 
 	it('refuses to run an escalated job when no session jar port was injected', async () => {
 		const result = await makeYtDlp({settings: exploreSettings}).run(mediaRequest(), undefined, {identity: 'exploreSession'})
-		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: '', heldBeforeLaunch: true})
+		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: '', signedInRefused: true})
 		expect(spawnYtDlp).not.toHaveBeenCalled()
 	})
 
 	it('returns the unavailable result, without spawning, when the jar cannot be written', async () => {
 		const withJar = vi.fn().mockRejectedValue(new Error('EACCES: /secret/path'))
 		const result = await makeYtDlp({settings: exploreSettings, sessionJars: {withJar, getUserAgent: () => EXPLORE_UA}}).run(mediaRequest(), undefined, {identity: 'exploreSession'})
-		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: '', heldBeforeLaunch: true})
+		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: '', signedInRefused: true})
 		expect(spawnYtDlp).not.toHaveBeenCalled()
 	})
 
@@ -1227,7 +1227,7 @@ describe('YtDlp — run identity', () => {
 
 	it('refuses an escalated run when no spawn gate was injected', async () => {
 		const result = await makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars(), spawnGate: null}).run(mediaRequest(), undefined, {identity: 'exploreSession'})
-		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: '', heldBeforeLaunch: true})
+		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: '', signedInRefused: true})
 		expect(spawnYtDlp).not.toHaveBeenCalled()
 	})
 
@@ -1240,7 +1240,7 @@ describe('YtDlp — run identity', () => {
 			{sessionJars: {withJar, getUserAgent: () => EXPLORE_UA}, launchGate: new LaunchGate({signedIn: testPacer({spacingMs: 0})}), sessionAuth: {canEscalate: () => Promise.resolve({allowed: false as const, reason: 'noCookiesForHost' as const})}}
 		)
 		const result = await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession'})
-		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: '', heldBeforeLaunch: true})
+		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: '', signedInRefused: true})
 		expect(withJar).not.toHaveBeenCalled()
 		expect(spawnYtDlp).not.toHaveBeenCalled()
 	})

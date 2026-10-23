@@ -214,12 +214,16 @@ export const VideoPhase: Phase = {
 		// a few seconds on extractor work and thumbnail conversion first.
 		// The first `[download] Destination:` line in consumeProgress emits
 		// the accurate status when the actual data download begins.
-		const runMedia = async (infoJsonPath: string | undefined, mode: MediaRunMode): Promise<MediaRun> => {
-			const req = buildRequest(infoJsonPath)
+		const runMedia = async (requestedInfoJsonPath: string | undefined, mode: MediaRunMode): Promise<MediaRun> => {
 			if (!(await canSpawnSignedIn(ctx))) {
 				signedOut = true
-				return refusedSignedInRun(req)
+				return refusedSignedInRun(buildRequest(requestedInfoJsonPath))
 			}
+			// A site-default job the guard moved to anonymous never replays an info-json
+			// extracted signed in: it re-extracts without the account.
+			const movedToAnonymous = mode.identity === 'exploreSession' && active.input.auth !== 'exploreSession'
+			const infoJsonPath = movedToAnonymous ? undefined : requestedInfoJsonPath
+			const req = buildRequest(infoJsonPath)
 			// yt-dlp prints the withheld-formats warning during extraction, so a run
 			// that loads the probe's info-json inherits the probe's observation.
 			// A resumed run loading its own saved info-json inherits the earlier run's.
@@ -268,8 +272,7 @@ export const VideoPhase: Phase = {
 			})
 			printedPathFile = finalPathFile && (await clearFinalPathFile(finalPathFile)) ? finalPathFile : undefined
 			if (finalPathFile && !printedPathFile) logger.warn('could not clear the final-path file; using the path from the log', {jobId: job.id})
-			// A site-default job the guard moved to anonymous no longer runs on the session.
-			const identity = mode.identity === 'exploreSession' && active.input.auth !== 'exploreSession' ? ANONYMOUS.identity : mode.identity
+			const identity = movedToAnonymous ? ANONYMOUS.identity : mode.identity
 			const result = await ytDlp.run(req, signal, {identity, jobKey: job.id, ...(input.explicit ? {explicit: true} : {}), ...(input.signedInReservation === undefined ? {} : {signedInReservation: input.signedInReservation}), ...(printedPathFile ? {finalPathFile: printedPathFile} : {})})
 			// yt-dlp can finish a small file before the stop reaches it. The run
 			// then did complete — at the limited quality — and is kept as it is.

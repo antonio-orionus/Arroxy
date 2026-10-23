@@ -1055,6 +1055,25 @@ describe('ProbeService — Explore session escalation', () => {
 			expect(record.mock.calls[0]?.[2].startedAt).toBeGreaterThanOrEqual(before)
 		})
 
+		it('runs anonymous, recording nothing, when its session is refused before launch (a short link with no cookies for its host)', async () => {
+			const refused: YtDlpResult = {kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: '', signedInRefused: true}
+			const {service, run, evidence} = makeSiteDefaultService([refused, success(igVideo())])
+			const result = await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
+
+			expect(identities(run)).toEqual(['exploreSession', 'configured'])
+			expect(result.ok).toBe(true)
+			expect(evidence).toEqual([])
+		})
+
+		it('records nothing for a launch that failed to spawn', async () => {
+			const spawnFailed: YtDlpResult = {kind: 'spawn-error', error: new Error('spawn /fake/yt-dlp EACCES'), stdout: '', stderr: ''}
+			const {service, run, evidence} = makeSiteDefaultService([spawnFailed])
+			await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
+
+			expect(identities(run)).toEqual(['exploreSession'])
+			expect(evidence).toEqual([])
+		})
+
 		it('leaves a run Arroxy held back alone: no anonymous run, nothing recorded', async () => {
 			const held: YtDlpResult = {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Pacing signed-in requests to this site', stdout: '', stderr: '', heldBeforeLaunch: true}
 			const {service, run, evidence} = makeSiteDefaultService([held])

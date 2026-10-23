@@ -93,6 +93,11 @@ export type YtDlpResult =
 			// cooldown, a refused session, a stop): yt-dlp never ran, so the
 			// result says nothing about the site or the account.
 			heldBeforeLaunch?: true
+			// A signed-in run refused before launch because the Explore session
+			// is not usable for it (signed out, no cookies for its host, an
+			// unwritable jar): nothing reached the site, and the run may go on
+			// without the account where its site only defaulted to signing in.
+			signedInRefused?: true
 	  }
 
 export interface YtDlpInvocationSummary {
@@ -178,7 +183,7 @@ const EXPLORE_SESSION_UNAVAILABLE_MESSAGE = 'Explore session unavailable'
 
 // A new object per call: results are handed to callers that may annotate them.
 function exploreSessionUnavailable(): YtDlpResult {
-	return {kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: EXPLORE_SESSION_UNAVAILABLE_MESSAGE, stdout: '', stderr: '', heldBeforeLaunch: true}
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: EXPLORE_SESSION_UNAVAILABLE_MESSAGE, stdout: '', stderr: '', signedInRefused: true}
 }
 
 function spawnCapExceeded(): YtDlpResult {

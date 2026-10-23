@@ -513,6 +513,24 @@ describe('VideoPhase: a job its site started signed in (ADR 0022)', () => {
 		expect(record).toHaveBeenCalledWith('instagram', 'signedInSucceeded', {item: IG_URL, startedAt: 123})
 	})
 
+	it('runs anonymous, recording nothing, when its session is refused after it was admitted', async () => {
+		const evidence: string[] = []
+		const refused: YtDlpResult = {kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: '', signedInRefused: true}
+		const {ctx, run} = makeCtx({runs: [refused, SUCCESS], input: SITE_DEFAULT, signedIn: true, evidence})
+
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
+		expect(identities(run)).toEqual(['exploreSession', 'configured'])
+		expect(evidence).toEqual([])
+	})
+
+	it('never replays the signed-in probe’s info-json once its sign-in is refused before it spawns', async () => {
+		const {ctx, run} = makeCtx({runs: [SUCCESS], input: {...SITE_DEFAULT, probeInfoJsonPath: subtitleInfoJson}, signedIn: false, refusal: 'signInSuspect', tempDir: true})
+
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
+		expect(identities(run)).toEqual(['configured'])
+		expect(run.mock.calls[0]?.[0]).not.toHaveProperty('resume')
+	})
+
 	it('leaves a run Arroxy held back alone: no anonymous launch, nothing recorded', async () => {
 		const evidence: string[] = []
 		const held: YtDlpResult = {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Pacing signed-in requests to this site', stdout: '', stderr: '', heldBeforeLaunch: true}

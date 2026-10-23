@@ -58,8 +58,11 @@ interface ProbeRunAs {
 	// How a run that its site's default started decides again on a redirect to
 	// another site (ADR 0022). Absent: the identity holds across redirects.
 	readonly restart?: (url: string) => RunIdentity
-	// Arroxy held the last run back (pacing, a slot wait, a cooldown): nothing reached the site.
+	// The last run never reached the site: Arroxy held it back (pacing, a slot
+	// wait, a cooldown) or yt-dlp failed to spawn.
 	heldBeforeLaunch: boolean
+	// The last run's session was refused before launch (YtDlpResult.signedInRefused).
+	signedInRefused: boolean
 	// The user opened this link (the window's probe): a signed-in run skips its site's spacing and budget.
 	readonly explicit: boolean
 	cookiesRejected: boolean
@@ -337,16 +340,18 @@ export class ProbeService extends EventEmitter {
 			let cookiesRejected = false
 			let cookiesRejectedBy: string | null = null
 			let heldBeforeLaunch = false
+			let signedInRefused = false
 			const startedAt = Date.now()
 			let lastUrl = url
 			// The identity the last run ended on, after any redirect.
 			const last: {ranAs: RunIdentity} = {ranAs: 'configured'}
 			const runAs = async (identity: RunIdentity, restart?: (next: string) => RunIdentity): Promise<ProbeOutcome> => {
-				const as: ProbeRunAs = {identity, ...(restart ? {restart} : {}), heldBeforeLaunch: false, explicit: opts.kind === 'interactive', cookiesRejected: false, cookiesRejectedBy: null, lastUrl: url, onHeld, onPaced}
+				const as: ProbeRunAs = {identity, ...(restart ? {restart} : {}), heldBeforeLaunch: false, signedInRefused: false, explicit: opts.kind === 'interactive', cookiesRejected: false, cookiesRejectedBy: null, lastUrl: url, onHeld, onPaced}
 				const mappedOutcome = mapProbeAttempt(await this.probeWithRedirectFollow(url, playlistMode, playlistScope, signal, as, timeoutMs), url, logContext)
 				cookiesRejected = as.cookiesRejected
 				cookiesRejectedBy = as.cookiesRejectedBy
 				heldBeforeLaunch = as.heldBeforeLaunch
+				signedInRefused = as.signedInRefused
 				lastUrl = as.lastUrl
 				last.ranAs = as.identity
 				return mappedOutcome
@@ -369,7 +374,7 @@ export class ProbeService extends EventEmitter {
 			const startedSignedIn = basis !== undefined
 			if (basis && startSite) {
 				auth = 'exploreSession'
-				const settled = await this.settleSiteDefault({item: url, startedAt}, startSite, outcome, cookiesRejectedBy, heldBeforeLaunch, () => runAs('configured'))
+				const settled = await this.settleSiteDefault({item: url, startedAt}, startSite, outcome, cookiesRejectedBy, {heldBeforeLaunch, signedInRefused}, () => runAs('configured'))
 				outcome = settled.outcome
 				if (settled.ranAnonymous) {
 					auth = undefined
@@ -450,9 +455,14 @@ export class ProbeService extends EventEmitter {
 	// After a run its site started signed in (ADR 0022): what it showed about the
 	// sign-in, and one anonymous run when it failed in a way the sign-in may have
 	// caused. A result the site still gave after rejecting the cookies stands.
-	private async settleSiteDefault(source: SignInEvidenceSource, site: string, first: ProbeOutcome, cookiesRejectedBy: string | null, heldBeforeLaunch: boolean, runAnonymous: () => Promise<ProbeOutcome>): Promise<{outcome: ProbeOutcome; ranAnonymous: boolean}> {
-		// Arroxy held the run back: nothing reached the site, so it shows nothing about the sign-in.
-		if (first.kind === 'failure' && heldBeforeLaunch) return {outcome: first, ranAnonymous: false}
+	private async settleSiteDefault(source: SignInEvidenceSource, site: string, first: ProbeOutcome, cookiesRejectedBy: string | null, launch: {heldBeforeLaunch: boolean; signedInRefused: boolean}, runAnonymous: () => Promise<ProbeOutcome>): Promise<{outcome: ProbeOutcome; ranAnonymous: boolean}> {
+		// Nothing reached the site, so the run shows nothing about the sign-in: a
+		// held run stands, and one whose session was refused goes on without it.
+		if (first.kind === 'failure' && launch.heldBeforeLaunch) return {outcome: first, ranAnonymous: false}
+		if (first.kind === 'failure' && launch.signedInRefused) {
+			logger.info('Probe’s Explore session refused before launch; running anonymous', {url: source.item, site})
+			return {outcome: await runAnonymous(), ranAnonymous: true}
+		}
 		const {item: url} = source
 		const record = (evidence: SignInEvidence): void => this.signInEvidence?.(site, evidence, source)
 		if (cookiesRejectedBy !== null) record('cookiesRejected')
@@ -635,7 +645,8 @@ export class ProbeService extends EventEmitter {
 		)
 		if (result.accountCookiesRejected === true) as.cookiesRejected = true
 		if (result.kind !== 'spawn-error' && result.cookiesRejectedBy !== undefined) as.cookiesRejectedBy = result.cookiesRejectedBy
-		as.heldBeforeLaunch = result.kind === 'exit-error' && result.heldBeforeLaunch === true
+		as.heldBeforeLaunch = result.kind === 'spawn-error' || (result.kind === 'exit-error' && result.heldBeforeLaunch === true)
+		as.signedInRefused = result.kind === 'exit-error' && result.signedInRefused === true
 		if (result.kind === 'exit-error' && result.rawError === RATE_LIMIT_COOLDOWN_MESSAGE) as.onHeld(requestSiteFor(url))
 		if (result.kind === 'exit-error' && result.pacedUntil !== undefined) as.onPaced(result.pacedUntil)
 
