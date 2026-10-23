@@ -1,6 +1,6 @@
 // @vitest-environment node
 import {describe, expect, it} from 'vite-plus/test'
-import {mapPlaylistEntries} from '@main/services/ProbeService.js'
+import {mapPlaylistEntries} from '@main/services/probePlaylistEntries.js'
 import type {InfoDict} from 'yt-dlp-bridge/info'
 
 /** Minimal yt-dlp row — only fields read by mapPlaylistEntries. */

@@ -113,7 +113,7 @@ describe('QueueService.add — collection URL guard', () => {
 
 describe('PlaylistEntry.isContainer', () => {
 	it('is set on containers kept by the all-nested fallback', async () => {
-		const {mapPlaylistEntries} = await import('@main/services/ProbeService.js')
+		const {mapPlaylistEntries} = await import('@main/services/probePlaylistEntries.js')
 		const rows = mapPlaylistEntries(
 			[
 				{_type: 'url', id: 'UCabcdefghijklmnopqrstuv', url: 'https://www.youtube.com/channel/UCabcdefghijklmnopqrstuv'},
@@ -128,7 +128,7 @@ describe('PlaylistEntry.isContainer', () => {
 	})
 
 	it('is absent on real video entries', async () => {
-		const {mapPlaylistEntries} = await import('@main/services/ProbeService.js')
+		const {mapPlaylistEntries} = await import('@main/services/probePlaylistEntries.js')
 		const rows = mapPlaylistEntries([{_type: 'url', id: 'realvid111', title: 'Video', url: 'https://www.youtube.com/watch?v=realvid111'}] as never, 'https://www.youtube.com/playlist?list=PL', 'youtube')
 		expect(rows[0].isContainer).toBeUndefined()
 	})
