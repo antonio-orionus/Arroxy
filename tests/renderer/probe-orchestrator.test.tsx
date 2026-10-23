@@ -147,7 +147,7 @@ describe('submitUrl — video probe', () => {
 	})
 
 	// #665: the row was placed with Audio only into /music; the active profile is another, the window folder /tmp/downloads.
-	it('a Review starts every picked video from the profile and folder its row was placed with', async () => {
+	it("a Review starts every picked video from the profile its row was placed with, in the window's folder", async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
 		window.appApi = api
@@ -213,6 +213,28 @@ describe('submitUrl — video probe', () => {
 			return profile ? profileFormatLabel(profile, i18next.t, i18next.language) : ''
 		}
 		expect(items.map(item => item.formatLabel)).toEqual([label(settings.profiles.active.id), label('audio-only')])
+	})
+
+	it('scans the folder once a Review leaves multi-profile mode for the presets', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+		const row = makeItem({
+			id: 'row-1',
+			status: 'needs-choice',
+			choice: {kind: 'list-size', loaded: 2, capped: false},
+			url: PLAYLIST_PROBE.webpageUrl,
+			job: {kind: 'unresolved', extractor: '', extractorKey: ''},
+			probeMode: 'playlist',
+			pinnedProfile: {ref: {kind: 'builtin', id: 'audio-only'}, outputContext: {defaultOutputDir: '/tmp/downloads'}}
+		})
+		useAppStore.setState({settings: defaultAppSettings('/tmp/downloads'), wizardOutputDir: '/tmp/downloads', queue: [row]})
+		await useAppStore.getState().openPlaylistReview(PLAYLIST_PROBE.webpageUrl, 'playlist', 'row-1')
+		expect(api.playlist.scanFolder).not.toHaveBeenCalled()
+
+		useAppStore.getState().exitMultiProfileMode()
+
+		await vi.waitFor(() => expect(api.playlist.scanFolder).toHaveBeenCalledOnce())
 	})
 
 	it("keeps the row's profile when every picked video was already queued, and the list stays open", async () => {

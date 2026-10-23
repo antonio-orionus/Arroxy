@@ -526,6 +526,8 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			const fromStep = get().wizardStep
 			WizardCommands.exitMultiProfileMode(set)
 			logStep('back', fromStep, get().wizardStep, pickWizardSnapshot(get()))
+			// Multi-profile mode scans nothing; one playlist folder applies again.
+			void get().scanDownloadedInFolder()
 		},
 
 		assignPlaylistProfile: (itemIds, ref) => WizardCommands.assignPlaylistProfile(itemIds, ref, set, get),
