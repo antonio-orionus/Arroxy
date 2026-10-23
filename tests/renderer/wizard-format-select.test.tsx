@@ -194,6 +194,17 @@ describe('wizard slice — switching profile after edits', () => {
 		expect(wizardChangedAreas(state)).toEqual(['sponsorBlock', 'extras'])
 	})
 
+	// An Embed kept through Audio is still the user's edit (#646).
+	it('Keep my changes carries an Embed kept through Audio to the next profile', () => {
+		useAppStore.setState(profilePatch(builtin('hd-1080'), useAppStore.getState()))
+		useAppStore.setState({wizardSubtitleMode: 'embed', settings: {...SETTINGS, profiles: DEFAULT_DOWNLOAD_PROFILES_PREFS}})
+		useAppStore.getState().setWizardMediaKind('audio')
+
+		useAppStore.getState().chooseWizardProfile({kind: 'builtin', id: 'balanced'}, true)
+
+		expect(useAppStore.getState().wizardSubtitleMode).toBe('embed')
+	})
+
 	it('Reset all: everything comes from the new profile', () => {
 		editThenSwitch(false)
 

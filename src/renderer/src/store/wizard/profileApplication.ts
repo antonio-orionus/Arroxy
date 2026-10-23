@@ -14,7 +14,6 @@ import {PLAYLIST_VIDEO_TIERS} from '@shared/schemas.js'
 import {baseLanguage, pickedTrack, planSubtitleTracks, type PickedTrack, type SubtitleMaps} from '@shared/subtitleTracks.js'
 import type {AudioSelection, DownloadProfile, NativeAudioPreference, PlaylistVideoTier, VideoCodecPreference, SponsorBlockCategory, SponsorBlockMode, SubtitleFormat, SubtitleMode, VideoFileType, WizardMediaKind} from '@shared/schemas.js'
 import type {FormatOption, SubtitleMap} from '@shared/types.js'
-import {wizardSubtitleModeForMedia} from '@renderer/lib/subtitleLabel.js'
 
 export interface WizardSettingsSnapshot {
 	mediaKind: WizardMediaKind
@@ -105,9 +104,9 @@ function sameAudio(a: AudioSelection, b: AudioSelection): boolean {
 export function changedFromProfile(baseline: WizardSettingsSnapshot, current: WizardSettingsSnapshot): ChangedArea[] {
 	const changed: ChangedArea[] = []
 	if (baseline.mediaKind !== current.mediaKind || baseline.videoFormatId !== current.videoFormatId || !sameAudio(baseline.audioSelection, current.audioSelection) || (current.mediaKind === 'video' && baseline.fileType !== current.fileType)) changed.push('format')
-	// The mode this run uses: without video an Embed is saved as files.
-	const usedMode = (mode: SubtitleMode): SubtitleMode => wizardSubtitleModeForMedia(current.mediaKind, mode)
-	if (!sameSet(baseline.subtitleLanguages, current.subtitleLanguages) || usedMode(baseline.subtitleMode) !== usedMode(current.subtitleMode) || baseline.subtitleFormat !== current.subtitleFormat) changed.push('subtitles')
+	// The mode as kept, not as an audio run uses it: a kept Embed is an edit that
+	// embeds again on Video, and Keep my edits carries it to the next profile.
+	if (!sameSet(baseline.subtitleLanguages, current.subtitleLanguages) || baseline.subtitleMode !== current.subtitleMode || baseline.subtitleFormat !== current.subtitleFormat) changed.push('subtitles')
 	if (baseline.sponsorBlockMode !== current.sponsorBlockMode || !sameSet(baseline.sponsorBlockCategories, current.sponsorBlockCategories)) changed.push('sponsorBlock')
 	if (JSON.stringify(baseline.embed) !== JSON.stringify(current.embed)) changed.push('extras')
 	if (baseline.outputDir !== current.outputDir || baseline.subfolderEnabled !== current.subfolderEnabled || baseline.subfolderName !== current.subfolderName) changed.push('saveTo')
