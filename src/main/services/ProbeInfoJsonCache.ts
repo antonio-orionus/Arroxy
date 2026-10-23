@@ -2,7 +2,7 @@ import {randomUUID} from 'node:crypto'
 import type {Dirent} from 'node:fs'
 import {mkdir, readdir, rm, stat, writeFile} from 'node:fs/promises'
 import {join} from 'node:path'
-import type {JobAuth, ProbeInfoJsonRef} from '@shared/types.js'
+import type {AuthBasis, JobAuth, ProbeInfoJsonRef} from '@shared/types.js'
 
 const CACHE_DIR = 'probe-info-cache-v1'
 const REF_ID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
@@ -19,12 +19,12 @@ export class ProbeInfoJsonCache {
 		this.dir = join(userDataPath, CACHE_DIR)
 	}
 
-	async write(info: unknown, opts: {videoId?: string | null; formatsWithheld?: boolean; auth?: JobAuth} = {}): Promise<ProbeInfoJsonRef> {
+	async write(info: unknown, opts: {videoId?: string | null; formatsWithheld?: boolean; auth?: JobAuth; authBasis?: AuthBasis} = {}): Promise<ProbeInfoJsonRef> {
 		await mkdir(this.dir, {recursive: true})
 		const id = randomUUID()
 		const createdAt = new Date().toISOString()
 		await writeFile(this.pathFor(id), `${JSON.stringify(info)}\n`, 'utf8')
-		return {id, createdAt, ...(opts.videoId ? {videoId: opts.videoId} : {}), ...(opts.formatsWithheld ? {formatsWithheld: true} : {}), ...(opts.auth ? {auth: opts.auth} : {})}
+		return {id, createdAt, ...(opts.videoId ? {videoId: opts.videoId} : {}), ...(opts.formatsWithheld ? {formatsWithheld: true} : {}), ...(opts.auth ? {auth: opts.auth} : {}), ...(opts.auth && opts.authBasis ? {authBasis: opts.authBasis} : {})}
 	}
 
 	async resolve(ref: ProbeInfoJsonRef | undefined): Promise<string | undefined> {

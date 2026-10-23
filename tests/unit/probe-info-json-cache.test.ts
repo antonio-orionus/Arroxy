@@ -27,6 +27,13 @@ describe('ProbeInfoJsonCache', () => {
 		await expect(access(path!)).resolves.toBeUndefined()
 	})
 
+	it('keeps why a signed-in probe ran signed in, so a site-default ref never signs its row in', async () => {
+		const cache = new ProbeInfoJsonCache(dir)
+		const ref = await cache.write({_type: 'video', id: 'abc'}, {videoId: 'abc', auth: 'exploreSession', authBasis: 'siteDefault'})
+
+		expect(ref).toMatchObject({auth: 'exploreSession', authBasis: 'siteDefault'})
+	})
+
 	it('ignores invalid or missing refs instead of exposing paths', async () => {
 		const cache = new ProbeInfoJsonCache(dir)
 
