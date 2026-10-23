@@ -100,7 +100,14 @@ const MIN_RATE_SPAN_MS = 3000
 export function addRateSample(samples: RateSample[], sample: RateSample): RateSample[] {
 	const last = samples.at(-1)
 	if (last && last.bytes === sample.bytes) return samples
-	return [...samples.filter(entry => sample.at - entry.at <= RATE_WINDOW_MS), sample]
+	const recent = samples.filter(entry => sample.at - entry.at <= RATE_WINDOW_MS)
+	// Progress arrives once per network chunk, and a trickle's chunks can be
+	// further apart than the window. Keep the newest older sample too, or the
+	// window holds too little to measure and a crawling download has no rate.
+	const oldest = recent[0] ?? sample
+	if (sample.at - oldest.at >= MIN_RATE_SPAN_MS) return [...recent, sample]
+	const anchor = samples.findLast(entry => sample.at - entry.at > RATE_WINDOW_MS)
+	return anchor ? [anchor, ...recent, sample] : [...recent, sample]
 }
 
 // Bytes per second over the recent window, or null until the rate is stable.
