@@ -120,7 +120,8 @@ export async function settleWithExploreSession<R extends SignedInRun>(ctx: Phase
 async function settleSiteDefault<R extends SignedInRun>(ctx: PhaseContext, run: R, flow: SignedInFlow<R>): Promise<SignedInFlowResult<R>> {
 	const {active} = ctx
 	const site = requestSiteFor(active.input.url)
-	const record = (evidence: SignInEvidence): void => ctx.signInEvidence?.(site, evidence)
+	const source = active.attemptStartedAt === undefined ? undefined : {item: active.input.url, startedAt: active.attemptStartedAt}
+	const record = (evidence: SignInEvidence): void => ctx.signInEvidence?.(site, evidence, source)
 	const {result} = run
 	// Arroxy held the run back: nothing reached the site, so it shows nothing about the sign-in.
 	if (result.kind === 'exit-error' && result.heldBeforeLaunch === true) return {kind: 'run', run}

@@ -15,7 +15,7 @@ import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.
 import {PROBE_TIMEOUT_MESSAGE, RATE_LIMIT_COOLDOWN_MESSAGE, YtDlp, type RunIdentity} from './YtDlp.js'
 import type {LaunchGate} from './LaunchGate.js'
 import type {StartDecision} from './startIdentity.js'
-import type {SignInEvidence} from './SuspectSignIns.js'
+import type {SignInEvidence, SignInEvidenceSource} from './SuspectSignIns.js'
 import {signedInFailure} from './signedInEvidence.js'
 import type {ProbeSlots} from './ProbeSlots.js'
 import {decideEscalation, escalationReason, reachesPlaylistItems} from './exploreEscalation.js'
@@ -94,7 +94,7 @@ export interface ProbeServiceOptions {
 	// The identity a link's first run uses (ADR 0022). Absent: every probe starts anonymous.
 	startIdentity?: (url: string) => StartDecision
 	// Where a site-default run tells what it showed about the site's sign-in.
-	signInEvidence?: (site: string, evidence: SignInEvidence) => void
+	signInEvidence?: (site: string, evidence: SignInEvidence, source?: SignInEvidenceSource) => void
 }
 
 // `kind` picks the probe's slot. `escalate: false` keeps the probe anonymous even when the Explore
@@ -237,7 +237,7 @@ export class ProbeService extends EventEmitter {
 	private readonly slots: ProbeSlots | undefined
 	private readonly listingCharges: Pick<LaunchGate, 'chargeListing'> | undefined
 	private readonly startIdentity: ((url: string) => StartDecision) | undefined
-	private readonly signInEvidence: ((site: string, evidence: SignInEvidence) => void) | undefined
+	private readonly signInEvidence: ((site: string, evidence: SignInEvidence, source?: SignInEvidenceSource) => void) | undefined
 
 	constructor(
 		private readonly ytDlp: YtDlp,
@@ -337,6 +337,7 @@ export class ProbeService extends EventEmitter {
 			let cookiesRejected = false
 			let cookiesRejectedBy: string | null = null
 			let heldBeforeLaunch = false
+			const startedAt = Date.now()
 			let lastUrl = url
 			// The identity the last run ended on, after any redirect.
 			const last: {ranAs: RunIdentity} = {ranAs: 'configured'}
@@ -368,7 +369,7 @@ export class ProbeService extends EventEmitter {
 			const startedSignedIn = basis !== undefined
 			if (basis && startSite) {
 				auth = 'exploreSession'
-				const settled = await this.settleSiteDefault(url, startSite, outcome, cookiesRejectedBy, heldBeforeLaunch, () => runAs('configured'))
+				const settled = await this.settleSiteDefault({item: url, startedAt}, startSite, outcome, cookiesRejectedBy, heldBeforeLaunch, () => runAs('configured'))
 				outcome = settled.outcome
 				if (settled.ranAnonymous) {
 					auth = undefined
@@ -449,10 +450,11 @@ export class ProbeService extends EventEmitter {
 	// After a run its site started signed in (ADR 0022): what it showed about the
 	// sign-in, and one anonymous run when it failed in a way the sign-in may have
 	// caused. A result the site still gave after rejecting the cookies stands.
-	private async settleSiteDefault(url: string, site: string, first: ProbeOutcome, cookiesRejectedBy: string | null, heldBeforeLaunch: boolean, runAnonymous: () => Promise<ProbeOutcome>): Promise<{outcome: ProbeOutcome; ranAnonymous: boolean}> {
+	private async settleSiteDefault(source: SignInEvidenceSource, site: string, first: ProbeOutcome, cookiesRejectedBy: string | null, heldBeforeLaunch: boolean, runAnonymous: () => Promise<ProbeOutcome>): Promise<{outcome: ProbeOutcome; ranAnonymous: boolean}> {
 		// Arroxy held the run back: nothing reached the site, so it shows nothing about the sign-in.
 		if (first.kind === 'failure' && heldBeforeLaunch) return {outcome: first, ranAnonymous: false}
-		const record = (evidence: SignInEvidence): void => this.signInEvidence?.(site, evidence)
+		const {item: url} = source
+		const record = (evidence: SignInEvidence): void => this.signInEvidence?.(site, evidence, source)
 		if (cookiesRejectedBy !== null) record('cookiesRejected')
 		if (first.kind !== 'failure') {
 			if (cookiesRejectedBy === null) record('signedInSucceeded')

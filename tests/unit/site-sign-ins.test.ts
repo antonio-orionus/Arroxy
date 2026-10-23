@@ -73,4 +73,17 @@ describe('parseSuspectSignInMarks', () => {
 
 		expect(asked.sort()).toEqual(['api.x.com', 'www.instagram.com'])
 	})
+
+	it('keeps what it knew when a cookie read fails, so a mark is never cleared by an error', async () => {
+		let fail = false
+		const signIns = new SiteSignIns({readCookies: () => (fail ? Promise.reject(new Error('busy')) : Promise.resolve([cookie('sessionid', 's', '.instagram.com')]))})
+		await signIns.refresh()
+		const changed = vi.fn()
+		signIns.onChange(changed)
+
+		fail = true
+		await signIns.refresh()
+		expect(signIns.signedIn('instagram')).toBe(true)
+		expect(changed).not.toHaveBeenCalled()
+	})
 })

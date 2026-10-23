@@ -503,6 +503,16 @@ describe('VideoPhase: a job its site started signed in (ADR 0022)', () => {
 		expect(evidence).toEqual(['instagram:cookiesRejected'])
 	})
 
+	it('says which item and which launch its evidence came from', async () => {
+		const {ctx} = makeCtx({runs: [SUCCESS], input: SITE_DEFAULT, signedIn: true})
+		const record = vi.fn()
+		ctx.active.attemptStartedAt = 123
+		const withSource: PhaseContext = {...ctx, signInEvidence: record}
+
+		await VideoPhase.run(withSource)
+		expect(record).toHaveBeenCalledWith('instagram', 'signedInSucceeded', {item: IG_URL, startedAt: 123})
+	})
+
 	it('leaves a run Arroxy held back alone: no anonymous launch, nothing recorded', async () => {
 		const evidence: string[] = []
 		const held: YtDlpResult = {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Pacing signed-in requests to this site', stdout: '', stderr: '', heldBeforeLaunch: true}

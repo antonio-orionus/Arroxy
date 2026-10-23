@@ -40,11 +40,13 @@ export class SiteSignIns {
 		for (const site of this.sites) {
 			const row = this.rowFor(site)
 			if (!row) continue
-			let cookies: ExploreCookie[] = []
+			let cookies: ExploreCookie[]
 			try {
 				cookies = await this.readCookies(row.host)
 			} catch (err) {
+				// Not a sign-out: what was known stands until a read succeeds.
 				logger.warn('Could not read the Explore sign-ins', {site, error: err instanceof Error ? err.message : String(err)})
+				continue
 			}
 			const cookie = siteSignInCookie(cookies, site, this.now() / 1000, this.rowFor)
 			const fingerprint = cookie === null ? null : fingerprintOf(cookie)

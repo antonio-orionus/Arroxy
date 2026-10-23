@@ -9,7 +9,7 @@ import {SuspectSignInStore} from '@main/stores/SuspectSignInStore.js'
 import type {ExploreSessionService} from './ExploreSessionService.js'
 import {SiteSignIns} from './SiteSignIns.js'
 import {decideStartIdentity, type StartDecision} from './startIdentity.js'
-import {SuspectSignIns, type SignInEvidence} from './SuspectSignIns.js'
+import {SuspectSignIns, type SignInEvidence, type SignInEvidenceSource} from './SuspectSignIns.js'
 
 // Explore's cookies change on most page loads; one read after they settle.
 const COOKIE_SETTLE_MS = 1000
@@ -17,7 +17,7 @@ const COOKIE_SETTLE_MS = 1000
 export interface ExploreSignIns {
 	suspects: SuspectSignIns
 	decideStart: (url: string) => StartDecision
-	recordEvidence: (site: string, evidence: SignInEvidence) => void
+	recordEvidence: (site: string, evidence: SignInEvidence, source?: SignInEvidenceSource) => void
 }
 
 // `extraSignIns`: sign-in rows that add to or replace the known sites' (the E2E
@@ -51,6 +51,6 @@ export async function createExploreSignIns(deps: {userDataPath: string; session:
 			const {cookiesMode, exploreEnabled} = deps.settings()
 			return decideStartIdentity(url, {cookiesMode, exploreEnabled: exploreEnabled !== false, signedIn: site => signIns.signedIn(site), suspect: site => suspects.isSuspect(site), rowFor})
 		},
-		recordEvidence: (site, evidence) => suspects.record(site, evidence)
+		recordEvidence: (site, evidence, source) => suspects.record(site, evidence, source)
 	}
 }

@@ -39,6 +39,37 @@ describe('SuspectSignIns: what marks a sign-in as not working', () => {
 		expect(suspects.isSuspect('x')).toBe(false)
 	})
 
+	it('counts one item once, however often it worked only anonymously (its probe, then its download)', () => {
+		const {suspects, advance} = setup()
+		suspects.record('instagram', 'anonymousWorked', {item: 'reel/a', startedAt: 0})
+		advance(MINUTE)
+		suspects.record('instagram', 'anonymousWorked', {item: 'reel/a', startedAt: 0})
+		expect(suspects.isSuspect('instagram')).toBe(false)
+		suspects.record('instagram', 'anonymousWorked', {item: 'reel/b', startedAt: 0})
+		expect(suspects.isSuspect('instagram')).toBe(true)
+	})
+
+	it('drops evidence from a launch that started before the user signed in again', () => {
+		const {suspects, advance, fingerprints} = setup()
+		const before = 1_000_000
+		advance(MINUTE)
+		fingerprints.x = 'hx2'
+		suspects.cookieChanged('x')
+		advance(MINUTE)
+		suspects.record('x', 'cookiesRejected', {item: 'status/1', startedAt: before})
+		expect(suspects.isSuspect('x')).toBe(false)
+	})
+
+	it('forgets evidence gathered on a cookie the user replaced, mark or not', () => {
+		const {suspects, fingerprints} = setup()
+		suspects.record('x', 'signedInUnknown')
+		suspects.record('x', 'signedInUnknown')
+		fingerprints.x = 'hx2'
+		suspects.cookieChanged('x')
+		suspects.record('x', 'signedInUnknown')
+		expect(suspects.isSuspect('x')).toBe(false)
+	})
+
 	it('marks a site after three unclassified signed-in failures within ten minutes', () => {
 		const {suspects} = setup()
 		suspects.record('x', 'signedInUnknown')

@@ -18,6 +18,13 @@ const WINDOW_MS = 10 * 60_000
 
 export type SignInEvidence = 'anonymousWorked' | 'signedInUnknown' | 'signedInSucceeded' | 'accountWall' | 'cookiesRejected'
 
+// The run the evidence came from: its item (the link), and when its launch
+// started, so a result from before the user signed in again is dropped.
+export interface SignInEvidenceSource {
+	item: string
+	startedAt: number
+}
+
 export interface SuspectSignInMark {
 	site: string
 	cookieFingerprint: string
@@ -45,7 +52,9 @@ export class SuspectSignIns {
 	private readonly cookieFingerprint: (site: string) => string | null
 	private readonly now: () => number
 	private marks: SuspectSignInMark[]
-	private readonly seen = new Map<string, Array<{kind: SignInEvidence; at: number}>>()
+	private readonly seen = new Map<string, Array<{kind: SignInEvidence; at: number; item: string | undefined}>>()
+	// When each site's sign-in cookie last changed.
+	private readonly changedAt = new Map<string, number>()
 	private readonly listeners = new Set<(sites: string[]) => void>()
 
 	constructor(options: SuspectSignInsOptions) {
@@ -55,7 +64,11 @@ export class SuspectSignIns {
 		this.marks = options.store.read()
 	}
 
-	record(site: string, evidence: SignInEvidence): void {
+	record(site: string, evidence: SignInEvidence, source?: SignInEvidenceSource): void {
+		if (source && source.startedAt < (this.changedAt.get(site) ?? Number.NEGATIVE_INFINITY)) {
+			logger.info('Sign-in evidence dropped: its launch used a sign-in the user has since replaced', {site, evidence})
+			return
+		}
 		if (evidence === 'signedInSucceeded') {
 			this.seen.delete(site)
 			return
@@ -64,9 +77,11 @@ export class SuspectSignIns {
 		if (threshold === undefined || this.isSuspect(site)) return
 		const now = this.now()
 		const recent = (this.seen.get(site) ?? []).filter(entry => entry.at > now - WINDOW_MS)
-		recent.push({kind: evidence, at: now})
+		recent.push({kind: evidence, at: now, item: source?.item})
 		this.seen.set(site, recent)
-		const count = recent.filter(entry => entry.kind === evidence).length
+		const matching = recent.filter(entry => entry.kind === evidence)
+		// Two items worked only anonymously: one item's probe and download count once.
+		const count = evidence === 'anonymousWorked' ? new Set(matching.map((entry, index) => entry.item ?? index)).size : matching.length
 		logger.info('Sign-in evidence', {site, evidence, count, threshold})
 		if (count >= threshold) this.mark(site, evidence)
 	}
@@ -87,11 +102,13 @@ export class SuspectSignIns {
 		if (this.unmark(site)) logger.info('Sign-in marked as working again by the user', {site})
 	}
 
-	// The site's sign-in cookie changed: a fresh sign-in clears the mark.
+	// The site's sign-in cookie changed: a fresh sign-in clears the mark, and
+	// what the old cookie showed no longer counts.
 	cookieChanged(site: string): void {
+		this.seen.delete(site)
+		this.changedAt.set(site, this.now())
 		const mark = this.marks.find(entry => entry.site === site)
 		if (mark === undefined || mark.cookieFingerprint === this.cookieFingerprint(site)) return
-		this.seen.delete(site)
 		if (this.unmark(site)) logger.info('Sign-in mark cleared: the site’s sign-in cookie changed', {site})
 	}
 

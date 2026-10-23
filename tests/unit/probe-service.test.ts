@@ -1044,6 +1044,17 @@ describe('ProbeService — Explore session escalation', () => {
 			expect(result.ok && result.data.auth).toBe('exploreSession')
 		})
 
+		it('says which item and which launch its evidence came from', async () => {
+			const record = vi.fn()
+			const run = vi.fn(async () => success(igVideo()))
+			const service = new ProbeService({run} as never, false, undefined, {exploreGate: {canEscalate: vi.fn(allowed)}, exploreSession: {verifySignedIn: vi.fn()}, startIdentity: () => ({site: 'instagram', auth: 'exploreSession', basis: 'siteDefault'}), signInEvidence: record})
+			const before = Date.now()
+			await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
+
+			expect(record).toHaveBeenCalledWith('instagram', 'signedInSucceeded', {item: IG_URL, startedAt: expect.any(Number)})
+			expect(record.mock.calls[0]?.[2].startedAt).toBeGreaterThanOrEqual(before)
+		})
+
 		it('leaves a run Arroxy held back alone: no anonymous run, nothing recorded', async () => {
 			const held: YtDlpResult = {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Pacing signed-in requests to this site', stdout: '', stderr: '', heldBeforeLaunch: true}
 			const {service, run, evidence} = makeSiteDefaultService([held])
