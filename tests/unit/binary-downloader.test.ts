@@ -95,10 +95,12 @@ describe('BinaryDownloader', () => {
 		})
 	})
 
-	it('classifies no-progress download stalls as timeouts', () => {
+	// A stalled download is the network, not a slow tool: 'timeout' (ARX-008)
+	// tells the user it is "often a security scan on first run".
+	it('classifies no-progress download stalls as stalled downloads, not a slow tool', () => {
 		const err = new DownloadStalledError('No download progress for 60000ms')
 
-		expect(classifyDownloadError(err)).toBe('timeout')
+		expect(classifyDownloadError(err)).toBe('download_stalled')
 	})
 
 	// A cancellation is a fact about the caller, not the machine. Classifying it

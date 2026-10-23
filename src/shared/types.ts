@@ -66,7 +66,7 @@ export type {
 	WizardStepName
 } from './schemas.js'
 
-import type {ExploreSearchEngine, FormatMarker, ProbeDegradationReason, ProbePlaylistMode, QuickProbeTake} from './schemas.js'
+import type {DependencyFailureKind, ExploreSearchEngine, FormatMarker, ProbeDegradationReason, ProbePlaylistMode, QuickProbeTake} from './schemas.js'
 export type {HeldProbe, ProbeDegradationReason, ProbePlaylistMode, RateLimitEvidence, SiteCooldown, StatusKey} from './schemas.js'
 export type {ExploreViewState} from './schemas.js'
 export type {ExploreLinkAction, ExploreNavigateCommand, ExploreViewBounds} from './exploreSchemas.js'
@@ -620,13 +620,22 @@ export type DependencySource =
 	| {kind: 'cache'; path: string}
 	| {kind: 'bundled'; path: string}
 
-export type DependencyFailureKind = 'download_failed' | 'extract_failed' | 'hash_failed' | 'spawn_failed' | 'permission_denied' | 'blocked_or_quarantined' | 'bad_exit_code' | 'timeout' | 'pair_incomplete'
-
 // Stable, language-independent codes for each failure kind. Shown in the
 // repair UI so users can search ("ARX-006 SmartScreen") on Google/GitHub
 // without being blocked by their UI language. Keep these immutable —
 // renaming a kind is fine, repurposing a code is not.
-export const FAILURE_CODE: Record<DependencyFailureKind, string> = {download_failed: 'ARX-001', extract_failed: 'ARX-002', hash_failed: 'ARX-003', spawn_failed: 'ARX-004', permission_denied: 'ARX-005', blocked_or_quarantined: 'ARX-006', bad_exit_code: 'ARX-007', timeout: 'ARX-008', pair_incomplete: 'ARX-009'}
+export const FAILURE_CODE: Record<DependencyFailureKind, string> = {
+	download_failed: 'ARX-001',
+	extract_failed: 'ARX-002',
+	hash_failed: 'ARX-003',
+	spawn_failed: 'ARX-004',
+	permission_denied: 'ARX-005',
+	blocked_or_quarantined: 'ARX-006',
+	bad_exit_code: 'ARX-007',
+	timeout: 'ARX-008',
+	pair_incomplete: 'ARX-009',
+	download_stalled: 'ARX-010'
+}
 
 export type DependencyState = 'missing' | 'downloaded' | 'verified' | 'runnable' | 'failed'
 

@@ -28,6 +28,10 @@ export function buildWarmUp(scenario: ScenarioLike): WarmUpOutput {
 			const offline = {'yt-dlp': failedDependency('yt-dlp', 'download_failed', 'yt-dlp download failed'), ffmpeg: failedDependency('ffmpeg', 'download_failed', 'ffmpeg download failed'), ffprobe: failedDependency('ffprobe', 'download_failed', 'ffprobe download failed')}
 			return {completed: false, dependencies: offline, blockingFailures: ['yt-dlp', 'ffmpeg', 'ffprobe'], cancelled: false}
 		}
+		case 'repair-stalled': {
+			const stalled = {'yt-dlp': failedDependency('yt-dlp', 'download_stalled', 'No download progress for 60000ms'), ffmpeg: failedDependency('ffmpeg', 'download_stalled', 'No download progress for 60000ms'), ffprobe: failedDependency('ffprobe', 'download_stalled', 'No download progress for 60000ms')}
+			return {completed: false, dependencies: stalled, blockingFailures: ['yt-dlp', 'ffmpeg', 'ffprobe'], cancelled: false}
+		}
 		case 'repair-mixed': {
 			const mixed = {'yt-dlp': failedDependency('yt-dlp', 'blocked_or_quarantined', 'SmartScreen blocked yt-dlp.exe'), ffmpeg: failedDependency('ffmpeg', 'download_failed', 'ffmpeg download failed'), ffprobe: failedDependency('ffprobe', 'download_failed', 'ffprobe download failed')}
 			return {completed: false, dependencies: mixed, blockingFailures: ['yt-dlp', 'ffmpeg', 'ffprobe'], cancelled: false}

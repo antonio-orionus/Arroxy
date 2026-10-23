@@ -7,7 +7,7 @@ import {FAILURE_CODE} from '@shared/types.js'
 // New kinds must take the next free `ARX-0NN`.
 describe('FAILURE_CODE stability', () => {
 	it('exact map is frozen — new kinds take next ARX-0NN, never reuse codes', () => {
-		expect(FAILURE_CODE).toEqual({download_failed: 'ARX-001', extract_failed: 'ARX-002', hash_failed: 'ARX-003', spawn_failed: 'ARX-004', permission_denied: 'ARX-005', blocked_or_quarantined: 'ARX-006', bad_exit_code: 'ARX-007', timeout: 'ARX-008', pair_incomplete: 'ARX-009'})
+		expect(FAILURE_CODE).toEqual({download_failed: 'ARX-001', extract_failed: 'ARX-002', hash_failed: 'ARX-003', spawn_failed: 'ARX-004', permission_denied: 'ARX-005', blocked_or_quarantined: 'ARX-006', bad_exit_code: 'ARX-007', timeout: 'ARX-008', pair_incomplete: 'ARX-009', download_stalled: 'ARX-010'})
 	})
 
 	it('every code is unique', () => {

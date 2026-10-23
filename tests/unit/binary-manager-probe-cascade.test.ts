@@ -12,7 +12,8 @@ import type {RuntimeBinaryIndexProvider} from '@main/services/binary/RuntimeBina
 import type {ProbeVerdictStore} from '@main/services/binary/ProbeVerdictCache.js'
 import {isEnvironmentFatalFailure} from '@shared/dependencyPolicy.js'
 import {runtimeBinaryArchFor, runtimeBinaryPlatformFor} from '@shared/runtimeBinaryManifest.js'
-import type {DependencyFailureKind, DependencyId, DependencySource, RuntimeBinaryManifestEntry} from '@shared/types.js'
+import type {DependencyFailureKind} from '@shared/schemas.js'
+import type {DependencyId, DependencySource, RuntimeBinaryManifestEntry} from '@shared/types.js'
 
 function entry(patch: Partial<RuntimeBinaryManifestEntry> = {}): RuntimeBinaryManifestEntry {
 	const platform = runtimeBinaryPlatformFor()

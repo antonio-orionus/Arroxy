@@ -26,6 +26,7 @@ const CAUSE_KEY = {
 	blocked_or_quarantined: {title: 'repair.causes.blockedOrQuarantined.title', body: 'repair.causes.blockedOrQuarantined.body'},
 	bad_exit_code: {title: 'repair.causes.badExitCode.title', body: 'repair.causes.badExitCode.body'},
 	timeout: {title: 'repair.causes.timeout.title', body: 'repair.causes.timeout.body'},
+	download_stalled: {title: 'repair.causes.downloadStalled.title', body: 'repair.causes.downloadStalled.body'},
 	pair_incomplete: {title: 'repair.causes.pairIncomplete.title', body: 'repair.causes.pairIncomplete.body'},
 	unknown: {title: 'repair.causes.unknown.title', body: 'repair.causes.unknown.body'}
 } as const satisfies Record<RepairCause, {title: string; body: string}>

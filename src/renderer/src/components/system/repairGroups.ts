@@ -1,11 +1,12 @@
-import type {DependencyDiagnostic, DependencyFailureKind, DependencyId} from '@shared/types.js'
+import {DEPENDENCY_FAILURE_KINDS, type DependencyFailureKind} from '@shared/schemas.js'
+import type {DependencyDiagnostic, DependencyId} from '@shared/types.js'
 import {SETUP_GROUP_OF, type SetupToolGroup} from '../../store/warmupDownloads.js'
 
 // A failure the panel can explain. 'unknown' covers a failed diagnostic that
 // carries no kind, or a kind newer than this renderer.
 export type RepairCause = DependencyFailureKind | 'unknown'
 
-const KNOWN_CAUSES: ReadonlySet<string> = new Set<DependencyFailureKind>(['download_failed', 'extract_failed', 'hash_failed', 'spawn_failed', 'permission_denied', 'blocked_or_quarantined', 'bad_exit_code', 'timeout', 'pair_incomplete'])
+const KNOWN_CAUSES: ReadonlySet<string> = new Set<DependencyFailureKind>(DEPENDENCY_FAILURE_KINDS)
 
 function causeOf(diagnostic: DependencyDiagnostic | undefined): RepairCause {
 	const kind = diagnostic?.failure?.kind

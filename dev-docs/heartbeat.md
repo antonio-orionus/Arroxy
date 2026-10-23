@@ -88,8 +88,10 @@ A warmup that has to fetch a managed binary (yt-dlp, or the FFmpeg package) send
 | UTM Source | OS locale | `zh-CN` |
 | UTM Medium | platform-arch | `win32-x64` |
 | UTM Campaign | where the binary manifest came from | `remote`, `last-known-good`, `bundled`, `local`, `unknown` |
-| UTM Term | first failure (outcomes only; `unknown` for `quit` and a warmup that failed before any diagnostics) | `none`, `ffmpeg:timeout`, `yt-dlp:download_failed`, `unknown` |
+| UTM Term | first failure (outcomes only; `unknown` for `quit` and a warmup that failed before any diagnostics) | `none`, `ffmpeg:download_stalled`, `yt-dlp:download_failed`, `unknown` |
 | UTM Content | speed of the largest download (outcomes only) | `0-0.5mbps`, `0.5-2mbps`, `2-10mbps`, `10mbps-plus`, `unknown` |
+
+**Stalls and slow tools.** Up to 0.7.4, a download that stopped moving was reported as `timeout`, the same kind as a tool too slow to respond on its first run. From the next release a stall is `download_stalled`, and `timeout` means only a slow tool, so compare the two kinds across versions with that in mind.
 
 **Reading it.** Pick `arroxy-warmup` in the site picker (it appears once it has data). On the Path card, first-try success is `/<v>/first/a1/ok` divided by `/<v>/first/a1/started`; abandonment is started minus all outcomes. Filter Country `CN` (or UTM Source `zh-CN`, which also catches users behind a VPN) and compare with no filter.
 

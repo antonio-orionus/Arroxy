@@ -1,7 +1,8 @@
 // @vitest-environment jsdom
 import {fireEvent, render, screen} from '@testing-library/react'
 import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
-import type {DependencyDiagnostic, DependencyFailureKind, DependencyId} from '@shared/types.js'
+import type {DependencyFailureKind} from '@shared/schemas.js'
+import type {DependencyDiagnostic, DependencyId} from '@shared/types.js'
 import {RepairPanel} from '@renderer/components/system/RepairPanel.js'
 import {useAppStore} from '@renderer/store/useAppStore.js'
 
@@ -27,6 +28,18 @@ describe('RepairPanel', () => {
 		expect(screen.getByTestId('repair-cause')).toHaveAttribute('data-cause', 'stopped')
 		expect(screen.getByTestId('repair-cause')).toHaveTextContent('Setup stopped')
 		expect(screen.getByTestId('repair-manual-ffmpeg')).toBeInTheDocument()
+	})
+
+	// A stalled download used to read as ARX-008, "a tool took too long to
+	// respond… often a security scan", sending people after their antivirus.
+	it('says a stalled download stopped moving, not that a tool was slow', () => {
+		const stalled: Record<DependencyId, DependencyDiagnostic> = {'yt-dlp': failed('yt-dlp', 'download_stalled'), ffmpeg: failed('ffmpeg', 'download_stalled'), ffprobe: failed('ffprobe', 'download_stalled')}
+
+		render(<RepairPanel diagnostics={stalled} blocking={ALL} />)
+
+		expect(screen.getByTestId('repair-cause')).toHaveAttribute('data-cause', 'download_stalled')
+		expect(screen.getByTestId('repair-cause')).toHaveTextContent('The download stopped moving')
+		expect(screen.getByTestId('repair-cause')).not.toHaveTextContent('security scan')
 	})
 
 	// Offline on a first launch used to show three near-identical cards, each

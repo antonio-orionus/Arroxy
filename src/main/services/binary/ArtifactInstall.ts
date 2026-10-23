@@ -2,6 +2,7 @@ import fsPromises from 'node:fs/promises'
 import path from 'node:path'
 import {setTimeout as sleep} from 'node:timers/promises'
 import log from 'electron-log/main.js'
+import type {DependencyFailureKind} from '@shared/schemas.js'
 import {DownloadIntegrityError, DownloadSizeMismatchError, DownloadStalledError} from './BinaryDownloader.js'
 
 export type ArtifactErrorCode = 'UNSUPPORTED_PLATFORM' | 'NETWORK' | 'TIMEOUT' | 'CANCELLED' | 'CHECKSUM' | 'SIZE_MISMATCH' | 'EXTRACTION' | 'ARCHIVE_SECURITY' | 'EXECUTABLE_MISSING' | 'PERMISSION' | 'DISK' | 'LOCK' | 'INTERNAL'
@@ -80,7 +81,7 @@ export function pathInside(root: string, target: string): boolean {
 	return relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative))
 }
 
-export function artifactErrorToDependencyFailureKind(err: unknown): 'download_failed' | 'extract_failed' | 'hash_failed' | 'spawn_failed' | 'permission_denied' | 'blocked_or_quarantined' | 'bad_exit_code' | 'timeout' | 'pair_incomplete' {
+export function artifactErrorToDependencyFailureKind(err: unknown): DependencyFailureKind {
 	if (!(err instanceof ArtifactMaterializeError)) return 'download_failed'
 	switch (err.code) {
 		case 'CHECKSUM':
@@ -92,7 +93,9 @@ export function artifactErrorToDependencyFailureKind(err: unknown): 'download_fa
 			return 'extract_failed'
 		case 'PERMISSION':
 			return 'permission_denied'
+		// TIMEOUT is a download that stalled or ran past its limit: the network.
 		case 'TIMEOUT':
+			return 'download_stalled'
 		case 'LOCK':
 			return 'timeout'
 		case 'CANCELLED':

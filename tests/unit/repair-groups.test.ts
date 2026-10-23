@@ -1,6 +1,7 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {repairGroups, sharedCause} from '@renderer/components/system/repairGroups.js'
-import type {DependencyDiagnostic, DependencyFailureKind, DependencyId} from '@shared/types.js'
+import type {DependencyFailureKind} from '@shared/schemas.js'
+import type {DependencyDiagnostic, DependencyId} from '@shared/types.js'
 
 function failed(id: DependencyId, kind: DependencyFailureKind | 'something-new'): DependencyDiagnostic {
 	return {id, state: 'failed', source: null, resolvedPath: null, failure: {kind: kind as DependencyFailureKind, message: kind}, attempts: []}
@@ -32,6 +33,11 @@ describe('repair groups', () => {
 	it('has no shared cause when the groups fail differently', () => {
 		const groups = repairGroups({'yt-dlp': failed('yt-dlp', 'blocked_or_quarantined'), ffmpeg: failed('ffmpeg', 'download_failed'), ffprobe: failed('ffprobe', 'download_failed')}, ['yt-dlp', 'ffmpeg', 'ffprobe'])
 		expect(sharedCause(groups)).toBeNull()
+	})
+
+	it('knows a stalled download as its own cause', () => {
+		const groups = repairGroups({'yt-dlp': runnable('yt-dlp'), ffmpeg: failed('ffmpeg', 'download_stalled'), ffprobe: failed('ffprobe', 'download_stalled')}, ['ffmpeg', 'ffprobe'])
+		expect(groups).toEqual([{group: 'media', ids: ['ffmpeg', 'ffprobe'], cause: 'download_stalled'}])
 	})
 
 	it('falls back to an unknown cause for a failure kind newer than this renderer', () => {

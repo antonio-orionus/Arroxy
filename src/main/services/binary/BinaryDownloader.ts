@@ -6,7 +6,8 @@ import {pipeline} from 'node:stream/promises'
 import cacache from 'cacache'
 import fetch from 'make-fetch-happen'
 import log from 'electron-log/main.js'
-import type {DependencyFailureKind, WarmupProgressEvent} from '@shared/types.js'
+import type {DependencyFailureKind} from '@shared/schemas.js'
+import type {WarmupProgressEvent} from '@shared/types.js'
 import {cancelError, isAbortError} from './BinaryProbe.js'
 
 const logger = log.scope('binary-downloader')
@@ -574,7 +575,7 @@ export async function copyCachedArtifactToFile(cacheRoot: string, key: string, d
 // Map an arbitrary download-pipeline failure to a `DependencyFailureKind`.
 // Used by `BinaryResolver` to record `attempts[]` entries on its strategy chain.
 export function classifyDownloadError(err: unknown): DependencyFailureKind {
-	if (err instanceof DownloadStalledError) return 'timeout'
+	if (err instanceof DownloadStalledError) return 'download_stalled'
 	if (err instanceof DownloadIntegrityError || err instanceof DownloadSizeMismatchError) return 'hash_failed'
 	// A cancellation is a fact about the caller, not the machine, so it must never
 	// read as 'timeout' — dependencyPolicy treats 'timeout' as always
@@ -586,7 +587,7 @@ export function classifyDownloadError(err: unknown): DependencyFailureKind {
 	if (isAbortError(err)) return 'download_failed'
 	const msg = err instanceof Error ? err.message.toLowerCase() : ''
 	if (msg.includes('checksum') || msg.includes('integrity')) return 'hash_failed'
-	if (msg.includes('no download progress') || msg.includes('stalled')) return 'timeout'
+	if (msg.includes('no download progress') || msg.includes('stalled')) return 'download_stalled'
 	if (msg.includes('archive') || msg.includes('did not contain') || msg.includes('extract')) return 'extract_failed'
 	return 'download_failed'
 }

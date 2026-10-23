@@ -1,4 +1,5 @@
-import type {DependencyDiagnostic, DependencyFailureKind, DependencyId, DependencySource} from './types.js'
+import type {DependencyFailureKind} from './schemas.js'
+import type {DependencyDiagnostic, DependencyId, DependencySource} from './types.js'
 
 const RUNTIME_REQUIRED_DEPENDENCY_IDS: readonly DependencyId[] = ['yt-dlp', 'ffmpeg', 'ffprobe'] as const
 

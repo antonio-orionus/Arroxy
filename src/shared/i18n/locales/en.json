@@ -516,6 +516,10 @@
 				"body": "Check your internet connection, then try again.",
 				"title": "Couldn't download what Arroxy needs"
 			},
+			"downloadStalled": {
+				"body": "Your connection to the download server is too slow or keeps dropping. Try again.",
+				"title": "The download stopped moving"
+			},
 			"extractFailed": {
 				"body": "Try again to download it fresh.",
 				"title": "A download arrived damaged"
