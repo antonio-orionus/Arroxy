@@ -43,22 +43,25 @@ export interface DownloadExploreDeps {
 	exploreGate: ExploreGate
 	exploreSession: ExploreSignInCheck
 	// Releases a finished attempt's signed-in spawn budget.
-	launchGate: Pick<LaunchGate, 'resetJob' | 'releaseSignedInStart'>
+	launchGate: Pick<LaunchGate, 'resetJob'>
 }
 
 // Without the composition root's wiring nothing escalates and an escalated job is refused.
-const EXPLORE_UNAVAILABLE: DownloadExploreDeps = {exploreGate: {canEscalate: () => Promise.resolve({allowed: false, reason: 'exploreDisabled'})}, exploreSession: {verifySignedIn: () => Promise.resolve('signedOut')}, launchGate: {resetJob: () => undefined, releaseSignedInStart: () => undefined}}
+const EXPLORE_UNAVAILABLE: DownloadExploreDeps = {exploreGate: {canEscalate: () => Promise.resolve({allowed: false, reason: 'exploreDisabled'})}, exploreSession: {verifySignedIn: () => Promise.resolve('signedOut')}, launchGate: {resetJob: () => undefined}}
 
 const EXPLORE_VERIFIED_SIGNED_OUT = 'exploreVerifiedSignedOut'
 
-// A parked job's input as it resumes: the row's lane as it is now, and a newer
-// reservation when the queue made one (a job may park before its first launch,
-// so the parked one can still be unused).
+// A parked job's input as it resumes: the row's lane as it is now, and the
+// start the queue reserved for this resume (a parked job keeps none).
 function resumedInput(parked: ResolvedStartDownloadInput, {explicit, signedInReservation}: {explicit?: boolean; signedInReservation?: string}): ResolvedStartDownloadInput {
-	const {explicit: parkedExplicit, signedInReservation: parkedReservation, ...rest} = parked
+	const {explicit: parkedExplicit, ...rest} = parked
 	const stillExplicit = explicit ?? parkedExplicit === true
-	const reservation = signedInReservation ?? parkedReservation
-	return {...rest, ...(stillExplicit ? {explicit: true} : {}), ...(reservation === undefined ? {} : {signedInReservation: reservation})}
+	return {...rest, ...(stillExplicit ? {explicit: true} : {}), ...(signedInReservation === undefined ? {} : {signedInReservation})}
+}
+
+function withoutReservation(input: ResolvedStartDownloadInput): ResolvedStartDownloadInput {
+	const {signedInReservation: _released, ...rest} = input
+	return rest
 }
 
 export class DownloadService extends EventEmitter {
@@ -198,8 +201,6 @@ export class DownloadService extends EventEmitter {
 		this.pausedJobs.delete(jobId)
 		const {job} = paused
 		const input = resumedInput(paused.input, {explicit, signedInReservation})
-		// The parked reservation, if never used, would hold a slot until it expired.
-		if (signedInReservation !== undefined && paused.input.signedInReservation !== undefined) this.explore.launchGate.releaseSignedInStart(paused.input.signedInReservation)
 		job.status = 'running'
 		job.updatedAt = nowIso()
 		const controller = new AbortController()
@@ -343,9 +344,10 @@ export class DownloadService extends EventEmitter {
 					return
 				}
 				this.activeJobs.delete(job.id)
-				// A paused attempt ends here; resume starts a fresh signed-in spawn budget.
-				this.explore.launchGate.resetJob(job.id)
-				this.pausedJobs.set(job.id, {job, input, tempDir: active.tempDir, ...(active.qualityLimit ? {qualityLimit: active.qualityLimit} : {}), ...(active.formatsWithheld ? {formatsWithheld: true} : {})})
+				// A paused attempt ends here; resume starts a fresh signed-in spawn budget
+				// and takes a new reservation.
+				this.explore.launchGate.resetJob(job.id, input.signedInReservation)
+				this.pausedJobs.set(job.id, {job, input: withoutReservation(input), tempDir: active.tempDir, ...(active.qualityLimit ? {qualityLimit: active.qualityLimit} : {}), ...(active.formatsWithheld ? {formatsWithheld: true} : {})})
 				this.releaseParkWaiters(job.id)
 				logger.info('Download paused — temp dir preserved', {jobId: job.id, tempDir: active.tempDir})
 				return
@@ -419,8 +421,8 @@ export class DownloadService extends EventEmitter {
 			clearInterval(active.mockTimer)
 			active.mockTimer = undefined
 			this.activeJobs.delete(active.job.id)
-			this.explore.launchGate.resetJob(active.job.id)
-			this.pausedJobs.set(active.job.id, {job: active.job, input: active.input})
+			this.explore.launchGate.resetJob(active.job.id, active.input.signedInReservation)
+			this.pausedJobs.set(active.job.id, {job: active.job, input: withoutReservation(active.input)})
 			logger.info('Mock download paused', {jobId: active.job.id})
 			return ok({paused: true, jobId: active.job.id})
 		}
@@ -493,7 +495,7 @@ export class DownloadService extends EventEmitter {
 		for (const event of announcedArtifactEvents(job.id, finalArtifacts)) this.emit('artifact', event)
 		this.activeJobs.delete(job.id)
 		this.releaseParkWaiters(job.id)
-		this.explore.launchGate.resetJob(job.id)
+		this.explore.launchGate.resetJob(job.id, active?.input.signedInReservation)
 		// Best-effort: completion never waits on a size read (a hung mount).
 		void sizedArtifactEvents(job.id, finalArtifacts)
 			.then(events => events.forEach(event => this.emit('artifact', event)))

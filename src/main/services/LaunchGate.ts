@@ -80,11 +80,6 @@ export class LaunchGate {
 		return this.signedIn.reserveStart(site, options)
 	}
 
-	// A reserved signed-in start its job no longer needs.
-	releaseSignedInStart(id: string): void {
-		this.signedIn.releaseReservation(id)
-	}
-
 	// A signed-in listing's entries, charged against the site's window after its launch.
 	chargeListing(site: string, entries: number): void {
 		this.signedIn.charge(site, entries)
@@ -94,9 +89,12 @@ export class LaunchGate {
 		return this.signedIn.onChange(listener)
 	}
 
-	// The job attempt ended: its signed-in budget goes with it.
-	resetJob(jobKey: string): void {
+	// The job attempt ended (finished, cancelled or parked): its signed-in
+	// budget goes with it, and so does the start the queue reserved for it if
+	// it never launched on it.
+	resetJob(jobKey: string, reservation?: string): void {
 		this.signedIn.resetJob(jobKey)
+		if (reservation !== undefined) this.signedIn.releaseReservation(reservation)
 	}
 
 	rateLimitedUntil(site: string): number | null {

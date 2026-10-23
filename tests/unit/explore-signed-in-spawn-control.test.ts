@@ -114,7 +114,7 @@ function harness(gate: SignedInPacer, opts: {mintToken?: () => Promise<{token: s
 	const service = new DownloadService(ytDlp, recentJobsStore as never, false, undefined, {
 		exploreGate: {canEscalate: () => Promise.resolve(opts.canEscalate === false ? {allowed: false as const, reason: 'noCookiesForHost' as const} : {allowed: true as const})},
 		exploreSession: {verifySignedIn: () => Promise.resolve(opts.verified ?? 'signedIn')},
-		launchGate: {resetJob: (jobId: string) => gate.resetJob(jobId), releaseSignedInStart: (id: string) => gate.releaseReservation(id)}
+		launchGate: {resetJob: (jobId: string, reservation?: string) => (gate.resetJob(jobId), reservation === undefined ? undefined : gate.releaseReservation(reservation))}
 	})
 	const statuses: StatusEvent[] = []
 	service.on('status', (event: StatusEvent) => statuses.push(event))
@@ -247,6 +247,26 @@ describe('a signed-in download the user asked for now (ADR 0022)', () => {
 
 		await start('exploreSession', {signedInReservation: reserved.id})
 		await vi.waitFor(() => expect(spawnYtDlp).toHaveBeenCalledOnce(), SETTLE)
+	})
+})
+
+describe('a reserved signed-in start its job never used', () => {
+	it('is given back when the job parks before its first launch', async () => {
+		const {mintToken, minting, releaseMint} = holdMint()
+		const gate = testPacer({atOnce: 1})
+		const reserved = gate.reserveStart('youtube')
+		if (reserved.kind !== 'reserved') throw new Error('expected a reservation')
+		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(null) as never)
+		const {service, start} = harness(gate, {mintToken})
+
+		const jobId = await start(undefined, {signedInReservation: reserved.id})
+		await minting
+		expect(gate.startsAt('youtube')).toBe('full')
+		expect(await service.pause(jobId)).toMatchObject({ok: true, data: {paused: true}})
+		releaseMint()
+		await vi.waitFor(() => expect(service.activeCount).toBe(0), SETTLE)
+
+		expect(gate.startsAt('youtube')).toBeNull()
 	})
 })
 

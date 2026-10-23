@@ -52,7 +52,7 @@ interface Charge {
 interface SiteState {
 	active: number
 	// Starts the queue reserved for launches still being prepared.
-	pending: Map<string, NodeJS.Timeout>
+	pending: Map<string, {timer: NodeJS.Timeout; charge: Charge}>
 	waiters: Array<() => void>
 	// Reserved at a start, so two launches starting together are still staggered.
 	nextStartAt: number
@@ -143,25 +143,22 @@ export class SignedInPacer {
 		if (until !== null) return {kind: 'hold', until}
 		const state = this.state(site)
 		const id = randomUUID()
-		const timer = setTimeout(() => {
-			if (!state.pending.delete(id)) return
-			this.grantWaiters(site, state)
-			this.notify()
-		}, this.reservationTtlMs)
+		const timer = setTimeout(() => this.releaseReservation(id), this.reservationTtlMs)
 		timer.unref?.()
-		state.pending.set(id, timer)
-		this.start(site, state, explicit)
+		state.pending.set(id, {timer, charge: this.start(site, state, explicit)})
 		// No notify: the caller is the scheduler itself, mid-pass.
 		return {kind: 'reserved', id}
 	}
 
-	// A reserved start its launch no longer needs (the job resumes on a newer one).
+	// A reserved start its job never used (it parked or ended first, or the
+	// reservation expired): its slot frees and its window charge is refunded.
 	releaseReservation(id: string): void {
 		for (const [site, state] of this.sites) {
-			const timer = state.pending.get(id)
-			if (timer === undefined) continue
-			clearTimeout(timer)
+			const reservation = state.pending.get(id)
+			if (reservation === undefined) continue
+			clearTimeout(reservation.timer)
 			state.pending.delete(id)
+			state.charges = state.charges.filter(charge => charge !== reservation.charge)
 			this.grantWaiters(site, state)
 			this.notify()
 			return
@@ -198,11 +195,13 @@ export class SignedInPacer {
 
 	// A launch starts now: it counts against the window and, unless explicit,
 	// pushes the next start back by the spacing.
-	private start(site: string, state: SiteState, explicit: boolean): void {
+	private start(site: string, state: SiteState, explicit: boolean): Charge {
 		const pacing = this.pacing(site)
 		const now = this.now()
-		state.charges.push({at: now, launches: 1})
+		const charge = {at: now, launches: 1}
+		state.charges.push(charge)
 		if (!explicit) state.nextStartAt = now + this.spacing(pacing)
+		return charge
 	}
 
 	// A reserved launch actually starts: later starts are spaced from it.
@@ -221,9 +220,9 @@ export class SignedInPacer {
 	}
 
 	private consume(state: SiteState, id: string): boolean {
-		const timer = state.pending.get(id)
-		if (timer === undefined) return false
-		clearTimeout(timer)
+		const reservation = state.pending.get(id)
+		if (reservation === undefined) return false
+		clearTimeout(reservation.timer)
 		state.pending.delete(id)
 		state.active += 1
 		return true

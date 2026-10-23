@@ -279,6 +279,24 @@ describe('SignedInPacer: reserved starts', () => {
 		expect(pacer.startsAt('x')).toBeNull()
 	})
 
+	it('refunds the window charge of a reservation that is released or expires unused', async () => {
+		vi.useFakeTimers()
+		try {
+			const pacer = new SignedInPacer({pacing: pacing({atOnce: 2, perWindow: 1}), reservationTtlMs: 1000})
+			const first = pacer.reserveStart('x')
+			if (first.kind !== 'reserved') throw new Error('expected a reservation')
+			expect(pacer.startsAt('x')).toEqual(expect.any(Number))
+			pacer.releaseReservation(first.id)
+			expect(pacer.startsAt('x')).toBeNull()
+
+			pacer.reserveStart('x')
+			await vi.advanceTimersByTimeAsync(1000)
+			expect(pacer.startsAt('x')).toBeNull()
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
 	it('lets a reservation that is never used expire', async () => {
 		vi.useFakeTimers()
 		try {
