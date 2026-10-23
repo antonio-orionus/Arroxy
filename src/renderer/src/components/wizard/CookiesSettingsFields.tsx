@@ -1,12 +1,13 @@
 import {type ReactNode} from 'react'
 import {useShallow} from 'zustand/react/shallow'
-import {useTranslation} from 'react-i18next'
+import {Trans, useTranslation} from 'react-i18next'
 import {AlertTriangle} from 'lucide-react'
 import type {CookiesBrowser, CookiesMode} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {notify} from '@renderer/lib/notify.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
-import {siteKeyLabel} from '@shared/sites/siteKeys.js'
+import {knownSiteSignIn, siteKeyLabel} from '@shared/sites/siteKeys.js'
+import {exploreSignInSiteFor} from '../../store/exploreSignInSite.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Alert, AlertDescription, AlertTitle} from '../ui/alert.js'
 import {Badge} from '../ui/badge.js'
@@ -48,7 +49,7 @@ export function CookiesSettingsFields(): ReactNode {
 
 function CookiesSourceField({cookiesMode}: {cookiesMode: CookiesMode}): ReactNode {
 	const {t} = useTranslation()
-	const {settings, setCookiesMode} = useAppStore(useShallow(state => ({settings: state.settings, setCookiesMode: state.setCookiesMode})))
+	const {settings, setCookiesMode, notWorking} = useAppStore(useShallow(state => ({settings: state.settings, setCookiesMode: state.setCookiesMode, notWorking: state.notWorkingSignIns})))
 	const exploreEnabled = settings?.common?.exploreEnabled !== false
 	return (
 		<Field className="gap-1.5" data-testid="cookies-source">
@@ -74,7 +75,7 @@ function CookiesSourceField({cookiesMode}: {cookiesMode: CookiesMode}): ReactNod
 				<ToggleGroupItem value="file">{t('wizard.url.cookies.sourceFile')}</ToggleGroupItem>
 				<ToggleGroupItem value="browser">{t('wizard.url.cookies.sourceBrowser')}</ToggleGroupItem>
 			</ToggleGroup>
-			{cookiesMode === 'explore' ? <ExploreModeDescription enabled={exploreEnabled} /> : null}
+			{cookiesMode === 'explore' ? <ExploreModeDescription enabled={exploreEnabled} linked={notWorking.length === 0} /> : null}
 			{cookiesMode === 'explore' ? <NotWorkingSignIns /> : null}
 			{cookiesMode !== 'off' ? <WarningText text={t('wizard.url.cookies.banWarning')} /> : null}
 		</Field>
@@ -207,16 +208,18 @@ function CookiesBrowserProfileField(): ReactNode {
 }
 
 // The tab is the only place to sign in, so with it turned off there is nothing to link to.
-function ExploreModeDescription({enabled}: {enabled: boolean}): ReactNode {
+// `linked`: false while a not-working sign-in links to Explore itself.
+function ExploreModeDescription({enabled, linked}: {enabled: boolean; linked: boolean}): ReactNode {
 	const {t} = useTranslation()
 	if (!enabled) return <WarningText text={t('wizard.url.cookies.exploreDisabled')} />
 	return (
-		<FieldDescription className="flex flex-wrap items-center gap-x-2 gap-y-1" data-testid="cookies-explore-description">
-			<span>{t('wizard.url.cookies.exploreDescriptionSignInFirst')}</span>
-			<Button type="button" variant="link" size="inline" onClick={() => replaceHash('explore')} data-testid="cookies-open-explore">
-				{t('wizard.url.cookies.openExplore')}
-			</Button>
-		</FieldDescription>
+		linked && (
+			<FieldDescription className="flex flex-wrap items-center gap-x-2 gap-y-1" data-testid="cookies-explore-description">
+				<Button type="button" variant="link" size="inline" onClick={() => replaceHash('explore')} data-testid="cookies-open-explore">
+					{t('wizard.url.cookies.openExplore')}
+				</Button>
+			</FieldDescription>
+		)
 	)
 }
 
@@ -225,7 +228,7 @@ function ExploreModeDescription({enabled}: {enabled: boolean}): ReactNode {
 // or says here to use the sign-in again (after dealing with a checkpoint).
 function NotWorkingSignIns(): ReactNode {
 	const {t} = useTranslation()
-	const {sites, reuseSignIn} = useAppStore(useShallow(state => ({sites: state.notWorkingSignIns, reuseSignIn: state.reuseSignIn})))
+	const {sites, reuseSignIn, openExploreSignIn} = useAppStore(useShallow(state => ({sites: state.notWorkingSignIns, reuseSignIn: state.reuseSignIn, openExploreSignIn: state.openExploreSignIn})))
 	if (sites.length === 0) return null
 	return (
 		<div className="flex flex-col gap-1.5" data-testid="cookies-not-working-sign-ins">
@@ -233,7 +236,13 @@ function NotWorkingSignIns(): ReactNode {
 				<Alert key={site} variant="warning" size="sm" data-testid={`cookies-not-working-sign-in-${site}`}>
 					<AlertTriangle />
 					<AlertTitle>{t('wizard.url.cookies.signInStoppedWorking', {site: siteKeyLabel(site)})}</AlertTitle>
-					<AlertDescription>{t('wizard.url.cookies.signInStoppedWorkingDetail', {site: siteKeyLabel(site)})}</AlertDescription>
+					<AlertDescription>
+						<Trans
+							i18nKey="wizard.url.cookies.signInStoppedWorkingDetail"
+							values={{site: siteKeyLabel(site)}}
+							components={{explore: <Button type="button" variant="link" size="inline" onClick={() => openExploreSignIn(exploreSignInSiteFor(knownSiteSignIn(site)?.page))} data-testid={`cookies-sign-in-again-${site}`} />}}
+						/>
+					</AlertDescription>
 					<div className="col-start-2 flex flex-wrap gap-2">
 						<Button type="button" variant="outline" size="xs" onClick={() => void reuseSignIn(site)}>
 							{t('wizard.url.cookies.useSignInAgain')}

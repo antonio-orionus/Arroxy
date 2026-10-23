@@ -59,7 +59,7 @@ describe('parseSuspectSignInMarks', () => {
 
 	it('checks the sites and rows it is given', async () => {
 		const jar = [cookie('MARK', 'm', '.youtube.com'), cookie('sessionid', 's', '.instagram.com')]
-		const signIns = new SiteSignIns({readCookies: () => Promise.resolve(jar), sites: ['youtube'], rowFor: site => (site === 'youtube' ? {policy: 'first', cookies: ['MARK'], host: 'www.youtube.com'} : null)})
+		const signIns = new SiteSignIns({readCookies: () => Promise.resolve(jar), sites: ['youtube'], rowFor: site => (site === 'youtube' ? {policy: 'first', cookies: ['MARK'], host: 'www.youtube.com', page: 'https://www.youtube.com/'} : null)})
 		await signIns.refresh()
 
 		expect(signIns.signedIn('youtube')).toBe(true)

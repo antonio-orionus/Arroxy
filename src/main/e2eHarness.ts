@@ -148,7 +148,7 @@ function readExploreIdleUnloadMs(value: string | undefined): number | undefined 
 	return Number(value)
 }
 
-const FIXTURE_SIGN_IN_FIRST: Readonly<Record<string, SiteSignIn>> = {youtube: {policy: 'first', cookies: ['ARROXY_FIXTURE_AUTH'], host: 'www.youtube.com'}}
+const FIXTURE_SIGN_IN_FIRST: Readonly<Record<string, SiteSignIn>> = {youtube: {policy: 'first', cookies: ['ARROXY_FIXTURE_AUTH'], host: 'www.youtube.com', page: 'https://www.youtube.com/'}}
 
 export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate: HarnessGate): E2eHarnessMode {
 	if (!isE2eHarnessEnabled(env, gate)) {

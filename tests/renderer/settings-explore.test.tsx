@@ -72,13 +72,13 @@ describe('cookie source: Explore sign-in', () => {
 		await waitFor(() => expect(settingsWrites()).toContainEqual({common: {cookiesMode: 'explore'}}))
 	})
 
-	it('shows a stored explore mode as selected, with the ban warning and how it works', () => {
+	it('shows a stored explore mode as selected, with the ban warning and the way to Explore', () => {
 		mount({cookiesMode: 'explore'})
 		const group = within(cookiesSource())
 		expect(group.getByRole('button', {name: /^Explore sign-in/})).toHaveAttribute('aria-pressed', 'true')
 		expect(group.getByRole('button', {name: 'Off'})).toHaveAttribute('aria-pressed', 'false')
 		expect(group.getByText(/may flag — and sometimes ban/)).toBeInTheDocument()
-		expect(group.getByText('Uses your Explore sign-in from the start on Instagram and X, and elsewhere only when a download needs it.')).toBeInTheDocument()
+		expect(group.getByRole('button', {name: 'Open Explore'})).toBeInTheDocument()
 	})
 
 	it('opens the Explore tab from the explore description', () => {
@@ -93,10 +93,10 @@ describe('cookie source: Explore sign-in', () => {
 		expect(within(cookiesSource()).getByText(/The Explore tab is off/)).toBeInTheDocument()
 	})
 
-	it('shows neither the ban warning nor the Explore description while cookies are off', () => {
+	it('shows neither the ban warning nor the Explore link while cookies are off', () => {
 		mount({cookiesMode: 'off'})
 		expect(within(cookiesSource()).queryByText(/may flag — and sometimes ban/)).toBeNull()
-		expect(within(cookiesSource()).queryByText('Uses your Explore sign-in from the start on Instagram and X, and elsewhere only when a download needs it.')).toBeNull()
+		expect(within(cookiesSource()).queryByRole('button', {name: 'Open Explore'})).toBeNull()
 	})
 })
 

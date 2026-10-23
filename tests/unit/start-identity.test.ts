@@ -18,7 +18,7 @@ describe('decideStartIdentity', () => {
 	})
 
 	it('reads the policy from the sign-in rows it is given', () => {
-		const rowFor = (site: string) => (site === 'youtube' ? {policy: 'first' as const, cookies: ['SID'], host: 'www.youtube.com'} : null)
+		const rowFor = (site: string) => (site === 'youtube' ? {policy: 'first' as const, cookies: ['SID'], host: 'www.youtube.com', page: 'https://www.youtube.com/'} : null)
 		expect(decideStartIdentity('https://www.youtube.com/watch?v=a', inputs({rowFor}))).toEqual({site: 'youtube', auth: 'exploreSession', basis: 'siteDefault'})
 		expect(decideStartIdentity('https://www.instagram.com/reel/a', inputs({rowFor}))).toMatchObject({auth: 'anonymous', reason: 'notSignInFirst'})
 	})

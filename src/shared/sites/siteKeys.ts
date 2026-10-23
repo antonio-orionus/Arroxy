@@ -31,6 +31,8 @@ export interface SiteSignIn {
 	policy: SignInPolicy
 	cookies: readonly string[]
 	host: string
+	// The page Explore opens for the user to sign in again.
+	page: string
 }
 
 interface KnownSite {
@@ -47,8 +49,8 @@ function onDomains(domains: readonly string[]): (host: string) => boolean {
 
 const KNOWN_SITES: readonly KnownSite[] = [
 	{key: 'youtube', label: 'YouTube', matches: isYouTubeHostname},
-	{key: 'instagram', label: 'Instagram', matches: onDomains(['instagram.com', 'instagr.am']), signedInPacing: {spacingMs: 8000, windowMs: 11 * 60_000, perWindow: 11, entriesPerLaunch: 12}, signIn: {policy: 'first', cookies: ['sessionid'], host: 'www.instagram.com'}},
-	{key: 'x', label: 'X', matches: onDomains(['x.com', 'twitter.com', 't.co']), signedInPacing: {windowMs: 15 * 60_000, perWindow: 30, entriesPerLaunch: 20}, signIn: {policy: 'first', cookies: ['auth_token'], host: 'api.x.com'}}
+	{key: 'instagram', label: 'Instagram', matches: onDomains(['instagram.com', 'instagr.am']), signedInPacing: {spacingMs: 8000, windowMs: 11 * 60_000, perWindow: 11, entriesPerLaunch: 12}, signIn: {policy: 'first', cookies: ['sessionid'], host: 'www.instagram.com', page: 'https://www.instagram.com/'}},
+	{key: 'x', label: 'X', matches: onDomains(['x.com', 'twitter.com', 't.co']), signedInPacing: {windowMs: 15 * 60_000, perWindow: 30, entriesPerLaunch: 20}, signIn: {policy: 'first', cookies: ['auth_token'], host: 'api.x.com', page: 'https://x.com/'}}
 ]
 
 export function siteKeyForHost(hostname: string): string {

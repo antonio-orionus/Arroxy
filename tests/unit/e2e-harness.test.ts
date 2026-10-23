@@ -190,7 +190,7 @@ describe('resolveE2eHarnessMode sign-in-first fixture site', () => {
 	const enabled = (extra: NodeJS.ProcessEnv): NodeJS.ProcessEnv => ({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: makePluginRoot(), ...extra})
 
 	it('makes the fixture YouTube start signed in by its marker cookie', () => {
-		expect(resolveE2eHarnessMode(enabled({ARROXY_E2E_SIGN_IN_FIRST: '1'}), {isPackaged: false}).extraSignIns).toEqual({youtube: {policy: 'first', cookies: ['ARROXY_FIXTURE_AUTH'], host: 'www.youtube.com'}})
+		expect(resolveE2eHarnessMode(enabled({ARROXY_E2E_SIGN_IN_FIRST: '1'}), {isPackaged: false}).extraSignIns).toEqual({youtube: {policy: 'first', cookies: ['ARROXY_FIXTURE_AUTH'], host: 'www.youtube.com', page: 'https://www.youtube.com/'}})
 	})
 
 	it('adds no sign-in row unless asked, or outside the gated harness', () => {
