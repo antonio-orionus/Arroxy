@@ -15,6 +15,12 @@ import {settleWithExploreSession} from './signedInFlow.js'
 
 type SettledRun = {kind: 'done'; result: Extract<YtDlpResult, {kind: 'success'}>} | {kind: 'ended'; outcome: PhaseOutcome}
 
+function withoutListing(req: YtDlpRequest): YtDlpRequest {
+	if (req.kind !== 'subtitles') return req
+	const {loadInfoJsonPath: _listing, ...rest} = req
+	return rest
+}
+
 function hardFailure(ctx: PhaseContext, error: LocalizedError, params: Record<string, string>): PhaseOutcome {
 	ctx.emitStatus('error', STATUS_KEY.ytdlpProcessError, params, error)
 	return {kind: 'hard-failed', error}
@@ -38,6 +44,9 @@ export const SubtitleOnlyPhase: Phase = {
 		if (interrupted) return interrupted
 
 		const site = siteForJob(preparedJob.extractor, input.url)
+		// Whether the listing the fetch loads was extracted on the account: the
+		// probe's, when the job starts signed in, or a listing run that was.
+		let listingSignedIn = active.input.auth === 'exploreSession'
 		const refused = await guardSignedInSpawn(ctx)
 		if (refused) return refused
 
@@ -53,12 +62,17 @@ export const SubtitleOnlyPhase: Phase = {
 			ctx.register(() => cleanupTempDirByPath(tempDir))
 		}
 
+		// A job its site started signed in that went on anonymous never replays a
+		// listing extracted signed in: its subtitle URLs may be the account's, so
+		// the fetch re-extracts without it.
+		const anonymousReplay = (req: YtDlpRequest): boolean => req.kind === 'subtitles' && listingSignedIn && active.input.auth !== 'exploreSession'
+
 		// Either run can be refused for the anonymous identity and escalate: the
 		// identity is read per run, so a retry goes out as the Explore session.
 		const settledRun = async (req: YtDlpRequest): Promise<SettledRun> => {
 			const spawn = async (): Promise<{result: YtDlpResult}> => ({
 				result: await ytDlp.run(
-					req,
+					anonymousReplay(req) ? withoutListing(req) : req,
 					buildYtDlpSignal(ctx, active, {
 						// A listing's stdout is the info-json, read from the result: no progress to parse, nothing to log.
 						...(req.kind === 'subtitle-listing' ? {onStdout: () => undefined} : {}),
@@ -94,6 +108,7 @@ export const SubtitleOnlyPhase: Phase = {
 		if (!lists) {
 			const listed = await settledRun({kind: 'subtitle-listing', url: input.url})
 			if (listed.kind === 'ended') return listed.outcome
+			listingSignedIn = active.input.auth === 'exploreSession'
 			const saved = await saveSubtitleListing(listed.result.stdout, tempDir)
 			if (saved.kind === 'not-info-json') return hardFailure(ctx, {kind: 'parse', raw: 'The subtitle listing printed no info-json'}, {error: 'no info-json'})
 			if (saved.kind === 'unwritable') {

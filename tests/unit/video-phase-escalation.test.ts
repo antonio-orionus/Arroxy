@@ -562,6 +562,21 @@ describe('VideoPhase: a job its site started signed in (ADR 0022)', () => {
 		expect(evidence).toEqual(['instagram:signedInUnknown', 'instagram:anonymousWorked'])
 	})
 
+	it.each([
+		['fails in a way the sign-in may have caused', UNKNOWN],
+		['is refused its sign-in before launch', {kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'The Explore session is not usable', stdout: '', stderr: '', signedInRefused: true} satisfies YtDlpResult]
+	])('fetches subtitles anonymous without the listing extracted signed in when the fetch %s', async (_case, refused) => {
+		const job: ResolvedStartDownloadInput['job'] = {kind: 'subtitle-only', extractor: 'Instagram', extractorKey: 'Instagram', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}}
+		const listed: YtDlpResult = {...SUCCESS, stdout: JSON.stringify({title: 'Video', subtitles: {en: [{ext: 'vtt'}]}, automatic_captions: {}})}
+		const {ctx, run} = makeCtx({runs: [listed, refused, SUCCESS], input: {...SITE_DEFAULT, job}, signedIn: true})
+
+		expect(await SubtitleOnlyPhase.run(ctx)).toEqual({kind: 'completed'})
+		expect(identities(run)).toEqual(['exploreSession', 'exploreSession', 'configured'])
+		const fetches = run.mock.calls.map(call => call[0]).filter(req => req.kind === 'subtitles')
+		expect(fetches[0]).toHaveProperty('loadInfoJsonPath')
+		expect(fetches[1]).not.toHaveProperty('loadInfoJsonPath')
+	})
+
 	it('never escalates a job its safety launch left anonymous', async () => {
 		const {ctx, run, canEscalate} = makeCtx({runs: [LOGIN_REQUIRED], input: {url: IG_URL, job: IG_JOB, auth: 'anonymous'}, signedIn: true})
 
