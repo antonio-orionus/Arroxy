@@ -135,6 +135,16 @@ describe('QueueService — signed-in pacing before the lane', () => {
 		expect(ds.resume).toHaveBeenCalledWith('job-parked', {explicit: true})
 	})
 
+	it('tells a parked job the user resumes whether its row is in the priority lane now', async () => {
+		const {ds, qs} = setup()
+		ds.resume.mockResolvedValue(ok({resumed: true}))
+		await qs.init()
+		qs.add([makeItem({id: 'p', status: 'paused-active', lane: 'priority', lastJobId: 'job-parked'})])
+		await qs.resume('p')
+
+		expect(ds.resume).toHaveBeenCalledWith('job-parked', {explicit: true})
+	})
+
 	it('reserves nothing for a row that starts anonymous', async () => {
 		const {ds, qs} = setup()
 		qs.add([makeItem({id: 'a', status: 'pending', url: 'https://www.instagram.com/reel/a'})])

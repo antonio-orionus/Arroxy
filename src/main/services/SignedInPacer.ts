@@ -155,6 +155,19 @@ export class SignedInPacer {
 		return {kind: 'reserved', id}
 	}
 
+	// A reserved start its launch no longer needs (the job resumes on a newer one).
+	releaseReservation(id: string): void {
+		for (const [site, state] of this.sites) {
+			const timer = state.pending.get(id)
+			if (timer === undefined) continue
+			clearTimeout(timer)
+			state.pending.delete(id)
+			this.grantWaiters(site, state)
+			this.notify()
+			return
+		}
+	}
+
 	// A listing's entries, charged after its launch against the site's window.
 	charge(site: string, entries: number): void {
 		const pacing = this.pacing(site)

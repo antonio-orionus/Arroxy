@@ -366,7 +366,7 @@ export class QueueService extends EventEmitter {
 		// Try in-session resume first; if main has no record (cross-restart),
 		// fall back to a fresh start with --continue picking up the .part.
 		if (item.lastJobId) {
-			const resumeResult = await this.downloadService.resume(item.lastJobId)
+			const resumeResult = await this.downloadService.resume(item.lastJobId, {explicit: item.lane === 'priority'})
 			if (resumeResult.ok && resumeResult.data.resumed) {
 				this.commit({kind: 'event', itemId, evt: {kind: 'resumed'}})
 				return ok(undefined)

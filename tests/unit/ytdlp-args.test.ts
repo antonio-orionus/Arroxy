@@ -52,12 +52,20 @@ function makeFakeProcess(exitCode = 0, stderr = '') {
 let lastTokenService: {getToken: ReturnType<typeof vi.fn>; invalidateCache: ReturnType<typeof vi.fn>}
 
 // A signed-in pacer whose `run` the test supplies.
-function pacerWith({run}: {run: SignedInPacer['run'] | ReturnType<typeof vi.fn>}): Pick<SignedInPacer, 'run' | 'resetJob' | 'charge' | 'startsAt' | 'reserveStart' | 'onChange'> {
-	return {run: run as SignedInPacer['run'], resetJob: vi.fn(), charge: vi.fn(), startsAt: () => null, reserveStart: () => ({kind: 'hold', until: 'full'}), onChange: () => () => undefined}
+function pacerWith({run}: {run: SignedInPacer['run'] | ReturnType<typeof vi.fn>}): Pick<SignedInPacer, 'run' | 'resetJob' | 'charge' | 'startsAt' | 'reserveStart' | 'releaseReservation' | 'onChange'> {
+	return {run: run as SignedInPacer['run'], resetJob: vi.fn(), charge: vi.fn(), startsAt: () => null, reserveStart: () => ({kind: 'hold', until: 'full'}), releaseReservation: vi.fn(), onChange: () => () => undefined}
 }
 
 function makeYtDlp(
-	opts: {settings?: Record<string, unknown>; token?: string; visitorData?: string; e2eMode?: E2eHarnessMode; ytDlpSource?: DependencySource | null; sessionJars?: SessionCookieJarPort; spawnGate?: Pick<SignedInPacer, 'run' | 'resetJob' | 'charge' | 'startsAt' | 'reserveStart' | 'onChange'> | null} = {}
+	opts: {
+		settings?: Record<string, unknown>
+		token?: string
+		visitorData?: string
+		e2eMode?: E2eHarnessMode
+		ytDlpSource?: DependencySource | null
+		sessionJars?: SessionCookieJarPort
+		spawnGate?: Pick<SignedInPacer, 'run' | 'resetJob' | 'charge' | 'startsAt' | 'reserveStart' | 'releaseReservation' | 'onChange'> | null
+	} = {}
 ) {
 	const tokenService = {getToken: vi.fn().mockResolvedValue({token: opts.token ?? 'tok', visitorData: opts.visitorData ?? 'vd'}), invalidateCache: vi.fn()}
 	const ytDlpSource = opts.ytDlpSource === undefined ? ({kind: 'managed', channel: 'stable', provider: 'github', url: 'https://github.com/yt-dlp/yt-dlp/releases/download/2026.06.12/yt-dlp_linux'} satisfies DependencySource) : opts.ytDlpSource

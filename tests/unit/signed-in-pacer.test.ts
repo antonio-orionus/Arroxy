@@ -269,6 +269,16 @@ describe('SignedInPacer: reserved starts', () => {
 		expect(startedAt).toEqual([16_000, 24_000])
 	})
 
+	it('gives back a reservation its launch no longer needs', () => {
+		const {pacer} = clocked({atOnce: 1})
+		const reserved = pacer.reserveStart('x')
+		if (reserved.kind !== 'reserved') throw new Error('expected a reservation')
+		pacer.releaseReservation('unknown')
+		expect(pacer.startsAt('x')).toBe('full')
+		pacer.releaseReservation(reserved.id)
+		expect(pacer.startsAt('x')).toBeNull()
+	})
+
 	it('lets a reservation that is never used expire', async () => {
 		vi.useFakeTimers()
 		try {

@@ -16,7 +16,7 @@ const logger = log.scope('launch-gate')
 
 export type LaunchWaitReason = 'cooldown' | SignedInWait['reason']
 
-type SignedInPacerPort = Pick<SignedInPacer, 'run' | 'resetJob' | 'charge' | 'startsAt' | 'reserveStart' | 'onChange'>
+type SignedInPacerPort = Pick<SignedInPacer, 'run' | 'resetJob' | 'charge' | 'startsAt' | 'reserveStart' | 'releaseReservation' | 'onChange'>
 
 export type LaunchAdmission = {kind: 'go'; launch: Launch} | {kind: 'wait'; until: number}
 
@@ -78,6 +78,11 @@ export class LaunchGate {
 	// lane, or says how long the row waits (`full` until a slot frees).
 	reserveSignedInStart(site: string, options: {explicit?: boolean} = {}): {kind: 'reserved'; id: string} | {kind: 'hold'; until: number | 'full'} {
 		return this.signedIn.reserveStart(site, options)
+	}
+
+	// A reserved signed-in start its job no longer needs.
+	releaseSignedInStart(id: string): void {
+		this.signedIn.releaseReservation(id)
 	}
 
 	// A signed-in listing's entries, charged against the site's window after its launch.

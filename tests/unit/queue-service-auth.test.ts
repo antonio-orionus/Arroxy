@@ -167,7 +167,7 @@ describe('QueueService — download-time escalation', () => {
 		const resetJob = vi.fn()
 		const ytDlp = {prepare: vi.fn().mockResolvedValue(undefined), run, usesCookies: vi.fn().mockResolvedValue(false), invalidateTokenSession: vi.fn(), ffmpegPath: null}
 		const recentJobs = {push: vi.fn().mockResolvedValue(undefined)}
-		const downloads = new DownloadService(ytDlp as never, recentJobs as never, false, undefined, {exploreGate: {canEscalate: () => Promise.resolve({allowed: true as const})}, exploreSession: {verifySignedIn: () => Promise.resolve('signedIn' as const)}, launchGate: {resetJob}})
+		const downloads = new DownloadService(ytDlp as never, recentJobs as never, false, undefined, {exploreGate: {canEscalate: () => Promise.resolve({allowed: true as const})}, exploreSession: {verifySignedIn: () => Promise.resolve('signedIn' as const)}, launchGate: {resetJob, releaseSignedInStart: vi.fn()}})
 		const qs = new QueueService(store, downloads)
 		const jobIds = new Set<string>()
 		downloads.on('status', (event: {jobId: string}) => jobIds.add(event.jobId))

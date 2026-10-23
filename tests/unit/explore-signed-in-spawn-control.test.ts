@@ -114,7 +114,7 @@ function harness(gate: SignedInPacer, opts: {mintToken?: () => Promise<{token: s
 	const service = new DownloadService(ytDlp, recentJobsStore as never, false, undefined, {
 		exploreGate: {canEscalate: () => Promise.resolve(opts.canEscalate === false ? {allowed: false as const, reason: 'noCookiesForHost' as const} : {allowed: true as const})},
 		exploreSession: {verifySignedIn: () => Promise.resolve(opts.verified ?? 'signedIn')},
-		launchGate: {resetJob: (jobId: string) => gate.resetJob(jobId)}
+		launchGate: {resetJob: (jobId: string) => gate.resetJob(jobId), releaseSignedInStart: (id: string) => gate.releaseReservation(id)}
 	})
 	const statuses: StatusEvent[] = []
 	service.on('status', (event: StatusEvent) => statuses.push(event))

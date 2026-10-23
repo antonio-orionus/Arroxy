@@ -43,19 +43,22 @@ export interface DownloadExploreDeps {
 	exploreGate: ExploreGate
 	exploreSession: ExploreSignInCheck
 	// Releases a finished attempt's signed-in spawn budget.
-	launchGate: Pick<LaunchGate, 'resetJob'>
+	launchGate: Pick<LaunchGate, 'resetJob' | 'releaseSignedInStart'>
 }
 
 // Without the composition root's wiring nothing escalates and an escalated job is refused.
-const EXPLORE_UNAVAILABLE: DownloadExploreDeps = {exploreGate: {canEscalate: () => Promise.resolve({allowed: false, reason: 'exploreDisabled'})}, exploreSession: {verifySignedIn: () => Promise.resolve('signedOut')}, launchGate: {resetJob: () => undefined}}
+const EXPLORE_UNAVAILABLE: DownloadExploreDeps = {exploreGate: {canEscalate: () => Promise.resolve({allowed: false, reason: 'exploreDisabled'})}, exploreSession: {verifySignedIn: () => Promise.resolve('signedOut')}, launchGate: {resetJob: () => undefined, releaseSignedInStart: () => undefined}}
 
 const EXPLORE_VERIFIED_SIGNED_OUT = 'exploreVerifiedSignedOut'
 
-// A parked job's input as the queue resumes it: its lane and reservation are now's.
+// A parked job's input as it resumes: the row's lane as it is now, and a newer
+// reservation when the queue made one (a job may park before its first launch,
+// so the parked one can still be unused).
 function resumedInput(parked: ResolvedStartDownloadInput, {explicit, signedInReservation}: {explicit?: boolean; signedInReservation?: string}): ResolvedStartDownloadInput {
-	const {explicit: parkedExplicit, signedInReservation: _spent, ...rest} = parked
+	const {explicit: parkedExplicit, signedInReservation: parkedReservation, ...rest} = parked
 	const stillExplicit = explicit ?? parkedExplicit === true
-	return {...rest, ...(stillExplicit ? {explicit: true} : {}), ...(signedInReservation === undefined ? {} : {signedInReservation})}
+	const reservation = signedInReservation ?? parkedReservation
+	return {...rest, ...(stillExplicit ? {explicit: true} : {}), ...(reservation === undefined ? {} : {signedInReservation: reservation})}
 }
 
 export class DownloadService extends EventEmitter {
@@ -195,6 +198,8 @@ export class DownloadService extends EventEmitter {
 		this.pausedJobs.delete(jobId)
 		const {job} = paused
 		const input = resumedInput(paused.input, {explicit, signedInReservation})
+		// The parked reservation, if never used, would hold a slot until it expired.
+		if (signedInReservation !== undefined && paused.input.signedInReservation !== undefined) this.explore.launchGate.releaseSignedInStart(paused.input.signedInReservation)
 		job.status = 'running'
 		job.updatedAt = nowIso()
 		const controller = new AbortController()
