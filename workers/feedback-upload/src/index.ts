@@ -71,6 +71,8 @@ export default {
       if (error instanceof HttpError) {
         return json({ error: error.message }, error.status);
       }
+      // Workers Logs keep only what is logged; a caught error would leave no trace.
+      console.error('feedback worker: unhandled error', { path: new URL(request.url).pathname, error: String(error) });
       return json({ error: 'internal_error' }, 500);
     }
   }
@@ -92,10 +94,14 @@ async function handleTallyWebhook(request: Request, env: WorkerEnv): Promise<Res
 
   const outcome = readSubmission(body);
   if (outcome.kind === 'invalid-payload') {
+    console.warn('tally webhook: invalid payload', { issues: outcome.issues });
     return json({ error: 'invalid_payload' }, 400);
   }
   // A submission from outside the app has no report to join; Tally keeps it.
+  // Logged, since a form whose hidden field is misnamed lands here every time.
   if (outcome.kind === 'no-report-id') {
+    const { submissionId, formId, formName } = outcome;
+    console.warn('tally webhook: no report_id hidden field', { submissionId, formId, formName });
     return json({ stored: false, reason: 'no_report_id' }, 200);
   }
 

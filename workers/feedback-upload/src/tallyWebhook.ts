@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
-// Tally posts each feedback form submission here. The answers land in R2 next
-// to the report's diagnostic log, so one report_id finds both.
+// Tally posts each feedback form submission here. The answers land in R2 under
+// the same report_id as the diagnostic log, so the admin viewer finds both.
 export const TALLY_WEBHOOK_PATH = '/arroxy/api/tally-webhook';
 export const MAX_WEBHOOK_BYTES = 256 * 1024;
 const REPORT_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -46,8 +46,8 @@ export interface StoredSubmission {
 
 export type WebhookOutcome =
   | { kind: 'store'; key: string; submission: StoredSubmission }
-  | { kind: 'no-report-id' }
-  | { kind: 'invalid-payload' };
+  | { kind: 'no-report-id'; submissionId: string; formId: string; formName: string }
+  | { kind: 'invalid-payload'; issues: string };
 
 export function answersKey(reportId: string): string {
   return `feedback/by-report/${reportId}.answers.json`;
@@ -67,14 +67,15 @@ export function readSubmission(body: ArrayBuffer): WebhookOutcome {
   try {
     raw = JSON.parse(new TextDecoder().decode(body));
   } catch {
-    return { kind: 'invalid-payload' };
+    return { kind: 'invalid-payload', issues: 'body is not JSON' };
   }
   const parsed = submissionSchema.safeParse(raw);
-  if (!parsed.success) return { kind: 'invalid-payload' };
+  // Issue paths and expected types only: zod's messages carry no answer values.
+  if (!parsed.success) return { kind: 'invalid-payload', issues: parsed.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`).join('; ').slice(0, 500) };
 
   const { data } = parsed.data;
   const reportId = hiddenValue(data.fields, 'report_id')?.trim().toLowerCase();
-  if (!reportId || !REPORT_ID_PATTERN.test(reportId)) return { kind: 'no-report-id' };
+  if (!reportId || !REPORT_ID_PATTERN.test(reportId)) return { kind: 'no-report-id', submissionId: data.submissionId, formId: data.formId, formName: data.formName };
 
   return {
     kind: 'store',

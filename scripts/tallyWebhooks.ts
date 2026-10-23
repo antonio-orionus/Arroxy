@@ -49,7 +49,7 @@ export async function applyPlan(plan: readonly WebhookAction[], apiKey: string, 
 		const [method, path, payload] = action.kind === 'create' ? ['POST', '/webhooks', body] : ['PATCH', `/webhooks/${action.webhook.id}`, {...body, isEnabled: true}]
 		// Sequential on purpose: a failure stops before touching the next form.
 		const response = await fetchFn(`${TALLY_API}${path}`, {method, headers: headers(apiKey), body: JSON.stringify(payload)})
-		if (!response.ok) throw new Error(`${method} ${path} for form ${action.form.id} (${action.form.name}) failed: ${response.status}`)
+		if (!response.ok) throw new Error(`${method} ${path} for form ${action.form.id} (${action.form.name}) failed: ${response.status} ${await response.text()}`)
 	}
 }
 
@@ -58,12 +58,17 @@ async function listPages<T extends {hasMore: boolean}>(path: string, limit: numb
 	for (let page = 1; ; page += 1) {
 		// Pages come one after another: each says whether another follows.
 		const response = await fetchFn(`${TALLY_API}${path}?page=${page}&limit=${limit}`, {headers: headers(apiKey)})
-		if (!response.ok) throw new Error(`Tally API GET ${path} failed: ${response.status}`)
+		if (!response.ok) throw new Error(`Tally API GET ${path} failed: ${response.status} ${await response.text()}`)
 		const parsed = schema.safeParse(await response.json())
-		if (!parsed.success) throw new Error(`Tally API returned an unexpected ${path} response`)
+		if (!parsed.success) throw new Error(`Tally API returned an unexpected ${path} response: ${describeIssues(parsed.error)}`)
 		pages.push(parsed.data)
 		if (!parsed.data.hasMore) return pages
 	}
+}
+
+/** `items.0.name: Invalid input: expected string, received undefined; …` */
+function describeIssues(error: z.ZodError): string {
+	return error.issues.map(issue => `${issue.path.join('.')}: ${issue.message}`).join('; ')
 }
 
 function headers(apiKey: string): Record<string, string> {

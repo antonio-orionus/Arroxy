@@ -1,6 +1,6 @@
 // @vitest-environment node
 
-import {describe, expect, it, vi} from 'vite-plus/test'
+import {afterEach, describe, expect, it, vi} from 'vite-plus/test'
 import worker from '../../workers/feedback-upload/src/index.js'
 
 type PutFn = (key: string, value: ReadableStream | ArrayBuffer | ArrayBufferView | string | null | Blob, options?: R2PutOptions) => Promise<R2Object>
@@ -60,6 +60,10 @@ async function post(body: string, headers: Record<string, string>, env: Env): Pr
 }
 
 describe('Tally webhook route', () => {
+	afterEach(() => {
+		vi.restoreAllMocks()
+	})
+
 	it('stores a signed submission’s answers next to the report’s log', async () => {
 		const {env, put, limit} = makeEnv()
 		const body = JSON.stringify(submission())
@@ -124,7 +128,8 @@ describe('Tally webhook route', () => {
 		expect(put).not.toHaveBeenCalled()
 	})
 
-	it('acknowledges a signed submission without a report id, storing nothing', async () => {
+	it('acknowledges a signed submission without a report id, storing nothing and logging which form sent it', async () => {
+		const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined)
 		const {env, put} = makeEnv()
 		const body = JSON.stringify(submission({app_version: '0.7.4'}))
 		const response = await post(body, {'tally-signature': await sign(body)}, env)
@@ -132,6 +137,7 @@ describe('Tally webhook route', () => {
 		expect(response.status).toBe(200)
 		expect(await response.json()).toEqual({stored: false, reason: 'no_report_id'})
 		expect(put).not.toHaveBeenCalled()
+		expect(warn).toHaveBeenCalledWith('tally webhook: no report_id hidden field', {submissionId: 'OQqzjXk', formId: 'Ek6M8B', formName: 'Arroxy feedback or bug report'})
 	})
 
 	it('treats a malformed report id as missing', async () => {
@@ -147,13 +153,27 @@ describe('Tally webhook route', () => {
 	it.each([
 		['not JSON', 'not json'],
 		['not a form response', JSON.stringify({eventType: 'FORM_RESPONSE', data: {fields: 'nope'}})]
-	])('rejects a signed body that is %s', async (_name, body) => {
+	])('rejects a signed body that is %s, logging why', async (_name, body) => {
+		const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined)
 		const {env, put} = makeEnv()
 		const response = await post(body, {'tally-signature': await sign(body)}, env)
 
 		expect(response.status).toBe(400)
 		expect(await response.json()).toEqual({error: 'invalid_payload'})
 		expect(put).not.toHaveBeenCalled()
+		expect(warn).toHaveBeenCalledWith('tally webhook: invalid payload', {issues: expect.stringMatching(/./) as unknown})
+	})
+
+	it('logs a failed R2 write before answering 500, so Tally retries and the cause shows', async () => {
+		const error = vi.spyOn(console, 'error').mockImplementation(() => undefined)
+		const {env, put} = makeEnv()
+		put.mockRejectedValueOnce(new Error('R2 unavailable'))
+		const body = JSON.stringify(submission())
+		const response = await post(body, {'tally-signature': await sign(body)}, env)
+
+		expect(response.status).toBe(500)
+		expect(await response.json()).toEqual({error: 'internal_error'})
+		expect(error).toHaveBeenCalledWith('feedback worker: unhandled error', {path: '/arroxy/api/tally-webhook', error: 'Error: R2 unavailable'})
 	})
 
 	it('accepts only POST', async () => {

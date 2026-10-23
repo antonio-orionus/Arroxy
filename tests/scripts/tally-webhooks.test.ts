@@ -83,7 +83,7 @@ describe('Tally API calls', () => {
 
 	it('rejects a response that is not the documented shape', async () => {
 		const {fetch} = fakeTally({'/forms': [{items: 'nope'}]})
-		await expect(listFeedbackForms('key', fetch)).rejects.toThrow('Tally API returned an unexpected /forms response')
+		await expect(listFeedbackForms('key', fetch)).rejects.toThrow(/Tally API returned an unexpected \/forms response: items: /)
 	})
 
 	it('creates and updates webhooks with the signing secret and form-response events', async () => {
@@ -109,7 +109,12 @@ describe('Tally API calls', () => {
 	})
 
 	it('stops on a failed write and names the form', async () => {
-		const failing = (async () => new Response('nope', {status: 403})) as unknown as typeof fetch
-		await expect(applyPlan([{kind: 'create', form: form('a')}], 'key', SECRET, failing)).rejects.toThrow('POST /webhooks for form a (Arroxy feedback a) failed: 403')
+		const failing = (async () => new Response('{"message":"Invalid url"}', {status: 400})) as unknown as typeof fetch
+		await expect(applyPlan([{kind: 'create', form: form('a')}], 'key', SECRET, failing)).rejects.toThrow('POST /webhooks for form a (Arroxy feedback a) failed: 400 {"message":"Invalid url"}')
+	})
+
+	it('names Tally’s reason when a list call fails', async () => {
+		const failing = (async () => new Response('{"message":"Unauthorized"}', {status: 401})) as unknown as typeof fetch
+		await expect(listWebhooks('key', failing)).rejects.toThrow('Tally API GET /webhooks failed: 401 {"message":"Unauthorized"}')
 	})
 })

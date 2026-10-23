@@ -2,7 +2,7 @@
 
 Stores automatic feedback diagnostic log uploads in a private Cloudflare R2 bucket after a user submits the Tally feedback form.
 
-It also receives the Tally webhook that stores each submission's answers beside its log ([Tally webhook](#tally-webhook)).
+It also receives the Tally webhook that stores each submission's answers under the same report id ([Tally webhook](#tally-webhook)).
 
 Endpoints (same Worker, same R2 bucket, one shared rate-limit bucket per client IP):
 
@@ -22,7 +22,7 @@ The desktop app opens Tally immediately. If the user submits the form, Arroxy up
 POST https://orionus.dev/arroxy/api/tally-webhook
 ```
 
-Tally posts every feedback form submission here. The Worker checks the `Tally-Signature` header (base64 HMAC-SHA256 of the raw body, keyed with the webhook's signing secret), then stores the answers as JSON at `feedback/by-report/<report_id>.answers.json`, next to the log, so one `report_id` finds both. Choice answers are stored as their option text, file uploads as name and link. A submission without a valid `report_id` hidden field (one not opened from the app) is acknowledged and not stored; Tally keeps it. The `feedback/` lifecycle rule deletes the answers with the logs.
+Tally posts every feedback form submission here. The Worker checks the `Tally-Signature` header (base64 HMAC-SHA256 of the raw body, keyed with the webhook's signing secret), then stores the answers as JSON at `feedback/by-report/<report_id>.answers.json`. The log keeps its dated key, so the admin viewer in `arroxy-web` looks both up by `report_id`. Choice answers are stored as their option text, file uploads as name and link. A submission without a valid `report_id` hidden field (one not opened from the app) is acknowledged and not stored, with a warning in Workers Logs naming the form; Tally keeps it. A rejected payload logs its schema issues. The `feedback/` lifecycle rule deletes the answers with the logs.
 
 The signing secret lives in the Keychain and in the Worker; the route answers 503 until the Worker has it:
 
@@ -52,7 +52,7 @@ bunx wrangler deploy --dry-run
 bunx wrangler deploy
 ```
 
-The routes in `wrangler.jsonc` assume `orionus.dev` is on Cloudflare and that `arroxy.orionus.dev` keeps a proxied DNS record. The new route ends in `*` because route matching includes the query string; the handler still checks the exact pathname. Set both routes to fail closed (dashboard → Workers Routes), so an exhausted Free-plan request quota never forwards uploads to another origin.
+The routes in `wrangler.jsonc` assume `orionus.dev` is on Cloudflare and that `arroxy.orionus.dev` keeps a proxied DNS record. The `orionus.dev` routes end in `*` because route matching includes the query string; the handler still checks the exact pathname. Set all three routes to fail closed (dashboard → Workers Routes), so an exhausted Free-plan request quota never forwards uploads or Tally deliveries to another origin, which could answer 2xx and make Tally drop a delivery.
 
 ## Required Cloudflare Hardening
 
@@ -65,7 +65,7 @@ Configure these in Cloudflare:
 
 Built-in Worker checks:
 
-- accepts only `POST /api/feedback-diagnostics` and `POST /arroxy/api/feedback-diagnostics`
+- accepts only `POST /api/feedback-diagnostics`, `POST /arroxy/api/feedback-diagnostics` and `POST /arroxy/api/tally-webhook`; the webhook skips the rate limit and the upload headers below and is gated by its signature instead
 - rate-limits upload attempts to 10 requests per minute per client IP using the Worker Rate Limiting binding
 - rejects missing `x-arroxy-upload: feedback-diagnostic-v1`
 - rejects missing or invalid `x-arroxy-report-id` UUIDs
