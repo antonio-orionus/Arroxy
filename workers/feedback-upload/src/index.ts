@@ -1,3 +1,9 @@
+import { hasValidSignature, MAX_WEBHOOK_BYTES, readSubmission, TALLY_WEBHOOK_PATH } from './tallyWebhook.js';
+
+// The signing secret is a Worker secret (`wrangler secret put`), so the
+// generated Env doesn't list it.
+type WorkerEnv = Env & { TALLY_SIGNING_SECRET?: string };
+
 const ROUTE_PATH = '/api/feedback-diagnostics';
 // Installed apps POST to the legacy host path forever; newer apps use the site's subpath.
 const ROUTE_PATHS = new Set([ROUTE_PATH, `/arroxy${ROUTE_PATH}`]);
@@ -15,9 +21,12 @@ class HttpError extends Error {
 }
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(request: Request, env: WorkerEnv): Promise<Response> {
     try {
       const url = new URL(request.url);
+      if (url.pathname === TALLY_WEBHOOK_PATH) {
+        return await handleTallyWebhook(request, env);
+      }
       if (!ROUTE_PATHS.has(url.pathname)) {
         return json({ error: 'not_found' }, 404);
       }
@@ -65,7 +74,38 @@ export default {
       return json({ error: 'internal_error' }, 500);
     }
   }
-} satisfies ExportedHandler<Env>;
+} satisfies ExportedHandler<WorkerEnv>;
+
+// Signature first, so an unsigned caller learns nothing about the payload rules.
+async function handleTallyWebhook(request: Request, env: WorkerEnv): Promise<Response> {
+  if (request.method !== 'POST') {
+    return json({ error: 'method_not_allowed' }, 405, { Allow: 'POST' });
+  }
+  const secret = env.TALLY_SIGNING_SECRET;
+  if (!secret) {
+    return json({ error: 'webhook_not_configured' }, 503);
+  }
+  const body = await readBodyWithLimit(request, MAX_WEBHOOK_BYTES);
+  if (!(await hasValidSignature(body, request.headers.get('tally-signature'), secret))) {
+    return json({ error: 'invalid_signature' }, 401);
+  }
+
+  const outcome = readSubmission(body);
+  if (outcome.kind === 'invalid-payload') {
+    return json({ error: 'invalid_payload' }, 400);
+  }
+  // A submission from outside the app has no report to join; Tally keeps it.
+  if (outcome.kind === 'no-report-id') {
+    return json({ stored: false, reason: 'no_report_id' }, 200);
+  }
+
+  const { key, submission } = outcome;
+  await env.FEEDBACK_LOGS.put(key, JSON.stringify(submission), {
+    httpMetadata: { contentType: 'application/json; charset=utf-8' },
+    customMetadata: { reportId: submission.reportId, submissionId: submission.submissionId, formId: submission.formId }
+  });
+  return json({ report_id: submission.reportId, answers_key: key }, 201);
+}
 
 function isAllowedContentType(value: string | null): boolean {
   return value?.split(';', 1)[0]?.trim().toLowerCase() === 'application/gzip';

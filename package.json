@@ -19,6 +19,7 @@
 		"agents:sync": "bun scripts/agents-sync.ts",
 		"bootstrap": "bun scripts/dev-env.ts bootstrap",
 		"internal:save": "bun scripts/internal-docs.ts save",
+		"tally:webhooks": "bun scripts/tally-webhooks.ts",
 		"internal:sync": "bun scripts/internal-docs.ts link",
 		"repair": "bun scripts/dev-env.ts repair",
 		"doctor": "bun scripts/dev-env.ts doctor",
