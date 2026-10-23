@@ -63,7 +63,7 @@ export async function spawnQueueJob(deps: QueueJobSpawnDeps, item: QueueItem, te
 // 'notParked': no parked job by that id (the app restarted since the pause), so
 // the caller starts a fresh job from the row's temp dir.
 async function resumeParkedJob(deps: QueueJobSpawnDeps, item: QueueItem, jobId: string, signedInReservation: string | undefined): Promise<Result<void> | 'notParked'> {
-	const resumed = await deps.downloadService.resume(jobId, signedInReservation === undefined ? {} : {signedInReservation})
+	const resumed = await deps.downloadService.resume(jobId, {explicit: item.lane === 'priority', ...(signedInReservation === undefined ? {} : {signedInReservation})})
 	if (resumed.ok && resumed.data.resumed) return settleStartedJob(deps, item, jobId, {kind: 'resumed'}, item.tempDir)
 	// The wait can be long: a pause, cancel or remove may have moved the row on.
 	const current = deps.findItem(item.id)

@@ -123,7 +123,16 @@ describe('QueueService — signed-in pacing before the lane', () => {
 		qs.add([signedIn('a', {lastJobId: 'job-parked'})])
 		await vi.advanceTimersByTimeAsync(0)
 
-		expect(ds.resume).toHaveBeenCalledWith('job-parked', {signedInReservation: expect.any(String)})
+		expect(ds.resume).toHaveBeenCalledWith('job-parked', {explicit: false, signedInReservation: expect.any(String)})
+	})
+
+	it('tells a parked job it resumes whether its row is in the priority lane now', async () => {
+		const {ds, qs} = setup()
+		ds.resume.mockResolvedValue(ok({resumed: true}))
+		qs.add([makeItem({id: 'p', status: 'pending', lane: 'priority', lastJobId: 'job-parked'})])
+		await vi.advanceTimersByTimeAsync(0)
+
+		expect(ds.resume).toHaveBeenCalledWith('job-parked', {explicit: true})
 	})
 
 	it('reserves nothing for a row that starts anonymous', async () => {

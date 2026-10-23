@@ -51,6 +51,13 @@ const EXPLORE_UNAVAILABLE: DownloadExploreDeps = {exploreGate: {canEscalate: () 
 
 const EXPLORE_VERIFIED_SIGNED_OUT = 'exploreVerifiedSignedOut'
 
+// A parked job's input as the queue resumes it: its lane and reservation are now's.
+function resumedInput(parked: ResolvedStartDownloadInput, {explicit, signedInReservation}: {explicit?: boolean; signedInReservation?: string}): ResolvedStartDownloadInput {
+	const {explicit: parkedExplicit, signedInReservation: _spent, ...rest} = parked
+	const stillExplicit = explicit ?? parkedExplicit === true
+	return {...rest, ...(stillExplicit ? {explicit: true} : {}), ...(signedInReservation === undefined ? {} : {signedInReservation})}
+}
+
 export class DownloadService extends EventEmitter {
 	private activeJobs = new Map<string, ActiveDownload>()
 	private pausedJobs = new Map<string, PausedDownload>()
@@ -163,8 +170,10 @@ export class DownloadService extends EventEmitter {
 	// `jobLive`: nothing was resumed, but the job still exists — its pause has not
 	// parked yet, or another resume already restarted it. The caller must not
 	// start a replacement: the old job would run or park as an orphan beside it.
-	// `signedInReservation`: the signed-in start the queue reserved for this resume.
-	async resume(jobId: string, {signedInReservation}: {signedInReservation?: string} = {}): Promise<Result<{resumed: boolean; job?: DownloadJob; jobLive?: true}>> {
+	// `explicit`: whether the row is in the priority lane now, which may differ
+	// from when the job parked. `signedInReservation`: the signed-in start the
+	// queue reserved for this resume; a parked one was spent.
+	async resume(jobId: string, {explicit, signedInReservation}: {explicit?: boolean; signedInReservation?: string} = {}): Promise<Result<{resumed: boolean; job?: DownloadJob; jobLive?: true}>> {
 		// A pause of a job with no live process only flags it: it parks at its next
 		// run point (a slow token mint can hold it there). Resuming inside that
 		// window waits for the park, up to a bound.
@@ -185,7 +194,7 @@ export class DownloadService extends EventEmitter {
 
 		this.pausedJobs.delete(jobId)
 		const {job} = paused
-		const input = signedInReservation === undefined ? paused.input : {...paused.input, signedInReservation}
+		const input = resumedInput(paused.input, {explicit, signedInReservation})
 		job.status = 'running'
 		job.updatedAt = nowIso()
 		const controller = new AbortController()
