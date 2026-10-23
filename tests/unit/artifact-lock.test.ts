@@ -44,7 +44,8 @@ describe('withArtifactLock', () => {
 
 	// A cache folder Arroxy may not write is a permission problem; reporting it
 	// as LOCK made it ARX-008, "a tool took too long… security scan".
-	it.skipIf(process.platform === 'win32')('reports a lock folder it cannot create as a permission failure, not a timeout', async () => {
+	// Root ignores the folder's mode, so the mkdir would succeed there.
+	it.skipIf(process.platform === 'win32' || process.getuid?.() === 0)('reports a lock folder it cannot create as a permission failure, not a timeout', async () => {
 		const locks = path.join(root, 'locks')
 		await fs.mkdir(locks, {recursive: true})
 		await fs.chmod(locks, 0o500)
