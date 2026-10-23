@@ -73,9 +73,39 @@ describe('requestSiteFor', () => {
 		expect(requestSiteFor('https://music.youtube.com/watch?v=k1qBgIw8fAQ')).toBe('youtube')
 	})
 
-	it('keeps any other site apart by its hostname', () => {
+	it('keeps one site for every host of a known site, short links included', () => {
+		expect(requestSiteFor('https://www.instagram.com/reel/abc/')).toBe('instagram')
+		expect(requestSiteFor('https://i.instagram.com/api/v1/media/1/info/')).toBe('instagram')
+		expect(requestSiteFor('https://instagr.am/p/abc/')).toBe('instagram')
+		expect(requestSiteFor('https://x.com/user/status/1')).toBe('x')
+		expect(requestSiteFor('https://mobile.twitter.com/user/status/1')).toBe('x')
+		expect(requestSiteFor('https://t.co/abc')).toBe('x')
+	})
+
+	it('keeps any other site apart by its registrable domain', () => {
 		expect(requestSiteFor('https://www.vimeo.com/12345')).toBe('vimeo.com')
-		expect(requestSiteFor('https://player.vimeo.com/video/1')).toBe('player.vimeo.com')
+		expect(requestSiteFor('https://player.vimeo.com/video/1')).toBe('vimeo.com')
+		expect(requestSiteFor('https://news.bbc.co.uk/video/1')).toBe('bbc.co.uk')
+		expect(requestSiteFor('https://www.bbc.co.uk/iplayer/episode/1')).toBe('bbc.co.uk')
+	})
+
+	it('keeps hosted pages of one platform apart, one site per owner', () => {
+		expect(requestSiteFor('https://alice.github.io/video.mp4')).toBe('alice.github.io')
+		expect(requestSiteFor('https://bob.github.io/video.mp4')).toBe('bob.github.io')
+	})
+
+	it('keeps a host with no registrable domain as itself', () => {
+		expect(requestSiteFor('http://127.0.0.1:8080/video.mp4')).toBe('127.0.0.1')
+		expect(requestSiteFor('http://localhost:3000/video.mp4')).toBe('localhost')
+		expect(requestSiteFor('http://[::1]:3000/video.mp4')).toBe('[::1]')
+	})
+
+	it('never mistakes a look-alike host for a known site', () => {
+		expect(requestSiteFor('https://notinstagram.com/p/abc/')).toBe('notinstagram.com')
+		expect(requestSiteFor('https://x.com.evil.example/status/1')).toBe('evil.example')
+	})
+
+	it('answers unknown for anything that is not a URL', () => {
 		expect(requestSiteFor('not a url')).toBe('unknown')
 	})
 })

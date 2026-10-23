@@ -9,6 +9,7 @@ import {isYouTubeExtractor} from '../ytdlp/extractorPredicates.js'
 import {genericSite} from './generic.js'
 import {youtubeSite} from './youtube.js'
 import {isYouTubeHostname} from './youtubeHost.js'
+import {siteKeyForHost} from './siteKeys.js'
 import type {Site, SiteId} from './types.js'
 
 export type {Site} from './types.js'
@@ -54,14 +55,11 @@ export function siteForJob(extractor: string | undefined | null, url: string): S
 	return extractor?.trim() ? siteForExtractor(extractor) : siteForUrl(url)
 }
 
-// The site a rate-limit cooldown is kept for. YouTube is one site across its
-// hosts; any other site is its hostname, so a limit from one generic site never
-// holds back another.
+// The site a link belongs to (siteKeys.ts): the key its rate-limit cooldown and
+// launch gate are kept under.
 export function requestSiteFor(url: string): string {
-	if (isYouTubeUrl(url)) return 'youtube'
 	try {
-		const host = new URL(url).hostname.toLowerCase()
-		return host.startsWith('www.') ? host.slice(4) : host || 'unknown'
+		return siteKeyForHost(new URL(url).hostname)
 	} catch {
 		return 'unknown'
 	}

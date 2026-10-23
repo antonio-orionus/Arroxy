@@ -1,5 +1,6 @@
 import {useEffect, useMemo, useState} from 'react'
 import type {SiteCooldown} from '@shared/types.js'
+import {siteKeyLabel} from '@shared/sites/siteKeys.js'
 import {useAppStore} from '../../store/useAppStore.js'
 
 // The site rate-limit cooldowns still running. Main pushes a cooldown when it
@@ -20,7 +21,7 @@ export function useRunningCooldowns(): SiteCooldown[] {
 
 // YouTube is one request site across its hosts; any other site is its hostname.
 export function siteLabel(site: string): string {
-	return site === 'youtube' ? 'YouTube' : site
+	return siteKeyLabel(site)
 }
 
 // When a cooldown ends, as the user's clock shows it.
