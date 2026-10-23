@@ -2,7 +2,7 @@ import {humanSize} from '@shared/format.js'
 import {scaleBytesToPart} from '@shared/videoPart.js'
 import {sanitizeJobOptions, type ConflictCode, type SanitizeConflict} from '@shared/sanitizeJobOptions.js'
 import {isAudioOnlySource} from '@shared/ytdlp/extractorPredicates.js'
-import {allDownloadProfiles, resolveActiveDownloadProfile, resolveDownloadProfileOutputDir, type DownloadProfileOutputContext} from '@shared/downloadProfiles.js'
+import {allDownloadProfiles, resolveDownloadProfileOutputDir, type DownloadProfileOutputContext} from '@shared/downloadProfiles.js'
 import type {DownloadProfile, DownloadProfileIcon} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {effectiveOutputDir} from '@renderer/lib/path.js'
@@ -17,6 +17,7 @@ import type {WizardReviewState} from './wizardReviewState.js'
 import {resolveOutputContainer} from './resolveContainer.js'
 import {profileAssignmentCounts} from './playlistProfileAssignments.js'
 import {wizardVideoPart} from './videoPart.js'
+import {playlistBaselineProfile, playlistOutputContext} from './reviewedRowProfile.js'
 
 type Translate = (key: string, params?: Record<string, unknown>) => string
 
@@ -124,9 +125,9 @@ export function multiProfileBreakdown(state: WizardReviewState): MultiProfileBre
 	// Resolved like the queued downloads are (every saved profile, hidden ones too), listed like every profile picker.
 	const prefs = state.settings?.profiles
 	const profiles = allDownloadProfiles(prefs)
-	const counts = profileAssignmentCounts(selectedItemIds, state.playlistProfileAssignments, profiles, resolveActiveDownloadProfile(prefs).ref)
+	const counts = profileAssignmentCounts(selectedItemIds, state.playlistProfileAssignments, profiles, playlistBaselineProfile(state).ref)
 	const orderedProfiles = profilePickerOptions(prefs, {current: null, inUse: profiles.filter(profile => counts.has(profile.id))}).map(option => option.profile)
-	const outputContext: DownloadProfileOutputContext = {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}
+	const outputContext = playlistOutputContext(state)
 
 	return orderedProfiles.filter(profile => (counts.get(profile.id) ?? 0) > 0).map(profile => ({profileId: profile.id, name: profileDisplayName(profile), icon: profile.icon, count: counts.get(profile.id) ?? 0, outputDir: safeProfileOutputDir(profile, outputContext, state.commonPaths)}))
 }

@@ -94,6 +94,8 @@ beforeEach(() => {
 		wizardMode: 'playlist',
 		wizardStep: 'playlistProfiles',
 		multiProfileMode: true,
+		reviewSourceRowId: null,
+		reviewPinnedProfile: null,
 		playlistItems: [
 			{id: 'a', url: 'https://example.com/a', title: 'Under my Spell', thumbnail: '', duration: 200, playlistIndex: 0, videoId: 'a'},
 			{id: 'b', url: 'https://example.com/b', title: 'One Last Breath', thumbnail: '', duration: 210, playlistIndex: 1, videoId: 'b'},
@@ -148,6 +150,13 @@ describe('StepPlaylistProfiles', () => {
 	it('starts every item on the active profile', () => {
 		renderStep()
 		for (const rowId of ['a', 'b', 'c']) expect(profileCell(rowId)).toHaveTextContent('Archive 4K')
+	})
+
+	// #665: a row's Review starts every item on the profile the row was placed with.
+	it("starts every item on a reviewed row's profile, not the active one", () => {
+		useAppStore.setState({reviewSourceRowId: 'row-1', reviewPinnedProfile: {ref: {kind: 'builtin', id: 'audio-only'}, outputContext: {}}})
+		renderStep()
+		for (const rowId of ['a', 'b', 'c']) expect(profileCell(rowId)).toHaveTextContent('Audio only')
 	})
 
 	it('shows no how-to banner: the checkboxes and pickers carry the gestures', () => {

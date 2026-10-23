@@ -23,7 +23,7 @@ import {Empty, EmptyDescription, EmptyHeader, EmptyTitle} from '../ui/empty.js'
 import {buildDownloadProfileActionModel} from './downloadProfileActions.js'
 import {DownloadProfileEditor} from './DownloadProfileEditor.js'
 import {profileAssignmentCounts, resolveAssignedProfile} from '../../store/wizard/playlistProfileAssignments.js'
-import {reviewedRowPinnedProfile} from '../../store/wizard/reviewedRowProfile.js'
+
 import {createPlaylistProfileTableState, playlistProfileTableReducer} from './playlistProfileTableState.js'
 import {PLAYLIST_PROFILE_COLUMNS} from './playlistProfileColumns.js'
 import {PlaylistProfileColumnsContext, type PlaylistProfileColumnsContextValue, type PlaylistSelectAllState} from './playlistProfileColumnsContext.js'
@@ -82,7 +82,7 @@ export function StepPlaylistProfiles(): ReactNode {
 
 	const profilesPrefs = settings?.profiles
 	// A row's Review starts from the profile the row was placed with (#665).
-	const pinned = useAppStore(reviewedRowPinnedProfile)
+	const pinned = useAppStore(state => state.reviewPinnedProfile)
 	const model = useMemo(() => buildDownloadProfileActionModel(profilesPrefs, pinned ? resolveChosenDownloadProfile(pinned.ref, profilesPrefs).profile : undefined), [profilesPrefs, pinned])
 	// Every saved profile, hidden ones too: a row keeps a profile hidden after it was
 	// assigned, and downloads with it (prepareMultiProfileQueueSubmission).
@@ -90,7 +90,7 @@ export function StepPlaylistProfiles(): ReactNode {
 	const resolveProfile = useCallback((entry: PlaylistEntry): DownloadProfile => resolveAssignedProfile(entry.id, playlistProfileAssignments, profiles, model.activeProfile), [playlistProfileAssignments, profiles, model.activeProfile])
 	// Mirrors useDownloadHomeView's globalDestinationRoot so the quick-edit
 	// dialog previews the same resolved path DownloadProfilesHome would show.
-	const globalDestinationRoot = wizardOutputDir?.trim() ? wizardOutputDir : (settings?.common?.defaultOutputDir ?? '')
+	const globalDestinationRoot = pinned ? (pinned.outputContext.currentOutputDir ?? pinned.outputContext.defaultOutputDir ?? '') : wizardOutputDir?.trim() ? wizardOutputDir : (settings?.common?.defaultOutputDir ?? '')
 
 	const [state, dispatch] = useReducer(playlistProfileTableReducer, undefined, createPlaylistProfileTableState)
 	const {filter, selection} = state

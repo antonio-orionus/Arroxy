@@ -16,7 +16,6 @@ import type {WizardSettingsSnapshot} from './profileApplication.js'
 import {preferredNativeAudioId} from '@shared/nativeAudioPreference.js'
 import {urlStartSeconds} from '@shared/videoPart.js'
 import {RESET_VIDEO_PART_STATE} from './videoPart.js'
-import {reviewedRowPinnedProfile} from './reviewedRowProfile.js'
 
 type CommonPrefsPatch = Pick<AppState, 'wizardSponsorBlockMode' | 'wizardSponsorBlockCategories' | 'wizardEmbedChapters' | 'wizardEmbedMetadata' | 'wizardEmbedThumbnail' | 'wizardWriteDescription' | 'wizardWriteThumbnail' | 'wizardWriteM3u'>
 
@@ -99,7 +98,8 @@ export function projectProbeStart(state: AppState, url: string, playlistMode: Pr
 			wizardWebpageUrl: '',
 			wizardProbeInfoJsonRef: undefined,
 			wizardProbeAuth: undefined,
-			multiProfileMode: false,
+			// A reload of the same list (a new load limit) keeps the mode it was in.
+			multiProfileMode: sameRun && state.multiProfileMode,
 			playlistSortMode: 'api' as const,
 			playlistProfileAssignments: {},
 			removedPlaylistItemIds: [],
@@ -183,14 +183,11 @@ function visiblePlaylistProbeLimit(state: Pick<AppState, 'playlistScope' | 'sett
 
 // `keptLimit`: the load limit a kept probe was taken with; any other probe is
 // read against the limit a probe now would be taken with.
-// A row's Review starts every picked video from the profile and folder the
-// row was placed with (#665): its profile as the per-video baseline. The user
-// can still pick another per video, or leave for the presets.
+// A row's Review starts every picked video from the profile and folders the
+// row was placed with (#665): multi-profile mode, with its profile as the
+// baseline. The user can still pick another per video, or leave for the presets.
 function reviewedRowDefaults(state: AppState): Partial<AppState> {
-	const pinned = reviewedRowPinnedProfile(state)
-	if (!pinned) return {}
-	const folder = pinned.outputContext.currentOutputDir
-	return {multiProfileMode: true, ...(folder ? {wizardOutputDir: folder} : {})}
+	return state.reviewPinnedProfile ? {multiProfileMode: true} : {}
 }
 
 export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'playlist'}>, state: AppState, firstProbe: boolean, keptLimit?: number): Partial<AppState> {

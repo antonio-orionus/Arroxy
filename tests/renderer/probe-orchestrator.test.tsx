@@ -11,6 +11,8 @@ import {makeItem} from '../shared/fixtures.js'
 import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
 import {profileFormatLabel} from '@shared/profileFormatLabel.js'
 import {i18next} from '@shared/i18n/index.js'
+import {multiProfileBreakdown} from '@renderer/store/wizard/downloadReviewProjection.js'
+import {selectWizardReviewState} from '@renderer/store/wizard/wizardReviewState.js'
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 
@@ -162,7 +164,14 @@ describe('submitUrl — video probe', () => {
 		useAppStore.setState({settings, wizardOutputDir: '/tmp/downloads', queue: [row]})
 
 		await useAppStore.getState().openPlaylistReview(PLAYLIST_PROBE.webpageUrl, 'playlist', 'row-1')
-		expect(useAppStore.getState()).toMatchObject({wizardStep: 'playlistItems', multiProfileMode: true, wizardOutputDir: '/music'})
+		// The window's own folder stays: only this batch goes to the row's.
+		expect(useAppStore.getState()).toMatchObject({wizardStep: 'playlistItems', multiProfileMode: true, wizardOutputDir: '/tmp/downloads'})
+		// Continue goes to the per-video profiles: this mode has no presets.
+		useAppStore.getState().confirmPlaylistSelection()
+		expect(useAppStore.getState().wizardStep).toBe('playlistProfiles')
+		// The row may leave Downloads meanwhile; the Review keeps its profile.
+		useAppStore.setState({queue: []})
+		expect(multiProfileBreakdown(selectWizardReviewState(useAppStore.getState())).map(row => row.profileId)).toEqual(['audio-only'])
 		await useAppStore.getState().addToQueue()
 
 		const items = vi.mocked(api.queue.cmd.replaceProbing).mock.calls[0]?.[0].items ?? []
@@ -179,7 +188,15 @@ describe('submitUrl — video probe', () => {
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
 		window.appApi = api
 		const settings = defaultAppSettings('/tmp/downloads')
-		const row = makeItem({id: 'row-1', status: 'needs-choice', choice: {kind: 'list-size', loaded: 2, capped: false}, url: PLAYLIST_PROBE.webpageUrl, job: {kind: 'unresolved', extractor: '', extractorKey: ''}, probeMode: 'playlist', pinnedProfile: {ref: {kind: 'builtin', id: 'audio-only'}, outputContext: {}}})
+		const row = makeItem({
+			id: 'row-1',
+			status: 'needs-choice',
+			choice: {kind: 'list-size', loaded: 2, capped: false},
+			url: PLAYLIST_PROBE.webpageUrl,
+			job: {kind: 'unresolved', extractor: '', extractorKey: ''},
+			probeMode: 'playlist',
+			pinnedProfile: {ref: {kind: 'builtin', id: 'audio-only'}, outputContext: {defaultOutputDir: '/tmp/downloads'}}
+		})
 		useAppStore.setState({settings, wizardOutputDir: '/tmp/downloads', queue: [row]})
 		await useAppStore.getState().openPlaylistReview(PLAYLIST_PROBE.webpageUrl, 'playlist', 'row-1')
 

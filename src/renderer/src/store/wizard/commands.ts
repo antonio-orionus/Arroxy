@@ -3,6 +3,7 @@
 // orchestrator slice. New cross-slice commands (e.g. snapshot replay, deep
 // links) land here so individual slice files stay focused on their domain.
 
+import type {PinnedDownloadProfile} from '@shared/intake/intakeSchemas.js'
 import {DEFAULTS} from '@shared/constants.js'
 import {EMPTY_FORMAT_SELECTION} from '@shared/ytdlp/selectableFormat.js'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
@@ -25,6 +26,7 @@ export const RESET_WIZARD_STATE = {
 	wizardMode: 'single' as WizardMode,
 	wizardUrl: '',
 	reviewSourceRowId: null as string | null,
+	reviewPinnedProfile: null as PinnedDownloadProfile | null,
 	wizardReviewRow: null as ReviewRow | null,
 	wizardTitle: '',
 	wizardThumbnail: '',

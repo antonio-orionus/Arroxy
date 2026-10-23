@@ -14,6 +14,7 @@ export type WizardReviewState = Pick<
 	| 'playlistSelection'
 	| 'playlistTitle'
 	| 'removedPlaylistItemIds'
+	| 'reviewPinnedProfile'
 	| 'selectedPlaylistItemIds'
 	| 'selectedVideoFormatId'
 	| 'settings'
@@ -58,6 +59,7 @@ export function selectWizardReviewState(state: AppState): WizardReviewState {
 		playlistSelection: state.playlistSelection,
 		playlistTitle: state.playlistTitle,
 		removedPlaylistItemIds: state.removedPlaylistItemIds,
+		reviewPinnedProfile: state.reviewPinnedProfile,
 		selectedPlaylistItemIds: state.selectedPlaylistItemIds,
 		selectedVideoFormatId: state.selectedVideoFormatId,
 		settings: state.settings,
