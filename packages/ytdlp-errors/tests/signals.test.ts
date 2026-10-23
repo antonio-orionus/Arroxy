@@ -55,14 +55,19 @@ describe('rateLimitLine', () => {
 })
 
 describe('accountCookiesRejected', () => {
-	// youtube/_base.py warns after any request once the passed auth cookies stop
-	// carrying a session.
-	it('matches the YouTube rotated-cookies warning', () => {
-		expect(accountCookiesRejected('WARNING: [youtube] The provided YouTube account cookies are no longer valid. They have likely been rotated in the browser as a security measure.')).toBe(true)
+	// Extractors warn "The provided <site> account cookies are no longer valid"
+	// once the passed auth cookies stop carrying a session: youtube/_base.py
+	// after any request, instagram.py on its login check.
+	it('returns the site named in the YouTube rotated-cookies warning', () => {
+		expect(accountCookiesRejected('WARNING: [youtube] The provided YouTube account cookies are no longer valid. They have likely been rotated in the browser as a security measure.')).toBe('YouTube')
 	})
 
-	it('ignores unrelated cookie lines', () => {
-		expect(accountCookiesRejected('[Cookies] Extracting cookies from firefox')).toBe(false)
+	it('returns the site named in the Instagram warning', () => {
+		expect(accountCookiesRejected('[instagram] Checking login\nWARNING: [instagram] The provided Instagram account cookies are no longer valid\n[instagram] Extracting post')).toBe('Instagram')
+	})
+
+	it('returns null for unrelated cookie lines', () => {
+		expect(accountCookiesRejected('[Cookies] Extracting cookies from firefox')).toBeNull()
 	})
 })
 

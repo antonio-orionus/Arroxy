@@ -27,9 +27,10 @@ function rateLimitSighting(stderr: string): RateLimitSighting | null {
 	return sighting
 }
 
-// True when YouTube stopped honouring the account cookies passed to the run.
-export function accountCookiesRejected(stderr: string): boolean {
-	return SIGNAL_PATTERNS.accountCookiesRejected.test(stderr)
+// The site that stopped honouring the account cookies passed to the run, as
+// yt-dlp's warning names it ("YouTube", "Instagram"), or null.
+export function accountCookiesRejected(stderr: string): string | null {
+	return SIGNAL_PATTERNS.accountCookiesRejected.exec(stderr)?.[1] ?? null
 }
 
 // The player client whose https formats yt-dlp dropped for missing URLs, or

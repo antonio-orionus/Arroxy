@@ -93,7 +93,7 @@ This package fills the gap: a curated regex taxonomy of every error kind yt-dlp 
 | `isPostprocessFailure(raw)` | Predicate for ENOSPC-masquerading-as-ffmpeg detection. |
 | `rateLimitEvidence(stderr)` | Which rate limit a run shows: `'rateLimited'` (HTTP 429), `'sessionRateLimited'` (YouTube's session/account limit), or `null`. Subtitle 429s are ignored. |
 | `rateLimitLine(stderr)` | The trimmed stderr line behind `rateLimitEvidence`, the session limit first. |
-| `accountCookiesRejected(stderr)` | True when YouTube stopped honouring the account cookies passed to the run. |
+| `accountCookiesRejected(stderr)` | The site whose account cookies stopped being honoured, as yt-dlp names it (`"YouTube"`, `"Instagram"`), or `null`. |
 | `sabrSkippedClient(line)` | The player client whose https formats were dropped for missing URLs (SABR), or `null`. |
 | `RATE_LIMIT_EVIDENCE`, `RateLimitEvidence` | Closed enum of rate-limit evidence. |
 | `errorKindMetadata(kind)` | Stable code + recoverability + suggested flags + docs URL. |

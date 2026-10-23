@@ -141,9 +141,11 @@ export const SIGNAL_PATTERNS = {
 	// original-language track downloads from the same address moments later. It
 	// says nothing about the connection.
 	subtitleDownload: /unable to download (?:video |automatic )?(?:subtitles|captions)/i,
-	// youtube/_base.py, after any request once the passed auth cookies stop
-	// carrying a session (usually rotated in the browser).
-	accountCookiesRejected: /provided YouTube account cookies are no longer valid/i,
+	// "The provided <site> account cookies are no longer valid", once the passed
+	// auth cookies stop carrying a session (usually rotated in the browser):
+	// youtube/_base.py after any request, instagram.py on its login check.
+	// Captures the site as the extractor names it.
+	accountCookiesRejected: /provided (\w+) account cookies are no longer valid/i,
 	// youtube/_video.py, when a player client lists https formats but withholds
 	// their URLs (SABR-only streaming). Captures the client name.
 	sabrSkippedFormats: /Some (\S+) client https formats have been skipped as they are missing a URL/
