@@ -1,12 +1,12 @@
 name: Feature Request
 description: Got an idea?
-title: "[Feature] "
 labels: ["enhancement"]
 body:
   - type: textarea
     id: idea
     attributes:
       label: What do you want and why?
+      description: One idea per issue, so each can be tracked on its own. Several ideas? Open an issue for each.
       placeholder: "It would be great if Arroxy could..."
     validations:
       required: true

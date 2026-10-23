@@ -1,6 +1,5 @@
 name: Feedback
 description: Quick impressions — good, bad, or anywhere in between.
-title: "[Feedback] "
 body:
   - type: textarea
     id: feedback
