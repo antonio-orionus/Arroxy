@@ -1164,6 +1164,22 @@ describe('YtDlp — run identity', () => {
 		expect(spawnYtDlp).toHaveBeenCalledOnce()
 	})
 
+	it('tells the pacer which site an escalated spawn goes to, and whether the user asked for it explicitly', async () => {
+		const calls: Array<{site: string; explicit: boolean | undefined}> = []
+		const run = async <T>(site: string, _key: string, fn: () => Promise<T>, options?: {explicit?: boolean}): Promise<{ran: T}> => {
+			calls.push({site, explicit: options?.explicit})
+			return {ran: await fn()}
+		}
+		vi.mocked(spawnYtDlp).mockImplementation(() => makeFakeProcess(0) as never)
+		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars(), spawnGate: pacerWith({run})})
+		await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession', jobKey: 'job-9', explicit: true})
+		await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession', jobKey: 'job-9'})
+		expect(calls).toEqual([
+			{site: 'youtube', explicit: true},
+			{site: 'youtube', explicit: undefined}
+		])
+	})
+
 	it('never gates an anonymous run', async () => {
 		const run = vi.fn()
 		vi.mocked(spawnYtDlp).mockImplementation(() => makeFakeProcess(0) as never)

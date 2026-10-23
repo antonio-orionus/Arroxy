@@ -69,7 +69,7 @@ export const SubtitleOnlyPhase: Phase = {
 							ctx.emitStatus('download', STATUS_KEY.fetchingSubtitles)
 						}
 					}),
-					{identity: identityFor(active.input.auth), jobKey: job.id}
+					{identity: identityFor(active.input.auth), jobKey: job.id, ...(active.input.explicit ? {explicit: true} : {})}
 				)
 			})
 			const first = await spawn()

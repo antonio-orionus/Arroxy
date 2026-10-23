@@ -59,8 +59,7 @@ import {QueueArtifactCleanup} from './download/queueArtifactCleanup.js'
 import {commitPhaseStatus} from './download/queuePhaseStatus.js'
 import {QueueProgressCoalescer} from './download/QueueProgressCoalescer.js'
 import {QueueJobProgress} from './download/QueueJobProgress.js'
-import {QueueSiteCooldown} from './download/QueueSiteCooldown.js'
-import type {LaunchGate} from './LaunchGate.js'
+import {QueueSiteHold, type QueueSiteGate} from './download/QueueSiteHold.js'
 import {spawnQueueJob} from './download/queueJobSpawn.js'
 import {applyQueueSelectionAction} from './queueSelectionActionApply.js'
 
@@ -96,7 +95,7 @@ export class QueueService extends EventEmitter {
 		findItem: itemId => this.findItem(itemId),
 		patch: (itemId, reason, patcher) => this.commit({kind: 'patch', itemId, reason, patcher}),
 		retryReset: itemId => this.commit({kind: 'event', itemId, evt: {kind: 'retry-reset'}}),
-		cooldownRemainingMs: item => this.siteCooldown.remainingMs(item, Date.now())
+		cooldownRemainingMs: item => this.siteHold.cooldownRemainingMs(item, Date.now())
 	})
 	// Takes a finished download out of the list after a short delay, when on.
 	private readonly autoRemove = new QueueAutoRemove({findItem: itemId => this.findItem(itemId), remove: itemId => this.remove(itemId, 'autoRemoved')})
@@ -132,7 +131,7 @@ export class QueueService extends EventEmitter {
 	// initializers depends on the parameter-property emit.
 	private readonly playlistM3u: QueuePlaylistM3u
 	// Holds starts while an item's site is rate-limiting this connection.
-	private readonly siteCooldown: QueueSiteCooldown
+	private readonly siteHold: QueueSiteHold
 
 	constructor(
 		private readonly queueStore: QueueStore,
@@ -141,11 +140,11 @@ export class QueueService extends EventEmitter {
 		private maxConcurrent = MAX_CONCURRENT_DOWNLOADS,
 		private readonly playlist?: {manifestStore: PlaylistManifestStore; writeM3u: (manifest: PlaylistManifest) => Promise<void>},
 		private readonly probeInfoJsonCache?: ProbeInfoJsonCache,
-		launchGate?: Pick<LaunchGate, 'rateLimitedUntil' | 'onChange'>
+		launchGate?: QueueSiteGate
 	) {
 		super()
-		this.siteCooldown = new QueueSiteCooldown(launchGate)
-		this.siteCooldown.onChange(() => this.recomputeSchedule())
+		this.siteHold = new QueueSiteHold(launchGate)
+		this.siteHold.onChange(() => this.recomputeSchedule())
 		this.artifactCleanup = new QueueArtifactCleanup(probeInfoJsonCache)
 		this.playlistM3u = new QueuePlaylistM3u(this.playlist)
 		this.downloadService.on('status', (event: StatusEvent) => this.consumeStatusEvent(event))
@@ -689,13 +688,15 @@ export class QueueService extends EventEmitter {
 		let armSleep = false
 		let earliestHold: number | null = null
 		const spawned: string[] = []
+		const held: string[] = []
 		for (const item of this.items) {
 			if (item.status !== QUEUE_STATUS.pending) continue
 			if (this.spawning.has(item.id)) continue
 			if (activeCount >= this.maxConcurrent) break
-			const holdUntil = this.siteCooldown.holdUntil(item)
-			if (holdUntil !== null) {
-				earliestHold = Math.min(earliestHold ?? holdUntil, holdUntil)
+			const hold = this.siteHold.startHold(item, now)
+			if (hold !== null) {
+				if (hold !== 'full') earliestHold = Math.min(earliestHold ?? hold, hold)
+				held.push(item.id)
 				continue
 			}
 			if (item.lane === 'priority') {
@@ -715,12 +716,12 @@ export class QueueService extends EventEmitter {
 			activeCount++
 			normalRunning++
 		}
-		if (spawned.length > 0 || armSleep || earliestHold !== null) {
-			logger.info('recomputeSchedule', {spawned, activeCount, normalRunning, normalCap: this.normalCap, ceiling: this.maxConcurrent, sleepUntil: this.sleep.deadline, armSleep, rateLimitHoldUntil: earliestHold === null ? null : new Date(earliestHold).toISOString(), snapshot: this.statusSummary()})
+		if (spawned.length > 0 || armSleep || held.length > 0) {
+			logger.info('recomputeSchedule', {spawned, activeCount, normalRunning, normalCap: this.normalCap, ceiling: this.maxConcurrent, sleepUntil: this.sleep.deadline, armSleep, siteHeld: held, siteHoldUntil: earliestHold === null ? null : new Date(earliestHold).toISOString(), snapshot: this.statusSummary()})
 		}
 
 		this.sleep.sync(armSleep, now, () => this.recomputeSchedule())
-		this.siteCooldown.sync(earliestHold, now, () => this.recomputeSchedule())
+		this.siteHold.sync(earliestHold, now, () => this.recomputeSchedule())
 	}
 
 	private beginSpawn(itemId: string): void {

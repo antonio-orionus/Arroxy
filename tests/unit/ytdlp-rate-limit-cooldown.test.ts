@@ -10,6 +10,12 @@ vi.mock('@main/utils/process', async importOriginal => {
 	return {...actual, spawnYtDlp: vi.fn()}
 })
 
+vi.mock('node:fs/promises', async importOriginal => {
+	const actual = await importOriginal<typeof import('node:fs/promises')>()
+	return {...actual, mkdir: vi.fn(() => Promise.resolve(undefined))}
+})
+
+import {mkdir} from 'node:fs/promises'
 import {spawnYtDlp} from '@main/utils/process.js'
 
 // The process adapter is the one place every yt-dlp launch passes, so the
@@ -84,6 +90,19 @@ describe('YtDlp — rate-limit cooldown', () => {
 		await vi.waitFor(() => expect(tokenService.getToken).toHaveBeenCalled())
 		siteRequests.recordRateLimit('youtube', 'rateLimited')
 		resolveToken({token: 'tok', visitorData: 'vd', fromCache: false})
+
+		expect(await running).toMatchObject({errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE})
+		expect(spawnYtDlp).not.toHaveBeenCalled()
+	})
+
+	it('holds a run whose cooldown started while it prepared its output folder, without spawning', async () => {
+		let folderReady: () => void = () => undefined
+		vi.mocked(mkdir).mockImplementationOnce(() => new Promise(resolve => (folderReady = () => resolve(undefined))))
+		const {ytDlp, siteRequests} = setup()
+		const running = ytDlp.run(media())
+		await vi.waitFor(() => expect(mkdir).toHaveBeenCalled())
+		siteRequests.recordRateLimit('youtube', 'rateLimited')
+		folderReady()
 
 		expect(await running).toMatchObject({errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE})
 		expect(spawnYtDlp).not.toHaveBeenCalled()

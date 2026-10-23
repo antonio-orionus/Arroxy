@@ -707,6 +707,9 @@ export interface StartDownloadInput {
 	// format URLs. A download that loads it skips extraction and so never prints
 	// the warning itself.
 	probeFormatsWithheld?: boolean
+	// Main-process-only: the user asked for this row now (the priority lane), so
+	// its signed-in runs skip their site's spacing and budget (ADR 0022).
+	explicit?: boolean
 }
 
 // The narrowed shape once DownloadService.start() has refused the unresolved

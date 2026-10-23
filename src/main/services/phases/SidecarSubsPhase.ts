@@ -94,7 +94,7 @@ export function SidecarSubsPhase(embedAfter: boolean): Phase {
 						buildYtDlpSignal(ctx, active, req.kind === 'subtitle-listing' ? {onStdout: () => undefined} : {}),
 						// The media is saved: the rest of this job goes ahead through a
 						// rate-limit cooldown its own media run may have started.
-						{identity: identityFor(input.auth), jobKey: job.id, honorCooldown: false}
+						{identity: identityFor(input.auth), jobKey: job.id, honorCooldown: false, ...(input.explicit ? {explicit: true} : {})}
 					)
 				})
 				const first = await spawn()

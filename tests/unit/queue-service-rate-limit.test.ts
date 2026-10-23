@@ -3,6 +3,7 @@
 import {describe, expect, it, vi, beforeEach, afterEach} from 'vite-plus/test'
 import {EventEmitter} from 'node:events'
 import {QueueService} from '@main/services/QueueService.js'
+import {LaunchGate} from '@main/services/LaunchGate.js'
 import {RATE_LIMIT_BASE_MS, RATE_LIMIT_CAP_MS, SiteRequestState} from '@main/services/SiteRequestState.js'
 import type {DownloadService} from '@main/services/DownloadService.js'
 import type {QueueStore} from '@main/stores/QueueStore.js'
@@ -40,7 +41,7 @@ function setup(maxConcurrent = 4) {
 	const siteRequests = new SiteRequestState({random: () => 1})
 	const ds = new FakeDownloadService()
 	ds.start.mockImplementation(async () => jobResult())
-	const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, maxConcurrent, maxConcurrent, undefined, undefined, siteRequests)
+	const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, maxConcurrent, maxConcurrent, undefined, undefined, new LaunchGate({cooldowns: siteRequests}))
 	return {siteRequests, ds, qs}
 }
 

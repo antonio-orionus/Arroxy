@@ -318,6 +318,9 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 		if (unusable) return unusable
 		// Making the folder is an await too, and a pause during it finds no process.
 		if (stoppedBeforeSpawn(opts.signal)) return cancelledResult()
+		// Nor may a cooldown that started during it go unseen.
+		const heldAfterFolder = opts.beforeSpawn?.()
+		if (heldAfterFolder) return heldAfterFolder
 	}
 	const runtime = opts.jsRuntime
 	return new Promise<YtDlpResult>(resolve => {
@@ -534,6 +537,9 @@ export interface YtDlpRunOptions {
 	honorCooldown?: boolean
 	// yt-dlp appends the finished file's path here (see ytDlpFinalPath.ts).
 	finalPathFile?: string
+	// The user asked for this download now (the priority button, a link opened
+	// in the wizard): a signed-in run skips its site's spacing and budget.
+	explicit?: boolean
 }
 
 // Only `get()` is read, so a download smoke run can hand in an in-memory overlay.
@@ -699,7 +705,9 @@ export class YtDlp {
 			})
 		// A signed-in probe waits for a slot no longer than its own timeout (R21):
 		// it shares the gate with signed-in downloads, which can hold a slot for long.
-		const result = rateLimitOverBotWall(identity === 'exploreSession' && launch ? await this.runSignedIn(launch, options.jobKey, signal, isProbe ? (validOverride ?? PROBE_TIMEOUT_MS) : undefined, () => this.invokeIfStillAuthorized(cookies?.kind === 'session' ? cookies.scope : null, invoke)) : await invoke())
+		const result = rateLimitOverBotWall(
+			identity === 'exploreSession' && launch ? await this.runSignedIn(launch, options.jobKey, options.explicit, signal, isProbe ? (validOverride ?? PROBE_TIMEOUT_MS) : undefined, () => this.invokeIfStillAuthorized(cookies?.kind === 'session' ? cookies.scope : null, invoke)) : await invoke()
+		)
 		// 'spawn-error' is the child failing to start at all — ENOENT, EACCES, a
 		// security scanner holding it. That contradicts the recorded probe verdict
 		// this path may have been resolved from, so drop it and let the next warmup
@@ -731,9 +739,9 @@ export class YtDlp {
 
 	// `waitBudgetMs` bounds only the wait for a slot; a run that got one is
 	// bounded by its own timer as usual.
-	private async runSignedIn(launch: Launch, jobKey: string | undefined, signal: YtDlpSignal | undefined, waitBudgetMs: number | undefined, invoke: () => Promise<YtDlpResult>): Promise<YtDlpResult> {
+	private async runSignedIn(launch: Launch, jobKey: string | undefined, explicit: boolean | undefined, signal: YtDlpSignal | undefined, waitBudgetMs: number | undefined, invoke: () => Promise<YtDlpResult>): Promise<YtDlpResult> {
 		const stop = AbortSignal.any([signal?.abortSignal, signal?.pauseSignal].filter(s => s !== undefined))
-		const outcome = await launch.runSignedIn({jobKey, stop, waitBudgetMs}, invoke)
+		const outcome = await launch.runSignedIn({jobKey, stop, waitBudgetMs, ...(explicit ? {explicit} : {})}, invoke)
 		switch (outcome.kind) {
 			case 'ran':
 				return outcome.value

@@ -41,7 +41,15 @@ export async function spawnQueueJob(deps: QueueJobSpawnDeps, item: QueueItem, te
 	if (item.probeInfoJsonRef) {
 		logger.info('probe info-json resolved', {itemId: item.id, probeInfoJsonRef: item.probeInfoJsonRef, probeInfoJsonPath: probeInfoJsonPath ?? null})
 	}
-	const result = await deps.downloadService.start({url: item.url, outputDir: item.outputDir, job: item.job, tempDir: effectiveTempDir, ...(auth === 'exploreSession' ? {auth} : {}), ...(probeInfoJsonPath ? {probeInfoJsonPath, ...(item.probeInfoJsonRef?.formatsWithheld ? {probeFormatsWithheld: true} : {})} : {})})
+	const result = await deps.downloadService.start({
+		url: item.url,
+		outputDir: item.outputDir,
+		job: item.job,
+		tempDir: effectiveTempDir,
+		...(auth === 'exploreSession' ? {auth} : {}),
+		...(item.lane === 'priority' ? {explicit: true} : {}),
+		...(probeInfoJsonPath ? {probeInfoJsonPath, ...(item.probeInfoJsonRef?.formatsWithheld ? {probeFormatsWithheld: true} : {})} : {})
+	})
 	if (!result.ok) {
 		deps.commitEvent(item.id, {kind: 'failed', error: {kind: 'unknown', raw: result.error.message}, resumeContext: item.resumeContext})
 		deps.settled()
