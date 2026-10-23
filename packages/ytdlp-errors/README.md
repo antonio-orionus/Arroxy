@@ -167,20 +167,18 @@ stream.on('end', () => {
 
 ## Handling `unknown`
 
-`classifyYtDlpStderr` never throws. When no pattern matches, you get `{ kind: 'unknown', raw }`. Surface `raw` verbatim — the upstream snapshot scan opens a PR when new unrecognized strings appear, so unknowns shrink over time.
+`classifyYtDlpStderr` never throws. When no pattern matches, you get `{ kind: 'unknown', raw }`. Surface `raw` verbatim.
 
 ## Stability contract
 
 - **`code` strings are public API.** Host apps key i18n strings, analytics labels, and logs on them. Golden-tested in `tests/codes-golden.test.ts`. Changing a code is a major SemVer bump.
 - **`YtDlpErrorKind` is a closed enum.** Adding a kind is a minor bump; consumers' exhaustive switches will warn. Removing a kind is a major bump.
 - **Regex internals are not public API.** `src/patterns.ts` and `ERROR_PATTERNS` are internal. Tweaks that don't change classification outcomes for known strings ship as patch.
-- **Upstream snapshot drives audit.** `data/known-yt-dlp-strings.json` (auto-generated) and `data/known-extractor-strings.json` (curated) pin the lib to specific yt-dlp source strings. CI fails if a snapshot entry's declared `kind` stops classifying correctly.
+- **Upstream snapshot drives audit.** `data/known-yt-dlp-strings.json` and `data/known-extractor-strings.json` (both curated) pin the lib to specific yt-dlp source strings. CI fails if a snapshot entry's declared `kind` stops classifying correctly.
 
-## Upstream sync
+## Upstream snapshots
 
-`scripts/scan-yt-dlp-source.mjs` clones yt-dlp at the pin in `data/yt-dlp-version.json`, greps for `report_error` / `raise *Error` / `raise_*` call sites, dedupes by content hash, and appends new strings to `data/known-yt-dlp-strings.json`. Each entry carries `source` (file:line), `call` (which API emitted it), `fragment` (the string), and `kind` (`null` until triaged). The scan covers yt-dlp core, downloaders, postprocessors, `extractor/common.py`, and the YouTube extractor; other per-site extractors are skipped. `--baseline <commit>` limits additions to strings that are new since that commit.
-
-Every Monday the `ytdlp-errors Upstream Scan` workflow checks for a new stable yt-dlp release, bumps the pin, scans with the previous pin as baseline, and opens a PR. Reviewers triage `kind: null` entries on that PR before merging.
+`data/known-yt-dlp-strings.json` holds strings from yt-dlp's own source; `data/known-extractor-strings.json` holds texts that sites send and yt-dlp passes through. Each entry carries where it comes from, the `fragment`, and its `kind` (`null` when deliberately unclassified, with the reason in `notes`). Both are curated by hand.
 
 Coverage tests (`tests/upstream-coverage.test.ts`) assert every non-null entry round-trips through `classifyYtDlpStderr` to its declared kind. Fixture blobs in `tests/fixtures/yt-dlp-stderr/` provide realistic full-stderr samples per kind.
 
@@ -190,7 +188,6 @@ Coverage tests (`tests/upstream-coverage.test.ts`) assert every non-null entry r
 bun run test           # run tests with vitest
 bun run typecheck      # type-check without emitting
 bun run build          # compile to dist/
-bun run scan-upstream  # re-scan upstream yt-dlp source
 ```
 
 ## License

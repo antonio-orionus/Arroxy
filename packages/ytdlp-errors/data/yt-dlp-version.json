@@ -1,1 +1,0 @@
-{"version": "2026.08.19", "commit": "3a08beaf031ab68f966401ead017ac81fe8486cf", "channel": "stable", "note": "Pinned yt-dlp tag the known-yt-dlp-strings.json snapshot reflects. Bumped by scripts/scan-yt-dlp-source.mjs when maintainers update the upstream snapshot."}

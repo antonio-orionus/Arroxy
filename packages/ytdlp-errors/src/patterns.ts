@@ -3,9 +3,8 @@ import type {ClassifierKind} from './kinds.js'
 // Order = declaration order = match precedence. When patterns overlap (e.g.
 // retry-exhaustion containing ECONNRESET), the earlier entry wins.
 //
-// Regex sources are pinned to actual yt-dlp source strings — see
-// scripts/scan-yt-dlp-source.mjs for the upstream-scanner that keeps these
-// in sync with new yt-dlp releases.
+// Regex sources are pinned to actual yt-dlp source strings: the snapshots in
+// data/ hold the ones tests/upstream-coverage.test.ts round-trips.
 export const ERROR_PATTERNS: Record<ClassifierKind, RegExp> = {
 	// Raised before any extraction, so nothing else in the run explains it —
 	// and first, because the rejected URL is echoed into the line and may hold
