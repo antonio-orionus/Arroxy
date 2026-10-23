@@ -139,6 +139,69 @@ describe('WarmupSplash verification phase', () => {
 		}
 	})
 
+	// A download that keeps moving never stops for 60s, so the no-progress offer
+	// never came: someone at 0.4 Mbps waited 15 minutes with no way out.
+	function slowRender(onCancel: () => void, {downloaded, total, bytesPerSecond}: {downloaded: number; total: number; bytesPerSecond: number}): void {
+		const progress = {'yt-dlp': {binary: 'yt-dlp', phase: 'downloading', bytesDownloaded: downloaded, totalBytes: total} satisfies WarmupProgressEvent}
+		const downloads: WarmupDownloads = {
+			ledger: downloadsFor(progress).ledger,
+			samples: [
+				{at: 0, bytes: downloaded - 4 * bytesPerSecond},
+				{at: 4000, bytes: downloaded}
+			]
+		}
+		render(<WarmupSplash initialized={false} warmupBlocking={[]} warmupDiagnostics={null} warmupProgress={progress} warmupDownloads={downloads} showGreeting={false} onCancel={onCancel} />)
+	}
+
+	it('offers a way out once the time left has stayed above five minutes for 20 s', () => {
+		vi.useFakeTimers()
+		try {
+			// 2 Mbps (not slow by speed), 100 MB left: about 400 s.
+			slowRender(vi.fn(), {downloaded: 1_000_000, total: 101_000_000, bytesPerSecond: 250_000})
+			act(() => {
+				vi.advanceTimersByTime(19_000)
+			})
+			expect(screen.queryByTestId('splash-cancel')).toBeNull()
+			act(() => {
+				vi.advanceTimersByTime(2_000)
+			})
+			expect(screen.getByTestId('splash-cancel')).toBeInTheDocument()
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
+	it('offers a way out once the speed has stayed under 1 Mbps for 30 s', () => {
+		vi.useFakeTimers()
+		try {
+			// 0.8 Mbps with 36 s left: slow by speed only.
+			slowRender(vi.fn(), {downloaded: 400_000, total: 4_000_000, bytesPerSecond: 100_000})
+			act(() => {
+				vi.advanceTimersByTime(29_000)
+			})
+			expect(screen.queryByTestId('splash-cancel')).toBeNull()
+			act(() => {
+				vi.advanceTimersByTime(2_000)
+			})
+			expect(screen.getByTestId('splash-cancel')).toBeInTheDocument()
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
+	it('does not offer a way out for a fast download with little left', () => {
+		vi.useFakeTimers()
+		try {
+			slowRender(vi.fn(), {downloaded: 10_000_000, total: 20_000_000, bytesPerSecond: 2_500_000})
+			act(() => {
+				vi.advanceTimersByTime(45_000)
+			})
+			expect(screen.queryByTestId('splash-cancel')).toBeNull()
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
 	// A cold start is ~22s of legitimate work on fast hardware. Counted from mount
 	// the offer would fire mid-download; counted from the last advance it cannot,
 	// because bytes keep arriving.

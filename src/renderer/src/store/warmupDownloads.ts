@@ -103,16 +103,21 @@ export function addRateSample(samples: RateSample[], sample: RateSample): RateSa
 	return [...samples.filter(entry => sample.at - entry.at <= RATE_WINDOW_MS), sample]
 }
 
-// Seconds left at the recent download rate, or null until the rate is stable.
-export function estimateSecondsLeft(samples: readonly RateSample[], remainingBytes: number): number | null {
+// Bytes per second over the recent window, or null until the rate is stable.
+export function downloadRate(samples: readonly RateSample[]): number | null {
 	const first = samples[0]
 	const last = samples.at(-1)
-	if (!first || !last || remainingBytes <= 0) return null
+	if (!first || !last) return null
 	const span = last.at - first.at
 	if (span < MIN_RATE_SPAN_MS) return null
-	const bytesPerMs = (last.bytes - first.bytes) / span
-	if (bytesPerMs <= 0) return null
-	return Math.ceil(remainingBytes / bytesPerMs / 1000)
+	return ((last.bytes - first.bytes) / span) * 1000
+}
+
+// Seconds left at the recent download rate, or null until the rate is stable.
+export function estimateSecondsLeft(samples: readonly RateSample[], remainingBytes: number): number | null {
+	const rate = downloadRate(samples)
+	if (rate === null || rate <= 0 || remainingBytes <= 0) return null
+	return Math.ceil(remainingBytes / rate)
 }
 
 // What the store keeps about this run's downloads, updated as each progress

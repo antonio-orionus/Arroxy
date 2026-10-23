@@ -6,7 +6,7 @@ import {Button} from '../ui/button.js'
 import {RepairPanel} from './RepairPanel.js'
 import {SplashSetup} from './SplashSetup.js'
 import {setupTitleKey} from './splashSetupTitle.js'
-import {estimateSecondsLeft, summarizeSetup, type WarmupDownloads} from '../../store/warmupDownloads.js'
+import {downloadRate, estimateSecondsLeft, summarizeSetup, type WarmupDownloads} from '../../store/warmupDownloads.js'
 
 interface Props {
 	initialized: boolean
@@ -36,6 +36,14 @@ const FIRST_CHECK_HINT_MS = 35000
 // Measured against progress instead, this stays silent while bytes are moving and
 // surfaces promptly once they stop.
 const CANCEL_OFFER_MS = 60000
+
+// A download that keeps moving never trips that, however slow it is. The offer
+// also comes once the time left stays above five minutes, or the speed under
+// 1 Mbps, for long enough that a brief dip does not count.
+const SLOW_TIME_LEFT_SECONDS = 300
+const SLOW_TIME_LEFT_HOLD_MS = 20_000
+const SLOW_RATE_BYTES_PER_SECOND = 125_000
+const SLOW_RATE_HOLD_MS = 30_000
 
 // Identifies one candidate attempt. Every DependencySource variant carries a
 // path or a url, and those are what distinguish two probes of the same binary.
@@ -92,17 +100,28 @@ function useSlowFirstCheck(verifyingEntry: WarmupProgressEvent | undefined): boo
 	return verifyingKey !== null && slowFirstCheckFor === verifyingKey
 }
 
-// Any advance restarts the cancel countdown. Once offered the button stays:
-// pulling a control back out from under someone reaching for it is worse than
-// leaving it up.
-function useCancelOffer(progressToken: string): boolean {
+// Any advance restarts the cancel countdown; a slow spell has to last its whole
+// hold, and ends the moment the download speeds up. Once offered the button
+// stays: pulling a control back out from under someone reaching for it is worse
+// than leaving it up.
+function useCancelOffer(progressToken: string, slow: {timeLeft: boolean; rate: boolean}): boolean {
 	const [cancelOffered, setCancelOffered] = useState(false)
 	useEffect(() => {
 		if (cancelOffered) return undefined
 		const timer = setTimeout(() => setCancelOffered(true), CANCEL_OFFER_MS)
 		return () => clearTimeout(timer)
 	}, [progressToken, cancelOffered])
+	useOfferAfter(slow.timeLeft && !cancelOffered, SLOW_TIME_LEFT_HOLD_MS, setCancelOffered)
+	useOfferAfter(slow.rate && !cancelOffered, SLOW_RATE_HOLD_MS, setCancelOffered)
 	return cancelOffered
+}
+
+function useOfferAfter(holding: boolean, holdMs: number, offer: (offered: boolean) => void): void {
+	useEffect(() => {
+		if (!holding) return undefined
+		const timer = setTimeout(() => offer(true), holdMs)
+		return () => clearTimeout(timer)
+	}, [holding, holdMs, offer])
 }
 
 function SplashVerifying({entry, firstCheck}: {entry: WarmupProgressEvent; firstCheck: boolean}): JSX.Element {
@@ -171,8 +190,9 @@ export function WarmupSplash({initialized, warmupBlocking, warmupDiagnostics, wa
 	// shows the setup screen.
 	const setup = summarizeSetup(warmupDownloads.ledger, warmupProgress)
 	const secondsLeft = setup?.stage === 'downloading' ? estimateSecondsLeft(warmupDownloads.samples, setup.total - setup.downloaded) : null
+	const rate = setup?.stage === 'downloading' ? downloadRate(warmupDownloads.samples) : null
 	const firstCheck = useSlowFirstCheck(progress.verifyingEntry)
-	const cancelOffered = useCancelOffer(progress.progressToken)
+	const cancelOffered = useCancelOffer(progress.progressToken, {timeLeft: secondsLeft !== null && secondsLeft > SLOW_TIME_LEFT_SECONDS, rate: rate !== null && rate < SLOW_RATE_BYTES_PER_SECOND})
 
 	if (gone) return null
 

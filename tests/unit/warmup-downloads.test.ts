@@ -1,5 +1,5 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {addRateSample, EMPTY_WARMUP_DOWNLOADS, estimateSecondsLeft, summarizeSetup, trackWarmupDownloads, type WarmupDownloads} from '@renderer/store/warmupDownloads.js'
+import {addRateSample, downloadRate, EMPTY_WARMUP_DOWNLOADS, estimateSecondsLeft, summarizeSetup, trackWarmupDownloads, type WarmupDownloads} from '@renderer/store/warmupDownloads.js'
 import type {DependencyId, WarmupProgressEvent} from '@shared/types.js'
 
 const MB = 1024 * 1024
@@ -97,6 +97,18 @@ describe('warmup download tracking', () => {
 			[2000, {binary: 'ffmpeg', phase: 'extracting'}]
 		])
 		expect(downloads.samples.map(sample => sample.at)).toEqual([0, 1000])
+	})
+})
+
+describe('download rate', () => {
+	it('has no rate until it has been measured for a few seconds', () => {
+		const samples = addRateSample(addRateSample([], {at: 0, bytes: 0}), {at: 2000, bytes: 2 * MB})
+		expect(downloadRate(samples)).toBeNull()
+	})
+
+	it('measures bytes per second over the recent window', () => {
+		const samples = addRateSample(addRateSample([], {at: 0, bytes: 0}), {at: 4000, bytes: 4 * MB})
+		expect(downloadRate(samples)).toBe(MB)
 	})
 })
 
