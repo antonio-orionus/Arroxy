@@ -268,6 +268,25 @@ describe('a reserved signed-in start its job never used', () => {
 
 		expect(gate.startsAt('youtube')).toBeNull()
 	})
+
+	it('is given back only once the job is parked, so the queue it wakes can resume it', async () => {
+		const {mintToken, minting, releaseMint} = holdMint()
+		const gate = testPacer({atOnce: 1})
+		const reserved = gate.reserveStart('youtube')
+		if (reserved.kind !== 'reserved') throw new Error('expected a reservation')
+		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(null) as never)
+		const {service, start} = harness(gate, {mintToken})
+		const parkedWhenWoken: number[] = []
+		gate.onChange(() => parkedWhenWoken.push(service.pausedCount))
+
+		const jobId = await start(undefined, {signedInReservation: reserved.id})
+		await minting
+		await service.pause(jobId)
+		releaseMint()
+		await vi.waitFor(() => expect(service.activeCount).toBe(0), SETTLE)
+
+		expect(parkedWhenWoken).toEqual([1])
+	})
 })
 
 describe('signed-in spawn budget across pause and resume (I2)', () => {

@@ -18,6 +18,21 @@ async function settle(): Promise<void> {
 	for (let i = 0; i < 10; i++) await Promise.resolve()
 }
 
+// A sleep on the (fake) timers that a signal cuts short, like timers/promises.
+function abortableSleep(ms: number, signal?: AbortSignal): Promise<void> {
+	return new Promise<void>((resolve, reject) => {
+		const timer = setTimeout(resolve, ms)
+		signal?.addEventListener(
+			'abort',
+			() => {
+				clearTimeout(timer)
+				reject(signal.reason)
+			},
+			{once: true}
+		)
+	})
+}
+
 function pacing(overrides: Partial<SignedInPacing> = {}): () => SignedInPacing {
 	return () => ({atOnce: 2, spacingMs: 0, jitterMs: 0, windowMs: 60 * MINUTE, perWindow: 1000, entriesPerLaunch: 10, ...overrides})
 }
@@ -277,6 +292,50 @@ describe('SignedInPacer: reserved starts', () => {
 		expect(pacer.startsAt('x')).toBe('full')
 		pacer.releaseReservation(reserved.id)
 		expect(pacer.startsAt('x')).toBeNull()
+	})
+
+	it('wakes a launch waiting on the budget when a released reservation refunds it', async () => {
+		vi.useFakeTimers()
+		try {
+			const pacer = new SignedInPacer({pacing: pacing({atOnce: 2, perWindow: 1, windowMs: 10 * MINUTE}), sleep: abortableSleep})
+			const reserved = pacer.reserveStart('x')
+			if (reserved.kind !== 'reserved') throw new Error('expected a reservation')
+			let ran = false
+			const waiting = pacer.run('x', 'job', () => {
+				ran = true
+				return Promise.resolve()
+			})
+			await vi.advanceTimersByTimeAsync(1000)
+			expect(ran).toBe(false)
+
+			pacer.releaseReservation(reserved.id)
+			await vi.advanceTimersByTimeAsync(0)
+			expect(ran).toBe(true)
+			await waiting
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
+	it('refunds the window charge of a reserved launch cancelled while it waited out the spacing', async () => {
+		vi.useFakeTimers()
+		try {
+			const pacer = new SignedInPacer({pacing: pacing({atOnce: 2, spacingMs: 5000, perWindow: 2, windowMs: 10 * MINUTE}), sleep: abortableSleep, random: () => 0.5})
+			await pacer.run('x', 'earlier', () => Promise.resolve())
+			const reserved = pacer.reserveStart('x', {explicit: true})
+			if (reserved.kind !== 'reserved') throw new Error('expected a reservation')
+			const controller = new AbortController()
+			const waiting = pacer.run('x', 'job', () => Promise.resolve(), {reservation: reserved.id, signal: controller.signal})
+			await vi.advanceTimersByTimeAsync(1000)
+			controller.abort()
+			expect(await waiting).toEqual({kind: 'cancelled'})
+			pacer.releaseReservation(reserved.id)
+
+			await vi.advanceTimersByTimeAsync(5000)
+			expect(pacer.startsAt('x')).toBeNull()
+		} finally {
+			vi.useRealTimers()
+		}
 	})
 
 	it('refunds the window charge of a reservation that is released or expires unused', async () => {

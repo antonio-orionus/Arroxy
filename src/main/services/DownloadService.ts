@@ -344,10 +344,11 @@ export class DownloadService extends EventEmitter {
 					return
 				}
 				this.activeJobs.delete(job.id)
-				// A paused attempt ends here; resume starts a fresh signed-in spawn budget
-				// and takes a new reservation.
-				this.explore.launchGate.resetJob(job.id, input.signedInReservation)
 				this.pausedJobs.set(job.id, {job, input: withoutReservation(input), tempDir: active.tempDir, ...(active.qualityLimit ? {qualityLimit: active.qualityLimit} : {}), ...(active.formatsWithheld ? {formatsWithheld: true} : {})})
+				// A paused attempt ends here; resume starts a fresh signed-in spawn budget
+				// and takes a new reservation. Parked first: a released reservation wakes
+				// the queue, which may resume this job at once.
+				this.explore.launchGate.resetJob(job.id, input.signedInReservation)
 				this.releaseParkWaiters(job.id)
 				logger.info('Download paused — temp dir preserved', {jobId: job.id, tempDir: active.tempDir})
 				return
@@ -421,8 +422,8 @@ export class DownloadService extends EventEmitter {
 			clearInterval(active.mockTimer)
 			active.mockTimer = undefined
 			this.activeJobs.delete(active.job.id)
-			this.explore.launchGate.resetJob(active.job.id, active.input.signedInReservation)
 			this.pausedJobs.set(active.job.id, {job: active.job, input: withoutReservation(active.input)})
+			this.explore.launchGate.resetJob(active.job.id, active.input.signedInReservation)
 			logger.info('Mock download paused', {jobId: active.job.id})
 			return ok({paused: true, jobId: active.job.id})
 		}

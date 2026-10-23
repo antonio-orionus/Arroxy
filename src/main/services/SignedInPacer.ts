@@ -71,6 +71,8 @@ export class SignedInPacer {
 	private readonly sites = new Map<string, SiteState>()
 	private readonly launchesByJob = new Map<string, number>()
 	private readonly listeners = new Set<() => void>()
+	// Launches sleeping out the spacing or the budget, woken when a charge is refunded.
+	private readonly wakers = new Set<() => void>()
 
 	constructor(options: SignedInPacerOptions) {
 		this.pacing = options.pacing
@@ -89,7 +91,8 @@ export class SignedInPacer {
 		const state = this.state(site)
 		// A start the queue reserved for this launch already holds its slot and
 		// charge; it waits only out the spacing from the last launch that started.
-		if (reservation !== undefined && this.consume(state, reservation)) {
+		const reserved = reservation === undefined ? undefined : this.consume(state, reservation)
+		if (reserved !== undefined) {
 			const wait = explicit ? 0 : state.lastLaunchAt + this.pacing(site).spacingMs - this.now()
 			if (wait > 0) {
 				onWait?.({reason: 'signedInSpacing', waitMs: wait})
@@ -99,6 +102,8 @@ export class SignedInPacer {
 					if (!signal?.aborted) throw err
 				}
 				if (signal?.aborted) {
+					// Nothing launched: the reserved start gives back its window charge too.
+					this.dropCharge(state, reserved)
 					this.release(site, state)
 					return this.refund(jobKey)
 				}
@@ -116,11 +121,7 @@ export class SignedInPacer {
 					return {kind: 'paced', until: free.at, reason: free.reason}
 				}
 				onWait?.({reason: free.reason, waitMs: wait})
-				try {
-					await this.sleep(wait, signal)
-				} catch (err) {
-					if (!signal?.aborted) throw err
-				}
+				await this.sleepOrWake(wait, signal)
 				if (signal?.aborted) return this.refund(jobKey)
 				continue
 			}
@@ -158,7 +159,7 @@ export class SignedInPacer {
 			if (reservation === undefined) continue
 			clearTimeout(reservation.timer)
 			state.pending.delete(id)
-			state.charges = state.charges.filter(charge => charge !== reservation.charge)
+			this.dropCharge(state, reservation.charge)
 			this.grantWaiters(site, state)
 			this.notify()
 			return
@@ -219,13 +220,38 @@ export class SignedInPacer {
 		}
 	}
 
-	private consume(state: SiteState, id: string): boolean {
+	// The reserved start's slot becomes this launch's; its charge stays refundable until the launch starts.
+	private consume(state: SiteState, id: string): Charge | undefined {
 		const reservation = state.pending.get(id)
-		if (reservation === undefined) return false
+		if (reservation === undefined) return undefined
 		clearTimeout(reservation.timer)
 		state.pending.delete(id)
 		state.active += 1
-		return true
+		return reservation.charge
+	}
+
+	// A charge for a launch that never ran leaves the window, and launches
+	// waiting on the budget ask again.
+	private dropCharge(state: SiteState, charge: Charge): void {
+		state.charges = state.charges.filter(other => other !== charge)
+		for (const wake of [...this.wakers]) wake()
+	}
+
+	// Sleeps out a spacing or budget wait; a refunded charge cuts it short.
+	private async sleepOrWake(ms: number, signal: AbortSignal | undefined): Promise<void> {
+		if (signal?.aborted) return
+		const wake = new AbortController()
+		const onAbort = (): void => wake.abort()
+		signal?.addEventListener('abort', onAbort, {once: true})
+		this.wakers.add(onAbort)
+		try {
+			await this.sleep(ms, wake.signal)
+		} catch (err) {
+			if (!wake.signal.aborted) throw err
+		} finally {
+			this.wakers.delete(onAbort)
+			signal?.removeEventListener('abort', onAbort)
+		}
 	}
 
 	// The earliest start the spacing and the budget allow, and which of them
