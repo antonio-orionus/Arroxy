@@ -67,6 +67,7 @@ interface MediaRunMode {
 
 const WITHOUT_COOKIES: MediaRunMode = {identity: 'none', stopIfLimited: false}
 const SIGNED_IN: MediaRunMode = {identity: 'exploreSession', stopIfLimited: false}
+const ANONYMOUS: MediaRunMode = {identity: 'configured', stopIfLimited: false}
 
 // Stands in for a spawn the pre-spawn guard refused; the phase reports it as signed out.
 function refusedSignedInRun(req: YtDlpRequest): MediaRun {
@@ -349,6 +350,12 @@ export const VideoPhase: Phase = {
 				if (tempDir) await clearTempDir(tempDir)
 				const signedInRun = await runMedia(undefined, SIGNED_IN)
 				return signedOut ? null : signedInRun
+			},
+			// The safety launch re-extracts anonymously: a signed-in info-json is
+			// never replayed without the account.
+			runAnonymous: async () => {
+				if (tempDir) await clearTempDir(tempDir)
+				return runMedia(undefined, ANONYMOUS)
 			}
 		})
 		if (settled.kind === 'stopped') return settled.outcome

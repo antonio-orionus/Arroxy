@@ -16,6 +16,7 @@ import type {ActiveDownload, PausedDownload} from './phases/index.js'
 import type {ExploreSignInCheck} from './phases/types.js'
 import type {ExploreGate} from './exploreGate.js'
 import type {LaunchGate} from './LaunchGate.js'
+import type {SignInEvidence} from './SuspectSignIns.js'
 import {stopActiveProcesses} from './download/processControl.js'
 import {cleanupTempDirByPath} from './download/cleanup.js'
 import {QueueResumeLifecycle} from './download/QueueResumeLifecycle.js'
@@ -44,6 +45,8 @@ export interface DownloadExploreDeps {
 	exploreSession: ExploreSignInCheck
 	// Releases a finished attempt's signed-in spawn budget.
 	launchGate: Pick<LaunchGate, 'resetJob'>
+	// Where a job its site started signed in tells what it showed about the sign-in.
+	signInEvidence?: (site: string, evidence: SignInEvidence) => void
 }
 
 // Without the composition root's wiring nothing escalates and an escalated job is refused.
@@ -303,6 +306,7 @@ export class DownloadService extends EventEmitter {
 			ytDlp: this.ytDlp,
 			cookielessRetry: this.cookielessRetry,
 			exploreGate: this.explore.exploreGate,
+			...(this.explore.signInEvidence ? {signInEvidence: this.explore.signInEvidence} : {}),
 			exploreSession: this.exploreSession,
 			emitStatus: (stage, statusKey, params?, error?, resumeContext?) => this.emitStatus(job.id, stage, statusKey, params, error, resumeContext),
 			register: disposable =>

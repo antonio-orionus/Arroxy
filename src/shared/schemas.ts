@@ -576,6 +576,7 @@ export const STATUS_KEY = {
 	retryingSponsorBlock: 'retryingSponsorBlock',
 	retryingTransfer: 'retryingTransfer',
 	signingInWithExplore: 'signingInWithExplore',
+	retryingWithoutSignIn: 'retryingWithoutSignIn',
 	exploreSignedOut: 'exploreSignedOut'
 } as const
 export type StatusKey = (typeof STATUS_KEY)[keyof typeof STATUS_KEY]

@@ -1,11 +1,13 @@
 import log from 'electron-log/main.js'
 import {STATUS_KEY} from '@shared/schemas.js'
 import {exploreCookieScopeFor, type ExploreCookieScope} from '@shared/sites/exploreCookieScope.js'
-import type {Site} from '@shared/sites/index.js'
+import {requestSiteFor, type Site} from '@shared/sites/index.js'
 import type {ExploreSignInState} from '@shared/schemas.js'
 import type {YtDlpResult} from '../YtDlp.js'
 import {decideEscalation, escalationReason, type EscalationDecision} from '../exploreEscalation.js'
 import {interruptedOutcome} from './phaseHelpers.js'
+import {signedInFailure} from '../signedInEvidence.js'
+import type {SignInEvidence} from '../SuspectSignIns.js'
 import type {PhaseContext, PhaseOutcome} from './types.js'
 
 const logger = log.scope('downloads')
@@ -22,6 +24,9 @@ export interface SignedInFlow<R extends SignedInRun> {
 	runSignedIn(): Promise<R | null>
 	// Whether this phase escalates this failure at all. Absent: it never does.
 	escalates?: (run: R) => boolean
+	// One run without the Explore session, for a job its site started signed in
+	// (the safety launch). Absent: this phase never takes one.
+	runAnonymous?: () => Promise<R>
 }
 
 // `signedOut`: the session is gone (a refused spawn, or the site said so). Each
@@ -40,7 +45,8 @@ function sessionCheckInconclusive(): YtDlpResult {
 // whole PoT ladder; other sites have no ladder, so their bot walls never escalate.
 async function downloadEscalation<R extends SignedInRun>(ctx: PhaseContext, run: R, flow: SignedInFlow<R>, scope: ExploreCookieScope | null): Promise<EscalationDecision | null> {
 	const {result} = run
-	if (result.kind !== 'exit-error' || ctx.active.input.auth === 'exploreSession' || flow.escalates?.(run) !== true) return null
+	// A job its safety launch left anonymous never comes back to the account by escalating.
+	if (result.kind !== 'exit-error' || ctx.active.input.auth !== undefined || flow.escalates?.(run) !== true) return null
 	const reason = escalationReason({stage: 'download', errorKind: result.errorKind, rawError: result.rawError, ladderExhausted: flow.site.needsPotToken})
 	const decision = await decideEscalation(reason, scope, ctx.exploreGate)
 	logger.info('Download failure escalation', {jobId: ctx.active.job.id, scope, failure: result.errorKind, ...decision})
@@ -64,6 +70,7 @@ export async function settleWithExploreSession<R extends SignedInRun>(ctx: Phase
 	const jobId = active.job.id
 	// The job's URL decides which Explore cookies it runs on, as in YtDlp.
 	const scope = exploreCookieScopeFor(active.input.url)
+	if (active.input.auth === 'exploreSession' && active.input.authBasis === 'siteDefault') return settleSiteDefault(ctx, first, flow)
 	let run = first
 
 	const runSignedIn = async (): Promise<SignedInFlowResult<R> | null> => {
@@ -102,4 +109,37 @@ export async function settleWithExploreSession<R extends SignedInRun>(ctx: Phase
 	}
 	logger.info('Explore session still signed in after yt-dlp rejected its cookies; retrying once', {jobId})
 	return (await runSignedIn()) ?? {kind: 'run', run}
+}
+
+// A job its site started signed in (ADR 0022): what the run showed about the
+// site's sign-in, and one anonymous launch when it failed in a way the sign-in
+// may have caused. QueueService records the job as anonymous on the status,
+// before that launch, so a retry never starts it signed in again. A result the
+// site gave after rejecting the cookies stands: the engine already carried on
+// signed out.
+async function settleSiteDefault<R extends SignedInRun>(ctx: PhaseContext, run: R, flow: SignedInFlow<R>): Promise<SignedInFlowResult<R>> {
+	const {active} = ctx
+	const site = requestSiteFor(active.input.url)
+	const record = (evidence: SignInEvidence): void => ctx.signInEvidence?.(site, evidence)
+	const {result} = run
+	const rejected = result.kind !== 'spawn-error' && result.cookiesRejectedBy !== undefined
+	if (rejected) record('cookiesRejected')
+	if (result.kind === 'success') {
+		if (!rejected) record('signedInSucceeded')
+		return {kind: 'run', run}
+	}
+	if (result.kind !== 'exit-error' || rejected) return {kind: 'run', run}
+	const failure = signedInFailure({stage: 'download', errorKind: result.errorKind, rawError: result.rawError, ladderExhausted: flow.site.needsPotToken})
+	if (failure === 'accountWall') record('accountWall')
+	if (failure === 'unknown') record('signedInUnknown')
+	if ((failure !== 'accountRequired' && failure !== 'unknown') || !flow.runAnonymous) return {kind: 'run', run}
+	logger.info('Download failed signed in by its site’s default; one anonymous launch', {jobId: active.job.id, site, failure})
+	ctx.emitStatus('download', STATUS_KEY.retryingWithoutSignIn)
+	const {authBasis: _basis, ...rest} = active.input
+	active.input = {...rest, auth: 'anonymous'}
+	const next = await flow.runAnonymous()
+	const stopped = interruptedOutcome(active)
+	if (stopped) return {kind: 'stopped', outcome: stopped}
+	if (next.result.kind === 'success') record('anonymousWorked')
+	return {kind: 'run', run: next}
 }

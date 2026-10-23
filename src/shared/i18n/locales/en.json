@@ -735,6 +735,7 @@
 		"qualityLimitedSubtitlesFailed": "Saved at {{height}}p — YouTube withheld higher qualities for this download, and some subtitles could not be downloaded. Trying again later may help.",
 		"remintingToken": "Preparing YouTube download again…",
 		"retryingSponsorBlock": "SponsorBlock unavailable, retrying ({{attempt}}/{{total}})…",
+		"retryingWithoutSignIn": "Trying again without your Explore sign-in…",
 		"retryingTransfer": "Connection stalled, retrying ({{attempt}}/{{total}})…",
 		"signingInWithExplore": "Signing in with your Explore account…",
 		"sleepingBetweenRequests": "Waiting {{seconds}}s to avoid rate limits…",

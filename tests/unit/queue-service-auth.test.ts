@@ -143,6 +143,20 @@ describe('QueueService — download-time escalation', () => {
 		expect(qs.snapshot().find(i => i.id === 'a')).toMatchObject({auth: 'exploreSession', lastStatus: {key: 'signingInWithExplore'}})
 	})
 
+	it('pins a row anonymous on retryingWithoutSignIn before the status event returns, so a retry never starts it signed in', async () => {
+		const snapshots: QueueItem[][] = []
+		const store = {load: vi.fn().mockResolvedValue(ok({items: [], schedulerPaused: false})), save: vi.fn((items: QueueItem[]) => Promise.resolve(void snapshots.push(structuredClone(items))))} as unknown as QueueStore
+		const ds = new FakeDownloadService()
+		ds.start.mockResolvedValue(jobResult('job-1'))
+		const qs = new QueueService(store, ds as unknown as DownloadService)
+		qs.add([makeItem({id: 'a', status: 'pending'})])
+		await vi.waitFor(() => expect(qs.snapshot().find(i => i.id === 'a')?.lastJobId).toBe('job-1'))
+
+		qs.consumeStatusEvent({jobId: 'job-1', stage: 'download', statusKey: 'retryingWithoutSignIn', at: new Date().toISOString()})
+
+		expect(snapshots.at(-1)?.find(i => i.id === 'a')?.auth).toBe('anonymous')
+	})
+
 	it('leaves auth alone for other status keys', async () => {
 		const {qs} = startedService()
 		qs.add([makeItem({id: 'a', status: 'pending'})])

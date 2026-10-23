@@ -48,7 +48,8 @@ export async function spawnQueueJob(deps: QueueJobSpawnDeps, item: QueueItem, te
 		outputDir: item.outputDir,
 		job: item.job,
 		tempDir: effectiveTempDir,
-		...(identity.auth === 'exploreSession' ? {auth, authBasis: identity.basis} : {}),
+		// A row its safety launch left anonymous says so, so it never escalates either.
+		...(identity.auth === 'exploreSession' ? {auth, authBasis: identity.basis} : item.auth === 'anonymous' ? {auth} : {}),
 		...(item.lane === 'priority' ? {explicit: true} : {}),
 		...(signedInReservation === undefined ? {} : {signedInReservation}),
 		...(probeInfoJsonPath ? {probeInfoJsonPath, ...(item.probeInfoJsonRef?.formatsWithheld ? {probeFormatsWithheld: true} : {})} : {})

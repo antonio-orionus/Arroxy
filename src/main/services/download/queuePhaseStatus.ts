@@ -15,8 +15,11 @@ export interface PhaseStatusHost {
 // emits it synchronously right before the signed-in spawn, so the item is on
 // disk as signed in before that spawn starts and a restart never resumes it
 // anonymously.
+// `retryingWithoutSignIn` likewise records that a job its site started signed
+// in now runs anonymous (its safety launch, ADR 0022), so a retry or a restart
+// never starts it signed in again.
 export function commitPhaseStatus(host: PhaseStatusHost, event: Pick<StatusEvent, 'statusKey' | 'params'>): void {
-	const escalated = event.statusKey === STATUS_KEY.signingInWithExplore
-	host.patch(`phase:${event.statusKey}`, prev => ({...prev, ...(escalated ? {auth: 'exploreSession' as const} : {}), lastStatus: {key: event.statusKey, params: event.params}, progressDetail: null}))
-	if (escalated) host.persistNow()
+	const auth = event.statusKey === STATUS_KEY.signingInWithExplore ? ('exploreSession' as const) : event.statusKey === STATUS_KEY.retryingWithoutSignIn ? ('anonymous' as const) : null
+	host.patch(`phase:${event.statusKey}`, prev => ({...prev, ...(auth ? {auth} : {}), lastStatus: {key: event.statusKey, params: event.params}, progressDetail: null}))
+	if (auth) host.persistNow()
 }

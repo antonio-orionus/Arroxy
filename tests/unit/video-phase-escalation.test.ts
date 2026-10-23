@@ -60,7 +60,7 @@ afterEach(async () => {
 })
 
 // `tempDir`: the media run's temp folder, for a subtitle phase run on its own.
-function makeCtx(opts: {runs: YtDlpResult[]; input?: Partial<ResolvedStartDownloadInput>; signedIn?: boolean; refusal?: ExploreGateRefusal; verified?: ExploreSignInState; usesCookies?: boolean; tempDir?: boolean}) {
+function makeCtx(opts: {runs: YtDlpResult[]; input?: Partial<ResolvedStartDownloadInput>; signedIn?: boolean; refusal?: ExploreGateRefusal; verified?: ExploreSignInState; usesCookies?: boolean; tempDir?: boolean; evidence?: string[]}) {
 	const results = [...opts.runs]
 	// A successful subtitle run writes, moves and reports its tracks as yt-dlp does.
 	const run = vi.fn(async (req: YtDlpRequest, _signal?: YtDlpSignal, _options?: YtDlpRunOptions) => {
@@ -83,7 +83,17 @@ function makeCtx(opts: {runs: YtDlpResult[]; input?: Partial<ResolvedStartDownlo
 	}
 	const ports = explorePorts({signedIn: opts.signedIn, verified: opts.verified, ...(opts.refusal ? {refusal: opts.refusal} : {})})
 	const emitStatus = vi.fn()
-	const ctx: PhaseContext = {active, signal: controller.signal, register: () => undefined, ytDlp: {run, usesCookies: vi.fn().mockResolvedValue(opts.usesCookies ?? false), invalidateTokenSession: vi.fn(), ffmpegPath: null} as never, emitStatus, safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...ports}
+	const ctx: PhaseContext = {
+		active,
+		signal: controller.signal,
+		register: () => undefined,
+		ytDlp: {run, usesCookies: vi.fn().mockResolvedValue(opts.usesCookies ?? false), invalidateTokenSession: vi.fn(), ffmpegPath: null} as never,
+		emitStatus,
+		safeConsume: vi.fn(),
+		cookielessRetry: new CookielessRetry(),
+		...ports,
+		...(opts.evidence ? {signInEvidence: (site: string, kind: string) => opts.evidence?.push(`${site}:${kind}`)} : {})
+	}
 	return {ctx, run, emitStatus, canEscalate: ports.exploreGate.canEscalate, verifySignedIn: ports.exploreSession.verifySignedIn}
 }
 
@@ -424,5 +434,80 @@ describe('SubtitleOnlyPhase download-time escalation', () => {
 		expect(await SubtitleOnlyPhase.run(ctx)).toEqual({kind: 'completed'})
 		expect(verifySignedIn).toHaveBeenCalledOnce()
 		expect(identities(run)).toEqual(['configured', 'exploreSession', 'exploreSession'])
+	})
+})
+
+describe('VideoPhase: a job its site started signed in (ADR 0022)', () => {
+	const IG_URL = 'https://www.instagram.com/reel/abc/'
+	const IG_JOB: ResolvedStartDownloadInput['job'] = {kind: 'single-format', extractor: 'Instagram', extractorKey: 'Instagram', formatId: '1', sponsorBlock: {mode: 'off'}, embed: EMBED_OFF}
+	const SITE_DEFAULT: Partial<ResolvedStartDownloadInput> = {url: IG_URL, job: IG_JOB, auth: 'exploreSession', authBasis: 'siteDefault'}
+	const RULING: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'unknown', rawError: "ERROR: [Instagram] abc: This content isn't available to everyone.", stdout: '', stderr: ''}
+	const UNKNOWN: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'unknown', rawError: 'ERROR: [Instagram] abc: Something odd', stdout: '', stderr: ''}
+	const WALL: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'unknown', rawError: 'ERROR: [Instagram] abc: checkpoint_required', stdout: '', stderr: ''}
+	const RATE_LIMITED: YtDlpResult = {kind: 'exit-error', exitCode: 1, errorKind: 'rateLimit', rawError: 'ERROR: [Instagram] abc: HTTP Error 429: Too Many Requests', stdout: '', stderr: ''}
+
+	it('runs signed in, and says the sign-in worked', async () => {
+		const evidence: string[] = []
+		const {ctx, run} = makeCtx({runs: [SUCCESS], input: SITE_DEFAULT, signedIn: true, evidence})
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
+		expect(identities(run)).toEqual(['exploreSession'])
+		expect(evidence).toEqual(['instagram:signedInSucceeded'])
+	})
+
+	it('gets one anonymous launch after an account wall the sign-in should have opened, recorded before it spawns', async () => {
+		const evidence: string[] = []
+		const {ctx, run, emitStatus} = makeCtx({runs: [RULING, SUCCESS], input: SITE_DEFAULT, signedIn: true, evidence})
+
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
+		expect(identities(run)).toEqual(['exploreSession', 'configured'])
+		const anonymous = emitStatus.mock.calls.findIndex(call => call[1] === STATUS_KEY.retryingWithoutSignIn)
+		expect(emitStatus.mock.invocationCallOrder[anonymous]).toBeLessThan(run.mock.invocationCallOrder[1])
+		expect(ctx.active.input.auth).toBe('anonymous')
+		expect(statusKeys(emitStatus)).not.toContain(STATUS_KEY.signingInWithExplore)
+		expect(evidence).toEqual(['instagram:anonymousWorked'])
+	})
+
+	it('counts an unclassified failure, then gets its anonymous launch', async () => {
+		const evidence: string[] = []
+		const {ctx, run} = makeCtx({runs: [UNKNOWN, UNKNOWN], input: SITE_DEFAULT, signedIn: true, evidence})
+
+		expect(await VideoPhase.run(ctx)).toMatchObject({kind: 'hard-failed'})
+		expect(identities(run)).toEqual(['exploreSession', 'configured'])
+		expect(evidence).toEqual(['instagram:signedInUnknown'])
+	})
+
+	it('stops at an account wall: marked, no anonymous launch', async () => {
+		const evidence: string[] = []
+		const {ctx, run} = makeCtx({runs: [WALL], input: SITE_DEFAULT, signedIn: true, evidence})
+
+		expect(await VideoPhase.run(ctx)).toMatchObject({kind: 'hard-failed'})
+		expect(identities(run)).toEqual(['exploreSession'])
+		expect(evidence).toEqual(['instagram:accountWall'])
+	})
+
+	it('leaves a rate limit as it is: no anonymous launch, nothing recorded', async () => {
+		const evidence: string[] = []
+		const {ctx, run} = makeCtx({runs: [RATE_LIMITED], input: SITE_DEFAULT, signedIn: true, evidence})
+
+		expect(await VideoPhase.run(ctx)).toMatchObject({kind: 'hard-failed'})
+		expect(identities(run)).toEqual(['exploreSession'])
+		expect(evidence).toEqual([])
+	})
+
+	it('keeps a result the site gave after rejecting the cookies, and marks them', async () => {
+		const evidence: string[] = []
+		const {ctx, run} = makeCtx({runs: [{...UNKNOWN, cookiesRejectedBy: 'Instagram'}], input: SITE_DEFAULT, signedIn: true, evidence})
+
+		expect(await VideoPhase.run(ctx)).toMatchObject({kind: 'hard-failed'})
+		expect(identities(run)).toEqual(['exploreSession'])
+		expect(evidence).toEqual(['instagram:cookiesRejected'])
+	})
+
+	it('never escalates a job its safety launch left anonymous', async () => {
+		const {ctx, run, canEscalate} = makeCtx({runs: [LOGIN_REQUIRED], input: {url: IG_URL, job: IG_JOB, auth: 'anonymous'}, signedIn: true})
+
+		expect(await VideoPhase.run(ctx)).toMatchObject({kind: 'hard-failed'})
+		expect(identities(run)).toEqual(['configured'])
+		expect(canEscalate).not.toHaveBeenCalled()
 	})
 })
