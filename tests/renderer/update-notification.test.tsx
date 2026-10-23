@@ -59,6 +59,7 @@ function makeApi(overrides: {onUpdateAvailable?: (listener: UpdateListener) => (
 			onPointerInView: vi.fn().mockReturnValue(() => undefined)
 		},
 		intake: {add: vi.fn(), retry: vi.fn(), choose: vi.fn(), keptProbe: vi.fn(), setWindowContext: vi.fn().mockResolvedValue(ok(undefined)), onEvent: vi.fn().mockReturnValue(() => undefined)},
+		signIns: {getNotWorking: vi.fn().mockResolvedValue({ok: true, data: []}), useAgain: vi.fn().mockResolvedValue({ok: true, data: undefined}), onNotWorkingChanged: vi.fn().mockReturnValue(() => undefined)},
 		siteRequests: {
 			getCooldowns: vi.fn().mockResolvedValue({ok: true, data: []}),
 			tryNow: vi.fn().mockResolvedValue({ok: true, data: undefined}),
