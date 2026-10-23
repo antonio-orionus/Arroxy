@@ -6,6 +6,7 @@ import {RESET_WIZARD_STATE} from '@renderer/store/wizard/commands.js'
 import {defaultAppSettings} from '@shared/constants.js'
 import type {HeldProbe, QueueItem, SiteCooldown} from '@shared/types.js'
 import {makeItem} from '../shared/fixtures.js'
+import {expectHint} from '../shared/hint.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 
 // A row main holds for its site's rate-limit cooldown says so in Downloads,
@@ -46,6 +47,13 @@ function row(id: string): HTMLElement {
 	return screen.getByTestId(`queue-manager-row-${id}`)
 }
 
+// The hint opens on a real hover delay, so its tests run on real timers, with
+// a cooldown that ends ten minutes from the real now.
+function realTimeCooling(): SiteCooldown {
+	vi.useRealTimers()
+	return {site: 'youtube', until: new Date(Date.now() + 10 * 60_000).toISOString(), evidence: 'rateLimited'}
+}
+
 const youtubeCooling: SiteCooldown = {site: 'youtube', until: new Date(NOW.getTime() + 10 * 60_000).toISOString(), evidence: 'rateLimited'}
 
 beforeEach(() => {
@@ -67,6 +75,11 @@ describe('a probing row whose site is cooling down', () => {
 		const waiting = within(row('yt')).getByTestId('queue-site-waiting')
 		expect(waiting.textContent).toMatch(/^Waits for YouTube until /)
 		expect(within(row('yt')).getByText('Fetching details')).toBeInTheDocument()
+	})
+
+	it("hints that Arroxy fetches the link's details after the cooldown", async () => {
+		seed([probing('yt', YOUTUBE)], [realTimeCooling()])
+		await expectHint(within(row('yt')).getByTestId('queue-site-waiting'), /^YouTube is rate-limiting this connection\. Arroxy fetches this link's details after /)
 	})
 
 	it("says nothing on another site's probing row", () => {
@@ -103,6 +116,11 @@ describe('a queued row whose site is cooling down', () => {
 		seed([queued('yt', YOUTUBE)], [youtubeCooling], [])
 		expect(within(row('yt')).getByTestId('queue-site-waiting').textContent).toMatch(/^Waits for YouTube until /)
 		expect(within(row('yt')).getByText('Waiting')).toBeInTheDocument()
+	})
+
+	it('hints that Arroxy starts no download from the site before the cooldown ends', async () => {
+		seed([queued('yt', YOUTUBE)], [realTimeCooling()], [])
+		await expectHint(within(row('yt')).getByTestId('queue-site-waiting'), /^YouTube is rate-limiting this connection\. Arroxy starts no download from YouTube before /)
 	})
 
 	it("says nothing on another site's queued row", () => {
