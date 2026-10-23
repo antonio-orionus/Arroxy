@@ -1,6 +1,6 @@
 // @vitest-environment node
 // Cancel and pause of an escalated download, through the real DownloadService,
-// VideoPhase, YtDlp and ExploreSpawnGate; only yt-dlp itself is faked.
+// VideoPhase, YtDlp and SignedInPacer; only yt-dlp itself is faked.
 import {EventEmitter} from 'node:events'
 import {mkdtemp, rm} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
@@ -42,7 +42,8 @@ import {QueueStore} from '@main/stores/QueueStore.js'
 import {makeItem} from '../shared/fixtures.js'
 import {YtDlp} from '@main/services/YtDlp.js'
 import {LaunchGate} from '@main/services/LaunchGate.js'
-import {ExploreSpawnGate} from '@main/services/exploreSpawnGate.js'
+import type {SignedInPacer} from '@main/services/SignedInPacer.js'
+import {testPacer} from '../helpers/testPacer.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {JobAuth, StatusEvent} from '@shared/types.js'
 import {STATUS_KEY, type ExploreSignInState} from '@shared/schemas.js'
@@ -98,7 +99,7 @@ afterEach(async () => {
 	await rm(outputDir, {recursive: true, force: true, maxRetries: 5, retryDelay: 100})
 })
 
-function harness(gate: ExploreSpawnGate, opts: {mintToken?: () => Promise<{token: string; visitorData: string}>; canEscalate?: boolean; verified?: ExploreSignInState} = {}) {
+function harness(gate: SignedInPacer, opts: {mintToken?: () => Promise<{token: string; visitorData: string}>; canEscalate?: boolean; verified?: ExploreSignInState} = {}) {
 	// Every signed-in spawn writes exactly one jar, so this counts them.
 	const jars: ExploreCookieScope[] = []
 	const withJar = <T>(scope: ExploreCookieScope, fn: (jarPath: string) => Promise<T>): Promise<T> => {
@@ -126,9 +127,9 @@ function harness(gate: ExploreSpawnGate, opts: {mintToken?: () => Promise<{token
 }
 
 // Holds the gate's only slot until released, as another signed-in download would.
-function holdSlot(gate: ExploreSpawnGate): () => void {
+function holdSlot(gate: SignedInPacer): () => void {
 	let release!: () => void
-	void gate.run('other-job', () => new Promise<void>(resolve => (release = resolve)))
+	void gate.run('youtube', 'other-job', () => new Promise<void>(resolve => (release = resolve)))
 	return () => release()
 }
 
@@ -139,7 +140,7 @@ const SETTLE = {timeout: 15_000}
 
 // Resolves, per job id, the moment that job's spawn enters the gate: an explicit
 // milestone to await instead of polling a spy against a clock.
-function watchGate(gate: ExploreSpawnGate): {entered: (jobId: string) => Promise<void>} {
+function watchGate(gate: SignedInPacer): {entered: (jobId: string) => Promise<void>} {
 	const entries = new Map<string, {promise: Promise<void>; resolve: () => void}>()
 	const entry = (jobId: string) => {
 		let found = entries.get(jobId)
@@ -151,9 +152,9 @@ function watchGate(gate: ExploreSpawnGate): {entered: (jobId: string) => Promise
 		return found
 	}
 	const original = gate.run.bind(gate)
-	vi.spyOn(gate, 'run').mockImplementation((jobId, fn, signal) => {
+	vi.spyOn(gate, 'run').mockImplementation((site, jobId, fn, options) => {
 		entry(jobId).resolve()
-		return original(jobId, fn, signal)
+		return original(site, jobId, fn, options)
 	})
 	return {entered: jobId => entry(jobId).promise}
 }
@@ -175,7 +176,7 @@ function holdMint(): {mintToken: () => Promise<{token: string; visitorData: stri
 
 describe('escalated download waiting for a signed-in slot (I1)', () => {
 	it('is dropped, not spawned, when the job is cancelled while it waits', async () => {
-		const gate = new ExploreSpawnGate({maxConcurrent: 1, minSpacingMs: 0})
+		const gate = testPacer({atOnce: 1, spacingMs: 0})
 		const release = holdSlot(gate)
 		const watch = watchGate(gate)
 		// Built when the job spawns it: fakeProcess starts its exit timer on creation, and a
@@ -199,7 +200,7 @@ describe('escalated download waiting for a signed-in slot (I1)', () => {
 	})
 
 	it('is dropped, not spawned, when the job is paused while it waits', async () => {
-		const gate = new ExploreSpawnGate({maxConcurrent: 1, minSpacingMs: 0})
+		const gate = testPacer({atOnce: 1, spacingMs: 0})
 		const release = holdSlot(gate)
 		const watch = watchGate(gate)
 		// Built when the job spawns it: fakeProcess starts its exit timer on creation, and a
@@ -226,7 +227,7 @@ describe('escalated download waiting for a signed-in slot (I1)', () => {
 
 describe('signed-in spawn budget across pause and resume (I2)', () => {
 	it('does not run out after many pause/resume cycles of one escalated job', async () => {
-		const gate = new ExploreSpawnGate({minSpacingMs: 0})
+		const gate = testPacer({spacingMs: 0})
 		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(null) as never)
 		const {service, jars, statuses, start} = harness(gate)
 
@@ -246,7 +247,7 @@ describe('signed-in spawn budget across pause and resume (I2)', () => {
 
 describe('pause of a job with no live process (R24)', () => {
 	it('Pause-all parks a signed-in job still waiting for its first slot; it never spawns until resumed', async () => {
-		const gate = new ExploreSpawnGate({minSpacingMs: 0})
+		const gate = testPacer({spacingMs: 0})
 		const watch = watchGate(gate)
 		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(null) as never)
 		const {service, jars, start} = harness(gate)
@@ -271,7 +272,7 @@ describe('pause of a job with no live process (R24)', () => {
 	it('pauses an anonymous job that has not spawned yet (still minting its token) and resumes it', async () => {
 		const {mintToken, minting, releaseMint} = holdMint()
 		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(null) as never)
-		const {service, start} = harness(new ExploreSpawnGate({minSpacingMs: 0}), {mintToken})
+		const {service, start} = harness(testPacer({spacingMs: 0}), {mintToken})
 
 		const jobId = await start()
 		await minting
@@ -292,7 +293,7 @@ describe('resume of a job whose pause has not parked yet (R25)', () => {
 	it('waits for the pause to park, then resumes the same job with no orphan paused entry', async () => {
 		const {releaseMint, mintToken, minting} = holdMint()
 		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(null) as never)
-		const {service, start} = harness(new ExploreSpawnGate({minSpacingMs: 0}), {mintToken})
+		const {service, start} = harness(testPacer({spacingMs: 0}), {mintToken})
 
 		const jobId = await start()
 		await minting
@@ -316,7 +317,7 @@ describe('resume of a job whose pause has not parked yet (R25)', () => {
 	it('reports the job as still live, not "nothing to resume", once the 10 s bound passes without the job parking', async () => {
 		const {mintToken, minting} = holdMint()
 		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(null) as never)
-		const {service, start} = harness(new ExploreSpawnGate({minSpacingMs: 0}), {mintToken})
+		const {service, start} = harness(testPacer({spacingMs: 0}), {mintToken})
 
 		const jobId = await start()
 		await minting
@@ -341,7 +342,7 @@ describe('resume of a job whose pause has not parked yet (R25)', () => {
 	it('does not wait for a job that was cancelled after the pause', async () => {
 		const {mintToken, minting} = holdMint()
 		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(null) as never)
-		const {service, start} = harness(new ExploreSpawnGate({minSpacingMs: 0}), {mintToken})
+		const {service, start} = harness(testPacer({spacingMs: 0}), {mintToken})
 
 		const jobId = await start()
 		await minting
@@ -362,7 +363,7 @@ describe('queue resume of a job whose pause has not parked yet', () => {
 	async function parkingItem() {
 		const {mintToken, minting, releaseMint} = holdMint()
 		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(null) as never)
-		const {service} = harness(new ExploreSpawnGate({minSpacingMs: 0}), {mintToken})
+		const {service} = harness(testPacer({spacingMs: 0}), {mintToken})
 		const start = vi.spyOn(service, 'start')
 		const queue = new QueueService(new QueueStore(join(outputDir, 'user-data')), service)
 		await queue.init()
@@ -449,7 +450,7 @@ describe('verified Explore sign-out signal (P2-R13)', () => {
 
 	it('fires when the session check after rejected cookies says signed out', async () => {
 		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(1, COOKIES_REJECTED_STDERR) as never)
-		const {service, statuses, recentJobsStore, start} = harness(new ExploreSpawnGate({minSpacingMs: 0}), {verified: 'signedOut'})
+		const {service, statuses, recentJobsStore, start} = harness(testPacer({spacingMs: 0}), {verified: 'signedOut'})
 		const verifiedSignedOut = vi.fn()
 		service.onExploreVerifiedSignedOut(verifiedSignedOut)
 
@@ -463,7 +464,7 @@ describe('verified Explore sign-out signal (P2-R13)', () => {
 	it('does not fire when the check says the session is still signed in or cannot tell', async () => {
 		for (const verified of ['signedIn', 'unknown'] as const) {
 			vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(1, COOKIES_REJECTED_STDERR) as never)
-			const {service, recentJobsStore, start} = harness(new ExploreSpawnGate({minSpacingMs: 0}), {verified})
+			const {service, recentJobsStore, start} = harness(testPacer({spacingMs: 0}), {verified})
 			const verifiedSignedOut = vi.fn()
 			service.onExploreVerifiedSignedOut(verifiedSignedOut)
 
@@ -477,7 +478,7 @@ describe('verified Explore sign-out signal (P2-R13)', () => {
 	it('fires for a run that succeeded although yt-dlp rejected the cookies, and keeps the download', async () => {
 		const REJECTED_WARNING = 'WARNING: [youtube] The provided YouTube account cookies are no longer valid. They have likely been rotated in the browser as a security measure.\n'
 		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(0, REJECTED_WARNING) as never)
-		const {service, recentJobsStore, start} = harness(new ExploreSpawnGate({minSpacingMs: 0}), {verified: 'signedOut'})
+		const {service, recentJobsStore, start} = harness(testPacer({spacingMs: 0}), {verified: 'signedOut'})
 		const verifiedSignedOut = vi.fn()
 		service.onExploreVerifiedSignedOut(verifiedSignedOut)
 
@@ -490,7 +491,7 @@ describe('verified Explore sign-out signal (P2-R13)', () => {
 
 	it('does not fire when the gate refuses a signed-in spawn', async () => {
 		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(1, COOKIES_REJECTED_STDERR) as never)
-		const {service, statuses, recentJobsStore, start} = harness(new ExploreSpawnGate({minSpacingMs: 0}), {canEscalate: false, verified: 'signedOut'})
+		const {service, statuses, recentJobsStore, start} = harness(testPacer({spacingMs: 0}), {canEscalate: false, verified: 'signedOut'})
 		const verifiedSignedOut = vi.fn()
 		service.onExploreVerifiedSignedOut(verifiedSignedOut)
 

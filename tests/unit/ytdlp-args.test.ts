@@ -11,7 +11,8 @@ import {duplicateExtractorArgsBlocks, effectiveExtractorArgs, EMBED_SUBTITLE_CON
 import {redactArgs} from 'yt-dlp-bridge/redaction'
 import type {DependencySource} from '@shared/types.js'
 import type {SessionCookieJarPort} from '@main/services/sessionCookieJarPort.js'
-import {ExploreSpawnGate} from '@main/services/exploreSpawnGate.js'
+import type {SignedInPacer} from '@main/services/SignedInPacer.js'
+import {testPacer} from '../helpers/testPacer.js'
 import {audioConversionSourceSelector} from '../shared/nativeAudioSelectors.js'
 
 // A run makes its plan's folder before it spawns; the folders here are names only.
@@ -50,14 +51,19 @@ function makeFakeProcess(exitCode = 0, stderr = '') {
 // The token service of the most recent makeYtDlp(), for asserting on minting.
 let lastTokenService: {getToken: ReturnType<typeof vi.fn>; invalidateCache: ReturnType<typeof vi.fn>}
 
-function makeYtDlp(opts: {settings?: Record<string, unknown>; token?: string; visitorData?: string; e2eMode?: E2eHarnessMode; ytDlpSource?: DependencySource | null; sessionJars?: SessionCookieJarPort; spawnGate?: Pick<ExploreSpawnGate, 'run' | 'resetJob'> | null} = {}) {
+// A signed-in pacer whose `run` the test supplies.
+function pacerWith({run}: {run: SignedInPacer['run'] | ReturnType<typeof vi.fn>}): Pick<SignedInPacer, 'run' | 'resetJob' | 'charge' | 'startsAt' | 'onChange'> {
+	return {run: run as SignedInPacer['run'], resetJob: vi.fn(), charge: vi.fn(), startsAt: () => null, onChange: () => () => undefined}
+}
+
+function makeYtDlp(opts: {settings?: Record<string, unknown>; token?: string; visitorData?: string; e2eMode?: E2eHarnessMode; ytDlpSource?: DependencySource | null; sessionJars?: SessionCookieJarPort; spawnGate?: Pick<SignedInPacer, 'run' | 'resetJob' | 'charge' | 'startsAt' | 'onChange'> | null} = {}) {
 	const tokenService = {getToken: vi.fn().mockResolvedValue({token: opts.token ?? 'tok', visitorData: opts.visitorData ?? 'vd'}), invalidateCache: vi.fn()}
 	const ytDlpSource = opts.ytDlpSource === undefined ? ({kind: 'managed', channel: 'stable', provider: 'github', url: 'https://github.com/yt-dlp/yt-dlp/releases/download/2026.06.12/yt-dlp_linux'} satisfies DependencySource) : opts.ytDlpSource
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn().mockReturnValue({source: ytDlpSource})}
 	const settingsStore = {get: vi.fn().mockResolvedValue({common: opts.settings ?? {}, playlist: {}})}
 	lastTokenService = tokenService
 	// Escalated runs need both the jar port and the spawn gate; a test that injects jars gets an unpaced gate unless it says otherwise.
-	const spawnGate = opts.spawnGate === null ? undefined : (opts.spawnGate ?? (opts.sessionJars ? new ExploreSpawnGate({minSpacingMs: 0}) : undefined))
+	const spawnGate = opts.spawnGate === null ? undefined : (opts.spawnGate ?? (opts.sessionJars ? testPacer({spacingMs: 0}) : undefined))
 	// The live authorization check before a signed-in spawn passes unless a test says otherwise.
 	const sessionAuth = opts.sessionJars ? {canEscalate: () => Promise.resolve({allowed: true as const})} : undefined
 	return new YtDlp(binaryManager as never, tokenService as never, settingsStore, {e2eMode: opts.e2eMode, sessionJars: opts.sessionJars, launchGate: spawnGate ? new LaunchGate({signedIn: spawnGate}) : undefined, sessionAuth})
@@ -1148,11 +1154,11 @@ describe('YtDlp — run identity', () => {
 
 	it('runs an escalated spawn through the spawn gate under the job key', async () => {
 		const keys: string[] = []
-		const run = <T>(key: string, fn: () => Promise<T>): Promise<T> => {
+		const run = async <T>(_site: string, key: string, fn: () => Promise<T>): Promise<{ran: T}> => {
 			keys.push(key)
-			return fn()
+			return {ran: await fn()}
 		}
-		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars(), spawnGate: {run, resetJob: vi.fn()}})
+		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars(), spawnGate: pacerWith({run})})
 		await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession', jobKey: 'job-9'})
 		expect(keys).toEqual(['job-9'])
 		expect(spawnYtDlp).toHaveBeenCalledOnce()
@@ -1161,7 +1167,7 @@ describe('YtDlp — run identity', () => {
 	it('never gates an anonymous run', async () => {
 		const run = vi.fn()
 		vi.mocked(spawnYtDlp).mockImplementation(() => makeFakeProcess(0) as never)
-		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars(), spawnGate: {run, resetJob: vi.fn()}})
+		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars(), spawnGate: pacerWith({run})})
 		await ytDlp.run(mediaRequest(), undefined, {jobKey: 'job-9'})
 		await ytDlp.run(mediaRequest(), undefined, {identity: 'none', jobKey: 'job-9'})
 		expect(run).not.toHaveBeenCalled()
@@ -1169,7 +1175,7 @@ describe('YtDlp — run identity', () => {
 
 	it('fails a run past the per-job cap without spawning', async () => {
 		const withJar = vi.fn()
-		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: {withJar, getUserAgent: () => EXPLORE_UA}, spawnGate: {run: vi.fn().mockResolvedValue({kind: 'cap-exceeded'}), resetJob: vi.fn()}})
+		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: {withJar, getUserAgent: () => EXPLORE_UA}, spawnGate: pacerWith({run: vi.fn().mockResolvedValue({kind: 'cap-exceeded'})})})
 		const result = await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession', jobKey: 'job-9'})
 		expect(result).toMatchObject({kind: 'exit-error', exitCode: -1, errorKind: 'unknown'})
 		expect(result.kind === 'exit-error' && result.rawError).toMatch(/signed-in attempts/i)
@@ -1178,7 +1184,7 @@ describe('YtDlp — run identity', () => {
 	})
 
 	it('reports a run cancelled while it waited at the gate as cancelled', async () => {
-		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars(), spawnGate: {run: vi.fn().mockResolvedValue({kind: 'cancelled'}), resetJob: vi.fn()}})
+		const ytDlp = makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars(), spawnGate: pacerWith({run: vi.fn().mockResolvedValue({kind: 'cancelled'})})})
 		const result = await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession', jobKey: 'job-9'})
 		expect(result).toMatchObject({kind: 'exit-error', exitCode: -1, rawError: 'Cancelled'})
 		expect(spawnYtDlp).not.toHaveBeenCalled()
@@ -1203,7 +1209,7 @@ describe('YtDlp — run identity', () => {
 			{ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue(null), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn()} as never,
 			{getToken: vi.fn(), invalidateCache: vi.fn()} as never,
 			{get: vi.fn().mockResolvedValue({common: exploreSettings, playlist: {}})},
-			{sessionJars: {withJar, getUserAgent: () => EXPLORE_UA}, launchGate: new LaunchGate({signedIn: new ExploreSpawnGate({minSpacingMs: 0})}), sessionAuth: {canEscalate: () => Promise.resolve({allowed: false as const, reason: 'noCookiesForHost' as const})}}
+			{sessionJars: {withJar, getUserAgent: () => EXPLORE_UA}, launchGate: new LaunchGate({signedIn: testPacer({spacingMs: 0})}), sessionAuth: {canEscalate: () => Promise.resolve({allowed: false as const, reason: 'noCookiesForHost' as const})}}
 		)
 		const result = await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession'})
 		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: ''})
@@ -1219,7 +1225,7 @@ describe('YtDlp — run identity', () => {
 			{ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue(null), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn()} as never,
 			{getToken: vi.fn(), invalidateCache: vi.fn()} as never,
 			{get: vi.fn().mockResolvedValue({common: exploreSettings, playlist: {}})},
-			{sessionJars: {withJar: vi.fn(), getUserAgent: () => EXPLORE_UA}, launchGate: new LaunchGate({signedIn: new ExploreSpawnGate({minSpacingMs: 0})}), sessionAuth: {canEscalate}}
+			{sessionJars: {withJar: vi.fn(), getUserAgent: () => EXPLORE_UA}, launchGate: new LaunchGate({signedIn: testPacer({spacingMs: 0})}), sessionAuth: {canEscalate}}
 		)
 		vi.mocked(log.warn).mockClear()
 		const result = await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession'})

@@ -1,19 +1,22 @@
 import {randomUUID} from 'node:crypto'
 import log from 'electron-log/main.js'
 import type {SiteCooldown} from '@shared/schemas.js'
-import {ExploreSpawnGate, type SpawnGateWait} from './exploreSpawnGate.js'
+import {signedInPacingFor} from '@shared/sites/signedInPacing.js'
+import {SignedInPacer, type SignedInWait} from './SignedInPacer.js'
 import type {SiteRequestRun, SiteRequestState} from './SiteRequestState.js'
 
 // The launch gate: where a launch to a site asks whether it may start. It
 // holds the site's rate-limit cooldown (SiteRequestState) and the pacing of
-// launches signed in to the Explore session (ExploreSpawnGate), and logs every
+// launches signed in to the Explore session (SignedInPacer), and logs every
 // wait it imposes with its reason. The queue and probe slots read its
 // cooldowns before they hand out a lane or slot; a launch asks it once before
 // it prepares and again right before each spawn.
 
 const logger = log.scope('launch-gate')
 
-export type LaunchWaitReason = 'cooldown' | SpawnGateWait['reason']
+export type LaunchWaitReason = 'cooldown' | SignedInWait['reason']
+
+type SignedInPacing = Pick<SignedInPacer, 'run' | 'resetJob' | 'charge' | 'startsAt' | 'onChange'>
 
 export type LaunchAdmission = {kind: 'go'; launch: Launch} | {kind: 'wait'; until: number}
 
@@ -27,21 +30,24 @@ export interface SignedInLaunchOptions {
 	stop?: AbortSignal
 	// Bounds only the wait for a slot; the launch itself is not timed here.
 	waitBudgetMs?: number
+	// The priority button or a link opened in the wizard: skips the spacing
+	// and the budget, and still counts toward the window.
+	explicit?: boolean
 }
 
 export interface LaunchGateOptions {
 	// Absent: no cooldown is kept (tests and harnesses that never rate-limit).
 	cooldowns?: SiteRequestState
-	signedIn?: Pick<ExploreSpawnGate, 'run' | 'resetJob'>
+	signedIn?: SignedInPacing
 }
 
 export class LaunchGate {
 	private readonly cooldowns: SiteRequestState | undefined
-	private readonly signedIn: Pick<ExploreSpawnGate, 'run' | 'resetJob'>
+	private readonly signedIn: SignedInPacing
 
 	constructor(options: LaunchGateOptions = {}) {
 		this.cooldowns = options.cooldowns
-		this.signedIn = options.signedIn ?? new ExploreSpawnGate()
+		this.signedIn = options.signedIn ?? new SignedInPacer({pacing: site => signedInPacingFor(site, 'balanced')})
 	}
 
 	// Whether a launch to the site may start now. A launch that does not honor
@@ -54,6 +60,21 @@ export class LaunchGate {
 			return admission
 		}
 		return {kind: 'go', launch: new Launch(site, admission.run, this.signedIn)}
+	}
+
+	// When a signed-in launch to the site may start: null for now, a time, or
+	// `full` until a slot frees (onSignedInChange).
+	signedInStartsAt(site: string, options: {explicit?: boolean} = {}): number | 'full' | null {
+		return this.signedIn.startsAt(site, options)
+	}
+
+	// A signed-in listing's entries, charged against the site's window after its launch.
+	chargeListing(site: string, entries: number): void {
+		this.signedIn.charge(site, entries)
+	}
+
+	onSignedInChange(listener: () => void): () => void {
+		return this.signedIn.onChange(listener)
 	}
 
 	// The job attempt ended: its signed-in budget goes with it.
@@ -99,7 +120,7 @@ export class Launch {
 	constructor(
 		private readonly site: string,
 		private readonly run: SiteRequestRun | null,
-		private readonly signedIn: Pick<ExploreSpawnGate, 'run' | 'resetJob'>
+		private readonly signedIn: SignedInPacing
 	) {}
 
 	// Right before a spawn, on the network route it goes out on: until when it
@@ -119,20 +140,20 @@ export class Launch {
 	}
 
 	// Runs `fn` once the signed-in pacing lets this launch start.
-	async runSignedIn<T>({jobKey, stop, waitBudgetMs}: SignedInLaunchOptions, fn: () => Promise<T>): Promise<SignedInOutcome<T>> {
+	async runSignedIn<T>({jobKey, stop, waitBudgetMs, explicit}: SignedInLaunchOptions, fn: () => Promise<T>): Promise<SignedInOutcome<T>> {
 		const key = jobKey ?? `run:${randomUUID()}`
 		const waitExpired = new AbortController()
 		const waitTimer = waitBudgetMs === undefined ? undefined : setTimeout(() => waitExpired.abort(), waitBudgetMs)
 		const signal = AbortSignal.any([stop, waitExpired.signal].filter(s => s !== undefined))
 		try {
 			const gated = await this.signedIn.run(
+				this.site,
 				key,
-				async () => {
+				() => {
 					clearTimeout(waitTimer)
-					return {ran: await fn()}
+					return fn()
 				},
-				signal,
-				wait => logWait(this.site, wait.reason, wait.reason === 'signedInSpacing' ? {waitMs: wait.waitMs} : {})
+				{signal, explicit, onWait: wait => logWait(this.site, wait.reason, wait.reason === 'signedInLimit' ? {} : {waitMs: wait.waitMs})}
 			)
 			if ('ran' in gated) return {kind: 'ran', value: gated.ran}
 			if (gated.kind === 'cap-exceeded') return {kind: 'capReached'}

@@ -23,7 +23,8 @@ import {spawnYtDlp} from '@main/utils/process.js'
 import {probeElectronNodeRuntime} from '@main/services/ytDlpJsRuntime.js'
 import {PROBE_TIMEOUT_MESSAGE, YtDlp, type YtDlpRequest} from '@main/services/YtDlp.js'
 import {LaunchGate} from '@main/services/LaunchGate.js'
-import {ExploreSpawnGate} from '@main/services/exploreSpawnGate.js'
+import type {SignedInPacer} from '@main/services/SignedInPacer.js'
+import {testPacer} from '../helpers/testPacer.js'
 import {createExploreGate} from '@main/services/exploreGate.js'
 import type {SessionCookieJarPort} from '@main/services/sessionCookieJarPort.js'
 
@@ -70,7 +71,7 @@ beforeEach(() => {
 
 afterEach(() => processKill.mockReset())
 
-function makeYtDlp(gate: ExploreSpawnGate, opts: {common?: () => Record<string, unknown>; signedIn?: () => boolean} = {}) {
+function makeYtDlp(gate: SignedInPacer, opts: {common?: () => Record<string, unknown>; signedIn?: () => boolean} = {}) {
 	const jars: SessionCookieJarPort = {
 		getUserAgent: () => 'Desktop/1.0',
 		async withJar(_scope, fn) {
@@ -92,15 +93,15 @@ function makeYtDlp(gate: ExploreSpawnGate, opts: {common?: () => Record<string, 
 }
 
 // Holds the gate's only slot, as a long signed-in download would.
-function holdSlot(gate: ExploreSpawnGate): () => void {
+function holdSlot(gate: SignedInPacer): () => void {
 	let release!: () => void
-	void gate.run('download-job', () => new Promise<void>(resolve => (release = resolve)))
+	void gate.run('youtube', 'download-job', () => new Promise<void>(resolve => (release = resolve)))
 	return () => release()
 }
 
 describe('a signed-in probe waiting for a spawn slot (R21)', () => {
 	it('gives up as a probe timeout once its budget runs out, without a jar or a spawn', async () => {
-		const gate = new ExploreSpawnGate({maxConcurrent: 1, minSpacingMs: 0})
+		const gate = testPacer({atOnce: 1, spacingMs: 0})
 		const release = holdSlot(gate)
 		const {ytDlp, withJar} = makeYtDlp(gate)
 
@@ -111,11 +112,11 @@ describe('a signed-in probe waiting for a spawn slot (R21)', () => {
 		expect(spawnYtDlp).not.toHaveBeenCalled()
 		// The slot it gave up on is not lost.
 		release()
-		await expect(gate.run('next', () => Promise.resolve('ran'))).resolves.toBe('ran')
+		await expect(gate.run('youtube', 'next', () => Promise.resolve('ran'))).resolves.toEqual({ran: 'ran'})
 	})
 
 	it('does not bound a signed-in download the same way: it keeps its place until a slot frees up', async () => {
-		const gate = new ExploreSpawnGate({maxConcurrent: 1, minSpacingMs: 0})
+		const gate = testPacer({atOnce: 1, spacingMs: 0})
 		const release = holdSlot(gate)
 		const {ytDlp} = makeYtDlp(gate)
 		const controller = new AbortController()
@@ -141,7 +142,7 @@ describe('a signed-in run that waited for a slot while the user opted out', () =
 	]
 
 	it.each(optOuts)('is refused without a jar or a spawn: %s', async (_label, after) => {
-		const gate = new ExploreSpawnGate({maxConcurrent: 2, minSpacingMs: 0})
+		const gate = testPacer({atOnce: 2, spacingMs: 0})
 		const releaseFirst = holdSlot(gate)
 		const releaseSecond = holdSlot(gate)
 		let optedOut = false
@@ -149,7 +150,7 @@ describe('a signed-in run that waited for a slot while the user opted out', () =
 		const entered = vi.spyOn(gate, 'run')
 
 		const run = ytDlp.run(MEDIA, undefined, {identity: 'exploreSession', jobKey: 'job-3'})
-		await vi.waitFor(() => expect(entered).toHaveBeenCalledWith('job-3', expect.any(Function), expect.anything(), expect.any(Function)))
+		await vi.waitFor(() => expect(entered).toHaveBeenCalledWith('youtube', 'job-3', expect.any(Function), expect.objectContaining({onWait: expect.any(Function)})))
 		optedOut = true
 		releaseFirst()
 
@@ -160,7 +161,7 @@ describe('a signed-in run that waited for a slot while the user opted out', () =
 	})
 
 	it('still runs signed in when nothing changed during the wait', async () => {
-		const gate = new ExploreSpawnGate({maxConcurrent: 2, minSpacingMs: 0})
+		const gate = testPacer({atOnce: 2, spacingMs: 0})
 		const releaseFirst = holdSlot(gate)
 		holdSlot(gate)
 		const {ytDlp, withJar} = makeYtDlp(gate)
@@ -180,7 +181,7 @@ describe('a signed-in run that waited for a slot while the user opted out', () =
 
 describe.skipIf(process.platform === 'win32')('a stopped signed-in run', () => {
 	it('kills the whole process tree on timeout and keeps the jar until the tree is gone', async () => {
-		const {ytDlp} = makeYtDlp(new ExploreSpawnGate({minSpacingMs: 0}))
+		const {ytDlp} = makeYtDlp(testPacer({spacingMs: 0}))
 
 		const result = await ytDlp.run(PROBE, {timeoutMs: 30}, {identity: 'exploreSession'})
 
@@ -189,7 +190,7 @@ describe.skipIf(process.platform === 'win32')('a stopped signed-in run', () => {
 	})
 
 	it('kills the whole process tree on cancel and keeps the jar until the tree is gone', async () => {
-		const {ytDlp} = makeYtDlp(new ExploreSpawnGate({minSpacingMs: 0}))
+		const {ytDlp} = makeYtDlp(testPacer({spacingMs: 0}))
 		const controller = new AbortController()
 
 		const run = ytDlp.run(MEDIA, {abortSignal: controller.signal}, {identity: 'exploreSession', jobKey: 'job-1'})
@@ -201,7 +202,7 @@ describe.skipIf(process.platform === 'win32')('a stopped signed-in run', () => {
 	})
 
 	it('stops an anonymous run the same way: the whole tree is killed and the run settles once it is gone', async () => {
-		const {ytDlp} = makeYtDlp(new ExploreSpawnGate({minSpacingMs: 0}))
+		const {ytDlp} = makeYtDlp(testPacer({spacingMs: 0}))
 
 		const result = await ytDlp.run(PROBE, {timeoutMs: 30})
 

@@ -4,7 +4,8 @@ import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
 const logger = vi.hoisted(() => ({debug: vi.fn(), info: vi.fn(), warn: vi.fn(), error: vi.fn()}))
 vi.mock('electron-log/main.js', () => ({default: {...logger, scope: () => logger}}))
 
-import {ExploreSpawnGate} from '@main/services/exploreSpawnGate.js'
+import {SignedInPacer as SignedInPacerClass, type SignedInPacer} from '@main/services/SignedInPacer.js'
+import {testPacer} from '../helpers/testPacer.js'
 import {LaunchGate} from '@main/services/LaunchGate.js'
 import {RATE_LIMIT_BASE_MS, SiteRequestState} from '@main/services/SiteRequestState.js'
 
@@ -24,7 +25,7 @@ function waits(): unknown[] {
 	return logger.info.mock.calls.filter(([message]) => message === 'Launch waits').map(([, fields]) => fields)
 }
 
-function setup(signedIn: ExploreSpawnGate = new ExploreSpawnGate({minSpacingMs: 0})) {
+function setup(signedIn: SignedInPacer = testPacer()) {
 	let now = 1_000_000
 	const cooldowns = new SiteRequestState({now: () => now, random: () => 1})
 	const gate = new LaunchGate({cooldowns, signedIn})
@@ -94,7 +95,7 @@ describe('LaunchGate: signed-in launches', () => {
 	})
 
 	it('refuses a launch past its job budget', async () => {
-		const {gate} = setup(new ExploreSpawnGate({minSpacingMs: 0, perJobCap: 1}))
+		const {gate} = setup(testPacer({}, 1))
 		await admitted(gate).runSignedIn({jobKey: 'job'}, () => Promise.resolve('first'))
 		expect(await admitted(gate).runSignedIn({jobKey: 'job'}, () => Promise.resolve('second'))).toEqual({kind: 'capReached'})
 
@@ -103,20 +104,20 @@ describe('LaunchGate: signed-in launches', () => {
 	})
 
 	it('gives a launch with no job a budget of its own each time', async () => {
-		const {gate} = setup(new ExploreSpawnGate({minSpacingMs: 0, perJobCap: 1}))
+		const {gate} = setup(testPacer({}, 1))
 		for (let i = 0; i < 3; i++) expect(await admitted(gate).runSignedIn({}, () => Promise.resolve(i))).toEqual({kind: 'ran', value: i})
 	})
 
 	it('logs a wait for a full signed-in limit, and gives up when the wait budget runs out', async () => {
 		vi.useFakeTimers()
 		try {
-			const {gate} = setup(new ExploreSpawnGate({maxConcurrent: 1, minSpacingMs: 0}))
+			const {gate} = setup(testPacer({atOnce: 1}))
 			const holder = deferred<string>()
 			const first = admitted(gate).runSignedIn({jobKey: 'a'}, () => holder.promise)
 			await settle()
-			const second = admitted(gate, 'instagram.com').runSignedIn({jobKey: 'b', waitBudgetMs: 1000}, () => Promise.resolve('late'))
+			const second = admitted(gate).runSignedIn({jobKey: 'b', waitBudgetMs: 1000}, () => Promise.resolve('late'))
 			await settle()
-			expect(waits()).toEqual([{site: 'instagram.com', reason: 'signedInLimit'}])
+			expect(waits()).toEqual([{site: 'youtube', reason: 'signedInLimit'}])
 
 			await vi.advanceTimersByTimeAsync(1000)
 			expect(await second).toEqual({kind: 'waitExpired'})
@@ -127,9 +128,29 @@ describe('LaunchGate: signed-in launches', () => {
 		}
 	})
 
+	it('never holds a launch on one site behind a full other site', async () => {
+		const {gate} = setup(testPacer({atOnce: 1}))
+		const holder = deferred<string>()
+		void admitted(gate).runSignedIn({jobKey: 'a'}, () => holder.promise)
+		await settle()
+
+		expect(await admitted(gate, 'instagram').runSignedIn({jobKey: 'b'}, () => Promise.resolve('ran'))).toEqual({kind: 'ran', value: 'ran'})
+		expect(gate.signedInStartsAt('youtube')).toBe('full')
+		expect(gate.signedInStartsAt('instagram')).toBeNull()
+		holder.resolve('done')
+	})
+
+	it('lets an explicit launch skip the budget, and charges a listing against it', async () => {
+		const {gate} = setup(testPacer({perWindow: 2, entriesPerLaunch: 10}))
+		await admitted(gate, 'x').runSignedIn({jobKey: 'a'}, () => Promise.resolve('ran'))
+		gate.chargeListing('x', 10)
+		expect(gate.signedInStartsAt('x')).toEqual(expect.any(Number))
+		expect(gate.signedInStartsAt('x', {explicit: true})).toBeNull()
+	})
+
 	it('logs the spacing between signed-in starts', async () => {
 		const sleep = vi.fn((_ms: number) => Promise.resolve())
-		const {gate} = setup(new ExploreSpawnGate({now: () => 0, sleep}))
+		const {gate} = setup(new SignedInPacerClass({pacing: () => ({atOnce: 2, spacingMs: 5000, jitterMs: 0, windowMs: 60 * 60_000, perWindow: 1000, entriesPerLaunch: 50}), now: () => 0, sleep}))
 		await admitted(gate).runSignedIn({jobKey: 'a'}, () => Promise.resolve('first'))
 		await admitted(gate).runSignedIn({jobKey: 'b'}, () => Promise.resolve('second'))
 
@@ -137,7 +158,7 @@ describe('LaunchGate: signed-in launches', () => {
 	})
 
 	it('reports a launch stopped while it waits as cancelled, not as a spent wait budget', async () => {
-		const {gate} = setup(new ExploreSpawnGate({maxConcurrent: 1, minSpacingMs: 0}))
+		const {gate} = setup(testPacer({atOnce: 1}))
 		const holder = deferred<string>()
 		void admitted(gate).runSignedIn({jobKey: 'a'}, () => holder.promise)
 		await settle()
