@@ -423,7 +423,12 @@ if (hasSingleInstanceLock) {
 					const {firstHeartbeatDay, lastHeartbeatDay} = settingsStore.getSync().common
 					return {firstDay: firstHeartbeatDay, lastDay: lastHeartbeatDay}
 				},
-				hasEarlierInstall: () => binaryManager.hasManagedInstall(),
+				hasEarlierInstall: () =>
+					binaryManager.hasManagedInstall().catch((error: unknown) => {
+						// The heartbeat then counts the install as existing; say why.
+						log.warn('Heartbeat could not read the binary cache', {error: error instanceof Error ? error.message : String(error)})
+						throw error
+					}),
 				record: history => settingsStore.recordHeartbeat(history),
 				onError: error => log.warn('Heartbeat skipped for today', {error: error instanceof Error ? error.message : String(error)}),
 				onSent: sent => log.info('Heartbeat sent', sent)
