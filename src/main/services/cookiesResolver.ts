@@ -22,7 +22,8 @@ export function resolveCookies(settings: AppSettings, auth: JobAuth, scope: Expl
 			const browser = common?.cookiesBrowser
 			if (!browser) return null
 			// yt-dlp reads Safari's one cookie store and takes no profile for it.
-			const profile = browser === 'safari' ? undefined : nonEmpty(common?.cookiesBrowserProfile?.trim())
+			// The folder is used exactly as picked: a trailing space can be part of its name.
+			const profile = browser === 'safari' ? undefined : nonEmpty(common?.cookiesBrowserProfile)
 			return profile ? {kind: 'browser', browser, profile} : {kind: 'browser', browser}
 		}
 		case 'explore':

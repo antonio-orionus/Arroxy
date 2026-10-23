@@ -168,7 +168,7 @@ function CookiesBrowserProfileField(): ReactNode {
 	const commonPaths = settings?.common?.commonPaths
 
 	async function chooseProfileFolder(): Promise<void> {
-		const result = await window.appApi.dialog.chooseFolder(profile || undefined)
+		const result = await window.appApi.dialog.chooseBrowserProfileFolder(profile || undefined)
 		if (result.ok && result.data.path) await setCookiesBrowserProfile(result.data.path)
 	}
 

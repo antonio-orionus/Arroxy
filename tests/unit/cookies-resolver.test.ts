@@ -44,11 +44,15 @@ describe('resolveCookies', () => {
 	})
 
 	it('carries the profile folder chosen for the browser', () => {
-		expect(resolveCookies(settings({cookiesMode: 'browser', cookiesBrowser: 'firefox', cookiesBrowserProfile: ' /home/u/.var/app/one.ablaze.floorp/.floorp '}), 'anonymous', YOUTUBE)).toStrictEqual({kind: 'browser', browser: 'firefox', profile: '/home/u/.var/app/one.ablaze.floorp/.floorp'})
+		expect(resolveCookies(settings({cookiesMode: 'browser', cookiesBrowser: 'firefox', cookiesBrowserProfile: '/home/u/.var/app/one.ablaze.floorp/.floorp'}), 'anonymous', YOUTUBE)).toStrictEqual({kind: 'browser', browser: 'firefox', profile: '/home/u/.var/app/one.ablaze.floorp/.floorp'})
 	})
 
-	it('leaves a blank profile folder out', () => {
-		expect(resolveCookies(settings({cookiesMode: 'browser', cookiesBrowser: 'chromium', cookiesBrowserProfile: '  '}), 'anonymous', YOUTUBE)).toStrictEqual({kind: 'browser', browser: 'chromium'})
+	it('passes the folder exactly as picked, trailing space included', () => {
+		expect(resolveCookies(settings({cookiesMode: 'browser', cookiesBrowser: 'firefox', cookiesBrowserProfile: '/home/u/profiles/work '}), 'anonymous', YOUTUBE)).toStrictEqual({kind: 'browser', browser: 'firefox', profile: '/home/u/profiles/work '})
+	})
+
+	it('leaves a cleared profile folder out', () => {
+		expect(resolveCookies(settings({cookiesMode: 'browser', cookiesBrowser: 'chromium', cookiesBrowserProfile: ''}), 'anonymous', YOUTUBE)).toStrictEqual({kind: 'browser', browser: 'chromium'})
 	})
 
 	it('drops the profile folder for Safari, which has none', () => {

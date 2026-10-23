@@ -524,6 +524,10 @@ export function installBrowserMock(): void {
 				await delay(200)
 				return {ok: true, data: {path: '/home/user/youtube-cookies.txt'}}
 			},
+			chooseBrowserProfileFolder: async () => {
+				await delay(200)
+				return {ok: true, data: {path: '/home/user/.var/app/one.ablaze.floorp/.floorp'}}
+			},
 			chooseExecutable: async binary => {
 				await delay(200)
 				return {ok: true, data: {path: `/usr/local/bin/${binary}`}}

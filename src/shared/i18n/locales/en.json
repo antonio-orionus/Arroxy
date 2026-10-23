@@ -1560,7 +1560,7 @@
 				"helpLink": "How do I export cookies?",
 				"openExplore": "Open Explore",
 				"placeholder": "No file selected",
-				"profileHelp": "For a browser that isn't listed, like Floorp, Helium or Falkon, pick the one it's built on (Firefox or Chromium) and choose its profile folder. Profile folders are often hidden: type the path in the folder dialog.",
+				"profileHelp": "For a browser that isn't listed, like Floorp, Helium or Falkon, pick the one it's built on (Firefox or Chromium) and choose its profile folder. If you don't see the folder, type its path in the folder dialog.",
 				"profileLabel": "Profile folder (optional)",
 				"profilePlaceholder": "The browser's default profile",
 				"recommended": "Recommended",

@@ -15,6 +15,7 @@ export const IPC_CHANNELS = {
 	downloadsProbeProgress: 'downloads:probeProgress',
 	chooseFolder: 'dialog:chooseFolder',
 	chooseFile: 'dialog:chooseFile',
+	chooseBrowserProfileFolder: 'dialog:chooseBrowserProfileFolder',
 	settingsGet: 'settings:get',
 	settingsUpdate: 'settings:update',
 	appSetLanguage: 'app:setLanguage',

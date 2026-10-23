@@ -544,7 +544,9 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 		},
 
 		setCookiesBrowser: async browser => {
-			await applyCommonPatchAsync(get, set, 'cookiesBrowser', {cookiesBrowser: browser})
+			// A profile folder belongs to the browser it was picked for.
+			const changed = get().settings?.common?.cookiesBrowser !== browser
+			await applyCommonPatchAsync(get, set, 'cookiesBrowser', changed ? {cookiesBrowser: browser, cookiesBrowserProfile: ''} : {cookiesBrowser: browser})
 		},
 
 		setCookiesBrowserProfile: async profile => {

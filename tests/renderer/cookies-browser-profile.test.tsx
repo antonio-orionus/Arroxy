@@ -34,9 +34,21 @@ describe('cookies browser profile folder', () => {
 
 	it('saves the folder picked for the browser', async () => {
 		mount({cookiesBrowser: 'firefox'})
-		vi.mocked(api.dialog.chooseFolder).mockResolvedValue(ok({path: FLOORP}))
+		vi.mocked(api.dialog.chooseBrowserProfileFolder).mockResolvedValue(ok({path: FLOORP}))
 		fireEvent.click(screen.getByTestId('profiles-settings-cookies-browser-profile-choose'))
 		await waitFor(() => expect(api.settings.update).toHaveBeenCalledWith({common: {cookiesBrowserProfile: FLOORP}}))
+	})
+
+	it('drops the folder when another browser is picked, since it belongs to the old one', async () => {
+		mount({cookiesBrowser: 'firefox', cookiesBrowserProfile: FLOORP})
+		await useAppStore.getState().setCookiesBrowser('chromium')
+		expect(api.settings.update).toHaveBeenCalledWith({common: {cookiesBrowser: 'chromium', cookiesBrowserProfile: ''}})
+	})
+
+	it('keeps the folder when the same browser is picked again', async () => {
+		mount({cookiesBrowser: 'firefox', cookiesBrowserProfile: FLOORP})
+		await useAppStore.getState().setCookiesBrowser('firefox')
+		expect(api.settings.update).toHaveBeenCalledWith({common: {cookiesBrowser: 'firefox'}})
 	})
 
 	it('clears the saved folder', async () => {
