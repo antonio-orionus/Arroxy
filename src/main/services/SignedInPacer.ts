@@ -10,10 +10,13 @@
 // wizard) skips the spacing and the budget for its own launch, and still
 // counts toward the window.
 
+import {randomUUID} from 'node:crypto'
 import {setTimeout as sleep} from 'node:timers/promises'
 import type {SignedInPacing} from '@shared/sites/siteKeys.js'
 
-export type SignedInRefusal = {kind: 'cap-exceeded'} | {kind: 'cancelled'}
+// `paced`: the spacing or the budget holds the launch past `maxWaitMs`, until
+// `until`; nothing waited.
+export type SignedInRefusal = {kind: 'cap-exceeded'} | {kind: 'cancelled'} | {kind: 'paced'; until: number; reason: 'signedInSpacing' | 'signedInBudget'}
 
 // Why a launch waits: the site's slots are taken, the previous start was too
 // recent, or the window's allowance is spent.
@@ -23,6 +26,11 @@ export interface SignedInRunOptions {
 	signal?: AbortSignal
 	explicit?: boolean
 	onWait?: (wait: SignedInWait) => void
+	// A start reserveStart() handed out for this launch.
+	reservation?: string
+	// The longest the spacing or the budget may hold the launch; past it, run()
+	// answers `paced` instead of waiting.
+	maxWaitMs?: number
 }
 
 export interface SignedInPacerOptions {
@@ -32,6 +40,8 @@ export interface SignedInPacerOptions {
 	now?: () => number
 	sleep?: (ms: number, signal?: AbortSignal) => Promise<void>
 	random?: () => number
+	// How long a reserved start waits for its launch.
+	reservationTtlMs?: number
 }
 
 interface Charge {
@@ -41,6 +51,8 @@ interface Charge {
 
 interface SiteState {
 	active: number
+	// Starts the queue reserved for launches still being prepared.
+	pending: Map<string, NodeJS.Timeout>
 	waiters: Array<() => void>
 	// Reserved at a start, so two launches starting together are still staggered.
 	nextStartAt: number
@@ -53,6 +65,7 @@ export class SignedInPacer {
 	private readonly now: () => number
 	private readonly sleep: (ms: number, signal?: AbortSignal) => Promise<void>
 	private readonly random: () => number
+	private readonly reservationTtlMs: number
 	private readonly sites = new Map<string, SiteState>()
 	private readonly launchesByJob = new Map<string, number>()
 	private readonly listeners = new Set<() => void>()
@@ -63,44 +76,63 @@ export class SignedInPacer {
 		this.now = options.now ?? Date.now
 		this.sleep = options.sleep ?? ((ms, signal) => sleep(ms, undefined, {signal}))
 		this.random = options.random ?? Math.random
+		this.reservationTtlMs = options.reservationTtlMs ?? 2 * 60_000
 	}
 
-	async run<T>(site: string, jobKey: string, fn: () => Promise<T>, {signal, explicit = false, onWait}: SignedInRunOptions = {}): Promise<{ran: T} | SignedInRefusal> {
+	async run<T>(site: string, jobKey: string, fn: () => Promise<T>, {signal, explicit = false, onWait, reservation, maxWaitMs}: SignedInRunOptions = {}): Promise<{ran: T} | SignedInRefusal> {
 		if (signal?.aborted) return {kind: 'cancelled'}
 		const used = this.launchesByJob.get(jobKey) ?? 0
 		if (used >= this.perJobCap) return {kind: 'cap-exceeded'}
 		this.launchesByJob.set(jobKey, used + 1)
 		const state = this.state(site)
-		if (!(await this.acquire(site, state, signal, onWait))) return this.refund(jobKey)
-		try {
-			const pacing = this.pacing(site)
-			const now = this.now()
-			const free = explicit ? null : this.freeAt(state, pacing, now)
-			const startAt = free?.at ?? now
-			const charge: Charge = {at: startAt, launches: 1}
-			state.charges.push(charge)
-			const previousNext = state.nextStartAt
-			const reservedNext = explicit ? state.nextStartAt : startAt + this.spacing(pacing)
-			state.nextStartAt = reservedNext
-			const wait = startAt - now
-			if (wait > 0 && free) {
+		// A start the queue reserved for this launch already holds its slot, spacing and charge.
+		if (reservation !== undefined && this.consume(state, reservation)) return this.launch(site, state, fn)
+		for (;;) {
+			// Waits for the spacing or the budget hold no slot, and are asked again after every wait.
+			const free = explicit ? null : this.freeAt(state, this.pacing(site), this.now())
+			if (free) {
+				const wait = free.at - this.now()
+				if (maxWaitMs !== undefined && wait > maxWaitMs) {
+					this.refund(jobKey)
+					return {kind: 'paced', until: free.at, reason: free.reason}
+				}
 				onWait?.({reason: free.reason, waitMs: wait})
 				try {
 					await this.sleep(wait, signal)
 				} catch (err) {
 					if (!signal?.aborted) throw err
 				}
+				if (signal?.aborted) return this.refund(jobKey)
+				continue
 			}
-			if (signal?.aborted) {
-				// A cancelled launch gives back what it reserved, so cancels never pile up waits.
-				state.charges.splice(state.charges.indexOf(charge), 1)
-				if (state.nextStartAt === reservedNext) state.nextStartAt = previousNext
-				return this.refund(jobKey)
+			if (!(await this.acquire(site, state, signal, onWait))) return this.refund(jobKey)
+			if (!explicit && this.freeAt(state, this.pacing(site), this.now())) {
+				this.release(site, state)
+				continue
 			}
-			return {ran: await fn()}
-		} finally {
-			this.release(state)
+			this.start(site, state, explicit)
+			return this.launch(site, state, fn)
 		}
+	}
+
+	// Reserves the next start on the site for a launch still being prepared (a
+	// queued row taking its lane), so rows behind it see the site as it will be.
+	// The launch hands the id to run(); one never used expires.
+	reserveStart(site: string, {explicit = false}: {explicit?: boolean} = {}): {kind: 'reserved'; id: string} | {kind: 'hold'; until: number | 'full'} {
+		const until = this.startsAt(site, {explicit})
+		if (until !== null) return {kind: 'hold', until}
+		const state = this.state(site)
+		const id = randomUUID()
+		const timer = setTimeout(() => {
+			if (!state.pending.delete(id)) return
+			this.grantWaiters(site, state)
+			this.notify()
+		}, this.reservationTtlMs)
+		timer.unref?.()
+		state.pending.set(id, timer)
+		this.start(site, state, explicit)
+		this.notify()
+		return {kind: 'reserved', id}
 	}
 
 	// A listing's entries, charged after its launch against the site's window.
@@ -116,7 +148,7 @@ export class SignedInPacer {
 	startsAt(site: string, {explicit = false}: {explicit?: boolean} = {}): number | 'full' | null {
 		const state = this.state(site)
 		const pacing = this.pacing(site)
-		if (state.active >= pacing.atOnce) return 'full'
+		if (state.active + state.pending.size >= pacing.atOnce) return 'full'
 		if (explicit) return null
 		return this.freeAt(state, pacing, this.now())?.at ?? null
 	}
@@ -129,6 +161,32 @@ export class SignedInPacer {
 	onChange(listener: () => void): () => void {
 		this.listeners.add(listener)
 		return () => this.listeners.delete(listener)
+	}
+
+	// A launch starts now: it counts against the window and, unless explicit,
+	// pushes the next start back by the spacing.
+	private start(site: string, state: SiteState, explicit: boolean): void {
+		const pacing = this.pacing(site)
+		const now = this.now()
+		state.charges.push({at: now, launches: 1})
+		if (!explicit) state.nextStartAt = now + this.spacing(pacing)
+	}
+
+	private async launch<T>(site: string, state: SiteState, fn: () => Promise<T>): Promise<{ran: T}> {
+		try {
+			return {ran: await fn()}
+		} finally {
+			this.release(site, state)
+		}
+	}
+
+	private consume(state: SiteState, id: string): boolean {
+		const timer = state.pending.get(id)
+		if (timer === undefined) return false
+		clearTimeout(timer)
+		state.pending.delete(id)
+		state.active += 1
+		return true
 	}
 
 	// The earliest start the spacing and the budget allow, and which of them
@@ -161,7 +219,7 @@ export class SignedInPacer {
 	private state(site: string): SiteState {
 		let state = this.sites.get(site)
 		if (!state) {
-			state = {active: 0, waiters: [], nextStartAt: Number.NEGATIVE_INFINITY, charges: []}
+			state = {active: 0, pending: new Map(), waiters: [], nextStartAt: Number.NEGATIVE_INFINITY, charges: []}
 			this.sites.set(site, state)
 		}
 		return state
@@ -177,7 +235,7 @@ export class SignedInPacer {
 
 	// Resolves true once a slot is held, false if the job was cancelled while waiting.
 	private acquire(site: string, state: SiteState, signal: AbortSignal | undefined, onWait: SignedInRunOptions['onWait']): Promise<boolean> {
-		if (state.active < this.pacing(site).atOnce) {
+		if (state.active + state.pending.size < this.pacing(site).atOnce) {
 			state.active += 1
 			return Promise.resolve(true)
 		}
@@ -198,10 +256,14 @@ export class SignedInPacer {
 		})
 	}
 
-	private release(state: SiteState): void {
+	private release(site: string, state: SiteState): void {
 		state.active -= 1
-		state.waiters.shift()?.()
+		this.grantWaiters(site, state)
 		this.notify()
+	}
+
+	private grantWaiters(site: string, state: SiteState): void {
+		while (state.waiters.length > 0 && state.active + state.pending.size < this.pacing(site).atOnce) state.waiters.shift()?.()
 	}
 
 	private notify(): void {

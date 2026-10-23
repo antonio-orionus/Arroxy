@@ -710,6 +710,9 @@ export interface StartDownloadInput {
 	// Main-process-only: the user asked for this row now (the priority lane), so
 	// its signed-in runs skip their site's spacing and budget (ADR 0022).
 	explicit?: boolean
+	// Main-process-only: the signed-in start the queue reserved for this row
+	// when it gave it a lane; its first signed-in run uses it.
+	signedInReservation?: string
 }
 
 // The narrowed shape once DownloadService.start() has refused the unresolved

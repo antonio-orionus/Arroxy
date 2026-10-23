@@ -16,11 +16,13 @@ const logger = log.scope('launch-gate')
 
 export type LaunchWaitReason = 'cooldown' | SignedInWait['reason']
 
-type SignedInPacing = Pick<SignedInPacer, 'run' | 'resetJob' | 'charge' | 'startsAt' | 'onChange'>
+type SignedInPacerPort = Pick<SignedInPacer, 'run' | 'resetJob' | 'charge' | 'startsAt' | 'reserveStart' | 'onChange'>
 
 export type LaunchAdmission = {kind: 'go'; launch: Launch} | {kind: 'wait'; until: number}
 
-export type SignedInOutcome<T> = {kind: 'ran'; value: T} | {kind: 'capReached'} | {kind: 'waitExpired'} | {kind: 'cancelled'}
+// `paced`: the spacing or the budget would hold the launch past its wait
+// budget, until `until`; it did not wait.
+export type SignedInOutcome<T> = {kind: 'ran'; value: T} | {kind: 'capReached'} | {kind: 'waitExpired'} | {kind: 'paced'; until: number} | {kind: 'cancelled'}
 
 export interface SignedInLaunchOptions {
 	// The job attempt whose signed-in budget the launch spends; a launch with
@@ -28,8 +30,12 @@ export interface SignedInLaunchOptions {
 	jobKey?: string
 	// Stops the launch while it waits (cancel or pause).
 	stop?: AbortSignal
-	// Bounds only the wait for a slot; the launch itself is not timed here.
+	// Bounds the launch's wait: a slot wait past it expires, and a launch the
+	// spacing or the budget would hold longer answers `paced` at once. The
+	// launch itself is not timed here.
 	waitBudgetMs?: number
+	// The start the queue reserved for this job's first launch (reserveSignedInStart).
+	reservation?: string
 	// The priority button or a link opened in the wizard: skips the spacing
 	// and the budget, and still counts toward the window.
 	explicit?: boolean
@@ -38,12 +44,12 @@ export interface SignedInLaunchOptions {
 export interface LaunchGateOptions {
 	// Absent: no cooldown is kept (tests and harnesses that never rate-limit).
 	cooldowns?: SiteRequestState
-	signedIn?: SignedInPacing
+	signedIn?: SignedInPacerPort
 }
 
 export class LaunchGate {
 	private readonly cooldowns: SiteRequestState | undefined
-	private readonly signedIn: SignedInPacing
+	private readonly signedIn: SignedInPacerPort
 
 	constructor(options: LaunchGateOptions = {}) {
 		this.cooldowns = options.cooldowns
@@ -66,6 +72,12 @@ export class LaunchGate {
 	// `full` until a slot frees (onSignedInChange).
 	signedInStartsAt(site: string, options: {explicit?: boolean} = {}): number | 'full' | null {
 		return this.signedIn.startsAt(site, options)
+	}
+
+	// Reserves the next signed-in start on the site for a queued row taking its
+	// lane, or says how long the row waits (`full` until a slot frees).
+	reserveSignedInStart(site: string, options: {explicit?: boolean} = {}): {kind: 'reserved'; id: string} | {kind: 'hold'; until: number | 'full'} {
+		return this.signedIn.reserveStart(site, options)
 	}
 
 	// A signed-in listing's entries, charged against the site's window after its launch.
@@ -120,7 +132,7 @@ export class Launch {
 	constructor(
 		private readonly site: string,
 		private readonly run: SiteRequestRun | null,
-		private readonly signedIn: SignedInPacing
+		private readonly signedIn: SignedInPacerPort
 	) {}
 
 	// Right before a spawn, on the network route it goes out on: until when it
@@ -140,7 +152,7 @@ export class Launch {
 	}
 
 	// Runs `fn` once the signed-in pacing lets this launch start.
-	async runSignedIn<T>({jobKey, stop, waitBudgetMs, explicit}: SignedInLaunchOptions, fn: () => Promise<T>): Promise<SignedInOutcome<T>> {
+	async runSignedIn<T>({jobKey, stop, waitBudgetMs, explicit, reservation}: SignedInLaunchOptions, fn: () => Promise<T>): Promise<SignedInOutcome<T>> {
 		const key = jobKey ?? `run:${randomUUID()}`
 		const waitExpired = new AbortController()
 		const waitTimer = waitBudgetMs === undefined ? undefined : setTimeout(() => waitExpired.abort(), waitBudgetMs)
@@ -153,10 +165,14 @@ export class Launch {
 					clearTimeout(waitTimer)
 					return fn()
 				},
-				{signal, explicit, onWait: wait => logWait(this.site, wait.reason, wait.reason === 'signedInLimit' ? {} : {waitMs: wait.waitMs})}
+				{signal, explicit, reservation, ...(waitBudgetMs === undefined ? {} : {maxWaitMs: waitBudgetMs}), onWait: wait => logWait(this.site, wait.reason, wait.reason === 'signedInLimit' ? {} : {waitMs: wait.waitMs})}
 			)
 			if ('ran' in gated) return {kind: 'ran', value: gated.ran}
 			if (gated.kind === 'cap-exceeded') return {kind: 'capReached'}
+			if (gated.kind === 'paced') {
+				logWait(this.site, gated.reason, {until: new Date(gated.until).toISOString()})
+				return {kind: 'paced', until: gated.until}
+			}
 			return waitExpired.signal.aborted && stop?.aborted !== true ? {kind: 'waitExpired'} : {kind: 'cancelled'}
 		} finally {
 			clearTimeout(waitTimer)

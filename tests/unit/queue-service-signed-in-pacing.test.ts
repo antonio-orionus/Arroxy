@@ -99,6 +99,24 @@ describe('QueueService — signed-in pacing before the lane', () => {
 		expect(ds.start).toHaveBeenCalledWith(expect.objectContaining({auth: 'exploreSession', explicit: true}))
 	})
 
+	it('starts one row per signed-in start its site allows when several are added at once, and rows for other sites meanwhile', async () => {
+		const {ds, qs} = setup()
+
+		qs.add([signedIn('a'), signedIn('b'), signedIn('c'), makeItem({id: 'v', status: 'pending', url: 'https://vimeo.com/v'})])
+		await vi.advanceTimersByTimeAsync(0)
+
+		expect(startedIds(ds).sort()).toEqual(['a', 'v'])
+		expect(ds.start).toHaveBeenCalledWith(expect.objectContaining({url: 'https://www.instagram.com/reel/a', signedInReservation: expect.any(String)}))
+	})
+
+	it('reserves nothing for a row that starts anonymous', async () => {
+		const {ds, qs} = setup()
+		qs.add([makeItem({id: 'a', status: 'pending', url: 'https://www.instagram.com/reel/a'})])
+		await vi.advanceTimersByTimeAsync(0)
+
+		expect(ds.start.mock.calls[0]?.[0]).not.toHaveProperty('signedInReservation')
+	})
+
 	it('never marks a normal-lane row explicit', async () => {
 		const {ds, qs} = setup()
 		qs.add([signedIn('a')])

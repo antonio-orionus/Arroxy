@@ -387,6 +387,39 @@ describe('ProbeSlots — cooldown', () => {
 		expect(h.started).toEqual(['a', 'b'])
 	})
 
+	it('puts a background probe its site’s signed-in pacing held back to wait, without its slot, until its time', async () => {
+		vi.useFakeTimers()
+		try {
+			const slots = new ProbeSlots({backgroundLimit: 1})
+			const started: string[] = []
+			let pacedOnce = true
+			const paced = slots.run(
+				{kind: 'intake', site: 'instagram'},
+				new AbortController().signal,
+				() => {
+					started.push('a')
+					const value = pacedOnce ? 'paced' : 'a:done'
+					pacedOnce = false
+					return Promise.resolve(value)
+				},
+				{pacedUntil: value => (value === 'paced' ? Date.now() + 60_000 : null)}
+			)
+			await vi.advanceTimersByTimeAsync(0)
+			const other = slots.run({kind: 'intake', site: 'vimeo.com'}, new AbortController().signal, () => {
+				started.push('b')
+				return Promise.resolve('b:done')
+			})
+			expect(await other).toEqual({kind: 'ran', value: 'b:done'})
+			expect(started).toEqual(['a', 'b'])
+
+			await vi.advanceTimersByTimeAsync(60_000)
+			expect(await paced).toEqual({kind: 'ran', value: 'a:done'})
+			expect(started).toEqual(['a', 'b', 'a'])
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
 	it('lets an interactive probe through a cooldown', async () => {
 		const cooldown = fakeCooldowns()
 		const h = harness({limit: 2, cooldown})

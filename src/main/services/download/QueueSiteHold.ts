@@ -13,7 +13,7 @@ import type {QueueItem} from '@shared/types.js'
 import type {LaunchGate} from '../LaunchGate.js'
 import {resolveStartIdentity} from './queueStartIdentity.js'
 
-export type QueueSiteGate = Pick<LaunchGate, 'rateLimitedUntil' | 'onChange' | 'signedInStartsAt' | 'onSignedInChange'>
+export type QueueSiteGate = Pick<LaunchGate, 'rateLimitedUntil' | 'onChange' | 'signedInStartsAt' | 'reserveSignedInStart' | 'onSignedInChange'>
 
 // Until when the item's start waits, `full` until a signed-in slot frees, or
 // null when it may start now.
@@ -25,7 +25,7 @@ export class QueueSiteHold {
 
 	constructor(private readonly gate: QueueSiteGate | undefined) {}
 
-	startHold(item: QueueItem, now: number): QueueStartHold {
+	private startHold(item: QueueItem, now: number): QueueStartHold {
 		if (!this.gate) return null
 		const site = requestSiteFor(item.url)
 		const cooldown = this.gate.rateLimitedUntil(site)
@@ -33,6 +33,17 @@ export class QueueSiteHold {
 		if (resolveStartIdentity(item).auth !== 'exploreSession') return null
 		const signedIn = this.gate.signedInStartsAt(site, {explicit: item.lane === 'priority'})
 		return signedIn === 'full' || (signedIn !== null && signedIn > now) ? signedIn : null
+	}
+
+	// Called as the item would take its lane: how long it waits, or `go`. A go
+	// for an item that starts signed in reserves its start, so the rows behind
+	// it on the same site wait for it in this same scheduler pass.
+	admit(item: QueueItem, now: number): {kind: 'go'; reservation?: string} | {kind: 'hold'; until: number | 'full'} {
+		const hold = this.startHold(item, now)
+		if (hold !== null) return {kind: 'hold', until: hold}
+		if (!this.gate || resolveStartIdentity(item).auth !== 'exploreSession') return {kind: 'go'}
+		const start = this.gate.reserveSignedInStart(requestSiteFor(item.url), {explicit: item.lane === 'priority'})
+		return start.kind === 'reserved' ? {kind: 'go', reservation: start.id} : start
 	}
 
 	// The rate-limit cooldown left for the item's site; automatic retries wait it out.

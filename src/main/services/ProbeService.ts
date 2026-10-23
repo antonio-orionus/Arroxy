@@ -51,9 +51,15 @@ type ProbeAttemptResult = {kind: 'success'; data: ProbeAttemptSuccess} | {kind: 
 // Who a probe runs as, and whether yt-dlp rejected that identity's cookies on any of its spawns.
 interface ProbeRunAs {
 	readonly identity: RunIdentity
+	// The user opened this link (the window's probe): a signed-in run skips its site's spacing and budget.
+	readonly explicit: boolean
 	cookiesRejected: boolean
+	// The URL the last run asked, after any redirect.
+	lastUrl: string
 	// Told the site whose cooldown held a run (YtDlp spawned nothing): a redirect may have changed it.
 	readonly onHeld: (site: string) => void
+	// Told when the site's signed-in pacing held a run past its wait budget (YtDlp spawned nothing).
+	readonly onPaced: (until: number) => void
 }
 
 const PROBE_CANCELLED = {kind: 'failure', error: {kind: 'other', code: 'cancelled', message: 'Probe cancelled'}} as const satisfies ProbeAttemptResult
@@ -448,9 +454,19 @@ export class ProbeService extends EventEmitter {
 			if (!this.slots) return opts.admit && !opts.admit() ? fail<ProbeResult, ProbeError>(PROBE_DEFERRED) : await this.probeNow(url, opts, controller.signal)
 			// The site whose cooldown held the last run, which a redirect may have made another than the link's.
 			let heldBy: string | null = null
-			const attempt = (): Promise<Result<ProbeResult, ProbeError>> => this.probeNow(url, opts, controller.signal, site => (heldBy = site))
+			let pacedUntil: number | null = null
+			const attempt = (): Promise<Result<ProbeResult, ProbeError>> => {
+				pacedUntil = null
+				return this.probeNow(
+					url,
+					opts,
+					controller.signal,
+					site => (heldBy = site),
+					until => (pacedUntil = until)
+				)
+			}
 			const isHeld = (result: Result<ProbeResult, ProbeError>): string | null => (heldByCooldown(result) ? (heldBy ?? requestSiteFor(url)) : null)
-			const outcome = await this.slots.run({kind: opts.kind, site: requestSiteFor(url), ...(ownerKey ? {owner: ownerKey} : {})}, controller.signal, attempt, {isHeld, ...(opts.admit ? {admit: opts.admit} : {})})
+			const outcome = await this.slots.run({kind: opts.kind, site: requestSiteFor(url), ...(ownerKey ? {owner: ownerKey} : {})}, controller.signal, attempt, {isHeld, pacedUntil: () => pacedUntil, ...(opts.admit ? {admit: opts.admit} : {})})
 			if (outcome.kind === 'ran') return outcome.value
 			return fail<ProbeResult, ProbeError>(outcome.kind === 'deferred' ? PROBE_DEFERRED : PROBE_CANCELLED.error)
 		} finally {
@@ -459,7 +475,7 @@ export class ProbeService extends EventEmitter {
 		}
 	}
 
-	private async probeNow(url: string, opts: ProbeOptions, signal: AbortSignal, onHeld: (site: string) => void = () => undefined): Promise<Result<ProbeResult, ProbeError>> {
+	private async probeNow(url: string, opts: ProbeOptions, signal: AbortSignal, onHeld: (site: string) => void = () => undefined, onPaced: (until: number) => void = () => undefined): Promise<Result<ProbeResult, ProbeError>> {
 		const {playlistMode = 'auto', playlistScope, timeoutMs, escalate = true} = opts
 		// At most one escalation per probe; a signed-in failure is the answer.
 		let auth: JobAuth | undefined
@@ -468,10 +484,12 @@ export class ProbeService extends EventEmitter {
 			logger.info('Probe started', {url, ...logContext})
 
 			let cookiesRejected = false
+			let lastUrl = url
 			const runAs = async (identity: RunIdentity): Promise<ProbeOutcome> => {
-				const as: ProbeRunAs = {identity, cookiesRejected: false, onHeld}
+				const as: ProbeRunAs = {identity, explicit: opts.kind === 'interactive', cookiesRejected: false, lastUrl: url, onHeld, onPaced}
 				const mappedOutcome = mapProbeAttempt(await this.probeWithRedirectFollow(url, playlistMode, playlistScope, signal, as, timeoutMs), url, logContext)
 				cookiesRejected = as.cookiesRejected
+				lastUrl = as.lastUrl
 				return mappedOutcome
 			}
 			// Whether a playlist's items need the account too (R20): main decides and stamps them.
@@ -492,7 +510,7 @@ export class ProbeService extends EventEmitter {
 			let mapped: ProbeResult
 			if (outcome.kind === 'playlist') {
 				// One listing is many site requests: what it returned counts against the account's window.
-				if (auth && !cookiesRejected) this.listingCharges?.chargeListing(requestSiteFor(url), outcome.result.entries.length)
+				if (auth && !cookiesRejected) this.listingCharges?.chargeListing(requestSiteFor(lastUrl), outcome.result.entries.length)
 				// A bot-walled playlist was only enumerated signed in; its items start anonymous.
 				mapped = auth && itemsNeedAccount ? {...outcome.result, entries: outcome.result.entries.map(entry => ({...entry, auth}))} : outcome.result
 			} else {
@@ -678,6 +696,7 @@ export class ProbeService extends EventEmitter {
 
 	private async runProbeAttempt(url: string, attempt: ProbeAttemptName, playlistMode: ProbePlaylistMode, playlistScope: PlaylistScope | undefined, signal: AbortSignal, as: ProbeRunAs, timeoutMs?: number): Promise<ProbeAttemptResult> {
 		const source = attempt === 'retry' ? 'yt-dlp-probe-retry' : 'yt-dlp-probe'
+		as.lastUrl = url
 		const youtubePlayerClient = playlistMode === 'video' && siteForUrl(url).id === 'youtube' ? [...YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS] : undefined
 		const extractor = youtubePlayerClient ? {youtube: {playerClient: youtubePlayerClient}} : undefined
 		let stdoutRemainder = ''
@@ -703,10 +722,11 @@ export class ProbeService extends EventEmitter {
 					}
 				}
 			},
-			{identity: as.identity}
+			{identity: as.identity, ...(as.explicit ? {explicit: true} : {})}
 		)
 		if (result.accountCookiesRejected === true) as.cookiesRejected = true
 		if (result.kind === 'exit-error' && result.rawError === RATE_LIMIT_COOLDOWN_MESSAGE) as.onHeld(requestSiteFor(url))
+		if (result.kind === 'exit-error' && result.pacedUntil !== undefined) as.onPaced(result.pacedUntil)
 
 		if (result.kind !== 'success') {
 			const code = result.kind === 'exit-error' ? result.exitCode : null

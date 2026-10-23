@@ -149,8 +149,12 @@ describe('LaunchGate: signed-in launches', () => {
 	})
 
 	it('logs the spacing between signed-in starts', async () => {
-		const sleep = vi.fn((_ms: number) => Promise.resolve())
-		const {gate} = setup(new SignedInPacerClass({pacing: () => ({atOnce: 2, spacingMs: 5000, jitterMs: 0, windowMs: 60 * 60_000, perWindow: 1000, entriesPerLaunch: 50}), now: () => 0, sleep}))
+		let clock = 0
+		const sleep = vi.fn((ms: number) => {
+			clock += ms
+			return Promise.resolve()
+		})
+		const {gate} = setup(new SignedInPacerClass({pacing: () => ({atOnce: 2, spacingMs: 5000, jitterMs: 0, windowMs: 60 * 60_000, perWindow: 1000, entriesPerLaunch: 50}), now: () => clock, sleep}))
 		await admitted(gate).runSignedIn({jobKey: 'a'}, () => Promise.resolve('first'))
 		await admitted(gate).runSignedIn({jobKey: 'b'}, () => Promise.resolve('second'))
 

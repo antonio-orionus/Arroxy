@@ -753,7 +753,11 @@ describe('ProbeService — Explore session escalation', () => {
 			const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 			expect(verifySignedIn).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
-			expect(run.mock.calls.map(call => call[2])).toEqual([{identity: 'configured'}, {identity: 'exploreSession'}, {identity: 'exploreSession'}])
+			expect(run.mock.calls.map(call => call[2])).toEqual([
+				{identity: 'configured', explicit: true},
+				{identity: 'exploreSession', explicit: true},
+				{identity: 'exploreSession', explicit: true}
+			])
 			expect(result.ok && result.data.auth).toBe('exploreSession')
 		})
 
@@ -842,8 +846,8 @@ describe('ProbeService — Explore session escalation', () => {
 
 			expect(gate.canEscalate).toHaveBeenCalledWith({kind: 'site', siteId: 'youtube'})
 			expect(run).toHaveBeenCalledTimes(2)
-			expect(run.mock.calls[0]?.[2]).toEqual({identity: 'configured'})
-			expect(run.mock.calls[1]?.[2]).toEqual({identity: 'exploreSession'})
+			expect(run.mock.calls[0]?.[2]).toEqual({identity: 'configured', explicit: true})
+			expect(run.mock.calls[1]?.[2]).toEqual({identity: 'exploreSession', explicit: true})
 			expect(result.ok && result.data.auth).toBe('exploreSession')
 			expect(result.ok && result.data.kind === 'video' && result.data.probeInfoJsonRef?.auth).toBe('exploreSession')
 			expect(log.info).toHaveBeenCalledWith('Probe failure escalation', {scope: {kind: 'site', siteId: 'youtube'}, failure: 'ageRestricted', escalated: true, reason: 'ageRestricted'})
@@ -945,7 +949,7 @@ describe('ProbeService — Explore session escalation', () => {
 		const result = await service.probe('https://www.youtube.com/playlist?list=WL', {kind: 'interactive'})
 
 		expect(run).toHaveBeenCalledTimes(2)
-		expect(run.mock.calls[1]?.[2]).toEqual({identity: 'exploreSession'})
+		expect(run.mock.calls[1]?.[2]).toEqual({identity: 'exploreSession', explicit: true})
 		expect(result.ok && result.data.kind === 'playlist' && result.data.auth).toBe('exploreSession')
 		expect(result.ok && result.data.kind === 'playlist' && result.data.entries.map(entry => entry.videoId)).toEqual(['a', 'b'])
 	})
@@ -956,6 +960,24 @@ describe('ProbeService — Explore session escalation', () => {
 		await service.probe('https://www.youtube.com/playlist?list=WL', {kind: 'interactive'})
 
 		expect(chargeListing).toHaveBeenCalledExactlyOnceWith('youtube', 3)
+	})
+
+	it('charges a signed-in listing a redirect led to against the site it was asked of', async () => {
+		const {service, chargeListing} = makeEscalationService([exitError(AGE_GATE), success({_type: 'url', url: 'https://vimeo.com/showcase/1'}), success(playlistWith(['a', 'b']))], allowed)
+
+		await service.probe('https://example.org/watch/1', {kind: 'intake'})
+
+		expect(chargeListing).toHaveBeenCalledExactlyOnceWith('vimeo.com', 2)
+	})
+
+	it('charges nothing for a signed-in listing whose cookies yt-dlp dropped, which ran anonymously', async () => {
+		const rejected = (result: YtDlpResult): YtDlpResult => ({...result, accountCookiesRejected: true})
+		const {service, chargeListing} = makeEscalationService([success(playlistWith([])), rejected(success(playlistWith(['a', 'b'])))], allowed, undefined, 'unknown')
+
+		const result = await service.probe('https://www.youtube.com/playlist?list=WL', {kind: 'interactive'})
+
+		expect(result.ok && result.data.kind === 'playlist' && result.data.entries).toHaveLength(2)
+		expect(chargeListing).not.toHaveBeenCalled()
 	})
 
 	it('charges nothing for a listing enumerated anonymously, or a single video signed in', async () => {
@@ -1005,7 +1027,10 @@ describe('ProbeService — Explore session escalation', () => {
 
 		const result = await service.probe('https://www.youtube.com/playlist?list=PLx', {kind: 'interactive'})
 
-		expect(run.mock.calls.map(call => call[2])).toEqual([{identity: 'configured'}, {identity: 'exploreSession'}])
+		expect(run.mock.calls.map(call => call[2])).toEqual([
+			{identity: 'configured', explicit: true},
+			{identity: 'exploreSession', explicit: true}
+		])
 		expect(result.ok && result.data.auth).toBe('exploreSession')
 		expect(result.ok && result.data.kind === 'playlist' && result.data.entries.map(entry => entry.videoId)).toEqual(['a', 'b'])
 		expect(result.ok && result.data.kind === 'playlist' && result.data.entries.every(entry => entry.auth === undefined)).toBe(true)
@@ -1075,7 +1100,7 @@ describe('ProbeService — Explore session escalation', () => {
 
 			expect(result.ok).toBe(false)
 			expect(run).toHaveBeenCalledTimes(1)
-			expect(run.mock.calls[0]?.[2]).toEqual({identity: 'configured'})
+			expect(run.mock.calls[0]?.[2]).toEqual({identity: 'configured', explicit: true})
 			expect(gate.canEscalate).not.toHaveBeenCalled()
 			await expect(fs.readdir(path.join(dir, 'probe-info-cache-v1'))).rejects.toThrow()
 		} finally {
@@ -1090,7 +1115,11 @@ describe('ProbeService — Explore session escalation', () => {
 		const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 		expect(result.ok && result.data.auth).toBe('exploreSession')
-		expect(run.mock.calls.map(call => call[2])).toEqual([{identity: 'configured'}, {identity: 'exploreSession'}, {identity: 'exploreSession'}])
+		expect(run.mock.calls.map(call => call[2])).toEqual([
+			{identity: 'configured', explicit: true},
+			{identity: 'exploreSession', explicit: true},
+			{identity: 'exploreSession', explicit: true}
+		])
 	})
 
 	it('keeps the Explore session on the timeout retry after escalation', async () => {
@@ -1100,7 +1129,11 @@ describe('ProbeService — Explore session escalation', () => {
 		const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 		expect(result.ok && result.data.auth).toBe('exploreSession')
-		expect(run.mock.calls.map(call => call[2])).toEqual([{identity: 'configured'}, {identity: 'exploreSession'}, {identity: 'exploreSession'}])
+		expect(run.mock.calls.map(call => call[2])).toEqual([
+			{identity: 'configured', explicit: true},
+			{identity: 'exploreSession', explicit: true},
+			{identity: 'exploreSession', explicit: true}
+		])
 	})
 
 	it('leaves an ordinary success anonymous', async () => {
@@ -1109,7 +1142,7 @@ describe('ProbeService — Explore session escalation', () => {
 		const result = await service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
 
 		expect(result.ok && result.data.auth).toBeUndefined()
-		expect(run.mock.calls[0]?.[2]).toEqual({identity: 'configured'})
+		expect(run.mock.calls[0]?.[2]).toEqual({identity: 'configured', explicit: true})
 		expect(gate.canEscalate).not.toHaveBeenCalled()
 	})
 

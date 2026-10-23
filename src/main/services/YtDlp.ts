@@ -83,6 +83,9 @@ export type YtDlpResult =
 			// yt-dlp warned that the account cookies it was given are no longer
 			// valid (the session was rotated or signed out in the browser).
 			accountCookiesRejected?: true
+			// The site's signed-in pacing held this run longer than its wait budget
+			// allows, until then; nothing spawned (a background probe waits again).
+			pacedUntil?: number
 	  }
 
 export interface YtDlpInvocationSummary {
@@ -182,6 +185,12 @@ function cancelledResult(): YtDlpResult {
 // Matches the rateLimit pattern of ytdlp-errors, so callers that classify the
 // message read a held run as the rate limit it is.
 export const RATE_LIMIT_COOLDOWN_MESSAGE = 'Too many requests recently: waiting out the rate-limit cooldown'
+
+const SIGNED_IN_PACED_MESSAGE = 'Pacing signed-in requests to this site'
+
+function heldByPacing(until: number): YtDlpResult {
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: SIGNED_IN_PACED_MESSAGE, stdout: '', stderr: '', pacedUntil: until}
+}
 
 // A bot wall that came with a rate limit is the rate limit: an account cannot
 // lift it, so nothing may escalate to the Explore session on it (the token
@@ -540,6 +549,9 @@ export interface YtDlpRunOptions {
 	// The user asked for this download now (the priority button, a link opened
 	// in the wizard): a signed-in run skips its site's spacing and budget.
 	explicit?: boolean
+	// The signed-in start the queue reserved for this job (LaunchGate): the
+	// first signed-in run uses it instead of waiting.
+	signedInReservation?: string
 }
 
 // Only `get()` is read, so a download smoke run can hand in an in-memory overlay.
@@ -705,9 +717,7 @@ export class YtDlp {
 			})
 		// A signed-in probe waits for a slot no longer than its own timeout (R21):
 		// it shares the gate with signed-in downloads, which can hold a slot for long.
-		const result = rateLimitOverBotWall(
-			identity === 'exploreSession' && launch ? await this.runSignedIn(launch, options.jobKey, options.explicit, signal, isProbe ? (validOverride ?? PROBE_TIMEOUT_MS) : undefined, () => this.invokeIfStillAuthorized(cookies?.kind === 'session' ? cookies.scope : null, invoke)) : await invoke()
-		)
+		const result = rateLimitOverBotWall(identity === 'exploreSession' && launch ? await this.runSignedIn(launch, options, signal, isProbe ? (validOverride ?? PROBE_TIMEOUT_MS) : undefined, () => this.invokeIfStillAuthorized(cookies?.kind === 'session' ? cookies.scope : null, invoke)) : await invoke())
 		// 'spawn-error' is the child failing to start at all — ENOENT, EACCES, a
 		// security scanner holding it. That contradicts the recorded probe verdict
 		// this path may have been resolved from, so drop it and let the next warmup
@@ -739,15 +749,17 @@ export class YtDlp {
 
 	// `waitBudgetMs` bounds only the wait for a slot; a run that got one is
 	// bounded by its own timer as usual.
-	private async runSignedIn(launch: Launch, jobKey: string | undefined, explicit: boolean | undefined, signal: YtDlpSignal | undefined, waitBudgetMs: number | undefined, invoke: () => Promise<YtDlpResult>): Promise<YtDlpResult> {
+	private async runSignedIn(launch: Launch, {jobKey, explicit, signedInReservation}: YtDlpRunOptions, signal: YtDlpSignal | undefined, waitBudgetMs: number | undefined, invoke: () => Promise<YtDlpResult>): Promise<YtDlpResult> {
 		const stop = AbortSignal.any([signal?.abortSignal, signal?.pauseSignal].filter(s => s !== undefined))
-		const outcome = await launch.runSignedIn({jobKey, stop, waitBudgetMs, ...(explicit ? {explicit} : {})}, invoke)
+		const outcome = await launch.runSignedIn({jobKey, stop, waitBudgetMs, ...(explicit ? {explicit} : {}), ...(signedInReservation === undefined ? {} : {reservation: signedInReservation})}, invoke)
 		switch (outcome.kind) {
 			case 'ran':
 				return outcome.value
 			case 'capReached':
 				ytDlpLog.warn('escalated run refused: signed-in spawn cap reached', {jobKey: jobKey ?? null})
 				return spawnCapExceeded()
+			case 'paced':
+				return heldByPacing(outcome.until)
 			case 'waitExpired':
 				ytDlpLog.warn('signed-in probe timed out waiting for a spawn slot', {waitBudgetMs})
 				return probeTimedOut()

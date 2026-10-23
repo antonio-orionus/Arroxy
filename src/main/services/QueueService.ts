@@ -693,28 +693,23 @@ export class QueueService extends EventEmitter {
 			if (item.status !== QUEUE_STATUS.pending) continue
 			if (this.spawning.has(item.id)) continue
 			if (activeCount >= this.maxConcurrent) break
-			const hold = this.siteHold.startHold(item, now)
-			if (hold !== null) {
-				if (hold !== 'full') earliestHold = Math.min(earliestHold ?? hold, hold)
-				held.push(item.id)
-				continue
-			}
-			if (item.lane === 'priority') {
-				this.beginSpawn(item.id)
-				spawned.push(item.id)
-				activeCount++
-				continue
-			}
-			// Normal lane.
-			if (normalRunning >= this.normalCap) continue
-			if (this.sleep.blocksAt(now)) {
+			// Priority rows skip the normal lane's cap and pause.
+			const priority = item.lane === 'priority'
+			if (!priority && normalRunning >= this.normalCap) continue
+			if (!priority && this.sleep.blocksAt(now)) {
 				armSleep = true
 				continue
 			}
-			this.beginSpawn(item.id)
+			const start = this.siteHold.admit(item, now)
+			if (start.kind === 'hold') {
+				if (start.until !== 'full') earliestHold = Math.min(earliestHold ?? start.until, start.until)
+				held.push(item.id)
+				continue
+			}
+			this.beginSpawn(item.id, start.reservation)
 			spawned.push(item.id)
 			activeCount++
-			normalRunning++
+			if (!priority) normalRunning++
 		}
 		if (spawned.length > 0 || armSleep || held.length > 0) {
 			logger.info('recomputeSchedule', {spawned, activeCount, normalRunning, normalCap: this.normalCap, ceiling: this.maxConcurrent, sleepUntil: this.sleep.deadline, armSleep, siteHeld: held, siteHoldUntil: earliestHold === null ? null : new Date(earliestHold).toISOString(), snapshot: this.statusSummary()})
@@ -724,17 +719,17 @@ export class QueueService extends EventEmitter {
 		this.siteHold.sync(earliestHold, now, () => this.recomputeSchedule())
 	}
 
-	private beginSpawn(itemId: string): void {
+	private beginSpawn(itemId: string, signedInReservation: string | undefined): void {
 		if (this.spawning.has(itemId)) return
 		this.spawning.add(itemId)
 		const item = this.findItem(itemId)
 		logger.info('beginSpawn', {itemId, lane: item?.lane, hasTempDir: Boolean(item?.tempDir ?? item?.resumeContext?.tempDir), spawningSize: this.spawning.size})
-		void this.spawnViaStart(itemId, undefined).catch(err => {
+		void this.spawnViaStart(itemId, undefined, signedInReservation).catch(err => {
 			logger.error('Auto-start failed', {itemId, error: err instanceof Error ? err.message : String(err)})
 		})
 	}
 
-	private async spawnViaStart(itemId: string, tempDir: string | undefined): Promise<Result<void>> {
+	private async spawnViaStart(itemId: string, tempDir: string | undefined, signedInReservation?: string): Promise<Result<void>> {
 		this.spawning.add(itemId)
 		try {
 			const item = this.findItem(itemId)
@@ -747,7 +742,7 @@ export class QueueService extends EventEmitter {
 				patch: (id: string, reason: string, patcher: (prev: QueueItem) => QueueItem) => this.commit({kind: 'patch', itemId: id, reason, patcher}),
 				settled: () => this.spawning.delete(itemId)
 			}
-			return await spawnQueueJob(deps, item, tempDir)
+			return await spawnQueueJob(deps, item, tempDir, signedInReservation)
 		} finally {
 			this.spawning.delete(itemId)
 		}

@@ -27,7 +27,7 @@ export interface QueueJobSpawnDeps {
 	settled: () => void
 }
 
-export async function spawnQueueJob(deps: QueueJobSpawnDeps, item: QueueItem, tempDir: string | undefined): Promise<Result<void>> {
+export async function spawnQueueJob(deps: QueueJobSpawnDeps, item: QueueItem, tempDir: string | undefined, signedInReservation?: string): Promise<Result<void>> {
 	// A row Resume All moved back to pending still names the job it parked:
 	// resume that job, which keeps its state (a quality limit among it), rather
 	// than start a new one beside it.
@@ -48,6 +48,7 @@ export async function spawnQueueJob(deps: QueueJobSpawnDeps, item: QueueItem, te
 		tempDir: effectiveTempDir,
 		...(auth === 'exploreSession' ? {auth} : {}),
 		...(item.lane === 'priority' ? {explicit: true} : {}),
+		...(signedInReservation === undefined ? {} : {signedInReservation}),
 		...(probeInfoJsonPath ? {probeInfoJsonPath, ...(item.probeInfoJsonRef?.formatsWithheld ? {probeFormatsWithheld: true} : {})} : {})
 	})
 	if (!result.ok) {

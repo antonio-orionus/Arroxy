@@ -118,8 +118,8 @@ function harness(gate: SignedInPacer, opts: {mintToken?: () => Promise<{token: s
 	})
 	const statuses: StatusEvent[] = []
 	service.on('status', (event: StatusEvent) => statuses.push(event))
-	const start = async (auth?: JobAuth): Promise<string> => {
-		const result = await service.start({url: URL, outputDir, job: JOB, ...(auth ? {auth} : {})})
+	const start = async (auth?: JobAuth, extra: {explicit?: boolean; signedInReservation?: string} = {}): Promise<string> => {
+		const result = await service.start({url: URL, outputDir, job: JOB, ...(auth ? {auth} : {}), ...extra})
 		if (!result.ok) throw new Error(result.error.message)
 		return result.data.job.id
 	}
@@ -222,6 +222,31 @@ describe('escalated download waiting for a signed-in slot (I1)', () => {
 		await new Promise(resolve => setTimeout(resolve, 20))
 		expect(jars).toEqual([])
 		expect(spawnYtDlp).toHaveBeenCalledOnce()
+	})
+})
+
+describe('a signed-in download the user asked for now (ADR 0022)', () => {
+	const TEN_MINUTES = 10 * 60_000
+
+	it('skips its site’s spacing when its row is explicit', async () => {
+		const gate = testPacer({spacingMs: TEN_MINUTES})
+		await gate.run('youtube', 'earlier', () => Promise.resolve())
+		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(null) as never)
+		const {start} = harness(gate)
+
+		await start('exploreSession', {explicit: true})
+		await vi.waitFor(() => expect(spawnYtDlp).toHaveBeenCalledOnce(), SETTLE)
+	})
+
+	it('starts on the signed-in start its queue row reserved', async () => {
+		const gate = testPacer({atOnce: 1, spacingMs: TEN_MINUTES})
+		const reserved = gate.reserveStart('youtube')
+		if (reserved.kind !== 'reserved') throw new Error('expected a reservation')
+		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(null) as never)
+		const {start} = harness(gate)
+
+		await start('exploreSession', {signedInReservation: reserved.id})
+		await vi.waitFor(() => expect(spawnYtDlp).toHaveBeenCalledOnce(), SETTLE)
 	})
 })
 

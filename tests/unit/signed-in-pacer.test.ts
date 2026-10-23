@@ -133,9 +133,11 @@ describe('SignedInPacer: spacing', () => {
 		let clock = 0
 		const controllers = [new AbortController(), new AbortController(), new AbortController()]
 		let cancelling = 0
-		const sleep = vi.fn(() => {
-			controllers[cancelling]?.abort()
+		const sleep = vi.fn((ms: number) => {
+			const controller = controllers[cancelling]
 			cancelling += 1
+			if (controller) controller.abort()
+			else clock += ms
 			return Promise.resolve()
 		})
 		const pacer = new SignedInPacer({pacing: pacing({spacingMs: 5000}), now: () => clock, sleep})
@@ -183,6 +185,96 @@ describe('SignedInPacer: the budget over a sliding window', () => {
 		await run('x', 'c')
 
 		expect(startedAt).toEqual([1_000, 1_000, 1_000 + 10 * MINUTE])
+	})
+})
+
+describe('SignedInPacer: waits hold no slot', () => {
+	it('lets an explicit launch run while another waits on the budget', async () => {
+		let clock = 1_000
+		let wake: () => void = () => undefined
+		const sleep = vi.fn((ms: number) => {
+			const until = clock + ms
+			return new Promise<void>(resolve => (wake = () => ((clock = until), resolve())))
+		})
+		const pacer = new SignedInPacer({pacing: pacing({atOnce: 1, windowMs: 10 * MINUTE, perWindow: 1}), now: () => clock, sleep})
+		await pacer.run('x', 'a', () => Promise.resolve())
+		const waiting = pacer.run('x', 'b', () => Promise.resolve('later'))
+		await settle()
+		expect(sleep).toHaveBeenCalledOnce()
+
+		clock += MINUTE
+		expect(pacer.startsAt('x', {explicit: true})).toBeNull()
+		expect(await pacer.run('x', 'c', () => Promise.resolve('now'), {explicit: true})).toEqual({ran: 'now'})
+		wake()
+		await settle()
+		expect(sleep).toHaveBeenCalledTimes(2)
+		wake()
+		expect(await waiting).toEqual({ran: 'later'})
+	})
+
+	it('asks the budget again after a wait, so a listing charged meanwhile still counts', async () => {
+		let clock = 1_000
+		const pacer: SignedInPacer = new SignedInPacer({
+			pacing: pacing({spacingMs: 5000, windowMs: 10 * MINUTE, perWindow: 3, entriesPerLaunch: 10}),
+			now: () => clock,
+			sleep: (ms: number) => {
+				if (clock === 1_000) pacer.charge('x', 20)
+				clock += ms
+				return Promise.resolve()
+			}
+		})
+		const startedAt: number[] = []
+		const launch = (): Promise<void> => {
+			startedAt.push(clock)
+			return Promise.resolve()
+		}
+		await pacer.run('x', 'a', launch)
+		await pacer.run('x', 'b', launch)
+
+		expect(startedAt).toEqual([1_000, 1_000 + 10 * MINUTE])
+	})
+
+	it('answers paced, without waiting or spending the job budget, when the wait would outlast its limit', async () => {
+		const {pacer, run, startedAt, now} = clocked({spacingMs: 5000}, 2)
+		await run('x', 'job')
+		expect(await run('x', 'job', {maxWaitMs: 1000})).toEqual({kind: 'paced', until: now() + 5000, reason: 'signedInSpacing'})
+		expect(await run('x', 'job', {maxWaitMs: 10_000})).toEqual({ran: 'ok'})
+		expect(startedAt).toHaveLength(2)
+		void pacer
+	})
+})
+
+describe('SignedInPacer: reserved starts', () => {
+	it('reserves a start for a launch still being prepared, which the rows behind it see', async () => {
+		const {pacer, run, startedAt, now} = clocked({atOnce: 1, spacingMs: 5000})
+		const reserved = pacer.reserveStart('x')
+		if (reserved.kind !== 'reserved') throw new Error('expected a reservation')
+
+		expect(pacer.startsAt('x')).toBe('full')
+		expect(pacer.reserveStart('x')).toEqual({kind: 'hold', until: 'full'})
+		expect(await run('x', 'a', {reservation: reserved.id})).toEqual({ran: 'ok'})
+		expect(startedAt).toEqual([now()])
+		expect(pacer.startsAt('x')).toBe(now() + 5000)
+	})
+
+	it('lets a reservation that is never used expire', async () => {
+		vi.useFakeTimers()
+		try {
+			const pacer = new SignedInPacer({pacing: pacing({atOnce: 1}), reservationTtlMs: 1000})
+			pacer.reserveStart('x')
+			expect(pacer.startsAt('x')).toBe('full')
+			await vi.advanceTimersByTimeAsync(1000)
+			expect(pacer.startsAt('x')).toBeNull()
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
+	it('runs a launch with an unknown reservation through the usual waits', async () => {
+		const {run, startedAt} = clocked({spacingMs: 5000})
+		await run('x', 'a')
+		await run('x', 'b', {reservation: 'gone'})
+		expect(startedAt).toEqual([1_000, 6_000])
 	})
 })
 

@@ -52,11 +52,13 @@ function makeFakeProcess(exitCode = 0, stderr = '') {
 let lastTokenService: {getToken: ReturnType<typeof vi.fn>; invalidateCache: ReturnType<typeof vi.fn>}
 
 // A signed-in pacer whose `run` the test supplies.
-function pacerWith({run}: {run: SignedInPacer['run'] | ReturnType<typeof vi.fn>}): Pick<SignedInPacer, 'run' | 'resetJob' | 'charge' | 'startsAt' | 'onChange'> {
-	return {run: run as SignedInPacer['run'], resetJob: vi.fn(), charge: vi.fn(), startsAt: () => null, onChange: () => () => undefined}
+function pacerWith({run}: {run: SignedInPacer['run'] | ReturnType<typeof vi.fn>}): Pick<SignedInPacer, 'run' | 'resetJob' | 'charge' | 'startsAt' | 'reserveStart' | 'onChange'> {
+	return {run: run as SignedInPacer['run'], resetJob: vi.fn(), charge: vi.fn(), startsAt: () => null, reserveStart: () => ({kind: 'hold', until: 'full'}), onChange: () => () => undefined}
 }
 
-function makeYtDlp(opts: {settings?: Record<string, unknown>; token?: string; visitorData?: string; e2eMode?: E2eHarnessMode; ytDlpSource?: DependencySource | null; sessionJars?: SessionCookieJarPort; spawnGate?: Pick<SignedInPacer, 'run' | 'resetJob' | 'charge' | 'startsAt' | 'onChange'> | null} = {}) {
+function makeYtDlp(
+	opts: {settings?: Record<string, unknown>; token?: string; visitorData?: string; e2eMode?: E2eHarnessMode; ytDlpSource?: DependencySource | null; sessionJars?: SessionCookieJarPort; spawnGate?: Pick<SignedInPacer, 'run' | 'resetJob' | 'charge' | 'startsAt' | 'reserveStart' | 'onChange'> | null} = {}
+) {
 	const tokenService = {getToken: vi.fn().mockResolvedValue({token: opts.token ?? 'tok', visitorData: opts.visitorData ?? 'vd'}), invalidateCache: vi.fn()}
 	const ytDlpSource = opts.ytDlpSource === undefined ? ({kind: 'managed', channel: 'stable', provider: 'github', url: 'https://github.com/yt-dlp/yt-dlp/releases/download/2026.06.12/yt-dlp_linux'} satisfies DependencySource) : opts.ytDlpSource
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn().mockReturnValue({source: ytDlpSource})}

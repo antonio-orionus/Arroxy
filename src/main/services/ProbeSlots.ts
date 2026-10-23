@@ -44,6 +44,9 @@ export interface ProbeSlotRunOptions<T> {
 	isHeld?: (value: T) => string | null
 	// Asked when the slot is granted; false frees it unused (`deferred`).
 	admit?: () => boolean
+	// When the site's signed-in pacing lets this result's launch start, or null:
+	// a background probe it held (nothing spawned) waits again until then.
+	pacedUntil?: (value: T) => number | null
 }
 
 export type ProbeSlotCooldowns = Pick<LaunchGate, 'rateLimitedUntil' | 'wouldAdmit' | 'holdPass' | 'releasePass' | 'onChange'>
@@ -59,6 +62,8 @@ interface Waiter {
 	request: ProbeSlotRequest
 	// Arrival order, kept when a held probe goes back to wait.
 	seq: number
+	// A probe paced by its site's signed-in pacing takes no slot before this.
+	notBefore: number
 	grant: () => void
 }
 
@@ -95,8 +100,9 @@ export class ProbeSlots {
 	async run<T>(asked: ProbeSlotRequest, signal: AbortSignal, task: () => Promise<T>, options: ProbeSlotRunOptions<T> = {}): Promise<ProbeSlotOutcome<T>> {
 		const seq = this.nextSeq++
 		let request = asked
+		let notBefore = Number.NEGATIVE_INFINITY
 		for (;;) {
-			if (!(await this.acquire(request, seq, signal))) return {kind: 'cancelled'}
+			if (!(await this.acquire(request, seq, signal, notBefore))) return {kind: 'cancelled'}
 			if (options.admit && !options.admit()) {
 				this.release(request.kind)
 				logger.info('Probe declined its slot', {kind: request.kind, site: request.site})
@@ -107,6 +113,12 @@ export class ProbeSlots {
 				value = await task()
 			} finally {
 				this.release(request.kind)
+			}
+			const pacedUntil = request.kind === 'interactive' || signal.aborted ? null : (options.pacedUntil?.(value) ?? null)
+			if (pacedUntil !== null && pacedUntil > this.now()) {
+				notBefore = pacedUntil
+				logger.info('Probe paced by its site goes back to wait', {kind: request.kind, site: request.site, until: new Date(pacedUntil).toISOString()})
+				continue
 			}
 			const heldBy = request.kind === 'interactive' || signal.aborted ? null : (options.isHeld?.(value) ?? null)
 			// A holding site no longer cooling returns the result as is, so a probe never loops.
@@ -130,7 +142,7 @@ export class ProbeSlots {
 		return {running: {...this.running}, waiting: this.waiters.map(waiter => ({...waiter.request}))}
 	}
 
-	private acquire(request: ProbeSlotRequest, seq: number, signal: AbortSignal): Promise<boolean> {
+	private acquire(request: ProbeSlotRequest, seq: number, signal: AbortSignal, notBefore: number): Promise<boolean> {
 		if (signal.aborted) return Promise.resolve(false)
 		return new Promise<boolean>(resolve => {
 			const onAbort = (): void => {
@@ -142,6 +154,7 @@ export class ProbeSlots {
 			const waiter: Waiter = {
 				request,
 				seq,
+				notBefore,
 				grant: () => {
 					signal.removeEventListener('abort', onAbort)
 					this.running[request.kind] += 1
@@ -175,6 +188,12 @@ export class ProbeSlots {
 				if (this.running.interactive >= INTERACTIVE_PROBE_HEADROOM && used >= this.backgroundLimit) break
 			} else {
 				if (used >= this.backgroundLimit) break
+				// Paced by its site: it keeps its place and takes no slot until its time.
+				if (waiter.notBefore > this.now()) {
+					wakeAt = wakeAt === null ? waiter.notBefore : Math.min(wakeAt, waiter.notBefore)
+					i += 1
+					continue
+				}
 				// A site cooling down holds its waiters, unless a Try now pass waits for a request.
 				const until = this.cooldown?.wouldAdmit(waiter.request.site) === false ? this.coolingUntil(waiter.request.site) : null
 				if (until !== null) {
