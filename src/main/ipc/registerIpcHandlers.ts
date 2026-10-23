@@ -31,6 +31,8 @@ import {registerDiagnosticsHandlers} from './diagnosticsHandlers.js'
 import {registerPlaylistHandlers} from './playlistHandlers.js'
 import {registerExploreHandlers} from './exploreHandlers.js'
 import {registerSiteRequestHandlers} from './siteRequestHandlers.js'
+import {registerSignInHandlers} from './signInHandlers.js'
+import type {SuspectSignIns} from '@main/services/SuspectSignIns.js'
 import {registerIntakeHandlers} from './intakeHandlers.js'
 
 export interface IpcDependencies {
@@ -48,6 +50,7 @@ export interface IpcDependencies {
 	exploreView: ExploreViewHost
 	launchGate: Pick<LaunchGate, 'snapshot' | 'onChange' | 'allowOnce' | 'routeChanged'>
 	probeSlots: ProbeSlots
+	suspectSignIns: Pick<SuspectSignIns, 'list' | 'useAgain' | 'onChange'>
 	graphicsPolicyProvider: () => Promise<GraphicsPolicy>
 	intakeService: IntakeService
 	// Rebuilds the native application menu (macOS) after a language, style, theme, or speed-limit change.
@@ -61,7 +64,7 @@ let activeQueueBridge: QueueEventBridge | null = null
 let activeProbeBridge: ProbeEventBridge | null = null
 
 export function registerIpcHandlers(deps: IpcDependencies): void {
-	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, playlistManifestStore, exploreView, launchGate, probeSlots, graphicsPolicyProvider, intakeService, refreshAppMenu, warmupObserver} = deps
+	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, playlistManifestStore, exploreView, launchGate, probeSlots, suspectSignIns, graphicsPolicyProvider, intakeService, refreshAppMenu, warmupObserver} = deps
 
 	const warmupService = new WarmupService({binaryManager, tokenService, window: mainWindow, observer: warmupObserver})
 	registerAppHandlers({warmupService, binaryManager, languageRef, graphicsPolicyProvider, onLanguageChanged: refreshAppMenu})
@@ -85,6 +88,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
 	registerPlaylistHandlers(playlistManifestStore, settingsStore)
 	registerExploreHandlers({exploreView})
 	registerSiteRequestHandlers(launchGate, probeSlots, mainWindow)
+	registerSignInHandlers(suspectSignIns, mainWindow)
 	registerIntakeHandlers(intakeService)
 
 	activeDownloadBridge?.detach()

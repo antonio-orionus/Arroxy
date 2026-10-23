@@ -152,6 +152,9 @@ export function installBrowserMock(): void {
 	let settings: AppSettings = scenarioState.settings
 	const exploreMock = createExploreMock(scenarioState.explore)
 	const siteRequestsMock = createSiteRequestsMock()
+	// The Explore sign-ins downloads marked as not working; "Use my sign-in again" clears one.
+	let notWorkingSignIns: string[] = scenarioState.scenario.id === 'explore-signin-not-working' ? ['instagram', 'x'] : []
+	const notWorkingListeners = new Set<(sites: string[]) => void>()
 	if (scenarioState.scenario.id === 'queue-probe-waiting') {
 		siteRequestsMock.rateLimited('https://www.youtube.com/', 'rateLimited', 12 * 60_000)
 		// The third YouTube row got its slot before the limit: its probe runs.
@@ -744,6 +747,18 @@ export function installBrowserMock(): void {
 		explore: exploreMock.api,
 
 		siteRequests: siteRequestsMock.api,
+		signIns: {
+			getNotWorking: () => Promise.resolve({ok: true, data: notWorkingSignIns}),
+			useAgain: site => {
+				notWorkingSignIns = notWorkingSignIns.filter(entry => entry !== site)
+				for (const listener of notWorkingListeners) listener(notWorkingSignIns)
+				return Promise.resolve({ok: true, data: undefined})
+			},
+			onNotWorkingChanged: listener => {
+				notWorkingListeners.add(listener)
+				return () => notWorkingListeners.delete(listener)
+			}
+		},
 
 		updater: {
 			onUpdateAvailable: listener => {

@@ -6,6 +6,7 @@ import type {CookiesBrowser, CookiesMode} from '@shared/types.js'
 import {formatHomeRelativePath} from '@renderer/lib/utils.js'
 import {notify} from '@renderer/lib/notify.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
+import {siteKeyLabel} from '@shared/sites/siteKeys.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import {Alert, AlertDescription} from '../ui/alert.js'
 import {Badge} from '../ui/badge.js'
@@ -74,6 +75,7 @@ function CookiesSourceField({cookiesMode}: {cookiesMode: CookiesMode}): ReactNod
 				<ToggleGroupItem value="browser">{t('wizard.url.cookies.sourceBrowser')}</ToggleGroupItem>
 			</ToggleGroup>
 			{cookiesMode === 'explore' ? <ExploreModeDescription enabled={exploreEnabled} /> : null}
+			{cookiesMode === 'explore' ? <NotWorkingSignIns /> : null}
 			{cookiesMode !== 'off' ? <WarningText text={t('wizard.url.cookies.banWarning')} /> : null}
 		</Field>
 	)
@@ -210,11 +212,35 @@ function ExploreModeDescription({enabled}: {enabled: boolean}): ReactNode {
 	if (!enabled) return <WarningText text={t('wizard.url.cookies.exploreDisabled')} />
 	return (
 		<FieldDescription className="flex flex-wrap items-center gap-x-2 gap-y-1" data-testid="cookies-explore-description">
-			<span>{t('wizard.url.cookies.exploreDescription')}</span>
+			<span>{t('wizard.url.cookies.exploreDescriptionSignInFirst')}</span>
 			<Button type="button" variant="link" size="inline" onClick={() => replaceHash('explore')} data-testid="cookies-open-explore">
 				{t('wizard.url.cookies.openExplore')}
 			</Button>
 		</FieldDescription>
+	)
+}
+
+// Sites whose Explore sign-in downloads marked as not working (ADR 0022): they
+// start anonymous and never escalate until the user signs in again in Explore,
+// or says here to use the sign-in again (after dealing with a checkpoint).
+function NotWorkingSignIns(): ReactNode {
+	const {t} = useTranslation()
+	const {sites, reuseSignIn} = useAppStore(useShallow(state => ({sites: state.notWorkingSignIns, reuseSignIn: state.reuseSignIn})))
+	if (sites.length === 0) return null
+	return (
+		<div className="flex flex-col gap-1.5" data-testid="cookies-not-working-sign-ins">
+			{sites.map(site => (
+				<div key={site} className="flex flex-wrap items-center justify-between gap-2 rounded-md border px-3 py-2" data-testid={`cookies-not-working-sign-in-${site}`}>
+					<span className="flex items-center gap-2 text-sm">
+						<AlertTriangle className="size-4 text-warning" aria-hidden />
+						{t('wizard.url.cookies.signInNotWorking', {site: siteKeyLabel(site)})}
+					</span>
+					<Button type="button" variant="outline" size="sm" onClick={() => void reuseSignIn(site)}>
+						{t('wizard.url.cookies.useSignInAgain')}
+					</Button>
+				</div>
+			))}
+		</div>
 	)
 }
 

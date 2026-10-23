@@ -21,13 +21,15 @@ function follow<T>(subscribe: (listener: (value: T) => void) => () => void, read
 	return unsubscribe
 }
 
-// Mirrors main's rate-limit cooldowns (SiteRequestState) and the probes they
-// hold (ProbeSlots): main decides when a site may be asked again; the renderer
-// only shows it and asks for "Try now".
+// Mirrors main's rate-limit cooldowns (SiteRequestState), the probes they hold
+// (ProbeSlots) and the sign-ins downloads marked as not working
+// (SuspectSignIns): main decides; the renderer shows them and asks for "Try
+// now" or "Use my sign-in again".
 export function createSiteCooldownSlice(set: SetState, _get: GetState): SiteCooldownSlice {
 	return {
 		siteCooldowns: [],
 		heldProbes: [],
+		notWorkingSignIns: [],
 
 		bindSiteCooldowns: () => {
 			unbindSiteCooldowns?.()
@@ -47,10 +49,24 @@ export function createSiteCooldownSlice(set: SetState, _get: GetState): SiteCool
 				binding,
 				'held probe'
 			)
+			const {signIns} = window.appApi
+			const unbindSignIns = follow(
+				listener => signIns.onNotWorkingChanged(listener),
+				() => signIns.getNotWorking(),
+				notWorkingSignIns => set({notWorkingSignIns}),
+				binding,
+				'sign-in'
+			)
 			unbindSiteCooldowns = () => {
 				unbindCooldowns()
 				unbindHeld()
+				unbindSignIns()
 			}
+		},
+
+		reuseSignIn: async site => {
+			const result = await window.appApi.signIns.useAgain(site)
+			if (!result.ok) console.warn('[sign-ins] use again failed', result.error)
 		},
 
 		tryRateLimitedSiteNow: async site => {

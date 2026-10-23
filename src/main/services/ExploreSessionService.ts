@@ -136,6 +136,15 @@ export class ExploreSessionService implements SessionCookieJarPort {
 		return all.filter(c => inExploreCookieScope(c, scope))
 	}
 
+	// Any cookie in the partition changed. Only the event is passed on, never a
+	// cookie's name or value.
+	onCookiesChanged(listener: () => void): () => void {
+		const ses = this.getSession()
+		const onChanged = (): void => listener()
+		ses.cookies.on('changed', onChanged)
+		return () => ses.cookies.off('changed', onChanged)
+	}
+
 	async hasAuthCookies(scope: ExploreCookieScope): Promise<boolean> {
 		return exploreScopeSignedIn(await this.readCookies(scope), scope)
 	}

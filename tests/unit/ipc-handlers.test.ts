@@ -100,6 +100,7 @@ function makeDeps() {
 		exploreView: {navigate: vi.fn(), setBounds: vi.fn(), setVisible: vi.fn(), setActive: vi.fn(), signOut: vi.fn(), getState: vi.fn(), destroy: vi.fn(), applyProxySetting: vi.fn(), applyAdBlockSetting: vi.fn(), applyIdleUnloadSetting: vi.fn(), applyZoomSetting: vi.fn()} as never,
 		launchGate: {snapshot: vi.fn().mockReturnValue([]), allowOnce: vi.fn(), onChange: vi.fn().mockReturnValue(() => undefined)} as never,
 		probeSlots: probeSlots as never,
+		suspectSignIns: {list: vi.fn().mockReturnValue([]), useAgain: vi.fn(), onChange: vi.fn().mockReturnValue(() => undefined)},
 		graphicsPolicyProvider: vi.fn().mockResolvedValue({backdrop: {webglBlocked: false, softwareWebglAllowed: false}}),
 		intakeService: intakeService as never,
 		_raw: {downloadService, probeService, mainWindow, queueService, settingsStore, languageRef, clipboardWatcher, intakeService, probeSlots}

@@ -76,6 +76,9 @@ export const IPC_CHANNELS = {
 	siteRequestsCooldownsChanged: 'siteRequests:cooldownsChanged',
 	siteRequestsGetHeldProbes: 'siteRequests:getHeldProbes',
 	siteRequestsHeldProbesChanged: 'siteRequests:heldProbesChanged',
+	signInsGetNotWorking: 'signIns:getNotWorking',
+	signInsUseAgain: 'signIns:useAgain',
+	signInsNotWorkingChanged: 'signIns:notWorkingChanged',
 	// Local clients (release flag agentControl): main keeps them; the window
 	// lists them and the requests waiting for Allow, and answers those.
 	localClientsGet: 'localClients:get',

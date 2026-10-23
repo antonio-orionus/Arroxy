@@ -20,6 +20,15 @@ function gateFor(common: Partial<CommonSettings>, signedIn = true) {
 }
 
 describe('createExploreGate', () => {
+	it('refuses a site whose sign-in downloads marked as not working (ADR 0022)', async () => {
+		const hasAuthCookies = vi.fn().mockResolvedValue(true)
+		const gate = createExploreGate({settings: {get: async () => settingsWith({cookiesMode: 'explore'})}, session: {hasAuthCookies}, suspects: {isSuspect: site => site === 'instagram'}})
+
+		await expect(gate.canEscalate({kind: 'web', host: 'www.instagram.com'})).resolves.toEqual({allowed: false, reason: 'signInSuspect'})
+		await expect(gate.canEscalate({kind: 'web', host: 'x.com'})).resolves.toEqual(ALLOWED)
+		await expect(gate.canEscalate(YOUTUBE)).resolves.toEqual(ALLOWED)
+	})
+
 	it('allows escalation in explore mode, with Explore enabled and a signed-in session', async () => {
 		const {gate, hasAuthCookies} = gateFor({cookiesMode: 'explore'})
 		await expect(gate.canEscalate(YOUTUBE)).resolves.toEqual(ALLOWED)

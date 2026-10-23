@@ -600,6 +600,10 @@ export interface SiteCooldownSlice {
 	// "Try now": the next request to `site` goes through its cooldown once. The
 	// caller then makes that request (its usual retry).
 	tryRateLimitedSiteNow: (site: string) => Promise<void>
+	// The sites whose Explore sign-in downloads marked as not working (ADR 0022).
+	notWorkingSignIns: string[]
+	// "Use my sign-in again": downloads use the site's sign-in again.
+	reuseSignIn: (site: string) => Promise<void>
 }
 
 export type AppState = ProbeOrchestratorSlice & FormatPickerSlice & VideoPartSlice & OutputConfigSlice & WizardDialogsSlice & QueueSlice & QuickDownloadSlice & UiSlice & SystemSlice & SiteCooldownSlice

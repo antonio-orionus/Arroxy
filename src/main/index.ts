@@ -35,6 +35,7 @@ import {createExploreGate} from '@main/services/exploreGate.js'
 import {SignedInPacer} from '@main/services/SignedInPacer.js'
 import {signedInPacingFor} from '@shared/sites/signedInPacing.js'
 import {LaunchGate} from '@main/services/LaunchGate.js'
+import {createExploreSignIns} from '@main/services/exploreSignIns.js'
 import {QueueService} from '@main/services/QueueService.js'
 import {ProbeService} from '@main/services/ProbeService.js'
 import {fetchHeadLength, lookUpMissingSizes} from '@main/services/formatSizeLookup.js'
@@ -366,7 +367,8 @@ if (hasSingleInstanceLock) {
 		// queue's boot-time spawn pass can write a live jar it would delete.
 		await exploreSession.sweepJars()
 		if (e2eMode.exploreCookies) await exploreSession.seedForE2e(e2eMode.exploreCookies)
-		const exploreGate = createExploreGate({settings: settingsStore, session: exploreSession})
+		const signIns = await createExploreSignIns({userDataPath, session: exploreSession, settings: () => settingsStore.getSync().common})
+		const exploreGate = createExploreGate({settings: settingsStore, session: exploreSession, suspects: signIns.suspects})
 		// One launch gate for the whole app: one rate-limit cooldown per site and network route,
 		// shared by probes, queued jobs and automatic retries, and the signed-in pacing of each site.
 		const launchGate = new LaunchGate({
@@ -379,14 +381,14 @@ if (hasSingleInstanceLock) {
 			})
 		})
 		const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore, {e2eMode, sessionJars: exploreSession, launchGate, sessionAuth: exploreGate})
-		const downloadService = new DownloadService(ytDlp, recentJobsStore, isMockBackend, undefined, {exploreGate, exploreSession, launchGate})
+		const downloadService = new DownloadService(ytDlp, recentJobsStore, isMockBackend, undefined, {exploreGate, exploreSession, launchGate, signInEvidence: signIns.recordEvidence})
 		// Sizes a site leaves out come from one HEAD request per file. Not through a
 		// proxy (these requests would bypass it) and not under the E2E harness.
 		const formatSizes = isMockBackend || e2eMode.enabled ? undefined : (formats: readonly YtDlpFormat[], signal: AbortSignal) => (nonEmpty(settingsStore.getSync().common.proxyUrl?.trim()) ? Promise.resolve(new Map<string, number>()) : lookUpMissingSizes(formats, fetchHeadLength, signal))
 		// How many probes run at once: background ones wait their turn and wait out their site's cooldown.
 		const probeSlots = new ProbeSlots({backgroundLimit: initialSettings.common.concurrentProbes ?? DEFAULT_CONCURRENT_PROBES, cooldown: launchGate})
-		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache, {exploreGate, exploreSession, slots: probeSlots, listingCharges: launchGate, ...(formatSizes ? {formatSizes} : {})})
-		const queueService = new QueueService(queueStore, downloadService, undefined, undefined, {manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u}, probeInfoJsonCache, launchGate)
+		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache, {exploreGate, exploreSession, slots: probeSlots, listingCharges: launchGate, startIdentity: signIns.decideStart, signInEvidence: signIns.recordEvidence, ...(formatSizes ? {formatSizes} : {})})
+		const queueService = new QueueService(queueStore, downloadService, undefined, undefined, {manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u}, probeInfoJsonCache, launchGate, signIns.decideStart)
 		// Apply the persisted concurrency before init() runs its boot-time spawn
 		// pass, so a restart honors the user's limit instead of falling back to
 		// the built-in cap for the first batch.
@@ -706,6 +708,7 @@ if (hasSingleInstanceLock) {
 			exploreView,
 			launchGate,
 			probeSlots,
+			suspectSignIns: signIns.suspects,
 			graphicsPolicyProvider,
 			intakeService,
 			refreshAppMenu: appMenu.refresh,

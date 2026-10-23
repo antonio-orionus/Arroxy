@@ -49,6 +49,7 @@ export const BROWSER_MOCK_SCENARIO_IDS = [
 	'hotkey-hint',
 	'hotkey-conflict',
 	'cookies-browser-profile',
+	'explore-signin-not-working',
 	'profiles-home-clipboard-single',
 	'profiles-home-clipboard-bulk',
 	'profiles-split-menu',
@@ -265,6 +266,7 @@ export const BROWSER_MOCK_SCENARIOS: readonly BrowserMockScenario[] = [
 	{id: 'profiles-home-empty', group: 'Profiles', title: 'Profiles home', description: 'Redesigned main screen with active built-in profile and no dialog open.', kind: 'profile'},
 	{id: 'hotkey-hint', group: 'Profiles', title: 'Quick Download hotkey hint', description: 'Quick Download card with the configured global hotkey enabled and registered: the shortcut is in its hint.', kind: 'profile'},
 	{id: 'hotkey-conflict', group: 'Profiles', title: 'Global hotkey conflict', description: 'Hotkey settings with the configured shortcut unavailable because another app owns it.', kind: 'profile'},
+	{id: 'explore-signin-not-working', group: 'Profiles', title: 'Explore sign-ins not working for downloads', description: 'Explore cookie mode with the Instagram and X sign-ins marked as not working for downloads: one row per site with Use my sign-in again.', kind: 'profile'},
 	{id: 'cookies-browser-profile', group: 'Profiles', title: 'Browser cookies from a profile folder', description: 'Cookies source set to Browser: Firefox with a Floorp profile folder picked, so yt-dlp reads the fork instead of Firefox.', kind: 'profile'},
 	{id: 'profiles-home-clipboard-single', group: 'Profiles', title: 'Clipboard single', description: 'Profile home with one clipboard-detected link prefilled.', kind: 'profile'},
 	{id: 'profiles-home-clipboard-bulk', group: 'Profiles', title: 'Clipboard bulk', description: 'Profile home after several clipboard links were detected; the first link is prefilled.', kind: 'profile'},
@@ -414,7 +416,7 @@ function withMockProbeError(url: string, kind: YtDlpErrorKind): string {
 
 function profileScenarioPatch(scenario: BrowserMockScenario): Partial<AppState> {
 	if (scenario.id === 'hotkey-conflict') return {wizardStep: 'url', wizardUrl: '', advancedAutoOpen: true, advancedAutoTarget: 'hotkey'}
-	if (scenario.id === 'cookies-browser-profile') return {wizardStep: 'url', wizardUrl: '', advancedAutoOpen: true, advancedAutoTarget: 'cookies'}
+	if (scenario.id === 'cookies-browser-profile' || scenario.id === 'explore-signin-not-working') return {wizardStep: 'url', wizardUrl: '', advancedAutoOpen: true, advancedAutoTarget: 'cookies'}
 	if (scenario.id === 'profiles-home-clipboard-single') return {wizardStep: 'url', wizardUrl: PROFILE_SINGLE_URL}
 	if (scenario.id === 'profiles-home-clipboard-bulk') return {wizardStep: 'url', wizardUrl: PROFILE_BULK_URLS[0]}
 	if (scenario.id === 'profiles-split-menu') return {wizardStep: 'url', wizardUrl: PROFILE_SINGLE_URL}
@@ -544,7 +546,7 @@ export async function applyScenarioWorkbenchState(input: {scenario: BrowserMockS
 	if (scenario.kind === 'profile') {
 		store.reset()
 		// The hotkey section lives on the Settings tab, as openAdvancedSettings opens it.
-		if (scenario.id === 'hotkey-conflict' || scenario.id === 'cookies-browser-profile') replaceHash('settings')
+		if (scenario.id === 'hotkey-conflict' || scenario.id === 'cookies-browser-profile' || scenario.id === 'explore-signin-not-working') replaceHash('settings')
 		if (scenario.id === 'profiles-manage-origins') replaceHash('profiles')
 		store.setState(profileScenarioPatch(scenario))
 		return
@@ -613,6 +615,7 @@ function buildSettings(scenario: BrowserMockScenario, knobs?: BrowserMockKnobs):
 			commonPaths,
 			...(scenario.id === 'hotkey-hint' || scenario.id === 'hotkey-conflict' || scenario.id === 'profiles-plain-link' || scenario.id === 'profiles-video-in-playlist' ? {hotkeyEnabled: true, hotkeyAccelerator: 'CommandOrControl+Shift+D'} : {}),
 			...(scenario.id === 'single-review-returning' ? {successfulDownloadCount: 12} : {}),
+			...(scenario.id === 'explore-signin-not-working' ? {cookiesMode: 'explore', exploreEnabled: true, exploreNoticeSeen: true} : {}),
 			...(scenario.id === 'cookies-browser-profile' ? {cookiesMode: 'browser', cookiesBrowser: 'firefox', cookiesBrowserProfile: '/home/user/.var/app/one.ablaze.floorp/.floorp'} : {}),
 			...(scenario.id === 'update-whats-new' ? {launchCount: 3, lastReleaseNotesVersionShown: '0.4.0-beta.3'} : {}),
 			...(scenario.id === 'update-whats-new-catchup' ? {launchCount: 9, lastReleaseNotesVersionShown: '0.4.2'} : {}),

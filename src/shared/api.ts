@@ -187,6 +187,13 @@ export interface AppApi {
 		getHeldProbes(): Promise<Result<HeldProbe[]>>
 		onHeldProbesChanged(listener: (held: HeldProbe[]) => void): () => void
 	}
+	// The sites whose Explore sign-in downloads marked as not working (ADR 0022).
+	signIns: {
+		getNotWorking(): Promise<Result<string[]>>
+		// "Use my sign-in again": downloads use the site's sign-in again.
+		useAgain(site: string): Promise<Result<void>>
+		onNotWorkingChanged(listener: (sites: string[]) => void): () => void
+	}
 	// Only while the agentControl release flag is on.
 	localClients?: LocalClientsApi
 	updater: {onUpdateAvailable(listener: (info: UpdateAvailablePayload) => void): () => void; install(): Promise<UpdateInstallResult>}

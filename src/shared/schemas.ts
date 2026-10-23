@@ -640,6 +640,8 @@ const requestSiteSchema = z.string().min(1).max(253)
 export const siteCooldownSchema = z.strictObject({site: requestSiteSchema, until: z.iso.datetime(), evidence: rateLimitEvidenceSchema})
 export type SiteCooldown = z.infer<typeof siteCooldownSchema>
 export const siteTryNowSchema = z.strictObject({site: requestSiteSchema})
+// "Use my sign-in again": downloads use the site's Explore sign-in again (ADR 0022).
+export const signInUseAgainSchema = z.strictObject({site: requestSiteSchema})
 // A background probe that probe slots hold while `site` cools down. `owner` is
 // the probe's owner key: for a Downloads row, its id.
 export const heldProbeSchema = z.strictObject({owner: z.string().min(1), site: requestSiteSchema})

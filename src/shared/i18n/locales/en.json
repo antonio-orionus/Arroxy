@@ -1556,7 +1556,7 @@
 				"clear": "Clear",
 				"enabledButNoBrowser": "Pick a browser to use cookies",
 				"enabledButNoFile": "Pick a file to use cookies",
-				"exploreDescription": "Uses your Explore sign-in only when a download needs it.",
+				"exploreDescriptionSignInFirst": "Uses your Explore sign-in from the start on Instagram and X, and elsewhere only when a download needs it.",
 				"exploreDisabled": "The Explore tab is off, so downloads don't use your Explore sign-in. Turn it on under Explore below.",
 				"extensionChrome": "Get cookies.txt LOCALLY (Chrome)",
 				"extensionFirefox": "cookies.txt (Firefox)",
@@ -1570,12 +1570,14 @@
 				"profilePlaceholder": "The browser's default profile",
 				"recommended": "Recommended",
 				"risk": "Risk: a cookies.txt contains every logged-in session for that browser — keep it private.",
+				"signInNotWorking": "{{site}}: sign-in isn’t working for downloads",
 				"sourceBrowser": "Browser",
 				"sourceExplore": "Explore sign-in",
 				"sourceFile": "File",
 				"sourceLabel": "Cookies source",
 				"sourceOff": "Off",
-				"toggleDescription": "Helps with videos your own account can watch, like your private videos."
+				"toggleDescription": "Helps with videos your own account can watch, like your private videos.",
+				"useSignInAgain": "Use my sign-in again"
 			},
 			"downloadConnections": {
 				"description": "Speeds up large downloads by fetching several parts of a video at once. Higher values raise the chance a site limits you.",

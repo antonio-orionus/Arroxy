@@ -248,6 +248,15 @@ export function createPreloadApi(ipcRenderer: PreloadIpcRenderer): AppApi {
 				return () => ipcRenderer.removeListener(IPC_CHANNELS.siteRequestsHeldProbesChanged, wrapped)
 			}
 		},
+		signIns: {
+			getNotWorking: () => ipcRenderer.invoke(IPC_CHANNELS.signInsGetNotWorking),
+			useAgain: site => ipcRenderer.invoke(IPC_CHANNELS.signInsUseAgain, {site}),
+			onNotWorkingChanged: listener => {
+				const wrapped = (_: unknown, sites: string[]): void => listener(sites)
+				ipcRenderer.on(IPC_CHANNELS.signInsNotWorkingChanged, wrapped)
+				return () => ipcRenderer.removeListener(IPC_CHANNELS.signInsNotWorkingChanged, wrapped)
+			}
+		},
 		updater: {
 			onUpdateAvailable: listener => {
 				const wrapped = (_: unknown, payload: UpdateAvailablePayload): void => listener(payload)
