@@ -294,6 +294,29 @@ describe('SignedInPacer: reserved starts', () => {
 		expect(pacer.startsAt('x')).toBeNull()
 	})
 
+	it('spaces a reserved launch from a launch that started while it waited', async () => {
+		vi.useFakeTimers({now: 1000})
+		try {
+			const pacer = new SignedInPacer({pacing: pacing({atOnce: 3, spacingMs: 1000}), sleep: abortableSleep, random: () => 0.5})
+			await pacer.run('x', 'earlier', () => Promise.resolve())
+			const reserved = pacer.reserveStart('x', {explicit: true})
+			if (reserved.kind !== 'reserved') throw new Error('expected a reservation')
+			const startedAt: Record<string, number> = {}
+			const launch = (name: string) => () => {
+				startedAt[name] = Date.now()
+				return Promise.resolve()
+			}
+			const probe = pacer.run('x', 'probe', launch('probe'))
+			const download = pacer.run('x', 'download', launch('download'), {reservation: reserved.id})
+			await vi.advanceTimersByTimeAsync(3000)
+			await Promise.all([probe, download])
+
+			expect(startedAt).toEqual({probe: 2000, download: 3000})
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
 	it('wakes a launch waiting on the budget when a released reservation refunds it', async () => {
 		vi.useFakeTimers()
 		try {

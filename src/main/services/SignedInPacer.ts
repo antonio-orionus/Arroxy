@@ -93,8 +93,8 @@ export class SignedInPacer {
 		// charge; it waits only out the spacing from the last launch that started.
 		const reserved = reservation === undefined ? undefined : this.consume(state, reservation)
 		if (reserved !== undefined) {
-			const wait = explicit ? 0 : state.lastLaunchAt + this.pacing(site).spacingMs - this.now()
-			if (wait > 0) {
+			// Asked again after every wait: another launch may have started meanwhile.
+			for (let wait = this.reservedWait(site, state, explicit); wait > 0; wait = this.reservedWait(site, state, explicit)) {
 				onWait?.({reason: 'signedInSpacing', waitMs: wait})
 				try {
 					await this.sleep(wait, signal)
@@ -203,6 +203,11 @@ export class SignedInPacer {
 		state.charges.push(charge)
 		if (!explicit) state.nextStartAt = now + this.spacing(pacing)
 		return charge
+	}
+
+	// How long a reserved launch still waits out the spacing from the last launch that started.
+	private reservedWait(site: string, state: SiteState, explicit: boolean): number {
+		return explicit ? 0 : state.lastLaunchAt + this.pacing(site).spacingMs - this.now()
 	}
 
 	// A reserved launch actually starts: later starts are spaced from it.
