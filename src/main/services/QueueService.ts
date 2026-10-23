@@ -60,6 +60,7 @@ import {commitPhaseStatus} from './download/queuePhaseStatus.js'
 import {QueueProgressCoalescer} from './download/QueueProgressCoalescer.js'
 import {QueueJobProgress} from './download/QueueJobProgress.js'
 import {QueueSiteHold, type QueueSiteGate} from './download/QueueSiteHold.js'
+import type {StartDecision} from './startIdentity.js'
 import {spawnQueueJob} from './download/queueJobSpawn.js'
 import {applyQueueSelectionAction} from './queueSelectionActionApply.js'
 
@@ -140,10 +141,11 @@ export class QueueService extends EventEmitter {
 		private maxConcurrent = MAX_CONCURRENT_DOWNLOADS,
 		private readonly playlist?: {manifestStore: PlaylistManifestStore; writeM3u: (manifest: PlaylistManifest) => Promise<void>},
 		private readonly probeInfoJsonCache?: ProbeInfoJsonCache,
-		launchGate?: QueueSiteGate
+		launchGate?: QueueSiteGate,
+		decideStart?: (url: string) => StartDecision
 	) {
 		super()
-		this.siteHold = new QueueSiteHold(launchGate)
+		this.siteHold = new QueueSiteHold(launchGate, decideStart)
 		this.siteHold.onChange(() => this.recomputeSchedule())
 		this.artifactCleanup = new QueueArtifactCleanup(probeInfoJsonCache)
 		this.playlistM3u = new QueuePlaylistM3u(this.playlist)
@@ -740,7 +742,8 @@ export class QueueService extends EventEmitter {
 				findItem: (id: string) => this.findItem(id),
 				commitEvent: (id: string, evt: QueueEvent) => this.commit({kind: 'event', itemId: id, evt}),
 				patch: (id: string, reason: string, patcher: (prev: QueueItem) => QueueItem) => this.commit({kind: 'patch', itemId: id, reason, patcher}),
-				settled: () => this.spawning.delete(itemId)
+				settled: () => this.spawning.delete(itemId),
+				startIdentity: (row: QueueItem) => this.siteHold.startIdentity(row)
 			}
 			return await spawnQueueJob(deps, item, tempDir, signedInReservation)
 		} finally {

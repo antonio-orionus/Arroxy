@@ -3,8 +3,8 @@ import {z} from 'zod'
 import type {SuspectSignInMark} from '@main/services/SuspectSignIns.js'
 
 // The sites whose Explore sign-in downloads marked as not working, kept across
-// restarts. Each mark holds a hash of the site's sign-in cookie, never its value.
-const markSchema = z.object({site: z.string().min(1), cookieHash: z.string().min(1), since: z.string(), evidence: z.enum(['anonymousWorked', 'signedInUnknown', 'signedInSucceeded', 'accountWall', 'cookiesRejected'])})
+// restarts. Each mark holds a fingerprint (hash) of the site's sign-in cookie, never its value.
+const markSchema = z.object({site: z.string().min(1), cookieFingerprint: z.string().min(1), since: z.string(), evidence: z.enum(['anonymousWorked', 'signedInUnknown', 'signedInSucceeded', 'accountWall', 'cookiesRejected'])})
 
 // A malformed entry is dropped: an unreadable mark only means a site is tried signed in again.
 export function parseSuspectSignInMarks(raw: unknown): SuspectSignInMark[] {

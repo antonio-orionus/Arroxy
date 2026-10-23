@@ -8,12 +8,12 @@ import {SuspectSignIns, type SuspectSignInMark} from '@main/services/SuspectSign
 
 const MINUTE = 60_000
 
-function setup(hashes: Record<string, string | null> = {instagram: 'h1', x: 'hx'}) {
+function setup(fingerprints: Record<string, string | null> = {instagram: 'h1', x: 'hx'}) {
 	let now = 1_000_000
 	let saved: SuspectSignInMark[] = []
 	const store = {read: () => saved, write: (marks: SuspectSignInMark[]) => void (saved = marks)}
-	const suspects = new SuspectSignIns({store, cookieHash: site => hashes[site] ?? null, now: () => now})
-	return {suspects, advance: (ms: number) => (now += ms), saved: () => saved, hashes, store}
+	const suspects = new SuspectSignIns({store, cookieFingerprint: site => fingerprints[site] ?? null, now: () => now})
+	return {suspects, advance: (ms: number) => (now += ms), saved: () => saved, fingerprints, store}
 }
 
 describe('SuspectSignIns: what marks a sign-in as not working', () => {
@@ -66,20 +66,20 @@ describe('SuspectSignIns: what marks a sign-in as not working', () => {
 
 describe('SuspectSignIns: what clears the mark', () => {
 	it('keeps the mark across restarts, saved as the cookie hash only', () => {
-		const {suspects, store, hashes} = setup()
+		const {suspects, store, fingerprints} = setup()
 		suspects.record('instagram', 'accountWall')
-		expect(store.read()).toEqual([{site: 'instagram', cookieHash: 'h1', since: new Date(1_000_000).toISOString(), evidence: 'accountWall'}])
+		expect(store.read()).toEqual([{site: 'instagram', cookieFingerprint: 'h1', since: new Date(1_000_000).toISOString(), evidence: 'accountWall'}])
 
-		const restarted = new SuspectSignIns({store, cookieHash: site => hashes[site] ?? null, now: () => 2_000_000})
+		const restarted = new SuspectSignIns({store, cookieFingerprint: site => fingerprints[site] ?? null, now: () => 2_000_000})
 		expect(restarted.isSuspect('instagram')).toBe(true)
 	})
 
 	it('clears the mark when the user signs in again, which changes the cookie', () => {
-		const {suspects, hashes} = setup()
+		const {suspects, fingerprints} = setup()
 		const listener = vi.fn()
 		suspects.onChange(listener)
 		suspects.record('instagram', 'accountWall')
-		hashes.instagram = 'h2'
+		fingerprints.instagram = 'h2'
 		suspects.cookieChanged('instagram')
 
 		expect(suspects.isSuspect('instagram')).toBe(false)

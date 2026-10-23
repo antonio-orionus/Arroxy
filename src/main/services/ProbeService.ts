@@ -2,7 +2,7 @@ import {EventEmitter} from 'node:events'
 import log from 'electron-log/main.js'
 import {nowIso} from '@main/utils/clock.js'
 import {ok, fail, type Result} from '@shared/result.js'
-import type {JobAuth, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, ProbeInfoJsonRef, VideoChapter, VideoProbeResult} from '@shared/types.js'
+import type {AuthBasis, JobAuth, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, ProbeInfoJsonRef, VideoChapter, VideoProbeResult} from '@shared/types.js'
 import type {EscalationReason} from '@shared/escalationSchemas.js'
 import type {ExploreSignInState, ProbeKind} from '@shared/schemas.js'
 import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo, type YtDlpFormat} from 'yt-dlp-bridge/info'
@@ -14,6 +14,9 @@ import {exploreCookieScopeFor} from '@shared/sites/exploreCookieScope.js'
 import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
 import {PROBE_TIMEOUT_MESSAGE, RATE_LIMIT_COOLDOWN_MESSAGE, YtDlp, type RunIdentity} from './YtDlp.js'
 import type {LaunchGate} from './LaunchGate.js'
+import type {StartDecision} from './startIdentity.js'
+import type {SignInEvidence} from './SuspectSignIns.js'
+import {signedInFailure} from './signedInEvidence.js'
 import type {ProbeSlots} from './ProbeSlots.js'
 import {decideEscalation, escalationReason, reachesPlaylistItems} from './exploreEscalation.js'
 import type {ExploreGate} from './exploreGate.js'
@@ -54,6 +57,8 @@ interface ProbeRunAs {
 	// The user opened this link (the window's probe): a signed-in run skips its site's spacing and budget.
 	readonly explicit: boolean
 	cookiesRejected: boolean
+	// The site yt-dlp said rejected the account cookies, on any of its spawns.
+	cookiesRejectedBy: string | null
 	// The URL the last run asked, after any redirect.
 	lastUrl: string
 	// Told the site whose cooldown held a run (YtDlp spawned nothing): a redirect may have changed it.
@@ -80,6 +85,10 @@ export interface ProbeServiceOptions {
 	// Where a listing enumerated signed in is charged against its site's
 	// signed-in window (the launch gate). Absent: nothing is charged.
 	listingCharges?: Pick<LaunchGate, 'chargeListing'>
+	// The identity a link's first run uses (ADR 0022). Absent: every probe starts anonymous.
+	startIdentity?: (url: string) => StartDecision
+	// Where a site-default run tells what it showed about the site's sign-in.
+	signInEvidence?: (site: string, evidence: SignInEvidence) => void
 }
 
 // `kind` picks the probe's slot. `escalate: false` keeps the probe anonymous even when the Explore
@@ -221,6 +230,8 @@ export class ProbeService extends EventEmitter {
 	private readonly formatSizes: ProbeServiceOptions['formatSizes']
 	private readonly slots: ProbeSlots | undefined
 	private readonly listingCharges: Pick<LaunchGate, 'chargeListing'> | undefined
+	private readonly startIdentity: ((url: string) => StartDecision) | undefined
+	private readonly signInEvidence: ((site: string, evidence: SignInEvidence) => void) | undefined
 
 	constructor(
 		private readonly ytDlp: YtDlp,
@@ -235,6 +246,8 @@ export class ProbeService extends EventEmitter {
 		this.formatSizes = options?.formatSizes
 		this.slots = options?.slots
 		this.listingCharges = options?.listingCharges
+		this.startIdentity = options?.startIdentity
+		this.signInEvidence = options?.signInEvidence
 	}
 
 	// The site itself said the Explore session is signed out, during a signed-in
@@ -316,19 +329,36 @@ export class ProbeService extends EventEmitter {
 			logger.info('Probe started', {url, ...logContext})
 
 			let cookiesRejected = false
+			let cookiesRejectedBy: string | null = null
 			let lastUrl = url
 			const runAs = async (identity: RunIdentity): Promise<ProbeOutcome> => {
-				const as: ProbeRunAs = {identity, explicit: opts.kind === 'interactive', cookiesRejected: false, lastUrl: url, onHeld, onPaced}
+				const as: ProbeRunAs = {identity, explicit: opts.kind === 'interactive', cookiesRejected: false, cookiesRejectedBy: null, lastUrl: url, onHeld, onPaced}
 				const mappedOutcome = mapProbeAttempt(await this.probeWithRedirectFollow(url, playlistMode, playlistScope, signal, as, timeoutMs), url, logContext)
 				cookiesRejected = as.cookiesRejected
+				cookiesRejectedBy = as.cookiesRejectedBy
 				lastUrl = as.lastUrl
 				return mappedOutcome
 			}
 			// Whether a playlist's items need the account too (R20): main decides and stamps them.
 			let itemsNeedAccount = false
-			let outcome = await runAs('configured')
-			const reason = escalate && outcome.kind === 'failure' ? await this.escalationFor(url, outcome.error, signal) : null
+			// A lookup that must not spend the account never starts signed in either.
+			const start = escalate ? (this.startIdentity?.(url) ?? null) : null
+			if (start) logger.info('Probe start identity', {url, ...start})
+			let basis: AuthBasis | undefined = start?.auth === 'exploreSession' ? 'siteDefault' : undefined
+			let outcome = await runAs(basis ? 'exploreSession' : 'configured')
+			if (start && basis) {
+				auth = 'exploreSession'
+				const settled = await this.settleSiteDefault(url, start.site, outcome, cookiesRejectedBy, () => runAs('configured'))
+				outcome = settled.outcome
+				if (settled.ranAnonymous) {
+					auth = undefined
+					basis = undefined
+				}
+			}
+			// A probe its site started signed in never escalates: it already ran signed in.
+			const reason = escalate && start?.auth !== 'exploreSession' && outcome.kind === 'failure' ? await this.escalationFor(url, outcome.error, signal) : null
 			if (reason) {
+				basis = 'escalation'
 				auth = 'exploreSession'
 				itemsNeedAccount = reachesPlaylistItems(reason)
 				outcome = await runAs('exploreSession')
@@ -373,8 +403,8 @@ export class ProbeService extends EventEmitter {
 				}
 				// A signed-in result whose cookies yt-dlp dropped ran anonymously: its info-json is never replayed as signed in.
 				const probeInfoJsonRef =
-					playlistMode === 'video' && !(auth && cookiesRejected)
-						? await this.probeInfoJsonCache?.write(rawForCache, {videoId: typeof video.id === 'string' ? video.id : null, ...(final.stderr.split(/\r?\n/).some(line => sabrSkippedClient(line) !== null) ? {formatsWithheld: true} : {}), ...(auth ? {auth} : {})})
+					playlistMode === 'video' && !(auth && (cookiesRejected || cookiesRejectedBy !== null))
+						? await this.probeInfoJsonCache?.write(rawForCache, {videoId: typeof video.id === 'string' ? video.id : null, ...(final.stderr.split(/\r?\n/).some(line => sabrSkippedClient(line) !== null) ? {formatsWithheld: true} : {}), ...(auth ? {auth, ...(basis === 'siteDefault' ? {authBasis: basis} : {})} : {})})
 						: undefined
 				if (probeInfoJsonRef) {
 					const probeInfoJsonPath = await this.probeInfoJsonCache?.resolve(probeInfoJsonRef)
@@ -383,7 +413,9 @@ export class ProbeService extends EventEmitter {
 				}
 				mapped = result
 			}
-			if (auth) mapped = {...mapped, auth}
+			// Only an escalation signs its rows in for good; a row whose site started it
+			// signed in asks its site again at each start (queueStartIdentity.ts).
+			if (auth && basis === 'escalation') mapped = {...mapped, auth}
 
 			logger.info('Probe result', {...summarizeProbeResult(mapped), playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
 			return ok(mapped)
@@ -392,6 +424,26 @@ export class ProbeService extends EventEmitter {
 			logger.error('Probe failure', {message, url, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
 			return fail<ProbeResult, ProbeError>({kind: 'other', code: signal.aborted ? 'cancelled' : 'unknown', message})
 		}
+	}
+
+	// After a run its site started signed in (ADR 0022): what it showed about the
+	// sign-in, and one anonymous run when it failed in a way the sign-in may have
+	// caused. A result the site still gave after rejecting the cookies stands.
+	private async settleSiteDefault(url: string, site: string, first: ProbeOutcome, cookiesRejectedBy: string | null, runAnonymous: () => Promise<ProbeOutcome>): Promise<{outcome: ProbeOutcome; ranAnonymous: boolean}> {
+		const record = (evidence: SignInEvidence): void => this.signInEvidence?.(site, evidence)
+		if (cookiesRejectedBy !== null) record('cookiesRejected')
+		if (first.kind !== 'failure') {
+			if (cookiesRejectedBy === null) record('signedInSucceeded')
+			return {outcome: first, ranAnonymous: false}
+		}
+		const failure = signedInFailure({stage: 'probe', url, error: first.error})
+		if (failure === 'accountWall') record('accountWall')
+		if (failure === 'unknown') record('signedInUnknown')
+		if (failure !== 'accountRequired' && failure !== 'unknown') return {outcome: first, ranAnonymous: false}
+		logger.info('Probe failed signed in by its site’s default; running once anonymous', {url, site, failure})
+		const anonymous = await runAnonymous()
+		if (anonymous.kind !== 'failure') record('anonymousWorked')
+		return {outcome: anonymous, ranAnonymous: true}
 	}
 
 	// Why an account would fix this failure, while the user is signed in to
@@ -557,6 +609,7 @@ export class ProbeService extends EventEmitter {
 			{identity: as.identity, ...(as.explicit ? {explicit: true} : {})}
 		)
 		if (result.accountCookiesRejected === true) as.cookiesRejected = true
+		if (result.kind !== 'spawn-error' && result.cookiesRejectedBy !== undefined) as.cookiesRejectedBy = result.cookiesRejectedBy
 		if (result.kind === 'exit-error' && result.rawError === RATE_LIMIT_COOLDOWN_MESSAGE) as.onHeld(requestSiteFor(url))
 		if (result.kind === 'exit-error' && result.pacedUntil !== undefined) as.onPaced(result.pacedUntil)
 

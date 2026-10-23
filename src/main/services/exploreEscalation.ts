@@ -22,11 +22,13 @@ export type EscalationDecision = {escalated: true; reason: EscalationReason} | {
 
 export type EscalationInput = {stage: 'probe'; url: string; error: ProbeError} | {stage: 'download'; errorKind: YtDlpErrorKind; rawError: string | null; ladderExhausted: boolean}
 
-// Account-only content: private, members-only or subscriber-only. The same
+// Account-only content: private, members-only, subscriber-only, or restricted
+// to some audiences (Instagram's ruling, passed through verbatim). The same
 // message can arrive as `unavailable` or `unknown` depending on the yt-dlp
 // line; removed videos carry none of these.
 const ACCOUNT_ONLY_VIDEO_KINDS: ReadonlySet<YtDlpErrorKind> = new Set<YtDlpErrorKind>(['unavailable', 'unknown'])
-const ACCOUNT_ONLY_VIDEO_MESSAGE = /private video|\b(?:video|vod|post|stream) is private\b|members[- ]only|channel['’]s members|join this channel|only available (?:for|to) (?:subscribers|premium|members)\b|subscription needed|requires? a subscription|only for VIP\b|premium (?:users|members)\b/i
+const ACCOUNT_ONLY_VIDEO_MESSAGE =
+	/private video|\b(?:video|vod|post|stream) is private\b|members[- ]only|channel['’]s members|join this channel|only available (?:for|to) (?:subscribers|premium|members)\b|subscription needed|requires? a subscription|only for VIP\b|premium (?:users|members)\b|isn['’]t available to everyone/i
 // An extractor's own words for "cookies would let it through" (a CAPTCHA
 // solved in a browser, fresh cookies, a session to pass along).
 // yt-dlp's generic "the page was not what the extractor expected": what a login

@@ -13,20 +13,20 @@ function cookie(name: string, value: string, domain: string): ExploreCookie {
 }
 
 describe('SiteSignIns: which listed sites the Explore session is signed in to', () => {
-	it('reads each site’s sign-in cookie and keeps only a hash of it', async () => {
+	it('reads each site’s sign-in cookie and keeps only a fingerprint (hash) of it', async () => {
 		let jar = [cookie('sessionid', 'secret-1', '.instagram.com'), cookie('csrftoken', 'x', '.x.com')]
 		const signIns = new SiteSignIns({readCookies: () => Promise.resolve(jar)})
 		await signIns.refresh()
 
 		expect(signIns.signedIn('instagram')).toBe(true)
 		expect(signIns.signedIn('x')).toBe(false)
-		const hash = signIns.cookieHash('instagram')
-		expect(hash).toMatch(/^[0-9a-f]{16}$/)
-		expect(hash).not.toContain('secret')
+		const fingerprint = signIns.cookieFingerprint('instagram')
+		expect(fingerprint).toMatch(/^[0-9a-f]{16}$/)
+		expect(fingerprint).not.toContain('secret')
 
 		jar = [cookie('sessionid', 'secret-2', '.instagram.com')]
 		await signIns.refresh()
-		expect(signIns.cookieHash('instagram')).not.toBe(hash)
+		expect(signIns.cookieFingerprint('instagram')).not.toBe(fingerprint)
 	})
 
 	it('tells listeners which site’s sign-in changed', async () => {
@@ -38,7 +38,7 @@ describe('SiteSignIns: which listed sites the Explore session is signed in to', 
 
 		jar = [cookie('sessionid', 'b', '.instagram.com'), cookie('auth_token', 't', '.x.com')]
 		await signIns.refresh()
-		expect(listener.mock.calls.map(call => call[0]).sort()).toEqual(['instagram', 'x'])
+		expect(listener.mock.calls.map(call => String(call[0])).sort((a, b) => a.localeCompare(b))).toEqual(['instagram', 'x'])
 		await signIns.refresh()
 		expect(listener).toHaveBeenCalledTimes(2)
 	})
@@ -52,7 +52,7 @@ describe('SiteSignIns: which listed sites the Explore session is signed in to', 
 
 describe('parseSuspectSignInMarks', () => {
 	it('keeps well-formed marks and drops the rest', () => {
-		const good = {site: 'x', cookieHash: 'abc', since: '2026-10-23T00:00:00.000Z', evidence: 'accountWall'}
+		const good = {site: 'x', cookieFingerprint: 'abc', since: '2026-10-23T00:00:00.000Z', evidence: 'accountWall'}
 		expect(parseSuspectSignInMarks([good, {site: 'y'}, 'junk'])).toEqual([good])
 		expect(parseSuspectSignInMarks('junk')).toEqual([])
 	})

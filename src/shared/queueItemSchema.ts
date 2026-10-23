@@ -4,7 +4,7 @@
 
 import {z} from 'zod'
 import {intakeOriginSchema, pinnedDownloadProfileSchema} from './intake/intakeSchemas.js'
-import {QUEUE_STATUS, jobAuthSchema, probePlaylistModeSchema, quickProbeTakeSchema, queueArtifactKindSchema, queueChoiceSchema, queueItemStatusSchema, queueLaneSchema, statusKeySchema, ytDlpErrorKindSchema} from './schemas.js'
+import {QUEUE_STATUS, authBasisSchema, jobAuthSchema, probePlaylistModeSchema, quickProbeTakeSchema, queueArtifactKindSchema, queueChoiceSchema, queueItemStatusSchema, queueLaneSchema, statusKeySchema, ytDlpErrorKindSchema} from './schemas.js'
 import {preparedJobSchema} from './preparedJob.js'
 
 // Used by both the queue IPC handlers and QueueStore.load to reject corrupted
@@ -15,7 +15,7 @@ const localizedErrorSchemaShape = z.object({kind: ytDlpErrorKindSchema, raw: z.s
 const statusSnapshotSchema = z.object({key: statusKeySchema, params: z.record(z.string(), z.union([z.string(), z.number()])).optional()})
 
 const queueResumeContextSchema = z.object({kind: z.literal('media-retry'), tempDir: z.string().min(1), reason: z.enum(['media-transfer', 'postprocess']), failureKind: ytDlpErrorKindSchema})
-const probeInfoJsonRefSchema = z.object({id: z.string().min(1), createdAt: z.string().min(1), videoId: z.string().min(1).optional(), formatsWithheld: z.literal(true).optional(), auth: jobAuthSchema.optional()})
+const probeInfoJsonRefSchema = z.object({id: z.string().min(1), createdAt: z.string().min(1), videoId: z.string().min(1).optional(), formatsWithheld: z.literal(true).optional(), auth: jobAuthSchema.optional(), authBasis: authBasisSchema.optional()})
 const queueArtifactSchema = z.object({id: z.string().min(1), kind: queueArtifactKindSchema, path: z.string().min(1), fileName: z.string().min(1), sizeBytes: z.number().int().nonnegative().optional(), discoveredAt: z.string().min(1), missing: z.boolean().optional(), internal: z.boolean().optional()})
 
 export const queueItemSchema = z

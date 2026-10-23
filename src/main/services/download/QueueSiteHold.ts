@@ -11,7 +11,8 @@
 import {requestSiteFor} from '@shared/sites/index.js'
 import type {QueueItem} from '@shared/types.js'
 import type {LaunchGate} from '../LaunchGate.js'
-import {resolveStartIdentity} from './queueStartIdentity.js'
+import type {StartDecision} from '../startIdentity.js'
+import {resolveStartIdentity, type StartIdentity} from './queueStartIdentity.js'
 
 export type QueueSiteGate = Pick<LaunchGate, 'rateLimitedUntil' | 'onChange' | 'signedInStartsAt' | 'reserveSignedInStart' | 'onSignedInChange'>
 
@@ -23,14 +24,22 @@ export class QueueSiteHold {
 	private timer: NodeJS.Timeout | null = null
 	private wakeAt = 0
 
-	constructor(private readonly gate: QueueSiteGate | undefined) {}
+	constructor(
+		private readonly gate: QueueSiteGate | undefined,
+		// The start identity of an item that records none (startIdentity.ts).
+		private readonly decide: (url: string) => StartDecision = url => ({site: requestSiteFor(url), auth: 'anonymous', reason: 'notSignInFirst'})
+	) {}
+
+	startIdentity(item: QueueItem): StartIdentity {
+		return resolveStartIdentity(item, this.decide)
+	}
 
 	private startHold(item: QueueItem, now: number): QueueStartHold {
 		if (!this.gate) return null
 		const site = requestSiteFor(item.url)
 		const cooldown = this.gate.rateLimitedUntil(site)
 		if (cooldown !== null) return cooldown
-		if (resolveStartIdentity(item).auth !== 'exploreSession') return null
+		if (this.startIdentity(item).auth !== 'exploreSession') return null
 		const signedIn = this.gate.signedInStartsAt(site, {explicit: item.lane === 'priority'})
 		return signedIn === 'full' || (signedIn !== null && signedIn > now) ? signedIn : null
 	}
@@ -41,7 +50,7 @@ export class QueueSiteHold {
 	admit(item: QueueItem, now: number): {kind: 'go'; reservation?: string} | {kind: 'hold'; until: number | 'full'} {
 		const hold = this.startHold(item, now)
 		if (hold !== null) return {kind: 'hold', until: hold}
-		if (!this.gate || resolveStartIdentity(item).auth !== 'exploreSession') return {kind: 'go'}
+		if (!this.gate || this.startIdentity(item).auth !== 'exploreSession') return {kind: 'go'}
 		const start = this.gate.reserveSignedInStart(requestSiteFor(item.url), {explicit: item.lane === 'priority'})
 		return start.kind === 'reserved' ? {kind: 'go', reservation: start.id} : start
 	}

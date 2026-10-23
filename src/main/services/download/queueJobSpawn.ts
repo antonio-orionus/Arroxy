@@ -11,7 +11,7 @@ import type {QueueItem} from '@shared/types.js'
 import type {DownloadService} from '../DownloadService.js'
 import type {ProbeInfoJsonCache} from '../ProbeInfoJsonCache.js'
 import {QueueResumeLifecycle} from './QueueResumeLifecycle.js'
-import {resolveStartIdentity} from './queueStartIdentity.js'
+import type {StartIdentity} from './queueStartIdentity.js'
 import {createAppError} from '@main/utils/errorFactory.js'
 
 const logger = log.scope('queue')
@@ -25,6 +25,7 @@ export interface QueueJobSpawnDeps {
 	// Ends the row's spawn. Called in the same tick as the commit that settles the
 	// row, so the scheduler never counts a running row and its spawn together.
 	settled: () => void
+	startIdentity: (item: QueueItem) => StartIdentity
 }
 
 export async function spawnQueueJob(deps: QueueJobSpawnDeps, item: QueueItem, tempDir: string | undefined, signedInReservation?: string): Promise<Result<void>> {
@@ -36,7 +37,8 @@ export async function spawnQueueJob(deps: QueueJobSpawnDeps, item: QueueItem, te
 		if (resumed !== 'notParked') return resumed
 	}
 	const effectiveTempDir = QueueResumeLifecycle.tempDirForQueueStart(item, tempDir)
-	const {auth, replayProbeInfoJson} = resolveStartIdentity(item)
+	const identity = deps.startIdentity(item)
+	const {auth, replayProbeInfoJson} = identity
 	const probeInfoJsonPath = replayProbeInfoJson && item.probeInfoJsonRef && deps.probeInfoJsonCache ? await deps.probeInfoJsonCache.resolve(item.probeInfoJsonRef) : undefined
 	if (item.probeInfoJsonRef) {
 		logger.info('probe info-json resolved', {itemId: item.id, probeInfoJsonRef: item.probeInfoJsonRef, probeInfoJsonPath: probeInfoJsonPath ?? null})
@@ -46,7 +48,7 @@ export async function spawnQueueJob(deps: QueueJobSpawnDeps, item: QueueItem, te
 		outputDir: item.outputDir,
 		job: item.job,
 		tempDir: effectiveTempDir,
-		...(auth === 'exploreSession' ? {auth} : {}),
+		...(identity.auth === 'exploreSession' ? {auth, authBasis: identity.basis} : {}),
 		...(item.lane === 'priority' ? {explicit: true} : {}),
 		...(signedInReservation === undefined ? {} : {signedInReservation}),
 		...(probeInfoJsonPath ? {probeInfoJsonPath, ...(item.probeInfoJsonRef?.formatsWithheld ? {probeFormatsWithheld: true} : {})} : {})

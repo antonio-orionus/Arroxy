@@ -7,7 +7,7 @@
 //   - at once: an account wall (a checkpoint, a challenge), or the engine
 //     saying the account cookies were rejected.
 // A suspect site starts anonymous and never escalates. The mark is kept across
-// restarts as a hash of the site's sign-in cookie, never its value; signing in
+// restarts as a fingerprint (hash) of the site's sign-in cookie, never its value; signing in
 // again changes the cookie and clears it, and so does "Use my sign-in again".
 
 import log from 'electron-log/main.js'
@@ -20,7 +20,7 @@ export type SignInEvidence = 'anonymousWorked' | 'signedInUnknown' | 'signedInSu
 
 export interface SuspectSignInMark {
 	site: string
-	cookieHash: string
+	cookieFingerprint: string
 	since: string
 	evidence: SignInEvidence
 }
@@ -32,8 +32,8 @@ export interface SuspectSignInStorePort {
 
 export interface SuspectSignInsOptions {
 	store: SuspectSignInStorePort
-	// A hash of the site's current sign-in cookie; null when the session holds none.
-	cookieHash: (site: string) => string | null
+	// A fingerprint of the site's current sign-in cookie; null when the session holds none.
+	cookieFingerprint: (site: string) => string | null
 	now?: () => number
 }
 
@@ -42,7 +42,7 @@ const THRESHOLDS: Partial<Record<SignInEvidence, number>> = {anonymousWorked: 2,
 
 export class SuspectSignIns {
 	private readonly store: SuspectSignInStorePort
-	private readonly cookieHash: (site: string) => string | null
+	private readonly cookieFingerprint: (site: string) => string | null
 	private readonly now: () => number
 	private marks: SuspectSignInMark[]
 	private readonly seen = new Map<string, Array<{kind: SignInEvidence; at: number}>>()
@@ -50,7 +50,7 @@ export class SuspectSignIns {
 
 	constructor(options: SuspectSignInsOptions) {
 		this.store = options.store
-		this.cookieHash = options.cookieHash
+		this.cookieFingerprint = options.cookieFingerprint
 		this.now = options.now ?? Date.now
 		this.marks = options.store.read()
 	}
@@ -73,7 +73,7 @@ export class SuspectSignIns {
 
 	isSuspect(site: string): boolean {
 		const mark = this.marks.find(entry => entry.site === site)
-		return mark !== undefined && mark.cookieHash === this.cookieHash(site)
+		return mark !== undefined && mark.cookieFingerprint === this.cookieFingerprint(site)
 	}
 
 	// The sites marked now, in the order they were marked.
@@ -90,7 +90,7 @@ export class SuspectSignIns {
 	// The site's sign-in cookie changed: a fresh sign-in clears the mark.
 	cookieChanged(site: string): void {
 		const mark = this.marks.find(entry => entry.site === site)
-		if (mark === undefined || mark.cookieHash === this.cookieHash(site)) return
+		if (mark === undefined || mark.cookieFingerprint === this.cookieFingerprint(site)) return
 		this.seen.delete(site)
 		if (this.unmark(site)) logger.info('Sign-in mark cleared: the site’s sign-in cookie changed', {site})
 	}
@@ -101,9 +101,9 @@ export class SuspectSignIns {
 	}
 
 	private mark(site: string, evidence: SignInEvidence): void {
-		const cookieHash = this.cookieHash(site)
-		if (cookieHash === null) return
-		this.marks = [...this.marks.filter(entry => entry.site !== site), {site, cookieHash, since: new Date(this.now()).toISOString(), evidence}]
+		const cookieFingerprint = this.cookieFingerprint(site)
+		if (cookieFingerprint === null) return
+		this.marks = [...this.marks.filter(entry => entry.site !== site), {site, cookieFingerprint, since: new Date(this.now()).toISOString(), evidence}]
 		this.seen.delete(site)
 		this.store.write(this.marks)
 		logger.warn('Sign-in marked as not working for downloads', {site, evidence})

@@ -68,7 +68,7 @@ export interface YtDlpSignal {
 }
 
 export type YtDlpResult =
-	| {kind: 'success'; stdout: string; stderr: string; usedExtractorFallback: boolean; effectiveSubtitleFormat?: SubtitleFormat; accountCookiesRejected?: true}
+	| {kind: 'success'; stdout: string; stderr: string; usedExtractorFallback: boolean; effectiveSubtitleFormat?: SubtitleFormat; accountCookiesRejected?: true; cookiesRejectedBy?: string}
 	| {kind: 'spawn-error'; error: Error; stdout: string; stderr: string; accountCookiesRejected?: true}
 	| {
 			kind: 'exit-error'
@@ -83,6 +83,9 @@ export type YtDlpResult =
 			// yt-dlp warned that the account cookies it was given are no longer
 			// valid (the session was rotated or signed out in the browser).
 			accountCookiesRejected?: true
+			// The site yt-dlp said rejected the account cookies it was given (any
+			// site; `accountCookiesRejected` is YouTube's alone).
+			cookiesRejectedBy?: string
 			// The site's signed-in pacing held this run longer than its wait budget
 			// allows, until then; nothing spawned (a background probe waits again).
 			pacedUntil?: number
@@ -371,9 +374,11 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 			if (timer) clearTimeout(timer)
 			if (exitGrace) clearTimeout(exitGrace)
 			if (abortSignal && onAbort) abortSignal.removeEventListener('abort', onAbort)
-			// YouTube only: the Explore session check behind this flag reads
-			// YouTube's own sign-in state, and answers `unknown` for other sites.
-			resolve(accountCookiesRejected(result.stderr) === 'YouTube' ? {...result, accountCookiesRejected: true} : result)
+			// `accountCookiesRejected` is YouTube's only: the Explore session check
+			// behind it reads YouTube's own sign-in state, and answers `unknown` for
+			// other sites. `cookiesRejectedBy` names any site, for its suspect mark.
+			const rejectedBy = result.kind === 'spawn-error' ? null : accountCookiesRejected(result.stderr)
+			resolve(rejectedBy === null || result.kind === 'spawn-error' ? result : {...result, cookiesRejectedBy: rejectedBy, ...(rejectedBy === 'YouTube' ? {accountCookiesRejected: true as const} : {})})
 		}
 
 		const stop = (result: () => YtDlpResult): void => {
