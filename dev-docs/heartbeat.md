@@ -28,9 +28,9 @@ Counterscale has no visitor identity: its cookieless counting resets every visit
 | `8-30d`    | 8–30 days ago                                                                     |
 | `31-90d`   | 31–90 days ago                                                                    |
 | `over-90d` | more than 90 days ago                                                             |
-| `existing` | counted before first days were recorded, or `firstHeartbeatDay` is unreadable      |
+| `existing` | counted before first days were recorded, upgraded from a version without the heartbeat, or `firstHeartbeatDay` is unreadable |
 
-An install that never sent a heartbeat records today as its first day. One that sent heartbeats before the first day was recorded keeps it unknown and reports `existing` for good: guessing a date would make it look new. Both days live in `settings.json` in the user-data folder, so app updates through every channel keep them; only deleting app data (an uninstall that removes it, or a corrupt settings file) makes an install `new` again. The same happens when a user who never sent a heartbeat turns it on.
+An install that never sent a heartbeat records today as its first day, unless it already has managed binaries on disk. Versions before 0.5.2 had no heartbeat but kept their binaries in the same cache, so an upgrade from one would otherwise count as new (on 0.7.4's first day, about one `new` in seven was one). Such an install, and one that sent heartbeats before the first day was recorded, keeps its first day unknown and reports `existing` for good: guessing a date would make it look new. A binary cache that cannot be read counts as an earlier install, as it does for the warmup report's kind. Both days live in `settings.json` in the user-data folder, so app updates through every channel keep them; only deleting app data (an uninstall that removes it, or a corrupt settings file) makes an install `new` again. A user who never sent a heartbeat and turns it on later reports `existing` too, since the binaries are on disk by then.
 
 The buckets are coarse on purpose: each is shared by many installs, so it cannot single one out the way an exact install date could.
 

@@ -48,6 +48,10 @@ export interface HeartbeatDeps {
 	isEnabled: () => boolean
 	snapshot: () => HeartbeatSnapshot
 	history: () => HeartbeatHistory
+	// Whether this install already has binaries from an earlier version. Asked
+	// only before the first heartbeat ever: versions without the heartbeat kept
+	// the same binary cache, so an upgrade from one is not a new install.
+	hasEarlierInstall: () => Promise<boolean>
 	record: (history: {firstDay?: string; lastDay: string}) => void | Promise<void>
 	// Called once per failed day; the heartbeat itself never throws.
 	onError?: (error: unknown) => void
@@ -133,6 +137,12 @@ function utcDay(date: Date): string {
 	return date.toISOString().slice(0, 10)
 }
 
+// A cache that cannot be read counts as an earlier install, as it does for the
+// warmup report's kind, so the two never disagree about whether an install is new.
+function hasEarlierInstall(deps: HeartbeatDeps): Promise<boolean> {
+	return deps.hasEarlierInstall().catch(() => true)
+}
+
 export function createHeartbeat(deps: HeartbeatDeps): {maybeSend: () => Promise<boolean>} {
 	let inFlight = false
 	// Kept in memory too, so a day whose record could not be saved is still tried
@@ -148,9 +158,10 @@ export function createHeartbeat(deps: HeartbeatDeps): {maybeSend: () => Promise<
 				const history = deps.history()
 				if (attemptedDay === day || history.lastDay === day) return false
 				attemptedDay = day
-				// An install that never sent a heartbeat starts today. One that sent
-				// before first days were recorded keeps an unknown age.
-				const firstDay = history.firstDay ?? (history.lastDay === undefined ? day : undefined)
+				// An install that never sent a heartbeat starts today, unless an earlier
+				// version left its binaries. That one, and one that sent before first
+				// days were recorded, keeps an unknown age.
+				const firstDay = history.firstDay ?? (history.lastDay === undefined && !(await hasEarlierInstall(deps)) ? day : undefined)
 				// Record first: a heartbeat is fire-and-forget, and a lost one is better
 				// than a day counted twice.
 				await deps.record({firstDay, lastDay: day})

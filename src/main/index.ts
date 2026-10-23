@@ -423,6 +423,7 @@ if (hasSingleInstanceLock) {
 					const {firstHeartbeatDay, lastHeartbeatDay} = settingsStore.getSync().common
 					return {firstDay: firstHeartbeatDay, lastDay: lastHeartbeatDay}
 				},
+				hasEarlierInstall: () => binaryManager.hasManagedInstall(),
 				record: history => settingsStore.recordHeartbeat(history),
 				onError: error => log.warn('Heartbeat skipped for today', {error: error instanceof Error ? error.message : String(error)}),
 				onSent: sent => log.info('Heartbeat sent', sent)

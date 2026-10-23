@@ -389,7 +389,7 @@ The one anonymous signal an install sends per day, unless turned off: app versio
 _Avoid_: telemetry, analytics event, usage ping, tracking
 
 **Install age**:
-How long ago an install sent its first heartbeat, as a coarse bucket (new, up to a week, a month, three months, older) shared by many installs. It is what tells new installs from returning ones without an identifier.
+How long ago an install sent its first heartbeat, as a coarse bucket (new, up to a week, a month, three months, older) shared by many installs. It is what tells new installs from returning ones without an identifier. An install whose first heartbeat finds binaries from an earlier version already on disk is not new; its age stays unknown.
 _Avoid_: install date, user age, cohort ID
 
 **Warmup report**:

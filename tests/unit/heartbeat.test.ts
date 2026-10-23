@@ -57,8 +57,9 @@ describe('buildHeartbeatPageview', () => {
 })
 
 describe('createHeartbeat', () => {
-	function makeHeartbeat(opts: {enabled?: boolean; history?: HeartbeatHistory; now?: Date} = {}) {
+	function makeHeartbeat(opts: {enabled?: boolean; history?: HeartbeatHistory; now?: Date; hasEarlierInstall?: () => Promise<boolean>} = {}) {
 		let history = opts.history ?? {}
+		const hasEarlierInstall = vi.fn(opts.hasEarlierInstall ?? (async () => false))
 		let now = opts.now ?? new Date('2026-10-16T23:30:00Z')
 		let enabled = opts.enabled ?? true
 		const send = vi.fn(async () => undefined)
@@ -69,12 +70,13 @@ describe('createHeartbeat', () => {
 			isEnabled: () => enabled,
 			snapshot: () => SNAPSHOT,
 			history: () => history,
+			hasEarlierInstall,
 			record: next => {
 				history = next
 			},
 			onSent
 		})
-		return {heartbeat, send, onSent, setNow: (next: Date) => (now = next), setEnabled: (next: boolean) => (enabled = next), history: () => history}
+		return {heartbeat, send, onSent, hasEarlierInstall, setNow: (next: Date) => (now = next), setEnabled: (next: boolean) => (enabled = next), history: () => history}
 	}
 
 	it('sends once per UTC day and records the day', async () => {
@@ -109,6 +111,41 @@ describe('createHeartbeat', () => {
 		await t.heartbeat.maybeSend()
 		expect(t.send).toHaveBeenLastCalledWith(buildHeartbeatPageview(SNAPSHOT, 'existing'))
 		expect(t.history()).toEqual({firstDay: undefined, lastDay: '2026-10-16'})
+	})
+
+	// Versions before the heartbeat (up to 0.5.1) kept their binaries in the same
+	// cache and recorded no heartbeat days, so an upgrade from one looked new.
+	it('reports an install with no heartbeat history but binaries on disk as existing, and keeps its first day unknown', async () => {
+		const t = makeHeartbeat({hasEarlierInstall: async () => true})
+		await t.heartbeat.maybeSend()
+		expect(t.send).toHaveBeenLastCalledWith(buildHeartbeatPageview(SNAPSHOT, 'existing'))
+		expect(t.history()).toEqual({firstDay: undefined, lastDay: '2026-10-16'})
+
+		t.setNow(new Date('2026-10-17T09:00:00Z'))
+		await t.heartbeat.maybeSend()
+		expect(t.send).toHaveBeenLastCalledWith(buildHeartbeatPageview(SNAPSHOT, 'existing'))
+	})
+
+	it('reports an install as existing when its binary cache cannot be read', async () => {
+		const t = makeHeartbeat({
+			hasEarlierInstall: async () => {
+				throw new Error('EACCES: artifact-cache-v1')
+			}
+		})
+		expect(await t.heartbeat.maybeSend()).toBe(true)
+		expect(t.send).toHaveBeenLastCalledWith(buildHeartbeatPageview(SNAPSHOT, 'existing'))
+	})
+
+	it('looks for an earlier install only on the first heartbeat ever', async () => {
+		const t = makeHeartbeat()
+		await t.heartbeat.maybeSend()
+		t.setNow(new Date('2026-10-17T09:00:00Z'))
+		await t.heartbeat.maybeSend()
+		expect(t.hasEarlierInstall).toHaveBeenCalledTimes(1)
+
+		const counted = makeHeartbeat({history: {lastDay: '2026-10-01'}})
+		await counted.heartbeat.maybeSend()
+		expect(counted.hasEarlierInstall).not.toHaveBeenCalled()
 	})
 
 	// main.log is the only place a user can check that today's heartbeat went out.
@@ -152,7 +189,7 @@ describe('createHeartbeat failure handling', () => {
 		const record = vi.fn(() => {
 			throw new Error('EACCES: settings.json')
 		})
-		const heartbeat = createHeartbeat({send, now: () => new Date('2026-10-16T10:00:00Z'), isEnabled: () => true, snapshot: () => SNAPSHOT, history: () => ({}), record, onError})
+		const heartbeat = createHeartbeat({send, now: () => new Date('2026-10-16T10:00:00Z'), isEnabled: () => true, snapshot: () => SNAPSHOT, history: () => ({}), hasEarlierInstall: async () => false, record, onError})
 
 		await expect(heartbeat.maybeSend()).resolves.toBe(false)
 		await expect(heartbeat.maybeSend()).resolves.toBe(false)
@@ -172,6 +209,7 @@ describe('createHeartbeat failure handling', () => {
 			isEnabled: () => true,
 			snapshot: () => SNAPSHOT,
 			history: () => ({}),
+			hasEarlierInstall: async () => false,
 			record: () => undefined,
 			onError,
 			onSent
