@@ -550,6 +550,12 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			// directory. It cannot match when the template omits {id}, and it would
 			// look in the wrong directory when the template sorts entries into
 			// per-entry folders. Report "nothing found" rather than reporting wrongly.
+			// Multi-profile videos save in their profiles' folders, not one playlist
+			// folder (#680): nothing to scan, and no notice about it.
+			if (state.multiProfileMode) {
+				set({syncedDownloadedIds: [], syncScanState: 'idle'})
+				return
+			}
 			if (!canScanPlaylistFolder(undefined, state.settings?.common?.filenameTemplate)) {
 				set({syncedDownloadedIds: [], syncScanState: 'done'})
 				return

@@ -146,7 +146,7 @@ describe('submitUrl — video probe', () => {
 		expect(state.playlistItems).toHaveLength(2)
 	})
 
-	// #665: the row was placed with Audio only into /music; the active profile is another.
+	// #665: the row was placed with Audio only into /music; the active profile is another, the window folder /tmp/downloads.
 	it('a Review starts every picked video from the profile and folder its row was placed with', async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
@@ -165,6 +165,9 @@ describe('submitUrl — video probe', () => {
 
 		await useAppStore.getState().openPlaylistReview(PLAYLIST_PROBE.webpageUrl, 'playlist', 'row-1')
 		expect(useAppStore.getState()).toMatchObject({wizardStep: 'playlistItems', multiProfileMode: true, wizardOutputDir: '/tmp/downloads'})
+		// Its videos go to their profiles' folders: no single folder to sync against (#680).
+		await vi.waitFor(() => expect(useAppStore.getState().syncScanState).toBe('idle'))
+		expect(api.playlist.scanFolder).not.toHaveBeenCalled()
 		// Continue goes to the per-video profiles: this mode has no presets.
 		useAppStore.getState().confirmPlaylistSelection()
 		expect(useAppStore.getState().wizardStep).toBe('playlistProfiles')
