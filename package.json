@@ -126,7 +126,8 @@
 		"prepare": "vp config --no-agent",
 		"postinstall": "bun scripts/dev-env.ts electron-payload",
 		"react-doctor": "react-doctor",
-		"youtube:url-contract": "bun scripts/youtube-url-contract.ts"
+		"youtube:url-contract": "bun scripts/youtube-url-contract.ts",
+		"ytdlp:catalogue:extract": "bun scripts/ytdlp-catalogue/extract.ts"
 	},
 	"dependencies": {
 		"@base-ui/react": "1.9.0",
