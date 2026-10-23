@@ -111,4 +111,4 @@ Locally the Analytics Engine write is simulated, so add a temporary `console.log
 ARROXY_HEARTBEAT_URL=http://127.0.0.1:3005/collect bun run dev
 ```
 
-Expect one data point with index `arroxy` and blobs `/<version>`, install age (as the referrer), channel, platform-arch, OS release, UI language, OS locale. A relaunch on the same UTC day sends nothing; delete `common.lastHeartbeatDay` from `.electron-user-data/dev/settings.json` to send again, and `common.firstHeartbeatDay` as well to send as `new`.
+Expect one data point with index `arroxy` and blobs `/<version>`, install age (as the referrer), channel, platform-arch, OS release, UI language, OS locale. A relaunch on the same UTC day sends nothing; delete `common.lastHeartbeatDay` from `.electron-user-data/dev/settings.json` to send again, and `common.firstHeartbeatDay` as well to send as a first heartbeat: `existing` while `runtime-cache/artifact-cache-v1` beside it holds binaries, `new` once that folder is deleted too.
