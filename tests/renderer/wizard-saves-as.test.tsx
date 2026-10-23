@@ -79,6 +79,13 @@ describe('SavesAsControl', () => {
 		expect(screen.getByTestId('saves-as-trigger')).toHaveTextContent('MP4')
 	})
 
+	it('names the file it makes when embedded subtitles override the chosen type', () => {
+		useAppStore.setState({wizardFileType: 'mp4', wizardSubtitleMode: 'embed'})
+		render(<SavesAsControl />)
+
+		expect(screen.getByTestId('saves-as-trigger')).toHaveTextContent('.mkv')
+	})
+
 	it('offers WebM only when the picked streams fit it, and says why not', async () => {
 		useAppStore.setState({selectedVideoFormatId: '137'})
 		render(<SavesAsControl />)

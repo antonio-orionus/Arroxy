@@ -73,7 +73,8 @@ export function SavesAsControl(): ReactNode {
 				}}
 			>
 				<SelectTrigger size="sm" className="min-w-28" data-testid="saves-as-trigger" aria-label={t('wizard.formats.savesAs.label')}>
-					<SelectValue>{(selected: unknown) => (isFileType(selected) ? (selected === 'auto' ? `.${ext}` : t(FILE_TYPE_LABEL_KEYS[selected])) : '')}</SelectValue>
+					{/* Auto, or a choice something overrides (embedded subtitles make an .mkv), names the file it makes. */}
+					<SelectValue>{(selected: unknown) => (isFileType(selected) ? (selected === 'auto' || (selected !== ext && ext !== 'unknown') ? `.${ext}` : t(FILE_TYPE_LABEL_KEYS[selected])) : '')}</SelectValue>
 				</SelectTrigger>
 				<SelectContent align="start" alignItemWithTrigger={false} className="w-auto">
 					<SelectGroup>

@@ -538,6 +538,15 @@ describe('Review — rows', () => {
 		expect(savesAs.parentElement?.textContent).toMatch(/Total ~\d/)
 	})
 
+	it('changes the file type from the footer', async () => {
+		singleState({wizardReviewRow: null, wizardFileType: 'auto'})
+		render(<StepReview />)
+		fireEvent.click(screen.getByTestId('saves-as-trigger'))
+		fireEvent.click(await screen.findByTestId('saves-as-option-mkv'))
+		expect(useAppStore.getState().wizardFileType).toBe('mkv')
+		expect(screen.getByTestId('saves-as-trigger')).toHaveTextContent('MKV')
+	})
+
 	it("lists the changed areas with the language's own separators", () => {
 		const profile = BUILTIN_DOWNLOAD_PROFILES[0]
 		singleState({wizardReviewRow: null, wizardProfile: profile})
