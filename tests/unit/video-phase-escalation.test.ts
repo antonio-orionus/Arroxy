@@ -8,6 +8,8 @@ import {SubtitleOnlyPhase} from '@main/services/phases/SubtitleOnlyPhase.js'
 import {AsyncStack} from '@main/services/phases/types.js'
 import type {ActiveDownload, PhaseContext} from '@main/services/phases/types.js'
 import {CookielessRetry} from '@main/services/download/cookielessRetry.js'
+import log from 'electron-log/main.js'
+import type {ExploreGateRefusal} from '@shared/escalationSchemas.js'
 import {STATUS_KEY, type ExploreSignInState} from '@shared/schemas.js'
 import type {ResolvedStartDownloadInput} from '@shared/types.js'
 import type {YtDlpRequest, YtDlpResult, YtDlpRunOptions, YtDlpSignal} from '@main/services/YtDlp.js'
@@ -58,7 +60,7 @@ afterEach(async () => {
 })
 
 // `tempDir`: the media run's temp folder, for a subtitle phase run on its own.
-function makeCtx(opts: {runs: YtDlpResult[]; input?: Partial<ResolvedStartDownloadInput>; signedIn?: boolean; verified?: ExploreSignInState; usesCookies?: boolean; tempDir?: boolean}) {
+function makeCtx(opts: {runs: YtDlpResult[]; input?: Partial<ResolvedStartDownloadInput>; signedIn?: boolean; refusal?: ExploreGateRefusal; verified?: ExploreSignInState; usesCookies?: boolean; tempDir?: boolean}) {
 	const results = [...opts.runs]
 	// A successful subtitle run writes, moves and reports its tracks as yt-dlp does.
 	const run = vi.fn(async (req: YtDlpRequest, _signal?: YtDlpSignal, _options?: YtDlpRunOptions) => {
@@ -79,7 +81,7 @@ function makeCtx(opts: {runs: YtDlpResult[]; input?: Partial<ResolvedStartDownlo
 		...(opts.tempDir ? {tempDir} : {}),
 		disposables: new AsyncStack()
 	}
-	const ports = explorePorts({signedIn: opts.signedIn, verified: opts.verified})
+	const ports = explorePorts({signedIn: opts.signedIn, verified: opts.verified, ...(opts.refusal ? {refusal: opts.refusal} : {})})
 	const emitStatus = vi.fn()
 	const ctx: PhaseContext = {active, signal: controller.signal, register: () => undefined, ytDlp: {run, usesCookies: vi.fn().mockResolvedValue(opts.usesCookies ?? false), invalidateTokenSession: vi.fn(), ffmpegPath: null} as never, emitStatus, safeConsume: vi.fn(), cookielessRetry: new CookielessRetry(), ...ports}
 	return {ctx, run, emitStatus, canEscalate: ports.exploreGate.canEscalate, verifySignedIn: ports.exploreSession.verifySignedIn}
@@ -153,7 +155,7 @@ describe('VideoPhase download-time escalation', () => {
 		const {ctx, run, canEscalate} = makeCtx({runs: [LOGIN_REQUIRED], signedIn: true})
 		canEscalate.mockImplementation(() => {
 			ctx.active.cancelRequested = true
-			return Promise.resolve(true)
+			return Promise.resolve({allowed: true})
 		})
 		expect(await VideoPhase.run(ctx)).toEqual({kind: 'cancelled'})
 		expect(run).toHaveBeenCalledOnce()
@@ -206,6 +208,51 @@ describe('VideoPhase download-time escalation', () => {
 		expect((await VideoPhase.run(ctx)).kind).toBe('hard-failed')
 		expect(identities(run)).toEqual(['configured', 'exploreSession'])
 		expect(statusKeys(emitStatus)).toContain(STATUS_KEY.exploreSignedOut)
+	})
+})
+
+// One line per failed run that could have escalated: whether it did, and why not.
+describe('download escalation decision log', () => {
+	const decisionLines = (): unknown[] =>
+		vi
+			.mocked(log.info)
+			.mock.calls.filter(call => call[0] === 'Download failure escalation')
+			.map(call => call[1])
+	const YOUTUBE_SCOPE = {kind: 'site', siteId: 'youtube'}
+
+	beforeEach(() => vi.mocked(log.info).mockClear())
+
+	it('logs an escalated failure with the job, the site and the reason', async () => {
+		const {ctx} = makeCtx({runs: [LOGIN_REQUIRED, SUCCESS], signedIn: true})
+		await VideoPhase.run(ctx)
+		expect(decisionLines()).toEqual([{jobId: 'job-1', scope: YOUTUBE_SCOPE, failure: 'loginRequired', escalated: true, reason: 'loginRequired'}])
+	})
+
+	it.each(['notExploreMode', 'exploreDisabled', 'noCookiesForHost'] as const)('logs the gate refusal (%s)', async refusal => {
+		const {ctx} = makeCtx({runs: [LOGIN_REQUIRED], refusal})
+		await VideoPhase.run(ctx)
+		expect(decisionLines()).toEqual([{jobId: 'job-1', scope: YOUTUBE_SCOPE, failure: 'loginRequired', escalated: false, declined: refusal}])
+	})
+
+	it('logs a failure an account cannot fix without asking the gate', async () => {
+		const {ctx, canEscalate} = makeCtx({runs: [NETWORK], signedIn: true})
+		await VideoPhase.run(ctx)
+		expect(decisionLines()).toEqual([{jobId: 'job-1', scope: YOUTUBE_SCOPE, failure: 'network', escalated: false, declined: 'notAccountFixable'}])
+		expect(canEscalate).not.toHaveBeenCalled()
+	})
+
+	it('logs a web host by name only, without the path or query string', async () => {
+		const url = 'https://cdn.example.org/watch/x?token=secret'
+		const {ctx} = makeCtx({runs: [LOGIN_REQUIRED], input: {url, job: {...YOUTUBE_JOB, extractor: 'generic', extractorKey: 'Generic'}}, refusal: 'noCookiesForHost'})
+		await VideoPhase.run(ctx)
+		expect(decisionLines()).toEqual([{jobId: 'job-1', scope: {kind: 'web', host: 'cdn.example.org'}, failure: 'loginRequired', escalated: false, declined: 'noCookiesForHost'}])
+		expect(JSON.stringify(decisionLines())).not.toContain('secret')
+	})
+
+	it('logs nothing for a run that succeeded or a job already signed in', async () => {
+		await VideoPhase.run(makeCtx({runs: [SUCCESS], signedIn: true}).ctx)
+		await VideoPhase.run(makeCtx({runs: [LOGIN_REQUIRED], input: {auth: 'exploreSession'}, signedIn: true}).ctx)
+		expect(decisionLines()).toEqual([])
 	})
 })
 
@@ -349,7 +396,7 @@ describe('SubtitleOnlyPhase download-time escalation', () => {
 		const {ctx, run, canEscalate} = makeCtx({runs: [LOGIN_REQUIRED], input: {job: SUBTITLE_ONLY}, signedIn: true})
 		canEscalate.mockImplementation(() => {
 			ctx.active.pauseRequested = true
-			return Promise.resolve(true)
+			return Promise.resolve({allowed: true})
 		})
 		expect(await SubtitleOnlyPhase.run(ctx)).toEqual({kind: 'paused'})
 		expect(run).toHaveBeenCalledOnce()
@@ -358,7 +405,7 @@ describe('SubtitleOnlyPhase download-time escalation', () => {
 	it('fails signed out, never anonymous, when the escalated spawn is refused by the guard', async () => {
 		const {ctx, run, emitStatus, canEscalate} = makeCtx({runs: [LOGIN_REQUIRED], input: {job: SUBTITLE_ONLY}, signedIn: true})
 		// The escalation decision says yes; the pre-spawn guard right after says no.
-		canEscalate.mockResolvedValueOnce(true).mockResolvedValueOnce(false)
+		canEscalate.mockResolvedValueOnce({allowed: true}).mockResolvedValueOnce({allowed: false, reason: 'noCookiesForHost'})
 		expect(await SubtitleOnlyPhase.run(ctx)).toMatchObject({kind: 'hard-failed', error: {kind: 'loginRequired'}})
 		expect(run).toHaveBeenCalledOnce()
 		expect(statusKeys(emitStatus)).toContain(STATUS_KEY.exploreSignedOut)

@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vite-plus/test'
 import {classifyYtDlpStderr, type YtDlpErrorKind} from 'ytdlp-errors'
 import {escalationReason, reachesPlaylistItems, type EscalationInput} from '@main/services/exploreEscalation.js'
-import type {EscalationReason} from '@shared/schemas.js'
+import type {EscalationReason} from '@shared/escalationSchemas.js'
 
 const YOUTUBE_WATCH = 'https://www.youtube.com/watch?v=abc'
 const WATCH_LATER = 'https://www.youtube.com/playlist?list=WL'

@@ -57,7 +57,7 @@ function makeYtDlp(opts: {settings?: Record<string, unknown>; token?: string; vi
 	// Escalated runs need both the jar port and the spawn gate; a test that injects jars gets an unpaced gate unless it says otherwise.
 	const spawnGate = opts.spawnGate === null ? undefined : (opts.spawnGate ?? (opts.sessionJars ? new ExploreSpawnGate({minSpacingMs: 0}) : undefined))
 	// The live authorization check before a signed-in spawn passes unless a test says otherwise.
-	const sessionAuth = opts.sessionJars ? {canEscalate: () => Promise.resolve(true)} : undefined
+	const sessionAuth = opts.sessionJars ? {canEscalate: () => Promise.resolve({allowed: true as const})} : undefined
 	return new YtDlp(binaryManager as never, tokenService as never, settingsStore, {e2eMode: opts.e2eMode, sessionJars: opts.sessionJars, spawnGate, sessionAuth})
 }
 
@@ -1186,7 +1186,7 @@ describe('YtDlp — run identity', () => {
 			{ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue(null), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn()} as never,
 			{getToken: vi.fn(), invalidateCache: vi.fn()} as never,
 			{get: vi.fn().mockResolvedValue({common: exploreSettings, playlist: {}})},
-			{sessionJars: {withJar, getUserAgent: () => EXPLORE_UA}, spawnGate: new ExploreSpawnGate({minSpacingMs: 0}), sessionAuth: {canEscalate: () => Promise.resolve(false)}}
+			{sessionJars: {withJar, getUserAgent: () => EXPLORE_UA}, spawnGate: new ExploreSpawnGate({minSpacingMs: 0}), sessionAuth: {canEscalate: () => Promise.resolve({allowed: false as const, reason: 'noCookiesForHost' as const})}}
 		)
 		const result = await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession'})
 		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: ''})

@@ -22,6 +22,7 @@ import type {BinaryManager} from './BinaryManager.js'
 import type {TokenService} from './TokenService.js'
 import type {SessionCookieJarPort} from './sessionCookieJarPort.js'
 import type {ExploreSpawnGate} from './exploreSpawnGate.js'
+import type {ExploreGateDecision} from './exploreEscalation.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
 import type {SiteRequestState} from './SiteRequestState.js'
 import {applyJsRuntimeEnv, buildYtDlpJsRuntimeArgs, probeElectronNodeRuntime, summarizeYtDlpJsRuntimeForLog, type YtDlpJsRuntime, type YtDlpJsRuntimeLogSummary} from './ytDlpJsRuntime.js'
@@ -543,7 +544,7 @@ export type SettingsSource = Pick<SettingsStore, 'get'>
 // switch, a signed-in partition), read live. Structural so this module does not
 // import the gate, which imports it.
 export interface SessionAuthorization {
-	canEscalate(scope: ExploreCookieScope): Promise<boolean>
+	canEscalate(scope: ExploreCookieScope): Promise<ExploreGateDecision>
 }
 
 export class YtDlp {
@@ -728,9 +729,9 @@ export class YtDlp {
 	// mode, flipped the kill switch or signed out meanwhile, so the decision is
 	// taken again right before the jar is written.
 	private async invokeIfStillAuthorized(scope: ExploreCookieScope | null, invoke: () => Promise<YtDlpResult>): Promise<YtDlpResult> {
-		const authorized = scope !== null && (await this.opts.sessionAuth?.canEscalate(scope).catch(() => false))
-		if (authorized === true) return invoke()
-		ytDlpLog.warn('escalated run refused after its slot wait: Explore session no longer authorized', {scope: scope?.kind ?? null})
+		const decision = scope === null ? undefined : await this.opts.sessionAuth?.canEscalate(scope).catch(() => undefined)
+		if (decision?.allowed === true) return invoke()
+		ytDlpLog.warn('escalated run refused after its slot wait: Explore session no longer authorized', {scope: scope?.kind ?? null, reason: decision?.reason ?? null})
 		return exploreSessionUnavailable()
 	}
 

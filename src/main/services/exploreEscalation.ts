@@ -1,6 +1,7 @@
 import type {YtDlpErrorKind} from 'ytdlp-errors'
 import type {ProbeError} from '@shared/types.js'
-import type {EscalationReason} from '@shared/schemas.js'
+import type {EscalationDecline, EscalationReason, ExploreGateRefusal} from '@shared/escalationSchemas.js'
+import type {ExploreCookieScope} from '@shared/sites/exploreCookieScope.js'
 import {siteForUrl} from '@shared/sites/index.js'
 import {asksForCookieLogin, asksOnlyForPassword} from '@shared/ytdlp/loginHint.js'
 
@@ -10,6 +11,13 @@ import {asksForCookieLogin, asksOnlyForPassword} from '@shared/ytdlp/loginHint.j
 // as `unknown` with only yt-dlp's login hint to go on, and Watch Later / Liked
 // surface as a missing or empty playlist, so the raw message and URL are
 // consulted for those cases.
+
+// The Explore gate's answer, with the reason when it refuses.
+export type ExploreGateDecision = {allowed: true} | {allowed: false; reason: ExploreGateRefusal}
+
+// Whether a failed run is retried with the Explore session, and why not when it
+// is not. Logged once per failed run that could have escalated.
+export type EscalationDecision = {escalated: true; reason: EscalationReason} | {escalated: false; declined: EscalationDecline}
 
 export type EscalationInput = {stage: 'probe'; url: string; error: ProbeError} | {stage: 'download'; errorKind: YtDlpErrorKind; rawError: string | null; ladderExhausted: boolean}
 
@@ -76,4 +84,14 @@ function extractionFailureReason(kind: YtDlpErrorKind, raw: string, url: string)
 // start anonymous and escalate one by one if they hit a wall of their own.
 export function reachesPlaylistItems(reason: EscalationReason): boolean {
 	return reason !== 'botBlock'
+}
+
+// Decides a failed run's escalation from why an account would fix it (null:
+// it would not) and the run's cookie scope; the gate is asked only when both
+// are there. A gate that throws is the caller's to handle.
+export async function decideEscalation(reason: EscalationReason | null, scope: ExploreCookieScope | null, gate: {canEscalate(scope: ExploreCookieScope): Promise<ExploreGateDecision>}): Promise<EscalationDecision> {
+	if (reason === null) return {escalated: false, declined: 'notAccountFixable'}
+	if (scope === null) return {escalated: false, declined: 'noExploreScope'}
+	const decision = await gate.canEscalate(scope)
+	return decision.allowed ? {escalated: true, reason} : {escalated: false, declined: decision.reason}
 }

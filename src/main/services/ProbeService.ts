@@ -4,7 +4,8 @@ import {nowIso} from '@main/utils/clock.js'
 import {ok, fail, type Result} from '@shared/result.js'
 import {placeholderTitleFlag} from '@shared/queueTitle.js'
 import type {JobAuth, MediaTags, PlaylistEntry, PlaylistProbeResult, PlaylistScope, ProbeError, ProbePlaylistMode, ProbeProgressEvent, ProbeResult, ProbeDegradationReason, ProbeInfoJsonRef, VideoChapter, VideoProbeResult} from '@shared/types.js'
-import type {EscalationReason, ExploreSignInState, ProbeKind} from '@shared/schemas.js'
+import type {EscalationReason} from '@shared/escalationSchemas.js'
+import type {ExploreSignInState, ProbeKind} from '@shared/schemas.js'
 import {infoDictSchema, isPlaylistLike, isUrlRedirect, type InfoDict, type PlaylistInfo, type MultiVideoInfo, type VideoInfo, type YtDlpFormat} from 'yt-dlp-bridge/info'
 import {isAudioOnlySource, isAudioOnlyVideo} from '@shared/ytdlp/extractorPredicates.js'
 import {classifyYtDlpStderr, sabrSkippedClient} from 'ytdlp-errors'
@@ -14,7 +15,7 @@ import {exploreCookieScopeFor} from '@shared/sites/exploreCookieScope.js'
 import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
 import {PROBE_TIMEOUT_MESSAGE, RATE_LIMIT_COOLDOWN_MESSAGE, YtDlp, type RunIdentity} from './YtDlp.js'
 import type {ProbeSlots} from './ProbeSlots.js'
-import {escalationReason, reachesPlaylistItems} from './exploreEscalation.js'
+import {decideEscalation, escalationReason, reachesPlaylistItems, type EscalationDecision} from './exploreEscalation.js'
 import type {ExploreGate} from './exploreGate.js'
 import type {ExploreSignInCheck} from './phases/types.js'
 import {mapFormats} from '@shared/ytdlp/formatMapping.js'
@@ -472,7 +473,6 @@ export class ProbeService extends EventEmitter {
 			let outcome = await runAs('configured')
 			const reason = escalate && outcome.kind === 'failure' ? await this.escalationFor(url, outcome.error, signal) : null
 			if (reason) {
-				logger.info('Probe escalated to the Explore session', {url})
 				auth = 'exploreSession'
 				itemsNeedAccount = reachesPlaylistItems(reason)
 				outcome = await runAs('exploreSession')
@@ -538,17 +538,21 @@ export class ProbeService extends EventEmitter {
 
 	// Why an account would fix this failure, while the user is signed in to
 	// Explore; null otherwise. A gate that cannot answer counts as "no": the
-	// anonymous failure stands.
+	// anonymous failure stands. Every failure that reaches the gate's question
+	// logs one line saying whether it escalated, and why not.
 	private async escalationFor(url: string, error: ProbeError, signal: AbortSignal): Promise<EscalationReason | null> {
-		const reason = escalationReason({stage: 'probe', url, error})
+		if (signal.aborted || !this.exploreGate) return null
 		const scope = exploreCookieScopeFor(url)
-		if (signal.aborted || !this.exploreGate || reason === null || scope === null) return null
+		const failure = error.kind === 'ytdlp' ? error.error.kind : error.code
+		let decision: EscalationDecision
 		try {
-			return (await this.exploreGate.canEscalate(scope)) ? reason : null
+			decision = await decideEscalation(escalationReason({stage: 'probe', url, error}), scope, this.exploreGate)
 		} catch (err) {
-			logger.warn('Explore escalation check failed', {url, error: err instanceof Error ? err.message : String(err)})
+			logger.warn('Probe failure escalation', {scope, failure, escalated: false, declined: 'gateFailed', error: err instanceof Error ? err.message : String(err)})
 			return null
 		}
+		logger.info('Probe failure escalation', {scope, failure, ...decision})
+		return decision.escalated ? decision.reason : null
 	}
 
 	// yt-dlp dropped the session's cookies as rotated or signed out, whatever the

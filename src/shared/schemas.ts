@@ -412,12 +412,6 @@ export const jobAuthSchema = z.enum(['anonymous', 'exploreSession'])
 export type JobAuth = z.infer<typeof jobAuthSchema>
 export const JOB_AUTHS = jobAuthSchema.options
 
-// Why a failed run was retried with the Explore session. Every reason but a
-// bot wall is something only the account unlocks, so it reaches a playlist's
-// items too; a bot wall signs in only the request that hit it.
-const escalationReasonSchema = z.enum(['loginRequired', 'ageRestricted', 'accountOnlyVideo', 'accountOnlyPlaylist', 'playlistMissing', 'botBlock'])
-export type EscalationReason = z.infer<typeof escalationReasonSchema>
-
 // What a page load on the Explore partition says about the session. `unknown`:
 // the check could not tell (proxy, timeout, load failure, off the site).
 const exploreSignInStateSchema = z.enum(['signedIn', 'signedOut', 'unknown'])

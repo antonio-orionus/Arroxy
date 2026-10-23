@@ -342,6 +342,18 @@ function savedBeforeHdrPreference(prior: PriorSettings | null): boolean {
 	return asRecord(prior.data.common)?.hdrPreference === undefined && prior.data.hdrPreference === undefined
 }
 
+// Which cookie mode a failed download ran under is otherwise invisible in a
+// feedback log: the startup snapshot goes stale as soon as the user changes it.
+function logCookieSettingsChange(previous: AppSettings['common'], next: AppSettings['common']): void {
+	const from = previous.cookiesMode ?? 'off'
+	const to = next.cookiesMode ?? 'off'
+	if (from !== to) logger.info('Cookie mode changed', {from, to})
+	// Absent means enabled.
+	const wasEnabled = previous.exploreEnabled !== false
+	const isEnabled = next.exploreEnabled !== false
+	if (wasEnabled !== isEnabled) logger.info('Explore tab toggled', {from: wasEnabled, to: isEnabled})
+}
+
 export class SettingsStore {
 	// electron-store exposes unvalidated JSON. Keep its generic honest and parse
 	// the payload before storing or returning the trusted AppSettings value.
@@ -422,7 +434,9 @@ export class SettingsStore {
 			await Promise.resolve()
 			return this.settings
 		}
+		const previous = this.settings.common
 		this.settings = parsed.data
+		logCookieSettingsChange(previous, this.settings.common)
 		this.persist()
 		await Promise.resolve()
 		return this.settings

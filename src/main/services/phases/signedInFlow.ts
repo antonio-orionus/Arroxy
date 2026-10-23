@@ -1,11 +1,10 @@
 import log from 'electron-log/main.js'
 import {STATUS_KEY} from '@shared/schemas.js'
-import {exploreCookieScopeFor} from '@shared/sites/exploreCookieScope.js'
+import {exploreCookieScopeFor, type ExploreCookieScope} from '@shared/sites/exploreCookieScope.js'
 import type {Site} from '@shared/sites/index.js'
-import type {JobAuth} from '@shared/types.js'
 import type {ExploreSignInState} from '@shared/schemas.js'
 import type {YtDlpResult} from '../YtDlp.js'
-import {escalationReason} from '../exploreEscalation.js'
+import {decideEscalation, escalationReason, type EscalationDecision} from '../exploreEscalation.js'
 import {interruptedOutcome} from './phaseHelpers.js'
 import type {PhaseContext, PhaseOutcome} from './types.js'
 
@@ -35,12 +34,17 @@ function sessionCheckInconclusive(): YtDlpResult {
 	return {kind: 'exit-error', exitCode: -1, errorKind: 'network', rawError: 'Could not confirm the Explore session', stdout: '', stderr: ''}
 }
 
-// A failure an account can fix, on a job not yet signed in. A YouTube bot wall
-// returned by YtDlp has already been through the whole PoT ladder; other sites
-// have no ladder, so their bot walls never escalate.
-function needsExploreSession(result: YtDlpResult, auth: JobAuth | undefined, site: Site): boolean {
-	if (result.kind !== 'exit-error' || auth === 'exploreSession') return false
-	return escalationReason({stage: 'download', errorKind: result.errorKind, rawError: result.rawError, ladderExhausted: site.needsPotToken}) !== null
+// Whether a failed run on a job not yet signed in escalates, and why not; null
+// for a run that never could (a success, a signed-in job, a phase that never
+// escalates). A YouTube bot wall returned by YtDlp has already been through the
+// whole PoT ladder; other sites have no ladder, so their bot walls never escalate.
+async function downloadEscalation<R extends SignedInRun>(ctx: PhaseContext, run: R, flow: SignedInFlow<R>, scope: ExploreCookieScope | null): Promise<EscalationDecision | null> {
+	const {result} = run
+	if (result.kind !== 'exit-error' || ctx.active.input.auth === 'exploreSession' || flow.escalates?.(run) !== true) return null
+	const reason = escalationReason({stage: 'download', errorKind: result.errorKind, rawError: result.rawError, ladderExhausted: flow.site.needsPotToken})
+	const decision = await decideEscalation(reason, scope, ctx.exploreGate)
+	logger.info('Download failure escalation', {jobId: ctx.active.job.id, scope, failure: result.errorKind, ...decision})
+	return decision
 }
 
 // Everything that happens to a download run because of the Explore session,
@@ -71,10 +75,9 @@ export async function settleWithExploreSession<R extends SignedInRun>(ctx: Phase
 		return null
 	}
 
-	if (flow.escalates?.(run) === true && needsExploreSession(run.result, active.input.auth, flow.site) && scope !== null && (await ctx.exploreGate.canEscalate(scope))) {
+	if ((await downloadEscalation(ctx, run, flow, scope))?.escalated === true) {
 		const stopped = interruptedOutcome(active)
 		if (stopped) return {kind: 'stopped', outcome: stopped}
-		logger.info('Download needs an account; retrying with the Explore session', {jobId})
 		// QueueService persists the job's auth on this status, synchronously,
 		// so the item is recorded as signed in before the signed-in spawn.
 		ctx.emitStatus('download', STATUS_KEY.signingInWithExplore)

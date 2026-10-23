@@ -78,7 +78,7 @@ describe('ProbeService — probe slots', () => {
 	it('holds one slot for the whole probe across its escalation to the Explore session', async () => {
 		const {ytDlp, spawned, answer} = controlledYtDlp()
 		const slots = new ProbeSlots({backgroundLimit: 1})
-		const exploreGate = {canEscalate: vi.fn(async () => true)}
+		const exploreGate = {canEscalate: vi.fn(async () => ({allowed: true as const}))}
 		const service = new ProbeService(ytDlp, false, undefined, {slots, exploreGate, exploreSession: {verifySignedIn: vi.fn(async () => 'signedIn' as const)}})
 
 		const first = service.probe(VIDEO_URL, {kind: 'intake', playlistMode: 'video', ownerKey: 'row-1'})

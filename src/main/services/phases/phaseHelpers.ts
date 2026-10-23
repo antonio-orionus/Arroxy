@@ -49,7 +49,7 @@ export async function canSpawnSignedIn(ctx: PhaseContext): Promise<boolean> {
 	if (ctx.active.input.auth !== 'exploreSession') return true
 	if ((await ctx.active.exploreSessionCheck) === 'signedOut') return false
 	const scope = exploreCookieScopeFor(ctx.active.input.url)
-	return scope !== null && ctx.exploreGate.canEscalate(scope)
+	return scope !== null && (await ctx.exploreGate.canEscalate(scope)).allowed
 }
 
 // The outcome of a pause or cancel that landed on the job, else null. Pause wins

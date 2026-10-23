@@ -47,7 +47,7 @@ export interface DownloadExploreDeps {
 }
 
 // Without the composition root's wiring nothing escalates and an escalated job is refused.
-const EXPLORE_UNAVAILABLE: DownloadExploreDeps = {exploreGate: {canEscalate: () => Promise.resolve(false)}, exploreSession: {verifySignedIn: () => Promise.resolve('signedOut')}, spawnGate: {resetJob: () => undefined}}
+const EXPLORE_UNAVAILABLE: DownloadExploreDeps = {exploreGate: {canEscalate: () => Promise.resolve({allowed: false, reason: 'exploreDisabled'})}, exploreSession: {verifySignedIn: () => Promise.resolve('signedOut')}, spawnGate: {resetJob: () => undefined}}
 
 const EXPLORE_VERIFIED_SIGNED_OUT = 'exploreVerifiedSignedOut'
 

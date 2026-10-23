@@ -21,7 +21,7 @@ const exitError = (rawError: string): YtDlpResult => ({kind: 'exit-error', exitC
 
 function makeService(results: YtDlpResult[]) {
 	const run = vi.fn(async () => results.shift() ?? success())
-	const gate = {canEscalate: vi.fn(async () => true)}
+	const gate = {canEscalate: vi.fn(async () => ({allowed: true as const}))}
 	const service = new ProbeService({run} as never, false, undefined, {exploreGate: gate, exploreSession: {verifySignedIn: vi.fn(async () => 'signedIn' as const)}})
 	return {service, run, gate}
 }
