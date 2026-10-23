@@ -11,12 +11,11 @@
 // again changes the cookie and clears it, and so does "Use my sign-in again".
 
 import log from 'electron-log/main.js'
+import type {SignInEvidence} from '@shared/signInSchemas.js'
 
 const logger = log.scope('sign-ins')
 
 const WINDOW_MS = 10 * 60_000
-
-export type SignInEvidence = 'anonymousWorked' | 'signedInUnknown' | 'signedInSucceeded' | 'accountWall' | 'cookiesRejected'
 
 // The run the evidence came from: its item (the link), and when its launch
 // started, so a result from before the user signed in again is dropped.

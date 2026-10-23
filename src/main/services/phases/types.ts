@@ -1,5 +1,6 @@
 import type {CookielessRetry} from '../download/cookielessRetry.js'
-import type {SignInEvidence, SignInEvidenceSource} from '../SuspectSignIns.js'
+import type {SignInEvidence} from '@shared/signInSchemas.js'
+import type {SignInEvidenceSource} from '../SuspectSignIns.js'
 import type {QualityLimit} from '../download/formatLimitSignals.js'
 import type {ChildProcessWithoutNullStreams} from 'node:child_process'
 import type {DownloadJob, LocalizedError, QueueResumeContext, ResolvedStartDownloadInput, StartDownloadInput, StatusEvent, StatusKey} from '@shared/types.js'

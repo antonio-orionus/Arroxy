@@ -7,7 +7,7 @@ import type {YtDlpResult} from '../YtDlp.js'
 import {decideEscalation, escalationReason, type EscalationDecision} from '../exploreEscalation.js'
 import {continueAnonymous, interruptedOutcome} from './phaseHelpers.js'
 import {signedInFailure} from '../signedInEvidence.js'
-import type {SignInEvidence} from '../SuspectSignIns.js'
+import type {SignInEvidence} from '@shared/signInSchemas.js'
 import type {PhaseContext, PhaseOutcome} from './types.js'
 
 const logger = log.scope('downloads')

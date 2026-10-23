@@ -9,7 +9,8 @@ import {SuspectSignInStore} from '@main/stores/SuspectSignInStore.js'
 import type {ExploreSessionService} from './ExploreSessionService.js'
 import {SiteSignIns} from './SiteSignIns.js'
 import {decideStartIdentity, type StartDecision} from './startIdentity.js'
-import {SuspectSignIns, type SignInEvidence, type SignInEvidenceSource} from './SuspectSignIns.js'
+import type {SignInEvidence} from '@shared/signInSchemas.js'
+import {SuspectSignIns, type SignInEvidenceSource} from './SuspectSignIns.js'
 
 // Explore's cookies change on most page loads; one read after they settle.
 const COOKIE_SETTLE_MS = 1000
