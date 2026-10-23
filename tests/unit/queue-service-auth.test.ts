@@ -53,7 +53,7 @@ describe('QueueService — job auth', () => {
 	it('starts a row on a site that starts signed in by the site’s default, and says so', async () => {
 		const ds = new FakeDownloadService()
 		ds.start.mockResolvedValue(jobResult())
-		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, undefined, undefined, undefined, undefined, undefined, () => ({site: 'instagram', auth: 'exploreSession', basis: 'siteDefault'}))
+		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, undefined, undefined, undefined, undefined, undefined, {decide: () => ({site: 'instagram', auth: 'exploreSession', basis: 'siteDefault'})})
 
 		qs.add([makeItem({id: 'a', status: 'pending', url: 'https://www.instagram.com/reel/a/'})])
 
@@ -64,7 +64,7 @@ describe('QueueService — job auth', () => {
 	it('restarts a row its safety launch pinned anonymous as anonymous, whatever its site says', async () => {
 		const ds = new FakeDownloadService()
 		ds.start.mockResolvedValue(jobResult())
-		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, undefined, undefined, undefined, undefined, undefined, () => ({site: 'instagram', auth: 'exploreSession', basis: 'siteDefault'}))
+		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, undefined, undefined, undefined, undefined, undefined, {decide: () => ({site: 'instagram', auth: 'exploreSession', basis: 'siteDefault'})})
 
 		qs.add([makeItem({id: 'a', status: 'pending', url: 'https://www.instagram.com/reel/a/', auth: 'anonymous'})])
 

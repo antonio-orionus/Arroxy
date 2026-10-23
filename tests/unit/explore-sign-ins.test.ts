@@ -66,4 +66,24 @@ describe('createExploreSignIns: the parts wired together', () => {
 		expect(signIns.suspects.list()).toEqual([])
 		expect(signIns.decideStart('https://www.instagram.com/reel/x/')).toMatchObject({auth: 'exploreSession'})
 	})
+
+	it('says when a start identity may have changed: a mark, a sign-out, a fresh sign-in', async () => {
+		const {session, setCookies} = fakeSession([sessionId('a')])
+		const signIns = await createExploreSignIns({userDataPath: '/unused', session, settings: () => ({cookiesMode: 'explore', exploreEnabled: true})})
+		const changed = vi.fn()
+		signIns.onStartChange(changed)
+
+		signIns.recordEvidence('instagram', 'accountWall')
+		expect(changed).toHaveBeenCalledTimes(1)
+
+		setCookies([])
+		await vi.advanceTimersByTimeAsync(1000)
+		expect(signIns.decideStart('https://www.instagram.com/reel/x/')).toMatchObject({auth: 'anonymous'})
+		expect(changed.mock.calls.length).toBeGreaterThanOrEqual(2)
+
+		const beforeSignIn = changed.mock.calls.length
+		setCookies([sessionId('b')])
+		await vi.advanceTimersByTimeAsync(1000)
+		expect(changed.mock.calls.length).toBeGreaterThan(beforeSignIn)
+	})
 })

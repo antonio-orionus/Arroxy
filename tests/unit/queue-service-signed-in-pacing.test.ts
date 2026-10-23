@@ -11,6 +11,8 @@ import type {QueueStore} from '@main/stores/QueueStore.js'
 import {ok} from '@shared/result.js'
 import type {QueueItem} from '@shared/types.js'
 import {makeItem} from '../shared/fixtures.js'
+import type {StartDecision} from '@main/services/startIdentity.js'
+import type {QueueStartIdentitySource} from '@main/services/download/QueueSiteHold.js'
 
 // A queued row that starts signed in waits for its site's signed-in pacing
 // before it takes a download lane, so it never holds a lane doing nothing
@@ -40,12 +42,12 @@ function startedIds(ds: FakeDownloadService): string[] {
 
 const SPACING_MS = 10_000
 
-function setup(lanes = 4) {
+function setup(lanes = 4, startIdentities?: QueueStartIdentitySource) {
 	const pacer = new SignedInPacer({pacing: () => ({atOnce: 1, spacingMs: SPACING_MS, jitterMs: 0, windowMs: 60 * 60_000, perWindow: 1000, entriesPerLaunch: 50})})
 	const gate = new LaunchGate({cooldowns: new SiteRequestState({random: () => 1}), signedIn: pacer})
 	const ds = new FakeDownloadService()
 	ds.start.mockImplementation(async () => jobResult())
-	const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, lanes, lanes, undefined, undefined, gate)
+	const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, lanes, lanes, undefined, undefined, gate, startIdentities)
 	return {pacer, ds, qs}
 }
 
@@ -151,6 +153,23 @@ describe('QueueService — signed-in pacing before the lane', () => {
 		await vi.advanceTimersByTimeAsync(0)
 
 		expect(ds.start.mock.calls[0]?.[0]).not.toHaveProperty('signedInReservation')
+	})
+
+	it('starts a row held for its site’s signed-in start at once when its sign-in stops applying', async () => {
+		let decision: StartDecision = {site: 'instagram', auth: 'exploreSession', basis: 'siteDefault'}
+		let identityChanged: () => void = () => undefined
+		const {pacer, ds, qs} = setup(4, {decide: () => decision, onChange: listener => (identityChanged = listener)})
+		await pacer.run('instagram', 'earlier', () => Promise.resolve())
+
+		qs.add([makeItem({id: 'a', status: 'pending', url: 'https://www.instagram.com/reel/a'})])
+		await vi.advanceTimersByTimeAsync(0)
+		expect(startedIds(ds)).toEqual([])
+
+		// The user signs out of Explore: the row now starts anonymous, with no pacing to wait for.
+		decision = {site: 'instagram', auth: 'anonymous', reason: 'noSignInCookie'}
+		identityChanged()
+		await vi.advanceTimersByTimeAsync(0)
+		expect(startedIds(ds)).toEqual(['a'])
 	})
 
 	it('never marks a normal-lane row explicit', async () => {

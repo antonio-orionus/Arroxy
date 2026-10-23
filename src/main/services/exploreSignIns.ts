@@ -18,6 +18,9 @@ export interface ExploreSignIns {
 	suspects: SuspectSignIns
 	decideStart: (url: string) => StartDecision
 	recordEvidence: (site: string, evidence: SignInEvidence, source?: SignInEvidenceSource) => void
+	// A site's sign-in cookie or its not-working mark changed, so `decideStart`
+	// may answer differently: the queue asks again for the rows it holds.
+	onStartChange: (listener: () => void) => () => void
 }
 
 // `extraSignIns`: sign-in rows that add to or replace the known sites' (the E2E
@@ -37,7 +40,15 @@ export async function createExploreSignIns(deps: {userDataPath: string; session:
 		rowFor
 	})
 	const suspects = new SuspectSignIns({store: new SuspectSignInStore(deps.userDataPath), cookieFingerprint: site => signIns.cookieFingerprint(site)})
-	signIns.onChange(site => suspects.cookieChanged(site))
+	const startListeners = new Set<() => void>()
+	const startChanged = (): void => {
+		for (const listener of startListeners) listener()
+	}
+	signIns.onChange(site => {
+		suspects.cookieChanged(site)
+		startChanged()
+	})
+	suspects.onChange(startChanged)
 	await signIns.refresh()
 	let timer: NodeJS.Timeout | undefined
 	deps.session.onCookiesChanged(() => {
@@ -51,6 +62,10 @@ export async function createExploreSignIns(deps: {userDataPath: string; session:
 			const {cookiesMode, exploreEnabled} = deps.settings()
 			return decideStartIdentity(url, {cookiesMode, exploreEnabled: exploreEnabled !== false, signedIn: site => signIns.signedIn(site), suspect: site => suspects.isSuspect(site), rowFor})
 		},
-		recordEvidence: (site, evidence, source) => suspects.record(site, evidence, source)
+		recordEvidence: (site, evidence, source) => suspects.record(site, evidence, source),
+		onStartChange: listener => {
+			startListeners.add(listener)
+			return () => startListeners.delete(listener)
+		}
 	}
 }

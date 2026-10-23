@@ -388,7 +388,7 @@ if (hasSingleInstanceLock) {
 		// How many probes run at once: background ones wait their turn and wait out their site's cooldown.
 		const probeSlots = new ProbeSlots({backgroundLimit: initialSettings.common.concurrentProbes ?? DEFAULT_CONCURRENT_PROBES, cooldown: launchGate})
 		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache, {exploreGate, exploreSession, slots: probeSlots, listingCharges: launchGate, startIdentity: signIns.decideStart, signInEvidence: signIns.recordEvidence, ...(formatSizes ? {formatSizes} : {})})
-		const queueService = new QueueService(queueStore, downloadService, undefined, undefined, {manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u}, probeInfoJsonCache, launchGate, signIns.decideStart)
+		const queueService = new QueueService(queueStore, downloadService, undefined, undefined, {manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u}, probeInfoJsonCache, launchGate, {decide: signIns.decideStart, onChange: listener => void signIns.onStartChange(listener)})
 		// Apply the persisted concurrency before init() runs its boot-time spawn
 		// pass, so a restart honors the user's limit instead of falling back to
 		// the built-in cap for the first batch.

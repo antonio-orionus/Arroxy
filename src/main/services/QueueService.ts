@@ -59,8 +59,7 @@ import {QueueArtifactCleanup} from './download/queueArtifactCleanup.js'
 import {commitPhaseStatus} from './download/queuePhaseStatus.js'
 import {QueueProgressCoalescer} from './download/QueueProgressCoalescer.js'
 import {QueueJobProgress} from './download/QueueJobProgress.js'
-import {QueueSiteHold, type QueueSiteGate} from './download/QueueSiteHold.js'
-import type {StartDecision} from './startIdentity.js'
+import {QueueSiteHold, type QueueSiteGate, type QueueStartIdentitySource} from './download/QueueSiteHold.js'
 import {spawnQueueJob} from './download/queueJobSpawn.js'
 import {applyQueueSelectionAction} from './queueSelectionActionApply.js'
 
@@ -142,10 +141,10 @@ export class QueueService extends EventEmitter {
 		private readonly playlist?: {manifestStore: PlaylistManifestStore; writeM3u: (manifest: PlaylistManifest) => Promise<void>},
 		private readonly probeInfoJsonCache?: ProbeInfoJsonCache,
 		launchGate?: QueueSiteGate,
-		decideStart?: (url: string) => StartDecision
+		startIdentities?: QueueStartIdentitySource
 	) {
 		super()
-		this.siteHold = new QueueSiteHold(launchGate, decideStart)
+		this.siteHold = new QueueSiteHold(launchGate, startIdentities)
 		this.siteHold.onChange(() => this.recomputeSchedule())
 		this.artifactCleanup = new QueueArtifactCleanup(probeInfoJsonCache)
 		this.playlistM3u = new QueuePlaylistM3u(this.playlist)
