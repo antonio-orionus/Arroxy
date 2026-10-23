@@ -534,6 +534,7 @@ export interface SystemSlice {
 	setCookiesPath: (path: string) => Promise<void>
 	setCookiesMode: (mode: CookiesMode) => Promise<void>
 	setCookiesBrowser: (browser: CookiesBrowser) => Promise<void>
+	setCookiesBrowserProfile: (profile: string) => Promise<void>
 	setProxyUrl: (url: string) => Promise<void>
 	setExploreAdBlock: (enabled: boolean) => Promise<void>
 	setExploreIdleUnload: (enabled: boolean) => Promise<void>

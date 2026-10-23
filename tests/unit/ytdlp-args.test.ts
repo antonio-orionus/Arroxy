@@ -579,6 +579,13 @@ describe('YtDlp — cookies injection', () => {
 		expect(args).not.toContain('--cookies')
 	})
 
+	it("cookiesMode='browser'+profile folder → --cookies-from-browser <browser>:<folder>", async () => {
+		const ytDlp = makeYtDlp({settings: {cookiesMode: 'browser', cookiesBrowser: 'chromium', cookiesBrowserProfile: '/home/u/.config/net.imput.helium'}})
+		await ytDlp.run({kind: 'probe', url: URL})
+		const args = getArgs()
+		expect(args[args.indexOf('--cookies-from-browser') + 1]).toBe('chromium:/home/u/.config/net.imput.helium')
+	})
+
 	it("cookiesMode='browser'+missing browser → no cookies args", async () => {
 		const ytDlp = makeYtDlp({settings: {cookiesMode: 'browser'}})
 		await ytDlp.run({kind: 'probe', url: URL})

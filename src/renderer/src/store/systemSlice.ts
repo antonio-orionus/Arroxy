@@ -547,6 +547,10 @@ export function createSystemSlice(set: SetState, get: GetState): SystemSlice {
 			await applyCommonPatchAsync(get, set, 'cookiesBrowser', {cookiesBrowser: browser})
 		},
 
+		setCookiesBrowserProfile: async profile => {
+			await applyCommonPatchAsync(get, set, 'cookiesBrowserProfile', {cookiesBrowserProfile: profile})
+		},
+
 		setProxyUrl: async url => {
 			await applyCommonPatchAsync(get, set, 'proxyUrl', {proxyUrl: url})
 		},

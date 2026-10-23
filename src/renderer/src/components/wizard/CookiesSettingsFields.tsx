@@ -20,8 +20,10 @@ const COOKIES_BROWSERS: readonly {value: CookiesBrowser; label: string; macOnly?
 	{value: 'chrome', label: 'Chrome'},
 	{value: 'brave', label: 'Brave'},
 	{value: 'edge', label: 'Edge'},
+	{value: 'opera', label: 'Opera'},
 	{value: 'safari', label: 'Safari', macOnly: true},
-	{value: 'vivaldi', label: 'Vivaldi'}
+	{value: 'vivaldi', label: 'Vivaldi'},
+	{value: 'whale', label: 'Whale'}
 ]
 
 const COOKIES_HELP_URL = 'https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp'
@@ -151,6 +153,42 @@ function CookiesBrowserField(): ReactNode {
 			</Select>
 			<FieldDescription>{t('wizard.url.cookies.browserHelp')}</FieldDescription>
 			{cookiesBrowser ? null : <WarningText text={t('wizard.url.cookies.enabledButNoBrowser')} />}
+			{cookiesBrowser && cookiesBrowser !== 'safari' ? <CookiesBrowserProfileField /> : null}
+		</Field>
+	)
+}
+
+// A fork (Floorp, Helium) or a non-default profile: the folder yt-dlp reads
+// instead of the browser's default one. In the Flatpak the folder dialog's
+// portal grants access to exactly this folder.
+function CookiesBrowserProfileField(): ReactNode {
+	const {t} = useTranslation()
+	const {settings, setCookiesBrowserProfile} = useAppStore(useShallow(state => ({settings: state.settings, setCookiesBrowserProfile: state.setCookiesBrowserProfile})))
+	const profile = settings?.common?.cookiesBrowserProfile ?? ''
+	const commonPaths = settings?.common?.commonPaths
+
+	async function chooseProfileFolder(): Promise<void> {
+		const result = await window.appApi.dialog.chooseFolder(profile || undefined)
+		if (result.ok && result.data.path) await setCookiesBrowserProfile(result.data.path)
+	}
+
+	return (
+		<Field className="gap-1.5">
+			<FieldLabel htmlFor="profiles-settings-cookies-browser-profile" size="sm">
+				{t('wizard.url.cookies.profileLabel')}
+			</FieldLabel>
+			<InputGroup className="h-9">
+				<InputGroupInput id="profiles-settings-cookies-browser-profile" readOnly value={profile ? formatHomeRelativePath(profile, commonPaths) : ''} placeholder={t('wizard.url.cookies.profilePlaceholder')} className="text-xs font-mono" data-testid="profiles-settings-cookies-browser-profile" />
+				<InputGroupAddon align="inline-end">
+					<InputGroupButton type="button" onClick={() => void chooseProfileFolder()} data-testid="profiles-settings-cookies-browser-profile-choose">
+						{t('wizard.url.cookies.choose')}
+					</InputGroupButton>
+					<InputGroupButton type="button" onClick={() => void setCookiesBrowserProfile('')} disabled={!profile} data-testid="profiles-settings-cookies-browser-profile-clear">
+						{t('wizard.url.cookies.clear')}
+					</InputGroupButton>
+				</InputGroupAddon>
+			</InputGroup>
+			<FieldDescription>{t('wizard.url.cookies.profileHelp')}</FieldDescription>
 		</Field>
 	)
 }

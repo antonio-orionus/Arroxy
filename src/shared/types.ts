@@ -147,6 +147,7 @@ export interface CommonSettings {
 	cookiesPath?: string
 	cookiesMode?: CookiesMode
 	cookiesBrowser?: CookiesBrowser
+	cookiesBrowserProfile?: string
 	proxyUrl?: string
 	exploreEnabled?: boolean
 	exploreUserAgent?: string

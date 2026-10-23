@@ -42,6 +42,18 @@ describe('resolveCookies', () => {
 	it('ignores path when mode=browser', () => {
 		expect(resolveCookies(settings({cookiesMode: 'browser', cookiesBrowser: 'chrome', cookiesPath: '/x.txt'}), 'anonymous', YOUTUBE)).toEqual({kind: 'browser', browser: 'chrome'})
 	})
+
+	it('carries the profile folder chosen for the browser', () => {
+		expect(resolveCookies(settings({cookiesMode: 'browser', cookiesBrowser: 'firefox', cookiesBrowserProfile: ' /home/u/.var/app/one.ablaze.floorp/.floorp '}), 'anonymous', YOUTUBE)).toStrictEqual({kind: 'browser', browser: 'firefox', profile: '/home/u/.var/app/one.ablaze.floorp/.floorp'})
+	})
+
+	it('leaves a blank profile folder out', () => {
+		expect(resolveCookies(settings({cookiesMode: 'browser', cookiesBrowser: 'chromium', cookiesBrowserProfile: '  '}), 'anonymous', YOUTUBE)).toStrictEqual({kind: 'browser', browser: 'chromium'})
+	})
+
+	it('drops the profile folder for Safari, which has none', () => {
+		expect(resolveCookies(settings({cookiesMode: 'browser', cookiesBrowser: 'safari', cookiesBrowserProfile: '/Users/u/Library'}), 'anonymous', YOUTUBE)).toStrictEqual({kind: 'browser', browser: 'safari'})
+	})
 })
 
 describe('resolveCookies under explore mode', () => {

@@ -11,6 +11,7 @@ const COMMON_KEYS = new Set([
 	'cookiesPath',
 	'cookiesMode',
 	'cookiesBrowser',
+	'cookiesBrowserProfile',
 	'cookiesEnabled',
 	'proxyUrl',
 	'clipboardWatchEnabled',
