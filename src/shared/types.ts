@@ -48,7 +48,6 @@ export type {
 	CloseBehavior,
 	CookiesMode,
 	JobAuth,
-	AuthBasis,
 	CookiesBrowser,
 	NetworkPacingPreset,
 	NativeAudioPreference,
@@ -68,8 +67,10 @@ export type {
 } from './schemas.js'
 
 import type {DependencyFailureKind, ExploreSearchEngine, FormatMarker, ProbeDegradationReason, ProbePlaylistMode, QuickProbeTake} from './schemas.js'
+import type {AuthBasis} from './signInSchemas.js'
 export type {HeldProbe, ProbeDegradationReason, ProbePlaylistMode, RateLimitEvidence, SiteCooldown, StatusKey} from './schemas.js'
 export type {ExploreViewState} from './schemas.js'
+export type {AuthBasis} from './signInSchemas.js'
 export type {ExploreLinkAction, ExploreNavigateCommand, ExploreViewBounds} from './exploreSchemas.js'
 export type {HotkeyAccelerator, HotkeyOutcome, HotkeyOutcomeEvent, HotkeyOutcomePayload, HotkeyRegistrationStatus, HotkeyState, HotkeyTriggerPayload} from './schemas.js'
 export type {LocalizedError, YtDlpErrorKind} from './i18n/types.js'
@@ -90,7 +91,6 @@ import type {
 	StatusKey,
 	CookiesMode,
 	JobAuth,
-	AuthBasis,
 	CookiesBrowser,
 	NetworkPacingPreset,
 	NativeAudioPreference,

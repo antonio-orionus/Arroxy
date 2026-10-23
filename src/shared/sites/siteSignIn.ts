@@ -4,7 +4,7 @@
 // site signed out leaves other cookies behind. Presence only: the site may
 // still refuse it (a suspect sign-in).
 
-import type {SignInPolicy} from '../schemas.js'
+import type {SignInPolicy} from '../signInSchemas.js'
 import {knownSiteSignIn} from './siteKeys.js'
 import type {ExploreCookie} from './types.js'
 

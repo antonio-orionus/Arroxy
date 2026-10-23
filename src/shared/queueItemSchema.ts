@@ -4,7 +4,8 @@
 
 import {z} from 'zod'
 import {intakeOriginSchema, pinnedDownloadProfileSchema} from './intake/intakeSchemas.js'
-import {QUEUE_STATUS, authBasisSchema, jobAuthSchema, probePlaylistModeSchema, quickProbeTakeSchema, queueArtifactKindSchema, queueChoiceSchema, queueItemStatusSchema, queueLaneSchema, statusKeySchema, ytDlpErrorKindSchema} from './schemas.js'
+import {QUEUE_STATUS, jobAuthSchema, probePlaylistModeSchema, quickProbeTakeSchema, queueArtifactKindSchema, queueChoiceSchema, queueItemStatusSchema, queueLaneSchema, statusKeySchema, ytDlpErrorKindSchema} from './schemas.js'
+import {authBasisSchema} from './signInSchemas.js'
 import {preparedJobSchema} from './preparedJob.js'
 
 // Used by both the queue IPC handlers and QueueStore.load to reject corrupted

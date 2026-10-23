@@ -4,7 +4,8 @@
 // site a redirect leads to. What follows the first launch (escalation, the
 // safety launch) is decided elsewhere.
 
-import type {AuthBasis, CookiesMode} from '@shared/schemas.js'
+import type {CookiesMode} from '@shared/schemas.js'
+import type {AuthBasis} from '@shared/signInSchemas.js'
 import type {StartAnonymousReason} from '@shared/escalationSchemas.js'
 import {requestSiteFor} from '@shared/sites/index.js'
 import {siteSignInPolicy} from '@shared/sites/siteSignIn.js'

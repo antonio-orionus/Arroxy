@@ -78,7 +78,7 @@ describe('cookie source: Explore sign-in', () => {
 		expect(group.getByRole('button', {name: /^Explore sign-in/})).toHaveAttribute('aria-pressed', 'true')
 		expect(group.getByRole('button', {name: 'Off'})).toHaveAttribute('aria-pressed', 'false')
 		expect(group.getByText(/may flag — and sometimes ban/)).toBeInTheDocument()
-		expect(group.getByText('Uses your Explore sign-in only when a download needs it.')).toBeInTheDocument()
+		expect(group.getByText('Uses your Explore sign-in from the start on Instagram and X, and elsewhere only when a download needs it.')).toBeInTheDocument()
 	})
 
 	it('opens the Explore tab from the explore description', () => {
@@ -96,7 +96,7 @@ describe('cookie source: Explore sign-in', () => {
 	it('shows neither the ban warning nor the Explore description while cookies are off', () => {
 		mount({cookiesMode: 'off'})
 		expect(within(cookiesSource()).queryByText(/may flag — and sometimes ban/)).toBeNull()
-		expect(within(cookiesSource()).queryByText('Uses your Explore sign-in only when a download needs it.')).toBeNull()
+		expect(within(cookiesSource()).queryByText('Uses your Explore sign-in from the start on Instagram and X, and elsewhere only when a download needs it.')).toBeNull()
 	})
 })
 

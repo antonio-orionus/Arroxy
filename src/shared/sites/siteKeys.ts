@@ -6,7 +6,7 @@
 // no registrable domain (an IP address, `localhost`) is itself.
 
 import {getDomain} from 'tldts'
-import type {SignInPolicy} from '../schemas.js'
+import type {SignInPolicy} from '../signInSchemas.js'
 import {isYouTubeHostname} from './youtubeHost.js'
 
 // How launches signed in to the Explore session are paced on one site, before

@@ -64,6 +64,7 @@ function buildMockApi(settingsOverrides: Record<string, unknown> = {}) {
 			getHeldProbes: vi.fn().mockResolvedValue({ok: true, data: []}),
 			onHeldProbesChanged: vi.fn().mockReturnValue(() => undefined)
 		},
+		signIns: {getNotWorking: vi.fn().mockResolvedValue({ok: true, data: []}), useAgain: vi.fn().mockResolvedValue({ok: true, data: undefined}), onNotWorkingChanged: vi.fn().mockReturnValue(() => undefined)},
 		diagnostics: {logWizardStep: vi.fn()},
 		playlist: {scanFolder: vi.fn().mockResolvedValue(ok({matchedIds: [] as string[]})), registerManifest: vi.fn().mockResolvedValue(ok(undefined))}
 	}
