@@ -53,6 +53,20 @@ afterEach(() => {
 })
 
 describe('ProbeService — probe slots', () => {
+	it('keeps a background probe’s result when only its optional retry was paced', async () => {
+		const {ytDlp, answer, spawned} = controlledYtDlp()
+		const slots = new ProbeSlots({backgroundLimit: 1})
+		const service = new ProbeService(ytDlp, false, undefined, {slots})
+		const probing = service.probe(VIDEO_URL, {kind: 'intake', playlistMode: 'video'})
+		await settle()
+		await answer(success(FORMATS_MISSING))
+		await answer({kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Pacing signed-in requests to this site', stdout: '', stderr: '', pacedUntil: Date.now() + 60_000})
+
+		const result = await probing
+		expect(result.ok).toBe(true)
+		expect(spawned).toHaveLength(2)
+	})
+
 	it('holds one slot for the whole probe across its degradation retry', async () => {
 		const {ytDlp, spawned, answer} = controlledYtDlp()
 		const slots = new ProbeSlots({backgroundLimit: 1})

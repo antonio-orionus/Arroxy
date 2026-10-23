@@ -163,7 +163,8 @@ export class DownloadService extends EventEmitter {
 	// `jobLive`: nothing was resumed, but the job still exists — its pause has not
 	// parked yet, or another resume already restarted it. The caller must not
 	// start a replacement: the old job would run or park as an orphan beside it.
-	async resume(jobId: string): Promise<Result<{resumed: boolean; job?: DownloadJob; jobLive?: true}>> {
+	// `signedInReservation`: the signed-in start the queue reserved for this resume.
+	async resume(jobId: string, {signedInReservation}: {signedInReservation?: string} = {}): Promise<Result<{resumed: boolean; job?: DownloadJob; jobLive?: true}>> {
 		// A pause of a job with no live process only flags it: it parks at its next
 		// run point (a slow token mint can hold it there). Resuming inside that
 		// window waits for the park, up to a bound.
@@ -183,7 +184,8 @@ export class DownloadService extends EventEmitter {
 		}
 
 		this.pausedJobs.delete(jobId)
-		const {job, input} = paused
+		const {job} = paused
+		const input = signedInReservation === undefined ? paused.input : {...paused.input, signedInReservation}
 		job.status = 'running'
 		job.updatedAt = nowIso()
 		const controller = new AbortController()

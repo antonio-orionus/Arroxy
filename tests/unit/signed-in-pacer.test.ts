@@ -257,6 +257,18 @@ describe('SignedInPacer: reserved starts', () => {
 		expect(pacer.startsAt('x')).toBe(now() + 5000)
 	})
 
+	it('keeps the spacing between the launches that actually start on reservations', async () => {
+		const {pacer, run, startedAt, advance} = clocked({atOnce: 2, spacingMs: 8000})
+		const first = pacer.reserveStart('instagram')
+		advance(8000)
+		const second = pacer.reserveStart('instagram')
+		if (first.kind !== 'reserved' || second.kind !== 'reserved') throw new Error('expected two reservations')
+		advance(7000)
+		await Promise.all([run('instagram', 'a', {reservation: first.id}), run('instagram', 'b', {reservation: second.id})])
+
+		expect(startedAt).toEqual([16_000, 24_000])
+	})
+
 	it('lets a reservation that is never used expire', async () => {
 		vi.useFakeTimers()
 		try {

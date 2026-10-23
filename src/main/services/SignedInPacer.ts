@@ -56,6 +56,8 @@ interface SiteState {
 	waiters: Array<() => void>
 	// Reserved at a start, so two launches starting together are still staggered.
 	nextStartAt: number
+	// When the last launch actually started (a reserved one starts later than its reservation).
+	lastLaunchAt: number
 	charges: Charge[]
 }
 
@@ -85,8 +87,25 @@ export class SignedInPacer {
 		if (used >= this.perJobCap) return {kind: 'cap-exceeded'}
 		this.launchesByJob.set(jobKey, used + 1)
 		const state = this.state(site)
-		// A start the queue reserved for this launch already holds its slot, spacing and charge.
-		if (reservation !== undefined && this.consume(state, reservation)) return this.launch(site, state, fn)
+		// A start the queue reserved for this launch already holds its slot and
+		// charge; it waits only out the spacing from the last launch that started.
+		if (reservation !== undefined && this.consume(state, reservation)) {
+			const wait = explicit ? 0 : state.lastLaunchAt + this.pacing(site).spacingMs - this.now()
+			if (wait > 0) {
+				onWait?.({reason: 'signedInSpacing', waitMs: wait})
+				try {
+					await this.sleep(wait, signal)
+				} catch (err) {
+					if (!signal?.aborted) throw err
+				}
+				if (signal?.aborted) {
+					this.release(site, state)
+					return this.refund(jobKey)
+				}
+			}
+			this.markLaunched(site, state, explicit)
+			return this.launch(site, state, fn)
+		}
 		for (;;) {
 			// Waits for the spacing or the budget hold no slot, and are asked again after every wait.
 			const free = explicit ? null : this.freeAt(state, this.pacing(site), this.now())
@@ -111,6 +130,7 @@ export class SignedInPacer {
 				continue
 			}
 			this.start(site, state, explicit)
+			state.lastLaunchAt = this.now()
 			return this.launch(site, state, fn)
 		}
 	}
@@ -131,7 +151,7 @@ export class SignedInPacer {
 		timer.unref?.()
 		state.pending.set(id, timer)
 		this.start(site, state, explicit)
-		this.notify()
+		// No notify: the caller is the scheduler itself, mid-pass.
 		return {kind: 'reserved', id}
 	}
 
@@ -170,6 +190,13 @@ export class SignedInPacer {
 		const now = this.now()
 		state.charges.push({at: now, launches: 1})
 		if (!explicit) state.nextStartAt = now + this.spacing(pacing)
+	}
+
+	// A reserved launch actually starts: later starts are spaced from it.
+	private markLaunched(site: string, state: SiteState, explicit: boolean): void {
+		const now = this.now()
+		state.lastLaunchAt = now
+		if (!explicit) state.nextStartAt = Math.max(state.nextStartAt, now + this.pacing(site).spacingMs)
 	}
 
 	private async launch<T>(site: string, state: SiteState, fn: () => Promise<T>): Promise<{ran: T}> {
@@ -219,7 +246,7 @@ export class SignedInPacer {
 	private state(site: string): SiteState {
 		let state = this.sites.get(site)
 		if (!state) {
-			state = {active: 0, pending: new Map(), waiters: [], nextStartAt: Number.NEGATIVE_INFINITY, charges: []}
+			state = {active: 0, pending: new Map(), waiters: [], nextStartAt: Number.NEGATIVE_INFINITY, lastLaunchAt: Number.NEGATIVE_INFINITY, charges: []}
 			this.sites.set(site, state)
 		}
 		return state

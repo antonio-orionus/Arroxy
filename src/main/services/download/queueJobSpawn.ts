@@ -32,7 +32,7 @@ export async function spawnQueueJob(deps: QueueJobSpawnDeps, item: QueueItem, te
 	// resume that job, which keeps its state (a quality limit among it), rather
 	// than start a new one beside it.
 	if (item.status === QUEUE_STATUS.pending && item.lastJobId) {
-		const resumed = await resumeParkedJob(deps, item, item.lastJobId)
+		const resumed = await resumeParkedJob(deps, item, item.lastJobId, signedInReservation)
 		if (resumed !== 'notParked') return resumed
 	}
 	const effectiveTempDir = QueueResumeLifecycle.tempDirForQueueStart(item, tempDir)
@@ -62,8 +62,8 @@ export async function spawnQueueJob(deps: QueueJobSpawnDeps, item: QueueItem, te
 
 // 'notParked': no parked job by that id (the app restarted since the pause), so
 // the caller starts a fresh job from the row's temp dir.
-async function resumeParkedJob(deps: QueueJobSpawnDeps, item: QueueItem, jobId: string): Promise<Result<void> | 'notParked'> {
-	const resumed = await deps.downloadService.resume(jobId)
+async function resumeParkedJob(deps: QueueJobSpawnDeps, item: QueueItem, jobId: string, signedInReservation: string | undefined): Promise<Result<void> | 'notParked'> {
+	const resumed = await deps.downloadService.resume(jobId, signedInReservation === undefined ? {} : {signedInReservation})
 	if (resumed.ok && resumed.data.resumed) return settleStartedJob(deps, item, jobId, {kind: 'resumed'}, item.tempDir)
 	// The wait can be long: a pause, cancel or remove may have moved the row on.
 	const current = deps.findItem(item.id)

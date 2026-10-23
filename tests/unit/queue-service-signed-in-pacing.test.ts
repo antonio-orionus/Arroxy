@@ -40,12 +40,12 @@ function startedIds(ds: FakeDownloadService): string[] {
 
 const SPACING_MS = 10_000
 
-function setup() {
+function setup(lanes = 4) {
 	const pacer = new SignedInPacer({pacing: () => ({atOnce: 1, spacingMs: SPACING_MS, jitterMs: 0, windowMs: 60 * 60_000, perWindow: 1000, entriesPerLaunch: 50})})
 	const gate = new LaunchGate({cooldowns: new SiteRequestState({random: () => 1}), signedIn: pacer})
 	const ds = new FakeDownloadService()
 	ds.start.mockImplementation(async () => jobResult())
-	const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, 4, 4, undefined, undefined, gate)
+	const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, lanes, lanes, undefined, undefined, gate)
 	return {pacer, ds, qs}
 }
 
@@ -107,6 +107,23 @@ describe('QueueService — signed-in pacing before the lane', () => {
 
 		expect(startedIds(ds).sort()).toEqual(['a', 'v'])
 		expect(ds.start).toHaveBeenCalledWith(expect.objectContaining({url: 'https://www.instagram.com/reel/a', signedInReservation: expect.any(String)}))
+	})
+
+	it('keeps the lane limit when reserving a start', async () => {
+		const {ds, qs} = setup(1)
+		qs.add([signedIn('a'), makeItem({id: 'v', status: 'pending', url: 'https://vimeo.com/v'})])
+		await vi.advanceTimersByTimeAsync(0)
+
+		expect(startedIds(ds)).toEqual(['a'])
+	})
+
+	it('hands the start it reserved to a parked job it resumes', async () => {
+		const {ds, qs} = setup()
+		ds.resume.mockResolvedValue(ok({resumed: true}))
+		qs.add([signedIn('a', {lastJobId: 'job-parked'})])
+		await vi.advanceTimersByTimeAsync(0)
+
+		expect(ds.resume).toHaveBeenCalledWith('job-parked', {signedInReservation: expect.any(String)})
 	})
 
 	it('reserves nothing for a row that starts anonymous', async () => {
