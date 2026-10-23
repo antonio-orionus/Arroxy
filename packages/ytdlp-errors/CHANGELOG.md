@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.0.0 — which site rejected the account cookies
+
+### Breaking
+
+- `accountCookiesRejected(stderr)` returns the site whose account cookies yt-dlp stopped honouring, as yt-dlp names it (`"YouTube"`, `"Instagram"`), or `null`. It returned `boolean`. A truthiness check keeps working; a comparison with `true` does not.
+
+### Changed
+
+- `accountCookiesRejected` and `SIGNAL_PATTERNS.accountCookiesRejected` match yt-dlp's general warning, "The provided <site> account cookies are no longer valid", printed by its YouTube and Instagram extractors. They matched YouTube's wording only.
+
+### Fixed
+
+- CommonJS consumers get the CommonJS type declarations: the `require` export condition points at `index.d.cts`, so TypeScript under `moduleResolution` `node16` or `nodenext` no longer resolves the ESM `.d.ts` for a `require` (#571).
+
 ## 1.5.0 — requested format not available
 
 ### Added
