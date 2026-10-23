@@ -1,6 +1,6 @@
 import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {AlertTriangle, ChevronDown, FileSearch, FolderOpen, PackagePlus, RefreshCw, RotateCcw, ScrollText, X} from 'lucide-react'
+import {AlertTriangle, ChevronDown, FileSearch, FolderOpen, PackagePlus, RefreshCw, RotateCcw, ScrollText, Wrench, X} from 'lucide-react'
 import type {BinaryOverrides, DependencyDiagnostic, DependencyId} from '@shared/types.js'
 import {FAILURE_CODE} from '@shared/types.js'
 import {useAppStore} from '../../store/useAppStore.js'
@@ -204,8 +204,8 @@ export function RepairPanel({diagnostics, blocking}: Props): ReactNode {
 
 			{/* Someone who stopped setup asked to set it up manually: show how. */}
 			<Collapsible className="mt-6" defaultOpen={warmupStopped}>
-				<CollapsibleTrigger render={<Button variant="link" size="sm" className="group/manual px-0 text-muted-foreground hover:text-foreground" data-testid="repair-manual-toggle" />}>
-					{t('repair.manual.toggle')}
+				<CollapsibleTrigger render={<Button variant="outline" size="sm" className="group/manual" data-testid="repair-manual-toggle" />}>
+					<Wrench aria-hidden /> {t('repair.manual.toggle')}
 					<ChevronDown className="transition-transform duration-200 group-data-[panel-open]/manual:rotate-180" aria-hidden />
 				</CollapsibleTrigger>
 				<CollapsibleContent className="mt-3 space-y-3">
