@@ -319,13 +319,13 @@ export type UiTheme = z.infer<typeof uiThemeSchema>
 export const installAgeSchema = z.enum(['new', '1-7d', '8-30d', '31-90d', 'over-90d', 'existing'])
 export type InstallAge = z.infer<typeof installAgeSchema>
 
-// Where the binary manifest a warmup used came from.
 // Why a dependency failed to set up. `timeout` is a tool too slow to respond;
 // a download that stopped moving is `download_stalled`.
 export const dependencyFailureKindSchema = z.enum(['download_failed', 'extract_failed', 'hash_failed', 'spawn_failed', 'permission_denied', 'blocked_or_quarantined', 'bad_exit_code', 'timeout', 'pair_incomplete', 'download_stalled'])
 export type DependencyFailureKind = z.infer<typeof dependencyFailureKindSchema>
 export const DEPENDENCY_FAILURE_KINDS = dependencyFailureKindSchema.options
 
+// Where the binary manifest a warmup used came from.
 export const binaryManifestSourceSchema = z.enum(['local', 'remote', 'last-known-good', 'bundled'])
 export type BinaryManifestSource = z.infer<typeof binaryManifestSourceSchema>
 

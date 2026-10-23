@@ -2,7 +2,7 @@ import fs from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import {afterEach, beforeEach, describe, expect, it} from 'vite-plus/test'
-import {ArtifactMaterializeError, withArtifactLock} from '@main/services/binary/ArtifactInstall.js'
+import {ArtifactMaterializeError, artifactErrorToDependencyFailureKind, withArtifactLock} from '@main/services/binary/ArtifactInstall.js'
 
 let root: string
 
@@ -40,5 +40,23 @@ describe('withArtifactLock', () => {
 
 		await expect(withArtifactLock(root, 'busy', undefined, 60_000, () => Promise.resolve('ran'))).resolves.toBe('ran')
 		await expect(fs.readdir(path.join(root, 'locks'))).resolves.toEqual([])
+	})
+
+	// A cache folder Arroxy may not write is a permission problem; reporting it
+	// as LOCK made it ARX-008, "a tool took too long… security scan".
+	it.skipIf(process.platform === 'win32')('reports a lock folder it cannot create as a permission failure, not a timeout', async () => {
+		const locks = path.join(root, 'locks')
+		await fs.mkdir(locks, {recursive: true})
+		await fs.chmod(locks, 0o500)
+		try {
+			const failure = await withArtifactLock(root, 'yt-dlp', undefined, 1_000, () => Promise.resolve()).then(
+				() => null,
+				(error: unknown) => error
+			)
+			expect(failure).toBeInstanceOf(ArtifactMaterializeError)
+			expect(artifactErrorToDependencyFailureKind(failure)).toBe('permission_denied')
+		} finally {
+			await fs.chmod(locks, 0o700)
+		}
 	})
 })

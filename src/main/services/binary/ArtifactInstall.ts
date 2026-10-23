@@ -118,7 +118,10 @@ export async function withArtifactLock<T>(cacheRoot: string, cacheKey: string, s
 			await fsPromises.writeFile(path.join(lockDir, 'owner.json'), JSON.stringify({pid: process.pid, createdAt: new Date().toISOString()}))
 			break
 		} catch (err) {
-			if ((err as NodeJS.ErrnoException).code !== 'EEXIST') throw new ArtifactMaterializeError('LOCK', `Could not acquire artifact lock: ${String(err)}`, err)
+			const code = (err as NodeJS.ErrnoException).code
+			// A cache folder it may not write is a permission problem, not a wait.
+			if (code === 'EACCES' || code === 'EPERM' || code === 'EROFS') throw new ArtifactMaterializeError('PERMISSION', `Could not create artifact lock: ${String(err)}`, err)
+			if (code !== 'EEXIST') throw new ArtifactMaterializeError('LOCK', `Could not acquire artifact lock: ${String(err)}`, err)
 			const reason = await staleLockReason(lockDir)
 			if (reason) {
 				logger.warn('Removing stale artifact lock', {cacheKey, reason})
