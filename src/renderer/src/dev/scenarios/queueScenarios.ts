@@ -96,7 +96,13 @@ function buildProbeWaitingItems(): QueueItem[] {
 	const unresolved = {kind: 'unresolved', extractor: '', extractorKey: ''} as const
 	const placeholder = {thumbnail: '', progressPercent: 0, progressDetail: null, lastStatus: null, writeM3u: false, job: unresolved, status: QUEUE_STATUS.probing, probeMode: 'video'} as const
 	const urls = ['https://www.youtube.com/watch?v=jNQXAC9IVRw', 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://www.youtube.com/watch?v=9bZkp7q19f0', 'https://vimeo.com/76979871']
-	return urls.map((url, index) => queueItem({...placeholder, id: `probe-waiting-${index}`, url, title: url, addedAt: `2026-05-31T12:0${index}:00.000Z`}))
+	const probing = urls.map((url, index) => queueItem({...placeholder, id: `probe-waiting-${index}`, url, title: url, addedAt: `2026-05-31T12:0${index}:00.000Z`}))
+	// Queued rows: the YouTube one waits out the same cooldown, the Vimeo one does not.
+	const queued = [
+		queueItem({id: 'queued-waiting-youtube', url: 'https://www.youtube.com/watch?v=Tf81vmX7CVE', title: 'Dj Dani - Feel (Official Audio)', status: QUEUE_STATUS.pending, addedAt: '2026-05-31T12:04:00.000Z'}),
+		queueItem({id: 'queued-waiting-vimeo', url: 'https://vimeo.com/22439234', title: 'The Mountain', status: QUEUE_STATUS.pending, addedAt: '2026-05-31T12:05:00.000Z'})
+	]
+	return [...probing, ...queued]
 }
 
 // A quick download's placeholder rows, one per state the Downloads tab resolves.

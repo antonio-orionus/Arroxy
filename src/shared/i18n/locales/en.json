@@ -430,7 +430,8 @@
 			"statusRunning": "Downloading",
 			"subtitleLanguagesMissing": "No subtitles in {{languages}}",
 			"waitingForSite": "Waits for {{site}} until {{time}}",
-			"waitingHint": "{{site}} is rate-limiting this connection. Arroxy fetches this link's details after {{time}}, so the limit can clear."
+			"waitingHint": "{{site}} is rate-limiting this connection. Arroxy fetches this link's details after {{time}}, so the limit can clear.",
+			"waitingHintDownload": "{{site}} is rate-limiting this connection. Arroxy starts no download from {{site}} before {{time}}, so the limit can clear."
 		},
 		"listOffer": {
 			"dismiss": "Dismiss",
