@@ -237,6 +237,51 @@ describe('submitUrl — video probe', () => {
 		await vi.waitFor(() => expect(api.playlist.scanFolder).toHaveBeenCalledOnce())
 	})
 
+	// A scan answers late: a mode switch or a newer run since then drops it (#681).
+	it('drops a folder scan answer that a mode switch or a newer run superseded', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		let answer!: (value: Result<{matchedIds: string[]}>) => void
+		// Each scan waits for its own answer.
+		vi.mocked(api.playlist.scanFolder).mockImplementation(() => new Promise(resolve => (answer = resolve)))
+		window.appApi = api
+		const row = makeItem({
+			id: 'row-1',
+			status: 'needs-choice',
+			choice: {kind: 'list-size', loaded: 2, capped: false},
+			url: PLAYLIST_PROBE.webpageUrl,
+			job: {kind: 'unresolved', extractor: '', extractorKey: ''},
+			probeMode: 'playlist',
+			pinnedProfile: {ref: {kind: 'builtin', id: 'audio-only'}, outputContext: {defaultOutputDir: '/tmp/downloads'}}
+		})
+		useAppStore.setState({settings: defaultAppSettings('/tmp/downloads'), wizardOutputDir: '/tmp/downloads', queue: [row]})
+		await useAppStore.getState().openPlaylistReview(PLAYLIST_PROBE.webpageUrl, 'playlist', 'row-1')
+		useAppStore.getState().exitMultiProfileMode()
+		await vi.waitFor(() => expect(api.playlist.scanFolder).toHaveBeenCalledOnce())
+
+		// Back to per-video profiles before the scan answers.
+		useAppStore.getState().enterMultiProfileMode()
+		answer(ok({matchedIds: ['e1']}))
+		await Promise.resolve()
+		await Promise.resolve()
+
+		expect(useAppStore.getState()).toMatchObject({syncedDownloadedIds: [], syncScanState: 'idle'})
+
+		// A scan left running when another list is opened answers into nothing,
+		// even before that list lands.
+		useAppStore.getState().exitMultiProfileMode()
+		await vi.waitFor(() => expect(api.playlist.scanFolder).toHaveBeenCalledTimes(2))
+		let land!: (value: Result<ProbeResult, ProbeError>) => void
+		vi.mocked(api.downloads.probe).mockReturnValue(new Promise(resolve => (land = resolve)))
+		const opening = useAppStore.getState().openPlaylistReview(PLAYLIST_PROBE.webpageUrl, 'playlist', 'row-1')
+		answer(ok({matchedIds: ['e1']}))
+		await Promise.resolve()
+		await Promise.resolve()
+		expect(useAppStore.getState().syncedDownloadedIds).toEqual([])
+		land(ok(PLAYLIST_PROBE))
+		await opening
+	})
+
 	it("keeps the row's profile when every picked video was already queued, and the list stays open", async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))

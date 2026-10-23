@@ -76,6 +76,9 @@ let wizardProbeRun = 0
 // Whether a list has landed in this run: until one has, a retry's list is the
 // run's first and takes the saved list settings.
 let wizardRunListLanded = false
+// The folder scan whose answer may still land: a newer scan, a new probe or
+// multi-profile mode supersedes it, so an answer that arrives later is dropped.
+let folderScanGeneration = 0
 
 // Leaves a loading probe for the screen the run started from.
 function abandonProbe(set: SetState, get: GetState): void {
@@ -159,6 +162,7 @@ function startPlaylistPlaceholderHydration(set: SetState, get: GetState): void {
 function startProbe(url: string, playlistMode: ProbePlaylistMode, set: SetState, get: GetState, sameRun = false): void {
 	nextBulkMetadataRunId()
 	wizardProbeRun += 1
+	folderScanGeneration += 1
 	if (!sameRun) wizardRunListLanded = false
 	void window.appApi.downloads.probeCancel()
 	const startProjection = projectProbeStart(get(), url, playlistMode, sameRun)
@@ -518,7 +522,10 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		// exit from playlistProfiles at all.
 		enterMultiProfileMode: () => {
 			const fromStep = get().wizardStep
+			// Its videos save in their profiles' folders: no one-folder result applies.
+			folderScanGeneration += 1
 			WizardCommands.enterMultiProfileMode(set)
+			set({syncedDownloadedIds: [], syncScanState: 'idle'})
 			logStep('advance', fromStep, get().wizardStep, pickWizardSnapshot(get()))
 		},
 
@@ -543,6 +550,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 		// alert) but does NOT change the selection — that's applyFolderSync's job.
 		// Runs automatically after a playlist probe and on every folder change.
 		scanDownloadedInFolder: async () => {
+			const generation = ++folderScanGeneration
 			const state = get()
 			const videoIds = state.playlistItems.map(e => e.videoId).filter((v): v is string => v !== null)
 			// Scan the resolved playlist dir (override or base+subfolder) — the exact
@@ -564,6 +572,7 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			}
 			set({syncScanState: 'scanning'})
 			const res = await window.appApi.playlist.scanFolder({outputDir, videoIds})
+			if (generation !== folderScanGeneration) return
 			if (!res.ok) {
 				set({syncedDownloadedIds: [], syncScanState: 'done'})
 				return
