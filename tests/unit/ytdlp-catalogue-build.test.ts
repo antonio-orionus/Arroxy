@@ -59,9 +59,14 @@ describe.skipIf(python === null && !process.env.CI)('ytdlp-catalogue build', asy
 	})
 
 	it('the rules hash covers the classifier and the app escalation it labels with', () => {
-		expect(RULE_FILES.map(file => path.relative(path.resolve(import.meta.dirname, '../..'), file))).toEqual(
-			expect.arrayContaining(['scripts/ytdlp-catalogue/label.ts', 'scripts/ytdlp-catalogue/overrides.json', 'packages/ytdlp-errors/src/patterns.ts', 'src/main/services/exploreEscalation.ts', 'src/shared/ytdlp/loginHint.ts'])
-		)
+		expect(
+			RULE_FILES.map(file =>
+				path
+					.relative(path.resolve(import.meta.dirname, '../..'), file)
+					.split(path.sep)
+					.join('/')
+			)
+		).toEqual(expect.arrayContaining(['scripts/ytdlp-catalogue/label.ts', 'scripts/ytdlp-catalogue/overrides.json', 'packages/ytdlp-errors/src/patterns.ts', 'src/main/services/exploreEscalation.ts', 'src/shared/ytdlp/loginHint.ts']))
 	})
 
 	it('refuses a version that cannot name a file', async () => {
