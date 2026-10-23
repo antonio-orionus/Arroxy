@@ -729,7 +729,7 @@ export class YtDlp {
 	// mode, flipped the kill switch or signed out meanwhile, so the decision is
 	// taken again right before the jar is written.
 	private async invokeIfStillAuthorized(scope: ExploreCookieScope | null, invoke: () => Promise<YtDlpResult>): Promise<YtDlpResult> {
-		const decision = scope === null ? undefined : await this.opts.sessionAuth?.canEscalate(scope).catch(() => undefined)
+		const decision = scope === null ? undefined : await this.opts.sessionAuth?.canEscalate(scope).catch(() => ({allowed: false, reason: 'gateFailed'}) as const)
 		if (decision?.allowed === true) return invoke()
 		ytDlpLog.warn('escalated run refused after its slot wait: Explore session no longer authorized', {scope: scope?.kind ?? null, reason: decision?.reason ?? null})
 		return exploreSessionUnavailable()

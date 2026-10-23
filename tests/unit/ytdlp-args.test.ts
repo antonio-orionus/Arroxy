@@ -3,6 +3,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import {describe, expect, it, vi, beforeEach, afterEach} from 'vite-plus/test'
+import log from 'electron-log/main.js'
 import {YtDlp, type YtDlpRequest} from '@main/services/YtDlp.js'
 import {resolveE2eHarnessMode, type E2eHarnessMode} from '@main/e2eHarness.js'
 import {duplicateExtractorArgsBlocks, effectiveExtractorArgs, EMBED_SUBTITLE_CONTAINER_EXT, type AudioConvert, type PlaylistScope, type ProbePlaylistMode, type SponsorBlockPlan, type SubtitleFormat, type SubtitleMode} from 'yt-dlp-bridge'
@@ -1199,6 +1200,26 @@ describe('YtDlp — run identity', () => {
 		expect(result).toEqual({kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: ''})
 		expect(withJar).not.toHaveBeenCalled()
 		expect(spawnYtDlp).not.toHaveBeenCalled()
+	})
+
+	it.each([
+		['the gate refuses', () => Promise.resolve({allowed: false as const, reason: 'notExploreMode' as const}), 'notExploreMode'],
+		['the gate cannot answer', () => Promise.reject(new Error('cookie store unavailable')), 'gateFailed']
+	] as const)('logs why an escalated run was refused after its slot wait when %s', async (_case, canEscalate, reason) => {
+		const ytDlp = new YtDlp(
+			{ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue(null), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn()} as never,
+			{getToken: vi.fn(), invalidateCache: vi.fn()} as never,
+			{get: vi.fn().mockResolvedValue({common: exploreSettings, playlist: {}})},
+			{sessionJars: {withJar: vi.fn(), getUserAgent: () => EXPLORE_UA}, spawnGate: new ExploreSpawnGate({minSpacingMs: 0}), sessionAuth: {canEscalate}}
+		)
+		vi.mocked(log.warn).mockClear()
+		const result = await ytDlp.run(mediaRequest(), undefined, {identity: 'exploreSession'})
+		expect(result).toMatchObject({kind: 'exit-error', rawError: 'Explore session unavailable'})
+		const refusals = vi
+			.mocked(log.warn)
+			.mock.calls.filter(call => String(call[0]).startsWith('escalated run refused after its slot wait'))
+			.map(call => call[1])
+		expect(refusals).toEqual([{scope: 'site', reason}])
 	})
 
 	it('writes no jar for a run that was already cancelled', async () => {
