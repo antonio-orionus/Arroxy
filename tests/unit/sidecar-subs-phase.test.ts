@@ -154,6 +154,12 @@ describe('SidecarSubsPhase: the fetch', () => {
 		expect(runs(signedIn)[0]?.[2]).toEqual({identity: 'exploreSession', jobKey: 'job-1', honorCooldown: false})
 	})
 
+	it('fetches anonymously for a job its site started signed in once its sign-in is refused, rather than skip the subtitles', async () => {
+		const ctx = makeCtx({input: input({auth: 'exploreSession', authBasis: 'siteDefault'}), signedIn: false})
+		await SidecarSubsPhase(false).run(ctx)
+		expect(runs(ctx)[0]?.[2]).toEqual({identity: 'configured', jobKey: 'job-1', honorCooldown: false})
+	})
+
 	it('asks for exactly the tracks the Format screen would pick, never a machine translation', async () => {
 		const ctx = makeCtx({input: input({job: job(codes(['en', 'ja', 'de']))})})
 		await SidecarSubsPhase(false).run(ctx)

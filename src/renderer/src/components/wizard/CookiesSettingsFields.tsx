@@ -233,7 +233,7 @@ function NotWorkingSignIns(): ReactNode {
 	return (
 		<div className="flex flex-col gap-1.5" data-testid="cookies-not-working-sign-ins">
 			{sites.map(site => (
-				<Alert key={site} variant="warning" size="sm" data-testid={`cookies-not-working-sign-in-${site}`}>
+				<Alert key={site} role="status" variant="warning" size="sm" data-testid={`cookies-not-working-sign-in-${site}`}>
 					<AlertTriangle />
 					<AlertTitle>{t('wizard.url.cookies.signInStoppedWorking', {site: siteKeyLabel(site)})}</AlertTitle>
 					<AlertDescription>

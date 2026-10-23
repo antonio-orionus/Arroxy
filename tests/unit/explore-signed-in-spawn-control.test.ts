@@ -99,7 +99,7 @@ afterEach(async () => {
 	await rm(outputDir, {recursive: true, force: true, maxRetries: 5, retryDelay: 100})
 })
 
-function harness(gate: SignedInPacer, opts: {mintToken?: () => Promise<{token: string; visitorData: string}>; canEscalate?: boolean; verified?: ExploreSignInState} = {}) {
+function harness(gate: SignedInPacer, opts: {mintToken?: () => Promise<{token: string; visitorData: string}>; canEscalate?: boolean; verified?: ExploreSignInState; signInEvidence?: (site: string, evidence: string, source?: unknown) => void} = {}) {
 	// Every signed-in spawn writes exactly one jar, so this counts them.
 	const jars: ExploreCookieScope[] = []
 	const withJar = <T>(scope: ExploreCookieScope, fn: (jarPath: string) => Promise<T>): Promise<T> => {
@@ -114,11 +114,12 @@ function harness(gate: SignedInPacer, opts: {mintToken?: () => Promise<{token: s
 	const service = new DownloadService(ytDlp, recentJobsStore as never, false, undefined, {
 		exploreGate: {canEscalate: () => Promise.resolve(opts.canEscalate === false ? {allowed: false as const, reason: 'noCookiesForHost' as const} : {allowed: true as const})},
 		exploreSession: {verifySignedIn: () => Promise.resolve(opts.verified ?? 'signedIn')},
-		launchGate: {resetJob: (jobId: string, reservation?: string) => (gate.resetJob(jobId), reservation === undefined ? undefined : gate.releaseReservation(reservation))}
+		launchGate: {resetJob: (jobId: string, reservation?: string) => (gate.resetJob(jobId), reservation === undefined ? undefined : gate.releaseReservation(reservation))},
+		...(opts.signInEvidence ? {signInEvidence: opts.signInEvidence} : {})
 	})
 	const statuses: StatusEvent[] = []
 	service.on('status', (event: StatusEvent) => statuses.push(event))
-	const start = async (auth?: JobAuth, extra: {explicit?: boolean; signedInReservation?: string} = {}): Promise<string> => {
+	const start = async (auth?: JobAuth, extra: {explicit?: boolean; signedInReservation?: string; authBasis?: 'siteDefault'} = {}): Promise<string> => {
 		const result = await service.start({url: URL, outputDir, job: JOB, ...(auth ? {auth} : {}), ...extra})
 		if (!result.ok) throw new Error(result.error.message)
 		return result.data.job.id
@@ -247,6 +248,21 @@ describe('a signed-in download the user asked for now (ADR 0022)', () => {
 
 		await start('exploreSession', {signedInReservation: reserved.id})
 		await vi.waitFor(() => expect(spawnYtDlp).toHaveBeenCalledOnce(), SETTLE)
+	})
+})
+
+describe('evidence about a site’s sign-in', () => {
+	it('names the item and when its attempt started, so a later sign-in drops it', async () => {
+		const record = vi.fn()
+		vi.mocked(spawnYtDlp).mockImplementation(() => fakeProcess(0) as never)
+		const {service, start} = harness(testPacer(), {signInEvidence: record})
+		const before = Date.now()
+
+		await start('exploreSession', {authBasis: 'siteDefault'})
+		await vi.waitFor(() => expect(service.activeCount).toBe(0), SETTLE)
+
+		expect(record).toHaveBeenCalledWith('youtube', 'signedInSucceeded', {item: URL, startedAt: expect.any(Number)})
+		expect(record.mock.calls[0]?.[2].startedAt).toBeGreaterThanOrEqual(before)
 	})
 })
 
