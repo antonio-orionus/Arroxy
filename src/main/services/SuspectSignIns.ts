@@ -96,9 +96,11 @@ export class SuspectSignIns {
 		return this.marks.filter(mark => this.isSuspect(mark.site)).map(mark => mark.site)
 	}
 
-	// The user says the sign-in works again (they dealt with a checkpoint).
+	// The user says the sign-in works again (they dealt with a checkpoint): what
+	// launches from before showed no longer counts, as after a cookie change.
 	useAgain(site: string): void {
 		this.seen.delete(site)
+		this.changedAt.set(site, this.now())
 		if (this.unmark(site)) logger.info('Sign-in marked as working again by the user', {site})
 	}
 

@@ -135,4 +135,20 @@ describe('SuspectSignIns: what clears the mark', () => {
 		suspects.record('x', 'signedInUnknown')
 		expect(suspects.isSuspect('x')).toBe(false)
 	})
+
+	it('does not let a launch from before Use my sign-in again mark the site again', () => {
+		const {suspects, advance} = setup()
+		const before = {item: 'https://www.instagram.com/reel/a/', startedAt: 1_000_000}
+		suspects.record('instagram', 'accountWall', {item: 'https://www.instagram.com/reel/b/', startedAt: 1_000_000})
+		advance(MINUTE)
+		suspects.useAgain('instagram')
+		expect(suspects.isSuspect('instagram')).toBe(false)
+
+		// The other run in flight when the user clicked reports the same checkpoint.
+		suspects.record('instagram', 'accountWall', before)
+		expect(suspects.isSuspect('instagram')).toBe(false)
+		advance(1)
+		suspects.record('instagram', 'accountWall', {item: before.item, startedAt: 1_000_000 + MINUTE + 1})
+		expect(suspects.isSuspect('instagram')).toBe(true)
+	})
 })
