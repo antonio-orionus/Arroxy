@@ -50,6 +50,29 @@ describe('QueueService — job auth', () => {
 		expect(ds.start).toHaveBeenCalledWith(expect.objectContaining({auth: 'exploreSession'}))
 	})
 
+	it('starts a row on a site that starts signed in by the site’s default, and says so', async () => {
+		const ds = new FakeDownloadService()
+		ds.start.mockResolvedValue(jobResult())
+		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, undefined, undefined, undefined, undefined, undefined, () => ({site: 'instagram', auth: 'exploreSession', basis: 'siteDefault'}))
+
+		qs.add([makeItem({id: 'a', status: 'pending', url: 'https://www.instagram.com/reel/a/'})])
+
+		await vi.waitFor(() => expect(ds.start).toHaveBeenCalledOnce())
+		expect(ds.start).toHaveBeenCalledWith(expect.objectContaining({auth: 'exploreSession', authBasis: 'siteDefault'}))
+	})
+
+	it('restarts a row its safety launch pinned anonymous as anonymous, whatever its site says', async () => {
+		const ds = new FakeDownloadService()
+		ds.start.mockResolvedValue(jobResult())
+		const qs = new QueueService(fakeStore(), ds as unknown as DownloadService, undefined, undefined, undefined, undefined, undefined, () => ({site: 'instagram', auth: 'exploreSession', basis: 'siteDefault'}))
+
+		qs.add([makeItem({id: 'a', status: 'pending', url: 'https://www.instagram.com/reel/a/', auth: 'anonymous'})])
+
+		await vi.waitFor(() => expect(ds.start).toHaveBeenCalledOnce())
+		expect(ds.start).toHaveBeenCalledWith(expect.objectContaining({auth: 'anonymous'}))
+		expect(ds.start.mock.calls[0]?.[0]).not.toHaveProperty('authBasis')
+	})
+
 	it('lets the info-json ref auth win over a missing item auth', async () => {
 		const {qs, ds} = startedService()
 

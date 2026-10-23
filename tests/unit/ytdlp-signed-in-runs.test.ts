@@ -134,7 +134,7 @@ describe('a signed-in probe waiting for a spawn slot (R21)', () => {
 
 // A2-1: authorization is decided again once the slot is free, right before the jar.
 describe('a signed-in run that waited for a slot while the user opted out', () => {
-	const UNAVAILABLE = {kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: ''}
+	const UNAVAILABLE = {kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: 'Explore session unavailable', stdout: '', stderr: '', heldBeforeLaunch: true}
 	const optOuts: Array<[string, {common?: Record<string, unknown>; signedIn?: boolean}]> = [
 		['cookies switched off', {common: {cookiesMode: 'off'}}],
 		['Explore switched off', {common: {cookiesMode: 'explore', exploreEnabled: false}}],

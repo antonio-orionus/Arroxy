@@ -8,7 +8,7 @@ import {notify} from '@renderer/lib/notify.js'
 import {replaceHash} from '@renderer/lib/navigation.js'
 import {siteKeyLabel} from '@shared/sites/siteKeys.js'
 import {useAppStore} from '../../store/useAppStore.js'
-import {Alert, AlertDescription} from '../ui/alert.js'
+import {Alert, AlertDescription, AlertTitle} from '../ui/alert.js'
 import {Badge} from '../ui/badge.js'
 import {Button} from '../ui/button.js'
 import {Field, FieldContent, FieldDescription, FieldLabel, FieldTitle} from '../ui/field.js'
@@ -230,18 +230,16 @@ function NotWorkingSignIns(): ReactNode {
 	return (
 		<div className="flex flex-col gap-1.5" data-testid="cookies-not-working-sign-ins">
 			{sites.map(site => (
-				<div key={site} className="flex flex-wrap items-center justify-between gap-2 rounded-md border px-3 py-2" data-testid={`cookies-not-working-sign-in-${site}`}>
-					<span className="flex min-w-0 flex-1 items-start gap-2">
-						<AlertTriangle className="mt-0.5 size-4 shrink-0 text-warning" aria-hidden />
-						<span className="flex flex-col gap-0.5">
-							<span className="text-sm font-medium">{t('wizard.url.cookies.signInStoppedWorking', {site: siteKeyLabel(site)})}</span>
-							<span className="text-xs text-muted-foreground">{t('wizard.url.cookies.signInStoppedWorkingDetail', {site: siteKeyLabel(site)})}</span>
-						</span>
-					</span>
-					<Button type="button" variant="outline" size="sm" onClick={() => void reuseSignIn(site)}>
-						{t('wizard.url.cookies.useSignInAgain')}
-					</Button>
-				</div>
+				<Alert key={site} variant="warning" size="sm" data-testid={`cookies-not-working-sign-in-${site}`}>
+					<AlertTriangle />
+					<AlertTitle>{t('wizard.url.cookies.signInStoppedWorking', {site: siteKeyLabel(site)})}</AlertTitle>
+					<AlertDescription>{t('wizard.url.cookies.signInStoppedWorkingDetail', {site: siteKeyLabel(site)})}</AlertDescription>
+					<div className="col-start-2 flex flex-wrap gap-2">
+						<Button type="button" variant="outline" size="xs" onClick={() => void reuseSignIn(site)}>
+							{t('wizard.url.cookies.useSignInAgain')}
+						</Button>
+					</div>
+				</Alert>
 			))}
 		</div>
 	)
