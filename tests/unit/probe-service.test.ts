@@ -1011,12 +1011,13 @@ describe('ProbeService — Explore session escalation', () => {
 			expect(evidence).toEqual(['instagram:signedInUnknown'])
 		})
 
-		it('marks an account wall, with no anonymous run', async () => {
+		it('marks an account wall, with no anonymous run, and leaves the failed row to decide again at its next start', async () => {
 			const {service, run, evidence} = makeSiteDefaultService([exitError('ERROR: [Instagram] abc: checkpoint_required')])
-			await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
+			const result = await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
 
 			expect(identities(run)).toEqual(['exploreSession'])
 			expect(evidence).toEqual(['instagram:accountWall'])
+			expect(!result.ok && result.error.kind === 'ytdlp' && result.error.auth).toBeUndefined()
 		})
 
 		it('leaves a failure that says nothing about the sign-in as it is', async () => {
@@ -1025,7 +1026,8 @@ describe('ProbeService — Explore session escalation', () => {
 
 			expect(identities(run)).toEqual(['exploreSession'])
 			expect(evidence).toEqual([])
-			expect(!result.ok && result.error.kind === 'ytdlp' && result.error.auth).toBe('exploreSession')
+			// Only an escalation stores a row as signed in: its next start decides again.
+			expect(!result.ok && result.error.kind === 'ytdlp' && result.error.auth).toBeUndefined()
 		})
 
 		it('marks rejected cookies, and keeps a result the site still gave', async () => {

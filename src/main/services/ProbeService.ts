@@ -15,7 +15,8 @@ import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.
 import {PROBE_TIMEOUT_MESSAGE, RATE_LIMIT_COOLDOWN_MESSAGE, YtDlp, type RunIdentity} from './YtDlp.js'
 import type {LaunchGate} from './LaunchGate.js'
 import type {StartDecision} from './startIdentity.js'
-import type {SignInEvidence, SignInEvidenceSource} from './SuspectSignIns.js'
+import type {SignInEvidence} from '@shared/signInSchemas.js'
+import type {SignInEvidenceSource} from './SuspectSignIns.js'
 import {signedInFailure} from './signedInEvidence.js'
 import type {ProbeSlots} from './ProbeSlots.js'
 import {decideEscalation, escalationReason, reachesPlaylistItems} from './exploreEscalation.js'
@@ -392,7 +393,8 @@ export class ProbeService extends EventEmitter {
 			}
 			if (outcome.kind === 'failure') {
 				// Signed in only if the last run kept the Explore cookies: one yt-dlp dropped ran anonymously.
-				return fail(auth && !cookiesRejected && outcome.error.kind === 'ytdlp' ? {...outcome.error, auth} : outcome.error)
+				// Only an escalation stores the row as signed in; its site's default decides again at the next start.
+				return fail(auth && basis === 'escalation' && !cookiesRejected && outcome.error.kind === 'ytdlp' ? {...outcome.error, auth} : outcome.error)
 			}
 
 			let mapped: ProbeResult
