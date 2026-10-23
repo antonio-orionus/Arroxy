@@ -105,7 +105,7 @@ describe('spawn of a row paused while its parked job is being resumed', () => {
 
 		ds.resume.mockResolvedValue(ok({resumed: true}))
 		expect((await qs.resume('a')).ok).toBe(true)
-		expect(ds.resume).toHaveBeenLastCalledWith('job-1')
+		expect(ds.resume).toHaveBeenLastCalledWith('job-1', {explicit: false})
 		expect(qs.snapshot()[0]).toMatchObject({status: 'running', lastJobId: 'job-1'})
 		expect(ds.start).toHaveBeenCalledOnce()
 	})
