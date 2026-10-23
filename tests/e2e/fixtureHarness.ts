@@ -789,6 +789,8 @@ export interface FixtureEnvInput {
 	exploreIdleUnloadMs?: number
 	// The spec answers each local client's request itself instead of the run allowing every one (ARROXY_E2E_MANUAL_CLIENT_APPROVAL).
 	manualClientApproval?: boolean
+	// The fixture YouTube starts downloads signed in, by its marker cookie (ARROXY_E2E_SIGN_IN_FIRST).
+	signInFirst?: boolean
 }
 
 export function buildFixtureEnv(input: FixtureEnvInput): Record<string, string> {
@@ -821,6 +823,8 @@ export function buildFixtureEnv(input: FixtureEnvInput): Record<string, string> 
 	else delete env.ARROXY_E2E_EXPLORE_IDLE_MS
 	if (input.manualClientApproval === true) env.ARROXY_E2E_MANUAL_CLIENT_APPROVAL = '1'
 	else delete env.ARROXY_E2E_MANUAL_CLIENT_APPROVAL
+	if (input.signInFirst === true) env.ARROXY_E2E_SIGN_IN_FIRST = '1'
+	else delete env.ARROXY_E2E_SIGN_IN_FIRST
 	delete env.MOCK_BACKEND
 	delete env.ELECTRON_RUN_AS_NODE
 	return env

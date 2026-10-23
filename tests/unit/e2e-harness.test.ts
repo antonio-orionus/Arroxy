@@ -186,6 +186,19 @@ describe('resolveE2eHarnessMode Explore idle unload delay', () => {
 	})
 })
 
+describe('resolveE2eHarnessMode sign-in-first fixture site', () => {
+	const enabled = (extra: NodeJS.ProcessEnv): NodeJS.ProcessEnv => ({ARROXY_E2E: '1', ARROXY_E2E_YTDLP_PLUGIN_DIR: makePluginRoot(), ...extra})
+
+	it('makes the fixture YouTube start signed in by its marker cookie', () => {
+		expect(resolveE2eHarnessMode(enabled({ARROXY_E2E_SIGN_IN_FIRST: '1'}), {isPackaged: false}).extraSignIns).toEqual({youtube: {policy: 'first', cookies: ['ARROXY_FIXTURE_AUTH'], host: 'www.youtube.com'}})
+	})
+
+	it('adds no sign-in row unless asked, or outside the gated harness', () => {
+		expect(resolveE2eHarnessMode(enabled({}), {isPackaged: false}).extraSignIns).toBeUndefined()
+		expect(resolveE2eHarnessMode({ARROXY_E2E_SIGN_IN_FIRST: '1'}, {isPackaged: false}).extraSignIns).toBeUndefined()
+	})
+})
+
 describe('isHeadlessWindowRequested', () => {
 	it('hides the window in a fixture E2E run', () => {
 		expect(isHeadlessWindowRequested({ARROXY_E2E: '1', ARROXY_E2E_HEADLESS: '1'})).toBe(true)

@@ -1,0 +1,1 @@
+When you're signed in to Instagram or X in Explore, downloads from those sites now use that sign-in from the start. If a download fails signed in, Arroxy tries once without it; a sign-in that keeps failing is listed in Settings as not working, and Use my sign-in again turns it back on.

@@ -367,7 +367,7 @@ if (hasSingleInstanceLock) {
 		// queue's boot-time spawn pass can write a live jar it would delete.
 		await exploreSession.sweepJars()
 		if (e2eMode.exploreCookies) await exploreSession.seedForE2e(e2eMode.exploreCookies)
-		const signIns = await createExploreSignIns({userDataPath, session: exploreSession, settings: () => settingsStore.getSync().common})
+		const signIns = await createExploreSignIns({userDataPath, session: exploreSession, settings: () => settingsStore.getSync().common, ...(e2eMode.extraSignIns ? {extraSignIns: e2eMode.extraSignIns} : {})})
 		const exploreGate = createExploreGate({settings: settingsStore, session: exploreSession, suspects: signIns.suspects})
 		// One launch gate for the whole app: one rate-limit cooldown per site and network route,
 		// shared by probes, queued jobs and automatic retries, and the signed-in pacing of each site.

@@ -42,6 +42,8 @@ interface FixtureProductOptions {
 	exploreAdBlockFilters?: string
 	// How long Explore waits after the tab is left before releasing the page.
 	exploreIdleUnloadMs?: number
+	// The fixture YouTube starts downloads signed in, as Instagram and X do (ADR 0022).
+	signInFirst?: boolean
 	// Local clients wait for Allow, which the spec gives through the window's IPC.
 	manualClientApproval?: boolean
 	// A queue left by a previous session, restored at startup.
@@ -214,7 +216,7 @@ export async function withFixtureProductApp(options: FixtureProductOptions, run:
 		exploreAdBlockFiltersPath = path.join(userDataDir, 'e2e-adblock-filters.txt')
 		fs.writeFileSync(exploreAdBlockFiltersPath, options.exploreAdBlockFilters, 'utf8')
 	}
-	const launchInput = {userDataDir, fixtureServer, denyProxy, exploreCookiesPath, exploreHomeUrl: options.exploreHomeUrl, exploreAdBlockFiltersPath, exploreIdleUnloadMs: options.exploreIdleUnloadMs, manualClientApproval: options.manualClientApproval}
+	const launchInput = {userDataDir, fixtureServer, denyProxy, exploreCookiesPath, exploreHomeUrl: options.exploreHomeUrl, exploreAdBlockFiltersPath, exploreIdleUnloadMs: options.exploreIdleUnloadMs, manualClientApproval: options.manualClientApproval, signInFirst: options.signInFirst}
 
 	let app: ElectronApplication | null = null
 	try {

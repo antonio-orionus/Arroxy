@@ -4,6 +4,7 @@ import type {DownloadRetryPolicy} from 'yt-dlp-bridge'
 import {z} from 'zod'
 import type {AppSettings} from '@shared/types.js'
 import type {ExploreCookie} from '@shared/sites/types.js'
+import type {SiteSignIn} from '@shared/sites/siteKeys.js'
 
 interface HarnessGate {
 	isPackaged: boolean
@@ -39,6 +40,9 @@ export interface E2eHarnessMode {
 	// How long Explore waits after the user leaves the tab before releasing the
 	// page (ARROXY_E2E_EXPLORE_IDLE_MS), so a test does not wait minutes.
 	exploreIdleUnloadMs?: number
+	// Sign-in rows added to the known sites' (ARROXY_E2E_SIGN_IN_FIRST): the
+	// fixture YouTube starts signed in, by the marker cookie its extractor reads.
+	extraSignIns?: Readonly<Record<string, SiteSignIn>>
 }
 
 const E2E_COMMAND_LINE_SWITCHES = ['disable-background-networking', 'disable-component-update', 'disable-domain-reliability', 'no-pings'] as const
@@ -144,6 +148,8 @@ function readExploreIdleUnloadMs(value: string | undefined): number | undefined 
 	return Number(value)
 }
 
+const FIXTURE_SIGN_IN_FIRST: Readonly<Record<string, SiteSignIn>> = {youtube: {policy: 'first', cookies: ['ARROXY_FIXTURE_AUTH'], host: 'www.youtube.com'}}
+
 export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate: HarnessGate): E2eHarnessMode {
 	if (!isE2eHarnessEnabled(env, gate)) {
 		return {enabled: false, disableAnalytics: false, disableUpdater: false, allowClipboardWatch: true, useMockTokenProvider: false, commandLineSwitches: [], applyAppSettingsDefaults: defaults => defaults, applySpawnEnv: baseEnv => ({...baseEnv}), ytDlpArgs: () => [], ytDlpPluginDirs: [], downloadRetryPolicy: undefined}
@@ -177,6 +183,7 @@ export function resolveE2eHarnessMode(env: NodeJS.ProcessEnv = process.env, gate
 		exploreSpawnSpacingMs: 0,
 		exploreHomeUrl,
 		exploreAdBlockFilters,
-		exploreIdleUnloadMs
+		exploreIdleUnloadMs,
+		...(env.ARROXY_E2E_SIGN_IN_FIRST === '1' ? {extraSignIns: FIXTURE_SIGN_IN_FIRST} : {})
 	}
 }
