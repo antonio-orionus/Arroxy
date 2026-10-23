@@ -122,6 +122,8 @@ async function settleSiteDefault<R extends SignedInRun>(ctx: PhaseContext, run: 
 	const site = requestSiteFor(active.input.url)
 	const record = (evidence: SignInEvidence): void => ctx.signInEvidence?.(site, evidence)
 	const {result} = run
+	// Arroxy held the run back: nothing reached the site, so it shows nothing about the sign-in.
+	if (result.kind === 'exit-error' && result.heldBeforeLaunch === true) return {kind: 'run', run}
 	const rejected = result.kind !== 'spawn-error' && result.cookiesRejectedBy !== undefined
 	if (rejected) record('cookiesRejected')
 	if (result.kind === 'success') {

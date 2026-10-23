@@ -44,12 +44,18 @@ export async function probeInfoJsonInTemp(probeInfoJsonPath: string | undefined,
 // its spawns the gate is asked again, so signing out, leaving explore mode or
 // the kill switch stop it instead of letting it run anonymously. A sign-out
 // the site itself confirmed earlier in the job stops it too, whatever cookies
-// the partition still holds. Anonymous jobs pass without a lookup.
+// the partition still holds. Anonymous jobs pass without a lookup. A job its
+// site started signed in (ADR 0022) lost nothing it needs: it goes on anonymous.
 export async function canSpawnSignedIn(ctx: PhaseContext): Promise<boolean> {
-	if (ctx.active.input.auth !== 'exploreSession') return true
-	if ((await ctx.active.exploreSessionCheck) === 'signedOut') return false
-	const scope = exploreCookieScopeFor(ctx.active.input.url)
-	return scope !== null && (await ctx.exploreGate.canEscalate(scope)).allowed
+	const {input} = ctx.active
+	if (input.auth !== 'exploreSession') return true
+	const scope = exploreCookieScopeFor(input.url)
+	const allowed = (await ctx.active.exploreSessionCheck) !== 'signedOut' && scope !== null && (await ctx.exploreGate.canEscalate(scope)).allowed
+	if (allowed || input.authBasis !== 'siteDefault') return allowed
+	logger.info('Explore sign-in no longer usable for a job its site started signed in; running anonymous', {jobId: ctx.active.job.id})
+	const {authBasis: _basis, ...rest} = input
+	ctx.active.input = {...rest, auth: 'anonymous'}
+	return true
 }
 
 // The outcome of a pause or cancel that landed on the job, else null. Pause wins

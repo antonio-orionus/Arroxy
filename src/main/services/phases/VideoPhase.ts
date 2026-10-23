@@ -268,7 +268,9 @@ export const VideoPhase: Phase = {
 			})
 			printedPathFile = finalPathFile && (await clearFinalPathFile(finalPathFile)) ? finalPathFile : undefined
 			if (finalPathFile && !printedPathFile) logger.warn('could not clear the final-path file; using the path from the log', {jobId: job.id})
-			const result = await ytDlp.run(req, signal, {identity: mode.identity, jobKey: job.id, ...(input.explicit ? {explicit: true} : {}), ...(input.signedInReservation === undefined ? {} : {signedInReservation: input.signedInReservation}), ...(printedPathFile ? {finalPathFile: printedPathFile} : {})})
+			// A site-default job the guard moved to anonymous no longer runs on the session.
+			const identity = mode.identity === 'exploreSession' && active.input.auth !== 'exploreSession' ? ANONYMOUS.identity : mode.identity
+			const result = await ytDlp.run(req, signal, {identity, jobKey: job.id, ...(input.explicit ? {explicit: true} : {}), ...(input.signedInReservation === undefined ? {} : {signedInReservation: input.signedInReservation}), ...(printedPathFile ? {finalPathFile: printedPathFile} : {})})
 			// yt-dlp can finish a small file before the stop reaches it. The run
 			// then did complete — at the limited quality — and is kept as it is.
 			return {req, result, formatsWithheld, stoppedLimited: stoppedLimited && result.kind !== 'success', alreadyDownloaded}

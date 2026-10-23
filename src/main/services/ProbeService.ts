@@ -53,7 +53,13 @@ type ProbeAttemptResult = {kind: 'success'; data: ProbeAttemptSuccess} | {kind: 
 
 // Who a probe runs as, and whether yt-dlp rejected that identity's cookies on any of its spawns.
 interface ProbeRunAs {
-	readonly identity: RunIdentity
+	// Changed by a redirect to another site when `restart` is set.
+	identity: RunIdentity
+	// How a run that its site's default started decides again on a redirect to
+	// another site (ADR 0022). Absent: the identity holds across redirects.
+	readonly restart?: (url: string) => RunIdentity
+	// Arroxy held the last run back (pacing, a slot wait, a cooldown): nothing reached the site.
+	heldBeforeLaunch: boolean
 	// The user opened this link (the window's probe): a signed-in run skips its site's spacing and budget.
 	readonly explicit: boolean
 	cookiesRejected: boolean
@@ -330,13 +336,18 @@ export class ProbeService extends EventEmitter {
 
 			let cookiesRejected = false
 			let cookiesRejectedBy: string | null = null
+			let heldBeforeLaunch = false
 			let lastUrl = url
-			const runAs = async (identity: RunIdentity): Promise<ProbeOutcome> => {
-				const as: ProbeRunAs = {identity, explicit: opts.kind === 'interactive', cookiesRejected: false, cookiesRejectedBy: null, lastUrl: url, onHeld, onPaced}
+			// The identity the last run ended on, after any redirect.
+			const last: {ranAs: RunIdentity} = {ranAs: 'configured'}
+			const runAs = async (identity: RunIdentity, restart?: (next: string) => RunIdentity): Promise<ProbeOutcome> => {
+				const as: ProbeRunAs = {identity, ...(restart ? {restart} : {}), heldBeforeLaunch: false, explicit: opts.kind === 'interactive', cookiesRejected: false, cookiesRejectedBy: null, lastUrl: url, onHeld, onPaced}
 				const mappedOutcome = mapProbeAttempt(await this.probeWithRedirectFollow(url, playlistMode, playlistScope, signal, as, timeoutMs), url, logContext)
 				cookiesRejected = as.cookiesRejected
 				cookiesRejectedBy = as.cookiesRejectedBy
+				heldBeforeLaunch = as.heldBeforeLaunch
 				lastUrl = as.lastUrl
+				last.ranAs = as.identity
 				return mappedOutcome
 			}
 			// Whether a playlist's items need the account too (R20): main decides and stamps them.
@@ -344,11 +355,20 @@ export class ProbeService extends EventEmitter {
 			// A lookup that must not spend the account never starts signed in either.
 			const start = escalate ? (this.startIdentity?.(url) ?? null) : null
 			if (start) logger.info('Probe start identity', {url, ...start})
-			let basis: AuthBasis | undefined = start?.auth === 'exploreSession' ? 'siteDefault' : undefined
-			let outcome = await runAs(basis ? 'exploreSession' : 'configured')
-			if (start && basis) {
+			// The site whose default the run ended on: a redirect to another site asks that site again.
+			let startSite = start?.site
+			const restart = (next: string): RunIdentity => {
+				const decision = this.startIdentity?.(next) ?? null
+				logger.info('Probe start identity after a redirect', {url: next, ...decision})
+				startSite = decision?.site
+				return decision?.auth === 'exploreSession' ? 'exploreSession' : 'configured'
+			}
+			let outcome = await runAs(start?.auth === 'exploreSession' ? 'exploreSession' : 'configured', start ? restart : undefined)
+			let basis: AuthBasis | undefined = start && last.ranAs === 'exploreSession' ? 'siteDefault' : undefined
+			const startedSignedIn = basis !== undefined
+			if (basis && startSite) {
 				auth = 'exploreSession'
-				const settled = await this.settleSiteDefault(url, start.site, outcome, cookiesRejectedBy, () => runAs('configured'))
+				const settled = await this.settleSiteDefault(url, startSite, outcome, cookiesRejectedBy, heldBeforeLaunch, () => runAs('configured'))
 				outcome = settled.outcome
 				if (settled.ranAnonymous) {
 					auth = undefined
@@ -356,7 +376,7 @@ export class ProbeService extends EventEmitter {
 				}
 			}
 			// A probe its site started signed in never escalates: it already ran signed in.
-			const reason = escalate && start?.auth !== 'exploreSession' && outcome.kind === 'failure' ? await this.escalationFor(url, outcome.error, signal) : null
+			const reason = escalate && !startedSignedIn && outcome.kind === 'failure' ? await this.escalationFor(url, outcome.error, signal) : null
 			if (reason) {
 				basis = 'escalation'
 				auth = 'exploreSession'
@@ -429,7 +449,9 @@ export class ProbeService extends EventEmitter {
 	// After a run its site started signed in (ADR 0022): what it showed about the
 	// sign-in, and one anonymous run when it failed in a way the sign-in may have
 	// caused. A result the site still gave after rejecting the cookies stands.
-	private async settleSiteDefault(url: string, site: string, first: ProbeOutcome, cookiesRejectedBy: string | null, runAnonymous: () => Promise<ProbeOutcome>): Promise<{outcome: ProbeOutcome; ranAnonymous: boolean}> {
+	private async settleSiteDefault(url: string, site: string, first: ProbeOutcome, cookiesRejectedBy: string | null, heldBeforeLaunch: boolean, runAnonymous: () => Promise<ProbeOutcome>): Promise<{outcome: ProbeOutcome; ranAnonymous: boolean}> {
+		// Arroxy held the run back: nothing reached the site, so it shows nothing about the sign-in.
+		if (first.kind === 'failure' && heldBeforeLaunch) return {outcome: first, ranAnonymous: false}
 		const record = (evidence: SignInEvidence): void => this.signInEvidence?.(site, evidence)
 		if (cookiesRejectedBy !== null) record('cookiesRejected')
 		if (first.kind !== 'failure') {
@@ -526,6 +548,7 @@ export class ProbeService extends EventEmitter {
 			const next = info.url
 			if (!next || next === currentUrl) return attempt
 			logger.info('Probe redirect', {from: currentUrl, to: next, depth, playlistMode, playlistScope: playlistScopeRequestForLog(playlistScope)})
+			if (as.restart && requestSiteFor(next) !== requestSiteFor(currentUrl)) as.identity = as.restart(next)
 			currentUrl = next
 		}
 		// Fell through both attempts; return whatever we got — caller surfaces as
@@ -610,6 +633,7 @@ export class ProbeService extends EventEmitter {
 		)
 		if (result.accountCookiesRejected === true) as.cookiesRejected = true
 		if (result.kind !== 'spawn-error' && result.cookiesRejectedBy !== undefined) as.cookiesRejectedBy = result.cookiesRejectedBy
+		as.heldBeforeLaunch = result.kind === 'exit-error' && result.heldBeforeLaunch === true
 		if (result.kind === 'exit-error' && result.rawError === RATE_LIMIT_COOLDOWN_MESSAGE) as.onHeld(requestSiteFor(url))
 		if (result.kind === 'exit-error' && result.pacedUntil !== undefined) as.onPaced(result.pacedUntil)
 

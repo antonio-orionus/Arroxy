@@ -27,6 +27,7 @@ import type {ExploreCookieScope} from '@shared/sites/exploreCookieScope.js'
 import type {ExploreGateDecision} from '@main/services/exploreEscalation.js'
 import type {ExploreGateRefusal} from '@shared/escalationSchemas.js'
 import type {YtDlpFormat} from 'yt-dlp-bridge/info'
+import type {StartDecision} from '@main/services/startIdentity.js'
 
 // Fake child process that emits a canned stdout payload then exits cleanly.
 // Mirrors the pattern in ytdlp-args.test.ts but lets each test inject its own
@@ -959,7 +960,7 @@ describe('ProbeService — Explore session escalation', () => {
 		const RULING = "ERROR: [Instagram] abc: This content isn't available to everyone."
 		const igVideo = (): unknown => ({_type: 'video', id: 'abc', title: 'Reel', extractor: 'Instagram', extractor_key: 'Instagram', webpage_url: IG_URL, formats: [{format_id: '1', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]})
 
-		function makeSiteDefaultService(results: YtDlpResult[], opts: {signedIn?: boolean; cache?: ProbeInfoJsonCache} = {}) {
+		function makeSiteDefaultService(results: YtDlpResult[], opts: {signedIn?: boolean; cache?: ProbeInfoJsonCache; startIdentity?: (url: string) => StartDecision} = {}) {
 			const run = vi.fn<(...args: unknown[]) => Promise<YtDlpResult>>(async () => {
 				const next = results.shift()
 				if (!next) throw new Error('unexpected yt-dlp run')
@@ -967,7 +968,7 @@ describe('ProbeService — Explore session escalation', () => {
 			})
 			const gate = {canEscalate: vi.fn(allowed)}
 			const evidence: string[] = []
-			const startIdentity = vi.fn((url: string) => (opts.signedIn === false ? {site: 'instagram', auth: 'anonymous' as const, reason: 'noSignInCookie' as const} : {site: url.includes('instagram') ? 'instagram' : 'youtube', auth: 'exploreSession' as const, basis: 'siteDefault' as const}))
+			const startIdentity = vi.fn(opts.startIdentity ?? ((url: string) => (opts.signedIn === false ? {site: 'instagram', auth: 'anonymous' as const, reason: 'noSignInCookie' as const} : {site: url.includes('instagram') ? 'instagram' : 'youtube', auth: 'exploreSession' as const, basis: 'siteDefault' as const})))
 			const service = new ProbeService({run} as never, false, opts.cache, {exploreGate: gate, exploreSession: {verifySignedIn: vi.fn()}, startIdentity, signInEvidence: (site, kind) => evidence.push(`${site}:${kind}`)})
 			return {service, run, gate, evidence, startIdentity}
 		}
@@ -1041,6 +1042,46 @@ describe('ProbeService — Explore session escalation', () => {
 
 			expect(identities(run)).toEqual(['configured', 'exploreSession'])
 			expect(result.ok && result.data.auth).toBe('exploreSession')
+		})
+
+		it('leaves a run Arroxy held back alone: no anonymous run, nothing recorded', async () => {
+			const held: YtDlpResult = {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Pacing signed-in requests to this site', stdout: '', stderr: '', heldBeforeLaunch: true}
+			const {service, run, evidence} = makeSiteDefaultService([held])
+			await service.probe(IG_URL, {kind: 'intake', playlistMode: 'video'})
+
+			expect(identities(run)).toEqual(['exploreSession'])
+			expect(evidence).toEqual([])
+		})
+
+		describe('a redirect to another site', () => {
+			const X_URL = 'https://x.com/u/status/1'
+			const YT_URL = 'https://www.youtube.com/watch?v=abc'
+			const ytVideo = (): unknown => ({_type: 'video', id: 'abc', title: 'Video', extractor: 'youtube', extractor_key: 'Youtube', webpage_url: YT_URL, formats: [{format_id: '18', ext: 'mp4', vcodec: 'avc1', acodec: 'mp4a.40.2'}]})
+			const bySite = (url: string): StartDecision =>
+				url.includes('youtube')
+					? {site: 'youtube', auth: 'anonymous', reason: 'notSignInFirst'}
+					: url.includes('instagram')
+						? {site: 'instagram', auth: 'exploreSession', basis: 'siteDefault'}
+						: url.includes('x.com')
+							? {site: 'x', auth: 'exploreSession', basis: 'siteDefault'}
+							: {site: 't.co', auth: 'anonymous', reason: 'notSignInFirst'}
+
+			it('asks the new site how to start: a site that starts anonymous runs anonymous', async () => {
+				const {service, run, evidence} = makeSiteDefaultService([success({_type: 'url', url: YT_URL}), success(ytVideo())], {startIdentity: bySite})
+				const result = await service.probe(X_URL, {kind: 'intake', playlistMode: 'video'})
+
+				expect(identities(run)).toEqual(['exploreSession', 'configured'])
+				expect(result.ok && result.data.auth).toBeUndefined()
+				expect(evidence).toEqual([])
+			})
+
+			it('starts signed in on a site that starts signed in, and tells that site what it showed', async () => {
+				const {service, run, evidence} = makeSiteDefaultService([success({_type: 'url', url: IG_URL}), success(igVideo())], {startIdentity: bySite})
+				await service.probe('https://t.co/abc', {kind: 'intake', playlistMode: 'video'})
+
+				expect(identities(run)).toEqual(['configured', 'exploreSession'])
+				expect(evidence).toEqual(['instagram:signedInSucceeded'])
+			})
 		})
 
 		it('never starts signed in a lookup that must not spend the account', async () => {

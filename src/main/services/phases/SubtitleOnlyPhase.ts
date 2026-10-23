@@ -75,7 +75,8 @@ export const SubtitleOnlyPhase: Phase = {
 			const first = await spawn()
 			const stopped = interruptedOutcome(active)
 			if (stopped) return {kind: 'ended', outcome: stopped}
-			const settled = await settleWithExploreSession(ctx, first, {site, escalates: () => true, runSignedIn: async () => ((await canSpawnSignedIn(ctx)) ? spawn() : null)})
+			// The safety launch runs as the job is now: anonymous, once the flow has recorded it so.
+			const settled = await settleWithExploreSession(ctx, first, {site, escalates: () => true, runSignedIn: async () => ((await canSpawnSignedIn(ctx)) ? spawn() : null), runAnonymous: spawn})
 			if (settled.kind === 'stopped') return {kind: 'ended', outcome: settled.outcome}
 			if (settled.kind === 'signedOut') return {kind: 'ended', outcome: exploreSignedOut(ctx)}
 			const {result} = settled.run

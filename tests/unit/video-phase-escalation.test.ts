@@ -503,6 +503,37 @@ describe('VideoPhase: a job its site started signed in (ADR 0022)', () => {
 		expect(evidence).toEqual(['instagram:cookiesRejected'])
 	})
 
+	it('leaves a run Arroxy held back alone: no anonymous launch, nothing recorded', async () => {
+		const evidence: string[] = []
+		const held: YtDlpResult = {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Pacing signed-in requests to this site', stdout: '', stderr: '', heldBeforeLaunch: true}
+		const {ctx, run} = makeCtx({runs: [held], input: SITE_DEFAULT, signedIn: true, evidence})
+
+		expect(await VideoPhase.run(ctx)).toMatchObject({kind: 'hard-failed'})
+		expect(identities(run)).toEqual(['exploreSession'])
+		expect(evidence).toEqual([])
+	})
+
+	it('runs anonymous when its sign-in is refused before it spawns, rather than failing as signed out', async () => {
+		const {ctx, run, emitStatus} = makeCtx({runs: [SUCCESS], input: SITE_DEFAULT, signedIn: false, refusal: 'signInSuspect'})
+
+		expect(await VideoPhase.run(ctx)).toEqual({kind: 'continue'})
+		expect(identities(run)).toEqual(['configured'])
+		expect(statusKeys(emitStatus)).not.toContain(STATUS_KEY.exploreSignedOut)
+	})
+
+	it('gives a subtitle-only job its anonymous launch too', async () => {
+		const evidence: string[] = []
+		const job: ResolvedStartDownloadInput['job'] = {kind: 'subtitle-only', extractor: 'Instagram', extractorKey: 'Instagram', subtitles: {request: {kind: 'tracks', tracks: [{key: 'en', auto: false}]}, mode: 'sidecar', format: 'srt'}}
+		// Instagram lists its tracks with a run of its own: the listing fails signed in, then lists anonymous.
+		const listed: YtDlpResult = {...SUCCESS, stdout: JSON.stringify({title: 'Video', subtitles: {en: [{ext: 'vtt'}]}, automatic_captions: {}})}
+		const {ctx, run} = makeCtx({runs: [UNKNOWN, listed, SUCCESS], input: {...SITE_DEFAULT, job}, signedIn: true, evidence})
+
+		expect(await SubtitleOnlyPhase.run(ctx)).toEqual({kind: 'completed'})
+		expect(identities(run)).toEqual(['exploreSession', 'configured', 'configured'])
+		expect(ctx.active.input.auth).toBe('anonymous')
+		expect(evidence).toEqual(['instagram:signedInUnknown', 'instagram:anonymousWorked'])
+	})
+
 	it('never escalates a job its safety launch left anonymous', async () => {
 		const {ctx, run, canEscalate} = makeCtx({runs: [LOGIN_REQUIRED], input: {url: IG_URL, job: IG_JOB, auth: 'anonymous'}, signedIn: true})
 

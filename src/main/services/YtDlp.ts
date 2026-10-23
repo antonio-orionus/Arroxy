@@ -89,6 +89,10 @@ export type YtDlpResult =
 			// The site's signed-in pacing held this run longer than its wait budget
 			// allows, until then; nothing spawned (a background probe waits again).
 			pacedUntil?: number
+			// Arroxy held this run back (pacing, a slot wait, the spawn cap, a
+			// cooldown, a refused session, a stop): yt-dlp never ran, so the
+			// result says nothing about the site or the account.
+			heldBeforeLaunch?: true
 	  }
 
 export interface YtDlpInvocationSummary {
@@ -174,15 +178,15 @@ const EXPLORE_SESSION_UNAVAILABLE_MESSAGE = 'Explore session unavailable'
 
 // A new object per call: results are handed to callers that may annotate them.
 function exploreSessionUnavailable(): YtDlpResult {
-	return {kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: EXPLORE_SESSION_UNAVAILABLE_MESSAGE, stdout: '', stderr: ''}
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'loginRequired', rawError: EXPLORE_SESSION_UNAVAILABLE_MESSAGE, stdout: '', stderr: '', heldBeforeLaunch: true}
 }
 
 function spawnCapExceeded(): YtDlpResult {
-	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Too many signed-in attempts for this download', stdout: '', stderr: ''}
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Too many signed-in attempts for this download', stdout: '', stderr: '', heldBeforeLaunch: true}
 }
 
 function cancelledResult(): YtDlpResult {
-	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Cancelled', stdout: '', stderr: ''}
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: 'Cancelled', stdout: '', stderr: '', heldBeforeLaunch: true}
 }
 
 // Matches the rateLimit pattern of ytdlp-errors, so callers that classify the
@@ -192,7 +196,7 @@ export const RATE_LIMIT_COOLDOWN_MESSAGE = 'Too many requests recently: waiting 
 const SIGNED_IN_PACED_MESSAGE = 'Pacing signed-in requests to this site'
 
 function heldByPacing(until: number): YtDlpResult {
-	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: SIGNED_IN_PACED_MESSAGE, stdout: '', stderr: '', pacedUntil: until}
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: SIGNED_IN_PACED_MESSAGE, stdout: '', stderr: '', pacedUntil: until, heldBeforeLaunch: true}
 }
 
 // A bot wall that came with a rate limit is the rate limit: an account cannot
@@ -205,7 +209,7 @@ function rateLimitOverBotWall(result: YtDlpResult): YtDlpResult {
 }
 
 function heldByCooldown(): YtDlpResult {
-	return {kind: 'exit-error', exitCode: -1, errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE, stdout: '', stderr: ''}
+	return {kind: 'exit-error', exitCode: -1, errorKind: 'rateLimit', rawError: RATE_LIMIT_COOLDOWN_MESSAGE, stdout: '', stderr: '', heldBeforeLaunch: true}
 }
 
 // A run executes inside its plan's folder, which a subtitles-only job has not
@@ -223,7 +227,7 @@ async function ensureRunFolder(cwd: string): Promise<YtDlpResult | null> {
 	}
 }
 
-function probeTimedOut(): YtDlpResult {
+function probeTimedOut(): Extract<YtDlpResult, {kind: 'exit-error'}> {
 	return {kind: 'exit-error', exitCode: -1, errorKind: 'unknown', rawError: PROBE_TIMEOUT_MESSAGE, stdout: '', stderr: ''}
 }
 
@@ -767,7 +771,7 @@ export class YtDlp {
 				return heldByPacing(outcome.until)
 			case 'waitExpired':
 				ytDlpLog.warn('signed-in probe timed out waiting for a spawn slot', {waitBudgetMs})
-				return probeTimedOut()
+				return {...probeTimedOut(), heldBeforeLaunch: true}
 			case 'cancelled':
 				return cancelledResult()
 		}
