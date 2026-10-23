@@ -556,23 +556,30 @@ export function createProbeOrchestratorSlice(set: SetState, get: GetState): Prob
 			// Scan the resolved playlist dir (override or base+subfolder) — the exact
 			// folder the files land in — via the shared resolver, so scan == download.
 			const outputDir = resolvePlaylistDir(state)
-			// The scan matches files by `[videoId]` before the extension in one
-			// directory. It cannot match when the template omits {id}, and it would
-			// look in the wrong directory when the template sorts entries into
-			// per-entry folders. Report "nothing found" rather than reporting wrongly.
 			// Multi-profile videos save in their profiles' folders, not one playlist
 			// folder (#680): nothing to scan, and no notice about it.
 			if (state.multiProfileMode) {
 				set({syncedDownloadedIds: [], syncScanState: 'idle'})
 				return
 			}
+			// The scan matches files by `[videoId]` before the extension in one
+			// directory. It cannot match when the template omits {id}, and it would
+			// look in the wrong directory when the template sorts entries into
+			// per-entry folders. Report "nothing found" rather than reporting wrongly.
 			if (!canScanPlaylistFolder(undefined, state.settings?.common?.filenameTemplate)) {
 				set({syncedDownloadedIds: [], syncScanState: 'done'})
 				return
 			}
 			set({syncScanState: 'scanning'})
 			const res = await window.appApi.playlist.scanFolder({outputDir, videoIds})
+			// A newer scan, probe or multi-profile mode answers for itself.
 			if (generation !== folderScanGeneration) return
+			// The answer applies only to the folder and videos it scanned (#681).
+			const now = get()
+			if (now.multiProfileMode || resolvePlaylistDir(now) !== outputDir || now.playlistItems.map(e => e.videoId).join('\n') !== state.playlistItems.map(e => e.videoId).join('\n')) {
+				set({syncedDownloadedIds: [], syncScanState: 'idle'})
+				return
+			}
 			if (!res.ok) {
 				set({syncedDownloadedIds: [], syncScanState: 'done'})
 				return

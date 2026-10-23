@@ -282,6 +282,31 @@ describe('submitUrl — video probe', () => {
 		await opening
 	})
 
+	it('drops a folder scan answer once the destination changed, or a bulk intake replaced the list', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		let answer!: (value: Result<{matchedIds: string[]}>) => void
+		vi.mocked(api.playlist.scanFolder).mockImplementation(() => new Promise(resolve => (answer = resolve)))
+		window.appApi = api
+		useAppStore.setState({settings: defaultAppSettings('/tmp/downloads'), wizardOutputDir: '/tmp/downloads', wizardUrl: PLAYLIST_PROBE.webpageUrl})
+		await useAppStore.getState().submitUrl()
+		await vi.waitFor(() => expect(api.playlist.scanFolder).toHaveBeenCalledOnce())
+
+		await useAppStore.getState().setWizardOutputDir('/elsewhere', false)
+		answer(ok({matchedIds: ['e1']}))
+		await Promise.resolve()
+		await Promise.resolve()
+		expect(useAppStore.getState().syncedDownloadedIds).toEqual([])
+
+		void useAppStore.getState().scanDownloadedInFolder()
+		await vi.waitFor(() => expect(api.playlist.scanFolder).toHaveBeenCalledTimes(2))
+		useAppStore.getState().startBulkUrls(['https://youtu.be/e1', 'https://youtu.be/zz'])
+		answer(ok({matchedIds: ['e1']}))
+		await Promise.resolve()
+		await Promise.resolve()
+		expect(useAppStore.getState().syncedDownloadedIds).toEqual([])
+	})
+
 	it("keeps the row's profile when every picked video was already queued, and the list stays open", async () => {
 		const api = buildMockAppApi()
 		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
