@@ -362,7 +362,9 @@ async function spawnCollect(opts: InvokeOptions, strategy: RetryStrategy, cookie
 			if (timer) clearTimeout(timer)
 			if (exitGrace) clearTimeout(exitGrace)
 			if (abortSignal && onAbort) abortSignal.removeEventListener('abort', onAbort)
-			resolve(accountCookiesRejected(result.stderr) ? {...result, accountCookiesRejected: true} : result)
+			// YouTube only: the Explore session check behind this flag reads
+			// YouTube's own sign-in state, and answers `unknown` for other sites.
+			resolve(accountCookiesRejected(result.stderr) === 'YouTube' ? {...result, accountCookiesRejected: true} : result)
 		}
 
 		const stop = (result: () => YtDlpResult): void => {

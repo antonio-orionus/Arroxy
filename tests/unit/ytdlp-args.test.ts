@@ -1096,6 +1096,14 @@ describe('YtDlp — run identity', () => {
 		expect(result.kind === 'success' && result.accountCookiesRejected).toBe(true)
 	})
 
+	// Only YouTube has a session check behind the flag; another site's warning
+	// would turn the run into an inconclusive check.
+	it('does not flag another site\'s "account cookies are no longer valid" warning', async () => {
+		vi.mocked(spawnYtDlp).mockReturnValueOnce(makeFakeProcess(0, 'WARNING: [instagram] The provided Instagram account cookies are no longer valid') as never)
+		const result = await makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars()}).run(mediaRequest(), undefined, {identity: 'exploreSession'})
+		expect(result).not.toHaveProperty('accountCookiesRejected')
+	})
+
 	it('does not flag a run whose cookies were accepted', async () => {
 		const result = await makeYtDlp({settings: exploreSettings, sessionJars: passThroughJars()}).run(mediaRequest(), undefined, {identity: 'exploreSession'})
 		expect(result).not.toHaveProperty('accountCookiesRejected')
