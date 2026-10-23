@@ -16,6 +16,7 @@ import type {WizardSettingsSnapshot} from './profileApplication.js'
 import {preferredNativeAudioId} from '@shared/nativeAudioPreference.js'
 import {urlStartSeconds} from '@shared/videoPart.js'
 import {RESET_VIDEO_PART_STATE} from './videoPart.js'
+import {reviewedRowPinnedProfile} from './reviewedRowProfile.js'
 
 type CommonPrefsPatch = Pick<AppState, 'wizardSponsorBlockMode' | 'wizardSponsorBlockCategories' | 'wizardEmbedChapters' | 'wizardEmbedMetadata' | 'wizardEmbedThumbnail' | 'wizardWriteDescription' | 'wizardWriteThumbnail' | 'wizardWriteM3u'>
 
@@ -182,6 +183,16 @@ function visiblePlaylistProbeLimit(state: Pick<AppState, 'playlistScope' | 'sett
 
 // `keptLimit`: the load limit a kept probe was taken with; any other probe is
 // read against the limit a probe now would be taken with.
+// A row's Review starts every picked video from the profile and folder the
+// row was placed with (#665): its profile as the per-video baseline. The user
+// can still pick another per video, or leave for the presets.
+function reviewedRowDefaults(state: AppState): Partial<AppState> {
+	const pinned = reviewedRowPinnedProfile(state)
+	if (!pinned) return {}
+	const folder = pinned.outputContext.currentOutputDir
+	return {multiProfileMode: true, ...(folder ? {wizardOutputDir: folder} : {})}
+}
+
 export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'playlist'}>, state: AppState, firstProbe: boolean, keptLimit?: number): Partial<AppState> {
 	const settings = state.settings
 	const playlistLimit = keptLimit ?? visiblePlaylistProbeLimit(state)
@@ -222,6 +233,7 @@ export function projectPlaylistProbeResult(probe: Extract<ProbeResult, {kind: 'p
 		// A part is single-video only: a link that turns out to be a playlist drops it.
 		...RESET_VIDEO_PART_STATE,
 		...(firstProbe ? {...restoreCommonWizardPrefs(settings), wizardSubfolderEnabled: settings?.common?.lastSubfolderEnabled ?? false, wizardSubfolderName: settings?.common?.lastSubfolder ?? ''} : {}),
+		...(firstProbe ? reviewedRowDefaults(state) : {}),
 		playlistSelection,
 		// A first probe is a new list: reset the view sort to api order. Scope
 		// reloads reuse this projection with firstProbe=false and keep the

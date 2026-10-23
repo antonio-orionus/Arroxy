@@ -7,6 +7,10 @@ import {defaultAppSettings} from '@shared/constants.js'
 import {RESET_WIZARD_STATE} from '@renderer/store/wizard/commands.js'
 import {buildMockAppApi} from '../shared/mockAppApi.js'
 import {armQueue} from '../shared/quickDownloadHarness.js'
+import {makeItem} from '../shared/fixtures.js'
+import {BUILTIN_DOWNLOAD_PROFILES} from '@shared/downloadProfiles.js'
+import {profileFormatLabel} from '@shared/profileFormatLabel.js'
+import {i18next} from '@shared/i18n/index.js'
 
 const YOUTUBE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 
@@ -138,6 +142,58 @@ describe('submitUrl — video probe', () => {
 		expect(api.downloads.probe).toHaveBeenLastCalledWith(expect.objectContaining({url: mixedUrl, playlistMode: 'playlist'}))
 		expect(state).toMatchObject({wizardStep: 'playlistItems', reviewSourceRowId: 'row-1', formatsLoading: false})
 		expect(state.playlistItems).toHaveLength(2)
+	})
+
+	// #665: the row was placed with Audio only into /music; the active profile is another.
+	it('a Review starts every picked video from the profile and folder its row was placed with', async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+		const settings = defaultAppSettings('/tmp/downloads')
+		const row = makeItem({
+			id: 'row-1',
+			status: 'needs-choice',
+			choice: {kind: 'list-size', loaded: 2, capped: false},
+			url: PLAYLIST_PROBE.webpageUrl,
+			job: {kind: 'unresolved', extractor: '', extractorKey: ''},
+			probeMode: 'playlist',
+			pinnedProfile: {ref: {kind: 'builtin', id: 'audio-only'}, outputContext: {currentOutputDir: '/music', defaultOutputDir: '/tmp/downloads'}}
+		})
+		useAppStore.setState({settings, wizardOutputDir: '/tmp/downloads', queue: [row]})
+
+		await useAppStore.getState().openPlaylistReview(PLAYLIST_PROBE.webpageUrl, 'playlist', 'row-1')
+		expect(useAppStore.getState()).toMatchObject({wizardStep: 'playlistItems', multiProfileMode: true, wizardOutputDir: '/music'})
+		await useAppStore.getState().addToQueue()
+
+		const items = vi.mocked(api.queue.cmd.replaceProbing).mock.calls[0]?.[0].items ?? []
+		const audioOnly = BUILTIN_DOWNLOAD_PROFILES.find(profile => profile.id === 'audio-only')
+		expect(items).toHaveLength(2)
+		for (const item of items) {
+			expect(item.formatLabel).toBe(audioOnly ? profileFormatLabel(audioOnly, i18next.t, i18next.language) : '')
+			expect(item.outputDir.startsWith('/music')).toBe(true)
+		}
+	})
+
+	it("a Review's video given another profile takes it; the others keep the row's", async () => {
+		const api = buildMockAppApi()
+		vi.mocked(api.downloads.probe).mockResolvedValue(ok(PLAYLIST_PROBE))
+		window.appApi = api
+		const settings = defaultAppSettings('/tmp/downloads')
+		const row = makeItem({id: 'row-1', status: 'needs-choice', choice: {kind: 'list-size', loaded: 2, capped: false}, url: PLAYLIST_PROBE.webpageUrl, job: {kind: 'unresolved', extractor: '', extractorKey: ''}, probeMode: 'playlist', pinnedProfile: {ref: {kind: 'builtin', id: 'audio-only'}, outputContext: {}}})
+		useAppStore.setState({settings, wizardOutputDir: '/tmp/downloads', queue: [row]})
+		await useAppStore.getState().openPlaylistReview(PLAYLIST_PROBE.webpageUrl, 'playlist', 'row-1')
+
+		useAppStore.getState().assignPlaylistProfile(['e1'], settings.profiles.active)
+		useAppStore.getState().assignPlaylistProfile(['e2'], {kind: 'builtin', id: 'audio-only'})
+		expect(useAppStore.getState().playlistProfileAssignments).toEqual({e1: settings.profiles.active})
+		await useAppStore.getState().addToQueue()
+
+		const items = vi.mocked(api.queue.cmd.replaceProbing).mock.calls[0]?.[0].items ?? []
+		const label = (id: string): string => {
+			const profile = BUILTIN_DOWNLOAD_PROFILES.find(candidate => candidate.id === id)
+			return profile ? profileFormatLabel(profile, i18next.t, i18next.language) : ''
+		}
+		expect(items.map(item => item.formatLabel)).toEqual([label(settings.profiles.active.id), label('audio-only')])
 	})
 
 	it('a retry whose list lands first takes the saved list settings, as a first load does', async () => {

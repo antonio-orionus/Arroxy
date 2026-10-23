@@ -5,7 +5,6 @@
 
 import {DEFAULTS} from '@shared/constants.js'
 import {EMPTY_FORMAT_SELECTION} from '@shared/ytdlp/selectableFormat.js'
-import {resolveActiveDownloadProfile} from '@shared/downloadProfiles.js'
 import {DEFAULT_AUDIO_BITRATE} from '@shared/schemas.js'
 import type {FitNotice} from '@shared/profileSelection.js'
 import type {SelectionOrder} from '@shared/selectionOrder.js'
@@ -13,6 +12,7 @@ import type {ReviewRow, WizardSettingsSnapshot} from './profileApplication.js'
 import type {AudioSelection, BulkMetadataItemStatus, BulkMetadataStatus, DownloadProfile, DownloadProfileRef, FormatOption, MediaTags, PlaylistEntry, PlaylistScope, PlaylistSelection, SubtitleMap, WizardMode} from '@shared/types.js'
 import type {BulkCappedList, GetState, SetState, WizardOrigin, WizardStep} from '../types.js'
 import {assignProfileToItems, clearAssignmentsForItems} from './playlistProfileAssignments.js'
+import {playlistBaselineProfile} from './reviewedRowProfile.js'
 import {RESET_VIDEO_PART_STATE} from './videoPart.js'
 
 // Full wizard reset state — owned conceptually by the four slices but applied
@@ -134,7 +134,7 @@ export const WizardCommands = {
 
 	assignPlaylistProfile(itemIds: string[], ref: DownloadProfileRef, set: SetState, get: GetState): void {
 		const state = get()
-		const {ref: baselineRef} = resolveActiveDownloadProfile(state.settings?.profiles)
+		const {ref: baselineRef} = playlistBaselineProfile(state)
 		set({playlistProfileAssignments: assignProfileToItems(state.playlistProfileAssignments, itemIds, ref, baselineRef)})
 	},
 

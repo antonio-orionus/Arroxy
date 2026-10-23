@@ -11,7 +11,7 @@ import {useTranslation} from 'react-i18next'
 import {useShallow} from 'zustand/react/shallow'
 import {useTable} from '@tanstack/react-table'
 import {useVirtualizer} from '@tanstack/react-virtual'
-import {allDownloadProfiles, downloadProfileRefFor} from '@shared/downloadProfiles.js'
+import {allDownloadProfiles, downloadProfileRefFor, resolveChosenDownloadProfile} from '@shared/downloadProfiles.js'
 import type {DownloadProfile, DownloadProfileRef, PlaylistEntry} from '@shared/types.js'
 import {useAppStore} from '../../store/useAppStore.js'
 import type {ListSelectionAction} from '../shared/listSelection.js'
@@ -23,6 +23,7 @@ import {Empty, EmptyDescription, EmptyHeader, EmptyTitle} from '../ui/empty.js'
 import {buildDownloadProfileActionModel} from './downloadProfileActions.js'
 import {DownloadProfileEditor} from './DownloadProfileEditor.js'
 import {profileAssignmentCounts, resolveAssignedProfile} from '../../store/wizard/playlistProfileAssignments.js'
+import {reviewedRowPinnedProfile} from '../../store/wizard/reviewedRowProfile.js'
 import {createPlaylistProfileTableState, playlistProfileTableReducer} from './playlistProfileTableState.js'
 import {PLAYLIST_PROFILE_COLUMNS} from './playlistProfileColumns.js'
 import {PlaylistProfileColumnsContext, type PlaylistProfileColumnsContextValue, type PlaylistSelectAllState} from './playlistProfileColumnsContext.js'
@@ -80,7 +81,9 @@ export function StepPlaylistProfiles(): ReactNode {
 	const liveLabel = t('wizard.playlist.durationUnknown')
 
 	const profilesPrefs = settings?.profiles
-	const model = useMemo(() => buildDownloadProfileActionModel(profilesPrefs), [profilesPrefs])
+	// A row's Review starts from the profile the row was placed with (#665).
+	const pinned = useAppStore(reviewedRowPinnedProfile)
+	const model = useMemo(() => buildDownloadProfileActionModel(profilesPrefs, pinned ? resolveChosenDownloadProfile(pinned.ref, profilesPrefs).profile : undefined), [profilesPrefs, pinned])
 	// Every saved profile, hidden ones too: a row keeps a profile hidden after it was
 	// assigned, and downloads with it (prepareMultiProfileQueueSubmission).
 	const profiles = useMemo(() => allDownloadProfiles(profilesPrefs), [profilesPrefs])

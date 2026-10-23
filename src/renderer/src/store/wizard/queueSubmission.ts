@@ -1,5 +1,5 @@
 import {DEFAULTS} from '@shared/constants.js'
-import {allDownloadProfiles, downloadProfileRefFor, resolveActiveDownloadProfile, resolveDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
+import {allDownloadProfiles, downloadProfileRefFor, resolveDownloadProfile, resolveDownloadProfileOutputDir} from '@shared/downloadProfiles.js'
 import type {AudioSelection, PlaylistEntry, PlaylistSelection, QueueItem, QueueLane} from '@shared/types.js'
 import type {EmbedOptions, SubtitleOptions} from '@shared/preparedJob.js'
 import {prepareJob} from '@shared/prepareJob.js'
@@ -20,6 +20,7 @@ import type {AppState} from '../types.js'
 import {buildAudioConvertPayload, buildFormatId, buildFormatLabel, generateId, resolveVideoResolution} from '../helpers.js'
 import {resolveOutputContainer} from './resolveContainer.js'
 import {resolvePlaylistDir} from './playlistDir.js'
+import {playlistBaselineProfile} from './reviewedRowProfile.js'
 import {bindJobFilenameTemplate, singleTemplateMeta} from './outputTemplates.js'
 import {sortPlaylistEntries} from './playlistSort.js'
 import {wizardVideoPart} from './videoPart.js'
@@ -247,7 +248,7 @@ export function prepareMultiProfileQueueSubmission(state: AppState, lane: QueueL
 	if (selected.length === 0) return {items: [], skippedAlreadyQueued}
 
 	const profiles = allDownloadProfiles(state.settings?.profiles)
-	const {profile: baseline} = resolveActiveDownloadProfile(state.settings?.profiles)
+	const {profile: baseline} = playlistBaselineProfile(state)
 	const nativeAudioPreference = state.settings?.common?.nativeAudioPreference ?? DEFAULTS.nativeAudioPreference
 	const hdrPreference = resolveAppHdr(state.settings?.common?.hdrPreference).preference
 	const outputContext = {currentOutputDir: state.wizardOutputDir, defaultOutputDir: state.settings?.common?.defaultOutputDir ?? ''}
