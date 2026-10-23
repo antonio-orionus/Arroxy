@@ -8,7 +8,7 @@ import {selectWizardReviewState, type WizardReviewState} from '../../store/wizar
 import type {ReviewRow} from '../../store/wizard/profileApplication.js'
 import {buildDownloadReview, conflictLabelKey, type DownloadReview} from '../../store/wizard/downloadReviewProjection.js'
 import {buildSingleSettingsSummary, sponsorBlockApplies, type SingleSettingsSummary} from '../../store/wizard/singleSettingsSummary.js'
-import {mp4CaveatCodec, resolveOutputContainer} from '../../store/wizard/resolveContainer.js'
+import {mp4CaveatCodec} from '../../store/wizard/resolveContainer.js'
 import type {Mp4Caveat} from '@shared/fileTypeFit.js'
 import {createTranslationPort} from '../../lib/translation.js'
 import {useQuickTimeHost} from '../../lib/quickTimeHost.js'
@@ -19,6 +19,8 @@ import {Card} from '../ui/card.js'
 import {SectionLabel} from '../shared/SectionLabel.js'
 import {FilenameTemplateField} from '../shared/FilenameTemplateField.js'
 import {WizardFooter} from './WizardFooter.js'
+import {SelectionInfo} from './format/SelectionInfo.js'
+import {useFormatSelectionView} from '../../store/formatSelectionView.js'
 import {SingleDownloadActions} from './SingleDownloadActions.js'
 import {SubtitleFields} from './SubtitleFields.js'
 import {SponsorBlockFields} from './StepSponsorBlock.js'
@@ -100,14 +102,13 @@ function reviewRowEntries(state: WizardReviewState, summary: SingleSettingsSumma
 	]
 }
 
-// The chosen streams in one line: part, video, audio and the file type it saves as.
+// The chosen streams in one line: part, video and audio. The footer says what file they become.
 function ReviewFormatStrip({state, review, onChangeFormat}: {state: WizardReviewState; review: DownloadReview; onChangeFormat: () => void}): ReactNode {
 	const {t} = useTranslation()
 	const kind = state.wizardMediaKind
-	const savesAs = kind === 'video' ? t('wizard.formats.savesAs.value', {ext: resolveOutputContainer(state.selectedVideoFormatId, state.audioSelection, state.wizardSubtitleMode, state.wizardFormats, kind, state.wizardEmbedThumbnail, state.wizardFileType)}) : null
 	const part = wizardVideoPart(state)
 	const partLabel = part ? t('wizard.part.summary', {start: formatPartTime(part.startSeconds), end: formatPartTime(part.endSeconds)}) : null
-	const formatLine = kind === 'subtitles' ? t('wizard.formats.kind.subtitles') : [partLabel, review.videoSummary, review.summaryRows.find(row => row.key === 'audio')?.value, savesAs].filter(Boolean).join(' · ')
+	const formatLine = kind === 'subtitles' ? t('wizard.formats.kind.subtitles') : [partLabel, review.videoSummary, review.summaryRows.find(row => row.key === 'audio')?.value].filter(Boolean).join(' · ')
 
 	return (
 		<Card className="flex-row items-center gap-3 px-3.5 py-2.5" data-testid="review-format-strip">
@@ -166,7 +167,7 @@ export function StepReview(): ReactNode {
 	const changed = wizardChangedAreas(state)
 	const changedFrom = t('wizard.review.changedFrom', {profile: state.wizardProfile ? nameOf(state.wizardProfile) : ''})
 	const caveat = mp4CaveatCodec(state, quickTimeHost)
-	const size = review.summaryRows.find(row => row.key === 'size')?.value
+	const formatView = useFormatSelectionView()
 
 	return (
 		<div className="wizard-step wizard-step-column flex flex-col gap-4" data-testid="step-review">
@@ -189,16 +190,7 @@ export function StepReview(): ReactNode {
 
 			{review.conflictWarnings.length > 0 || caveat !== null ? <ReviewWarnings caveat={caveat} conflicts={review.conflictWarnings} /> : null}
 
-			<WizardFooter
-				extraAbove={<ProfileEditLine />}
-				info={
-					size ? (
-						<>
-							{t('wizard.formats.total')} <span className="text-headline font-bold text-primary">{size}</span>
-						</>
-					) : undefined
-				}
-			>
+			<WizardFooter extraAbove={<ProfileEditLine />} info={<SelectionInfo view={formatView} />}>
 				<Button variant="outline" type="button" onClick={() => goToStep('formats')} data-testid="btn-back">
 					{t('common.back')}
 				</Button>

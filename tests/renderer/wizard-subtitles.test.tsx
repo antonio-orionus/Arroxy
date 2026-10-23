@@ -527,16 +527,15 @@ describe('Review — rows', () => {
 		expect(screen.getByTestId('review-row-extras-value')).toHaveAttribute('data-value-state', 'on')
 	})
 
-	it('words the saved file type the way the catalog orders it', () => {
-		const original = i18next.t('wizard.formats.savesAs.value', {ext: '{{ext}}'})
-		i18next.addResource('en', 'translation', 'wizard.formats.savesAs.value', 'file type {{ext}} it is')
-		try {
-			singleState({wizardReviewRow: null})
-			render(<StepReview />)
-			expect(screen.getByTestId('review-format-strip').textContent).toMatch(/file type \w+ it is/)
-		} finally {
-			i18next.addResource('en', 'translation', 'wizard.formats.savesAs.value', original)
-		}
+	it('shows the total and file type in the footer, not in the format strip', () => {
+		singleState({wizardReviewRow: null, wizardFileType: 'auto'})
+		render(<StepReview />)
+		const strip = screen.getByTestId('review-format-strip')
+		expect(strip).not.toHaveTextContent('.mp4')
+		expect(strip).not.toHaveTextContent(i18next.t('wizard.formats.savesAs.label'))
+		const savesAs = screen.getByTestId('saves-as')
+		expect(screen.getByTestId('saves-as-trigger')).toHaveTextContent('.mp4')
+		expect(savesAs.parentElement?.textContent).toMatch(/Total ~\d/)
 	})
 
 	it("lists the changed areas with the language's own separators", () => {

@@ -1,6 +1,5 @@
 import type {ReactNode} from 'react'
 import {useTranslation} from 'react-i18next'
-import {humanSize} from '@shared/format.js'
 import type {FormatSelectionView} from '../../../store/formatSelectionView.js'
 import {useAppStore} from '../../../store/useAppStore.js'
 import {blockerHintKey, formatStepBlocker} from '../../../store/wizard/singleDownloadReadiness.js'
@@ -8,7 +7,7 @@ import {Button} from '../../ui/button.js'
 import {Hint} from '../../shared/Hint.js'
 import {WizardFooter} from '../WizardFooter.js'
 import {SingleDownloadActions} from '../SingleDownloadActions.js'
-import {SavesAsControl} from './SavesAsControl.js'
+import {SelectionInfo} from './SelectionInfo.js'
 import {FormatFooterWarnings} from './FormatFooterWarnings.js'
 import {ProfileEditLine} from '../ProfileEditLine.js'
 
@@ -22,21 +21,9 @@ interface FormatFooterProps {
 // sees the subtitles, extras, folder and file name before Download. The outline
 // Download beside it is the shortcut for those who don't need Review.
 export function FormatFooter({view, onBack, onContinue}: FormatFooterProps): ReactNode {
-	const {t, i18n} = useTranslation()
+	const {t} = useTranslation()
 	const continueBlocker = useAppStore(formatStepBlocker)
 	const continueHintKey = blockerHintKey(continueBlocker)
-	const total =
-		view.mode === 'subtitle-only' ? (
-			t('wizard.formats.kind.subtitles')
-		) : view.selectedFilesize ? (
-			<>
-				{t(view.sizesScaledToPart ? 'wizard.part.totalEstimate' : 'wizard.formats.total')} <span className="text-title font-semibold text-foreground tabular-nums">~{humanSize(view.selectedFilesize, i18n.language)}</span>
-			</>
-		) : view.mode === 'audio-only' ? (
-			t('wizard.formats.kind.audio')
-		) : (
-			t('wizard.formats.sizeUnknown')
-		)
 	return (
 		<WizardFooter
 			extraAbove={
@@ -45,12 +32,7 @@ export function FormatFooter({view, onBack, onContinue}: FormatFooterProps): Rea
 					<FormatFooterWarnings />
 				</>
 			}
-			info={
-				<span className="flex flex-wrap items-center gap-x-4 gap-y-1.5 max-lg:flex-nowrap max-lg:gap-x-3">
-					<span>{total}</span>
-					<SavesAsControl />
-				</span>
-			}
+			info={<SelectionInfo view={view} />}
 		>
 			<Button variant="outline" type="button" onClick={onBack} data-testid="btn-back">
 				{t('common.back')}

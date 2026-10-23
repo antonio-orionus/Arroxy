@@ -1026,8 +1026,7 @@
 			"resolutionUnknown": "Unknown resolution",
 			"savesAs": {
 				"label": "Saves as",
-				"reset": "WebM can't hold {{codec}}, so the file type went back to Auto.",
-				"value": "Saves as .{{ext}}"
+				"reset": "WebM can't hold {{codec}}, so the file type went back to Auto."
 			},
 			"sizeUnknown": "Size unknown",
 			"skipToConfirm": "Skip to confirm",
