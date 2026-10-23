@@ -101,10 +101,17 @@ How a YouTube link is read (`cleanUrl`, `classifyUrlIntent`, the list kinds) is 
 
 Every yt-dlp launch, whichever path started it, passes `YtDlp.run`, which asks
 the `LaunchGate` first, and again right before the spawn (after binary setup,
-any signed-in slot wait and the token mint). The gate holds the cooldown
-(`SiteRequestState`) and the signed-in pacing (`ExploreSpawnGate`), and logs
-every wait it imposes as `Launch waits` with its reason: `cooldown`,
-`signedInLimit` or `signedInSpacing`. The cooldown starts at the first stderr line that
+any signed-in slot wait, the token mint and the output folder). The gate keys
+on the link's site (`requestSiteFor`: YouTube, Instagram and X are one site
+across their hosts, any other site is its registrable domain). It holds the
+cooldown (`SiteRequestState`) and each site's signed-in pacing
+(`SignedInPacer`: launches at once, spacing, and a budget over a sliding
+window, from the site table in `siteKeys.ts`, scaled by the Pacing preset;
+ADR 0022), and logs every wait it imposes as `Launch waits` with its reason:
+`cooldown`, `signedInLimit`, `signedInSpacing` or `signedInBudget`. A queued
+row that starts signed in waits for its site's pacing before it takes a lane
+(`QueueSiteHold`); a priority row skips the spacing and the budget. A listing
+enumerated signed in is charged against the window by its entries. The cooldown starts at the first stderr line that
 shows the site rate-limiting this connection (an HTTP 429, or YouTube's session
 limit), while the run may still be transferring, and goes against the route
 that run used. From then on, new requests to that site

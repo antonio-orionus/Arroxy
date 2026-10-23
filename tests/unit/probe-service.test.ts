@@ -738,8 +738,9 @@ describe('ProbeService — Explore session escalation', () => {
 		})
 		const gate = {canEscalate: vi.fn(canEscalate)}
 		const verifySignedIn = vi.fn((_scope: ExploreCookieScope) => Promise.resolve(verified))
-		const service = new ProbeService({run} as never, false, cache, {exploreGate: gate, exploreSession: {verifySignedIn}})
-		return {service, run, gate, verifySignedIn}
+		const chargeListing = vi.fn()
+		const service = new ProbeService({run} as never, false, cache, {exploreGate: gate, exploreSession: {verifySignedIn}, listingCharges: {chargeListing}})
+		return {service, run, gate, verifySignedIn, chargeListing}
 	}
 
 	// A2-3: yt-dlp warned that the session's cookies are no longer valid on the escalated probe.
@@ -947,6 +948,24 @@ describe('ProbeService — Explore session escalation', () => {
 		expect(run.mock.calls[1]?.[2]).toEqual({identity: 'exploreSession'})
 		expect(result.ok && result.data.kind === 'playlist' && result.data.auth).toBe('exploreSession')
 		expect(result.ok && result.data.kind === 'playlist' && result.data.entries.map(entry => entry.videoId)).toEqual(['a', 'b'])
+	})
+
+	it('charges a listing enumerated signed in against its site’s signed-in window, by its entries', async () => {
+		const {service, chargeListing} = makeEscalationService([success(playlistWith([])), success(playlistWith(['a', 'b', 'c']))], allowed)
+
+		await service.probe('https://www.youtube.com/playlist?list=WL', {kind: 'interactive'})
+
+		expect(chargeListing).toHaveBeenCalledExactlyOnceWith('youtube', 3)
+	})
+
+	it('charges nothing for a listing enumerated anonymously, or a single video signed in', async () => {
+		const anonymous = makeEscalationService([success(playlistWith(['a', 'b']))], allowed)
+		await anonymous.service.probe('https://www.youtube.com/playlist?list=PLx', {kind: 'interactive'})
+		const video = makeEscalationService([exitError(AGE_GATE), success(videoInfo())], allowed)
+		await video.service.probe(VIDEO_URL, {kind: 'interactive', playlistMode: 'video'})
+
+		expect(anonymous.chargeListing).not.toHaveBeenCalled()
+		expect(video.chargeListing).not.toHaveBeenCalled()
 	})
 
 	it('signs in every item of a playlist only an account can open', async () => {

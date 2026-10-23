@@ -385,7 +385,7 @@ if (hasSingleInstanceLock) {
 		const formatSizes = isMockBackend || e2eMode.enabled ? undefined : (formats: readonly YtDlpFormat[], signal: AbortSignal) => (nonEmpty(settingsStore.getSync().common.proxyUrl?.trim()) ? Promise.resolve(new Map<string, number>()) : lookUpMissingSizes(formats, fetchHeadLength, signal))
 		// How many probes run at once: background ones wait their turn and wait out their site's cooldown.
 		const probeSlots = new ProbeSlots({backgroundLimit: initialSettings.common.concurrentProbes ?? DEFAULT_CONCURRENT_PROBES, cooldown: launchGate})
-		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache, {exploreGate, exploreSession, slots: probeSlots, ...(formatSizes ? {formatSizes} : {})})
+		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache, {exploreGate, exploreSession, slots: probeSlots, listingCharges: launchGate, ...(formatSizes ? {formatSizes} : {})})
 		const queueService = new QueueService(queueStore, downloadService, undefined, undefined, {manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u}, probeInfoJsonCache, launchGate)
 		// Apply the persisted concurrency before init() runs its boot-time spawn
 		// pass, so a restart honors the user's limit instead of falling back to

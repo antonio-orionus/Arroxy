@@ -1,0 +1,1 @@
+All the addresses of one site now share one rate-limit wait, so a limit on one Instagram host also pauses the others. Downloads that use your Explore sign-in are paced per site, so a big Instagram batch never holds up X or YouTube.

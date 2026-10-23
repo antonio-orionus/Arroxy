@@ -14,6 +14,7 @@ import {requestSiteFor, siteForExtractor, siteForUrl, type Site} from '@shared/s
 import {exploreCookieScopeFor} from '@shared/sites/exploreCookieScope.js'
 import {YOUTUBE_SINGLE_VIDEO_PLAYER_CLIENTS} from '@shared/youtubePlayerClients.js'
 import {PROBE_TIMEOUT_MESSAGE, RATE_LIMIT_COOLDOWN_MESSAGE, YtDlp, type RunIdentity} from './YtDlp.js'
+import type {LaunchGate} from './LaunchGate.js'
 import type {ProbeSlots} from './ProbeSlots.js'
 import {decideEscalation, escalationReason, reachesPlaylistItems} from './exploreEscalation.js'
 import type {ExploreGate} from './exploreGate.js'
@@ -70,6 +71,9 @@ export interface ProbeServiceOptions {
 	formatSizes?: (formats: readonly YtDlpFormat[], signal: AbortSignal) => Promise<LookedUpSizes>
 	// How many probes run at once (ProbeSlots). Absent: no limit.
 	slots?: ProbeSlots
+	// Where a listing enumerated signed in is charged against its site's
+	// signed-in window (the launch gate). Absent: nothing is charged.
+	listingCharges?: Pick<LaunchGate, 'chargeListing'>
 }
 
 // `kind` picks the probe's slot. `escalate: false` keeps the probe anonymous even when the Explore
@@ -378,6 +382,7 @@ export class ProbeService extends EventEmitter {
 	private readonly exploreSession: ExploreSignInCheck | undefined
 	private readonly formatSizes: ProbeServiceOptions['formatSizes']
 	private readonly slots: ProbeSlots | undefined
+	private readonly listingCharges: Pick<LaunchGate, 'chargeListing'> | undefined
 
 	constructor(
 		private readonly ytDlp: YtDlp,
@@ -391,6 +396,7 @@ export class ProbeService extends EventEmitter {
 		this.exploreSession = options?.exploreSession
 		this.formatSizes = options?.formatSizes
 		this.slots = options?.slots
+		this.listingCharges = options?.listingCharges
 	}
 
 	// The site itself said the Explore session is signed out, during a signed-in
@@ -485,6 +491,8 @@ export class ProbeService extends EventEmitter {
 
 			let mapped: ProbeResult
 			if (outcome.kind === 'playlist') {
+				// One listing is many site requests: what it returned counts against the account's window.
+				if (auth && !cookiesRejected) this.listingCharges?.chargeListing(requestSiteFor(url), outcome.result.entries.length)
 				// A bot-walled playlist was only enumerated signed in; its items start anonymous.
 				mapped = auth && itemsNeedAccount ? {...outcome.result, entries: outcome.result.entries.map(entry => ({...entry, auth}))} : outcome.result
 			} else {
