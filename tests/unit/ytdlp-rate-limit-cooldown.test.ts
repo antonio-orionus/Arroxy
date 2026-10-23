@@ -1,5 +1,6 @@
 import {describe, expect, it, vi, beforeEach} from 'vite-plus/test'
 import {RATE_LIMIT_COOLDOWN_MESSAGE, YtDlp, type YtDlpRequest} from '@main/services/YtDlp.js'
+import {LaunchGate} from '@main/services/LaunchGate.js'
 import {RATE_LIMIT_BASE_MS, SESSION_RATE_LIMIT_MS, SiteRequestState} from '@main/services/SiteRequestState.js'
 import {classifyYtDlpStderr} from 'ytdlp-errors'
 import {createTranscriptProcess} from '../helpers/processTranscript.js'
@@ -29,7 +30,7 @@ function setup(opts: {ytDlpPath?: Promise<string>; token?: Promise<{token: strin
 	const siteRequests = new SiteRequestState({now: () => now, random: () => 1})
 	const tokenService = {getToken: vi.fn().mockReturnValue(opts.token ?? Promise.resolve({token: 'tok', visitorData: 'vd', fromCache: false})), invalidateCache: vi.fn()}
 	const binaryManager = {ensureYtDlp: vi.fn().mockReturnValue(opts.ytDlpPath ?? Promise.resolve('/fake/yt-dlp')), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), forgetProbeVerdict: vi.fn().mockResolvedValue(undefined)}
-	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, {get: vi.fn().mockResolvedValue({})}, {siteRequests})
+	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, {get: vi.fn().mockResolvedValue({})}, {launchGate: new LaunchGate({cooldowns: siteRequests})})
 	return {ytDlp, siteRequests, tokenService, advance: (ms: number) => (now += ms), now: () => now}
 }
 

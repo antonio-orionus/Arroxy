@@ -8,6 +8,9 @@ import {setTimeout as sleep} from 'node:timers/promises'
 
 export type SpawnGateRefusal = {kind: 'cap-exceeded'} | {kind: 'cancelled'}
 
+// Why a spawn waits: every slot is taken, or the previous start was too recent.
+export type SpawnGateWait = {reason: 'signedInLimit'} | {reason: 'signedInSpacing'; waitMs: number}
+
 export interface ExploreSpawnGateOptions {
 	maxConcurrent?: number
 	minSpacingMs?: number
@@ -36,17 +39,18 @@ export class ExploreSpawnGate {
 		this.sleep = opts.sleep ?? ((ms, signal) => sleep(ms, undefined, {signal}))
 	}
 
-	async run<T>(jobId: string, fn: () => Promise<T>, signal?: AbortSignal): Promise<T | SpawnGateRefusal> {
+	async run<T>(jobId: string, fn: () => Promise<T>, signal?: AbortSignal, onWait?: (wait: SpawnGateWait) => void): Promise<T | SpawnGateRefusal> {
 		if (signal?.aborted) return {kind: 'cancelled'}
 		const used = this.spawnsByJob.get(jobId) ?? 0
 		if (used >= this.perJobCap) return {kind: 'cap-exceeded'}
 		this.spawnsByJob.set(jobId, used + 1)
-		if (!(await this.acquire(signal))) return this.refund(jobId)
+		if (!(await this.acquire(signal, onWait))) return this.refund(jobId)
 		try {
 			const startAt = Math.max(this.now(), this.nextStartAt)
 			this.nextStartAt = startAt + this.minSpacingMs
 			const wait = startAt - this.now()
 			if (wait > 0) {
+				onWait?.({reason: 'signedInSpacing', waitMs: wait})
 				try {
 					await this.sleep(wait, signal)
 				} catch (err) {
@@ -74,11 +78,12 @@ export class ExploreSpawnGate {
 	}
 
 	// Resolves true once a slot is held, false if the job was cancelled while waiting.
-	private acquire(signal?: AbortSignal): Promise<boolean> {
+	private acquire(signal?: AbortSignal, onWait?: (wait: SpawnGateWait) => void): Promise<boolean> {
 		if (this.active < this.maxConcurrent) {
 			this.active += 1
 			return Promise.resolve(true)
 		}
+		onWait?.({reason: 'signedInLimit'})
 		return new Promise<boolean>(resolve => {
 			const onAbort = (): void => {
 				const index = this.waiters.indexOf(grant)

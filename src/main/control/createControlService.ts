@@ -4,7 +4,7 @@ import type {IntakeService} from '@main/intake/IntakeService.js'
 import {mainT} from '@main/i18n.js'
 import type {QueueService} from '@main/services/QueueService.js'
 import type {QueueRemovalReason} from '@main/services/download/queueMutation.js'
-import type {SiteRequestState} from '@main/services/SiteRequestState.js'
+import type {LaunchGate} from '@main/services/LaunchGate.js'
 import type {SettingsStore} from '@main/stores/SettingsStore.js'
 import type {YtDlpErrorKind} from 'ytdlp-errors'
 import {downloadProfileName} from '@shared/downloadProfileName.js'
@@ -23,7 +23,7 @@ export interface ControlWiring {
 	intake: IntakeService
 	outcomes: ControlOutcomes
 	settingsStore: Pick<SettingsStore, 'get'>
-	siteRequests: Pick<SiteRequestState, 'snapshot' | 'onChange'>
+	launchGate: Pick<LaunchGate, 'snapshot' | 'onChange'>
 	binaries: ControlBinaries
 	// Profile names follow the window's language; errors stay English.
 	languageRef: {current: SupportedLang}
@@ -37,7 +37,7 @@ export interface ControlWiring {
 // queue and every intake outcome, a client's intake rows are capped, and the
 // service runs on the real queue, intake, settings and status sources.
 export function createControlService(wiring: ControlWiring): {service: ControlService; registry: IntakeRegistry; status: ControlStatus} {
-	const {queueService, intake, outcomes, settingsStore, siteRequests, binaries, languageRef} = wiring
+	const {queueService, intake, outcomes, settingsStore, launchGate, binaries, languageRef} = wiring
 	const clientLabel = (clientId: string): string | null => wiring.clientLabel(clientId)
 	const errorText = (kind: YtDlpErrorKind): string => mainT('en', `errors.ytdlp.${kind}`)
 	const registry = new IntakeRegistry({rows: () => queueService.snapshot(), now: Date.now, newId: randomUUID})
@@ -48,7 +48,7 @@ export function createControlService(wiring: ControlWiring): {service: ControlSe
 	queueService.onIntakeAdmission(controlRowsPerIntake)
 	const status = createControlStatus({
 		binaries,
-		cooldowns: siteRequests,
+		cooldowns: launchGate,
 		scheduler: {
 			paused: () => queueService.snapshotPayload().schedulerPaused,
 			onChange: listener => {

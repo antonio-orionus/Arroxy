@@ -54,7 +54,7 @@ function wired(options: {realFeed?: boolean; sink?: ControlSink; probe?: () => P
 		intake,
 		outcomes,
 		settingsStore: {get: () => Promise.resolve(settings)},
-		siteRequests,
+		launchGate: siteRequests,
 		binaries: {current: () => ({ytDlp: 'ready', ffmpeg: 'ready'}), onChange: () => () => undefined},
 		languageRef: {current: 'en'},
 		clientLabel: clientId => (clientId === 'client-1' ? 'Claude Code' : null),

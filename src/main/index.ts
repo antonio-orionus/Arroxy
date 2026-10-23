@@ -33,6 +33,7 @@ import {siteById} from '@shared/sites/index.js'
 import {EXPLORE_SIGN_IN_PAGES} from '@shared/sites/signInPages.js'
 import {createExploreGate} from '@main/services/exploreGate.js'
 import {ExploreSpawnGate} from '@main/services/exploreSpawnGate.js'
+import {LaunchGate} from '@main/services/LaunchGate.js'
 import {QueueService} from '@main/services/QueueService.js'
 import {ProbeService} from '@main/services/ProbeService.js'
 import {fetchHeadLength, lookUpMissingSizes} from '@main/services/formatSizeLookup.js'
@@ -364,20 +365,22 @@ if (hasSingleInstanceLock) {
 		// queue's boot-time spawn pass can write a live jar it would delete.
 		await exploreSession.sweepJars()
 		if (e2eMode.exploreCookies) await exploreSession.seedForE2e(e2eMode.exploreCookies)
-		// One gate for the whole app: it paces every signed-in spawn, probes and downloads alike.
-		const spawnGate = new ExploreSpawnGate(e2eMode.exploreSpawnSpacingMs === undefined ? {} : {minSpacingMs: e2eMode.exploreSpawnSpacingMs})
 		const exploreGate = createExploreGate({settings: settingsStore, session: exploreSession})
-		// One rate-limit cooldown per site and network route, shared by probes, queued jobs and automatic retries.
-		const siteRequests = new SiteRequestState({route: () => proxyRouteKey(settingsStore.getSync().common.proxyUrl)})
-		const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore, {e2eMode, sessionJars: exploreSession, spawnGate, sessionAuth: exploreGate, siteRequests})
-		const downloadService = new DownloadService(ytDlp, recentJobsStore, isMockBackend, undefined, {exploreGate, exploreSession, spawnGate})
+		// One launch gate for the whole app: one rate-limit cooldown per site and network route,
+		// shared by probes, queued jobs and automatic retries, and the pacing of every signed-in spawn.
+		const launchGate = new LaunchGate({
+			cooldowns: new SiteRequestState({route: () => proxyRouteKey(settingsStore.getSync().common.proxyUrl)}),
+			signedIn: new ExploreSpawnGate(e2eMode.exploreSpawnSpacingMs === undefined ? {} : {minSpacingMs: e2eMode.exploreSpawnSpacingMs})
+		})
+		const ytDlp = new YtDlp(binaryManager, tokenService, settingsStore, {e2eMode, sessionJars: exploreSession, launchGate, sessionAuth: exploreGate})
+		const downloadService = new DownloadService(ytDlp, recentJobsStore, isMockBackend, undefined, {exploreGate, exploreSession, launchGate})
 		// Sizes a site leaves out come from one HEAD request per file. Not through a
 		// proxy (these requests would bypass it) and not under the E2E harness.
 		const formatSizes = isMockBackend || e2eMode.enabled ? undefined : (formats: readonly YtDlpFormat[], signal: AbortSignal) => (nonEmpty(settingsStore.getSync().common.proxyUrl?.trim()) ? Promise.resolve(new Map<string, number>()) : lookUpMissingSizes(formats, fetchHeadLength, signal))
 		// How many probes run at once: background ones wait their turn and wait out their site's cooldown.
-		const probeSlots = new ProbeSlots({backgroundLimit: initialSettings.common.concurrentProbes ?? DEFAULT_CONCURRENT_PROBES, cooldown: siteRequests})
+		const probeSlots = new ProbeSlots({backgroundLimit: initialSettings.common.concurrentProbes ?? DEFAULT_CONCURRENT_PROBES, cooldown: launchGate})
 		const probeService = new ProbeService(ytDlp, isMockBackend, probeInfoJsonCache, {exploreGate, exploreSession, slots: probeSlots, ...(formatSizes ? {formatSizes} : {})})
-		const queueService = new QueueService(queueStore, downloadService, undefined, undefined, {manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u}, probeInfoJsonCache, siteRequests)
+		const queueService = new QueueService(queueStore, downloadService, undefined, undefined, {manifestStore: playlistManifestStore, writeM3u: writePlaylistM3u}, probeInfoJsonCache, launchGate)
 		// Apply the persisted concurrency before init() runs its boot-time spawn
 		// pass, so a restart honors the user's limit instead of falling back to
 		// the built-in cap for the first batch.
@@ -689,7 +692,7 @@ if (hasSingleInstanceLock) {
 			hotkeyService,
 			playlistManifestStore,
 			exploreView,
-			siteRequests,
+			launchGate,
 			probeSlots,
 			graphicsPolicyProvider,
 			intakeService,
@@ -712,7 +715,7 @@ if (hasSingleInstanceLock) {
 			intake: intakeService,
 			outcomes: controlOutcomes,
 			settingsStore,
-			siteRequests,
+			launchGate,
 			binaries: binaryReadiness(binaryManager),
 			languageRef,
 			userDataDir: userDataPath,

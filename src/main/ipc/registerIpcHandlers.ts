@@ -12,7 +12,7 @@ import type {ClipboardWatcher} from '@main/services/ClipboardWatcher.js'
 import type {HotkeyService} from '@main/services/HotkeyService.js'
 import type {ExploreViewHost} from '@main/services/explore/ExploreViewHost.js'
 import type {PlaylistManifestStore} from '@main/stores/PlaylistManifestStore.js'
-import type {SiteRequestState} from '@main/services/SiteRequestState.js'
+import type {LaunchGate} from '@main/services/LaunchGate.js'
 import type {ProbeSlots} from '@main/services/ProbeSlots.js'
 import type {IntakeService} from '@main/intake/IntakeService.js'
 import {DownloadEventBridge} from '@main/services/DownloadEventBridge.js'
@@ -46,7 +46,7 @@ export interface IpcDependencies {
 	hotkeyService: HotkeyService
 	playlistManifestStore: PlaylistManifestStore
 	exploreView: ExploreViewHost
-	siteRequests: SiteRequestState
+	launchGate: Pick<LaunchGate, 'snapshot' | 'onChange' | 'allowOnce' | 'routeChanged'>
 	probeSlots: ProbeSlots
 	graphicsPolicyProvider: () => Promise<GraphicsPolicy>
 	intakeService: IntakeService
@@ -61,7 +61,7 @@ let activeQueueBridge: QueueEventBridge | null = null
 let activeProbeBridge: ProbeEventBridge | null = null
 
 export function registerIpcHandlers(deps: IpcDependencies): void {
-	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, playlistManifestStore, exploreView, siteRequests, probeSlots, graphicsPolicyProvider, intakeService, refreshAppMenu, warmupObserver} = deps
+	const {mainWindow, downloadService, probeService, settingsStore, queueService, binaryManager, tokenService, languageRef, clipboardWatcher, hotkeyService, playlistManifestStore, exploreView, launchGate, probeSlots, graphicsPolicyProvider, intakeService, refreshAppMenu, warmupObserver} = deps
 
 	const warmupService = new WarmupService({binaryManager, tokenService, window: mainWindow, observer: warmupObserver})
 	registerAppHandlers({warmupService, binaryManager, languageRef, graphicsPolicyProvider, onLanguageChanged: refreshAppMenu})
@@ -73,7 +73,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
 		queueService,
 		hotkeyService,
 		exploreView,
-		onProxyChanged: () => siteRequests.routeChanged(),
+		onProxyChanged: () => launchGate.routeChanged(),
 		onMenuStateChanged: refreshAppMenu,
 		onThemeChanged: theme => applyNativeThemeSource(nativeTheme, theme),
 		onConcurrentProbesChanged: limit => probeSlots.setBackgroundLimit(limit)
@@ -84,7 +84,7 @@ export function registerIpcHandlers(deps: IpcDependencies): void {
 	registerDiagnosticsHandlers()
 	registerPlaylistHandlers(playlistManifestStore, settingsStore)
 	registerExploreHandlers({exploreView})
-	registerSiteRequestHandlers(siteRequests, probeSlots, mainWindow)
+	registerSiteRequestHandlers(launchGate, probeSlots, mainWindow)
 	registerIntakeHandlers(intakeService)
 
 	activeDownloadBridge?.detach()

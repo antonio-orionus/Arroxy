@@ -60,7 +60,7 @@ import {commitPhaseStatus} from './download/queuePhaseStatus.js'
 import {QueueProgressCoalescer} from './download/QueueProgressCoalescer.js'
 import {QueueJobProgress} from './download/QueueJobProgress.js'
 import {QueueSiteCooldown} from './download/QueueSiteCooldown.js'
-import type {SiteRequestState} from './SiteRequestState.js'
+import type {LaunchGate} from './LaunchGate.js'
 import {spawnQueueJob} from './download/queueJobSpawn.js'
 import {applyQueueSelectionAction} from './queueSelectionActionApply.js'
 
@@ -141,10 +141,10 @@ export class QueueService extends EventEmitter {
 		private maxConcurrent = MAX_CONCURRENT_DOWNLOADS,
 		private readonly playlist?: {manifestStore: PlaylistManifestStore; writeM3u: (manifest: PlaylistManifest) => Promise<void>},
 		private readonly probeInfoJsonCache?: ProbeInfoJsonCache,
-		siteRequests?: SiteRequestState
+		launchGate?: Pick<LaunchGate, 'rateLimitedUntil' | 'onChange'>
 	) {
 		super()
-		this.siteCooldown = new QueueSiteCooldown(siteRequests)
+		this.siteCooldown = new QueueSiteCooldown(launchGate)
 		this.siteCooldown.onChange(() => this.recomputeSchedule())
 		this.artifactCleanup = new QueueArtifactCleanup(probeInfoJsonCache)
 		this.playlistM3u = new QueuePlaylistM3u(this.playlist)

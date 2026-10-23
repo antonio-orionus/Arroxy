@@ -100,8 +100,11 @@ How a YouTube link is read (`cleanUrl`, `classifyUrlIntent`, the list kinds) is 
 ## Rate-limit cooldown
 
 Every yt-dlp launch, whichever path started it, passes `YtDlp.run`, which asks
-`SiteRequestState` first, and again right before the spawn (after binary setup,
-any signed-in slot wait and the token mint). The cooldown starts at the first stderr line that
+the `LaunchGate` first, and again right before the spawn (after binary setup,
+any signed-in slot wait and the token mint). The gate holds the cooldown
+(`SiteRequestState`) and the signed-in pacing (`ExploreSpawnGate`), and logs
+every wait it imposes as `Launch waits` with its reason: `cooldown`,
+`signedInLimit` or `signedInSpacing`. The cooldown starts at the first stderr line that
 shows the site rate-limiting this connection (an HTTP 429, or YouTube's session
 limit), while the run may still be transferring, and goes against the route
 that run used. From then on, new requests to that site

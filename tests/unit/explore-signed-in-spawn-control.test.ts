@@ -41,6 +41,7 @@ import {QueueService} from '@main/services/QueueService.js'
 import {QueueStore} from '@main/stores/QueueStore.js'
 import {makeItem} from '../shared/fixtures.js'
 import {YtDlp} from '@main/services/YtDlp.js'
+import {LaunchGate} from '@main/services/LaunchGate.js'
 import {ExploreSpawnGate} from '@main/services/exploreSpawnGate.js'
 import type {PreparedJob} from '@shared/preparedJob.js'
 import type {JobAuth, StatusEvent} from '@shared/types.js'
@@ -107,12 +108,12 @@ function harness(gate: ExploreSpawnGate, opts: {mintToken?: () => Promise<{token
 	const binaryManager = {ensureYtDlp: vi.fn().mockResolvedValue('/fake/yt-dlp'), ensureFFmpeg: vi.fn().mockResolvedValue('/fake/ffmpeg'), ensureFFprobe: vi.fn().mockResolvedValue(null), getLastDiagnostic: vi.fn().mockReturnValue(undefined), forgetProbeVerdict: vi.fn()}
 	const tokenService = {getToken: vi.fn(opts.mintToken ?? (() => Promise.resolve({token: 'tok', visitorData: 'vd'}))), invalidateCache: vi.fn(), resetSession: vi.fn()}
 	const settingsStore = {get: vi.fn().mockResolvedValue({common: {cookiesMode: 'explore'}, playlist: {}})}
-	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore, {sessionJars: {withJar, getUserAgent: () => 'Desktop/1.0'}, spawnGate: gate, sessionAuth: {canEscalate: () => Promise.resolve({allowed: true as const})}})
+	const ytDlp = new YtDlp(binaryManager as never, tokenService as never, settingsStore, {sessionJars: {withJar, getUserAgent: () => 'Desktop/1.0'}, launchGate: new LaunchGate({signedIn: gate}), sessionAuth: {canEscalate: () => Promise.resolve({allowed: true as const})}})
 	const recentJobsStore = {push: vi.fn().mockResolvedValue(undefined)}
 	const service = new DownloadService(ytDlp, recentJobsStore as never, false, undefined, {
 		exploreGate: {canEscalate: () => Promise.resolve(opts.canEscalate === false ? {allowed: false as const, reason: 'noCookiesForHost' as const} : {allowed: true as const})},
 		exploreSession: {verifySignedIn: () => Promise.resolve(opts.verified ?? 'signedIn')},
-		spawnGate: gate
+		launchGate: {resetJob: (jobId: string) => gate.resetJob(jobId)}
 	})
 	const statuses: StatusEvent[] = []
 	service.on('status', (event: StatusEvent) => statuses.push(event))

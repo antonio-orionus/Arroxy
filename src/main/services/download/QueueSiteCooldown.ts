@@ -9,17 +9,17 @@
 
 import {requestSiteFor} from '@shared/sites/index.js'
 import type {QueueItem} from '@shared/types.js'
-import type {SiteRequestState} from '../SiteRequestState.js'
+import type {LaunchGate} from '../LaunchGate.js'
 
 export class QueueSiteCooldown {
 	private timer: NodeJS.Timeout | null = null
 	private wakeAt = 0
 
-	constructor(private readonly siteRequests: SiteRequestState | undefined) {}
+	constructor(private readonly launchGate: Pick<LaunchGate, 'rateLimitedUntil' | 'onChange'> | undefined) {}
 
 	// Until when the item's start waits; null when it may start now.
 	holdUntil(item: QueueItem): number | null {
-		return this.siteRequests?.rateLimitedUntil(requestSiteFor(item.url)) ?? null
+		return this.launchGate?.rateLimitedUntil(requestSiteFor(item.url)) ?? null
 	}
 
 	remainingMs(item: QueueItem, now: number): number {
@@ -29,7 +29,7 @@ export class QueueSiteCooldown {
 
 	// Re-runs the scheduler whenever a cooldown starts or ends early.
 	onChange(listener: () => void): void {
-		this.siteRequests?.onChange(listener)
+		this.launchGate?.onChange(listener)
 	}
 
 	// Keeps one timer armed for the earliest held item; drops it when nothing waits.

@@ -22,6 +22,7 @@ vi.mock('@main/services/ytDlpJsRuntime', async importOriginal => {
 import {spawnYtDlp} from '@main/utils/process.js'
 import {probeElectronNodeRuntime} from '@main/services/ytDlpJsRuntime.js'
 import {PROBE_TIMEOUT_MESSAGE, YtDlp, type YtDlpRequest} from '@main/services/YtDlp.js'
+import {LaunchGate} from '@main/services/LaunchGate.js'
 import {ExploreSpawnGate} from '@main/services/exploreSpawnGate.js'
 import {createExploreGate} from '@main/services/exploreGate.js'
 import type {SessionCookieJarPort} from '@main/services/sessionCookieJarPort.js'
@@ -87,7 +88,7 @@ function makeYtDlp(gate: ExploreSpawnGate, opts: {common?: () => Record<string, 
 	// Read on every call, so a test can change the settings or the sign-in while a run waits.
 	const settingsStore = {get: vi.fn(() => Promise.resolve({common: opts.common?.() ?? {cookiesMode: 'explore'}, playlist: {}}) as never)}
 	const sessionAuth = createExploreGate({settings: settingsStore, session: {hasAuthCookies: () => Promise.resolve(opts.signedIn?.() ?? true)}})
-	return {ytDlp: new YtDlp(binaryManager as never, tokenService as never, settingsStore, {sessionJars: jars, spawnGate: gate, sessionAuth}), withJar}
+	return {ytDlp: new YtDlp(binaryManager as never, tokenService as never, settingsStore, {sessionJars: jars, launchGate: new LaunchGate({signedIn: gate}), sessionAuth}), withJar}
 }
 
 // Holds the gate's only slot, as a long signed-in download would.
@@ -148,7 +149,7 @@ describe('a signed-in run that waited for a slot while the user opted out', () =
 		const entered = vi.spyOn(gate, 'run')
 
 		const run = ytDlp.run(MEDIA, undefined, {identity: 'exploreSession', jobKey: 'job-3'})
-		await vi.waitFor(() => expect(entered).toHaveBeenCalledWith('job-3', expect.any(Function), expect.anything()))
+		await vi.waitFor(() => expect(entered).toHaveBeenCalledWith('job-3', expect.any(Function), expect.anything(), expect.any(Function)))
 		optedOut = true
 		releaseFirst()
 

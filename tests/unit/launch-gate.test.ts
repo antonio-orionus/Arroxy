@@ -1,0 +1,151 @@
+// @vitest-environment node
+import {beforeEach, describe, expect, it, vi} from 'vite-plus/test'
+
+const logger = vi.hoisted(() => ({debug: vi.fn(), info: vi.fn(), warn: vi.fn(), error: vi.fn()}))
+vi.mock('electron-log/main.js', () => ({default: {...logger, scope: () => logger}}))
+
+import {ExploreSpawnGate} from '@main/services/exploreSpawnGate.js'
+import {LaunchGate} from '@main/services/LaunchGate.js'
+import {RATE_LIMIT_BASE_MS, SiteRequestState} from '@main/services/SiteRequestState.js'
+
+function deferred<T>(): {promise: Promise<T>; resolve: (value: T) => void} {
+	let resolve!: (value: T) => void
+	const promise = new Promise<T>(r => {
+		resolve = r
+	})
+	return {promise, resolve}
+}
+
+async function settle(): Promise<void> {
+	for (let i = 0; i < 10; i++) await Promise.resolve()
+}
+
+function waits(): unknown[] {
+	return logger.info.mock.calls.filter(([message]) => message === 'Launch waits').map(([, fields]) => fields)
+}
+
+function setup(signedIn: ExploreSpawnGate = new ExploreSpawnGate({minSpacingMs: 0})) {
+	let now = 1_000_000
+	const cooldowns = new SiteRequestState({now: () => now, random: () => 1})
+	const gate = new LaunchGate({cooldowns, signedIn})
+	return {gate, cooldowns, now: () => now, advance: (ms: number) => (now += ms)}
+}
+
+function admitted(gate: LaunchGate, site = 'youtube') {
+	const admission = gate.admit(site)
+	if (admission.kind !== 'go') throw new Error('expected the launch to go')
+	return admission.launch
+}
+
+beforeEach(() => {
+	logger.info.mockClear()
+})
+
+describe('LaunchGate: the site cooldown', () => {
+	it('holds a launch to a cooling site and logs the wait as a cooldown', () => {
+		const {gate, cooldowns, now} = setup()
+		cooldowns.recordRateLimit('youtube', 'rateLimited')
+
+		expect(gate.admit('youtube')).toEqual({kind: 'wait', until: now() + RATE_LIMIT_BASE_MS})
+		expect(waits()).toEqual([{site: 'youtube', reason: 'cooldown', until: new Date(now() + RATE_LIMIT_BASE_MS).toISOString()}])
+	})
+
+	it('lets a launch that does not honor the cooldown go, without a wait', () => {
+		const {gate, cooldowns} = setup()
+		cooldowns.recordRateLimit('youtube', 'rateLimited')
+
+		expect(gate.admit('youtube', {honorCooldown: false}).kind).toBe('go')
+		expect(waits()).toEqual([])
+	})
+
+	it('holds an admitted launch whose site started cooling before its spawn, and logs it', () => {
+		const {gate, cooldowns, now} = setup()
+		const launch = admitted(gate)
+		cooldowns.recordRateLimit('youtube', 'rateLimited')
+
+		expect(launch.recheck('direct')).toBe(now() + RATE_LIMIT_BASE_MS)
+		expect(waits()).toEqual([{site: 'youtube', reason: 'cooldown', until: new Date(now() + RATE_LIMIT_BASE_MS).toISOString()}])
+	})
+
+	it('starts the cooldown from what the launch printed, and ends it early after a clean "Try now"', () => {
+		const {gate, cooldowns, now} = setup()
+		const launch = admitted(gate)
+		launch.observe('ERROR: [youtube] abc: HTTP Error 429: Too Many Requests')
+		expect(gate.rateLimitedUntil('youtube')).toBe(now() + RATE_LIMIT_BASE_MS)
+
+		gate.allowOnce('youtube')
+		const passed = admitted(gate)
+		passed.finish('', true)
+		expect(cooldowns.rateLimitedUntil('youtube')).toBeNull()
+	})
+
+	it('keeps no cooldown when it has none', () => {
+		const gate = new LaunchGate({})
+		expect(gate.admit('youtube').kind).toBe('go')
+		expect(gate.rateLimitedUntil('youtube')).toBeNull()
+		expect(gate.snapshot()).toEqual([])
+	})
+})
+
+describe('LaunchGate: signed-in launches', () => {
+	it('runs a signed-in launch once a slot is free', async () => {
+		const {gate} = setup()
+		expect(await admitted(gate).runSignedIn({jobKey: 'job'}, () => Promise.resolve('ran'))).toEqual({kind: 'ran', value: 'ran'})
+	})
+
+	it('refuses a launch past its job budget', async () => {
+		const {gate} = setup(new ExploreSpawnGate({minSpacingMs: 0, perJobCap: 1}))
+		await admitted(gate).runSignedIn({jobKey: 'job'}, () => Promise.resolve('first'))
+		expect(await admitted(gate).runSignedIn({jobKey: 'job'}, () => Promise.resolve('second'))).toEqual({kind: 'capReached'})
+
+		gate.resetJob('job')
+		expect(await admitted(gate).runSignedIn({jobKey: 'job'}, () => Promise.resolve('third'))).toEqual({kind: 'ran', value: 'third'})
+	})
+
+	it('gives a launch with no job a budget of its own each time', async () => {
+		const {gate} = setup(new ExploreSpawnGate({minSpacingMs: 0, perJobCap: 1}))
+		for (let i = 0; i < 3; i++) expect(await admitted(gate).runSignedIn({}, () => Promise.resolve(i))).toEqual({kind: 'ran', value: i})
+	})
+
+	it('logs a wait for a full signed-in limit, and gives up when the wait budget runs out', async () => {
+		vi.useFakeTimers()
+		try {
+			const {gate} = setup(new ExploreSpawnGate({maxConcurrent: 1, minSpacingMs: 0}))
+			const holder = deferred<string>()
+			const first = admitted(gate).runSignedIn({jobKey: 'a'}, () => holder.promise)
+			await settle()
+			const second = admitted(gate, 'instagram.com').runSignedIn({jobKey: 'b', waitBudgetMs: 1000}, () => Promise.resolve('late'))
+			await settle()
+			expect(waits()).toEqual([{site: 'instagram.com', reason: 'signedInLimit'}])
+
+			await vi.advanceTimersByTimeAsync(1000)
+			expect(await second).toEqual({kind: 'waitExpired'})
+			holder.resolve('done')
+			expect(await first).toEqual({kind: 'ran', value: 'done'})
+		} finally {
+			vi.useRealTimers()
+		}
+	})
+
+	it('logs the spacing between signed-in starts', async () => {
+		const sleep = vi.fn((_ms: number) => Promise.resolve())
+		const {gate} = setup(new ExploreSpawnGate({now: () => 0, sleep}))
+		await admitted(gate).runSignedIn({jobKey: 'a'}, () => Promise.resolve('first'))
+		await admitted(gate).runSignedIn({jobKey: 'b'}, () => Promise.resolve('second'))
+
+		expect(waits()).toEqual([{site: 'youtube', reason: 'signedInSpacing', waitMs: 5000}])
+	})
+
+	it('reports a launch stopped while it waits as cancelled, not as a spent wait budget', async () => {
+		const {gate} = setup(new ExploreSpawnGate({maxConcurrent: 1, minSpacingMs: 0}))
+		const holder = deferred<string>()
+		void admitted(gate).runSignedIn({jobKey: 'a'}, () => holder.promise)
+		await settle()
+		const stop = new AbortController()
+		const waiting = admitted(gate).runSignedIn({jobKey: 'b', stop: stop.signal, waitBudgetMs: 60_000}, () => Promise.resolve('never'))
+		stop.abort()
+
+		expect(await waiting).toEqual({kind: 'cancelled'})
+		holder.resolve('done')
+	})
+})

@@ -15,7 +15,7 @@ import {AsyncStack} from './phases/index.js'
 import type {ActiveDownload, PausedDownload} from './phases/index.js'
 import type {ExploreSignInCheck} from './phases/types.js'
 import type {ExploreGate} from './exploreGate.js'
-import type {ExploreSpawnGate} from './exploreSpawnGate.js'
+import type {LaunchGate} from './LaunchGate.js'
 import {stopActiveProcesses} from './download/processControl.js'
 import {cleanupTempDirByPath} from './download/cleanup.js'
 import {QueueResumeLifecycle} from './download/QueueResumeLifecycle.js'
@@ -43,11 +43,11 @@ export interface DownloadExploreDeps {
 	exploreGate: ExploreGate
 	exploreSession: ExploreSignInCheck
 	// Releases a finished attempt's signed-in spawn budget.
-	spawnGate: Pick<ExploreSpawnGate, 'resetJob'>
+	launchGate: Pick<LaunchGate, 'resetJob'>
 }
 
 // Without the composition root's wiring nothing escalates and an escalated job is refused.
-const EXPLORE_UNAVAILABLE: DownloadExploreDeps = {exploreGate: {canEscalate: () => Promise.resolve({allowed: false, reason: 'exploreDisabled'})}, exploreSession: {verifySignedIn: () => Promise.resolve('signedOut')}, spawnGate: {resetJob: () => undefined}}
+const EXPLORE_UNAVAILABLE: DownloadExploreDeps = {exploreGate: {canEscalate: () => Promise.resolve({allowed: false, reason: 'exploreDisabled'})}, exploreSession: {verifySignedIn: () => Promise.resolve('signedOut')}, launchGate: {resetJob: () => undefined}}
 
 const EXPLORE_VERIFIED_SIGNED_OUT = 'exploreVerifiedSignedOut'
 
@@ -328,7 +328,7 @@ export class DownloadService extends EventEmitter {
 				}
 				this.activeJobs.delete(job.id)
 				// A paused attempt ends here; resume starts a fresh signed-in spawn budget.
-				this.explore.spawnGate.resetJob(job.id)
+				this.explore.launchGate.resetJob(job.id)
 				this.pausedJobs.set(job.id, {job, input, tempDir: active.tempDir, ...(active.qualityLimit ? {qualityLimit: active.qualityLimit} : {}), ...(active.formatsWithheld ? {formatsWithheld: true} : {})})
 				this.releaseParkWaiters(job.id)
 				logger.info('Download paused — temp dir preserved', {jobId: job.id, tempDir: active.tempDir})
@@ -367,7 +367,7 @@ export class DownloadService extends EventEmitter {
 				// belong to other downloads, Arroxy's or another app's.
 				logger.info('Cancelling paused job — cleaning up its temp dir', {jobId, outputDir: paused.job.outputDir, tempDir: paused.tempDir ?? null})
 				this.pausedJobs.delete(jobId)
-				this.explore.spawnGate.resetJob(jobId)
+				this.explore.launchGate.resetJob(jobId)
 				if (paused.tempDir) await this.cleanupTempDirByPath(paused.tempDir)
 				return ok({cancelled: true})
 			}
@@ -381,7 +381,7 @@ export class DownloadService extends EventEmitter {
 		await Promise.all([...this.activeJobs.values()].map(a => this.cancelOne(a)))
 		await Promise.all(
 			[...this.pausedJobs.values()].map(async paused => {
-				this.explore.spawnGate.resetJob(paused.job.id)
+				this.explore.launchGate.resetJob(paused.job.id)
 				if (paused.tempDir) await this.cleanupTempDirByPath(paused.tempDir)
 			})
 		)
@@ -403,7 +403,7 @@ export class DownloadService extends EventEmitter {
 			clearInterval(active.mockTimer)
 			active.mockTimer = undefined
 			this.activeJobs.delete(active.job.id)
-			this.explore.spawnGate.resetJob(active.job.id)
+			this.explore.launchGate.resetJob(active.job.id)
 			this.pausedJobs.set(active.job.id, {job: active.job, input: active.input})
 			logger.info('Mock download paused', {jobId: active.job.id})
 			return ok({paused: true, jobId: active.job.id})
@@ -477,7 +477,7 @@ export class DownloadService extends EventEmitter {
 		for (const event of announcedArtifactEvents(job.id, finalArtifacts)) this.emit('artifact', event)
 		this.activeJobs.delete(job.id)
 		this.releaseParkWaiters(job.id)
-		this.explore.spawnGate.resetJob(job.id)
+		this.explore.launchGate.resetJob(job.id)
 		// Best-effort: completion never waits on a size read (a hung mount).
 		void sizedArtifactEvents(job.id, finalArtifacts)
 			.then(events => events.forEach(event => this.emit('artifact', event)))

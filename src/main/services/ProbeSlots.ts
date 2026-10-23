@@ -9,7 +9,7 @@
 // A caller may decline its slot once granted (`admit`): the title backfill
 // does while a download runs, and nothing spawns.
 //
-// A background waiter whose site is cooling down (SiteRequestState) keeps its
+// A background waiter whose site is cooling down (the LaunchGate) keeps its
 // place but takes no slot, so waiters for other sites behind it can start.
 // One timer wakes the queue at the earliest cooldown end, and a cooldown that
 // ends early ("Try now") wakes it through onChange. A background probe that
@@ -23,7 +23,7 @@
 import log from 'electron-log/main.js'
 import {INTERACTIVE_PROBE_HEADROOM} from '@shared/constants.js'
 import type {HeldProbe, ProbeKind} from '@shared/schemas.js'
-import type {SiteRequestState} from './SiteRequestState.js'
+import type {LaunchGate} from './LaunchGate.js'
 
 const logger = log.scope('probe-slots')
 
@@ -46,7 +46,7 @@ export interface ProbeSlotRunOptions<T> {
 	admit?: () => boolean
 }
 
-export type ProbeSlotCooldowns = Pick<SiteRequestState, 'rateLimitedUntil' | 'wouldAdmit' | 'holdPass' | 'releasePass' | 'onChange'>
+export type ProbeSlotCooldowns = Pick<LaunchGate, 'rateLimitedUntil' | 'wouldAdmit' | 'holdPass' | 'releasePass' | 'onChange'>
 
 export interface ProbeSlotsOptions {
 	backgroundLimit: number
