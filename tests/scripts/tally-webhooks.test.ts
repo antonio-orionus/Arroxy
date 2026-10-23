@@ -17,6 +17,7 @@ interface Call {
 	url: string
 	body: unknown
 	auth: string | null
+	version: string | null
 }
 
 // A fake Tally API: answers each GET from `pages` by path and page number,
@@ -27,7 +28,8 @@ function fakeTally(pages: Record<string, unknown[]>): {fetch: typeof fetch; call
 		const url = new URL(input instanceof Request ? input.url : input)
 		const method = init?.method ?? 'GET'
 		const body: unknown = typeof init?.body === 'string' ? JSON.parse(init.body) : undefined
-		calls.push({method, url: url.toString(), body, auth: new Headers(init?.headers).get('authorization')})
+		const headers = new Headers(init?.headers)
+		calls.push({method, url: url.toString(), body, auth: headers.get('authorization'), version: headers.get('tally-version')})
 		if (method !== 'GET') return new Response(null, {status: method === 'POST' ? 201 : 204})
 		const page = Number(url.searchParams.get('page') ?? '1')
 		const responses = pages[url.pathname] ?? []
@@ -78,7 +80,8 @@ describe('Tally API calls', () => {
 		expect(await listFeedbackForms('key', fetch)).toEqual([form('a'), form('b', 'Vita intake')])
 		expect(await listWebhooks('key', fetch)).toEqual([webhook('a')])
 		expect(calls.map(call => call.url)).toEqual(['https://api.tally.so/forms?page=1&limit=500', 'https://api.tally.so/forms?page=2&limit=500', 'https://api.tally.so/webhooks?page=1&limit=100'])
-		expect(calls.every(call => call.auth === 'Bearer key')).toBe(true)
+		// Pinned: the key's own default version could return /forms as a bare array.
+		expect(calls.every(call => call.auth === 'Bearer key' && call.version === '2025-02-01')).toBe(true)
 	})
 
 	it('rejects a response that is not the documented shape', async () => {
@@ -103,8 +106,8 @@ describe('Tally API calls', () => {
 		)
 
 		expect(calls).toEqual([
-			{method: 'POST', url: 'https://api.tally.so/webhooks', body: {formId: 'a', url: TALLY_WEBHOOK_URL, eventTypes: ['FORM_RESPONSE'], signingSecret: SECRET}, auth: 'Bearer key'},
-			{method: 'PATCH', url: 'https://api.tally.so/webhooks/wh-b', body: {formId: 'b', url: TALLY_WEBHOOK_URL, eventTypes: ['FORM_RESPONSE'], signingSecret: SECRET, isEnabled: true}, auth: 'Bearer key'}
+			{method: 'POST', url: 'https://api.tally.so/webhooks', body: {formId: 'a', url: TALLY_WEBHOOK_URL, eventTypes: ['FORM_RESPONSE'], signingSecret: SECRET}, auth: 'Bearer key', version: '2025-02-01'},
+			{method: 'PATCH', url: 'https://api.tally.so/webhooks/wh-b', body: {formId: 'b', url: TALLY_WEBHOOK_URL, eventTypes: ['FORM_RESPONSE'], signingSecret: SECRET, isEnabled: true}, auth: 'Bearer key', version: '2025-02-01'}
 		])
 	})
 

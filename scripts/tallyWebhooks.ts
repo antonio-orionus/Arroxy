@@ -6,6 +6,9 @@ import {z} from 'zod'
 export const TALLY_WEBHOOK_URL = 'https://orionus.dev/arroxy/api/tally-webhook'
 const TALLY_API = 'https://api.tally.so'
 const EVENT_TYPES = ['FORM_RESPONSE']
+// Pinned: requests otherwise use the API key's own version, and before
+// 2025-02-01 GET /forms returned a bare array instead of {items, hasMore}.
+const TALLY_API_VERSION = '2025-02-01'
 
 const formSchema = z.object({id: z.string(), name: z.string(), status: z.string()})
 const formsPageSchema = z.object({items: z.array(formSchema), hasMore: z.boolean()})
@@ -72,5 +75,5 @@ function describeIssues(error: z.ZodError): string {
 }
 
 function headers(apiKey: string): Record<string, string> {
-	return {authorization: `Bearer ${apiKey}`, 'content-type': 'application/json'}
+	return {authorization: `Bearer ${apiKey}`, 'content-type': 'application/json', 'tally-version': TALLY_API_VERSION}
 }
