@@ -231,9 +231,12 @@ function NotWorkingSignIns(): ReactNode {
 		<div className="flex flex-col gap-1.5" data-testid="cookies-not-working-sign-ins">
 			{sites.map(site => (
 				<div key={site} className="flex flex-wrap items-center justify-between gap-2 rounded-md border px-3 py-2" data-testid={`cookies-not-working-sign-in-${site}`}>
-					<span className="flex items-center gap-2 text-sm">
-						<AlertTriangle className="size-4 text-warning" aria-hidden />
-						{t('wizard.url.cookies.signInNotWorking', {site: siteKeyLabel(site)})}
+					<span className="flex min-w-0 flex-1 items-start gap-2">
+						<AlertTriangle className="mt-0.5 size-4 shrink-0 text-warning" aria-hidden />
+						<span className="flex flex-col gap-0.5">
+							<span className="text-sm font-medium">{t('wizard.url.cookies.signInStoppedWorking', {site: siteKeyLabel(site)})}</span>
+							<span className="text-xs text-muted-foreground">{t('wizard.url.cookies.signInStoppedWorkingDetail', {site: siteKeyLabel(site)})}</span>
+						</span>
 					</span>
 					<Button type="button" variant="outline" size="sm" onClick={() => void reuseSignIn(site)}>
 						{t('wizard.url.cookies.useSignInAgain')}
