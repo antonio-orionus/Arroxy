@@ -40,6 +40,7 @@ beforeEach(() => {
 		wizardIsAudioOnlySource: false,
 		wizardMediaKind: 'video',
 		wizardSubtitleMode: 'sidecar',
+		wizardSubtitleLanguages: [],
 		wizardEmbedThumbnail: false,
 		wizardOutputDir: '/downloads',
 		wizardFileType: 'auto',
@@ -80,10 +81,17 @@ describe('SavesAsControl', () => {
 	})
 
 	it('names the file it makes when embedded subtitles override the chosen type', () => {
-		useAppStore.setState({wizardFileType: 'mp4', wizardSubtitleMode: 'embed'})
+		useAppStore.setState({wizardFileType: 'mp4', wizardSubtitleMode: 'embed', wizardSubtitleLanguages: ['en']})
 		render(<SavesAsControl />)
 
 		expect(screen.getByTestId('saves-as-trigger')).toHaveTextContent('.mkv')
+	})
+
+	it('keeps the chosen type when Embed is on but no subtitle language is picked', () => {
+		useAppStore.setState({wizardFileType: 'mp4', wizardSubtitleMode: 'embed', wizardSubtitleLanguages: []})
+		render(<SavesAsControl />)
+
+		expect(screen.getByTestId('saves-as-trigger')).toHaveTextContent('MP4')
 	})
 
 	it('offers WebM only when the picked streams fit it, and says why not', async () => {

@@ -29,7 +29,8 @@ export function SavesAsControl(): ReactNode {
 			videoId: state.selectedVideoFormatId,
 			audioSelection: state.audioSelection,
 			formats: state.wizardFormats,
-			subtitleMode: state.wizardSubtitleMode,
+			// Embed muxes into an .mkv only when a language is picked: with none, no subtitles run.
+			subtitleMode: state.wizardSubtitleLanguages.length > 0 ? state.wizardSubtitleMode : 'sidecar',
 			embedThumbnail: state.wizardEmbedThumbnail,
 			fileType: state.wizardFileType,
 			profileFileType: state.wizardProfileBaseline?.fileType ?? null,
