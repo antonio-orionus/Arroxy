@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — ilmainen avoimen lähdekoodin YouTube- (+ 2000 sivustoa) lataaja sisäänrakennetulla selaimella Windowsille, macOS:lle ja Linuxille
+Ilmainen avoimen lähdekoodin lataaja YouTubelle ja yli 2000 sivustolle, sisäänrakennetulla selaimella. Windowsille, macOS:lle ja Linuxille.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/Sis%C3%A4%C3%A4nrakennettu%20selain-30363d?style=flat" alt="Sisäänrakennettu selain" height="22" />
+  <img src="https://img.shields.io/badge/Oma%20kirjautumisesi-30363d?style=flat" alt="Oma kirjautumisesi" height="22" />
+  <img src="https://img.shields.io/badge/Jopa%208K-30363d?style=flat" alt="Jopa 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20kuvaa%2Fs-30363d?style=flat" alt="60 kuvaa/s" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Dolby--%C3%A4%C3%A4ni-30363d?style=flat" alt="Dolby-ääni" height="22" />
+  <img src="https://img.shields.io/badge/Osa%20videosta-30363d?style=flat" alt="Osa videosta" height="22" />
+  <img src="https://img.shields.io/badge/Soittolistat-30363d?style=flat" alt="Soittolistat" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/Tekstitykset-30363d?style=flat" alt="Tekstitykset" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20sivustoa-30363d?style=flat" alt="+2000 sivustoa" height="22" />
+</p>
+
+[**↓ Asenna Arroxy**](#install) &nbsp;·&nbsp; [**Verkkosivusto**](https://arroxy.com/)
+
+[Windowsin ensimmäinen käynnistys](#windows-first-launch) · [macOS:n ensimmäinen käynnistys](#macos-first-launch) · [Linuxin ensimmäinen käynnistys](#linux-first-launch)
+
+[![Julkaisu](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Koonti](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Lisenssi](https://img.shields.io/badge/license-GPLv3-blue) ![Kielet](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Lue kielellä:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · **Suomi** · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Julkaisu](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Koonti](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Verkkosivusto](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Lisenssi](https://img.shields.io/badge/license-GPLv3-blue) ![Alustat](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Kielet](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Lataa videoita, Shortseja, kanavia, podcasteja tai äänitiedostoja **YouTubesta ja yli 2000 tuetulta sivustolta** — jopa 8K HDR 60 kuvaa sekunnissa, MP3- / AAC- / Opus-muodossa tai vain tarvitsemasi osa. **Selaa YouTubea tai mitä tahansa muuta sivustoa Arroxyn sisällä** Tutki-välilehdellä ja lataa video, soittolista tai kanava, jolla olet; kirjaudu siellä sisään ladataksesi videoita, joita oma tilisi voi jo katsoa. Toimii paikallisesti Windowsissa, macOS:ssä ja Linuxissa. **Ei mainoksia, ei turhaa painolastia, ei myyntipuheita.**
-
-[**↓ Asenna uusin julkaisu**](#install) &nbsp;·&nbsp; [**Verkkosivusto**](https://arroxy.com/) &nbsp;·&nbsp; [Windowsin ensimmäinen käynnistys](#windows-first-launch) · [macOS:n ensimmäinen käynnistys](#macos-first-launch) · [Linuxin ensimmäinen käynnistys](#linux-first-launch)
-
-[![Liity Discordin yhteisöön](https://img.shields.io/badge/Liity%20Discordin%20yhteis%C3%B6%C3%B6n-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Lataa videoita, Shortseja, kanavia, podcasteja tai äänitiedostoja **YouTubesta
   </tr>
 </table>
 
+Ei mainoksia, käyttörajoituksia tai lisämyyntiä.
+
+[![Liity Discordin yhteisöön](https://img.shields.io/badge/Liity%20Discordin%20yhteis%C3%B6%C3%B6n-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Jos Arroxy säästää aikaasi, ⭐ auttaa muita löytämään sen.
 
 </div>
 
-> **Mikä on Arroxy?** Arroxy on ilmainen, avoimen lähdekoodin työpöytäsovellus graafisella käyttöliittymällä, joka lataa videoita, ääntä, soittolistoja ja tekstityksiä YouTubesta ja yli 2000 muulta [yt-dlp](https://github.com/yt-dlp/yt-dlp):n tukemalta sivustolta. Se toimii järjestelmissä Windows 10/11, macOS 13+ (Intel + Apple Silicon) ja Linux (AppImage, Flatpak, tar.gz). GPLv3-lisenssi. Ei mainoksia, ei käyttörajoituksia. Jakelu: [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage ja suora lataus.
->
-> **Keskeinen ero: sisäänrakennettu selain.** Useimmat ilmaiset YouTube-lataajat ovat ohuita yt-dlp-kääreitä: URL-kenttä ja muotovalikko, ilman omaa selainta. Arroxyssa sellainen on, **Tutki-välilehti**. Selaat YouTubea tai mitä tahansa muuta sivustoa sovelluksen sisällä ja lataat videon, soittolistan tai kanavan, jolla olet, tai napsautat mitä tahansa linkkiä hiiren kakkospainikkeella. Jos kirjaudut kerran sisään Tutki-välilehdellä, tilin vaativat lataukset käyttävät tuota kirjautumista: yksityiset videosi, Katso myöhemmin- ja Tykätyt-luettelosi sekä muut videot, joita tilisi voi jo katsoa, ilman evästeiden vientiä. Kirjaudu myös muille sivustoille siellä, ja niiden lataukset käyttävät kirjautumista tarvittaessa. Lisätietoja: [Miksi Arroxy](#why-explore).
->
-> _Päivitetty viimeksi: 2026-10-24._
+## Selaa, kirjaudu sisään ja lataa
+
+**Liitä linkki tai selaa sovelluksen sisällä.** Lataa katselemasi video, soittolista tai kanava Tutki-välilehdellä tai lataa linkin sisältö napsauttamalla linkkiä hiiren kakkospainikkeella.
+
+Kirjaudu kerran kullekin sivustolle ladataksesi sisältöä, johon tililläsi on pääsy, kuten yksityisiä videoita sekä Katso myöhemmin- ja Tykätyt videot -listoja. Evästeitä ei tarvitse viedä. [Lisätietoja Tutki-välilehdestä](#why-explore).
+
+_Päivitetty viimeksi: 2026-10-24._
 
 > 🌐 Tämä käännös on tehty tekoälyn avulla. [Englanninkielinen README](../../README.md) on ensisijainen lähde. Löysitkö virheen? [Avaa PR](../../../../pulls).
 
@@ -183,6 +201,8 @@ Jos Arroxy säästää aikaasi, ⭐ auttaa muita löytämään sen.
 ---
 
 ## <a id="install"></a>📥 Asennus ja ensimmäinen käynnistys
+
+**Vaatimukset:** Windows 10/11 · macOS 13+ (Intel tai Apple Silicon) · Linux (AppImage, Flatpak tai tar.gz).
 
 **Windows**
 
@@ -394,9 +414,9 @@ Useimmat ilmaiset YouTube-lataajat ovat yt-dlp:n päälle tehty URL-kenttä. Arr
 
 Lataukset haetaan suoraan [yt-dlp:n](https://github.com/yt-dlp/yt-dlp) kautta YouTubesta valitsemaasi kansioon — mitään ei reititetä kolmannen osapuolen palvelimen kautta. Katseluhistoria, lataushistoria, URL-osoitteet ja tiedostojen sisältö pysyvät laitteellasi.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Ei seurantaa.** Arroxy lähettää vain nimettömiä raportteja, jotka auttavat meitä laskemaan käyttäjiä ja korjaamaan ongelmia — ei koskaan linkkejäsi, videoitasi, tiedostojasi tai tilitietojasi. Hallitset niitä Asetuksissa.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+Tutki säilyttää omat kirjautumisensa erillään selaimestasi, ja kirjaudut aina sivuston omalla sivulla. Lataus käyttää kirjautumista vain kyseiselle sivustolle, lukee sen joka kerta uudelleen ja poistaa kopionsa sen jälkeen. Kun kirjaudut ulos Tutki-välilehdeltä Asetuksissa, tallennetut kirjautumiset poistetaan.
 
 ---
 

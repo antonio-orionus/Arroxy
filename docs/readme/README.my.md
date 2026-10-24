@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — Windows, macOS နှင့် Linux အတွက် built-in browser ပါသော အခမဲ့ Open-Source YouTube (+ ၂၀၀၀ ဆိုဒ်) Downloader
+YouTube နှင့် ဝဘ်ဆိုက် 2000 ကျော်အတွက် ဘရောက်ဇာပါဝင်သည့် အခမဲ့ အရင်းအမြစ်ဖွင့် ဒေါင်းလုဒ်ဆွဲကိရိယာ။ Windows၊ macOS နှင့် Linux အတွက်။
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/%E1%80%98%E1%80%9B%E1%80%B1%E1%80%AC%E1%80%80%E1%80%BA%E1%80%87%E1%80%AC%E1%80%95%E1%80%AB%E1%80%9D%E1%80%84%E1%80%BA%E1%80%9E%E1%80%8A%E1%80%BA-30363d?style=flat" alt="ဘရောက်ဇာပါဝင်သည်" height="22" />
+  <img src="https://img.shields.io/badge/%E1%80%80%E1%80%AD%E1%80%AF%E1%80%9A%E1%80%BA%E1%80%95%E1%80%AD%E1%80%AF%E1%80%84%E1%80%BA%E1%80%A1%E1%80%80%E1%80%B1%E1%80%AC%E1%80%84%E1%80%B7%E1%80%BA%E1%80%96%E1%80%BC%E1%80%84%E1%80%B7%E1%80%BA%20%E1%80%9D%E1%80%84%E1%80%BA%E1%80%9B%E1%80%B1%E1%80%AC%E1%80%80%E1%80%BA%E1%80%99%E1%80%BE%E1%80%AF-30363d?style=flat" alt="ကိုယ်ပိုင်အကောင့်ဖြင့် ဝင်ရောက်မှု" height="22" />
+  <img src="https://img.shields.io/badge/8K%20%E1%80%A1%E1%80%91%E1%80%AD-30363d?style=flat" alt="8K အထိ" height="22" />
+  <img src="https://img.shields.io/badge/%E1%80%90%E1%80%85%E1%80%BA%E1%80%85%E1%80%80%E1%80%B9%E1%80%80%E1%80%94%E1%80%B7%E1%80%BA%E1%80%9C%E1%80%BB%E1%80%BE%E1%80%84%E1%80%BA%2060%20%E1%80%96%E1%80%9B%E1%80%AD%E1%80%99%E1%80%BA-30363d?style=flat" alt="တစ်စက္ကန့်လျှင် 60 ဖရိမ်" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Dolby%20%E1%80%A1%E1%80%9E%E1%80%B6-30363d?style=flat" alt="Dolby အသံ" height="22" />
+  <img src="https://img.shields.io/badge/%E1%80%97%E1%80%AE%E1%80%92%E1%80%AE%E1%80%9A%E1%80%AD%E1%80%AF%E1%81%8F%20%E1%80%A1%E1%80%85%E1%80%AD%E1%80%90%E1%80%BA%E1%80%A1%E1%80%95%E1%80%AD%E1%80%AF%E1%80%84%E1%80%BA%E1%80%B8-30363d?style=flat" alt="ဗီဒီယို၏ အစိတ်အပိုင်း" height="22" />
+  <img src="https://img.shields.io/badge/%E1%80%A1%E1%80%85%E1%80%AE%E1%80%A1%E1%80%85%E1%80%89%E1%80%BA%E1%80%85%E1%80%AC%E1%80%9B%E1%80%84%E1%80%BA%E1%80%B8%E1%80%99%E1%80%BB%E1%80%AC%E1%80%B8-30363d?style=flat" alt="အစီအစဉ်စာရင်းများ" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/%E1%80%85%E1%80%AC%E1%80%90%E1%80%94%E1%80%BA%E1%80%B8%E1%80%91%E1%80%AD%E1%80%AF%E1%80%B8%E1%80%99%E1%80%BB%E1%80%AC%E1%80%B8-30363d?style=flat" alt="စာတန်းထိုးများ" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%E1%80%9D%E1%80%98%E1%80%BA%E1%80%86%E1%80%AD%E1%80%AF%E1%80%80%E1%80%BA%202000%20%E1%80%80%E1%80%BB%E1%80%B1%E1%80%AC%E1%80%BA-30363d?style=flat" alt="ဝဘ်ဆိုက် 2000 ကျော်" height="22" />
+</p>
+
+[**↓ Arroxy ကို ထည့်သွင်းပါ**](#install) &nbsp;·&nbsp; [**ဝဘ်ဆိုက်**](https://arroxy.com/)
+
+[Windows ပထမဆုံး launch](#windows-first-launch) · [macOS ပထမဆုံး launch](#macos-first-launch) · [Linux ပထမဆုံး launch](#linux-first-launch)
+
+[![Release](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![လိုင်စင်](https://img.shields.io/badge/license-GPLv3-blue) ![ဘာသာစကားများ](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **ဘာသာဖြင့် ဖတ်ရှုရန်:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · **မြန်မာဘာသာ** · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Release](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![ဝဘ်ဆိုက်](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![လိုင်စင်](https://img.shields.io/badge/license-GPLv3-blue) ![Platforms](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![ဘာသာစကားများ](https://img.shields.io/badge/i18n-50_languages-blue)
-
-**YouTube နှင့် ၂၀၀၀+ ထောက်ပံ့သောဆိုဒ်များ** မှ ဗီဒီယိုများ၊ Shorts၊ channel များ၊ podcast များ သို့မဟုတ် audio track များကို ဒေါင်းလုဒ်ဆွဲပါ — 60 fps တွင် 8K HDR အထိ၊ MP3 / AAC / Opus အဖြစ်၊ သို့မဟုတ် လိုအပ်သည့်အပိုင်းကိုသာ။ Explore tab တွင် **Arroxy အတွင်းမှာပင် YouTube သို့မဟုတ် အခြားဝဘ်ဆိုက်ကို ကြည့်ရှုပြီး** သင်ကြည့်နေသော ဗီဒီယို၊ playlist သို့မဟုတ် channel ကို ဒေါင်းလုဒ်လုပ်ပါ၊ သင့်ကိုယ်ပိုင်အကောင့်ဖြင့် ကြည့်နိုင်ပြီးသား ဗီဒီယိုများကို ဒေါင်းလုဒ်လုပ်ရန် ထိုနေရာတွင် sign in လုပ်ပါ။ Windows, macOS နှင့် Linux တွင် သင့်ကွန်ပျူတာပေါ်တွင်သာ run ပါသည်။ **ကြော်ငြာမပါ၊ bloat မပါ၊ upsell မပါ။**
-
-[**↓ နောက်ဆုံး Release ကို ဒေါင်းလုဒ်ဆွဲပါ**](#install) &nbsp;·&nbsp; [**ဝဘ်ဆိုက်**](https://arroxy.com/) &nbsp;·&nbsp; [Windows ပထမဆုံး launch](#windows-first-launch) · [macOS ပထမဆုံး launch](#macos-first-launch) · [Linux ပထမဆုံး launch](#linux-first-launch)
-
-[![Discord အသိုင်းအဝိုင်းတွင် ပါဝင်ပါ](https://img.shields.io/badge/Discord%20%E1%80%A1%E1%80%9E%E1%80%AD%E1%80%AF%E1%80%84%E1%80%BA%E1%80%B8%E1%80%A1%E1%80%9D%E1%80%AD%E1%80%AF%E1%80%84%E1%80%BA%E1%80%B8%E1%80%90%E1%80%BD%E1%80%84%E1%80%BA%20%E1%80%95%E1%80%AB%E1%80%9D%E1%80%84%E1%80%BA%E1%80%95%E1%80%AB-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Arroxy — Windows, macOS နှင့် Linux အတွက် built-in browser
   </tr>
 </table>
 
+ကြော်ငြာ၊ အသုံးပြုမှုပမာဏ ကန့်သတ်ချက် သို့မဟုတ် အခပေးဗားရှင်း ဝယ်ရန် တိုက်တွန်းမှု မရှိပါ။
+
+[![Discord အသိုင်းအဝိုင်းတွင် ပါဝင်ပါ](https://img.shields.io/badge/Discord%20%E1%80%A1%E1%80%9E%E1%80%AD%E1%80%AF%E1%80%84%E1%80%BA%E1%80%B8%E1%80%A1%E1%80%9D%E1%80%AD%E1%80%AF%E1%80%84%E1%80%BA%E1%80%B8%E1%80%90%E1%80%BD%E1%80%84%E1%80%BA%20%E1%80%95%E1%80%AB%E1%80%9D%E1%80%84%E1%80%BA%E1%80%95%E1%80%AB-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Arroxy သည် သင့်အချိန်ကို သက်သာစေပါက ⭐ တစ်ချက်က အခြားသူများ ရှာတွေ့ရန် ကူညီပါသည်။
 
 </div>
 
-> **Arroxy ဆိုတာ ဘာလဲ။** Arroxy သည် YouTube နှင့် [yt-dlp](https://github.com/yt-dlp/yt-dlp) ပံ့ပိုးသော အခြားဆိုဒ် ၂၀၀၀+ မှ ဗီဒီယို၊ အသံ၊ playlist နှင့် subtitle များကို ဒေါင်းလုဒ်လုပ်ပေးသော အခမဲ့ open-source desktop GUI ဖြစ်သည်။ Windows 10/11, macOS 13+ (Intel + Apple Silicon) နှင့် Linux (AppImage, Flatpak, tar.gz) တွင် run သည်။ GPLv3 လိုင်စင်။ ကြော်ငြာမပါ၊ အသုံးပြုမှုကန့်သတ်ချက်မပါ။ [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage နှင့် တိုက်ရိုက်ဒေါင်းလုဒ်မှတစ်ဆင့် ဖြန့်ဝေသည်။
->
-> **အဓိကကွာခြားချက်: built-in browser တစ်ခု။** အခမဲ့ YouTube downloader အများစုသည် URL box နှင့် format menu သာပါသော၊ ကိုယ်ပိုင် browser မရှိသည့် yt-dlp wrapper ပါးပါးများသာ ဖြစ်သည်။ Arroxy တွင် **Explore tab** ရှိသည်။ app အတွင်းမှာပင် YouTube သို့မဟုတ် အခြားဝဘ်ဆိုက်ကို ကြည့်ရှုပြီး သင်ကြည့်နေသော ဗီဒီယို၊ playlist သို့မဟုတ် channel ကို ဒေါင်းလုဒ်လုပ်နိုင်သည်၊ သို့မဟုတ် မည်သည့် လင့်ခ်ကိုမဆို right-click နှိပ်နိုင်သည်။ Explore တွင် တစ်ကြိမ် sign in ဝင်လိုက်လျှင် အကောင့်လိုသော ဒေါင်းလုဒ်များက ထို sign-in ကို အသုံးပြုသည်- သင်၏ private ဗီဒီယိုများ၊ Watch Later နှင့် Liked စာရင်းများ၊ သင့်အကောင့်ဖြင့် ကြည့်နိုင်ပြီးသား အခြားဗီဒီယိုများကို cookie export မလုပ်ဘဲ ဒေါင်းလုဒ်လုပ်ပေးသည်။ အခြားဆိုဒ်များကိုလည်း ထိုနေရာတွင် sign in ဝင်နိုင်ပြီး လိုအပ်သည့်အခါ ၎င်းတို့၏ ဒေါင်းလုဒ်များက ထို sign-in ကို အသုံးပြုသည်။ အသေးစိတ်: [Arroxy ဘာကြောင့်](#why-explore)။
->
-> _နောက်ဆုံးအပ်ဒိတ်: 2026-10-24။_
+## ကြည့်ရှုပါ၊ အကောင့်ဝင်ပါ၊ ဒေါင်းလုဒ်ဆွဲပါ
+
+**လင့်ခ်ကို ကူးထည့်ပါ၊ သို့မဟုတ် အက်ပ်အတွင်းမှာပင် ကြည့်ရှုပါ။** မိမိကြည့်နေသည့် ဗီဒီယို၊ အစီအစဉ်စာရင်း သို့မဟုတ် ချန်နယ်ကို ဒေါင်းလုဒ်ဆွဲရန် စူးစမ်းရန် တက်ဘ်ကို သုံးပါ၊ သို့မဟုတ် လင့်ခ်ကို ညာကလစ်နှိပ်၍ ဒေါင်းလုဒ်ဆွဲပါ။
+
+ဝဘ်ဆိုက်တစ်ခုတွင် တစ်ကြိမ် အကောင့်ဝင်ပြီး မိမိအကောင့်ဖြင့် ကြည့်ရှုခွင့်ရှိသော အကြောင်းအရာများကို ဒေါင်းလုဒ်ဆွဲနိုင်ပါသည်။ မိမိ၏ ကိုယ်ပိုင်ဗီဒီယိုများ၊ “နောက်မှကြည့်ရန်” နှင့် နှစ်သက်ထားသော ဗီဒီယိုစာရင်းများလည်း ပါဝင်ပါသည်။ ကွတ်ကီးများကို ထုတ်ယူရန် မလိုပါ။ [စူးစမ်းရန် အကြောင်း ပိုမိုသိရှိရန်](#why-explore)။
+
+_နောက်ဆုံးအပ်ဒိတ်: 2026-10-24။_
 
 ---
 
@@ -181,6 +199,8 @@ Arroxy သည် သင့်အချိန်ကို သက်သာစေ�
 ---
 
 ## <a id="install"></a>📥 ထည့်သွင်းခြင်းနှင့် ပထမဆုံးဖွင့်ခြင်း
+
+**လိုအပ်ချက်များ:** Windows 10/11 · macOS 13+ (Intel သို့မဟုတ် Apple Silicon) · Linux (AppImage၊ Flatpak သို့မဟုတ် tar.gz)။
 
 **Windows**
 
@@ -392,9 +412,9 @@ Arroxy ကို ရည်ရွယ်ချက်တစ်ခုတည်းဖ
 
 Downloads များကို [yt-dlp](https://github.com/yt-dlp/yt-dlp) မှတဆင့် YouTube မှ တိုက်ရိုက် သင်ရွေးချယ်သောဖိုဒါသို့ fetch လုပ်သည် — third-party server မှတဆင့် routing မလုပ်ပါ။ ကြည့်ရှုမှတ်တမ်း၊ ဒေါင်းလုဒ်မှတ်တမ်း၊ URL များနှင့် ဖိုင်အကြောင်းအရာများသည် သင့်ကိရိယာပေါ်တွင်သာ ကျန်ရှိသည်။
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**ခြေရာခံခြင်း မရှိပါ။** Arroxy သည် အသုံးပြုသူအရေအတွက်ကို ရေတွက်ရန်နှင့် ပြဿနာများကို ဖြေရှင်းရန် အထောက်အကူပြုသည့် အမည်မဖော်သော အစီရင်ခံစာများကိုသာ ပို့ပါသည်။ သင့်လင့်ခ်များ၊ ဗီဒီယိုများ၊ ဖိုင်များ သို့မဟုတ် အကောင့်များကို မည်သည့်အခါမှ မပို့ပါ။ ဆက်တင်များတွင် ၎င်းတို့ကို သင် ထိန်းချုပ်နိုင်ပါသည်။
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+စူးစမ်းရန် သည် သင့်ဘရောက်ဇာနှင့် သီးခြားဖြစ်သော ကိုယ်ပိုင်အကောင့်ဝင်ရောက်မှုများကို သိမ်းထားပြီး သင်သည် ဝဘ်ဆိုက်၏ ကိုယ်ပိုင်စာမျက်နှာပေါ်တွင်သာ အကောင့်ဝင်ပါသည်။ ဒေါင်းလုဒ်တစ်ခုသည် ထိုဝဘ်ဆိုက်အတွက်သာ အကောင့်ဝင်အချက်အလက်ကို အသုံးပြုကာ အကြိမ်တိုင်း အသစ်ဖတ်ယူပြီး အသုံးပြုပြီးနောက် မိမိ၏ မိတ္တူကို ဖျက်ပါသည်။ ဆက်တင်များမှ စူးစမ်းရန် တွင် အကောင့်ထွက်ပါက သိမ်းထားသော အကောင့်ဝင်အချက်အလက်များကို ဖျက်ပစ်ပါသည်။
 
 ---
 

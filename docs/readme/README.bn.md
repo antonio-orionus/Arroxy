@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — Windows, macOS ও Linux-এর জন্য বিল্ট-ইন ব্রাউজারসহ বিনামূল্যে ওপেন-সোর্স YouTube (+ ২০০০ সাইট) ডাউনলোডার
+বিল্ট-ইন ব্রাউজারসহ YouTube ও 2000+ সাইটের জন্য বিনামূল্যের ওপেন-সোর্স ডাউনলোডার। Windows, macOS ও Linux-এর জন্য।
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/%E0%A6%AC%E0%A6%BF%E0%A6%B2%E0%A7%8D%E0%A6%9F--%E0%A6%87%E0%A6%A8%20%E0%A6%AC%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%89%E0%A6%9C%E0%A6%BE%E0%A6%B0-30363d?style=flat" alt="বিল্ট-ইন ব্রাউজার" height="22" />
+  <img src="https://img.shields.io/badge/%E0%A6%A8%E0%A6%BF%E0%A6%9C%E0%A7%87%E0%A6%B0%20%E0%A6%85%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%95%E0%A6%BE%E0%A6%89%E0%A6%A8%E0%A7%8D%E0%A6%9F%E0%A7%87%20%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%A8%20%E0%A6%87%E0%A6%A8-30363d?style=flat" alt="নিজের অ্যাকাউন্টে সাইন ইন" height="22" />
+  <img src="https://img.shields.io/badge/8K%20%E0%A6%AA%E0%A6%B0%E0%A7%8D%E0%A6%AF%E0%A6%A8%E0%A7%8D%E0%A6%A4-30363d?style=flat" alt="8K পর্যন্ত" height="22" />
+  <img src="https://img.shields.io/badge/60%20%E0%A6%AB%E0%A7%8D%E0%A6%B0%E0%A7%87%E0%A6%AE%2F%E0%A6%B8%E0%A7%87%E0%A6%95%E0%A7%87%E0%A6%A8%E0%A7%8D%E0%A6%A1-30363d?style=flat" alt="60 ফ্রেম/সেকেন্ড" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Dolby%20%E0%A6%85%E0%A6%A1%E0%A6%BF%E0%A6%93-30363d?style=flat" alt="Dolby অডিও" height="22" />
+  <img src="https://img.shields.io/badge/%E0%A6%AD%E0%A6%BF%E0%A6%A1%E0%A6%BF%E0%A6%93%E0%A6%B0%20%E0%A6%85%E0%A6%82%E0%A6%B6-30363d?style=flat" alt="ভিডিওর অংশ" height="22" />
+  <img src="https://img.shields.io/badge/%E0%A6%AA%E0%A7%8D%E0%A6%B2%E0%A7%87%E0%A6%B2%E0%A6%BF%E0%A6%B8%E0%A7%8D%E0%A6%9F-30363d?style=flat" alt="প্লেলিস্ট" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/%E0%A6%B8%E0%A6%BE%E0%A6%AC%E0%A6%9F%E0%A6%BE%E0%A6%87%E0%A6%9F%E0%A7%87%E0%A6%B2-30363d?style=flat" alt="সাবটাইটেল" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20%E0%A6%B8%E0%A6%BE%E0%A6%87%E0%A6%9F-30363d?style=flat" alt="+2000 সাইট" height="22" />
+</p>
+
+[**↓ Arroxy ইনস্টল করুন**](#install) &nbsp;·&nbsp; [**ওয়েবসাইট**](https://arroxy.com/)
+
+[Windows প্রথম লঞ্চ](#windows-first-launch) · [macOS প্রথম লঞ্চ](#macos-first-launch) · [Linux প্রথম লঞ্চ](#linux-first-launch)
+
+[![রিলিজ](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![বিল্ড](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![লাইসেন্স](https://img.shields.io/badge/license-GPLv3-blue) ![ভাষাসমূহ](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **পড়ুন:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · **বাংলা** · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![রিলিজ](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![বিল্ড](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![ওয়েবসাইট](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![লাইসেন্স](https://img.shields.io/badge/license-GPLv3-blue) ![প্ল্যাটফর্ম](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![ভাষাসমূহ](https://img.shields.io/badge/i18n-50_languages-blue)
-
-**YouTube ও ২০০০+ সমর্থিত সাইট** থেকে ভিডিও, Shorts, চ্যানেল, পডকাস্ট বা অডিও ট্র্যাক ডাউনলোড করুন — 60 fps-এ 8K HDR পর্যন্ত, MP3 / AAC / Opus হিসেবে, অথবা শুধু যে অংশটুকু দরকার। Explore ট্যাবে **Arroxy-এর ভেতরেই YouTube বা অন্য যেকোনো সাইট ব্রাউজ করুন** এবং যে ভিডিও, প্লেলিস্ট বা চ্যানেল দেখছেন তা ডাউনলোড করুন; আপনার নিজের অ্যাকাউন্টে যা আগে থেকেই দেখা যায় এমন ভিডিও ডাউনলোড করতে সেখানে সাইন ইন করুন। Windows, macOS ও Linux-এ লোকালি চলে। **কোনো বিজ্ঞাপন নেই, কোনো ব্লোট নেই, কোনো আপসেল নেই।**
-
-[**↓ সর্বশেষ রিলিজ ডাউনলোড করুন**](#install) &nbsp;·&nbsp; [**ওয়েবসাইট**](https://arroxy.com/) &nbsp;·&nbsp; [Windows প্রথম লঞ্চ](#windows-first-launch) · [macOS প্রথম লঞ্চ](#macos-first-launch) · [Linux প্রথম লঞ্চ](#linux-first-launch)
-
-[![Discord কমিউনিটিতে যোগ দিন](https://img.shields.io/badge/Discord%20%E0%A6%95%E0%A6%AE%E0%A6%BF%E0%A6%89%E0%A6%A8%E0%A6%BF%E0%A6%9F%E0%A6%BF%E0%A6%A4%E0%A7%87%20%E0%A6%AF%E0%A7%8B%E0%A6%97%20%E0%A6%A6%E0%A6%BF%E0%A6%A8-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Arroxy — Windows, macOS ও Linux-এর জন্য বিল্ট-ইন �
   </tr>
 </table>
 
+কোনো বিজ্ঞাপন, ব্যবহারের সীমা বা বেশি দামের সংস্করণ কেনার চাপ নেই।
+
+[![Discord কমিউনিটিতে যোগ দিন](https://img.shields.io/badge/Discord%20%E0%A6%95%E0%A6%AE%E0%A6%BF%E0%A6%89%E0%A6%A8%E0%A6%BF%E0%A6%9F%E0%A6%BF%E0%A6%A4%E0%A7%87%20%E0%A6%AF%E0%A7%8B%E0%A6%97%20%E0%A6%A6%E0%A6%BF%E0%A6%A8-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Arroxy যদি আপনার সময় বাঁচায়, তাহলে একটি ⭐ অন্যদের খুঁজে পেতে সাহায্য করে।
 
 </div>
 
-> **Arroxy কী?** Arroxy একটি বিনামূল্যের, ওপেন-সোর্স ডেস্কটপ GUI, যা YouTube এবং [yt-dlp](https://github.com/yt-dlp/yt-dlp) সমর্থিত আরও ২০০০+ সাইট থেকে ভিডিও, অডিও, প্লেলিস্ট ও সাবটাইটেল ডাউনলোড করে। এটি Windows 10/11, macOS 13+ (Intel + Apple Silicon) এবং Linux (AppImage, Flatpak, tar.gz)-এ চলে। GPLv3 লাইসেন্সপ্রাপ্ত। কোনো বিজ্ঞাপন নেই, ব্যবহারের কোনো সীমা নেই। বিতরণ হয় [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage এবং সরাসরি ডাউনলোডের মাধ্যমে।
->
-> **মূল পার্থক্য: বিল্ট-ইন ব্রাউজার।** বেশিরভাগ ফ্রি YouTube ডাউনলোডার yt-dlp-এর পাতলা র‍্যাপার: একটি URL বক্স আর একটি ফরম্যাট মেনু, নিজস্ব কোনো ব্রাউজার ছাড়া। Arroxy-তে একটি আছে: **Explore ট্যাব**। অ্যাপের ভেতরেই YouTube বা অন্য যেকোনো সাইট ব্রাউজ করুন এবং যে ভিডিও, প্লেলিস্ট বা চ্যানেলে আছেন সেটি ডাউনলোড করুন, অথবা যেকোনো লিংকে ডান-ক্লিক করুন। Explore-এ একবার সাইন ইন করলে অ্যাকাউন্ট লাগে এমন ডাউনলোড ওই সাইন-ইন ব্যবহার করে: আপনার প্রাইভেট ভিডিও, আপনার Watch Later ও Liked তালিকা, এবং আপনার অ্যাকাউন্টে আগে থেকেই দেখা যায় এমন অন্য ভিডিও, কোনো কুকি এক্সপোর্ট ছাড়াই। সেখানে অন্য সাইটেও সাইন ইন করুন; প্রয়োজন হলে সেগুলোর ডাউনলোড ওই সাইন-ইন ব্যবহার করবে। বিস্তারিত: [কেন Arroxy](#why-explore)।
->
-> _সর্বশেষ আপডেট: 2026-10-24।_
+## ব্রাউজ করুন, সাইন ইন করুন, ডাউনলোড করুন
+
+**লিংক পেস্ট করুন, অথবা অ্যাপের ভেতরেই ব্রাউজ করুন।** আপনি যে ভিডিও, প্লেলিস্ট বা চ্যানেল দেখছেন তা ডাউনলোড করতে অন্বেষণ ট্যাব ব্যবহার করুন, অথবা কোনো লিংকে ডান-ক্লিক করে সেটি ডাউনলোড করুন।
+
+কোনো সাইটে একবার সাইন ইন করে আপনার অ্যাকাউন্টে দেখা যায় এমন কনটেন্ট ডাউনলোড করুন—আপনার ব্যক্তিগত ভিডিও, “পরে দেখুন” ও পছন্দের ভিডিওর তালিকাও। কুকি এক্সপোর্ট করার দরকার নেই। [অন্বেষণ সম্পর্কে আরও জানুন](#why-explore)।
+
+_সর্বশেষ আপডেট: 2026-10-24।_
 
 ---
 
@@ -181,6 +199,8 @@ Arroxy যদি আপনার সময় বাঁচায়, তাহ�
 ---
 
 ## <a id="install"></a>📥 ইনস্টল ও প্রথম চালু
+
+**সিস্টেমের প্রয়োজনীয়তা:** Windows 10/11 · macOS 13+ (Intel অথবা Apple Silicon) · Linux (AppImage, Flatpak অথবা tar.gz)।
 
 **Windows**
 
@@ -392,9 +412,9 @@ Arroxy একটি কাজের জন্যই তৈরি: একটি �
 
 ডাউনলোডগুলো সরাসরি [yt-dlp](https://github.com/yt-dlp/yt-dlp)-এর মাধ্যমে YouTube থেকে আপনার বেছে নেওয়া ফোল্ডারে আনা হয় — কোনো থার্ড-পার্টি সার্ভারের মধ্য দিয়ে যায় না। দেখার ইতিহাস, ডাউনলোড ইতিহাস, URL ও ফাইলের বিষয়বস্তু আপনার ডিভাইসেই থাকে।
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**কোনো ট্র্যাকিং নেই।** Arroxy শুধু পরিচয়বিহীন প্রতিবেদন পাঠায়, যা ব্যবহারকারী গণনা করতে ও সমস্যা সমাধান করতে সাহায্য করে—কখনোই আপনার লিংক, ভিডিও, ফাইল বা অ্যাকাউন্ট পাঠায় না। সেটিংস থেকে আপনি এগুলো নিয়ন্ত্রণ করতে পারেন।
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+অন্বেষণ আপনার ব্রাউজার থেকে আলাদা নিজস্ব সাইন-ইন তথ্য রাখে, আর আপনি সব সময় সাইটের নিজস্ব পেজেই সাইন ইন করেন। ডাউনলোডের সময় সাইন-ইন তথ্য শুধু সেই সাইটের জন্যই ব্যবহার করা হয়, প্রতিবার নতুন করে পড়া হয় এবং কাজ শেষে এর কপি মুছে ফেলা হয়। সেটিংস থেকে অন্বেষণ থেকে সাইন আউট করলে সংরক্ষিত সাইন-ইন তথ্য মুছে যায়।
 
 ---
 

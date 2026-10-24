@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — Kipakuzi Bure cha Chanzo Wazi cha YouTube (+ Tovuti 2000) chenye Kivinjari Ndani, kwa Windows, macOS na Linux
+Kipakuzi cha bure na chanzo wazi cha YouTube na zaidi ya tovuti 2000, chenye kivinjari kilichojengewa ndani. Kwa Windows, macOS, na Linux.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/Kivinjari%20ndani-30363d?style=flat" alt="Kivinjari ndani" height="22" />
+  <img src="https://img.shields.io/badge/Akaunti%20yako%20mwenyewe-30363d?style=flat" alt="Akaunti yako mwenyewe" height="22" />
+  <img src="https://img.shields.io/badge/Hadi%208K-30363d?style=flat" alt="Hadi 8K" height="22" />
+  <img src="https://img.shields.io/badge/Fremu%2060%2Fs-30363d?style=flat" alt="Fremu 60/s" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Sauti%20ya%20Dolby-30363d?style=flat" alt="Sauti ya Dolby" height="22" />
+  <img src="https://img.shields.io/badge/Sehemu%20ya%20video-30363d?style=flat" alt="Sehemu ya video" height="22" />
+  <img src="https://img.shields.io/badge/Orodha%20za%20kucheza-30363d?style=flat" alt="Orodha za kucheza" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/Manukuu-30363d?style=flat" alt="Manukuu" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2Btovuti%202000-30363d?style=flat" alt="+tovuti 2000" height="22" />
+</p>
+
+[**↓ Sakinisha Arroxy**](#install) &nbsp;·&nbsp; [**Tovuti**](https://arroxy.com/)
+
+[Uzinduzi wa kwanza wa Windows](#windows-first-launch) · [Uzinduzi wa kwanza wa macOS](#macos-first-launch) · [Uzinduzi wa kwanza wa Linux](#linux-first-launch)
+
+[![Toleo](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Ujenzi](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Leseni](https://img.shields.io/badge/license-GPLv3-blue) ![Lugha](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Soma kwa:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · **Kiswahili** · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Toleo](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Ujenzi](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Tovuti](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Leseni](https://img.shields.io/badge/license-GPLv3-blue) ![Majukwaa](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Lugha](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Pakua video, Shorts, vituo, podikasti, au nyimbo za sauti kutoka **YouTube na tovuti 2000+ zinazotumika** — hadi 8K HDR kwa fps 60, kama MP3 / AAC / Opus, au sehemu tu unayohitaji. **Vinjari YouTube au tovuti nyingine yoyote ndani ya Arroxy** kwenye kichupo cha Gundua na upakue video, orodha ya kucheza, au kituo ulichopo; ingia humo ili kupakua video ambazo akaunti yako tayari inaweza kutazama. Inafanya kazi mahali hapo kwenye Windows, macOS, na Linux. **Hakuna matangazo, hakuna mzigo wa ziada, hakuna mauzo ya ziada.**
-
-[**↓ Pakua Toleo la Hivi Karibuni**](#install) &nbsp;·&nbsp; [**Tovuti**](https://arroxy.com/) &nbsp;·&nbsp; [Uzinduzi wa kwanza wa Windows](#windows-first-launch) · [Uzinduzi wa kwanza wa macOS](#macos-first-launch) · [Uzinduzi wa kwanza wa Linux](#linux-first-launch)
-
-[![Jiunge na jumuiya ya Discord](https://img.shields.io/badge/Jiunge%20na%20jumuiya%20ya%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Pakua video, Shorts, vituo, podikasti, au nyimbo za sauti kutoka **YouTube na to
   </tr>
 </table>
 
+Hakuna matangazo, vikomo vya matumizi, wala ushawishi wa kununua vipengele vya ziada.
+
+[![Jiunge na jumuiya ya Discord](https://img.shields.io/badge/Jiunge%20na%20jumuiya%20ya%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 
 </div>
 
-> **Arroxy ni nini?** Arroxy ni programu huria ya bure ya eneo-kazi yenye kiolesura cha picha (GUI) inayopakua video, sauti, orodha za kucheza, na manukuu kutoka YouTube na tovuti nyingine zaidi ya 2000 zinazoungwa mkono na [yt-dlp](https://github.com/yt-dlp/yt-dlp). Inafanya kazi kwenye Windows 10/11, macOS 13+ (Intel + Apple Silicon), na Linux (AppImage, Flatpak, tar.gz). Ina leseni ya GPLv3. Hakuna matangazo, hakuna kikomo cha matumizi. Inasambazwa kupitia [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, na upakuaji wa moja kwa moja.
->
-> **Tofauti kuu: kivinjari kilichojengewa ndani.** Vipakuzi vingi vya bure vya YouTube ni vifuniko vyembamba vya yt-dlp: kisanduku cha URL na menyu ya miundo, bila kivinjari chao wenyewe. Arroxy ina kimoja, **kichupo cha Gundua**. Unavinjari YouTube au tovuti nyingine yoyote ndani ya programu na kupakua video, orodha ya kucheza, au kituo ulichopo, au kubofya kulia kiungo chochote. Ukiingia mara moja katika Gundua, upakuaji unaohitaji akaunti hutumia kuingia huko: video zako za faragha, orodha zako za Tazama Baadaye na Zilizopendwa, na video nyingine ambazo akaunti yako tayari inaweza kutazama, bila kuhamisha vidakuzi. Ingia pia kwenye tovuti nyingine humo, na upakuaji wao hutumia kuingia huko pale unapohitajika. Maelezo: [Kwa Nini Arroxy](#why-explore).
->
-> _Imesasishwa mara ya mwisho: 2026-10-24._
+## Vinjari, ingia, pakua
+
+**Bandika kiungo au vinjari ndani ya programu.** Tumia kichupo cha Gundua kupakua video, orodha ya kucheza, au kituo unachotazama, au bofya kiungo kwa kitufe cha kulia ili kukipakua.
+
+Ingia mara moja kwenye kila tovuti ili kupakua maudhui ambayo akaunti yako inaweza kufikia — yakiwemo video zako za faragha na orodha za Tazama Baadaye na Video Ulizopenda. Huhitaji kuhamisha vidakuzi. [Zaidi kuhusu Gundua](#why-explore).
+
+_Imesasishwa mara ya mwisho: 2026-10-24._
 
 ---
 
@@ -181,6 +199,8 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 ---
 
 ## <a id="install"></a>📥 Sakinisha na uzinduzi wa kwanza
+
+**Mahitaji:** Windows 10/11 · macOS 13+ (Intel au Apple Silicon) · Linux (AppImage, Flatpak, au tar.gz).
 
 **Windows**
 
@@ -392,9 +412,9 @@ Vipakuzi vingi vya bure vya YouTube ni kisanduku cha URL juu ya yt-dlp tu. Arrox
 
 Maudhui hupakuliwa moja kwa moja kupitia [yt-dlp](https://github.com/yt-dlp/yt-dlp) kutoka YouTube hadi kwenye folda unayochagua — hakuna kitu kinachopita kwenye seva ya mtu wa tatu. Historia ya kutazama, historia ya kupakua, URL, na maudhui ya faili yanabaki kwenye kifaa chako.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Hakuna ufuatiliaji.** Arroxy hutuma ripoti zisizo na utambulisho pekee zinazotusaidia kuhesabu watumiaji na kurekebisha matatizo — kamwe haitumi viungo, video, faili au taarifa za akaunti zako. Unazidhibiti katika Mipangilio.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+Gundua huhifadhi taarifa zake za kuingia, tofauti na kivinjari chako, na daima unaingia kwenye ukurasa wa tovuti yenyewe. Upakuaji hutumia taarifa za kuingia kwa tovuti hiyo tu, huzisoma upya kila mara na kufuta nakala yake baada ya hapo. Kutoka kwenye akaunti za Gundua katika Mipangilio hufuta taarifa za kuingia zilizohifadhiwa.
 
 ---
 

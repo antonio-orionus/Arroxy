@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — Pengunduh YouTube (+ 2000 situs) Sumber Terbuka Gratis dengan Peramban Bawaan untuk Windows, macOS & Linux
+Pengunduh gratis dan bersumber terbuka untuk YouTube dan lebih dari 2000 situs, dengan peramban bawaan. Untuk Windows, macOS, dan Linux.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/Peramban%20bawaan-30363d?style=flat" alt="Peramban bawaan" height="22" />
+  <img src="https://img.shields.io/badge/Akun%20Anda%20sendiri-30363d?style=flat" alt="Akun Anda sendiri" height="22" />
+  <img src="https://img.shields.io/badge/Hingga%208K-30363d?style=flat" alt="Hingga 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20fps-30363d?style=flat" alt="60 fps" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Audio%20Dolby-30363d?style=flat" alt="Audio Dolby" height="22" />
+  <img src="https://img.shields.io/badge/Sebagian%20video-30363d?style=flat" alt="Sebagian video" height="22" />
+  <img src="https://img.shields.io/badge/Playlist-30363d?style=flat" alt="Playlist" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/Subtitel-30363d?style=flat" alt="Subtitel" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20situs-30363d?style=flat" alt="+2000 situs" height="22" />
+</p>
+
+[**↓ Instal Arroxy**](#install) &nbsp;·&nbsp; [**Situs web**](https://arroxy.com/)
+
+[Windows peluncuran pertama](#windows-first-launch) · [macOS peluncuran pertama](#macos-first-launch) · [Linux peluncuran pertama](#linux-first-launch)
+
+[![Rilis](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Lisensi](https://img.shields.io/badge/license-GPLv3-blue) ![Bahasa](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Baca di:** [Afaan Oromoo](README.om.md) · **Bahasa Indonesia** · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Rilis](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Situs web](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Lisensi](https://img.shields.io/badge/license-GPLv3-blue) ![Platform](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Bahasa](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Unduh video, Shorts, saluran, podcast, atau trek audio dari **YouTube dan 2000+ situs yang didukung** — hingga 8K HDR pada 60 fps, sebagai MP3 / AAC / Opus, atau hanya bagian yang Anda perlukan. **Jelajahi YouTube atau situs lain di dalam Arroxy** lewat tab Explore dan unduh video, daftar putar, atau saluran yang sedang Anda buka; masuk di sana untuk mengunduh video yang sudah bisa ditonton akun Anda sendiri. Berjalan secara lokal di Windows, macOS, dan Linux. **Tanpa iklan, tanpa pembengkakan, tanpa peningkatan penjualan.**
-
-[**↓ Instal Rilis Terbaru**](#install) &nbsp;·&nbsp; [**Situs web**](https://arroxy.com/) &nbsp;·&nbsp; [Windows peluncuran pertama](#windows-first-launch) · [macOS peluncuran pertama](#macos-first-launch) · [Linux peluncuran pertama](#linux-first-launch)
-
-[![Bergabunglah dengan Komunitas Discord](https://img.shields.io/badge/Bergabunglah%20dengan%20Komunitas%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Unduh video, Shorts, saluran, podcast, atau trek audio dari **YouTube dan 2000+ 
   </tr>
 </table>
 
+Tanpa iklan, batas penggunaan, atau desakan membeli fitur berbayar.
+
+[![Bergabunglah dengan Komunitas Discord](https://img.shields.io/badge/Bergabunglah%20dengan%20Komunitas%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 
 </div>
 
-> **Apa itu Arroxy?** Arroxy adalah GUI desktop gratis dan sumber terbuka yang mengunduh video, audio, daftar putar, dan subtitle dari YouTube serta 2000+ situs lain yang didukung [yt-dlp](https://github.com/yt-dlp/yt-dlp). Berjalan di Windows 10/11, macOS 13+ (Intel + Apple Silicon), dan Linux (AppImage, Flatpak, tar.gz). Berlisensi GPLv3. Tanpa iklan, tanpa batas penggunaan. Didistribusikan lewat [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, dan unduhan langsung.
->
-> **Perbedaan utama: browser bawaan.** Sebagian besar pengunduh YouTube gratis hanyalah pembungkus yt-dlp yang tipis: kotak URL dan menu format, tanpa browser sendiri. Arroxy memilikinya, yaitu **tab Explore**. Anda menjelajahi YouTube atau situs lain mana pun di dalam aplikasi dan mengunduh video, daftar putar, atau saluran yang sedang Anda buka, atau klik kanan tautan mana pun. Jika Anda masuk sekali di Explore, unduhan yang memerlukan akun memakai login itu: video privat Anda, daftar Tonton Nanti dan Disukai Anda, serta video lain yang sudah bisa ditonton akun Anda, tanpa ekspor cookie. Masuk juga ke situs lain di sana, dan unduhannya memakai login itu bila diperlukan. Detail: [Mengapa Arroxy](#why-explore).
->
-> _Terakhir diperbarui: 2026-10-24._
+## Jelajahi, masuk, unduh
+
+**Tempel tautan atau jelajahi situs di dalam aplikasi.** Gunakan tab Jelajahi untuk mengunduh video, playlist, atau kanal yang sedang Anda buka, atau klik kanan tautan untuk mengunduhnya.
+
+Masuk sekali di setiap situs untuk mengunduh konten yang dapat diakses akun Anda — termasuk video pribadi, daftar Tonton nanti, dan Video yang disukai. Tidak perlu mengekspor cookie. [Selengkapnya tentang Jelajahi](#why-explore).
+
+_Terakhir diperbarui: 2026-10-24._
 
 > 🌐 Ini adalah terjemahan dengan bantuan AI. [README bahasa Inggris](../../README.md) adalah sumber kebenaran. Menemukan kesalahan? [PR diterima](../../../../pulls).
 
@@ -183,6 +201,8 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 ---
 
 ## <a id="install"></a>📥 Instalasi dan peluncuran pertama
+
+**Persyaratan:** Windows 10/11 · macOS 13+ (Intel atau Apple Silicon) · Linux (AppImage, Flatpak, atau tar.gz).
 
 **Windows**
 
@@ -394,9 +414,9 @@ Sebagian besar pengunduh YouTube gratis hanyalah kotak URL di atas yt-dlp. Arrox
 
 Unduhan diambil langsung melalui [yt-dlp](https://github.com/yt-dlp/yt-dlp) dari YouTube ke folder yang Anda pilih — tidak ada yang dirutekan melalui server pihak ketiga. Riwayat tontonan, riwayat unduhan, URL, dan konten file tetap ada di perangkat Anda.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Tanpa pelacakan.** Arroxy hanya mengirim laporan anonim yang membantu kami menghitung pengguna dan memperbaiki masalah — tidak pernah mengirim tautan, video, berkas, atau informasi akun Anda. Anda mengontrol laporan ini di Pengaturan.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+Jelajahi menyimpan sesi masuknya sendiri, terpisah dari peramban Anda, dan Anda selalu masuk di halaman situs itu sendiri. Unduhan memakai sesi masuk hanya untuk situs tersebut, membacanya kembali setiap kali, lalu menghapus salinannya setelah selesai. Keluar dari Jelajahi di Pengaturan akan menghapus sesi masuk yang tersimpan.
 
 ---
 

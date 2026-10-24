@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — កម្មវិធីទាញយក YouTube (+ គេហទំព័រ 2000) ឥតគិតថ្លៃ និងកូដចំហ មានកម្មវិធីរុករកភ្ជាប់មកជាមួយ សម្រាប់ Windows, macOS និង Linux
+កម្មវិធីទាញយកឥតគិតថ្លៃ និងកូដចំហសម្រាប់ YouTube និងគេហទំព័រជាង 2000 ដែលមានកម្មវិធីរុករកភ្ជាប់មកជាមួយ។ សម្រាប់ Windows, macOS និង Linux។
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/%E1%9E%80%E1%9E%98%E1%9F%92%E1%9E%98%E1%9E%9C%E1%9E%B7%E1%9E%92%E1%9E%B8%E1%9E%9A%E1%9E%BB%E1%9E%80%E1%9E%9A%E1%9E%80%E1%9E%97%E1%9F%92%E1%9E%87%E1%9E%B6%E1%9E%94%E1%9F%8B%E1%9E%98%E1%9E%80%E1%9E%87%E1%9E%B6%E1%9E%98%E1%9E%BD%E1%9E%99-30363d?style=flat" alt="កម្មវិធីរុករកភ្ជាប់មកជាមួយ" height="22" />
+  <img src="https://img.shields.io/badge/%E1%9E%85%E1%9E%BC%E1%9E%9B%E1%9E%8A%E1%9F%84%E1%9E%99%E1%9E%82%E1%9E%8E%E1%9E%93%E1%9E%B8%E1%9E%95%E1%9F%92%E1%9E%91%E1%9E%B6%E1%9E%9B%E1%9F%8B%E1%9E%81%E1%9F%92%E1%9E%9B%E1%9E%BD%E1%9E%93-30363d?style=flat" alt="ចូលដោយគណនីផ្ទាល់ខ្លួន" height="22" />
+  <img src="https://img.shields.io/badge/%E1%9E%9A%E1%9E%A0%E1%9E%BC%E1%9E%8F%E1%9E%8A%E1%9E%9B%E1%9F%8B%208K-30363d?style=flat" alt="រហូតដល់ 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20%E1%9E%9F%E1%9F%8A%E1%9E%BB%E1%9E%98%2F%E1%9E%9C%E1%9E%B7%E1%9E%93%E1%9E%B6%E1%9E%91%E1%9E%B8-30363d?style=flat" alt="60 ស៊ុម/វិនាទី" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/%E1%9E%9F%E1%9F%86%E1%9E%A1%E1%9F%81%E1%9E%84%20Dolby-30363d?style=flat" alt="សំឡេង Dolby" height="22" />
+  <img src="https://img.shields.io/badge/%E1%9E%95%E1%9F%92%E1%9E%93%E1%9F%82%E1%9E%80%E1%9E%93%E1%9F%83%E1%9E%9C%E1%9E%B8%E1%9E%8A%E1%9F%81%E1%9E%A2%E1%9E%BC-30363d?style=flat" alt="ផ្នែកនៃវីដេអូ" height="22" />
+  <img src="https://img.shields.io/badge/%E1%9E%94%E1%9E%89%E1%9F%92%E1%9E%87%E1%9E%B8%E1%9E%85%E1%9E%B6%E1%9E%80%E1%9F%8B-30363d?style=flat" alt="បញ្ជីចាក់" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/%E1%9E%85%E1%9F%86%E1%9E%8E%E1%9E%84%E1%9E%87%E1%9E%BE%E1%9E%84%E1%9E%9A%E1%9E%84-30363d?style=flat" alt="ចំណងជើងរង" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20%E1%9E%82%E1%9F%81%E1%9E%A0%E1%9E%91%E1%9F%86%E1%9E%96%E1%9F%90%E1%9E%9A-30363d?style=flat" alt="+2000 គេហទំព័រ" height="22" />
+</p>
+
+[**↓ ដំឡើង Arroxy**](#install) &nbsp;·&nbsp; [**គេហទំព័រ**](https://arroxy.com/)
+
+[ការបើកលើកដំបូងលើ Windows](#windows-first-launch) · [ការបើកលើកដំបូងលើ macOS](#macos-first-launch) · [ការបើកលើកដំបូងលើ Linux](#linux-first-launch)
+
+[![ការចេញផ្សាយ](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![អាជ្ញាប័ណ្ណ](https://img.shields.io/badge/license-GPLv3-blue) ![ភាសា](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **អានជា៖** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · **ខ្មែរ** · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![ការចេញផ្សាយ](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![គេហទំព័រ](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![អាជ្ញាប័ណ្ណ](https://img.shields.io/badge/license-GPLv3-blue) ![វេទិកា](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![ភាសា](https://img.shields.io/badge/i18n-50_languages-blue)
-
-ទាញយកវីដេអូ Shorts ប៉ុស្តិ៍ ផតខាស ឬបទសំឡេងពី **YouTube និងគេហទំព័រជាង 2000 ដែលគាំទ្រ** — រហូតដល់ 8K HDR នៅ 60 fps ជា MP3 / AAC / Opus ឬតែផ្នែកដែលអ្នកត្រូវការ។ **រុករក YouTube ឬគេហទំព័រផ្សេងទៀតនៅក្នុង Arroxy** តាមផ្ទាំង រកមើល ហើយទាញយកវីដេអូ បញ្ជីចាក់ ឬប៉ុស្តិ៍ដែលអ្នកកំពុងមើល; ចូលគណនីនៅទីនោះ ដើម្បីទាញយកវីដេអូដែលគណនីផ្ទាល់ខ្លួនរបស់អ្នកអាចមើលបានរួចហើយ។ ដំណើរការក្នុងម៉ាស៊ីនលើ Windows, macOS និង Linux។ **គ្មានពាណិជ្ជកម្ម គ្មានកម្មវិធីរំខាន គ្មានការលក់បន្ថែម។**
-
-[**↓ ដំឡើងកំណែចុងក្រោយ**](#install) &nbsp;·&nbsp; [**គេហទំព័រ**](https://arroxy.com/) &nbsp;·&nbsp; [ការបើកលើកដំបូងលើ Windows](#windows-first-launch) · [ការបើកលើកដំបូងលើ macOS](#macos-first-launch) · [ការបើកលើកដំបូងលើ Linux](#linux-first-launch)
-
-[![ចូលរួមសហគមន៍ Discord](https://img.shields.io/badge/%E1%9E%85%E1%9E%BC%E1%9E%9B%E1%9E%9A%E1%9E%BD%E1%9E%98%E1%9E%9F%E1%9E%A0%E1%9E%82%E1%9E%98%E1%9E%93%E1%9F%8D%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Arroxy — កម្មវិធីទាញយក YouTube (+ គេហទំព
   </tr>
 </table>
 
+គ្មានការផ្សាយពាណិជ្ជកម្ម ដែនកំណត់ការប្រើប្រាស់ ឬការជំរុញឱ្យទិញកំណែបង់ប្រាក់។
+
+[![ចូលរួមសហគមន៍ Discord](https://img.shields.io/badge/%E1%9E%85%E1%9E%BC%E1%9E%9B%E1%9E%9A%E1%9E%BD%E1%9E%98%E1%9E%9F%E1%9E%A0%E1%9E%82%E1%9E%98%E1%9E%93%E1%9F%8D%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 ប្រសិនបើ Arroxy ជួយសន្សំពេលវេលារបស់អ្នក ⭐ មួយជួយឱ្យអ្នកដទៃរកឃើញវា។
 
 </div>
 
-> **តើ Arroxy ជាអ្វី?** Arroxy គឺជា GUI សម្រាប់កុំព្យូទ័រ ឥតគិតថ្លៃ និងបើកចំហកូដ ដែលទាញយកវីដេអូ សំឡេង បញ្ជីចាក់ និងអក្សររត់ ពី YouTube និងគេហទំព័រផ្សេងទៀតជាង 2000 ដែល [yt-dlp](https://github.com/yt-dlp/yt-dlp) គាំទ្រ។ វាដំណើរការលើ Windows 10/11, macOS 13+ (Intel + Apple Silicon) និង Linux (AppImage, Flatpak, tar.gz)។ មានអាជ្ញាប័ណ្ណ GPLv3។ គ្មានពាណិជ្ជកម្ម គ្មានដែនកំណត់ការប្រើប្រាស់។ ចែកចាយតាម [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage និងការទាញយកផ្ទាល់។
->
-> **ភាពខុសគ្នាចម្បង៖ កម្មវិធីរុករកដែលភ្ជាប់មកជាមួយ។** កម្មវិធីទាញយក YouTube ឥតគិតថ្លៃភាគច្រើនគ្រាន់តែជា wrapper yt-dlp សាមញ្ញៗ៖ ប្រអប់ URL និងម៉ឺនុយទម្រង់ ដោយគ្មានកម្មវិធីរុករករបស់ខ្លួនឯង។ Arroxy មានមួយ គឺ**ផ្ទាំង រកមើល**។ អ្នករុករក YouTube ឬគេហទំព័រផ្សេងទៀតនៅក្នុងកម្មវិធី ហើយទាញយកវីដេអូ បញ្ជីចាក់ ឬប៉ុស្តិ៍ដែលអ្នកកំពុងមើល ឬចុចកណ្ដុរស្ដាំលើតំណណាមួយ។ ប្រសិនបើអ្នកចូលគណនីម្តងក្នុង រកមើល ការទាញយកដែលត្រូវការគណនីនឹងប្រើការចូលគណនីនោះ គឺវីដេអូឯកជនរបស់អ្នក បញ្ជី «មើលពេលក្រោយ» និង «វីដេអូដែលអ្នកចូលចិត្ត» របស់អ្នក និងវីដេអូផ្សេងទៀតដែលគណនីរបស់អ្នកអាចមើលបានរួចហើយ ដោយមិនចាំបាច់នាំចេញ cookies។ ចូលគណនីគេហទំព័រផ្សេងទៀតនៅទីនោះផងដែរ ហើយការទាញយករបស់ពួកវាប្រើការចូលគណនីនោះនៅពេលត្រូវការ។ ព័ត៌មានលម្អិត៖ [ហេតុអ្វី Arroxy](#why-explore)។
->
-> _ធ្វើបច្ចុប្បន្នភាពចុងក្រោយ៖ 2026-10-24។_
+## រុករក ចូលគណនី ទាញយក
+
+**បិទភ្ជាប់តំណ ឬរុករកនៅក្នុងកម្មវិធី។** ប្រើផ្ទាំង រកមើល ដើម្បីទាញយកវីដេអូ បញ្ជីចាក់ ឬប៉ុស្តិ៍ដែលអ្នកកំពុងមើល ឬចុចកណ្ដុរស្ដាំលើតំណដើម្បីទាញយកវា។
+
+ចូលគណនីគេហទំព័រម្តង ដើម្បីទាញយកមាតិកាដែលគណនីរបស់អ្នកអាចចូលមើលបាន រួមទាំងវីដេអូឯកជន បញ្ជី «មើលពេលក្រោយ» និង «វីដេអូដែលអ្នកចូលចិត្ត» របស់អ្នក។ មិនចាំបាច់នាំចេញខូគីទេ។ [បន្ថែមអំពី រកមើល](#why-explore)។
+
+_ធ្វើបច្ចុប្បន្នភាពចុងក្រោយ៖ 2026-10-24។_
 
 ---
 
@@ -181,6 +199,8 @@ Arroxy — កម្មវិធីទាញយក YouTube (+ គេហទំព
 ---
 
 ## <a id="install"></a>📥 ដំឡើង និងបើកលើកដំបូង
+
+**តម្រូវការ៖** Windows 10/11 · macOS 13+ (Intel ឬ Apple Silicon) · Linux (AppImage, Flatpak ឬ tar.gz)។
 
 **Windows**
 
@@ -392,9 +412,9 @@ Arroxy ត្រូវបានបង្កើតឡើងសម្រាប់�
 
 ការទាញយកត្រូវបានទាញដោយផ្ទាល់តាម [yt-dlp](https://github.com/yt-dlp/yt-dlp) ពី YouTube ទៅថតដែលអ្នកជ្រើសរើស — គ្មានអ្វីឆ្លងកាត់ម៉ាស៊ីនមេភាគីទីបីទេ។ ប្រវត្តិមើល ប្រវត្តិទាញយក URL និងមាតិកាឯកសារនៅលើឧបករណ៍របស់អ្នក។
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**គ្មានការតាមដាន។** Arroxy ផ្ញើតែរបាយការណ៍អនាមិក ដែលជួយយើងរាប់អ្នកប្រើប្រាស់ និងដោះស្រាយបញ្ហា ប៉ុន្តែមិនដែលផ្ញើតំណ វីដេអូ ឯកសារ ឬគណនីរបស់អ្នកទេ។ អ្នកអាចគ្រប់គ្រងរបាយការណ៍ទាំងនេះក្នុងការកំណត់។
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+រកមើល រក្សាទុកការចូលគណនីរបស់វាដាច់ដោយឡែកពីកម្មវិធីរុករករបស់អ្នក ហើយអ្នកតែងតែចូលគណនីនៅលើទំព័ររបស់គេហទំព័រផ្ទាល់។ ការទាញយកប្រើការចូលគណនីសម្រាប់តែគេហទំព័រនោះ ដោយអានវាថ្មីរាល់ពេល ហើយលុបច្បាប់ចម្លងរបស់វាបន្ទាប់ពីប្រើរួច។ ការចេញពីគណនីក្នុង រកមើល តាមរយៈការកំណត់ នឹងលុបទិន្នន័យចូលគណនីដែលបានរក្សាទុក។
 
 ---
 

@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — Δωρεάν Ανοιχτού Κώδικα Λήψη YouTube (+ 2000 ιστοτόπους) με ενσωματωμένο πρόγραμμα περιήγησης για Windows, macOS & Linux
+Δωρεάν πρόγραμμα λήψης ανοιχτού κώδικα για το YouTube και 2000+ ιστοτόπους, με ενσωματωμένο πρόγραμμα περιήγησης. Για Windows, macOS και Linux.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/%CE%95%CE%BD%CF%83%CF%89%CE%BC%CE%B1%CF%84%CF%89%CE%BC%CE%AD%CE%BD%CE%BF%CF%82%20%CF%80%CE%B5%CF%81%CE%B9%CE%B7%CE%B3%CE%B7%CF%84%CE%AE%CF%82-30363d?style=flat" alt="Ενσωματωμένος περιηγητής" height="22" />
+  <img src="https://img.shields.io/badge/%CE%A3%CF%8D%CE%BD%CE%B4%CE%B5%CF%83%CE%B7%20%CE%BC%CE%B5%20%CF%84%CE%BF%CE%BD%20%CE%BB%CE%BF%CE%B3%CE%B1%CF%81%CE%B9%CE%B1%CF%83%CE%BC%CF%8C%20%CF%83%CE%BF%CF%85-30363d?style=flat" alt="Σύνδεση με τον λογαριασμό σου" height="22" />
+  <img src="https://img.shields.io/badge/%CE%88%CF%89%CF%82%208K-30363d?style=flat" alt="Έως 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20%CE%BA%CE%B1%CF%81%CE%AD%2F%CE%B4%CE%B5%CF%85%CF%84.-30363d?style=flat" alt="60 καρέ/δευτ." height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/%CE%89%CF%87%CE%BF%CF%82%20Dolby-30363d?style=flat" alt="Ήχος Dolby" height="22" />
+  <img src="https://img.shields.io/badge/%CE%A4%CE%BC%CE%AE%CE%BC%CE%B1%20%CE%B2%CE%AF%CE%BD%CF%84%CE%B5%CE%BF-30363d?style=flat" alt="Τμήμα βίντεο" height="22" />
+  <img src="https://img.shields.io/badge/%CE%9B%CE%AF%CF%83%CF%84%CE%B5%CF%82%20%CE%B1%CE%BD%CE%B1%CF%80%CE%B1%CF%81%CE%B1%CE%B3%CF%89%CE%B3%CE%AE%CF%82-30363d?style=flat" alt="Λίστες αναπαραγωγής" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/%CE%A5%CF%80%CF%8C%CF%84%CE%B9%CF%84%CE%BB%CE%BF%CE%B9-30363d?style=flat" alt="Υπότιτλοι" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20%CE%B9%CF%83%CF%84%CF%8C%CF%84%CE%BF%CF%80%CE%BF%CE%B9-30363d?style=flat" alt="+2000 ιστότοποι" height="22" />
+</p>
+
+[**↓ Εγκατάσταση του Arroxy**](#install) &nbsp;·&nbsp; [**Ιστότοπος**](https://arroxy.com/)
+
+[Windows — πρώτη εκκίνηση](#windows-first-launch) · [macOS — πρώτη εκκίνηση](#macos-first-launch) · [Linux — πρώτη εκκίνηση](#linux-first-launch)
+
+[![Έκδοση](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Άδεια](https://img.shields.io/badge/license-GPLv3-blue) ![Γλώσσες](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Διαβάστε στα:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · **Ελληνικά** · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Έκδοση](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Ιστότοπος](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Άδεια](https://img.shields.io/badge/license-GPLv3-blue) ![Πλατφόρμες](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Γλώσσες](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Κατεβάστε βίντεο, Shorts, κανάλια, podcasts ή ηχητικά κομμάτια από το **YouTube και 2000+ υποστηριζόμενους ιστοτόπους** — έως 8K HDR στα 60 fps, ως MP3 / AAC / Opus ή μόνο το κομμάτι που χρειάζεστε. **Περιηγηθείτε στο YouTube ή σε οποιονδήποτε άλλον ιστότοπο μέσα στο Arroxy** στην καρτέλα Explore και κατεβάστε το βίντεο, την playlist ή το κανάλι που βλέπετε· συνδεθείτε εκεί για να κατεβάζετε βίντεο που μπορεί ήδη να δει ο λογαριασμός σας. Εκτελείται τοπικά σε Windows, macOS και Linux. **Χωρίς διαφημίσεις, χωρίς bloat, χωρίς upsells.**
-
-[**↓ Λήψη Τελευταίας Έκδοσης**](#install) &nbsp;·&nbsp; [**Ιστότοπος**](https://arroxy.com/) &nbsp;·&nbsp; [Windows — πρώτη εκκίνηση](#windows-first-launch) · [macOS — πρώτη εκκίνηση](#macos-first-launch) · [Linux — πρώτη εκκίνηση](#linux-first-launch)
-
-[![Εγγραφείτε στην κοινότητα Discord](https://img.shields.io/badge/%CE%95%CE%B3%CE%B3%CF%81%CE%B1%CF%86%CE%B5%CE%AF%CF%84%CE%B5%20%CF%83%CF%84%CE%B7%CE%BD%20%CE%BA%CE%BF%CE%B9%CE%BD%CF%8C%CF%84%CE%B7%CF%84%CE%B1%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Arroxy — Δωρεάν Ανοιχτού Κώδικα Λήψη YouTube (+ 2000 �
   </tr>
 </table>
 
+Χωρίς διαφημίσεις, όρια χρήσης ή προτροπές για πληρωμένες αναβαθμίσεις.
+
+[![Εγγραφείτε στην κοινότητα Discord](https://img.shields.io/badge/%CE%95%CE%B3%CE%B3%CF%81%CE%B1%CF%86%CE%B5%CE%AF%CF%84%CE%B5%20%CF%83%CF%84%CE%B7%CE%BD%20%CE%BA%CE%BF%CE%B9%CE%BD%CF%8C%CF%84%CE%B7%CF%84%CE%B1%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Αν το Arroxy σας εξοικονομεί χρόνο, ένα ⭐ βοηθά άλλους να το βρουν.
 
 </div>
 
-> **Τι είναι το Arroxy;** Το Arroxy είναι ένα δωρεάν GUI ανοιχτού κώδικα για υπολογιστή, που κατεβάζει βίντεο, ήχο, playlists και υπότιτλους από το YouTube και από 2000+ άλλους ιστότοπους που υποστηρίζονται από το [yt-dlp](https://github.com/yt-dlp/yt-dlp). Τρέχει σε Windows 10/11, macOS 13+ (Intel + Apple Silicon) και Linux (AppImage, Flatpak, tar.gz). Με άδεια GPLv3. Χωρίς διαφημίσεις, χωρίς όρια χρήσης. Διανέμεται μέσω [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage και άμεσης λήψης.
->
-> **Βασική διαφορά: ενσωματωμένο πρόγραμμα περιήγησης.** Τα περισσότερα δωρεάν προγράμματα λήψης από το YouTube είναι λεπτά wrappers του yt-dlp: ένα πεδίο URL και ένα μενού μορφών, χωρίς δικό τους πρόγραμμα περιήγησης. Το Arroxy έχει ένα, την **καρτέλα Explore**. Περιηγείστε στο YouTube ή σε οποιονδήποτε άλλον ιστότοπο μέσα στην εφαρμογή και κατεβάζετε το βίντεο, την playlist ή το κανάλι στο οποίο βρίσκεστε, ή κάνετε δεξί κλικ σε οποιονδήποτε σύνδεσμο. Αν συνδεθείτε μία φορά στο Explore, οι λήψεις που χρειάζονται λογαριασμό χρησιμοποιούν αυτή τη σύνδεση: τα ιδιωτικά σας βίντεο, τις λίστες «Παρακολούθηση αργότερα» και «Μου αρέσουν» και άλλα βίντεο που μπορεί ήδη να δει ο λογαριασμός σας, χωρίς εξαγωγή cookies. Συνδεθείτε εκεί και σε άλλους ιστότοπους, και οι λήψεις τους θα χρησιμοποιούν αυτή τη σύνδεση όταν τη χρειάζονται. Λεπτομέρειες: [Γιατί Arroxy](#why-explore).
->
-> _Τελευταία ενημέρωση: 2026-10-24._
+## Περιηγήσου, συνδέσου, κατέβασε
+
+**Επικόλλησε έναν σύνδεσμο ή περιηγήσου μέσα στην εφαρμογή.** Χρησιμοποίησε την καρτέλα Εξερεύνηση για να κατεβάσεις το βίντεο, τη λίστα αναπαραγωγής ή το κανάλι που βλέπεις ή κάνε δεξί κλικ σε έναν σύνδεσμο για να τον κατεβάσεις.
+
+Συνδέσου μία φορά σε έναν ιστότοπο για να κατεβάσεις περιεχόμενο στο οποίο έχει πρόσβαση ο λογαριασμός σου, όπως τα ιδιωτικά σου βίντεο, η λίστα «Παρακολούθηση αργότερα» και τα βίντεο που σου αρέσουν. Δεν χρειάζεται εξαγωγή cookie. [Περισσότερα για την Εξερεύνηση](#why-explore).
+
+_Τελευταία ενημέρωση: 2026-10-24._
 
 ---
 
@@ -181,6 +199,8 @@ Arroxy — Δωρεάν Ανοιχτού Κώδικα Λήψη YouTube (+ 2000 �
 ---
 
 ## <a id="install"></a>📥 Εγκατάσταση και πρώτη εκκίνηση
+
+**Απαιτήσεις:** Windows 10/11 · macOS 13+ (Intel ή Apple Silicon) · Linux (AppImage, Flatpak ή tar.gz).
 
 **Windows**
 
@@ -392,9 +412,9 @@ sha256sum Arroxy-linux-x64.AppImage
 
 Οι λήψεις γίνονται απευθείας μέσω [yt-dlp](https://github.com/yt-dlp/yt-dlp) από το YouTube στον φάκελο που επιλέγετε — τίποτα δεν δρομολογείται μέσω τρίτου διακομιστή. Το ιστορικό παρακολούθησης, το ιστορικό λήψεων, τα URL και τα περιεχόμενα αρχείων παραμένουν στη συσκευή σας.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Χωρίς παρακολούθηση.** Το Arroxy στέλνει μόνο ανώνυμες αναφορές που μας βοηθούν να μετράμε τους χρήστες και να διορθώνουμε προβλήματα — ποτέ τους συνδέσμους, τα βίντεο, τα αρχεία ή τους λογαριασμούς σου. Τις ελέγχεις από τις Ρυθμίσεις.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+Η Εξερεύνηση διατηρεί τις δικές της συνδέσεις, χωριστά από τον περιηγητή σου, και συνδέεσαι πάντα στη σελίδα του ίδιου του ιστοτόπου. Κάθε λήψη χρησιμοποιεί τη σύνδεση μόνο για τον συγκεκριμένο ιστότοπο, τη διαβάζει εκ νέου και διαγράφει το αντίγραφό της μετά τη χρήση. Η αποσύνδεση από την Εξερεύνηση στις Ρυθμίσεις διαγράφει τις αποθηκευμένες συνδέσεις.
 
 ---
 

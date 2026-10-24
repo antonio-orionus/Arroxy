@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — Бесплатни open-source YouTube (+ 2000 сајтова) преузимач са уграђеним прегледачем за Windows, macOS и Linux
+Бесплатан програм отвореног кода за преузимање са YouTube-а и више од 2000 сајтова, са уграђеним прегледачем. За Windows, macOS и Linux.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/%D0%A3%D0%B3%D1%80%D0%B0%D1%92%D0%B5%D0%BD%20%D0%BF%D1%80%D0%B5%D0%B3%D0%BB%D0%B5%D0%B4%D0%B0%D1%87-30363d?style=flat" alt="Уграђен прегледач" height="22" />
+  <img src="https://img.shields.io/badge/%D0%A2%D0%B2%D0%BE%D1%98%20%D0%BD%D0%B0%D0%BB%D0%BE%D0%B3-30363d?style=flat" alt="Твој налог" height="22" />
+  <img src="https://img.shields.io/badge/%D0%94%D0%BE%208K-30363d?style=flat" alt="До 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20%D0%BA%D0%B0%D0%B4%D1%80%D0%BE%D0%B2%D0%B0%2F%D1%81-30363d?style=flat" alt="60 кадрова/с" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Dolby%20%D0%B7%D0%B2%D1%83%D0%BA-30363d?style=flat" alt="Dolby звук" height="22" />
+  <img src="https://img.shields.io/badge/%D0%94%D0%B5%D0%BE%20%D0%B2%D0%B8%D0%B4%D0%B5%D0%B0-30363d?style=flat" alt="Део видеа" height="22" />
+  <img src="https://img.shields.io/badge/%D0%9F%D0%BB%D0%B5%D1%98%D0%BB%D0%B8%D1%81%D1%82%D0%B5-30363d?style=flat" alt="Плејлисте" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/%D0%A2%D0%B8%D1%82%D0%BB%D0%BE%D0%B2%D0%B8-30363d?style=flat" alt="Титлови" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20%D1%81%D0%B0%D1%98%D1%82%D0%BE%D0%B2%D0%B0-30363d?style=flat" alt="+2000 сајтова" height="22" />
+</p>
+
+[**↓ Инсталирај Arroxy**](#install) &nbsp;·&nbsp; [**Веб-сајт**](https://arroxy.com/)
+
+[Windows: прво покретање](#windows-first-launch) · [macOS: прво покретање](#macos-first-launch) · [Linux: прво покретање](#linux-first-launch)
+
+[![Издање](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Изградња](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Лиценца](https://img.shields.io/badge/license-GPLv3-blue) ![Језици](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Читај на:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · **Српски** · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Издање](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Изградња](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Веб-сајт](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Лиценца](https://img.shields.io/badge/license-GPLv3-blue) ![Платформе](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Језици](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Преузимајте видео снимке, Shorts, канале, подкасте или аудио записе са **YouTube-а и 2000+ подржаних сајтова** — до 8K HDR при 60 fps, у MP3 / AAC / Opus формату или само део који вам треба. **Прегледајте YouTube или било који други сајт унутар Arroxy-ја** на картици Истраживање и преузмите видео, плејлисту или канал који гледате; пријавите се ту да бисте преузимали видеа које ваш налог већ може да гледа. Ради локално на Windows-у, macOS-у и Linux-у. **Без реклама, без непотребног, без додатне продаје.**
-
-[**↓ Преузмите најновије издање**](#install) &nbsp;·&nbsp; [**Веб-сајт**](https://arroxy.com/) &nbsp;·&nbsp; [Windows: прво покретање](#windows-first-launch) · [macOS: прво покретање](#macos-first-launch) · [Linux: прво покретање](#linux-first-launch)
-
-[![Придружите се Discord заједници](https://img.shields.io/badge/%D0%9F%D1%80%D0%B8%D0%B4%D1%80%D1%83%D0%B6%D0%B8%D1%82%D0%B5%20%D1%81%D0%B5%20Discord%20%D0%B7%D0%B0%D1%98%D0%B5%D0%B4%D0%BD%D0%B8%D1%86%D0%B8-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Arroxy — Бесплатни open-source YouTube (+ 2000 сајтова) пре
   </tr>
 </table>
 
+Без реклама, ограничења коришћења и наметања плаћених надоградњи.
+
+[![Придружите се Discord заједници](https://img.shields.io/badge/%D0%9F%D1%80%D0%B8%D0%B4%D1%80%D1%83%D0%B6%D0%B8%D1%82%D0%B5%20%D1%81%D0%B5%20Discord%20%D0%B7%D0%B0%D1%98%D0%B5%D0%B4%D0%BD%D0%B8%D1%86%D0%B8-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Ако вам Arroxy уштеди времена, ⭐ помаже другима да га пронађу.
 
 </div>
 
-> **Шта је Arroxy?** Arroxy је бесплатан десктоп GUI отвореног кода који преузима видеа, аудио, плејлисте и титлове са YouTube-а и још 2000+ сајтова које подржава [yt-dlp](https://github.com/yt-dlp/yt-dlp). Ради на Windows 10/11, macOS 13+ (Intel + Apple Silicon) и Linux-у (AppImage, Flatpak, tar.gz). Лиценца GPLv3. Без реклама, без ограничења употребе. Дистрибуира се преко [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak-а, AppImage-а и директног преузимања.
->
-> **Кључна разлика: уграђен прегледач.** Већина бесплатних YouTube преузимача су танки омотачи око yt-dlp-а: поље за URL и мени формата, без сопственог прегледача. Arroxy га има, то је картица **Истраживање**. YouTube или било који други сајт прегледате унутар апликације и преузимате видео, плејлисту или канал на коме сте, или десним кликом на било који линк. Ако се једном пријавите у Истраживању, преузимања која захтевају налог користе ту пријаву: ваша приватна видеа, ваше листе „Гледај касније“ и „Свиђа ми се“ и друга видеа која ваш налог већ може да гледа, без извоза колачића. Пријавите се тамо и на другим сајтовима, а њихова преузимања користе ту пријаву када им затреба. Детаљи: [Зашто Arroxy](#why-explore).
->
-> _Последње ажурирање: 2026-10-24._
+## Прегледај, пријави се, преузми
+
+**Налепи линк или прегледај сајтове у апликацији.** На картици Истраживање преузми видео, плејлисту или канал који гледаш, или кликни десним тастером на линк да преузмеш његов садржај.
+
+Пријави се једном на сваки сајт да преузимаш садржај ком твој налог има приступ — укључујући приватне видео снимке и листе „Гледај касније“ и „Видео снимци који ти се свиђају“. Извоз колачића није потребан. [Више о Истраживању](#why-explore).
+
+_Последње ажурирање: 2026-10-24._
 
 ---
 
@@ -181,6 +199,8 @@ Arroxy — Бесплатни open-source YouTube (+ 2000 сајтова) пре
 ---
 
 ## <a id="install"></a>📥 Инсталација и прво покретање
+
+**Захтеви:** Windows 10/11 · macOS 13+ (Intel или Apple Silicon) · Linux (AppImage, Flatpak или tar.gz).
 
 **Windows**
 
@@ -392,9 +412,9 @@ Arroxy је направљен за једну ствар: чист локалн
 
 Преузимања се преузимају директно преко [yt-dlp](https://github.com/yt-dlp/yt-dlp) са YouTube-а у фасциклу коју одаберете — ништа не пролази кроз сервер треће стране. Историја гледања, историја преузимања, URL-ови и садржај фајлова остају на вашем уређају.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Без праћења.** Arroxy шаље само анонимне извештаје који нам помажу да бројимо кориснике и решавамо проблеме — никада твоје линкове, видео снимке, датотеке или податке о налозима. Њима управљаш у Подешавањима.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+Истраживање чува сопствене пријаве, одвојено од твог прегледача, а увек се пријављујеш на страници самог сајта. Преузимање користи пријаву само за тај сајт, сваки пут је чита изнова и потом брише своју копију. Одјављивање из Истраживања у Подешавањима брише сачуване пријаве.
 
 ---
 

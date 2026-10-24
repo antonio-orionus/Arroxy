@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — አብሮ የተሰራ አሳሽ ያለው ነፃ ምን ኮድ ያለው YouTube (+ 2000 ጣቢያ) አውራጅ ለ Windows, macOS እና Linux
+አብሮ የተሠራ አሳሽ ያለው ነፃና ክፍት ምንጭ የYouTube እና የ2000+ ጣቢያዎች ማውረጃ። ለWindows፣ macOS እና Linux።
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/%E1%8A%A0%E1%89%A5%E1%88%AE%20%E1%8B%A8%E1%89%B0%E1%88%A0%E1%88%AB%20%E1%8A%A0%E1%88%B3%E1%88%BD-30363d?style=flat" alt="አብሮ የተሠራ አሳሽ" height="22" />
+  <img src="https://img.shields.io/badge/%E1%8B%A8%E1%88%AB%E1%88%B5%E1%8B%8E%20%E1%88%98%E1%8C%8D%E1%89%A2%E1%8B%AB-30363d?style=flat" alt="የራስዎ መግቢያ" height="22" />
+  <img src="https://img.shields.io/badge/%E1%8A%A5%E1%88%B5%E1%8A%A8%208K-30363d?style=flat" alt="እስከ 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20%E1%8D%8D%E1%88%AC%E1%88%9E%E1%89%BD%2F%E1%88%B0%E1%8A%A8%E1%8A%95%E1%8B%B5-30363d?style=flat" alt="60 ፍሬሞች/ሰከንድ" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Dolby%20%E1%8B%B5%E1%88%9D%E1%8D%85-30363d?style=flat" alt="Dolby ድምፅ" height="22" />
+  <img src="https://img.shields.io/badge/%E1%8B%A8%E1%89%AA%E1%8B%B2%E1%8B%AE%20%E1%8A%AD%E1%8D%8D%E1%88%8D-30363d?style=flat" alt="የቪዲዮ ክፍል" height="22" />
+  <img src="https://img.shields.io/badge/%E1%8A%A0%E1%8C%AB%E1%8B%8B%E1%89%BD%20%E1%8B%9D%E1%88%AD%E1%8B%9D%E1%88%AE%E1%89%BD-30363d?style=flat" alt="አጫዋች ዝርዝሮች" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/%E1%8B%A8%E1%89%B5%E1%88%AD%E1%8C%89%E1%88%9D%20%E1%8C%BD%E1%88%91%E1%8D%8E%E1%89%BD-30363d?style=flat" alt="የትርጉም ጽሑፎች" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20%E1%8C%A3%E1%89%A2%E1%8B%AB%E1%8B%8E%E1%89%BD-30363d?style=flat" alt="+2000 ጣቢያዎች" height="22" />
+</p>
+
+[**↓ Arroxyን ይጫኑ**](#install) &nbsp;·&nbsp; [**ድር ጣቢያ**](https://arroxy.com/)
+
+[Windows ላይ ለመጀመሪያ ጊዜ አስጀምር](#windows-first-launch) · [macOS ላይ ለመጀመሪያ ጊዜ አስጀምር](#macos-first-launch) · [Linux ላይ ለመጀመሪያ ጊዜ አስጀምር](#linux-first-launch)
+
+[![ስሪት](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![ግንባታ](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![ፈቃድ](https://img.shields.io/badge/license-GPLv3-blue) ![ቋንቋዎች](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **አንብብ በ:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · **አማርኛ** · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![ስሪት](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![ግንባታ](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![ድር ጣቢያ](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![ፈቃድ](https://img.shields.io/badge/license-GPLv3-blue) ![ሥርዓቶች](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![ቋንቋዎች](https://img.shields.io/badge/i18n-50_languages-blue)
-
-ቪዲዮዎች፣ Shorts፣ ቻናሎች፣ ፖድካስቶች ወይም የድምፅ ትራኮች ከ**YouTube እና ከ2000+ የሚደገፉ ጣቢያዎች** ያውርዱ — እስከ 8K HDR በ60 fps፣ እንደ MP3 / AAC / Opus፣ ወይም የሚፈልጉትን ክፍል ብቻ። በዳሰሳ ትር **YouTubeን ወይም ማንኛውንም ሌላ ጣቢያ በArroxy ውስጥ ያስሱ** እና እየተመለከቱት ያለውን ቪዲዮ፣ playlist ወይም channel ያውርዱ፤ የራስዎ ሒሳብ አስቀድሞ ማየት የሚችላቸውን ቪዲዮዎች ለማውረድ እዚያ ይግቡ። በ Windows፣ macOS፣ እና Linux ላይ አካባቢያዊ ሆኖ ይሠራል። **ምንም ማስታወቂያ፣ ምንም ብዝሃ ሸቀጥ፣ ምንም ተጨማሪ ሽያጭ።**
-
-[**↓ የቅርብ ጊዜ ስሪት አውርድ**](#install) &nbsp;·&nbsp; [**ድር ጣቢያ**](https://arroxy.com/) &nbsp;·&nbsp; [Windows ላይ ለመጀመሪያ ጊዜ አስጀምር](#windows-first-launch) · [macOS ላይ ለመጀመሪያ ጊዜ አስጀምር](#macos-first-launch) · [Linux ላይ ለመጀመሪያ ጊዜ አስጀምር](#linux-first-launch)
-
-[![የDiscord ማህበረሰብን ይቀላቀሉ](https://img.shields.io/badge/%E1%8B%A8Discord%20%E1%88%9B%E1%88%85%E1%89%A0%E1%88%A8%E1%88%B0%E1%89%A5%E1%8A%95%20%E1%8B%AD%E1%89%80%E1%88%8B%E1%89%80%E1%88%89-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Arroxy — አብሮ የተሰራ አሳሽ ያለው ነፃ ምን ኮድ ያ�
   </tr>
 </table>
 
+ማስታወቂያ፣ የአጠቃቀም ገደብ ወይም ተጨማሪ ግዢ ማበረታቻ የለም።
+
+[![የDiscord ማህበረሰብን ይቀላቀሉ](https://img.shields.io/badge/%E1%8B%A8Discord%20%E1%88%9B%E1%88%85%E1%89%A0%E1%88%A8%E1%88%B0%E1%89%A5%E1%8A%95%20%E1%8B%AD%E1%89%80%E1%88%8B%E1%89%80%E1%88%89-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረዳል።
 
 </div>
 
-> **Arroxy ምንድን ነው?** Arroxy ነፃ፣ ክፍት-ምንጭ የዴስክቶፕ GUI ሲሆን ከYouTube እና ከሌሎች 2000+ በ[yt-dlp](https://github.com/yt-dlp/yt-dlp) ከሚደገፉ ጣቢያዎች ቪዲዮዎችን፣ ድምፅን፣ playlistዎችን እና ንዑስ ርዕሶችን ያወርዳል። በWindows 10/11፣ macOS 13+ (Intel + Apple Silicon) እና Linux (AppImage፣ Flatpak፣ tar.gz) ላይ ይሠራል። በGPLv3 ፈቃድ የተሰጠ ነው። ማስታወቂያ የለም፣ የአጠቃቀም ገደብ የለም። በ[Winget](https://winget.run/pkg/AntonioOrionus/Arroxy)፣ [Scoop](https://github.com/antonio-orionus/scoop-bucket)፣ [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy)፣ Flatpak፣ AppImage እና በቀጥታ ማውረድ ይሰራጫል።
->
-> **ዋናው ልዩነት፡ አብሮ የተሠራ browser።** አብዛኞቹ ነፃ የYouTube ማውረጃዎች ቀጭን የyt-dlp መጠቅለያዎች ናቸው፦ የURL ሳጥን እና የቅርጸት ምናሌ፣ የራሳቸው browser የሌላቸው። Arroxy አንድ አለው፣ **የዳሰሳ ትር**። በአፑ ውስጥ YouTubeን ወይም ማንኛውንም ሌላ ጣቢያ ያስሳሉ እና ያሉበትን ቪዲዮ፣ playlist ወይም ቻናል ያወርዳሉ፣ ወይም በማንኛውም ሊንክ ላይ በቀኝ ጠቅ ያደርጋሉ። በዳሰሳ ውስጥ አንድ ጊዜ ከገቡ፣ ሒሳብ የሚፈልጉ ማውረዶች ያንን መግቢያ ይጠቀማሉ፦ የግል ቪዲዮዎችዎ፣ የ“በኋላ ይመልከቱ” እና የወደዷቸው ቪዲዮዎች ዝርዝሮችዎ፣ እና ሒሳብዎ አስቀድሞ ማየት የሚችላቸው ሌሎች ቪዲዮዎች፣ ኩኪዎችን ወደ ውጭ መላክ ሳያስፈልግ። ወደ ሌሎች ጣቢያዎችም እዚያ ይግቡ፣ ማውረዶቻቸውም ሲያስፈልግ ያንን መግቢያ ይጠቀማሉ። ዝርዝሮች፦ [ለምን Arroxy](#why-explore)።
->
-> _መጨረሻ የተዘመነው፦ 2026-10-24።_
+## ያስሱ፣ ይግቡ፣ ያውርዱ
+
+**አገናኝ ይለጥፉ ወይም በመተግበሪያው ውስጥ ያስሱ።** እየተመለከቱት ያለውን ቪዲዮ፣ አጫዋች ዝርዝር ወይም ቻናል ለማውረድ የዳሰሳ ትርን ይጠቀሙ፣ ወይም አገናኙን ለማውረድ በቀኝ ጠቅ ያድርጉበት።
+
+ሒሳብዎ ማየት የሚችለውን ይዘት ለማውረድ ወደ ጣቢያው አንድ ጊዜ ይግቡ፤ የግል ቪዲዮዎችዎን፣ የ“በኋላ ይመልከቱ” እና የወደዷቸው ቪዲዮዎች ዝርዝሮችንም ያካትታል። ኩኪዎችን ወደ ውጭ መላክ አያስፈልግም። [ስለ ዳሰሳ ተጨማሪ](#why-explore)።
+
+_መጨረሻ የተዘመነው፦ 2026-10-24።_
 
 ---
 
@@ -181,6 +199,8 @@ Arroxy ጊዜ ካስቆጠበዎ፣ ⭐ ሌሎች እንዲያገኙት ይረ�
 ---
 
 ## <a id="install"></a>📥 መጫን እና የመጀመሪያ ማስነሳት
+
+**መስፈርቶች፦** Windows 10/11 · macOS 13+ (Intel ወይም Apple Silicon) · Linux (AppImage፣ Flatpak ወይም tar.gz)።
 
 **Windows**
 
@@ -392,9 +412,9 @@ Arroxy ለአንድ ነገር ብቻ ተሠርቷል: URL ቢለጥፉም ሆነ
 
 ማውረዶቹ ቀጥታ በ [yt-dlp](https://github.com/yt-dlp/yt-dlp) ከ YouTube ወደ መረጡት አቃፊ ይወርዳሉ — ምንም ሦስተኛ ወገን ሰርቨር አይሆንም። የእይታ ታሪክ፣ የማውረድ ታሪክ፣ URLs፣ እና የፋይሎቹ ይዘቶች በመሳሪያዎ ላይ ይቆያሉ።
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**ክትትል የለም።** Arroxy የሚልከው ተጠቃሚዎችን ለመቁጠርና ችግሮችን ለማስተካከል የሚረዱ ማንነት የማይገልጹ ሪፖርቶችን ብቻ ነው፤ አገናኞችዎን፣ ቪዲዮዎችዎን፣ ፋይሎችዎን ወይም ሒሳቦችዎን ፈጽሞ አይልክም። በቅንብሮች ውስጥ እርስዎ ይቆጣጠሯቸዋል።
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+ዳሰሳ ከአሳሽዎ የተለዩ የራሱን መግቢያዎች ያስቀምጣል፣ ሁልጊዜም በጣቢያው በራሱ ገጽ ላይ ይገባሉ። አንድ ማውረድ መግቢያውን ለዚያ ጣቢያ ብቻ ይጠቀማል፣ በእያንዳንዱ ጊዜ አዲስ ያነበዋል እና በኋላ ቅጂውን ይሰርዛል። በቅንብሮች ውስጥ ከዳሰሳ መውጣት የተቀመጡትን መግቢያዎች ያስወግዳል።
 
 ---
 

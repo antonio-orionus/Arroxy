@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — Descarregador gratuït i de codi obert de YouTube (+ 2000 llocs) amb navegador integrat, per a Windows, macOS i Linux
+Descarregador gratuït i de codi obert per a YouTube i més de 2000 llocs, amb navegador integrat. Per a Windows, macOS i Linux.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/Navegador%20integrat-30363d?style=flat" alt="Navegador integrat" height="22" />
+  <img src="https://img.shields.io/badge/Amb%20la%20teva%20sessi%C3%B3-30363d?style=flat" alt="Amb la teva sessió" height="22" />
+  <img src="https://img.shields.io/badge/Fins%20a%208K-30363d?style=flat" alt="Fins a 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20fps-30363d?style=flat" alt="60 fps" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/%C3%80udio%20Dolby-30363d?style=flat" alt="Àudio Dolby" height="22" />
+  <img src="https://img.shields.io/badge/Fragment%20d%27un%20v%C3%ADdeo-30363d?style=flat" alt="Fragment d'un vídeo" height="22" />
+  <img src="https://img.shields.io/badge/Llistes%20de%20reproducci%C3%B3-30363d?style=flat" alt="Llistes de reproducció" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/Subt%C3%ADtols-30363d?style=flat" alt="Subtítols" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20llocs-30363d?style=flat" alt="+2000 llocs" height="22" />
+</p>
+
+[**↓ Instal·la Arroxy**](#install) &nbsp;·&nbsp; [**Lloc web**](https://arroxy.com/)
+
+[Primer inici a Windows](#windows-first-launch) · [Primer inici a macOS](#macos-first-launch) · [Primer inici a Linux](#linux-first-launch)
+
+[![Versió](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Compilació](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Llicència](https://img.shields.io/badge/license-GPLv3-blue) ![Idiomes](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Llegeix-ho en:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · **Català** · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Versió](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Compilació](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Lloc web](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Llicència](https://img.shields.io/badge/license-GPLv3-blue) ![Plataformes](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Idiomes](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Descarrega vídeos, Shorts, canals, pòdcasts o pistes d'àudio de **YouTube i més de 2000 llocs compatibles**: fins a 8K HDR a 60 fps, com a MP3 / AAC / Opus, o només el fragment que necessites. **Navega per YouTube o per qualsevol altre lloc dins d'Arroxy** a la pestanya Explora i descarrega el vídeo, la llista de reproducció o el canal que estàs veient; inicia-hi la sessió per baixar els vídeos que el teu propi compte ja pot veure. Funciona en local a Windows, macOS i Linux. **Sense anuncis, sense programari innecessari, sense vendes addicionals.**
-
-[**↓ Instal·la l'última versió**](#install) &nbsp;·&nbsp; [**Lloc web**](https://arroxy.com/) &nbsp;·&nbsp; [Primer inici a Windows](#windows-first-launch) · [Primer inici a macOS](#macos-first-launch) · [Primer inici a Linux](#linux-first-launch)
-
-[![Participa a la comunitat de Discord](https://img.shields.io/badge/Participa%20a%20la%20comunitat%20de%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Descarrega vídeos, Shorts, canals, pòdcasts o pistes d'àudio de **YouTube i m
   </tr>
 </table>
 
+Sense anuncis, límits d'ús ni vendes addicionals.
+
+[![Participa a la comunitat de Discord](https://img.shields.io/badge/Participa%20a%20la%20comunitat%20de%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Si Arroxy t'estalvia temps, una ⭐ ajuda que altres el trobin.
 
 </div>
 
-> **Què és Arroxy?** Arroxy és una interfície d'escriptori gratuïta i de codi obert que descarrega vídeos, àudio, llistes de reproducció i subtítols de YouTube i de més de 2000 llocs compatibles amb [yt-dlp](https://github.com/yt-dlp/yt-dlp). Funciona a Windows 10/11, macOS 13+ (Intel + Apple Silicon) i Linux (AppImage, Flatpak, tar.gz). Llicència GPLv3. Sense anuncis ni límits d'ús. Es distribueix mitjançant [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage i descàrrega directa.
->
-> **La diferència clau: un navegador integrat.** La majoria de descarregadors gratuïts de YouTube són embolcalls prims de yt-dlp: un quadre d'URL i un menú de formats, sense navegador propi. Arroxy en té un, la **pestanya Explora**. Navegues per YouTube o per qualsevol altre lloc dins de l'aplicació i descarregues el vídeo, la llista o el canal on ets, o fas clic dret en qualsevol enllaç. Si inicies la sessió una vegada a Explora, les descàrregues que requereixen un compte faran servir aquest inici de sessió: els teus vídeos privats, les teves llistes Mira-ho més tard i M'agrada, i altres vídeos que el teu compte ja pot veure, sense exportar galetes. Hi inicies la sessió també en altres llocs, i les seves descàrregues faran servir aquest inici de sessió quan el necessitin. Detalls: [Per què Arroxy](#why-explore).
->
-> _Última actualització: 2026-10-24._
+## Navega, inicia la sessió i descarrega
+
+**Enganxa un enllaç o navega dins de l'aplicació.** Fes servir la pestanya Explora per descarregar el vídeo, la llista de reproducció o el canal que estàs veient, o fes clic dret en un enllaç per descarregar-lo.
+
+Inicia la sessió una vegada en cada lloc per descarregar contingut al qual el teu compte tingui accés, inclosos els vídeos privats i les llistes Mira-ho més tard i M'agrada. No cal exportar galetes. [Més sobre Explora](#why-explore).
+
+_Última actualització: 2026-10-24._
 
 > 🌐 Aquesta traducció s'ha fet amb ajuda de la IA. El [README en anglès](../../README.md) és la font principal. Has trobat un error? [Obre una PR](../../../../pulls).
 
@@ -183,6 +201,8 @@ Si Arroxy t'estalvia temps, una ⭐ ajuda que altres el trobin.
 ---
 
 ## <a id="install"></a>📥 Instal·lació i primer inici
+
+**Requisits:** Windows 10/11 · macOS 13+ (Intel o Apple Silicon) · Linux (AppImage, Flatpak o tar.gz).
 
 **Windows**
 
@@ -394,9 +414,9 @@ La majoria de descarregadors gratuïts de YouTube són un quadre d'URL sobre yt-
 
 Les descàrregues s'obtenen directament mitjançant [yt-dlp](https://github.com/yt-dlp/yt-dlp) de YouTube a la carpeta que triïs — res no passa per un servidor de tercers. L'historial de reproducció, l'historial de descàrregues, les URL i el contingut dels fitxers es queden al teu dispositiu.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Sense seguiment.** Arroxy només envia informes anònims que ens ajuden a comptar usuaris i resoldre problemes; mai els teus enllaços, vídeos, fitxers ni comptes. Els pots controlar a la configuració.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+Explora conserva els seus propis inicis de sessió, separats del teu navegador, i sempre inicies la sessió a la pàgina del mateix lloc. Cada descàrrega només fa servir l'inici de sessió d'aquell lloc, el llegeix de nou i n'elimina la còpia després. Tancar la sessió d'Explora a la configuració els esborra.
 
 ---
 

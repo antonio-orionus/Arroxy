@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — 內建瀏覽器的免費開源 YouTube（+ 2000 個網站）下載工具，支援 Windows、macOS 和 Linux
+適用於 YouTube 和 2000 多個網站的免費開源下載工具，內建瀏覽器。支援 Windows、macOS 和 Linux。
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/%E5%85%A7%E5%BB%BA%E7%80%8F%E8%A6%BD%E5%99%A8-30363d?style=flat" alt="內建瀏覽器" height="22" />
+  <img src="https://img.shields.io/badge/%E4%BD%BF%E7%94%A8%E8%87%AA%E5%B7%B1%E7%9A%84%E5%B8%B3%E8%99%9F%E7%99%BB%E5%85%A5-30363d?style=flat" alt="使用自己的帳號登入" height="22" />
+  <img src="https://img.shields.io/badge/%E6%9C%80%E9%AB%98%208K-30363d?style=flat" alt="最高 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20%E5%BD%B1%E6%A0%BC%2F%E7%A7%92-30363d?style=flat" alt="60 影格/秒" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Dolby%20%E9%9F%B3%E8%A8%8A-30363d?style=flat" alt="Dolby 音訊" height="22" />
+  <img src="https://img.shields.io/badge/%E5%BD%B1%E7%89%87%E7%89%87%E6%AE%B5-30363d?style=flat" alt="影片片段" height="22" />
+  <img src="https://img.shields.io/badge/%E6%92%AD%E6%94%BE%E6%B8%85%E5%96%AE-30363d?style=flat" alt="播放清單" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/%E5%AD%97%E5%B9%95-30363d?style=flat" alt="字幕" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/2000%20%E5%A4%9A%E5%80%8B%E7%B6%B2%E7%AB%99-30363d?style=flat" alt="2000 多個網站" height="22" />
+</p>
+
+[**↓ 安裝 Arroxy**](#install) &nbsp;·&nbsp; [**官網**](https://arroxy.com/)
+
+[Windows 首次啟動](#windows-first-launch) · [macOS 首次啟動](#macos-first-launch) · [Linux 首次啟動](#linux-first-launch)
+
+[![釋出](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![建置](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![授權條款](https://img.shields.io/badge/license-GPLv3-blue) ![語言](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **閱讀語言：** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · **繁體中文**
-
-[![釋出](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![建置](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![官網](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![授權條款](https://img.shields.io/badge/license-GPLv3-blue) ![平台](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![語言](https://img.shields.io/badge/i18n-50_languages-blue)
-
-從 **YouTube 和 2000+ 個支援的網站**下載影片、Shorts、頻道、Podcast或音軌 — 最高 8K HDR 60 fps，可匯出為 MP3 / AAC / Opus，也可以只下載你需要的片段。在 Explore 分頁中**在 Arroxy 內瀏覽 YouTube 或任何其他網站**，下載你正在看的影片、播放清單或頻道；在那裡登入後，就能下載你的帳號本來就能觀看的影片。在 Windows、macOS 和 Linux 本機執行。**無廣告、無臃腫、無付費推銷。**
-
-[**↓ 下載最新版本**](#install) &nbsp;·&nbsp; [**官網**](https://arroxy.com/) &nbsp;·&nbsp; [Windows 首次啟動](#windows-first-launch) · [macOS 首次啟動](#macos-first-launch) · [Linux 首次啟動](#linux-first-launch)
-
-[![加入 Discord 社群](https://img.shields.io/badge/%E5%8A%A0%E5%85%A5%20Discord%20%E7%A4%BE%E7%BE%A4-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Arroxy — 內建瀏覽器的免費開源 YouTube（+ 2000 個網站）下載工
   </tr>
 </table>
 
+無廣告、無使用限制，也不會誘導你付費升級。
+
+[![加入 Discord 社群](https://img.shields.io/badge/%E5%8A%A0%E5%85%A5%20Discord%20%E7%A4%BE%E7%BE%A4-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 如果 Arroxy 幫你節省了時間，點個 ⭐ 讓更多人發現它。
 
 </div>
 
-> **Arroxy 是什麼？** Arroxy 是一款免費、開源的桌面 GUI，可從 YouTube 以及 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 支援的 2000 多個其他網站下載影片、音訊、播放清單和字幕。支援 Windows 10/11、macOS 13+（Intel + Apple Silicon）與 Linux（AppImage、Flatpak、tar.gz）。採用 GPLv3 授權。無廣告，無使用限制。可透過 [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy)、[Scoop](https://github.com/antonio-orionus/scoop-bucket)、[Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy)、Flatpak、AppImage 及直接下載取得。
->
-> **關鍵差異：內建瀏覽器。** 多數免費 YouTube 下載器只是單薄的 yt-dlp 包裝程式：一個網址輸入框加一個格式選單，沒有自己的瀏覽器。Arroxy 有，就是 **Explore 分頁**。你可以在應用程式內瀏覽 YouTube 或任何其他網站，直接下載目前所在的影片、播放清單或頻道，或對任何連結按右鍵。如果你在 Explore 登入一次，需要帳號的下載就會使用該登入：你的私人影片、你的「稍後觀看」和「喜歡的影片」清單，以及你的帳號本來就能觀看的其他影片，無需匯出 Cookie。你也可以在 Explore 登入其他網站，這些網站的下載在需要時會使用該登入。詳情：[為什麼選 Arroxy](#why-explore)。
->
-> _最後更新：2026-10-24。_
+## 瀏覽、登入、下載
+
+**貼上連結，或直接在應用程式內瀏覽。** 在探索分頁下載你正在瀏覽的影片、播放清單或頻道，也可以對連結按右鍵進行下載。
+
+在某個網站登入一次，即可下載你的帳號有權存取的內容，包括私人影片、「稍後觀看」和「喜歡的影片」清單。無需匯出 Cookie。[進一步瞭解探索](#why-explore)。
+
+_最後更新：2026-10-24。_
 
 > 🌐 這是 AI 輔助翻譯。[英文 README](../../README.md) 是內容基準。發現錯誤？歡迎 [建立 PR](../../../../pulls)。
 
@@ -183,6 +201,8 @@ Arroxy — 內建瀏覽器的免費開源 YouTube（+ 2000 個網站）下載工
 ---
 
 ## <a id="install"></a>📥 安裝和首次啟動
+
+**系統需求：** Windows 10/11 · macOS 13+（Intel 或 Apple Silicon）· Linux（AppImage、Flatpak 或 tar.gz）。
 
 **Windows**
 
@@ -394,9 +414,9 @@ Arroxy 只做一件事：無論你是貼上連結，還是在 Explore 中找到�
 
 下載透過 [yt-dlp](https://github.com/yt-dlp/yt-dlp) 直接從 YouTube 取得到你選擇的資料夾 — 不經過任何第三方伺服器。觀看歷史、下載歷史、URL 和檔案內容均保留在你的裝置上。
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**不進行追蹤。** Arroxy 只傳送匿名報告，用於統計使用者人數和修正問題，絕不會傳送你的連結、影片、檔案或帳號。你可以在設定中控制這些報告。
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+探索單獨儲存登入資訊，與瀏覽器分開，登入一律在網站自己的頁面上完成。每次下載只會使用對應網站的登入資訊，使用時重新讀取，並在結束後刪除其副本。在設定中登出探索後，儲存的登入資訊也會被清除。
 
 ---
 

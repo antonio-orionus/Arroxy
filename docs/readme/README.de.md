@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — Kostenloser Open-Source YouTube (+ 2000 Seiten) Downloader mit eingebautem Browser für Windows, macOS & Linux
+Kostenloser Open-Source-Downloader für YouTube und über 2000 Seiten, mit integriertem Browser. Für Windows, macOS und Linux.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/Integrierter%20Browser-30363d?style=flat" alt="Integrierter Browser" height="22" />
+  <img src="https://img.shields.io/badge/Deine%20eigene%20Anmeldung-30363d?style=flat" alt="Deine eigene Anmeldung" height="22" />
+  <img src="https://img.shields.io/badge/Bis%20zu%208K-30363d?style=flat" alt="Bis zu 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20fps-30363d?style=flat" alt="60 fps" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Dolby--Audio-30363d?style=flat" alt="Dolby-Audio" height="22" />
+  <img src="https://img.shields.io/badge/Videoausschnitte-30363d?style=flat" alt="Videoausschnitte" height="22" />
+  <img src="https://img.shields.io/badge/Playlists-30363d?style=flat" alt="Playlists" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/Untertitel-30363d?style=flat" alt="Untertitel" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20Seiten-30363d?style=flat" alt="+2000 Seiten" height="22" />
+</p>
+
+[**↓ Arroxy installieren**](#install) &nbsp;·&nbsp; [**Webseite**](https://arroxy.com/de/)
+
+[Windows-Erststart](#windows-first-launch) · [macOS-Erststart](#macos-first-launch) · [Linux-Erststart](#linux-first-launch)
+
+[![Release](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![License](https://img.shields.io/badge/license-GPLv3-blue) ![Languages](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Sprache:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · **Deutsch** · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Release](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Webseite](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/de/) ![License](https://img.shields.io/badge/license-GPLv3-blue) ![Platforms](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Languages](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Lade Videos, Shorts, Kanäle, Podcasts oder Audiotracks von **YouTube und 2000+ unterstützten Seiten** herunter — bis zu 8K HDR mit 60 fps, als MP3 / AAC / Opus oder nur den Teil, den du brauchst. **Durchstöbere YouTube oder jede andere Seite direkt in Arroxy** im Tab „Entdecken“ und lade das Video, die Playlist oder den Kanal herunter, den du gerade ansiehst; melde dich dort an, um Videos herunterzuladen, die dein eigenes Konto bereits ansehen darf. Läuft lokal auf Windows, macOS und Linux. **Keine Werbung, kein Bloat, kein Upselling.**
-
-[**↓ Neueste Version herunterladen**](#install) &nbsp;·&nbsp; [**Webseite**](https://arroxy.com/de/) &nbsp;·&nbsp; [Windows-Erststart](#windows-first-launch) · [macOS-Erststart](#macos-first-launch) · [Linux-Erststart](#linux-first-launch)
-
-[![Discord-Community beitreten](https://img.shields.io/badge/Discord%2DCommunity%20beitreten-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Lade Videos, Shorts, Kanäle, Podcasts oder Audiotracks von **YouTube und 2000+ 
   </tr>
 </table>
 
+Keine Werbung, keine Nutzungslimits, kein Upselling.
+
+[![Discord-Community beitreten](https://img.shields.io/badge/Discord%2DCommunity%20beitreten-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.
 
 </div>
 
-> **Was ist Arroxy?** Arroxy ist eine kostenlose, quelloffene Desktop-Oberfläche, die Videos, Audio, Playlists und Untertitel von YouTube und über 2000 weiteren Seiten lädt, die von [yt-dlp](https://github.com/yt-dlp/yt-dlp) unterstützt werden. Es läuft unter Windows 10/11, macOS 13+ (Intel + Apple Silicon) und Linux (AppImage, Flatpak, tar.gz). Lizenziert unter GPLv3. Keine Werbung, keine Nutzungslimits. Verteilt über [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage und als direkter Download.
->
-> **Der entscheidende Unterschied: ein integrierter Browser.** Die meisten kostenlosen YouTube-Downloader sind dünne yt-dlp-Wrapper: ein URL-Feld und ein Formatmenü, ohne eigenen Browser. Arroxy hat einen, den **Tab „Entdecken“**. Du stöberst in der App auf YouTube oder jeder anderen Seite und lädst das Video, die Playlist oder den Kanal herunter, auf dem du gerade bist, oder klickst mit der rechten Maustaste auf einen beliebigen Link. Wenn du dich einmal in Entdecken anmeldest, nutzen Downloads, die ein Konto brauchen, diese Anmeldung: deine privaten Videos, deine Listen „Später ansehen“ und „Gefällt mir“ und andere Videos, die dein Konto bereits ansehen darf, ganz ohne Cookie-Export. Melde dich dort auch bei anderen Seiten an, und deren Downloads nutzen diese Anmeldung, wenn sie sie brauchen. Details: [Warum Arroxy](#why-explore).
->
-> _Zuletzt aktualisiert: 2026-10-24._
+## Stöbern, anmelden, herunterladen
+
+**Füge einen Link ein oder stöbere direkt in der App.** Lade im Tab „Entdecken“ das Video, die Playlist oder den Kanal herunter, den du gerade ansiehst, oder klicke zum Herunterladen mit der rechten Maustaste auf einen Link.
+
+Melde dich auf jeder Seite einmal an, um Inhalte herunterzuladen, auf die dein Konto zugreifen darf – darunter private Videos sowie die Listen „Später ansehen“ und „Videos, die ich mag“. Kein Cookie-Export nötig. [Mehr über Entdecken](#why-explore).
+
+_Zuletzt aktualisiert: 2026-10-24._
 
 > 🌐 Dies ist eine KI-gestützte Übersetzung. Die [englische README](../../README.md) ist die maßgebliche Quelle. Fehler entdeckt? [PRs sind willkommen](../../../../pulls).
 
@@ -183,6 +201,8 @@ Wenn Arroxy dir Zeit spart, hilft ein ⭐ anderen, es zu finden.
 ---
 
 ## <a id="install"></a>📥 Installieren und erster Start
+
+**Systemanforderungen:** Windows 10/11 · macOS 13+ (Intel oder Apple Silicon) · Linux (AppImage, Flatpak oder tar.gz).
 
 **Windows**
 
@@ -394,9 +414,9 @@ Die meisten kostenlosen YouTube-Downloader sind ein URL-Feld über yt-dlp. Arrox
 
 Downloads werden direkt über [yt-dlp](https://github.com/yt-dlp/yt-dlp) von YouTube in den von dir gewählten Ordner geholt — nichts wird über einen Drittanbieter-Server geleitet. Verlauf, Download-Historie, URLs und Dateiinhalte bleiben auf deinem Gerät.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Kein Tracking.** Arroxy sendet nur anonyme Berichte, die uns helfen, Nutzer zu zählen und Probleme zu beheben – niemals deine Links, Videos, Dateien oder Kontodaten. Du steuerst sie in den Einstellungen.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+Entdecken speichert eigene Anmeldungen, getrennt von deinem Browser, und du meldest dich immer auf der eigenen Seite der Website an. Ein Download verwendet eine Anmeldung nur für die jeweilige Seite, liest sie jedes Mal neu aus und löscht seine Kopie danach. Wenn du dich in den Einstellungen von Entdecken abmeldest, werden die gespeicherten Anmeldungen gelöscht.
 
 ---
 

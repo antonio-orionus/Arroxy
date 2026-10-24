@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — Trình tải YouTube (+ 2000 trang) miễn phí và mã nguồn mở, có trình duyệt tích hợp, cho Windows, macOS & Linux
+Trình tải miễn phí, mã nguồn mở cho YouTube và hơn 2000 trang web, có trình duyệt tích hợp. Dành cho Windows, macOS và Linux.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/Tr%C3%ACnh%20duy%E1%BB%87t%20t%C3%ADch%20h%E1%BB%A3p-30363d?style=flat" alt="Trình duyệt tích hợp" height="22" />
+  <img src="https://img.shields.io/badge/T%C3%A0i%20kho%E1%BA%A3n%20c%E1%BB%A7a%20b%E1%BA%A1n-30363d?style=flat" alt="Tài khoản của bạn" height="22" />
+  <img src="https://img.shields.io/badge/L%C3%AAn%20%C4%91%E1%BA%BFn%208K-30363d?style=flat" alt="Lên đến 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20khung%20h%C3%ACnh%2Fgi%C3%A2y-30363d?style=flat" alt="60 khung hình/giây" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/%C3%82m%20thanh%20Dolby-30363d?style=flat" alt="Âm thanh Dolby" height="22" />
+  <img src="https://img.shields.io/badge/M%E1%BB%99t%20ph%E1%BA%A7n%20video-30363d?style=flat" alt="Một phần video" height="22" />
+  <img src="https://img.shields.io/badge/Danh%20s%C3%A1ch%20ph%C3%A1t-30363d?style=flat" alt="Danh sách phát" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/Ph%E1%BB%A5%20%C4%91%E1%BB%81-30363d?style=flat" alt="Phụ đề" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20trang%20web-30363d?style=flat" alt="+2000 trang web" height="22" />
+</p>
+
+[**↓ Cài đặt Arroxy**](#install) &nbsp;·&nbsp; [**Trang web**](https://arroxy.com/)
+
+[Lần đầu khởi động trên Windows](#windows-first-launch) · [Lần đầu khởi động trên macOS](#macos-first-launch) · [Lần đầu khởi động trên Linux](#linux-first-launch)
+
+[![Phiên bản](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Giấy phép](https://img.shields.io/badge/license-GPLv3-blue) ![Ngôn ngữ](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Đọc bằng:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · **Tiếng Việt** · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Phiên bản](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Trang web](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Giấy phép](https://img.shields.io/badge/license-GPLv3-blue) ![Nền tảng](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Ngôn ngữ](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Tải xuống video, Shorts, kênh, podcast hoặc bản nhạc từ **YouTube và hơn 2000 trang được hỗ trợ** — lên tới 8K HDR ở 60 fps, dưới dạng MP3 / AAC / Opus, hoặc chỉ đoạn bạn cần. **Duyệt YouTube hoặc bất kỳ trang nào khác ngay trong Arroxy** ở tab Explore và tải video, danh sách phát hoặc kênh bạn đang xem; đăng nhập tại đó để tải các video mà chính tài khoản của bạn đã xem được. Chạy hoàn toàn cục bộ trên Windows, macOS và Linux. **Không quảng cáo, không phồng to, không bán thêm.**
-
-[**↓ Tải phiên bản mới nhất**](#install) &nbsp;·&nbsp; [**Trang web**](https://arroxy.com/) &nbsp;·&nbsp; [Lần đầu khởi động trên Windows](#windows-first-launch) · [Lần đầu khởi động trên macOS](#macos-first-launch) · [Lần đầu khởi động trên Linux](#linux-first-launch)
-
-[![Tham gia cộng đồng Discord](https://img.shields.io/badge/Tham%20gia%20c%E1%BB%99ng%20%C4%91%E1%BB%93ng%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Tải xuống video, Shorts, kênh, podcast hoặc bản nhạc từ **YouTube v
   </tr>
 </table>
 
+Không quảng cáo, giới hạn sử dụng hay chào mời nâng cấp trả phí.
+
+[![Tham gia cộng đồng Discord](https://img.shields.io/badge/Tham%20gia%20c%E1%BB%99ng%20%C4%91%E1%BB%93ng%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp người khác tìm thấy nó.
 
 </div>
 
-> **Arroxy là gì?** Arroxy là ứng dụng desktop (GUI) miễn phí, mã nguồn mở, dùng để tải video, âm thanh, danh sách phát và phụ đề từ YouTube cùng hơn 2000 trang khác được [yt-dlp](https://github.com/yt-dlp/yt-dlp) hỗ trợ. Ứng dụng chạy trên Windows 10/11, macOS 13+ (Intel + Apple Silicon) và Linux (AppImage, Flatpak, tar.gz). Giấy phép GPLv3. Không quảng cáo, không giới hạn sử dụng. Phân phối qua [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage và tải trực tiếp.
->
-> **Điểm khác biệt chính: trình duyệt tích hợp.** Hầu hết trình tải YouTube miễn phí chỉ là lớp bao mỏng quanh yt-dlp: một ô nhập URL và một menu định dạng, không có trình duyệt riêng. Arroxy thì có, đó là **tab Explore**. Bạn duyệt YouTube hoặc bất kỳ trang nào khác ngay trong ứng dụng và tải video, danh sách phát hoặc kênh đang mở, hoặc nhấp chuột phải vào bất kỳ liên kết nào. Nếu bạn đăng nhập một lần trong Explore, các lượt tải cần tài khoản sẽ dùng đăng nhập đó: video riêng tư của bạn, danh sách Xem sau và Video đã thích của bạn, cùng các video khác mà tài khoản của bạn đã xem được, mà không cần xuất cookie. Bạn cũng có thể đăng nhập các trang khác tại đó, và các lượt tải từ những trang này sẽ dùng đăng nhập đó khi cần. Chi tiết: [Tại sao chọn Arroxy](#why-explore).
->
-> _Cập nhật lần cuối: 2026-10-24._
+## Duyệt web, đăng nhập, tải xuống
+
+**Dán liên kết hoặc duyệt web ngay trong ứng dụng.** Dùng tab Khám phá để tải video, danh sách phát hoặc kênh bạn đang xem, hoặc nhấp chuột phải vào liên kết để tải nội dung đó.
+
+Đăng nhập một lần vào từng trang để tải nội dung mà tài khoản của bạn có quyền truy cập — bao gồm video riêng tư, danh sách Xem sau và Video đã thích. Không cần xuất cookie. [Tìm hiểu thêm về Khám phá](#why-explore).
+
+_Cập nhật lần cuối: 2026-10-24._
 
 ---
 
@@ -181,6 +199,8 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 ---
 
 ## <a id="install"></a>📥 Cài đặt và lần khởi chạy đầu tiên
+
+**Yêu cầu:** Windows 10/11 · macOS 13+ (Intel hoặc Apple Silicon) · Linux (AppImage, Flatpak hoặc tar.gz).
 
 **Windows**
 
@@ -392,9 +412,9 @@ Hầu hết các trình tải YouTube miễn phí chỉ là một ô nhập URL 
 
 Tải xuống được lấy trực tiếp qua [yt-dlp](https://github.com/yt-dlp/yt-dlp) từ YouTube đến thư mục bạn chọn — không có gì đi qua máy chủ bên thứ ba. Lịch sử xem, lịch sử tải xuống, URL và nội dung file vẫn ở trên thiết bị của bạn.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Không theo dõi.** Arroxy chỉ gửi báo cáo ẩn danh giúp chúng tôi đếm người dùng và khắc phục sự cố — không bao giờ gửi liên kết, video, tệp hay thông tin tài khoản của bạn. Bạn kiểm soát các báo cáo này trong Cài đặt.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+Khám phá lưu các phiên đăng nhập riêng, tách biệt với trình duyệt của bạn, và bạn luôn đăng nhập trên trang của chính trang web đó. Mỗi lượt tải chỉ dùng phiên đăng nhập cho trang tương ứng, đọc lại phiên hiện tại và xóa bản sao của mình sau đó. Đăng xuất khỏi Khám phá trong Cài đặt sẽ xóa các phiên đăng nhập đã lưu.
 
 ---
 

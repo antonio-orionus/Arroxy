@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — бесплатный загрузчик YouTube (+ 2000 сайтов) с открытым исходным кодом и встроенным браузером для Windows, macOS и Linux
+Бесплатный загрузчик с открытым исходным кодом для YouTube и более 2000 сайтов, со встроенным браузером. Для Windows, macOS и Linux.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/%D0%92%D1%81%D1%82%D1%80%D0%BE%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9%20%D0%B1%D1%80%D0%B0%D1%83%D0%B7%D0%B5%D1%80-30363d?style=flat" alt="Встроенный браузер" height="22" />
+  <img src="https://img.shields.io/badge/%D0%A1%D0%B2%D0%BE%D0%B9%20%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82-30363d?style=flat" alt="Свой аккаунт" height="22" />
+  <img src="https://img.shields.io/badge/%D0%94%D0%BE%208K-30363d?style=flat" alt="До 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20%D0%BA%D0%B0%D0%B4%D1%80%2F%D1%81-30363d?style=flat" alt="60 кадр/с" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/%D0%97%D0%B2%D1%83%D0%BA%20Dolby-30363d?style=flat" alt="Звук Dolby" height="22" />
+  <img src="https://img.shields.io/badge/%D0%A4%D1%80%D0%B0%D0%B3%D0%BC%D0%B5%D0%BD%D1%82%20%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE-30363d?style=flat" alt="Фрагмент видео" height="22" />
+  <img src="https://img.shields.io/badge/%D0%9F%D0%BB%D0%B5%D0%B9%D0%BB%D0%B8%D1%81%D1%82%D1%8B-30363d?style=flat" alt="Плейлисты" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/%D0%A1%D1%83%D0%B1%D1%82%D0%B8%D1%82%D1%80%D1%8B-30363d?style=flat" alt="Субтитры" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20%D1%81%D0%B0%D0%B9%D1%82%D0%BE%D0%B2-30363d?style=flat" alt="+2000 сайтов" height="22" />
+</p>
+
+[**↓ Установить Arroxy**](#install) &nbsp;·&nbsp; [**Сайт**](https://arroxy.com/ru/)
+
+[Windows: первый запуск](#windows-first-launch) · [macOS: первый запуск](#macos-first-launch) · [Linux: первый запуск](#linux-first-launch)
+
+[![Релиз](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Сборка](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Лицензия](https://img.shields.io/badge/license-GPLv3-blue) ![Языки](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Язык:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · **Русский** · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Релиз](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Сборка](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Сайт](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/ru/) ![Лицензия](https://img.shields.io/badge/license-GPLv3-blue) ![Платформы](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Языки](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Скачивайте видео, Shorts, каналы, подкасты или аудиодорожки с **YouTube и 2000+ поддерживаемых сайтов** — до 8K HDR при 60 fps, в виде MP3 / AAC / Opus или только нужный фрагмент. **Просматривайте YouTube или любой другой сайт прямо в Arroxy** на вкладке Explore и скачивайте видео, плейлист или канал, который сейчас открыт; войдите там, чтобы скачивать видео, которые уже доступны вашему аккаунту. Работает локально на Windows, macOS и Linux. **Без рекламы, без лишнего, без допродаж.**
-
-[**↓ Скачать последний релиз**](#install) &nbsp;·&nbsp; [**Сайт**](https://arroxy.com/ru/) &nbsp;·&nbsp; [Windows: первый запуск](#windows-first-launch) · [macOS: первый запуск](#macos-first-launch) · [Linux: первый запуск](#linux-first-launch)
-
-[![Присоединиться к Discord-сообществу](https://img.shields.io/badge/%D0%9F%D1%80%D0%B8%D1%81%D0%BE%D0%B5%D0%B4%D0%B8%D0%BD%D0%B8%D1%82%D1%8C%D1%81%D1%8F%20%D0%BA%20Discord%2D%D1%81%D0%BE%D0%BE%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D1%83-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Arroxy — бесплатный загрузчик YouTube (+ 2000 сайтов)
   </tr>
 </table>
 
+Без рекламы, ограничений использования и навязывания платных функций.
+
+[![Присоединиться к Discord-сообществу](https://img.shields.io/badge/%D0%9F%D1%80%D0%B8%D1%81%D0%BE%D0%B5%D0%B4%D0%B8%D0%BD%D0%B8%D1%82%D1%8C%D1%81%D1%8F%20%D0%BA%20Discord%2D%D1%81%D0%BE%D0%BE%D0%B1%D1%89%D0%B5%D1%81%D1%82%D0%B2%D1%83-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Если Arroxy экономит вам время — ⭐ поможет другим его найти.
 
 </div>
 
-> **Что такое Arroxy?** Arroxy — бесплатное десктопное приложение с открытым исходным кодом, которое скачивает видео, аудио, плейлисты и субтитры с YouTube и более чем 2000 других сайтов, поддерживаемых [yt-dlp](https://github.com/yt-dlp/yt-dlp). Работает на Windows 10/11, macOS 13+ (Intel + Apple Silicon) и Linux (AppImage, Flatpak, tar.gz). Лицензия GPLv3. Без рекламы и ограничений на использование. Распространяется через [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage и прямую загрузку.
->
-> **Главное отличие: встроенный браузер.** Большинство бесплатных загрузчиков YouTube — тонкие обёртки над yt-dlp: поле для URL и меню форматов, без собственного браузера. В Arroxy он есть — это вкладка **Explore**. Вы просматриваете YouTube или любой другой сайт прямо в приложении и скачиваете видео, плейлист или канал, на котором находитесь, или щёлкаете правой кнопкой мыши по любой ссылке. Если один раз войти в Explore, загрузки, которым нужен аккаунт, используют этот вход: ваши приватные видео, списки «Смотреть позже» и «Понравившиеся» и другие видео, которые уже доступны вашему аккаунту, — без экспорта cookies. Входите там и на других сайтах — их загрузки используют этот вход, когда он нужен. Подробности: [Почему Arroxy](#why-explore).
->
-> _Последнее обновление: 2026-10-24._
+## Смотри, входи, скачивай
+
+**Вставь ссылку или открывай сайты прямо в приложении.** На вкладке «Обзор» можно скачать открытое видео, плейлист или канал, а также нажать правой кнопкой на ссылку и скачать её содержимое.
+
+Войди в аккаунт один раз на каждом сайте, чтобы скачивать доступный ему контент — в том числе свои приватные видео и списки «Смотреть позже» и «Понравившиеся видео». Экспортировать файлы cookie не нужно. [Подробнее об «Обзоре»](#why-explore).
+
+_Последнее обновление: 2026-10-24._
 
 > 🌐 Это перевод с помощью ИИ. [README на английском](../../README.md) — основной источник истины. Заметили ошибку? [Pull request приветствуется](../../../../pulls).
 
@@ -183,6 +201,8 @@ Arroxy — бесплатный загрузчик YouTube (+ 2000 сайтов)
 ---
 
 ## <a id="install"></a>📥 Установка и первый запуск
+
+**Требования:** Windows 10/11 · macOS 13+ (Intel или Apple Silicon) · Linux (AppImage, Flatpak или tar.gz).
 
 **Windows**
 
@@ -394,9 +414,9 @@ Arroxy создан для одного: получить чистый лока�
 
 Загрузки выполняются напрямую через [yt-dlp](https://github.com/yt-dlp/yt-dlp) с YouTube в выбранную вами папку — никакого маршрутизирования через сторонние серверы. История просмотров, история загрузок, URL-адреса и содержимое файлов остаются на вашем устройстве.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Без отслеживания.** Arroxy отправляет только анонимные отчёты, которые помогают нам считать пользователей и исправлять проблемы, — никогда твои ссылки, видео, файлы или данные аккаунтов. Управлять отчётами можно в настройках.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+«Обзор» хранит собственные входы в аккаунты отдельно от твоего браузера, а входишь ты всегда на странице самого сайта. Загрузка использует вход только для соответствующего сайта, каждый раз считывает его заново и затем удаляет свою копию. Выход из аккаунтов «Обзора» в настройках удаляет сохранённые входы.
 
 ---
 

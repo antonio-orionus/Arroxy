@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — Windows, macOS va Linux uchun o'rnatilgan brauzerli Bepul Ochiq Manbali YouTube (+ 2000 sayt) Yuklovchi
+YouTube va 2000 dan ortiq saytdan yuklab olish uchun ichki brauzerga ega bepul, ochiq kodli dastur. Windows, macOS va Linux uchun.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/Ichki%20brauzer-30363d?style=flat" alt="Ichki brauzer" height="22" />
+  <img src="https://img.shields.io/badge/O%27z%20hisobingiz-30363d?style=flat" alt="O'z hisobingiz" height="22" />
+  <img src="https://img.shields.io/badge/8K%20gacha-30363d?style=flat" alt="8K gacha" height="22" />
+  <img src="https://img.shields.io/badge/60%20kadr%2Fsoniya-30363d?style=flat" alt="60 kadr/soniya" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Dolby%20ovozi-30363d?style=flat" alt="Dolby ovozi" height="22" />
+  <img src="https://img.shields.io/badge/Videoning%20bir%20qismi-30363d?style=flat" alt="Videoning bir qismi" height="22" />
+  <img src="https://img.shields.io/badge/Pleylistlar-30363d?style=flat" alt="Pleylistlar" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/Subtitrlar-30363d?style=flat" alt="Subtitrlar" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20sayt-30363d?style=flat" alt="+2000 sayt" height="22" />
+</p>
+
+[**↓ Arroxy'ni o'rnating**](#install) &nbsp;·&nbsp; [**Veb-sayt**](https://arroxy.com/)
+
+[Windows da birinchi ishga tushirish](#windows-first-launch) · [macOS da birinchi ishga tushirish](#macos-first-launch) · [Linux da birinchi ishga tushirish](#linux-first-launch)
+
+[![Reliz](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Qurish](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Litsenziya](https://img.shields.io/badge/license-GPLv3-blue) ![Tillar](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **O'qing:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · **O'zbekcha** · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Reliz](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Qurish](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Veb-sayt](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Litsenziya](https://img.shields.io/badge/license-GPLv3-blue) ![Platformalar](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Tillar](https://img.shields.io/badge/i18n-50_languages-blue)
-
-**YouTube va 2000+ qo'llab-quvvatlanadigan saytlardan** videolar, Shorts, kanallar, podkastlar yoki audio treklarni yuklab oling — 60 fps da 8K HDR gacha, MP3 / AAC / Opus sifatida yoki faqat kerakli qismini. Explore bo'limida **YouTube yoki boshqa istalgan saytni Arroxy ichida ko'rib chiqing** va ochiq turgan video, pleylist yoki kanalni yuklab oling; hisobingiz allaqachon ko'ra oladigan videolarni yuklab olish uchun u yerda tizimga kiring. Windows, macOS va Linuxda mahalliy ishlaydi. **Reklamalar yo'q, keraksiz narsalar yo'q, qo'shimcha taklif yo'q.**
-
-[**↓ Oxirgi Relizni Yuklab Olish**](#install) &nbsp;·&nbsp; [**Veb-sayt**](https://arroxy.com/) &nbsp;·&nbsp; [Windows da birinchi ishga tushirish](#windows-first-launch) · [macOS da birinchi ishga tushirish](#macos-first-launch) · [Linux da birinchi ishga tushirish](#linux-first-launch)
-
-[![Discord hamjamiyatiga qo'shiling](https://img.shields.io/badge/Discord%20hamjamiyatiga%20qo%27shiling-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Arroxy — Windows, macOS va Linux uchun o'rnatilgan brauzerli Bepul Ochiq Manba
   </tr>
 </table>
 
+Reklama, foydalanish cheklovlari va pulli imkoniyatlarni tiqishtirish yo'q.
+
+[![Discord hamjamiyatiga qo'shiling](https://img.shields.io/badge/Discord%20hamjamiyatiga%20qo%27shiling-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
 
 </div>
 
-> **Arroxy nima?** Arroxy — YouTube hamda [yt-dlp](https://github.com/yt-dlp/yt-dlp) qo'llab-quvvatlaydigan 2000 dan ortiq boshqa saytlardan video, audio, pleylist va subtitrlarni yuklab oladigan bepul, ochiq manbali desktop ilovasi (GUI). U Windows 10/11, macOS 13+ (Intel + Apple Silicon) va Linux (AppImage, Flatpak, tar.gz) da ishlaydi. GPLv3 litsenziyasi ostida. Reklama yo'q, foydalanish cheklovlari yo'q. [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage va to'g'ridan-to'g'ri yuklab olish orqali tarqatiladi.
->
-> **Asosiy farq: o'rnatilgan brauzer.** Ko'pchilik bepul YouTube yuklovchilari yupqa yt-dlp qobiqlaridir: URL maydoni va format menyusi, o'z brauzeri yo'q. Arroxy'da u bor — **Explore bo'limi**. Siz YouTube yoki boshqa istalgan saytni ilova ichida ko'rib chiqasiz va turgan videongiz, pleylistingiz yoki kanalingizni yuklab olasiz, yoki istalgan havolani o'ng tugma bilan bosasiz. Explore'da bir marta tizimga kirsangiz, hisob talab qiladigan yuklamalar shu kirishdan foydalanadi: yopiq videolaringiz, “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringiz hamda hisobingiz allaqachon ko'ra oladigan boshqa videolar, kukilarni eksport qilmasdan. Boshqa saytlarga ham shu yerda kiring — ularning yuklamalari kerak bo'lganda shu kirishdan foydalanadi. Batafsil: [Nima uchun Arroxy](#why-explore).
->
-> _Oxirgi yangilanish: 2026-10-24._
+## Ko'rib chiqing, tizimga kiring, yuklab oling
+
+**Havolani joylashtiring yoki ilova ichida saytlarni ko'rib chiqing.** Kashfiyot bo'limida ochilgan video, pleylist yoki kanalni yuklab oling yoki havolani o'ng tugma bilan bosib, uning mazmunini yuklab oling.
+
+Hisobingizga ruxsat etilgan kontentni, jumladan, shaxsiy videolaringiz va “Keyinroq ko'rish” hamda “Yoqtirgan videolar” ro'yxatlarini yuklab olish uchun har bir saytga bir marta kiring. Cookie fayllarini eksport qilish shart emas. [Kashfiyot haqida ko'proq](#why-explore).
+
+_Oxirgi yangilanish: 2026-10-24._
 
 ---
 
@@ -181,6 +199,8 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
 ---
 
 ## <a id="install"></a>📥 O'rnatish va birinchi ishga tushirish
+
+**Talablar:** Windows 10/11 · macOS 13+ (Intel yoki Apple Silicon) · Linux (AppImage, Flatpak yoki tar.gz).
 
 **Windows**
 
@@ -392,9 +412,9 @@ Ko'pchilik bepul YouTube yuklovchilari yt-dlp ustidagi URL maydonidan iborat. Ar
 
 Yuklamalar YouTube'dan siz tanlagan papkaga to'g'ridan-to'g'ri [yt-dlp](https://github.com/yt-dlp/yt-dlp) orqali olinadi — hech narsa uchinchi tomon server orqali yo'naltirilmaydi. Ko'rish tarixi, yuklab olish tarixi, URL'lar va fayl mazmunlari qurilmangizda qoladi.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Kuzatuv yo'q.** Arroxy faqat foydalanuvchilarni sanash va muammolarni tuzatishga yordam beradigan anonim hisobotlarni yuboradi — havolalaringiz, videolaringiz, fayllaringiz yoki hisob ma'lumotlaringizni hech qachon yubormaydi. Hisobotlarni Sozlamalarda boshqarasiz.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+Kashfiyot brauzeringizdan alohida o'z kirish seanslarini saqlaydi va siz doimo saytning o'z sahifasida tizimga kirasiz. Yuklab olish kirish seansidan faqat o'sha sayt uchun foydalanadi, uni har safar yangidan o'qiydi va keyin o'z nusxasini o'chiradi. Sozlamalarda Kashfiyot hisoblaridan chiqish saqlangan kirish seanslarini o'chiradi.
 
 ---
 

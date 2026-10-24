@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — bezplatný open-source stahovač z YouTube (+ 2000 webů) s vestavěným prohlížečem pro Windows, macOS a Linux
+Bezplatný stahovač s otevřeným zdrojovým kódem pro YouTube a více než 2000 webů, s vestavěným prohlížečem. Pro Windows, macOS a Linux.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/Vestav%C4%9Bn%C3%BD%20prohl%C3%AD%C5%BEe%C4%8D-30363d?style=flat" alt="Vestavěný prohlížeč" height="22" />
+  <img src="https://img.shields.io/badge/Vlastn%C3%AD%20p%C5%99ihl%C3%A1%C5%A1en%C3%AD-30363d?style=flat" alt="Vlastní přihlášení" height="22" />
+  <img src="https://img.shields.io/badge/A%C5%BE%208K-30363d?style=flat" alt="Až 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20sn.%2Fs-30363d?style=flat" alt="60 sn./s" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Zvuk%20Dolby-30363d?style=flat" alt="Zvuk Dolby" height="22" />
+  <img src="https://img.shields.io/badge/%C4%8C%C3%A1st%20videa-30363d?style=flat" alt="Část videa" height="22" />
+  <img src="https://img.shields.io/badge/Playlisty-30363d?style=flat" alt="Playlisty" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/Titulky-30363d?style=flat" alt="Titulky" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20web%C5%AF-30363d?style=flat" alt="+2000 webů" height="22" />
+</p>
+
+[**↓ Nainstalovat Arroxy**](#install) &nbsp;·&nbsp; [**Web**](https://arroxy.com/)
+
+[První spuštění ve Windows](#windows-first-launch) · [První spuštění v macOS](#macos-first-launch) · [První spuštění v Linuxu](#linux-first-launch)
+
+[![Vydání](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Sestavení](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Licence](https://img.shields.io/badge/license-GPLv3-blue) ![Jazyky](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Číst v jazyce:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · **Čeština** · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Vydání](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Sestavení](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Web](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Licence](https://img.shields.io/badge/license-GPLv3-blue) ![Platformy](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Jazyky](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Stahujte videa, Shorts, kanály, podcasty nebo zvukové stopy z **YouTube a více než 2000 podporovaných webů** — až do 8K HDR při 60 fps, jako MP3 / AAC / Opus, nebo jen tu část, kterou potřebujete. **Procházejte YouTube i jakýkoli jiný web přímo v Arroxy** na kartě Procházení a stáhněte video, playlist nebo kanál, na kterém právě jste; přihlaste se tam a stahujte videa, která váš účet už smí přehrát. Běží lokálně ve Windows, macOS a Linuxu. **Bez reklam, bez zbytečností, bez vnucování placených verzí.**
-
-[**↓ Nainstalovat nejnovější verzi**](#install) &nbsp;·&nbsp; [**Web**](https://arroxy.com/) &nbsp;·&nbsp; [První spuštění ve Windows](#windows-first-launch) · [První spuštění v macOS](#macos-first-launch) · [První spuštění v Linuxu](#linux-first-launch)
-
-[![Připojte se na Discord](https://img.shields.io/badge/P%C5%99ipojte%20se%20na%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Stahujte videa, Shorts, kanály, podcasty nebo zvukové stopy z **YouTube a víc
   </tr>
 </table>
 
+Bez reklam, limitů používání a vnucování placených verzí.
+
+[![Připojte se na Discord](https://img.shields.io/badge/P%C5%99ipojte%20se%20na%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Pokud vám Arroxy šetří čas, ⭐ pomůže ostatním ho najít.
 
 </div>
 
-> **Co je Arroxy?** Arroxy je bezplatné open-source grafické rozhraní pro počítač, které stahuje videa, zvuk, playlisty a titulky z YouTube a z více než 2000 dalších webů podporovaných nástrojem [yt-dlp](https://github.com/yt-dlp/yt-dlp). Funguje na platformách Windows 10/11, macOS 13+ (Intel + Apple Silicon) a Linux (AppImage, Flatpak, tar.gz). Licence GPLv3. Bez reklam a bez limitů používání. Distribuuje se přes [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage a přímé stažení.
->
-> **Hlavní rozdíl: vestavěný prohlížeč.** Většina bezplatných stahovačů z YouTube jsou tenké obaly na yt-dlp: políčko pro URL a nabídka formátů, bez vlastního prohlížeče. Arroxy ho má, a to **kartu Procházení**. Procházíte YouTube nebo jakýkoli jiný web přímo v aplikaci a stahujete video, playlist nebo kanál, na kterém právě jste, nebo kliknete pravým tlačítkem na libovolný odkaz. Když se jednou přihlásíte v Procházení, stahování, která vyžadují účet, toto přihlášení použijí: vaše soukromá videa, seznamy Podívat se později a Označeno „To se mi líbí“ a další videa, která váš účet už smí přehrát, bez exportu cookies. Přihlaste se tam i k dalším webům a jejich stahování pak toto přihlášení použije, když ho bude potřebovat. Podrobnosti: [Proč Arroxy](#why-explore).
->
-> _Poslední aktualizace: 2026-10-24._
+## Procházejte, přihlaste se, stahujte
+
+**Vložte odkaz nebo procházejte web přímo v aplikaci.** Na kartě Procházení stáhněte video, playlist nebo kanál, který si právě prohlížíte, nebo klikněte pravým tlačítkem na odkaz a stáhněte jej.
+
+Přihlaste se jednou na každém webu a stahujte obsah, ke kterému má váš účet přístup, včetně soukromých videí a seznamů Podívat se později a Označeno „To se mi líbí“. Export cookies není potřeba. [Více o Procházení](#why-explore).
+
+_Poslední aktualizace: 2026-10-24._
 
 > 🌐 Tento překlad vznikl za pomoci AI. [Anglické README](../../README.md) je nadřazeným zdrojem. Našli jste chybu? [Otevřete PR](../../../../pulls).
 
@@ -183,6 +201,8 @@ Pokud vám Arroxy šetří čas, ⭐ pomůže ostatním ho najít.
 ---
 
 ## <a id="install"></a>📥 Instalace a první spuštění
+
+**Požadavky:** Windows 10/11 · macOS 13+ (Intel nebo Apple Silicon) · Linux (AppImage, Flatpak nebo tar.gz).
 
 **Windows**
 
@@ -394,9 +414,9 @@ Většina bezplatných stahovačů z YouTube je jen políčko pro URL nad yt-dlp
 
 Stahování probíhá přímo přes [yt-dlp](https://github.com/yt-dlp/yt-dlp) z YouTube do složky, kterou zvolíte — nic nejde přes server třetí strany. Historie sledování, historie stahování, URL a obsah souborů zůstávají na vašem zařízení.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Žádné sledování.** Arroxy odesílá pouze anonymní hlášení, která nám pomáhají počítat uživatele a řešit problémy — nikdy vaše odkazy, videa, soubory ani účty. Můžete je spravovat v Nastavení.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+Procházení uchovává vlastní přihlášení odděleně od vašeho prohlížeče a vždy se přihlašujete na stránce samotného webu. Stahování používá přihlášení pouze pro daný web, pokaždé ho načte znovu a svou kopii poté smaže. Odhlášením z Procházení v Nastavení se uložená přihlášení odstraní.
 
 ---
 

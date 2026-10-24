@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — 브라우저가 내장된 Windows, macOS, Linux용 무료 오픈 소스 YouTube(+ 2000개 사이트) 다운로더
+내장 브라우저를 갖춘 무료 오픈 소스 다운로더입니다. YouTube와 2000개 이상의 사이트를 지원하며 Windows, macOS, Linux에서 사용할 수 있습니다.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/%EB%82%B4%EC%9E%A5%20%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80-30363d?style=flat" alt="내장 브라우저" height="22" />
+  <img src="https://img.shields.io/badge/%EB%82%B4%20%EA%B3%84%EC%A0%95%EC%9C%BC%EB%A1%9C%20%EB%A1%9C%EA%B7%B8%EC%9D%B8-30363d?style=flat" alt="내 계정으로 로그인" height="22" />
+  <img src="https://img.shields.io/badge/%EC%B5%9C%EB%8C%80%208K-30363d?style=flat" alt="최대 8K" height="22" />
+  <img src="https://img.shields.io/badge/60fps-30363d?style=flat" alt="60fps" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Dolby%20%EC%98%A4%EB%94%94%EC%98%A4-30363d?style=flat" alt="Dolby 오디오" height="22" />
+  <img src="https://img.shields.io/badge/%EB%8F%99%EC%98%81%EC%83%81%20%EC%9D%BC%EB%B6%80-30363d?style=flat" alt="동영상 일부" height="22" />
+  <img src="https://img.shields.io/badge/%EC%9E%AC%EC%83%9D%EB%AA%A9%EB%A1%9D-30363d?style=flat" alt="재생목록" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/%EC%9E%90%EB%A7%89-30363d?style=flat" alt="자막" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/2000%EA%B0%9C%20%EC%9D%B4%EC%83%81%20%EC%82%AC%EC%9D%B4%ED%8A%B8-30363d?style=flat" alt="2000개 이상 사이트" height="22" />
+</p>
+
+[**↓ Arroxy 설치**](#install) &nbsp;·&nbsp; [**웹사이트**](https://arroxy.com/)
+
+[Windows 최초 실행](#windows-first-launch) · [macOS 최초 실행](#macos-first-launch) · [Linux 최초 실행](#linux-first-launch)
+
+[![릴리스](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![빌드](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![라이선스](https://img.shields.io/badge/license-GPLv3-blue) ![언어](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **다른 언어로 읽기:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · **한국어** · [繁體中文](README.zh-Hant.md)
-
-[![릴리스](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![빌드](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![웹사이트](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![라이선스](https://img.shields.io/badge/license-GPLv3-blue) ![플랫폼](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![언어](https://img.shields.io/badge/i18n-50_languages-blue)
-
-**YouTube 및 지원되는 2000개 이상의 사이트**에서 동영상, Shorts, 채널, 팟캐스트 또는 오디오 트랙을 다운로드하세요. 60 fps 8K HDR까지, MP3 / AAC / Opus로, 또는 필요한 부분만 저장할 수 있습니다. 탐색 탭에서 **Arroxy 안에서 YouTube나 다른 사이트를 둘러보고** 보고 있는 동영상, 재생목록 또는 채널을 다운로드하세요. 그곳에서 로그인하면 내 계정으로 이미 볼 수 있는 동영상도 다운로드할 수 있습니다. Windows, macOS, Linux에서 로컬로 실행됩니다. **광고도, 불필요한 기능도, 유료 전환 유도도 없습니다.**
-
-[**↓ 최신 릴리스 설치**](#install) &nbsp;·&nbsp; [**웹사이트**](https://arroxy.com/) &nbsp;·&nbsp; [Windows 최초 실행](#windows-first-launch) · [macOS 최초 실행](#macos-first-launch) · [Linux 최초 실행](#linux-first-launch)
-
-[![Discord 커뮤니티 참여](https://img.shields.io/badge/Discord%20%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0%20%EC%B0%B8%EC%97%AC-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Arroxy — 브라우저가 내장된 Windows, macOS, Linux용 무료 오픈 소�
   </tr>
 </table>
 
+광고, 사용량 제한, 유료 업그레이드 유도가 없습니다.
+
+[![Discord 커뮤니티 참여](https://img.shields.io/badge/Discord%20%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0%20%EC%B0%B8%EC%97%AC-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 있게 해 주세요.
 
 </div>
 
-> **Arroxy란?** Arroxy는 YouTube와 [yt-dlp](https://github.com/yt-dlp/yt-dlp)가 지원하는 2000개 이상의 다른 사이트에서 동영상, 오디오, 재생목록, 자막을 다운로드하는 무료 오픈 소스 데스크톱 GUI입니다. Windows 10/11, macOS 13+(Intel + Apple Silicon), Linux(AppImage, Flatpak, tar.gz)에서 실행됩니다. GPLv3 라이선스. 광고도, 사용 제한도 없습니다. [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage 및 직접 다운로드로 배포됩니다.
->
-> **핵심 차이: 내장 브라우저.** 대부분의 무료 YouTube 다운로더는 URL 입력창과 형식 메뉴만 있고 자체 브라우저가 없는 얇은 yt-dlp 래퍼입니다. Arroxy에는 **탐색 탭**이 있습니다. 앱 안에서 YouTube나 다른 사이트를 둘러보며 보고 있는 동영상, 재생목록, 채널을 다운로드하거나 링크를 마우스 오른쪽 버튼으로 클릭해 다운로드할 수 있습니다. 탐색에서 한 번 로그인하면 계정이 필요한 다운로드에 그 로그인이 사용되어, 비공개 동영상, 나중에 볼 동영상과 좋아요 표시한 동영상 목록, 그 밖에 내 계정으로 이미 볼 수 있는 동영상을 쿠키 내보내기 없이 다운로드합니다. 다른 사이트에도 그곳에서 로그인하면, 필요할 때 해당 사이트의 다운로드가 그 로그인을 사용합니다. 자세한 내용: [Arroxy를 선택하는 이유](#why-explore).
->
-> _최종 업데이트: 2026-10-24._
+## 둘러보고, 로그인하고, 다운로드하세요
+
+**링크를 붙여넣거나 앱 안에서 둘러보세요.** 탐색 탭에서 보고 있는 동영상, 재생목록, 채널을 다운로드하거나 링크를 마우스 오른쪽 버튼으로 클릭해 다운로드할 수 있습니다.
+
+사이트에 한 번 로그인하면 비공개 동영상, 나중에 볼 동영상, 좋아요 표시한 동영상 목록 등 내 계정으로 접근할 수 있는 콘텐츠를 다운로드할 수 있습니다. 쿠키를 내보낼 필요가 없습니다. [탐색 자세히 알아보기](#why-explore).
+
+_최종 업데이트: 2026-10-24._
 
 > 🌐 이 번역은 AI의 도움으로 작성되었습니다. [영문 README](../../README.md)가 기준 문서입니다. 오류를 발견했다면 [PR을 열어 주세요](../../../../pulls).
 
@@ -183,6 +201,8 @@ Arroxy로 시간을 절약했다면 ⭐를 눌러 다른 사람도 찾을 수 �
 ---
 
 ## <a id="install"></a>📥 설치 및 최초 실행
+
+**시스템 요구 사항:** Windows 10/11 · macOS 13+ (Intel 또는 Apple Silicon) · Linux (AppImage, Flatpak 또는 tar.gz).
 
 **Windows**
 
@@ -394,9 +414,9 @@ Arroxy는 한 가지 목적을 위해 만들어졌습니다. URL을 붙여 넣�
 
 [yt-dlp](https://github.com/yt-dlp/yt-dlp)가 YouTube에서 선택한 폴더로 파일을 직접 가져오며 외부 서버를 거치지 않습니다. 시청 기록, 다운로드 기록, URL, 파일 내용은 장치에 남습니다.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**추적하지 않습니다.** Arroxy는 사용자 수를 파악하고 문제를 해결하는 데 도움이 되는 익명 보고서만 전송합니다. 링크, 동영상, 파일, 계정은 절대 전송하지 않습니다. 설정에서 보고서 전송을 관리할 수 있습니다.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+탐색은 브라우저와 별개로 로그인 정보를 보관하며, 로그인은 항상 해당 사이트의 페이지에서 이루어집니다. 다운로드는 해당 사이트의 로그인 정보만 매번 새로 읽어 사용하고, 사용 후 복사본을 삭제합니다. 설정에서 탐색 로그아웃을 하면 저장된 로그인 정보가 삭제됩니다.
 
 ---
 

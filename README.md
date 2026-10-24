@@ -5,17 +5,29 @@
 
 Free, open-source downloader for YouTube and 2000+ sites, with a built-in browser. For Windows, macOS, and Linux.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/Built--in%20browser-30363d?style=flat" alt="Built-in browser" height="22" />
+  <img src="https://img.shields.io/badge/Your%20own%20sign--in-30363d?style=flat" alt="Your own sign-in" height="22" />
+  <img src="https://img.shields.io/badge/Up%20to%208K-30363d?style=flat" alt="Up to 8K" height="22" />
+  <img src="https://img.shields.io/badge/60fps-30363d?style=flat" alt="60fps" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Dolby%20audio-30363d?style=flat" alt="Dolby audio" height="22" />
+  <img src="https://img.shields.io/badge/Part%20of%20a%20video-30363d?style=flat" alt="Part of a video" height="22" />
+  <img src="https://img.shields.io/badge/Playlists-30363d?style=flat" alt="Playlists" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/Subtitles-30363d?style=flat" alt="Subtitles" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20sites-30363d?style=flat" alt="+2000 sites" height="22" />
+</p>
+
+[**↓ Install Arroxy**](#install) &nbsp;·&nbsp; [**Website**](https://arroxy.com/)
+
+[Windows first launch](#windows-first-launch) · [macOS first launch](#macos-first-launch) · [Linux first launch](#linux-first-launch)
+
+[![Release](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![License](https://img.shields.io/badge/license-GPLv3-blue) ![Languages](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Read in:** [Afaan Oromoo](docs/readme/README.om.md) · [Bahasa Indonesia](docs/readme/README.id.md) · [Català](docs/readme/README.ca.md) · [Čeština](docs/readme/README.cs.md) · [Dansk](docs/readme/README.da.md) · [Deutsch](docs/readme/README.de.md) · [Eesti](docs/readme/README.et.md) · **English** · [Español](docs/readme/README.es.md) · [Euskara](docs/readme/README.eu.md) · [Français](docs/readme/README.fr.md) · [Galego](docs/readme/README.gl.md) · [Hrvatski](docs/readme/README.hr.md) · [Italiano](docs/readme/README.it.md) · [Kiswahili](docs/readme/README.sw.md) · [Latviešu](docs/readme/README.lv.md) · [Lietuvių](docs/readme/README.lt.md) · [Magyar](docs/readme/README.hu.md) · [Nederlands](docs/readme/README.nl.md) · [Norsk bokmål](docs/readme/README.nb.md) · [O'zbekcha](docs/readme/README.uz.md) · [Polski](docs/readme/README.pl.md) · [Português](docs/readme/README.pt.md) · [Română](docs/readme/README.ro.md) · [Slovenčina](docs/readme/README.sk.md) · [Slovenščina](docs/readme/README.sl.md) · [Suomi](docs/readme/README.fi.md) · [Svenska](docs/readme/README.sv.md) · [Tiếng Việt](docs/readme/README.vi.md) · [Türkçe](docs/readme/README.tr.md) · [አማርኛ](docs/readme/README.am.md) · [עברית](docs/readme/README.he.md) · [العربية](docs/readme/README.ar.md) · [اردو](docs/readme/README.ur.md) · [پښتو](docs/readme/README.ps.md) · [فارسی](docs/readme/README.fa.md) · [বাংলা](docs/readme/README.bn.md) · [हिन्दी](docs/readme/README.hi.md) · [ไทย](docs/readme/README.th.md) · [မြန်မာဘာသာ](docs/readme/README.my.md) · [ខ្មែរ](docs/readme/README.km.md) · [Ελληνικά](docs/readme/README.el.md) · [Български](docs/readme/README.bg.md) · [Русский](docs/readme/README.ru.md) · [Српски](docs/readme/README.sr.md) · [Українська](docs/readme/README.uk.md) · [中文](docs/readme/README.zh.md) · [日本語](docs/readme/README.ja.md) · [한국어](docs/readme/README.ko.md) · [繁體中文](docs/readme/README.zh-Hant.md)
-
-[![Release](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Website](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![License](https://img.shields.io/badge/license-GPLv3-blue) ![Platforms](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Languages](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Download videos, Shorts, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 8K HDR at 60 fps, as MP3 / AAC / Opus, or just the part you need. **Browse YouTube or any other site inside Arroxy** in the Explore tab and download the video, playlist, or channel you're on; sign in there to download videos your own account can already watch. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**
-
-[**↓ Install Latest Release**](#install) &nbsp;·&nbsp; [**Website**](https://arroxy.com/) &nbsp;·&nbsp; [Windows first launch](#windows-first-launch) · [macOS first launch](#macos-first-launch) · [Linux first launch](#linux-first-launch)
-
-[![Join the Discord Community](https://img.shields.io/badge/Join%20the%20Discord%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Download videos, Shorts, channels, podcasts, or audio tracks from **YouTube and 
   </tr>
 </table>
 
+No ads, usage limits, or upsells.
+
+[![Join the Discord Community](https://img.shields.io/badge/Join%20the%20Discord%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 If Arroxy saves you time, a ⭐ helps others find it.
 
 </div>
 
-> **What is Arroxy?** Arroxy is a free, open-source desktop GUI that downloads videos, audio, playlists, and subtitles from YouTube and 2000+ other [yt-dlp](https://github.com/yt-dlp/yt-dlp)-supported sites. It runs on Windows 10/11, macOS 13+ (Intel + Apple Silicon), and Linux (AppImage, Flatpak, tar.gz). GPLv3 licensed. No ads, no usage limits. Distributed via [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage, and direct download.
->
-> **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. If you sign in once in Explore, downloads that need an account use that sign-in: your private videos, your Watch Later and Liked lists, and other videos your account can already watch, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. Details: [Why Arroxy](#why-explore).
->
-> _Last updated: 2026-10-24._
+## Browse, sign in, download
+
+**Paste a link, or browse inside the app.** Use the Explore tab to download the video, playlist, or channel you’re browsing, or right-click a link to download it.
+
+Sign in to a site once to download content your account can access—including private videos, Watch Later, and Liked lists. No cookie export needed. [More about Explore](#why-explore).
+
+_Last updated: 2026-10-24._
 
 ---
 
@@ -181,6 +199,8 @@ If Arroxy saves you time, a ⭐ helps others find it.
 ---
 
 ## <a id="install"></a>📥 Install and first launch
+
+**Requirements:** Windows 10/11 · macOS 13+ (Intel or Apple Silicon) · Linux (AppImage, Flatpak, or tar.gz).
 
 **Windows**
 

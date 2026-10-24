@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — Windows، macOS اور Linux کے لیے بلٹ اِن براؤزر کے ساتھ مفت اوپن سورس YouTube (+ 2000 سائٹس) ڈاؤن لوڈر
+YouTube اور 2000+ سائٹس کے لیے بلٹ اِن براؤزر کے ساتھ مفت، اوپن سورس ڈاؤن لوڈر۔ Windows، macOS اور Linux کے لیے۔
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/%D8%A8%D9%84%D9%B9%20%D8%A7%D9%90%D9%86%20%D8%A8%D8%B1%D8%A7%D8%A4%D8%B2%D8%B1-30363d?style=flat" alt="بلٹ اِن براؤزر" height="22" />
+  <img src="https://img.shields.io/badge/%D8%A7%D9%BE%D9%86%DB%92%20%D8%A7%DA%A9%D8%A7%D8%A4%D9%86%D9%B9%20%D8%B3%DB%92%20%D8%B3%D8%A7%D8%A6%D9%86%20%D8%A7%D9%86-30363d?style=flat" alt="اپنے اکاؤنٹ سے سائن ان" height="22" />
+  <img src="https://img.shields.io/badge/8K%20%D8%AA%DA%A9-30363d?style=flat" alt="8K تک" height="22" />
+  <img src="https://img.shields.io/badge/60%20%D9%81%D8%B1%DB%8C%D9%85%2F%D8%B3%DB%8C%DA%A9%D9%86%DA%88-30363d?style=flat" alt="60 فریم/سیکنڈ" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Dolby%20%D8%A2%DA%88%DB%8C%D9%88-30363d?style=flat" alt="Dolby آڈیو" height="22" />
+  <img src="https://img.shields.io/badge/%D9%88%DB%8C%DA%88%DB%8C%D9%88%20%DA%A9%D8%A7%20%D8%AD%D8%B5%DB%81-30363d?style=flat" alt="ویڈیو کا حصہ" height="22" />
+  <img src="https://img.shields.io/badge/%D9%BE%D9%84%DB%92%20%D9%84%D8%B3%D9%B9%D8%B3-30363d?style=flat" alt="پلے لسٹس" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/%D8%B3%D8%A8%20%D9%B9%D8%A7%D8%A6%D9%B9%D9%84%D8%B2-30363d?style=flat" alt="سب ٹائٹلز" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20%D8%B3%D8%A7%D8%A6%D9%B9%D8%B3-30363d?style=flat" alt="+2000 سائٹس" height="22" />
+</p>
+
+[**↓ Arroxy انسٹال کریں**](#install) &nbsp;·&nbsp; [**ویب سائٹ**](https://arroxy.com/)
+
+[Windows پر پہلی بار لانچ](#windows-first-launch) · [macOS پر پہلی بار لانچ](#macos-first-launch) · [Linux پر پہلی بار لانچ](#linux-first-launch)
+
+[![ریلیز](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![بلڈ](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![لائسنس](https://img.shields.io/badge/license-GPLv3-blue) ![زبانیں](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **زبان:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · **اردو** · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![ریلیز](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![بلڈ](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![ویب سائٹ](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![لائسنس](https://img.shields.io/badge/license-GPLv3-blue) ![پلیٹ فارمز](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![زبانیں](https://img.shields.io/badge/i18n-50_languages-blue)
-
-**YouTube اور 2000+ معاون سائٹس** سے ویڈیوز، Shorts، چینلز، پوڈکاسٹ یا آڈیو ٹریک ڈاؤن لوڈ کریں — 60 fps پر 8K HDR تک، MP3 / AAC / Opus کے طور پر، یا صرف وہ حصہ جو آپ کو چاہیے۔ Explore ٹیب میں **Arroxy کے اندر YouTube یا کوئی بھی دوسری سائٹ براؤز کریں** اور جو ویڈیو، پلے لسٹ یا چینل آپ دیکھ رہے ہیں اسے ڈاؤن لوڈ کریں؛ وہاں سائن ان کر کے وہ ویڈیوز ڈاؤن لوڈ کریں جو آپ کا اپنا اکاؤنٹ پہلے ہی دیکھ سکتا ہے۔ Windows، macOS اور Linux پر مقامی طور پر چلتا ہے۔ **کوئی اشتہارات نہیں، کوئی بلوٹ نہیں، کوئی اپ سیلز نہیں۔**
-
-[**↓ تازہ ترین ریلیز ڈاؤن لوڈ کریں**](#install) &nbsp;·&nbsp; [**ویب سائٹ**](https://arroxy.com/) &nbsp;·&nbsp; [Windows پر پہلی بار لانچ](#windows-first-launch) · [macOS پر پہلی بار لانچ](#macos-first-launch) · [Linux پر پہلی بار لانچ](#linux-first-launch)
-
-[![Discord کمیونٹی میں شامل ہوں](https://img.shields.io/badge/Discord%20%DA%A9%D9%85%DB%8C%D9%88%D9%86%D9%B9%DB%8C%20%D9%85%DB%8C%DA%BA%20%D8%B4%D8%A7%D9%85%D9%84%20%DB%81%D9%88%DA%BA-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Arroxy — Windows، macOS اور Linux کے لیے بلٹ اِن براؤزر �
   </tr>
 </table>
 
+نہ اشتہارات، نہ استعمال کی حدود، نہ مہنگا ورژن خریدنے کا دباؤ۔
+
+[![Discord کمیونٹی میں شامل ہوں](https://img.shields.io/badge/Discord%20%DA%A9%D9%85%DB%8C%D9%88%D9%86%D9%B9%DB%8C%20%D9%85%DB%8C%DA%BA%20%D8%B4%D8%A7%D9%85%D9%84%20%DB%81%D9%88%DA%BA-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 اگر Arroxy آپ کا وقت بچاتا ہے، تو ایک ⭐ دوسروں کو اسے ڈھونڈنے میں مدد کرتا ہے۔
 
 </div>
 
-> **Arroxy کیا ہے؟** Arroxy ایک مفت، اوپن سورس ڈیسک ٹاپ GUI ہے جو YouTube اور [yt-dlp](https://github.com/yt-dlp/yt-dlp) کی معاونت والی 2000 سے زائد دیگر سائٹس سے ویڈیوز، آڈیو، پلے لسٹس اور سب ٹائٹلز ڈاؤن لوڈ کرتا ہے۔ یہ Windows 10/11، macOS 13+ (Intel + Apple Silicon) اور Linux (AppImage, Flatpak, tar.gz) پر چلتا ہے۔ GPLv3 لائسنس یافتہ۔ کوئی اشتہار نہیں، استعمال کی کوئی حد نہیں۔ [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy)، [Scoop](https://github.com/antonio-orionus/scoop-bucket)، [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy)، Flatpak، AppImage اور براہِ راست ڈاؤن لوڈ کے ذریعے دستیاب ہے۔
->
-> **بنیادی فرق: بلٹ ان براؤزر۔** زیادہ تر مفت YouTube ڈاؤن لوڈرز yt-dlp کے پتلے ریپر ہوتے ہیں: ایک URL باکس اور فارمیٹ مینو، اپنا کوئی براؤزر نہیں۔ Arroxy میں ہے، **Explore ٹیب**۔ آپ ایپ کے اندر YouTube یا کوئی بھی دوسری سائٹ براؤز کرتے ہیں اور جس ویڈیو، پلے لسٹ یا چینل پر ہوں اسے ڈاؤن لوڈ کرتے ہیں، یا کسی بھی لنک پر رائٹ کلک کرتے ہیں۔ اگر آپ Explore میں ایک بار سائن ان کریں تو جن ڈاؤن لوڈز کو اکاؤنٹ چاہیے وہ اسی سائن ان کو استعمال کرتے ہیں: آپ کی نجی ویڈیوز، آپ کی Watch Later اور Liked فہرستیں، اور دوسرے ویڈیوز جو آپ کا اکاؤنٹ پہلے ہی دیکھ سکتا ہے، بغیر کوکیز ایکسپورٹ کیے۔ وہاں دوسری سائٹس پر بھی سائن ان کریں، اور ان کے ڈاؤن لوڈز ضرورت پڑنے پر وہی سائن ان استعمال کرتے ہیں۔ تفصیل: [Arroxy کیوں](#why-explore)۔
->
-> _آخری تازہ کاری: 2026-10-24۔_
+## براؤز کریں، سائن ان کریں، ڈاؤن لوڈ کریں
+
+**لنک پیسٹ کریں یا ایپ کے اندر براؤز کریں۔** جس ویڈیو، پلے لسٹ یا چینل کو آپ دیکھ رہے ہیں اسے ڈاؤن لوڈ کرنے کے لیے دریافت ٹیب استعمال کریں، یا کسی لنک کو ڈاؤن لوڈ کرنے کے لیے اس پر رائٹ کلک کریں۔
+
+کسی سائٹ پر ایک بار سائن ان کر کے وہ مواد ڈاؤن لوڈ کریں جس تک آپ کے اکاؤنٹ کو رسائی ہے، بشمول آپ کی نجی ویڈیوز، “بعد میں دیکھیں” اور پسندیدہ ویڈیوز کی فہرستیں۔ کوکیز ایکسپورٹ کرنے کی ضرورت نہیں۔ [دریافت کے بارے میں مزید](#why-explore)۔
+
+_آخری تازہ کاری: 2026-10-24۔_
 
 > 🌐 یہ AI کی مدد سے کیا گیا ترجمہ ہے۔ [انگریزی README](../../README.md) سچائی کا ماخذ ہے۔ کوئی غلطی نظر آئی؟ [PR کا خیر مقدم ہے](../../../../pulls)۔
 
@@ -183,6 +201,8 @@ Arroxy — Windows، macOS اور Linux کے لیے بلٹ اِن براؤزر �
 ---
 
 ## <a id="install"></a>📥 انسٹال اور پہلی بار لانچ
+
+**تقاضے:** Windows 10/11 · macOS 13+ (Intel یا Apple Silicon) · Linux (AppImage، Flatpak یا tar.gz)۔
 
 **Windows**
 
@@ -394,9 +414,9 @@ Arroxy ایک ہی کام کے لیے بنایا گیا ہے: ایک صاف ست
 
 ڈاؤن لوڈز [yt-dlp](https://github.com/yt-dlp/yt-dlp) کے ذریعے براہ راست YouTube سے آپ کے منتخب کردہ فولڈر میں آتے ہیں — کسی تھرڈ پارٹی سرور سے نہیں گزرتے۔ دیکھنے کی تاریخ، ڈاؤن لوڈ تاریخ، URLs اور فائل کے مواد آپ کے ڈیوائس پر ہی رہتے ہیں۔
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**کوئی ٹریکنگ نہیں۔** Arroxy صرف گمنام رپورٹس بھیجتا ہے جو صارفین کی گنتی اور مسائل حل کرنے میں ہماری مدد کرتی ہیں—آپ کے لنکس، ویڈیوز، فائلیں یا اکاؤنٹس کبھی نہیں بھیجتا۔ آپ انہیں ترتیبات میں کنٹرول کر سکتے ہیں۔
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+دریافت اپنے سائن ان کی معلومات آپ کے براؤزر سے الگ رکھتا ہے، اور آپ ہمیشہ سائٹ کے اپنے صفحے پر سائن ان کرتے ہیں۔ ڈاؤن لوڈ سائن ان کو صرف اسی سائٹ کے لیے استعمال کرتا ہے، ہر بار اس کی معلومات نئے سرے سے پڑھتا ہے اور بعد میں اپنی کاپی حذف کر دیتا ہے۔ ترتیبات میں دریافت سے سائن آؤٹ کرنے پر محفوظ سائن ان کی معلومات مٹ جاتی ہیں۔
 
 ---
 

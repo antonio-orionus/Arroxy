@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — מוריד חינמי ובקוד פתוח עבור YouTube (ועוד 2000 אתרים) עם דפדפן מובנה, עבור Windows, macOS ו-Linux
+כלי הורדה חינמי בקוד פתוח ל־YouTube וליותר מ־2000 אתרים, עם דפדפן מובנה. עבור Windows, macOS ו־Linux.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/%D7%93%D7%A4%D7%93%D7%A4%D7%9F%20%D7%9E%D7%95%D7%91%D7%A0%D7%94-30363d?style=flat" alt="דפדפן מובנה" height="22" />
+  <img src="https://img.shields.io/badge/%D7%9B%D7%A0%D7%99%D7%A1%D7%94%20%D7%A2%D7%9D%20%D7%94%D7%97%D7%A9%D7%91%D7%95%D7%9F%20%D7%A9%D7%9C%D7%9B%D7%9D-30363d?style=flat" alt="כניסה עם החשבון שלכם" height="22" />
+  <img src="https://img.shields.io/badge/%D7%A2%D7%93%208K-30363d?style=flat" alt="עד 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20%D7%A4%D7%A8%D7%99%D7%99%D7%9E%D7%99%D7%9D%2F%D7%A9%D7%A0%D7%99%D7%99%D7%94-30363d?style=flat" alt="60 פריימים/שנייה" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/%D7%A9%D7%9E%D7%A2%20Dolby-30363d?style=flat" alt="שמע Dolby" height="22" />
+  <img src="https://img.shields.io/badge/%D7%A7%D7%98%D7%A2%20%D7%9E%D7%A1%D7%A8%D7%98%D7%95%D7%9F-30363d?style=flat" alt="קטע מסרטון" height="22" />
+  <img src="https://img.shields.io/badge/%D7%A8%D7%A9%D7%99%D7%9E%D7%95%D7%AA%20%D7%94%D7%A9%D7%9E%D7%A2%D7%94-30363d?style=flat" alt="רשימות השמעה" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/%D7%9B%D7%AA%D7%95%D7%91%D7%99%D7%95%D7%AA-30363d?style=flat" alt="כתוביות" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20%D7%90%D7%AA%D7%A8%D7%99%D7%9D-30363d?style=flat" alt="+2000 אתרים" height="22" />
+</p>
+
+[**↓ התקנת Arroxy**](#install) &nbsp;·&nbsp; [**אתר**](https://arroxy.com/)
+
+[הפעלה ראשונה ב-Windows](#windows-first-launch) · [הפעלה ראשונה ב-macOS](#macos-first-launch) · [הפעלה ראשונה ב-Linux](#linux-first-launch)
+
+[![גרסה](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![בנייה](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![רישיון](https://img.shields.io/badge/license-GPLv3-blue) ![שפות](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **קריאה ב:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · **עברית** · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![גרסה](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![בנייה](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![אתר](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![רישיון](https://img.shields.io/badge/license-GPLv3-blue) ![פלטפורמות](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![שפות](https://img.shields.io/badge/i18n-50_languages-blue)
-
-הורידו סרטונים, Shorts, ערוצים, פודקאסטים או קטעי שמע מ-**YouTube ומ-2000+ אתרים נתמכים** — עד 8K HDR ב-60 פריימים לשנייה, כ-MP3 / AAC / Opus, או רק את החלק שאתם צריכים. **גלשו ב-YouTube או בכל אתר אחר בתוך Arroxy** בכרטיסייה “גילוי” והורידו את הסרטון, רשימת ההשמעה או הערוץ שבהם אתם נמצאים; התחברו שם כדי להוריד סרטונים שהחשבון שלכם כבר יכול לצפות בהם. פועל מקומית ב-Windows, ב-macOS וב-Linux. **ללא פרסומות, ללא נפחות, ללא הצעות שדרוג.**
-
-[**↓ התקנת הגרסה האחרונה**](#install) &nbsp;·&nbsp; [**אתר**](https://arroxy.com/) &nbsp;·&nbsp; [הפעלה ראשונה ב-Windows](#windows-first-launch) · [הפעלה ראשונה ב-macOS](#macos-first-launch) · [הפעלה ראשונה ב-Linux](#linux-first-launch)
-
-[![הצטרפו לקהילת Discord](https://img.shields.io/badge/%D7%94%D7%A6%D7%98%D7%A8%D7%A4%D7%95%20%D7%9C%D7%A7%D7%94%D7%99%D7%9C%D7%AA%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Arroxy — מוריד חינמי ובקוד פתוח עבור YouTube (ועוד 
   </tr>
 </table>
 
+בלי פרסומות, מגבלות שימוש או הצעות לשדרוג בתשלום.
+
+[![הצטרפו לקהילת Discord](https://img.shields.io/badge/%D7%94%D7%A6%D7%98%D7%A8%D7%A4%D7%95%20%D7%9C%D7%A7%D7%94%D7%99%D7%9C%D7%AA%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 אם Arroxy חוסך לכם זמן, ⭐ עוזר לאחרים למצוא אותו.
 
 </div>
 
-> **מה זה Arroxy?** Arroxy הוא ממשק גרפי חינמי בקוד פתוח למחשב שולחני, שמוריד סרטונים, שמע, רשימות השמעה וכתוביות מ-YouTube ומעוד 2000+ אתרים הנתמכים על ידי [yt-dlp](https://github.com/yt-dlp/yt-dlp). הוא פועל ב-Windows 10/11, ב-macOS 13+ (Intel + Apple Silicon) וב-Linux (AppImage, Flatpak, tar.gz). ברישיון GPLv3. ללא פרסומות וללא מגבלות שימוש. מופץ דרך [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage והורדה ישירה.
->
-> **ההבדל המרכזי: דפדפן מובנה.** רוב מורידי YouTube החינמיים הם עטיפות דקות של yt-dlp: תיבת URL ותפריט פורמטים, בלי דפדפן משלהם. ל-Arroxy יש אחד כזה, הכרטיסייה **גילוי**. גולשים ב-YouTube או בכל אתר אחר בתוך היישום ומורידים את הסרטון, רשימת ההשמעה או הערוץ שבהם אתם נמצאים, או לוחצים לחיצה ימנית על כל קישור. אם מתחברים פעם אחת ב“גילוי”, הורדות שדורשות חשבון משתמשות בהתחברות הזו: הסרטונים הפרטיים שלכם, רשימות “לצפייה בהמשך” ו“סרטונים שאהבתם” שלכם, וסרטונים אחרים שהחשבון שלכם כבר יכול לצפות בהם, בלי ייצוא קובצי Cookie. התחברו גם לאתרים אחרים שם, וההורדות מהם ישתמשו בהתחברות הזו כשיצטרכו. פרטים: [למה Arroxy](#why-explore).
->
-> _עודכן לאחרונה: 2026-10-24._
+## גלשו, התחברו, הורידו
+
+**הדביקו קישור או גלשו בתוך היישום.** השתמשו בלשונית גילוי כדי להוריד את הסרטון, רשימת ההשמעה או הערוץ שאתם צופים בהם, או לחצו לחיצה ימנית על קישור כדי להוריד אותו.
+
+התחברו לאתר פעם אחת כדי להוריד תוכן שהחשבון שלכם יכול לגשת אליו, כולל הסרטונים הפרטיים שלכם ורשימות «לצפייה בהמשך» והסרטונים שאהבתם. אין צורך לייצא קובצי Cookie. [מידע נוסף על גילוי](#why-explore).
+
+_עודכן לאחרונה: 2026-10-24._
 
 > 🌐 תרגום זה נוצר בסיוע AI. [ה-README באנגלית](../../README.md) הוא המקור המחייב. מצאתם שגיאה? [פתחו PR](../../../../pulls).
 
@@ -183,6 +201,8 @@ Arroxy — מוריד חינמי ובקוד פתוח עבור YouTube (ועוד 
 ---
 
 ## <a id="install"></a>📥 התקנה והפעלה ראשונה
+
+**דרישות:** Windows 10/11 · macOS 13+ (Intel או Apple Silicon) · Linux (AppImage, Flatpak או tar.gz).
 
 **Windows**
 
@@ -394,9 +414,9 @@ Arroxy נבנה למטרה אחת: קובץ מקומי נקי, בין שהדבק
 
 ההורדות מתבצעות ישירות באמצעות [yt-dlp](https://github.com/yt-dlp/yt-dlp) מ-YouTube אל התיקייה שבחרתם — דבר אינו מנותב דרך שרת של צד שלישי. היסטוריית הצפייה, היסטוריית ההורדות, כתובות ה-URL ותוכן הקבצים נשארים במכשיר שלכם.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**ללא מעקב.** Arroxy שולח רק דוחות אנונימיים שעוזרים לנו לספור משתמשים ולתקן בעיות — לעולם לא את הקישורים, הסרטונים, הקבצים או החשבונות שלכם. השליטה בהם נמצאת בהגדרות.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+גילוי שומר פרטי כניסה משלו, בנפרד מהדפדפן שלכם, והכניסה מתבצעת תמיד בעמוד של האתר עצמו. הורדה משתמשת בפרטי כניסה רק עבור אותו אתר, קוראת אותם מחדש ומוחקת את העותק שלה לאחר מכן. יציאה מגילוי דרך ההגדרות מוחקת את פרטי הכניסה השמורים.
 
 ---
 

@@ -5,17 +5,29 @@
 
 {{title}}
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/{{chip_browser_encoded}}-30363d?style=flat" alt="{{chip_browser}}" height="22" />
+  <img src="https://img.shields.io/badge/{{chip_signin_encoded}}-30363d?style=flat" alt="{{chip_signin}}" height="22" />
+  <img src="https://img.shields.io/badge/{{chip_resolution_encoded}}-30363d?style=flat" alt="{{chip_resolution}}" height="22" />
+  <img src="https://img.shields.io/badge/{{chip_framerate_encoded}}-30363d?style=flat" alt="{{chip_framerate}}" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/{{chip_dolby_encoded}}-30363d?style=flat" alt="{{chip_dolby}}" height="22" />
+  <img src="https://img.shields.io/badge/{{chip_clip_encoded}}-30363d?style=flat" alt="{{chip_clip}}" height="22" />
+  <img src="https://img.shields.io/badge/{{chip_playlists_encoded}}-30363d?style=flat" alt="{{chip_playlists}}" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/{{chip_subtitles_encoded}}-30363d?style=flat" alt="{{chip_subtitles}}" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/{{chip_sites_encoded}}-30363d?style=flat" alt="{{chip_sites}}" height="22" />
+</p>
+
+[**{{cta_latest}}**](#install) &nbsp;·&nbsp; [**{{cta_website}}**]({{website_url}})
+
+[{{dl_win_first_h3}}](#windows-first-launch) · [{{dl_macos_first_h3}}](#macos-first-launch) · [{{dl_linux_first_h3}}](#linux-first-launch)
+
+[![{{badge_release_alt}}](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![{{badge_build_alt}}](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![{{badge_license_alt}}](https://img.shields.io/badge/license-GPLv3-blue) ![{{badge_i18n_alt}}](https://img.shields.io/badge/i18n-{{LANG_COUNT}}_languages-blue)
 
 **{{read_in_label}}** {{LANG_NAV}}
-
-[![{{badge_release_alt}}](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![{{badge_build_alt}}](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![{{badge_website_alt}}](https://img.shields.io/badge/website-arroxy.com-blueviolet)]({{website_url}}) ![{{badge_license_alt}}](https://img.shields.io/badge/license-GPLv3-blue) ![{{badge_platforms_alt}}](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![{{badge_i18n_alt}}](https://img.shields.io/badge/i18n-{{LANG_COUNT}}_languages-blue)
-
-{{hero_desc}}
-
-[**{{cta_latest}}**](#install) &nbsp;·&nbsp; [**{{cta_website}}**]({{website_url}}) &nbsp;·&nbsp; [{{dl_win_first_h3}}](#windows-first-launch) · [{{dl_macos_first_h3}}](#macos-first-launch) · [{{dl_linux_first_h3}}](#linux-first-launch)
-
-[![{{discord_badge_text}}](https://img.shields.io/badge/{{discord_badge_encoded}}-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@
   </tr>
 </table>
 
+{{hero_promise}}
+
+[![{{discord_badge_text}}](https://img.shields.io/badge/{{discord_badge_encoded}}-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 {{star_cta}}
 
 </div>
 
-> {{intro_what_is}}
->
-> {{intro_key_difference}}
->
-> _{{last_updated}}_
+## {{intro_workflow_h2}}
+
+{{intro_workflow}}
+
+{{intro_signin}}
+
+_{{last_updated}}_
 
 {{ai_notice}}
 
@@ -183,6 +201,8 @@
 ---
 
 ## <a id="install"></a>📥 {{dl_h2}}
+
+{{dl_requirements}}
 
 **Windows**
 

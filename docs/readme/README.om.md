@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — Buufataa YouTube (+ Saayitii 2000) Bilisaa fi Madda Banaa, Ilaalaa Keessaa Qabu, Windows, macOS & Linux
+Buufataa bilisaa fi madda banaa kan YouTube fi marsariitiiwwan 2000 ol, biraawzara keessaa qabu. Windows, macOS fi Linux irratti hojjeta.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/Biraawzara%20keessaa-30363d?style=flat" alt="Biraawzara keessaa" height="22" />
+  <img src="https://img.shields.io/badge/Akkaawuntii%20kee-30363d?style=flat" alt="Akkaawuntii kee" height="22" />
+  <img src="https://img.shields.io/badge/Hanga%208K-30363d?style=flat" alt="Hanga 8K" height="22" />
+  <img src="https://img.shields.io/badge/Fureemii%2060%2Fs-30363d?style=flat" alt="Fureemii 60/s" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Sagalee%20Dolby-30363d?style=flat" alt="Sagalee Dolby" height="22" />
+  <img src="https://img.shields.io/badge/Kutaa%20viidiyoo-30363d?style=flat" alt="Kutaa viidiyoo" height="22" />
+  <img src="https://img.shields.io/badge/Tarree%20taphachiisaa-30363d?style=flat" alt="Tarree taphachiisaa" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/Barreeffama%20jalaa-30363d?style=flat" alt="Barreeffama jalaa" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2Bmarsariitiiwwan%202000-30363d?style=flat" alt="+marsariitiiwwan 2000" height="22" />
+</p>
+
+[**↓ Arroxy fe'i**](#install) &nbsp;·&nbsp; [**Marsariitii**](https://arroxy.com/)
+
+[Windows yeroo jalqabaa eegaluu](#windows-first-launch) · [macOS yeroo jalqabaa eegaluu](#macos-first-launch) · [Linux yeroo jalqabaa eegaluu](#linux-first-launch)
+
+[![Baasii](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Ijaarsaa](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Hayyama](https://img.shields.io/badge/license-GPLv3-blue) ![Afaanonni](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Afaan:** **Afaan Oromoo** · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Baasii](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Ijaarsaa](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Marsariitii](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Hayyama](https://img.shields.io/badge/license-GPLv3-blue) ![Platformoota](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Afaanonni](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Viidiyoo, Shorts, chaanaalota, podkaastota, ykn sagalee **YouTube fi saayitiiwwan 2000+** irraa buufi — hanga 8K HDR 60 fps, MP3 / AAC / Opus, ykn kutaa barbaaddu qofa. Tabii Daawwannaa keessatti **YouTube ykn marsariitii biraa Arroxy keessatti ilaali** fi viidiyoo, playlist, ykn channel ati ilaaltu buufadhu; viidiyoowwan akkaawuntiin kee mataa keetii duraanuu ilaaluu danda'u buufachuuf achitti seeni. Windows, macOS, fi Linux irratti naannoo kee keessatti hojeta. **Beeksisni hin jiru, wanti dabalataa hin jiru, gurguurtaan dabalaataa hin jiru.**
-
-[**↓ Baasii Haaraa Buusi**](#install) &nbsp;·&nbsp; [**Marsariitii**](https://arroxy.com/) &nbsp;·&nbsp; [Windows yeroo jalqabaa eegaluu](#windows-first-launch) · [macOS yeroo jalqabaa eegaluu](#macos-first-launch) · [Linux yeroo jalqabaa eegaluu](#linux-first-launch)
-
-[![Hawaasa Discord itti makami](https://img.shields.io/badge/Hawaasa%20Discord%20itti%20makami-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Viidiyoo, Shorts, chaanaalota, podkaastota, ykn sagalee **YouTube fi saayitiiwwa
   </tr>
 </table>
 
+Beeksisni, daangaan itti fayyadamaa fi dhiibbaan tajaajila dabalataa bituu hin jiru.
+
+[![Hawaasa Discord itti makami](https://img.shields.io/badge/Hawaasa%20Discord%20itti%20makami-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 
 </div>
 
-> **Arroxy maali?** Arroxy GUI desktop bilisaa fi madda banaa kan viidiyoo, sagalee, playlist fi axxiinni YouTube fi marsariitiiwwan [yt-dlp](https://github.com/yt-dlp/yt-dlp)'n deeggaraman 2000+ biroo irraa buusudha. Windows 10/11, macOS 13+ (Intel + Apple Silicon), fi Linux (AppImage, Flatpak, tar.gz) irratti hojjeta. Hayyama GPLv3. Beeksisni hin jiru, daangaan fayyadamaa hin jiru. [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage fi buufannaa kallattiin ni raabsama.
->
-> **Garaagarummaa ijoo: biraawzara keessa ijaarame.** Buufattoonni YouTube bilisaa baay'een wraapperii yt-dlp salphaa dha: saanduqa URL fi menu formaataa, biraawzara mataa isaanii malee. Arroxy tokko qaba, tabii **Daawwannaa**. YouTube ykn marsariitii biraa kamiyyuu app keessatti ilaaltu, viidiyoo, playlist ykn channel irra jirtu buufatta, ykn hidhaa kamiyyuu irratti right-click godhita. Daawwannaa keessatti altokko yoo seente, buufannaan akkaawuntii barbaadu seensa sana fayyadama: viidiyoowwan dhuunfaa kee, tarreewwan Booda Ilaali fi Jaallatamte kee, fi viidiyoowwan biroo akkaawuntiin kee duraanuu ilaaluu danda'u, kuukkii baasuu malee. Marsariitiiwwan biraatti illee achitti seeni, buufannaan isaanii yeroo barbaachisu seensa sana fayyadama. Bal'inaan: [Maaliif Arroxy](#why-explore).
->
-> _Yeroo dhumaa haaromfame: 2026-10-24._
+## Daawwadhu, seeni, buufadhu
+
+**Hidhaa maxxansi, ykn app keessatti daawwadhu.** Tabii Daawwannaa fayyadamuun viidiyoo, tarree taphachiisaa ykn chaanaalii ati daawwattu buufadhu, ykn hidhaa irratti cuqaasa mirgaa godhii buufadhu.
+
+Qabiyyee akkaawuntiin kee argachuu danda'u buufachuuf marsariitii tokkoon tokkootti al tokko seeni — viidiyoowwan dhuunfaa kee fi tarreewwan “Booda ilaali” fi “Viidiyoowwan ati jaalatte” dabalatee. Kuukkii alatti baasuun hin barbaachisu. [Waa'ee Daawwannaa bal'inaan](#why-explore).
+
+_Yeroo dhumaa haaromfame: 2026-10-24._
 
 ---
 
@@ -181,6 +199,8 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 ---
 
 ## <a id="install"></a>📥 Fe'iitii yeroo jalqabaa banuu
+
+**Ulaagaalee:** Windows 10/11 · macOS 13+ (Intel ykn Apple Silicon) · Linux (AppImage, Flatpak ykn tar.gz).
 
 **Windows**
 
@@ -392,9 +412,9 @@ Buufattoota YouTube bilisaa baay'een saanduqa URL yt-dlp irratti kaa'ame qofa. A
 
 Buufannoonni kallattiin [yt-dlp](https://github.com/yt-dlp/yt-dlp) fayyadamuudhaan YouTube irraa foldera filatteetti darbamu — miila-seerri hunduu sarara servera sadarkaa-sadaffaa tokko keessa darbuu hin qabu. Seenaa ilaaluu, seenaa buufannoo, URLs, fi qabiyyee faayilaa meeshaa kee irratti hafu.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Hordoffiin hin jiru.** Arroxy gabaasota maqaa-dhabduu fayyadamtoota lakkaa'uu fi rakkoolee sirreessuuf nu gargaaran qofa erga — hidhaawwan, viidiyoowwan, faayiloota ykn odeeffannoo akkaawuntii keetii gonkumaa hin ergu. Gabaasota kana Qindoomina keessatti to'atta.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+Daawwannaan seensawwan mataa isaa biraawzara keetii irraa adda baasee kuusa; ati yeroo hunda fuula marsariitichaa mataa isaa irratti seenta. Buufannaan seensa marsariitii sanaaf qofa fayyadama, yeroo hunda haaraatti dubbisa, achiis garagalcha isaa haqa. Qindoomina keessatti Daawwannaa irraa bahuun seensawwan kuufaman haqa.
 
 ---
 

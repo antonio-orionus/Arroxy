@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — nemokama atvirojo kodo YouTube (+ 2000 svetainių) atsisiuntimo programa su integruota naršykle, skirta Windows, macOS ir Linux
+Nemokama atvirojo kodo atsisiuntimo programa YouTube ir daugiau nei 2000 svetainių su integruota naršykle. Skirta Windows, macOS ir Linux.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/Integruota%20nar%C5%A1ykl%C4%97-30363d?style=flat" alt="Integruota naršyklė" height="22" />
+  <img src="https://img.shields.io/badge/J%C5%ABs%C5%B3%20prisijungimas-30363d?style=flat" alt="Jūsų prisijungimas" height="22" />
+  <img src="https://img.shields.io/badge/Iki%208K-30363d?style=flat" alt="Iki 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20kadr%C5%B3%2Fs-30363d?style=flat" alt="60 kadrų/s" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Dolby%20garsas-30363d?style=flat" alt="Dolby garsas" height="22" />
+  <img src="https://img.shields.io/badge/Vaizdo%20%C4%AFra%C5%A1o%20dalis-30363d?style=flat" alt="Vaizdo įrašo dalis" height="22" />
+  <img src="https://img.shields.io/badge/Grojara%C5%A1%C4%8Diai-30363d?style=flat" alt="Grojaraščiai" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/Subtitrai-30363d?style=flat" alt="Subtitrai" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20svetaini%C5%B3-30363d?style=flat" alt="+2000 svetainių" height="22" />
+</p>
+
+[**↓ Įdiegti Arroxy**](#install) &nbsp;·&nbsp; [**Svetainė**](https://arroxy.com/)
+
+[Pirmasis paleidimas Windows sistemoje](#windows-first-launch) · [Pirmasis paleidimas macOS sistemoje](#macos-first-launch) · [Pirmasis paleidimas Linux sistemoje](#linux-first-launch)
+
+[![Laida](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Kūrinys](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Licencija](https://img.shields.io/badge/license-GPLv3-blue) ![Kalbos](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Skaityti kalba:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · **Lietuvių** · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Laida](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Kūrinys](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Svetainė](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Licencija](https://img.shields.io/badge/license-GPLv3-blue) ![Platformos](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Kalbos](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Atsisiųskite vaizdo įrašus, Shorts, kanalus, tinklalaides ar garso takelius iš **YouTube ir daugiau nei 2000 palaikomų svetainių** — iki 8K HDR esant 60 kadrų/s, kaip MP3 / AAC / Opus arba tik reikiamą dalį. **Naršykite YouTube ar bet kurią kitą svetainę Arroxy viduje** skirtuke „Naršymas“ ir atsisiųskite vaizdo įrašą, grojaraštį ar kanalą, kuriame esate; prisijunkite ten, kad atsisiųstumėte vaizdo įrašus, kuriuos jūsų paskyra jau gali žiūrėti. Veikia vietoje Windows, macOS ir Linux sistemose. **Be reklamų, be nereikalingų priedų, be priverstinio pardavimo.**
-
-[**↓ Įdiegti naujausią laidą**](#install) &nbsp;·&nbsp; [**Svetainė**](https://arroxy.com/) &nbsp;·&nbsp; [Pirmasis paleidimas Windows sistemoje](#windows-first-launch) · [Pirmasis paleidimas macOS sistemoje](#macos-first-launch) · [Pirmasis paleidimas Linux sistemoje](#linux-first-launch)
-
-[![Prisijunkite prie Discord bendruomenės](https://img.shields.io/badge/Prisijunkite%20prie%20Discord%20bendruomen%C4%97s-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Atsisiųskite vaizdo įrašus, Shorts, kanalus, tinklalaides ar garso takelius i
   </tr>
 </table>
 
+Be reklamų, naudojimo apribojimų ir siūlymų mokėti daugiau.
+
+[![Prisijunkite prie Discord bendruomenės](https://img.shields.io/badge/Prisijunkite%20prie%20Discord%20bendruomen%C4%97s-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Jei Arroxy taupo jūsų laiką, ⭐ padės kitiems ją rasti.
 
 </div>
 
-> **Kas yra Arroxy?** Arroxy yra nemokama atvirojo kodo darbalaukio sąsaja, atsisiunčianti vaizdo įrašus, garso įrašus, grojaraščius ir subtitrus iš YouTube ir daugiau nei 2000 kitų [yt-dlp](https://github.com/yt-dlp/yt-dlp) palaikomų svetainių. Veikia Windows 10/11, macOS 13+ (Intel + Apple Silicon) ir Linux (AppImage, Flatpak, tar.gz) sistemose. Licencija GPLv3. Be reklamų, be naudojimo apribojimų. Platinama per [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage ir tiesioginį atsisiuntimą.
->
-> **Pagrindinis skirtumas: integruota naršyklė.** Dauguma nemokamų YouTube atsisiuntimo programų yra plonos yt-dlp apvalkalo programos: URL laukelis ir formatų meniu, be savo naršyklės. Arroxy ją turi – tai **skirtukas „Naršymas“**. Naršote YouTube ar bet kurią kitą svetainę programoje ir atsisiunčiate vaizdo įrašą, grojaraštį ar kanalą, kuriame esate, arba spustelite bet kurią nuorodą dešiniuoju pelės klavišu. Jei Naršyme prisijungiate vieną kartą, atsisiuntimai, kuriems reikia paskyros, naudoja tą prisijungimą: jūsų privatūs vaizdo įrašai, jūsų „Žiūrėti vėliau“ ir „Patikę“ sąrašai bei kiti vaizdo įrašai, kuriuos jūsų paskyra jau gali žiūrėti, be slapukų eksportavimo. Taip pat ten prisijunkite prie kitų svetainių, ir jų atsisiuntimai prireikus naudos tą prisijungimą. Išsamiau: [Kodėl Arroxy](#why-explore).
->
-> _Paskutinį kartą atnaujinta: 2026-10-24._
+## Naršykite, prisijunkite, atsisiųskite
+
+**Įklijuokite nuorodą arba naršykite programoje.** Skirtuke „Naršymas“ atsisiųskite žiūrimą vaizdo įrašą, grojaraštį ar kanalą arba spustelėkite nuorodą dešiniuoju pelės klavišu ir ją atsisiųskite.
+
+Vieną kartą prisijunkite prie kiekvienos svetainės, kad atsisiųstumėte paskyrai prieinamą turinį, įskaitant privačius vaizdo įrašus ir sąrašus „Žiūrėti vėliau“ bei „Patikę vaizdo įrašai“. Slapukų eksportuoti nereikia. [Daugiau apie Naršymą](#why-explore).
+
+_Paskutinį kartą atnaujinta: 2026-10-24._
 
 > 🌐 Šis vertimas parengtas padedant DI. [Angliškas README](../../README.md) yra pagrindinis šaltinis. Radote klaidą? [Atverkite PR](../../../../pulls).
 
@@ -183,6 +201,8 @@ Jei Arroxy taupo jūsų laiką, ⭐ padės kitiems ją rasti.
 ---
 
 ## <a id="install"></a>📥 Diegimas ir pirmasis paleidimas
+
+**Reikalavimai:** Windows 10/11 · macOS 13+ (Intel arba Apple Silicon) · Linux (AppImage, Flatpak arba tar.gz).
 
 **Windows**
 
@@ -394,9 +414,9 @@ Dauguma nemokamų YouTube atsisiuntimo programų yra tiesiog URL laukelis virš 
 
 Atsisiuntimai gaunami tiesiogiai per [yt-dlp](https://github.com/yt-dlp/yt-dlp) iš YouTube į jūsų pasirinktą aplanką — nieko nenukreipiant per trečiosios šalies serverį. Žiūrėjimo istorija, atsisiuntimų istorija, URL ir failų turinys lieka jūsų įrenginyje.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Jokio sekimo.** Arroxy siunčia tik anonimines ataskaitas, kurios padeda mums suskaičiuoti naudotojus ir spręsti problemas — niekada nesiunčia jūsų nuorodų, vaizdo įrašų, failų ar paskyrų duomenų. Jas valdote Parametruose.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+Naršymas saugo savo prisijungimus atskirai nuo jūsų naršyklės, o prisijungiate visada pačios svetainės puslapyje. Atsisiuntimas naudoja prisijungimą tik tai svetainei, kiekvieną kartą jį nuskaito iš naujo ir po to ištrina savo kopiją. Atsijungus nuo Naršymo Parametruose, išsaugoti prisijungimai pašalinami.
 
 ---
 

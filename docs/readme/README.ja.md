@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — ブラウザー内蔵、Windows・macOS・Linux 向け無料オープンソース YouTube（+ 2000 サイト）ダウンローダー
+ブラウザー内蔵の無料・オープンソースのダウンローダー。YouTube と 2000 以上のサイトに対応。Windows、macOS、Linux で使えます。
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/%E5%86%85%E8%94%B5%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%83%BC-30363d?style=flat" alt="内蔵ブラウザー" height="22" />
+  <img src="https://img.shields.io/badge/%E8%87%AA%E5%88%86%E3%81%AE%E3%82%A2%E3%82%AB%E3%82%A6%E3%83%B3%E3%83%88%E3%81%A7%E3%82%B5%E3%82%A4%E3%83%B3%E3%82%A4%E3%83%B3-30363d?style=flat" alt="自分のアカウントでサインイン" height="22" />
+  <img src="https://img.shields.io/badge/%E6%9C%80%E5%A4%A7%208K-30363d?style=flat" alt="最大 8K" height="22" />
+  <img src="https://img.shields.io/badge/60fps-30363d?style=flat" alt="60fps" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Dolby%20%E9%9F%B3%E5%A3%B0-30363d?style=flat" alt="Dolby 音声" height="22" />
+  <img src="https://img.shields.io/badge/%E5%8B%95%E7%94%BB%E3%81%AE%E4%B8%80%E9%83%A8-30363d?style=flat" alt="動画の一部" height="22" />
+  <img src="https://img.shields.io/badge/%E3%83%97%E3%83%AC%E3%82%A4%E3%83%AA%E3%82%B9%E3%83%88-30363d?style=flat" alt="プレイリスト" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/%E5%AD%97%E5%B9%95-30363d?style=flat" alt="字幕" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/2000%20%E4%BB%A5%E4%B8%8A%E3%81%AE%E3%82%B5%E3%82%A4%E3%83%88-30363d?style=flat" alt="2000 以上のサイト" height="22" />
+</p>
+
+[**↓ Arroxy をインストール**](#install) &nbsp;·&nbsp; [**ウェブサイト**](https://arroxy.com/)
+
+[Windows 初回起動](#windows-first-launch) · [macOS 初回起動](#macos-first-launch) · [Linux 初回起動](#linux-first-launch)
+
+[![リリース](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![ビルド](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![ライセンス](https://img.shields.io/badge/license-GPLv3-blue) ![対応言語](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **言語：** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · **日本語** · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![リリース](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![ビルド](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![ウェブサイト](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![ライセンス](https://img.shields.io/badge/license-GPLv3-blue) ![プラットフォーム](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![対応言語](https://img.shields.io/badge/i18n-50_languages-blue)
-
-**YouTube と 2000 以上の対応サイト**から動画・Shorts・チャンネル・ポッドキャスト・音声トラックをダウンロード — 最大 8K HDR 60fps、MP3 / AAC / Opus として、または必要な部分だけ。探索タブで **Arroxy の中で YouTube やほかのサイトを閲覧**し、表示中の動画・プレイリスト・チャンネルをダウンロード。そこでサインインすれば、ご自身のアカウントですでに視聴できる動画もダウンロードできます。Windows、macOS、Linux でローカル動作。**広告なし、余計なものなし、アップセルなし。**
-
-[**↓ 最新リリースをダウンロード**](#install) &nbsp;·&nbsp; [**ウェブサイト**](https://arroxy.com/) &nbsp;·&nbsp; [Windows 初回起動](#windows-first-launch) · [macOS 初回起動](#macos-first-launch) · [Linux 初回起動](#linux-first-launch)
-
-[![Discord コミュニティに参加](https://img.shields.io/badge/Discord%20%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3%E3%81%AB%E5%8F%82%E5%8A%A0-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Arroxy — ブラウザー内蔵、Windows・macOS・Linux 向け無料オープ
   </tr>
 </table>
 
+広告、利用制限、有料版への誘導はありません。
+
+[![Discord コミュニティに参加](https://img.shields.io/badge/Discord%20%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3%E3%81%AB%E5%8F%82%E5%8A%A0-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助けてください。
 
 </div>
 
-> **Arroxy とは？** Arroxy は、YouTube と、[yt-dlp](https://github.com/yt-dlp/yt-dlp) が対応するほかの 2000 以上のサイトから、動画・音声・プレイリスト・字幕をダウンロードする、無料のオープンソースのデスクトップ GUI です。Windows 10/11、macOS 13+（Intel + Apple Silicon）、Linux（AppImage、Flatpak、tar.gz）で動作します。ライセンスは GPLv3。広告なし、利用制限なし。[Winget](https://winget.run/pkg/AntonioOrionus/Arroxy)、[Scoop](https://github.com/antonio-orionus/scoop-bucket)、[Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy)、Flatpak、AppImage、直接ダウンロードで配布しています。
->
-> **最大の違いは内蔵ブラウザー。** 無料の YouTube ダウンローダーの多くは、URL 入力欄と形式メニューだけの薄い yt-dlp ラッパーで、独自のブラウザーを持ちません。Arroxy には**探索タブ**があります。アプリの中で YouTube やほかのサイトを閲覧し、表示中の動画・プレイリスト・チャンネルをダウンロードでき、リンクを右クリックしてもダウンロードできます。探索で一度サインインすると、アカウントが必要なダウンロードにそのサインインが使われ、非公開動画、「後で見る」や「高く評価した動画」のリスト、そのほかアカウントですでに視聴できる動画を、Cookie をエクスポートせずにダウンロードできます。ほかのサイトにもそこでサインインすれば、必要なときにそのサインインがダウンロードに使われます。詳細：[なぜ Arroxy？](#why-explore)。
->
-> _最終更新：2026-10-24。_
+## 閲覧、サインイン、ダウンロード
+
+**リンクを貼り付けるか、アプリ内でサイトを閲覧できます。** 探索タブで表示中の動画、プレイリスト、チャンネルをダウンロードできます。リンクを右クリックしてダウンロードすることもできます。
+
+サイトに一度サインインすれば、非公開動画、「後で見る」「高く評価した動画」のリストなど、そのアカウントでアクセスできるコンテンツをダウンロードできます。Cookie のエクスポートは不要です。[探索について詳しく](#why-explore)。
+
+_最終更新：2026-10-24。_
 
 > 🌐 これは AI 翻訳です。[英語版 README](../../README.md) が情報のソースです。誤りを見つけたら [PR を歓迎します](../../../../pulls)。
 
@@ -183,6 +201,8 @@ Arroxy が役に立ったなら、⭐ で他のユーザーへの周知を助け
 ---
 
 ## <a id="install"></a>📥 インストールと初回起動
+
+**動作環境：** Windows 10/11 · macOS 13+（Intel または Apple Silicon）· Linux（AppImage、Flatpak、tar.gz）。
 
 **Windows**
 
@@ -394,9 +414,9 @@ Arroxy はひとつのことのために作られています：URL を貼り付
 
 ダウンロードは [yt-dlp](https://github.com/yt-dlp/yt-dlp) 経由で YouTube から選択したフォルダへ直接取得されます — サードパーティのサーバーは経由しません。視聴履歴、ダウンロード履歴、URL、ファイルの内容はすべてあなたのデバイスに留まります。
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**追跡はしません。** Arroxy が送信するのは、利用者数の把握や問題の修正に役立つ匿名のレポートだけです。リンク、動画、ファイル、アカウントは一切送信しません。レポートの送信は設定で管理できます。
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+探索はブラウザーとは別にサインイン情報を保持し、サインインは常に各サイトのページ上で行います。ダウンロード時はそのサイトのサインイン情報だけを毎回読み取り、使用後にそのコピーを削除します。設定から探索をサインアウトすると、保存されたサインイン情報は削除されます。
 
 ---
 

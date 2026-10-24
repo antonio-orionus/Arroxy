@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — descărcător gratuit și open-source pentru YouTube (+ 2000 de site-uri) cu browser încorporat, pentru Windows, macOS și Linux
+Program gratuit și cu sursă deschisă pentru descărcări de pe YouTube și peste 2000 de site-uri, cu browser încorporat. Pentru Windows, macOS și Linux.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/Browser%20%C3%AEncorporat-30363d?style=flat" alt="Browser încorporat" height="22" />
+  <img src="https://img.shields.io/badge/Contul%20propriu-30363d?style=flat" alt="Contul propriu" height="22" />
+  <img src="https://img.shields.io/badge/P%C3%A2n%C4%83%20la%208K-30363d?style=flat" alt="Până la 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20fps-30363d?style=flat" alt="60 fps" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Sunet%20Dolby-30363d?style=flat" alt="Sunet Dolby" height="22" />
+  <img src="https://img.shields.io/badge/Fragment%20dintr--un%20videoclip-30363d?style=flat" alt="Fragment dintr-un videoclip" height="22" />
+  <img src="https://img.shields.io/badge/Liste%20de%20redare-30363d?style=flat" alt="Liste de redare" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/Subtitr%C4%83ri-30363d?style=flat" alt="Subtitrări" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20de%20site--uri-30363d?style=flat" alt="+2000 de site-uri" height="22" />
+</p>
+
+[**↓ Instalați Arroxy**](#install) &nbsp;·&nbsp; [**Site web**](https://arroxy.com/)
+
+[Prima pornire în Windows](#windows-first-launch) · [Prima pornire în macOS](#macos-first-launch) · [Prima pornire în Linux](#linux-first-launch)
+
+[![Versiune](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Licență](https://img.shields.io/badge/license-GPLv3-blue) ![Limbi](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Citiți în:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · **Română** · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Versiune](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Site web](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Licență](https://img.shields.io/badge/license-GPLv3-blue) ![Platforme](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Limbi](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Descărcați videoclipuri, Shorts, canale, podcasturi sau piese audio de pe **YouTube și de pe peste 2000 de site-uri acceptate** — până la 8K HDR la 60 fps, ca MP3 / AAC / Opus sau doar porțiunea de care aveți nevoie. **Navigați pe YouTube sau pe orice alt site direct în Arroxy**, în fila Explorare, și descărcați videoclipul, lista de redare sau canalul pe care le vizitați; conectați-vă acolo pentru a descărca videoclipuri pe care contul dvs. le poate deja viziona. Rulează local pe Windows, macOS și Linux. **Fără reclame, fără balast, fără upsell-uri.**
-
-[**↓ Instalați ultima versiune**](#install) &nbsp;·&nbsp; [**Site web**](https://arroxy.com/) &nbsp;·&nbsp; [Prima pornire în Windows](#windows-first-launch) · [Prima pornire în macOS](#macos-first-launch) · [Prima pornire în Linux](#linux-first-launch)
-
-[![Alăturați-vă comunității Discord](https://img.shields.io/badge/Al%C4%83tura%C8%9Bi-v%C4%83%20comunit%C4%83%C8%9Bii%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Descărcați videoclipuri, Shorts, canale, podcasturi sau piese audio de pe **Yo
   </tr>
 </table>
 
+Fără reclame, limite de utilizare sau oferte insistente de upgrade.
+
+[![Alăturați-vă comunității Discord](https://img.shields.io/badge/Al%C4%83tura%C8%9Bi-v%C4%83%20comunit%C4%83%C8%9Bii%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Dacă Arroxy vă economisește timp, un ⭐ îi ajută pe alții să-l găsească.
 
 </div>
 
-> **Ce este Arroxy?** Arroxy este o interfață grafică desktop gratuită și open source care descarcă videoclipuri, audio, liste de redare și subtitrări de pe YouTube și de pe peste 2000 de alte site-uri compatibile cu [yt-dlp](https://github.com/yt-dlp/yt-dlp). Rulează pe Windows 10/11, macOS 13+ (Intel + Apple Silicon) și Linux (AppImage, Flatpak, tar.gz). Licență GPLv3. Fără reclame, fără limite de utilizare. Distribuit prin [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage și descărcare directă.
->
-> **Diferența cheie: un browser încorporat.** Majoritatea descărcătoarelor gratuite pentru YouTube sunt simple învelișuri peste yt-dlp: o casetă de URL și un meniu de formate, fără browser propriu. Arroxy are unul, **fila Explorare**. Navigați pe YouTube sau pe orice alt site direct în aplicație și descărcați videoclipul, lista de redare sau canalul pe care vă aflați, ori faceți clic dreapta pe orice link. Dacă vă conectați o singură dată în Explorare, descărcările care necesită un cont folosesc acea conectare: videoclipurile private, listele Vizionează mai târziu și Apreciate și alte videoclipuri pe care contul dvs. le poate deja viziona, fără export de cookie-uri. Conectați-vă acolo și la alte site-uri, iar descărcările lor folosesc acea conectare când au nevoie. Detalii: [De ce Arroxy](#why-explore).
->
-> _Ultima actualizare: 2026-10-24._
+## Navigați, conectați-vă, descărcați
+
+**Lipiți un link sau navigați direct în aplicație.** Folosiți fila Explorare pentru a descărca videoclipul, lista de redare sau canalul pe care îl vizitați, ori faceți clic dreapta pe un link pentru a-l descărca.
+
+Conectați-vă o singură dată pe fiecare site pentru a descărca conținut la care contul dvs. are acces — inclusiv videoclipuri private și listele Redă mai târziu și Videoclipurile apreciate. Fără export de cookie-uri. [Mai multe despre Explorare](#why-explore).
+
+_Ultima actualizare: 2026-10-24._
 
 > 🌐 Această traducere a fost realizată cu sprijinul IA. [README-ul în engleză](../../README.md) este sursa de referință. Ați găsit o greșeală? [Deschideți un PR](../../../../pulls).
 
@@ -183,6 +201,8 @@ Dacă Arroxy vă economisește timp, un ⭐ îi ajută pe alții să-l găseasc�
 ---
 
 ## <a id="install"></a>📥 Instalare și prima pornire
+
+**Cerințe:** Windows 10/11 · macOS 13+ (Intel sau Apple Silicon) · Linux (AppImage, Flatpak sau tar.gz).
 
 **Windows**
 
@@ -394,9 +414,9 @@ Majoritatea descărcătoarelor gratuite pentru YouTube sunt o casetă de URL dea
 
 Descărcările sunt preluate direct prin [yt-dlp](https://github.com/yt-dlp/yt-dlp) de pe YouTube în folderul ales de dvs. — nimic nu trece printr-un server terț. Istoricul de vizionare, istoricul descărcărilor, URL-urile și conținutul fișierelor rămân pe dispozitivul dvs.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Fără urmărire.** Arroxy trimite doar rapoarte anonime care ne ajută să numărăm utilizatorii și să remediem problemele — niciodată linkurile, videoclipurile, fișierele sau datele conturilor dvs. Le controlați din Setări.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+Explorare păstrează propriile autentificări, separat de browserul dvs., iar conectarea se face întotdeauna pe pagina site-ului respectiv. O descărcare folosește autentificarea numai pentru acel site, o citește din nou și își șterge copia la final. Deconectarea din Explorare în Setări șterge autentificările salvate.
 
 ---
 

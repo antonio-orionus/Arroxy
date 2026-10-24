@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — bezmaksas atvērtā koda YouTube (+ 2000 vietņu) lejupielādētājs ar iebūvētu pārlūku operētājsistēmām Windows, macOS un Linux
+Bezmaksas atvērtā koda lejupielādētājs YouTube un vairāk nekā 2000 vietnēm ar iebūvētu pārlūku. Operētājsistēmām Windows, macOS un Linux.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/Ieb%C5%ABv%C4%93ts%20p%C4%81rl%C5%ABks-30363d?style=flat" alt="Iebūvēts pārlūks" height="22" />
+  <img src="https://img.shields.io/badge/J%C5%ABsu%20pierakst%C4%AB%C5%A1an%C4%81s-30363d?style=flat" alt="Jūsu pierakstīšanās" height="22" />
+  <img src="https://img.shields.io/badge/L%C4%ABdz%208K-30363d?style=flat" alt="Līdz 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20kadri%2Fs-30363d?style=flat" alt="60 kadri/s" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Dolby%20audio-30363d?style=flat" alt="Dolby audio" height="22" />
+  <img src="https://img.shields.io/badge/Videoklipa%20da%C4%BCa-30363d?style=flat" alt="Videoklipa daļa" height="22" />
+  <img src="https://img.shields.io/badge/Atska%C5%86o%C5%A1anas%20saraksti-30363d?style=flat" alt="Atskaņošanas saraksti" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/Subtitri-30363d?style=flat" alt="Subtitri" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20viet%C5%86u-30363d?style=flat" alt="+2000 vietņu" height="22" />
+</p>
+
+[**↓ Instalēt Arroxy**](#install) &nbsp;·&nbsp; [**Vietne**](https://arroxy.com/)
+
+[Windows pirmā palaišana](#windows-first-launch) · [macOS pirmā palaišana](#macos-first-launch) · [Linux pirmā palaišana](#linux-first-launch)
+
+[![Laidiens](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Būvējums](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Licence](https://img.shields.io/badge/license-GPLv3-blue) ![Valodas](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Lasīt valodā:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · **Latviešu** · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Laidiens](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Būvējums](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Vietne](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Licence](https://img.shields.io/badge/license-GPLv3-blue) ![Platformas](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Valodas](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Lejupielādējiet videoklipus, Shorts, kanālus, podkāstus vai audio celiņus no **YouTube un 2000+ atbalstītām vietnēm** — līdz pat 8K HDR ar 60 kadriem sekundē, kā MP3 / AAC / Opus vai tikai to daļu, kas jums nepieciešama. **Pārlūkojiet YouTube vai jebkuru citu vietni Arroxy iekšienē** cilnē Izpēte un lejupielādējiet video, atskaņošanas sarakstu vai kanālu, kurā atrodaties; pierakstieties tur, lai lejupielādētu videoklipus, ko jūsu konts jau var skatīties. Darbojas lokāli operētājsistēmās Windows, macOS un Linux. **Bez reklāmām, bez liekām funkcijām, bez uzmācīgas pārdošanas.**
-
-[**↓ Instalēt jaunāko laidienu**](#install) &nbsp;·&nbsp; [**Vietne**](https://arroxy.com/) &nbsp;·&nbsp; [Windows pirmā palaišana](#windows-first-launch) · [macOS pirmā palaišana](#macos-first-launch) · [Linux pirmā palaišana](#linux-first-launch)
-
-[![Pievienojieties Discord kopienai](https://img.shields.io/badge/Pievienojieties%20Discord%20kopienai-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Lejupielādējiet videoklipus, Shorts, kanālus, podkāstus vai audio celiņus n
   </tr>
 </table>
 
+Bez reklāmām, lietošanas ierobežojumiem un uzmācīgiem pirkumu piedāvājumiem.
+
+[![Pievienojieties Discord kopienai](https://img.shields.io/badge/Pievienojieties%20Discord%20kopienai-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Ja Arroxy ietaupa jūsu laiku, ⭐ palīdz citiem to atrast.
 
 </div>
 
-> **Kas ir Arroxy?** Arroxy ir bezmaksas atvērtā koda darbvirsmas grafiskā saskarne, kas lejupielādē videoklipus, audio, atskaņošanas sarakstus un subtitrus no YouTube un 2000+ citām vietnēm, ko atbalsta [yt-dlp](https://github.com/yt-dlp/yt-dlp). Darbojas operētājsistēmās Windows 10/11, macOS 13+ (Intel + Apple Silicon) un Linux (AppImage, Flatpak, tar.gz). Licence GPLv3. Bez reklāmām, bez lietojuma ierobežojumiem. Izplatīta caur [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage un tiešo lejupielādi.
->
-> **Galvenā atšķirība: iebūvēts pārlūks.** Lielākā daļa bezmaksas YouTube lejupielādētāju ir plāni yt-dlp apvalki: URL lodziņš un formātu izvēlne bez paša pārlūka. Arroxy tāds ir – **cilne Izpēte**. Jūs pārlūkojat YouTube vai jebkuru citu vietni lietotnē un lejupielādējat videoklipu, atskaņošanas sarakstu vai kanālu, kurā atrodaties, vai noklikšķiniet ar peles labo pogu uz jebkuras saites. Ja vienreiz pierakstāties sadaļā Izpēte, lejupielādes, kurām nepieciešams konts, izmanto šo pierakstīšanos: jūsu privātos videoklipus, jūsu sarakstus Skatīties vēlāk un Patīk un citus videoklipus, ko jūsu konts jau var skatīties, bez sīkfailu eksportēšanas. Tur varat pierakstīties arī citās vietnēs, un to lejupielādes vajadzības gadījumā izmanto šo pierakstīšanos. Sīkāka informācija: [Kāpēc Arroxy](#why-explore).
->
-> _Pēdējo reizi atjaunināts: 2026-10-24._
+## Pārlūkojiet, pierakstieties, lejupielādējiet
+
+**Ielīmējiet saiti vai pārlūkojiet lietotnē.** Cilnē Izpēte lejupielādējiet videoklipu, atskaņošanas sarakstu vai kanālu, ko skatāties, vai noklikšķiniet uz saites ar peles labo pogu, lai to lejupielādētu.
+
+Vienreiz pierakstieties katrā vietnē, lai lejupielādētu jūsu kontam pieejamu saturu, tostarp privātos videoklipus un sarakstus Skatīties vēlāk un Videoklipi, kas patīk. Sīkfaili nav jāeksportē. [Vairāk par Izpēti](#why-explore).
+
+_Pēdējo reizi atjaunināts: 2026-10-24._
 
 > 🌐 Šis tulkojums tapis ar mākslīgā intelekta atbalstu. [Angļu valodas README](../../README.md) ir primārais avots. Atradāt kļūdu? [Atveriet PR](../../../../pulls).
 
@@ -183,6 +201,8 @@ Ja Arroxy ietaupa jūsu laiku, ⭐ palīdz citiem to atrast.
 ---
 
 ## <a id="install"></a>📥 Instalēšana un pirmā palaišana
+
+**Prasības:** Windows 10/11 · macOS 13+ (Intel vai Apple Silicon) · Linux (AppImage, Flatpak vai tar.gz).
 
 **Windows**
 
@@ -394,9 +414,9 @@ Lielākā daļa bezmaksas YouTube lejupielādētāju ir URL lodziņš virs yt-dl
 
 Lejupielādes tiek iegūtas tieši ar [yt-dlp](https://github.com/yt-dlp/yt-dlp) no YouTube uz jūsu izvēlēto mapi — nekas netiek novirzīts caur trešās puses serveri. Skatīšanās vēsture, lejupielādes vēsture, URL un failu saturs paliek jūsu ierīcē.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Bez izsekošanas.** Arroxy sūta tikai anonīmus ziņojumus, kas palīdz mums saskaitīt lietotājus un novērst problēmas — nekad jūsu saites, videoklipus, failus vai kontu datus. Tos varat pārvaldīt Iestatījumos.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+Izpēte glabā savas pierakstīšanās atsevišķi no jūsu pārlūka, un jūs vienmēr pierakstāties pašas vietnes lapā. Lejupielāde izmanto pierakstīšanos tikai attiecīgajai vietnei, katru reizi nolasa to no jauna un pēc tam izdzēš savu kopiju. Izrakstoties no Izpētes Iestatījumos, saglabātās pierakstīšanās tiek dzēstas.
 
 ---
 

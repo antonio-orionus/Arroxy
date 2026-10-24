@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — brezplačen odprtokodni prenosnik za YouTube (+ 2000 spletnih mest) z vgrajenim brskalnikom, za Windows, macOS in Linux
+Brezplačen odprtokodni program za prenos z YouTuba in več kot 2000 spletnih mest, z vgrajenim brskalnikom. Za Windows, macOS in Linux.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/Vgrajen%20brskalnik-30363d?style=flat" alt="Vgrajen brskalnik" height="22" />
+  <img src="https://img.shields.io/badge/Va%C5%A1%20ra%C4%8Dun-30363d?style=flat" alt="Vaš račun" height="22" />
+  <img src="https://img.shields.io/badge/Do%208K-30363d?style=flat" alt="Do 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20sli%C4%8Dic%2Fs-30363d?style=flat" alt="60 sličic/s" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Zvok%20Dolby-30363d?style=flat" alt="Zvok Dolby" height="22" />
+  <img src="https://img.shields.io/badge/Del%20videoposnetka-30363d?style=flat" alt="Del videoposnetka" height="22" />
+  <img src="https://img.shields.io/badge/Seznami%20predvajanja-30363d?style=flat" alt="Seznami predvajanja" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/Podnapisi-30363d?style=flat" alt="Podnapisi" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20spletnih%20mest-30363d?style=flat" alt="+2000 spletnih mest" height="22" />
+</p>
+
+[**↓ Namestite Arroxy**](#install) &nbsp;·&nbsp; [**Spletno mesto**](https://arroxy.com/)
+
+[Prvi zagon v sistemu Windows](#windows-first-launch) · [Prvi zagon v macOS](#macos-first-launch) · [Prvi zagon v Linuxu](#linux-first-launch)
+
+[![Izdaja](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Gradnja](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Licenca](https://img.shields.io/badge/license-GPLv3-blue) ![Jeziki](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Beri v jeziku:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · **Slovenščina** · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Izdaja](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Gradnja](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Spletno mesto](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Licenca](https://img.shields.io/badge/license-GPLv3-blue) ![Platforme](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Jeziki](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Prenesite videoposnetke, Shorts, kanale, podkaste ali zvočne posnetke z **YouTuba in več kot 2000 podprtih spletnih mest** — do 8K HDR pri 60 sličicah/s, kot MP3 / AAC / Opus ali samo del, ki ga potrebujete. **Brskajte po YouTubu ali katerem koli drugem spletnem mestu kar v programu Arroxy** na zavihku Razišči in prenesite videoposnetek, seznam predvajanja ali kanal, na katerem ste; tam se prijavite, da prenesete videoposnetke, ki jih že lahko gleda vaš račun. Deluje lokalno v sistemih Windows, macOS in Linux. **Brez oglasov, brez nepotrebnega balasta, brez vsiljevanja plačljivih različic.**
-
-[**↓ Namestite najnovejšo izdajo**](#install) &nbsp;·&nbsp; [**Spletno mesto**](https://arroxy.com/) &nbsp;·&nbsp; [Prvi zagon v sistemu Windows](#windows-first-launch) · [Prvi zagon v macOS](#macos-first-launch) · [Prvi zagon v Linuxu](#linux-first-launch)
-
-[![Pridružite se skupnosti Discord](https://img.shields.io/badge/Pridru%C5%BEite%20se%20skupnosti%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Prenesite videoposnetke, Shorts, kanale, podkaste ali zvočne posnetke z **YouTu
   </tr>
 </table>
 
+Brez oglasov, omejitev uporabe ali vsiljevanja plačljivih nadgradenj.
+
+[![Pridružite se skupnosti Discord](https://img.shields.io/badge/Pridru%C5%BEite%20se%20skupnosti%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Če vam Arroxy prihrani čas, ⭐ pomaga drugim, da ga najdejo.
 
 </div>
 
-> **Kaj je Arroxy?** Arroxy je brezplačen namizni grafični vmesnik z odprto kodo, ki prenaša videoposnetke, zvok, sezname predvajanja in podnapise iz YouTuba ter več kot 2000 drugih spletnih mest, ki jih podpira [yt-dlp](https://github.com/yt-dlp/yt-dlp). Deluje v sistemih Windows 10/11, macOS 13+ (Intel + Apple Silicon) in Linux (AppImage, Flatpak, tar.gz). Licenca GPLv3. Brez oglasov, brez omejitev uporabe. Distribuira se prek [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage in neposrednega prenosa.
->
-> **Ključna razlika: vgrajen brskalnik.** Večina brezplačnih prenosnikov za YouTube so tanki ovoji okoli yt-dlp: polje za URL in meni formatov, brez lastnega brskalnika. Arroxy ga ima, to je zavihek **Razišči**. Po YouTubu ali katerem koli drugem spletnem mestu brskate v aplikaciji in prenesete videoposnetek, seznam predvajanja ali kanal, na katerem ste, ali pa z desnim klikom na katero koli povezavo. Če se v Razišči prijavite enkrat, prenosi, ki zahtevajo račun, uporabijo to prijavo: vaše zasebne videoposnetke, vaša seznama Ogled pozneje in Všečkano ter druge videoposnetke, ki jih že lahko gleda vaš račun, brez izvoza piškotkov. Tam se prijavite tudi v druga spletna mesta, njihovi prenosi pa to prijavo uporabijo, kadar jo potrebujejo. Podrobnosti: [Zakaj Arroxy](#why-explore).
->
-> _Zadnja posodobitev: 2026-10-24._
+## Brskajte, prijavite se, prenesite
+
+**Prilepite povezavo ali brskajte kar v aplikaciji.** Na zavihku Razišči prenesite videoposnetek, seznam predvajanja ali kanal, ki si ga ogledujete, ali pa z desnim klikom na povezavo prenesite njeno vsebino.
+
+V vsako spletno mesto se prijavite enkrat in prenesite vsebino, do katere ima dostop vaš račun — tudi zasebne videoposnetke ter seznama »Ogled pozneje« in »Videoposnetki, ki so vam všeč«. Izvoz piškotkov ni potreben. [Več o zavihku Razišči](#why-explore).
+
+_Zadnja posodobitev: 2026-10-24._
 
 > 🌐 Ta prevod je nastal s pomočjo umetne inteligence. [Angleški README](../../README.md) je nadrejeni vir. Ste našli napako? [Odprite PR](../../../../pulls).
 
@@ -183,6 +201,8 @@ Prenesite videoposnetke, Shorts, kanale, podkaste ali zvočne posnetke z **YouTu
 ---
 
 ## <a id="install"></a>📥 Namestitev in prvi zagon
+
+**Zahteve:** Windows 10/11 · macOS 13+ (Intel ali Apple Silicon) · Linux (AppImage, Flatpak ali tar.gz).
 
 **Windows**
 
@@ -394,9 +414,9 @@ Večina brezplačnih prenosnikov za YouTube je polje za URL nad yt-dlp. Tudi Arr
 
 Prenosi se pridobijo neposredno prek [yt-dlp](https://github.com/yt-dlp/yt-dlp) z YouTuba v mapo, ki jo izberete — nič ne gre prek strežnika tretje osebe. Zgodovina ogledov, zgodovina prenosov, naslovi URL in vsebina datotek ostanejo na vaši napravi.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Brez sledenja.** Arroxy pošilja samo anonimna poročila, ki nam pomagajo šteti uporabnike in odpravljati težave — nikoli vaših povezav, videoposnetkov, datotek ali podatkov o računih. Upravljate jih v Nastavitvah.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+Zavihek Razišči hrani svoje prijave, ločeno od vašega brskalnika, vedno pa se prijavite na strani samega spletnega mesta. Prenos uporabi prijavo samo za to spletno mesto, jo vsakič znova prebere in nato izbriše svojo kopijo. Odjava iz zavihka Razišči v Nastavitvah izbriše shranjene prijave.
 
 ---
 

@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — безплатна програма с отворен код за изтегляне от YouTube (+ 2000 сайта) с вграден браузър, за Windows, macOS и Linux
+Безплатна програма с отворен код за изтегляне от YouTube и над 2000 сайта, с вграден браузър. За Windows, macOS и Linux.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/%D0%92%D0%B3%D1%80%D0%B0%D0%B4%D0%B5%D0%BD%20%D0%B1%D1%80%D0%B0%D1%83%D0%B7%D1%8A%D1%80-30363d?style=flat" alt="Вграден браузър" height="22" />
+  <img src="https://img.shields.io/badge/%D0%92%D0%B0%D1%88%D0%B8%D1%8F%D1%82%20%D0%B0%D0%BA%D0%B0%D1%83%D0%BD%D1%82-30363d?style=flat" alt="Вашият акаунт" height="22" />
+  <img src="https://img.shields.io/badge/%D0%94%D0%BE%208K-30363d?style=flat" alt="До 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20%D0%BA%D0%B0%D0%B4%D1%8A%D1%80%D0%B0%2F%D1%81%D0%B5%D0%BA-30363d?style=flat" alt="60 кадъра/сек" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Dolby%20%D0%B7%D0%B2%D1%83%D0%BA-30363d?style=flat" alt="Dolby звук" height="22" />
+  <img src="https://img.shields.io/badge/%D0%A7%D0%B0%D1%81%D1%82%20%D0%BE%D1%82%20%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE-30363d?style=flat" alt="Част от видео" height="22" />
+  <img src="https://img.shields.io/badge/%D0%9F%D0%BB%D0%B5%D0%B9%D0%BB%D0%B8%D1%81%D1%82%D0%B8-30363d?style=flat" alt="Плейлисти" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/%D0%A1%D1%83%D0%B1%D1%82%D0%B8%D1%82%D1%80%D0%B8-30363d?style=flat" alt="Субтитри" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0-30363d?style=flat" alt="+2000 сайта" height="22" />
+</p>
+
+[**↓ Инсталирайте Arroxy**](#install) &nbsp;·&nbsp; [**Уебсайт**](https://arroxy.com/)
+
+[Първо стартиране в Windows](#windows-first-launch) · [Първо стартиране в macOS](#macos-first-launch) · [Първо стартиране в Linux](#linux-first-launch)
+
+[![Издание](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Изграждане](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Лиценз](https://img.shields.io/badge/license-GPLv3-blue) ![Езици](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Прочетете на:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · **Български** · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Издание](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Изграждане](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Уебсайт](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Лиценз](https://img.shields.io/badge/license-GPLv3-blue) ![Платформи](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Езици](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Изтегляйте видеа, Shorts, канали, подкасти или аудиозаписи от **YouTube и над 2000 поддържани сайта** — до 8K HDR при 60 fps, като MP3 / AAC / Opus или само частта, която ви трябва. **Разглеждайте YouTube или друг сайт направо в Arroxy** в раздела „Разглеждане“ и изтегляйте видеото, плейлиста или канала, на който сте; влезте там, за да изтегляте видеа, които акаунтът ви вече може да гледа. Работи локално на Windows, macOS и Linux. **Без реклами, без излишно съдържание, без принуда за плащане.**
-
-[**↓ Инсталиране на последното издание**](#install) &nbsp;·&nbsp; [**Уебсайт**](https://arroxy.com/) &nbsp;·&nbsp; [Първо стартиране в Windows](#windows-first-launch) · [Първо стартиране в macOS](#macos-first-launch) · [Първо стартиране в Linux](#linux-first-launch)
-
-[![Присъединете се към общността в Discord](https://img.shields.io/badge/%D0%9F%D1%80%D0%B8%D1%81%D1%8A%D0%B5%D0%B4%D0%B8%D0%BD%D0%B5%D1%82%D0%B5%20%D1%81%D0%B5%20%D0%BA%D1%8A%D0%BC%20%D0%BE%D0%B1%D1%89%D0%BD%D0%BE%D1%81%D1%82%D1%82%D0%B0%20%D0%B2%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Arroxy — безплатна програма с отворен код за и�
   </tr>
 </table>
 
+Без реклами, ограничения за ползване или натрапчиви предложения за платени функции.
+
+[![Присъединете се към общността в Discord](https://img.shields.io/badge/%D0%9F%D1%80%D0%B8%D1%81%D1%8A%D0%B5%D0%B4%D0%B8%D0%BD%D0%B5%D1%82%D0%B5%20%D1%81%D0%B5%20%D0%BA%D1%8A%D0%BC%20%D0%BE%D0%B1%D1%89%D0%BD%D0%BE%D1%81%D1%82%D1%82%D0%B0%20%D0%B2%20Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Ако Arroxy ви спестява време, една ⭐ помага на други да го намерят.
 
 </div>
 
-> **Какво е Arroxy?** Arroxy е безплатен графичен интерфейс с отворен код за настолен компютър, който изтегля видеа, аудио, плейлисти и субтитри от YouTube и от още 2000+ сайта, поддържани от [yt-dlp](https://github.com/yt-dlp/yt-dlp). Работи на Windows 10/11, macOS 13+ (Intel + Apple Silicon) и Linux (AppImage, Flatpak, tar.gz). Лиценз GPLv3. Без реклами и без ограничения в използването. Разпространява се чрез [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage и директно изтегляне.
->
-> **Основната разлика: вграден браузър.** Повечето безплатни програми за изтегляне от YouTube са тънки обвивки около yt-dlp: поле за адрес и меню с формати, без собствен браузър. Arroxy има такъв — **раздела „Разглеждане“**. Разглеждате YouTube или всеки друг сайт в приложението и изтегляте видеото, плейлиста или канала, в който сте, или щраквате с десния бутон върху произволна връзка. Ако влезете веднъж в „Разглеждане“, изтеглянията, които изискват акаунт, използват това влизане: частните ви видеа, списъците ви „Гледане по-късно“ и „Харесани“ и други видеа, които акаунтът ви вече може да гледа, без експортиране на бисквитки. Влезте там и в други сайтове, и техните изтегляния ще използват това влизане, когато им потрябва. Подробности: [Защо Arroxy](#why-explore).
->
-> _Последна актуализация: 2026-10-24._
+## Разглеждайте, влезте, изтегляйте
+
+**Поставете връзка или разглеждайте сайтове в приложението.** В раздела „Разглеждане“ изтеглете видеото, плейлиста или канала, който гледате, или щракнете с десния бутон върху връзка, за да я изтеглите.
+
+Влезте веднъж във всеки сайт, за да изтегляте съдържание, до което акаунтът ви има достъп — включително частните ви видеа и списъците „Гледане по-късно“ и „Харесани видеоклипове“. Не е нужно да експортирате бисквитки. [Още за „Разглеждане“](#why-explore).
+
+_Последна актуализация: 2026-10-24._
 
 > 🌐 Този превод е направен с помощта на ИИ. [Английският README](../../README.md) е основният източник. Намерихте грешка? [Отворете PR](../../../../pulls).
 
@@ -183,6 +201,8 @@ Arroxy — безплатна програма с отворен код за и�
 ---
 
 ## <a id="install"></a>📥 Инсталиране и първо стартиране
+
+**Изисквания:** Windows 10/11 · macOS 13+ (Intel или Apple Silicon) · Linux (AppImage, Flatpak или tar.gz).
 
 **Windows**
 
@@ -394,9 +414,9 @@ Arroxy е създаден с една цел: чист локален файл,
 
 Изтеглянията се извличат директно чрез [yt-dlp](https://github.com/yt-dlp/yt-dlp) от YouTube в избраната от вас папка — нищо не минава през сървър на трета страна. Историята на гледане, историята на изтеглянията, адресите и съдържанието на файловете остават на вашето устройство.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Без проследяване.** Arroxy изпраща само анонимни отчети, които ни помагат да броим потребителите и да отстраняваме проблеми — никога вашите връзки, видеа, файлове или данни за акаунти. Управлявате отчетите в Настройки.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+„Разглеждане“ пази собствени влизания в акаунти, отделно от браузъра ви, а вие винаги влизате на страницата на самия сайт. Изтеглянето използва влизане само за съответния сайт, прочита го наново всеки път и след това изтрива копието си. Излизането от акаунтите в „Разглеждане“ през Настройки изтрива запазените влизания.
 
 ---
 

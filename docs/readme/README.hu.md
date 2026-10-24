@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — Ingyenes, nyílt forráskódú YouTube- (+ 2000 webhely) letöltő beépített böngészővel Windowsra, macOS-re és Linuxra
+Ingyenes, nyílt forráskódú letöltő a YouTube-hoz és több mint 2000 webhelyhez, beépített böngészővel. Windowsra, macOS-re és Linuxra.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/Be%C3%A9p%C3%ADtett%20b%C3%B6ng%C3%A9sz%C5%91-30363d?style=flat" alt="Beépített böngésző" height="22" />
+  <img src="https://img.shields.io/badge/Saj%C3%A1t%20bejelentkez%C3%A9s-30363d?style=flat" alt="Saját bejelentkezés" height="22" />
+  <img src="https://img.shields.io/badge/Ak%C3%A1r%208K-30363d?style=flat" alt="Akár 8K" height="22" />
+  <img src="https://img.shields.io/badge/60%20k%C3%A9pkocka%2Fmp-30363d?style=flat" alt="60 képkocka/mp" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Dolby--hang-30363d?style=flat" alt="Dolby-hang" height="22" />
+  <img src="https://img.shields.io/badge/Vide%C3%B3r%C3%A9szlet-30363d?style=flat" alt="Videórészlet" height="22" />
+  <img src="https://img.shields.io/badge/Lej%C3%A1tsz%C3%A1si%20list%C3%A1k-30363d?style=flat" alt="Lejátszási listák" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/Feliratok-30363d?style=flat" alt="Feliratok" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20webhely-30363d?style=flat" alt="+2000 webhely" height="22" />
+</p>
+
+[**↓ Az Arroxy telepítése**](#install) &nbsp;·&nbsp; [**Webhely**](https://arroxy.com/)
+
+[Első indítás Windowson](#windows-first-launch) · [Első indítás macOS-en](#macos-first-launch) · [Első indítás Linuxon](#linux-first-launch)
+
+[![Kiadás](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Licenc](https://img.shields.io/badge/license-GPLv3-blue) ![Nyelvek](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Olvassa el ezen a nyelven:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · **Magyar** · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · [Türkçe](README.tr.md) · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Kiadás](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Build](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Webhely](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Licenc](https://img.shields.io/badge/license-GPLv3-blue) ![Platformok](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Nyelvek](https://img.shields.io/badge/i18n-50_languages-blue)
-
-Töltsön le videókat, Shortsokat, csatornákat, podcastokat vagy hangsávokat a **YouTube-ról és 2000+ támogatott webhelyről** — akár 8K HDR-ben 60 fps-sel, MP3 / AAC / Opus formátumban, vagy csak a szükséges részt. **Böngésszen a YouTube-on vagy bármely más webhelyen közvetlenül az Arroxyban** a Felfedezés lapon, és töltse le az éppen nézett videót, lejátszási listát vagy csatornát; jelentkezzen be ott, hogy olyan videókat is letölthessen, amelyeket a fiókja már megnézhet. Helyben fut Windowson, macOS-en és Linuxon. **Nincs reklám, nincs felesleges ballaszt, nincs kéretlen ajánlat.**
-
-[**↓ A legújabb kiadás telepítése**](#install) &nbsp;·&nbsp; [**Webhely**](https://arroxy.com/) &nbsp;·&nbsp; [Első indítás Windowson](#windows-first-launch) · [Első indítás macOS-en](#macos-first-launch) · [Első indítás Linuxon](#linux-first-launch)
-
-[![Csatlakozzon a Discord--közösséghez](https://img.shields.io/badge/Csatlakozzon%20a%20Discord--k%C3%B6z%C3%B6ss%C3%A9ghez-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Töltsön le videókat, Shortsokat, csatornákat, podcastokat vagy hangsávokat 
   </tr>
 </table>
 
+Reklámok, használati korlátok és kéretlen fizetős ajánlatok nélkül.
+
+[![Csatlakozzon a Discord--közösséghez](https://img.shields.io/badge/Csatlakozzon%20a%20Discord--k%C3%B6z%C3%B6ss%C3%A9ghez-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Ha az Arroxy időt spórol Önnek, egy ⭐ segít másoknak megtalálni.
 
 </div>
 
-> **Mi az Arroxy?** Az Arroxy egy ingyenes, nyílt forráskódú asztali grafikus felület, amely videókat, hangot, lejátszási listákat és feliratokat tölt le a YouTube-ról és 2000+ további, a [yt-dlp](https://github.com/yt-dlp/yt-dlp) által támogatott webhelyről. Windows 10/11, macOS 13+ (Intel + Apple Silicon) és Linux (AppImage, Flatpak, tar.gz) rendszeren fut. GPLv3 licenc alatt. Nincs reklám, nincs használati korlát. Terjesztés: [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage és közvetlen letöltés.
->
-> **Fő különbség: beépített böngésző.** A legtöbb ingyenes YouTube-letöltő a yt-dlp vékony burkolója: egy URL-mező és egy formátumválasztó menü, saját böngésző nélkül. Az Arroxyban van egy, a **Felfedezés lap**. Az alkalmazáson belül böngészik a YouTube-on vagy bármely más webhelyen, és letölti az éppen nézett videót, lejátszási listát vagy csatornát, vagy jobb gombbal kattint bármely hivatkozásra. Ha egyszer bejelentkezik a Felfedezésben, a fiókot igénylő letöltések ezt a bejelentkezést használják: a privát videói, a Megnézendő és a Kedvelt listái, valamint más videók, amelyeket a fiókja már megnézhet, sütik exportálása nélkül. Más webhelyekre is bejelentkezhet ott, és azok letöltései ezt a bejelentkezést használják, ha szükséges. Részletek: [Miért az Arroxy](#why-explore).
->
-> _Utolsó frissítés: 2026-10-24._
+## Böngésszen, jelentkezzen be, töltsön le
+
+**Illesszen be egy hivatkozást, vagy böngésszen az alkalmazáson belül.** A Felfedezés lapon letöltheti az éppen megtekintett videót, lejátszási listát vagy csatornát, vagy kattintson jobb gombbal egy hivatkozásra a letöltéséhez.
+
+Jelentkezzen be egyszer minden webhelyre, hogy letölthesse a fiókja számára hozzáférhető tartalmakat, köztük a privát videókat, a Megnézendő és a Kedvelt videók listáit. Nincs szükség a sütik exportálására. [További információ a Felfedezésről](#why-explore).
+
+_Utolsó frissítés: 2026-10-24._
 
 > 🌐 Ez a fordítás MI támogatásával készült. Az [angol README](../../README.md) az irányadó forrás. Hibát talált? [Nyisson egy PR-t](../../../../pulls).
 
@@ -183,6 +201,8 @@ Ha az Arroxy időt spórol Önnek, egy ⭐ segít másoknak megtalálni.
 ---
 
 ## <a id="install"></a>📥 Telepítés és első indítás
+
+**Követelmények:** Windows 10/11 · macOS 13+ (Intel vagy Apple Silicon) · Linux (AppImage, Flatpak vagy tar.gz).
 
 **Windows**
 
@@ -394,9 +414,9 @@ A legtöbb ingyenes YouTube-letöltő egy URL-mező a yt-dlp tetején. Az Arroxy
 
 A letöltések közvetlenül a [yt-dlp](https://github.com/yt-dlp/yt-dlp) segítségével töltődnek le a YouTube-ról a kiválasztott mappába — semmi sem megy át külső kiszolgálón. A megtekintési előzmények, a letöltési előzmények, az URL-ek és a fájltartalom az eszközén marad.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Nincs követés.** Az Arroxy csak névtelen jelentéseket küld, amelyek segítenek megszámolni a felhasználókat és kijavítani a hibákat — az Ön hivatkozásait, videóit, fájljait és fiókadatait soha. Ezeket a Beállításokban szabályozhatja.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+A Felfedezés a böngészőjétől elkülönítve tárolja saját bejelentkezéseit, és mindig a webhely saját oldalán jelentkezik be. Egy letöltés csak az adott webhelyhez használja a bejelentkezést, minden alkalommal újra beolvassa, majd törli a másolatát. Ha a Beállításokban kijelentkezik a Felfedezésből, a tárolt bejelentkezések törlődnek.
 
 ---
 

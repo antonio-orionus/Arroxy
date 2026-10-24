@@ -3,19 +3,31 @@
 
 # Arroxy
 
-Arroxy — Windows, macOS ve Linux için Dahili Tarayıcılı, Ücretsiz Açık Kaynak YouTube (+ 2000 site) İndirici
+Yerleşik tarayıcısıyla YouTube ve 2000'den fazla siteden indirme yapabilen ücretsiz, açık kaynaklı indirici. Windows, macOS ve Linux için.
 
-**Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
+<p>
+  <img src="https://img.shields.io/badge/Yerle%C5%9Fik%20taray%C4%B1c%C4%B1-30363d?style=flat" alt="Yerleşik tarayıcı" height="22" />
+  <img src="https://img.shields.io/badge/Kendi%20hesab%C4%B1n-30363d?style=flat" alt="Kendi hesabın" height="22" />
+  <img src="https://img.shields.io/badge/8K%27ya%20kadar-30363d?style=flat" alt="8K'ya kadar" height="22" />
+  <img src="https://img.shields.io/badge/60%20kare%2Fsn-30363d?style=flat" alt="60 kare/sn" height="22" />
+  <img src="https://img.shields.io/badge/HDR-30363d?style=flat" alt="HDR" height="22" />
+  <img src="https://img.shields.io/badge/Dolby%20ses-30363d?style=flat" alt="Dolby ses" height="22" />
+  <img src="https://img.shields.io/badge/Videonun%20bir%20b%C3%B6l%C3%BCm%C3%BC-30363d?style=flat" alt="Videonun bir bölümü" height="22" />
+  <img src="https://img.shields.io/badge/Oynatma%20listeleri-30363d?style=flat" alt="Oynatma listeleri" height="22" />
+  <img src="https://img.shields.io/badge/Shorts-30363d?style=flat" alt="Shorts" height="22" />
+  <img src="https://img.shields.io/badge/MP3-30363d?style=flat" alt="MP3" height="22" />
+  <img src="https://img.shields.io/badge/Altyaz%C4%B1lar-30363d?style=flat" alt="Altyazılar" height="22" />
+  <img src="https://img.shields.io/badge/SponsorBlock-30363d?style=flat" alt="SponsorBlock" height="22" />
+  <img src="https://img.shields.io/badge/%2B2000%20site-30363d?style=flat" alt="+2000 site" height="22" />
+</p>
+
+[**↓ Arroxy'yi kur**](#install) &nbsp;·&nbsp; [**Web sitesi**](https://arroxy.com/)
+
+[Windows ilk başlatma](#windows-first-launch) · [macOS ilk başlatma](#macos-first-launch) · [Linux ilk başlatma](#linux-first-launch)
+
+[![Sürüm](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Derleme](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) ![Lisans](https://img.shields.io/badge/license-GPLv3-blue) ![Diller](https://img.shields.io/badge/i18n-50_languages-blue)
 
 **Şu dilde oku:** [Afaan Oromoo](README.om.md) · [Bahasa Indonesia](README.id.md) · [Català](README.ca.md) · [Čeština](README.cs.md) · [Dansk](README.da.md) · [Deutsch](README.de.md) · [Eesti](README.et.md) · [English](../../README.md) · [Español](README.es.md) · [Euskara](README.eu.md) · [Français](README.fr.md) · [Galego](README.gl.md) · [Hrvatski](README.hr.md) · [Italiano](README.it.md) · [Kiswahili](README.sw.md) · [Latviešu](README.lv.md) · [Lietuvių](README.lt.md) · [Magyar](README.hu.md) · [Nederlands](README.nl.md) · [Norsk bokmål](README.nb.md) · [O'zbekcha](README.uz.md) · [Polski](README.pl.md) · [Português](README.pt.md) · [Română](README.ro.md) · [Slovenčina](README.sk.md) · [Slovenščina](README.sl.md) · [Suomi](README.fi.md) · [Svenska](README.sv.md) · [Tiếng Việt](README.vi.md) · **Türkçe** · [አማርኛ](README.am.md) · [עברית](README.he.md) · [العربية](README.ar.md) · [اردو](README.ur.md) · [پښتو](README.ps.md) · [فارسی](README.fa.md) · [বাংলা](README.bn.md) · [हिन्दी](README.hi.md) · [ไทย](README.th.md) · [မြန်မာဘာသာ](README.my.md) · [ខ្មែរ](README.km.md) · [Ελληνικά](README.el.md) · [Български](README.bg.md) · [Русский](README.ru.md) · [Српски](README.sr.md) · [Українська](README.uk.md) · [中文](README.zh.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [繁體中文](README.zh-Hant.md)
-
-[![Sürüm](https://img.shields.io/github/v/release/antonio-orionus/Arroxy?label=Release&color=blueviolet)](https://github.com/antonio-orionus/Arroxy/releases/latest) [![Derleme](https://img.shields.io/github/actions/workflow/status/antonio-orionus/Arroxy/release.yml?label=Build)](https://github.com/antonio-orionus/Arroxy/actions/workflows/release.yml) [![Web sitesi](https://img.shields.io/badge/website-arroxy.com-blueviolet)](https://arroxy.com/) ![Lisans](https://img.shields.io/badge/license-GPLv3-blue) ![Platformlar](https://img.shields.io/badge/platform-cross--platform-1f2937?logo=github&logoColor=white) ![Diller](https://img.shields.io/badge/i18n-50_languages-blue)
-
-**YouTube ve 2000+ desteklenen siteden** video, Shorts, kanal, podcast veya ses parçaları indir — 60 fps'de 8K HDR'a kadar, MP3 / AAC / Opus olarak ya da yalnızca ihtiyacın olan kısmı. Explore sekmesinde **YouTube'a ya da başka herhangi bir siteye Arroxy içinden göz at** ve baktığın videoyu, oynatma listesini veya kanalı indir; kendi hesabının zaten izleyebildiği videoları indirmek için orada giriş yap. Windows, macOS ve Linux'ta yerel çalışır. **Reklam yok, şişkinlik yok, ek satış yok.**
-
-[**↓ En son sürümü kur**](#install) &nbsp;·&nbsp; [**Web sitesi**](https://arroxy.com/) &nbsp;·&nbsp; [Windows ilk başlatma](#windows-first-launch) · [macOS ilk başlatma](#macos-first-launch) · [Linux ilk başlatma](#linux-first-launch)
-
-[![Discord Topluluğuna Katıl](https://img.shields.io/badge/Discord%20Toplulu%C4%9Funa%20Kat%C4%B1l-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
 
 <table>
   <tr>
@@ -24,15 +36,21 @@ Arroxy — Windows, macOS ve Linux için Dahili Tarayıcılı, Ücretsiz Açık 
   </tr>
 </table>
 
+Reklam, kullanım sınırı veya ücretli yükseltme baskısı yok.
+
+[![Discord Topluluğuna Katıl](https://img.shields.io/badge/Discord%20Toplulu%C4%9Funa%20Kat%C4%B1l-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/ueGvXwQH8y)
+
 Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yardım eder.
 
 </div>
 
-> **Arroxy nedir?** Arroxy; YouTube'dan ve [yt-dlp](https://github.com/yt-dlp/yt-dlp) tarafından desteklenen 2000'den fazla başka siteden video, ses, oynatma listesi ve altyazı indiren, ücretsiz ve açık kaynaklı bir masaüstü arayüzüdür. Windows 10/11, macOS 13+ (Intel + Apple Silicon) ve Linux (AppImage, Flatpak, tar.gz) üzerinde çalışır. GPLv3 lisanslıdır. Reklam yok, kullanım sınırı yok. [Winget](https://winget.run/pkg/AntonioOrionus/Arroxy), [Scoop](https://github.com/antonio-orionus/scoop-bucket), [Homebrew Cask](https://github.com/antonio-orionus/homebrew-arroxy), Flatpak, AppImage ve doğrudan indirme yoluyla dağıtılır.
->
-> **Temel fark: yerleşik tarayıcı.** Ücretsiz YouTube indiricilerinin çoğu ince yt-dlp sarmalayıcılarıdır: bir URL kutusu ve bir biçim menüsü, kendi tarayıcıları yok. Arroxy'de var: **Explore sekmesi**. YouTube'da ya da başka herhangi bir sitede uygulamanın içinde gezinirsin; açık olan videoyu, oynatma listesini veya kanalı indirirsin ya da herhangi bir bağlantıya sağ tıklarsın. Explore'da bir kez giriş yaparsan, hesap gerektiren indirmeler bu girişi kullanır: özel videoların, Daha Sonra İzle ve Beğenilenler listelerin ve hesabının zaten izleyebildiği diğer videolar, çerez dışa aktarmadan. Başka sitelerde de orada giriş yap; onların indirmeleri gerektiğinde bu girişi kullanır. Ayrıntılar: [Neden Arroxy](#why-explore).
->
-> _Son güncelleme: 2026-10-24._
+## Gezin, giriş yap, indir
+
+**Bir bağlantı yapıştır veya uygulama içinde gezin.** Keşfet sekmesinden açık olan videoyu, oynatma listesini veya kanalı indir ya da bir bağlantıya sağ tıklayıp içeriğini indir.
+
+Her sitede bir kez giriş yaparak hesabının erişebildiği içerikleri indir — özel videoların, Daha Sonra İzle ve Beğenilen videolar listelerin dahil. Çerezleri dışa aktarmana gerek yok. [Keşfet hakkında daha fazla bilgi](#why-explore).
+
+_Son güncelleme: 2026-10-24._
 
 > 🌐 Bu, yapay zeka destekli bir çeviridir. [İngilizce README](../../README.md) gerçek kaynak kabul edilir. Hata mı gördün? [PR'lar memnuniyetle karşılanır](../../../../pulls).
 
@@ -183,6 +201,8 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 ---
 
 ## <a id="install"></a>📥 Kurulum ve ilk başlatma
+
+**Gereksinimler:** Windows 10/11 · macOS 13+ (Intel veya Apple Silicon) · Linux (AppImage, Flatpak veya tar.gz).
 
 **Windows**
 
@@ -394,9 +414,9 @@ Arroxy tek bir şey için yapılmıştır: ister URL yapıştır ister videoyu E
 
 İndirmeler [yt-dlp](https://github.com/yt-dlp/yt-dlp) ile doğrudan YouTube'dan seçtiğin klasöre alınır — hiçbir şey üçüncü taraf sunucu üzerinden yönlendirilmez. İzleme geçmişi, indirme geçmişi, URL'ler ve dosya içerikleri cihazında kalır.
 
-**No tracking.** Arroxy sends only anonymous reports that help us count users and fix problems — never your links, videos, files or accounts. You control them in Settings.
+**Takip yok.** Arroxy yalnızca kullanıcıları saymamıza ve sorunları gidermemize yardımcı olan anonim raporlar gönderir — bağlantılarını, videolarını, dosyalarını veya hesap bilgilerini asla göndermez. Raporları Ayarlar'dan kontrol edebilirsin.
 
-Explore keeps its own sign-ins, separate from your browser, and you always sign in on the site's own page. A download uses a sign-in only for that site, reads it fresh and deletes its copy afterwards. Signing out of Explore in Settings forgets them.
+Keşfet, tarayıcından ayrı olarak kendi oturumlarını saklar ve her zaman sitenin kendi sayfasında giriş yaparsın. Bir indirme, oturumu yalnızca o site için kullanır, her seferinde yeniden okur ve ardından kendi kopyasını siler. Ayarlar'dan Keşfet oturumlarını kapatmak, kaydedilmiş oturumları siler.
 
 ---
 
