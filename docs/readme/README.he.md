@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/he-97bb0e6fd9.jpg" alt="הדביקו קישור, או פשוט גלשו. מסך כתובת ה-URL והדפדפן המובנה של Arroxy, עם הורדה שמתבצעת." width="1200" />
 
-# Arroxy — מוריד חינמי ובקוד פתוח עבור YouTube (ועוד 2000 אתרים) עם דפדפן מובנה, עבור Windows, macOS ו-Linux
+# Arroxy
+
+Arroxy — מוריד חינמי ובקוד פתוח עבור YouTube (ועוד 2000 אתרים) עם דפדפן מובנה, עבור Windows, macOS ו-Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

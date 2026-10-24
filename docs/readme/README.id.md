@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/id-6da3cf0ccc.jpg" alt="Tempel tautan, atau cukup jelajahi. Layar URL dan peramban bawaan Arroxy, dengan unduhan yang sedang berlangsung." width="1200" />
 
-# Arroxy — Pengunduh YouTube (+ 2000 situs) Sumber Terbuka Gratis dengan Peramban Bawaan untuk Windows, macOS & Linux
+# Arroxy
+
+Arroxy — Pengunduh YouTube (+ 2000 situs) Sumber Terbuka Gratis dengan Peramban Bawaan untuk Windows, macOS & Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

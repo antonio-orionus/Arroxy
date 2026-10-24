@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/hr-d4b89d2f7b.jpg" alt="Zalijepite poveznicu ili jednostavno pregledavajte web. Zaslon za unos URL-a i ugrađeni preglednik programa Arroxy s preuzimanjem u tijeku." width="1200" />
 
-# Arroxy — besplatan program otvorenog koda za preuzimanje s YouTubea (+ 2000 web-mjesta) s ugrađenim preglednikom, za Windows, macOS i Linux
+# Arroxy
+
+Arroxy — besplatan program otvorenog koda za preuzimanje s YouTubea (+ 2000 web-mjesta) s ugrađenim preglednikom, za Windows, macOS i Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

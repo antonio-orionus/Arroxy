@@ -88,7 +88,7 @@ export const en = {
   hero_banner_line1: "Paste a link,",
   hero_banner_line2: "or just browse.",
   title:
-    "Arroxy — Free Open-Source YouTube (+ 2000 sites) Downloader with a Built-in Browser, for Windows, macOS & Linux",
+    "Free, open-source downloader for YouTube and 2000+ sites, with a built-in browser. For Windows, macOS, and Linux.",
   read_in_label: "Read in:",
   badge_release_alt: "Release",
   badge_build_alt: "Build",

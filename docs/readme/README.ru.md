@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/ru-979be118f7.jpg" alt="Вставь ссылку или просто просматривай сайты. Экран URL и встроенный браузер Arroxy с выполняющейся загрузкой." width="1200" />
 
-# Arroxy — бесплатный загрузчик YouTube (+ 2000 сайтов) с открытым исходным кодом и встроенным браузером для Windows, macOS и Linux
+# Arroxy
+
+Arroxy — бесплатный загрузчик YouTube (+ 2000 сайтов) с открытым исходным кодом и встроенным браузером для Windows, macOS и Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

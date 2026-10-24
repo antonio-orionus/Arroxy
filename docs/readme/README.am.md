@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/am-320be06923.jpg" alt="አገናኝ ይለጥፉ፣ ወይም በቀላሉ ያስሱ። የArroxy ዩአርኤል ማያ ገጽ እና አብሮ የተሰራው አሳሽ፣ ማውረድ በሂደት ላይ እያለ።" width="1200" />
 
-# Arroxy — አብሮ የተሰራ አሳሽ ያለው ነፃ ምን ኮድ ያለው YouTube (+ 2000 ጣቢያ) አውራጅ ለ Windows, macOS እና Linux
+# Arroxy
+
+Arroxy — አብሮ የተሰራ አሳሽ ያለው ነፃ ምን ኮድ ያለው YouTube (+ 2000 ጣቢያ) አውራጅ ለ Windows, macOS እና Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/nb-6442aa09fc.jpg" alt="Lim inn en lenke, eller bare surf. URL-skjermen og den innebygde nettleseren i Arroxy, med en nedlasting som pågår." width="1200" />
 
-# Arroxy — gratis nedlaster med åpen kildekode for YouTube (+ 2000 nettsteder) med innebygd nettleser, for Windows, macOS og Linux
+# Arroxy
+
+Arroxy — gratis nedlaster med åpen kildekode for YouTube (+ 2000 nettsteder) med innebygd nettleser, for Windows, macOS og Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

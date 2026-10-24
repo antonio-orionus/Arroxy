@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/bn-8d414b500e.jpg" alt="একটি লিংক পেস্ট করুন, অথবা শুধু ব্রাউজ করুন। Arroxy-এর ইউআরএল স্ক্রিন ও অন্তর্নির্মিত ব্রাউজার, যেখানে একটি ডাউনলোড চলছে।" width="1200" />
 
-# Arroxy — Windows, macOS ও Linux-এর জন্য বিল্ট-ইন ব্রাউজারসহ বিনামূল্যে ওপেন-সোর্স YouTube (+ ২০০০ সাইট) ডাউনলোডার
+# Arroxy
+
+Arroxy — Windows, macOS ও Linux-এর জন্য বিল্ট-ইন ব্রাউজারসহ বিনামূল্যে ওপেন-সোর্স YouTube (+ ২০০০ সাইট) ডাউনলোডার
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

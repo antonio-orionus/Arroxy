@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/fa-bea32e8fbf.jpg" alt="پیوندی بچسبانید، یا فقط مرور کنید. صفحهٔ نشانی اینترنتی و مرورگر داخلی Arroxy، با یک دانلود در حال انجام." width="1200" />
 
-# Arroxy — دانلودر رایگان و متن‌باز YouTube (و بیش از ۲۰۰۰ سایت) با مرورگر داخلی برای Windows، macOS و Linux
+# Arroxy
+
+Arroxy — دانلودر رایگان و متن‌باز YouTube (و بیش از ۲۰۰۰ سایت) با مرورگر داخلی برای Windows، macOS و Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

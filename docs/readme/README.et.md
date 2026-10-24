@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/et-becbc84244.jpg" alt="Kleepige link või lihtsalt sirvige. Arroxy URL-i vaade ja sisseehitatud brauser koos poolelioleva allalaadimisega." width="1200" />
 
-# Arroxy — tasuta avatud lähtekoodiga YouTube’i (+ 2000 saidi) allalaadija sisseehitatud brauseriga, Windowsile, macOS-ile ja Linuxile
+# Arroxy
+
+Arroxy — tasuta avatud lähtekoodiga YouTube’i (+ 2000 saidi) allalaadija sisseehitatud brauseriga, Windowsile, macOS-ile ja Linuxile
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

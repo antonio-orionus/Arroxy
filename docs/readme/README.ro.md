@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/ro-9325a8ab6a.jpg" alt="Lipiți un link sau pur și simplu navigați. Ecranul URL și browserul încorporat din Arroxy, cu o descărcare în curs." width="1200" />
 
-# Arroxy — descărcător gratuit și open-source pentru YouTube (+ 2000 de site-uri) cu browser încorporat, pentru Windows, macOS și Linux
+# Arroxy
+
+Arroxy — descărcător gratuit și open-source pentru YouTube (+ 2000 de site-uri) cu browser încorporat, pentru Windows, macOS și Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

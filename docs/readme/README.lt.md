@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/lt-5e30b3bb43.jpg" alt="Įklijuokite nuorodą arba tiesiog naršykite. Arroxy URL ekranas ir integruota naršyklė su vykstančiu atsisiuntimu." width="1200" />
 
-# Arroxy — nemokama atvirojo kodo YouTube (+ 2000 svetainių) atsisiuntimo programa su integruota naršykle, skirta Windows, macOS ir Linux
+# Arroxy
+
+Arroxy — nemokama atvirojo kodo YouTube (+ 2000 svetainių) atsisiuntimo programa su integruota naršykle, skirta Windows, macOS ir Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/uz-28b490644e.jpg" alt="Havolani joylashtiring yoki shunchaki saytlarni ko'rib chiqing. Arroxy dasturining URL ekrani va o'rnatilgan brauzeri, yuklab olish davom etmoqda." width="1200" />
 
-# Arroxy — Windows, macOS va Linux uchun o'rnatilgan brauzerli Bepul Ochiq Manbali YouTube (+ 2000 sayt) Yuklovchi
+# Arroxy
+
+Arroxy — Windows, macOS va Linux uchun o'rnatilgan brauzerli Bepul Ochiq Manbali YouTube (+ 2000 sayt) Yuklovchi
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

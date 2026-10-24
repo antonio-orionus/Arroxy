@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/eu-d506b8c546.jpg" alt="Itsatsi esteka bat edo, besterik gabe, nabigatu. Arroxy-ren URL pantaila eta nabigatzaile integratua, deskarga bat abian dela." width="1200" />
 
-# Arroxy — YouTube (+ 2000 gune) deskargatzaile librea eta kode irekikoa, nabigatzaile integratuarekin, Windows, macOS eta Linux-erako
+# Arroxy
+
+Arroxy — YouTube (+ 2000 gune) deskargatzaile librea eta kode irekikoa, nabigatzaile integratuarekin, Windows, macOS eta Linux-erako
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

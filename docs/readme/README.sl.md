@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/sl-021a0a3f90.jpg" alt="Prilepite povezavo ali preprosto brskajte. Zaslon za URL in vgrajeni brskalnik programa Arroxy s prenosom v teku." width="1200" />
 
-# Arroxy — brezplačen odprtokodni prenosnik za YouTube (+ 2000 spletnih mest) z vgrajenim brskalnikom, za Windows, macOS in Linux
+# Arroxy
+
+Arroxy — brezplačen odprtokodni prenosnik za YouTube (+ 2000 spletnih mest) z vgrajenim brskalnikom, za Windows, macOS in Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

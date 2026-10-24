@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/zh-Hant-2a1e023d49.jpg" alt="貼上連結，或隨意瀏覽。Arroxy 的網址畫面與內建瀏覽器，正在進行下載。" width="1200" />
 
-# Arroxy — 內建瀏覽器的免費開源 YouTube（+ 2000 個網站）下載工具，支援 Windows、macOS 和 Linux
+# Arroxy
+
+Arroxy — 內建瀏覽器的免費開源 YouTube（+ 2000 個網站）下載工具，支援 Windows、macOS 和 Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

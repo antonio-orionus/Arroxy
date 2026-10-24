@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/km-5dce5cc1d8.jpg" alt="បិទភ្ជាប់តំណ ឬគ្រាន់តែរុករក។ អេក្រង់អាសយដ្ឋាន URL និងកម្មវិធីរុករកភ្ជាប់មកជាមួយរបស់ Arroxy ខណៈដែលការទាញយកកំពុងដំណើរការ។" width="1200" />
 
-# Arroxy — កម្មវិធីទាញយក YouTube (+ គេហទំព័រ 2000) ឥតគិតថ្លៃ និងកូដចំហ មានកម្មវិធីរុករកភ្ជាប់មកជាមួយ សម្រាប់ Windows, macOS និង Linux
+# Arroxy
+
+Arroxy — កម្មវិធីទាញយក YouTube (+ គេហទំព័រ 2000) ឥតគិតថ្លៃ និងកូដចំហ មានកម្មវិធីរុករកភ្ជាប់មកជាមួយ សម្រាប់ Windows, macOS និង Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

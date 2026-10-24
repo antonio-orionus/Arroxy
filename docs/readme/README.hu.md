@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/hu-0a7e0ec1c6.jpg" alt="Illesszen be egy hivatkozást, vagy egyszerűen böngésszen. Az Arroxy URL-képernyője és beépített böngészője, folyamatban lévő letöltéssel." width="1200" />
 
-# Arroxy — Ingyenes, nyílt forráskódú YouTube- (+ 2000 webhely) letöltő beépített böngészővel Windowsra, macOS-re és Linuxra
+# Arroxy
+
+Arroxy — Ingyenes, nyílt forráskódú YouTube- (+ 2000 webhely) letöltő beépített böngészővel Windowsra, macOS-re és Linuxra
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/hi-0400242b57.jpg" alt="लिंक पेस्ट करें, या बस ब्राउज़ करें। Arroxy की यूआरएल स्क्रीन और अंतर्निहित ब्राउज़र, जिसमें एक डाउनलोड चल रहा है।" width="1200" />
 
-# Arroxy — Windows, macOS और Linux के लिए बिल्ट-इन ब्राउज़र वाला मुफ़्त ओपन-सोर्स YouTube (+ 2000 साइट) डाउनलोडर
+# Arroxy
+
+Arroxy — Windows, macOS और Linux के लिए बिल्ट-इन ब्राउज़र वाला मुफ़्त ओपन-सोर्स YouTube (+ 2000 साइट) डाउनलोडर
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

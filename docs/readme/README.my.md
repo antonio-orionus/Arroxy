@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/my-118c59412a.jpg" alt="လင့်ခ်တစ်ခုကို ကူးထည့်ပါ သို့မဟုတ် ဝဘ်ဆိုက်များကိုသာ ကြည့်ရှုပါ။ ဒေါင်းလုဒ်ဆွဲနေစဉ် ပြသထားသော Arroxy ၏ ဝဘ်လိပ်စာမျက်နှာပြင်နှင့် အသင့်ပါ ဘရောက်ဇာ။" width="1200" />
 
-# Arroxy — Windows, macOS နှင့် Linux အတွက် built-in browser ပါသော အခမဲ့ Open-Source YouTube (+ ၂၀၀၀ ဆိုဒ်) Downloader
+# Arroxy
+
+Arroxy — Windows, macOS နှင့် Linux အတွက် built-in browser ပါသော အခမဲ့ Open-Source YouTube (+ ၂၀၀၀ ဆိုဒ်) Downloader
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

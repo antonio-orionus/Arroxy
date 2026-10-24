@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/sv-645af2046d.jpg" alt="Klistra in en länk eller surfa bara. Arroxys URL-vy och inbyggda webbläsare, med en pågående hämtning." width="1200" />
 
-# Arroxy — gratis hämtare med öppen källkod för YouTube (+ 2 000 webbplatser) med inbyggd webbläsare, för Windows, macOS och Linux
+# Arroxy
+
+Arroxy — gratis hämtare med öppen källkod för YouTube (+ 2 000 webbplatser) med inbyggd webbläsare, för Windows, macOS och Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

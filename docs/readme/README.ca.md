@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/ca-af97c525e1.jpg" alt="Enganxa un enllaç o simplement navega. La pantalla d’URL i el navegador integrat d’Arroxy, amb una descàrrega en curs." width="1200" />
 
-# Arroxy — Descarregador gratuït i de codi obert de YouTube (+ 2000 llocs) amb navegador integrat, per a Windows, macOS i Linux
+# Arroxy
+
+Arroxy — Descarregador gratuït i de codi obert de YouTube (+ 2000 llocs) amb navegador integrat, per a Windows, macOS i Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

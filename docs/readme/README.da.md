@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/da-ee4721ad7c.jpg" alt="Indsæt et link, eller gå bare på opdagelse. Arroxys URL-skærm og indbyggede browser med en igangværende download." width="1200" />
 
-# Arroxy — gratis open source-downloader til YouTube (+ 2000 websteder) med indbygget browser, til Windows, macOS og Linux
+# Arroxy
+
+Arroxy — gratis open source-downloader til YouTube (+ 2000 websteder) med indbygget browser, til Windows, macOS og Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

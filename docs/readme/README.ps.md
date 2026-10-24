@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/ps-433a61629d.jpg" alt="یو لینک پیسټ کړئ، یا یوازې لټون وکړئ. د Arroxy د وېب پتې پرده او دننه جوړ شوی براوزر، په داسې حال کې چې یو ډاونلوډ روان دی." width="1200" />
 
-# Arroxy — د Windows، macOS او Linux لپاره وړیا خلاصه سرچینه YouTube (+ ۲۰۰۰ سایټونه) ډاونلوډر، د جوړ شوي براوزر سره
+# Arroxy
+
+Arroxy — د Windows، macOS او Linux لپاره وړیا خلاصه سرچینه YouTube (+ ۲۰۰۰ سایټونه) ډاونلوډر، د جوړ شوي براوزر سره
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

@@ -1,7 +1,9 @@
 <div align="center">
   <img src="{{BANNER_IMAGE}}" alt="{{hero_image_alt}}" width="1200" />
 
-# {{title}}
+# Arroxy
+
+{{title}}
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

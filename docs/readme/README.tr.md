@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/tr-abe7893d6b.jpg" alt="Bir bağlantı yapıştır ya da sadece göz at. Arroxy'nin URL ekranı ve dahili tarayıcısı, devam eden bir indirmeyle birlikte." width="1200" />
 
-# Arroxy — Windows, macOS ve Linux için Dahili Tarayıcılı, Ücretsiz Açık Kaynak YouTube (+ 2000 site) İndirici
+# Arroxy
+
+Arroxy — Windows, macOS ve Linux için Dahili Tarayıcılı, Ücretsiz Açık Kaynak YouTube (+ 2000 site) İndirici
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

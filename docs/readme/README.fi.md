@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/fi-66e9eac503.jpg" alt="Liitä linkki tai selaa vain. Arroxyn URL-näkymä ja sisäänrakennettu selain, jossa lataus on käynnissä." width="1200" />
 
-# Arroxy — ilmainen avoimen lähdekoodin YouTube- (+ 2000 sivustoa) lataaja sisäänrakennetulla selaimella Windowsille, macOS:lle ja Linuxille
+# Arroxy
+
+Arroxy — ilmainen avoimen lähdekoodin YouTube- (+ 2000 sivustoa) lataaja sisäänrakennetulla selaimella Windowsille, macOS:lle ja Linuxille
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/el-da1bd8ca2c.jpg" alt="Επικόλλησε έναν σύνδεσμο ή απλώς περιηγήσου. Η οθόνη URL και το ενσωματωμένο πρόγραμμα περιήγησης του Arroxy, με μια λήψη σε εξέλιξη." width="1200" />
 
-# Arroxy — Δωρεάν Ανοιχτού Κώδικα Λήψη YouTube (+ 2000 ιστοτόπους) με ενσωματωμένο πρόγραμμα περιήγησης για Windows, macOS & Linux
+# Arroxy
+
+Arroxy — Δωρεάν Ανοιχτού Κώδικα Λήψη YouTube (+ 2000 ιστοτόπους) με ενσωματωμένο πρόγραμμα περιήγησης για Windows, macOS & Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

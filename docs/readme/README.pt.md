@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/pt-63bc852855.jpg" alt="Cole um link ou simplesmente navegue. A tela de URL e o navegador integrado do Arroxy, com um download em andamento." width="1200" />
 
-# Arroxy — Baixador gratuito e de código aberto do YouTube (+ 2000 sites) com navegador integrado para Windows, macOS e Linux
+# Arroxy
+
+Arroxy — Baixador gratuito e de código aberto do YouTube (+ 2000 sites) com navegador integrado para Windows, macOS e Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

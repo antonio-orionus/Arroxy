@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/sr-2eacf59aed.jpg" alt="Налепи везу или једноставно прегледај сајтове. Екран за URL и уграђени прегледач апликације Arroxy, са преузимањем у току." width="1200" />
 
-# Arroxy — Бесплатни open-source YouTube (+ 2000 сајтова) преузимач са уграђеним прегледачем за Windows, macOS и Linux
+# Arroxy
+
+Arroxy — Бесплатни open-source YouTube (+ 2000 сајтова) преузимач са уграђеним прегледачем за Windows, macOS и Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

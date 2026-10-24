@@ -1,7 +1,9 @@
 <div align="center">
   <img src="build/banners/en-804cf0d2a0.jpg" alt="Paste a link, or just browse. Arroxy's URL screen and built-in browser, with a download in progress." width="1200" />
 
-# Arroxy — Free Open-Source YouTube (+ 2000 sites) Downloader with a Built-in Browser, for Windows, macOS & Linux
+# Arroxy
+
+Free, open-source downloader for YouTube and 2000+ sites, with a built-in browser. For Windows, macOS, and Linux.
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 

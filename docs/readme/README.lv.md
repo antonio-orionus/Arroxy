@@ -1,7 +1,9 @@
 <div align="center">
   <img src="../../build/banners/lv-25f7c55bd8.jpg" alt="Ielīmējiet saiti vai vienkārši pārlūkojiet. Arroxy URL ekrāns un iebūvētais pārlūks ar notiekošu lejupielādi." width="1200" />
 
-# Arroxy — bezmaksas atvērtā koda YouTube (+ 2000 vietņu) lejupielādētājs ar iebūvētu pārlūku operētājsistēmām Windows, macOS un Linux
+# Arroxy
+
+Arroxy — bezmaksas atvērtā koda YouTube (+ 2000 vietņu) lejupielādētājs ar iebūvētu pārlūku operētājsistēmām Windows, macOS un Linux
 
 **Built-in browser · Your own sign-in · 4K · 60fps · HDR · Dolby audio · Part of a video · Playlists · Shorts · MP3 · Subtitles · SponsorBlock · +2000 sites**
 
