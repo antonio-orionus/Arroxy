@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Lipiți un link sau pur și simplu navigați. Ecranul URL și browserul încorporat din Arroxy, cu o descărcare în curs." width="1200" />
+  <img src="../../build/banners/ro-9325a8ab6a.jpg" alt="Lipiți un link sau pur și simplu navigați. Ecranul URL și browserul încorporat din Arroxy, cu o descărcare în curs." width="1200" />
 
 # Arroxy — descărcător gratuit și open-source pentru YouTube (+ 2000 de site-uri) cu browser încorporat, pentru Windows, macOS și Linux
 

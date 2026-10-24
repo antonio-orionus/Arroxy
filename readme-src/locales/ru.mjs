@@ -85,6 +85,8 @@ bun run dist:win     # упаковка Windows-целей на поддержи
 export const ru = {
   icon_alt: "Маскот Arroxy",
   hero_image_alt: "Вставь ссылку или просто просматривай сайты. Экран URL и встроенный браузер Arroxy с выполняющейся загрузкой.",
+  hero_banner_line1: "Вставьте ссылку",
+  hero_banner_line2: "или просто листайте.",
   title:
     "Arroxy — бесплатный загрузчик YouTube (+ 2000 сайтов) с открытым исходным кодом и встроенным браузером для Windows, macOS и Linux",
   read_in_label: "Язык:",

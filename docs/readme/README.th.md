@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="วางลิงก์ หรือเพียงแค่เรียกดู หน้าจอ URL และเบราว์เซอร์ในตัวของ Arroxy ขณะกำลังดาวน์โหลด" width="1200" />
+  <img src="../../build/banners/th-0998c59e26.jpg" alt="วางลิงก์ หรือเพียงแค่เรียกดู หน้าจอ URL และเบราว์เซอร์ในตัวของ Arroxy ขณะกำลังดาวน์โหลด" width="1200" />
 
 # Arroxy — โปรแกรมดาวน์โหลด YouTube (+ 2000 เว็บไซต์) ฟรีและโอเพนซอร์ส พร้อมเบราว์เซอร์ในตัว สำหรับ Windows, macOS และ Linux
 

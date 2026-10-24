@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Havolani joylashtiring yoki shunchaki saytlarni ko'rib chiqing. Arroxy dasturining URL ekrani va o'rnatilgan brauzeri, yuklab olish davom etmoqda." width="1200" />
+  <img src="../../build/banners/uz-28b490644e.jpg" alt="Havolani joylashtiring yoki shunchaki saytlarni ko'rib chiqing. Arroxy dasturining URL ekrani va o'rnatilgan brauzeri, yuklab olish davom etmoqda." width="1200" />
 
 # Arroxy — Windows, macOS va Linux uchun o'rnatilgan brauzerli Bepul Ochiq Manbali YouTube (+ 2000 sayt) Yuklovchi
 

@@ -85,6 +85,8 @@ bun run dist:win     # supported host ላይ Windows targets package ማድረ�
 export const am = {
   icon_alt: "የ Arroxy መሸፈኛ",
   hero_image_alt: "አገናኝ ይለጥፉ፣ ወይም በቀላሉ ያስሱ። የArroxy ዩአርኤል ማያ ገጽ እና አብሮ የተሰራው አሳሽ፣ ማውረድ በሂደት ላይ እያለ።",
+  hero_banner_line1: "አገናኝ ይለጥፉ፣",
+  hero_banner_line2: "ወይም በቀላሉ ያስሱ።",
   title:
     "Arroxy — አብሮ የተሰራ አሳሽ ያለው ነፃ ምን ኮድ ያለው YouTube (+ 2000 ጣቢያ) አውራጅ ለ Windows, macOS እና Linux",
   read_in_label: "አንብብ በ:",

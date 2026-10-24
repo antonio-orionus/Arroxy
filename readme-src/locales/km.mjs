@@ -87,6 +87,8 @@ const DISCORD = "ចូលរួមសហគមន៍ Discord";
 export const km = {
   icon_alt: "តួអង្គ Arroxy",
   hero_image_alt: "បិទភ្ជាប់តំណ ឬគ្រាន់តែរុករក។ អេក្រង់អាសយដ្ឋាន URL និងកម្មវិធីរុករកភ្ជាប់មកជាមួយរបស់ Arroxy ខណៈដែលការទាញយកកំពុងដំណើរការ។",
+  hero_banner_line1: "បិទភ្ជាប់តំណ",
+  hero_banner_line2: "ឬគ្រាន់តែរុករក។",
   title:
     "Arroxy — កម្មវិធីទាញយក YouTube (+ គេហទំព័រ 2000) ឥតគិតថ្លៃ និងកូដចំហ មានកម្មវិធីរុករកភ្ជាប់មកជាមួយ សម្រាប់ Windows, macOS និង Linux",
   read_in_label: "អានជា៖",

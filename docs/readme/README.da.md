@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Indsæt et link, eller gå bare på opdagelse. Arroxys URL-skærm og indbyggede browser med en igangværende download." width="1200" />
+  <img src="../../build/banners/da-ee4721ad7c.jpg" alt="Indsæt et link, eller gå bare på opdagelse. Arroxys URL-skærm og indbyggede browser med en igangværende download." width="1200" />
 
 # Arroxy — gratis open source-downloader til YouTube (+ 2000 websteder) med indbygget browser, til Windows, macOS og Linux
 

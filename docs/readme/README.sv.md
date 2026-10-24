@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Klistra in en länk eller surfa bara. Arroxys URL-vy och inbyggda webbläsare, med en pågående hämtning." width="1200" />
+  <img src="../../build/banners/sv-645af2046d.jpg" alt="Klistra in en länk eller surfa bara. Arroxys URL-vy och inbyggda webbläsare, med en pågående hämtning." width="1200" />
 
 # Arroxy — gratis hämtare med öppen källkod för YouTube (+ 2 000 webbplatser) med inbyggd webbläsare, för Windows, macOS och Linux
 

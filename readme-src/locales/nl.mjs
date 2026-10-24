@@ -85,6 +85,8 @@ bun run dist:win     # package Windows targets when run on a supported host
 export const nl = {
   icon_alt: "Arroxy-mascotte",
   hero_image_alt: "Plak een link of surf gewoon rond. Het URL-scherm en de ingebouwde browser van Arroxy, met een download die bezig is.",
+  hero_banner_line1: "Plak een link,",
+  hero_banner_line2: "of surf gewoon rond.",
   title:
     "Arroxy — Gratis open-source downloader voor YouTube (+ 2000 sites) met ingebouwde browser, voor Windows, macOS & Linux",
   read_in_label: "Lees in:",

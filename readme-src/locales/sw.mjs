@@ -85,6 +85,8 @@ bun run dist:win     # funga malengo ya Windows kwenye host inayotumika
 export const sw = {
   icon_alt: "Nembo ya Arroxy",
   hero_image_alt: "Bandika kiungo, au vinjari tu. Skrini ya URL na kivinjari kilichojengewa ndani cha Arroxy, pamoja na upakuaji unaoendelea.",
+  hero_banner_line1: "Bandika kiungo,",
+  hero_banner_line2: "au vinjari tu.",
   title:
     "Arroxy — Kipakuzi Bure cha Chanzo Wazi cha YouTube (+ Tovuti 2000) chenye Kivinjari Ndani, kwa Windows, macOS na Linux",
   read_in_label: "Soma kwa:",

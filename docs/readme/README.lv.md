@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Ielīmējiet saiti vai vienkārši pārlūkojiet. Arroxy URL ekrāns un iebūvētais pārlūks ar notiekošu lejupielādi." width="1200" />
+  <img src="../../build/banners/lv-25f7c55bd8.jpg" alt="Ielīmējiet saiti vai vienkārši pārlūkojiet. Arroxy URL ekrāns un iebūvētais pārlūks ar notiekošu lejupielādi." width="1200" />
 
 # Arroxy — bezmaksas atvērtā koda YouTube (+ 2000 vietņu) lejupielādētājs ar iebūvētu pārlūku operētājsistēmām Windows, macOS un Linux
 

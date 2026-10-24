@@ -85,6 +85,8 @@ bun run dist:win     # package Windows targets when run on a supported host
 export const sk = {
   icon_alt: "Maskot Arroxy",
   hero_image_alt: "Vložte odkaz alebo len prehliadajte web. Obrazovka URL a vstavaný prehliadač aplikácie Arroxy s prebiehajúcim sťahovaním.",
+  hero_banner_line1: "Vložte odkaz,",
+  hero_banner_line2: "alebo len prehliadajte web.",
   title:
     "Arroxy – bezplatný nástroj na sťahovanie z YouTube (+ 2000 webov) s otvoreným zdrojovým kódom a vstavaným prehliadačom, pre Windows, macOS a Linux",
   read_in_label: "Čítajte v jazyku:",

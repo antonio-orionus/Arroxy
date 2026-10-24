@@ -85,6 +85,8 @@ bun run dist:win     # пакетирање Windows циљева на подрж
 export const sr = {
   icon_alt: "Arroxy маскота",
   hero_image_alt: "Налепи везу или једноставно прегледај сајтове. Екран за URL и уграђени прегледач апликације Arroxy, са преузимањем у току.",
+  hero_banner_line1: "Налепи везу,",
+  hero_banner_line2: "или једноставно прегледај сајтове.",
   title:
     "Arroxy — Бесплатни open-source YouTube (+ 2000 сајтова) преузимач са уграђеним прегледачем за Windows, macOS и Linux",
   read_in_label: "Читај на:",

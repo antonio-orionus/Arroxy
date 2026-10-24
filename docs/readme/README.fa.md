@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="پیوندی بچسبانید، یا فقط مرور کنید. صفحهٔ نشانی اینترنتی و مرورگر داخلی Arroxy، با یک دانلود در حال انجام." width="1200" />
+  <img src="../../build/banners/fa-bea32e8fbf.jpg" alt="پیوندی بچسبانید، یا فقط مرور کنید. صفحهٔ نشانی اینترنتی و مرورگر داخلی Arroxy، با یک دانلود در حال انجام." width="1200" />
 
 # Arroxy — دانلودر رایگان و متن‌باز YouTube (و بیش از ۲۰۰۰ سایت) با مرورگر داخلی برای Windows، macOS و Linux
 

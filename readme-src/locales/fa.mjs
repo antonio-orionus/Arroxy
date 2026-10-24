@@ -85,6 +85,8 @@ bun run dist:win     # ساخت هدف‌های Windows روی میزبان پش
 export const fa = {
   icon_alt: "نماد Arroxy",
   hero_image_alt: "پیوندی بچسبانید، یا فقط مرور کنید. صفحهٔ نشانی اینترنتی و مرورگر داخلی Arroxy، با یک دانلود در حال انجام.",
+  hero_banner_line1: "پیوندی بچسبانید،",
+  hero_banner_line2: "یا فقط مرور کنید.",
   title: "Arroxy — دانلودر رایگان و متن‌باز YouTube (و بیش از ۲۰۰۰ سایت) با مرورگر داخلی برای Windows، macOS و Linux",
   read_in_label: "مطالعه به زبان:",
   badge_release_alt: "انتشار",

@@ -85,6 +85,8 @@ bun run dist:win     # supported host'da Windows targets paketlash
 export const uz = {
   icon_alt: "Arroxy maskoti",
   hero_image_alt: "Havolani joylashtiring yoki shunchaki saytlarni ko'rib chiqing. Arroxy dasturining URL ekrani va o'rnatilgan brauzeri, yuklab olish davom etmoqda.",
+  hero_banner_line1: "Havolani joylashtiring,",
+  hero_banner_line2: "yoki shunchaki ko'rib chiqing.",
   title:
     "Arroxy — Windows, macOS va Linux uchun o'rnatilgan brauzerli Bepul Ochiq Manbali YouTube (+ 2000 sayt) Yuklovchi",
   read_in_label: "O'qing:",

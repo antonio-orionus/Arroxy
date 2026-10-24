@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Lim inn en lenke, eller bare surf. URL-skjermen og den innebygde nettleseren i Arroxy, med en nedlasting som pågår." width="1200" />
+  <img src="../../build/banners/nb-6442aa09fc.jpg" alt="Lim inn en lenke, eller bare surf. URL-skjermen og den innebygde nettleseren i Arroxy, med en nedlasting som pågår." width="1200" />
 
 # Arroxy — gratis nedlaster med åpen kildekode for YouTube (+ 2000 nettsteder) med innebygd nettleser, for Windows, macOS og Linux
 

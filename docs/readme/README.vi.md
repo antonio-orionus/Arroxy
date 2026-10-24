@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Dán một liên kết hoặc chỉ cần duyệt web. Màn hình URL và trình duyệt tích hợp của Arroxy, với một lượt tải xuống đang diễn ra." width="1200" />
+  <img src="../../build/banners/vi-b5ad64a165.jpg" alt="Dán một liên kết hoặc chỉ cần duyệt web. Màn hình URL và trình duyệt tích hợp của Arroxy, với một lượt tải xuống đang diễn ra." width="1200" />
 
 # Arroxy — Trình tải YouTube (+ 2000 trang) miễn phí và mã nguồn mở, có trình duyệt tích hợp, cho Windows, macOS & Linux
 

@@ -85,6 +85,8 @@ bun run dist:win     # 在受支持的主机上打包 Windows 目标
 export const zh = {
   icon_alt: "Arroxy 吉祥物",
   hero_image_alt: "粘贴链接，或随意浏览。Arroxy 的网址界面和内置浏览器，正在进行下载。",
+  hero_banner_line1: "粘贴链接，",
+  hero_banner_line2: "或直接浏览。",
   title:
     "Arroxy — 内置浏览器的免费开源 YouTube（+ 2000 个网站）下载器，支持 Windows、macOS 和 Linux",
   read_in_label: "阅读语言：",

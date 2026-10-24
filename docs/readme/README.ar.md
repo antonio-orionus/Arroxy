@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="ألصق رابطًا، أو تصفّح فحسب. شاشة عنوان URL والمتصفح المدمج في Arroxy، مع تنزيل جارٍ." width="1200" />
+  <img src="../../build/banners/ar-e82e72ec06.jpg" alt="ألصق رابطًا، أو تصفّح فحسب. شاشة عنوان URL والمتصفح المدمج في Arroxy، مع تنزيل جارٍ." width="1200" />
 
 # Arroxy — محمّل يوتيوب (+ 2000 موقع) مجاني ومفتوح المصدر مع متصفح مدمج لـ Windows وmacOS وLinux
 

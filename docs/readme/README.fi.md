@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Liitä linkki tai selaa vain. Arroxyn URL-näkymä ja sisäänrakennettu selain, jossa lataus on käynnissä." width="1200" />
+  <img src="../../build/banners/fi-66e9eac503.jpg" alt="Liitä linkki tai selaa vain. Arroxyn URL-näkymä ja sisäänrakennettu selain, jossa lataus on käynnissä." width="1200" />
 
 # Arroxy — ilmainen avoimen lähdekoodin YouTube- (+ 2000 sivustoa) lataaja sisäänrakennetulla selaimella Windowsille, macOS:lle ja Linuxille
 

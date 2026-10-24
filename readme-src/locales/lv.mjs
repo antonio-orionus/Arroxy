@@ -85,6 +85,8 @@ bun run dist:win     # Windows mērķi, ja palaists atbalstītā resursdatorā
 export const lv = {
   icon_alt: "Arroxy talismans",
   hero_image_alt: "Ielīmējiet saiti vai vienkārši pārlūkojiet. Arroxy URL ekrāns un iebūvētais pārlūks ar notiekošu lejupielādi.",
+  hero_banner_line1: "Ielīmējiet saiti,",
+  hero_banner_line2: "vai vienkārši pārlūkojiet.",
   title:
     "Arroxy — bezmaksas atvērtā koda YouTube (+ 2000 vietņu) lejupielādētājs ar iebūvētu pārlūku operētājsistēmām Windows, macOS un Linux",
   read_in_label: "Lasīt valodā:",

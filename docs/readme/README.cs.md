@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Vložte odkaz nebo jen procházejte web. Obrazovka pro zadání URL a vestavěný prohlížeč aplikace Arroxy s probíhajícím stahováním." width="1200" />
+  <img src="../../build/banners/cs-5110b12fb4.jpg" alt="Vložte odkaz nebo jen procházejte web. Obrazovka pro zadání URL a vestavěný prohlížeč aplikace Arroxy s probíhajícím stahováním." width="1200" />
 
 # Arroxy — bezplatný open-source stahovač z YouTube (+ 2000 webů) s vestavěným prohlížečem pro Windows, macOS a Linux
 

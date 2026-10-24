@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="build/social-preview.jpg" alt="{{hero_image_alt}}" width="1200" />
+  <img src="{{BANNER_IMAGE}}" alt="{{hero_image_alt}}" width="1200" />
 
 # {{title}}
 

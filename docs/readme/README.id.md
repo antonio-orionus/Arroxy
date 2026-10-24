@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Tempel tautan, atau cukup jelajahi. Layar URL dan peramban bawaan Arroxy, dengan unduhan yang sedang berlangsung." width="1200" />
+  <img src="../../build/banners/id-6da3cf0ccc.jpg" alt="Tempel tautan, atau cukup jelajahi. Layar URL dan peramban bawaan Arroxy, dengan unduhan yang sedang berlangsung." width="1200" />
 
 # Arroxy — Pengunduh YouTube (+ 2000 situs) Sumber Terbuka Gratis dengan Peramban Bawaan untuk Windows, macOS & Linux
 

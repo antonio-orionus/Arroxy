@@ -85,6 +85,8 @@ bun run dist:win     # đóng gói mục tiêu Windows trên host được hỗ 
 export const vi = {
   icon_alt: "Linh vật Arroxy",
   hero_image_alt: "Dán một liên kết hoặc chỉ cần duyệt web. Màn hình URL và trình duyệt tích hợp của Arroxy, với một lượt tải xuống đang diễn ra.",
+  hero_banner_line1: "Dán một liên kết,",
+  hero_banner_line2: "hoặc chỉ cần duyệt web.",
   title:
     "Arroxy — Trình tải YouTube (+ 2000 trang) miễn phí và mã nguồn mở, có trình duyệt tích hợp, cho Windows, macOS & Linux",
   read_in_label: "Đọc bằng:",

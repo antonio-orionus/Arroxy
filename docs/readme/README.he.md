@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="הדביקו קישור, או פשוט גלשו. מסך כתובת ה-URL והדפדפן המובנה של Arroxy, עם הורדה שמתבצעת." width="1200" />
+  <img src="../../build/banners/he-97bb0e6fd9.jpg" alt="הדביקו קישור, או פשוט גלשו. מסך כתובת ה-URL והדפדפן המובנה של Arroxy, עם הורדה שמתבצעת." width="1200" />
 
 # Arroxy — מוריד חינמי ובקוד פתוח עבור YouTube (ועוד 2000 אתרים) עם דפדפן מובנה, עבור Windows, macOS ו-Linux
 

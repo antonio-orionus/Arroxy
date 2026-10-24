@@ -85,6 +85,8 @@ bun run dist:win     # paquet Windows sur un hôte compatible
 export const fr = {
   icon_alt: "Mascotte Arroxy",
   hero_image_alt: "Collez un lien ou naviguez simplement. L’écran de saisie d’URL et le navigateur intégré d’Arroxy, avec un téléchargement en cours.",
+  hero_banner_line1: "Collez un lien,",
+  hero_banner_line2: "ou naviguez.",
   title:
     "Arroxy — Téléchargeur YouTube (+ 2000 sites) gratuit et open source avec navigateur intégré pour Windows, macOS & Linux",
   read_in_label: "Lire en :",
