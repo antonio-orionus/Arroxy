@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../src/renderer/src/assets/App-icon-HQ.png" alt="Arroxy mascot" width="180" />
+  <img src="../../build/social-preview.jpg" alt="Geessituu maxxansi, yookaan salphaatti daawwadhu. Iskiriinii URL fi ilaalaa keessaa Arroxy, buufanni adeemaa jiru waliin." width="1200" />
 
 # Arroxy — Buufataa YouTube (+ Saayitii 2000) Bilisaa fi Madda Banaa, Ilaalaa Keessaa Qabu, Windows, macOS & Linux
 
@@ -30,7 +30,7 @@ Arroxy yeroo si oolfate, ⭐ tokko kan biroo argachuu isaaniif gargaara.
 >
 > **Garaagarummaa ijoo: biraawzara keessa ijaarame.** Buufattoonni YouTube bilisaa baay'een wraapperii yt-dlp salphaa dha: saanduqa URL fi menu formaataa, biraawzara mataa isaanii malee. Arroxy tokko qaba, tabii **Daawwannaa**. YouTube ykn marsariitii biraa kamiyyuu app keessatti ilaaltu, viidiyoo, playlist ykn channel irra jirtu buufatta, ykn hidhaa kamiyyuu irratti right-click godhita. Daawwannaa keessatti altokko yoo seente, buufannaan akkaawuntii barbaadu seensa sana fayyadama: viidiyoowwan dhuunfaa kee, tarreewwan Booda Ilaali fi Jaallatamte kee, fi viidiyoowwan biroo akkaawuntiin kee duraanuu ilaaluu danda'u, kuukkii baasuu malee. Marsariitiiwwan biraatti illee achitti seeni, buufannaan isaanii yeroo barbaachisu seensa sana fayyadama. Bal'inaan: [Maaliif Arroxy](#why-explore).
 >
-> _Yeroo dhumaa haaromfame: 2026-10-23._
+> _Yeroo dhumaa haaromfame: 2026-10-24._
 
 ---
 

@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../src/renderer/src/assets/App-icon-HQ.png" alt="Arroxy maskota" width="180" />
+  <img src="../../build/social-preview.jpg" alt="Itsatsi esteka bat edo, besterik gabe, nabigatu. Arroxy-ren URL pantaila eta nabigatzaile integratua, deskarga bat abian dela." width="1200" />
 
 # Arroxy — YouTube (+ 2000 gune) deskargatzaile librea eta kode irekikoa, nabigatzaile integratuarekin, Windows, macOS eta Linux-erako
 
@@ -30,7 +30,7 @@ Arroxy-k denbora aurrezten badizu, ⭐ batek besteei aurkitzen laguntzen die.
 >
 > **Alde nagusia: nabigatzaile integratua.** YouTube-ren deskargatzaile libre gehienak yt-dlp-ren gaineko wrapper meheak dira: URL kutxa bat eta formatu-menu bat, nabigatzaile propiorik gabe. Arroxy-k bat du, **Esploratu fitxa**. YouTube edo beste edozein gune aplikazioaren barruan arakatzen duzu eta ikusten ari zaren bideoa, erreprodukzio-zerrenda edo kanala deskargatzen duzu, edo edozein estekatan eskuineko botoia sakatzen duzu. Esploratu fitxan behin saioa hasten baduzu, kontu bat behar duten deskargek saio hori erabiltzen dute: bideo pribatuak, Ikusteko geroago eta Gustuko zerrendak eta zure kontuak dagoeneko ikus ditzakeen beste bideo batzuk, cookie-ak esportatu gabe. Hasi saioa beste guneetan ere hor, eta haien deskargek saio hori erabiliko dute behar dutenean. Xehetasunak: [Zergatik Arroxy](#why-explore).
 >
-> _Azken eguneratzea: 2026-10-23._
+> _Azken eguneratzea: 2026-10-24._
 
 > 🌐 Itzulpen hau adimen artifizialaren laguntzaz egin da. [README ingelesa](../../README.md) da iturri nagusia. Akatsen bat aurkitu duzu? [Ireki PR bat](../../../../pulls).
 

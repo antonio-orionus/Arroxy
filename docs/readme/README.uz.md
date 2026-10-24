@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../src/renderer/src/assets/App-icon-HQ.png" alt="Arroxy maskoti" width="180" />
+  <img src="../../build/social-preview.jpg" alt="Havolani joylashtiring yoki shunchaki saytlarni ko'rib chiqing. Arroxy dasturining URL ekrani va o'rnatilgan brauzeri, yuklab olish davom etmoqda." width="1200" />
 
 # Arroxy — Windows, macOS va Linux uchun o'rnatilgan brauzerli Bepul Ochiq Manbali YouTube (+ 2000 sayt) Yuklovchi
 
@@ -30,7 +30,7 @@ Agar Arroxy vaqtingizni tejasa, ⭐ boshqalarga topishga yordam beradi.
 >
 > **Asosiy farq: o'rnatilgan brauzer.** Ko'pchilik bepul YouTube yuklovchilari yupqa yt-dlp qobiqlaridir: URL maydoni va format menyusi, o'z brauzeri yo'q. Arroxy'da u bor — **Explore bo'limi**. Siz YouTube yoki boshqa istalgan saytni ilova ichida ko'rib chiqasiz va turgan videongiz, pleylistingiz yoki kanalingizni yuklab olasiz, yoki istalgan havolani o'ng tugma bilan bosasiz. Explore'da bir marta tizimga kirsangiz, hisob talab qiladigan yuklamalar shu kirishdan foydalanadi: yopiq videolaringiz, “Keyinroq ko'rish” va “Yoqqanlar” ro'yxatlaringiz hamda hisobingiz allaqachon ko'ra oladigan boshqa videolar, kukilarni eksport qilmasdan. Boshqa saytlarga ham shu yerda kiring — ularning yuklamalari kerak bo'lganda shu kirishdan foydalanadi. Batafsil: [Nima uchun Arroxy](#why-explore).
 >
-> _Oxirgi yangilanish: 2026-10-23._
+> _Oxirgi yangilanish: 2026-10-24._
 
 ---
 

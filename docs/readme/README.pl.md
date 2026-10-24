@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../src/renderer/src/assets/App-icon-HQ.png" alt="Maskotka Arroxy" width="180" />
+  <img src="../../build/social-preview.jpg" alt="Wklej link lub po prostu przeglądaj strony. Ekran adresu URL i wbudowana przeglądarka Arroxy z trwającym pobieraniem." width="1200" />
 
 # Arroxy — bezpłatny downloader YouTube (+ 2000 serwisów) o otwartym kodzie z wbudowaną przeglądarką na Windows, macOS i Linux
 
@@ -30,7 +30,7 @@ Jeśli Arroxy oszczędza Ci czas, ⭐ pomoże innym je znaleźć.
 >
 > **Kluczowa różnica: wbudowana przeglądarka.** Większość darmowych programów do pobierania z YouTube to cienkie nakładki na yt-dlp: pole na adres URL i menu formatów, bez własnej przeglądarki. Arroxy ma ją — to karta **Odkrywaj**. Przeglądasz YouTube lub dowolną inną stronę w aplikacji i pobierasz film, playlistę lub kanał, na którym jesteś, albo klikasz prawym przyciskiem dowolny link. Jeśli zalogujesz się raz w Odkrywaj, pobieranie wymagające konta użyje tego logowania: Twoje prywatne filmy, listy Do obejrzenia i Polubione oraz inne filmy, które Twoje konto już może oglądać, bez eksportowania plików cookie. Zaloguj się tam także na innych stronach, a ich pobieranie użyje tego logowania, gdy będzie potrzebne. Szczegóły: [Dlaczego Arroxy](#why-explore).
 >
-> _Ostatnia aktualizacja: 2026-10-23._
+> _Ostatnia aktualizacja: 2026-10-24._
 
 > 🌐 To tłumaczenie powstało przy wsparciu AI. [Angielski README](../../README.md) jest źródłem nadrzędnym. Znalazłeś błąd? [Otwórz PR](../../../../pulls).
 

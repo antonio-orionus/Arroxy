@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../src/renderer/src/assets/App-icon-HQ.png" alt="Nembo ya Arroxy" width="180" />
+  <img src="../../build/social-preview.jpg" alt="Bandika kiungo, au vinjari tu. Skrini ya URL na kivinjari kilichojengewa ndani cha Arroxy, pamoja na upakuaji unaoendelea." width="1200" />
 
 # Arroxy — Kipakuzi Bure cha Chanzo Wazi cha YouTube (+ Tovuti 2000) chenye Kivinjari Ndani, kwa Windows, macOS na Linux
 
@@ -30,7 +30,7 @@ Ikiwa Arroxy inakuokoa muda, ⭐ inasaidia wengine kuipata.
 >
 > **Tofauti kuu: kivinjari kilichojengewa ndani.** Vipakuzi vingi vya bure vya YouTube ni vifuniko vyembamba vya yt-dlp: kisanduku cha URL na menyu ya miundo, bila kivinjari chao wenyewe. Arroxy ina kimoja, **kichupo cha Gundua**. Unavinjari YouTube au tovuti nyingine yoyote ndani ya programu na kupakua video, orodha ya kucheza, au kituo ulichopo, au kubofya kulia kiungo chochote. Ukiingia mara moja katika Gundua, upakuaji unaohitaji akaunti hutumia kuingia huko: video zako za faragha, orodha zako za Tazama Baadaye na Zilizopendwa, na video nyingine ambazo akaunti yako tayari inaweza kutazama, bila kuhamisha vidakuzi. Ingia pia kwenye tovuti nyingine humo, na upakuaji wao hutumia kuingia huko pale unapohitajika. Maelezo: [Kwa Nini Arroxy](#why-explore).
 >
-> _Imesasishwa mara ya mwisho: 2026-10-23._
+> _Imesasishwa mara ya mwisho: 2026-10-24._
 
 ---
 

@@ -84,6 +84,7 @@ bun run dist:win     # package Windows targets when run on a supported host
 
 export const ro = {
   icon_alt: "Mascota Arroxy",
+  hero_image_alt: "Lipiți un link sau pur și simplu navigați. Ecranul URL și browserul încorporat din Arroxy, cu o descărcare în curs.",
   title:
     "Arroxy — descărcător gratuit și open-source pentru YouTube (+ 2000 de site-uri) cu browser încorporat, pentru Windows, macOS și Linux",
   read_in_label: "Citiți în:",

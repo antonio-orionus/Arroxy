@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../src/renderer/src/assets/App-icon-HQ.png" alt="Arroxy 吉祥物" width="180" />
+  <img src="../../build/social-preview.jpg" alt="粘贴链接，或随意浏览。Arroxy 的网址界面和内置浏览器，正在进行下载。" width="1200" />
 
 # Arroxy — 内置浏览器的免费开源 YouTube（+ 2000 个网站）下载器，支持 Windows、macOS 和 Linux
 
@@ -30,7 +30,7 @@
 >
 > **关键区别：内置浏览器。** 大多数免费 YouTube 下载器只是单薄的 yt-dlp 套壳：一个链接输入框加一个格式菜单，没有自己的浏览器。Arroxy 有，就是 **Explore 标签页**。你可以在应用内浏览 YouTube 或任意其他网站，直接下载当前所在的视频、播放列表或频道，也可以右键点击任意链接。如果你在 Explore 中登录一次，需要账号的下载就会使用该登录：你的私享视频、你的“稍后观看”和“赞过的视频”列表，以及你的账号本来就能观看的其他视频，无需导出 Cookie。你也可以在 Explore 中登录其他网站，这些网站的下载在需要时会使用该登录。详情：[为什么选 Arroxy](#why-explore)。
 >
-> _最后更新：2026-10-23。_
+> _最后更新：2026-10-24。_
 
 > 🌐 这是 AI 辅助翻译。[英文 README](../../README.md) 是真实来源。发现错误？欢迎 [提交 PR](../../../../pulls)。
 

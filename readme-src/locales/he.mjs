@@ -84,6 +84,7 @@ bun run dist:win     # package Windows targets when run on a supported host
 
 export const he = {
   icon_alt: "הקמע של Arroxy",
+  hero_image_alt: "הדביקו קישור, או פשוט גלשו. מסך כתובת ה-URL והדפדפן המובנה של Arroxy, עם הורדה שמתבצעת.",
   title:
     "Arroxy — מוריד חינמי ובקוד פתוח עבור YouTube (ועוד 2000 אתרים) עם דפדפן מובנה, עבור Windows, macOS ו-Linux",
   read_in_label: "קריאה ב:",

@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../src/renderer/src/assets/App-icon-HQ.png" alt="Maskota Arroxy" width="180" />
+  <img src="../../build/social-preview.jpg" alt="Prilepite povezavo ali preprosto brskajte. Zaslon za URL in vgrajeni brskalnik programa Arroxy s prenosom v teku." width="1200" />
 
 # Arroxy — brezplačen odprtokodni prenosnik za YouTube (+ 2000 spletnih mest) z vgrajenim brskalnikom, za Windows, macOS in Linux
 
@@ -30,7 +30,7 @@ Prenesite videoposnetke, Shorts, kanale, podkaste ali zvočne posnetke z **YouTu
 >
 > **Ključna razlika: vgrajen brskalnik.** Večina brezplačnih prenosnikov za YouTube so tanki ovoji okoli yt-dlp: polje za URL in meni formatov, brez lastnega brskalnika. Arroxy ga ima, to je zavihek **Razišči**. Po YouTubu ali katerem koli drugem spletnem mestu brskate v aplikaciji in prenesete videoposnetek, seznam predvajanja ali kanal, na katerem ste, ali pa z desnim klikom na katero koli povezavo. Če se v Razišči prijavite enkrat, prenosi, ki zahtevajo račun, uporabijo to prijavo: vaše zasebne videoposnetke, vaša seznama Ogled pozneje in Všečkano ter druge videoposnetke, ki jih že lahko gleda vaš račun, brez izvoza piškotkov. Tam se prijavite tudi v druga spletna mesta, njihovi prenosi pa to prijavo uporabijo, kadar jo potrebujejo. Podrobnosti: [Zakaj Arroxy](#why-explore).
 >
-> _Zadnja posodobitev: 2026-10-23._
+> _Zadnja posodobitev: 2026-10-24._
 
 > 🌐 Ta prevod je nastal s pomočjo umetne inteligence. [Angleški README](../../README.md) je nadrejeni vir. Ste našli napako? [Odprite PR](../../../../pulls).
 

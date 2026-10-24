@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../src/renderer/src/assets/App-icon-HQ.png" alt="Mascota de Arroxy" width="180" />
+  <img src="../../build/social-preview.jpg" alt="Pega unha ligazón ou simplemente navega. A pantalla de URL e o navegador integrado de Arroxy, cunha descarga en curso." width="1200" />
 
 # Arroxy — Descargador gratuíto e de código aberto de YouTube (+ 2000 sitios) cun navegador integrado, para Windows, macOS e Linux
 
@@ -30,7 +30,7 @@ Se Arroxy che aforra tempo, unha ⭐ axuda a que outros o atopen.
 >
 > **Diferenza clave: un navegador integrado.** A maioría dos descargadores gratuítos de YouTube son envoltorios finos de yt-dlp: unha caixa de URL e un menú de formatos, sen navegador propio. Arroxy ten un, a lapela **Explorar**. Navegas por YouTube ou por calquera outro sitio dentro da aplicación e descargas o vídeo, a lista de reprodución ou a canle na que estás, ou fas clic dereito en calquera ligazón. Se inicias sesión unha vez en Explorar, as descargas que requiren unha conta usarán ese inicio de sesión: os teus vídeos privados, as túas listas Ver máis tarde e Gústame, e outros vídeos que a túa conta xa pode ver, sen exportar cookies. Inicia sesión tamén noutros sitios alí, e as súas descargas usarán ese inicio de sesión cando o precisen. Detalles: [Por que Arroxy](#why-explore).
 >
-> _Última actualización: 2026-10-23._
+> _Última actualización: 2026-10-24._
 
 > 🌐 Esta tradución fíxose co apoio da IA. O [README en inglés](../../README.md) é a fonte de referencia. Atopaches un erro? [Abre un PR](../../../../pulls).
 

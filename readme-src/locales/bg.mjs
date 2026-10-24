@@ -84,6 +84,7 @@ bun run dist:win     # пакетиране за цели на Windows, кога
 
 export const bg = {
   icon_alt: "Талисман на Arroxy",
+  hero_image_alt: "Поставете връзка или просто разглеждайте. Екранът за URL и вграденият браузър на Arroxy с изтегляне в ход.",
   title:
     "Arroxy — безплатна програма с отворен код за изтегляне от YouTube (+ 2000 сайта) с вграден браузър, за Windows, macOS и Linux",
   read_in_label: "Прочетете на:",

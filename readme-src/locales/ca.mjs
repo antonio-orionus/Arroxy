@@ -84,6 +84,7 @@ bun run dist:win     # empaqueta per a Windows quan s'executa en un amfitrió co
 
 export const ca = {
   icon_alt: "Mascota d'Arroxy",
+  hero_image_alt: "Enganxa un enllaç o simplement navega. La pantalla d’URL i el navegador integrat d’Arroxy, amb una descàrrega en curs.",
   title:
     "Arroxy — Descarregador gratuït i de codi obert de YouTube (+ 2000 llocs) amb navegador integrat, per a Windows, macOS i Linux",
   read_in_label: "Llegeix-ho en:",

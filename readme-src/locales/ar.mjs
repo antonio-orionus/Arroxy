@@ -84,6 +84,7 @@ bun run dist:win     # حزم أهداف Windows على مضيف مدعوم
 
 export const ar = {
   icon_alt: "شعار Arroxy",
+  hero_image_alt: "ألصق رابطًا، أو تصفّح فحسب. شاشة عنوان URL والمتصفح المدمج في Arroxy، مع تنزيل جارٍ.",
   title:
     "Arroxy — محمّل يوتيوب (+ 2000 موقع) مجاني ومفتوح المصدر مع متصفح مدمج لـ Windows وmacOS وLinux",
   read_in_label: "اقرأ بـ:",

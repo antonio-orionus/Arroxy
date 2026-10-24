@@ -84,6 +84,7 @@ bun run dist:win     # pakiety Windows na obsługiwanym hoście
 
 export const pl = {
   icon_alt: "Maskotka Arroxy",
+  hero_image_alt: "Wklej link lub po prostu przeglądaj strony. Ekran adresu URL i wbudowana przeglądarka Arroxy z trwającym pobieraniem.",
   title: "Arroxy — bezpłatny downloader YouTube (+ 2000 serwisów) o otwartym kodzie z wbudowaną przeglądarką na Windows, macOS i Linux",
   read_in_label: "Przeczytaj w języku:",
   badge_release_alt: "Wydanie",

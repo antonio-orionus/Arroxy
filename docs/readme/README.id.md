@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../src/renderer/src/assets/App-icon-HQ.png" alt="Maskot Arroxy" width="180" />
+  <img src="../../build/social-preview.jpg" alt="Tempel tautan, atau cukup jelajahi. Layar URL dan peramban bawaan Arroxy, dengan unduhan yang sedang berlangsung." width="1200" />
 
 # Arroxy — Pengunduh YouTube (+ 2000 situs) Sumber Terbuka Gratis dengan Peramban Bawaan untuk Windows, macOS & Linux
 
@@ -30,7 +30,7 @@ Jika Arroxy menghemat waktu Anda, ⭐ membantu orang lain menemukannya.
 >
 > **Perbedaan utama: browser bawaan.** Sebagian besar pengunduh YouTube gratis hanyalah pembungkus yt-dlp yang tipis: kotak URL dan menu format, tanpa browser sendiri. Arroxy memilikinya, yaitu **tab Explore**. Anda menjelajahi YouTube atau situs lain mana pun di dalam aplikasi dan mengunduh video, daftar putar, atau saluran yang sedang Anda buka, atau klik kanan tautan mana pun. Jika Anda masuk sekali di Explore, unduhan yang memerlukan akun memakai login itu: video privat Anda, daftar Tonton Nanti dan Disukai Anda, serta video lain yang sudah bisa ditonton akun Anda, tanpa ekspor cookie. Masuk juga ke situs lain di sana, dan unduhannya memakai login itu bila diperlukan. Detail: [Mengapa Arroxy](#why-explore).
 >
-> _Terakhir diperbarui: 2026-10-23._
+> _Terakhir diperbarui: 2026-10-24._
 
 > 🌐 Ini adalah terjemahan dengan bantuan AI. [README bahasa Inggris](../../README.md) adalah sumber kebenaran. Menemukan kesalahan? [PR diterima](../../../../pulls).
 

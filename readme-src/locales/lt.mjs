@@ -84,6 +84,7 @@ bun run dist:win     # Windows paketai palaikomame kompiuteryje
 
 export const lt = {
   icon_alt: "Arroxy talismanas",
+  hero_image_alt: "Įklijuokite nuorodą arba tiesiog naršykite. Arroxy URL ekranas ir integruota naršyklė su vykstančiu atsisiuntimu.",
   title:
     "Arroxy — nemokama atvirojo kodo YouTube (+ 2000 svetainių) atsisiuntimo programa su integruota naršykle, skirta Windows, macOS ir Linux",
   read_in_label: "Skaityti kalba:",

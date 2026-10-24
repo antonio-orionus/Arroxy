@@ -84,6 +84,7 @@ bun run dist:win     # Windows-célok csomagolása támogatott gépen futtatva
 
 export const hu = {
   icon_alt: "Az Arroxy kabalája",
+  hero_image_alt: "Illesszen be egy hivatkozást, vagy egyszerűen böngésszen. Az Arroxy URL-képernyője és beépített böngészője, folyamatban lévő letöltéssel.",
   title:
     "Arroxy — Ingyenes, nyílt forráskódú YouTube- (+ 2000 webhely) letöltő beépített böngészővel Windowsra, macOS-re és Linuxra",
   read_in_label: "Olvassa el ezen a nyelven:",

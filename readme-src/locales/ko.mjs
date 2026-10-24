@@ -84,6 +84,7 @@ bun run dist:win     # 지원되는 호스트에서 Windows 대상 패키지
 
 export const ko = {
   icon_alt: "Arroxy 마스코트",
+  hero_image_alt: "링크를 붙여넣거나 자유롭게 둘러보세요. 다운로드가 진행 중인 Arroxy의 URL 화면과 내장 브라우저입니다.",
   title: "Arroxy — 브라우저가 내장된 Windows, macOS, Linux용 무료 오픈 소스 YouTube(+ 2000개 사이트) 다운로더",
   read_in_label: "다른 언어로 읽기:",
   badge_release_alt: "릴리스",

@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../src/renderer/src/assets/App-icon-HQ.png" alt="Linh vật Arroxy" width="180" />
+  <img src="../../build/social-preview.jpg" alt="Dán một liên kết hoặc chỉ cần duyệt web. Màn hình URL và trình duyệt tích hợp của Arroxy, với một lượt tải xuống đang diễn ra." width="1200" />
 
 # Arroxy — Trình tải YouTube (+ 2000 trang) miễn phí và mã nguồn mở, có trình duyệt tích hợp, cho Windows, macOS & Linux
 
@@ -30,7 +30,7 @@ Nếu Arroxy giúp bạn tiết kiệm thời gian, một ⭐ sẽ giúp ngườ
 >
 > **Điểm khác biệt chính: trình duyệt tích hợp.** Hầu hết trình tải YouTube miễn phí chỉ là lớp bao mỏng quanh yt-dlp: một ô nhập URL và một menu định dạng, không có trình duyệt riêng. Arroxy thì có, đó là **tab Explore**. Bạn duyệt YouTube hoặc bất kỳ trang nào khác ngay trong ứng dụng và tải video, danh sách phát hoặc kênh đang mở, hoặc nhấp chuột phải vào bất kỳ liên kết nào. Nếu bạn đăng nhập một lần trong Explore, các lượt tải cần tài khoản sẽ dùng đăng nhập đó: video riêng tư của bạn, danh sách Xem sau và Video đã thích của bạn, cùng các video khác mà tài khoản của bạn đã xem được, mà không cần xuất cookie. Bạn cũng có thể đăng nhập các trang khác tại đó, và các lượt tải từ những trang này sẽ dùng đăng nhập đó khi cần. Chi tiết: [Tại sao chọn Arroxy](#why-explore).
 >
-> _Cập nhật lần cuối: 2026-10-23._
+> _Cập nhật lần cuối: 2026-10-24._
 
 ---
 

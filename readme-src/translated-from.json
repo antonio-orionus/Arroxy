@@ -169,6 +169,7 @@
   "features_h2": "Features",
   "footer_credit": "GPLv3 · Made with care by <a href=\"https://x.com/OrionusAI\">@OrionusAI</a>",
   "hero_desc": "Download videos, Shorts, channels, podcasts, or audio tracks from **YouTube and 2000+ supported sites** — up to 8K HDR at 60 fps, as MP3 / AAC / Opus, or just the part you need. **Browse YouTube or any other site inside Arroxy** in the Explore tab and download the video, playlist, or channel you're on; sign in there to download videos your own account can already watch. Runs locally on Windows, macOS, and Linux. **No ads, no bloat, no upsells.**",
+  "hero_image_alt": "Paste a link, or just browse. Arroxy's URL screen and built-in browser, with a download in progress.",
   "hotkey_fig_alt": "Arroxy global download hotkey — Ctrl+Shift+D on Windows and Linux, Cmd+Shift+D on macOS, sending the copied link straight into the download queue",
   "hotkey_fig_cap": "<b>Global download hotkey</b><br/>Copy a link anywhere, press once — it lands in the queue and starts downloading",
   "icon_alt": "Arroxy mascot",

@@ -84,6 +84,7 @@ bun run dist:win     # empacota os alvos Windows quando executado em um host com
 
 export const pt = {
   icon_alt: "Mascote do Arroxy",
+  hero_image_alt: "Cole um link ou simplesmente navegue. A tela de URL e o navegador integrado do Arroxy, com um download em andamento.",
   title:
     "Arroxy — Baixador gratuito e de código aberto do YouTube (+ 2000 sites) com navegador integrado para Windows, macOS e Linux",
   read_in_label: "Leia em:",

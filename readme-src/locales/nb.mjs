@@ -85,6 +85,7 @@ bun run dist:win     # package Windows targets when run on a supported host
 
 export const nb = {
   icon_alt: "Arroxy-maskot",
+  hero_image_alt: "Lim inn en lenke, eller bare surf. URL-skjermen og den innebygde nettleseren i Arroxy, med en nedlasting som pågår.",
   title:
     "Arroxy — gratis nedlaster med åpen kildekode for YouTube (+ 2000 nettsteder) med innebygd nettleser, for Windows, macOS og Linux",
   read_in_label: "Les på:",

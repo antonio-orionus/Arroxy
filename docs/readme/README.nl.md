@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../src/renderer/src/assets/App-icon-HQ.png" alt="Arroxy-mascotte" width="180" />
+  <img src="../../build/social-preview.jpg" alt="Plak een link of surf gewoon rond. Het URL-scherm en de ingebouwde browser van Arroxy, met een download die bezig is." width="1200" />
 
 # Arroxy — Gratis open-source downloader voor YouTube (+ 2000 sites) met ingebouwde browser, voor Windows, macOS & Linux
 
@@ -30,7 +30,7 @@ Bespaart Arroxy je tijd? Met een ⭐ help je anderen het te vinden.
 >
 > **Het belangrijkste verschil: een ingebouwde browser.** De meeste gratis YouTube-downloaders zijn dunne yt-dlp-wrappers: een URL-vak en een formatmenu, zonder eigen browser. Arroxy heeft er een, het **tabblad Verkennen**. Je surft op YouTube of een andere site binnen de app en downloadt de video, afspeellijst of het kanaal waar je bent, of klikt met de rechtermuisknop op een willekeurige link. Meld je één keer aan in Verkennen, dan gebruiken downloads waarvoor een account nodig is die aanmelding: je privévideo’s, je lijsten Later bekijken en Leuk gevonden en andere video’s die je account al kan bekijken, zonder cookies te exporteren. Meld je daar ook aan op andere sites, dan gebruiken hun downloads die aanmelding als dat nodig is. Details: [Waarom Arroxy](#why-explore).
 >
-> _Laatst bijgewerkt: 2026-10-23._
+> _Laatst bijgewerkt: 2026-10-24._
 
 > 🌐 Deze vertaling is tot stand gekomen met behulp van AI. De [Engelse README](../../README.md) is de leidende bron. Een fout gevonden? [Open een PR](../../../../pulls).
 

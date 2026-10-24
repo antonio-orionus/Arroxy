@@ -84,6 +84,7 @@ bun run dist:win     # supported host पर Windows targets पैकेज क
 
 export const hi = {
   icon_alt: "Arroxy मस्कट",
+  hero_image_alt: "लिंक पेस्ट करें, या बस ब्राउज़ करें। Arroxy की यूआरएल स्क्रीन और अंतर्निहित ब्राउज़र, जिसमें एक डाउनलोड चल रहा है।",
   title:
     "Arroxy — Windows, macOS और Linux के लिए बिल्ट-इन ब्राउज़र वाला मुफ़्त ओपन-सोर्स YouTube (+ 2000 साइट) डाउनलोडर",
   read_in_label: "भाषा:",

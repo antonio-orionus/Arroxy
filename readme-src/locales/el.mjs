@@ -84,6 +84,7 @@ bun run dist:win     # πακετάρισμα Windows targets σε υποστη�
 
 export const el = {
   icon_alt: "Μασκότ Arroxy",
+  hero_image_alt: "Επικόλλησε έναν σύνδεσμο ή απλώς περιηγήσου. Η οθόνη URL και το ενσωματωμένο πρόγραμμα περιήγησης του Arroxy, με μια λήψη σε εξέλιξη.",
   title:
     "Arroxy — Δωρεάν Ανοιχτού Κώδικα Λήψη YouTube (+ 2000 ιστοτόπους) με ενσωματωμένο πρόγραμμα περιήγησης για Windows, macOS & Linux",
   read_in_label: "Διαβάστε στα:",

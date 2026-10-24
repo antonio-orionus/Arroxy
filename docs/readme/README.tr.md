@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../src/renderer/src/assets/App-icon-HQ.png" alt="Arroxy maskotu" width="180" />
+  <img src="../../build/social-preview.jpg" alt="Bir bağlantı yapıştır ya da sadece göz at. Arroxy'nin URL ekranı ve dahili tarayıcısı, devam eden bir indirmeyle birlikte." width="1200" />
 
 # Arroxy — Windows, macOS ve Linux için Dahili Tarayıcılı, Ücretsiz Açık Kaynak YouTube (+ 2000 site) İndirici
 
@@ -30,7 +30,7 @@ Arroxy sana zaman kazandırıyorsa, bir ⭐ başkalarının onu bulmasına yard�
 >
 > **Temel fark: yerleşik tarayıcı.** Ücretsiz YouTube indiricilerinin çoğu ince yt-dlp sarmalayıcılarıdır: bir URL kutusu ve bir biçim menüsü, kendi tarayıcıları yok. Arroxy'de var: **Explore sekmesi**. YouTube'da ya da başka herhangi bir sitede uygulamanın içinde gezinirsin; açık olan videoyu, oynatma listesini veya kanalı indirirsin ya da herhangi bir bağlantıya sağ tıklarsın. Explore'da bir kez giriş yaparsan, hesap gerektiren indirmeler bu girişi kullanır: özel videoların, Daha Sonra İzle ve Beğenilenler listelerin ve hesabının zaten izleyebildiği diğer videolar, çerez dışa aktarmadan. Başka sitelerde de orada giriş yap; onların indirmeleri gerektiğinde bu girişi kullanır. Ayrıntılar: [Neden Arroxy](#why-explore).
 >
-> _Son güncelleme: 2026-10-23._
+> _Son güncelleme: 2026-10-24._
 
 > 🌐 Bu, yapay zeka destekli bir çeviridir. [İngilizce README](../../README.md) gerçek kaynak kabul edilir. Hata mı gördün? [PR'lar memnuniyetle karşılanır](../../../../pulls).
 

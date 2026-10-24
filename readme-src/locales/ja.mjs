@@ -84,6 +84,7 @@ bun run dist:win     # 対応ホストで Windows ターゲットをパッケー
 
 export const ja = {
   icon_alt: "Arroxy マスコット",
+  hero_image_alt: "リンクを貼り付けるか、そのままブラウズしてください。ダウンロード進行中の Arroxy の URL 画面と内蔵ブラウザー。",
   title:
     "Arroxy — ブラウザー内蔵、Windows・macOS・Linux 向け無料オープンソース YouTube（+ 2000 サイト）ダウンローダー",
   read_in_label: "言語：",

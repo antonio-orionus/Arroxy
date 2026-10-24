@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../src/renderer/src/assets/App-icon-HQ.png" alt="Mascotte Arroxy" width="180" />
+  <img src="../../build/social-preview.jpg" alt="Collez un lien ou naviguez simplement. L’écran de saisie d’URL et le navigateur intégré d’Arroxy, avec un téléchargement en cours." width="1200" />
 
 # Arroxy — Téléchargeur YouTube (+ 2000 sites) gratuit et open source avec navigateur intégré pour Windows, macOS & Linux
 
@@ -30,7 +30,7 @@ Si Arroxy te fait gagner du temps, une ⭐ aide les autres à le trouver.
 >
 > **Différence clé : un navigateur intégré.** La plupart des téléchargeurs YouTube gratuits sont de simples wrappers autour de yt-dlp : un champ d'URL et un menu de formats, sans navigateur à eux. Arroxy en a un, l'onglet **Explore**. Tu parcours YouTube ou n'importe quel autre site dans l'application et tu télécharges la vidéo, la playlist ou la chaîne que tu regardes, ou tu fais un clic droit sur n'importe quel lien. Si tu te connectes une fois dans Explore, les téléchargements qui demandent un compte utilisent cette connexion : tes vidéos privées, tes listes À regarder plus tard et J'aime, et les autres vidéos que ton compte peut déjà regarder, sans export de cookies. Connecte-toi aussi aux autres sites là-bas : leurs téléchargements utilisent cette connexion quand ils en ont besoin. Détails : [Pourquoi Arroxy](#why-explore).
 >
-> _Dernière mise à jour : 2026-10-23._
+> _Dernière mise à jour : 2026-10-24._
 
 > 🌐 Traduction assistée par IA. Le [README en anglais](../../README.md) fait foi. Tu vois une erreur ? [Les PRs sont les bienvenues](../../../../pulls).
 

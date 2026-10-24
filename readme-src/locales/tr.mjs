@@ -84,6 +84,7 @@ bun run dist:win     # desteklenen bir host üzerinde Windows hedeflerini paketl
 
 export const tr = {
   icon_alt: "Arroxy maskotu",
+  hero_image_alt: "Bir bağlantı yapıştır ya da sadece göz at. Arroxy'nin URL ekranı ve dahili tarayıcısı, devam eden bir indirmeyle birlikte.",
   title:
     "Arroxy — Windows, macOS ve Linux için Dahili Tarayıcılı, Ücretsiz Açık Kaynak YouTube (+ 2000 site) İndirici",
   read_in_label: "Şu dilde oku:",
