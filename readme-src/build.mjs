@@ -168,7 +168,13 @@ function applyMacros(text, macros) {
   return text;
 }
 
-const BUILD_MACROS = ["LANG_NAV", "LANG_COUNT", "LANG_NAME_LIST", "LAST_UPDATED"];
+export function heroImageMarkup(code) {
+  return code === "en"
+    ? '<img src="build/social-preview.jpg" alt="{{hero_image_alt}}" width="1200" />'
+    : '<img src="src/renderer/src/assets/App-icon-HQ.png" alt="{{icon_alt}}" width="180" />';
+}
+
+const BUILD_MACROS = ["LANG_NAV", "LANG_COUNT", "LANG_NAME_LIST", "LAST_UPDATED", "HERO_IMAGE"];
 
 // The English strings the other locales were last translated from, written by
 // the release translation sync (`--record-translated`). Key parity alone cannot
@@ -234,7 +240,8 @@ async function main() {
   let shotGaps = 0;
 
   for (const loc of LOCALES) {
-    let md = applyStrings(template, loc.strings, enStrings);
+    const localeTemplate = template.replace("{{HERO_IMAGE}}", heroImageMarkup(loc.code));
+    let md = applyStrings(localeTemplate, loc.strings, enStrings);
     const shots = localizeScreenshots(md, loc.code, (path) => existsSync(resolve(ROOT, path)));
     md = shots.text;
     if (shots.missing.length) {

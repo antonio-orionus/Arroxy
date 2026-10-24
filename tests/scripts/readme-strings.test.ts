@@ -1,9 +1,14 @@
 import {describe, expect, it} from 'vite-plus/test'
-import {applyStrings, missingTemplateKeys, readmeOpenKeys, resolveStamp, STAMP_TOKEN, untranslatedEnglishChanges} from '../../readme-src/build.mjs'
+import {applyStrings, heroImageMarkup, missingTemplateKeys, readmeOpenKeys, resolveStamp, STAMP_TOKEN, untranslatedEnglishChanges} from '../../readme-src/build.mjs'
 
 const TEMPLATE = '# {{title}}\n{{intro}}\n{{LANG_NAV}}'
 
 describe('README strings', () => {
+	it('uses the OG banner only in English and keeps localized mascot headers', () => {
+		expect(heroImageMarkup('en')).toBe('<img src="build/social-preview.jpg" alt="{{hero_image_alt}}" width="1200" />')
+		expect(heroImageMarkup('de')).toBe('<img src="src/renderer/src/assets/App-icon-HQ.png" alt="{{icon_alt}}" width="180" />')
+	})
+
 	it('fills a key a locale has not translated yet with the English string', () => {
 		expect(applyStrings(TEMPLATE, {title: 'Arroxy auf Deutsch'}, {title: 'Arroxy', intro: 'Download anything.'})).toBe('# Arroxy auf Deutsch\nDownload anything.\n{{LANG_NAV}}')
 	})

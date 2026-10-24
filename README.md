@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="src/renderer/src/assets/App-icon-HQ.png" alt="Arroxy mascot" width="180" />
+  <img src="build/social-preview.jpg" alt="Paste a link, or just browse. Arroxy's URL screen and built-in browser, with a download in progress." width="1200" />
 
 # Arroxy — Free Open-Source YouTube (+ 2000 sites) Downloader with a Built-in Browser, for Windows, macOS & Linux
 
@@ -30,7 +30,7 @@ If Arroxy saves you time, a ⭐ helps others find it.
 >
 > **Key difference: a built-in browser.** Most free YouTube downloaders are thin yt-dlp wrappers: a URL box and a format menu, with no browser of their own. Arroxy has one, the **Explore tab**. You browse YouTube or any other site inside the app and download the video, playlist, or channel you're on, or right-click any link. If you sign in once in Explore, downloads that need an account use that sign-in: your private videos, your Watch Later and Liked lists, and other videos your account can already watch, with no cookie export. Sign in to other sites there too, and their downloads use that sign-in when they need it. Details: [Why Arroxy](#why-explore).
 >
-> _Last updated: 2026-10-23._
+> _Last updated: 2026-10-24._
 
 ---
 

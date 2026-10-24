@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="src/renderer/src/assets/App-icon-HQ.png" alt="{{icon_alt}}" width="180" />
+  {{HERO_IMAGE}}
 
 # {{title}}
 
