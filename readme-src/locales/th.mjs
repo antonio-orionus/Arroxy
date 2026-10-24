@@ -85,6 +85,8 @@ bun run dist:win     # เป้าหมาย Windows เมื่อทำง
 export const th = {
   icon_alt: "มาสคอต Arroxy",
   hero_image_alt: "วางลิงก์ หรือเพียงแค่เรียกดู หน้าจอ URL และเบราว์เซอร์ในตัวของ Arroxy ขณะกำลังดาวน์โหลด",
+  hero_banner_line1: "วางลิงก์",
+  hero_banner_line2: "หรือเพียงแค่เรียกดู",
   title: "Arroxy — โปรแกรมดาวน์โหลด YouTube (+ 2000 เว็บไซต์) ฟรีและโอเพนซอร์ส พร้อมเบราว์เซอร์ในตัว สำหรับ Windows, macOS และ Linux",
   read_in_label: "อ่านในภาษา:",
   badge_release_alt: "รุ่น",

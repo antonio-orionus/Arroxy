@@ -85,6 +85,8 @@ bun run dist:win     # supported host တွင် Windows targets package ထ�
 export const my = {
   icon_alt: "Arroxy မုဒ်ကော့",
   hero_image_alt: "လင့်ခ်တစ်ခုကို ကူးထည့်ပါ သို့မဟုတ် ဝဘ်ဆိုက်များကိုသာ ကြည့်ရှုပါ။ ဒေါင်းလုဒ်ဆွဲနေစဉ် ပြသထားသော Arroxy ၏ ဝဘ်လိပ်စာမျက်နှာပြင်နှင့် အသင့်ပါ ဘရောက်ဇာ။",
+  hero_banner_line1: "လင့်ခ်တစ်ခုကို ကူးထည့်ပါ၊",
+  hero_banner_line2: "သို့မဟုတ် ဝဘ်ဆိုက်များကိုသာ ကြည့်ရှုပါ။",
   title:
     "Arroxy — Windows, macOS နှင့် Linux အတွက် built-in browser ပါသော အခမဲ့ Open-Source YouTube (+ ၂၀၀၀ ဆိုဒ်) Downloader",
   read_in_label: "ဘာသာဖြင့် ဖတ်ရှုရန်:",

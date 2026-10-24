@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="リンクを貼り付けるか、そのままブラウズしてください。ダウンロード進行中の Arroxy の URL 画面と内蔵ブラウザー。" width="1200" />
+  <img src="../../build/banners/ja-9e0f05e9f0.jpg" alt="リンクを貼り付けるか、そのままブラウズしてください。ダウンロード進行中の Arroxy の URL 画面と内蔵ブラウザー。" width="1200" />
 
 # Arroxy — ブラウザー内蔵、Windows・macOS・Linux 向け無料オープンソース YouTube（+ 2000 サイト）ダウンローダー
 

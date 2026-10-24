@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Налепи везу или једноставно прегледај сајтове. Екран за URL и уграђени прегледач апликације Arroxy, са преузимањем у току." width="1200" />
+  <img src="../../build/banners/sr-2eacf59aed.jpg" alt="Налепи везу или једноставно прегледај сајтове. Екран за URL и уграђени прегледач апликације Arroxy, са преузимањем у току." width="1200" />
 
 # Arroxy — Бесплатни open-source YouTube (+ 2000 сајтова) преузимач са уграђеним прегледачем за Windows, macOS и Linux
 

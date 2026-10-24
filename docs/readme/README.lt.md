@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Įklijuokite nuorodą arba tiesiog naršykite. Arroxy URL ekranas ir integruota naršyklė su vykstančiu atsisiuntimu." width="1200" />
+  <img src="../../build/banners/lt-5e30b3bb43.jpg" alt="Įklijuokite nuorodą arba tiesiog naršykite. Arroxy URL ekranas ir integruota naršyklė su vykstančiu atsisiuntimu." width="1200" />
 
 # Arroxy — nemokama atvirojo kodo YouTube (+ 2000 svetainių) atsisiuntimo programa su integruota naršykle, skirta Windows, macOS ir Linux
 

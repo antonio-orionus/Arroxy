@@ -103,8 +103,8 @@
 		"screenshots:readme": "bun scripts/dev-env.ts run screenshots",
 		"profile:backdrop": "node scripts/profile-backdrop.mjs",
 		"profile:backdrop:weak": "node scripts/profile-backdrop.mjs --weak-cpu --quick",
-		"build:readme": "bun readme-src/build.mjs",
-		"check:readme": "bun readme-src/build.mjs --strict",
+		"build:readme": "node readme-src/banners.mjs --check && bun readme-src/build.mjs",
+		"check:readme": "node readme-src/banners.mjs --check && bun readme-src/build.mjs --strict",
 		"i18n:extract": "bun scripts/i18n-catalog.ts extract",
 		"i18n:sync": "bun scripts/i18n-catalog.ts sync",
 		"i18n:compile": "bun scripts/i18n-catalog.ts compile",
@@ -128,7 +128,8 @@
 		"react-doctor": "react-doctor",
 		"youtube:url-contract": "bun scripts/youtube-url-contract.ts",
 		"ytdlp:catalogue": "bun scripts/ytdlp-catalogue/build.ts",
-		"ytdlp:catalogue:extract": "bun scripts/ytdlp-catalogue/extract.ts"
+		"ytdlp:catalogue:extract": "bun scripts/ytdlp-catalogue/extract.ts",
+		"build:readme:banners": "node readme-src/banners.mjs"
 	},
 	"dependencies": {
 		"@base-ui/react": "1.9.0",
@@ -176,6 +177,18 @@
 		"zustand": "5.0.15"
 	},
 	"devDependencies": {
+		"@fontsource/noto-naskh-arabic": "5.3.0",
+		"@fontsource/noto-sans": "5.3.0",
+		"@fontsource/noto-sans-arabic": "5.3.0",
+		"@fontsource/noto-sans-bengali": "5.3.0",
+		"@fontsource/noto-sans-ethiopic": "5.3.0",
+		"@fontsource/noto-sans-hebrew": "5.3.0",
+		"@fontsource/noto-sans-jp": "5.3.0",
+		"@fontsource/noto-sans-kr": "5.3.0",
+		"@fontsource/noto-sans-myanmar": "5.3.0",
+		"@fontsource/noto-sans-sc": "5.3.0",
+		"@fontsource/noto-sans-tc": "5.3.0",
+		"@fontsource/noto-sans-thai": "5.3.0",
 		"@iconify-json/logos": "1.2.16",
 		"@iconify-json/simple-icons": "1.2.100",
 		"@oxlint/plugins": "1.87.0",

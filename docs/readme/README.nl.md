@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Plak een link of surf gewoon rond. Het URL-scherm en de ingebouwde browser van Arroxy, met een download die bezig is." width="1200" />
+  <img src="../../build/banners/nl-031c4db392.jpg" alt="Plak een link of surf gewoon rond. Het URL-scherm en de ingebouwde browser van Arroxy, met een download die bezig is." width="1200" />
 
 # Arroxy — Gratis open-source downloader voor YouTube (+ 2000 sites) met ingebouwde browser, voor Windows, macOS & Linux
 

@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="粘贴链接，或随意浏览。Arroxy 的网址界面和内置浏览器，正在进行下载。" width="1200" />
+  <img src="../../build/banners/zh-7396717293.jpg" alt="粘贴链接，或随意浏览。Arroxy 的网址界面和内置浏览器，正在进行下载。" width="1200" />
 
 # Arroxy — 内置浏览器的免费开源 YouTube（+ 2000 个网站）下载器，支持 Windows、macOS 和 Linux
 

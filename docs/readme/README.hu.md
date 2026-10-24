@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Illesszen be egy hivatkozást, vagy egyszerűen böngésszen. Az Arroxy URL-képernyője és beépített böngészője, folyamatban lévő letöltéssel." width="1200" />
+  <img src="../../build/banners/hu-0a7e0ec1c6.jpg" alt="Illesszen be egy hivatkozást, vagy egyszerűen böngésszen. Az Arroxy URL-képernyője és beépített böngészője, folyamatban lévő letöltéssel." width="1200" />
 
 # Arroxy — Ingyenes, nyílt forráskódú YouTube- (+ 2000 webhely) letöltő beépített böngészővel Windowsra, macOS-re és Linuxra
 

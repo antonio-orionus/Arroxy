@@ -1,6 +1,8 @@
 export const id = {
   "icon_alt": "Maskot Arroxy",
   "hero_image_alt": "Tempel tautan, atau cukup jelajahi. Layar URL dan peramban bawaan Arroxy, dengan unduhan yang sedang berlangsung.",
+  hero_banner_line1: "Tempel tautan,",
+  hero_banner_line2: "atau jelajahi saja.",
   "title": "Arroxy — Pengunduh YouTube (+ 2000 situs) Sumber Terbuka Gratis dengan Peramban Bawaan untuk Windows, macOS & Linux",
   "read_in_label": "Baca di:",
   "badge_release_alt": "Rilis",

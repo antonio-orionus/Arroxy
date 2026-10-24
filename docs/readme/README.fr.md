@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Collez un lien ou naviguez simplement. L’écran de saisie d’URL et le navigateur intégré d’Arroxy, avec un téléchargement en cours." width="1200" />
+  <img src="../../build/banners/fr-0b3a86c0c1.jpg" alt="Collez un lien ou naviguez simplement. L’écran de saisie d’URL et le navigateur intégré d’Arroxy, avec un téléchargement en cours." width="1200" />
 
 # Arroxy — Téléchargeur YouTube (+ 2000 sites) gratuit et open source avec navigateur intégré pour Windows, macOS & Linux
 

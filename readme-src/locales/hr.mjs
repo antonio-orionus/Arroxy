@@ -85,6 +85,8 @@ bun run dist:win     # paketi za Windows kad se pokrene na podržanom računalu
 export const hr = {
   icon_alt: "Maskota Arroxyja",
   hero_image_alt: "Zalijepite poveznicu ili jednostavno pregledavajte web. Zaslon za unos URL-a i ugrađeni preglednik programa Arroxy s preuzimanjem u tijeku.",
+  hero_banner_line1: "Zalijepite poveznicu,",
+  hero_banner_line2: "ili pregledavajte web.",
   title:
     "Arroxy — besplatan program otvorenog koda za preuzimanje s YouTubea (+ 2000 web-mjesta) s ugrađenim preglednikom, za Windows, macOS i Linux",
   read_in_label: "Čitajte na jeziku:",

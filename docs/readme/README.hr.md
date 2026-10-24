@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Zalijepite poveznicu ili jednostavno pregledavajte web. Zaslon za unos URL-a i ugrađeni preglednik programa Arroxy s preuzimanjem u tijeku." width="1200" />
+  <img src="../../build/banners/hr-d4b89d2f7b.jpg" alt="Zalijepite poveznicu ili jednostavno pregledavajte web. Zaslon za unos URL-a i ugrađeni preglednik programa Arroxy s preuzimanjem u tijeku." width="1200" />
 
 # Arroxy — besplatan program otvorenog koda za preuzimanje s YouTubea (+ 2000 web-mjesta) s ugrađenim preglednikom, za Windows, macOS i Linux
 

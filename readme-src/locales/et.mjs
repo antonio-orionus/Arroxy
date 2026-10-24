@@ -85,6 +85,8 @@ bun run dist:win     # package Windows targets when run on a supported host
 export const et = {
   icon_alt: "Arroxy maskott",
   hero_image_alt: "Kleepige link või lihtsalt sirvige. Arroxy URL-i vaade ja sisseehitatud brauser koos poolelioleva allalaadimisega.",
+  hero_banner_line1: "Kleepige link,",
+  hero_banner_line2: "või lihtsalt sirvige.",
   title:
     "Arroxy — tasuta avatud lähtekoodiga YouTube’i (+ 2000 saidi) allalaadija sisseehitatud brauseriga, Windowsile, macOS-ile ja Linuxile",
   read_in_label: "Loe keeles:",

@@ -85,6 +85,8 @@ bun run dist:win     # empaqueta os destinos de Windows nun host compatible
 export const gl = {
   icon_alt: "Mascota de Arroxy",
   hero_image_alt: "Pega unha ligazón ou simplemente navega. A pantalla de URL e o navegador integrado de Arroxy, cunha descarga en curso.",
+  hero_banner_line1: "Pega unha ligazón,",
+  hero_banner_line2: "ou simplemente navega.",
   title:
     "Arroxy — Descargador gratuíto e de código aberto de YouTube (+ 2000 sitios) cun navegador integrado, para Windows, macOS e Linux",
   read_in_label: "Ler en:",

@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="링크를 붙여넣거나 자유롭게 둘러보세요. 다운로드가 진행 중인 Arroxy의 URL 화면과 내장 브라우저입니다." width="1200" />
+  <img src="../../build/banners/ko-382a9334e8.jpg" alt="링크를 붙여넣거나 자유롭게 둘러보세요. 다운로드가 진행 중인 Arroxy의 URL 화면과 내장 브라우저입니다." width="1200" />
 
 # Arroxy — 브라우저가 내장된 Windows, macOS, Linux용 무료 오픈 소스 YouTube(+ 2000개 사이트) 다운로더
 

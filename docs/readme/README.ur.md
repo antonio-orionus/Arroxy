@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="لنک پیسٹ کریں، یا بس براؤز کریں۔ Arroxy کی یو آر ایل اسکرین اور بلٹ ان براؤزر، جہاں ایک ڈاؤن لوڈ جاری ہے۔" width="1200" />
+  <img src="../../build/banners/ur-abe095c31d.jpg" alt="لنک پیسٹ کریں، یا بس براؤز کریں۔ Arroxy کی یو آر ایل اسکرین اور بلٹ ان براؤزر، جہاں ایک ڈاؤن لوڈ جاری ہے۔" width="1200" />
 
 # Arroxy — Windows، macOS اور Linux کے لیے بلٹ اِن براؤزر کے ساتھ مفت اوپن سورس YouTube (+ 2000 سائٹس) ڈاؤن لوڈر
 

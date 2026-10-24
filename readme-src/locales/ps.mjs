@@ -85,6 +85,8 @@ bun run dist:win     # په supported host کې د Windows targets پیکیج ک
 export const ps = {
   icon_alt: "د Arroxy ماسکوټ",
   hero_image_alt: "یو لینک پیسټ کړئ، یا یوازې لټون وکړئ. د Arroxy د وېب پتې پرده او دننه جوړ شوی براوزر، په داسې حال کې چې یو ډاونلوډ روان دی.",
+  hero_banner_line1: "یو لینک پیسټ کړئ،",
+  hero_banner_line2: "یا یوازې لټون وکړئ.",
   title:
     "Arroxy — د Windows، macOS او Linux لپاره وړیا خلاصه سرچینه YouTube (+ ۲۰۰۰ سایټونه) ډاونلوډر، د جوړ شوي براوزر سره",
   read_in_label: "پدې ژبه ولولئ:",

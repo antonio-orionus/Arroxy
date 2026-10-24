@@ -9,6 +9,7 @@ import { existsSync, readFileSync, realpathSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, posix, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { z } from "zod";
 
 import { LOCALES } from "./strings.mjs";
 
@@ -168,7 +169,7 @@ function applyMacros(text, macros) {
   return text;
 }
 
-const BUILD_MACROS = ["LANG_NAV", "LANG_COUNT", "LANG_NAME_LIST", "LAST_UPDATED"];
+const BUILD_MACROS = ["LANG_NAV", "LANG_COUNT", "LANG_NAME_LIST", "LAST_UPDATED", "BANNER_IMAGE"];
 
 // The English strings the other locales were last translated from, written by
 // the release translation sync (`--record-translated`). Key parity alone cannot
@@ -232,9 +233,17 @@ async function main() {
     throw new Error(`readme-src/template.md uses keys readme-src/locales/en.mjs does not define: ${undefinedKeys.join(", ")}`);
   }
   let shotGaps = 0;
+  const banners = z.record(z.string(), z.object({
+    image: z.string().regex(/^build\/banners\/[a-zA-Z-]+-[a-f0-9]{10}\.jpg$/),
+    slogan: z.string(),
+  })).parse(JSON.parse(await readFile(resolve(ROOT, "build/banners/manifest.json"), "utf8")));
 
   for (const loc of LOCALES) {
-    let md = applyStrings(template, loc.strings, enStrings);
+    const banner = banners[loc.code];
+    if (!banner || !banner.image.startsWith(`build/banners/${loc.code}-`) || !existsSync(resolve(ROOT, banner.image)) || banner.slogan !== `${loc.strings.hero_banner_line1}<br>${loc.strings.hero_banner_line2}`) {
+      throw new Error(`${loc.code}: banner missing or stale; run bun run build:readme:banners`);
+    }
+    let md = applyStrings(template.replace("{{BANNER_IMAGE}}", banner.image), loc.strings, enStrings);
     const shots = localizeScreenshots(md, loc.code, (path) => existsSync(resolve(ROOT, path)));
     md = shots.text;
     if (shots.missing.length) {

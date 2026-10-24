@@ -240,7 +240,21 @@ for (const locale of LOCALES) {
 				await settle(page, shot.query, shot.ready, {locale, prepare: shot.prepare})
 				if (shot.spotlight) await spotlight(page, shot.spotlight)
 			}
-			await save(locale, shot.file, await capture(page, open, () => page.screenshot(), true), shot.appstream)
+			const image = await capture(page, open, () => page.screenshot(), true)
+			await save(locale, shot.file, image, shot.appstream)
+			if (shot.file === 'Downloading-in-parallel-screenshot') {
+				// Capture the actual row: translated toolbars can wrap and move it vertically.
+				const row = await page.getByTestId('queue-manager-row-queue-parallel-1').boundingBox()
+				if (!row) throw new Error(`${locale}: first download row is missing`)
+				const metadata = await sharp(image).metadata()
+				if (!metadata.width) throw new Error(`${locale}: screenshot has no width`)
+				const scale = metadata.width / (page.viewportSize()?.width ?? 900)
+				const crop = await sharp(image)
+					.extract({left: Math.round(row.x * scale), top: Math.round(row.y * scale), width: Math.round(row.width * scale), height: Math.round(row.height * scale)})
+					.png()
+					.toBuffer()
+				await save(locale, 'Download-row', crop)
+			}
 		})
 	}
 }

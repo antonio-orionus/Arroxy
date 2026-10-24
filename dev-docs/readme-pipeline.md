@@ -30,6 +30,16 @@ Both stay in lockstep with each other. The site (`arroxy-site`) has its own, sho
 
 ## Screenshots
 
+### Shared README and site banners
+
+`readme-src/banner.html` is the shared composition; `readme-src/banners.mjs` renders it from each locale's `hero_banner_line1` and `hero_banner_line2`, bundled script fonts, and localized app screenshots. Direction changes layout positions, never the pixels within screenshots. The website's live hero remains separate HTML text and screenshot layers, with its own responsive layout.
+
+Run `bun run build:readme:banners` after changing a headline, composition, font or source screenshot, then `bun run build:readme`. The renderer fails on missing translations or screenshots and checks image loading and headline bounds. It writes content-addressed JPEGs and a source-digest manifest to `build/banners/`; commit both with the generated READMEs. `bun run build:readme` verifies those digests without launching a browser.
+
+The parallel-download screenshot recipe also captures `Download-row.webp` from the actual first row in each locale. The banner uses that image instead of fixed crop coordinates, since translated toolbars can wrap. Regenerate it with `bun run screenshots:readme -g "Parallel downloads"`.
+
+The site's `bun run assets` and `bun run og` import these published images and their headlines through `build/banners/manifest.json`. They accept `--ref` for a published app ref or `--working-tree` for local verification. The site never renders a second share-card template; its normal check still rejects a banner whose headline differs from the live hero.
+
 The product screenshots are generated, not hand-captured, in every UI language, and each README shows its own language's. `bun run screenshots:readme` renders the browser-mock renderer with showcase content (`?showcase=1`: neutral sample titles and generated artwork, never real video art) and the software WebGL backdrop (`?backdropSoftware=1`, so headless Chromium shows the GPU look rather than the no-GPU fallback), and writes each shot as WebP to `build/screenshots/<locale>/`; `bun run screenshots:readme -g "Bulk URLs"` retakes one shot in every language, and `--locales de,fr` limits a run to those languages. Recipes live in `tests/screenshots/readme-screenshots.spec.ts`.
 
 The template names the English shot (`build/screenshots/en/<file>.webp`); `build.mjs` points each README at its own language's copy, and keeps the English one where that language has none: it warns about each gap, and `bun run check:i18n:complete` (which builds with `--strict`) fails until every language has every shot. Shots are lossy WebP at 2x pixel density (about 90 KB each, against about 1.5 MB as PNG), so all of them in every language add about 70 MB to the repo per full retake: retake only the shots a change affects. The shots the Flatpak metainfo lists are also written in English as PNG to `build/`, since AppStream takes no WebP.

@@ -85,6 +85,8 @@ bun run dist:win     # supported host irratti Windows targets package godhi
 export const om = {
   icon_alt: "Arroxy mascot",
   hero_image_alt: "Geessituu maxxansi, yookaan salphaatti daawwadhu. Iskiriinii URL fi ilaalaa keessaa Arroxy, buufanni adeemaa jiru waliin.",
+  hero_banner_line1: "Geessituu maxxansi,",
+  hero_banner_line2: "yookaan salphaatti daawwadhu.",
   title:
     "Arroxy — Buufataa YouTube (+ Saayitii 2000) Bilisaa fi Madda Banaa, Ilaalaa Keessaa Qabu, Windows, macOS & Linux",
   read_in_label: "Afaan:",

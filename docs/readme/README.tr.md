@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Bir bağlantı yapıştır ya da sadece göz at. Arroxy'nin URL ekranı ve dahili tarayıcısı, devam eden bir indirmeyle birlikte." width="1200" />
+  <img src="../../build/banners/tr-abe7893d6b.jpg" alt="Bir bağlantı yapıştır ya da sadece göz at. Arroxy'nin URL ekranı ve dahili tarayıcısı, devam eden bir indirmeyle birlikte." width="1200" />
 
 # Arroxy — Windows, macOS ve Linux için Dahili Tarayıcılı, Ücretsiz Açık Kaynak YouTube (+ 2000 site) İndirici
 

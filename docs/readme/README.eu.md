@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Itsatsi esteka bat edo, besterik gabe, nabigatu. Arroxy-ren URL pantaila eta nabigatzaile integratua, deskarga bat abian dela." width="1200" />
+  <img src="../../build/banners/eu-d506b8c546.jpg" alt="Itsatsi esteka bat edo, besterik gabe, nabigatu. Arroxy-ren URL pantaila eta nabigatzaile integratua, deskarga bat abian dela." width="1200" />
 
 # Arroxy — YouTube (+ 2000 gune) deskargatzaile librea eta kode irekikoa, nabigatzaile integratuarekin, Windows, macOS eta Linux-erako
 

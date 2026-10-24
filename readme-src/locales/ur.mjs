@@ -85,6 +85,8 @@ bun run dist:win     # supported host پر Windows targets پیکج کریں
 export const ur = {
   icon_alt: "Arroxy ماسکٹ",
   hero_image_alt: "لنک پیسٹ کریں، یا بس براؤز کریں۔ Arroxy کی یو آر ایل اسکرین اور بلٹ ان براؤزر، جہاں ایک ڈاؤن لوڈ جاری ہے۔",
+  hero_banner_line1: "لنک پیسٹ کریں،",
+  hero_banner_line2: "یا براہِ راست براؤز کریں۔",
   title:
     "Arroxy — Windows، macOS اور Linux کے لیے بلٹ اِن براؤزر کے ساتھ مفت اوپن سورس YouTube (+ 2000 سائٹس) ڈاؤن لوڈر",
   read_in_label: "زبان:",

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!-- Share card (1200x630). readme-src/banners.mjs fills the {{…}} slots per language.
+     Same composition as the GitHub social preview: logo, the two-line slogan, the URL screen and the
+     Explore browser overlapping, and a download row in front as the head of a queue. -->
+<html lang="{{LANG}}" dir="{{DIR}}">
+<head>
+<meta charset="utf-8">
+<style>
+  {{FONT_CSS}}
+  html, body { margin: 0; background: #070a12; }
+  .frame { width: 1200px; height: 630px; position: relative; overflow: hidden; font-family: {{FAMILY}}; color: #f1f1f9; }
+  .aurora { position: absolute; inset: 0; background:
+      radial-gradient(60% 80% at 0% 100%, #0f6f7a66 0%, transparent 60%),
+      radial-gradient(55% 75% at 100% 30%, #6d28d966 0%, transparent 60%),
+      radial-gradient(40% 50% at 55% 0%, #1f69ff33 0%, transparent 70%),
+      #070a12; }
+  .stars { position: absolute; inset: 0; background-image:
+      radial-gradient(1px 1px at 12% 18%, #fff8, transparent), radial-gradient(1px 1px at 38% 72%, #fff6, transparent),
+      radial-gradient(1px 1px at 64% 12%, #fff7, transparent), radial-gradient(1px 1px at 82% 58%, #fff5, transparent),
+      radial-gradient(1px 1px at 91% 22%, #fff7, transparent), radial-gradient(1px 1px at 24% 46%, #fff5, transparent); }
+  .copy { position: absolute; left: 66px; top: 0; bottom: 0; width: 470px; display: flex; flex-direction: column; justify-content: center; }
+  .brand { display: flex; align-items: center; gap: 13px; margin-bottom: 32px; }
+  .brand img { width: 48px; }
+  .brand span { font-family: Poppins, sans-serif; font-size: 32px; font-weight: 700; letter-spacing: -0.03em; }
+  .head { text-align: start; font-size: 52px; line-height: 1.12; font-weight: 600; letter-spacing: -0.025em; white-space: nowrap; }
+  .head em { font-style: normal; color: #4d88ff; }
+  .win { position: absolute; inset-inline-start: var(--x); border-radius: 19px; overflow: hidden; box-shadow: 0 0 0 1px #ffffff1f, 0 28px 75px #000a, 0 0 112px #1f69ff40; }
+  .win img { display: block; width: 100%; }
+  .row { position: absolute; inset-inline-start: 591px; top: 498px; width: 648px; height: 47px; overflow: hidden; border-radius: 13px;
+      box-shadow: 0 0 0 1px #4d88ff80, 0 19px 47px #000d, 0 0 56px #1f69ff66; }
+  .ghost { position: absolute; inset-inline-start: var(--x); height: 47px; border-radius: 13px; background: #131a2c; box-shadow: 0 0 0 1px var(--edge), 0 15px 38px #000c; }
+  .row img { display: block; width: 100%; height: 100%; object-fit: fill; }
+  :is(:lang(hi), :lang(ar), :lang(ur), :lang(ps), :lang(fa), :lang(bn), :lang(my), :lang(km), :lang(th), :lang(am)) .head { line-height: 1.55; letter-spacing: normal; }
+  [dir="rtl"] .copy { left: auto; right: 66px; }
+  .brand { direction: ltr; }
+  [dir="rtl"] .brand { align-self: flex-start; }
+</style>
+</head>
+<body>
+  <div class="frame">
+    <div class="aurora"></div><div class="stars"></div>
+    <div class="copy">
+      <div class="brand"><img src="{{MASCOT}}" alt=""><span>Arroxy</span></div>
+      <div class="head">{{HEAD}}</div>
+    </div>
+    <div class="win" style="--x:553px;top:113px;width:525px"><img src="{{URL_SHOT}}" alt=""></div>
+    <div class="win" style="--x:825px;top:66px;width:525px"><img src="{{EXPLORE_SHOT}}" alt=""></div>
+    <div class="ghost" style="--x:632px;top:472px;width:565px;--edge:#4d88ff40"></div>
+    <div class="ghost" style="--x:611px;top:485px;width:607px;--edge:#4d88ff60"></div>
+    <div class="row"><img src="{{ROW_SHOT}}" alt=""></div>
+  </div>
+  <script>
+    // Long slogans (Russian, German) shrink until both lines fit the copy column.
+    window.fitHeadline = () => {
+      const head = document.querySelector('.head');
+      let size = 52;
+      head.style.fontSize = `${size}px`;
+      while (head.scrollWidth > 470 && size > 24) head.style.fontSize = `${--size}px`;
+    };
+    document.fonts.ready.then(window.fitHeadline);
+  </script>
+</body>
+</html>

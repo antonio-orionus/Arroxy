@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Kleepige link või lihtsalt sirvige. Arroxy URL-i vaade ja sisseehitatud brauser koos poolelioleva allalaadimisega." width="1200" />
+  <img src="../../build/banners/et-becbc84244.jpg" alt="Kleepige link või lihtsalt sirvige. Arroxy URL-i vaade ja sisseehitatud brauser koos poolelioleva allalaadimisega." width="1200" />
 
 # Arroxy — tasuta avatud lähtekoodiga YouTube’i (+ 2000 saidi) allalaadija sisseehitatud brauseriga, Windowsile, macOS-ile ja Linuxile
 

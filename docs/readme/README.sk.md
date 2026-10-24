@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Vložte odkaz alebo len prehliadajte web. Obrazovka URL a vstavaný prehliadač aplikácie Arroxy s prebiehajúcim sťahovaním." width="1200" />
+  <img src="../../build/banners/sk-66d8d6323b.jpg" alt="Vložte odkaz alebo len prehliadajte web. Obrazovka URL a vstavaný prehliadač aplikácie Arroxy s prebiehajúcim sťahovaním." width="1200" />
 
 # Arroxy – bezplatný nástroj na sťahovanie z YouTube (+ 2000 webov) s otvoreným zdrojovým kódom a vstavaným prehliadačom, pre Windows, macOS a Linux
 

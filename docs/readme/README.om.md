@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Geessituu maxxansi, yookaan salphaatti daawwadhu. Iskiriinii URL fi ilaalaa keessaa Arroxy, buufanni adeemaa jiru waliin." width="1200" />
+  <img src="../../build/banners/om-db65ea1bf2.jpg" alt="Geessituu maxxansi, yookaan salphaatti daawwadhu. Iskiriinii URL fi ilaalaa keessaa Arroxy, buufanni adeemaa jiru waliin." width="1200" />
 
 # Arroxy — Buufataa YouTube (+ Saayitii 2000) Bilisaa fi Madda Banaa, Ilaalaa Keessaa Qabu, Windows, macOS & Linux
 

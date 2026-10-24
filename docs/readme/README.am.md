@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="አገናኝ ይለጥፉ፣ ወይም በቀላሉ ያስሱ። የArroxy ዩአርኤል ማያ ገጽ እና አብሮ የተሰራው አሳሽ፣ ማውረድ በሂደት ላይ እያለ።" width="1200" />
+  <img src="../../build/banners/am-320be06923.jpg" alt="አገናኝ ይለጥፉ፣ ወይም በቀላሉ ያስሱ። የArroxy ዩአርኤል ማያ ገጽ እና አብሮ የተሰራው አሳሽ፣ ማውረድ በሂደት ላይ እያለ።" width="1200" />
 
 # Arroxy — አብሮ የተሰራ አሳሽ ያለው ነፃ ምን ኮድ ያለው YouTube (+ 2000 ጣቢያ) አውራጅ ለ Windows, macOS እና Linux
 

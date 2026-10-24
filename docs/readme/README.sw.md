@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="../../build/social-preview.jpg" alt="Bandika kiungo, au vinjari tu. Skrini ya URL na kivinjari kilichojengewa ndani cha Arroxy, pamoja na upakuaji unaoendelea." width="1200" />
+  <img src="../../build/banners/sw-96bc5c8811.jpg" alt="Bandika kiungo, au vinjari tu. Skrini ya URL na kivinjari kilichojengewa ndani cha Arroxy, pamoja na upakuaji unaoendelea." width="1200" />
 
 # Arroxy — Kipakuzi Bure cha Chanzo Wazi cha YouTube (+ Tovuti 2000) chenye Kivinjari Ndani, kwa Windows, macOS na Linux
 
