@@ -1,6 +1,6 @@
 # Translator glossary
 
-The release translation sync hands this file to every translator (`translate-arroxy-i18n` skill). Use these terms and this register; when a batch introduces a new product term, add it here in the same sync PR.
+The release translation sync hands this file to every translator (`dev-docs/release-runbook.md`, step 0). Use these terms and this register; when a batch introduces a new product term, add it here in the same sync PR.
 
 ## Product terms
 

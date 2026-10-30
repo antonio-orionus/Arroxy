@@ -149,7 +149,7 @@ if ! git diff --quiet "$TARGET" HEAD --; then
 fi
 if ! (cd "$GATE_DIR" && bun run --silent check:i18n:complete); then
   echo "ERR: the translation completeness gate failed (output above). If it lists open entries, run the i18n sync first" >&2
-  echo "     (translate-arroxy-i18n skill; bun run i18n:status shows what is open), land its PR, then release." >&2
+  echo "     (dev-docs/release-runbook.md, step 0; bun run i18n:status shows what is open), land its PR, then release." >&2
   exit 1
 fi
 

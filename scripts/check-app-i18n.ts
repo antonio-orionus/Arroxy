@@ -99,7 +99,7 @@ for (const lang of SUPPORTED_LANGS) {
 }
 
 if (strict && (hadExtras || hadMissing || hadPlaceholders)) {
-	console.error('\nFAIL: --strict and drift/placeholders present. Run the translation sync (translate-arroxy-i18n skill) before releasing.')
+	console.error('\nFAIL: --strict and drift/placeholders present. Run the translation sync (dev-docs/release-runbook.md, step 0) before releasing.')
 	process.exit(1)
 }
 if (!strict) {

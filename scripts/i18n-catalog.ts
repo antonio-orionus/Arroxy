@@ -247,7 +247,7 @@ function checkCatalogs({complete}: {complete: boolean}): number {
 	if (errors.size > 0) {
 		console.error(`FAIL: ${errors.size} i18n catalog issue${errors.size === 1 ? '' : 's'} found:\n`)
 		for (const error of errors) console.error(`  ${error}`)
-		if (complete) console.error('\nRun the translation sync (translate-arroxy-i18n skill) before releasing.')
+		if (complete) console.error('\nRun the translation sync (dev-docs/release-runbook.md, step 0) before releasing.')
 		return 1
 	}
 
@@ -288,7 +288,7 @@ function printStatus(): number {
 	const line = (cells: readonly string[]): string => cells.map((cell, column) => (column === 0 ? cell.padEnd(widths[column] ?? 0) : cell.padStart(widths[column] ?? 0))).join('  ')
 	console.log(line(headings))
 	for (const row of rows) console.log(line(row))
-	console.log(`\n${rows.length} of ${NON_EN_LANGS.length} locales have open entries. The release translation sync closes them (translate-arroxy-i18n skill).`)
+	console.log(`\n${rows.length} of ${NON_EN_LANGS.length} locales have open entries. The release translation sync closes them (dev-docs/release-runbook.md, step 0).`)
 	return unreadable.length > 0 ? 1 : 0
 }
 

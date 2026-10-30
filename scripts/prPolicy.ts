@@ -22,7 +22,7 @@ export const OPT_OUT_KEYS: Readonly<Record<PolicyRule, string>> = {
 	'ai-attribution': 'Attribution false positive'
 }
 
-/** The title the release translation sync PR opens with (translate-arroxy-i18n skill). */
+/** The title the release translation sync PR opens with (dev-docs/release-runbook.md, step 0). */
 export const TRANSLATION_SYNC_TITLE = 'i18n: sync translations'
 
 /** A package release PR's title: `release(packages): <pkg> <version>`, one pair per package it releases. */

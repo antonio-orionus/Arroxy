@@ -29,7 +29,7 @@ Sibling repos (site, runtime binaries, private notes, package-manager manifests)
 
 **`bunx`, never `npx`,** even when a skill says `npx`: the root `overrides` make `npx` fail here with `EOVERRIDE`.
 
-**Translation workflow.** A fix or feature PR changes English only: `en.json` (keys sorted, one per line) and `readme-src/locales/en.mjs`, never `i18n/**` or another locale. Keep a key when its meaning stays; a new meaning or placeholder gets a new key. One sync PR translates the rest as a release's first step (ADR 0017), with the `translate-arroxy-i18n` skill, which also owns catalog changes and i18n audits.
+**Translation workflow.** A fix or feature PR changes English only: `en.json` (keys sorted, one per line) and `readme-src/locales/en.mjs`, never `i18n/**` or another locale. Keep a key when its meaning stays; a new meaning or placeholder gets a new key. One sync PR translates the rest as a release's first step (ADR 0017; `dev-docs/release-runbook.md`, step 0).
 
 **One concern per PR.** Each PR makes one reviewable change and passes `bun run check` alone, so every review reads a single idea.
 
@@ -42,7 +42,6 @@ Sibling repos (site, runtime binaries, private notes, package-manager manifests)
 
 ## Agent setup
 
-- **Read `.agents/memory/MEMORY.md` before working;** save lessons by the routing in [`dev-docs/agent-setup.md`](dev-docs/agent-setup.md#memory), never in a tool's own memory.
 - **`.internal/`** (gitignored link to the private `arroxy-internal` repo, when you have access): read its `README.md`; edits ship with `bun run internal:save`, never in a PR, and tracked files never link into it.
 - **Issues** are public GitHub issues: what gets one and how, in [`docs/agents/issue-tracker.md`](docs/agents/issue-tracker.md); kind and state labels, mapped to the `triage` skill's roles, in [`docs/agents/triage-labels.md`](docs/agents/triage-labels.md).
 - **Agent config** is edited only in `AGENTS.md`, `GLOSSARY.md`, `.agents/` and `skills-lock.json`, then `bun run agents:sync`. Third-party skills come through the Skills CLI, never committed; tracked files never depend on a harness plugin. [`dev-docs/agent-setup.md`](dev-docs/agent-setup.md).
@@ -71,7 +70,7 @@ Renderer-only: `bun run dev:mock`, URL from `bun run doctor`, `?scenario=<id>` f
 
 ## Subtitle pipeline
 
-A soft second phase (ADR 0002): phase 1 downloads media with `--no-write-subs --no-write-auto-subs`; phase 2 runs only if phase 1 exits 0 and languages were picked. A phase-2 failure emits `subtitlesFailed` and still finalizes `completed`. Embed mode muxes in phase 2 and passes `--merge-output-format mkv`; sidecar and subfolder pass no container flag. YouTube keeps only `-orig` auto captions (`sanitizeSubtitleMap`, memory `youtube-auto-caption-orig-tracks`).
+A soft second phase (ADR 0002): phase 1 downloads media with `--no-write-subs --no-write-auto-subs`; phase 2 runs only if phase 1 exits 0 and languages were picked. A phase-2 failure emits `subtitlesFailed` and still finalizes `completed`. Embed mode muxes in phase 2 and passes `--merge-output-format mkv`; sidecar and subfolder pass no container flag. YouTube keeps only `-orig` auto captions (`sanitizeSubtitleMap`).
 
 ## In-app updates
 

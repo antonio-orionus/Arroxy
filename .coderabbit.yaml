@@ -243,15 +243,14 @@ reviews:
     - "!src/shared/i18n/locales/ca.json"
     - "!src/shared/i18n/locales/eu.json"
     - "!src/shared/i18n/locales/gl.json"
-  # Same priorities as the maintainer's local dual review: correctness, not
+  # Correctness first, not
   # security hardening, which the owner ruled out of scope for this desktop app.
   path_instructions:
     - path: "**/*"
       instructions: >-
         Report defects the author would fix: wrong behavior, broken contracts, races, lost data,
         platform bugs. Do not raise security hardening, threat models or attack scenarios; Arroxy is
-        a desktop app and security review is out of scope. Follow the reviewer rules in
-        .agents/memory/review-learnings.md.
+        a desktop app and security review is out of scope.
     - path: .github/workflows/**
       instructions: >-
         Review GitHub Actions for correctness: release/tag behavior, job and needs wiring, artifact
@@ -285,9 +284,3 @@ reviews:
 knowledge_base:
   code_guidelines:
     enabled: true
-    # Read on top of the defaults (AGENTS.md, CLAUDE.md), so refuted findings recorded there stop
-    # coming back. A plain entry would only govern .agents/memory/ (its own directory), which
-    # path_filters excludes; applyTo makes it govern the whole repo.
-    filePatterns:
-      - files: .agents/memory/review-learnings.md
-        applyTo: "**/*"

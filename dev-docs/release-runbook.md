@@ -50,7 +50,15 @@ See [`ffmpeg-packages.md`](ffmpeg-packages.md).
 
 ## 0. Translation sync
 
-PRs change English only (ADR 0017), so a release starts with one sync PR that translates everything open. `bun run i18n:status` shows what is open; when it lists nothing, skip to step 1. Otherwise run the sync (`translate-arroxy-i18n` skill), open `i18n: sync translations` and land it. `scripts/release.sh` and the `quality-gate` job both run `bun run check:i18n:complete` and refuse an untranslated release.
+PRs change English only (ADR 0017), so a release starts with one sync PR that translates everything open. `bun run i18n:status` shows the open entries; `gh issue list --label i18n --state open` shows translations reported wrong (skip `parked` ones, which wait on a native speaker). When both are empty, skip to step 1. Otherwise, from a fresh `main` in its own worktree:
+
+1. `bun run i18n:sync` updates `i18n/app.pot` and merges English changes into every `i18n/locales/*.po`; changed English marks the old translation fuzzy. It needs GNU gettext's `msgmerge`. Never hand-edit generated locale JSON instead.
+2. Add any product term the batch introduces to `i18n/glossary.md`.
+3. Translate every untranslated and fuzzy PO entry, every `msgstr` an open `i18n` issue reports wrong (the PR closes it with `Fixes #N`), and every README key `bun run check:readme` names in `readme-src/locales/{lang}.mjs`. Edit only `msgstr`, and remove `fuzzy` only after checking the translation against the current `msgid`; keep placeholders, markup, shortcut text and product names; non-Latin-script locales write their own script.
+4. `bun run i18n:compile`, then `bun readme-src/build.mjs --record-translated`, which records the English the README locales now match.
+5. `bun run check:i18n:complete` and `bun run check` must pass. Open `i18n: sync translations` and land it.
+
+`scripts/release.sh` and the `quality-gate` job both run `bun run check:i18n:complete` and refuse an untranslated release.
 
 ## 1. Bump `main` to the release version
 

@@ -8,7 +8,7 @@
 //   bun run probe-intent:sample --keep <dir>         # also save each video that breaks a rule
 //   bun run probe-intent:sample <url> [<url>...]     # these videos instead
 //
-// Stays inside the live YouTube budget (memory `live-youtube-request-budget`):
+// Stays inside the live YouTube budget (about 40 fresh-profile loads in an hour once got a 429 captcha):
 // two searches and at most MAX_PROBES probes a run, one at a time, signed out.
 
 import {execFile} from 'node:child_process'

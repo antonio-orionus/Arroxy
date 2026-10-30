@@ -5,7 +5,6 @@ How to run Arroxy with any coding agent without the repo depending on one.
 | Lives in | Role |
 | --- | --- |
 | `AGENTS.md` | Operating rules for every agent (`CLAUDE.md` is a symlink to it) |
-| `.agents/memory/` | Project memory — index in `MEMORY.md` |
 | `.agents/skills/`, `skills-lock.json` | Project-owned skills (tracked) and third-party skills (restored) |
 | `.agents/mcp.json` | MCP servers, declared once |
 | `scripts/agents-sync.ts` | Generates the per-tool adapters below |
@@ -24,20 +23,11 @@ How to run Arroxy with any coding agent without the repo depending on one.
    | `.internal/AGENTS.md` (untracked) | `CLAUDE.local.md` symlink | copied into `developer_instructions` in `.codex/config.toml` | `instructions` in `opencode.jsonc` |
    | `.internal/skills/*` (untracked) | links in `.agents/skills/`, then `.claude/skills/` | read through `.agents/skills/` | read through `.agents/skills/` |
 
-   `.internal/AGENTS.md` is the maintainer's personal layer: how he works on Arroxy, kept in the private repo so it changes without a PR, and loaded at session start like `AGENTS.md`. Its private skills (such as his `land` flow) are linked in beside the tracked ones; a tracked skill of the same name wins. The repo never depends on it, and without it these adapters are simply not written. Codex cannot include a file, so it gets a copy: `internal:sync` and `internal:save` rerun `agents:sync` to refresh it.
+   `.internal/AGENTS.md` is the maintainer's personal layer: how he works on Arroxy, kept in the private repo so it changes without a PR, and loaded at session start like `AGENTS.md`. Its private skills, if any, are linked in beside the tracked ones; a tracked skill of the same name wins. The repo never depends on it, and without it these adapters are simply not written. Codex cannot include a file, so it gets a copy: `internal:sync` and `internal:save` rerun `agents:sync` to refresh it.
 
    OpenCode also scans `.claude/skills/`, so it logs a harmless `duplicate skill name` warning for skills reached both ways.
 
 3. **Harness plugins** — installed per machine, per tool, never tracked. The repo must work without them.
-
-## Memory
-
-Project memory lives in `.agents/memory/`, indexed by `MEMORY.md`; read the index before working. Write new memories there with the same frontmatter, never in a tool's own memory. Route a lesson by audience:
-
-- maintainer-only plans and notes → `.internal/` (then `bun run internal:save`);
-- how the maintainer runs Arroxy (reviews, merging, releasing) → `.internal/AGENTS.md`, or `.internal/memory/` for a longer lesson;
-- cross-repo personal preferences → `~/.agents/AGENTS.md`;
-- everything else, including deep-dive references → `.agents/memory/`.
 
 ## Harness plugins
 

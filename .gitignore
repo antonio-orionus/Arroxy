@@ -61,12 +61,9 @@ opencode.jsonc
 .codex/config.toml
 CLAUDE.local.md
 
-# Project-owned agent memory is tracked. Third-party skills are restored from
-# skills-lock.json via `bun run agents:skills:restore`; only tiny custom skills
-# stay in Git.
+# Third-party skills are restored from
+# skills-lock.json via `bun run agents:skills:restore`.
 .agents/skills/*
-!.agents/skills/translate-arroxy-i18n/
-!.agents/skills/translate-arroxy-i18n/**
 
 # Local agent/design artifacts
 # Anchored to the repo root on purpose: an unanchored `design/` would also swallow

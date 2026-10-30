@@ -48,8 +48,8 @@ import still resolves through `electron.d.ts`. Blocking Electron is entirely the
 lint rule's job, and only the lint rule catches `import type {BrowserWindow}`.
 Separately, an oxlint `no-restricted-imports` pattern needs `**` to match nested
 specifiers; `@shell/*` matches only single-segment paths, so a spot-check against
-a shallow import will falsely validate a broken gate. Details and the measured
-evidence live in `.agents/memory/typescript-and-oxlint-boundary-gates.md`.
+a shallow import will falsely validate a broken gate. The measured evidence was in
+`.agents/memory/typescript-and-oxlint-boundary-gates.md` (removed 2026-10-30; see git history).
 
 Finally, the gates prove core does not *import* Electron. They do not prove core
 does not *assume* it. `ytDlpJsRuntime.ts` passes every gate while unconditionally
