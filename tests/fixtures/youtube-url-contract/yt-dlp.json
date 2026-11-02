@@ -1,5 +1,5 @@
 {
-	"ytDlp": {"version": "2026.10.21", "sha256": "b7af77f686e95f7845ce8d09d21957718febb8b48b30555adb9dd2292ad7bf14"},
+	"ytDlp": {"version": "2026.10.26", "sha256": "e51e69e89489f199530f13d32a4342da3ddb2cf34842f364603a066db05afbf3"},
 	"urls": [
 		{"url": "http://www.youtube.com/NASAgovVideo/videos", "extractor": "YoutubeTab"},
 		{"url": "http://www.youtube.com/embed/_xDOZElKyNU?list=PLsyOSbh5bs16vubvKePAQ1x3PhKavfBIl", "extractor": "YoutubePlaylist"},
