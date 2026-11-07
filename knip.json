@@ -1,7 +1,10 @@
 {
 	"$schema": "https://unpkg.com/knip@6/schema.json",
 	"workspaces": {
-		".": {"entry": ["src/main/index.ts", "src/preload/index.cts", "src/renderer/src/main.tsx", "electron.vite.config.ts", "scripts/**/*.ts"], "project": ["src/**/*.{ts,tsx}", "scripts/**/*.ts", "tests/**/*.{ts,tsx}"]},
+		".": {
+			"entry": ["src/main/index.ts", "src/preload/index.cts", "src/renderer/src/main.tsx", "electron.vite.config.ts", "scripts/**/*.ts", "workers/*/src/index.ts", "workers/feedback-viewer/src/viewer.ts"],
+			"project": ["src/**/*.{ts,tsx}", "scripts/**/*.ts", "tests/**/*.{ts,tsx}", "workers/*/src/**/*.ts", "!workers/*/src/worker-configuration.d.ts"]
+		},
 		"packages/arroxy-control": {"project": ["src/**/*.ts", "tests/**/*.ts"]},
 		"packages/arroxy-mcp": {"entry": ["src/cli.ts"], "project": ["src/**/*.ts", "tests/**/*.ts"]},
 		"packages/yt-dlp-bridge": {"project": ["src/**/*.ts", "tests/**/*.ts"]},

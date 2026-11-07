@@ -49,7 +49,7 @@ export type WebhookOutcome =
   | { kind: 'no-report-id'; submissionId: string; formId: string; formName: string }
   | { kind: 'invalid-payload'; issues: string };
 
-export function answersKey(reportId: string): string {
+function answersKey(reportId: string): string {
   return `feedback/by-report/${reportId}.answers.json`;
 }
 

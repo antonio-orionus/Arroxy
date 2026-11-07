@@ -1,0 +1,62 @@
+/* Arroxy Admin: the dark palette of the old orionus.dev/arroxy site, without its framework. */
+:root {
+  color-scheme: dark;
+  --bg: hsl(240 20% 6%);
+  --card: hsl(240 16% 10%);
+  --border: hsl(240 10% 20%);
+  --border-strong: hsl(240 10% 28%);
+  --text: hsl(240 20% 94%);
+  --dim: hsl(240 10% 72%);
+  --subtle: hsl(240 8% 58%);
+  --brand: hsl(220 100% 60%);
+  --brand-hover: hsl(220 100% 72%);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+[hidden] { display: none !important; }
+a { color: var(--brand-hover); }
+h1 { margin: 0; font-size: clamp(2rem, 4vw, 2.35rem); letter-spacing: -0.02em; }
+h2 { margin: 0 0 0.75rem; font-size: 15px; }
+.shell { margin-inline: auto; width: min(1280px, 100% - clamp(20px, 5vw, 64px)); padding-block: clamp(2.5rem, 5vw, 3.5rem); min-height: 72vh; }
+.head { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.75rem; }
+.kicker { margin: 0 0 0.25rem; font-size: 13px; font-weight: 600; color: var(--brand-hover); }
+.access { border: 1px solid var(--border); border-radius: 10px; padding: 0.5rem 0.75rem; font-size: 12px; font-weight: 600; color: var(--dim); background: hsl(240 16% 11% / 0.76); }
+.card { border: 1px solid var(--border); border-radius: 14px; background: var(--card); padding: clamp(1rem, 2vw, 1.25rem); margin-bottom: 1rem; }
+.dim { color: var(--dim); margin: 0 0 1rem; }
+label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 0.5rem; }
+.query { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.query input { flex: 1 1 20rem; min-width: 0; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--bg); padding: 13px 1rem; color: var(--text); font: 14px ui-monospace, SFMono-Regular, Menlo, monospace; outline: none; }
+.query input:focus { border-color: var(--brand); box-shadow: 0 0 0 4px hsl(220 100% 56% / 0.18); }
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 1.5rem; border-radius: 14px; border: 1px solid transparent; font: 600 15px/1 inherit; font-family: inherit; text-decoration: none; cursor: pointer; white-space: nowrap; }
+.btn:focus-visible { outline: none; box-shadow: 0 0 0 4px hsl(220 100% 56% / 0.3); }
+.btn:disabled { opacity: 0.5; pointer-events: none; }
+.btn-primary { background: var(--brand); color: white; }
+.btn-primary:hover { background: hsl(220 100% 60% / 0.85); }
+.btn-secondary { background: var(--card); color: var(--text); border-color: var(--border-strong); }
+.btn-secondary:hover { border-color: var(--brand); }
+.query .btn { min-width: 140px; }
+.status { min-height: 1.5rem; margin-bottom: 1rem; font-size: 14px; color: var(--dim); }
+.status[data-tone="success"] { color: hsl(153 74% 68%); }
+.status[data-tone="error"] { color: hsl(349 100% 70%); }
+.status[data-tone="pending"] { color: var(--brand-hover); }
+.result { border: 1px solid var(--border); border-radius: 14px; background: var(--card); overflow: hidden; }
+.result-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 1rem; border-bottom: 1px solid var(--border); padding: clamp(1rem, 2vw, 1.25rem); }
+.meta { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.5rem 1rem; margin: 0; font-size: 13px; }
+.meta dt, .answer-list dt { color: var(--subtle); }
+.meta dd { margin: 0; min-width: 0; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--dim); }
+.actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.actions .btn { padding: 0.5rem 1rem; font-size: 13px; border-radius: 10px; }
+.log { margin: 0; max-height: 62vh; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; background: var(--bg); padding: clamp(1rem, 2vw, 1.25rem); font: 12.5px/1.65 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--dim); outline: none; }
+.log:focus { box-shadow: inset 0 0 0 2px var(--brand); }
+.answers { display: flex; flex-direction: column; gap: 1rem; }
+.answers h2 { margin: 0; }
+.answer-list { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); gap: 0.75rem 1rem; margin: 0; font-size: 14px; }
+.answer-list dd { margin: 0; min-width: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+summary { cursor: pointer; font-size: 13px; color: var(--subtle); }
+details .meta { margin-top: 0.75rem; }
+.missing { margin: 0 0 1rem; font-size: 14px; color: var(--dim); }
+@media (max-width: 520px) {
+  .query .btn { width: 100%; }
+  .meta, .answer-list { grid-template-columns: 1fr; }
+  .meta dt { font-weight: 600; }
+}

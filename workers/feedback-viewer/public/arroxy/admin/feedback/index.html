@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Feedback Logs · Arroxy Admin</title>
+<link rel="stylesheet" href="/arroxy/admin/admin.css">
+<script type="module" src="/arroxy/admin/feedback/viewer.js"></script>
+</head>
+<body>
+<main class="shell">
+  <header class="head">
+    <div>
+      <p class="kicker">Arroxy Admin</p>
+      <h1>Feedback logs</h1>
+    </div>
+    <div class="access" title="Protected by Cloudflare Access">Access required</div>
+  </header>
+
+  <form class="card" id="feedback-log-form">
+    <label for="report-id">Tally report_id</label>
+    <div class="query">
+      <input id="report-id" name="report_id" type="text" autocomplete="off" spellcheck="false"
+        placeholder="2c7ad34b-d788-4063-a9bd-70a882a944a8"
+        pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}" required>
+      <button class="btn btn-primary" type="submit" id="fetch-feedback-log">Fetch log</button>
+    </div>
+  </form>
+
+  <div class="status" id="feedback-log-status" role="status" aria-live="polite"></div>
+
+  <section class="card answers" id="feedback-answers" hidden>
+    <h2>Tally answers</h2>
+    <dl class="meta" id="feedback-answers-meta"></dl>
+    <dl class="answer-list" id="feedback-answers-list"></dl>
+    <details>
+      <summary>App context</summary>
+      <dl class="meta" id="feedback-answers-context"></dl>
+    </details>
+  </section>
+
+  <p class="missing" id="feedback-answers-missing" hidden></p>
+  <p class="missing" id="feedback-log-missing" hidden></p>
+
+  <section class="result" id="feedback-log-result" hidden>
+    <div class="result-head">
+      <dl class="meta" id="feedback-log-meta"></dl>
+      <div class="actions">
+        <button class="btn btn-secondary" type="button" id="copy-feedback-log">Copy</button>
+        <button class="btn btn-secondary" type="button" id="download-feedback-log">Download .log</button>
+      </div>
+    </div>
+    <pre class="log" id="feedback-log-output" tabindex="0"></pre>
+  </section>
+</main>
+</body>
+</html>
