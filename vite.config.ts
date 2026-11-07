@@ -132,7 +132,9 @@ export default defineConfig({
 			'build/embedded/**',
 			'tools/oxlint/anti-slop/**',
 			'workers/**/.wrangler/**',
-			'workers/**/src/worker-configuration.d.ts'
+			'workers/**/src/worker-configuration.d.ts',
+			// Bundled from workers/feedback-viewer/src/viewer.ts by wrangler's build step.
+			'workers/feedback-viewer/public/arroxy/admin/feedback/viewer.js'
 		],
 		jsPlugins: [
 			{name: 'react-hooks-js', specifier: 'eslint-plugin-react-hooks'},

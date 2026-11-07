@@ -102,3 +102,6 @@ private
 # copies (e.g. src/build/embedded/ if a tool resolves cwd wrong).
 **/build/embedded/*
 .vitest/
+
+# Bundled from workers/feedback-viewer/src/viewer.ts by wrangler's build step
+workers/feedback-viewer/public/arroxy/admin/feedback/viewer.js

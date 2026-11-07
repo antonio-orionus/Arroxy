@@ -1,0 +1,45 @@
+{
+	"$schema": "https://developers.cloudflare.com/workers/wrangler/config-schema.json",
+	// Private viewer for feedback diagnostics: reads what workers/feedback-upload stores.
+	// The upload Worker stays write-only; reading the bucket back lives here, behind Cloudflare Access.
+	"name": "arroxy-feedback-viewer",
+	"main": "src/index.ts",
+	// Bundles the page script; deploy and dev run it first. The output is gitignored.
+	"build": {
+		"command": "bun build src/viewer.ts --outfile public/arroxy/admin/feedback/viewer.js --target browser",
+		"watch_dir": "src"
+	},
+	"compatibility_date": "2026-10-23",
+	"workers_dev": false,
+	"preview_urls": false,
+	"observability": {
+		"enabled": true,
+		"head_sampling_rate": 1
+	},
+	// The Access application for orionus.dev/arroxy/admin and orionus.dev/arroxy/api/admin
+	// covers exactly these paths. Single Redirect rules on the zone skip them, since they
+	// run before any Worker.
+	"routes": [
+		{ "pattern": "orionus.dev/arroxy/admin", "zone_name": "orionus.dev" },
+		{ "pattern": "orionus.dev/arroxy/admin/*", "zone_name": "orionus.dev" },
+		{ "pattern": "orionus.dev/arroxy/api/admin/*", "zone_name": "orionus.dev" }
+	],
+	"assets": {
+		// Mirrors the route prefix: public/arroxy/admin/feedback/index.html is /arroxy/admin/feedback/.
+		"directory": "./public",
+		"binding": "ASSETS",
+		"html_handling": "auto-trailing-slash",
+		"not_found_handling": "none",
+		"run_worker_first": ["/arroxy/api/admin/*"]
+	},
+	"vars": {
+		"CF_ACCESS_TEAM_DOMAIN": "https://snowy-snow-fb6b.cloudflareaccess.com",
+		"CF_ACCESS_AUD": "89155ec8a750c7973941377849fe28bcf47fd0b5603301a3111945475d2f9f5b"
+	},
+	"r2_buckets": [
+		{
+			"binding": "FEEDBACK_LOGS",
+			"bucket_name": "arroxy-feedback-diagnostics"
+		}
+	]
+}

@@ -22,7 +22,7 @@ The desktop app opens Tally immediately. If the user submits the form, Arroxy up
 POST https://orionus.dev/arroxy/api/tally-webhook
 ```
 
-Tally posts every feedback form submission here. The Worker checks the `Tally-Signature` header (base64 HMAC-SHA256 of the raw body, keyed with the webhook's signing secret), then stores the answers as JSON at `feedback/by-report/<report_id>.answers.json`. The log keeps its dated key, so the admin viewer in `arroxy-web` looks both up by `report_id`. Choice answers are stored as their option text, file uploads as name and link. A submission without a valid `report_id` hidden field (one not opened from the app) is acknowledged and not stored, with a warning in Workers Logs naming the form; Tally keeps it. A rejected payload logs its schema issues. The `feedback/` lifecycle rule deletes the answers with the logs.
+Tally posts every feedback form submission here. The Worker checks the `Tally-Signature` header (base64 HMAC-SHA256 of the raw body, keyed with the webhook's signing secret), then stores the answers as JSON at `feedback/by-report/<report_id>.answers.json`. The log keeps its dated key, so the admin viewer in [`workers/feedback-viewer`](../feedback-viewer/README.md) looks both up by `report_id`. Choice answers are stored as their option text, file uploads as name and link. A submission without a valid `report_id` hidden field (one not opened from the app) is acknowledged and not stored, with a warning in Workers Logs naming the form; Tally keeps it. A rejected payload logs its schema issues. The `feedback/` lifecycle rule deletes the answers with the logs.
 
 The signing secret lives in the Keychain and in the Worker; the route answers 503 until the Worker has it:
 
